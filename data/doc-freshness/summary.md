@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `3ffa31033`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `38eb4ca6b`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 268 |
-| Fresh (no linked source newer than the doc) | 47 |
+| Authored docs tracked | 272 |
+| Fresh (no linked source newer than the doc) | 49 |
 | **Review-due** | 58 |
-| No linked evidence sources (cannot auto-trigger) | 163 |
+| No linked evidence sources (cannot auto-trigger) | 165 |
 
 ## Review queue
 
@@ -102,6 +102,7 @@ into this freshness model.
 
 - [docs/corpus/known-adversarial-charts.md](../../docs/corpus/known-adversarial-charts.md)
 - [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md)
+- [docs/demo/aicr/eks-h100-inference-nim.md](../../docs/demo/aicr/eks-h100-inference-nim.md)
 - [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md)
 - [docs/demo/argo-cd/confighub-proof-transcript.md](../../docs/demo/argo-cd/confighub-proof-transcript.md)
 - [docs/demo/argo-cd/confighub-proof.md](../../docs/demo/argo-cd/confighub-proof.md)
@@ -202,6 +203,7 @@ into this freshness model.
 - [docs/planning/top500-matrix-refresh-review.md](../../docs/planning/top500-matrix-refresh-review.md)
 - [docs/planning/user-journey-test-pathways-brief.md](../../docs/planning/user-journey-test-pathways-brief.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
+- [docs/reference/aicr-composition-model.md](../../docs/reference/aicr-composition-model.md)
 - [docs/reference/aicr-signature-verification.md](../../docs/reference/aicr-signature-verification.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)

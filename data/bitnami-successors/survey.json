@@ -1,0 +1,408 @@
+{
+ "boundary": "This survey names verified successor options. It changes no catalog entry, recipe, or receipt; migration is separate reviewed work per component.",
+ "components": [
+  {
+   "candidates": [
+    {
+     "caveats": "Engine swap, not just a chart swap: this deploys Valkey 9.x (RESP-compatible Linux Foundation fork), not Redis. Chart is pre-1.0 (0.11.0). No Sentinel mode and no cluster mode in the plain chart. Auth model is ACL-users, so there is no 1:1 mapping from Bitnami's auth.password/auth.existingSecret single-password shape.",
+     "chartRef": "valkey/valkey (helm repo add valkey https://valkey.io/valkey-helm/)",
+     "indexHttpStatus": 200,
+     "latestVersion": "0.11.0 (appVersion 9.1.1, released 2026-07-22)",
+     "license": "BSD-3-Clause (repo LICENSE file; Chart.yaml carries no license field)",
+     "name": "valkey (valkey-io/valkey-helm)",
+     "publisher": "Valkey project (valkey-io GitHub org; Linux Foundation project). Repo active: pushed 2026-08-07, 24 chart releases in index.",
+     "rank": 1,
+     "repositoryUrl": "https://valkey.io/valkey-helm/",
+     "shape": "plain-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Auth is ACL-based: auth.enabled + auth.usersExistingSecret (existing secret, key defaults to username) + aclUsers map; the 'default' user must be defined when auth is on. Replicas: replica.enabled + replica.replicas (default 2, master+replicas), minReplicasToWrite write-safety knob. Persistence: dataStorage.* for standalone (default disabled, supports existing PVC) and replica.persistence.size/storageClass (required when replicas enabled). Image pins: image.registry/repository/tag plus global.imageRegistry; tag defaults to appVersion; no digest key. TLS via tls.existingSecret. Metrics via bundled oliver006/redis_exporter. helm template renders clean on helm 4.1.4 with auth+replica+existingSecret set. Same repo also publishes valkey-operator 0.4.1 and valkey-resources 0.1.3."
+    },
+    {
+     "caveats": "Big catalog shape change: operator + CRDs + two-step install (operator first, then a CR chart per topology). Values live under CR-shaped maps, so no 1:1 Bitnami values mapping. Default image tag lags upstream (Redis v7.0.15; overridable). Keeps actual Redis engine, and covers standalone/replication/sentinel/cluster \u2014 the broadest topology coverage of the three.",
+     "chartRef": "ot-helm/redis-operator, then ot-helm/redis-replication | redis-sentinel | redis-cluster | redis (helm repo add ot-helm https://ot-container-kit.github.io/helm-charts/)",
+     "indexHttpStatus": 200,
+     "latestVersion": "redis-operator 0.25.0 (2026-06-23); redis-replication 0.17.0; redis-sentinel 0.16.13; redis-cluster 0.17.4; redis 0.16.9",
+     "license": "Apache-2.0 (OT-CONTAINER-KIT/redis-operator repo). Note: the helm-charts packaging repo itself has no root LICENSE file (GitHub license API returns 404).",
+     "name": "redis-operator + CR charts (OT-Container-Kit)",
+     "publisher": "OT-CONTAINER-KIT (Opstree Solutions). Operator repo active: pushed 2026-08-04, 1427 stars, 55 operator chart releases.",
+     "rank": 2,
+     "repositoryUrl": "https://ot-container-kit.github.io/helm-charts/",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Operator chart bundles 4 CRDs (Redis, RedisReplication, RedisSentinel, RedisCluster); topologies are installed as separate CR charts. redis-replication chart: redisReplication.clusterSize=3 (replica control); redisSecret.secretName/secretKey = existing-secret auth; storageSpec.volumeClaimTemplate = persistence; acl.secret.secretName and TLS.secret.secretName; sentinel.enabled block for failover; image pin via redisReplication.image + tag (default quay.io/opstree/redis v7.0.15); no digest key. Both operator and CR charts helm-template clean on helm 4.1.4."
+    },
+    {
+     "caveats": "Fails the official-vendor/CNCF publisher bar: one community maintainer, no vendor backing. Default image is Redis 8.x from the Docker library mirror, which carries Redis's post-7.4 tri-license (AGPLv3/RSALv2/SSPLv1) \u2014 review image licensing for the catalog even though the chart itself is Apache-2.0. Sentinel topology only; no cluster mode. Release cadence is slower than the other two (latest push 2026-06-15). Separately verified negative result: no anonymous official Redis OSS chart exists \u2014 helm.redis.io (index HTTP 200) hosts only redis-enterprise-operator 8.2.0-13 (commercial Redis Enterprise, an operator shape), and anonymous Docker Hub token+API probes for redis/redis, redis/redis-helm, and dhi/redis-chart all returned HTTP 401.",
+     "chartRef": "dandydev/redis-ha (helm repo add dandydev https://dandydeveloper.github.io/charts/)",
+     "indexHttpStatus": 200,
+     "latestVersion": "4.39.0 (appVersion 8.8.0, released 2026-06-15)",
+     "license": "Apache-2.0 (repo LICENSE)",
+     "name": "redis-ha (DandyDeveloper/charts)",
+     "publisher": "Individual community maintainer (DandyDeveloper; descended from the retired helm/stable redis-ha chart). 170 releases in index; repo pushed 2026-06-15, 257 stars.",
+     "rank": 3,
+     "repositoryUrl": "https://dandydeveloper.github.io/charts/",
+     "shape": "plain-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Closest drop-in to the Bitnami shape: master/replica StatefulSet with Sentinel sidecars and optional HAProxy front end. Auth: auth (bool) + redisPassword + existingSecret + authKey (default 'auth'); separate sentinel.auth/sentinel.existingSecret/sentinel.authKey. Replicas: replicas=3 (plus haproxy.replicas). Persistence: persistentVolume.enabled=true, size 10Gi, storageClass. Image pin: image.repository=public.ecr.aws/docker/library/redis, tag=8.8.0-alpine; exporter quay.io/oliver006/redis_exporter; no digest key. helm template renders clean on helm 4.1.4 with auth+existingSecret set."
+    }
+   ],
+   "component": "redis",
+   "corrections": "Minor, non-load-bearing nuances: (1) Chart.yaml description is boilerplate (\"A Helm chart for Kubernetes\") and lists three individual maintainers (raven, sgissi, Bloodraven21) rather than an organization; (2) the LICENSE copyright line reads \"Copyright (c) 2025, Raven\" (a maintainer), so BSD-3-Clause is correct but the copyright holder is an individual, not the Linux Foundation; the \"Linux Foundation project\" framing describes Valkey upstream, not this chart repo's own metadata; (3) the index's 24 releases are for the valkey chart specifically (the full index holds 44 across valkey, valkey-ope",
+   "verdictConfirmed": true
+  },
+  {
+   "candidates": [
+    {
+     "caveats": "OCI-only transport (no classic index.yaml): 'index' status above is the measured anonymous Docker Hub v2 tags/list = 200, 'tgz' status is the manifest GET for 0.16.1 = 200; anonymous helm pull and helm show chart both succeeded. Chart-shape-wise it is a plain chart with a Bitnami-familiar surface (staticSiteConfigmap/cloneStaticSiteFromGit mirror the old layout), so it is the smallest migration delta of the three, but values paths still differ from Bitnami and need remapping. Depends on the publisher's common library (oci://registry-1.docker.io/cloudpirates common 2.2.0, vendored in the tgz). Cosign-signed (.sig tags present in the registry; public key published via artifacthub.io/signKey). Publisher is a commercial consultancy, not the nginx vendor or CNCF; NGINX Inc/F5 itself publishes no plain web-server chart (verified: helm.nginx.com/stable index 200 lists only nginx-ingress, app-protect, service-mesh, NIM/NMS charts). The in-chart CHANGELOG.md carries a caution note but it only says the file itself moved to GitHub Releases, not that the chart is deprecated.",
+     "chartRef": "oci://registry-1.docker.io/cloudpirates/nginx --version 0.16.1",
+     "indexHttpStatus": 200,
+     "latestVersion": "0.16.1 (appVersion 1.31.3)",
+     "license": "Apache-2.0 (LICENSE file shipped in chart tgz; also declared in Chart.yaml annotation license: Apache-2.0)",
+     "name": "nginx (CloudPirates)",
+     "publisher": "CloudPirates GmbH & Co. KG (maintainer field in Chart.yaml; hello@cloudpirates.io; github.com/CloudPirates-io/helm-charts)",
+     "rank": 1,
+     "repositoryUrl": "oci://registry-1.docker.io/cloudpirates/nginx",
+     "shape": "oci-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "480-line values.yaml plus values.schema.json. Measured surface: replicaCount (line 33); image.registry/repository/tag with the default tag digest-pinned (tag: 1.31.3-alpine@sha256:4a73...) so both tag-pin and digest-pin work out of the box; staticSiteConfigmap for existing-ConfigMap content plus cloneStaticSiteFromGit with a git-sync sidecar; extraEnvVarsSecret and imagePullSecrets for secret refs; ingress.tls secret array. No persistence block: the chart is deliberately stateless (content comes from ConfigMap or git), and there is no app-credential existingSecret because plain nginx has no credentials."
+    },
+    {
+     "caveats": "Honest shape change: this is not an nginx chart, it is a generic application chart, so every Bitnami nginx value must be remapped and nginx config must be managed as your own ConfigMap mounts. Still a plain chart (not an operator), classic anonymous HTTP repo. Company publisher with a long, very active release history, but not the nginx vendor and not CNCF. License is MIT rather than Apache-2.0 and is only stated in the GitHub repo, not inside the chart package.",
+     "chartRef": "stakater/application (repo add https://stakater.github.io/stakater-charts), tgz https://stakater.github.io/stakater-charts/application-9.2.0.tgz",
+     "indexHttpStatus": 200,
+     "latestVersion": "9.2.0 (released 2026-08-01; 238 versions in index)",
+     "license": "MIT (no license field or LICENSE file in the chart tgz; measured from the repo LICENSE at raw.githubusercontent.com/stakater/application/master/LICENSE, HTTP 200, 'MIT License')",
+     "name": "application (Stakater) \u2014 generic stateless chart running the upstream nginx image",
+     "publisher": "Stakater (maintainer field in Chart.yaml: Stakater, hello@stakater.com; github.com/stakater/application)",
+     "rank": 2,
+     "repositoryUrl": "https://stakater.github.io/stakater-charts",
+     "shape": "plain-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Measured surface: deployment.replicas (nullable int); deployment.image.repository/tag/digest with explicit 'digest takes precedence on the tag' semantics; persistence.enabled with mountPVC and mount path; envFrom supporting existing external Secret/ConfigMap by name (my-existing-secret pattern shown in values comments); autoscaling minReplicas/maxReplicas. Chart.yaml description: 'Generic Helm chart for deploying stateless applications on Kubernetes'. You must supply image.repository=docker.io/library/nginx and a tag yourself; nothing nginx-specific (no server-block/static-site helpers) is provided."
+    },
+    {
+     "caveats": "Biggest shape change of the three: generic chart, empty default values, schema/docs-driven configuration \u2014 a hard remap from any Bitnami-style values file, and rendered output depends entirely on values you author. OCI-only for v3+ ('index' status above is the measured anonymous ghcr v2 tags/list = 200; 'tgz' status is the manifest GET for 5.0.1 = 200; anonymous helm pull succeeded). Extremely widely used in GitOps home-lab/fleet setups and very actively released, but the publisher is a single individual, not a vendor or CNCF project, which is below the stated quality bar for publisher type; ranked accordingly.",
+     "chartRef": "oci://ghcr.io/bjw-s-labs/helm/app-template --version 5.0.1",
+     "indexHttpStatus": 200,
+     "latestVersion": "5.0.1",
+     "license": "Apache-2.0 (LICENSE file shipped in the chart tgz; verified against repo LICENSE, HTTP 200; no license field in Chart.yaml)",
+     "name": "app-template (bjw-s-labs) \u2014 generic stateless chart running the upstream nginx image",
+     "publisher": "bjw-s (individual maintainer, me@bjw-s.dev, per Chart.yaml; org github.com/bjw-s-labs)",
+     "rank": 3,
+     "repositoryUrl": "oci://ghcr.io/bjw-s-labs/helm/app-template",
+     "shape": "oci-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "values.yaml in the package is literally empty (0 lines): the entire surface is defined by the bundled values.schema.json and the vendored common 5.0.1 library. Configuration pattern: controllers.<name>.replicas for replica control; controllers.<name>.containers.<name>.image.repository/tag for image pinning (digest via tag@sha256); persistence.<name> supporting pvc, existing ConfigMap/Secret mounts, emptyDir, nfs; env/envFrom with secretRef for existing secrets. Requires kubeVersion >=1.28.0-0."
+    }
+   ],
+   "component": "nginx",
+   "corrections": "Two trivial overstatements, neither load-bearing: (1) replicaCount is at values.yaml line 34, not 33 (line 33 is its doc comment). (2) extraEnvVarsSecret exists only nested under cloneStaticSiteFromGit (line 203, envFrom secretRef for the git-sync/clone containers), not as a top-level option for the main nginx container, which only has top-level extraEnvVars (line 304); the claim's phrasing implies a slightly broader secret-ref surface than the chart has.",
+   "verdictConfirmed": true
+  },
+  {
+   "candidates": [
+    {
+     "caveats": "Big catalog shape change: plain chart -> operator + Cluster CR, installs CRDs, and HA databases become a two-chart story (operator first, then cluster chart or raw CR). Measured redirect: https://cloudnative-pg.github.io/charts/index.yaml returns 301 to https://cloudnative-pg.io/charts/index.yaml which returns 200 (helm follows this transparently; curl -L measured 200). Chart tgzs are GitHub release assets (302 chain to release-assets.githubusercontent.com, final 200).",
+     "chartRef": "cnpg/cloudnative-pg (companion: cnpg/cluster 0.8.1)",
+     "indexHttpStatus": 200,
+     "latestVersion": "0.29.0 (appVersion 1.30.0; chart created 2026-06-29)",
+     "license": "Apache-2.0 (LICENSE bundled in chart tgz; repo license Apache-2.0 via GitHub API)",
+     "name": "CloudNativePG operator chart (cloudnative-pg) + official companion 'cluster' chart",
+     "publisher": "CloudNativePG project (CNCF); chart repo github.com/cloudnative-pg/charts, Chart.yaml maintainer 'phisco'",
+     "rank": 1,
+     "repositoryUrl": "https://cloudnative-pg.github.io/charts",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Operator chart values (696 lines) cover only the operator: replicaCount, image.repository=ghcr.io/cloudnative-pg/cloudnative-pg with tag defaulting to appVersion, crds.create, webhook, monitoring queries. Database surface lives in the official companion 'cluster' chart (v0.8.1, tgz measured 200): cluster.instances=3 (replica control), cluster.storage.size/storageClass + optional walStorage (persistence), cluster.imageName documented to accept image:tag@sha256:digest plus imageCatalogRef (strong image-pin surface), cluster.superuserSecret and bootstrap/recovery passwordSecret/sslKeySecret refs (existing-secret support). helm show/pull both anonymous."
+    },
+    {
+     "caveats": "Same operator-vs-plain shape change: this chart installs only the operator, every database is a CR, and per-database values (replicas, persistence, users) leave the Helm values surface entirely. Database image pinning is indirect (operator-level Spilo pin, overridable per-CR). Index and tgz are served directly from opensource.zalando.com (no redirects; both measured 200).",
+     "chartRef": "postgres-operator/postgres-operator",
+     "indexHttpStatus": 200,
+     "latestVersion": "2.0.1 (appVersion 2.0.1; created 2026-07-30)",
+     "license": "MIT (repo license via GitHub API; no LICENSE file inside the chart tgz)",
+     "name": "Zalando postgres-operator",
+     "publisher": "Zalando (official project chart; Chart.yaml maintainer 'Zalando', opensource@zalando.de)",
+     "rank": 2,
+     "repositoryUrl": "https://opensource.zalando.com/postgres-operator/charts/postgres-operator",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Values (572 lines) configure the operator, not a database: image ghcr.io/zalando/postgres-operator:v2.0.1, configGeneral.docker_image pins the Spilo database image (ghcr.io/zalando/spilo-18:4.1-p2), min_instances/max_instances fleet limits, storage_resize_mode=pvc, connection-pooler and logical-backup image pins. Databases are 'postgresql' CRs: instances, volume size, and users are declared there and the operator GENERATES credential Secrets; there is no chart-level existingSecret for database credentials."
+    },
+    {
+     "caveats": "No replica control at all: the StatefulSet template hardcodes replicas: 1 and the chart has no replication/HA mode, a functional regression versus the Bitnami chart's replication architecture. Publisher is a single individual, not a vendor or foundation, so it clears the shape bar but not the preferred-publisher bar. Chart tgzs are GitHub release assets (redirect chain, final 200).",
+     "chartRef": "groundhog2k/postgres",
+     "indexHttpStatus": 200,
+     "latestVersion": "1.6.7 (appVersion 18.4 = PostgreSQL 18.4; created 2026-07-15)",
+     "license": "MIT (repo license via GitHub API; no LICENSE file inside the chart tgz)",
+     "name": "groundhog2k postgres (plain StatefulSet chart)",
+     "publisher": "groundhog2k (individual community maintainer, github.com/groundhog2k/helm-charts)",
+     "rank": 3,
+     "repositoryUrl": "https://groundhog2k.github.io/helm-charts",
+     "shape": "plain-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Closest values-shape match to the current catalog entry: settings.existingSecret for the superuser and userDatabase.existingSecret for the app database (existing-secret support), image.registry/repository/tag pinning the upstream docker.io/postgres library image (tag defaults to appVersion), storage block with existing-PVC reference (persistentVolumeClaimName) or dynamic PVC (requestedSize, className) plus StatefulSet PVC retention policy (persistence), customConfig/customScripts, optional Deployment mode."
+    },
+    {
+     "caveats": "Ranked last despite official-vendor status because the packaged chart and all default image pins sit on Crunchy's own developer registry under Terms-of-Use conditions rather than an OSI license, the same vendor-registry dependency profile the catalog is currently exiting; plus the full operator shape change. Facts only: anonymous access works today and releases are active.",
+     "chartRef": "oci://registry.developers.crunchydata.com/crunchydata/pgo",
+     "indexHttpStatus": 200,
+     "latestVersion": "6.0.2 (appVersion 6.0.2; digest sha256:161c722234b0824771e36773f279f2cf228c5314b094736419a0d57e15f3d710)",
+     "license": "Chart tgz bundles LICENSE.txt = 'Crunchy PostgreSQL for Kubernetes Terms of Use' (Crunchy Data Developer Program terms, not an OSI license); the operator SOURCE repo CrunchyData/postgres-operator is Apache-2.0",
+     "name": "Crunchy PGO (Postgres Operator from Crunchy Data) - verified but not shortlisted",
+     "publisher": "Crunchy Data (official; Chart.yaml: 'Installer for PGO, the open source Postgres Operator from Crunchy Data')",
+     "rank": 4,
+     "repositoryUrl": "oci://registry.developers.crunchydata.com/crunchydata/pgo",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "OCI-only distribution, no index.yaml: reported statuses are measured anonymous OCI registry API calls. Bare /v2/ returns 401 (standard auth challenge); the anonymous token grant from registry-auth.developers.crunchydata.com succeeds, then tags/list = 200 (29 tags, 5.3.0 through 6.0.2) and the 6.0.2 manifest = 200 with helm chart media types; 'helm show chart' and 'helm pull' both work with no login. Values are a thin 105-line installer surface: operator 'replicas', imagePullSecretNames, and relatedImages pinning every component (postgres 15-18, gis, pgbackrest, pgbouncer, exporter, pgadmin4, operator) to registry.developers.crunchydata.com tags. All database config (instances, storage, secrets) lives in PostgresCluster CRs, not values."
+    }
+   ],
+   "component": "postgresql",
+   "corrections": "None of substance. Two clarifications: (1) the companion 'cluster' chart's own Chart.yaml maintainer is 'itay-grudev', not 'phisco' \u2014 the claim correctly attributed phisco only to the operator chart; (2) the cluster chart's default image type supports postgresql/postgis/timescaledb flavors, defaulting to postgresql.",
+   "verdictConfirmed": true
+  },
+  {
+   "candidates": [
+    {
+     "caveats": "Big shape change from a plain chart: two-chart install (operator with CRDs first, then mysql-innodbcluster which creates an InnoDBCluster CR). values.yaml is largely commented-out documentation, so the effective defaults surface is thin. podSpec and router.podSpec are honored only at initial build (chart's own warning: 'carved into stone'). Chart uses Helm lookup for Secret validation; disableLookups: true exists for helm template / render-only workflows, directly relevant to render-early pipelines. Chart.yaml has no maintainers or license field.",
+     "chartRef": "mysql-operator/mysql-innodbcluster (DB chart; requires mysql-operator/mysql-operator installed first)",
+     "indexHttpStatus": 200,
+     "latestVersion": "2.3.0 (appVersion 26.7.0, index generated 2026-07-31)",
+     "license": "UPL-1.0 (Universal Permissive License v1.0, per repo LICENSE 'MySQL Operator for Kubernetes 26.7.0 Community'; no LICENSE file inside the chart tgz; MySQL server images are licensed separately)",
+     "name": "Oracle MySQL Operator for Kubernetes (mysql-operator + mysql-innodbcluster)",
+     "publisher": "MySQL team at Oracle (official vendor; github.com/mysql/mysql-operator)",
+     "rank": 1,
+     "repositoryUrl": "https://mysql.github.io/mysql-operator/",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Existing-secret: credentials.root.secretName (commented example in values). Replicas: serverInstances: 3 and routerInstances: 1 are live defaults. Persistence: datadirVolumeClaimTemplate (accessModes/resources.requests.storage). Image pin: image.registry + image.repository (default container-registry.oracle.com/mysql, commented) plus serverVersion; image.pullSecrets supported. Both tgz statuses measured 200 (operator chart and DB chart)."
+    },
+    {
+     "caveats": "Ships Percona Server for MySQL (Percona's MySQL distribution), not Oracle-built MySQL binaries; pxc lane ships Percona XtraDB Cluster (Galera-style). Operator shape: CRDs via ps-operator first, ps-db creates a PerconaServerMySQL CR; crVersion in ps-db must match the operator version. upgradeOptions.versionServiceEndpoint points at check.percona.com but apply: disabled is the default. Default finalizer percona.com/delete-mysql-pods-in-order.",
+     "chartRef": "percona/ps-db (DB chart; requires percona/ps-operator). Alternative lane: percona/pxc-db + percona/pxc-operator",
+     "indexHttpStatus": 200,
+     "latestVersion": "ps lane 1.2.0 (2026-07-03); pxc lane 1.20.0 (2026-06-05)",
+     "license": "Apache-2.0 (repo LICENSE; pxc-operator tgz also embeds LICENSE.txt Apache-2.0)",
+     "name": "Percona Operator for MySQL (ps-operator + ps-db; pxc-operator/pxc-db sibling lane also verified)",
+     "publisher": "Percona (official vendor; github.com/percona/percona-helm-charts, four named Percona maintainers in Chart.yaml)",
+     "rank": 2,
+     "repositoryUrl": "https://percona.github.io/percona-helm-charts/",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Sanest values surface of the three. Existing-secret: secretsName (default <cluster>-secrets, overridable) plus sslSecretName and vaultSecretName. Replicas: mysql.size: 3, haproxy.size: 3, router.size: 3, orchestrator.size: 3; clusterType: group-replication or async. Persistence: mysql.volumeSpec PVC (3Gi default) and orchestrator volumeSpec. Image pin: explicit repository+tag for every component (percona/percona-server 8.4.10-10.1, haproxy 2.8.18-1, percona-mysql-router 8.4.10, percona-orchestrator, pmm-client). All four tgz statuses measured 200 (GitHub releases URLs, redirect followed to final 200)."
+    },
+    {
+     "caveats": "This is an engine change, not a chart swap: it deploys MariaDB, which is protocol-compatible for many clients but is not MySQL and diverges from MySQL 8.x+ features. Double shape change versus Bitnami mysql (operator model AND different database). mariadb-cluster appVersion is 0.0.0 (it is a thin CR wrapper). The vanity index URL adds a 307 hop; pin the github.io URL if redirect-free fetching matters.",
+     "chartRef": "mariadb-operator/mariadb-cluster (CR chart; requires mariadb-operator/mariadb-operator)",
+     "indexHttpStatus": 200,
+     "latestVersion": "26.6.0 (both charts, 2026-06-06)",
+     "license": "MIT (repo LICENSE, Copyright 2023 MariaDB plc; no LICENSE inside tgz)",
+     "name": "mariadb-operator (mariadb-operator + mariadb-cluster) \u2014 MariaDB, not MySQL",
+     "publisher": "mariadb-operator project; maintainer mmontes11 (martin.montes@mariadb.com), LICENSE copyright MariaDB plc",
+     "rank": 3,
+     "repositoryUrl": "https://helm.mariadb.com/mariadb-operator (307-redirects to https://mariadb-operator.github.io/mariadb-operator/)",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "mariadb-cluster: existing-secret via mariadb.rootPasswordSecretKeyRef.name (with generate: true toggle to have the chart mint one); replicas: 3 with galera.enabled: true; persistence via mariadb.storage.size (1Gi default); databases/users/grants/backups declared as CR lists pointing at the operator's API. Operator chart: image.repository ghcr.io/mariadb-operator/mariadb-operator with tag pin, ha.enabled, CRDs via mariadb-operator-crds subchart (crds.enabled condition). Index measured 307 at helm.mariadb.com then 200 at the github.io target; both tgz statuses measured 200."
+    }
+   ],
+   "component": "mysql",
+   "corrections": "Only one nuance, not a defect: GitHub's license API reports NOASSERTION/'Other' for mysql/mysql-operator because the LICENSE file is Oracle's licensing-information manual (UPL text plus third-party notices) rather than a bare UPL file; the finder's UPL-1.0 characterization with the quoted manual header is accurate. Additionally, image.pullPolicy is a live required value (IfNotPresent) not mentioned by the finder, and routerInstances has an alternative router.instances key (templates fail if both are set to different values) \u2014 neither contradicts any claim.",
+   "verdictConfirmed": true
+  },
+  {
+   "candidates": [
+    {
+     "caveats": "Major shape change from the Bitnami plain chart: two-chart install (operator first, then one psmdb-db release per cluster), CRDs (PerconaServerMongoDB), and day-2 driven by the operator (SmartUpdate strategy). The image is Percona Server for MongoDB, a drop-in fork, not upstream mongo. upgradeOptions.versionServiceEndpoint points at check.percona.com but apply=disabled by default. tgz status 200 is the final status after GitHub Releases' 302 redirect.",
+     "chartRef": "percona/psmdb-db (database CR chart) plus percona/psmdb-operator (operator)",
+     "indexHttpStatus": 200,
+     "latestVersion": "1.23.0 (both charts, released 2026-07-23)",
+     "license": "Charts: Apache-2.0 (LICENSE.txt bundled in psmdb-operator chart and repo-root LICENSE both Apache-2.0; Chart.yaml has no license field). Database image percona/percona-server-mongodb 8.0.26-11 is Percona Server for MongoDB, licensed SSPL-1.0 like upstream \u2014 not OSI-approved; fine for internal use, restrictive if you offer MongoDB as a service.",
+     "name": "Percona Operator for MongoDB (psmdb-operator + psmdb-db)",
+     "publisher": "Percona (Chart.yaml maintainers are @percona.com addresses; hosted on percona GitHub org)",
+     "rank": 1,
+     "repositoryUrl": "https://percona.github.io/percona-helm-charts/",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "psmdb-db values.yaml (1239 lines): existing-secret via secrets.users (operator uses an existing users secret or generates one; also encryptionKey/ssl/keyFile secret names); replica control via replsets[].size=3 plus nonvoting, arbiter, and full sharding block (configrs.size, mongos.size); persistence via replsets[].volumeSpec.persistentVolumeClaim (default 3Gi, storage class settable, enableVolumeExpansion flag); image pin via image.repository=percona/percona-server-mongodb + image.tag=8.0.26-11 (plain repo:tag, imagePullPolicy=Always default). psmdb-operator values: image.repository/tag=1.23.0, watchAllNamespaces, replicaCount."
+    },
+    {
+     "caveats": "The task named the Community Operator chart; measured facts: it is live (index 200, tgz 200) but has had no release for ~16 months, while MongoDB's release activity moved to the unified mongodb-kubernetes chart (15 releases, latest 2026-07-30). Either way this is an operator, a large catalog shape change from a plain chart, and values do not describe the database \u2014 CRs do. Dual license on MCK needs reading if any Enterprise features are in scope. tgz status is post-redirect final status.",
+     "chartRef": "mongodb/mongodb-kubernetes (active); mongodb/community-operator 0.13.0 still published (tgz also verified 200) but last released 2025-04-11",
+     "indexHttpStatus": 200,
+     "latestVersion": "1.10.0 (released 2026-07-30); community-operator stuck at 0.13.0 since 2025-04-11",
+     "license": "Chart repo mongodb/helm-charts: Apache-2.0. Operator itself is dual-licensed per LICENSE-MCK in mongodb/mongodb-kubernetes: Apache-2.0 when managing MongoDB Community clusters, MongoDB Customer Agreement for Enterprise/Ops Manager use. The legacy community-operator repo additionally puts the MongoDB Agent binary under a 'Free for Commercial Use - Oct 2020' license and says you must agree to both. Database image docker.io/mongodb/mongodb-community-server is SSPL-1.0.",
+     "name": "MongoDB official helm-charts: mongodb-kubernetes (MCK) \u2014 successor to community-operator",
+     "publisher": "MongoDB (Chart.yaml maintainer: MongoDB, support@mongodb.com; mongodb GitHub org)",
+     "rank": 2,
+     "repositoryUrl": "https://mongodb.github.io/helm-charts",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "mongodb-kubernetes 1.10.0 values.yaml (252 lines) configures only the operator: image pins per component (operator/database/initDatabase/agent name+version pairs, registry override), operator.watchedResources, operator.replicas=1, enablePVCResize=true. Database topology, replicas, storage, and user secrets live in MongoDBCommunity CRs, not chart values. The legacy community-operator chart exposes createResource=false + resource.members=3 and users[].passwordSecretRef (existing secret) but no storage sizing in values \u2014 persistence is set through the CR's statefulSet override."
+    },
+    {
+     "caveats": "Closest drop-in to the Bitnami plain-chart shape and very actively released (139 chart releases, three on 2026-07-28 alone), but published by a single individual, which misses the vendor/CNCF quality bar \u2014 bus-factor and support risk. Values layout differs from Bitnami's (auth.existingSecret equivalents are spread across settings/extraEnvSecrets), so a values translation is still needed. tgz status is post-redirect final status.",
+     "chartRef": "groundhog2k/mongodb",
+     "indexHttpStatus": 200,
+     "latestVersion": "0.8.0 (chart, released 2026-07-28; appVersion 8.3.7)",
+     "license": "Chart repo: MIT (GitHub API license detection). Image is the Docker official docker.io/mongo (MongoDB Community Server), which is SSPL-1.0.",
+     "name": "groundhog2k mongodb (plain chart)",
+     "publisher": "groundhog2k (individual maintainer per Chart.yaml; not a vendor or CNCF project)",
+     "rank": 3,
+     "repositoryUrl": "https://groundhog2k.github.io/helm-charts/",
+     "shape": "plain-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "values.yaml (475 lines): image pin via image.registry/repository/tag (docker.io/mongo, tag defaults to appVersion 8.3.7); replica control via replicaSet.enabled + replicaSet.secondaries=2 + arbiter and hiddenSecondaries blocks, keyfile via replicaSet.key or existing replicaSet.keySecretName; credentials via settings.rootUsername/rootPassword or an existing secret through extraEnvSecrets supplying MONGO_INITDB_ROOT_USERNAME/_PASSWORD; persistence via storage.persistentVolumeClaimName (existing PVC) or storage.requestedSize + storage.className, with documented emptyDir fallback when both are unset; bundled percona/mongodb_exporter metrics option."
+    }
+   ],
+   "component": "mongodb",
+   "corrections": "One naming imprecision, not load-bearing: persistence in values.yaml is keyed replsets[].volumeSpec.pvc, which the chart template maps to the CR field persistentVolumeClaim; the finder quoted the CR field name rather than the values key. Also trivia: the Apache-2.0 LICENSE.txt in the operator chart and the repo-root LICENSE carry a 2019 Paul Czarkowski scaffold copyright header (standard chart-starter heritage), still Apache-2.0 text. The psmdb-db chart itself bundles no license file, consistent with the claim which only cited the operator chart and repo root.",
+   "verdictConfirmed": true
+  },
+  {
+   "candidates": [
+    {
+     "caveats": "indexHttpStatus is the anonymous Docker Hub tags/list call (OCI repos have no index.yaml); tgzHttpStatus is the anonymous OCI manifest GET for tag 0.21.13; helm pull also succeeded (digest sha256:7355dea...). Publisher is young: repo created 2025-08, 590 stars, but very active (pushed 2026-08-07, 119 semver releases of this chart). Chart is 0.x semver. Depends on a cloudpirates/common OCI dependency. OCI transport only.",
+     "chartRef": "oci://registry-1.docker.io/cloudpirates/rabbitmq",
+     "indexHttpStatus": 200,
+     "latestVersion": "0.21.13 (appVersion 4.3.4)",
+     "license": "Apache-2.0 (Chart.yaml annotation; GitHub repo SPDX Apache-2.0)",
+     "name": "rabbitmq (CloudPirates)",
+     "publisher": "CloudPirates GmbH & Co. KG (github.com/CloudPirates-io/helm-charts)",
+     "rank": 1,
+     "repositoryUrl": "oci://registry-1.docker.io/cloudpirates",
+     "shape": "oci-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "auth.existingSecret present; replicaCount (clustering must be enabled for >1); persistence.enabled/existingClaim/storageClass/size/accessModes; image pin surface is registry+repository+tag with the default tag digest-pinned (4.3.4-management@sha256:c86dd1d...). Charts are cosign-signed (.sig tags observed in the registry, signKey annotation with public key URL). Values naming is close to Bitnami conventions (auth.*, persistence.*, replicaCount) so switch-mapping is comparatively small."
+    },
+    {
+     "caveats": "Single-person publisher, but long track record: 218 rabbitmq releases, three releases in July 2026, appVersion tracks current RabbitMQ 4.3.4. Values schema differs from Bitnami conventions (authentication.* / storage.* instead of auth.* / persistence.*), so switch-mapping is larger than candidate 1. tgz is served from GitHub Releases via redirect (curl -L measured 200).",
+     "chartRef": "groundhog2k/rabbitmq (tgz: https://github.com/groundhog2k/helm-charts/releases/download/rabbitmq-2.3.7/rabbitmq-2.3.7.tgz)",
+     "indexHttpStatus": 200,
+     "latestVersion": "2.3.7 (appVersion 4.3.4, released 2026-07-25)",
+     "license": "MIT (repo LICENSE, 'Copyright (c) 2020-2026 groundhog2k'; Chart.yaml itself carries no license field)",
+     "name": "rabbitmq (groundhog2k)",
+     "publisher": "groundhog2k (individual maintainer, github.com/groundhog2k/helm-charts)",
+     "rank": 2,
+     "repositoryUrl": "https://groundhog2k.github.io/helm-charts/",
+     "shape": "plain-chart",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "authentication.existingSecret supported (optional, with per-key secretKey mapping for user/password/erlangCookie); erlang cookie is MANDATORY input; replicaCount; storage.persistentVolumeClaimName (existing PVC) / requestedSize / className plus extraStorage for extra PVCs; image pin surface is registry+repository+tag (tag defaults to appVersion; no digest field)."
+    },
+    {
+     "caveats": "Big catalog shape change: plain chart -> operator + CRDs + CR lifecycle (render-late; CRD-before-CR ordering applies). Measured fact: the RabbitMQ team publishes NO Helm chart of its own \u2014 charts.rabbitmq.com returned curl status 000 (host does not resolve), the official repo has no chart directory, and the official docs install via kubectl manifest while pointing Helm users at the Bitnami chart. indexHttpStatus is the anonymous tags/list call; tgzHttpStatus is the anonymous OCI manifest GET for 0.5.6 (helm pull digest sha256:0dd2aea...). Alternative wrapper alekc/rabbitmq-cluster-operator 2.8.1 (index and tgz both measured 200) was inspected but wraps operator 2.19.2, lagging upstream 2.22.3, single maintainer, no license field \u2014 not ranked.",
+     "chartRef": "oci://registry-1.docker.io/cloudpirates/rabbitmq-cluster-operator",
+     "indexHttpStatus": 200,
+     "latestVersion": "0.5.6 (appVersion 2.22.3 = latest upstream operator, released upstream 2026-07-17)",
+     "license": "Apache-2.0 (Chart.yaml annotation); upstream operator is MPL-2.0 per rabbitmq/cluster-operator LICENSE.txt",
+     "name": "rabbitmq-cluster-operator (CloudPirates wrapper of the official RabbitMQ operator)",
+     "publisher": "CloudPirates GmbH & Co. KG (wraps github.com/rabbitmq/cluster-operator; the operator itself is the official RabbitMQ-team component)",
+     "rank": 3,
+     "repositoryUrl": "oci://registry-1.docker.io/cloudpirates",
+     "shape": "operator",
+     "tgzHttpStatus": 200,
+     "valuesNotes": "Chart values control the OPERATOR only: clusterOperator.image (ghcr.io/rabbitmq/cluster-operator:2.22.3, registry+repository+tag), clusterOperator.replicaCount, watchAllNamespaces/watchNamespaces, plus default-user-credential-updater and messaging-topology-operator images. Per-broker existing-secret, replicas, and persistence move OUT of chart values into the RabbitmqCluster CR spec (operator generates the default-user secret). Cosign-signed like candidate 1."
+    }
+   ],
+   "component": "rabbitmq",
+   "corrections": "Nothing overstated; three small precision notes: (1) the clustering enable knob is peerDiscoveryK8sPlugin.enabled (default false) \u2014 the claim's phrasing mirrors the chart's doc comment but does not name the key; (2) Bitnami-style naming is close but not identical (auth.existingSecret + auth.existingPasswordKey here vs Bitnami's auth.existingPasswordSecret), so the switch-map is small but nonzero; (3) default imagePullPolicy is Always, worth knowing alongside the digest-pinned tag.",
+   "verdictConfirmed": true
+  }
+ ],
+ "exposure": [
+  {
+   "component": "redis",
+   "httpStatus": 403,
+   "pinnedVersion": "25.5.3",
+   "runtimeLanes": "Fetches at run time: redis:generate-proof (scripts/generate-redis-proof.mjs renders via helm template oci://registry-1.docker.io/bitnamicharts/redis:25.5.3 \u2014 Docker Hub OCI, not charts.bitnami.com; source lock merely records repositoryURL charts.bitnami.com/bitnami) and redis:compare (same OCI ref); live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 (helm install --repo https://charts.bitnami.com/bitnami). Verify-only, never fetch: redis:verify-proof, redis:verify-proof:self-test, redis:verify-package, redis:verify-local-e2e, redis:verify-install:* and redis:local-e2e (cub/kubectl on committed packages), redis:generate-package. Index check: 25.5.3 still LISTED in charts.bitnami.com/bitnami/index.yaml but its urls entry points to oci://registry-1.docker.io/bitnamicharts/redis:25.5.3 (direct tgz path 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/redis-25.5.3.tgz"
+  },
+  {
+   "component": "nginx",
+   "httpStatus": 403,
+   "pinnedVersion": "24.0.2",
+   "runtimeLanes": "Fetches at run time: nginx:generate-proof (proof-kit pullSource helm pull + renderVariant helm template bitnami/nginx --version 24.0.2, resolved through the charts.bitnami.com index unless HELM_EXPT_CHART_ARTIFACT_URL overrides) and live-parity:run -- --recipe recipes/bitnami/nginx/24.0.2 (helm install --repo https://charts.bitnami.com/bitnami). Verify-only, never fetch: nginx:verify-proof, nginx:verify-proof:self-test, nginx:verify-package, nginx:compare (alias of verify-package), nginx:generate-package, nginx:verify-confighub-proof. Index check: 24.0.2 still LISTED but urls entry is oci://registry-1.docker.io/bitnamicharts/nginx:24.0.2 (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/nginx-24.0.2.tgz"
+  },
+  {
+   "component": "postgresql",
+   "httpStatus": 403,
+   "pinnedVersion": "18.6.7",
+   "runtimeLanes": "Fetches at run time: postgresql:generate-proof (proof-kit helm pull + helm template bitnami/postgresql --version 18.6.7) and live-parity:run -- --recipe recipes/bitnami/postgresql/18.6.7 (helm install --repo https://charts.bitnami.com/bitnami). Verify-only, never fetch: postgresql:verify-proof, postgresql:verify-proof:self-test, postgresql:verify-package, postgresql:compare, postgresql:generate-package, postgresql:verify-confighub-proof. Index check: 18.6.7 still LISTED but urls entry is oci://registry-1.docker.io/bitnamicharts/postgresql:18.6.7 (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/postgresql-18.6.7.tgz"
+  },
+  {
+   "component": "mysql",
+   "httpStatus": 200,
+   "pinnedVersion": "14.0.3",
+   "runtimeLanes": "Fetches at run time: mysql:generate-proof (proof-kit helm pull + helm template bitnami/mysql --version 14.0.3) and live-parity:run -- --recipe recipes/bitnami/mysql/14.0.3 (helm install --repo https://charts.bitnami.com/bitnami). Verify-only, never fetch: mysql:verify-proof, mysql:verify-proof:self-test, mysql:verify-package, mysql:compare, mysql:generate-package. Index check: 14.0.3 still LISTED (urls entry oci://registry-1.docker.io/bitnamicharts/mysql:14.0.3) and the direct tgz path still serves 200.",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/mysql-14.0.3.tgz"
+  },
+  {
+   "component": "mongodb",
+   "httpStatus": 403,
+   "pinnedVersion": "19.0.7",
+   "runtimeLanes": "Fetches at run time: mongodb:generate-proof (proof-kit helm pull + helm template bitnami/mongodb --version 19.0.7) and live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.7 (helm install --repo https://charts.bitnami.com/bitnami). Verify-only, never fetch: mongodb:verify-proof, mongodb:verify-proof:self-test, mongodb:verify-package, mongodb:compare, mongodb:generate-package. Index check: 19.0.7 still LISTED but urls entry is oci://registry-1.docker.io/bitnamicharts/mongodb:19.0.7 (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/mongodb-19.0.7.tgz"
+  },
+  {
+   "component": "rabbitmq",
+   "httpStatus": 200,
+   "pinnedVersion": "16.0.14",
+   "runtimeLanes": "Fetches at run time: rabbitmq:generate-proof (proof-kit helm pull + helm template bitnami/rabbitmq --version 16.0.14) and live-parity:run -- --recipe recipes/bitnami/rabbitmq/16.0.14 (helm install --repo https://charts.bitnami.com/bitnami). Verify-only, never fetch: rabbitmq:verify-proof, rabbitmq:verify-proof:self-test, rabbitmq:verify-package, rabbitmq:compare, rabbitmq:generate-package. Index check: 16.0.14 still LISTED (urls entry oci://registry-1.docker.io/bitnamicharts/rabbitmq:16.0.14) and the direct tgz path still serves 200.",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/rabbitmq-16.0.14.tgz"
+  },
+  {
+   "component": "redis (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "27.0.0",
+   "runtimeLanes": "Only fetched when a generate lane runs with HELM_EXPT_CHART_VERSION=27.0.0 (redis:generate-proof via oci://registry-1.docker.io/bitnamicharts/redis, plus helm show/pull for metadata) or via the top20 latest-refresh/candidate generate lanes; live-parity:run -- --recipe recipes/bitnami/redis/27.0.0 would fetch via --repo charts.bitnami.com/bitnami. All verify lanes read the committed recipes/bitnami/redis/27.0.0 receipts without fetching. Index check: 27.0.0 still LISTED, urls entry oci://registry-1.docker.io/bitnamicharts/redis:27.0.0 (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/redis-27.0.0.tgz"
+  },
+  {
+   "component": "nginx (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "24.0.4",
+   "runtimeLanes": "Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=24.0.4 (nginx:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami. Verify lanes read committed receipts only. Index check: 24.0.4 still LISTED, urls entry points to Docker Hub OCI (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/nginx-24.0.4.tgz"
+  },
+  {
+   "component": "nginx (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "25.0.0",
+   "runtimeLanes": "Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=25.0.0 (nginx:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami. Verify lanes read committed receipts only. Index check: 25.0.0 still LISTED, urls entry points to Docker Hub OCI (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/nginx-25.0.0.tgz"
+  },
+  {
+   "component": "postgresql (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "18.6.10",
+   "runtimeLanes": "Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=18.6.10 (postgresql:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami. Verify lanes read committed receipts only. Index check: 18.6.10 still LISTED, urls entry points to Docker Hub OCI (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/postgresql-18.6.10.tgz"
+  },
+  {
+   "component": "postgresql (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "18.7.0",
+   "runtimeLanes": "Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=18.7.0 (postgresql:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami. Verify lanes read committed receipts only. Index check: 18.7.0 still LISTED, urls entry points to Docker Hub OCI (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/postgresql-18.7.0.tgz"
+  },
+  {
+   "component": "mongodb (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "19.0.9",
+   "runtimeLanes": "Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=19.0.9 (mongodb:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami. Verify lanes read committed receipts only. Index check: 19.0.9 still LISTED, urls entry points to Docker Hub OCI (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/mongodb-19.0.9.tgz"
+  },
+  {
+   "component": "mongodb (recipes/bitnami refresh candidate)",
+   "httpStatus": 403,
+   "pinnedVersion": "19.1.0",
+   "runtimeLanes": "Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=19.1.0 (mongodb:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami. Verify lanes read committed receipts only. Index check: 19.1.0 still LISTED, urls entry points to Docker Hub OCI (direct tgz 403).",
+   "tgzUrl": "https://charts.bitnami.com/bitnami/mongodb-19.1.0.tgz"
+  }
+ ],
+ "measuredAt": "2026-08-08",
+ "method": "Every candidate and every source status below was measured live with anonymous fetches on the measurement date, then the top pick per component was independently re-verified by a second pass. Statuses are observations, not assumptions."
+}
