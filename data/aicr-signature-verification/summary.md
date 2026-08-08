@@ -25,7 +25,7 @@ different signer identity and refused it, so the lane can fail.
 
 ## Limits
 
-- This receipt verifies the signature over the release's recipe-catalog attestation. It does not verify the recipe catalog artifact itself, because the catalog is not a release asset and no copy is retained here; the attestation's subject digest is recorded so a future retained copy can be bound to it.
-- Claim checking is disabled for the same reason, so this receipt proves who signed the statement and that the statement is intact, not that a local artifact matches it.
+- This receipt verifies the signature over the release's recipe-catalog attestation, and binds it to bytes this repository retains: the upstream digest algorithm, recomputed over the retained component registry and validator catalog, reproduces the attested subject exactly.
+- The two retained files are the whole of what the signature covers. The rest of the recipe tree, including overlays and mixins, is outside the attested subject and is not covered by this receipt.
 - The trust root is pinned as committed bytes. Refreshing it is a deliberate change, and it is the one input that ages.
 - This receipt concerns the upstream v0.18.0 release. The catalog still retains v0.14.0, which shipped no signature at all.

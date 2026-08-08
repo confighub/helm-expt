@@ -18,6 +18,7 @@
 // without cosign, so the ordinary verify chain stays toolchain-free.
 
 import { execFileSync, spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -101,7 +102,9 @@ function readCommittedSignature(rootOverride) {
   const identity = readCertificateIdentity(certificate);
   const tlogEntries = material.tlogEntries ?? [];
   const timestamps = material.timestampVerificationData?.rfc3161Timestamps ?? [];
+  const reproduced = rootOverride ? null : recomputeAttestedSubject();
   return {
+    reproduced,
     bundleSha256: sha256(bundleText),
     trustedRootSha256: sha256(readFileSync(trustedFile, "utf8")),
     mediaType: bundle.mediaType ?? "",
@@ -114,6 +117,52 @@ function readCommittedSignature(rootOverride) {
     tlogEntryVersion: tlogEntries[0]?.kindVersion?.version ?? "",
     tlogHasIntegratedTime: Boolean(tlogEntries[0]?.integratedTime),
     signedTimestampCount: timestamps.length,
+  };
+}
+
+// recomputeAttestedSubject reproduces the digest upstream attests, using the
+// algorithm in NVIDIA/aicr pkg/recipe/catalog/digest.go: a length-prefixed
+// SHA-256 over the component registry followed by the validator catalog. The
+// length prefixes make the encoding injective, so two different splits of the
+// same bytes cannot collide.
+//
+// This is what turns the receipt from a statement about a signer into a
+// statement about bytes this repository holds.
+function recomputeAttestedSubject() {
+  const subjectRoot = join(signatureRoot, upstreamVersion, "attested-subject");
+  const checksumsPath = join(signatureRoot, upstreamVersion, "attested-subject-checksums.txt");
+  check(existsSync(subjectRoot), `${relativeRepo(subjectRoot)} is missing`);
+  check(existsSync(checksumsPath), `${relativeRepo(checksumsPath)} is missing`);
+  const recorded = new Map();
+  for (const line of readFileSync(checksumsPath, "utf8").split("\n").filter(Boolean)) {
+    const match = line.match(/^([0-9a-f]{64})\s+(\S+)$/);
+    check(match, `attested-subject-checksums.txt: unparseable row: ${line}`);
+    recorded.set(match[2], match[1]);
+  }
+  // Order is part of the algorithm, so it is named here rather than sorted.
+  const parts = ["registry.yaml", "catalog.yaml"].map((file) => {
+    const path = join(subjectRoot, file);
+    check(existsSync(path), `${relativeRepo(path)} is missing`);
+    const bytes = readFileSync(path);
+    check(
+      sha256(bytes) === recorded.get(file),
+      `${relativeRepo(path)} differs from its recorded checksum`,
+    );
+    return { file, bytes };
+  });
+  const hash = createHash("sha256");
+  for (const part of parts) {
+    const lengthPrefix = Buffer.alloc(8);
+    lengthPrefix.writeBigUInt64BE(BigInt(part.bytes.length));
+    hash.update(lengthPrefix);
+    hash.update(part.bytes);
+  }
+  return {
+    digest: hash.digest("hex"),
+    parts: parts.map((part) => ({ file: part.file, sha256: sha256(part.bytes), bytes: part.bytes.length })),
+    algorithm:
+      "sha256 over u64be(len(registry.yaml)) || registry.yaml || u64be(len(validators/catalog.yaml)) || validators/catalog.yaml",
+    upstreamImplementation: "NVIDIA/aicr pkg/recipe/catalog/digest.go",
   };
 }
 
@@ -150,6 +199,15 @@ function run() {
     committed.identity.subjectAlternativeName === expectedIdentity
       && committed.identity.oidcIssuer === expectedIssuer,
     "the committed bundle's signer identity is not the expected AICR release workflow",
+  );
+  // The binding. Recomputing upstream's digest over the bytes this repository
+  // retains must land on the subject the signature attests, or the signature
+  // is about something we do not hold.
+  const attestedSubject = committed.subjects.find((row) => row.name === "recipe-catalog");
+  check(attestedSubject, "the bundle attests no recipe-catalog subject");
+  check(
+    committed.reproduced.digest === attestedSubject.sha256,
+    `the retained bytes hash to ${committed.reproduced.digest}, but the signature attests ${attestedSubject.sha256}`,
   );
 
   const observedAt = new Date().toISOString();
@@ -212,6 +270,16 @@ function run() {
         flags: ["--new-bundle-format", "--trusted-root", "--use-signed-timestamps", "--check-claims=false"],
         decisionRecord: "docs/reference/aicr-signature-verification.md",
       },
+      subjectBinding: {
+        bound: true,
+        attestedDigest: attestedSubject.sha256,
+        recomputedDigest: committed.reproduced.digest,
+        algorithm: committed.reproduced.algorithm,
+        upstreamImplementation: committed.reproduced.upstreamImplementation,
+        retainedParts: committed.reproduced.parts,
+        statement:
+          "The signature is about bytes this repository holds. Recomputing the upstream algorithm over the retained component registry and validator catalog reproduces the attested subject digest exactly.",
+      },
       signature: {
         mediaType: committed.mediaType,
         payloadType: committed.payloadType,
@@ -233,8 +301,8 @@ function run() {
         wrongIdentityRefused: true,
       },
       limits: [
-        "This receipt verifies the signature over the release's recipe-catalog attestation. It does not verify the recipe catalog artifact itself, because the catalog is not a release asset and no copy is retained here; the attestation's subject digest is recorded so a future retained copy can be bound to it.",
-        "Claim checking is disabled for the same reason, so this receipt proves who signed the statement and that the statement is intact, not that a local artifact matches it.",
+        "This receipt verifies the signature over the release's recipe-catalog attestation, and binds it to bytes this repository retains: the upstream digest algorithm, recomputed over the retained component registry and validator catalog, reproduces the attested subject exactly.",
+        "The two retained files are the whole of what the signature covers. The rest of the recipe tree, including overlays and mixins, is outside the attested subject and is not covered by this receipt.",
         "The trust root is pinned as committed bytes. Refreshing it is a deliberate change, and it is the one input that ages.",
         "This receipt concerns the upstream v0.18.0 release. The catalog still retains v0.14.0, which shipped no signature at all.",
       ],
@@ -297,9 +365,19 @@ function verifyReceipt(receipt, committed) {
     String(receipt.spec?.toolchain?.verifier ?? "").includes("cosign:v"),
     "the receipt does not pin an exact cosign version",
   );
+  const binding = receipt.spec?.subjectBinding ?? {};
   check(
-    receipt.spec?.limits?.some((limit) => limit.includes("does not verify the recipe catalog artifact")),
-    "the receipt must state that the attested artifact itself is not checked here",
+    binding.bound === true
+      && binding.recomputedDigest === committed.reproduced.digest
+      && binding.attestedDigest === binding.recomputedDigest,
+    "the receipt no longer binds the attested subject to the retained bytes",
+  );
+  check(
+    (binding.retainedParts ?? []).length === committed.reproduced.parts.length
+      && (binding.retainedParts ?? []).every(
+        (part, index) => part.sha256 === committed.reproduced.parts[index].sha256,
+      ),
+    "the receipt's retained subject parts differ from the committed bytes",
   );
   check(
     !Number.isNaN(Date.parse(receipt.spec?.observedAt ?? "")),
@@ -357,6 +435,12 @@ function selfTest() {
           verifier: cosignImage,
           trustedRootSha256: committed.trustedRootSha256,
         },
+        subjectBinding: {
+          bound: true,
+          attestedDigest: committed.reproduced.digest,
+          recomputedDigest: committed.reproduced.digest,
+          retainedParts: committed.reproduced.parts,
+        },
         signature: {
           predicateType: committed.predicateType,
           subjects: committed.subjects,
@@ -386,7 +470,9 @@ function selfTest() {
       [(r) => (r.spec.result.networkDisabled = false), /offline verification with a working negative control/],
       [(r) => (r.spec.result.wrongIdentityRefused = false), /offline verification with a working negative control/],
       [(r) => (r.spec.toolchain.verifier = "cosign"), /pin an exact cosign version/],
-      [(r) => (r.spec.limits = []), /attested artifact itself is not checked/],
+      [(r) => (r.spec.subjectBinding.bound = false), /binds the attested subject/],
+      [(r) => (r.spec.subjectBinding.recomputedDigest = "0".repeat(64)), /binds the attested subject/],
+      [(r) => (r.spec.subjectBinding.retainedParts = []), /retained subject parts differ/],
     ];
     for (const [mutate, pattern] of refusals) {
       const mutated = receipt();
