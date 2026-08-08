@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: karpenter-karpenter-1.14.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0
+  package:
+    path: packages/karpenter/karpenter/1.14.0
+    sha256: 2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5
+    sourceTreeSHA256: a91ddf07313615c4c21d9abdde2df620b976158185a56050a3e49c8d635e1696
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/karpenter/karpenter/1.14.0 -o <tmp>/karpenter-karpenter-1.14.0.tgz"
+    push: "cub installer push <tmp>/karpenter-karpenter-1.14.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --json"
+  outputs:
+    manifestDigest: sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa
+    layerDigest: sha256:2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5
+    package: |
+      Bundled karpenter-karpenter@1.14.0
+        output: <tmp>
+        files:  9
+        size:   53514 bytes
+        digest: sha256:2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0
+        manifest: sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa
+        layer:    sha256:2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5 (53514 bytes, 9 files)
+    inspectJSONSHA256: ed0f34fe340bb841f8207c1567541215ed4d0af4a98de454dfe3fcc9af5e163e
+    inspectJSONCanonicalSHA256: 2d9ec5bafbdad98eb95556e4fdee25f42a9bb1091b5af7671e9d2f346c5fe920

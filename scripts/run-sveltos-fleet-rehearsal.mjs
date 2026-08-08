@@ -67,7 +67,7 @@ const backgroundDeployment = "kyverno-background-controller";
 const sveltosManifestUrl =
   "https://raw.githubusercontent.com/projectsveltos/sveltos/v1.12.0/manifest/manifest.yaml";
 const rehearsalClaim =
-  "The delivery machinery shared by the fleet chapters works end to end on this machine: a five-cluster kind fleet built, four clusters registered by environment label, portable OCI digests reconciled by the pinned Argo CD, Kyverno converged on all four clusters, a values change and a chart version bump each landed on the pilot alone while the other clusters held their state, and injected drift was repaired. No governance is claimed.";
+  "The delivery machinery shared by the fleet chapters works end to end on this machine: a five-cluster kind fleet built, four clusters registered by environment label, portable OCI digests reconciled by the pinned Argo CD, Kyverno converged on all four clusters, a demo application converged on all four clusters with per-environment replica counts from the same rails, a values change and a chart version bump each landed on the pilot alone while the other clusters held their state, and injected drift was repaired. No governance is claimed.";
 const rehearsalBoundaryNote =
   "This rehearsal exercises the delivery machinery the governed chapters share: the kind fleet, Sveltos registration and fan-out, portable OCI through Argo CD, selective convergence, a version bump, and drift repair. No review, approval, or promotion is claimed, and no chapter matrix cell is filled by it.";
 const rehearsalDifferences = [
@@ -277,6 +277,60 @@ function run() {
       return { releases, observations };
     });
 
+    const applicationWave = timed("application delivered to all four clusters", () => {
+      const releases = {};
+      for (const environment of environments) {
+        const portable = publishPortableOci({
+          workRoot,
+          approvedText: plan.appProfiles[environment].text,
+          registryHost: registry.host,
+          clusterRegistryHost: registry.clusterHost,
+          tag: `${environment}-app-r1`,
+        });
+        const applicationName = `sveltos-rehearse-app-${environment}-${runId}`;
+        applyApplication({
+          managementKubeconfig,
+          applicationName,
+          sourceReference: portable.clusterReference,
+          sourceRevision: portable.targetRevision,
+          workRoot,
+        });
+        const argo = waitForApplication({
+          managementKubeconfig,
+          applicationName,
+          expectedRevision: portable.manifestDigest,
+        });
+        check(
+          argo.result === "pass",
+          `${applicationName} did not reconcile the ${environment} application: ${argo.reason ?? "unknown"}`,
+        );
+        releases[environment] = { portable, argo };
+      }
+      const observations = fleetClusters.map((row) => {
+        const observation = observeAppWorkload({
+          managementKubeconfig,
+          workloadName: row.cluster,
+          workloadKubeconfig: row.kubeconfig,
+          profileName: `podinfo-app-${row.environment}`,
+          expectedChartVersion: plan.appChartVersion,
+          expectedReplicas: plan.appReplicas[row.environment],
+          attempts: 180,
+        });
+        check(
+          observation.result === "pass",
+          `${row.cluster} did not converge on the application: ${observation.reason ?? "unknown"}`,
+        );
+        return {
+          cluster: row.cluster,
+          logicalCluster: row.logicalCluster,
+          environment: row.environment,
+          expectedRevisionId: plan.appRevisions[row.environment],
+          observation,
+        };
+      });
+      return { releases, observations };
+    });
+
     const valuesWave = timed("values change delivered to the pilot only", () => {
       const portable = publishPortableOci({
         workRoot,
@@ -400,6 +454,7 @@ function run() {
       sveltosInstall,
       registrations,
       baselineWave,
+      applicationWave,
       valuesWave,
       versionWave,
       driftRepair,
@@ -535,6 +590,55 @@ function loadRehearsalPlan(root = repoRoot) {
     "the rehearsal revisions are not distinct",
   );
 
+  const podinfoPin = lock.spec?.podinfo ?? {};
+  check(
+    /^[0-9a-f]{64}$/.test(String(podinfoPin.chartDigest))
+      && String(podinfoPin.artifact ?? "").includes(String(podinfoPin.chartVersion)),
+    "the rehearsal lock lost its application chart pin",
+  );
+  const appProfiles = {};
+  const appReplicas = {};
+  const appRevisions = {};
+  for (const environment of environments) {
+    const appPath = join(
+      root, "examples", "sveltos", "fleet-rehearsal",
+      `app-profile-${environment}.yaml`,
+    );
+    const appText = readFileSync(appPath, "utf8");
+    const appDocs = parseDocs(appText);
+    check(appDocs.length === 1, `app-profile-${environment}.yaml must contain one object`);
+    const appDoc = appDocs[0];
+    check(
+      appDoc.kind === "ClusterProfile"
+        && appDoc.metadata?.name === `podinfo-app-${environment}`
+        && appDoc.spec?.clusterSelector?.matchLabels?.environment === environment
+        && Object.keys(appDoc.spec.clusterSelector.matchLabels).length === 1,
+      `app-profile-${environment}.yaml identity or selector changed`,
+    );
+    check(
+      appDoc.spec?.helmCharts?.length === 1
+        && appDoc.spec.helmCharts[0].chartName === "podinfo/podinfo"
+        && String(appDoc.spec.helmCharts[0].chartVersion)
+        === String(podinfoPin.chartVersion)
+        && appDoc.spec.helmCharts[0].releaseNamespace === "podinfo",
+      `app-profile-${environment}.yaml chart pin does not match the lock`,
+    );
+    const appValues = parseDocs(appDoc.spec.helmCharts[0].values)[0];
+    const replicas = Number(appValues?.replicaCount ?? 0);
+    check(replicas >= 1, `app-profile-${environment}.yaml declares no replicaCount`);
+    appProfiles[environment] = {
+      doc: appDoc,
+      text: appText,
+      repoPath: `examples/sveltos/fleet-rehearsal/app-profile-${environment}.yaml`,
+    };
+    appReplicas[environment] = replicas;
+    appRevisions[environment] = `a1-${sha256(stableJson(appDoc)).slice(0, 12)}`;
+  }
+  check(
+    new Set(Object.values(appReplicas)).size === environments.length,
+    "the application replica counts must differ per environment so the fan-out is observable",
+  );
+
   return {
     fleet,
     lock,
@@ -542,6 +646,10 @@ function loadRehearsalPlan(root = repoRoot) {
     pilotChangedDoc,
     pilotPatchedDoc,
     revisions,
+    appProfiles,
+    appReplicas,
+    appRevisions,
+    appChartVersion: String(podinfoPin.chartVersion),
     sveltosManifestSha,
     baselineChartVersion,
     patchedChartVersion,
@@ -593,7 +701,7 @@ function applyApplication({
   workRoot,
 }) {
   check(
-    /^(pilot|staging|prod)-r[123]$/.test(sourceRevision),
+    /^(pilot|staging|prod)-(r[123]|app-r1)$/.test(sourceRevision),
     `unsupported application source revision ${sourceRevision}`,
   );
   const applicationPath = join(workRoot, `${applicationName}-${sourceRevision}.yaml`);
@@ -780,6 +888,87 @@ function observeWorkload({
     reason: `summary=${last.summary}; helm=${last.helmStatus}; chart=${last.chart}; expectedChart=kyverno-${expectedChartVersion}; deployments=${
       JSON.stringify(last.deployments)
     }; expectedBackgroundReplicas=${expectedBackgroundReplicas}`,
+  };
+}
+
+function observeAppWorkload({
+  managementKubeconfig,
+  workloadName,
+  workloadKubeconfig,
+  profileName,
+  expectedChartVersion,
+  expectedReplicas,
+  attempts,
+}) {
+  let last = { summary: "missing", helmStatus: "missing", deployment: "missing" };
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    const summaries = clusterTry(managementKubeconfig, [
+      "get", "clustersummaries", "-A", "-o", "json",
+    ]);
+    if (summaries.ok) {
+      const items = JSON.parse(summaries.output).items ?? [];
+      const summary = items.find((item) => {
+        const profileLabel =
+          item.metadata?.labels?.["projectsveltos.io/cluster-profile-name"];
+        const profileOwner = (item.metadata?.ownerReferences ?? []).some(
+          (owner) => owner.kind === "ClusterProfile" && owner.name === profileName,
+        );
+        return item.spec?.clusterName === workloadName
+          && item.spec?.clusterNamespace === registrationNamespace
+          && item.spec?.clusterType === "Sveltos"
+          && (profileLabel === profileName || profileOwner);
+      });
+      if (summary) {
+        const helmFeature = (summary.status?.featureSummaries ?? []).find(
+          (feature) => String(feature.featureID ?? feature.featureId) === "Helm",
+        );
+        last.summary = `${summary.metadata.namespace}/${summary.metadata.name}`;
+        last.helmStatus = String(helmFeature?.status ?? "missing");
+      }
+    }
+    const deployment = clusterTry(workloadKubeconfig, [
+      "-n", "podinfo", "get", "deployment", "podinfo", "-o", "json",
+    ]);
+    if (deployment.ok) {
+      const current = JSON.parse(deployment.output);
+      const desired = Number(current.spec?.replicas ?? 0);
+      const available = Number(current.status?.availableReplicas ?? 0);
+      last.deployment = `desired=${desired} available=${available}`;
+      const stable =
+        desired === expectedReplicas
+        && available === expectedReplicas
+        && current.status?.observedGeneration === current.metadata?.generation;
+      if (last.helmStatus === "Provisioned" && stable) {
+        const releases = JSON.parse(
+          command("helm", [
+            "--kubeconfig", workloadKubeconfig,
+            "list", "-n", "podinfo", "-o", "json",
+          ]).output,
+        );
+        const release = releases.find((item) => item.name === "podinfo");
+        check(release, `the podinfo Helm release is missing on ${workloadName}`);
+        if (release.chart === `podinfo-${expectedChartVersion}`) {
+          return {
+            result: "pass",
+            clusterSummary: last.summary,
+            helmFeatureStatus: last.helmStatus,
+            helmRelease: {
+              name: release.name,
+              namespace: release.namespace,
+              chart: release.chart,
+              applicationVersion: release.app_version,
+              status: release.status,
+            },
+            replicas: { desired, available },
+          };
+        }
+      }
+    }
+    if (attempt + 1 < attempts) sleep(4000);
+  }
+  return {
+    result: "fail",
+    reason: `summary=${last.summary}; helm=${last.helmStatus}; deployment=${last.deployment}; expectedReplicas=${expectedReplicas}`,
   };
 }
 
@@ -1087,7 +1276,7 @@ function publishPortableOci({
   tag,
 }) {
   check(
-    /^(pilot|staging|prod)-r[123]$/.test(tag),
+    /^(pilot|staging|prod)-(r[123]|app-r1)$/.test(tag),
     `unsupported OCI tag ${tag}`,
   );
   const outputRoot = join(workRoot, `portable-output-${tag}`);
@@ -1146,6 +1335,7 @@ function buildReceipt({
   sveltosInstall,
   registrations,
   baselineWave,
+  applicationWave,
   valuesWave,
   versionWave,
   driftRepair,
@@ -1172,6 +1362,18 @@ function buildReceipt({
             rawSha256: sha256(plan.profiles[environment].text),
           },
         ])),
+        appProfiles: Object.fromEntries(environments.map((environment) => [
+          environment,
+          {
+            path: plan.appProfiles[environment].repoPath,
+            rawSha256: sha256(plan.appProfiles[environment].text),
+          },
+        ])),
+        appChart: {
+          chartVersion: plan.appChartVersion,
+          chartDigest: plan.lock.spec.podinfo.chartDigest,
+          artifact: plan.lock.spec.podinfo.artifact,
+        },
         rehearsalLock: "examples/sveltos/fleet-rehearsal/source-lock.yaml",
         sveltosLock: relativeRepo(sveltosLockPath),
         baselineChartVersion: plan.baselineChartVersion,
@@ -1179,7 +1381,7 @@ function buildReceipt({
         baselineBackgroundReplicas: plan.baselineBackgroundReplicas,
         changedBackgroundReplicas: plan.changedBackgroundReplicas,
       },
-      revisions: plan.revisions,
+      revisions: { ...plan.revisions, app: plan.appRevisions },
       prerequisites: { argoCd: argoInstall, sveltos: sveltosInstall },
       fleet: {
         managementCluster: managementName,
@@ -1188,6 +1390,7 @@ function buildReceipt({
       },
       waves: {
         baseline: baselineWave,
+        application: applicationWave,
         valuesChange: valuesWave,
         versionBump: versionWave,
       },
@@ -1278,6 +1481,46 @@ function verifyReceipt(receipt) {
           === plan.baselineBackgroundReplicas,
       ),
     "fleet rehearsal baseline wave changed",
+  );
+  for (const environment of environments) {
+    check(
+      receipt.spec?.source?.appProfiles?.[environment]?.rawSha256
+        === sha256(plan.appProfiles[environment].text),
+      `fleet rehearsal ${environment} application source record changed`,
+    );
+    check(
+      receipt.spec?.revisions?.app?.[environment]
+        === plan.appRevisions[environment],
+      "the rehearsal application revisions no longer match the reviewed example files",
+    );
+  }
+  check(
+    receipt.spec?.source?.appChart?.chartDigest
+      === plan.lock.spec.podinfo.chartDigest
+      && receipt.spec.source.appChart.chartVersion === plan.appChartVersion,
+    "the rehearsal application chart pin changed",
+  );
+  const applicationWave = receipt.spec?.waves?.application;
+  check(
+    (applicationWave?.observations ?? []).length === 4
+      && applicationWave.observations.every(
+        (row) =>
+          row.observation?.result === "pass"
+          && row.observation.helmRelease?.chart
+          === `podinfo-${plan.appChartVersion}`
+          && row.observation.replicas?.desired
+          === plan.appReplicas[row.environment]
+          && row.observation.replicas.available
+          === plan.appReplicas[row.environment],
+      )
+      && environments.every((environment) => {
+        const release = applicationWave.releases?.[environment];
+        return release?.argo?.result === "pass"
+          && release.argo.revision === release.portable.manifestDigest;
+      })
+      && new Set(environments.map((environment) =>
+        applicationWave.releases[environment].portable.manifestDigest)).size === 3,
+    "fleet rehearsal application wave changed",
   );
   const checkSelective = (wave, expectedPilotChart, expectedPilotReplicas, waveName) => {
     check(
@@ -1376,7 +1619,9 @@ ${receipt.spec.prerequisites.argoCd.version}, a values change landed on the
 pilot alone, a chart version bump to
 ${receipt.spec.source.patchedChartVersion} landed on the pilot alone with the
 values intact, the other three clusters held their state through both, and
-injected drift was repaired.
+injected drift was repaired. The demo application rode the same rails:
+podinfo ${receipt.spec.source.appChart.chartVersion} converged on all four
+clusters with per-environment replica counts.
 
 | Phase | Duration |
 | --- | --- |
@@ -1386,6 +1631,7 @@ ${timingRows}
 | Check | Result |
 | --- | --- |
 | Clusters converged at baseline | ${receipt.spec.waves.baseline.observations.filter((row) => row.observation.result === "pass").length}/4 |
+| Application clusters converged | ${receipt.spec.waves.application.observations.filter((row) => row.observation.result === "pass").length}/4, replicas per environment |
 | Selective values change | pilot only |
 | Selective version bump | pilot only, values intact |
 | Distinct pilot digests across waves | 3 |
@@ -1722,6 +1968,7 @@ function selfTest() {
         kubernetesVersion: "v1.35.0",
       })),
       baselineWave: synthesizeWave(plan, "baseline"),
+      applicationWave: synthesizeAppWave(plan),
       valuesWave: synthesizeWave(plan, "valuesChange"),
       versionWave: synthesizeWave(plan, "versionBump"),
       driftRepair: {
@@ -1772,6 +2019,14 @@ function selfTest() {
       ["argo pin", (c) => { c.spec.prerequisites.argoCd.manifestSha256 = "0".repeat(64); }, /prerequisite pins changed/],
       ["registrations", (c) => { c.spec.fleet.registrations[3].labels.environment = "staging"; }, /registration record changed/],
       ["baseline wave", (c) => { c.spec.waves.baseline.observations[0].observation.backgroundReplicas.desired = 9; }, /baseline wave changed/],
+      ["app source hash", (c) => { c.spec.source.appProfiles.pilot.rawSha256 = "0".repeat(64); }, /pilot application source record changed/],
+      ["app replica math", (c) => { c.spec.waves.application.observations.find((row) => row.environment === "staging").observation.replicas.desired = 9; }, /application wave changed/],
+      ["app digest collapse", (c) => {
+        c.spec.waves.application.releases.staging.portable.manifestDigest =
+          c.spec.waves.application.releases.pilot.portable.manifestDigest;
+        c.spec.waves.application.releases.staging.argo.revision =
+          c.spec.waves.application.releases.pilot.portable.manifestDigest;
+      }, /application wave changed/],
       ["selective values", (c) => {
         const stagingRow = c.spec.waves.valuesChange.observations.find((row) => row.environment === "staging");
         stagingRow.observation.backgroundReplicas.desired = c.spec.source.changedBackgroundReplicas;
@@ -1801,7 +2056,7 @@ function selfTest() {
     }
 
     console.log(
-      "sveltos fleet rehearsal self-test passed: the revision ladder, the portable round trip with its tag and tamper refusals, the Argo pin refusal, the pinned boundary contract, and the tamper battery",
+      "sveltos fleet rehearsal self-test passed: the revision ladder, the application pin and replica bindings, the portable round trip with its tag and tamper refusals, the Argo pin refusal, the pinned boundary contract, and the tamper battery",
     );
   } finally {
     commandRunner = realRunner;
@@ -1809,6 +2064,57 @@ function selfTest() {
     timeSource = realTime;
     rmSync(workRoot, { recursive: true, force: true });
   }
+}
+
+function synthesizeAppWave(plan) {
+  const releases = {};
+  for (const environment of environments) {
+    const digest = `sha256:${sha256(`self-test-app-${environment}`)}`;
+    releases[environment] = {
+      portable: {
+        reference: `oci://registry.self-test.invalid:5000/${portableRepository}:${environment}-app-r1`,
+        clusterReference: `oci://cluster.self-test.invalid:5000/${portableRepository}`,
+        targetRevision: `${environment}-app-r1`,
+        manifestDigest: digest,
+        objectCount: 1,
+        objectsMatchPackagedData: true,
+        anonymousPull: true,
+        registryLifetime: "temporary",
+      },
+      argo: {
+        result: "pass",
+        sync: "Synced",
+        health: "Healthy",
+        revision: digest,
+        expectedRevision: digest,
+        digestMatchesPortableOci: true,
+      },
+    };
+  }
+  return {
+    releases,
+    observations: plan.fleet.spec.workloads.map((workload) => ({
+      cluster: `${workload.cluster}-selftest`,
+      logicalCluster: workload.cluster,
+      environment: workload.environment,
+      expectedRevisionId: plan.appRevisions[workload.environment],
+      observation: {
+        result: "pass",
+        clusterSummary: "projectsveltos/self-test-app-summary",
+        helmFeatureStatus: "Provisioned",
+        helmRelease: {
+          name: "podinfo",
+          namespace: "podinfo",
+          chart: `podinfo-${plan.appChartVersion}`,
+          status: "deployed",
+        },
+        replicas: {
+          desired: plan.appReplicas[workload.environment],
+          available: plan.appReplicas[workload.environment],
+        },
+      },
+    })),
+  };
 }
 
 function synthesizeWave(plan, waveName) {

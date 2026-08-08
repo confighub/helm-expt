@@ -8,7 +8,7 @@ Boundary: no review, approval, or promotion is claimed. Argo CD came from the
 pinned upstream manifest instead of cub cluster up, Applications were applied
 with kubectl instead of delivered as ConfigHub Units, and the chapter
 matrices are untouched. When this receipt was recorded
-(2026-08-07), the governed lanes were still
+(2026-08-08), the governed lanes were still
 blocked by confighubai/confighub#4975.
 
 What ran: a five-cluster kind fleet (one management cluster, four workload
@@ -19,25 +19,29 @@ v3.4.6, a values change landed on the
 pilot alone, a chart version bump to
 3.8.2 landed on the pilot alone with the
 values intact, the other three clusters held their state through both, and
-injected drift was repaired.
+injected drift was repaired. The demo application rode the same rails:
+podinfo 6.14.1 converged on all four
+clusters with per-environment replica counts.
 
 | Phase | Duration |
 | --- | --- |
-| temporary OCI registry ready | 1.2s |
-| management cluster ready | 25.5s |
-| Argo CD converged on the management cluster | 64.2s |
-| four workload clusters ready | 102.1s |
-| Sveltos controllers converged | 89.8s |
+| temporary OCI registry ready | 1.3s |
+| management cluster ready | 25s |
+| Argo CD converged on the management cluster | 57.9s |
+| four workload clusters ready | 102.7s |
+| Sveltos controllers converged | 101s |
 | four workload clusters registered | 1s |
-| baseline delivered to all four clusters | 147s |
-| values change delivered to the pilot only | 34.5s |
-| version bump delivered to the pilot only | 104s |
+| baseline delivered to all four clusters | 192.4s |
+| application delivered to all four clusters | 28.8s |
+| values change delivered to the pilot only | 55s |
+| version bump delivered to the pilot only | 103.8s |
 | injected drift repaired on the pilot | 15.3s |
-| Total measured | 585s |
+| Total measured | 684s |
 
 | Check | Result |
 | --- | --- |
 | Clusters converged at baseline | 4/4 |
+| Application clusters converged | 4/4, replicas per environment |
 | Selective values change | pilot only |
 | Selective version bump | pilot only, values intact |
 | Distinct pilot digests across waves | 3 |

@@ -99,7 +99,7 @@
     "publicCatalogComponents": 108,
     "publicCatalogCharts": 108,
     "retainedPackageVersions": 135,
-    "retainedPublishedPackageVersions": 130,
+    "retainedPublishedPackageVersions": 135,
     "retainedComponents": 108,
     "catalogSupported": 20,
     "proofGrade": 80,
@@ -5972,9 +5972,9 @@
       "package_path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
       "installer_yaml": "packages/aws-controllers-k8s/ec2-chart/1.18.4/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/aws-controllers-k8s-ec2-chart/1.18.4/installer-package-publication-receipt.yaml",
+      "published_digest": "19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795",
       "default_base": "default",
       "bases": "default;eks-inference",
       "base_count": "2",
@@ -6004,9 +6004,9 @@
       "package_path": "packages/aws-controllers-k8s/eks-chart/1.16.3",
       "installer_yaml": "packages/aws-controllers-k8s/eks-chart/1.16.3/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml",
+      "published_digest": "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555",
       "default_base": "default",
       "bases": "default;eks-inference",
       "base_count": "2",
@@ -6036,9 +6036,9 @@
       "package_path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
       "installer_yaml": "packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml",
+      "published_digest": "d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965",
       "default_base": "default",
       "bases": "default;eks-inference",
       "base_count": "2",
@@ -7958,9 +7958,9 @@
       "package_path": "packages/karpenter/karpenter/1.14.0",
       "installer_yaml": "packages/karpenter/karpenter/1.14.0/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/karpenter-karpenter/1.14.0/installer-package-publication-receipt.yaml",
+      "published_digest": "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5",
       "default_base": "default",
       "bases": "default;eks-inference;crds-managed",
       "base_count": "3",
@@ -8442,9 +8442,9 @@
       "package_path": "packages/nvidia/nvidia-device-plugin/0.19.3",
       "installer_yaml": "packages/nvidia/nvidia-device-plugin/0.19.3/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml",
+      "published_digest": "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73",
       "default_base": "default",
       "bases": "default;eks-inference;nfd-enabled",
       "base_count": "3",
@@ -33540,6 +33540,193 @@
       }
     }
   },
+  "platformEvidence": {
+    "apiVersion": "catalog.confighub.com/v1alpha1",
+    "kind": "PlatformEvidenceRecord",
+    "metadata": {
+      "name": "aicr"
+    },
+    "spec": {
+      "contract": {
+        "kind": "evidence",
+        "statement": "These entries are evidence, not a product line. They record what was proven about governing AI-platform configuration, with a path to every receipt. They are not offered for installation from the catalog the way a chart is, and no support posture attaches to them.",
+        "consumerExpectation": "Locate an entry, follow its paths, and check its receipts. Every path a consumer needs is published here, so nothing is reconstructed by convention.",
+        "boundary": "Every entry proves config-plane mechanics only. No GPU workload ran to produce or verify any of it."
+      },
+      "entries": [
+        {
+          "id": "eks-h100-training-kubeflow",
+          "title": "EKS H100 Kubeflow training",
+          "provenance": "retained-upstream",
+          "platformDigest": "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.14.0",
+            "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/eks-h100-training-kubeflow",
+            "page": "docs/demo/aicr/eks-h100-training-kubeflow.md",
+            "digestIndex": "examples/aicr/eks-h100-training-kubeflow/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/eks-h100-training-kubeflow/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "oci-round-trip",
+                "receipt": "runs/aicr-oci-roundtrip-proof/receipt.yaml",
+                "summary": "data/aicr-oci-roundtrip-proof/summary.md",
+                "result": "pass"
+              },
+              {
+                "rung": "confighub-variant-and-promotion",
+                "receipt": "runs/aicr-variant-promotion-proof/receipt.yaml",
+                "summary": "data/aicr-variant-promotion-proof/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 2
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": true
+          }
+        },
+        {
+          "id": "eks-h100-inference-nim",
+          "title": "EKS H100 NIM inference, AICR-native",
+          "provenance": "retained-upstream",
+          "platformDigest": "sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.14.0",
+            "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/eks-h100-inference-nim",
+            "page": "docs/demo/aicr/eks-h100-inference-nim.md",
+            "digestIndex": "examples/aicr/eks-h100-inference-nim/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/eks-h100-inference-nim/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/eks-h100-inference-nim/generation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [],
+            "climbedCount": 0
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": false
+          }
+        },
+        {
+          "id": "kserve-nim-inference",
+          "title": "NIM on KServe model shapes",
+          "provenance": "retained-third-party",
+          "platformDigest": "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720",
+          "upstream": {
+            "name": "NVIDIA nim-deploy KServe reference implementation",
+            "version": null,
+            "commit": "3ef33472b84da9f39131dff0326bf05ac1dc0fe6",
+            "repository": "https://github.com/NVIDIA/nim-deploy"
+          },
+          "paths": {
+            "entry": "examples/aicr/kserve-nim-inference",
+            "page": "docs/demo/aicr/kserve-nim-inference.md",
+            "digestIndex": "examples/aicr/kserve-nim-inference/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/kserve-nim-inference/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/kserve-nim-inference/retention-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "confighub-import-variant-and-promotion",
+                "receipt": "runs/aicr-kserve-nim-import/receipt.yaml",
+                "summary": "data/aicr-kserve-nim-import/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 1
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": null
+          }
+        },
+        {
+          "id": "cpu-starter",
+          "title": "CPU starter, derived",
+          "provenance": "derived",
+          "platformDigest": "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.14.0",
+            "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/cpu-starter",
+            "page": "docs/demo/aicr/cpu-starter.md",
+            "digestIndex": "examples/aicr/cpu-starter/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/cpu-starter/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/cpu-starter/derivation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "confighub-variant-and-promotion",
+                "receipt": "runs/aicr-cpu-starter-variant/receipt.yaml",
+                "summary": "data/aicr-cpu-starter-variant/summary.md",
+                "result": "pass"
+              },
+              {
+                "rung": "config-plane-delivery",
+                "receipt": "runs/aicr-cpu-starter-delivery/receipt.yaml",
+                "summary": "data/aicr-cpu-starter-delivery/summary.md",
+                "result": "pass"
+              },
+              {
+                "rung": "one-reviewed-component-synced",
+                "receipt": "runs/aicr-cpu-starter-sync/receipt.yaml",
+                "summary": "data/aicr-cpu-starter-sync/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 3
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": null
+          }
+        }
+      ],
+      "crossEntryEvidence": [
+        {
+          "id": "upstream-signature-verification",
+          "receipt": "runs/aicr-signature-verification/receipt.yaml",
+          "summary": "data/aicr-signature-verification/summary.md"
+        },
+        {
+          "id": "blast-radius-parity",
+          "summary": "data/aicr-blast-radius/summary.md"
+        },
+        {
+          "id": "ordering-parity",
+          "summary": "data/aicr-ordering-parity/summary.md"
+        }
+      ],
+      "openRungs": [
+        "Config-plane delivery for both inference entries.",
+        "Any workload-plane claim, for every entry."
+      ]
+    }
+  },
   "helmCatalogReadmes": [
     {
       "space": "default",
@@ -34200,9 +34387,9 @@
       "package_path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
       "installer_yaml": "packages/aws-controllers-k8s/ec2-chart/1.18.4/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/aws-controllers-k8s-ec2-chart/1.18.4/installer-package-publication-receipt.yaml",
+      "published_digest": "19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795",
       "default_base": "default",
       "bases": "default;eks-inference",
       "base_count": "2",
@@ -34225,9 +34412,9 @@
       "package_path": "packages/aws-controllers-k8s/eks-chart/1.16.3",
       "installer_yaml": "packages/aws-controllers-k8s/eks-chart/1.16.3/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml",
+      "published_digest": "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555",
       "default_base": "default",
       "bases": "default;eks-inference",
       "base_count": "2",
@@ -34250,9 +34437,9 @@
       "package_path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
       "installer_yaml": "packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml",
+      "published_digest": "d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965",
       "default_base": "default",
       "bases": "default;eks-inference",
       "base_count": "2",
@@ -35925,9 +36112,9 @@
       "package_path": "packages/karpenter/karpenter/1.14.0",
       "installer_yaml": "packages/karpenter/karpenter/1.14.0/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/karpenter-karpenter/1.14.0/installer-package-publication-receipt.yaml",
+      "published_digest": "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5",
       "default_base": "default",
       "bases": "default;eks-inference;crds-managed",
       "base_count": "3",
@@ -36375,9 +36562,9 @@
       "package_path": "packages/nvidia/nvidia-device-plugin/0.19.3",
       "installer_yaml": "packages/nvidia/nvidia-device-plugin/0.19.3/installer.yaml",
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3",
-      "publication_status": "assigned-ref",
-      "publication_receipt": "",
-      "published_digest": "",
+      "publication_status": "published-receipt",
+      "publication_receipt": "runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml",
+      "published_digest": "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73",
       "default_base": "default",
       "bases": "default;eks-inference;nfd-enabled",
       "base_count": "3",
@@ -40327,6 +40514,57 @@
               "snippet": ""
             }
           ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "3.8.2",
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            }
+          ]
         }
       ]
     },
@@ -40601,6 +40839,456 @@
         {
           "base": "no-crds",
           "recipeVersion": "86.1.0",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "87.15.1",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "existing-secret",
+          "recipeVersion": "87.15.1",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "87.15.1",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "87.19.2",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "existing-secret",
+          "recipeVersion": "87.19.2",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "87.19.2",
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",

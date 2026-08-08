@@ -14,10 +14,14 @@ the chapter-one source lock, and then drives the shared machinery:
 
 1. Kyverno converges on all four clusters from portable OCI digests
    reconciled by Argo CD.
-2. A values change lands on the pilot cluster alone; the other three hold
+2. A demo application (podinfo, pinned in the source lock) rides the same
+   rails to all four clusters with a different replica count per
+   environment, so the per-environment fan-out is visible in the app
+   itself.
+3. A values change lands on the pilot cluster alone; the other three hold
    their state.
-3. A chart version bump lands on the pilot alone with the values intact.
-4. Drift injected on the pilot is repaired by Sveltos.
+4. A chart version bump lands on the pilot alone with the values intact.
+5. Drift injected on the pilot is repaired by Sveltos.
 
 The receipt records phase timings, so it also measures what this machine can
 carry before a real recording day.

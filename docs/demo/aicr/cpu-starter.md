@@ -104,7 +104,13 @@ sync-waves intact, and the boundary was proven rather than asserted: the
 retained Applications carry upstream automated sync policies, so the
 application controller was held at zero replicas for the entire run, zero
 sync operations appeared, and every component destination namespace stayed
-absent. Delivery cannot begin until a human scales the controller up. The
+absent. Delivery cannot begin until a human scales the controller up.
+
+The reason the controller stays at zero is now precise. It is not that the
+ordering is unearned: AICR declares a `deploymentOrder` per recipe, and the
+[ordering-parity lane](../../../data/aicr-ordering-parity/summary.md) proves
+the rendered sync-waves preserve it exactly. The catalog declines to run the
+sync in a config-plane proof, which is a different and defensible reason. The
 [receipt](../../../runs/aicr-cpu-starter-delivery/receipt.yaml) and
 [summary](../../../data/aicr-cpu-starter-delivery/summary.md) record the run;
 the cluster, registry, and working files were removed afterward.

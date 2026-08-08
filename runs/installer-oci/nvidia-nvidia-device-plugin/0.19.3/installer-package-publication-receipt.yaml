@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nvidia-nvidia-device-plugin-0.19.3
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3
+  package:
+    path: packages/nvidia/nvidia-device-plugin/0.19.3
+    sha256: eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73
+    sourceTreeSHA256: 89f0cf6e97abc479a9f5ddc665b5156e75e5ef3fdf2e5c9cc2d4343038cd5a00
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/nvidia/nvidia-device-plugin/0.19.3 -o <tmp>/nvidia-nvidia-device-plugin-0.19.3.tgz"
+    push: "cub installer push <tmp>/nvidia-nvidia-device-plugin-0.19.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --json"
+  outputs:
+    manifestDigest: sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3
+    layerDigest: sha256:eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73
+    package: |
+      Bundled nvidia-nvidia-device-plugin@0.19.3
+        output: <tmp>
+        files:  8
+        size:   9436 bytes
+        digest: sha256:eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3
+        manifest: sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3
+        layer:    sha256:eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73 (9436 bytes, 8 files)
+    inspectJSONSHA256: e21fd84566086eb24ec6af0a1b2a00bbd9707e1824adf93eb4b73c4d0f1db229
+    inspectJSONCanonicalSHA256: 4f9f4853332adb81ecd87e4f54c1aff875a21d20e18cf60c0ce13dd992cb2d2b

@@ -41,6 +41,10 @@ function witnessRows() {
   for (const name of readdirSync(WITNESS_DIR).sort()) {
     if (!name.endsWith(".yaml")) continue;
     const spec = readYaml(join(WITNESS_DIR, name)).spec;
+    // A witness carrying a package note describes bytes this catalog does not
+    // lock, recorded so a republished artifact stays inspectable. Counting it
+    // here would report one catalog entry twice. See data/upstream-drift.
+    if (spec.package.note) continue;
     const findings = spec.findings;
     rows.push({
       repository: spec.chart.repository,

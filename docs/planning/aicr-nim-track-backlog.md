@@ -115,7 +115,14 @@ code.
 
 ## Theme 5: the catalog data model has no place for platforms
 
-27. **Decide how platform shapes appear in catalog.json.** The file has keys
+27. **Done 2026-08-08.** Published under `platformEvidence` in
+    `site/catalog.json`, generated from committed digest indexes and receipts
+    by `npm run aicr-platform-evidence:generate`. The record carries the
+    evidence contract, each entry's platform digest, every path a consumer
+    needs, the ladder rungs that have receipts, and the rungs no entry has
+    climbed. The original framing follows.
+
+    **Decide how platform shapes appear in catalog.json.** The file has keys
     for charts, components, and entries, and no key for platforms. Consumers
     cannot discover the AICR entries at all today. **Workshop-wide**, and it
     is the gate on every publishing task below.
@@ -191,7 +198,14 @@ code.
 
 ## Theme 9: the questions that need a decision, not a task
 
-49. **Decide whether the catalog certifies AI-platform shapes as a product
+49. **Decided 2026-08-08: evidence, not a product line.** The entries record
+    what was proven about governing AI-platform configuration. Nobody is meant
+    to install one from the catalog the way they install a chart, and no
+    support posture attaches to them. Task 27 was built to that decision, and
+    the record carries it machine-readably in its `contract` block. The
+    original framing follows.
+
+    **Decide whether the catalog certifies AI-platform shapes as a product
     line or as evidence.** Everything above assumes the entries are catalog
     content. If they are instead evidence for a broader argument about
     governed configuration, the publishing and consumer-contract tasks change
@@ -257,3 +271,16 @@ keeps its references.
 60. **Re-check the catalog's stated contribution against upstream's.** The
     public pages should not imply this project invented provenance for a
     project that ships its own attestation chain. **Workshop-wide**.
+
+## Progress, 2026-08-08
+
+Done and merged: 51 (the AICR-native NIM entry, retained beside the KServe
+one), 52 (control points derived from the upstream registry), 54 (the
+ordering-parity lane, which retires the unearned-ordering caveat), and 53 with
+60 together in
+[AICR's evidence and our receipts](../reference/aicr-evidence-and-our-receipts.md),
+which also corrected three public claims.
+
+The next most valuable are 49 and 27, in that order, because they gate the
+publishing work. Task 2 remains the smallest high-value item.
+
