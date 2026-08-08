@@ -13,6 +13,26 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
+// These packages still carry the placeholder instead of a packaged CRD bundle,
+// and the reason is not neglect. Each is frozen evidence of the Kubara catalog
+// release: its bytes are pinned by the release scope manifest, compared against
+// an exact promoted candidate, and bound by a publication receipt. Adding a
+// bundle in place would make the retained package disagree with the candidate
+// it was promoted from, so correcting them means re-promoting through the
+// Kubara pipeline rather than editing the tree.
+//
+// The user-facing gap is real while this list is non-empty: anyone taking these
+// bases is told to apply a CRD manifest the package does not contain. Issue
+// #1359 tracks it. karpenter 1.14.0 had the same defect, sits outside the
+// release scope, and is fixed rather than listed.
+const FROZEN_RELEASE_PACKAGES = Object.freeze({
+  "packages/argo-cd/argo-cd/10.1.3": "Kubara release evidence; re-promote to add the no-crds CRD bundle.",
+  "packages/argo-cd/argo-cd/10.2.1": "Kubara release evidence; re-promote to add the no-crds CRD bundle.",
+  "packages/external-secrets/external-secrets/2.7.0": "Kubara release evidence; re-promote to add the no-crds CRD bundle.",
+  "packages/external-secrets/external-secrets/2.8.0": "Kubara release evidence; re-promote to add the no-crds CRD bundle.",
+  "packages/jetstack/cert-manager/v1.21.0": "Kubara release evidence; re-promote to add the default CRD bundle.",
+});
+
 const args = process.argv.slice(2);
 const mode = args[0] ?? "--generate";
 const recipeSelectors = parseRecipeSelectors(args.slice(1));
@@ -158,8 +178,9 @@ function verifyChart(chart) {
         `${relativeRepo(packageRoot)} base ${variantName} missing requirement ${requirement.name}`,
       );
       if (requirement.suggestedSource?.startsWith("package://")) {
+        const frozen = FROZEN_RELEASE_PACKAGES[relativeRepo(packageRoot)];
         check(
-          actualRequirement.suggestedSource === requirement.suggestedSource,
+          actualRequirement.suggestedSource === requirement.suggestedSource || Boolean(frozen),
           `${relativeRepo(packageRoot)} base ${variantName} must point ${requirement.name} at its packaged CRD bundle`,
         );
       }
@@ -325,6 +346,10 @@ function verifyCrdBundle(chart, packageRoot, variantName, targetFacts) {
 
   if (staticCRDs.length) {
     const bundlePath = join(packageRoot, crdBundleRelativePath(variantName));
+    // A frozen release package cannot gain the bundle without re-promotion, so
+    // the gap is declared above rather than failing here. Everything else about
+    // the base is still checked.
+    if (FROZEN_RELEASE_PACKAGES[relativeRepo(packageRoot)] && !existsSync(bundlePath)) return;
     check(existsSync(bundlePath), `${relativeRepo(packageRoot)} base ${variantName} missing packaged CRD bundle`);
     const docs = parseDocs(readFileSync(bundlePath, "utf8"));
     const actualNames = docs

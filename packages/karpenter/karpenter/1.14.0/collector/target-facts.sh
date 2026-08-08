@@ -76,20 +76,26 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets: []
+
   requiredCRDs: []
+
   requiredValues:
-  -
-    path: "settings.clusterName"
-    purpose: "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
-    stage: "pre-render"
-    source: "platform-profile"
-    installerInput: "clusterName"
+  - installerInput: clusterName
+    path: settings.clusterName
+    purpose: EKS cluster name; required with no chart default, the deployment template
+      refuses to render without it
+    source: platform-profile
+    stage: pre-render
+
   requiredObjectStores: []
+
   requiredTopology:
     minimumSchedulableNodes: 2
-    purpose: "replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes"
+    purpose: replicas 2 with the chart-default required pod anti-affinity needs two
+      schedulable non-Karpenter nodes
+
 targetFactChecks:
-  base: "$base"
+  base: "default"
   mode: "$check_mode"
   result: "$result"
 YAML
@@ -104,20 +110,25 @@ YAML
     cat <<YAML
 targetFacts:
   requiredSecrets: []
+
   requiredCRDs: []
+
   requiredValues:
-  -
-    path: "controller.env[AWS_REGION]"
-    purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
-    stage: "pre-render"
-    source: "platform-profile"
-    installerInput: "awsRegion"
+  - installerInput: awsRegion
+    path: controller.env[AWS_REGION]
+    purpose: AWS region for the controller; the chart supplies nothing and EKS Pod Identity
+      does not inject it, so an absent value panics the controller at startup
+    source: platform-profile
+    stage: pre-render
+
   requiredObjectStores: []
+
   requiredTopology:
     minimumSchedulableNodes: 1
-    purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+    purpose: replicas 1 needs one schedulable non-Karpenter node on the system nodegroup
+
 targetFactChecks:
-  base: "$base"
+  base: "eks-inference"
   mode: "$check_mode"
   result: "$result"
 YAML
@@ -137,35 +148,40 @@ YAML
     cat <<YAML
 targetFacts:
   requiredSecrets: []
+
   requiredCRDs:
-  -
-    name: "capacitybuffers.autoscaling.x-k8s.io"
-    suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
-  -
-    name: "ec2nodeclasses.karpenter.k8s.aws"
-    suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
-  -
-    name: "nodeclaims.karpenter.sh"
-    suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
-  -
-    name: "nodeoverlays.karpenter.sh"
-    suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
-  -
-    name: "nodepools.karpenter.sh"
-    suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+  - name: capacitybuffers.autoscaling.x-k8s.io
+    suggestedSource: helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd
+      --version 1.14.0 --namespace kube-system
+  - name: ec2nodeclasses.karpenter.k8s.aws
+    suggestedSource: helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd
+      --version 1.14.0 --namespace kube-system
+  - name: nodeclaims.karpenter.sh
+    suggestedSource: helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd
+      --version 1.14.0 --namespace kube-system
+  - name: nodeoverlays.karpenter.sh
+    suggestedSource: helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd
+      --version 1.14.0 --namespace kube-system
+  - name: nodepools.karpenter.sh
+    suggestedSource: helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd
+      --version 1.14.0 --namespace kube-system
+
   requiredValues:
-  -
-    path: "controller.env[AWS_REGION]"
-    purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
-    stage: "pre-render"
-    source: "platform-profile"
-    installerInput: "awsRegion"
+  - installerInput: awsRegion
+    path: controller.env[AWS_REGION]
+    purpose: AWS region for the controller; the chart supplies nothing and EKS Pod Identity
+      does not inject it, so an absent value panics the controller at startup
+    source: platform-profile
+    stage: pre-render
+
   requiredObjectStores: []
+
   requiredTopology:
     minimumSchedulableNodes: 1
-    purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+    purpose: replicas 1 needs one schedulable non-Karpenter node on the system nodegroup
+
 targetFactChecks:
-  base: "$base"
+  base: "crds-managed"
   mode: "$check_mode"
   result: "$result"
 YAML
