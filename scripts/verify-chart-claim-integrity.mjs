@@ -176,11 +176,71 @@ function checkRecommendedBases() {
   }
 }
 
+// ---------- Check 5: flattenability claims need a verdict ----------
+// The flattening-safety brief asks for this in the claim-integrity style: a
+// page may not claim a chart is flattenable without a current verdict receipt.
+// A lane word on a chart page is a claim about what happens if you ship that
+// chart as literal YAML, and the only thing entitled to make it is a verdict.
+function checkFlatteningClaims() {
+  const LANES = ["safe-to-flatten", "flatten-with-routes", "do-not-flatten"];
+  const chartsDir = join(repoRoot, "site", "charts");
+  if (!existsSync(chartsDir)) return;
+
+  // Every lane a verdict actually decided, keyed by chart and version.
+  const decided = new Map();
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.startsWith("flattening-safety-verdict") && entry.name.endsWith(".yaml")) {
+        const text = readFileSync(full, "utf8");
+        const repository = text.match(/repository:\s*"([^"]+)"/)?.[1];
+        const name = text.match(/name:\s*"([^"]+)"\n\s+version:/)?.[1];
+        const version = text.match(/version:\s*"([^"]+)"/)?.[1];
+        const lane = text.match(/lane:\s*"([a-z-]+)"/)?.[1];
+        if (!repository || !name || !version || !lane) continue;
+        const key = `${repository}/${name}@${version}`;
+        const lanes = decided.get(key) ?? new Set();
+        lanes.add(lane);
+        decided.set(key, lanes);
+      }
+    }
+  };
+  walk(join(repoRoot, "recipes"));
+
+  for (const file of readdirSync(chartsDir)) {
+    if (!file.endsWith(".html") || file === "index.html") continue;
+    const html = readFileSync(join(chartsDir, file), "utf8");
+    const claimed = LANES.filter((lane) => html.includes(lane));
+    if (claimed.length === 0) continue;
+
+    // The page names its own identity, so read it rather than parsing the
+    // filename, which flattens the separator between repository and chart.
+    const identity = html.match(/data-retained-only-version="([^"]+)"/)?.[1]
+      ?? html.match(/<title>([^<·]+?)\s+(?:retained package\s+)?·/)?.[1]?.trim().replace(/\s+/, "@");
+    if (!identity) {
+      add("hard", file, "flattening-claim-on-unidentified-page", `page names ${claimed.join(", ")} but its chart identity could not be read, so the claim cannot be checked against a verdict`);
+      continue;
+    }
+    const chart = identity.replace("@", " ").split(" ")[0];
+    const lanes = decided.get(identity);
+    if (!lanes) {
+      add("hard", chart, "flattening-claim-without-verdict", `page names ${claimed.join(", ")} but no flattening-safety verdict exists for ${identity}`);
+      continue;
+    }
+    for (const lane of claimed) {
+      if (!lanes.has(lane))
+        add("hard", chart, "flattening-claim-contradicts-verdict", `page names "${lane}" but the verdict(s) for ${identity} decided ${[...lanes].join(", ")}`);
+    }
+  }
+}
+
 // ---------- run ----------
 checkSupportDecisions();
 checkRequiredReceipts();
 checkMatrix();
 checkRecommendedBases();
+checkFlatteningClaims();
 const seen = new Set();
 for (let i = findings.length - 1; i >= 0; i--) {
   const k = `${findings[i].sev}|${findings[i].chart}|${findings[i].check}|${findings[i].detail}`;
