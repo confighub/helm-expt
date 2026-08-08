@@ -13117,7 +13117,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "20",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "autoscaler",
@@ -13593,7 +13593,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "34",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "crossplane-stable",
@@ -13610,7 +13610,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "17",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "descheduler",
@@ -13627,7 +13627,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "16",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "dex",
@@ -13678,7 +13678,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "21",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "elastic",
@@ -13712,7 +13712,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "26",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "elastic",
@@ -13729,7 +13729,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "43",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "external-dns",
@@ -13899,7 +13899,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "24",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -14001,7 +14001,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "29",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -14154,7 +14154,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "28",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "istio",
@@ -14222,7 +14222,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "9",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "jetstack",
@@ -14511,7 +14511,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "10",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "nats",
@@ -14545,7 +14545,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "51",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "nats",
@@ -14562,7 +14562,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "11",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "nfs-subdir-external-provisioner",
@@ -14579,7 +14579,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "15",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "nvidia",
@@ -14647,7 +14647,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "34",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "percona",
@@ -14834,7 +14834,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "22",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -14885,7 +14885,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "28",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -14902,7 +14902,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "27",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -14936,7 +14936,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "16",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -14970,7 +14970,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "16",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "rook-release",
@@ -14987,7 +14987,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "31",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "rook-release",
@@ -15055,7 +15055,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "18",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "stakater",
@@ -15072,7 +15072,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "18",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "strimzi",
@@ -15191,7 +15191,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "24",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     }
   ],
   "flatteningCoverage": [

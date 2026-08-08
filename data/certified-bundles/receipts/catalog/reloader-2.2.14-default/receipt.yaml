@@ -1,0 +1,121 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-stakater-reloader-2.2.14-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://stakater.github.io/stakater-charts"
+        name: "reloader"
+        version: "2.2.14"
+        packageSHA256: "a21154a5b32df7c4d78c575e957ffa2af5afdfdf608415d3eb0a0da1d045dcec"
+    evidence:
+      - "recipes/stakater/reloader/2.2.14/source-lock.yaml"
+      - "recipes/stakater/reloader/2.2.14/revisions/default/r001/variant-revision.yaml"
+      - "recipes/stakater/reloader/2.2.14/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/stakater/reloader/2.2.14/bases/default/upstream.yaml"
+        sha256: "206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049"
+        bytes: 6720
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/reloader-2.2.14-default/space-guide.md"
+        sha256: "1b605168d17d9d47831f4eb35607862407faa9aa2c13c23e8e3080121349d787"
+        bytes: 1056
+        role: "space-guide"
+    objectCount: 6
+    objectInventoryRef: "recipes/stakater/reloader/2.2.14/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 0
+      pinnedByDigest: 0
+      pinnedByTag: 0
+      boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
+      references:
+        []
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-14-default:latest"
+    manifestDigest: "sha256:41b40364fa2c100aed525894b060065d470553ab1286cc440ac17218e93d043a"
+    layerDigest: "sha256:265ff2bbd239da79f57b870c991b6665063a724e050b9e349f2c9e7af204b32b"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/stakater/reloader/2.2.14/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/stakater/reloader/2.2.14/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/stakater/reloader/2.2.14/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/stakater/reloader/2.2.14/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/stakater/reloader/2.2.14/source-lock.yaml"
+      - "recipes/stakater/reloader/2.2.14/revisions/default/r001/variant-revision.yaml"
+      - "recipes/stakater/reloader/2.2.14/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/stakater/reloader/2.2.14/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-stakater-reloader-2-2-14-default/publication-receipt.yaml"

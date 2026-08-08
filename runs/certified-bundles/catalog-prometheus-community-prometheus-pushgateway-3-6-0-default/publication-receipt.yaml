@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-pushgateway-3.6.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-pushgateway-3.6.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf"
+  layerDigest: "sha256:c970107f3c476f9d03dcd554ffdd394973d65e5b36a94cea0d68850b64496462"
+  layerBytes: 1311
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default.tar.gz"

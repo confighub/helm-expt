@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-elastic-filebeat-8.5.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/filebeat-8.5.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56"
+  layerDigest: "sha256:2e1fccf3bb5502d0b76a093f894ca8b874f4c00c9f6586ee8ff0fcd033beef37"
+  layerBytes: 2371
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-elastic-filebeat-8-5-1-default.tar.gz"

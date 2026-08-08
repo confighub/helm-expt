@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-rook-release-rook-ceph-cluster-v1.19.5-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://charts.rook.io/release"
+        name: "rook-ceph-cluster"
+        version: "v1.19.5"
+        packageSHA256: "9320ece3729bd49fbddddb85e49931a7c81adaea5a1cf6cda1f280000eacc2d9"
+    evidence:
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/source-lock.yaml"
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default/upstream.yaml"
+        sha256: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+        bytes: 22705
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/rook-ceph-cluster-v1.19.5-default/space-guide.md"
+        sha256: "2af7827b5131a9523a59a7d5db5ceb01d42a316ac11f908880cc38e0725a2f0c"
+        bytes: 1122
+        role: "space-guide"
+    objectCount: 27
+    objectInventoryRef: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "quay.io/ceph/ceph:v19.2.3"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default:latest"
+    manifestDigest: "sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+    layerDigest: "sha256:60f0323a1316f0dcc7021c94b64a76b35a3d41eda6570a7a4f35d222cb235d3d"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/source-lock.yaml"
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default/publication-receipt.yaml"

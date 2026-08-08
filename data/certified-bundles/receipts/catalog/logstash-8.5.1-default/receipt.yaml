@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-elastic-logstash-8.5.1-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://helm.elastic.co"
+        name: "logstash"
+        version: "8.5.1"
+        packageSHA256: "70aace1eb5ecb759942e60ffd192a849330582900658a6b306055a9530adb44b"
+    evidence:
+      - "recipes/elastic/logstash/8.5.1/source-lock.yaml"
+      - "recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/elastic/logstash/8.5.1/bases/default/upstream.yaml"
+        sha256: "1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd"
+        bytes: 2874
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/logstash-8.5.1-default/space-guide.md"
+        sha256: "00bbf26d64e642d4b8f416a1204ad6f089e0ea19b6371c3b131a70948b83a31c"
+        bytes: 1047
+        role: "space-guide"
+    objectCount: 3
+    objectInventoryRef: "recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "docker.elastic.co/logstash/logstash:8.5.1"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-default:latest"
+    manifestDigest: "sha256:14cb4e2e9c81708012849ad8e37feaa4749ad46be9937f1166f2878ee20f5e59"
+    layerDigest: "sha256:3ab2bb0ee66fc01357f9e956790a8a39f51dc744388746cb14a7e4216acfe8e8"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/elastic/logstash/8.5.1/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/elastic/logstash/8.5.1/source-lock.yaml"
+      - "recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/elastic/logstash/8.5.1/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-elastic-logstash-8-5-1-default/publication-receipt.yaml"

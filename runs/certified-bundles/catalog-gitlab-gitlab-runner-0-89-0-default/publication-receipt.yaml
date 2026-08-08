@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-gitlab-gitlab-runner-0.89.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+  layerDigest: "sha256:b478cf8fd6a8855139789b0122d9175fcb6c414273b301b19c149d242ecb5d6d"
+  layerBytes: 2968
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-gitlab-gitlab-runner-0-89-0-default.tar.gz"

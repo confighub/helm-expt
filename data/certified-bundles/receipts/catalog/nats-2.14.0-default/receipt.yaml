@@ -1,0 +1,130 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-nats-nats-2.14.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://nats-io.github.io/k8s/helm/charts/"
+        name: "nats"
+        version: "2.14.0"
+        packageSHA256: "eef3229caa732b4c1a2f5da990d4fa142504acd44145c71a39cfc4caefd85e00"
+    evidence:
+      - "recipes/nats/nats/2.14.0/source-lock.yaml"
+      - "recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/nats/nats/2.14.0/bases/default/upstream.yaml"
+        sha256: "395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da"
+        bytes: 7360
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/nats-2.14.0-default/space-guide.md"
+        sha256: "70b8f4f6001f33c24158ab415835c847bb3d3d73a61636f9aeee9de27a4627af"
+        bytes: 1020
+        role: "space-guide"
+    objectCount: 7
+    objectInventoryRef: "recipes/nats/nats/2.14.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "nats:2.14.0-alpine"
+          pinnedBy: "tag"
+        -
+          reference: "natsio/nats-box:0.19.5"
+          pinnedBy: "tag"
+        -
+          reference: "natsio/nats-server-config-reloader:0.23.0"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nats-2-14-0-default:latest"
+    manifestDigest: "sha256:229c3f18949eee5efb6d6e18c30394add6e605c1d02449e933e639b9960ccf29"
+    layerDigest: "sha256:082490959ec96a48f094cd33a151b4aee370fe5417151617bec0e9450c07248b"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "the rendered Secret is nats-box-contexts and holds a connection URL, with no credential in the audited base"
+      disposition: "nothing to externalise: the Secret carries configuration the bundle is meant to deliver"
+      evidence: "recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/nats/nats/2.14.0/source-lock.yaml"
+      - "recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/nats/nats/2.14.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-nats-nats-2-14-0-default/publication-receipt.yaml"

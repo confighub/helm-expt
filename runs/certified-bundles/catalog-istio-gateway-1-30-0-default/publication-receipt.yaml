@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-istio-gateway-1.30.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/gateway-1.30.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-gateway-1-30-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:61a03992721bfc6967d46ef539af9599912d929b669d6a63f07ed9e9a0a962e9"
+  layerDigest: "sha256:592f8b94f0c914fe07eb228cead635d79f512654d780c4837272fa7896502a55"
+  layerBytes: 1831
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-gateway-1-30-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-istio-gateway-1-30-0-default.tar.gz"

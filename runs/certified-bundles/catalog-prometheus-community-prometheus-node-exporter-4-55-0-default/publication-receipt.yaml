@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-node-exporter-4.55.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-node-exporter-4.55.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:fc41cdf426cc531e849f5938fc5fa189d49e8b07cac823447eec554e408ded37"
+  layerDigest: "sha256:c6c2cd3aa048dab2ddd04e4b8e7634c0016b19c5ca8fab7ba8d024751015c840"
+  layerBytes: 1820
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-node-exporter-4-55-0-default.tar.gz"

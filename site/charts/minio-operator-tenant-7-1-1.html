@@ -496,7 +496,7 @@
       <h2 id="flattening">What This Chart Contains</h2>
       <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 10 files.</p>
       <p>The scan found none of the constructs that render-time flattening loses, which is what makes a chart cheap to certify.</p>
-      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
+      <p>A flattening-safety verdict has decided this version: <strong>default:do-not-flatten</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 

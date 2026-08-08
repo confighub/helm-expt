@@ -1,0 +1,87 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9.57.0"
+spec:
+  chart:
+    repository: "autoscaler"
+    name: "cluster-autoscaler"
+    version: "9.57.0"
+    packageSHA256: "d1cc7757b42bcc61e2ff70087552d95c33f74a43c04779bf258d29485f882e45"
+  witnessRef: "data/flattening-safety/witnesses/autoscaler-cluster-autoscaler-9.57.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:58"
+        - "templates/_helpers.tpl:70"
+        - "templates/_helpers.tpl:82"
+        - "values.yaml:314"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/autoscaler-cluster-autoscaler-9.57.0.yaml"
+      - "recipes/autoscaler/cluster-autoscaler/9.57.0/source-lock.yaml"

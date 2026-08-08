@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/nfs-subdir-external-provisioner-4.0.18-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+  layerDigest: "sha256:fd6c271321a0db0c4aacd86c4ff4721b8e3a9501d5efefc80c888ec6ce14443c"
+  layerBytes: 1508
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.tar.gz"

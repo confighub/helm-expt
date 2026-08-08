@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nats-surveyor-0.20.9-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/surveyor-0.20.9-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:bd7564515428f465b63349ccc53ad91528f9dfefc38e2b78e74ef499e28c62be"
+  layerDigest: "sha256:142ba6c2d4e626dcfdee191009aed36a2e580feb2d886bc61f8c1d02a11c010d"
+  layerBytes: 1181
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nats-surveyor-0-20-9-default.tar.gz"

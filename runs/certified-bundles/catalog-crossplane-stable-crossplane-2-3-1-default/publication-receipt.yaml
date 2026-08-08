@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-crossplane-stable-crossplane-2.3.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/crossplane-2.3.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-crossplane-stable-crossplane-2-3-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1f5cf2c3ea492e8ded822b498d307ab2c20176c846841c3e45a7e04f00c9d3a4"
+  layerDigest: "sha256:c6e92a33c5c608650d775abe0cd9ad0dad49be0c8ceafe383bea876d2259995d"
+  layerBytes: 3728
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-crossplane-stable-crossplane-2-3-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-crossplane-stable-crossplane-2-3-1-default.tar.gz"

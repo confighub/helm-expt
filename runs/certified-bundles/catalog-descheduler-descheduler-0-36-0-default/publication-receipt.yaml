@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-descheduler-descheduler-0.36.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/descheduler-0.36.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-descheduler-descheduler-0-36-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:9cbe7178ea4398f35d23bbfc247572c12e6d296d5e42115d60ceea788edef11e"
+  layerDigest: "sha256:c2bfd459b7aaf58a7cb62fb742aaa1519706297fe9c9809887f1ef5f5b4bccf2"
+  layerBytes: 2101
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-descheduler-descheduler-0-36-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-descheduler-descheduler-0-36-0-default.tar.gz"

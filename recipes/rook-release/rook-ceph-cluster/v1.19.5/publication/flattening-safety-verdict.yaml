@@ -1,0 +1,87 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1.19.5"
+spec:
+  chart:
+    repository: "rook-release"
+    name: "rook-ceph-cluster"
+    version: "v1.19.5"
+    packageSHA256: "9320ece3729bd49fbddddb85e49931a7c81adaea5a1cf6cda1f280000eacc2d9"
+  witnessRef: "data/flattening-safety/witnesses/rook-release-rook-ceph-cluster-v1.19.5.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:12"
+        - "templates/securityContextConstraints.yaml:1"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "the rook-ceph operator chart is not installed first"
+      effect: "the custom resources this base renders have no definitions to validate against, and applying them fails"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "Nothing this base renders is discharged at render time. What it does render is custom resources, so the definitions are a declared precondition on the rook-ceph operator chart rather than a companion this bundle can ship, which is how the catalog already treats karpenter's crds-managed base."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/rook-release-rook-ceph-cluster-v1.19.5.yaml"
+      - "recipes/rook-release/rook-ceph-cluster/v1.19.5/source-lock.yaml"

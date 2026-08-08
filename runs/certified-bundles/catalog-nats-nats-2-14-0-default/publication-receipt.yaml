@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nats-nats-2.14.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/nats-2.14.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nats-2-14-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:229c3f18949eee5efb6d6e18c30394add6e605c1d02449e933e639b9960ccf29"
+  layerDigest: "sha256:082490959ec96a48f094cd33a151b4aee370fe5417151617bec0e9450c07248b"
+  layerBytes: 2120
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nats-2-14-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nats-nats-2-14-0-default.tar.gz"

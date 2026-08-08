@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-pushgateway-3.6.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://prometheus-community.github.io/helm-charts"
+        name: "prometheus-pushgateway"
+        version: "3.6.0"
+        packageSHA256: "4bc699ef1c872a5f837db6735755519e262d1d1ccf02a765b77792e1d882bde7"
+    evidence:
+      - "recipes/prometheus-community/prometheus-pushgateway/3.6.0/source-lock.yaml"
+      - "recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/prometheus-community/prometheus-pushgateway/3.6.0/bases/default/upstream.yaml"
+        sha256: "80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+        bytes: 2982
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/prometheus-pushgateway-3.6.0-default/space-guide.md"
+        sha256: "6ab4495e16b2edfe317c966d2992efc0c058c46b41c267f53ed0c58c4b83f33d"
+        bytes: 1169
+        role: "space-guide"
+    objectCount: 3
+    objectInventoryRef: "recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "quay.io/prometheus/pushgateway:v1.11.2"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default:latest"
+    manifestDigest: "sha256:a8a5bd04a9d125d6fc2597cbf2a455ee952c8821e4b8f651f3af4fae61bd1bcf"
+    layerDigest: "sha256:c970107f3c476f9d03dcd554ffdd394973d65e5b36a94cea0d68850b64496462"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/prometheus-community/prometheus-pushgateway/3.6.0/source-lock.yaml"
+      - "recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/prometheus-community/prometheus-pushgateway/3.6.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-pushgateway-3-6-0-default/publication-receipt.yaml"

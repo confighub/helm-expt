@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-nats-surveyor-0.20.9-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://nats-io.github.io/k8s/helm/charts/"
+        name: "surveyor"
+        version: "0.20.9"
+        packageSHA256: "599f8f6b403dcd38f710e7db149eda13494df00b20474815a5340af780b23e6d"
+    evidence:
+      - "recipes/nats/surveyor/0.20.9/source-lock.yaml"
+      - "recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml"
+      - "recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/nats/surveyor/0.20.9/bases/default/upstream.yaml"
+        sha256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+        bytes: 2294
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/surveyor-0.20.9-default/space-guide.md"
+        sha256: "19cf0ae6508ec62474a0153039bfe88a48d234820a71d687a050996274d3c7a3"
+        bytes: 1040
+        role: "space-guide"
+    objectCount: 3
+    objectInventoryRef: "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "natsio/nats-surveyor:0.9.9"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default:latest"
+    manifestDigest: "sha256:bd7564515428f465b63349ccc53ad91528f9dfefc38e2b78e74ef499e28c62be"
+    layerDigest: "sha256:142ba6c2d4e626dcfdee191009aed36a2e580feb2d886bc61f8c1d02a11c010d"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/nats/surveyor/0.20.9/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/nats/surveyor/0.20.9/source-lock.yaml"
+      - "recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml"
+      - "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/nats/surveyor/0.20.9/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-nats-surveyor-0-20-9-default/publication-receipt.yaml"
