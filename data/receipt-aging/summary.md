@@ -19,8 +19,8 @@ oldest receipt is from 2026-05-26, so the evidence spans 74 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 258 |
-| 31 to 90 days | 1054 |
+| 0 to 30 days | 274 |
+| 31 to 90 days | 1426 |
 | 91 to 180 days | 0 |
 | over 180 days | 0 |
 
@@ -32,18 +32,18 @@ receipt, and the full table is in the CSV for the rest.
 
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
+| `live-helm-confighub-compare` | 199 | 55 | 64 | none |
+| `live-kind-parity` | 179 | 54 | 64 | none |
 | `next80-local-kind` | 176 | 58 | 58 | none |
 | `installer-oci` | 139 | 0 | 0 | none |
 | `certified-bundles` | 74 | 0 | 0 | none |
-| `latest-top20-refresh` | 30 | 74 | 74 | 10 |
+| `latest-top20-refresh` | 40 | 74 | 74 | none |
 | `derived-variant-execution` | 10 | 65 | 65 | none |
+| `derived-variant-target-bound` | 6 | 65 | 65 | none |
 | `alertmanager-ha-confighub-proof` | 4 | 74 | 74 | none |
 | `argo-cd-confighub-proof` | 4 | 74 | 74 | none |
 | `argo-cd-no-crds-confighub-proof` | 4 | 74 | 74 | none |
 | `argo-events-no-crds-confighub-proof` | 4 | 74 | 74 | none |
-| `argo-rollouts-no-crds-confighub-proof` | 4 | 74 | 74 | none |
-| `argo-workflows-default-confighub-proof` | 4 | 74 | 74 | none |
-| `argo-workflows-minimal-crds-confighub-proof` | 4 | 74 | 74 | none |
 
 ## The oldest evidence, one family at a time
 
@@ -66,22 +66,11 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-388 of 1700 committed receipts record no date in any form.
-Their evidence cannot be aged at all, which is a stronger problem than being
-old, and it is invisible until someone counts.
-
-| Family | Receipts with no date |
-| --- | --- |
-| `derived-variant-target-bound` | 3 |
-| `latest-top20-refresh` | 10 |
-| `live-helm-confighub-compare` | 196 |
-| `live-kind-parity` | 179 |
-
-This lane does not fail on them. There are hundreds, they belong to work this
-lane did not write, and a red build would either block everyone or get
-suppressed. The count is recorded as a baseline instead, and the lane refuses
-when it grows. A new receipt has to carry a date, and the existing gap can be
-closed deliberately rather than all at once.
+Every one of the 1700 committed receipts records a date, so none of
+this repository's evidence is beyond ageing. The count is still published and
+still ratcheted. A receipt that records no date raises it above the recorded
+baseline of zero and the lane refuses, which is why this section stays here now
+that it has nothing to list.
 
 ## What this does not say
 
@@ -93,6 +82,12 @@ families deserve a re-run is a judgement this lane deliberately leaves open.
 It also measures only what receipts say about themselves. A receipt whose
 recorded date is wrong will be reported confidently and wrongly, which is worth
 knowing before treating any of these numbers as a freshness guarantee.
+
+The same caution applies to the count above. Reading a date takes several field
+names and either quoting style, and it once took only one of the two quoting
+styles, which reported 388 receipts as unable to age when every one of them had
+recorded its moment. A receipt that records its moment in some way this reader
+still does not know would be miscounted the same way.
 
 Everything runs offline against committed bytes. No cluster, no organization,
 and no network takes part.
