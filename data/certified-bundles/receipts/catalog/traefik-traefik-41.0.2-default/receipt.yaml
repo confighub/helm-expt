@@ -41,8 +41,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
-        sha256: "19a97b6ed27e552bff088224682012a0353a87505de8f6e8843027e945570791"
-        bytes: 2882
+        sha256: "3c13f46e18b2fe192d7729f9326b4662bbf683fde93a776618d5c15b6b8b390c"
+        bytes: 2884
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/traefik-traefik-41.0.2-default/space-guide.md"

@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-crds-enabled/crd-ordering.yaml"
-        sha256: "496288f60c3db8a9d24aaa678bccdd71f54381a47baff89ff5b7c55a27375cf3"
-        bytes: 2111
+        sha256: "46763e3096be69ac072bc709b7e7fcd95c28ce55c826dc88338c1a9c0cd7e9b8"
+        bytes: 2113
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-crds-enabled/prune-protection.yaml"

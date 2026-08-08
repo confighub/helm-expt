@@ -121,8 +121,8 @@ spec:
         role: "Argo CD Application"
       -
         path: "data/certified-bundles/routes/aicr/aicr-eks-h100-inference-nim/sync-wave-ordering.yaml"
-        sha256: "16441e66df2c22fa7637cd4191ff2ddd4bc4a6723ce82a124e76d99debf8c450"
-        bytes: 4940
+        sha256: "0afa54512b8c44c36084d5adf60f1d0cfadd4a03fbe37983c97cca54eaa49de1"
+        bytes: 5270
         role: "route:crd-ordering"
       -
         path: "data/certified-bundles/guides/aicr/eks-h100-inference-nim/space-guide.md"

@@ -54,11 +54,11 @@ spec:
       -
         name: "Argo CD"
         mechanism: "sync waves, the earlier stage at the lower wave number"
-        proven: true
+        proven: false
       -
         name: "Flux"
         mechanism: "dependsOn between the definitions Kustomization and the rest"
-        proven: true
+        proven: false
       -
         name: "cub-direct applier"
         mechanism: "apply stage one and wait for establishment before stage two"

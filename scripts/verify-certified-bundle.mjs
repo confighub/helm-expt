@@ -175,6 +175,19 @@ function verifyRouteDocument(name, path) {
   for (const runtime of runtimes) {
     if (!runtime?.name || !runtime?.mechanism)
       refuse(label, "every runtime must name itself and how it expresses the route");
+    // proven means a runtime was watched executing this route. Eight routes once
+    // claimed it with nothing behind it, and the run that looked like the proof
+    // recorded zero sync operations. A claim that cannot be opened is not a
+    // claim, so proven now has to name the receipt that earned it.
+    if (runtime.proven === true) {
+      if (!runtime.provenBy)
+        refuse(
+          label,
+          `${runtime.name} is marked proven without naming the run that proved it. Add provenBy, or set proven to false.`,
+        );
+      if (!existsSync(join(repoRoot, runtime.provenBy)))
+        refuse(label, `${runtime.name} cites a proof that is not in the repository: ${runtime.provenBy}`);
+    }
   }
   if (spec.routeKind === "apply-ordering") {
     const stages = spec.declaration?.stages;
@@ -485,7 +498,14 @@ function runSelfTest() {
   expectRouteRefusal("a lifecycle route marked automatic", lifecycle, (route) => {
     route.spec.executedBy.automatic = true;
   });
-  console.log("strict ingest self-test: 13 refusal(s) fired as required");
+  expectRouteRefusal("a runtime proven with nothing behind it", lifecycle, (route) => {
+    route.spec.executedBy.runtimes[0].proven = true;
+  });
+  expectRouteRefusal("a runtime citing a proof that is not here", lifecycle, (route) => {
+    route.spec.executedBy.runtimes[0].proven = true;
+    route.spec.executedBy.runtimes[0].provenBy = "runs/a-run-that-never-happened/receipt.yaml";
+  });
+  console.log("strict ingest self-test: 15 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {

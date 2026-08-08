@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-default/crd-ordering.yaml"
-        sha256: "840bf2c16091dedaf6ebeff85e441052c57309f4fe8ae1caa451484c3a72a676"
-        bytes: 2750
+        sha256: "836515f5d812085e90cec80ba96ec7f7bd1d1b6fb7fdb526c064e912c6c74ec2"
+        bytes: 2752
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-default/lifecycle.yaml"

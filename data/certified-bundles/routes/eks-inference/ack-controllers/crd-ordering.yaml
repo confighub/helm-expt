@@ -42,7 +42,7 @@ spec:
       -
         name: "Argo CD"
         mechanism: "the sync-wave annotations the producer already emits, which this route reads back"
-        proven: true
+        proven: false
       -
         name: "Flux"
         mechanism: "dependsOn between one Kustomization per stage, in the order below"

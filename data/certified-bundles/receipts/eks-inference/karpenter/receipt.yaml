@@ -38,8 +38,8 @@ spec:
         bytes: 5706
       -
         path: "data/certified-bundles/routes/eks-inference/karpenter/crd-ordering.yaml"
-        sha256: "a445817ecabc311d5dfe77b8eb3267acf1b891abe3af7bcad80c19ea93843396"
-        bytes: 2370
+        sha256: "a72c44bbce5b0fbb0dfc774593b30f01d8affa32087ef5533899e558d6c1065c"
+        bytes: 2371
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/eks-inference/karpenter/space-guide.md"
