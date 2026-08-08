@@ -1,5 +1,10 @@
 # Sveltos Kyverno fleet
 
+> This example now lives at
+> [confighub/sveltos-confighub](https://github.com/confighub/sveltos-confighub).
+> This copy is a frozen mirror; new work, live recordings, and issues belong
+> in that repository.
+
 This example is for a platform team that needs to install the same system component
 on a group of clusters. The team should review the configuration once, keep its
 history in ConfigHub, and let a fleet controller handle cluster selection and

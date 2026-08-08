@@ -176,7 +176,11 @@ function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} 
         ? `${scan.keepDocs} object(s) carry helm.sh/resource-policy in ${renderScope}`
         : `no helm.sh/resource-policy annotation in ${renderScope}; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)`,
     disposition:
-      scan.keepDocs > 0 ? "prune protection emitted beside the bundle" : "none required",
+      scan.keepDocs > 0
+        ? routeRefs["resource-policy-keep"]
+          ? `discharged by the route this bundle ships at ${routeRefs["resource-policy-keep"]}`
+          : "prune protection emitted beside the bundle"
+        : "none required",
   });
   rows.push({
     class: "lookup",
@@ -498,6 +502,130 @@ function buildTraefikReceipt() {
   };
 }
 
+// A catalog bundle for a base whose lane permits flattening. Traefik keeps its
+// own builder because it predates this one; everything after it comes through
+// here, which is what makes publishing more bundles a matter of deciding lanes
+// rather than writing code.
+function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes }) {
+  const sourceLock = readFileSync(repoPath(`${recipe}/source-lock.yaml`), "utf8");
+  const revisionRel = `${recipe}/revisions/${base}/r001/variant-revision.yaml`;
+  const revision = readFileSync(repoPath(revisionRel), "utf8");
+  const renderRel = `${recipe}/revisions/${base}/r001/rendered/release-objects.yaml`;
+  const inventoryRel = `${recipe}/revisions/${base}/r001/rendered/object-inventory.yaml`;
+  const renderText = readFileSync(repoPath(renderRel), "utf8");
+  const scan = scanRendered(renderText);
+  const bundleFileRel = `${packageRoot}/bases/${base}/upstream.yaml`;
+  const bundleFile = fileEntry(bundleFileRel, repoPath(bundleFileRel));
+  check(
+    bundleFile.sha256 === grab(revision, /renderedObjectSetSHA256:\s*"([a-f0-9]{64})"/, `${base} renderedObjectSetSHA256`),
+    `${chartName} ${base}: the package base no longer matches the recorded rendered object set`,
+  );
+
+  const verdictRel = `${recipe}/publication/${verdictFile}`;
+  const verdictText = readFileSync(repoPath(verdictRel), "utf8");
+  const lane = grab(verdictText, /lane:\s*"([a-z-]+)"/, `${verdictRel} lane`);
+  check(lane !== "do-not-flatten", `${chartName} ${base} is do-not-flatten and must not be bundled`);
+
+  const inventory = readFileSync(repoPath(inventoryRel), "utf8");
+  const crdNames = [...inventory.matchAll(/kind: "CustomResourceDefinition"\n\s+name: "([^"]+)"/g)].map((m) => m[1]);
+  const objectCount = Number(grab(revision, /objectCount:\s*(\d+)/, `${base} objectCount`));
+
+  // Which rendered objects carry the keep promise, read from the render rather
+  // than assumed from the chart, because a base decides what actually renders.
+  const protectedObjects = [];
+  for (const doc of splitDocs(renderText)) {
+    if (!/helm\.sh\/resource-policy/.test(doc)) continue;
+    const kind = doc.match(/^kind:\s*"?([A-Za-z0-9.]+)"?\s*$/m)?.[1];
+    const name = doc.match(/^\s{2}name:\s*"?([^"\n]+)"?/m)?.[1];
+    if (kind && name) protectedObjects.push({ kind, name: name.trim() });
+  }
+  protectedObjects.sort((a, b) => (`${a.kind}/${a.name}` < `${b.kind}/${b.name}` ? -1 : 1));
+
+  const slug = `${chartName.replace("/", "-")}-${base}`;
+  const routeFiles = [];
+  if (crdNames.length > 0) {
+    const routeRel = `data/certified-bundles/routes/catalog/${slug}/crd-ordering.yaml`;
+    const route = buildCrdOrderingRoute({
+      name: `${slug}-crd-ordering`,
+      inventoryRel,
+      verdictRel,
+      crdNames: crdNames.sort(),
+      otherCount: objectCount - crdNames.length,
+    });
+    const text = `${toYaml(route)}\n`;
+    emittedRoutes.push({ path: repoPath(routeRel), contents: text });
+    routeFiles.push({ path: routeRel, sha256: sha256(text), bytes: Buffer.byteLength(text), role: "route: crd-ordering" });
+  }
+  if (protectedObjects.length > 0) {
+    const routeRel = `data/certified-bundles/routes/catalog/${slug}/prune-protection.yaml`;
+    const route = buildPruneProtectionRoute({
+      name: `${slug}-prune-protection`,
+      protectedObjects,
+      renderRel,
+      verdictRel,
+    });
+    const text = `${toYaml(route)}\n`;
+    emittedRoutes.push({ path: repoPath(routeRel), contents: text });
+    routeFiles.push({
+      path: routeRel,
+      sha256: sha256(text),
+      bytes: Buffer.byteLength(text),
+      role: "route: resource-policy-keep",
+    });
+  }
+
+  const routeRefs = {};
+  for (const file of routeFiles) routeRefs[file.role.slice("route:".length).trim()] = file.path;
+  const dispositions = scanDispositions(scan, {
+    renderScope: `the committed ${base} render`,
+    templateEvidence: `the chart's template-level evidence is recorded in ${verdictRel}`,
+    routeRefs,
+  });
+
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "CertifiedBundleReceipt",
+    metadata: { name: `catalog-${slug}` },
+    spec: {
+      producer: { name: "config-workshop-catalog", repository: "https://github.com/confighub/helm-expt" },
+      source: {
+        kind: "helm-chart",
+        charts: [
+          {
+            repository: grab(sourceLock, /repositoryURL:\s*"?([^"\n]+)"?/, `${chartName} repositoryURL`).trim(),
+            name: chartName.split("/").pop(),
+            version: grab(sourceLock, /^\s+version:\s*"?([^"\n]+)"?/m, `${chartName} version`).trim(),
+            packageSHA256: grab(sourceLock, /packageSHA256:\s*"?([a-f0-9]{64})"?/, `${chartName} packageSHA256`),
+          },
+        ],
+        evidence: [`${recipe}/source-lock.yaml`, revisionRel, verdictRel],
+      },
+      bundle: {
+        contentsKind: "rendered-config",
+        files: [{ ...bundleFile, role: "rendered object set" }, ...routeFiles],
+        objectCount,
+        objectInventoryRef: inventoryRel,
+      },
+      ingest: {
+        granularity: "per-file",
+        spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}",
+        externalSourceAnnotation: "confighub.com/external-source",
+      },
+      dispositions,
+      verdict: {
+        lane,
+        status: "certified",
+        decidedBy: `the flattening-safety audit at ${verdictRel}`,
+        notes,
+      },
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        generatedFrom: [`${recipe}/source-lock.yaml`, revisionRel, renderRel, bundleFileRel],
+      },
+    },
+  };
+}
+
 function buildKubaraReceipt() {
   const componentDir = repoPath(SOURCES.kubaraComponent);
   const files = listFiles(componentDir)
@@ -676,6 +804,62 @@ function publishedBundle(receiptName) {
     reference: grab(text, /reference:\s*"([^"]+)"/, `${rel} reference`),
     manifestDigest: grab(text, /manifestDigest:\s*"(sha256:[a-f0-9]{64})"/, `${rel} manifestDigest`),
     layerDigest: grab(text, /layerDigest:\s*"(sha256:[a-f0-9]{64})"/, `${rel} layerDigest`),
+  };
+}
+
+// The first route that is not an ordering. Helm promises that an object
+// annotated keep survives an uninstall; a reconciler that prunes whatever left
+// its desired state does not know that promise exists. The route carries the
+// promise as data so any runtime can honour it, and names the objects rather
+// than a rule, because a rule that matches by pattern will eventually match
+// something nobody meant to keep.
+function buildPruneProtectionRoute({ name, protectedObjects, renderRel, verdictRel }) {
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "BundleRoute",
+    metadata: { name },
+    spec: {
+      quirkClass: "resource-policy-keep",
+      routeKind: "prune-protection",
+      discharges:
+        "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it.",
+      declaration: {
+        protect: protectedObjects,
+        onRemovalFromDesiredState: "leave in place and report, never delete",
+      },
+      executedBy: {
+        runtimes: [
+          {
+            name: "Argo CD",
+            mechanism: "Prune=false on each protected resource, or excluding them from automated pruning",
+            proven: false,
+          },
+          {
+            name: "Flux",
+            mechanism: "kustomize.toolkit.fluxcd.io/prune: disabled on each protected resource",
+            proven: false,
+          },
+          {
+            name: "cub-direct applier",
+            mechanism: "exclude the protected identities from the delete set it computes",
+            proven: false,
+          },
+        ],
+        // Never automatic. Deciding that an object outlives its release is a
+        // judgment about data, and the runtimes express it by not acting.
+        automatic: false,
+      },
+      boundedness: [
+        "the route protects the objects it names; an object the bundle stops shipping is no longer covered by it",
+        "protection is expressed by each runtime as a refusal to delete, so a runtime that ignores the route deletes silently",
+        "no runtime is proven to execute this route yet, so today it is a declaration a human enforces",
+      ],
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        generatedFrom: [renderRel],
+        verdictRef: verdictRel,
+      },
+    },
   };
 }
 
@@ -1200,7 +1384,7 @@ function buildAicrReceipt(entry) {
     .map((row, position) => ({
       order: position + 1,
       name: row.name,
-      syncWave: row.wave,
+      observedSyncWave: row.wave,
       selector: { kinds: ["Application"], names: [row.name] },
     }));
 
@@ -1521,6 +1705,18 @@ function summaryMd(rows) {
 function buildAll() {
   const receipts = [
     { rel: "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml", value: buildTraefikReceipt() },
+    {
+      rel: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-crds-enabled/receipt.yaml",
+      value: buildCatalogBundleReceipt({
+        recipe: "recipes/jetstack/cert-manager/v1.21.0",
+        packageRoot: "packages/jetstack/cert-manager/v1.21.0",
+        base: "crds-enabled",
+        chartName: "jetstack/cert-manager",
+        verdictFile: "flattening-safety-verdict-crds-enabled.yaml",
+        notes:
+          "This base renders the six cert-manager CRDs, so it carries both the keep promise and the ordering hazard, and ships a route for each. The startupapicheck hook is excluded from the render rather than routed, which the hooks disposition states.",
+      }),
+    },
     { rel: "data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml", value: buildKubaraReceipt() },
     ...EKS_INFERENCE_COMPONENTS.map((component) => ({
       rel: `data/certified-bundles/receipts/eks-inference/${component.name}/receipt.yaml`,
@@ -1541,6 +1737,7 @@ function buildAll() {
       "data/certified-bundles/guides/",
     );
     const routeFiles = spec.bundle.files.filter((file) => String(file.role ?? "").startsWith("route:"));
+    const published = publishedBundle(receipt.value.metadata.name);
     const guide = buildSpaceGuide({
       name: receipt.value.metadata.name,
       producer: spec.producer.name,
@@ -1553,11 +1750,12 @@ function buildAll() {
       routeFiles,
       uploadCommand:
         spec.ingest.uploadCommand ??
-        `cub variant upload --component ${receipt.value.metadata.name} --variant base --granularity per-file <bundle>`,
+        (published
+          ? `cub variant upload --component ${receipt.value.metadata.name} --variant base --granularity per-file oci://${published.reference.replace(/:latest$/, "")}`
+          : `cub variant upload --component ${receipt.value.metadata.name} --variant base --granularity per-file <bundle>`),
     });
     emittedRoutes.push({ path: repoPath(guideRel), contents: guide });
 
-    const published = publishedBundle(receipt.value.metadata.name);
     if (published) {
       spec.bundle.artifactType = "application/vnd.confighub.config.bundle.v1";
       spec.bundle.reference = published.reference;

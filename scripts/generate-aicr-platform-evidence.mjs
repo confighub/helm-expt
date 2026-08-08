@@ -60,7 +60,13 @@ const entries = [
     provenance: "retained-upstream",
     page: "docs/demo/aicr/eks-h100-inference-nim.md",
     sourceReceipt: "generation-receipt.yaml",
-    ladder: [],
+    ladder: [
+      {
+        rung: "operator-config-plane-delivery",
+        receipt: "runs/aicr-nim-operator-delivery/receipt.yaml",
+        summary: "data/aicr-nim-operator-delivery/summary.md",
+      },
+    ],
   },
   {
     id: "kserve-nim-inference",
@@ -234,7 +240,7 @@ function buildRecord() {
       entries: rows,
       crossEntryEvidence: crossEntry,
       openRungs: [
-        "Config-plane delivery for the AICR-native inference entry.",
+        "ConfigHub import, variant and promotion for the AICR-native inference entry.",
         "Any workload-plane claim, for every entry.",
       ],
     },

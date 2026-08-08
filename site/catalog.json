@@ -14250,7 +14250,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "51",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "crds-enabled:flatten-with-routes; default:flatten-with-routes"
     },
     {
       "repository": "jetstack",
@@ -37206,8 +37206,15 @@
             "sourceReceipt": "examples/aicr/eks-h100-inference-nim/generation-receipt.yaml"
           },
           "ladder": {
-            "climbed": [],
-            "climbedCount": 0
+            "climbed": [
+              {
+                "rung": "operator-config-plane-delivery",
+                "receipt": "runs/aicr-nim-operator-delivery/receipt.yaml",
+                "summary": "data/aicr-nim-operator-delivery/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 1
           },
           "boundary": {
             "configPlaneOnly": true,
@@ -37320,7 +37327,7 @@
         }
       ],
       "openRungs": [
-        "Config-plane delivery for the AICR-native inference entry.",
+        "ConfigHub import, variant and promotion for the AICR-native inference entry.",
         "Any workload-plane claim, for every entry."
       ]
     }

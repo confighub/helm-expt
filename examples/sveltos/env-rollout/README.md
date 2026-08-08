@@ -1,5 +1,10 @@
 # Sveltos environment rollout
 
+> This example now lives at
+> [confighub/sveltos-confighub](https://github.com/confighub/sveltos-confighub).
+> This copy is a frozen mirror; new work, live recordings, and issues belong
+> in that repository.
+
 This is chapter three of the Sveltos fleet example. Chapters one and two
 delivered one reviewed `ClusterProfile` and expanded its selector from a pilot
 cluster to a second cluster. This chapter promotes one reviewed change through

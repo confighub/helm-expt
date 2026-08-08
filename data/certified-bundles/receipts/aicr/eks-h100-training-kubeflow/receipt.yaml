@@ -106,8 +106,8 @@ spec:
         role: "Argo CD Application"
       -
         path: "data/certified-bundles/routes/aicr/aicr-eks-h100-training-kubeflow/sync-wave-ordering.yaml"
-        sha256: "c986b5c193be17c6a782d81f529d4cbaa3b8512aaffcb054817b1c3b1c5bdc05"
-        bytes: 4223
+        sha256: "1f39134fa999e8b7139310a99e4aa22617d67cda10f0ea01062eb6c548df61d3"
+        bytes: 4351
         role: "route:crd-ordering"
       -
         path: "data/certified-bundles/guides/aicr/eks-h100-training-kubeflow/space-guide.md"
