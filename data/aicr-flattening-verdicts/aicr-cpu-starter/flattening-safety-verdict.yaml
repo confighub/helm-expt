@@ -42,9 +42,9 @@ spec:
       disposition: "none required"
     -
       class: "crd-ordering"
-      finding: "absent"
-      detail: "no CustomResourceDefinition in the rendered Application set"
-      disposition: "none required"
+      finding: "present"
+      detail: "7 Applications carry a sync-wave, and the order they declare is AICR's own deploymentOrder"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-cpu-starter/sync-wave-ordering.yaml"
     -
       class: "immutable-fields"
       finding: "not-evaluated"

@@ -74,6 +74,11 @@ const entries = [
         receipt: "runs/aicr-kserve-nim-import/receipt.yaml",
         summary: "data/aicr-kserve-nim-import/summary.md",
       },
+      {
+        rung: "config-plane-delivery",
+        receipt: "runs/aicr-kserve-delivery/receipt.yaml",
+        summary: "data/aicr-kserve-delivery/summary.md",
+      },
     ],
   },
   {
@@ -229,7 +234,7 @@ function buildRecord() {
       entries: rows,
       crossEntryEvidence: crossEntry,
       openRungs: [
-        "Config-plane delivery for both inference entries.",
+        "Config-plane delivery for the AICR-native inference entry.",
         "Any workload-plane claim, for every entry.",
       ],
     },

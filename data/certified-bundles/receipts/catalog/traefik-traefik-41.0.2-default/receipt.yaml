@@ -51,6 +51,11 @@ spec:
         role: "space-guide"
     objectCount: 31
     objectInventoryRef: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest"
+    manifestDigest: "sha256:91573183feafd532498027251a5a4fa7e8bf3cca132dc96f0ba1cf25ad0dd2cd"
+    layerDigest: "sha256:dcd29a4e7dc4b42afa91521695449745e48c442edeabd5a094d121c2e06985aa"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -124,3 +129,4 @@ spec:
       - "recipes/traefik/traefik/41.0.2/revisions/default/r001/variant-revision.yaml"
       - "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/traefik/traefik/41.0.2/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-traefik-traefik-41-0-2-default/publication-receipt.yaml"

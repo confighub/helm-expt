@@ -55,9 +55,14 @@ spec:
         bytes: 786
         role: "Argo CD Application"
       -
+        path: "data/certified-bundles/routes/aicr/aicr-cpu-starter/sync-wave-ordering.yaml"
+        sha256: "7875e3146fe251fa14d017aa5b4ec6f4182c9bddb268e7281924dd211ba4bb2a"
+        bytes: 2438
+        role: "route:crd-ordering"
+      -
         path: "data/certified-bundles/guides/aicr/cpu-starter/space-guide.md"
-        sha256: "bb00d8114bcb98c548f55b4063856fb3d12bea30d90e3153bf233ff524c6887f"
-        bytes: 1027
+        sha256: "d355e740ec07b2746c94d46d13876150700658ae984130d6410bd0f4a238b7c4"
+        bytes: 1088
         role: "space-guide"
   ingest:
     granularity: "per-file"
@@ -96,9 +101,9 @@ spec:
       disposition: "none required"
     -
       class: "crd-ordering"
-      finding: "absent"
-      detail: "no CustomResourceDefinition in the rendered Application set"
-      disposition: "none required"
+      finding: "present"
+      detail: "7 Applications carry a sync-wave, and the order they declare is AICR's own deploymentOrder"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-cpu-starter/sync-wave-ordering.yaml"
     -
       class: "immutable-fields"
       finding: "not-evaluated"

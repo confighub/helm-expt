@@ -11,6 +11,7 @@ spec:
       -
         order: 1
         name: "agentgateway-crds"
+        syncWave: 0
         selector:
           kinds:
             - "Application"
@@ -19,6 +20,7 @@ spec:
       -
         order: 2
         name: "agentgateway-crds-post"
+        syncWave: 1
         selector:
           kinds:
             - "Application"
@@ -27,6 +29,7 @@ spec:
       -
         order: 3
         name: "aws-ebs-csi-driver"
+        syncWave: 2
         selector:
           kinds:
             - "Application"
@@ -35,6 +38,7 @@ spec:
       -
         order: 4
         name: "aws-efa"
+        syncWave: 3
         selector:
           kinds:
             - "Application"
@@ -43,6 +47,7 @@ spec:
       -
         order: 5
         name: "cert-manager"
+        syncWave: 4
         selector:
           kinds:
             - "Application"
@@ -51,6 +56,7 @@ spec:
       -
         order: 6
         name: "agentgateway"
+        syncWave: 5
         selector:
           kinds:
             - "Application"
@@ -59,6 +65,7 @@ spec:
       -
         order: 7
         name: "agentgateway-post"
+        syncWave: 6
         selector:
           kinds:
             - "Application"
@@ -67,6 +74,7 @@ spec:
       -
         order: 8
         name: "nfd"
+        syncWave: 7
         selector:
           kinds:
             - "Application"
@@ -75,6 +83,7 @@ spec:
       -
         order: 9
         name: "nodewright-operator"
+        syncWave: 8
         selector:
           kinds:
             - "Application"
@@ -83,6 +92,7 @@ spec:
       -
         order: 10
         name: "nodewright-customizations"
+        syncWave: 9
         selector:
           kinds:
             - "Application"
@@ -91,6 +101,7 @@ spec:
       -
         order: 11
         name: "prometheus-operator-crds"
+        syncWave: 10
         selector:
           kinds:
             - "Application"
@@ -99,6 +110,7 @@ spec:
       -
         order: 12
         name: "kube-prometheus-stack"
+        syncWave: 11
         selector:
           kinds:
             - "Application"
@@ -107,6 +119,7 @@ spec:
       -
         order: 13
         name: "gpu-operator"
+        syncWave: 12
         selector:
           kinds:
             - "Application"
@@ -115,6 +128,7 @@ spec:
       -
         order: 14
         name: "k8s-ephemeral-storage-metrics"
+        syncWave: 13
         selector:
           kinds:
             - "Application"
@@ -123,6 +137,7 @@ spec:
       -
         order: 15
         name: "k8s-nim-operator"
+        syncWave: 14
         selector:
           kinds:
             - "Application"
@@ -131,6 +146,7 @@ spec:
       -
         order: 16
         name: "kai-scheduler"
+        syncWave: 15
         selector:
           kinds:
             - "Application"
@@ -139,6 +155,7 @@ spec:
       -
         order: 17
         name: "nvidia-dra-driver-gpu"
+        syncWave: 16
         selector:
           kinds:
             - "Application"
@@ -147,6 +164,7 @@ spec:
       -
         order: 18
         name: "nvsentinel"
+        syncWave: 17
         selector:
           kinds:
             - "Application"
@@ -155,6 +173,7 @@ spec:
       -
         order: 19
         name: "prometheus-adapter"
+        syncWave: 18
         selector:
           kinds:
             - "Application"

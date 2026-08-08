@@ -661,6 +661,24 @@ function eksInferenceWitnessPath(component) {
 // needs beside it, so nothing operational or explanatory lives out of band. The
 // guide is written from the receipt that ships it, which is why it cannot drift
 // from what the bundle actually contains.
+// A catalog bundle that has been published cites the artifact rather than the
+// committed files it was built from. The publication receipt is written by
+// scripts/publish-certified-bundles.mjs and read here, so this generator stays
+// offline and a receipt never claims a publication that did not happen.
+function publishedBundle(receiptName) {
+  const slug = receiptName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const rel = `runs/certified-bundles/${slug}/publication-receipt.yaml`;
+  const path = repoPath(rel);
+  if (!existsSync(path)) return null;
+  const text = readFileSync(path, "utf8");
+  return {
+    rel,
+    reference: grab(text, /reference:\s*"([^"]+)"/, `${rel} reference`),
+    manifestDigest: grab(text, /manifestDigest:\s*"(sha256:[a-f0-9]{64})"/, `${rel} manifestDigest`),
+    layerDigest: grab(text, /layerDigest:\s*"(sha256:[a-f0-9]{64})"/, `${rel} layerDigest`),
+  };
+}
+
 function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand }) {
   const lines = [];
   lines.push(`# ${name}`);
@@ -1177,16 +1195,17 @@ function buildAicrReceipt(entry) {
     })
     .filter((row) => row.wave !== null)
     .sort((left, right) => left.wave - right.wave)
-    .map((row) => ({
-      order: row.wave + 1,
+    // Ranked one to n. The sync-wave numbers themselves can have gaps, and a
+    // route declares a sequence rather than a numbering.
+    .map((row, position) => ({
+      order: position + 1,
       name: row.name,
+      syncWave: row.wave,
       selector: { kinds: ["Application"], names: [row.name] },
     }));
 
   const routeRel = `data/certified-bundles/routes/aicr/${entry.name}/sync-wave-ordering.yaml`;
-  emittedRoutes.push({
-    path: repoPath(routeRel),
-    contents: `${toYaml({
+  const routeContents = `${toYaml({
       apiVersion: "evidence.confighub.com/v1alpha1",
       kind: "BundleRoute",
       metadata: { name: `${entry.name}-sync-wave-ordering` },
@@ -1214,23 +1233,31 @@ function buildAicrReceipt(entry) {
           generatedFrom: [renderedRel, `${entryRel}/recipe.yaml`, "data/aicr-ordering-parity/summary.md"],
         },
       },
-    })}\n`,
-  });
+    })}\n`;
+  emittedRoutes.push({ path: repoPath(routeRel), contents: routeContents });
 
   const scan = scanRendered(combined);
   const dispositions = scanDispositions(scan, {
     renderScope: "the rendered Application set",
     templateEvidence: "the Applications are literal; the charts they reference are not rendered here",
-  }).map((row) =>
-    row.finding === "not-evaluated"
+  }).map((row) => {
+    if (row.class === "crd-ordering") {
+      return {
+        ...row,
+        finding: "present",
+        detail: `${stages.length} Applications carry a sync-wave, and the order they declare is AICR's own deploymentOrder`,
+        disposition: `route this bundle ships at ${routeRel}`,
+      };
+    }
+    return row.finding === "not-evaluated"
       ? {
           ...row,
           detail:
             "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here",
           disposition: "carried by the referenced chart's own catalog verdict",
         }
-      : row,
-  );
+      : row;
+  });
 
   // Task 22: the lane is decided by a verdict artifact, not asserted in the
   // receipt. The verdict is what the strict ingest gate makes us produce, and
@@ -1299,7 +1326,9 @@ function buildAicrReceipt(entry) {
       bundle: {
         contentsKind: entry.kind,
         platformDigest,
-        files,
+        // The route travels inside the bundle, which is what the model means
+        // by a companion artifact rather than a side note.
+        files: [...files, { path: routeRel, sha256: sha256(routeContents), bytes: routeContents.length, role: "route:crd-ordering" }],
       },
       ingest: {
         granularity: "per-file",
@@ -1527,6 +1556,16 @@ function buildAll() {
         `cub variant upload --component ${receipt.value.metadata.name} --variant base --granularity per-file <bundle>`,
     });
     emittedRoutes.push({ path: repoPath(guideRel), contents: guide });
+
+    const published = publishedBundle(receipt.value.metadata.name);
+    if (published) {
+      spec.bundle.artifactType = "application/vnd.confighub.config.bundle.v1";
+      spec.bundle.reference = published.reference;
+      spec.bundle.manifestDigest = published.manifestDigest;
+      spec.bundle.layerDigest = published.layerDigest;
+      spec.bundle.reproducible = true;
+      spec.provenance.generatedFrom = [...spec.provenance.generatedFrom, published.rel];
+    }
     spec.bundle.files = [
       ...spec.bundle.files,
       {
