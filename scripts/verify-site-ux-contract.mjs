@@ -562,6 +562,7 @@ if (fs.existsSync(chartPagesDir)) {
       if (html.toLowerCase().includes(phrase.toLowerCase())) failures.push(`${file}: contains internal chart wording ${JSON.stringify(phrase)}`);
     }
     if (!html.toLowerCase().includes("publication receipt")) failures.push(`${file}: does not expose its version-specific publication receipt`);
+    if (!html.includes("Licenses: chart ")) failures.push(`${file}: does not state its chart license; every catalog page must carry one with its evidence basis`);
     if (html.includes("open the No ")) failures.push(`${file}: a fallback sentence was spliced into the evidence pointer; branch the sentence in the generator instead`);
     if (/href="\.\.\/\.\.\/packages\/[^"]*\/"/.test(html)) failures.push(`${file}: links a bare packages/ directory that GitHub Pages cannot serve; use the GitHub tree URL`);
   }
