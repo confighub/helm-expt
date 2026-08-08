@@ -76,6 +76,7 @@ before their catalog status changes.
 | `prometheus-community/prometheus-node-exporter@4.55.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `elastic/logstash@8.5.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `fairwinds-stable/vpa@4.11.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `jaegertracing/jaeger-operator@2.57.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `strimzi/strimzi-kafka-operator@1.0.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `gatekeeper/gatekeeper@3.22.2` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `percona/pxc-operator@1.19.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -86,9 +87,9 @@ before their catalog status changes.
 | `autoscaler/cluster-autoscaler@9.57.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `grafana/rollout-operator@0.49.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `jetstack/trust-manager@v0.22.1` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `jetstack/trust-manager@v0.22.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `nats/nack@0.34.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
-| `open-telemetry/opentelemetry-operator@0.114.0` | `default` | `two-cluster-kind-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `open-telemetry/opentelemetry-operator@0.114.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `percona/pg-operator@3.0.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `percona/psmdb-operator@1.22.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `sealed-secrets/sealed-secrets@2.18.6` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |

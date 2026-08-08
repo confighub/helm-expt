@@ -26,7 +26,7 @@ re-verified by a second; every source status is a measured anonymous fetch.
 
 | Component | Recommendation | Publisher | Shape |
 | --- | --- | --- | --- |
-| redis | valkey chart | Valkey project | plain chart, engine swap |
+| redis | redis chart | CloudPirates | plain chart, keeps the engine |
 | nginx | nginx chart | CloudPirates | plain chart |
 | postgresql | CloudNativePG operator and cluster charts | CNCF project | operator |
 | mysql | MySQL Operator and InnoDB cluster charts | MySQL team | operator |
@@ -35,14 +35,16 @@ re-verified by a second; every source status is a measured anonymous fetch.
 
 ## The two decisions the survey cannot make
 
-**The redis engine question.** The strongest maintained plain chart deploys
-Valkey, the Linux Foundation fork, which is an engine swap with an ACL-based
-auth surface rather than the single-password shape the catalog documents
-today. Keeping the Redis engine means either the OT-Container-Kit operator
-(shape change, default image lags upstream) or the community redis-ha chart
-(closest drop-in shape, single maintainer, and the Redis 8 image carries the
-post-7.4 tri-license). There is no anonymous official Redis chart; that was
-verified, not assumed. This is a product call, not a technical one.
+**The redis engine question.** A second-pass catalog sweep (Artifact Hub and
+charts.openshift.io) surfaced a plain chart that keeps the Redis engine with
+a near-identical values surface, now ranked first: the same verified
+publisher as the nginx and rabbitmq picks, digest-pinned Redis 8 by default.
+The engine consideration does not disappear: Redis 8 carries the post-7.4
+tri-license with AGPLv3 as the open-source option, and buyers who avoid AGPL
+will prefer the valkey chart (rank two, BSD-3-Clause fork, ACL auth surface).
+There is still no anonymous official Redis chart, and the Red Hat catalog
+holds only OpenShift template wrappers; both were verified, not assumed.
+The remaining call is licensing posture, not chart availability.
 
 **The operator shape tax.** Three recommendations are operators. An operator
 entry changes the catalog contract: CRDs before CRs, render-late lifecycle
@@ -52,7 +54,7 @@ not a pin bump.
 
 ## Concentration note
 
-Two recommendations share one small commercial publisher (CloudPirates).
+Three recommendations now share one small commercial publisher (CloudPirates).
 Both charts measured well: Apache-2.0, digest-pinned upstream images, cosign
 signatures, near-Bitnami values names. The concentration is still a risk to
 weigh; the survey records ranked alternates for both components.
@@ -61,7 +63,7 @@ weigh; the survey records ranked alternates for both components.
 
 1. nginx and rabbitmq first: plain charts, near drop-in values, and nginx is
    already broken at its pin while rabbitmq still serves.
-2. The redis engine decision, then its migration.
+2. redis next: the ranked pick keeps the engine and the values surface, so it joins the near-drop-in group once the licensing posture is confirmed.
 3. The three operators one at a time, postgresql first because the CNCF
    publisher clears the quality bar most cleanly.
 

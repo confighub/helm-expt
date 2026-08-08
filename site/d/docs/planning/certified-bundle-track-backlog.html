@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The certified bundle track backlog · Config Workshop</title>
+  <meta name="description" content="The certified bundle track backlog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-track-backlog.html">
+  <meta property="og:title" content="The certified bundle track backlog · Config Workshop">
+  <meta property="og:description" content="The certified bundle track backlog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-track-backlog.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>The certified bundle track backlog</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/certified-bundle-track-backlog.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Status: working backlog, written 2026-08-07 after the model's first increments landed. It lists the next fifty tasks grouped by theme rather than strict priority, and it marks the ones that change how the Catalog and the Config Workshop work as a whole, because several of them are not really certified-bundle tasks at all.</p>
+<p>Each task names what to do and why it matters. Sizes are rough: S is under a session, M is a session, L is more than one. A task marked <b>Workshop-wide</b> changes a shared surface, so it needs the same care a doctrine change needs.</p>
+<h2 id="what-exists-today">What exists today</h2>
+<p>The receipt spec exists and four producers emit against it. The catalog holds 135 entries, and all 135 installer packages are published with receipts. Eleven certified-bundle receipts describe real bundles, including all eight the eks-inference example publishes, each cross-checked against that repository's committed render. A strict consumer refuses malformed, tampered, uncited, or lane-drifted receipts, and proves each refusal in a self-test.</p>
+<p>The flattening lane has evidence for 132 of 135 entries and a decided lane for 12 chart versions across 19 audited bases. One route ships inside a bundle. Two charts are recorded as retained-exact after upstream republished their version strings under different bytes. CI refreshes the catalog weekly and gates the site on every pull request.</p>
+<p>The honest gaps are the ones these themes address. Most entries have evidence but no lane. No chart page shows either. The bundle carries two of its three promised artifact classes. Nothing yet stops a page claiming a chart is flattenable without a verdict.</p>
+<h2 id="theme-1-decide-lanes-where-the-evidence-already-sits">Theme 1: decide lanes where the evidence already sits</h2>
+<ol><li><b>Decide lanes for the top-20 charts.</b> The evidence view already names which of them carry hooks, lookup, keep-policy, or generated credentials, so the review has a starting point rather than a blank page. Scope it the way the consumer contract scoped assessment coverage. L, and everything in this theme depends on it.</li><li><b>Decide lanes for the charts the examples install.</b> A chart an example deploys should not be undecided while the example claims it works. S to M.</li><li><b>Write the lane-decision procedure down.</b> Today the judgment lives in the generator's decision table and in the heads of whoever wrote it. A short procedure makes the next fifty decisions cheaper and more consistent. S.</li><li><b>Adversarially verify every new lane before it lands.</b> The first drafting pass produced real errors that only a refutation pass caught, including a wrong object count and a mis-quoted secret mount path. Keep the pass. S per batch.</li><li><b>Record why a chart stays undecided.</b> An entry with evidence and no lane should say what is missing, so the backlog reads from the data instead of from memory. S.</li><li><b>Report lane coverage as a number the site can show.</b> 12 of 135 is a fact worth publishing, and publishing it is what makes it embarrassing enough to fix. S.</li><li><b>Decide the two first-party Kubara charts.</b> homer-dashboard and the template library carry provisional lanes in that repository because no upstream audit covers them. They need a first-party rule. S. <b>Workshop-wide</b>, because it decides how the model treats charts nobody else publishes.</li></ol>
+<h2 id="theme-2-extend-routes-until-the-lane-means-something">Theme 2: extend routes until the lane means something</h2>
+<ol><li><b>Emit the CRD ordering route for the other five flatten-with-routes bundles.</b> external-secrets, the three ACK charts, and karpenter all name the same companion. The machinery exists, so this is mechanical. S.</li><li><b>Emit a prune-protection route for keep-policy.</b> cert-manager's verdict names it and nothing ships it. The route must say which objects survive a prune and how each runtime expresses that. M. <b>Workshop-wide</b>.</li><li><b>Observe cert-manager's startupapicheck before routing it.</b> No lifecycle-route action packet exists for it, and emitting a hook route without recorded evidence would be inventing one. Run the hook lifecycle lane first. M.</li><li><b>Emit a lifecycle-job route from an observed hook.</b> kyverno and kube-prometheus-stack have observed hook evidence and 53 recorded action packets between them. Turning one packet into a shipped route is the first hook route. M.</li><li><b>Keep automatic false for anything that runs a Job.</b> Ordering earned automatic because it is idempotent. A Job does not, and the discipline only survives if it is stated when the first Job route lands. S.</li><li><b>Prove a route executes under Argo.</b> The route declares that Argo can express it as sync waves. Nothing has watched it happen. M.</li><li><b>Prove the same route under Flux.</b> One artifact, three runtimes, is the claim. Two of three are asserted from the declaration alone. M.</li><li><b>Prove the same route under the cub-direct applier.</b> Its proven flag is false today and should either become true or be explained. M.</li><li><b>Fail a bundle whose verdict names a route it does not ship.</b> The receipt can already tell; nothing checks. S. <b>Workshop-wide</b>.</li><li><b>Teach the delivery runtime to read a route.</b> Everything above produces routes that a human applies. The model claims the runtime executes them. L. <b>Workshop-wide</b>.</li></ol>
+<h2 id="theme-3-put-the-evidence-in-front-of-a-reader">Theme 3: put the evidence in front of a reader</h2>
+<ol><li><b>Render the flattening verdict on each chart page.</b> Twelve decided lanes are invisible to anyone who does not read the repository. M.</li><li><b>Render the evidence for undecided charts.</b> &quot;No hooks, no lookup, 25 CRDs found, lane not yet decided&quot; is more useful than silence and does not overclaim. M.</li><li><b>Build the claim-integrity gate the flattening brief asked for.</b> A page may not claim a chart is flattenable without a current verdict receipt. It was deferred once and should not be deferred twice. M. <b>Workshop-wide</b>.</li><li><b>Add a catalog-wide flattening page.</b> The evidence view answers &quot;what is in these charts&quot; in one table, which is a question a buyer asks before a chart page can help them. M.</li><li><b>Show the retained-exact charts on their own pages.</b> A reader deciding whether to install goldilocks should see that its version string moved upstream. S.</li><li><b>Explain the lanes in plain words on the site.</b> The vocabulary is precise and unexplained. One page, three lanes, one example each. S.</li><li><b>Link the day-2 upgrade story to the verdicts.</b> The page tells a reader to re-read the verdict on every upgrade, and cannot link to most of them. S.</li><li><b>Show which bundles ship routes.</b> A route is a product feature, not an implementation detail. S.</li><li><b>Publish the component and OCI table on the site.</b> It exists in the repository and answers the question buyers actually ask, which is what is ready and where it lives. S.</li></ol>
+<h2 id="theme-4-finish-the-bundle">Theme 4: finish the bundle</h2>
+<ol><li><b>Ship the Space guide README as the third artifact class.</b> The model promises rendered config, routes, and the Space guide travel together. Two of three ship. M. <b>Workshop-wide</b>.</li><li><b>Decide whether the catalog publishes certified bundles as bundles.</b> The catalog publishes installer packages. It does not publish certified bundles, so its own receipts describe committed files rather than published artifacts. M. <b>Workshop-wide</b>, because it decides what the catalog sells.</li><li><b>Emit a receipt per published bundle rather than per reference bundle.</b> Four of the eleven receipts are references chosen to prove the spec fits. The other 131 catalog entries have none. L.</li><li><b>Record the composition index in the receipt.</b> Kubara pins components with a digest index and the receipt only points at it. A composition digest would let a consumer verify a platform rather than a component. M.</li><li><b>Make strict ingest refuse an unshipped route.</b> It refuses tampering and uncited lanes. A missing companion artifact is the same class of defect. S.</li><li><b>Add convergence receipts to the model.</b> The receipt certifies rendering and packaging, and says so. What happened on the cluster is a separate record that does not exist yet. L. <b>Workshop-wide</b>.</li><li><b>Decide what a receipt says about an image digest.</b> Charts pin images and the image lane tracks 195 subjects, and neither shows up in a bundle receipt. M.</li></ol>
+<h2 id="theme-5-upstream-drift-and-retention">Theme 5: upstream drift and retention</h2>
+<ol><li><b>Detect byte drift on locked versions in the weekly job.</b> It detects version movement today. The two Fairwinds charts drifted without moving version, and only a manual sweep found them. M. <b>Workshop-wide</b>.</li><li><b>Re-witness on a cadence rather than on demand.</b> A witness is a claim about bytes at a moment. Nothing re-checks it. S.</li><li><b>Decide the retention rule for republished bytes.</b> Two charts are retained-exact by decision. The next one should follow a rule rather than a conversation. S. <b>Workshop-wide</b>.</li><li><b>Recover sealed-secrets or retire it.</b> Its repository is unreachable, so it has no witness and cannot get one. Decide which. S.</li><li><b>Record where a retained artifact can still be fetched.</b> Retaining bytes upstream no longer serves raises the question of where a consumer gets them. M.</li><li><b>Check the published installer packages against their receipts.</b> 135 are published and nothing re-verifies that the remote bytes still match. M.</li><li><b>Report retention state per entry.</b> retained-exact exists in the Kubara registry vocabulary and now in the drift lane, and not on the entries themselves. S.</li></ol>
+<h2 id="theme-6-the-consumers">Theme 6: the consumers</h2>
+<ol><li><b>Give the eks-inference charts their live lanes.</b> Their entries have offline proof and no kind-parity or hook-lifecycle evidence. L.</li><li><b>Replace their guard with the receipt.</b> Their pipeline still greps five hazard patterns and exits. The receipt now carries per-class findings, so the guard can consume it instead. M.</li><li><b>Adopt the route artifact in their pipeline.</b> They already implement CRD ordering as sync waves. Emitting it as a route makes the practice portable. M.</li><li><b>Publish their receipts beside their bundles.</b> The receipts live in this repository and describe artifacts in theirs. M. <b>Workshop-wide</b>, because it decides where a receipt lives.</li><li><b>Re-point the Kubara receipt when the mirror is stripped.</b> Its canonicalHome block already names the maintained repository and commit, so the move is a re-point rather than a break. S.</li><li><b>Extend the Kubara adoption to its 1.1 catalog.</b> Nine components carry receipts. The catalog it ships is larger. L.</li><li><b>Give the AICR entries certified-bundle receipts.</b> They are pinned by digest indexes and have no receipts in the shared shape. M.</li><li><b>Reconcile the Kubara release scope constant.</b> It was scoped by subtraction and broke when the catalog grew, and the fix records the scope instead of inferring it. S.</li><li><b>Fan a certified bundle across the Sveltos fleet.</b> The fleet chapters deliver a ClusterProfile. Delivering a certified bundle to a labeled fleet is the model's fleet claim, unproven. L.</li><li><b>Write the one-page model story.</b> Five briefs, four producers, and a dozen surfaces exist. Nobody can read them in order. M.</li></ol>
+<h2 id="two-things-this-backlog-refuses-to-do">Two things this backlog refuses to do</h2>
+<p>It does not promise a lane for every chart on a schedule. Deciding a lane is judgment, and the first drafting pass produced errors that only refutation caught. Coverage will move in reviewed batches, not by throughput.</p>
+<p>It does not treat publication as progress. A bundle without a receipt is a tarball, and a receipt without a verdict is a description. The order in these themes is evidence, then decision, then publication, and reversing it would produce a catalog that claims more than it knows.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/certified-bundle-track-backlog.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

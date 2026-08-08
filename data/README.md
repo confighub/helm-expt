@@ -354,6 +354,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `top50-completion` | [top50-completion/summary.md](./top50-completion/summary.md) | front-door fifty-task programme status, evidence, and completion queue |
 | `top500-catalog-analysis` | [top500-catalog-analysis/summary.md](./top500-catalog-analysis/summary.md) | top-500 catalog planning analysis |
 | `torture-suite` | [torture-suite/summary.md](./torture-suite/summary.md) | supporting generated evidence |
+| `upstream-drift` | [upstream-drift/summary.md](./upstream-drift/summary.md) | supporting generated evidence |
 | `useful-base-design-queue` | [useful-base-design-queue/summary.md](./useful-base-design-queue/summary.md) | front-door proposed useful-base queue for default-shaped top-100 charts |
 | `useful-base-realization-wave` | [useful-base-realization-wave/summary.md](./useful-base-realization-wave/summary.md) | front-door useful-base proposals made real as candidate recipe/package bases |
 | `variant-backlog` | [variant-backlog/summary.md](./variant-backlog/summary.md) | candidate base-variant expansion backlog |
@@ -372,7 +373,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 186 CSV files. Each row records the path, audience,
+It includes 187 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

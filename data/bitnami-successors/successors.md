@@ -8,7 +8,7 @@ This survey names verified successor options. It changes no catalog entry, recip
 
 | Component | Recommendation | Publisher | License | Shape | Latest | Sources today |
 | --- | --- | --- | --- | --- | --- | --- |
-| redis | valkey (valkey-io/valkey-helm) | Valkey project | BSD-3-Clause | plain-chart | 0.11.0 | index 200, artifact 200 |
+| redis | redis (CloudPirates) | CloudPirates GmbH & Co. KG | Apache-2.0 | plain-chart | 0.34.11 | index 200, artifact 200 |
 | nginx | nginx (CloudPirates) | CloudPirates GmbH & Co. KG | Apache-2.0 | oci-chart | 0.16.1 | index 200, artifact 200 |
 | postgresql | CloudNativePG operator chart (cloudnative-pg) + official companion 'cluster' chart | CloudNativePG project | Apache-2.0 | operator | 0.29.0 | index 200, artifact 200 |
 | mysql | Oracle MySQL Operator for Kubernetes (mysql-operator + mysql-innodbcluster) | MySQL team at Oracle | UPL-1.0 | operator | 2.3.0 | index 200, artifact 200 |
@@ -17,28 +17,35 @@ This survey names verified successor options. It changes no catalog entry, recip
 
 ## redis
 
-### 1. valkey (valkey-io/valkey-helm)
+### 1. redis (CloudPirates)
+
+- Source: oci://registry-1.docker.io/cloudpirates/redis (index 200, artifact 200); latest 0.34.11 (appVersion 8.10.0).
+- Publisher: CloudPirates GmbH & Co. KG (Artifact Hub verified publisher; same publisher as the nginx and rabbitmq picks). License: Apache-2.0 (Chart.yaml artifacthub license annotation, read from the pulled chart). Shape: plain-chart.
+- Values: Keeps the Redis engine and the near-Bitnami surface: auth.password / auth.existingSecret with existingSecretPasswordKey defaulting to redis-password (the Bitnami key name), optional ACL via auth.acl.existingSecret, image digest-pinned by default (docker.io/redis 8.10.0@sha256:39353c6a...). Anonymous helm show chart and helm show values both succeed against the OCI reference.
+- Caveats: The default image is Redis 8.x, which carries the post-7.4 tri-license (AGPLv3, RSALv2, SSPLv1; AGPLv3 is the open-source option) - the same engine-license consideration as any current Redis image. Raises the CloudPirates concentration to three components; the ranked alternates below remain the hedge. Surfaced by an Artifact Hub catalog sweep after the first survey pass; verified live twice (Artifact Hub metadata, then anonymous helm pulls reading Chart.yaml, the license annotation, and the values surface).
+
+### 2. valkey (valkey-io/valkey-helm)
 
 - Source: https://valkey.io/valkey-helm/ (index 200, artifact 200); latest 0.11.0 (appVersion 9.1.1, released 2026-07-22).
 - Publisher: Valkey project (valkey-io GitHub org; Linux Foundation project). Repo active: pushed 2026-08-07, 24 chart releases in index.. License: BSD-3-Clause (repo LICENSE file; Chart.yaml carries no license field). Shape: plain-chart.
 - Values: Auth is ACL-based: auth.enabled + auth.usersExistingSecret (existing secret, key defaults to username) + aclUsers map; the 'default' user must be defined when auth is on. Replicas: replica.enabled + replica.replicas (default 2, master+replicas), minReplicasToWrite write-safety knob. Persistence: dataStorage.* for standalone (default disabled, supports existing PVC) and replica.persistence.size/storageClass (required when replicas enabled). Image pins: image.registry/repository/tag plus global.imageRegistry; tag defaults to appVersion; no digest key. TLS via tls.existingSecret. Metrics via bundled oliver006/redis_exporter. helm template renders clean on helm 4.1.4 with auth+replica+existingSecret set. Same repo also publishes valkey-operator 0.4.1 and valkey-resources 0.1.3.
 - Caveats: Engine swap, not just a chart swap: this deploys Valkey 9.x (RESP-compatible Linux Foundation fork), not Redis. Chart is pre-1.0 (0.11.0). No Sentinel mode and no cluster mode in the plain chart. Auth model is ACL-users, so there is no 1:1 mapping from Bitnami's auth.password/auth.existingSecret single-password shape.
 
-### 2. redis-operator + CR charts (OT-Container-Kit)
+### 3. redis-operator + CR charts (OT-Container-Kit)
 
 - Source: https://ot-container-kit.github.io/helm-charts/ (index 200, artifact 200); latest redis-operator 0.25.0 (2026-06-23); redis-replication 0.17.0; redis-sentinel 0.16.13; redis-cluster 0.17.4; redis 0.16.9.
 - Publisher: OT-CONTAINER-KIT (Opstree Solutions). Operator repo active: pushed 2026-08-04, 1427 stars, 55 operator chart releases.. License: Apache-2.0 (OT-CONTAINER-KIT/redis-operator repo). Note: the helm-charts packaging repo itself has no root LICENSE file (GitHub license API returns 404).. Shape: operator.
 - Values: Operator chart bundles 4 CRDs (Redis, RedisReplication, RedisSentinel, RedisCluster); topologies are installed as separate CR charts. redis-replication chart: redisReplication.clusterSize=3 (replica control); redisSecret.secretName/secretKey = existing-secret auth; storageSpec.volumeClaimTemplate = persistence; acl.secret.secretName and TLS.secret.secretName; sentinel.enabled block for failover; image pin via redisReplication.image + tag (default quay.io/opstree/redis v7.0.15); no digest key. Both operator and CR charts helm-template clean on helm 4.1.4.
 - Caveats: Big catalog shape change: operator + CRDs + two-step install (operator first, then a CR chart per topology). Values live under CR-shaped maps, so no 1:1 Bitnami values mapping. Default image tag lags upstream (Redis v7.0.15; overridable). Keeps actual Redis engine, and covers standalone/replication/sentinel/cluster — the broadest topology coverage of the three.
 
-### 3. redis-ha (DandyDeveloper/charts)
+### 4. redis-ha (DandyDeveloper/charts)
 
 - Source: https://dandydeveloper.github.io/charts/ (index 200, artifact 200); latest 4.39.0 (appVersion 8.8.0, released 2026-06-15).
 - Publisher: Individual community maintainer (DandyDeveloper; descended from the retired helm/stable redis-ha chart). 170 releases in index; repo pushed 2026-06-15, 257 stars.. License: Apache-2.0 (repo LICENSE). Shape: plain-chart.
 - Values: Closest drop-in to the Bitnami shape: master/replica StatefulSet with Sentinel sidecars and optional HAProxy front end. Auth: auth (bool) + redisPassword + existingSecret + authKey (default 'auth'); separate sentinel.auth/sentinel.existingSecret/sentinel.authKey. Replicas: replicas=3 (plus haproxy.replicas). Persistence: persistentVolume.enabled=true, size 10Gi, storageClass. Image pin: image.repository=public.ecr.aws/docker/library/redis, tag=8.8.0-alpine; exporter quay.io/oliver006/redis_exporter; no digest key. helm template renders clean on helm 4.1.4 with auth+existingSecret set.
 - Caveats: Fails the official-vendor/CNCF publisher bar: one community maintainer, no vendor backing. Default image is Redis 8.x from the Docker library mirror, which carries Redis's post-7.4 tri-license (AGPLv3/RSALv2/SSPLv1) — review image licensing for the catalog even though the chart itself is Apache-2.0. Sentinel topology only; no cluster mode. Release cadence is slower than the other two (latest push 2026-06-15). Separately verified negative result: no anonymous official Redis OSS chart exists — helm.redis.io (index HTTP 200) hosts only redis-enterprise-operator 8.2.0-13 (commercial Redis Enterprise, an operator shape), and anonymous Docker Hub token+API probes for redis/redis, redis/redis-helm, and dhi/redis-chart all returned HTTP 401.
 
-Independent verification notes: Minor, non-load-bearing nuances: (1) Chart.yaml description is boilerplate ("A Helm chart for Kubernetes") and lists three individual maintainers (raven, sgissi, Bloodraven21) rather than an organization; (2) the LICENSE copyright line reads "Copyright (c) 2025, Raven" (a maintainer), so BSD-3-Clause is correct but the copyright holder is an individual, not the Linux Foundation; the "Linux Foundation project" framing describes Valkey upstream, not this chart repo's own metadata; (3) the index's 24 releases are for the valkey chart specifically (the full index holds 44 across valkey, valkey-ope
+Independent verification notes: Catalog sweeps added after the first pass: Artifact Hub lists no vendor-official Redis chart (confirming the verified negative) and surfaced the CloudPirates redis chart now ranked first; charts.openshift.io carries only OpenShift template-style wrappers (imagestreams/persistent, versions 0.0.x-1.0.x), not catalog-grade charts. Minor, non-load-bearing nuances: (1) Chart.yaml description is boilerplate ("A Helm chart for Kubernetes") and lists three individual maintainers (raven, sgissi, Bloodraven21) rather than an organization; (2) the LICENSE copyright line reads "Copyright (c) 2025, Raven" (a maintainer), so BSD-3-Clause is correct but the copyright holder is an individual, not the Linux Foundation; the "Linux Foundation project" framing describes Valkey upstream, not this chart repo's own metadata; (3) the index's 24 releases are for the valkey chart specifically (the full index holds 44 across valkey, valkey-ope
 
 ## nginx
 

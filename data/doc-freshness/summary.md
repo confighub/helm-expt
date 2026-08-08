@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `38eb4ca6b`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `600043702`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 272 |
+| Authored docs tracked | 273 |
 | Fresh (no linked source newer than the doc) | 49 |
 | **Review-due** | 58 |
-| No linked evidence sources (cannot auto-trigger) | 165 |
+| No linked evidence sources (cannot auto-trigger) | 166 |
 
 ## Review queue
 
@@ -35,7 +35,7 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 57 | `data/README.md (2026-08-07)`<br>`data/csv-index.csv (2026-08-07)`<br>`CATALOG.md (2026-08-07)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 58 | `data/README.md (2026-08-08)`<br>`data/csv-index.csv (2026-08-08)`<br>`CATALOG.md (2026-08-07)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-07-29)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.md (2026-07-29)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 49 | `data/top100-coverage/summary.md (2026-07-29)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)`<br>`data/quirk-coverage/summary.md (2026-06-24)` |
@@ -172,6 +172,7 @@ into this freshness model.
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
 - [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
 - [docs/planning/certified-bundle-model-brief.md](../../docs/planning/certified-bundle-model-brief.md)
+- [docs/planning/certified-bundle-track-backlog.md](../../docs/planning/certified-bundle-track-backlog.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
 - [docs/planning/flattening-safety-brief.md](../../docs/planning/flattening-safety-brief.md)
 - [docs/planning/fuzz-corpus-tests-roadmap.md](../../docs/planning/fuzz-corpus-tests-roadmap.md)

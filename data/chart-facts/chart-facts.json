@@ -769,7 +769,7 @@
   },
   "kyverno/kyverno": {
     "version": "3.8.1",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "locked 5 deps; Chart.lock digest",
     "hook_status": "observed: lifecycle-observed",
@@ -973,7 +973,7 @@
   },
   "prometheus-community/kube-prometheus-stack": {
     "version": "85.3.3",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "locked 5 deps; Chart.lock digest",
     "hook_status": "observed: lifecycle-observed",
@@ -1153,7 +1153,7 @@
   },
   "traefik/traefik": {
     "version": "40.2.0",
-    "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",
     "hook_status": "—",

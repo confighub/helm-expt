@@ -476,6 +476,57 @@
               "snippet": ""
             }
           ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "3.8.2",
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            }
+          ]
         }
       ]
     },
@@ -750,6 +801,456 @@
         {
           "base": "no-crds",
           "recipeVersion": "86.1.0",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "87.15.1",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "existing-secret",
+          "recipeVersion": "87.15.1",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "87.15.1",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "87.19.2",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "existing-secret",
+          "recipeVersion": "87.19.2",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "87.19.2",
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",
