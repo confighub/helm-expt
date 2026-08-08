@@ -451,7 +451,7 @@ dependency closure evidence do we already have?</code></pre>
 <p>This is not a live dependency resolver and not a support claim. It uses the committed source scan, maintained recipe metadata, and dependency-lock.yaml files.</p>
 <h2 id="current-reading">Current Reading</h2>
 <pre><code>source top-100 rows with remote, vendored, or non-exact dependencies: 49
-rows with a maintained dependency lock:                         19/49
+rows with a maintained dependency lock:                         21/49
 source-only rows without a maintained recipe:                   30/49
 locked rows with dependencies but no dependency provenance:      0/49
 non-exact dependency rows frozen to Chart.lock:                  9/49
@@ -478,14 +478,14 @@ P2 source rows:                                                  2</code></pre>
 <tr><td>26</td><td><code>apache-airflow/airflow@1.21.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>29</td><td><code>nextcloud/nextcloud@9.1.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>32</td><td><code>bitnami/minio@17.0.21</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
-<tr><td>34</td><td><code>metallb/metallb@0.16.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
+<tr><td>34</td><td><code>metallb/metallb@0.16.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>2</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>38</td><td><code>kyverno/kyverno@3.8.1</code></td><td><code>dependency-range-policy</code></td><td><code>source-version-lock-present</code></td><td>5</td><td>record dependency range policy and refresh-survival check for non-exact dependency constraints</td></tr>
 <tr><td>39</td><td><code>gitea/gitea@12.6.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>40</td><td><code>sonarqube/sonarqube@2026.3.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>41</td><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td><code>dependency-range-policy</code></td><td><code>source-version-lock-present</code></td><td>1</td><td>record dependency range policy and refresh-survival check for non-exact dependency constraints</td></tr>
 <tr><td>43</td><td><code>datadog/datadog@3.214.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>44</td><td><code>bitnami/thanos@17.3.1</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
-<tr><td>46</td><td><code>oauth2-proxy/oauth2-proxy@10.6.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
+<tr><td>46</td><td><code>oauth2-proxy/oauth2-proxy@10.6.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>1</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>47</td><td><code>bitnami/wordpress@31.0.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>49</td><td><code>goauthentik/authentik@2026.5.0</code></td><td><code>create-recipe-import-candidate</code></td><td><code>source-only-no-maintained-recipe</code></td><td>0</td><td>create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer</td></tr>
 <tr><td>66</td><td><code>bitnami/elasticsearch@22.1.6</code></td><td><code>dependency-range-policy</code></td><td><code>source-version-lock-present</code></td><td>2</td><td>record dependency range policy and refresh-survival check for non-exact dependency constraints</td></tr>
@@ -497,12 +497,12 @@ P2 source rows:                                                  2</code></pre>
 <tr><td><code>https://charts.bitnami.com/bitnami</code></td><td>1</td></tr>
 <tr><td><code>https://charts.min.io/</code></td><td>1</td></tr>
 <tr><td><code>https://cloudnative-pg.github.io/grafana-dashboards</code></td><td>1</td></tr>
+<tr><td><code>https://dandydeveloper.github.io/charts</code></td><td>1</td></tr>
 <tr><td><code>https://falcosecurity.github.io/charts</code></td><td>1</td></tr>
 <tr><td><code>https://grafana-community.github.io/helm-charts</code></td><td>1</td></tr>
 <tr><td><code>https://grafana.github.io/helm-charts</code></td><td>1</td></tr>
 <tr><td><code>https://kyverno.github.io/api</code></td><td>1</td></tr>
-<tr><td><code>https://kyverno.github.io/reports-server/</code></td><td>1</td></tr>
-<tr><td><code>https://openreports.github.io/reports-api</code></td><td>1</td></tr></tbody></table>
+<tr><td><code>https://kyverno.github.io/reports-server/</code></td><td>1</td></tr></tbody></table>
 <h2 id="how-to-use-this">How To Use This</h2>
 <ul><li>If the row has <code>source-version-lock-present</code>, the maintained recipe has a dependency lock for the same chart version seen in the source scan.</li><li>If the row has <code>modeled-version-lock-present</code>, the maintained recipe has a lock for the catalog version, but the source scan and model version differ. Use refresh-survival evidence before replacing or promoting the chart.</li><li>If <code>join_status</code> is <code>chart-name-version-alias</code>, the source repository and maintained recipe repository differ, but the chart name and version match. Keep that alias visible when presenting catalog coverage.</li><li>If the row is <code>source-only-no-maintained-recipe</code>, create a recipe/import candidate before making catalog claims.</li><li>If dependencies are locked but <code>lock_dependency_provenance</code> is <code>missing</code>, backfill a Chart.lock digest or explicitly document the source of the dependency list.</li><li>If <code>dependency_range_policy</code> is <code>freeze-to-chart-lock</code>, the maintained path does not resolve dependency ranges during install. It uses the committed dependency lock, and any re-resolution must happen through a refresh candidate with its own proof.</li><li>If <code>refresh_survival_status</code> is present, the row is connected to the top-20 refresh-survival surface. That is update-review evidence, not a live upgrade proof.</li></ul>
 <h2 id="files">Files</h2>

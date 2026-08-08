@@ -33,8 +33,8 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity -; ConfigHub -; local live -; GitOps live -; live parity - |
-| Feature summary | - |
+| Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
 
@@ -50,6 +50,7 @@ for exact base-variant evidence.
 | Control points | [recipes/cloudpirates/nginx/0.16.1/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/cloudpirates/nginx/0.16.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/nginx/0.16.1/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1` |
 | Installer package source | [packages/cloudpirates/nginx/0.16.1](../../../../packages/cloudpirates/nginx/0.16.1) |
 | Installer package receipt | [recipes/cloudpirates/nginx/0.16.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

@@ -1,0 +1,119 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  chart:
+    name: "aws-controllers-k8s/eks-chart"
+    version: "1.16.3"
+    source: "oci://public.ecr.aws/aws-controllers-k8s"
+    digest: "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "Both bases render exactly 20 objects: 10 CustomResourceDefinitions from crds/ plus a Deployment, a ServiceAccount named ack-eks-controller, 2 ClusterRoles, 2 ClusterRoleBindings, 3 Roles, and 1 RoleBinding."
+    - "The chart runs one image, public.ecr.aws/aws-controllers-k8s/eks-controller:1.16.3, with the tag pinned to appVersion."
+    - "The witness counts zero hooks, zero lookups, zero resource-policy keep annotations, zero Capabilities branches, zero generated secrets, and zero subcharts; both flattening verdicts place the chart in the flatten-with-routes lane with the CRD ordering declaration as the one route."
+    - "The chart's one weird thing is its env-var indirection: almost every values setting renders as an env var that the container args dereference by name, for example --aws-region \"$(AWS_REGION)\". This makes AWS_REGION addressable by name, which is why the eks-inference pipeline binds the region with set-env-var rather than a positional path."
+    - "deletionPolicy defaults to delete, which removes the AWS resource before the Kubernetes resource. The eks-inference base pins retain because a pruned eks.services.k8s.aws/Cluster CR would tear down a live EKS control plane under a pruning reconciler."
+    - "Eight of the ten CRDs are eks.services.k8s.aws kinds matching the reconcile.resources list; the other two (fieldexports, iamroleselectors) belong to the shared services.k8s.aws group."
+    - "installScope cluster produces the ClusterRole and ClusterRoleBinding; namespace scope would replace the binding with per-namespace RoleBindings ranged over watchNamespace. Neither base exercises the namespace branch."
+    - "The container runs with readOnlyRootFilesystem, runAsNonRoot, all capabilities dropped, and a RuntimeDefault seccomp profile."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "artifact-addressed at oci://public.ecr.aws/aws-controllers-k8s/eks-chart version 1.16.3 with a recorded packageSHA256; the kit expresses exact-artifact pinning only through the HELM_EXPT_CHART_ARTIFACT_URL and HELM_EXPT_CHART_ARTIFACT_SHA256 env vars, so generate and verify runs must export both. The OCI manifestDigest has no kit field and is preserved in artifact-manifest-digest.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "zero subchart dependencies; expectedDependencyCount stays at the default 0"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "empty apiVersions list in both variants; the render does not depend on the capability profile beyond kubeVersion"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "the chart ships zero hooks and zero test hooks, so the render is identical with or without --no-hooks; this entry renders without --no-hooks and declares hooks-rendered-visible so the declaration matches the flags"
+      evidence:
+        - "hooks-rendered-visible"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-policy"
+      detectedPainPoint: "ten CRDs ship in crds/ and render with --include-crds into both bases; the ordering declaration required by the flattening verdicts ships downstream as the crds/controller split at Argo sync waves -20 and -10; the route travels with the bundle, not inside the chart"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "needs-route"
+    -
+      id: "namespace"
+      detectedPainPoint: "all namespaced objects land in ack-system; the chart creates no Namespace, so the installer supplies v1|Namespace||ack-system as the single cub-only support object"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "credentials-secrets"
+      detectedPainPoint: "the chart renders no Secret and generates none; the eks-inference base mounts target Secret ack-system/aws-creds with key credentials, which must exist before the controller starts; the default base carries no credential wiring and relies on ambient identity via the empty serviceAccount.annotations IRSA slot"
+      evidence:
+        - "variants/eks-inference/variant.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "required-for-eks-inference"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "deployment.extraEnvVars, extraVolumes, and extraVolumeMounts splice raw manifest fragments into the pod spec, and serviceAccount.annotations is the IRSA slot; all stay empty in both audited bases, so their behavior is asserted from template reading, not from a rendered check"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "open-unchecked"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=deployment.extraEnvVars, extraVolumes, extraVolumeMounts, tolerations, affinity, priorityClassName, hostNetwork, dnsPolicy, strategy, resources, resourceTags, log.*, the reconcile resync and concurrency maps, watchSelectors, aws.endpoint_url and identity_endpoint_url, role.labels, nameOverride, and fullnameOverride stay at chart defaults in both audited bases and were not exhaustively checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "aws-controllers-k8s/eks-chart@1.16.3 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."

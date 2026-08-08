@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/karpenter/karpenter/1.14.0/control-points.yaml"
     valueModel: "recipes/karpenter/karpenter/1.14.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/karpenter/karpenter/1.14.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crd-policy"
@@ -52,12 +53,12 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:

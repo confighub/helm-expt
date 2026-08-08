@@ -54,7 +54,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | Chart | Variant | Lane | State | Reason | Next action |
 | --- | --- | --- | --- | --- | --- |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
+| argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (observed:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |

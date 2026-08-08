@@ -49,12 +49,12 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "1/1"
+      inConfigHub: "0/1"
+      localLive: "0/1"
+      gitopsLive: "0/1"
+      liveParity: "0/1"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:

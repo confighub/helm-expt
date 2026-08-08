@@ -31,8 +31,8 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity -; ConfigHub -; local live -; GitOps live -; live parity - |
-| Feature summary | - |
+| Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
 

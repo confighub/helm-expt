@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `ed8020ed9`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `2af39e303`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -35,22 +35,22 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
+| [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 59 | `data/top100-user-readiness/summary.md (2026-08-08)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 59 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.csv (2026-07-29)` |
-| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 58 | `data/chart-facts/chart-facts.csv (2026-08-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/top100-readiness/readiness.csv (2026-07-29)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 58 | `CATALOG.md (2026-08-08)`<br>`data/README.md (2026-08-08)`<br>`data/csv-index.csv (2026-08-08)` |
+| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 58 | `data/top100-user-readiness/readiness.csv (2026-08-08)`<br>`data/top100-user-readiness/summary.md (2026-08-08)`<br>`data/chart-facts/chart-facts.csv (2026-08-08)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 58 | `data/top500-catalog-analysis/review.csv (2026-08-08)`<br>`CATALOG.md (2026-08-08)`<br>`data/README.md (2026-08-08)` |
+| [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 57 | `data/top100-user-readiness/summary.md (2026-08-08)`<br>`data/top100-readiness/summary.md (2026-07-29)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 51 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/master-catalog-matrix/matrix.html (2026-07-29)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-07-29)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 49 | `data/top100-coverage/summary.md (2026-07-29)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)`<br>`data/quirk-coverage/summary.md (2026-06-24)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 48 | `data/outcome-coverage/summary.md (2026-07-29)` |
-| [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 48 | `data/top100-user-readiness/summary.md (2026-07-29)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
 | [docs/user/extension-slots.md](../../docs/user/extension-slots.md) | user | 2026-06-11 | 48 | `data/extension-slots/extension-slots.csv (2026-07-29)`<br>`data/extension-slots/summary.md (2026-06-30)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 48 | `data/outcome-coverage/summary.md (2026-07-29)`<br>`tests/npm-scripts.md (2026-07-28)` |
 | [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 47 | `scripts/verify-chart-claim-integrity.mjs (2026-08-08)`<br>`tests/persona-ux-strategy.md (2026-07-14)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
-| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 47 | `CATALOG.md (2026-08-08)`<br>`data/chart-facts/summary.md (2026-08-08)`<br>`data/attack-plan-workdown/summary.md (2026-08-07)` |
+| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 47 | `data/top500-catalog-analysis/drilldown.csv (2026-08-08)`<br>`data/top500-catalog-analysis/raw.json (2026-08-08)`<br>`data/top500-catalog-analysis/review.csv (2026-08-08)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 47 | `data/hard-chart-production-packets/summary.md (2026-07-28)`<br>`data/production-readiness-packets/cert-manager/packet.md (2026-06-23)`<br>`data/production-readiness-packets/external-secrets/packet.md (2026-06-23)` |
-| [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 47 | `data/top100-readiness/summary.md (2026-07-29)`<br>`data/top100-user-readiness/summary.md (2026-07-29)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 46 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 46 | `data/lifecycle-routes/routes.json (2026-07-29)`<br>`data/lifecycle-routes/summary.md (2026-07-29)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 46 | `data/secret-lifecycle/secrets.csv (2026-07-29)`<br>`data/secret-lifecycle/summary.md (2026-07-29)`<br>`data/secret-lifecycle/variant-summary.csv (2026-07-29)` |

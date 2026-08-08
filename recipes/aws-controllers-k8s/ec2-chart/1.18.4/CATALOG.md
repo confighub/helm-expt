@@ -31,8 +31,8 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity -; ConfigHub -; local live -; GitOps live -; live parity - |
-| Feature summary | - |
+| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
 
@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/aws-controllers-k8s/ec2-chart/1.18.4/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/aws-controllers-k8s/ec2-chart/1.18.4/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/aws-controllers-k8s/ec2-chart/1.18.4/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/aws-controllers-k8s/ec2-chart/1.18.4/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4` |
 | Installer package source | [packages/aws-controllers-k8s/ec2-chart/1.18.4](../../../../packages/aws-controllers-k8s/ec2-chart/1.18.4) |
 | Installer package receipt | [recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

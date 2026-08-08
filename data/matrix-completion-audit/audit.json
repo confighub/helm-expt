@@ -358,7 +358,7 @@
       "lane": "lifecycle",
       "lane_label": "lifecycle-observed",
       "state": "todo",
-      "reason": "lifecycle route(s) defined (todo:1) but not yet observed live",
+      "reason": "lifecycle route(s) defined (observed:1) but not yet observed live",
       "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
       "support_artifact": "data/lifecycle-routes/summary.md",
       "owner": "catalog",

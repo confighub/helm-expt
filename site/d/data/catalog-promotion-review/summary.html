@@ -449,26 +449,29 @@
 <pre><code>This report does not infer catalog-supported status from machine checks.
 Catalog support must come from explicit catalog-status.yaml files.</code></pre>
 <h2 id="summary">Summary</h2>
-<pre><code>recipes reviewed: 130
-machine checks pass: 130
+<pre><code>recipes reviewed: 139
+machine checks pass: 139
 machine checks fail: 0
-proof-grade: 92
-catalog-candidate: 18
+proof-grade: 96
+catalog-candidate: 23
 catalog-supported: 20
 blocked: 0
-default-only recipes: 45
-multi-variant recipes: 85
-recipes with warning gates: 116
+default-only recipes: 49
+multi-variant recipes: 90
+recipes with warning gates: 122
 recipes with non-current executable fixture path: 0</code></pre>
 <h2 id="proof-tiers">Proof Tiers</h2>
-<ul><li><code>bespoke-top20</code>: 50</li><li><code>next80-full</code>: 80</li></ul>
+<ul><li><code>bespoke-top20</code>: 55</li><li><code>next80-full</code>: 80</li><li><code>successor-full</code>: 4</li></ul>
 <h2 id="support-levels">Support Levels</h2>
-<ul><li><code>machine-proof-only</code>: 92</li><li><code>promotion-review-needed</code>: 18</li><li><code>supported-for-declared-scopes</code>: 20</li></ul>
+<ul><li><code>machine-proof-only</code>: 96</li><li><code>promotion-review-needed</code>: 23</li><li><code>supported-for-declared-scopes</code>: 20</li></ul>
 <h2 id="catalog-candidates">Catalog Candidates</h2>
 <p>These are not catalog-supported yet. They are the first recipes worth human promotion review because they already have richer variant artifacts or bespoke proof work.</p>
 <table><thead><tr><th>Chart</th><th>Variants</th><th>Gate</th><th>Recommendation</th></tr></thead><tbody><tr><td><code>argo-cd/argo-cd@10.1.3</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>argo-cd/argo-cd@10.2.1</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>argo-cd/argo-cd@9.5.17</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
+<tr><td><code>aws-controllers-k8s/ec2-chart@1.18.4</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
+<tr><td><code>aws-controllers-k8s/eks-chart@1.16.3</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
+<tr><td><code>aws-controllers-k8s/iam-chart@1.7.3</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>bitnami/mongodb@19.0.9</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>bitnami/mongodb@19.1.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>bitnami/nginx@24.0.4</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
@@ -479,11 +482,10 @@ recipes with non-current executable fixture path: 0</code></pre>
 <tr><td><code>external-secrets/external-secrets@2.7.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>external-secrets/external-secrets@2.8.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>jetstack/cert-manager@v1.21.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
+<tr><td><code>karpenter/karpenter@1.14.0</code></td><td>3</td><td>blocked</td><td>run human catalog promotion review</td></tr>
 <tr><td><code>metrics-server/metrics-server@3.13.1</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
-<tr><td><code>prometheus-community/kube-prometheus-stack@86.1.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr>
-<tr><td><code>prometheus-community/kube-prometheus-stack@87.15.1</code></td><td>3</td><td>warn</td><td>run human catalog promotion review</td></tr>
-<tr><td><code>prometheus-community/kube-prometheus-stack@87.19.2</code></td><td>3</td><td>warn</td><td>run human catalog promotion review</td></tr>
-<tr><td><code>prometheus-community/prometheus@29.9.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr></tbody></table>
+<tr><td><code>nvidia/nvidia-device-plugin@0.19.3</code></td><td>3</td><td>warn</td><td>run human catalog promotion review</td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@86.1.0</code></td><td>2</td><td>warn</td><td>run human catalog promotion review</td></tr></tbody></table>
 <h2 id="main-gaps">Main Gaps</h2>
 <ul><li>Default-only recipes remain proof-grade until they get user-shaped variants or explicit deferrals.</li><li>Warning gates need dispositions, waivers, or stronger mitigations before production support.</li><li>Charts with CRDs, webhooks, generated facts, lookup, cluster RBAC, or stateful storage need plain-English catalog notes, not only machine receipts.</li><li>Executable fixture paths now point at current <code>packages/</code> paths; keep this as a hard invariant.</li></ul>
 <h2 id="next-actions">Next Actions</h2>

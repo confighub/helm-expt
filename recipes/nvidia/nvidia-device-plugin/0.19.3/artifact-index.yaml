@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml"
     valueModel: "recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crd-policy"
@@ -53,12 +54,12 @@ spec:
     userStatus: ""
     strongestEvidence: ""
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
-    featureSummary: ""
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "none-recorded"
     hardGap: ""
     nextAction: ""
   installerPackage:

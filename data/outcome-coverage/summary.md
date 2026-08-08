@@ -7,18 +7,18 @@ the status per chart, base variant, derived variant, and Helm feature.
 ## Aggregate Status
 
 ```text
-charts with model support:           108/110
-variant-rich charts:                 77/110
-chart/base rows:                     199
-complete core lane rows:             126/199
-render parity rows:                  199/199
-in-ConfigHub proof rows:             198/199
-local live rows:                     148/199
-GitOps/OCI live pass rows:           139/199
+charts with model support:           126/139
+variant-rich charts:                 90/139
+chart/base rows:                     245
+complete core lane rows:             126/245
+render parity rows:                  245/245
+in-ConfigHub proof rows:             198/245
+local live rows:                     148/245
+GitOps/OCI live pass rows:           139/245
 GitOps/OCI non-pass receipts:        60
-live Helm-vs-ConfigHub pass rows:    139/199
+live Helm-vs-ConfigHub pass rows:    139/245
 live Helm-vs-ConfigHub non-pass receipts: 60
-lifecycle observation rows:          20/20
+lifecycle observation rows:          21/21
 selected live parity receipts:       139 pass, 52 watch, 8 blocked
 two-cluster kind parity receipts:    130 pass, 3 watch, 46 blocked
 derived intended-state pass rows:    10
@@ -30,7 +30,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      20/20
+related lifecycle observations:      21/21
 ```
 
 ## Outcome Promises And Proving Tests
@@ -78,7 +78,7 @@ related lifecycle observations:      20/20
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 0/2 | - |
 | `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 

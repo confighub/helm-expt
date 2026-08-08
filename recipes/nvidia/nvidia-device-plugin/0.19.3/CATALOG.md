@@ -31,8 +31,8 @@ for exact base-variant evidence.
 | Adoption bucket | - |
 | User status | - |
 | Strongest evidence | - |
-| Proof lanes | render parity -; ConfigHub -; local live -; GitOps live -; live parity - |
-| Feature summary | - |
+| Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
+| Feature summary | none-recorded |
 | Hard gap | - |
 | Next action | - |
 
@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3` |
 | Installer package source | [packages/nvidia/nvidia-device-plugin/0.19.3](../../../../packages/nvidia/nvidia-device-plugin/0.19.3) |
 | Installer package receipt | [recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
