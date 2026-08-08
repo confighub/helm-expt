@@ -1,0 +1,128 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  chart:
+    repository: "grafana"
+    name: "loki"
+    version: "7.0.0"
+    packageSHA256: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+  witnessRef: "data/flattening-safety/witnesses/grafana-loki-7.0.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "16 occurrence(s) in the packaged chart"
+      disposition: "lifecycle route executed by the delivery runtime"
+      evidence:
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:8"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:26"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:36"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:73"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:91"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:104"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/minio/templates/_helpers.tpl:196"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/rollout-operator/templates/no-downscale-webhook.yaml:3"
+        - "charts/rollout-operator/templates/pod-eviction-webhook.yaml:3"
+        - "charts/rollout-operator/templates/prepare-downscale-webhook.yaml:3"
+        - "charts/rollout-operator/templates/zone-aware-pod-disruption-budget-validating-webhook.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "32 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "charts/minio/templates/_helpers.tpl:38"
+        - "charts/minio/templates/_helpers.tpl:40"
+        - "charts/minio/templates/_helpers.tpl:42"
+        - "charts/minio/templates/_helpers.tpl:51"
+        - "charts/minio/templates/_helpers.tpl:62"
+        - "charts/minio/templates/_helpers.tpl:73"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "charts/minio/templates/_helpers.tpl:200"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "ten CRD documents render with the chart"
+      disposition: "ordering declaration ships with the bundle"
+      evidence:
+        - "10 crds-directory file(s), 10 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "3 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "minio gated by minio.enabled"
+        - "grafana-agent-operator gated by monitoring.selfMonitoring.grafanaAgent.installOperator"
+        - "rollout-operator gated by rollout_operator.enabled"
+    -
+      class: "test-hooks"
+      finding: "present"
+      detail: "7 occurrence(s) in the packaged chart"
+      disposition: "pruned from any bundle"
+      evidence:
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:8"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:26"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:36"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:73"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:91"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:104"
+  variantScope:
+    -
+      values: "minio.enabled"
+      effect: "adds the minio credential helpers, which read the cluster and generate when absent"
+    -
+      values: "rollout_operator.enabled"
+      effect: "adds four admission webhooks whose CA must come from somewhere"
+    -
+      values: "the enterprise provisioner"
+      effect: "adds a hook Job that provisions tenants"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Every credential and webhook hazard sits in a condition-gated subchart or behind the enterprise provisioner, and the CRDs are the one construct the audited base always carries."
+    routes:
+      - "CRD ordering declaration for the ten CRD documents"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/grafana-loki-7.0.0.yaml"
+      - "recipes/grafana/loki/7.0.0/source-lock.yaml"

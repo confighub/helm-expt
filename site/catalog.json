@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-08-05T10:24:06.244Z",
+  "generatedAt": "2026-08-08T00:00:00Z",
   "installerAvailability": "cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
@@ -13009,7 +13009,7 @@
       "crd_documents": "3",
       "gated_subcharts": "1",
       "scanned_files": "168",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -13281,7 +13281,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "85",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13332,7 +13332,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "54",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13349,7 +13349,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "47",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13451,7 +13451,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13485,7 +13485,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "45",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13502,7 +13502,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "64",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13757,7 +13757,7 @@
       "crd_documents": "23",
       "gated_subcharts": "1",
       "scanned_files": "56",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "external-secrets",
@@ -13944,7 +13944,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "50",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "grafana",
@@ -13961,7 +13961,7 @@
       "crd_documents": "10",
       "gated_subcharts": "3",
       "scanned_files": "255",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "grafana",
@@ -14046,7 +14046,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "12",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "haproxytech",
@@ -14080,7 +14080,7 @@
       "crd_documents": "39",
       "gated_subcharts": "0",
       "scanned_files": "215",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "hashicorp",
@@ -14114,7 +14114,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "49",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "ingress-nginx",
@@ -14131,7 +14131,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "94",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "istio",
@@ -14233,7 +14233,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "51",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "jetstack",
@@ -14403,7 +14403,7 @@
       "crd_documents": "22",
       "gated_subcharts": "0",
       "scanned_files": "37",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "longhorn",
@@ -14454,7 +14454,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "26",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "metrics-server",
@@ -14760,7 +14760,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "283",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -14845,7 +14845,7 @@
       "crd_documents": "0",
       "gated_subcharts": "4",
       "scanned_files": "88",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -15032,7 +15032,7 @@
       "crd_documents": "2",
       "gated_subcharts": "0",
       "scanned_files": "20",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "stakater",

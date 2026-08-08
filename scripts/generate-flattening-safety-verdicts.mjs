@@ -668,6 +668,602 @@ const CHARTS = [
       },
     ],
   },
+  {
+    repo: "argo-cd",
+    chart: "argo-cd",
+    version: "9.5.15",
+    recipe: "recipes/argo-cd/argo-cd/9.5.15",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "templates/redis-secret-init/job.yaml runs at pre-install and pre-upgrade to mint the redis credential; the other hook objects are chart tests",
+        disposition: "lifecycle route executed by the delivery runtime, or values that supply the credential",
+      },
+      "resource-policy-keep": {
+        finding: "present",
+        detail: "the three Argo CRDs carry helm.sh/resource-policy keep",
+        disposition: "prune protection ships beside the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the redis-secret-init Job",
+      "prune protection for the three keep-annotated CRDs",
+      "CRD ordering declaration",
+    ],
+    rationale:
+      "A pre-install Job mints the redis credential and three CRDs carry the keep promise, so this base needs companions rather than refusing flattening. The remaining hooks are test hooks, pruned from any bundle.",
+    variantScope: [
+      {
+        values: "redis-ha.enabled or an external redis",
+        effect:
+          "removes the redis-secret-init Job and its route",
+      },
+    ],
+  },
+  {
+    repo: "grafana",
+    chart: "grafana",
+    version: "10.5.15",
+    recipe: "recipes/grafana/grafana/10.5.15",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail: "templates/_helpers.tpl reads the existing admin Secret before deciding whether to generate one",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail: "the admin password is generated on render when no existing Secret is named",
+        disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The admin credential is read from the cluster and generated when absent, in the same helper pair, so a flattened bundle either freezes one draw into a shared artifact or renders against a cluster that was not there.",
+    variantScope: [
+      {
+        values: "admin.existingSecret",
+        effect:
+          "supplies the credential externally and removes both hazards; that base deserves its own verdict and trends flatten-with-routes",
+      },
+    ],
+  },
+  {
+    repo: "grafana",
+    chart: "loki",
+    version: "7.0.0",
+    recipe: "recipes/grafana/loki/7.0.0",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        finding: "present",
+        detail: "ten CRD documents render with the chart",
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the ten CRD documents",
+    ],
+    rationale:
+      "Every credential and webhook hazard sits in a condition-gated subchart or behind the enterprise provisioner, and the CRDs are the one construct the audited base always carries.",
+    variantScope: [
+      {
+        values: "minio.enabled",
+        effect:
+          "adds the minio credential helpers, which read the cluster and generate when absent",
+      },
+      {
+        values: "rollout_operator.enabled",
+        effect:
+          "adds four admission webhooks whose CA must come from somewhere",
+      },
+      {
+        values: "the enterprise provisioner",
+        effect:
+          "adds a hook Job that provisions tenants",
+      },
+    ],
+  },
+  {
+    repo: "grafana",
+    chart: "tempo",
+    version: "1.24.4",
+    recipe: "recipes/grafana/tempo/1.24.4",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The scan found none of the constructs that render-time flattening loses, which is what makes a chart cheap to certify.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "consul",
+    version: "2.0.0",
+    recipe: "recipes/hashicorp/consul/2.0.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "hooks span pre-install, post-install, post-upgrade, and pre-delete, including the Job that creates the federation secret",
+        disposition: "no emitted route discharges a hook set this broad",
+      },
+      "webhook-ca": {
+        finding: "present",
+        detail: "the connect-inject mutating and validating webhooks need a CA that the chart's own lifecycle supplies",
+        disposition: "route to cert-manager or a certgen lifecycle route",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "Forty-four hook objects across install, upgrade, and delete, a Job that creates the federation secret, two connect-inject webhooks needing a CA, and thirty-nine CRDs. No set of emitted companions discharges that today.",
+    variantScope: [],
+  },
+  {
+    repo: "hashicorp",
+    chart: "vault",
+    version: "0.32.0",
+    recipe: "recipes/hashicorp/vault/0.32.0",
+    auditedBase: "default",
+    overrides: {
+      "webhook-ca": {
+        finding: "present",
+        detail:
+          "the injector mutating webhook renders with an empty caBundle, and the injector fills it at runtime: AGENT_INJECT_TLS_AUTO names that webhook configuration and the injector ClusterRole grants patch on mutatingwebhookconfigurations",
+        disposition: "the injector maintains its own CA from inside the bundle; no external route needed",
+      },
+      "helm-hooks": {
+        finding: "present",
+        detail: "the only hook object is the chart's server test",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The only hook is a chart test, and the empty webhook caBundle is filled by the injector the bundle itself ships, which holds the patch permission to do it. Nothing this base renders is discharged at render time.",
+    variantScope: [
+      {
+        values: "injector.certs.secretName",
+        effect:
+          "supplies the certificate externally instead, which removes the runtime dependency but adds an external Secret requirement",
+      },
+    ],
+  },
+  {
+    repo: "ingress-nginx",
+    chart: "ingress-nginx",
+    version: "4.15.1",
+    recipe: "recipes/ingress-nginx/ingress-nginx/4.15.1",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "the job-patch chain creates the webhook Secret at pre-install and patches the caBundle at post-install",
+        disposition: "the catalog's observed webhook-cert lifecycle routes exist but run render-late today",
+      },
+      "webhook-ca": {
+        finding: "present",
+        detail: "the validating webhook renders with an empty caBundle that only the hook chain fills",
+        disposition: "route to cert-manager or a certgen lifecycle route",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The admission webhook's certificate comes from a hook Job chain that creates a Secret and patches the caBundle after install. A flattened bundle ships the webhook with an empty caBundle and nothing to fill it, so admission fails closed.",
+    variantScope: [
+      {
+        values: "controller.admissionWebhooks.enabled: false",
+        effect:
+          "removes the webhook and its certgen chain; that base trends safe-to-flatten",
+      },
+    ],
+  },
+  {
+    repo: "jetstack",
+    chart: "cert-manager",
+    version: "v1.20.2",
+    recipe: "recipes/jetstack/cert-manager/v1.20.2",
+    auditedBase: "default",
+    overrides: {
+      "resource-policy-keep": {
+        finding: "present",
+        detail: "the CRD templates carry helm.sh/resource-policy keep",
+        disposition: "prune protection must ship beside the bundle",
+      },
+      "webhook-ca": {
+        finding: "present",
+        detail: "the cainjector maintains the CA at runtime and ships inside the bundle",
+        disposition: "no external route needed",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "startupapicheck lifecycle route, or values that disable it",
+      "prune protection for the keep-annotated CRDs",
+      "CRD ordering declaration",
+    ],
+    rationale:
+      "The same shape as the audited v1.21.0: a post-install check, keep annotations riding the CRDs, and CRDs that need ordering. Each has a nameable companion.",
+    variantScope: [
+      {
+        values: "startupapicheck.enabled: false",
+        effect:
+          "removes the only lifecycle hook and shrinks the route list to keep and ordering",
+      },
+    ],
+  },
+  {
+    repo: "longhorn",
+    chart: "longhorn",
+    version: "1.11.2",
+    recipe: "recipes/longhorn/longhorn/1.11.2",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail: "templates/validate-psp-install.yaml reads the cluster while rendering",
+        disposition: "no emitted route discharges a live validation lookup",
+      },
+      "helm-hooks": {
+        finding: "present",
+        detail: "pre-upgrade, post-upgrade, and uninstall Jobs carry the chart's lifecycle",
+        disposition: "no emitted route discharges an uninstall Job",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "A default-path template reads the cluster to decide what to render, and the chart carries pre-upgrade, post-upgrade, and uninstall Jobs that a flattened bundle would silently skip.",
+    variantScope: [],
+  },
+  {
+    repo: "metrics-server",
+    chart: "metrics-server",
+    version: "3.13.0",
+    recipe: "recipes/metrics-server/metrics-server/3.13.0",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the APIService certificate reuse lookup sits behind tls.type helm, off in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "genSelfSignedCert sits behind the same tls.type helm gate",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "No construct the audited base renders is discharged at render time; the chart's one hazard path is values-gated TLS material, exactly as in the audited 3.13.1.",
+    variantScope: [
+      {
+        values: "tls.type: helm",
+        effect:
+          "freezes certificate material into the bundle; that base is do-not-flatten unless certificates come from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-prometheus-stack",
+    version: "85.3.3",
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "the admission-webhook certgen hook chain mints the CA at install time",
+        disposition: "the catalog's observed webhook-cert lifecycle routes exist but run render-late today",
+      },
+      lookup: {
+        finding: "present",
+        detail: "grafana's admin-credential helper and PVC reuse read the live cluster",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The same shape as the audited 87.19.2: an admission-webhook certgen hook chain and grafana credentials read from the cluster and generated when absent.",
+    variantScope: [
+      {
+        values: "grafana.admin.existingSecret with the admission webhooks disabled or cert-manager-owned",
+        effect:
+          "removes both hazards and deserves a fresh verdict",
+      },
+    ],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus",
+    version: "29.8.0",
+    recipe: "recipes/prometheus-community/prometheus/29.8.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The scan found no hook template, no lookup, no generated credential, no webhook, and no CRD anywhere in the package. Alertmanager, kube-state-metrics, node-exporter, and pushgateway are all enabled in the audited base, so this reading already covers them.",
+    variantScope: [
+      {
+        values: "testFramework.enabled on any subchart",
+        effect:
+          "adds test-hook annotations, which a bundle prunes rather than ships; the alertmanager subchart carries the only such default and it is off",
+      },
+      {
+        values: "alertmanager, kube-state-metrics, node-exporter, or pushgateway disabled",
+        effect: "shrinks the rendered set; the verdict still holds",
+      },
+    ],
+  },
+  {
+    repo: "secrets-store-csi-driver",
+    chart: "secrets-store-csi-driver",
+    version: "1.6.0",
+    recipe: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail: "templates/crds-upgrade-hook.yaml runs a Job that installs and upgrades the driver CRDs",
+        disposition: "lifecycle route executed by the delivery runtime",
+      },
+      "resource-policy-keep": {
+        finding: "present",
+        detail: "the CRD upgrade hook objects carry helm.sh/resource-policy keep",
+        disposition: "prune protection ships beside the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the CRD upgrade hook Job",
+      "prune protection for the keep-annotated CRD hook objects",
+      "CRD ordering declaration",
+    ],
+    rationale:
+      "The chart upgrades its CRDs through a hook Job and marks part of that machinery keep, so a flattened bundle needs both a lifecycle route and prune protection.",
+    variantScope: [],
+  },
+  {
+    repo: "bitnami",
+    chart: "mongodb",
+    version: "19.0.7",
+    recipe: "recipes/bitnami/mongodb/19.0.7",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail:
+          "the chart's own credential template calls the shared password-manage helper, which reads an existing Secret from the cluster before deciding whether to mint one",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the audited base mints its credentials on render, in the chart's own templates rather than only in the vendored library",
+        disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
+    variantScope: [
+      {
+        values: "auth.existingSecret, the catalog's static-passwords lane",
+        effect:
+          "an external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "mysql",
+    version: "14.0.3",
+    recipe: "recipes/bitnami/mysql/14.0.3",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail:
+          "the chart's own credential template calls the shared password-manage helper, which reads an existing Secret from the cluster before deciding whether to mint one",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the audited base mints its credentials on render, in the chart's own templates rather than only in the vendored library",
+        disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
+    variantScope: [
+      {
+        values: "auth.existingSecret, the catalog's static-passwords lane",
+        effect:
+          "an external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "nginx",
+    version: "24.0.2",
+    recipe: "recipes/bitnami/nginx/24.0.2",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail:
+          "the two deployment lookups read an existing server-block ConfigMap to compute a rollout checksum, and both sit behind existingServerBlockConfigmap and existingStreamServerBlockConfigmap, empty in the audited base; the remaining hits are the vendored bitnami library, which this chart never calls for credentials",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "templates/tls-secret.yaml calls genCA and mints the server certificate on render, and tls.enabled and tls.autoGenerated are both true in the audited base",
+        disposition: "a flattened bundle would freeze one keypair draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "Unlike the bitnami databases, this chart has no credential to manage. Its hazard is certificate material: the audited base generates a self-signed CA and server certificate at render time, which a public flattened artifact must never freeze.",
+    variantScope: [
+      {
+        values: "tls.existingSecret, or tls.autoGenerated: false",
+        effect:
+          "certificate material comes from outside the render; that base trends flatten-with-routes with an external secret reference",
+      },
+      {
+        values: "ingress.enabled with ingress.tls",
+        effect: "adds an ingress TLS secret that generates its own certificate the same way",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "postgresql",
+    version: "18.6.7",
+    recipe: "recipes/bitnami/postgresql/18.6.7",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail:
+          "the chart's own credential template calls the shared password-manage helper, which reads an existing Secret from the cluster before deciding whether to mint one",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the audited base mints its credentials on render, in the chart's own templates rather than only in the vendored library",
+        disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
+    variantScope: [
+      {
+        values: "auth.existingSecret, the catalog's static-passwords lane",
+        effect:
+          "an external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "rabbitmq",
+    version: "16.0.14",
+    recipe: "recipes/bitnami/rabbitmq/16.0.14",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail:
+          "the chart's own credential template calls the shared password-manage helper, which reads an existing Secret from the cluster before deciding whether to mint one",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the audited base mints its credentials on render, in the chart's own templates rather than only in the vendored library",
+        disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
+    variantScope: [
+      {
+        values: "auth.existingSecret, the catalog's static-passwords lane",
+        effect:
+          "an external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "redis",
+    version: "25.5.3",
+    recipe: "recipes/bitnami/redis/25.5.3",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present",
+        detail:
+          "the chart's own credential template calls the shared password-manage helper, which reads an existing Secret from the cluster before deciding whether to mint one",
+        disposition: "no emitted route discharges a live lookup-or-generate credential path",
+      },
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the audited base mints its credentials on render, in the chart's own templates rather than only in the vendored library",
+        disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
+    variantScope: [
+      {
+        values: "auth.existingSecret, the catalog's static-passwords lane",
+        effect:
+          "an external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes",
+      },
+    ],
+  },
+  {
+    repo: "external-secrets",
+    chart: "external-secrets",
+    version: "2.5.0",
+    recipe: "recipes/external-secrets/external-secrets/2.5.0",
+    auditedBase: "default",
+    overrides: {
+      "webhook-ca": {
+        finding: "present",
+        detail: "the cert-controller maintains the webhook CA at runtime and ships inside the bundle",
+        disposition: "no external route needed",
+      },
+      "crd-ordering": {
+        finding: "present",
+        detail: "the chart's CRDs render with it",
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the CRD documents",
+    ],
+    rationale:
+      "No hooks, no keep, no generated values; the webhook CA is runtime-owned by the cert-controller and only the CRDs need a companion, exactly as in the audited 2.8.0.",
+    variantScope: [
+      {
+        values: "the catalog's no-crds base",
+        effect:
+          "removes the CRDs and the ordering route; that base trends safe-to-flatten",
+      },
+    ],
+  },
 ];
 
 function witnessPath(entry) {

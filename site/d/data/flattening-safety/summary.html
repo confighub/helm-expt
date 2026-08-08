@@ -442,7 +442,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/flattening-safety/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Each audited chart version gets one receipted answer to one question: what happens if you ship it as literal rendered YAML instead of running Helm? Findings come from a template-level scan of the pinned chart package (the witnesses directory), joined with the catalog's recorded hook and lifecycle evidence. The verdict schema is schemas/flattening-safety-verdict.schema.json and the model it feeds is docs/reference/certified-bundle-spec.md.</p>
 <table><thead><tr><th>chart</th><th>version</th><th>base</th><th>lane</th><th>verdict</th></tr></thead><tbody><tr><td>traefik/traefik</td><td>41.0.2</td><td>default</td><td>flatten-with-routes</td><td>recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml</td></tr>
@@ -464,9 +464,29 @@
 <tr><td>nvidia/nvidia-device-plugin</td><td>0.19.3</td><td>default</td><td>safe-to-flatten</td><td>recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-default.yaml</td></tr>
 <tr><td>karpenter/karpenter</td><td>1.14.0</td><td>crds-managed</td><td>safe-to-flatten</td><td>recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml</td></tr>
 <tr><td>nvidia/nvidia-device-plugin</td><td>0.19.3</td><td>nfd-enabled</td><td>flatten-with-routes</td><td>recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml</td></tr>
-<tr><td>bitnami/redis</td><td>27.0.0</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
+<tr><td>bitnami/redis</td><td>27.0.0</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>argo-cd/argo-cd</td><td>9.5.15</td><td>default</td><td>flatten-with-routes</td><td>recipes/argo-cd/argo-cd/9.5.15/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>grafana/grafana</td><td>10.5.15</td><td>default</td><td>do-not-flatten</td><td>recipes/grafana/grafana/10.5.15/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>grafana/loki</td><td>7.0.0</td><td>default</td><td>flatten-with-routes</td><td>recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>grafana/tempo</td><td>1.24.4</td><td>default</td><td>safe-to-flatten</td><td>recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>hashicorp/consul</td><td>2.0.0</td><td>default</td><td>do-not-flatten</td><td>recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>hashicorp/vault</td><td>0.32.0</td><td>default</td><td>safe-to-flatten</td><td>recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>ingress-nginx/ingress-nginx</td><td>4.15.1</td><td>default</td><td>do-not-flatten</td><td>recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>jetstack/cert-manager</td><td>v1.20.2</td><td>default</td><td>flatten-with-routes</td><td>recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>longhorn/longhorn</td><td>1.11.2</td><td>default</td><td>do-not-flatten</td><td>recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>metrics-server/metrics-server</td><td>3.13.0</td><td>default</td><td>safe-to-flatten</td><td>recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack</td><td>85.3.3</td><td>default</td><td>do-not-flatten</td><td>recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>prometheus-community/prometheus</td><td>29.8.0</td><td>default</td><td>safe-to-flatten</td><td>recipes/prometheus-community/prometheus/29.8.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>secrets-store-csi-driver/secrets-store-csi-driver</td><td>1.6.0</td><td>default</td><td>flatten-with-routes</td><td>recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/mongodb</td><td>19.0.7</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/mongodb/19.0.7/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/mysql</td><td>14.0.3</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/mysql/14.0.3/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/nginx</td><td>24.0.2</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/nginx/24.0.2/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/postgresql</td><td>18.6.7</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/postgresql/18.6.7/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/rabbitmq</td><td>16.0.14</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/rabbitmq/16.0.14/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/redis</td><td>25.5.3</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>external-secrets/external-secrets</td><td>2.5.0</td><td>default</td><td>flatten-with-routes</td><td>recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
 <p>A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.</p>
-<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 12 charts here now have that axis answered from source, across 20 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
+<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 27 charts here now have that axis answered from source, across 40 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
 <p>Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with <code>npm run flattening-safety</code>. Verify with <code>npm run flattening-safety:verify</code>.</p>
     </article>
   </main>

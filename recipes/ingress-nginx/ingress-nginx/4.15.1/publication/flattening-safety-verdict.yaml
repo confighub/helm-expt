@@ -1,0 +1,100 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  chart:
+    repository: "ingress-nginx"
+    name: "ingress-nginx"
+    version: "4.15.1"
+    packageSHA256: "3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c"
+  witnessRef: "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "the job-patch chain creates the webhook Secret at pre-install and patches the caBundle at post-install"
+      disposition: "the catalog's observed webhook-cert lifecycle routes exist but run render-late today"
+      evidence:
+        - "templates/admission-webhooks/job-patch/clusterrole.yaml:7"
+        - "templates/admission-webhooks/job-patch/clusterrolebinding.yaml:7"
+        - "templates/admission-webhooks/job-patch/job-createSecret.yaml:8"
+        - "templates/admission-webhooks/job-patch/job-patchWebhook.yaml:8"
+        - "templates/admission-webhooks/job-patch/networkpolicy.yaml:8"
+        - "templates/admission-webhooks/job-patch/role.yaml:8"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "the validating webhook renders with an empty caBundle that only the hook chain fills"
+      disposition: "route to cert-manager or a certgen lifecycle route"
+      evidence:
+        - "templates/admission-webhooks/validating-webhook.yaml:5"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "16 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/controller-daemonset.yaml:177"
+        - "templates/controller-deployment.yaml:183"
+        - "templates/controller-hpa.yaml:2"
+        - "templates/controller-poddisruptionbudget.yaml:11"
+        - "templates/controller-service-internal.yaml:52"
+        - "templates/controller-service-internal.yaml:57"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "controller.admissionWebhooks.enabled: false"
+      effect: "removes the webhook and its certgen chain; that base trends safe-to-flatten"
+  verdict:
+    lane: "do-not-flatten"
+    rationale: "The admission webhook's certificate comes from a hook Job chain that creates a Secret and patches the caBundle after install. A flattened bundle ships the webhook with an empty caBundle and nothing to fill it, so admission fails closed."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
+      - "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"

@@ -1,0 +1,111 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  chart:
+    repository: "grafana"
+    name: "grafana"
+    version: "10.5.15"
+    packageSHA256: "c08c87969270402e7d5227edb8385af67cc32ee34817bff89773ad02303b5d79"
+  witnessRef: "data/flattening-safety/witnesses/grafana-grafana-10.5.15.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "6 occurrence(s) in the packaged chart"
+      disposition: "lifecycle route executed by the delivery runtime"
+      evidence:
+        - "templates/tests/test-configmap.yaml:8"
+        - "templates/tests/test-podsecuritypolicy.yaml:7"
+        - "templates/tests/test-role.yaml:8"
+        - "templates/tests/test-rolebinding.yaml:8"
+        - "templates/tests/test-serviceaccount.yaml:10"
+        - "templates/tests/test.yaml:10"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "templates/_helpers.tpl reads the existing admin Secret before deciding whether to generate one"
+      disposition: "no emitted route discharges a live lookup-or-generate credential path"
+      evidence:
+        - "templates/_helpers.tpl:110"
+        - "templates/pvc.yaml:30"
+        - "templates/pvc.yaml:31"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "12 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:122"
+        - "templates/_helpers.tpl:133"
+        - "templates/_helpers.tpl:135"
+        - "templates/_helpers.tpl:146"
+        - "templates/_helpers.tpl:159"
+        - "templates/_helpers.tpl:177"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "the admin password is generated on render when no existing Secret is named"
+      disposition: "a flattened bundle would freeze one credential draw into a shared artifact"
+      evidence:
+        - "templates/_helpers.tpl:114"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "present"
+      detail: "6 occurrence(s) in the packaged chart"
+      disposition: "pruned from any bundle"
+      evidence:
+        - "templates/tests/test-configmap.yaml:8"
+        - "templates/tests/test-podsecuritypolicy.yaml:7"
+        - "templates/tests/test-role.yaml:8"
+        - "templates/tests/test-rolebinding.yaml:8"
+        - "templates/tests/test-serviceaccount.yaml:10"
+        - "templates/tests/test.yaml:10"
+  variantScope:
+    -
+      values: "admin.existingSecret"
+      effect: "supplies the credential externally and removes both hazards; that base deserves its own verdict and trends flatten-with-routes"
+  verdict:
+    lane: "do-not-flatten"
+    rationale: "The admin credential is read from the cluster and generated when absent, in the same helper pair, so a flattened bundle either freezes one draw into a shared artifact or renders against a cluster that was not there."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/grafana-grafana-10.5.15.yaml"
+      - "recipes/grafana/grafana/10.5.15/source-lock.yaml"
