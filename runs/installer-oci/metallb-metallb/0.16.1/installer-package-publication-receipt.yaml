@@ -4,6 +4,7 @@ metadata:
   name: metallb-metallb-0.16.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1
+  observedAt: "2026-08-08T20:47:26.679Z"
   package:
     path: packages/metallb/metallb/0.16.1
     sha256: a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070

@@ -4,6 +4,7 @@ metadata:
   name: linkerd-linkerd-crds-1.8.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0
+  observedAt: "2026-08-08T20:47:25.362Z"
   package:
     path: packages/linkerd/linkerd-crds/1.8.0
     sha256: 770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42

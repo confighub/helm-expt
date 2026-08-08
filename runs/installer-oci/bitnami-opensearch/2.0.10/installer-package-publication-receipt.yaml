@@ -4,6 +4,7 @@ metadata:
   name: bitnami-opensearch-2.0.10
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10
+  observedAt: "2026-08-08T20:47:00.916Z"
   package:
     path: packages/bitnami/opensearch/2.0.10
     sha256: b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8

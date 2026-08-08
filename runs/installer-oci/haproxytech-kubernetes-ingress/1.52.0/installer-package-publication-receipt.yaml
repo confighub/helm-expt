@@ -4,6 +4,7 @@ metadata:
   name: haproxytech-kubernetes-ingress-1.52.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0
+  observedAt: "2026-08-08T20:47:17.822Z"
   package:
     path: packages/haproxytech/kubernetes-ingress/1.52.0
     sha256: 3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f

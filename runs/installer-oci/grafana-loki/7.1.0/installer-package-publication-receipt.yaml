@@ -4,6 +4,7 @@ metadata:
   name: grafana-loki-7.1.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0
+  observedAt: "2026-08-08T20:47:15.992Z"
   package:
     path: packages/grafana/loki/7.1.0
     sha256: bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204

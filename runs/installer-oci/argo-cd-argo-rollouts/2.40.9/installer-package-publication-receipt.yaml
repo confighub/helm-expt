@@ -4,6 +4,7 @@ metadata:
   name: argo-cd-argo-rollouts-2.40.9
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9
+  observedAt: "2026-08-08T20:46:52.498Z"
   package:
     path: packages/argo-cd/argo-rollouts/2.40.9
     sha256: ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39

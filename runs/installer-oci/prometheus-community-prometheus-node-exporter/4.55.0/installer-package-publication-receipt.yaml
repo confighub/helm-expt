@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-prometheus-node-exporter-4.55.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0
+  observedAt: "2026-08-08T20:47:39.319Z"
   package:
     path: packages/prometheus-community/prometheus-node-exporter/4.55.0
     sha256: 54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b

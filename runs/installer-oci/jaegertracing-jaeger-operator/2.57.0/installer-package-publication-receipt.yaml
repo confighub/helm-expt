@@ -4,6 +4,7 @@ metadata:
   name: jaegertracing-jaeger-operator-2.57.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0
+  observedAt: "2026-08-08T20:47:20.496Z"
   package:
     path: packages/jaegertracing/jaeger-operator/2.57.0
     sha256: f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3

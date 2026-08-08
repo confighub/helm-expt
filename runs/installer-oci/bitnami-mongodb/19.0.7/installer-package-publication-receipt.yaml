@@ -4,6 +4,7 @@ metadata:
   name: bitnami-mongodb-19.0.7
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7
+  observedAt: "2026-08-08T20:46:58.003Z"
   package:
     path: packages/bitnami/mongodb/19.0.7
     sha256: be877c3e95f1ac35191e6c4bb0eefcd456aef55ab44d613ad75c0a35f50f9923

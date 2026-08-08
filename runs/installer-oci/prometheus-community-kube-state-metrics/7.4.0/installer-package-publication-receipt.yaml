@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-kube-state-metrics-7.4.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0
+  observedAt: "2026-08-08T20:47:37.682Z"
   package:
     path: packages/prometheus-community/kube-state-metrics/7.4.0
     sha256: 1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90

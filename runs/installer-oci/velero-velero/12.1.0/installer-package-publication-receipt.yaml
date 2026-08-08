@@ -4,6 +4,7 @@ metadata:
   name: velero-velero-12.1.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0
+  observedAt: "2026-08-08T20:47:46.477Z"
   package:
     path: packages/velero/velero/12.1.0
     sha256: 94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307

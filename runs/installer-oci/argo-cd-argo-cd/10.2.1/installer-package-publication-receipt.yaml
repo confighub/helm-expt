@@ -4,6 +4,7 @@ metadata:
   name: argo-cd-argo-cd-10.2.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1
+  observedAt: "2026-08-08T20:46:50.652Z"
   package:
     path: packages/argo-cd/argo-cd/10.2.1
     sha256: 41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88

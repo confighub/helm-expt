@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-prometheus-blackbox-exporter-11.15.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1
+  observedAt: "2026-08-08T20:47:38.896Z"
   package:
     path: packages/prometheus-community/prometheus-blackbox-exporter/11.15.1
     sha256: cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551

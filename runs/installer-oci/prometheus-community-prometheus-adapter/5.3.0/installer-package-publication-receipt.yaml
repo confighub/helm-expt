@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-prometheus-adapter-5.3.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0
+  observedAt: "2026-08-08T20:47:38.089Z"
   package:
     path: packages/prometheus-community/prometheus-adapter/5.3.0
     sha256: 320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea

@@ -4,6 +4,7 @@ metadata:
   name: bitnami-mysql-14.0.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3
+  observedAt: "2026-08-08T20:46:59.220Z"
   package:
     path: packages/bitnami/mysql/14.0.3
     sha256: fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867

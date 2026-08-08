@@ -4,6 +4,7 @@ metadata:
   name: elastic-filebeat-8.5.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
+  observedAt: "2026-08-08T20:47:08.421Z"
   package:
     path: packages/elastic/filebeat/8.5.1
     sha256: 95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003

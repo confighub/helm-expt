@@ -4,6 +4,7 @@ metadata:
   name: bitnami-spark-10.0.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3
+  observedAt: "2026-08-08T20:47:04.325Z"
   package:
     path: packages/bitnami/spark/10.0.3
     sha256: d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353

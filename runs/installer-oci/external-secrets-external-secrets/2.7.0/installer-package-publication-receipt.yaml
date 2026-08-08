@@ -4,6 +4,7 @@ metadata:
   name: external-secrets-external-secrets-2.7.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0
+  observedAt: "2026-08-08T20:47:10.815Z"
   package:
     path: packages/external-secrets/external-secrets/2.7.0
     sha256: 42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4

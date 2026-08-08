@@ -4,6 +4,7 @@ metadata:
   name: autoscaler-cluster-autoscaler-9.57.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0
+  observedAt: "2026-08-08T20:46:53.895Z"
   package:
     path: packages/autoscaler/cluster-autoscaler/9.57.0
     sha256: 3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2

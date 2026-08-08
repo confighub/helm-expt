@@ -4,6 +4,7 @@ metadata:
   name: nvidia-nvidia-device-plugin-0.19.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3
+  observedAt: "2026-08-08T20:47:30.452Z"
   package:
     path: packages/nvidia/nvidia-device-plugin/0.19.3
     sha256: eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73

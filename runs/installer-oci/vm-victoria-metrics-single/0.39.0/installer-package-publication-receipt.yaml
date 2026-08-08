@@ -4,6 +4,7 @@ metadata:
   name: vm-victoria-metrics-single-0.39.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0
+  observedAt: "2026-08-08T20:47:47.274Z"
   package:
     path: packages/vm/victoria-metrics-single/0.39.0
     sha256: 15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946

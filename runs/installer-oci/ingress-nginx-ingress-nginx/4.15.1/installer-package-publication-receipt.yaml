@@ -4,6 +4,7 @@ metadata:
   name: ingress-nginx-ingress-nginx-4.15.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1
+  observedAt: "2026-08-08T20:47:19.354Z"
   package:
     path: packages/ingress-nginx/ingress-nginx/4.15.1
     sha256: 902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5

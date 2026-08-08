@@ -4,6 +4,7 @@ metadata:
   name: descheduler-descheduler-0.36.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0
+  observedAt: "2026-08-08T20:47:07.358Z"
   package:
     path: packages/descheduler/descheduler/0.36.0
     sha256: ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490

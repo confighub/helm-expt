@@ -4,6 +4,7 @@ metadata:
   name: grafana-promtail-6.17.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1
+  observedAt: "2026-08-08T20:47:16.330Z"
   package:
     path: packages/grafana/promtail/6.17.1
     sha256: 9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62

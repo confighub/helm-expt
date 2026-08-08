@@ -4,6 +4,7 @@ metadata:
   name: nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18
+  observedAt: "2026-08-08T20:47:30.069Z"
   package:
     path: packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
     sha256: c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de

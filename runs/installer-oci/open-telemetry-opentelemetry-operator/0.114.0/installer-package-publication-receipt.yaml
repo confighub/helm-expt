@@ -4,6 +4,7 @@ metadata:
   name: open-telemetry-opentelemetry-operator-0.114.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
+  observedAt: "2026-08-08T20:47:31.265Z"
   package:
     path: packages/open-telemetry/opentelemetry-operator/0.114.0
     sha256: af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d

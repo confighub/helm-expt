@@ -4,6 +4,7 @@ metadata:
   name: rook-release-rook-ceph-cluster-v1.19.5
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5
+  observedAt: "2026-08-08T20:47:41.308Z"
   package:
     path: packages/rook-release/rook-ceph-cluster/v1.19.5
     sha256: 74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d

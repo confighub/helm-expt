@@ -4,6 +4,7 @@ metadata:
   name: bitnami-nginx-24.0.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2
+  observedAt: "2026-08-08T20:46:59.594Z"
   package:
     path: packages/bitnami/nginx/24.0.2
     sha256: 2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d

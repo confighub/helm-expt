@@ -4,6 +4,7 @@ metadata:
   name: aqua-trivy-operator-0.32.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1
+  observedAt: "2026-08-08T20:46:49.694Z"
   package:
     path: packages/aqua/trivy-operator/0.32.1
     sha256: 355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3

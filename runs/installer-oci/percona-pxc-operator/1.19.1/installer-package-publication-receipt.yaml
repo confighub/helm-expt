@@ -4,6 +4,7 @@ metadata:
   name: percona-pxc-operator-1.19.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
+  observedAt: "2026-08-08T20:47:33.555Z"
   package:
     path: packages/percona/pxc-operator/1.19.1
     sha256: 715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb

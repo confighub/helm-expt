@@ -4,6 +4,7 @@ metadata:
   name: grafana-pyroscope-2.0.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2
+  observedAt: "2026-08-08T20:47:16.684Z"
   package:
     path: packages/grafana/pyroscope/2.0.2
     sha256: 993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04

@@ -4,6 +4,7 @@ metadata:
   name: falcosecurity-falcosidekick-0.13.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1
+  observedAt: "2026-08-08T20:47:12.706Z"
   package:
     path: packages/falcosecurity/falcosidekick/0.13.1
     sha256: f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047

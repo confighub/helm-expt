@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-prometheus-29.9.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
+  observedAt: "2026-08-08T20:47:40.891Z"
   package:
     path: packages/prometheus-community/prometheus/29.9.0
     sha256: 05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9

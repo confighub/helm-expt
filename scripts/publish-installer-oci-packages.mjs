@@ -6,7 +6,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 
-import { check, cubEnv, listFiles, normalizeTempPaths, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
+import { check, cubEnv, listFiles, normalizeTempPaths, readYaml, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 import { installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
 
 const args = process.argv.slice(2);
@@ -19,19 +19,25 @@ const limit = limitArg ? Number.parseInt(limitArg, 10) : undefined;
 if (args.includes("--help")) {
   console.log(`Usage:
   node scripts/publish-installer-oci-packages.mjs [--package packages/<repo>/<chart>/<version>] [--limit N] [--dry-run] [--idempotent]
+  node scripts/publish-installer-oci-packages.mjs --reobserve
   node scripts/publish-installer-oci-packages.mjs --self-test
 
 Publishes installer package source directories to their assigned OCI refs and
 writes runs/installer-oci/<slug>/<tag>/installer-package-publication-receipt.yaml.
 
 Requires registry credentials with package write permission for the configured
-installer OCI registry.
+installer OCI registry. --reobserve only reads, so it needs no write permission.
 `);
   process.exit(0);
 }
 
 if (args.includes("--self-test")) {
   selfTest();
+  process.exit(0);
+}
+
+if (args.includes("--reobserve")) {
+  reobserveCommittedReceipts();
   process.exit(0);
 }
 
@@ -90,6 +96,7 @@ function publishPackage(packagePath) {
       publicationAction = "pushed-new";
     }
     const inspectOutput = run("cub", ["installer", "inspect", ociRef, "--json"]);
+    const observedAt = new Date().toISOString();
     const inspected = inspectMetadata(inspectOutput, ociRef);
     check(inspected.layerDigest === `sha256:${packageSha}`, `${ociRef}: remote layer does not match the local deterministic package`);
     const receiptPath = receiptPathFor(packagePath);
@@ -97,6 +104,7 @@ function publishPackage(packagePath) {
       packagePath,
       archiveName,
       ociRef,
+      observedAt,
       packageSha,
       sourceTreeSha,
       packageOutput: normalizeTempPaths(packageOutput),
@@ -110,6 +118,66 @@ function publishPackage(packagePath) {
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
+}
+
+// Recording when a published package was last confirmed, without republishing.
+// The artifact is inspected again and checked against the hash the receipt
+// already recorded, so the stamp says the published bytes are still there
+// rather than asserting anything new about them. Inspecting only reads, so this
+// needs no write permission on the registry.
+//
+// The receipt is edited in place rather than rebuilt, which is the difference
+// between this and the certified-bundle publisher. Older receipts here predate
+// fields the current template emits, and regenerating them would manufacture
+// claims their publication never made. sourceTreeSHA256 is the one that
+// matters: the drift lane reads its absence as an older receipt that cannot
+// answer the question, and filling it from today's tree would turn every
+// drifted package silently into a matching one.
+function reobserveCommittedReceipts() {
+  const paths = listFiles(join(repoRoot, "runs"))
+    .filter((path) => path.endsWith("installer-package-publication-receipt.yaml"))
+    .sort();
+  check(paths.length > 0, "no committed installer package publication receipt was found under runs/");
+  for (const path of paths) {
+    const rel = relativeRepo(path);
+    const text = readFileSync(path, "utf8");
+    const recorded = readYaml(path)?.spec ?? {};
+    const ociRef = recorded.ref;
+    check(ociRef, `${rel} records no spec.ref`);
+    const outputs = recorded.outputs ?? {};
+    const inspectOutput = run("cub", ["installer", "inspect", ociRef, "--json"]);
+    const observedAt = new Date().toISOString();
+    const inspected = inspectMetadata(inspectOutput, ociRef);
+    check(
+      sha256(inspectOutput) === outputs.inspectJSONSHA256,
+      `${rel}: ${ociRef} now inspects to ${sha256(inspectOutput)}, and the receipt recorded ${outputs.inspectJSONSHA256}. Republish deliberately rather than restamping a receipt that no longer describes the artifact.`,
+    );
+    // The structured digests arrived partway through this catalog's life. Where
+    // a receipt carries them they are checked, and where it does not the
+    // inspect hash above already covered the same bytes.
+    for (const [field, actual] of [
+      ["manifestDigest", inspected.manifestDigest],
+      ["layerDigest", inspected.layerDigest],
+    ]) {
+      if (!outputs[field]) continue;
+      check(outputs[field] === actual, `${rel}: the registry reports ${field} ${actual}, and the receipt claims ${outputs[field]}`);
+    }
+    writeFileSync(path, stampObservedAt(text, observedAt, rel));
+    console.log(`${rel}\n  ${ociRef}\n  observed ${observedAt}, inspect unchanged`);
+  }
+  console.log(`re-observed ${paths.length} published package(s)`);
+}
+
+// The stamp goes beside the reference it is about, and replaces an earlier one
+// rather than accumulating. Every other byte is left as the publication wrote
+// it. The value is quoted because an unquoted timestamp loads as a date rather
+// than a string, and every reader of these receipts parses them as YAML.
+function stampObservedAt(text, observedAt, rel) {
+  const line = `  observedAt: "${observedAt}"`;
+  if (/^ {2}observedAt: .*$/m.test(text)) return text.replace(/^ {2}observedAt: .*$/m, line);
+  const ref = text.match(/^ {2}ref: .*$/m);
+  check(ref, `${rel}: no spec.ref line to record the observation beside`);
+  return text.replace(/^ {2}ref: .*$/m, `${ref[0]}\n${line}`);
 }
 
 function run(command, commandArgs) {
@@ -182,6 +250,7 @@ metadata:
   name: ${receiptNameFor(receipt.packagePath)}
 spec:
   ref: ${receipt.ociRef}
+  observedAt: "${receipt.observedAt}"
   package:
     path: ${receipt.packagePath}
     sha256: ${receipt.packageSha}

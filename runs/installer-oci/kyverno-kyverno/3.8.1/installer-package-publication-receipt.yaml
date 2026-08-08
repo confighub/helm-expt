@@ -4,6 +4,7 @@ metadata:
   name: kyverno-kyverno-3.8.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1
+  observedAt: "2026-08-08T20:47:24.564Z"
   package:
     path: packages/kyverno/kyverno/3.8.1
     sha256: fce4f2ec34412a1a55c1018ccf1a1e5eb1d6e739a456954e83e63236747264f4

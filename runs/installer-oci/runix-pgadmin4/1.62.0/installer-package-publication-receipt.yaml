@@ -4,6 +4,7 @@ metadata:
   name: runix-pgadmin4-1.62.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0
+  observedAt: "2026-08-08T20:47:42.197Z"
   package:
     path: packages/runix/pgadmin4/1.62.0
     sha256: a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2

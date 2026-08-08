@@ -4,6 +4,7 @@ metadata:
   name: fairwinds-stable-goldilocks-10.3.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0
+  observedAt: "2026-08-08T20:47:11.619Z"
   package:
     path: packages/fairwinds-stable/goldilocks/10.3.0
     sha256: 1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a

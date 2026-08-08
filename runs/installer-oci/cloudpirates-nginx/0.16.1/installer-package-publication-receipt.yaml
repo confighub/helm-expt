@@ -4,6 +4,7 @@ metadata:
   name: cloudpirates-nginx-0.16.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1
+  observedAt: "2026-08-08T20:47:05.438Z"
   package:
     path: packages/cloudpirates/nginx/0.16.1
     sha256: 74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e

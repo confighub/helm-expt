@@ -4,6 +4,7 @@ metadata:
   name: projectcalico-tigera-operator-v3.32.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0
+  observedAt: "2026-08-08T20:47:34.412Z"
   package:
     path: packages/projectcalico/tigera-operator/v3.32.0
     sha256: 1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c

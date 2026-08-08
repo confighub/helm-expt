@@ -4,6 +4,7 @@ metadata:
   name: bitnami-phpmyadmin-20.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0
+  observedAt: "2026-08-08T20:47:01.333Z"
   package:
     path: packages/bitnami/phpmyadmin/20.0.0
     sha256: f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e

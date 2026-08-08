@@ -4,6 +4,7 @@ metadata:
   name: aws-controllers-k8s-ec2-chart-1.18.4
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4
+  observedAt: "2026-08-08T20:46:54.792Z"
   package:
     path: packages/aws-controllers-k8s/ec2-chart/1.18.4
     sha256: 19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795

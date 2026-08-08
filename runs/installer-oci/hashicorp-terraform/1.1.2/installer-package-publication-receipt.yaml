@@ -4,6 +4,7 @@ metadata:
   name: hashicorp-terraform-1.1.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2
+  observedAt: "2026-08-08T20:47:18.601Z"
   package:
     path: packages/hashicorp/terraform/1.1.2
     sha256: a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e
