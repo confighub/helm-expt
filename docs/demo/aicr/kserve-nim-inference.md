@@ -9,6 +9,25 @@ entry: no NIM container ran, no model was fetched, and nothing was pulled from
 catalog page for the described model profile supplied the governing-terms
 names, and the profile stores those names with the date they were read.
 
+## Why this source, and what it is not
+
+This entry retains NVIDIA's KServe reference implementation, which is a
+different repository from AICR itself. That choice was made before anyone here
+read AICR's own recipe catalog, and the
+[composition-model reference](../../reference/aicr-composition-model.md)
+records what a later study found: AICR v0.14.0 already has `platform: nim` as
+a first-class criteria value, with `k8s-nim-operator` as a registered
+component and its own overlay. Asking the pinned binary for that recipe
+returns seventeen components including the NIM operator and an inference
+gateway.
+
+So there are two credible NVIDIA sources for a NIM inference shape, and this
+entry retains the one that is not AICR-native. The retention, the digest
+spine, and the licensing boundary all stand on their own. What does not stand
+is any suggestion that this was the only or the strongest upstream option, and
+whether the catalog should also retain the AICR-native recipe is an open
+question rather than a settled one.
+
 ## What is retained
 
 The [upstream tree](../../../examples/aicr/kserve-nim-inference/upstream/kserve/README.md)
