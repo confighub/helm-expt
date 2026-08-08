@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
+import { NPM_LANE_DISPOSITIONS, NPM_LANE_REQUIREMENTS, NPM_LANE_ROLES } from "./lib/npm-lane-roles.mjs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
@@ -8,20 +9,34 @@ const mode = process.argv[2] ?? "--generate";
 
 const packageJson = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"));
 const scripts = packageJson.scripts ?? {};
+const verifyChain = new Set(
+  String(scripts.verify ?? "")
+    .split(" && ")
+    .map((command) => command.trim())
+    .filter(Boolean),
+);
 const rows = Object.entries(scripts).map(([name, command], index) => describeScript(name, command, index + 1));
 const summary = summarize(rows);
 const csv = renderCsv(rows);
 const markdown = renderMarkdown(summary);
 
+const hiddenGates = rows.filter((row) => row.chain_role === "gate-shaped-outside-chain");
+const laneRoles = renderLaneRoles(hiddenGates);
+
 if (mode === "--generate") {
+  assertLaneRolesDeclared(hiddenGates);
   writeFileSync(join(repoRoot, "tests", "npm-script-catalog.csv"), csv);
   writeFileSync(join(repoRoot, "tests", "npm-script-catalog.md"), markdown);
-  console.log(`wrote npm script catalog for ${rows.length} script(s)`);
+  writeFileSync(join(repoRoot, "tests", "npm-lane-roles.md"), laneRoles);
+  console.log(`wrote npm script catalog for ${rows.length} script(s) and roles for ${hiddenGates.length} lane(s) outside the verify chain`);
 } else if (mode === "--verify") {
   const currentCsv = readFileSync(join(repoRoot, "tests", "npm-script-catalog.csv"), "utf8");
   const currentMarkdown = readFileSync(join(repoRoot, "tests", "npm-script-catalog.md"), "utf8");
+  const currentLaneRoles = readFileSync(join(repoRoot, "tests", "npm-lane-roles.md"), "utf8");
+  assertLaneRolesDeclared(hiddenGates);
   check(currentCsv === csv, "tests/npm-script-catalog.csv is stale; run npm run npm-scripts:catalog");
   check(currentMarkdown === markdown, "tests/npm-script-catalog.md is stale; run npm run npm-scripts:catalog");
+  check(currentLaneRoles === laneRoles, "tests/npm-lane-roles.md is stale; run npm run npm-scripts:catalog");
   console.log(`verified npm script catalog for ${rows.length} script(s)`);
 } else {
   throw new Error(`unknown mode ${mode}`);
@@ -39,9 +54,34 @@ function describeScript(name, command, index) {
     mode,
     writes_files: writesFiles,
     needs_external_state: externalState,
+    chain_role: chainRole(name, command),
     why: why(category),
     how: how(name, category, mode, externalState),
   };
+}
+
+// A lane named like a gate that nothing runs is the shape that hid
+// app-readiness and preview-readiness while they went stale. Naming that state
+// in the catalog is the cheapest way to stop it hiding again.
+function chainRole(name, command) {
+  if (coveredByChain(command)) return "in-verify-chain";
+  const gateShaped = /:verify$|^verify:|:self-test$|:verify-static$|:receipt-verify$|:verify-candidates$|:strict$/.test(name);
+  return gateShaped ? "gate-shaped-outside-chain" : "not-a-gate";
+}
+
+// A lane can be a compound. helm-render-intents:verify runs two commands that
+// the chain runs separately, and kubara-adoption:self-test delegates to four
+// other lanes with `npm run`. Either is genuinely covered, so expand both
+// shapes before deciding, or the catalog reports a gap that is not there.
+function coveredByChain(command, seen = new Set()) {
+  const parts = String(command).split(" && ").map((part) => part.trim()).filter(Boolean);
+  if (!parts.length) return false;
+  return parts.every((part) => {
+    if (verifyChain.has(part)) return true;
+    const delegated = part.match(/^npm run (?:-s )?([^\s]+)$/)?.[1];
+    if (!delegated || seen.has(delegated) || !scripts[delegated]) return false;
+    return coveredByChain(scripts[delegated], new Set([...seen, delegated]));
+  });
 }
 
 function categorize(name) {
@@ -196,6 +236,7 @@ function summarize(rows) {
   return {
     total: rows.length,
     byCategory: countBy(rows, "category"),
+    byChainRole: countBy(rows, "chain_role"),
     byMode: countBy(rows, "mode"),
     byExternalState: countBy(rows, "needs_external_state"),
   };
@@ -208,7 +249,7 @@ function countBy(rows, key) {
 }
 
 function renderCsv(rows) {
-  const headers = ["order", "script", "category", "mode", "writes_files", "needs_external_state", "why", "how"];
+  const headers = ["order", "script", "category", "chain_role", "mode", "writes_files", "needs_external_state", "why", "how"];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")).join("\n")}\n`;
 }
 
@@ -229,6 +270,12 @@ scripts: ${summary.total}
 \`\`\`
 
 ## By Category
+
+${renderCountTable(summary.byChainRole, "Chain role")}
+
+A lane whose role is \`gate-shaped-outside-chain\` is named like a gate and is
+not run by \`npm run verify\`. Each one needs a recorded reason, which
+[npm-lane-roles.md](./npm-lane-roles.md) carries.
 
 ${renderCountTable(summary.byCategory, "Category")}
 
@@ -261,4 +308,64 @@ function csvCell(value) {
 
 function check(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+// The point of the whole exercise: a lane cannot be named like a gate, run
+// nowhere, and stay silent about it. Adding such a lane without declaring its
+// role fails here, on the cheapest gate in the repository.
+function assertLaneRolesDeclared(hidden) {
+  const undeclared = hidden.map((row) => row.script).filter((lane) => !NPM_LANE_ROLES[lane]);
+  check(
+    undeclared.length === 0,
+    `these lanes are named like gates, are not run by \`npm run verify\`, and declare no role in scripts/lib/npm-lane-roles.mjs: ${undeclared.join(", ")}`,
+  );
+  for (const [lane, role] of Object.entries(NPM_LANE_ROLES)) {
+    check(role.proves && role.requires && role.disposition, `${lane}: lane role must record proves, requires, and disposition`);
+    check(NPM_LANE_REQUIREMENTS.includes(role.requires), `${lane}: requires must be one of ${NPM_LANE_REQUIREMENTS.join(", ")}`);
+    check(NPM_LANE_DISPOSITIONS.includes(role.disposition), `${lane}: disposition must be one of ${NPM_LANE_DISPOSITIONS.join(", ")}`);
+  }
+}
+
+function renderLaneRoles(hidden) {
+  const byDisposition = (name) => hidden.filter((row) => NPM_LANE_ROLES[row.script]?.disposition === name);
+  const table = (subset) => [
+    "| lane | proves | requires | status |",
+    "| --- | --- | --- | --- |",
+    ...subset.map((row) => {
+      const role = NPM_LANE_ROLES[row.script] ?? {};
+      return `| \`${row.script}\` | ${role.proves ?? ""} | ${role.requires ?? ""} | ${role.status ?? ""} |`;
+    }),
+  ].join("\n");
+  const join = byDisposition("join-the-chain");
+  const keep = byDisposition("keep-outside");
+  const superseded = byDisposition("superseded");
+  return `# Lanes outside the verify chain
+
+This page is generated. It lists every npm lane that is named like a gate and
+is not run by \`npm run verify\`, with what it proves and why it sits outside.
+
+Two such lanes went stale unnoticed before this page existed. \`app-readiness\`
+claimed to check every catalog chart while covering 95 of 120 rendered
+subjects, and \`preview-readiness\` was wrong in three fields of four. Nothing
+failed, because nothing ran them.
+
+\`\`\`text
+lanes outside the chain: ${hidden.length}
+should join the chain:   ${join.length}
+deliberately outside:    ${keep.length}
+superseded:              ${superseded.length}
+\`\`\`
+
+## Cheap, offline, and belongs in the chain
+
+${join.length ? table(join) : "None."}
+
+## Deliberately outside, because it needs the world
+
+${keep.length ? table(keep) : "None."}
+
+## Superseded
+
+${superseded.length ? table(superseded) : "None."}
+`;
 }

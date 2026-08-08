@@ -25,10 +25,12 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import {
+  findKubaraReleaseScopeDrift,
   KUBARA_CATALOG_ADDITIONS,
   KUBARA_CATALOG_BASELINE,
   KUBARA_CURRENT_ADDITIONS,
   KUBARA_HISTORICAL_ADDITIONS,
+  readKubaraReleaseScope,
 } from "./lib/kubara-catalog-release.mjs";
 import {
   KUBARA_CATALOG_1_1_ADDITIONS,
@@ -791,7 +793,17 @@ function historicalRootDigests(components) {
 }
 
 function recipeCoreTreeDigest(root) {
-  return treeDigest(root, (path) => !derivedRecipeFiles.has(relative(root, path).replaceAll("\\", "/")));
+  return treeDigest(root, (path) => !isDerivedRecipeFile(relative(root, path).replaceAll("\\", "/")));
+}
+
+// Later lanes emit their own artifacts inside a retained recipe root. A
+// flattening-safety verdict is generated from the pinned chart package by its
+// own generator and gated by its own lane, so it is derived output like the
+// views above, not promotion source. Counting it as core made an unrelated
+// lane's work look like tampering with a promoted root.
+function isDerivedRecipeFile(relativePath) {
+  if (derivedRecipeFiles.has(relativePath)) return true;
+  return /^publication\/flattening-safety-verdict[^/]*\.yaml$/.test(relativePath);
 }
 
 function treeDigest(root, include = () => true) {
@@ -819,8 +831,14 @@ function verifyReleaseScope(components) {
 }
 
 function verifyBaselineCatalogRoots() {
+  // Scope first. Version roots this release never recorded belong to later
+  // workstreams, and counting them here made an unrelated catalog addition look
+  // like a baseline change. This is the same fix the acceptance, the publisher,
+  // and the coverage completion already carry.
+  const scope = readKubaraReleaseScope(repoRoot);
+  check(scope.ok, scope.reason ?? "release scope manifest could not be read");
   for (const rootName of ["recipes", "packages"]) {
-    const roots = catalogVersionRoots(rootName);
+    const roots = catalogVersionRoots(rootName).filter((path) => scope.roots.has(path));
     const additions = new Set(KUBARA_CATALOG_ADDITIONS.map((path) => `${rootName}/${path}`));
     const fullCoverageAdditions = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => `${rootName}/${item.canonicalIdentity}/${item.version}`));
     const baselineRoots = roots.filter((path) => !additions.has(path) && !fullCoverageAdditions.has(path));
@@ -828,19 +846,15 @@ function verifyBaselineCatalogRoots() {
       baselineRoots.length === KUBARA_CATALOG_BASELINE.versionCount,
       `${rootName}: expected ${KUBARA_CATALOG_BASELINE.versionCount} immutable baseline roots, found ${baselineRoots.length}`,
     );
-    const expectedDigest = rootName === "recipes"
-      ? KUBARA_CATALOG_BASELINE.recipesTreeSHA256
-      : KUBARA_CATALOG_BASELINE.packagesTreeSHA256;
-    check(catalogTreeSetDigest(baselineRoots) === expectedDigest, `${rootName}: an immutable baseline root was removed or changed`);
+    const baselineDrift = findKubaraReleaseScopeDrift(repoRoot, scope, baselineRoots);
+    check(!baselineDrift, `${rootName}: an immutable baseline root was removed or changed (${baselineDrift})`);
     const retained120 = roots.filter((path) => !fullCoverageAdditions.has(path));
-    const expected120 = rootName === "recipes"
-      ? KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256
-      : KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256;
     check(
-      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount
-        && catalogTreeSetDigest(retained120) === expected120,
-      `${rootName}: the immutable 120-root intermediate Catalog changed`,
+      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount,
+      `${rootName}: the immutable ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root intermediate Catalog lost a version root`,
     );
+    const intermediateDrift = findKubaraReleaseScopeDrift(repoRoot, scope, retained120);
+    check(!intermediateDrift, `${rootName}: the immutable ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root intermediate Catalog changed (${intermediateDrift})`);
     const declared = new Set([...baselineRoots, ...additions, ...fullCoverageAdditions]);
     check(roots.every((path) => declared.has(path)), `${rootName}: undeclared catalog root exists`);
     check(roots.length <= KUBARA_CATALOG_1_1_FINAL.versionCount, `${rootName}: undeclared catalog roots exceed the ${KUBARA_CATALOG_1_1_FINAL.versionCount}-version release scope`);
