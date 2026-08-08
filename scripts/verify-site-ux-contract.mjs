@@ -469,6 +469,10 @@ if (fs.existsSync(homePath)) {
   for (const href of ["./try.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
+  if (!home.includes(`>${PUBLIC_CATALOG_COMPONENT_COUNT} components<`)) {
+    failures.push(`site/index.html: the catalog route card must carry the current component count (${PUBLIC_CATALOG_COMPONENT_COUNT} components); a stale count contradicts the catalog page`);
+  }
+  if (!home.includes('href="./hard-questions.html"')) failures.push("site/index.html: home navigation must link the FAQ like every other page");
 }
 
 const catalogIndexPath = path.join(root, "site/charts/index.html");
@@ -557,9 +561,25 @@ if (fs.existsSync(chartPagesDir)) {
       if (html.toLowerCase().includes(phrase.toLowerCase())) failures.push(`${file}: contains internal chart wording ${JSON.stringify(phrase)}`);
     }
     if (!html.toLowerCase().includes("publication receipt")) failures.push(`${file}: does not expose its version-specific publication receipt`);
+    if (html.includes("open the No ")) failures.push(`${file}: a fallback sentence was spliced into the evidence pointer; branch the sentence in the generator instead`);
+    if (/href="\.\.\/\.\.\/packages\/[^"]*\/"/.test(html)) failures.push(`${file}: links a bare packages/ directory that GitHub Pages cannot serve; use the GitHub tree URL`);
   }
   const expectedRetainedOnlyPages = PUBLIC_CATALOG_VERSION_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT;
   if (retainedOnlyPages !== expectedRetainedOnlyPages) failures.push(`site/charts: expected ${expectedRetainedOnlyPages} retained-only detail pages, found ${retainedOnlyPages}`);
+}
+
+// Copy-paste contract: command blocks on the hand-navigated pages must not
+// carry a literal "$ " prompt, because pasting such a line into a shell fails.
+// The decorative hero terminal marks its prompt with <span class="pr">.
+const promptLintPages = fs.readdirSync(path.join(root, "site"))
+  .filter((name) => name.endsWith(".html"))
+  .map((name) => path.join(root, "site", name));
+for (const fullPath of promptLintPages) {
+  const html = fs.readFileSync(fullPath, "utf8");
+  const file = path.relative(root, fullPath);
+  if (/<pre><code>\$ /.test(html) || /\n\$ [a-z]/.test(html)) {
+    failures.push(`${file}: a command block carries a literal "$ " prompt that breaks copy-paste`);
+  }
 }
 
 const purposePageRules = [

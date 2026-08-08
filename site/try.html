@@ -522,11 +522,11 @@
   <section aria-labelledby="install-cub">
     <h2 id="install-cub">1. Install cub and the package plugin</h2>
     <p>Install the ConfigHub CLI. Then install the plugin that reads catalog packages.</p>
-    <pre><code>$ curl -fsSL https://hub.confighub.com/cub/install.sh | bash
-$ export PATH="$HOME/.confighub/bin:$PATH"
-$ cub plugin install confighub/installer
-$ cub installer version
-$ kustomize version</code></pre>
+    <pre><code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash
+export PATH="$HOME/.confighub/bin:$PATH"
+cub plugin install confighub/installer
+cub installer version
+kustomize version</code></pre>
     <p>The plugin release contains the program for your operating system. You do not need Go.</p>
     <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
     <p>If <code>kustomize version</code> fails, follow the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official Kustomize installation instructions</a>.</p>
@@ -536,7 +536,7 @@ $ kustomize version</code></pre>
   <section aria-labelledby="render-package">
     <h2 id="render-package">2. Render the Redis package</h2>
     <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
-    <pre><code>$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
     --base reuse-existing-secret \
     --work-dir ./redis \
     --namespace redis \
@@ -549,9 +549,9 @@ $ kustomize version</code></pre>
   <section aria-labelledby="inspect-result">
     <h2 id="inspect-result">3. Inspect the result</h2>
     <p>Read the selected configuration and its objects. Nothing has been applied to a cluster.</p>
-    <pre><code>$ cat ./redis/out/spec/selection.yaml
-$ ls ./redis/out/manifests
-$ grep -R "^kind:" ./redis/out/manifests</code></pre>
+    <pre><code>cat ./redis/out/spec/selection.yaml
+ls ./redis/out/manifests
+grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p>The catalog keeps the source inputs beside the result. It also records the required Secret and the checks for this configuration.</p>
     <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
   </section>

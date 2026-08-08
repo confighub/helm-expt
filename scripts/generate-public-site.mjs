@@ -1736,6 +1736,7 @@ function configTestCentreHome(catalog) {
             <a href="./charts/index.html">Catalog</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
+            <a href="./hard-questions.html">FAQ</a>
             <a href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
@@ -1777,7 +1778,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <div class="routes">
             <a class="route-card" href="./try.html"><h3>Try Redis <span class="tag">catalog package</span></h3><p>Pull one reviewed configuration. Read its 14 objects. Build a local OCI and verify it by pulling it back.</p><span class="go">Start the short example &rarr;</span></a>
             <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
-            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">103 components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">${PUBLIC_CATALOG_COMPONENT_COUNT} components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
           </div>
           <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
@@ -3047,11 +3048,11 @@ function tryHtml(catalog) {
   <section aria-labelledby="install-cub">
     <h2 id="install-cub">1. Install cub and the package plugin</h2>
     <p>Install the ConfigHub CLI. Then install the plugin that reads catalog packages.</p>
-    <pre><code>$ ${CUB_CLI_INSTALL_COMMAND}
-$ export PATH="$HOME/.confighub/bin:$PATH"
-$ ${INSTALLER_PLUGIN_INSTALL_COMMAND}
-$ cub installer version
-$ kustomize version</code></pre>
+    <pre><code>${CUB_CLI_INSTALL_COMMAND}
+export PATH="$HOME/.confighub/bin:$PATH"
+${INSTALLER_PLUGIN_INSTALL_COMMAND}
+cub installer version
+kustomize version</code></pre>
     <p>The plugin release contains the program for your operating system. You do not need Go.</p>
     <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
     <p>If <code>kustomize version</code> fails, follow the <a href="${KUSTOMIZE_INSTALL_URL}">official Kustomize installation instructions</a>.</p>
@@ -3061,7 +3062,7 @@ $ kustomize version</code></pre>
   <section aria-labelledby="render-package">
     <h2 id="render-package">2. Render the Redis package</h2>
     <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
-    <pre><code>$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+    <pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base reuse-existing-secret \\
     --work-dir ./redis \\
     --namespace redis \\
@@ -3074,9 +3075,9 @@ $ kustomize version</code></pre>
   <section aria-labelledby="inspect-result">
     <h2 id="inspect-result">3. Inspect the result</h2>
     <p>Read the selected configuration and its objects. Nothing has been applied to a cluster.</p>
-    <pre><code>$ cat ./redis/out/spec/selection.yaml
-$ ls ./redis/out/manifests
-$ grep -R "^kind:" ./redis/out/manifests</code></pre>
+    <pre><code>cat ./redis/out/spec/selection.yaml
+ls ./redis/out/manifests
+grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p>The catalog keeps the source inputs beside the result. It also records the required Secret and the checks for this configuration.</p>
     <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
   </section>
@@ -3248,11 +3249,11 @@ em{font-style:italic;color:var(--ink);}
   <p><a href="./try.html">Use the short Try page</a> if you only want the first local package run.</p>
   <h2 id="install-cub">Install cub and the installer plugin</h2>
   <p>The catalog commands use <code>cub installer</code>, a released open-source plugin. Install the cub CLI, install the plugin from its GitHub release, and make sure <code>kustomize</code> is available:</p>
-  <pre><code>$ ${CUB_CLI_INSTALL_COMMAND}
-$ export PATH="$HOME/.confighub/bin:$PATH"
-$ ${INSTALLER_PLUGIN_INSTALL_COMMAND}
-$ cub installer version
-$ kustomize version</code></pre>
+  <pre><code>${CUB_CLI_INSTALL_COMMAND}
+export PATH="$HOME/.confighub/bin:$PATH"
+${INSTALLER_PLUGIN_INSTALL_COMMAND}
+cub installer version
+kustomize version</code></pre>
   <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. <code>cub plugin install</code> downloads the release for your operating system and architecture. If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>. If <code>kustomize version</code> fails, use the <a href="${KUSTOMIZE_INSTALL_URL}">official kustomize installation instructions</a>; Go is not required to install cub installer. If you installed an early source build with no recorded source, run <code>cub plugin uninstall installer</code> once, then repeat the install command above. Full cub setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
   ${installerCommandNoteHtml()}
@@ -3280,21 +3281,21 @@ cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-r
   <p>Start without a cluster. Pull the public Redis package, select the existing-Secret configuration, write the Kubernetes files, and write the same non-secret objects as a local OCI image layout.</p>
   <p><code>reuse-existing-secret</code> is a <a href="./charts/index.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
   <pre><code># No ConfigHub account, Google registry login, or Kubernetes cluster.
-$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base reuse-existing-secret --work-dir ./redis \\
     --non-interactive --namespace redis \\
     --output-oci ./redis-25.oci
 
 # Read the files before deciding whether to deploy.
-$ ls ./redis/out/manifests
-$ cat ./redis/out/spec/selection.yaml</code></pre>
+ls ./redis/out/manifests
+cat ./redis/out/spec/selection.yaml</code></pre>
   <p>The command writes 14 Kubernetes objects and no Secret. The password remains outside the files and OCI. The output ends with <code>pull-back: verified</code> because cub reads the OCI back and compares its object-set digest before reporting success.</p>
   <p>Open the <a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">full rendered Redis YAML</a>, the <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">recorded Helm inputs and prerequisites</a>, or the <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous 25.5.3 to 27.0.0 walkthrough proof</a>.</p>
 
   <h3>Install only after you have read it</h3>
   <p>If you want a live test, use a throwaway cluster. The generated script creates a fresh password in a separate Kubernetes Secret. It applies the 14 files, waits for Redis, and tells you how to remove the cluster afterward.</p>
-  <pre><code>$ kind create cluster
-$ bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)</code></pre>
+  <pre><code>kind create cluster
+bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)</code></pre>
   <p>The <a href="./d/data/serverless-install-parity-proof/summary.html">live parity proof</a> ran normal Helm and this cub path on a clean cluster. The 13 chart objects matched field for field, cub added the explicit Namespace, and both Redis installations became ready and answered <code>PING</code>.</p>
 
   <h3>Helm combines render and install. cub separates them.</h3>
@@ -3312,11 +3313,11 @@ $ bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-se
       <h3>No account: the package choice stays</h3>
       <p class="tag">no ConfigHub account</p>
       <pre><code># Re-enter the same work directory with the newer public package.
-$ cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
+cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
     --work-dir ./redis --reuse --non-interactive --namespace redis \\
     --output-oci ./redis-27.oci
 
-$ cat ./redis/out/spec/selection.yaml
+cat ./redis/out/spec/selection.yaml
 # base: reuse-existing-secret</code></pre>
       <p>The selected existing-Secret base is retained. The newer output contains Redis 8.8.0 and chart 27.0.0, still as 14 non-secret objects, and the second OCI is pulled back and verified. This does not claim that an arbitrary hand edit survives without ConfigHub.</p>
     </div>
@@ -3324,20 +3325,20 @@ $ cat ./redis/out/spec/selection.yaml
       <h3>With a ${signupLink("try", "free account")}: review a stored change</h3>
       <p class="tag">${signupLink("try", "free account")}</p>
       <pre><code># Record the 25.5.3 objects.
-$ cub installer upload --work-dir ./redis --space my-redis \\
+cub installer upload --work-dir ./redis --space my-redis \\
     --component redis-upgrade --variant base
 
 # Record one exact change in ConfigHub: two Redis replicas.
-$ cub k8s get sts --space my-redis
-$ cub run set-replicas --space my-redis \\
+cub k8s get sts --space my-redis
+cub run set-replicas --space my-redis \\
     --unit &lt;replica-statefulset-unit&gt; --replicas 2 \\
     --change-desc "Keep two Redis replicas through chart upgrades" --wait
 
 # Pull 27.0.0. setup reads upload.yaml; plan shows the comparison.
-$ cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
+cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
     --work-dir ./redis --reuse --non-interactive --namespace redis
-$ cub installer plan --work-dir ./redis
-$ cub installer upload --work-dir ./redis --yes</code></pre>
+cub installer plan --work-dir ./redis
+cub installer upload --work-dir ./redis --yes</code></pre>
       <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The newer base did not change <code>spec.replicas</code>, so the recorded value remained two. A change to a field that the newer base also changes must be reviewed in the plan before upload. <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> compares the new package output with the recorded Units.</p>
     </div>
   </div>
@@ -3349,18 +3350,18 @@ $ cub installer upload --work-dir ./redis --yes</code></pre>
   <h2>3 · See why the Redis base matters</h2>
   <p>The Redis <code>default</code> catalog base is retained as an explicit static-password demonstration. Its rendered YAML contains credential material, so the chart page warns against treating it as a production default. The recommended <code>reuse-existing-secret</code> base used above contains no Secret object and names the Secret that must exist at delivery time.</p>
   <pre><code># Compare the two choices without touching a cluster.
-$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base default --work-dir ./redis-static \\
     --non-interactive --namespace redis
-$ grep -R "kind: Secret" ./redis-static/out/manifests
+grep -R "kind: Secret" ./redis-static/out/manifests
 
-$ grep -R "kind: Secret" ./redis/out/manifests
+grep -R "kind: Secret" ./redis/out/manifests
 # no match: reuse-existing-secret keeps the credential outside the files</code></pre>
   <p>This is the sort of choice the catalog records for people and agents. It does not pretend that every chart has one universal answer. For another common case, take a chart and values file produced by AI and <a href="./testing.html#bring-your-own">review the exact rendered objects before applying them</a>.</p>
 
   <h2>4 · Already on Argo or Flux? Write OCI directly</h2>
   <p>If your cluster pulls from an OCI registry, give <code>--output-oci</code> a registry reference instead of a local path. The installer pushes the same 14 non-secret Redis objects you inspected. It records the source package and selected base. It then reads the artifact back and verifies its object-set digest. Registry write access is the only additional requirement.</p>
-  <pre><code>$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+  <pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base reuse-existing-secret --work-dir ./redis \\
     --non-interactive --namespace redis \\
     --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>
@@ -3378,8 +3379,8 @@ $ grep -R "kind: Secret" ./redis/out/manifests
 
   <h2>Check it yourself</h2>
   <p>The first command checks the committed receipt. The second repeats the public no-account run against the current registry packages. Neither command touches Kubernetes.</p>
-  <pre><code>$ npm run redis-public-walkthrough:verify
-$ npm run redis-public-walkthrough:run</code></pre>
+  <pre><code>npm run redis-public-walkthrough:verify
+npm run redis-public-walkthrough:run</code></pre>
   <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
 
   ${productDocsPointer("try")}
@@ -7225,12 +7226,17 @@ function countRenderedObjects(entry, variant) {
 // One row of extracted numbers for a chart's starting base variant: rendered
 // objects, image references, lifecycle routes, and completed checks. Every
 // figure comes from committed data, so the strip renders only what exists.
-function chartStatStrip(entry, firstRunnableRow) {
+function chartStatStrip(catalog, entry, firstRunnableRow) {
   const variant = firstRunnableRow?.variant || entry.start_variant;
   if (!variant) return "";
   const objects = countRenderedObjects(entry, variant);
   const images = extractBaseImages(entry, variant).length;
   const routes = Number.parseInt(firstRunnableRow?.lifecycle_route_count || "0", 10) || 0;
+  const intent = catalog.helmRenderIntents.find((candidate) =>
+    candidate.chart === entry.chart
+      && candidate.version === entry.version
+      && candidate.base === variant) ?? null;
+  const prerequisites = Number(intent?.target_requirement_count || 0);
   const laneKeys = Object.keys(firstRunnableRow || {}).filter((key) => key.startsWith("lane_"));
   const laneValues = laneKeys.map((key) => firstRunnableRow[key]);
   const lanesScored = laneValues.filter((value) => value === "yes" || value === "no").length;
@@ -7238,7 +7244,8 @@ function chartStatStrip(entry, firstRunnableRow) {
   const stats = [];
   if (objects) stats.push(`<strong>${objects}</strong> rendered objects`);
   stats.push(`<strong>${images}</strong> image${images === 1 ? "" : "s"}`);
-  stats.push(`<strong>${routes}</strong> setup record${routes === 1 ? "" : "s"}`);
+  if (intent) stats.push(`<strong>${prerequisites}</strong> target prerequisite${prerequisites === 1 ? "" : "s"}`);
+  stats.push(`<strong>${routes}</strong> hook or setup route${routes === 1 ? "" : "s"}`);
   if (lanesScored) stats.push(`<strong>${lanesPassing}/${lanesScored}</strong> checks passing`);
   return `<p class="stat-strip">${variant} configuration: ${stats.join(" · ")}. These counts come from the linked test records.</p>`;
 }
@@ -7301,9 +7308,9 @@ function retainedVersionPageHtml(catalog, row) {
   const layerDigest = published ? `sha256:${row.published_digest}` : "";
   const componentVersions = retainedInstallerRows(catalog, row.chart);
   const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
-  const evidenceVersionLink = evidenceEntry
-    ? `<a href="./${chartPageFileName(evidenceEntry)}">${escapeHtml(evidenceEntry.version)} evidence page</a>`
-    : "No separate evidence-bearing version is recorded.";
+  const evidenceVersionNote = evidenceEntry
+    ? `The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./${chartPageFileName(evidenceEntry)}">${escapeHtml(evidenceEntry.version)} evidence page</a>.`
+    : "This component has no separate evidence-bearing version yet, so no other version's readiness applies here. The publication receipt above carries the whole current claim.";
   const versionLinks = componentVersions.map((candidate) => {
     const label = candidate.version === row.version
       ? `<strong>${escapeHtml(candidate.version)}</strong>`
@@ -7363,7 +7370,7 @@ ${escapeHtml(row.setup_command)}</code></pre>
       <ul>
         ${configurationList}
       </ul>
-      <p>${requirementSummary}</p>
+      <p>The section below says what these configurations expect you to provide.</p>
     </section>
 
     ${flatteningSectionHtml(catalog, row)}
@@ -7372,7 +7379,7 @@ ${escapeHtml(row.setup_command)}</code></pre>
       <p>${published
         ? `The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.`
         : "Nothing has been published for this version, so no publication receipt exists and no digest is bound. The package itself is committed and can be inspected from this repository."}</p>
-      <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the ${evidenceVersionLink}.</p>
+      <p><strong>No version-specific runtime result is claimed here.</strong> ${evidenceVersionNote}</p>
     </section>
 
     <section aria-labelledby="retained-requirements">
@@ -7390,7 +7397,7 @@ ${escapeHtml(row.setup_command)}</code></pre>
       <h2 id="retained-files">Source And Evidence Files</h2>
       ${markdownLikeTable([
         ["Record", "Open"],
-        ["Retained package source", `<a href="../../${escapeHtml(row.package_path)}/">${escapeHtml(row.package_path)}</a>`],
+        ["Retained package source", `<a href="https://github.com/confighub/helm-expt/tree/main/${escapeHtml(row.package_path)}">${escapeHtml(row.package_path)}</a>`],
         ["Installer metadata", `<a href="../../${escapeHtml(row.installer_yaml)}">${escapeHtml(row.installer_yaml)}</a>`],
         ["Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
         ["OCI ref", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
@@ -7733,7 +7740,7 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
-      ${chartStatStrip(entry, firstRunnableRow)}
+      ${chartStatStrip(catalog, entry, firstRunnableRow)}
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>${isReadyToTry ? "Recommended first base variant" : "First recorded base variant"}</span></div>
         <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
