@@ -164,6 +164,16 @@
               "finding": { "enum": ["absent", "present", "not-evaluated"] },
               "detail": { "type": "string" },
               "disposition": { "type": "string" },
+              "companionRequired": {
+                "description": "The routeKind this class owes, when it owes one. Present only where a companion artifact must travel with the bundle, so a reader can say the bundle owes prune protection rather than owes something. Absent means no companion is owed, which includes the case where the bundle resolves the class inside itself.",
+                "enum": [
+                  "apply-ordering",
+                  "lifecycle-job",
+                  "prune-protection",
+                  "external-secret-reference",
+                  "versioned-replacement"
+                ]
+              },
               "evidence": { "type": "string" }
             }
           }

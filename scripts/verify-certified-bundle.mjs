@@ -230,11 +230,48 @@ function verifyRouteIntegrity(name, receipt) {
       );
   }
 
-  const needsRoutes = spec.verdict.lane === "flatten-with-routes" && spec.verdict.status === "certified";
+  // Per-class debt. Saying a bundle owes prune protection beats saying it owes
+  // something, and the disposition now states the kind rather than implying it
+  // in prose. Reading it from the wording was tried and reverted: it called four
+  // resolutions debts, and a check that cries wolf teaches readers to skip it.
+  const carriedKinds = new Set();
+  for (const route of shipped) {
+    const onDisk = join(repoRoot, route.path);
+    if (!existsSync(onDisk)) continue;
+    const kind = readRouteKind(onDisk);
+    if (kind) carriedKinds.add(kind);
+  }
+
+  const owed = [];
+  for (const row of spec.dispositions) {
+    const required = row.companionRequired;
+    if (!required) continue;
+    if (row.finding !== "present")
+      refuse(
+        name,
+        `the ${row.class} disposition requires a ${required} companion but its finding is ${row.finding}. A class that found nothing cannot owe an artifact.`,
+      );
+    if (!carriedKinds.has(required)) owed.push({ quirk: row.class, required });
+  }
+
+  const certified = spec.verdict.status === "certified";
+  if (certified && spec.verdict.lane === "flatten-with-routes" && owed.length > 0) {
+    const list = owed.map((debt) => `${debt.quirk} owes ${debt.required}`).join(", ");
+    refuse(name, `a certified flatten-with-routes bundle is missing companions it names: ${list}`);
+  }
+
   return {
     routes: shipped.length,
-    unrouted: needsRoutes && shipped.length === 0 ? name : null,
+    owed: owed.map((debt) => `${name}: ${debt.quirk} owes ${debt.required}`),
   };
+}
+
+// A route's kind lives in its own document, not in the receipt, so the debt
+// check has to open it. Reading the file rather than trusting the role string
+// means a mislabelled route cannot satisfy a debt it does not discharge.
+function readRouteKind(onDisk) {
+  const doc = readYaml(onDisk);
+  return doc?.spec?.routeKind ?? null;
 }
 
 // The model promises three artifact classes travel inside a bundle: the
@@ -285,25 +322,25 @@ function runVerify() {
   let citations = 0;
   let routes = 0;
   let guides = 0;
-  const unrouted = [];
+  const owed = [];
   for (const path of paths) {
     const result = verifyReceipt(path);
     hashes += result.hashes;
     citations += result.citations;
     routes += result.routes;
     guides += result.guides;
-    if (result.unrouted) unrouted.push(result.unrouted);
+    owed.push(...result.owed);
   }
   console.log(
     `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried, ${guides} space guide(s)`,
   );
-  // Naming these is the point. A certified flatten-with-routes bundle that
-  // ships nothing is not a broken artifact, it is work the route lane has not
-  // reached, and silence would let it read as finished.
-  if (unrouted.length > 0) {
-    console.log(
-      `strict ingest: ${unrouted.length} certified flatten-with-routes bundle(s) carry no route yet: ${unrouted.join(", ")}`,
-    );
+  // Naming these is the point. A provisional bundle that owes a companion is
+  // not a broken artifact, it is work the route lane has not reached, and
+  // silence would let it read as finished. Certified bundles do not get this
+  // grace: the refusal above stops them.
+  if (owed.length > 0) {
+    console.log(`strict ingest: ${owed.length} outstanding companion artifact(s):`);
+    for (const debt of owed) console.log(`  ${debt}`);
   }
 }
 
@@ -377,7 +414,17 @@ function runSelfTest() {
   expectRefusal("a bundle that ships no space guide", (receipt) => {
     receipt.spec.bundle.files = receipt.spec.bundle.files.filter((file) => file.role !== "space-guide");
   });
-  console.log("strict ingest self-test: 9 refusal(s) fired as required");
+  // Name a companion kind nothing carries. Deleting the route instead would fire
+  // the dangling-reference case above and prove nothing about per-class debt.
+  expectRefusal("a certified bundle naming a companion it does not ship", (receipt) => {
+    const row = receipt.spec.dispositions.find((entry) => entry.finding === "present");
+    row.companionRequired = "versioned-replacement";
+  }, routed);
+  expectRefusal("a companion owed by a class that found nothing", (receipt) => {
+    const row = receipt.spec.dispositions.find((entry) => entry.finding === "absent");
+    row.companionRequired = "prune-protection";
+  }, routed);
+  console.log("strict ingest self-test: 11 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {

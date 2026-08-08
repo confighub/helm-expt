@@ -104,6 +104,7 @@ spec:
       finding: "present"
       detail: "7 Applications carry a sync-wave, and the order they declare is AICR's own deploymentOrder"
       disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-cpu-starter/sync-wave-ordering.yaml"
+      companionRequired: "apply-ordering"
     -
       class: "immutable-fields"
       finding: "not-evaluated"

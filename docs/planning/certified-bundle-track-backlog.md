@@ -86,16 +86,16 @@ flattenable without a verdict.
     claim. Two of three are asserted from the declaration alone. M.
 15. **Prove the same route under the cub-direct applier.** Its proven flag is
     false today and should either become true or be explained. M.
-16. **Fail a bundle whose verdict names a route it does not ship.** Partly done.
-    Strict ingest refuses a dangling route reference and an unclaimed route, and
-    names every certified flatten-with-routes bundle that carries no route at
-    all. What is missing is per-class debt: saying a bundle owes prune
-    protection rather than owes something. That needs an explicit field on each
-    disposition rather than reading its prose. Inferring it from wording was
-    tried and reverted: it reported four bundles as owing namespace creation
-    when their namespace ships inside the bundle, which is a resolution and not
-    a debt. Add `companionRequired` to the disposition row and the check becomes
-    exact. S. **Workshop-wide**, because it changes the receipt shape.
+16. **Fail a bundle whose verdict names a route it does not ship.** Done.
+    `companionRequired` now sits on the disposition row, drawn from the same
+    vocabulary as a route's `routeKind`, and strict ingest reads each shipped
+    route's own document to match it. A certified flatten-with-routes bundle
+    missing a companion it names is refused and the message says which class
+    owes which kind; a row owing a companion while its finding is absent is
+    refused too. Provisional bundles are named rather than failed. Only classes
+    whose evidence settles the question set the field, so webhook CA stays out:
+    a controller travelling in the same bundle fills an empty caBundle that
+    looks identical to one nothing will fill. Two self-test refusals cover it.
 17. **Teach the delivery runtime to read a route.** Everything above produces
     routes that a human applies. The model claims the runtime executes them. L.
     **Workshop-wide**.

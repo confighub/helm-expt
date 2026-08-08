@@ -101,6 +101,7 @@ spec:
       finding: "present"
       detail: "41 CustomResourceDefinition(s) in the witnessed bundle files; per-file Units can race their CRDs"
       disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/eks-inference/ack-controllers/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
     -
       class: "immutable-fields"
       finding: "not-evaluated"
