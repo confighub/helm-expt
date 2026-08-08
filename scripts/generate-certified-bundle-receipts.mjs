@@ -123,6 +123,7 @@ function scanRendered(text) {
   let keepDocs = 0;
   let emptyCaBundle = 0;
   let secretsWithData = 0;
+  const images = new Set();
   let emptySecrets = 0;
   for (const doc of docs) {
     const kindMatch = doc.match(/^kind:\s*"?([A-Za-z0-9.]+)"?\s*$/m);
@@ -138,6 +139,17 @@ function scanRendered(text) {
     // A Secret carrying no data is a placeholder for a controller to fill, not
     // a credential frozen into a public artifact. Counting the two together
     // makes a bundle owe an external reference for a Secret that holds nothing.
+    // Image references, read from the bundle's own bytes. A container image is
+    // the one thing a flattened bundle carries that it does not pin: the YAML
+    // is byte-exact and "gatekeeper:v3.22.2" is whatever that tag points at
+    // today. The receipt records them so the boundary is visible rather than
+    // implied. This reads image: lines, which covers containers and
+    // initContainers and misses an image named anywhere else, and the receipt
+    // says so.
+    for (const match of doc.matchAll(/^\s*image:\s*"?([^"\n]+?)"?\s*$/gm)) {
+      const reference = match[1].trim();
+      if (reference && !reference.includes("{{")) images.add(reference);
+    }
     if (kind === "Secret") {
       if (/^(data|stringData):\s*\S/m.test(doc)) secretsWithData += 1;
       else emptySecrets += 1;
@@ -155,6 +167,7 @@ function scanRendered(text) {
     secrets: count("Secret"),
     secretsWithData,
     emptySecrets,
+    images: [...images].sort(),
     namespaces: count("Namespace"),
     webhookConfigs:
       count("MutatingWebhookConfiguration") + count("ValidatingWebhookConfiguration"),
@@ -663,6 +676,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
         files: [{ ...bundleFile, role: "rendered object set" }, ...routeFiles],
         objectCount,
         objectInventoryRef: inventoryRel,
+        images: buildImageInventory(scan.images),
       },
       ingest: {
         granularity: "per-file",
@@ -1058,6 +1072,32 @@ function verdictFileFor(recipe, base) {
   return existsSync(repoPath(suffixed))
     ? `flattening-safety-verdict-${base}.yaml`
     : "flattening-safety-verdict.yaml";
+}
+
+// What the bundle deploys, as opposed to what it is. The receipt hashes every
+// byte of the rendered YAML, and that YAML names images by tag, so the bytes
+// are fixed and the containers they start are not. A tag can be repushed, which
+// is the same failure the catalog already records as upstream drift for two
+// charts whose version strings moved under them. Recording the references and
+// how each is pinned puts that boundary in the receipt instead of leaving a
+// reader to assume a certified bundle certifies its images.
+function buildImageInventory(references) {
+  const rows = (references ?? []).map((reference) => ({
+    reference,
+    pinnedBy: reference.includes("@sha256:") ? "digest" : "tag",
+  }));
+  const byTag = rows.filter((row) => row.pinnedBy === "tag").length;
+  return {
+    scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers",
+    count: rows.length,
+    pinnedByDigest: rows.length - byTag,
+    pinnedByTag: byTag,
+    boundary:
+      byTag > 0
+        ? "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+        : "every image is digest-pinned, so the bundle and what it starts are both fixed",
+    references: rows,
+  };
 }
 
 function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand }) {

@@ -4,72 +4,139 @@
   "title": "Certified Bundle Receipt",
   "description": "The shared receipt that travels beside a config bundle from any producer. The bundle shape it certifies is the one the eks-inference example already publishes: a reproducible tar.gz layer in an OCI artifact of type application/vnd.confighub.config.bundle.v1, ingested one Unit per file with the resolved digest recorded as a confighub.com/external-source Space annotation. The receipt adds what the bundle bytes cannot carry: source identity, declared render inputs, a per-file hash manifest, one disposition row per quirk class, and the flattening-safety verdict lane. Reference implementation: scripts/generate-certified-bundle-receipts.mjs.",
   "type": "object",
-  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
   "additionalProperties": false,
   "properties": {
-    "apiVersion": { "const": "evidence.confighub.com/v1alpha1" },
-    "kind": { "const": "CertifiedBundleReceipt" },
+    "apiVersion": {
+      "const": "evidence.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "CertifiedBundleReceipt"
+    },
     "metadata": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string", "minLength": 1 }
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "spec": {
       "type": "object",
-      "required": ["producer", "source", "bundle", "ingest", "dispositions", "verdict", "provenance"],
+      "required": [
+        "producer",
+        "source",
+        "bundle",
+        "ingest",
+        "dispositions",
+        "verdict",
+        "provenance"
+      ],
       "additionalProperties": false,
       "properties": {
         "producer": {
           "type": "object",
-          "required": ["name"],
+          "required": [
+            "name"
+          ],
           "additionalProperties": false,
           "properties": {
-            "name": { "type": "string", "minLength": 1 },
-            "repository": { "type": "string" },
-            "commit": { "type": "string", "pattern": "^[a-f0-9]{7,40}$" }
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "repository": {
+              "type": "string"
+            },
+            "commit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{7,40}$"
+            }
           }
         },
         "source": {
           "type": "object",
-          "required": ["kind"],
+          "required": [
+            "kind"
+          ],
           "additionalProperties": false,
           "properties": {
             "kind": {
-              "enum": ["helm-chart", "kubara-component", "confighub-unit", "literal-yaml"]
+              "enum": [
+                "helm-chart",
+                "kubara-component",
+                "confighub-unit",
+                "literal-yaml"
+              ]
             },
             "charts": {
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["name", "version"],
+                "required": [
+                  "name",
+                  "version"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "repository": { "type": "string" },
-                  "name": { "type": "string" },
-                  "version": { "type": "string" },
-                  "appVersion": { "type": "string" },
-                  "packageSHA256": { "$ref": "#/$defs/sha256" },
-                  "exactArtifactUrl": { "type": "string" }
+                  "repository": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "appVersion": {
+                    "type": "string"
+                  },
+                  "packageSHA256": {
+                    "$ref": "#/$defs/sha256"
+                  },
+                  "exactArtifactUrl": {
+                    "type": "string"
+                  }
                 }
               }
             },
             "canonicalHome": {
               "description": "Where the source collateral is maintained when the generator reads a mirror. Names the repository, commit, and path so a mirror removal has a documented re-point instead of a silent break.",
               "type": "object",
-              "required": ["repository", "commit", "path"],
+              "required": [
+                "repository",
+                "commit",
+                "path"
+              ],
               "additionalProperties": false,
               "properties": {
-                "repository": { "type": "string" },
-                "commit": { "type": "string", "pattern": "^[a-f0-9]{7,40}$" },
-                "path": { "type": "string" }
+                "repository": {
+                  "type": "string"
+                },
+                "commit": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{7,40}$"
+                },
+                "path": {
+                  "type": "string"
+                }
               }
             },
             "evidence": {
               "type": "array",
-              "items": { "type": "string" }
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -78,63 +145,186 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "renderer": { "type": "string" },
-            "kubeVersion": { "type": "string" },
-            "apiVersions": { "type": "array", "items": { "type": "string" } },
-            "includeCrds": { "type": "boolean" },
-            "hookPolicy": { "type": "string" },
-            "releaseName": { "type": "string" },
-            "namespace": { "type": "string" },
-            "valuesRef": { "type": "string" },
-            "valuesSHA256": { "$ref": "#/$defs/sha256" }
+            "renderer": {
+              "type": "string"
+            },
+            "kubeVersion": {
+              "type": "string"
+            },
+            "apiVersions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "includeCrds": {
+              "type": "boolean"
+            },
+            "hookPolicy": {
+              "type": "string"
+            },
+            "releaseName": {
+              "type": "string"
+            },
+            "namespace": {
+              "type": "string"
+            },
+            "valuesRef": {
+              "type": "string"
+            },
+            "valuesSHA256": {
+              "$ref": "#/$defs/sha256"
+            }
           }
         },
         "bundle": {
           "type": "object",
-          "required": ["contentsKind", "files"],
+          "required": [
+            "contentsKind",
+            "files"
+          ],
           "additionalProperties": false,
           "properties": {
-            "artifactType": { "type": "string" },
-            "reference": { "type": "string" },
-            "manifestDigest": { "$ref": "#/$defs/sha256" },
-            "layerDigest": { "$ref": "#/$defs/sha256" },
-            "reproducible": { "type": "boolean" },
+            "artifactType": {
+              "type": "string"
+            },
+            "reference": {
+              "type": "string"
+            },
+            "manifestDigest": {
+              "$ref": "#/$defs/sha256"
+            },
+            "layerDigest": {
+              "$ref": "#/$defs/sha256"
+            },
+            "reproducible": {
+              "type": "boolean"
+            },
             "contentsKind": {
               "description": "What the files are. rendered-config and literal-config deliver without Helm. chart-package and component-definition record the render-late lane: the certified route for a chart the verdict has not cleared for flattening.",
-              "enum": ["rendered-config", "literal-config", "chart-package", "component-definition"]
+              "enum": [
+                "rendered-config",
+                "literal-config",
+                "chart-package",
+                "component-definition"
+              ]
             },
             "files": {
               "type": "array",
               "minItems": 1,
               "items": {
                 "type": "object",
-                "required": ["path", "sha256", "bytes"],
+                "required": [
+                  "path",
+                  "sha256",
+                  "bytes"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "path": { "type": "string" },
-                  "sha256": { "$ref": "#/$defs/sha256" },
-                  "bytes": { "type": "integer", "minimum": 0 },
-                  "role": { "type": "string" }
+                  "path": {
+                    "type": "string"
+                  },
+                  "sha256": {
+                    "$ref": "#/$defs/sha256"
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "role": {
+                    "type": "string"
+                  }
                 }
               }
             },
-            "objectCount": { "type": "integer", "minimum": 0 },
-            "objectInventoryRef": { "type": "string" },
+            "objectCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "objectInventoryRef": {
+              "type": "string"
+            },
             "compositionIndexRef": {
               "description": "The digest-bound index this bundle belongs to, when the producer publishes one. The index format stays the producer's own in this increment.",
               "type": "string"
+            },
+            "images": {
+              "description": "What the bundle deploys, as opposed to what it is. The receipt hashes the rendered bytes; those bytes name images, and a tag can be repushed under the same string. Recording the references and their pinning makes that boundary explicit.",
+              "type": "object",
+              "required": [
+                "scannedFrom",
+                "count",
+                "pinnedByDigest",
+                "pinnedByTag",
+                "boundary",
+                "references"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "scannedFrom": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "pinnedByDigest": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "pinnedByTag": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "boundary": {
+                  "type": "string"
+                },
+                "references": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "reference",
+                      "pinnedBy"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "reference": {
+                        "type": "string"
+                      },
+                      "pinnedBy": {
+                        "enum": [
+                          "digest",
+                          "tag"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },
         "ingest": {
           "type": "object",
-          "required": ["granularity", "externalSourceAnnotation"],
+          "required": [
+            "granularity",
+            "externalSourceAnnotation"
+          ],
           "additionalProperties": false,
           "properties": {
-            "granularity": { "const": "per-file" },
-            "spacePattern": { "type": "string" },
-            "externalSourceAnnotation": { "const": "confighub.com/external-source" },
-            "uploadCommand": { "type": "string" }
+            "granularity": {
+              "const": "per-file"
+            },
+            "spacePattern": {
+              "type": "string"
+            },
+            "externalSourceAnnotation": {
+              "const": "confighub.com/external-source"
+            },
+            "uploadCommand": {
+              "type": "string"
+            }
           }
         },
         "dispositions": {
@@ -143,7 +333,11 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["class", "finding", "disposition"],
+            "required": [
+              "class",
+              "finding",
+              "disposition"
+            ],
             "additionalProperties": false,
             "properties": {
               "class": {
@@ -161,9 +355,19 @@
                   "test-hooks"
                 ]
               },
-              "finding": { "enum": ["absent", "present", "not-evaluated"] },
-              "detail": { "type": "string" },
-              "disposition": { "type": "string" },
+              "finding": {
+                "enum": [
+                  "absent",
+                  "present",
+                  "not-evaluated"
+                ]
+              },
+              "detail": {
+                "type": "string"
+              },
+              "disposition": {
+                "type": "string"
+              },
               "companionRequired": {
                 "description": "The routeKind this class owes, when it owes one. Present only where a companion artifact must travel with the bundle, so a reader can say the bundle owes prune protection rather than owes something. Absent means no companion is owed, which includes the case where the bundle resolves the class inside itself.",
                 "enum": [
@@ -174,35 +378,70 @@
                   "versioned-replacement"
                 ]
               },
-              "evidence": { "type": "string" }
+              "evidence": {
+                "type": "string"
+              }
             }
           }
         },
         "verdict": {
           "type": "object",
-          "required": ["lane", "status"],
+          "required": [
+            "lane",
+            "status"
+          ],
           "additionalProperties": false,
           "properties": {
             "lane": {
-              "enum": ["safe-to-flatten", "flatten-with-routes", "do-not-flatten", "born-flattened"]
+              "enum": [
+                "safe-to-flatten",
+                "flatten-with-routes",
+                "do-not-flatten",
+                "born-flattened"
+              ]
             },
             "status": {
               "description": "provisional means the lane reflects current evidence and the flattening-safety audit may move it. certified means the audit decided it. A lane moves when its receipt changes, never by hand.",
-              "enum": ["provisional", "certified"]
+              "enum": [
+                "provisional",
+                "certified"
+              ]
             },
-            "decidedBy": { "type": "string" },
-            "openQuestions": { "type": "array", "items": { "type": "string" } },
-            "notes": { "type": "string" }
+            "decidedBy": {
+              "type": "string"
+            },
+            "openQuestions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "notes": {
+              "type": "string"
+            }
           }
         },
         "provenance": {
           "type": "object",
-          "required": ["emittedBy", "generatedFrom"],
+          "required": [
+            "emittedBy",
+            "generatedFrom"
+          ],
           "additionalProperties": false,
           "properties": {
-            "emittedBy": { "type": "string" },
-            "generatedFrom": { "type": "array", "minItems": 1, "items": { "type": "string" } },
-            "witness": { "type": "string" }
+            "emittedBy": {
+              "type": "string"
+            },
+            "generatedFrom": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "witness": {
+              "type": "string"
+            }
           }
         }
       }

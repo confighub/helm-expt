@@ -33,6 +33,19 @@ spec:
         role: "space-guide"
     objectCount: 12
     objectInventoryRef: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 2
+      pinnedByDigest: 0
+      pinnedByTag: 2
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "hashicorp/vault-k8s:1.7.2"
+          pinnedBy: "tag"
+        -
+          reference: "hashicorp/vault:1.21.2"
+          pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-default:latest"
     manifestDigest: "sha256:738077f6d7f213cfd8dd8128d81f9a34054d4a6f3d5aa346e3f06d12c0b16cae"

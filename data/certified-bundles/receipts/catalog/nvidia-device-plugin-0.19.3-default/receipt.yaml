@@ -33,6 +33,14 @@ spec:
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 0
+      pinnedByDigest: 0
+      pinnedByTag: 0
+      boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
+      references:
+        []
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-default:latest"
     manifestDigest: "sha256:7c21ec3d5d1925e04e93b90114e41810112a1d2ece3ff6048150aee184394745"
