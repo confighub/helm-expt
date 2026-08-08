@@ -79,8 +79,12 @@ spec:
     - id: upstream-ordering-parity
       lane: ordering-parity
       statement: >-
-        Rendered sync-waves that order components differently from the upstream
-        recipe are refused, so the ordering the bundles carry stays upstream's.
+        Rendered sync-waves that break a dependency the recipe declares are
+        refused, so the ordering the bundles carry stays upstream's. This rule
+        used to compare the waves against a linearization of deploymentOrder.
+        It now checks the dependency edges that order was computed from,
+        because AICR v0.18.0 deploys independent components in parallel and a
+        linearization is no longer what the rendered output carries.
     - id: attested-subject-binding
       lane: signature-subject
       statement: >-
@@ -190,11 +194,13 @@ spec:
     - id: sync-wave-reordered
       expect: refused
       rule: upstream-ordering-parity
-      messageContains: "order components differently from the recipe"
+      messageContains: "so the rendered waves would run it too early"
       proposal: >-
         A contributor moves one component later in the sync order, which looks
         like a local scheduling preference and is in fact a change to the
-        dependency order upstream computed.
+        dependency order upstream computed. The candidate pushes cert-manager
+        past the GPU Operator that depends on it, so the refusal names the
+        broken edge rather than the disturbed sequence.
       mutations:
         - op: replaceOnce
           path: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/cert-manager.yaml
