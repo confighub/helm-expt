@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The fleet delivery machinery works on this machine · Config Workshop</title>
-  <meta name="description" content="The fleet delivery machinery works on this machine: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html">
-  <meta property="og:title" content="The fleet delivery machinery works on this machine · Config Workshop">
-  <meta property="og:description" content="The fleet delivery machinery works on this machine: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>One digest pins the whole training shape · Config Workshop</title>
+  <meta name="description" content="One digest pins the whole training shape: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-inference-nim/digest-index/README.html">
+  <meta property="og:title" content="One digest pins the whole training shape · Config Workshop">
+  <meta property="og:description" content="One digest pins the whole training shape: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-inference-nim/digest-index/README.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,40 +437,22 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The fleet delivery machinery works on this machine</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/sveltos-fleet-rehearsal/summary.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../hard-questions.html">FAQ</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>One digest pins the whole training shape</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../../../examples/aicr/eks-h100-inference-nim/digest-index/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This rehearsal exists so the governed chapters do not meet their cluster machinery for the first time on patch day. It built the full reference fleet and drove the shared delivery path end to end with no ConfigHub involved.</p>
-<p>Boundary: no review, approval, or promotion is claimed. Argo CD came from the pinned upstream manifest instead of cub cluster up, Applications were applied with kubectl instead of delivered as ConfigHub Units, and the chapter matrices are untouched. When this receipt was recorded (2026-08-08), the governed lanes were still blocked by confighubai/confighub#4975.</p>
-<p>What ran: a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), Kyverno 3.8.1 converged on all four clusters from portable OCI digests reconciled by Argo CD v3.4.6, a values change landed on the pilot alone, a chart version bump to 3.8.2 landed on the pilot alone with the values intact, the other three clusters held their state through both, and injected drift was repaired. The demo application rode the same rails: podinfo 6.14.1 converged on all four clusters with per-environment replica counts.</p>
-<table><thead><tr><th>Phase</th><th>Duration</th></tr></thead><tbody><tr><td>temporary OCI registry ready</td><td>1.3s</td></tr>
-<tr><td>management cluster ready</td><td>25s</td></tr>
-<tr><td>Argo CD converged on the management cluster</td><td>57.9s</td></tr>
-<tr><td>four workload clusters ready</td><td>102.7s</td></tr>
-<tr><td>Sveltos controllers converged</td><td>101s</td></tr>
-<tr><td>four workload clusters registered</td><td>1s</td></tr>
-<tr><td>baseline delivered to all four clusters</td><td>192.4s</td></tr>
-<tr><td>application delivered to all four clusters</td><td>28.8s</td></tr>
-<tr><td>values change delivered to the pilot only</td><td>55s</td></tr>
-<tr><td>version bump delivered to the pilot only</td><td>103.8s</td></tr>
-<tr><td>injected drift repaired on the pilot</td><td>15.3s</td></tr>
-<tr><td>Total measured</td><td>684s</td></tr></tbody></table>
-<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Clusters converged at baseline</td><td>4/4</td></tr>
-<tr><td>Application clusters converged</td><td>4/4, replicas per environment</td></tr>
-<tr><td>Selective values change</td><td>pilot only</td></tr>
-<tr><td>Selective version bump</td><td>pilot only, values intact</td></tr>
-<tr><td>Distinct pilot digests across waves</td><td>3</td></tr>
-<tr><td>Drift repaired</td><td>pass</td></tr>
-<tr><td>Cleanup</td><td>Pass</td></tr></tbody></table>
-<h2 id="limits">Limits</h2>
-<ul><li>No ConfigHub organization, review, approval, or release was involved; this is not a governance proof.</li><li>The portable OCI used a temporary anonymous registry; this is not a permanent public package.</li><li>The rehearsal used five local kind clusters on one machine. It measures this machine, not a production fleet.</li><li>The chapter matrices are untouched; only the governed lanes may fill their observed cells.</li></ul>
-<ul><li><a href="../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">Committed receipt</a></li><li><a href="../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">Rehearsal source lock</a></li></ul>
+<p>UNOFFICIAL/EXPERIMENTAL. This directory is compiled by <code>npm run aicr-digest-index:generate</code> and checked byte-for-byte by <code>npm run aicr-digest-index:verify</code>. Do not edit it by hand.</p>
+<p>The platform digest is:</p>
+<pre><code>sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2</code></pre>
+<p>That one value pins the exact upstream source (NVIDIA AICR v0.14.0, commit <code>0479e45e3ee4ea04d3fff55fd9160843d161c03c</code>), the recipe criteria, the three committed OCI transport manifests, and one immutable payload per rendered Argo CD Application: 19 waved components plus the <code>aicr-stack</code> root. Change any rendered byte anywhere in the shape and the digest changes.</p>
+<p><a href="../../../../../../examples/aicr/eks-h100-inference-nim/digest-index/platform-index.json">platform-index.json</a> holds the full index. Each member row names its payload file under <a href="../../../../../../examples/aicr/eks-h100-inference-nim/digest-index/payloads">payloads/</a> and the OCI reference the payload would publish to. Those references are plans. Nothing in this directory claims a registry push; the committed OCI receipts next to this directory carry the transport evidence that exists today.</p>
+<p>This follows the pattern the Kubara importer proved: per-component immutable payloads plus one digest-bound index, compiled offline from committed bytes.</p>
+<p>The boundary, stated plainly: this index proves config-plane mechanics only. No GPU workload ran to produce or verify it. Workload-plane claims stay absent rather than implied.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/sveltos-fleet-rehearsal/summary.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>examples/aicr/eks-h100-inference-nim/digest-index/README.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

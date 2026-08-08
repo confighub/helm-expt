@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The fleet delivery machinery works on this machine · Config Workshop</title>
-  <meta name="description" content="The fleet delivery machinery works on this machine: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html">
-  <meta property="og:title" content="The fleet delivery machinery works on this machine · Config Workshop">
-  <meta property="og:description" content="The fleet delivery machinery works on this machine: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The AICR-native inference entry, held next to the KServe one · Config Workshop</title>
+  <meta name="description" content="The AICR-native inference entry, held next to the KServe one: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html">
+  <meta property="og:title" content="The AICR-native inference entry, held next to the KServe one · Config Workshop">
+  <meta property="og:description" content="The AICR-native inference entry, held next to the KServe one: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,44 +433,50 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The fleet delivery machinery works on this machine</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/sveltos-fleet-rehearsal/summary.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>The AICR-native inference entry, held next to the KServe one</h1>
+    <p class="lead">The catalog's other inference entry retains <a href="kserve-nim-inference.html">NVIDIA's nim-deploy KServe reference implementation</a>. This one retains what AICR produces for the same intent. A <a href="../../reference/aicr-composition-model.html">study of AICR's composition model</a> found the native path after the KServe entry was already built, and holding both is the honest response. <a href="../../../../../docs/demo/aicr/eks-h100-inference-nim.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This rehearsal exists so the governed chapters do not meet their cluster machinery for the first time on patch day. It built the full reference fleet and drove the shared delivery path end to end with no ConfigHub involved.</p>
-<p>Boundary: no review, approval, or promotion is claimed. Argo CD came from the pinned upstream manifest instead of cub cluster up, Applications were applied with kubectl instead of delivered as ConfigHub Units, and the chapter matrices are untouched. When this receipt was recorded (2026-08-08), the governed lanes were still blocked by confighubai/confighub#4975.</p>
-<p>What ran: a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), Kyverno 3.8.1 converged on all four clusters from portable OCI digests reconciled by Argo CD v3.4.6, a values change landed on the pilot alone, a chart version bump to 3.8.2 landed on the pilot alone with the values intact, the other three clusters held their state through both, and injected drift was repaired. The demo application rode the same rails: podinfo 6.14.1 converged on all four clusters with per-environment replica counts.</p>
-<table><thead><tr><th>Phase</th><th>Duration</th></tr></thead><tbody><tr><td>temporary OCI registry ready</td><td>1.3s</td></tr>
-<tr><td>management cluster ready</td><td>25s</td></tr>
-<tr><td>Argo CD converged on the management cluster</td><td>57.9s</td></tr>
-<tr><td>four workload clusters ready</td><td>102.7s</td></tr>
-<tr><td>Sveltos controllers converged</td><td>101s</td></tr>
-<tr><td>four workload clusters registered</td><td>1s</td></tr>
-<tr><td>baseline delivered to all four clusters</td><td>192.4s</td></tr>
-<tr><td>application delivered to all four clusters</td><td>28.8s</td></tr>
-<tr><td>values change delivered to the pilot only</td><td>55s</td></tr>
-<tr><td>version bump delivered to the pilot only</td><td>103.8s</td></tr>
-<tr><td>injected drift repaired on the pilot</td><td>15.3s</td></tr>
-<tr><td>Total measured</td><td>684s</td></tr></tbody></table>
-<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Clusters converged at baseline</td><td>4/4</td></tr>
-<tr><td>Application clusters converged</td><td>4/4, replicas per environment</td></tr>
-<tr><td>Selective values change</td><td>pilot only</td></tr>
-<tr><td>Selective version bump</td><td>pilot only, values intact</td></tr>
-<tr><td>Distinct pilot digests across waves</td><td>3</td></tr>
-<tr><td>Drift repaired</td><td>pass</td></tr>
-<tr><td>Cleanup</td><td>Pass</td></tr></tbody></table>
-<h2 id="limits">Limits</h2>
-<ul><li>No ConfigHub organization, review, approval, or release was involved; this is not a governance proof.</li><li>The portable OCI used a temporary anonymous registry; this is not a permanent public package.</li><li>The rehearsal used five local kind clusters on one machine. It measures this machine, not a production fleet.</li><li>The chapter matrices are untouched; only the governed lanes may fill their observed cells.</li></ul>
-<ul><li><a href="../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">Committed receipt</a></li><li><a href="../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">Rehearsal source lock</a></li></ul>
+<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It asks AICR itself for a NIM inference platform, and it exists so the catalog holds both credible NVIDIA answers to &quot;how do I serve NIM&quot; rather than quietly preferring one.</p>
+
+<h2 id="what-it-is">What it is</h2>
+<p>AICR v0.14.0 treats <code>nim</code> as a platform criteria value, the same way it treats <code>kubeflow</code> for training. Asking for it resolves eight overlays into seventeen components, including the NIM operator at 3.1.0 and an inference gateway, and the Argo CD bundle renders into twenty Applications.</p>
+<pre><code>aicr recipe --service eks --accelerator h100 --os ubuntu \
+  --intent inference --platform nim --output recipe.yaml</code></pre>
+<p>The <a href="../../../../../examples/aicr/eks-h100-inference-nim/generation-receipt.yaml">generation receipt</a> records the exact commands, the criteria, the generation inputs, and one thing worth stating plainly: the binary that produced this entry was checked against the checksums pinned in the training entry's own receipt before it was run.</p>
+<h2 id="what-changes-between-training-and-inference">What changes between training and inference</h2>
+<p>This is the clearest picture of AICR's composition model the catalog has, and it is a small diff on a large shared spine. Fifteen of the components are identical to the training entry. Training adds the Kubeflow trainer and its post-install Application. Inference removes those and adds the NIM operator plus the agentgateway inference gateway.</p>
+<table><thead><tr><th>Shape</th><th>Applications</th><th>Distinct components</th></tr></thead><tbody><tr><td>Training, <code>platform: kubeflow</code></td><td>17</td><td><code>kubeflow-trainer</code>, <code>kubeflow-trainer-post</code></td></tr>
+<tr><td>Inference, <code>platform: nim</code></td><td>20</td><td><code>k8s-nim-operator</code>, <code>agentgateway</code>, <code>agentgateway-crds</code>, and their two post Applications</td></tr></tbody></table>
+<p>One criteria value moves the platform from training to serving. That is the argument for retaining recipes rather than hand-assembled YAML, made concrete.</p>
+<h2 id="how-the-two-inference-entries-differ">How the two inference entries differ</h2>
+<p>They are not competitors. They answer different questions at different granularities, which only became visible once both were retained.</p>
+<table><thead><tr><th></th><th>AICR-native (this entry)</th><th>nim-deploy KServe entry</th></tr></thead><tbody><tr><td>Source</td><td>AICR v0.14.0 itself</td><td>NVIDIA/nim-deploy at an exact commit</td></tr>
+<tr><td>Granularity</td><td>Platform components</td><td>Model serving shapes</td></tr>
+<tr><td>Retained documents</td><td>20 Argo CD Applications</td><td>26 KServe documents</td></tr>
+<tr><td>Serving mechanism</td><td>The NIM operator reconciles NIM custom resources</td><td>KServe <code>InferenceService</code> against a <code>ClusterServingRuntime</code></td></tr>
+<tr><td>Model choice expressed as</td><td>A custom resource the operator consumes, not retained here</td><td>Sixteen retained model-by-GPU shapes</td></tr>
+<tr><td>Gateway</td><td>agentgateway with the Gateway API inference extension</td><td>None retained</td></tr>
+<tr><td>Answers</td><td>How do I stand up a cluster that can serve NIM</td><td>Which exact serving shape do I run for this model</td></tr></tbody></table>
+<p>A team needs both halves. The platform entry gets an inference-capable cluster; the KServe entry names the exact shape a given model runs in. The catalog retains both and says which is which, rather than picking one and calling it the inference story.</p>
+<h2 id="one-digest-pins-this-entry-too">One digest pins this entry too</h2>
+<pre><code>npm run aicr-inference-nim:verify</code></pre>
+<p>The <a href="../../../examples/aicr/eks-h100-inference-nim/digest-index/README.html">digest index</a> pins the upstream source, the recipe criteria, and all twenty rendered Applications under <code>sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2</code>. The compiler that produces it is the one the training entry uses, generalized to serve any AICR entry.</p>
+<h2 id="what-is-proven-and-what-is-not">What is proven and what is not</h2>
+<p>Proven: the entry was generated by a binary verified against a committed receipt, the recipe and every rendered Application are retained byte for byte, and one digest pins the shape.</p>
+<p>Not proven, and stated rather than implied: this entry was never published, so it carries no public digest and no OCI transport receipts, and the repository reference in its Applications is what a publication would use rather than a record that one happened. No ConfigHub import, no cluster, and no delivery proof exist for it yet. No NIM container ran, no model was fetched, and no NGC surface was contacted. It exists first as a comparison, and the ladder the other entries climbed is open to it next.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/sveltos-fleet-rehearsal/summary.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/eks-h100-inference-nim.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
