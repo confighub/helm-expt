@@ -332,6 +332,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `quirk-inventory-audit` | [quirk-inventory-audit/summary.md](./quirk-inventory-audit/summary.md) | supporting generated evidence |
 | `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
 | `quirk-work-queue` | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md) | source-scan quirk work queue for top-100 charts |
+| `receipt-aging` | [receipt-aging/summary.md](./receipt-aging/summary.md) | how old every committed receipt is, measured against the newest one, with the count that carry no date at all |
 | `refresh-survival` | [refresh-survival/summary.md](./refresh-survival/summary.md) | latest-version refresh survival and upgrade seed |
 | `remote-dependency-closure` | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md) | remote dependency closure map for top-100 charts |
 | `remote-image-runtime-workdown` | [remote-image-runtime-workdown/summary.md](./remote-image-runtime-workdown/summary.md) | product/base decisions for the remote-image watch rows: exact missing image, where it fails, recommended action (refresh / override / pin-mirror / lifecycle-route / watch / refuse), and owner class |
@@ -374,7 +375,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 188 CSV files. Each row records the path, audience,
+It includes 189 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -13,8 +13,9 @@ spec:
   corpus:
     path: "examples/aicr/refusal-corpus/candidates.yaml"
     sha256: "ab988c0599704152832bdc5dad1db58e9f7b5e3dfb00ab5ac1f3e62a413d04e2"
+  observedAt: "2026-08-08T16:00:57.724Z"
   tree:
-    commit: "09f328d301ede2dfb5e26df71133e44f41955f6c"
+    commit: "39bf20b3a248bc977300ce080f619ffe2bd1bf54"
     note: "Each candidate ran in a throwaway worktree of this commit, so the run describes committed bytes rather than an author's working tree."
   lanes:
     -

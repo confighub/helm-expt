@@ -606,6 +606,7 @@ function familyRole(family) {
     "variant-goldens": "golden work orders for derived-variant examples",
     "certified-bundles": "shared certified-bundle receipts: one reference bundle per producer with quirk dispositions and flattening-safety verdict lanes",
     "flattening-safety": "per-chart flattening-safety verdicts: template-level witness scans and the receipted lane deciding render-early vs render-late",
+    "receipt-aging": "how old every committed receipt is, measured against the newest one, with the count that carry no date at all",
   };
   return roles[family] ?? "supporting generated evidence";
 }
