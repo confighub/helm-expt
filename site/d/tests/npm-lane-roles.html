@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quirk Review Queue - the Level-2 residue, made actionable · Config Workshop</title>
-  <meta name="description" content="Quirk Review Queue - the Level-2 residue, made actionable: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/quirk-review-queue/summary.html">
-  <meta property="og:title" content="Quirk Review Queue - the Level-2 residue, made actionable · Config Workshop">
-  <meta property="og:description" content="Quirk Review Queue - the Level-2 residue, made actionable: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Lanes outside the verify chain · Config Workshop</title>
+  <meta name="description" content="Lanes outside the verify chain: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-lane-roles.html">
+  <meta property="og:title" content="Lanes outside the verify chain · Config Workshop">
+  <meta property="og:description" content="Lanes outside the verify chain: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/quirk-review-queue/summary.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-lane-roles.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,57 +437,46 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Quirk Review Queue - the Level-2 residue, made actionable</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/quirk-review-queue/summary.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try Redis</a><a href="../../testing.html">Examples</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../hard-questions.html">FAQ</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Lanes outside the verify chain</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-lane-roles.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Every <code>needs-operator-decision</code> disposition across the catalog's <code>helm-pain-report.yaml</code> files. These are the quirks that are <b>disclosed</b> (so the chart is Level-2 supported) but <b>not yet reviewed/handled</b>. This queue classifies them so they can be worked down honestly - it does NOT resolve them (that is per-chart SME/build work; auto-resolving would be cosmetic).</p>
-<h2 id="headline">Headline</h2>
-<pre><code>flagged quirks: 222
-charts affected: 100
-  standard (confirm a catalog-wide home): 76
-  build    (build a variant, then handle):  13
-  sme      (genuine per-chart human call):   133</code></pre>
-<h2 id="work-it-down-in-this-order">Work it down in this order</h2>
-<h3 id="1-standard-quickest-wins-confirm-the-known-confighub-home-applies">1. Standard - quickest wins (confirm the known ConfigHub home applies)</h3>
-<p>_Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / scan+admission gate / operate policy / ingress policy)_</p>
-<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>crds</code></td><td>32</td><td>32</td></tr>
-<tr><td><code>stateful-storage</code></td><td>12</td><td>12</td></tr>
-<tr><td><code>crd-policy</code></td><td>7</td><td>7</td></tr>
-<tr><td><code>replicaset-topology</code></td><td>3</td><td>3</td></tr>
-<tr><td><code>edge-ingress-policy</code></td><td>3</td><td>3</td></tr>
-<tr><td><code>ui-ingress-policy</code></td><td>3</td><td>3</td></tr>
-<tr><td><code>apiservice</code></td><td>3</td><td>3</td></tr>
-<tr><td><code>storage-retention</code></td><td>2</td><td>2</td></tr>
-<tr><td><code>component-selection</code></td><td>2</td><td>2</td></tr>
-<tr><td><code>storage-config</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>object-storage-policy</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>object-store-runtime-prerequisite</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>query-ingress-policy</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>namespace-references</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>mesh-gateway-policy</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>service-exposure</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>operate-policy</code></td><td>1</td><td>1</td></tr>
-<tr><td><code>provider-integration</code></td><td>1</td><td>1</td></tr></tbody></table>
-<h3 id="2-build-needs-a-concrete-variant-first">2. Build - needs a concrete variant first</h3>
-<p>_Resolution: build the variant that handles it (existing-secret base, rotation variant) then re-disposition_</p>
-<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>secret-material</code></td><td>12</td><td>12</td></tr>
-<tr><td><code>sync-secret-rotation</code></td><td>1</td><td>1</td></tr></tbody></table>
-<h3 id="3-sme-genuine-per-chart-judgment-could-be-benign-or-a-real-blocker">3. SME - genuine per-chart judgment (could be benign or a real blocker)</h3>
-<p>_Resolution: per-chart human call: confirm safe (lifecycle policy / explicit extension owner) OR mark an honest blocker_</p>
-<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>tpl-extension-slots</code></td><td>62</td><td>62</td></tr>
-<tr><td><code>extension-slots</code></td><td>60</td><td>60</td></tr>
-<tr><td><code>tpl</code></td><td>6</td><td>6</td></tr>
-<tr><td><code>gitops-handoff</code></td><td>2</td><td>2</td></tr>
-<tr><td><code>chart-deprecation</code></td><td>2</td><td>2</td></tr>
-<tr><td><code>platform-variant</code></td><td>1</td><td>1</td></tr></tbody></table>
-<h2 id="honesty-note">Honesty note</h2>
-<p>A chart stays <b>Level-2 supported</b> while these sit at <code>needs-operator-decision</code> - the quirk is disclosed, not silent. Moving a flag to <i>handled</i> (with evidence) or <i>blocker</i> (with reason) is what upgrades it to <b>reviewed</b>. Re-run <code>npm run quirk-queue:generate</code> after pain reports change to re-measure the residue.</p>
+<p>This page is generated. It lists every npm lane that is named like a gate and is not run by <code>npm run verify</code>, with what it proves and why it sits outside.</p>
+<p>Two such lanes went stale unnoticed before this page existed. <code>app-readiness</code> claimed to check every catalog chart while covering 95 of 120 rendered subjects, and <code>preview-readiness</code> was wrong in three fields of four. Nothing failed, because nothing ran them.</p>
+<pre><code>lanes outside the chain: 19
+should join the chain:   2
+deliberately outside:    17
+superseded:              0</code></pre>
+<h2 id="cheap-offline-and-belongs-in-the-chain">Cheap, offline, and belongs in the chain</h2>
+<table><thead><tr><th>lane</th><th>proves</th><th>requires</th><th>status</th></tr></thead><tbody><tr><td><code>anonymous-oci-ci:verify</code></td><td>The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI-&gt;work-&gt;OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.</td><td>offline</td><td>red: summary is stale and only the live --run rewrites it, so clearing it needs a registry run</td></tr>
+<tr><td><code>hook-replacement:proof:verify</code></td><td>Validates runs/hook-replacement-proof/receipt.yaml (kind, an allowed result, and presence of the neither/argo/flux legs) and byte-compares data/hook-replacement-proof/summary.md and by-controller.html against what the generator re-renders from it, so the published claim that all three recommended hook-replacement paths delivered and ran the routed Job matches the recorded run.</td><td>offline</td><td>red: runs/hook-replacement-proof/receipt.yaml was never recorded, so the proof has to run before this lane can pass</td></tr></tbody></table>
+<h2 id="deliberately-outside-because-it-needs-the-world">Deliberately outside, because it needs the world</h2>
+<table><thead><tr><th>lane</th><th>proves</th><th>requires</th><th>status</th></tr></thead><tbody><tr><td><code>helm-org:verify</code></td><td>Every planned Space in the live ConfigHub <code>helm-catalog</code> organization exists, carries the planned labels, holds at least one Unit, and its recipe Unit data still equals the committed data/helm-render-intents/intents/&lt;space&gt;.yaml.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>helm-org:policy:verify</code></td><td>That the live helm-catalog ConfigHub organization's apply-policy topology - the Trigger definition Space, Trigger filters, and per-Space WhereTrigger assignments - still matches both config-catalog/policies/catalog-standard.yaml and the committed receipt data/apply-policy-profiles/live-helm-catalog.yaml, field by field.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>helm-org:fleet:verify</code></td><td>That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>prometheus-adapter:apiservice-base:verify</code></td><td>The prometheus-community/prometheus-adapter 5.3.0 <code>apiservice-v1-capability</code> base is intact end to end: the recipe and installer package both declare it, the variant records the APIService v1 capability profile and capability-profile-rerender strategy, the package base upstream.yaml byte-equals the rendered release-objects.yaml, the inventory digest and the APIService object identity match, the revision receipts are consistent, and a fresh <code>cub installer setup --pull</code> of the package reproduces the Helm object set semantically with the counts recorded in the package receipt.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-current-catalog-candidates:verify</code></td><td>All seven exact Kubara v0.13.0 public artifacts still verify as candidates - each recipe and package exists, its proof artifacts and installer package re-verify (including a byte-identical double <code>cub installer package</code> bundle and a semantic Helm-vs-<code>cub installer setup</code> object comparison per variant), source-lock version/URL/SHA match the recorded exact artifact - and data/kubara-catalog-refresh/current-candidates/{candidate-set.yaml,candidate-status.csv,README.md} are not stale relative to that inspection.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-catalog-promotion:stage:verify</code></td><td>That the disposable staging tree .tmp/kubara-catalog-root-promotion holds root-ready proof and package trees for all seven historical Kubara components - each with a source-lock pinned to the promoted version and exact artifact URL - and that promoting them would not disturb the 120-root immutable baseline.</td><td>network</td><td>not run here, needs network</td></tr>
+<tr><td><code>kubara-catalog-promotion:verify</code></td><td>Re-verifies the additive historical Kubara root promotion: the release scope manifest, the byte-locked baseline catalog roots, the required additions, each component's proof and installer-package receipts (including the packaged kube-prometheus-stack lifecycle files), the 13-lane live-qualification set receipt, and that data/kubara-catalog-refresh/root-promotion/receipt.yaml matches the receipt the script recomputes.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-current-catalog-promotion:stage:verify</code></td><td>A previously staged .tmp/kubara-current-catalog-root-promotion tree contains root-ready recipe and package trees for each current Kubara component whose proof files, KPS lifecycle files, installer packages and source-lock exact-artifact URL/SHA match examples/kubara/current-platform/component-artifacts.yaml, while the immutable baseline catalog roots are unchanged.</td><td>network</td><td>not run here, needs network</td></tr>
+<tr><td><code>kubara-current-catalog-promotion:verify</code></td><td>That data/kubara-catalog-refresh/current-root-promotion/receipt.yaml exactly equals the receipt recomputed from the promoted roots for argo-cd 10.2.1, external-secrets, and kube-prometheus-stack - with the 13-lane/7-component KubaraLiveQualificationSetReceipt validated, the required additive roots present, the historical roots unchanged, and each component's proof, packaged lifecycle, and installer package re-verified in place.</td><td>offline</td><td>passes</td></tr>
+<tr><td><code>kubara-catalog-oci:verify</code></td><td>That each of the ten additive Kubara installer packages is genuinely published: for every package it re-packs the local tree with <code>cub installer package</code> and compares the SHA to the receipt's layer digest, then runs <code>cub installer inspect &lt;oci ref&gt; --json</code> against europe-west1-docker.pkg.dev and checks the remote manifest digest, remote layer digest and canonical inspect JSON hash still equal the committed publication receipt - plus the immutable 110/120-root catalog baselines and both promotion receipts.</td><td>network</td><td>not run here, needs network</td></tr>
+<tr><td><code>kubara-catalog-full-coverage:verify-candidates</code></td><td>That the ten exact Kubara catalogs 1.1.0 candidate recipes/packages under data/kubara-catalog-1.1-full-coverage/candidates still match their declared exact artifact URLs and SHAs, that the immutable 120-root baseline is unchanged, that the two supplemental locks are intact, and that each candidate's proof and installer package re-verify (including re-packaging it twice with cub and rendering it back through cub installer setup).</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-catalog-full-coverage:verify</code></td><td>Re-verifies the final Kubara catalogs 1.1.0 coverage state end to end: the immutable 120-root recipe/package baseline, the ten additive roots and their proof and installer-package receipts, the ten OCI publication receipts against the live remote manifest and layer digests, the installer-OCI catalog rows, and that data/kubara-catalog-1.1-full-coverage/receipt.yaml records pass with ten published packages.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-catalog-release:verify</code></td><td>That the full public Kubara catalog release still holds end to end: exactly 130 retained recipe and package version roots including all declared additions, the ten additive installer packages' publication receipts matching the live remote OCI manifests and layers, and twelve derived catalog/site generators (catalog-status, pain reports, root catalog, installer OCI catalog, model completeness, public site, ...) all re-deriving byte-identically, plus the site UX contract.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-mini-idp:verify</code></td><td>That the live Kubara mini-IDP matches its desired plan: it re-reads the whole pinned ConfigHub organization (Spaces, managed Units, NeedsProvides Links, Targets) and then, per fleet cluster, reads the local kind cluster's Argo runtime, argobot authority and ApplicationSets via kubectl, reporting Space/Unit/Link counts.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-mini-idp:orphan-audit:receipt-verify</code></td><td>That runs/kubara-mini-idp-reconcile/orphan-audit.yaml still binds to the current reconciler: auditor and reconciler script digests, the reconcile plan digest, the apply-attempt ledger digest, read-only execution with zero mutation commands, stable opening/closing organization-wide ConfigHub snapshot fingerprints, and expected==observed counts for Spaces/Units/Links/Targets/Triggers/Filters against the freshly recomputed allowlist.</td><td>offline</td><td>passes</td></tr>
+<tr><td><code>kubara-release:verify-static</code></td><td>That the offline half of the Kubara + ConfigHub release acceptance holds: data/kubara-release-acceptance/contract.yaml and the adoption-screenshot contract re-derive exactly, the named package.json scripts are verbatim, the recorded release scope still contains its immutable 120-root and baseline catalogs unchanged, the current shape / mini-IDP plan / site consumption agree, and twenty-two further offline sub-lanes pass.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
+<tr><td><code>kubara-release:verify</code></td><td>Runs the whole Kubara release front door: the offline static contract (data/kubara-release-acceptance/contract.yaml plus catalog counts, tree SHAs and required evidence paths), then the final-state gates - current site live-evidence, adoption screenshots, public site pages, the 130-root final catalog and the installer-OCI catalog - and then executes ten downstream acceptance commands in order.</td><td>confighub</td><td>not run here, needs confighub</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
+<h2 id="superseded">Superseded</h2>
+<p>None.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/quirk-review-queue/summary.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>tests/npm-lane-roles.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -448,8 +448,8 @@
 <p>Hook counts in this file are scoped to the current recipe corpus. The retained source-scan top-100 hook inventory is separate because it can include charts that are not yet current recipe rows. Use <code>data/hook-lifecycle/summary.md</code> for source-scan hook totals.</p>
 <h2 id="headline">Headline</h2>
 <pre><code>charts with a recipe:                       100
-no open gap (built or n/a; modeled L2):     75
-charts with a hard gap (no workaround yet):  25
+no open gap (built or n/a; modeled L2):     78
+charts with a hard gap (no workaround yet):  22
 charts with buildable backlog (path exists): 38
 charts with remote dependency risk surfaced: 18
 non-exact dependency rows frozen to lock:    9
@@ -462,7 +462,7 @@ hook rows source-reviewed but not maintained:0
 hook-like reviewed rows without hook annotation: 0
 hook rows still needing source route review: 0</code></pre>
 <h2 id="what-the-hard-gaps-are-charts-affected">What the hard gaps are (charts affected)</h2>
-<pre><code>existing-secret - chart ships no Secret toggle:         15
+<pre><code>existing-secret - chart ships no Secret toggle:         12
 no-crds - template-baked CRDs, no clean toggle yet:     3
 curated proof lane - needs bespoke teaching:            6
 other hard gap:                                         1</code></pre>
@@ -506,13 +506,10 @@ other hard gap:                                         1</code></pre>
 <tr><td><code>grafana/tempo</code></td><td>ha (tempo single-binary chart; HA is the separate tempo-distributed chart)</td></tr>
 <tr><td><code>hashicorp/consul</code></td><td>ha (curated proof lane - bespoke teaching needed)</td></tr>
 <tr><td><code>jaegertracing/jaeger</code></td><td>existing-secret (chart ships no Secret toggle)</td></tr>
-<tr><td><code>kyverno/kyverno</code></td><td>existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td><code>metrics-server/metrics-server</code></td><td>existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td><code>minio-operator/operator</code></td><td>no-crds (template-baked CRDs; no clean chart toggle yet)</td></tr>
-<tr><td><code>prometheus-community/kube-prometheus-stack</code></td><td>existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td><code>prometheus-community/prometheus</code></td><td>ha (curated proof lane - bespoke teaching needed)</td></tr>
-<tr><td><code>rook-release/rook-ceph</code></td><td>no-crds (template-baked CRDs; no clean chart toggle yet)</td></tr>
-<tr><td><code>traefik/traefik</code></td><td>existing-secret (chart ships no Secret toggle)</td></tr></tbody></table>
+<tr><td><code>rook-release/rook-ceph</code></td><td>no-crds (template-baked CRDs; no clean chart toggle yet)</td></tr></tbody></table>
 <h2 id="files">Files</h2>
 <pre><code>data/chart-facts/chart-facts.csv   one row per chart, all fact columns (open in a spreadsheet)
 data/chart-facts/summary.md        this file</code></pre>
