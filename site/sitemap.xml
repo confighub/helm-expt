@@ -380,6 +380,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/coverage-completion-plan/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/crd-ordering-gap/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/credential-boundary/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-adoption-caveats/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-installer-determinism/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-installer-fuzz/summary.html</loc></url>
