@@ -158,6 +158,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-oci-roundtrip-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-ordering-parity/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-platform-evidence/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-refusal-corpus/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-variant-promotion-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-ci-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-transform-proof/summary.html</loc></url>
@@ -650,6 +651,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/refusal-corpus.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/ai-change-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/rbac-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof-transcript.html</loc></url>

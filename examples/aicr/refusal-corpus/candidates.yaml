@@ -1,0 +1,216 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: RefusalCorpus
+metadata:
+  name: aicr-refusal-corpus
+spec:
+  description: >-
+    Shapes a contributor could plausibly propose to the AICR entries, each
+    declared with the verdict the shipped lanes must return. Every checker
+    already self-tests its own refusals against fixtures it builds itself. This
+    corpus asks a different question. It runs the shipped commands, unmodified,
+    against a real copy of this repository carrying a real proposed change, and
+    it publishes the verdict as evidence rather than as a red lane nobody kept.
+  boundary:
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    clusterRequired: false
+    networkRequired: false
+    note: >-
+      Every candidate is a change to committed configuration bytes, evaluated
+      offline in a throwaway git worktree. No cluster, no registry, and no
+      network takes part, and no credential in this file is real.
+
+  # The lanes run against every candidate, so the record shows which rule
+  # caught a shape and which rules let it pass.
+  matrixLanes:
+    - id: digest-index
+      command: [scripts/generate-aicr-digest-index.mjs, --verify]
+      guards: The training entry's retained bytes and its digest index.
+    - id: inference-nim-index
+      command: [scripts/generate-aicr-digest-index.mjs, --verify, --example, eks-h100-inference-nim]
+      guards: The AICR-native inference entry's retained bytes and its digest index.
+    - id: kserve-nim-index
+      command: [scripts/generate-aicr-kserve-nim-index.mjs, --verify]
+      guards: The KServe entry's retained tree, its credential boundary, and its cross-references.
+    - id: blast-radius
+      command: [scripts/verify-aicr-blast-radius.mjs, --verify]
+      guards: What each declared control point reaches, across all three records.
+    - id: ordering-parity
+      command: [scripts/verify-aicr-ordering-parity.mjs, --verify]
+      guards: Rendered sync-waves against the order the upstream recipe declares.
+    - id: signature-subject
+      command: [scripts/run-aicr-signature-verification.mjs, --verify]
+      guards: The bytes the upstream signature's attested subject is bound to.
+
+  # Lanes that write, run only for the candidate that names them.
+  extraLanes:
+    - id: digest-index:generate
+      command: [scripts/generate-aicr-digest-index.mjs, --generate]
+      guards: The regeneration path, which a contributor would reach for to make a red lane green.
+
+  rules:
+    - id: retained-bytes-parity
+      lane: digest-index
+      statement: >-
+        A retained document that no longer matches its recorded checksum is
+        refused, whether the edit was careless or deliberate.
+    - id: retention-is-not-regenerable
+      lane: digest-index:generate
+      statement: >-
+        Regenerating the index does not adopt an edit to retained bytes. The
+        checksums record what upstream published, so the generator refuses the
+        same drift the verifier refuses.
+    - id: credential-boundary
+      lane: kserve-nim-index
+      statement: >-
+        A retained document that assigns a literal value to a credential
+        variable is refused, even when its checksum is consistent.
+    - id: control-point-undeclared-reach
+      lane: blast-radius
+      statement: >-
+        A control point that reaches a document its record does not declare is
+        refused, which is how an under-declared change gets caught.
+    - id: control-point-stale-declaration
+      lane: blast-radius
+      statement: >-
+        A record that declares a document no longer containing the control
+        point is refused, which is how a record goes stale after the entry
+        moves.
+    - id: upstream-ordering-parity
+      lane: ordering-parity
+      statement: >-
+        Rendered sync-waves that order components differently from the upstream
+        recipe are refused, so the ordering the bundles carry stays upstream's.
+    - id: attested-subject-binding
+      lane: signature-subject
+      statement: >-
+        A change to the bytes the upstream signature is bound to is refused, so
+        the receipt keeps describing an artifact this repository holds.
+
+  candidates:
+    - id: unmodified-tree
+      expect: accepted
+      proposal: >-
+        No change at all. The control that keeps the rest of this corpus
+        honest, because a set of lanes that refused everything would produce
+        the same refusals without proving anything.
+      mutations: []
+
+    - id: entry-prose-edited
+      expect: accepted
+      proposal: >-
+        A contributor improves a sentence on the entry's demo page. Nothing
+        retained changes, and every lane should accept it. This is the second
+        control, and it proves the lanes are scoped to the surfaces they claim
+        rather than refusing any diff.
+      mutations:
+        - op: appendLine
+          path: docs/demo/aicr/index.md
+          line: "<!-- refusal corpus: an edit outside every retained scope -->"
+
+    - id: retained-application-edited
+      expect: refused
+      rule: retained-bytes-parity
+      messageContains: "differs from argocd-rendered/checksums.txt"
+      proposal: >-
+        A contributor edits a rendered Argo CD Application in place, the way
+        anyone would edit ordinary YAML in a repository, without touching the
+        record of what was retained.
+      mutations:
+        - op: replaceOnce
+          path: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/cert-manager.yaml
+          find: "kind: Application"
+          replace: "kind: Application # edited"
+
+    - id: retained-edit-then-regenerated
+      expect: refused
+      rule: retention-is-not-regenerable
+      lane: digest-index:generate
+      messageContains: "differs from argocd-rendered/checksums.txt"
+      proposal: >-
+        The same edit, followed by the obvious next move when a lane goes red.
+        The contributor runs the generator to bring the index back in line.
+        Regeneration is the laundering path a retention claim has to survive,
+        so the generator has to refuse what the verifier refuses.
+      mutations:
+        - op: replaceOnce
+          path: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/cert-manager.yaml
+          find: "kind: Application"
+          replace: "kind: Application # edited"
+
+    - id: credential-retained-with-consistent-checksum
+      expect: refused
+      rule: credential-boundary
+      messageContains: "a literal credential value is assigned to NGC_API_KEY"
+      proposal: >-
+        A contributor retains an upstream document that carries a literal NGC
+        key, and records its checksum correctly. Nothing here is tampering, and
+        the checksum rule has nothing to say. The credential rule is what
+        stands between a consistent retention and a key in a public repository.
+        The value below is not a credential.
+      mutations:
+        - op: appendLine
+          path: examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml
+          line: '  NGC_API_KEY: "nvapi-not-a-real-key"'
+        - op: rehashChecksumRow
+          checksums: examples/aicr/kserve-nim-inference/upstream-checksums.txt
+          key: kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml
+          path: examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml
+
+    - id: control-point-token-copied-into-a-second-document
+      expect: refused
+      rule: control-point-undeclared-reach
+      messageContains: "which the record does not declare"
+      proposal: >-
+        A contributor adds the storage class to a second Application, which is
+        a reasonable thing to want. The record still declares one document, so
+        the control point now reaches further than the record admits and a
+        reviewer reading the record would underestimate the change.
+      mutations:
+        - op: replaceOnce
+          path: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/gpu-operator.yaml
+          find: "spec:"
+          replace: "spec:\n  # storageClassName: gp3"
+
+    - id: control-point-token-removed-from-a-governed-document
+      expect: refused
+      rule: control-point-stale-declaration
+      messageContains: "which does not contain"
+      proposal: >-
+        A contributor changes the storage class in the one document that
+        carries it, and leaves the record alone. The record now describes an
+        entry that has moved, which is the failure mode records acquire by
+        sitting still.
+      mutations:
+        - op: replaceOnce
+          path: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/kube-prometheus-stack.yaml
+          find: "storageClassName: gp3"
+          replace: "storageClassName: gp2"
+
+    - id: sync-wave-reordered
+      expect: refused
+      rule: upstream-ordering-parity
+      messageContains: "order components differently from the recipe"
+      proposal: >-
+        A contributor moves one component later in the sync order, which looks
+        like a local scheduling preference and is in fact a change to the
+        dependency order upstream computed.
+      mutations:
+        - op: replaceOnce
+          path: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates/cert-manager.yaml
+          find: 'sync-wave: "2"'
+          replace: 'sync-wave: "97"'
+
+    - id: attested-subject-bytes-edited
+      expect: refused
+      rule: attested-subject-binding
+      messageContains: "differs from its recorded checksum"
+      proposal: >-
+        A contributor edits one of the two files the upstream signature is
+        bound to. The signature bundle still verifies on its own terms, so
+        nothing about the signer changes. What breaks is the binding between
+        that signature and the bytes this repository holds.
+      mutations:
+        - op: appendLine
+          path: examples/aicr/upstream-signatures/v0.18.0/attested-subject/registry.yaml
+          line: "# edited"
