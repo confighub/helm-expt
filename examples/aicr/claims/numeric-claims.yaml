@@ -1,0 +1,211 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: NumericClaimRegister
+metadata:
+  name: aicr-numeric-claims
+spec:
+  description: >-
+    Every counted claim the AICR pages make, bound to a quantity computed from
+    committed bytes. The pages say things like "seventeen components" and
+    "twenty Applications", and those numbers were true when someone typed them.
+    An entry that gains a component makes them false silently, because prose
+    does not fail a lane. This register is what makes it fail.
+  scope:
+    pages: docs/demo/aicr
+    note: >-
+      The checker reads every page under this directory, so a new AICR page is
+      covered the moment it exists rather than when someone remembers to add
+      it here.
+
+  # A number followed by one of these nouns is a counted claim. Every
+  # occurrence on an AICR page must be covered by a claim below, so adding a
+  # noun here is how the gate is widened, and adding a claim is how a new
+  # sentence passes it.
+  countedNouns:
+    - Applications
+    - Application objects
+    - Argo CD Applications
+    - components
+    - component Application objects
+    - documents
+    - model shapes
+    - model-by-GPU shapes
+    - serving runtimes
+    - overlays
+    - retained surfaces
+    - rungs
+
+  quantities:
+    - id: training-applications
+      description: The Argo CD Applications the training entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates, suffix: .yaml }
+    - id: training-components
+      description: The components the retained training recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-h100-training-kubeflow/recipe.yaml, path: deploymentOrder }
+    - id: training-component-applications
+      description: >-
+        The component Applications the training bundle renders, which is every
+        rendered Application except the platform root that owns them.
+      compute: { kind: minus, from: training-applications, subtract: 1 }
+
+    - id: inference-nim-applications
+      description: The Argo CD Applications the AICR-native inference entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-h100-inference-nim/argocd-rendered/templates, suffix: .yaml }
+    - id: inference-nim-components
+      description: The components the retained inference recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-h100-inference-nim/recipe.yaml, path: deploymentOrder }
+    - id: inference-nim-overlays
+      description: The overlays AICR resolved to produce the inference recipe.
+      compute: { kind: number, file: examples/aicr/eks-h100-inference-nim/generation-receipt.yaml, path: spec.result.overlaysResolved }
+
+    - id: kserve-serving-runtimes
+      description: The serving runtimes retained from the KServe subtree.
+      compute: { kind: files, dir: examples/aicr/kserve-nim-inference/upstream/kserve/runtimes, suffix: .yaml }
+    - id: kserve-model-shapes
+      description: The model-by-GPU shapes retained from the KServe subtree.
+      compute: { kind: files, dir: examples/aicr/kserve-nim-inference/upstream/kserve/nim-models, suffix: .yaml }
+    - id: kserve-retained-surfaces
+      description: >-
+        Every retained KServe surface the ConfigHub import carried, which is
+        the runtimes and the model shapes together.
+      compute: { kind: sum, of: [kserve-serving-runtimes, kserve-model-shapes] }
+
+    - id: starter-applications
+      description: The Argo CD Applications the derived CPU starter renders.
+      compute: { kind: files, dir: examples/aicr/cpu-starter/argocd-rendered/templates, suffix: .yaml }
+    - id: starter-curated-exclusions
+      description: >-
+        The components the curated purpose rule excluded from the starter, as
+        distinct from the ones the two mechanical rules excluded.
+      compute:
+        kind: countWhere
+        file: examples/aicr/cpu-starter/derivation-receipt.yaml
+        path: spec.selection.excluded
+        key: rule
+        equals: cloud-or-gpu-fleet-purpose
+    - id: starter-unsynced-components
+      description: >-
+        The starter components that never synced, which is every rendered
+        Application except the platform root and the one reviewed component
+        the sync proof took to Healthy.
+      compute: { kind: minus, from: starter-applications, subtract: 2 }
+    - id: starter-synced-applications
+      description: >-
+        The Applications that existed on the cluster in the sync proof, which
+        is the platform root and the one reviewed component.
+      compute: { kind: literal, value: 2, evidence: runs/aicr-cpu-starter-sync/receipt.yaml }
+
+    - id: kserve-rungs-climbed
+      description: >-
+        The ladder rungs the KServe inference entry has receipts for, taken
+        from the published platform evidence record rather than counted by
+        hand.
+      compute:
+        kind: selectField
+        file: data/aicr-platform-evidence/platform-evidence.json
+        listPath: spec.entries
+        key: id
+        equals: kserve-nim-inference
+        field: ladder.climbedCount
+
+  claims:
+    - id: training-renders-seventeen
+      quantity: training-applications
+      page: eks-h100-training-kubeflow.md
+      phrases: ["17 Applications", "17-Application", "17 Application objects"]
+    - id: training-declares-fifteen-components
+      quantity: training-components
+      page: eks-h100-training-kubeflow.md
+      phrases: ["15 components"]
+    - id: training-helm-bundle-component-applications
+      quantity: training-component-applications
+      page: eks-h100-training-kubeflow.md
+      phrases: ["16 component Application objects"]
+
+    - id: inference-resolves-eight-overlays
+      quantity: inference-nim-overlays
+      page: eks-h100-inference-nim.md
+      phrases: ["eight overlays"]
+    - id: inference-resolves-seventeen-components
+      quantity: inference-nim-components
+      page: eks-h100-inference-nim.md
+      phrases: ["seventeen components"]
+    - id: inference-renders-twenty
+      quantity: inference-nim-applications
+      page: eks-h100-inference-nim.md
+      phrases: ["twenty Applications", "20 Argo CD Applications"]
+
+    - id: kserve-cites-the-native-component-count
+      quantity: inference-nim-components
+      page: kserve-nim-inference.md
+      phrases: ["seventeen components"]
+    - id: kserve-retains-ten-runtimes
+      quantity: kserve-serving-runtimes
+      page: kserve-nim-inference.md
+      phrases: ["ten serving runtimes"]
+    - id: kserve-retains-sixteen-shapes
+      quantity: kserve-model-shapes
+      page: kserve-nim-inference.md
+      phrases: ["sixteen model shapes"]
+
+    - id: starter-renders-seven
+      quantity: starter-applications
+      page: cpu-starter.md
+      phrases: ["seven Argo CD Applications", "seven Applications"]
+    - id: starter-curated-rule-excluded-three
+      quantity: starter-curated-exclusions
+      page: cpu-starter.md
+      phrases: ["three components"]
+    - id: starter-five-never-synced
+      quantity: starter-unsynced-components
+      page: cpu-starter.md
+      phrases: ["five components"]
+    - id: starter-two-applications-on-the-cluster
+      quantity: starter-synced-applications
+      page: cpu-starter.md
+      phrases: ["two Applications"]
+
+    - id: index-cites-the-starter-component-count
+      quantity: starter-applications
+      page: index.md
+      phrases: ["seven components"]
+    - id: index-cites-the-kserve-shapes
+      quantity: kserve-model-shapes
+      page: index.md
+      phrases: ["sixteen model shapes", "sixteen model-by-GPU shapes"]
+    - id: index-cites-the-kserve-runtimes
+      quantity: kserve-serving-runtimes
+      page: index.md
+      phrases: ["ten serving runtimes"]
+    - id: index-cites-the-kserve-surfaces
+      quantity: kserve-retained-surfaces
+      page: index.md
+      phrases: ["twenty-six retained surfaces"]
+    - id: index-cites-the-kserve-rungs
+      quantity: kserve-rungs-climbed
+      page: index.md
+      phrases: ["two rungs"]
+
+    - id: claim-page-cites-the-training-applications
+      quantity: training-applications
+      page: claim-integrity.md
+      phrases: ["seventeen Applications", "seventeen Application objects"]
+    - id: claim-page-cites-the-inference-overlays
+      quantity: inference-nim-overlays
+      page: claim-integrity.md
+      phrases: ["eight overlays"]
+    - id: claim-page-cites-the-inference-components
+      quantity: inference-nim-components
+      page: claim-integrity.md
+      phrases: ["seventeen components"]
+    - id: claim-page-cites-the-kserve-shapes
+      quantity: kserve-model-shapes
+      page: claim-integrity.md
+      phrases: ["sixteen model shapes", "sixteen model-by-GPU shapes"]
+    - id: claim-page-cites-the-kserve-runtimes
+      quantity: kserve-serving-runtimes
+      page: claim-integrity.md
+      phrases: ["ten serving runtimes"]
+    - id: claim-page-cites-the-synced-applications
+      quantity: starter-synced-applications
+      page: claim-integrity.md
+      phrases: ["two Applications"]

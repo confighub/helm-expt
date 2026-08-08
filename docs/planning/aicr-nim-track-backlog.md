@@ -286,6 +286,22 @@ ordering-parity lane, which retires the unearned-ordering caveat), and 53 with
 [AICR's evidence and our receipts](../reference/aicr-evidence-and-our-receipts.md),
 which also corrected three public claims.
 
-The next most valuable are 49 and 27, in that order, because they gate the
-publishing work. Task 2 remains the smallest high-value item.
+Also merged since: 49 (the blast-radius parity checker), 27 (the entries
+published as evidence in the catalog index), 21, 22 and 23 (the join to the
+certified bundle model), 8 (the inference delivery proof on kind), 2 (the
+attested subject bound to bytes this repository holds), 16 and 14 together as
+[the refusal corpus](../demo/aicr/refusal-corpus.md), and 48 as
+[the claim-integrity lane](../demo/aicr/claim-integrity.md).
+
+Two things are worth carrying forward from those. Writing the refusal corpus
+showed that retained-byte parity misses exactly the changes that are
+internally consistent, which is the case a checksum cannot see. Writing the
+claim register found two undeclared counted claims and one stale sentence on
+the overview page, which is the argument for the gate rather than a curated
+list.
+
+The next most valuable is theme 1. Task 2 is done, so a second retained entry
+at v0.18.0 now inherits a provenance chain that runs from the signer to bytes
+on disk. Task 4, the version-scoped naming pass, is deliberately cheaper
+before that entry lands than after.
 
