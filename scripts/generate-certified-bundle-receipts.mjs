@@ -452,7 +452,199 @@ function buildKubaraReceipt() {
   };
 }
 
-function buildEksInferenceReceipt() {
+// The producer's component set. A "copy" component is literal YAML in the
+// producer's tree, so nothing renders and nothing is lost at render time: it is
+// born flattened. A chart-sourced component takes the lane its chart's
+// flattening-safety verdict decided, cited by exact version.
+const EKS_INFERENCE_COMPONENTS = [
+  {
+    name: "platform-profile",
+    sourceKind: "literal-yaml",
+    contentsKind: "literal-config",
+    notes:
+      "The environment-owned values the rest of the stack links against. It renders nothing, so a flattened bundle loses nothing.",
+  },
+  {
+    name: "ack-controllers",
+    sourceKind: "helm-chart",
+    contentsKind: "rendered-config",
+    recipes: [
+      "recipes/aws-controllers-k8s/ec2-chart/1.18.4",
+      "recipes/aws-controllers-k8s/iam-chart/1.7.3",
+      "recipes/aws-controllers-k8s/eks-chart/1.16.3",
+    ],
+    notes:
+      "Three ACK controller charts rendered into one component. The producer already splits CRDs from controllers across Argo sync waves, which is exactly the ordering companion those verdicts require.",
+  },
+  {
+    name: "aws-network",
+    sourceKind: "literal-yaml",
+    contentsKind: "literal-config",
+    notes: "ACK custom resources describing the VPC and its address plan. Nothing templates.",
+  },
+  {
+    name: "eks-cluster",
+    sourceKind: "literal-yaml",
+    contentsKind: "literal-config",
+    notes: "ACK custom resources for the cluster, its node group, and its addons.",
+  },
+  {
+    name: "karpenter-aws",
+    sourceKind: "literal-yaml",
+    contentsKind: "literal-config",
+    notes: "The AWS-side identity wiring Karpenter needs, as ACK custom resources.",
+  },
+  {
+    name: "karpenter",
+    sourceKind: "helm-chart",
+    contentsKind: "rendered-config",
+    recipes: ["recipes/karpenter/karpenter/1.14.0"],
+    notes:
+      "The Karpenter controller chart, with the producer's handwritten NodePools and EC2NodeClasses shipped beside it in the same bundle.",
+  },
+  {
+    name: "gpu-runtime",
+    sourceKind: "helm-chart",
+    contentsKind: "rendered-config",
+    recipes: ["recipes/nvidia/nvidia-device-plugin/0.19.3"],
+    notes:
+      "The NVIDIA device plugin, so GPU nodes advertise their hardware. The chart's node-feature-discovery subchart stays gated off in this render.",
+  },
+  {
+    name: "inference-workloads",
+    sourceKind: "literal-yaml",
+    contentsKind: "literal-config",
+    notes: "The model-serving workloads themselves, as literal Kubernetes objects.",
+  },
+];
+
+function eksInferenceWitnessPath(component) {
+  return `data/certified-bundles/witnesses/eks-inference-${component}/witness.yaml`;
+}
+
+function buildEksInferenceComponentReceipt(component) {
+  const witnessRel = eksInferenceWitnessPath(component.name);
+  const witnessDir = join(repoRoot, "data", "certified-bundles", "witnesses", `eks-inference-${component.name}`);
+  const witness = readFileSync(repoPath(witnessRel), "utf8");
+  const manifestDigest = grab(witness, /manifestDigest:\s*"(sha256:[a-f0-9]{64})"/, `${component.name} manifestDigest`);
+  const layerDigest = grab(witness, /\bdigest:\s*"(sha256:[a-f0-9]{64})"/, `${component.name} layer digest`);
+  const reference = grab(witness, /reference:\s*"([^"]+)"/, `${component.name} reference`);
+  const producerCommit = grab(witness, /commit:\s*"([a-f0-9]{7,40})"/, `${component.name} producer commit`);
+  const matches = /committedRenderMatches:\s*true/.test(witness);
+  check(matches, `${witnessRel} records a bundle that no longer matches the producer's committed render`);
+
+  const fileRows = [];
+  // The witness writer emits list entries with the dash on its own line; the
+  // hand-authored first witness used the inline form. Accept both.
+  const filePattern =
+    /-\s*\n?\s*path: "([^"]+)"\n\s+bundlePath: "([^"]+)"\n\s+sha256: "([a-f0-9]{64})"\n\s+bytes: (\d+)/g;
+  for (const match of witness.matchAll(filePattern)) {
+    const [, witnessRelFile, bundlePath, sha, bytes] = match;
+    const onDisk = join(witnessDir, witnessRelFile);
+    check(existsSync(onDisk), `witness file missing: ${witnessRelFile}`);
+    check(sha256File(onDisk) === sha, `witness file drifted from its recorded hash: ${witnessRelFile}`);
+    fileRows.push({ path: bundlePath, sha256: sha, bytes: Number(bytes) });
+  }
+  check(fileRows.length > 0, `${witnessRel} records no files`);
+
+  const scanText = fileRows
+    .map((row) => readFileSync(join(witnessDir, "files", row.path), "utf8"))
+    .join("\n---\n");
+  const scan = scanRendered(scanText);
+  const literal = component.sourceKind === "literal-yaml";
+  const dispositions = scanDispositions(scan, {
+    renderScope: "the witnessed bundle files",
+    templateEvidence: literal
+      ? "nothing templates; the producer's source for this component is literal YAML"
+      : "the chart's template-level evidence lives in its catalog entry",
+  }).map((row) =>
+    literal && row.finding === "not-evaluated"
+      ? {
+          ...row,
+          finding: "absent",
+          detail: "literal YAML; no template-time construct exists",
+          disposition: "none required",
+        }
+      : row,
+  );
+
+  // A chart-sourced component inherits the lane its chart's verdict decided.
+  // Where a component wraps several charts, the strictest lane governs.
+  const LANE_ORDER = ["safe-to-flatten", "flatten-with-routes", "do-not-flatten"];
+  const cited = (component.recipes ?? []).map((recipe) => readVerdict(recipe)).filter(Boolean);
+  let verdict;
+  if (literal) {
+    verdict = {
+      lane: "born-flattened",
+      status: "certified",
+      decidedBy: "the producer's source for this component is literal YAML; nothing renders, so nothing is lost at render time",
+      notes: component.notes,
+    };
+  } else if (cited.length === (component.recipes ?? []).length && cited.length > 0) {
+    const strictest = cited.reduce((worst, entry) =>
+      LANE_ORDER.indexOf(entry.lane) > LANE_ORDER.indexOf(worst.lane) ? entry : worst,
+    );
+    verdict = {
+      lane: strictest.lane,
+      status: "certified",
+      decidedBy:
+        cited.length === 1
+          ? `the flattening-safety audit at ${strictest.rel}`
+          : `the strictest of ${cited.length} cited flattening-safety verdicts, ${strictest.rel}`,
+      notes: component.notes,
+    };
+  } else {
+    verdict = {
+      lane: "do-not-flatten",
+      status: "provisional",
+      decidedBy: "no flattening-safety verdict covers this component's chart yet",
+      notes: component.notes,
+    };
+  }
+
+  const spec = {
+    producer: {
+      name: "eks-inference",
+      repository: EKS_INFERENCE.repository,
+      commit: producerCommit,
+    },
+    source: {
+      kind: component.sourceKind,
+      evidence: [witnessRel, ...(component.recipes ?? []).map((recipe) => `${recipe}/source-lock.yaml`)],
+    },
+    bundle: {
+      artifactType: "application/vnd.confighub.config.bundle.v1",
+      reference,
+      manifestDigest,
+      layerDigest,
+      reproducible: true,
+      contentsKind: component.contentsKind,
+      files: fileRows,
+    },
+    ingest: {
+      granularity: "per-file",
+      spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}",
+      externalSourceAnnotation: "confighub.com/external-source",
+      uploadCommand: `cub variant upload --component ${component.name} --variant base --granularity per-file oci://${reference.replace(/:latest$/, "")}`,
+    },
+    dispositions,
+    verdict,
+    provenance: {
+      emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+      generatedFrom: [witnessRel],
+      witness: witnessRel,
+    },
+  };
+
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "CertifiedBundleReceipt",
+    metadata: { name: `eks-inference-${component.name}` },
+    spec,
+  };
+}
+
+function buildLegacyEksInferenceReceipt() {
   const witness = readFileSync(repoPath(SOURCES.witness), "utf8");
   const manifestDigest = grab(
     witness,
@@ -639,7 +831,7 @@ function buildSveltosReceipt() {
 
 function toCsv(rows) {
   const header =
-    "producer,name,source_kind,contents_kind,chart,chart_version,bundle_digest,file_count,verdict_lane,verdict_status,receipt";
+    "producer,name,source_kind,contents_kind,chart,chart_version,bundle_digest,file_count,verdict_lane,verdict_status,oci_reference,oci_published,receipt";
   const lines = rows.map((row) =>
     [
       row.producer,
@@ -652,6 +844,8 @@ function toCsv(rows) {
       row.fileCount,
       row.lane,
       row.status,
+      row.ociReference,
+      row.published,
       row.receipt,
     ].join(","),
   );
@@ -673,6 +867,8 @@ function summaryRow(receipt, receiptRel) {
     lane: spec.verdict.lane,
     status: spec.verdict.status,
     receipt: receiptRel,
+    ociReference: spec.bundle.reference ?? "",
+    published: spec.bundle.manifestDigest ? "published" : "not published",
   };
 }
 
@@ -684,20 +880,30 @@ function summaryMd(rows) {
     "One receipt shape covers a bundle from every producer. These four reference receipts prove it: the catalog's flattened traefik render, a Kubara component definition, a bundle eks-inference published to its own registry, and the Sveltos example's literal ClusterProfile. The spec lives at docs/reference/certified-bundle-spec.md and the schema at schemas/certified-bundle-receipt.schema.json.",
   );
   lines.push("");
-  lines.push("| producer | bundle | contents | lane | status | receipt |");
+  lines.push("| producer | component | source | OCI | lane | status |");
   lines.push("| --- | --- | --- | --- | --- | --- |");
   for (const row of rows) {
+    const source = row.chart ? `${row.chart} ${row.chartVersion}` : row.sourceKind;
+    const oci = row.ociReference
+      ? `\`${row.ociReference}\``
+      : row.published === "published"
+        ? "published"
+        : "not published";
     lines.push(
-      `| ${row.producer} | ${row.name} | ${row.contentsKind} | ${row.lane} | ${row.status} | ${row.receipt} |`,
+      `| ${row.producer} | ${row.name.replace(/^(eks-inference|kubara|catalog|sveltos)-/, "")} | ${source} | ${oci} | ${row.lane} | ${row.status} |`,
     );
   }
+  lines.push("");
+  lines.push(
+    "The OCI column states where the bundle is published, and says so plainly when it is not. A bundle without a published reference is still certified: the receipt describes committed bytes, and publication adds a digest to the same receipt shape rather than changing what it claims.",
+  );
   lines.push("");
   lines.push(
     "A provisional verdict states what current evidence supports and names its open questions in the receipt. The flattening-safety audit certifies lanes; a lane moves when its receipt changes, never by hand.",
   );
   lines.push("");
   lines.push(
-    "The eks-inference receipt certifies an artifact this repository did not build. Its witness under witnesses/eks-inference-gpu-runtime records the pulled digests, and every extracted file hashed identically to the producer's committed render.",
+    "The eight eks-inference receipts certify artifacts this repository did not build. Each witness records the pulled manifest and layer digests, and every extracted file hashed identically to the producer's committed render at the recorded commit. Their five literal components are born flattened; the three chart-sourced ones carry the lane their charts' verdicts decided, and where a component wraps several charts the strictest lane governs.",
   );
   lines.push("");
   lines.push(
@@ -713,7 +919,10 @@ function buildAll() {
   const receipts = [
     { rel: "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml", value: buildTraefikReceipt() },
     { rel: "data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml", value: buildKubaraReceipt() },
-    { rel: "data/certified-bundles/receipts/eks-inference/gpu-runtime/receipt.yaml", value: buildEksInferenceReceipt() },
+    ...EKS_INFERENCE_COMPONENTS.map((component) => ({
+      rel: `data/certified-bundles/receipts/eks-inference/${component.name}/receipt.yaml`,
+      value: buildEksInferenceComponentReceipt(component),
+    })),
     { rel: "data/certified-bundles/receipts/sveltos/kyverno-fleet-clusterprofile/receipt.yaml", value: buildSveltosReceipt() },
   ];
   for (const receipt of receipts) {

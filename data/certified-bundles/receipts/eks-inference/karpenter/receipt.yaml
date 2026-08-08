@@ -1,7 +1,7 @@
 apiVersion: "evidence.confighub.com/v1alpha1"
 kind: "CertifiedBundleReceipt"
 metadata:
-  name: "eks-inference-gpu-runtime"
+  name: "eks-inference-karpenter"
 spec:
   producer:
     name: "eks-inference"
@@ -10,29 +10,37 @@ spec:
   source:
     kind: "helm-chart"
     evidence:
-      - "data/certified-bundles/witnesses/eks-inference-gpu-runtime/witness.yaml"
-      - "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml"
+      - "data/certified-bundles/witnesses/eks-inference-karpenter/witness.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
   bundle:
     artifactType: "application/vnd.confighub.config.bundle.v1"
-    reference: "ghcr.io/confighub/configs/eks-inference/gpu-runtime:latest"
-    manifestDigest: "sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16"
-    layerDigest: "sha256:79a51d40098d1b70304b1ecca898a360c89a66c6045c2db61c84a2ec9ea78659"
+    reference: "ghcr.io/confighub/configs/eks-inference/karpenter:latest"
+    manifestDigest: "sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e"
+    layerDigest: "sha256:0c07463e6d5d337b9371191fa4f907eaf2dbadf15ce42b437f9ab88c868ee22f"
     reproducible: true
     contentsKind: "rendered-config"
     files:
       -
-        path: "00-namespace.yaml"
-        sha256: "3777a2a023671fd8894943a27916af8603e1719685b709f39f9814bee050446f"
-        bytes: 776
+        path: "karpenter-controller.yaml"
+        sha256: "698ec08b56e8a4928cdb65f5bf84136e022fa91bb095fd0fd745bfd837738970"
+        bytes: 14436
       -
-        path: "nvidia-device-plugin-controller.yaml"
-        sha256: "5b4b4766301821fec558ecd02a58fc2e3140c32b051864aef5d9965a784f870d"
-        bytes: 7534
+        path: "karpenter-crds.yaml"
+        sha256: "d980d00493f0f6fa7453e71c5a5810ed346cfe7a75d502b1bba8188f98002320"
+        bytes: 141167
+      -
+        path: "nodeclasses.yaml"
+        sha256: "d3876b3d62a0d6d723e6889c96dfb092462cb06d4b563bc1e850133ee4f44da3"
+        bytes: 5273
+      -
+        path: "nodepools.yaml"
+        sha256: "57bebc8c4a807150008addc448fa5eb1786db1b9e90ce9af3c35085027f4c626"
+        bytes: 5706
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
     externalSourceAnnotation: "confighub.com/external-source"
-    uploadCommand: "cub variant upload --component gpu-runtime --variant base --granularity per-file oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime"
+    uploadCommand: "cub variant upload --component karpenter --variant base --granularity per-file oci://ghcr.io/confighub/configs/eks-inference/karpenter"
   dispositions:
     -
       class: "helm-hooks"
@@ -66,9 +74,9 @@ spec:
       disposition: "none required"
     -
       class: "crd-ordering"
-      finding: "absent"
-      detail: "no CustomResourceDefinition in the witnessed bundle files"
-      disposition: "none required"
+      finding: "present"
+      detail: "5 CustomResourceDefinition(s) in the witnessed bundle files; per-file Units can race their CRDs"
+      disposition: "explicit ordering declared at ingest (file split or sync waves)"
     -
       class: "immutable-fields"
       finding: "not-evaluated"
@@ -76,9 +84,9 @@ spec:
       disposition: "versioned replacement route when an upgrade pair is audited"
     -
       class: "namespace-creation"
-      finding: "present"
-      detail: "1 Namespace object(s) ship in the bundle"
-      disposition: "namespace ships as its own Unit"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
     -
       class: "subchart-conditions"
       finding: "not-evaluated"
@@ -90,12 +98,12 @@ spec:
       detail: "no test hook in the witnessed bundle files"
       disposition: "none required"
   verdict:
-    lane: "safe-to-flatten"
+    lane: "flatten-with-routes"
     status: "certified"
-    decidedBy: "the flattening-safety audit at recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml"
-    notes: "The NVIDIA device plugin, so GPU nodes advertise their hardware. The chart's node-feature-discovery subchart stays gated off in this render."
+    decidedBy: "the flattening-safety audit at recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+    notes: "The Karpenter controller chart, with the producer's handwritten NodePools and EC2NodeClasses shipped beside it in the same bundle."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:
-      - "data/certified-bundles/witnesses/eks-inference-gpu-runtime/witness.yaml"
-    witness: "data/certified-bundles/witnesses/eks-inference-gpu-runtime/witness.yaml"
+      - "data/certified-bundles/witnesses/eks-inference-karpenter/witness.yaml"
+    witness: "data/certified-bundles/witnesses/eks-inference-karpenter/witness.yaml"
