@@ -1,6 +1,6 @@
 # What the catalog's charts actually contain
 
-Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 132 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 33 of these chart versions have a decided lane today; the rest read "not yet decided" rather than reading as safe by omission.
+Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 132 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 36 of these chart versions have a decided lane today; the rest read "not yet decided" rather than reading as safe by omission.
 
 | construct | charts | share | what it costs a flattened bundle |
 | --- | --- | --- | --- |

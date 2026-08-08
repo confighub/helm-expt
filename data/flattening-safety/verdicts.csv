@@ -40,3 +40,6 @@ bitnami,rabbitmq,16.0.14,default,do-not-flatten,absent,present,absent,absent,pre
 bitnami,redis,25.5.3,default,do-not-flatten,absent,present,absent,absent,present,absent,recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml
 external-secrets,external-secrets,2.5.0,default,flatten-with-routes,absent,absent,absent,present,absent,present,recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict.yaml
 gatekeeper,gatekeeper,3.22.2,default,flatten-with-routes,present,absent,absent,present,absent,present,recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml
+fluent,fluent-bit,0.57.6,default,safe-to-flatten,present,absent,absent,absent,absent,absent,recipes/fluent/fluent-bit/0.57.6/publication/flattening-safety-verdict.yaml
+prometheus-community,prometheus-blackbox-exporter,11.15.1,default,safe-to-flatten,absent,absent,absent,absent,absent,absent,recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml
+projectcalico,tigera-operator,v3.32.0,default,flatten-with-routes,present,present-gated,absent,absent,absent,absent,recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml

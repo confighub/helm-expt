@@ -485,9 +485,12 @@
 <tr><td>bitnami/rabbitmq</td><td>16.0.14</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/rabbitmq/16.0.14/publication/flattening-safety-verdict.yaml</td></tr>
 <tr><td>bitnami/redis</td><td>25.5.3</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml</td></tr>
 <tr><td>external-secrets/external-secrets</td><td>2.5.0</td><td>default</td><td>flatten-with-routes</td><td>recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict.yaml</td></tr>
-<tr><td>gatekeeper/gatekeeper</td><td>3.22.2</td><td>default</td><td>flatten-with-routes</td><td>recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
+<tr><td>gatekeeper/gatekeeper</td><td>3.22.2</td><td>default</td><td>flatten-with-routes</td><td>recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>fluent/fluent-bit</td><td>0.57.6</td><td>default</td><td>safe-to-flatten</td><td>recipes/fluent/fluent-bit/0.57.6/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>prometheus-community/prometheus-blackbox-exporter</td><td>11.15.1</td><td>default</td><td>safe-to-flatten</td><td>recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>projectcalico/tigera-operator</td><td>v3.32.0</td><td>default</td><td>flatten-with-routes</td><td>recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
 <p>A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.</p>
-<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 28 charts here now have that axis answered from source, across 41 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
+<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 31 charts here now have that axis answered from source, across 44 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
 <p>Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with <code>npm run flattening-safety</code>. Verify with <code>npm run flattening-safety:verify</code>.</p>
     </article>
   </main>
