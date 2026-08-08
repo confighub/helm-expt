@@ -17,12 +17,16 @@ import {
   listFiles,
   relativeRepo,
   repoRoot,
+  sha256,
   sha256File,
   toYaml,
   write,
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
+
+// Route artifacts emitted while building receipts, written alongside them.
+const emittedRoutes = [];
 
 const OUT_DIR = join(repoRoot, "data", "certified-bundles");
 const WITNESS_DIR = join(OUT_DIR, "witnesses", "eks-inference-gpu-runtime");
@@ -124,7 +128,7 @@ function scanRendered(text) {
 // One disposition row per quirk class, derived from a static scan of rendered
 // or literal files. Template-time classes cannot be read off rendered output,
 // so they land as not-evaluated with the audit named as the closer.
-function scanDispositions(scan, { renderScope, templateEvidence }) {
+function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} }) {
   const rows = [];
   const audit = "the flattening-safety audit decides the certified disposition";
   rows.push({
@@ -194,7 +198,9 @@ function scanDispositions(scan, { renderScope, templateEvidence }) {
         : `no CustomResourceDefinition in ${renderScope}`,
     disposition:
       scan.crds > 0
-        ? "explicit ordering declared at ingest (file split or sync waves)"
+        ? routeRefs["crd-ordering"]
+          ? `discharged by the route this bundle ships at ${routeRefs["crd-ordering"]}`
+          : "explicit ordering declared at ingest (file split or sync waves)"
         : "none required",
   });
   rows.push({
@@ -265,6 +271,74 @@ function buildLane(verdict, { provisionalLane, provisionalDecidedBy, openQuestio
   };
 }
 
+// Routes are the companion artifacts a flatten-with-routes bundle ships beside
+// its configuration. This one discharges CRD ordering: the bundle ingests one
+// Unit per file, so nothing stops a custom resource reaching the cluster before
+// the definition it depends on. The route states the ordering as stages any
+// runtime can execute, rather than as one tool's annotation.
+function buildCrdOrderingRoute({ name, inventoryRel, verdictRel, crdNames, otherCount }) {
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "BundleRoute",
+    metadata: { name },
+    spec: {
+      quirkClass: "crd-ordering",
+      routeKind: "apply-ordering",
+      discharges:
+        "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.",
+      declaration: {
+        stages: [
+          {
+            order: 1,
+            name: "custom-resource-definitions",
+            selector: { kinds: ["CustomResourceDefinition"], names: crdNames },
+            waitFor: "every named definition reports the Established condition",
+            objectCount: crdNames.length,
+          },
+          {
+            order: 2,
+            name: "everything-else",
+            selector: { kinds: ["*"] },
+            objectCount: otherCount,
+          },
+        ],
+      },
+      executedBy: {
+        runtimes: [
+          {
+            name: "Argo CD",
+            mechanism: "sync waves, the earlier stage at the lower wave number",
+            proven: true,
+          },
+          {
+            name: "Flux",
+            mechanism: "dependsOn between the definitions Kustomization and the rest",
+            proven: true,
+          },
+          {
+            name: "cub-direct applier",
+            mechanism: "apply stage one and wait for establishment before stage two",
+            proven: false,
+          },
+        ],
+        // Ordering is declarative and idempotent, so a runtime may execute it
+        // without asking. That is not true of routes that run a Job, which stay
+        // manual until observed.
+        automatic: true,
+      },
+      boundedness: [
+        "the route orders what the bundle contains; a definition this bundle does not ship must already exist on the target",
+        "establishment is observed by the delivery runtime, so this route declares the wait rather than proving it happened",
+      ],
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        generatedFrom: [inventoryRel],
+        verdictRef: verdictRel,
+      },
+    },
+  };
+}
+
 function buildTraefikReceipt() {
   const recipe = SOURCES.traefikRecipe;
   const sourceLock = readFileSync(repoPath(`${recipe}/source-lock.yaml`), "utf8");
@@ -277,6 +351,31 @@ function buildTraefikReceipt() {
   const scan = scanRendered(readFileSync(repoPath(renderRel), "utf8"));
   const bundleFileRel = `${SOURCES.traefikPackage}/bases/default/upstream.yaml`;
   const bundleFile = fileEntry(bundleFileRel, repoPath(bundleFileRel));
+
+  // Emit the route this bundle's verdict requires, then carry it as a bundle
+  // file so the receipt names it beside the quirk it discharges.
+  const inventoryRel = `${recipe}/revisions/default/r001/rendered/object-inventory.yaml`;
+  const inventory = readFileSync(repoPath(inventoryRel), "utf8");
+  const crdNames = [
+    ...inventory.matchAll(/kind: "CustomResourceDefinition"\n\s+name: "([^"]+)"/g),
+  ].map((match) => match[1]);
+  check(crdNames.length === 25, `expected 25 traefik CRDs, found ${crdNames.length}`);
+  const objectCount = Number(grab(revision, /objectCount:\s*(\d+)/, "traefik objectCount"));
+  const traefikRouteRel = "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml";
+  const traefikRoute = buildCrdOrderingRoute({
+    name: "traefik-traefik-41.0.2-default-crd-ordering",
+    inventoryRel,
+    verdictRel: `${recipe}/publication/flattening-safety-verdict.yaml`,
+    crdNames,
+    otherCount: objectCount - crdNames.length,
+  });
+  const traefikRouteText = `${toYaml(traefikRoute)}\n`;
+  emittedRoutes.push({ path: repoPath(traefikRouteRel), contents: traefikRouteText });
+  const traefikRouteFile = {
+    path: traefikRouteRel,
+    sha256: sha256(traefikRouteText),
+    bytes: Buffer.byteLength(traefikRouteText),
+  };
   const renderedSetSha = grab(
     revision,
     /renderedObjectSetSHA256:\s*"([a-f0-9]{64})"/,
@@ -290,6 +389,7 @@ function buildTraefikReceipt() {
     renderScope: "the committed default-variant render",
     templateEvidence:
       "the chart family shows lookup and capabilities use in data/master-catalog-matrix (40.2.0 rows)",
+    routeRefs: { "crd-ordering": traefikRouteRel },
   });
   return {
     apiVersion: "evidence.confighub.com/v1alpha1",
@@ -335,7 +435,10 @@ function buildTraefikReceipt() {
       },
       bundle: {
         contentsKind: "rendered-config",
-        files: [{ ...bundleFile, role: "rendered object set" }],
+        files: [
+          { ...bundleFile, role: "rendered object set" },
+          { ...traefikRouteFile, role: "route: crd-ordering" },
+        ],
         objectCount: Number(grab(revision, /objectCount:\s*(\d+)/, "traefik objectCount")),
         objectInventoryRef: `${recipe}/revisions/default/r001/rendered/object-inventory.yaml`,
       },
@@ -937,6 +1040,7 @@ function buildAll() {
     path: repoPath(receipt.rel),
     contents: `${toYaml(receipt.value)}\n`,
   }));
+  outputs.push(...emittedRoutes);
   outputs.push({ path: join(OUT_DIR, "receipts.csv"), contents: toCsv(rows) });
   outputs.push({ path: join(OUT_DIR, "summary.md"), contents: summaryMd(rows) });
   return outputs;
