@@ -661,6 +661,24 @@ function eksInferenceWitnessPath(component) {
 // needs beside it, so nothing operational or explanatory lives out of band. The
 // guide is written from the receipt that ships it, which is why it cannot drift
 // from what the bundle actually contains.
+// A catalog bundle that has been published cites the artifact rather than the
+// committed files it was built from. The publication receipt is written by
+// scripts/publish-certified-bundles.mjs and read here, so this generator stays
+// offline and a receipt never claims a publication that did not happen.
+function publishedBundle(receiptName) {
+  const slug = receiptName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const rel = `runs/certified-bundles/${slug}/publication-receipt.yaml`;
+  const path = repoPath(rel);
+  if (!existsSync(path)) return null;
+  const text = readFileSync(path, "utf8");
+  return {
+    rel,
+    reference: grab(text, /reference:\s*"([^"]+)"/, `${rel} reference`),
+    manifestDigest: grab(text, /manifestDigest:\s*"(sha256:[a-f0-9]{64})"/, `${rel} manifestDigest`),
+    layerDigest: grab(text, /layerDigest:\s*"(sha256:[a-f0-9]{64})"/, `${rel} layerDigest`),
+  };
+}
+
 function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand }) {
   const lines = [];
   lines.push(`# ${name}`);
@@ -1527,6 +1545,16 @@ function buildAll() {
         `cub variant upload --component ${receipt.value.metadata.name} --variant base --granularity per-file <bundle>`,
     });
     emittedRoutes.push({ path: repoPath(guideRel), contents: guide });
+
+    const published = publishedBundle(receipt.value.metadata.name);
+    if (published) {
+      spec.bundle.artifactType = "application/vnd.confighub.config.bundle.v1";
+      spec.bundle.reference = published.reference;
+      spec.bundle.manifestDigest = published.manifestDigest;
+      spec.bundle.layerDigest = published.layerDigest;
+      spec.bundle.reproducible = true;
+      spec.provenance.generatedFrom = [...spec.provenance.generatedFrom, published.rel];
+    }
     spec.bundle.files = [
       ...spec.bundle.files,
       {
