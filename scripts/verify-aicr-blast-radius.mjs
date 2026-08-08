@@ -139,6 +139,31 @@ function checkRecord(recordPath) {
       `${relativeRepo(recordPath)}: control point ${id} declares ${phantom.join(", ")}, which does not contain its locator`,
     );
 
+    // Fact one and a half: when a control point cites an upstream declaration,
+    // the retained registry must actually declare those paths for that
+    // component. This is what turns a hand-written scope into a derived one.
+    const upstream = point.upstreamDeclaration ?? null;
+    if (upstream) {
+      const registryPath = join(repoRoot, String(upstream.registry ?? ""));
+      check(existsSync(registryPath), `${relativeRepo(recordPath)}: control point ${id} cites a missing registry`);
+      const registry = readYaml(registryPath);
+      const component = (registry.components ?? []).find((row) => row.name === upstream.component);
+      check(
+        component,
+        `${relativeRepo(recordPath)}: control point ${id} cites component ${upstream.component}, which the retained registry does not declare`,
+      );
+      const declared = collectPaths(component, String(upstream.pathsKey ?? ""));
+      check(
+        declared.length > 0,
+        `${relativeRepo(recordPath)}: control point ${id} cites ${upstream.pathsKey} on ${upstream.component}, which the registry does not declare`,
+      );
+      const cited = [...(upstream.paths ?? [])].sort();
+      check(
+        JSON.stringify(declared.slice().sort()) === JSON.stringify(cited),
+        `${relativeRepo(recordPath)}: control point ${id} cites paths the registry does not match (registry: ${declared.join(", ")})`,
+      );
+    }
+
     // Fact two: every recorded reviewed change landed on exactly that set.
     const reviewedChanges = (point.reviewedChanges ?? []).map((row) => {
       const receiptPath = join(repoRoot, String(row.receipt ?? ""));
@@ -156,7 +181,7 @@ function checkRecord(recordPath) {
       return { receipt: String(row.receipt), changedCount: changed.length };
     });
 
-    return { id, token, declaredCount: declared.length, declared, reviewedChanges };
+    return { id, token, upstream: Boolean(upstream), declaredCount: declared.length, declared, reviewedChanges };
   });
   check(controlPoints.length > 0, `${relativeRepo(recordPath)}: the record declares no control points`);
 
@@ -167,6 +192,16 @@ function checkRecord(recordPath) {
     documentCount: documents.length,
     controlPoints,
   };
+}
+
+// collectPaths finds a named path list anywhere in a component declaration,
+// because the registry nests scheduling paths under system and workload groups.
+function collectPaths(value, key) {
+  if (Array.isArray(value)) return value.flatMap((row) => collectPaths(row, key));
+  if (!value || typeof value !== "object") return [];
+  return Object.entries(value).flatMap(([name, child]) =>
+    name === key && Array.isArray(child) ? child.map(String) : collectPaths(child, key),
+  );
 }
 
 function readPath(value, path) {
@@ -187,10 +222,11 @@ function symmetricDifference(left, right) {
 function renderSummary(results) {
   const rows = results.flatMap((entry) =>
     entry.controlPoints.map((point) => {
+      const derived = point.upstream ? " (upstream-derived)" : "";
       const reviewed = point.reviewedChanges.length
         ? point.reviewedChanges.map((row) => `\`${row.receipt}\``).join(", ")
         : "none yet";
-      return `| \`${entry.name}\` | \`${point.id}\` | ${point.declaredCount} | ${reviewed} |`;
+      return `| \`${entry.name}\` | \`${point.id}\`${derived} | ${point.declaredCount} | ${reviewed} |`;
     }),
   );
   return `# AICR blast-radius parity
@@ -362,6 +398,50 @@ function selfTest() {
       check(
         fails(() => checkRecord(overReach.recordPath), /declares 1 document\(s\) but .* changed 2/),
         "self-test accepted a reviewed change that reached further than declared",
+      );
+
+      const badUpstream = build("bad-upstream", {
+        docs: { "alpha.yaml": fixtureDoc("alpha", "TOKEN-A") },
+        controlPoints: [
+          {
+            id: "token-a",
+            locator: { token: "TOKEN-A" },
+            upstreamDeclaration: {
+              registry: "examples/aicr/upstream-reference/v0.14.0/registry.yaml",
+              component: "kube-prometheus-stack",
+              pathsKey: "storageClassPaths",
+              paths: ["not.the.path.the.registry.declares"],
+            },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+          },
+        ],
+      });
+      created.push(badUpstream);
+      check(
+        fails(() => checkRecord(badUpstream.recordPath), /cites paths the registry does not match/),
+        "self-test accepted a control point citing paths upstream does not declare",
+      );
+
+      const missingComponent = build("missing-component", {
+        docs: { "alpha.yaml": fixtureDoc("alpha", "TOKEN-A") },
+        controlPoints: [
+          {
+            id: "token-a",
+            locator: { token: "TOKEN-A" },
+            upstreamDeclaration: {
+              registry: "examples/aicr/upstream-reference/v0.14.0/registry.yaml",
+              component: "not-a-real-component",
+              pathsKey: "storageClassPaths",
+              paths: ["x"],
+            },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+          },
+        ],
+      });
+      created.push(missingComponent);
+      check(
+        fails(() => checkRecord(missingComponent.recordPath), /which the retained registry does not declare/),
+        "self-test accepted a control point citing a component upstream does not have",
       );
 
       const underReach = build("under-reach", {
