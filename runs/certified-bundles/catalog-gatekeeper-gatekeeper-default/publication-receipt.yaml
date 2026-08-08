@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-gatekeeper-gatekeeper-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:41a6d20130adf3c65d1ddb6250fe46449d1fe23087be2f7c24b97b1946c14de4"
+  layerDigest: "sha256:7c9565fb6fa4a674a099f6ac2c72f32ef6b593a725fd1b1511eaf40f5334544b"
+  layerBytes: 19994
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-gatekeeper-gatekeeper-default.tar.gz"
