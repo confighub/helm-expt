@@ -324,6 +324,21 @@ and the lane refuses an exception that stops matching anything. The two worth
 reading are a key that looks leaked and is the finding a review demonstrates
 catching, and Vault's own dev-mode token in a base named dev-mode.
 
+Tasks 41, 42 and 11 are done together, because they turned out to be one
+piece of work. The gated-artifact rules are
+[doctrine](../../tests/doctrine.md) now rather than a decision inside one
+planning note, every gated reference the retained configuration names is
+enumerated in a register with a lane refusing both an unlisted reference and a
+listing nothing names, and the re-read cadence is keyed to the reference
+instead of a calendar, so a version bump forces a fresh read while a passing
+date cannot.
+
+Nine of the ten references still have no per-artifact terms recorded. The
+reason is published: those NGC catalog pages are served behind bot detection,
+and reading them automatically would mean working around it. Measuring the gap
+was the honest option, and it leaves task 11 open as a reading job for a person
+rather than a lane nobody can build.
+
 Theme 1 is now closed. Task 3 is decided: the CPU starter tracks the one
 retained version it derives from and does not follow a newer one, because every
 proof it holds was produced from those bytes. The decision is in its derivation

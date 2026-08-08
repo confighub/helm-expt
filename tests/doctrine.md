@@ -91,6 +91,30 @@ placeholder credential, the row stays `watch` until the name, warning, and
 recommended production route make that obvious. A base named
 `static-passwords` must not quietly contain fixed shared credentials.
 
+## 6f. Gated artifacts are referenced, never mirrored
+Some artifacts a catalog entry names are gated: they need an entitlement and a
+credential the reader has and this repository does not. The rules are the same
+whichever vendor gates them.
+
+Reference, never mirror. Retained configuration names the artifact and the
+catalog holds nothing of its bytes, so no proof pulls one and no lane depends
+on being able to. The credential that reaches a gated registry belongs to the
+cluster that pulls, never to this repository, which is what the
+credential-boundary lane enforces across every producer.
+
+Publish no vendor performance numbers for a gated runtime. The catalog has run
+none, and repeating a vendor's would pass off a claim it cannot verify.
+
+Name the terms a page listed on a date; never tell a reader which entitlement
+or tier they need. That is a reading of their situation rather than a fact
+about an artifact.
+
+Enumerate every gated reference, because an artifact nobody listed is an
+artifact nobody checked the terms for. Re-reading is tied to the reference
+rather than to a calendar: entries are keyed by the exact tag, so a version bump
+produces a reference nobody enumerated and the lane refuses it. A date-based
+cadence goes stale quietly, because nothing fails when a date passes.
+
 ## 6d. Drift detection must state field coverage
 `cub-scout compare three-way --dry-from` can detect meaningful drift, but field
 coverage is part of the claim. A lane that catches replica or image drift but
