@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>oauth2-proxy/oauth2-proxy 10.7.0 retained package · Config Workshop</title>
-  <meta name="description" content="oauth2-proxy/oauth2-proxy 10.7.0 retained package: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html">
-  <meta property="og:title" content="oauth2-proxy/oauth2-proxy 10.7.0 retained package · Config Workshop">
-  <meta property="og:description" content="oauth2-proxy/oauth2-proxy 10.7.0 retained package: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.">
+  <title>What the catalog's charts actually contain · Config Workshop</title>
+  <meta name="description" content="What the catalog's charts actually contain: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/flattening-safety/evidence.html">
+  <meta property="og:title" content="What the catalog's charts actually contain · Config Workshop">
+  <meta property="og:description" content="What the catalog's charts actually contain: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/flattening-safety/evidence.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -426,94 +426,40 @@
       pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
-<body data-retained-only-version="oauth2-proxy/oauth2-proxy@10.7.0">
-  <header>
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>oauth2-proxy/oauth2-proxy</h1>
-    <p class="lead">Inspect the retained package for oauth2-proxy/oauth2-proxy@10.7.0, its packaged configurations, and its exact publication receipt.</p>
-    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
-    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
-    <p><a href="./index.html">Back to the Component Catalog</a> · component versions: <a href="./oauth2-proxy-oauth2-proxy-10-7-0.html"><strong>10.7.0</strong></a></p>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>What the catalog's charts actually contain</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/flattening-safety/evidence.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="retained-page-summary">
-      <h2 id="retained-page-summary">What this page gives you</h2>
-      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication receipt reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
-      <div id="setting-sources" class="card">
-        <h3>Where its settings and observations live</h3>
-        <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="try-retained-chart">
-      <h2 id="try-retained-chart">Try This Chart</h2>
-      <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0 --base default --work-dir .tmp/demo/oauth2-proxy-oauth2-proxy-10-7-0-default --non-interactive</code></pre>
-      <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0</code></p>
-    </section>
-
-    <section aria-labelledby="retained-configurations">
-      <h2 id="retained-configurations">Available Configurations</h2>
-      <ul>
-        <li><code>default</code> - package default</li>
-      </ul>
-      <p>The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.</p>
-    </section>
-
-    
-    <section aria-labelledby="flattening">
-      <h2 id="flattening">What This Chart Contains</h2>
-      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 84 files.</p>
-      <div class="card"><table>
-        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
-        <tbody><tr><td>Helm hooks</td><td>2</td><td>Hook Jobs never fire, or fire under a different hook dialect.</td></tr><tr><td>Keep policy</td><td>1</td><td>A reconciler prunes what Helm promised to keep.</td></tr><tr><td>Capability branching</td><td>13</td><td>The chart chooses apiVersions from the cluster it renders against.</td></tr><tr><td>Condition-gated subcharts</td><td>1</td><td>What renders depends on which conditions the values switch on.</td></tr><tr><td>Test hooks</td><td>2</td><td>Test resources would ship to a cluster that never asked for them.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
-      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
-    </section>
-
-    <section aria-labelledby="retained-tests">
-      <h2 id="retained-tests">What Has Been Tested</h2>
-      <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65</code> and manifest <code>sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9</code>, and records an inspect-result digest.</p>
-      <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the No separate evidence-bearing version is recorded..</p>
-    </section>
-
-    <section aria-labelledby="retained-requirements">
-      <h2 id="retained-requirements">What You Must Provide</h2>
-      <p>The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.</p>
-      <p>Choose a namespace and target deliberately, supply any listed Secret, CRD, storage, API, or cloud prerequisite, and inspect the rendered YAML before delivery.</p>
-    </section>
-
-    <section aria-labelledby="retained-production">
-      <h2 id="retained-production">Before Production</h2>
-      <p>Run target-specific policy, lifecycle, upgrade, and workload checks. A successful package publication and inspect result does not establish production support or live convergence.</p>
-    </section>
-
-    <section aria-labelledby="retained-files">
-      <h2 id="retained-files">Source And Evidence Files</h2>
-      <div class="card"><table>
-        <thead><tr><th>Record</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Retained package source</td><td><a href="../../packages/oauth2-proxy/oauth2-proxy/10.7.0/">packages/oauth2-proxy/oauth2-proxy/10.7.0</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/oauth2-proxy/oauth2-proxy/10.7.0/installer.yaml">packages/oauth2-proxy/oauth2-proxy/10.7.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml">runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0</code></td></tr><tr><td>Layer digest</td><td><code>sha256:e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9</code></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 132 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 12 of these chart versions have a decided lane today; the rest read &quot;not yet decided&quot; rather than reading as safe by omission.</p>
+<table><thead><tr><th>construct</th><th>charts</th><th>share</th><th>what it costs a flattened bundle</th></tr></thead><tbody><tr><td>capabilities</td><td>96</td><td>73%</td><td>the wrong apiVersion for the target cluster</td></tr>
+<tr><td>crds</td><td>61</td><td>46%</td><td>per-file Units race the CRDs they depend on</td></tr>
+<tr><td>lookup</td><td>49</td><td>37%</td><td>renders valid but wrong, because it read a cluster that was not there</td></tr>
+<tr><td>hooks</td><td>47</td><td>36%</td><td>Hook Jobs never fire, or fire under a different hook dialect</td></tr>
+<tr><td>generated-secrets</td><td>40</td><td>30%</td><td>one credential draw frozen into a shared artifact</td></tr>
+<tr><td>gated-subcharts</td><td>31</td><td>23%</td><td>the flatten step must render with the audited base's condition set</td></tr>
+<tr><td>keep-policy</td><td>30</td><td>23%</td><td>a reconciler prunes what Helm promised to keep</td></tr>
+<tr><td>webhooks</td><td>27</td><td>20%</td><td>an empty caBundle makes admission fail closed</td></tr>
+<tr><td>test-hooks</td><td>24</td><td>18%</td><td>stray test resources shipped to a cluster</td></tr>
+<tr><td>namespace</td><td>7</td><td>5%</td><td>the namespace ships, or must exist first</td></tr></tbody></table>
+<p>Two readings are worth keeping in view. A construct being present does not mean a chart is unflattenable: most are values-gated, and a verdict records which ones the audited base actually reaches. And a construct being absent from the packaged chart is a real finding, because it is exactly what makes a chart cheap to certify.</p>
+<p>This lane also answers the keep-policy axis that <code>data/quirk-coverage/coverage.csv</code> records as unscanned. It is scanned here, from chart source, for every entry with a witness.</p>
+<p>Per-chart rows are in <code>evidence.csv</code>. Scan status per catalog entry, including charts whose upstream bytes moved under a fixed version, is in <code>witness-coverage.md</code>. Regenerate with <code>npm run flattening-evidence</code>; verify with <code>npm run flattening-evidence:verify</code>.</p>
+    </article>
   </main>
-  <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/flattening-safety/evidence.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

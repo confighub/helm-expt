@@ -465,6 +465,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.</p>
     </section>
 
+    
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 60 files.</p>
+      <div class="card"><table>
+        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
+        <tbody><tr><td>Keep policy</td><td>1</td><td>A reconciler prunes what Helm promised to keep.</td></tr><tr><td>Cluster lookups</td><td>2</td><td>The chart reads the cluster while rendering, so a render without one is valid but wrong.</td></tr><tr><td>Webhook configuration</td><td>2</td><td>An empty certificate bundle makes admission fail closed.</td></tr><tr><td>Capability branching</td><td>4</td><td>The chart chooses apiVersions from the cluster it renders against.</td></tr><tr><td>Generated credentials</td><td>1</td><td>Every render mints new values, and a shared artifact would freeze one draw.</td></tr><tr><td>Custom resource definitions</td><td>25</td><td>Per-file delivery can race the definitions the resources depend on.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>A flattening-safety verdict has decided this version: <strong>default:flatten-with-routes</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
+
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8</code> and manifest <code>sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a</code>, and records an inspect-result digest.</p>
