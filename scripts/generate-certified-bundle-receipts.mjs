@@ -10,11 +10,12 @@
 // schemas/certified-bundle-receipt.schema.json.
 
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, join, relative } from "node:path";
 
 import {
   check,
   listFiles,
+  readYaml,
   relativeRepo,
   repoRoot,
   sha256,
@@ -121,6 +122,8 @@ function scanRendered(text) {
   let testHookDocs = 0;
   let keepDocs = 0;
   let emptyCaBundle = 0;
+  let secretsWithData = 0;
+  let emptySecrets = 0;
   for (const doc of docs) {
     const kindMatch = doc.match(/^kind:\s*"?([A-Za-z0-9.]+)"?\s*$/m);
     const kind = kindMatch ? kindMatch[1] : "unknown";
@@ -132,6 +135,13 @@ function scanRendered(text) {
     }
     if (/helm\.sh\/resource-policy/.test(doc)) keepDocs += 1;
     if (/caBundle:\s*(""|'')?\s*$/m.test(doc)) emptyCaBundle += 1;
+    // A Secret carrying no data is a placeholder for a controller to fill, not
+    // a credential frozen into a public artifact. Counting the two together
+    // makes a bundle owe an external reference for a Secret that holds nothing.
+    if (kind === "Secret") {
+      if (/^(data|stringData):\s*\S/m.test(doc)) secretsWithData += 1;
+      else emptySecrets += 1;
+    }
   }
   const count = (kind) => kinds.get(kind) ?? 0;
   return {
@@ -143,6 +153,8 @@ function scanRendered(text) {
     emptyCaBundle,
     crds: count("CustomResourceDefinition"),
     secrets: count("Secret"),
+    secretsWithData,
+    emptySecrets,
     namespaces: count("Namespace"),
     webhookConfigs:
       count("MutatingWebhookConfiguration") + count("ValidatingWebhookConfiguration"),
@@ -208,18 +220,27 @@ function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} 
     detail: `template-time construct, invisible in ${renderScope}; ${templateEvidence}`,
     disposition: "render inputs pin the kube version and are recorded in this receipt",
   });
+  // Only a Secret that carries data freezes anything. An empty one is a shell a
+  // controller fills after apply, and making the bundle owe an external
+  // reference for it would report a resolution as a debt.
+  const withData = scan.secretsWithData ?? scan.secrets;
+  const empty = scan.emptySecrets ?? 0;
   rows.push({
     class: "generated-secrets",
     finding: scan.secrets > 0 ? "present" : "absent",
     detail:
-      scan.secrets > 0
-        ? `${scan.secrets} Secret object(s) in ${renderScope}; a flattened bundle freezes one draw into a public artifact`
-        : `no Secret object in ${renderScope}`,
+      withData > 0
+        ? `${withData} Secret object(s) carry data in ${renderScope}; a flattened bundle freezes one draw into a public artifact${empty > 0 ? `, alongside ${empty} empty placeholder(s)` : ""}`
+        : empty > 0
+          ? `${empty} Secret object(s) in ${renderScope}, none carrying data; these are placeholders a controller populates after apply`
+          : `no Secret object in ${renderScope}`,
     disposition:
-      scan.secrets > 0
+      withData > 0
         ? "external Secret reference required before certification"
-        : "none required",
-    ...(scan.secrets > 0 ? { companionRequired: "external-secret-reference" } : {}),
+        : empty > 0
+          ? "nothing to externalise: the bundle ships the Secret empty and its own controller writes the material"
+          : "none required",
+    ...(withData > 0 ? { companionRequired: "external-secret-reference" } : {}),
   });
   rows.push({
     class: "crd-ordering",
@@ -510,7 +531,7 @@ function buildTraefikReceipt() {
 // own builder because it predates this one; everything after it comes through
 // here, which is what makes publishing more bundles a matter of deciding lanes
 // rather than writing code.
-function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes }) {
+function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes, hookObservation }) {
   const sourceLock = readFileSync(repoPath(`${recipe}/source-lock.yaml`), "utf8");
   const revisionRel = `${recipe}/revisions/${base}/r001/variant-revision.yaml`;
   const revision = readFileSync(repoPath(revisionRel), "utf8");
@@ -578,6 +599,22 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
     });
   }
 
+  // A hook route is driven by the chart, not by the render. Flattening is
+  // precisely what removes the hook objects, so a render-only scan reports the
+  // class absent at the exact moment it matters most.
+  if (hookObservation) {
+    const routeRel = `data/certified-bundles/routes/catalog/${slug}/lifecycle.yaml`;
+    const route = buildObservedLifecycleRoute({
+      name: `${slug}-lifecycle`,
+      observationRel: hookObservation.observationRel,
+      hookDocCount: hookObservation.hookDocCount,
+      verdictRel,
+    });
+    const text = `${toYaml(route)}\n`;
+    emittedRoutes.push({ path: repoPath(routeRel), contents: text });
+    routeFiles.push({ path: routeRel, sha256: sha256(text), bytes: Buffer.byteLength(text), role: "route: helm-hooks" });
+  }
+
   const routeRefs = {};
   for (const file of routeFiles) routeRefs[file.role.slice("route:".length).trim()] = file.path;
   const dispositions = scanDispositions(scan, {
@@ -585,6 +622,19 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
     templateEvidence: `the chart's template-level evidence is recorded in ${verdictRel}`,
     routeRefs,
   });
+
+  if (hookObservation) {
+    const row = dispositions.find((entry) => entry.class === "helm-hooks");
+    check(
+      row.finding === "absent",
+      `${chartName} ${base}: the render carries hook objects, so the hook route would double-count them`,
+    );
+    row.finding = "present";
+    row.detail = `${hookObservation.hookDocCount} hook object(s) in the packaged chart, none of which survive into the committed ${base} render`;
+    row.disposition = `discharged by the route this bundle ships at ${routeRefs["helm-hooks"]}, whose stages were observed on a live cluster`;
+    row.companionRequired = "lifecycle-job";
+    row.evidence = hookObservation.observationRel;
+  }
 
   return {
     apiVersion: "evidence.confighub.com/v1alpha1",
@@ -861,6 +911,91 @@ function buildPruneProtectionRoute({ name, protectedObjects, renderRel, verdictR
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
         generatedFrom: [renderRel],
+        verdictRef: verdictRel,
+      },
+    },
+  };
+}
+
+// The first route whose stages come from a run rather than from a reading of
+// the chart. Every stage below names a check that passed on a live cluster and
+// the evidence file it left behind, so the route declares what was watched
+// instead of what the chart implies. Inventing stages here would be the exact
+// failure the doctrine calls out: observe, then execute, then emit.
+function buildObservedLifecycleRoute({ name, observationRel, hookDocCount, verdictRel }) {
+  const observation = readYaml(repoPath(observationRel));
+  const spec = observation.spec;
+  check(spec.result === "pass", `${observationRel} did not pass, so nothing may be routed from it`);
+
+  const passing = spec.checks.filter((row) => row.result === "pass");
+  const stages = [];
+  let order = 0;
+  for (const row of passing) {
+    if (!row.evidencePath) continue;
+    order += 1;
+    stages.push({
+      order,
+      name: row.name,
+      observedDetail: row.detail,
+      evidence: `${dirname(observationRel)}/${row.evidencePath}`,
+      evidenceSHA256: row.evidenceSHA256,
+    });
+  }
+  check(stages.length > 0, `${observationRel} recorded no evidence-bearing check to route`);
+
+  // Checks the run recorded as actions without leaving a file. Naming them
+  // separately keeps the stage list to things a reader can open.
+  const actionsWithoutEvidence = passing
+    .filter((row) => !row.evidencePath)
+    .map((row) => row.name);
+
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "BundleRoute",
+    metadata: { name },
+    spec: {
+      quirkClass: "helm-hooks",
+      routeKind: "lifecycle-job",
+      discharges: `The chart defines ${hookDocCount} hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below.`,
+      declaration: {
+        stages,
+        ...(actionsWithoutEvidence.length > 0
+          ? { actionsRecordedWithoutArtifacts: actionsWithoutEvidence }
+          : {}),
+        onStageFailure: "stop and report; never continue past a stage that did not pass",
+      },
+      executedBy: {
+        runtimes: [
+          {
+            name: "Argo CD",
+            mechanism: "PreSync hooks for the stages that precede the workload, with the rest as sync waves",
+            proven: false,
+          },
+          {
+            name: "Flux",
+            mechanism: "a Kustomization dependsOn chain, one entry per stage",
+            proven: false,
+          },
+          {
+            name: "cub-direct applier",
+            mechanism: "apply each stage in order and wait on the recorded condition before the next",
+            proven: false,
+          },
+        ],
+        // Ordering earned automatic because re-applying it changes nothing. This
+        // route runs work, and work is not idempotent by default, so it stays
+        // manual until a runtime is watched executing it.
+        automatic: false,
+      },
+      boundedness: [
+        `the stages were observed once, on ${spec.observedAt}, against ${spec.chart} ${spec.version} base ${spec.base}`,
+        "the observation proves these stages ran and passed, not that they are the only ordering that works",
+        "no runtime is proven to execute this route yet, so today it is a declaration a human follows",
+        spec.lifecycleModel.claim,
+      ],
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        generatedFrom: [observationRel],
         verdictRef: verdictRel,
       },
     },
@@ -1720,6 +1855,22 @@ function buildAll() {
         verdictFile: "flattening-safety-verdict-crds-enabled.yaml",
         notes:
           "This base renders the six cert-manager CRDs, so it carries both the keep promise and the ordering hazard, and ships a route for each. The startupapicheck hook is excluded from the render rather than routed, which the hooks disposition states.",
+      }),
+    },
+    {
+      rel: "data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml",
+      value: buildCatalogBundleReceipt({
+        recipe: "recipes/gatekeeper/gatekeeper/3.22.2",
+        packageRoot: "packages/gatekeeper/gatekeeper/3.22.2",
+        base: "default",
+        chartName: "gatekeeper/gatekeeper",
+        verdictFile: "flattening-safety-verdict.yaml",
+        hookObservation: {
+          observationRel: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml",
+          hookDocCount: 17,
+        },
+        notes:
+          "The first bundle whose hook disposition points at a route rather than at an intention. The chart defines 17 hook objects and none of them travel here, so the lifecycle route carries the stages a recorded live run watched instead: the separated Secret, CRD establishment, controller and webhook readiness, and a server-side admission dry-run. The route is not automatic, because it runs work rather than declaring order.",
       }),
     },
     { rel: "data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml", value: buildKubaraReceipt() },

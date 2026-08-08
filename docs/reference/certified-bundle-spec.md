@@ -61,6 +61,8 @@ That strict consumer exists. `scripts/verify-certified-bundle.mjs` runs offline 
 
 It also checks that routes and dispositions agree. A disposition pointing at a route the bundle does not ship is refused, and so is a route no disposition references, because a route nothing claims is either unused or a disposition that forgot it.
 
+A lifecycle route is held to a stricter standard than the rest, because it is the only artifact in the model whose content is a claim about something that happened. Every stage names an evidence file and the hash it had when the route was written, and the verifier re-hashes each one, so a route cannot outlive the observation it cites. A lifecycle route marked `automatic: true` is refused outright: ordering earned automatic because re-applying it changes nothing, and work does not get that by default.
+
 Companion debt is checked per class rather than per bundle. For every row naming a `companionRequired`, the verifier opens each shipped route and reads its `routeKind`, so a mislabelled route cannot satisfy a debt it does not discharge. A certified `flatten-with-routes` bundle missing a companion it names is refused, and the message says which class owes which kind. A row that owes a companion while its own finding is `absent` is refused too, because a class that found nothing cannot owe an artifact.
 
 Provisional bundles get the softer treatment: their outstanding companions are named on every run rather than failing the gate, because unfinished work is not a broken artifact and silence would let it read as finished.

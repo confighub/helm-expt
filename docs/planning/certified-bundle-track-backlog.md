@@ -73,13 +73,18 @@ flattenable without a verdict.
     lifecycle-route action packet exists for it, and emitting a hook route
     without recorded evidence would be inventing one. Run the hook lifecycle
     lane first. M.
-11. **Emit a lifecycle-job route from an observed hook.** kyverno and
-    kube-prometheus-stack have observed hook evidence and 53 recorded action
-    packets between them. Turning one packet into a shipped route is the first
-    hook route. M.
-12. **Keep automatic false for anything that runs a Job.** Ordering earned
-    automatic because it is idempotent. A Job does not, and the discipline only
-    survives if it is stated when the first Job route lands. S.
+11. **Emit a lifecycle-job route from an observed hook.** Done, on gatekeeper
+    3.22.2 rather than kyverno. Kyverno's lane is do-not-flatten, so it can
+    carry no bundle and therefore no route. Gatekeeper had the same quality of
+    observation, a chart whose only real hazards are hooks and CRDs, and a
+    rendered base to bundle. Its 17 hook objects do not survive flattening, and
+    the route's 14 stages are the checks a recorded live run watched instead,
+    each citing its evidence file and hash. Strict ingest re-hashes every stage,
+    so a route cannot outlive the observation it claims.
+12. **Keep automatic false for anything that runs a Job.** Done, and enforced
+    rather than stated. A lifecycle route with `automatic: true` is refused, and
+    the self-test proves it. Ordering earned automatic because re-applying it
+    changes nothing; work does not get that by default.
 13. **Prove a route executes under Argo.** The route declares that Argo can
     express it as sync waves. Nothing has watched it happen. M.
 14. **Prove the same route under Flux.** One artifact, three runtimes, is the

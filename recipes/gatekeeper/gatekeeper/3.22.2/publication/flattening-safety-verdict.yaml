@@ -1,0 +1,107 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2"
+spec:
+  chart:
+    repository: "gatekeeper"
+    name: "gatekeeper"
+    version: "3.22.2"
+    packageSHA256: "aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801"
+  witnessRef: "data/flattening-safety/witnesses/gatekeeper-gatekeeper-3.22.2.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "17 hook objects across pre-install, pre-upgrade, post-install, post-upgrade and pre-delete, none of which travel in the rendered base; a recorded live run observed the install and upgrade phases running as explicit ordered actions instead"
+      disposition: "lifecycle route built from the recorded observation, executed by the delivery runtime"
+      evidence:
+        - "templates/namespace-post-install.yaml:11"
+        - "templates/namespace-post-install.yaml:104"
+        - "templates/namespace-post-install.yaml:119"
+        - "templates/namespace-post-install.yaml:151"
+        - "templates/namespace-post-upgrade.yaml:11"
+        - "templates/namespace-post-upgrade.yaml:95"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "two webhook configurations whose serving certificate the controller writes itself; the same live run observed the Secret populated and admission routed after it"
+      disposition: "the controller maintains its own material from inside the bundle; no external route needed"
+      evidence:
+        - "templates/gatekeeper-mutating-webhook-configuration-mutatingwebhookconfiguration.yaml:4"
+        - "templates/gatekeeper-validating-webhook-configuration-validatingwebhookconfiguration.yaml:4"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/gatekeeper-controller-manager-poddisruptionbudget.yaml:2"
+        - "templates/gatekeeper-controller-manager-poddisruptionbudget.yaml:3"
+        - "templates/gatekeeper-mutating-webhook-configuration-mutatingwebhookconfiguration.yaml:29"
+        - "templates/gatekeeper-validating-webhook-configuration-validatingwebhookconfiguration.yaml:29"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "34 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle"
+      evidence:
+        - "17 crds-directory file(s), 17 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "the catalog's no-crds base"
+      effect: "removes the CRDs and the ordering route, leaving the lifecycle route alone"
+    -
+      values: "a values-supplied webhook certificate"
+      effect: "replaces the controller-written Secret with external material, which removes the runtime dependency and adds an external secret reference"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The chart's hooks do not survive flattening, and for once that is not a guess: a recorded run installed this base without them and watched the same work happen as explicit ordered actions. That observation is what the lifecycle route declares, so the lane names a companion the catalog can point at rather than one it hopes exists."
+    routes:
+      - "lifecycle route for the hook phases, with stages taken from the recorded live observation"
+      - "CRD ordering declaration for the 17 constraint CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/gatekeeper-gatekeeper-3.22.2.yaml"
+      - "recipes/gatekeeper/gatekeeper/3.22.2/source-lock.yaml"
