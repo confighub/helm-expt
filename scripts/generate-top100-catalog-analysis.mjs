@@ -15,6 +15,15 @@ const chartFacts = existsSync(chartFactsPath) ? JSON.parse(readFileSync(chartFac
 const notYetEnabledFor = (chart) => chartFacts[String(chart).split("@")[0].split("/").slice(0, 2).join("/")]?.not_yet_enabled ?? "";
 const mode = process.argv[2] ?? "--generate";
 
+// The corpus is every chart in this repo that carries recipe and package proof
+// artifacts. It was exactly 100 when the name was chosen, and the lane asserted
+// that number, so the catalog could not grow without a code change and a chart
+// added later read as a failure rather than as progress. The catalog is meant
+// to grow. What must not happen quietly is a chart losing its proof artifacts,
+// so the number below is a floor against shrinkage rather than a declaration of
+// size. Every count in the generated summary is derived from the corpus itself.
+const CORPUS_FLOOR = 100;
+
 if (mode === "--generate") {
   const report = buildReport();
   write(rawPath, report.rawJson);
@@ -51,7 +60,10 @@ function buildReport() {
   const latestByChart = new Map(latestRows.map((row) => [row.chart, row]));
   const allEntries = artifactEntries({ top500ByChart, productionByChart, latestByChart });
   const entries = primaryChartEntries(allEntries);
-  check(entries.length === 100, `expected 100 top100 proof entries; found ${entries.length}`);
+  check(
+    entries.length >= CORPUS_FLOOR,
+    `the proof-surface corpus fell to ${entries.length}, below the ${CORPUS_FLOOR} charts it has already proved; a chart losing its artifact index is a regression, not growth`,
+  );
   const summary = summarize(entries);
   summary.retainedCandidateVersions = allEntries.length - entries.length;
   return {
@@ -161,8 +173,10 @@ function toSummary(summary, entries) {
     .slice(0, 10);
   return `# Top-100 Catalog Analysis
 
-This is the generated proof-surface view for the 100 maintained public Helm
-chart recipes in this repo.
+This is the generated proof-surface view for the ${summary.rows} maintained
+public Helm chart recipes in this repo. The name is historical. The corpus was
+100 charts when it was chosen and it grows as charts are added, so every count
+here is derived rather than declared.
 
 It is different from the top-500 matrix:
 
@@ -223,13 +237,13 @@ In plain English:
 
 \`\`\`text
 works now under declared proof scope
-  100 charts have recipe/package proof artifacts.
+  ${summary.rows} charts have recipe/package proof artifacts.
 
 works for the public local-test catalog
   20 charts have top-20 catalog support and live/e2e receipts.
 
 works, but still needs user-shaped product review
-  80 charts are proof-grade but not catalog-supported.
+  ${summary.next80ProofGrade} charts are proof-grade but not catalog-supported.
 
 works only with a named limitation or user/operator help
   ${summary.hardGap} charts have at least one hard gap for a recommended extra capability.

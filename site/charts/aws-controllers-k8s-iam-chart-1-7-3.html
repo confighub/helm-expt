@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>aws-controllers-k8s/iam-chart 1.7.3 retained package · Config Workshop</title>
-  <meta name="description" content="aws-controllers-k8s/iam-chart 1.7.3 retained package: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.">
+  <title>aws-controllers-k8s/iam-chart 1.7.3 · Config Workshop</title>
+  <meta name="description" content="aws-controllers-k8s/iam-chart 1.7.3: chart status, base variants, rendered objects, and evidence in the Config Workshop catalog.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html">
-  <meta property="og:title" content="aws-controllers-k8s/iam-chart 1.7.3 retained package · Config Workshop">
-  <meta property="og:description" content="aws-controllers-k8s/iam-chart 1.7.3 retained package: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.">
+  <meta property="og:title" content="aws-controllers-k8s/iam-chart 1.7.3 · Config Workshop">
+  <meta property="og:description" content="aws-controllers-k8s/iam-chart 1.7.3: chart status, base variants, rendered objects, and evidence in the Config Workshop catalog.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html">
   <style>
@@ -428,44 +428,58 @@
     }
 </style>
 </head>
-<body data-retained-only-version="aws-controllers-k8s/iam-chart@1.7.3">
+<body>
   <header>
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
     <h1>aws-controllers-k8s/iam-chart</h1>
-    <p class="lead">Inspect the retained package for aws-controllers-k8s/iam-chart@1.7.3, its packaged configurations, and its exact publication receipt.</p>
-    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
-    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
+    <p class="lead">Review a recorded configuration for aws-controllers-k8s/iam-chart@1.7.3. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
+    <p>The first recorded configuration is <strong>default</strong>. Read its status before use; it is not yet a polished public example. The page does not claim every possible values combination.</p>
+    <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
+    <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=iam-chart&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
+    <p class="tagline">Catalog readiness: Checked; review before use.</p>
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart source repository's LICENSE, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
     
-    <p><a href="./index.html">Back to the Component Catalog</a> · component versions: <a href="./aws-controllers-k8s-iam-chart-1-7-3.html"><strong>1.7.3</strong></a></p>
+    <pre>No runnable row recorded yet.</pre>
   </header>
   <main>
-    <section aria-labelledby="retained-page-summary">
-      <h2 id="retained-page-summary">What this page gives you</h2>
-      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication receipt reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
-      <div id="setting-sources" class="card">
-        <h3>Where its settings and observations live</h3>
-        <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
+    <section aria-labelledby="pillars-here">
+      <h2 id="pillars-here">What this page gives you</h2>
+      <p>Every chart page follows the same order. Choose a configuration, inspect its objects and setup work, then read the tests that have run. <a href="../testing.html">Open the worked examples</a>.</p>
+      <div class="grid">
+        <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
+        <div class="card"><h3><a href="#proof">You can read the test results</a></h3><p>Open the saved results for the Helm comparison, live install, and delivery checks.</p></div>
+        <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
-    <section aria-labelledby="try-retained-chart">
-      <h2 id="try-retained-chart">Try This Chart</h2>
-      <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base default --work-dir .tmp/demo/aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive</code></pre>
-      <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</code></p>
+    <section aria-labelledby="summary">
+      <h2 id="summary">What To Use</h2>
+      <p class="stat-strip">default configuration: <strong>19</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> hook or setup routes. These counts come from the linked test records.</p>
+      <div class="grid">
+        <div class="metric"><strong>default</strong><span>First recorded base variant</span></div>
+        <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
+        <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
+        <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
+      </div>
+      <p>Start with the recommended configuration. Before production, confirm that its tests cover your target.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>1.7.3</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;eks-inference</td></tr><tr><td>Not yet available</td><td>None recorded</td></tr><tr><td>Namespace</td><td>ack-system</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
     </section>
 
-    <section aria-labelledby="retained-configurations">
-      <h2 id="retained-configurations">Available Configurations</h2>
-      <ul>
-        <li><code>default</code> - package default</li>
-        <li><code>eks-inference</code></li>
-      </ul>
-      <p>The section below says what these configurations expect you to provide.</p>
+    <section aria-labelledby="setting-sources">
+      <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
+      <p>Helm values define each base render. ConfigHub changes begin after upload and are recorded against the rendered objects. Secrets, CRDs, hooks, and setup jobs are listed separately because they are install work, not hidden settings. Live cluster state is observed separately and does not silently become the desired configuration.</p>
+      <p>No runnable base has a recorded setting source yet.</p>
+      <p><strong>Upgrade rule:</strong> if a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The values profile shows the Helm side; Unit revision history shows the ConfigHub side.</p>
+      <p><a href="../d/docs/user/helm-presets-and-values.html#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
     </section>
 
     
@@ -486,12 +500,112 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
-    <section aria-labelledby="images-pulled">
-      <h2 id="images-pulled">Images This Chart Pulls</h2>
-      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+    <section aria-labelledby="render-record-route">
+      <h2 id="render-record-route">What The Starting Configuration Records</h2>
+      <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>
+      <p>The <a href="../d/data/base-variant-records/summary.html">base-variant record index</a> connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
+      <p>Open the <a href="../d/data/helm-render-intents/summary.html">render-output summary</a> to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
+      <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
       <div class="card"><table>
-        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
-        <tbody><tr><td>default</td><td><code>public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3</code></td></tr><tr><td>eks-inference</td><td><code>public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3</code></td></tr></tbody>
+        <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
+        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>None recorded for the recommended base variant.<br>No separate setup command recorded.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../d/data/helm-render-intents/summary.html">render-output summary</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../d/data/helm-render-intents/summary.html">render-intent summary</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Complete starting record</td><td><a href="../d/data/base-variant-records/summary.html">base-variant record index</a></td><td>The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's setup section</a></td><td>Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="grid">
+        <div class="card"><h3>Choose base variant</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
+        <div class="card"><h3>Record inputs</h3><p>Keep the values, namespace, release name, source lock, <a href="../d/data/helm-render-intents/summary.html">render-intent summary</a>, full YAML output, package base, test results, and setup instructions together.</p></div>
+        <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a base variant, some need a setup step, and some are blocked until there is a safe path.</p></div>
+      </div>
+      <p><a href="../d/docs/user/helm-render-intents.html">How render intents work</a> · <a href="../d/data/helm-render-intents/summary.html">All generated render intents</a> · <a href="../d/data/base-variant-records/summary.html">All base variant records</a></p>
+    </section>
+
+    <section aria-labelledby="run-this">
+      <h2 id="run-this">Try This Chart</h2>
+      <p>Review <strong>default</strong> before use. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
+      <div class="card">
+        <h3>Package image</h3>
+        <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
+        <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
+        <h3>First recorded command</h3>
+        <p>No runnable row recorded yet.</p>
+        
+        <h3>You should see something like this</h3>
+        <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre><code>cub installer setup ...
+rendered manifests written under &lt;work-dir&gt;
+use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
+        <p><strong>Current status:</strong> unknown · <strong>Reason:</strong> No blocking reason recorded.</p>
+      </div>
+    </section>
+
+
+
+    <section aria-labelledby="matrix-options">
+      <h2 id="matrix-options">Available Configurations</h2>
+      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
+      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
+      <p class="mono" style="font-size:.9rem">0 matrix rows for aws-controllers-k8s/iam-chart@1.7.3 · <a href="../matrix.html">open the full matrix</a></p>
+      <p>No matrix rows are recorded for this chart/version.</p>
+    </section>
+
+    
+
+    <section aria-labelledby="adoption-caveats">
+      <h2 id="adoption-caveats">First-Run Caveats</h2>
+      <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
+      <div class="card"><table>
+        <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 9 CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base when one is available.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="../d/docs/user/cub-deployment-path.html">cub deployment path</a></p>
+    </section>
+
+    <section aria-labelledby="playbooks">
+      <h2 id="playbooks">Advice And Current Status</h2>
+      <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
+      <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
+        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>Check the target requirements and configuration status</td></tr><tr><td>What the tools record</td><td>Rendered objects, test records, and checks</td></tr><tr><td>Next action</td><td>review chart analysis and create a recipe candidate</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>The source data lives in <a href="../d/data/chart-skills/summary.html">chart skills</a> and <a href="../d/data/chart-evidence-router/summary.html">chart evidence router</a>.</p>
+    </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">What Has Been Tested</h2>
+      <p>Each check answers a different question. A watch, blocked, or missing result names work that remains. It does not change a passing Helm render match.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <div class="card"><table>
+        <thead><tr><th>Check</th><th>Status across configurations</th></tr></thead>
+        <tbody><tr><td>Render parity</td><td>not recorded</td></tr><tr><td>ConfigHub proof</td><td>not recorded</td></tr><tr><td>Local live</td><td>not recorded</td></tr><tr><td>GitOps/OCI live</td><td>not recorded</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>not recorded</td></tr><tr><td>Two-cluster kind</td><td>not recorded</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <div class="card"><table>
+        <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
+        <tbody></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -500,29 +614,50 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
-    <section aria-labelledby="retained-tests">
-      <h2 id="retained-tests">What Has Been Tested</h2>
-      <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965</code> and manifest <code>sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b</code>, and records an inspect-result digest.</p>
-      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
-      <p><strong>No version-specific runtime result is claimed here.</strong> This component has no separate evidence-bearing version yet, so no other version's readiness applies here. The publication receipt above carries the whole current claim.</p>
-    </section>
 
-    <section aria-labelledby="retained-requirements">
-      <h2 id="retained-requirements">What You Must Provide</h2>
-      <p>The installer metadata records 1 external-requirement reference across these configurations. Inspect the package before choosing a base.</p>
-      <p>Choose a namespace and target deliberately, supply any listed Secret, CRD, storage, API, or cloud prerequisite, and inspect the rendered YAML before delivery.</p>
-    </section>
-
-    <section aria-labelledby="retained-production">
-      <h2 id="retained-production">Before Production</h2>
-      <p>Run target-specific policy, lifecycle, upgrade, and workload checks. A successful package publication and inspect result does not establish production support or live convergence.</p>
-    </section>
-
-    <section aria-labelledby="retained-files">
-      <h2 id="retained-files">Source And Evidence Files</h2>
+    <section aria-labelledby="quirks">
+      <h2 id="quirks">What You Must Provide</h2>
+      <p>ConfigHub records the rendered objects, test results, and current limits.</p>
       <div class="card"><table>
-        <thead><tr><th>Record</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/iam-chart/1.7.3">packages/aws-controllers-k8s/iam-chart/1.7.3</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml">packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml">runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml</a></td></tr><tr><td>OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</code></td></tr><tr><td>Layer digest</td><td><code>sha256:d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b</code></td></tr></tbody>
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody><tr><td>Known quirks</td><td>None identified</td></tr><tr><td>You must provide</td><td>Check the configuration status and target requirements</td></tr><tr><td>What ConfigHub records</td><td>Exact rendered objects, checks, test results, and catalog evidence</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="lifecycle">
+      <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+
+      <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+    </section>
+
+    <section aria-labelledby="production">
+      <h2 id="production">Before Production</h2>
+      <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
+      <div class="card"><table>
+        <thead><tr><th>Field</th><th>Value</th></tr></thead>
+        <tbody><tr><td>Production review status</td><td>Not reviewed for production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted limits</td><td>None recorded</td></tr><tr><td>Open policy decisions</td><td>None recorded for this policy checklist</td></tr><tr><td>Next action</td><td>review chart analysis and create a recipe candidate</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="files">
+      <h2 id="files">Source And Evidence Files</h2>
+      <div class="card"><table>
+        <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
+        <tbody><tr><td>Chart catalog</td><td><a href="../d/recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.html">recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../d/data/helm-render-intents/summary.html">data/helm-render-intents/summary.md</a></td></tr><tr><td>Base variant records</td><td><a href="../d/data/base-variant-records/summary.html">data/base-variant-records/summary.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml">recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/aws-controllers-k8s/iam-chart/1.7.3">packages/aws-controllers-k8s/iam-chart/1.7.3</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../d/data/installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Installer OCI publication receipt</td><td><a href="../../runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml">runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Production review records</td><td><a href="../d/data/production-disposition/summary.html">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../d/data/master-catalog-matrix/summary.html">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../d/data/chart-skills/summary.html">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../d/data/chart-evidence-router/summary.html">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current test status</td><td><a href="../d/docs/user/current-proof-status.html">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -532,6 +667,6 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       </style>
     </section>
   </main>
-  <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+  <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
 </body>
 </html>

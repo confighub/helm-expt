@@ -445,57 +445,57 @@
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This is the generated proof-surface view for the 100 maintained public Helm chart recipes in this repo.</p>
+<p>This is the generated proof-surface view for the 109 maintained public Helm chart recipes in this repo. The name is historical. The corpus was 100 charts when it was chosen and it grows as charts are added, so every count here is derived rather than declared.</p>
 <p>It is different from the top-500 matrix:</p>
 <pre><code>top-100 = maintained recipe/package proof artifacts in this repo
 top-500 = source-feature reconnaissance plus any matching recipe proof</code></pre>
 <h2 id="summary">Summary</h2>
-<pre><code>rows: 100
+<pre><code>rows: 109
 top-20 catalog-supported entries: 20
-next-80 proof-grade entries: 80
+next-80 proof-grade entries: 89
 retained newer candidate versions: 10
 catalog-supported: 20
-proof-grade: 80
-multi-variant entries: 67
-default-only entries: 33
+proof-grade: 84
+multi-variant entries: 72
+default-only entries: 37
 top-20 current with latest upstream: 13
 top-20 update candidates: 7
 production-disposition-needed entries: 0
 production-review-ready entries: 20
-entries matched to top-500 source rows: 65
-no hard gap in chart-facts: 75
-hard gap for at least one recommended capability: 25</code></pre>
+entries matched to top-500 source rows: 67
+no hard gap in chart-facts: 78
+hard gap for at least one recommended capability: 31</code></pre>
 <h2 id="interpretation">Interpretation</h2>
 <ul><li>The top-20 entries are the public catalog-supported lane for the declared <code>local-test</code> scope.</li><li>The next-80 entries are proof-grade. They have deterministic recipe/package proof artifacts, but they still need user-shaped variants and promotion review before support is claimed.</li><li>Latest-version currentness is tracked only for the top-20 catalog-supported lane at the moment. The broader top-100 currentness lane should wait until the current top-20 update candidates are promoted or explicitly deferred.</li><li>Retained newer candidate versions are visible elsewhere in the catalog, but they are not counted as additional top-100 chart identities.</li></ul>
 <h2 id="readiness-tiers">Readiness Tiers</h2>
 <p>The top-100 should be read as four overlapping readiness views, not one blanket claim.</p>
-<table><thead><tr><th>Tier</th><th>Count</th><th>Meaning</th></tr></thead><tbody><tr><td>Recipe/package proof exists</td><td>100</td><td>The chart has a maintained recipe and executable <code>cub installer</code> package with proof artifacts.</td></tr>
+<table><thead><tr><th>Tier</th><th>Count</th><th>Meaning</th></tr></thead><tbody><tr><td>Recipe/package proof exists</td><td>109</td><td>The chart has a maintained recipe and executable <code>cub installer</code> package with proof artifacts.</td></tr>
 <tr><td>Catalog-supported for local-test</td><td>20</td><td>The chart is in the public top-20 lane with local kind live/e2e and ConfigHub proof receipts.</td></tr>
-<tr><td>Proof-grade, not catalog-supported</td><td>80</td><td>The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review.</td></tr>
-<tr><td>Variant-rich</td><td>67</td><td>The chart has more than one base variant.</td></tr>
-<tr><td>Default-only</td><td>33</td><td>The chart has a proof path, but not enough variants for common user choices.</td></tr>
-<tr><td>No hard gap in chart-facts</td><td>75</td><td>Recommended capabilities are built, not applicable, or have a known path.</td></tr>
-<tr><td>Hard gap for a recommended capability</td><td>25</td><td>The core recipe may still work, but at least one useful capability is not yet enabled. See <code>data/chart-facts/summary.md</code>.</td></tr></tbody></table>
+<tr><td>Proof-grade, not catalog-supported</td><td>89</td><td>The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review.</td></tr>
+<tr><td>Variant-rich</td><td>72</td><td>The chart has more than one base variant.</td></tr>
+<tr><td>Default-only</td><td>37</td><td>The chart has a proof path, but not enough variants for common user choices.</td></tr>
+<tr><td>No hard gap in chart-facts</td><td>78</td><td>Recommended capabilities are built, not applicable, or have a known path.</td></tr>
+<tr><td>Hard gap for a recommended capability</td><td>31</td><td>The core recipe may still work, but at least one useful capability is not yet enabled. See <code>data/chart-facts/summary.md</code>.</td></tr></tbody></table>
 <p>In plain English:</p>
 <pre><code>works now under declared proof scope
-  100 charts have recipe/package proof artifacts.
+  109 charts have recipe/package proof artifacts.
 
 works for the public local-test catalog
   20 charts have top-20 catalog support and live/e2e receipts.
 
 works, but still needs user-shaped product review
-  80 charts are proof-grade but not catalog-supported.
+  89 charts are proof-grade but not catalog-supported.
 
 works only with a named limitation or user/operator help
-  25 charts have at least one hard gap for a recommended extra capability.</code></pre>
+  31 charts have at least one hard gap for a recommended extra capability.</code></pre>
 <p>The hard-gap column is about missing recommended capabilities, not total chart failure. For example, a chart may have a working default recipe while still lacking an <code>existing-secret</code>, <code>no-crds</code>, or HA path for a specific variant.</p>
 <h2 id="current-user-answer">Current User Answer</h2>
-<table><thead><tr><th>Question</th><th>Count</th><th>Answer</th></tr></thead><tbody><tr><td>Can the repo prove a maintained recipe/package path exists?</td><td>100</td><td>Yes. Every top-100 entry has recipe/package proof artifacts.</td></tr>
+<table><thead><tr><th>Question</th><th>Count</th><th>Answer</th></tr></thead><tbody><tr><td>Can the repo prove a maintained recipe/package path exists?</td><td>109</td><td>Yes. Every top-100 entry has recipe/package proof artifacts.</td></tr>
 <tr><td>Can a user try it through the public local-test catalog lane today?</td><td>20</td><td>Yes, for the top-20 declared local-test scope.</td></tr>
-<tr><td>Does it still need catalog promotion review before support is claimed?</td><td>80</td><td>Yes. These entries are proof-grade, not catalog-supported.</td></tr>
-<tr><td>Does it already have more than one base variant?</td><td>67</td><td>Yes. These entries cover more than the default shape.</td></tr>
-<tr><td>Is it still default-only?</td><td>33</td><td>Yes. These entries need user-shaped variants before a strong catalog recommendation.</td></tr>
-<tr><td>Does it have a named hard gap for at least one recommended capability?</td><td>25</td><td>Yes. The core recipe may work, but one useful variant or capability is missing or blocked.</td></tr>
+<tr><td>Does it still need catalog promotion review before support is claimed?</td><td>89</td><td>Yes. These entries are proof-grade, not catalog-supported.</td></tr>
+<tr><td>Does it already have more than one base variant?</td><td>72</td><td>Yes. These entries cover more than the default shape.</td></tr>
+<tr><td>Is it still default-only?</td><td>37</td><td>Yes. These entries need user-shaped variants before a strong catalog recommendation.</td></tr>
+<tr><td>Does it have a named hard gap for at least one recommended capability?</td><td>31</td><td>Yes. The core recipe may work, but one useful variant or capability is missing or blocked.</td></tr>
 <tr><td>Is a supported top-20 chart behind the latest upstream version?</td><td>7</td><td>Yes. These need promotion proof before the catalog points at the newer chart.</td></tr></tbody></table>
 <h2 id="top-20-update-candidates">Top-20 Update Candidates</h2>
 <table><thead><tr><th>Chart</th><th>Supported version</th><th>Latest version</th><th>Variants</th><th>Required action</th></tr></thead><tbody><tr><td><code>argo-cd/argo-cd</code></td><td><code>9.5.15</code></td><td><code>9.5.17</code></td><td>default;no-crds</td><td>Run full promotion lanes before replacing the supported version.</td></tr>

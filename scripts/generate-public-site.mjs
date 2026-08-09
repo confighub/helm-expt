@@ -94,9 +94,14 @@ const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", 
 const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
 const flatteningEvidencePath = join(repoRoot, "data", "flattening-safety", "evidence.csv");
 const flatteningCoveragePath = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
-const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
-const PUBLIC_CATALOG_COMPONENT_COUNT = 112;
-const PUBLIC_CATALOG_VERSION_COUNT = 139;
+// The catalog grows. These were exact counts, so every chart added to the
+// public catalog broke the site gate and read as a regression rather than as
+// growth. They are floors now. What they still catch is the thing that matters,
+// which is a component or a version quietly disappearing from the public
+// surface, and the uniqueness and containment checks beside them stay exact.
+const TOP100_EVIDENCE_COMPONENT_FLOOR = 100;
+const PUBLIC_CATALOG_COMPONENT_FLOOR = 112;
+const PUBLIC_CATALOG_VERSION_FLOOR = 139;
 const UNKNOWN_ACTION_LABELS = {
   "create-namespace": "choose and create the target namespace",
   "install-crds": "install the chart's CRDs first",
@@ -554,12 +559,12 @@ function buildSite(generatedAt) {
   const retainedVersionKeys = installerOciPackages.map((row) => `${row.chart}|${row.version}`);
   const retainedVersionKeySet = new Set(retainedVersionKeys);
   check(
-    installerOciPackages.length === PUBLIC_CATALOG_VERSION_COUNT
+    installerOciPackages.length >= PUBLIC_CATALOG_VERSION_FLOOR
       && new Set(retainedVersionKeys).size === installerOciPackages.length,
-    `the component-first public Catalog must retain exactly ${PUBLIC_CATALOG_VERSION_COUNT} unique component/version packages`,
+    `the public Catalog retains ${installerOciPackages.length} unique component/version packages, below the floor of ${PUBLIC_CATALOG_VERSION_FLOOR}`,
   );
   check(
-    catalogEntries.length === TOP100_EVIDENCE_COMPONENT_COUNT
+    catalogEntries.length >= TOP100_EVIDENCE_COMPONENT_FLOOR
       && evidenceComponentNameSet.size === catalogEntries.length
       && [...evidenceComponentNameSet].every((name) => retainedComponentNames.has(name)),
     "the Top-100 evidence entries must remain unique and present in the retained component Catalog",
@@ -634,10 +639,10 @@ function buildSite(generatedAt) {
   const catalogComponents = [...catalogEntries, ...retainedOnlyComponentEntries]
     .sort((left, right) => left.chart.localeCompare(right.chart));
   check(
-    catalogComponents.length === PUBLIC_CATALOG_COMPONENT_COUNT
+    catalogComponents.length >= PUBLIC_CATALOG_COMPONENT_FLOOR
       && new Set(catalogComponents.map((entry) => entry.chart)).size === catalogComponents.length
       && JSON.stringify(catalogComponents.map((entry) => entry.chart).sort()) === JSON.stringify([...retainedComponentNames].sort()),
-    `the component-first public Catalog must expose exactly ${PUBLIC_CATALOG_COMPONENT_COUNT} unique component rows`,
+    `the public Catalog exposes ${catalogComponents.length} unique component rows, below the floor of ${PUBLIC_CATALOG_COMPONENT_FLOOR}`,
   );
   const publicChartSkills = chartSkills.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
   const publicChartEvidenceRouter = chartEvidenceRouter.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
@@ -1828,7 +1833,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <div class="routes">
             <a class="route-card" href="./try.html"><h3>Try Redis <span class="tag">catalog package</span></h3><p>Pull one reviewed configuration. Read its 14 objects. Build a local OCI and verify it by pulling it back.</p><span class="go">Start the short example &rarr;</span></a>
             <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
-            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">${PUBLIC_CATALOG_COMPONENT_COUNT} components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog's registry even when an upstream source changes its terms.</p><span class="go">Choose a configuration &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog's registry even when an upstream source changes its terms.</p><span class="go">Choose a configuration &rarr;</span></a>
           </div>
           <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
@@ -2749,7 +2754,7 @@ function legacyDashboardHtml(catalog) {
 function offeringHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const currentCounts = [
-    ["Catalog components", `${catalog.summary.retainedComponents}/${PUBLIC_CATALOG_COMPONENT_COUNT}`, `${catalog.summary.retainedPackageVersions} retained package versions with packaged configurations and recorded requirements, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt.`],
+    ["Catalog components", `${catalog.summary.retainedComponents}`, `${catalog.summary.retainedPackageVersions} retained package versions with packaged configurations and recorded requirements, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt.`],
     ["Helm render matches", metricValue(metric("render parity rows")), "Helm and cub installer produced the same objects from the recorded settings."],
     ["Stored in ConfigHub", metricValue(metric("in-ConfigHub proof rows")), "The rendered objects were uploaded and checked as ConfigHub Units."],
     ["Local Kubernetes runs", metricValue(metric("local live rows")), "The configuration was applied to a local target and observed."],
@@ -2846,7 +2851,7 @@ function legacyOfferingHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
-    ["Component Catalog version pages", `${catalog.summary.retainedPackageVersions}/${PUBLIC_CATALOG_VERSION_COUNT}`],
+    ["Component Catalog version pages", `${catalog.summary.retainedPackageVersions}`],
     ["Recipe proofs", metricValue(metric("maintained chart rows with model support"))],
     ["Render parity", metricValue(metric("render parity rows"))],
     ["Local live receipts", metricValue(metric("local live rows"))],

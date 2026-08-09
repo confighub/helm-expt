@@ -1,7 +1,9 @@
 # Top-100 Catalog Analysis
 
-This is the generated proof-surface view for the 100 maintained public Helm
-chart recipes in this repo.
+This is the generated proof-surface view for the 109 maintained
+public Helm chart recipes in this repo. The name is historical. The corpus was
+100 charts when it was chosen and it grows as charts are added, so every count
+here is derived rather than declared.
 
 It is different from the top-500 matrix:
 
@@ -13,21 +15,21 @@ top-500 = source-feature reconnaissance plus any matching recipe proof
 ## Summary
 
 ```text
-rows: 100
+rows: 109
 top-20 catalog-supported entries: 20
-next-80 proof-grade entries: 80
+next-80 proof-grade entries: 89
 retained newer candidate versions: 10
 catalog-supported: 20
-proof-grade: 80
-multi-variant entries: 67
-default-only entries: 33
+proof-grade: 84
+multi-variant entries: 72
+default-only entries: 37
 top-20 current with latest upstream: 13
 top-20 update candidates: 7
 production-disposition-needed entries: 0
 production-review-ready entries: 20
-entries matched to top-500 source rows: 65
-no hard gap in chart-facts: 75
-hard gap for at least one recommended capability: 25
+entries matched to top-500 source rows: 67
+no hard gap in chart-facts: 78
+hard gap for at least one recommended capability: 31
 ```
 
 ## Interpretation
@@ -50,28 +52,28 @@ claim.
 
 | Tier | Count | Meaning |
 | --- | ---: | --- |
-| Recipe/package proof exists | 100 | The chart has a maintained recipe and executable `cub installer` package with proof artifacts. |
+| Recipe/package proof exists | 109 | The chart has a maintained recipe and executable `cub installer` package with proof artifacts. |
 | Catalog-supported for local-test | 20 | The chart is in the public top-20 lane with local kind live/e2e and ConfigHub proof receipts. |
-| Proof-grade, not catalog-supported | 80 | The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review. |
-| Variant-rich | 67 | The chart has more than one base variant. |
-| Default-only | 33 | The chart has a proof path, but not enough variants for common user choices. |
-| No hard gap in chart-facts | 75 | Recommended capabilities are built, not applicable, or have a known path. |
-| Hard gap for a recommended capability | 25 | The core recipe may still work, but at least one useful capability is not yet enabled. See `data/chart-facts/summary.md`. |
+| Proof-grade, not catalog-supported | 89 | The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review. |
+| Variant-rich | 72 | The chart has more than one base variant. |
+| Default-only | 37 | The chart has a proof path, but not enough variants for common user choices. |
+| No hard gap in chart-facts | 78 | Recommended capabilities are built, not applicable, or have a known path. |
+| Hard gap for a recommended capability | 31 | The core recipe may still work, but at least one useful capability is not yet enabled. See `data/chart-facts/summary.md`. |
 
 In plain English:
 
 ```text
 works now under declared proof scope
-  100 charts have recipe/package proof artifacts.
+  109 charts have recipe/package proof artifacts.
 
 works for the public local-test catalog
   20 charts have top-20 catalog support and live/e2e receipts.
 
 works, but still needs user-shaped product review
-  80 charts are proof-grade but not catalog-supported.
+  89 charts are proof-grade but not catalog-supported.
 
 works only with a named limitation or user/operator help
-  25 charts have at least one hard gap for a recommended extra capability.
+  31 charts have at least one hard gap for a recommended extra capability.
 ```
 
 The hard-gap column is about missing recommended capabilities, not total chart
@@ -82,12 +84,12 @@ lacking an `existing-secret`, `no-crds`, or HA path for a specific variant.
 
 | Question | Count | Answer |
 | --- | ---: | --- |
-| Can the repo prove a maintained recipe/package path exists? | 100 | Yes. Every top-100 entry has recipe/package proof artifacts. |
+| Can the repo prove a maintained recipe/package path exists? | 109 | Yes. Every top-100 entry has recipe/package proof artifacts. |
 | Can a user try it through the public local-test catalog lane today? | 20 | Yes, for the top-20 declared local-test scope. |
-| Does it still need catalog promotion review before support is claimed? | 80 | Yes. These entries are proof-grade, not catalog-supported. |
-| Does it already have more than one base variant? | 67 | Yes. These entries cover more than the default shape. |
-| Is it still default-only? | 33 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
-| Does it have a named hard gap for at least one recommended capability? | 25 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
+| Does it still need catalog promotion review before support is claimed? | 89 | Yes. These entries are proof-grade, not catalog-supported. |
+| Does it already have more than one base variant? | 72 | Yes. These entries cover more than the default shape. |
+| Is it still default-only? | 37 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
+| Does it have a named hard gap for at least one recommended capability? | 31 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
 | Is a supported top-20 chart behind the latest upstream version? | 7 | Yes. These need promotion proof before the catalog points at the newer chart. |
 
 ## Top-20 Update Candidates
