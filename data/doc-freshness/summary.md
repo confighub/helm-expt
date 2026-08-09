@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `27eba5cfe`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `c6f9fd345`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -36,9 +36,9 @@ most recently changed triggers.
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 59 | `data/top100-user-readiness/summary.md (2026-08-08)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 59 | `data/README.md (2026-08-08)`<br>`data/csv-index.csv (2026-08-08)`<br>`data/top500-catalog-analysis/review.csv (2026-08-08)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 59 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.csv (2026-07-29)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 58 | `data/top100-user-readiness/readiness.csv (2026-08-08)`<br>`data/top100-user-readiness/summary.md (2026-08-08)`<br>`data/chart-facts/chart-facts.csv (2026-08-08)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 58 | `data/README.md (2026-08-08)`<br>`data/csv-index.csv (2026-08-08)`<br>`data/top500-catalog-analysis/review.csv (2026-08-08)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 57 | `data/top100-user-readiness/summary.md (2026-08-08)`<br>`data/top100-readiness/summary.md (2026-07-29)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 51 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/master-catalog-matrix/matrix.html (2026-07-29)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-07-29)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
