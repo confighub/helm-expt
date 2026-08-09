@@ -12,6 +12,22 @@ check(existsSync(intentsPath), "data/helm-render-intents/intents.json is missing
 check(existsSync(gapsPath), "data/helm-render-intents/contract-gaps.csv is missing");
 
 const intents = JSON.parse(readFileSync(intentsPath, "utf8")).intents ?? [];
+
+// Raised only by a deliberate decision, and every enrolment that adds a base
+// without an intent must either generate one or move this and say why.
+const UNCOVERED_BASE_CEILING = 0;
+
+function readMatrixBaseRows() {
+  const path = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
+  if (!existsSync(path)) return [];
+  const lines = readFileSync(path, "utf8").split("\n").filter(Boolean);
+  const headers = parseCsvLine(lines[0]);
+  return lines
+    .slice(1)
+    .map((line) => Object.fromEntries(parseCsvLine(line).map((value, index) => [headers[index], value])))
+    .filter((row) => row.row_kind === "base");
+}
+
 const gaps = parseCsv(readFileSync(gapsPath, "utf8"));
 const lifecycleStates = new Set(["attached", "actionable-gap", "no-route-required"]);
 const targetStates = new Set([
@@ -23,7 +39,25 @@ const targetStates = new Set([
 const expectedGaps = new Set();
 const names = new Set();
 
-check(intents.length === 199, `expected 199 real-base render intents, found ${intents.length}`);
+// This asserted a frozen count of intent files, which checks the wrong thing in
+// two directions. It froze the catalog, the way every fixed count #1445 removed
+// did, and it never checked coverage: an intent could go missing for a base that
+// exists and this lane would happily verify one fewer contract.
+//
+// Coverage is the property that matters. Every base row the master matrix emits
+// must have an intent, and the matrix now records the ones that do not, so this
+// reads that record. The ceiling is the number of uncovered bases the catalog is
+// carrying today. It may fall and must never rise.
+const matrixRows = readMatrixBaseRows();
+const uncovered = matrixRows.filter((row) => row.render_intent_state === "actionable-gap");
+check(
+  matrixRows.length > 0,
+  "the master catalog matrix has no base rows, so render-intent coverage cannot be checked",
+);
+check(
+  uncovered.length <= UNCOVERED_BASE_CEILING,
+  `${uncovered.length} base row(s) have no render intent, above the recorded ceiling of ${UNCOVERED_BASE_CEILING}: ${uncovered.slice(0, 5).map((row) => `${row.chart}@${row.version}/${row.variant}`).join(", ")}`,
+);
 
 for (const intent of intents) {
   const name = intent.metadata?.name;
