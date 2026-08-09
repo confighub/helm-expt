@@ -408,3 +408,17 @@ ratchets the undated count rather than failing on it, because a red build over
 530 files written by other work would either block everyone or get
 suppressed.
 
+## The track is concluded, 2026-08-09
+
+[The closing record](./aicr-track-conclusion.md) says what the track built,
+what it proves, what it refuses to claim, and what is deliberately left. This
+backlog stays as the task-level history behind it, including what each
+increment found while doing the work.
+
+Roughly two thirds of the tasks here are done. What remains is real work rather
+than tidying, and the conclusion groups it three ways: surfacing the evidence on
+the site, deeper parity with the first Pilot generation gated by it, and the
+three AICR CLI comparisons nobody has made. Two items stay open with reasons
+instead of dates: nine gated references need a person to read their catalog
+pages, and NIM_TELEMETRY_MODE needs a structural editing path that does not
+exist yet.
