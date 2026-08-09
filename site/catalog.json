@@ -112,7 +112,7 @@
     "baseVariants": 42,
     "startHereBaseVariants": 26,
     "top20ChartsWithExtensionSlots": 13,
-    "top100ChartsWithExtensionSlots": 82,
+    "top100ChartsWithExtensionSlots": 91,
     "top100CoveragePromotionQueue": 37,
     "top100PromotionWaveRows": 31,
     "top100CoverageUserVariantQueue": 37,
@@ -17198,6 +17198,36 @@
       "evidence": "data/chart-facts/chart-facts.csv;recipes/autoscaler/vertical-pod-autoscaler/0.9.0/control-points.yaml;recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     },
     {
+      "chart": "aws-controllers-k8s/ec2-chart@1.18.4",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+eks-inference",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "extension-slots:unused-at-audited-values",
+      "surfaces": "raw/extra manifests; volumes/mounts; Secret/env injection",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/aws-controllers-k8s/ec2-chart/1.18.4/control-points.yaml;recipes/aws-controllers-k8s/ec2-chart/1.18.4/helm-pain-report.yaml"
+    },
+    {
+      "chart": "aws-controllers-k8s/eks-chart@1.16.3",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+eks-inference",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "extension-slots:open-unchecked",
+      "surfaces": "raw/extra manifests; volumes/mounts; Secret/env injection; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/aws-controllers-k8s/eks-chart/1.16.3/control-points.yaml;recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml"
+    },
+    {
+      "chart": "aws-controllers-k8s/iam-chart@1.7.3",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+eks-inference",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "extension-slots:unused-in-audited-bases",
+      "surfaces": "volumes/mounts; Secret/env injection; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/aws-controllers-k8s/iam-chart/1.7.3/control-points.yaml;recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-pain-report.yaml"
+    },
+    {
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1",
       "catalog_scope": "top100-proof",
       "built_variants": "default",
@@ -17296,6 +17326,36 @@
       "surfaces": "tpl-powered values",
       "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
       "evidence": "data/chart-facts/chart-facts.csv;recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml;recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml"
+    },
+    {
+      "chart": "cloudpirates/nginx@0.16.1",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/cloudpirates/nginx/0.16.1/control-points.yaml;recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml"
+    },
+    {
+      "chart": "cloudpirates/rabbitmq@0.21.13",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/cloudpirates/rabbitmq/0.21.13/control-points.yaml;recipes/cloudpirates/rabbitmq/0.21.13/helm-pain-report.yaml"
+    },
+    {
+      "chart": "cloudpirates/redis@0.34.11",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/cloudpirates/redis/0.34.11/control-points.yaml;recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml"
     },
     {
       "chart": "coredns/coredns@1.45.2",
@@ -17568,6 +17628,16 @@
       "evidence": "data/chart-facts/chart-facts.csv;recipes/jetstack/trust-manager/v0.22.1/control-points.yaml;recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     },
     {
+      "chart": "karpenter/karpenter@1.14.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "crds-managed+default+eks-inference",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "extension-slots:open-unaudited",
+      "surfaces": "sidecars; monitoring config; volumes/mounts; controller/gateway config; tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/karpenter/karpenter/1.14.0/control-points.yaml;recipes/karpenter/karpenter/1.14.0/helm-pain-report.yaml"
+    },
+    {
       "chart": "kedacore/keda@2.19.0",
       "catalog_scope": "top100-proof",
       "built_variants": "default+no-crds",
@@ -17636,6 +17706,16 @@
       "surfaces": "raw/extra manifests",
       "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
       "evidence": "data/chart-facts/chart-facts.csv;recipes/nats/surveyor/0.20.9/control-points.yaml;recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
+    },
+    {
+      "chart": "nvidia/nvidia-device-plugin@0.19.3",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default+eks-inference+nfd-enabled",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "extension-slots:open-unused",
+      "surfaces": "chart-specific tpl/raw/config slots",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml;recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
       "chart": "open-telemetry/opentelemetry-operator@0.114.0",
@@ -17786,6 +17866,16 @@
       "surfaces": "tpl-powered values",
       "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
       "evidence": "data/chart-facts/chart-facts.csv;recipes/traefik/traefik/40.2.0/control-points.yaml;recipes/traefik/traefik/40.2.0/helm-pain-report.yaml"
+    },
+    {
+      "chart": "valkey/valkey@0.11.0",
+      "catalog_scope": "top100-proof",
+      "built_variants": "default",
+      "extension_slot_status": "yes - per-use review",
+      "control_point_status": "tpl-extension-slots:source-signal-recorded",
+      "surfaces": "tpl-powered values",
+      "current_route": "keep empty in supported bases, or make a reviewed installer base when populated",
+      "evidence": "data/chart-facts/chart-facts.csv;recipes/valkey/valkey/0.11.0/control-points.yaml;recipes/valkey/valkey/0.11.0/helm-pain-report.yaml"
     },
     {
       "chart": "velero/velero@12.0.1",
@@ -24188,9 +24278,9 @@
       "bucket": "works-with-operator-review",
       "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "crds;existing-secret;webhooks;capabilities;rbac",
+      "quirks": "crds;existing-secret;webhooks;extension-slots;capabilities;rbac",
       "user_must_provide": "an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases",
       "next_action": "review source/current-version drift and refresh recipe if needed",
       "pain_report": ""
     },
@@ -24305,9 +24395,9 @@
       "bucket": "needs-better-base-variant",
       "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "required-values;tpl;storage",
+      "quirks": "extension-slots;required-values;tpl;storage",
       "user_must_provide": "a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "pain_report": ""
     },
@@ -24513,9 +24603,9 @@
       "bucket": "works-with-operator-review",
       "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "existing-secret",
+      "quirks": "existing-secret;extension-slots",
       "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "review chart analysis and create a recipe candidate",
       "pain_report": ""
     },
@@ -24526,9 +24616,9 @@
       "bucket": "works-with-operator-review",
       "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "existing-secret",
+      "quirks": "existing-secret;extension-slots",
       "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "review chart analysis and create a recipe candidate",
       "pain_report": ""
     },
@@ -24539,9 +24629,9 @@
       "bucket": "works-with-operator-review",
       "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "existing-secret",
+      "quirks": "existing-secret;extension-slots",
       "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "review chart analysis and create a recipe candidate",
       "pain_report": ""
     },
@@ -24565,9 +24655,9 @@
       "bucket": "needs-better-base-variant",
       "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "none-flagged",
+      "quirks": "extension-slots",
       "user_must_provide": "your wanted install shape, until a reviewed base exists",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "pain_report": ""
     },
@@ -24578,9 +24668,9 @@
       "bucket": "needs-better-base-variant",
       "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "none-flagged",
+      "quirks": "extension-slots",
       "user_must_provide": "your wanted install shape, until a reviewed base exists",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "pain_report": ""
     },
@@ -24591,9 +24681,9 @@
       "bucket": "needs-better-base-variant",
       "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "none-flagged",
+      "quirks": "extension-slots",
       "user_must_provide": "your wanted install shape, until a reviewed base exists",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "pain_report": ""
     },
@@ -24760,9 +24850,9 @@
       "bucket": "works-with-operator-review",
       "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
       "recommended_first_base": "default (unreviewed first guess)",
-      "quirks": "existing-secret",
+      "quirks": "existing-secret;extension-slots",
       "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
-      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; extension slots routed to reviewed bases",
       "next_action": "review chart analysis and create a recipe candidate",
       "pain_report": ""
     },
