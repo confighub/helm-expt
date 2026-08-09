@@ -23,6 +23,13 @@ same way it is applied to charts. The
 [comparison of AICR's evidence with our receipts](../../reference/aicr-evidence-and-our-receipts.md)
 sets out which tool answers which question.
 
+## Where this track stands
+
+Five entries exist and every claim on these pages is checked by a lane that
+runs in CI. [The closing record](../../planning/aicr-track-conclusion.md) says
+what the track proves, what it refuses to claim, and what is left for whoever
+picks it up.
+
 ## Three entry classes track how buyers differ
 
 Buyers train, they serve, or they want to try the mechanics without GPUs. The

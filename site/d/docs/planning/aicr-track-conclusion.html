@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The AICR catalog retains exact AI-platform shapes · Config Workshop</title>
-  <meta name="description" content="The AICR catalog retains exact AI-platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/">
-  <meta property="og:title" content="The AICR catalog retains exact AI-platform shapes · Config Workshop">
-  <meta property="og:description" content="The AICR catalog retains exact AI-platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The AICR track, concluded · Config Workshop</title>
+  <meta name="description" content="The AICR track, concluded: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-track-conclusion.html">
+  <meta property="og:title" content="The AICR track, concluded · Config Workshop">
+  <meta property="og:description" content="The AICR track, concluded: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-track-conclusion.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,60 +433,55 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The AICR catalog retains exact AI-platform shapes</h1>
-    <p class="lead">AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms (<a href="https://github.com/NVIDIA/aicr">github.com/NVIDIA/aicr</a>). You describe the platform you want and AICR picks the components, orders the installs, and writes the files. The catalog applies the same discipline here that it applies to Helm charts and to the Kubara platform: retain exact versions, pin every package by an immutable OCI digest, and attach a receipt to every claim. Teams assembling GPU platforms copy YAML from blog posts today, and an H100 misconfiguration has a dollar sign attached. <a href="../../../../../docs/demo/aicr/index.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>The AICR track, concluded</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/aicr-track-conclusion.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This page is the starting point for the AICR entries in the catalog. It names the three entry classes we track, what exists today, what is planned, and the exact boundary every claim respects.</p>
-
-<p>The gap these entries fill is governance, and it is worth being precise about that. AICR itself carries provenance: it signs its recipe catalog, ships per-component health checks, and emits attestable evidence from validation runs against real hardware. What no one offers is the governed half, meaning reviewed changes with previews, variant lineage, promotion history, and a record of what each change touched, applied to AI-platform configuration the same way it is applied to charts. The <a href="../../reference/aicr-evidence-and-our-receipts.html">comparison of AICR's evidence with our receipts</a> sets out which tool answers which question.</p>
-<h2 id="where-this-track-stands">Where this track stands</h2>
-<p>Five entries exist and every claim on these pages is checked by a lane that runs in CI. <a href="../../planning/aicr-track-conclusion.html">The closing record</a> says what the track proves, what it refuses to claim, and what is left for whoever picks it up.</p>
-<h2 id="three-entry-classes-track-how-buyers-differ">Three entry classes track how buyers differ</h2>
-<p>Buyers train, they serve, or they want to try the mechanics without GPUs. The taxonomy follows that split.</p>
-<table><thead><tr><th>Entry class</th><th>Status</th><th>Source</th></tr></thead><tbody><tr><td>Training</td><td>Exists: <a href="eks-h100-training-kubeflow.html">EKS + H100 + Kubeflow</a></td><td>NVIDIA AICR v0.14.0, retained exactly</td></tr>
-<tr><td>Training, second retained version</td><td>Exists: <a href="eks-h100-training-kubeflow-v0-18-0.html">the same platform four minor versions later</a></td><td>NVIDIA AICR v0.18.0, retained exactly, from the same criteria</td></tr>
-<tr><td>Inference / serving, platform level</td><td>Exists: <a href="eks-h100-inference-nim.html">the AICR-native NIM platform</a></td><td>NVIDIA AICR v0.14.0 with <code>platform: nim</code>, retained exactly</td></tr>
-<tr><td>Inference / serving, model level</td><td>Exists as retained configuration: <a href="kserve-nim-inference.html">NIM on KServe</a></td><td>The KServe subtree of <a href="https://github.com/NVIDIA/nim-deploy">NVIDIA/nim-deploy</a> at an exact commit, Apache-2.0</td></tr>
-<tr><td>CPU starter</td><td>Exists as derived configuration: <a href="cpu-starter.html">the platform spine without accelerators</a></td><td>Derived from the training entry by recorded selection rules, with no upstream equivalent; needs no GPU, cloud account, or NGC key</td></tr></tbody></table>
-<p>Five entries exist today, covering four shapes. The training entry carries the proven mechanics and is retained at two upstream versions, the two inference entries answer the serving question at different granularities, and the CPU starter is a rule-governed derivation of the training entry. The inference pair is deliberate: the AICR-native entry stands up a cluster that can serve NIM, and the KServe entry, retained at upstream commit 3ef33472, names the exact shape a given model runs in. Retaining both keeps the sourcing choice visible instead of implied, and the <a href="eks-h100-inference-nim.html">entry page</a> compares them directly.</p>
-<p>The catalog refuses manufactured variety: new entries come from upstream versions, from deliberately authored shapes whose provenance is named, or from recorded derivations of an existing entry. The inference entry's sixteen model-by-GPU shapes are upstream-authored variety, retained exactly, and the starter's seven components are byte-identical copies selected by rules the derivation receipt records.</p>
-<p>The inference class carries a licensing boundary worth stating early. NIM deploys through public Helm charts and the NIM Operator, so the deployment shapes can be cataloged, but the runtime images and models behind them are NGC-gated under NVIDIA AI Enterprise licensing. The entry retains the configuration shapes and never redistributes the gated artifacts. The <a href="../../planning/nim-ngc-license-read.html">license read</a> verified this boundary against the actual terms: the scaffolding the entry would retain is Apache-2.0, the gated material is exactly what a config-plane entry never touches, and NGC API keys enter the shape only as target facts.</p>
-<h2 id="retained-versions-while-upstream-moves">Retained versions while upstream moves</h2>
-<p>The training entry retains NVIDIA AICR v0.14.0 exactly: the release commit, the release-asset checksum, and the binary checksum are pinned in its <a href="../../../../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml">generation receipt</a>. How far behind upstream that leaves the catalog is measured rather than described. The <a href="../../../data/aicr-upstream-watch/summary.html">upstream watch</a> compares every retained version against a committed snapshot of the release list, and it computes the release cadence instead of repeating it.</p>
-<p>That gap is the point of retention, not a defect. The retained entry stays byte-for-byte reproducible and its receipts stay true while upstream moves. Refreshing the catalog to a newer AICR version creates a new retained entry with its own receipts next to the old one; it never overwrites the proven shape. This is the same retained-versions discipline the chart catalog and the Kubara component catalog follow.</p>
-<p>That is no longer a policy statement. The catalog now retains <a href="eks-h100-training-kubeflow-v0-18-0.html">v0.18.0 as a second entry</a>, generated from the same criteria, so the two versions sit side by side and the difference between them is computed rather than described. The <a href="../../../data/aicr-version-diff/summary.html">version diff</a> reads both entries' committed bytes on every run. The platform did not change and the parts did: the same fifteen components in the same declared order, with nine of them pulling a different chart version.</p>
-<p>The second version also proves something the first cannot. Its generating binary ships the signature bundle this repository verified offline, and it reports the same build commit that signature names, so the entry's provenance runs from an upstream signer to the bytes on disk rather than from a checksum alone.</p>
-<h2 id="one-digest-pins-each-shape">One digest pins each shape</h2>
-<p>Every entry carries the digest spine the Kubara importer proved: one immutable OCI payload per component plus one digest-bound platform index. For the training entry, the <a href="../../../examples/aicr/eks-h100-training-kubeflow/digest-index/README.html">digest index</a> pins the upstream source, the recipe criteria, the three OCI transport manifests, and all 17 rendered Argo CD Applications under a single platform digest. Change any rendered byte anywhere in the shape and the digest changes.</p>
-<pre><code>npm run aicr-digest-index:verify
-npm run aicr-digest-index:self-test</code></pre>
-<p>The inference entry carries the same spine. Its <a href="../../../examples/aicr/kserve-nim-inference/digest-index/README.html">digest index</a> pins the retained KServe tree, every serving runtime and model shape, and the described model profile, and its compiler adds the licensing boundary as refusal rules: gated images stay references, and a literal credential value anywhere in the tree stops the compile.</p>
-<pre><code>npm run aicr-kserve-nim:verify
-npm run aicr-kserve-nim:self-test</code></pre>
-<p>The CPU starter's index adds a derivation chain: each member payload records the training-entry payload hash it copies and the training entry's platform digest, so the path from the AICR release pins through the training index to the starter is checkable end to end.</p>
-<pre><code>npm run aicr-cpu-starter:verify
-npm run aicr-cpu-starter:self-test</code></pre>
-<p>The training entry also carries an OCI round-trip receipt and a variant-promotion receipt that changed one Grafana credential in a development variant and promoted it to staging with matching data hashes. The <a href="eks-h100-training-kubeflow.html">entry page</a> walks through both.</p>
-<h2 id="each-entry-climbs-the-same-proof-ladder">Each entry climbs the same proof ladder</h2>
-<p>The proofs repeat one ladder per entry, and each rung has a committed receipt its verify lane recompiles offline. The training entry proved import, the reviewed Grafana change, and the staging promotion. The <a href="cpu-starter.html">CPU starter</a> climbed the whole ladder: ConfigHub import with the reviewed gp3 override and its staging promotion, config-plane delivery to a kind cluster with the application controller held at zero, and one reviewed component synced to Healthy with its volume bound by the reviewed storage class. The <a href="kserve-nim-inference.html">inference entry</a> has climbed two rungs: the ConfigHub import of all twenty-six retained surfaces with the license boundary held live, then the reviewed model-cache claim rename that changed exactly the sixteen model shapes that mount it, left all ten serving runtimes untouched, and reached staging through a previewed promotion, then config-plane delivery of its serving surface to a kind cluster. The rungs an entry has not climbed stay absent from its claims rather than implied, and the <a href="../../../data/aicr-platform-evidence/summary.html">platform evidence record</a> lists those gaps per entry rather than leaving them to inference.</p>
-<h2 id="what-the-entries-refuse-is-recorded-too">What the entries refuse is recorded too</h2>
-<p>A ladder records what the catalog accepted. The <a href="refusal-corpus.html">refusal corpus</a> records what it turns down, by running the shipped lanes against changes a contributor could plausibly propose and publishing the verdicts. Two of those candidates have to be accepted, because lanes that refused everything would look identical to lanes that refused the right things.</p>
-<p>The counts on these pages are checked the same way. Every number followed by a counted noun is bound to a quantity computed from committed bytes, and <a href="claim-integrity.html">the claim-integrity lane</a> refuses both a number that has drifted and a counted claim nobody declared.</p>
-<h2 id="the-boundary-every-receipt-states">The boundary every receipt states</h2>
-<p>All proofs here run on kind or against ConfigHub, and they prove config-plane mechanics only: import, render, digest pinning, variant, promotion, delivery wiring. No GPU workload ran to produce or verify any receipt in this catalog. Workload-plane claims wait until a real GPU target exists, and they stay absent rather than implied.</p>
+<p>Status: closing record, written 2026-08-09. The track ran from the first retained entry through to a catalog that holds five AI-platform shapes, each pinned by a digest and guarded by lanes that fail when a claim stops being true. This says what exists, what it proves, what it refuses to claim, and what is deliberately left undone.</p>
+<p>The reader-facing entrance is <a href="../demo/aicr/index.html">the AICR catalog overview</a>. This page is for whoever picks the work up next.</p>
+<h2 id="what-exists">What exists</h2>
+<p>Five entries, each with a digest-bound index compiled from committed bytes.</p>
+<table><thead><tr><th>Entry</th><th>Provenance</th><th>Ladder rungs with receipts</th></tr></thead><tbody><tr><td><code>eks-h100-training-kubeflow</code></td><td>AICR v0.14.0, retained</td><td>2</td></tr>
+<tr><td><code>eks-h100-training-kubeflow-v0-18-0</code></td><td>AICR v0.18.0, retained</td><td>0</td></tr>
+<tr><td><code>eks-h100-inference-nim</code></td><td>AICR v0.14.0 with <code>platform: nim</code>, retained</td><td>1</td></tr>
+<tr><td><code>kserve-nim-inference</code></td><td>nim-deploy KServe subtree at commit <code>3ef33472</code></td><td>2</td></tr>
+<tr><td><code>cpu-starter</code></td><td>derived from the v0.14.0 training entry by recorded rules</td><td>3</td></tr></tbody></table>
+<p>Behind them: eleven committed receipts, nineteen generated data surfaces, eight hand-authored registers, eight demo pages, three reference documents, and forty-one steps in the verify chain. Every one of those steps runs in CI now, which was not true when the track started.</p>
+<h2 id="what-it-proves">What it proves</h2>
+<p><b>A platform shape can be pinned.</b> One digest covers the upstream source, the recipe criteria, and every rendered Application. Change a byte anywhere and the digest moves.</p>
+<p><b>Provenance can run from an upstream signer to bytes on disk.</b> The v0.18.0 release signature verifies offline against a committed sigstore trust root, its attested subject is recomputed from the two files the catalog retains, and the binary that generated the entry reports the same build commit the signature names. The trust root itself is reviewed against the one sigstore publishes, and it cannot change without that review.</p>
+<p><b>Governed change works on platform configuration.</b> Entries import into ConfigHub, carry reviewed overrides, promote through environments, and deliver to a cluster at the config plane. The blast-radius checker holds each declared control point to the documents it actually reaches, in both directions.</p>
+<p><b>Refusals are evidence.</b> Nine candidate changes run through the shipped commands in a throwaway worktree, and the verdicts are published. Two of them must be accepted, because lanes that refused everything would look identical to lanes that refused the right things.</p>
+<p><b>Counted claims fail when they stop being true.</b> Every number on an AICR page is bound to a quantity computed from committed bytes, and a counted claim nobody declared fails the lane by name.</p>
+<h2 id="what-it-refuses-to-claim">What it refuses to claim</h2>
+<p>No GPU workload ran, anywhere, for any receipt in this track. Every proof is config-plane: import, render, digest pinning, variant, promotion, delivery wiring, acceptance by an API server. The boundary is stated in each receipt rather than left to a reader to infer.</p>
+<p>No gated artifact was mirrored. Ten gated references are enumerated, one has its terms read and recorded, and the other nine say plainly that their catalog pages sit behind bot detection and were not read. The gap is published rather than filled with a guess.</p>
+<p>The v0.18.0 entry has climbed no rung beyond retention, and the evidence record lists it with an empty ladder for exactly that reason.</p>
+<h2 id="what-the-track-taught-beyond-aicr">What the track taught, beyond AICR</h2>
+<p>Four lessons outlived the entries that produced them, and all four are doctrine or shared machinery now.</p>
+<p><b>A parity check should verify the property, not the shape it took in the version you wrote it against.</b> Upstream moved to parallel deployment, and two of our checks refused an entry for doing what upstream now intends. Both compared against a total order that had never been the claim. Ordering is now checked against the dependency edges the recipe carries.</p>
+<p><b>A rule discovered in one place usually belongs everywhere.</b> The credential guard the inference compiler carried since the NGC license read now applies to every producer in the repository. The gated-artifact rules moved from a planning note into doctrine.</p>
+<p><b>A cadence keyed to a date goes stale quietly; key it to the thing that changes.</b> Gated references are keyed to their exact tag, so a version bump produces a reference nobody enumerated and the lane refuses it. Nothing fails when a date passes.</p>
+<p><b>An unanswered question is not a negative answer.</b> Provenance that could not be asked about is recorded as unknown, never as unsigned. Receipts that carry no date are counted, not assumed fresh.</p>
+<h2 id="what-is-deliberately-left">What is deliberately left</h2>
+<p>The remaining backlog is real work rather than tidying, and it splits three ways.</p>
+<p><b>Surfacing.</b> Theme 6 is untouched: the Platforms section on the site, the buyer-facing page, an AICR route on the Examples page, and the CPU starter as a runnable first exercise. The evidence exists and is published in <code>site/catalog.json</code> under <code>platformEvidence</code>; what is missing is the reading experience on top of it.</p>
+<p><b>Deeper parity and generation.</b> Field-level parity against platform shapes and the first Pilot generation gated by it are the largest remaining pieces. The refusal corpus and the blast-radius locators are the groundwork; neither finishes the job.</p>
+<p><b>The AICR CLI comparisons.</b> <code>aicr trust</code>, <code>aicr mirror</code> and <code>aicr skill</code> each have a counterpart in this repository, and comparing them would sharpen what the catalog contributes over what upstream already does. The evidence comparison was done; these three were not.</p>
+<p>Two smaller items stay open with reasons rather than dates. The per-artifact terms for nine gated references need a person to read nine catalog pages. <code>NIM_TELEMETRY_MODE</code> needs a structural editing path that ConfigHub's single-token substitution does not offer today, which is a product gap rather than an entry gap.</p>
+<h2 id="one-thing-worth-fixing-early">One thing worth fixing early</h2>
+<p>The credential-boundary lane hashes every document in its scope, so any concurrent merge that adds one makes it stale. It tripped three times in a single afternoon for that reason alone. Scoping it to a manifest would keep the guarantee and drop the fragility, and whoever touches it next should do that rather than rebase around it.</p>
+<h2 id="where-the-record-lives">Where the record lives</h2>
+<ul><li><a href="../demo/aicr/index.html">The catalog overview</a>, for a reader.</li><li><a href="aicr-nim-track-backlog.html">The task backlog</a>, with the progress log of what each increment found.</li><li><a href="../../data/aicr-platform-evidence/summary.html">The platform evidence record</a>, which names every rung climbed and every rung not.</li><li><a href="../demo/aicr/refusal-corpus.html">The refusal corpus</a> and <a href="../demo/aicr/claim-integrity.html">the claim-integrity lane</a>, which are how the pages stay honest as they age.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/index.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/aicr-track-conclusion.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
