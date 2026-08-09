@@ -310,8 +310,17 @@ function buildReport(generatedAt) {
       const activeLive = activeRows.find((row) => row.lane === "configHub-oci-live-comparison");
       const active = chooseActiveProofRow(activeRows);
       const completion = completionActions.get(`${chartName}|${version}|${variant}`) ?? [];
-      const renderIntent = renderIntents.get(`${chartName}|${version}|${variant}`);
-      check(renderIntent, `missing Helm render-intent coverage for ${chartName}@${version}/${variant}`);
+      // A base with no render intent used to abort this whole view. That looks
+      // like strictness and works as a deadlock: the intents are generated from
+      // this matrix, so an entry added to the catalog later can enter neither.
+      // It is why twelve chart identities sat outside the proof pipeline with
+      // nothing recording that they were missing.
+      //
+      // Absence is an actionable gap, which is the state the doctrine already
+      // names, so the row is emitted and says so. The contract lane still holds
+      // the line: it counts intents against the matrix's own base rows and fails
+      // when one is uncovered, so this cannot become a quiet hole.
+      const renderIntent = renderIntents.get(`${chartName}|${version}|${variant}`) ?? null;
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       const nextAction = normalizeTargetRunText(ready?.next_action ?? "");
       // A chart whose source scan flags hooks but that has no disposition row
@@ -355,13 +364,15 @@ function buildReport(generatedAt) {
         lifecycle_route_evidence_version: lifecycleRouteEvidenceVersion,
         lifecycle_route_contract_path: lifecycleRoute ? "data/lifecycle-routes/summary.md" : "",
         lifecycle_route_json_path: lifecycleRoute ? "data/lifecycle-routes/routes.json" : "",
-        render_intent_path: renderIntent.intent_path,
-        render_intent_lifecycle_state: renderIntent.lifecycle_contract_state,
-        render_intent_lifecycle_reason: renderIntent.lifecycle_contract_reason,
-        render_intent_lifecycle_next_action: renderIntent.lifecycle_contract_next_action,
-        render_intent_target_state: renderIntent.target_fact_contract_state,
-        render_intent_target_reason: renderIntent.target_fact_contract_reason,
-        render_intent_target_next_action: renderIntent.target_fact_contract_next_action,
+        render_intent_state: renderIntent ? "attached" : "actionable-gap",
+        render_intent_next_action: renderIntent ? "" : "generate a Helm render intent for this base, then re-run the matrix",
+        render_intent_path: renderIntent?.intent_path ?? "",
+        render_intent_lifecycle_state: renderIntent?.lifecycle_contract_state ?? "",
+        render_intent_lifecycle_reason: renderIntent?.lifecycle_contract_reason ?? "",
+        render_intent_lifecycle_next_action: renderIntent?.lifecycle_contract_next_action ?? "",
+        render_intent_target_state: renderIntent?.target_fact_contract_state ?? "",
+        render_intent_target_reason: renderIntent?.target_fact_contract_reason ?? "",
+        render_intent_target_next_action: renderIntent?.target_fact_contract_next_action ?? "",
         render_intent_target_requirement_count: renderIntent.target_requirement_count,
         render_intent_target_action_count: renderIntent.target_fact_action_count,
         ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(outcome[source])])),
@@ -615,6 +626,8 @@ function sourceMatrixRow(base) {
     lifecycle_route_evidence_version: "",
     lifecycle_route_contract_path: "",
     lifecycle_route_json_path: "",
+    render_intent_state: "n/a",
+    render_intent_next_action: "",
     render_intent_path: "",
     render_intent_lifecycle_state: "n/a",
     render_intent_lifecycle_reason: "",
@@ -799,6 +812,8 @@ function candidateMatrixRow(base, options) {
     lifecycle_route_evidence_version: "",
     lifecycle_route_contract_path: "",
     lifecycle_route_json_path: "",
+    render_intent_state: "n/a",
+    render_intent_next_action: "",
     render_intent_path: "",
     render_intent_lifecycle_state: "n/a",
     render_intent_lifecycle_reason: "",
@@ -954,6 +969,8 @@ function derivedMatrixRow(receiptRow, baseIndex, targetBoundIndex) {
     lifecycle_route_evidence_version: "",
     lifecycle_route_contract_path: "",
     lifecycle_route_json_path: "",
+    render_intent_state: "n/a",
+    render_intent_next_action: "",
     render_intent_path: "",
     render_intent_lifecycle_state: "n/a",
     render_intent_lifecycle_reason: "",
