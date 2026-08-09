@@ -1,0 +1,1460 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: traefik-traefik-41.0.2-default-live-parity-20260605
+spec:
+  chart: traefik/traefik
+  version: 41.0.2
+  base: default
+  result: pass
+  observedAt: '2026-08-04T13:34:39Z'
+  package:
+    path: data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+  recipe:
+    path: data/kubara-catalog-refresh/candidates/recipes/traefik/traefik/41.0.2
+  variantRevision: data/kubara-catalog-refresh/candidates/recipes/traefik/traefik/41.0.2/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: kind-loadbalancer
+    result: pass
+    provider: metallb-l2
+    fallbackReason: 'cloud-provider-kind requires host privileges on this machine:
+      cloud-provider-kind would observe other kind clusters: hx-app-dev, hx-app-prod-a,
+      hx-app-prod-b, hx-app-staging'
+    addressPool: 192.168.97.225-192.168.97.254
+    resources:
+    - namespace/metallb-system
+    - ipaddresspool/kind-pool
+    - l2advertisement/kind-l2
+    observedBehavior: Service.type=LoadBalancer objects receive an in-Docker-network
+      address via MetalLB L2. Addresses populate status.loadBalancer.ingress (sufficient
+      for parity and controller health); they are NOT reachable from the macOS host.
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kub-tra-41-0-2-d
+    kubeContext: kind-helm-expt-parity-kub-tra-41-0-2-d
+    namespace: traefik
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: traefik-helm
+      configHubKubectlApply: traefik-apply
+      configHubOciArgo: traefik-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-kub-tra-41-0-2-d --delete-config
+        --force
+      result: pass
+      detail: "Deleting kind cluster \"helm-expt-parity-kub-tra-41-0-2-d\"...\nDeleting\
+        \ cluster \"helm-expt-parity-kub-tra-41-0-2-d\" ...\nDeleted nodes: [\"helm-expt-parity-kub-tra-41-0-2-d-control-plane\"\
+        ]\n\nDeleting the ConfigHub config for \"helm-expt-parity-kub-tra-41-0-2-d\"\
+        ...\n  deleting space \"argobot-helm-expt-parity-kub-tra-41-0-2-d\"...\n \
+        \ deleting space \"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"...\n  deleting\
+        \ cluster space \"helm-expt-parity-kub-tra-41-0-2-d\" (worker + target)...\n\
+        \nDone."
+    clusterSpace: helm-expt-parity-kub-tra-41-0-2-d
+    argoAppsSpace: helm-expt-parity-kub-tra-41-0-2-d-argo-apps
+    releaseTarget: helm-expt-parity-kub-tra-41-0-2-d/target
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install traefik /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/exact-chart-artifact/traefik-41.0.2.tgz
+        --namespace traefik-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac
+      objectCount: 31
+      liveHelmManifestSHA256: 1582640f4a66e7f33ce8fb34229c716225f64718ec81ff6e1917c7b6eb74478b
+      liveHelmManifestObjectCount: 6
+      namespace: traefik-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/traefik   1/1   1     1     10s
+        pods: traefik-7784c68545-jqzt9   1/1   Running   0     10s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+        --non-interactive --namespace traefik-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 03fbc6ad5d4b93272715485b12858d3382cad745f7e4b7874da941f744319529
+      objectCount: 32
+      namespace: traefik-apply
+      manifestNamespaces:
+      - traefik
+      - traefik-apply
+      runtimeNamespaces: &id001
+      - traefik
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# traefik
+
+          deployment.apps/traefik   1/1   1     1     10s'
+        pods: '# traefik
+
+          traefik-69fb68b6c7-wb6c6   1/1   Running   0     10s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - traefik
+        - traefik-apply
+        retainedNamespaces: &id002 []
+        clusterScopedResources:
+          result: pass
+          objectCount: 3
+          preservedPreExistingObjects:
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||accesscontrolpolicies.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||aiservices.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apiauths.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apibundles.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apicatalogitems.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apiplans.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apiportalauths.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apiportals.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apiratelimits.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apis.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||apiversions.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||contentitems.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||ingressroutes.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||ingressroutetcps.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||ingressrouteudps.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||managedapplications.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||managedsubscriptions.hub.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||middlewares.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||middlewaretcps.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||serverstransports.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||serverstransporttcps.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||tlsoptions.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||tlsstores.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||traefikservices.traefik.io
+          - apiextensions.k8s.io/v1|CustomResourceDefinition||uplinks.hub.traefik.io
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "traefik-traefik" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "traefik-traefik" deleted
+
+            ingressclass.networking.k8s.io "traefik" deleted'
+        retainedNamespaceResources:
+          result: not-needed
+          namespaces: *id002
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+      controller: Argo CD OCI
+      app: kub-tra-41-0-2-d-parity
+      manifestSHA256: 9f55d6bb75b0c795d678f8c479a40847629ba9b3e3fe0955c87aebe2c06ad4da
+      objectCount: 32
+      namespace: traefik-oci
+      manifestNamespaces:
+      - traefik
+      - traefik-oci
+      runtimeNamespaces: &id003
+      - traefik
+      ociRevision: sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: traefik-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+              targetRevision: latest
+          revision: sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T13:39:22Z'
+          status: Healthy
+        summary:
+          images:
+          - docker.io/traefik:v3.7.6
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T13:39:06Z'
+          finishedAt: '2026-08-04T13:39:08Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 32
+          syncResultStatusCounts:
+            Synced: 32
+        history:
+        - id: 0
+          revision: sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481
+          deployedAt: '2026-08-04T13:39:08Z'
+          deployStartedAt: '2026-08-04T13:39:06Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: traefik-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: traefik
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: traefik
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: accesscontrolpolicies.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: aiservices.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiauths.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apibundles.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apicatalogitems.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiplans.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiportalauths.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiportals.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiratelimits.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apis.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: apiversions.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: contentitems.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressroutes.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressroutetcps.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ingressrouteudps.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: managedapplications.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: managedsubscriptions.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: middlewares.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: middlewaretcps.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serverstransports.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: serverstransporttcps.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: tlsoptions.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: tlsstores.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: traefikservices.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: uplinks.hub.traefik.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: traefik
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: IngressClass
+          namespace: ''
+          name: traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: traefik-traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: traefik-traefik
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kub-tra-41-0-2-d-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-kub-tra-41-0-2-d-argo-apps:argoproj.io/Application:argocd/kub-tra-41-0-2-d-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              c122503e-881d-4fea-85e0-bacb5d8fcad6\",\"spaceSlug\":\"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+              ,\"unitId\":\"99b498d5-a5d8-4b57-b...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-08-04T13:38:59Z\n\
+              \  Generation:          9\n  Resource Version:    1617\n  UID:     \
+              \            053216e7-20d0-41d4-9d0d-270d61f4137f\nSpec:\n  Destination:\n\
+              \    Namespace:  traefik-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-08-04T13:39:22Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-08-04T13:39:06Z\n    Deployed At:        2026-08-04T13:39:08Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T13:39:08Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-08-04T13:39:06Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/traefik-oci\
+              \ serverside-applied\n        Name:        traefik-oci\n        Namespace:\
+              \   traefik-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/traefik serverside-applied\n        Name:       \
+              \ traefik\n        Namespace:   traefik\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/tlsoptions.traefik.io\
+              \ serverside-applied\n        Name:        tlsoptions.traefik.io\n \
+              \       Namespace:   traefik-oci\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/apiratelimits.hub.traefik.io\
+              \ serverside-applied\n        Name:        apiratelimits.hub.traefik.io\n\
+              \        Namespace:   traefik-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/middlewaretcps.traefik.io\
+              \ serverside-applied\n        Name:        middlewaretcps.traefik.io\n\
+              \        Namespace:   traefik-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/ingressrouteudps.traefik.io\
+              \ serverside-applied\n        Name:        ingressrouteudps.traefik.io\n\
+              \        Namespace:   traefik-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/managedapplications.hub.traefik.io\
+              \ serverside-applied\n        Name:        managedapplications.hub.traefik.io\n\
+              \        Namespace:   traefik-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/serverstransports.traefik.io\
+              \ serverside-applied\n        Name:        serverstransports.traefik.io\n\
+              \        Namespace:   traefik-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/accesscontrolpolicies.hub.traefik.io\
+              \ serverside-applied\n        Name:        accesscontrolpolicies.hub.traefik.io\n\
+              \        Namespace:   traefik-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/uplinks.hub.traefik.io\
+              \ serverside-applied\n        Name:        uplinks.hub.traefik.io\n\
+              \        Namespace:   traef"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                MESSAGE
+
+              25s         Normal   OperationStarted     application/kub-tra-41-0-2-d-parity   Initiated
+              automated sync to ''sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481''
+
+              25s         Normal   ResourceUpdated      application/kub-tra-41-0-2-d-parity   Updated
+              sync status:  -> OutOfSync
+
+              25s         Normal   ResourceUpdated      application/kub-tra-41-0-2-d-parity   Updated
+              health status:  -> Healthy
+
+              23s         Normal   OperationCompleted   application/kub-tra-41-0-2-d-parity   Sync
+              operation to sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481
+              succeeded
+
+              22s         Normal   ResourceUpdated      application/kub-tra-41-0-2-d-parity   Updated
+              health status: Healthy -> Progressing
+
+              20s         Normal   ResourceUpdated      application/kub-tra-41-0-2-d-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              9s          Normal   ResourceUpdated      application/kub-tra-41-0-2-d-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 32
+              artifact:
+                path: argocd-core-child.json
+                sha256: 7486d316523d36da37a469753ae3687812c9002657a320927c3e2ca81ff5c20b
+                bytes: 30576
+              output: "{\n  \"metadata\": {\n    \"name\": \"kub-tra-41-0-2-d-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"053216e7-20d0-41d4-9d0d-270d61f4137f\"\
+                ,\n    \"resourceVersion\": \"1641\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-08-04T13:38:59Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"argocd.argoproj.io/tracking-id\"\
+                : \"helm-expt-parity-kub-tra-41-0-2-d-argo-apps:argoproj.io/Application:argocd/kub-tra-41-0-2-d-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"c122503e-881d-4fea-85e0-bacb5d8fcad6\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\\\
+                \",\\\"unitId\\\":\\\"99b498d5-a5d8-4b57-b1d3-be42e282c1ab\\\",\\\"\
+                unitSlug\\\":\\\"kub-tra-41-0-2-d-parity-app\\\",\\\"revisionNum\\\
+                \":2}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-08-04T13:38:59Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd\",\n        \"operation\": \"Update\",\n     \
+                \   \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"\
+                2026-08-04T13:39:32Z\",\n        \"fieldsType\": \"FieldsV1\",\n \
+                \       \"fieldsV1\": {\n          \"f:metadata\": {\n           \
+                \ \"f:annotations\": {\n              \"f:argocd.argoproj.io/hydrate\"\
+                : {}\n            }\n          }\n        }\n      },\n      {\n \
+                \       \"manager\": \"argocd-application-controller\",\n        \"\
+                operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T13:39:38Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"traefik-oci\"\n    },\n    \"project\":\
+                \ \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"traefik-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"traefik\",\n        \"name\": \"traefik\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"version\": \"v1\",\n   \
+                \     \"kind\": \"ServiceAccount\",\n        \"namespace\": \"traefik\"\
+                ,\n        \"name\": \"traefik\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"group\": \"apiextensions.k8s.io\",\n\
+                \        \"version\": \"v1\",\n        \"kind\": \"CustomResourceDefinition\"\
+                ,\n        \"name\": \"accesscontrolpolicies.hub.traefik.io\",\n \
+                \       \"status\": \"Synced\",\n        \"health\": {\n         \
+                \ \"status\": \"Healthy\",\n          \"message\": \"CRD is healthy\"\
+                \n        }\n      },\n      {\n        \"group\": \"apiextensions.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 51754d9ef0776a8c9cf00624329afb20f64bb6227ccfd2bbfb86274922d11d28
+                bytes: 5236
+              output: "Name:               argocd/kub-tra-41-0-2-d-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          traefik-oci\nURL:                http://localhost:49697/applications/kub-tra-41-0-2-d-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      STATUS\
+                \  HEALTH   AGE    MESSAGE                                     REASON\n\
+                CustomResourceDefinition/middlewares.traefik.io                Synced\
+                \  Healthy  2m56s                                              CRD\
+                \ is healthy\nNamespace/traefik-oci                              \
+                \            Synced           2m6s                               \
+                \                \nCustomResourceDefinition/accesscontrolpolicies.hub.traefik.io\
+                \  Synced  Healthy  2m56s                                        \
+                \      CRD is healthy\nCustomResourceDefinition/serverstransports.traefik.io\
+                \          Synced  Healthy  2m56s                                \
+                \              CRD is healthy\nClusterRoleBinding/traefik-traefik\
+                \                             Synced           38s               \
+                \                                 \nService/traefik              \
+                \                                  Synced  Healthy  38s    service/traefik\
+                \ serverside-applied          \nCustomResourceDefinition/apicatalogitems.hub.traefik.io\
+                \        Synced  Healthy  2m56s                                  \
+                \            CRD is healthy\nCustomResourceDefinition/middlewaretcps.traefik.io\
+                \             Synced  Healthy  2m56s                             \
+                \                 CRD is healthy\nCustomResourceDefinition/uplinks.hub.traefik.io\
+                \                Synced  Healthy  2m56s                          \
+                \                    CRD is healthy\nServiceAccount/traefik      \
+                \                                   Synced           38s    serviceaccount/traefik\
+                \ serverside-applied   \nIngressClass/traefik                    \
+                \                       Synced           38s                     \
+                \                           \nCustomResourceDefinition/apiratelimits.hub.traefik.io\
+                \          Synced  Healthy  2m56s                                \
+                \              CRD is healthy\nCustomResourceDefinition/apiversions.hub.traefik.io\
+                \            Synced  Healthy  2m56s                              \
+                \                CRD is healthy\nCustomResourceDefinition/tlsstores.traefik.io\
+                \                  Synced  Healthy  2m55s                        \
+                \                      CRD is healthy\nCustomResourceDefinition/apis.hub.traefik.io\
+                \                   Synced  Healthy  2m56s                       \
+                \                       CRD is healthy\nCustomResourceDefinition/contentitems.hub.traefik.io\
+                \           Synced  Healthy  2m56s                               \
+                \               CRD is healthy\nCustomResourceDefinition/traefikservices.traefik.io\
+                \            Synced  Healthy  2m55s                              \
+                \                CRD is healthy\nCustomResourceDefinition/apiplans.hub.traefik.io\
+                \               Synced  Healthy  2m56s                           \
+                \                   CRD is healthy\nCustomResourceDefinition/apiportalauths.hub.traefik.io\
+                \         Synced  Healthy  2m56s                                 \
+                \             CRD is healthy\nCustomResourceDefinition/ingressroutetcps.traefik.io\
+                \           Synced  Healthy  2m56s                               \
+                \               CRD is healthy\nCustomResourceDefinition/managedapplications.hub.traefik.io\
+                \    Synced  Healthy  2m56s                                      \
+                \        CRD is healthy\nCustomResourceDefinition/aiservices.hub.traefik.io\
+                \             Synced  Healthy  2m56s                             \
+                \                 CRD is healthy\nCustomResourceDefinition/apibundles.hub.traefik.io\
+                \             Synced  Healthy  2m56s                             \
+                \                 CRD is healthy\nCustomResourceDefinition/apiportals.hub.traefik.io\
+                \             Synced  Healthy  2m56s                             \
+                \                 CRD is healthy\nCustomResourceDefinition/managedsubscriptions.hub.traefik.io\
+                \   Synced  Healthy  2m56s                                       \
+                \       CRD is healthy\nCustomResourceDefinition/serverstransporttcps.traefik.io\
+                \       Synced  Healthy  2m56s                                   \
+                \           CRD is healthy\nCustomResourceDefinition/tlsoptions.traefik.io\
+                \                 Synced  Healthy  2m55s                         \
+                \                     CRD is healthy\nDeployment/traefik         \
+                \                                    Synced  Healthy  38s    deployment.apps/traefik\
+                \ serverside-applied  \n\u2514\u2500ReplicaSet/traefik-69fb68b6c7\
+                \                                        Healthy  38s            \
+                \                                    \n  \u2514\u2500Pod/traefik-69fb68b6c7-g9vvb\
+                \                                       Healthy  38s             \
+                \                                   \nClusterRole/traefik-traefik\
+                \                                    Synced           38s        \
+                \                                        \nCustomResourceDefinition/apiauths.hub.traefik.io\
+                \               Synced  Healthy  2m56s                           \
+                \                   CRD is healthy\nCustomResourceDefinition/ingressroutes.traefik.io\
+                \              Synced  Healthy  2m56s                            \
+                \                  CRD is healthy\nCustomResourceDefinition/ingressrouteudps.traefik.io\
+                \           Synced  Healthy  2m56s                               \
+                \               CRD is healthy"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-tra-41-0-2-d\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-tra-41-0-2-d\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:09e487557b12633e54e382ba2c0f87803ed0c61cb7a880879899e7923f1f1c93\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-tra-41-0-2-d-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-tra-41-0-2-d-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-tra-41-0-2-d-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-tra-41-0-2-d\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-tra-41-0-2-d-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps
+              targetRevision: latest
+          revision: sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T13:36:25Z'
+          status: Healthy
+        summary:
+          isAppOfApps: true
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T13:38:57Z'
+          finishedAt: '2026-08-04T13:38:59Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382
+          deployedAt: '2026-08-04T13:36:27Z'
+          deployStartedAt: '2026-08-04T13:36:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69
+          deployedAt: '2026-08-04T13:38:59Z'
+          deployStartedAt: '2026-08-04T13:38:57Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argobot-helm-expt-parity-kub-tra-41-0-2-d
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kub-tra-41-0-2-d-argo-apps
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kub-tra-41-0-2-d-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kub-tra-41-0-2-d-argo-apps\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-08-04T13:36:18Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  1508\n  UID:        \
+              \       34e97cbd-7787-4ba6-a805-95af7a34607b\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-08-04T13:36:25Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-08-04T13:36:25Z\n\
+              \    Deployed At:        2026-08-04T13:36:27Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-08-04T13:38:57Z\n\
+              \    Deployed At:        2026-08-04T13:38:59Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T13:38:59Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-08-04T13:38:57Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\
+              \ serverside-applied\n        Name:        helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/kub-tra-41-0-2-d-parity\
+              \ serverside-applied\n        Name:        kub-tra-41-0-2-d-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/argobot-helm-expt-parity-kub-tra-41-0-2-d\
+              \ serverside-applied\n        Name:        argobot-helm-expt-parity-kub-tra-41-0-2-d\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-08-04T13:38:59Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       argobot-helm-expt-parity-kub-tra-41-0-2-d\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       kub-tra-41-0-2-d-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Is App\
+              \ Of Apps:  true\n  Sync:\n    Compared To:\n      Destination:\n  \
+              \      Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+              \        Target Revision:  latest\n    Revision:             sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    3m22s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382'\n\
+              \  Normal  ResourceUpdated     3m22s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  3m22s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  3m20s  argocd-application-controller\
+              \  Sync operation to sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382\
+              \ succeeded\n  Normal  ResourceUpdated     3m19s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  Operati"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                    MESSAGE
+
+              3m22s       Normal   OperationStarted     application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Initiated
+              automated sync to ''sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382''
+
+              3m22s       Normal   ResourceUpdated      application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Updated
+              sync status:  -> OutOfSync
+
+              3m22s       Normal   ResourceUpdated      application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Updated
+              health status:  -> Healthy
+
+              3m20s       Normal   OperationCompleted   application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Sync
+              operation to sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382
+              succeeded
+
+              3m19s       Normal   ResourceUpdated      application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Updated
+              sync status: OutOfSync -> Synced
+
+              50s         Normal   OperationStarted     application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Initiated
+              automated sync to ''sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69''
+
+              50s         Normal   ResourceUpdated      application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Updated
+              sync status: Synced -> OutOfSync
+
+              48s         Normal   OperationCompleted   application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Sync
+              operation to sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69
+              succeeded
+
+              47s         Normal   ResourceUpdated      application/helm-expt-parity-kub-tra-41-0-2-d-argo-apps   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-root.json
+                sha256: 03583485e7c55252bdeeb88f31d3dd4e41f18e2611f32b3bb39953b6b3468e70
+                bytes: 10652
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"34e97cbd-7787-4ba6-a805-95af7a34607b\"\
+                ,\n    \"resourceVersion\": \"1665\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-08-04T13:36:18Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T13:36:18Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd\",\n        \"operation\": \"Update\",\n        \"apiVersion\"\
+                : \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-08-04T13:39:48Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:metadata\": {\n            \"f:annotations\": {\n \
+                \             \"f:argocd.argoproj.io/hydrate\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-08-04T13:39:54Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:isAppOfApps\": {}\n      \
+                \      },\n            \"f:sync\": {\n              \".\": {},\n \
+                \             \"f:comparedTo\": {\n                \".\": {},\n  \
+                \              \"f:destination\": {\n                  \".\": {},\n\
+                \                  \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argobot-helm-expt-parity-kub-tra-41-0-2-d\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"names"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 744d1182d8ecef704e32ddd6fa837c15a2f184bc79b6ab990ac68bc424c859c0
+                bytes: 1228
+              output: "Name:               argocd/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:49821/applications/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                STATUS\
+                \  HEALTH  AGE    MESSAGE                                        \
+                \                                         REASON\nApplication/argobot-helm-expt-parity-kub-tra-41-0-2-d\
+                \    Synced          3m35s  application.argoproj.io/argobot-helm-expt-parity-kub-tra-41-0-2-d\
+                \ serverside-applied    \nApplication/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\
+                \  Synced          3m44s  application.argoproj.io/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\
+                \ serverside-applied  \nApplication/kub-tra-41-0-2-d-parity      \
+                \                Synced          63s    application.argoproj.io/kub-tra-41-0-2-d-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-tra-41-0-2-d\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-tra-41-0-2-d\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:09e487557b12633e54e382ba2c0f87803ed0c61cb7a880879899e7923f1f1c93\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-tra-41-0-2-d-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-tra-41-0-2-d-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-tra-41-0-2-d-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:48d304db5ccc3c472c01ce4e3ac4d816f68442e4cce106fd08ae3dcef1ebf481\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-tra-41-0-2-d\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-tra-41-0-2-d-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# traefik
+
+          deployment.apps/traefik   1/1   1     1     55s'
+        pods: '# traefik
+
+          traefik-69fb68b6c7-g9vvb   1/1   Running   0     55s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||traefik
+    semanticNormalizations: &id004
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 31
+      configHubObjectCount: 32
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||traefik
+      allowedExtraInConfigHub:
+      - v1|Namespace||traefik
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations: *id004
+      comparisonSHA256: b87dc80d3bea2c91b5591c31a9c6a61e932a61fb3faad030084ea376e1626f22
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 31
+      configHubObjectCount: 32
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||traefik
+      allowedExtraInConfigHub:
+      - v1|Namespace||traefik
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: b87dc80d3bea2c91b5591c31a9c6a61e932a61fb3faad030084ea376e1626f22
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-08-04T13:36:50Z'
+    finishedAt: '2026-08-04T13:37:01Z'
+    elapsedSeconds: 10.807
+    timeoutSeconds: 900
+    command: helm upgrade --install traefik /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/exact-chart-artifact/traefik-41.0.2.tgz
+      --namespace traefik-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-08-04T13:37:06Z'
+    finishedAt: '2026-08-04T13:37:07Z'
+    elapsedSeconds: 0.439
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+      --non-interactive --namespace traefik-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-08-04T13:37:09Z'
+    finishedAt: '2026-08-04T13:37:09Z'
+    elapsedSeconds: 0.219
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig
+      --context kind-helm-expt-parity-kub-tra-41-0-2-d apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/confighub-rendered-crds.yaml
+    objectCount: 25
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-08-04T13:37:13Z'
+    finishedAt: '2026-08-04T13:37:13Z'
+    elapsedSeconds: 0.132
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig
+      --context kind-helm-expt-parity-kub-tra-41-0-2-d apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/direct-apply-manifest.yaml
+    objectCount: 6
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-08-04T13:37:13Z'
+    finishedAt: '2026-08-04T13:37:23Z'
+    elapsedSeconds: 10.352
+    timeoutSeconds: 300
+    namespaces: traefik
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-08-04T13:37:39Z'
+    finishedAt: '2026-08-04T13:37:40Z'
+    elapsedSeconds: 0.482
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+      --non-interactive --namespace traefik-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-08-04T13:37:40Z'
+    finishedAt: '2026-08-04T13:38:45Z'
+    elapsedSeconds: 64.799
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+      --space helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d --target helm-expt-parity-kub-tra-41-0-2-d/target
+    objectCount: 32
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-08-04T13:38:45Z'
+    finishedAt: '2026-08-04T13:38:46Z'
+    elapsedSeconds: 0.799
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d --release-target
+      helm-expt-parity-kub-tra-41-0-2-d/target
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-08-04T13:38:46Z'
+    finishedAt: '2026-08-04T13:38:47Z'
+    elapsedSeconds: 0.781
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-08-04T13:38:47Z'
+    finishedAt: '2026-08-04T13:38:48Z'
+    elapsedSeconds: 1.704
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+    unitCount: 32
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-08-04T13:38:48Z'
+    finishedAt: '2026-08-04T13:38:49Z'
+    elapsedSeconds: 0.976
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kub-tra-41-0-2-d-argo-apps kub-tra-41-0-2-d-parity-app
+      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-traefik-41-0-2-default/argo-application.json
+      --target helm-expt-parity-kub-tra-41-0-2-d/target --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-08-04T13:38:49Z'
+    finishedAt: '2026-08-04T13:38:50Z'
+    elapsedSeconds: 0.759
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-tra-41-0-2-d-argo-apps
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-08-04T13:38:50Z'
+    finishedAt: '2026-08-04T13:39:31Z'
+    elapsedSeconds: 40.444
+    timeoutSeconds: 420
+    waitedSeconds: 40
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-08-04T13:40:03Z'
+    finishedAt: '2026-08-04T13:40:03Z'
+    elapsedSeconds: 0.1
+    timeoutSeconds: 180
+    namespaces: traefik
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: exact-source-artifact
+    result: pass
+    detail: oci://ghcr.io/traefik/helm/traefik:41.0.2
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kub-tra-41-0-2-d\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kub-tra-41-0-2-d\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kub-tra-41-0-2-d\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-tra-41-0-2-d\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-tra-41-0-2-d.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nstatus: {"
+  - name: cluster-target-discovery
+    result: pass
+    detail: "helm-expt-parity-kub-tra-41-0-2-d: NAME      WORKER    PROVIDERTYPE \
+      \   PARAMETERS    SPACE                             \ntarget    worker    OCI\
+      \             {}            helm-expt-parity-kub-tra-41-0-2-d\ntarget helm-expt-parity-kub-tra-41-0-2-d/target:\
+      \ {\n  \"BridgeWorker\": {\n    \"BridgeWorkerID\": \"0399a984-ab2d-4574-ba08-65ffcf97c1e7\"\
+      ,\n    \"ClaimTTLSeconds\": 60,\n    \"Condition\": \"Ready\",\n    \"CreatedAt\"\
+      : \"2026-08-04T13:36:10.209762Z\",\n    \"CursorID\": 1949,\n    \"DisplayName\"\
+      : \"worker\",\n    \"EntityType\": \"BridgeWorker\",\n    \"LastMessage\": \"\
+      Server-hosted\",\n    \"LastSeenAt\": \"2026-08-04T13:36:19.203695804Z\",\n\
+      \    \"OrgRole\": \"none\",\n    \"OrganizationID\": \"12c33fa8-00b1-4011-ad3e-19d56458b29c\"\
+      ,\n    \"Permissions\": {\n      \"Manage\": {\n        \"UserIDs\":\nargo apps\
+      \ helm-expt-parity-kub-tra-41-0-2-d-argo-apps: ID                      c122503e-881d-4fea-85e0-bacb5d8fcad6\
+      \                                                                      \nName\
+      \                    helm-expt-parity-kub-tra-41-0-2-d-ar"
+  - name: target-profile
+    result: pass
+    detail: 'kind-loadbalancer: Service.type=LoadBalancer objects receive an in-Docker-network
+      address via MetalLB L2. Addresses populate status.loadBalancer.ingress (sufficient
+      for parity and controller health); they are NOT reachable from the macOS host.'
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "traefik" does not exist. Installing it now.
+
+      NAME: traefik
+
+      LAST DEPLOYED: Tue Aug  4 14:36:51 2026
+
+      NAMESPACE: traefik-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      traefik with docker.io/traefik:v3.7.6 has been deployed successfully on traefik-helm
+      namespace!'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# traefik
+
+      deployment.apps/traefik   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=3
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  sourceArtifact:
+    result: pass
+    resolution: artifact-addressed
+    url: oci://ghcr.io/traefik/helm/traefik:41.0.2
+    expectedSHA256: a84ec5eae9f5507c8f0632d58a7eb10c9b7fd2a277b77740ee7460c55ecde49a
+    observedSHA256: a84ec5eae9f5507c8f0632d58a7eb10c9b7fd2a277b77740ee7460c55ecde49a
+    bytes: 244329
+    materializedPath: exact-chart-artifact/traefik-41.0.2.tgz
+    command: helm pull oci://ghcr.io/traefik/helm/traefik --version 41.0.2 --destination
+      exact-chart-artifact
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: traefik
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: traefik

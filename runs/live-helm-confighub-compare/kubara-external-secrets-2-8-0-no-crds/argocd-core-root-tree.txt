@@ -1,0 +1,18 @@
+Name:               argocd/helm-expt-parity-kub-eso-2-8-0-nc-argo-apps
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd
+URL:                http://localhost:53272/applications/helm-expt-parity-kub-eso-2-8-0-nc-argo-apps
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-nc-argo-apps
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                STATUS  HEALTH  AGE    MESSAGE                                                                                 REASON
+Application/argobot-helm-expt-parity-kub-eso-2-8-0-nc    Synced          4m59s  application.argoproj.io/argobot-helm-expt-parity-kub-eso-2-8-0-nc serverside-applied
+Application/helm-expt-parity-kub-eso-2-8-0-nc-argo-apps  Synced          5m11s  application.argoproj.io/helm-expt-parity-kub-eso-2-8-0-nc-argo-apps serverside-applied
+Application/kub-eso-2-8-0-nc-parity                      Synced          75s    application.argoproj.io/kub-eso-2-8-0-nc-parity serverside-applied

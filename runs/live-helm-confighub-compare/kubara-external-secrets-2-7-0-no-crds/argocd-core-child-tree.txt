@@ -1,0 +1,40 @@
+Name:               argocd/kub-eso-2-7-0-nc-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          external-secrets-oci
+URL:                http://localhost:52889/applications/kub-eso-2-7-0-nc-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-7-0-nc-kub-eso-2-7-0-nc
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                  STATUS  HEALTH   AGE    MESSAGE                                                                                   REASON
+ServiceAccount/external-secrets-cert-controller            Synced           39s    serviceaccount/external-secrets-cert-controller serverside-applied
+ServiceAccount/external-secrets-webhook                    Synced           39s    serviceaccount/external-secrets-webhook serverside-applied
+ValidatingWebhookConfiguration/secretstore-validate        Synced           39s
+ClusterRole/external-secrets-controller                    Synced           39s
+ClusterRole/external-secrets-servicebindings               Synced           39s
+Service/external-secrets-webhook                           Synced  Healthy  39s    service/external-secrets-webhook serverside-applied
+ServiceAccount/external-secrets                            Synced           39s    serviceaccount/external-secrets serverside-applied
+ClusterRole/external-secrets-cert-controller               Synced           39s
+ClusterRole/external-secrets-view                          Synced           39s
+ClusterRoleBinding/external-secrets-cert-controller        Synced           39s
+ClusterRoleBinding/external-secrets-controller             Synced           39s
+Namespace/external-secrets-oci                             Synced           2m17s
+ValidatingWebhookConfiguration/externalsecret-validate     Synced           39s
+Deployment/external-secrets                                Synced  Healthy  39s    deployment.apps/external-secrets serverside-applied
+└─ReplicaSet/external-secrets-75d658468b                           Healthy  39s
+  └─Pod/external-secrets-75d658468b-89kj2                          Healthy  39s
+Deployment/external-secrets-cert-controller                Synced  Healthy  39s    deployment.apps/external-secrets-cert-controller serverside-applied
+└─ReplicaSet/external-secrets-cert-controller-67ffcf8d7f           Healthy  39s
+  └─Pod/external-secrets-cert-controller-67ffcf8d7f-wqz6h          Healthy  39s
+Role/external-secrets-leaderelection                       Synced           39s    role.rbac.authorization.k8s.io/external-secrets-leaderelection serverside-applied
+Deployment/external-secrets-webhook                        Synced  Healthy  39s    deployment.apps/external-secrets-webhook serverside-applied
+└─ReplicaSet/external-secrets-webhook-5c5db8c74b                   Healthy  39s
+  └─Pod/external-secrets-webhook-5c5db8c74b-mjd8q                  Healthy  39s
+ClusterRole/external-secrets-edit                          Synced           39s
+RoleBinding/external-secrets-leaderelection                Synced           39s    rolebinding.rbac.authorization.k8s.io/external-secrets-leaderelection serverside-applied

@@ -1,0 +1,1210 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: metrics-server-metrics-server-3.13.1-external-tls-ca-live-parity-20260605
+spec:
+  chart: metrics-server/metrics-server
+  version: 3.13.1
+  base: external-tls-ca
+  result: pass
+  observedAt: '2026-08-04T11:41:03Z'
+  package:
+    path: data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+  recipe:
+    path: data/kubara-catalog-refresh/candidates/recipes/metrics-server/metrics-server/3.13.1
+  variantRevision: data/kubara-catalog-refresh/candidates/recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kub-met-3131-tls
+    kubeContext: kind-helm-expt-parity-kub-met-3131-tls
+    namespace: kube-system
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: kube-system-helm
+      configHubKubectlApply: kube-system-apply
+      configHubOciArgo: kube-system-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-kub-met-3131-tls --delete-config
+        --force
+      result: pass
+      detail: "Deleting kind cluster \"helm-expt-parity-kub-met-3131-tls\"...\nDeleting\
+        \ cluster \"helm-expt-parity-kub-met-3131-tls\" ...\nDeleted nodes: [\"helm-expt-parity-kub-met-3131-tls-control-plane\"\
+        ]\n\nDeleting the ConfigHub config for \"helm-expt-parity-kub-met-3131-tls\"\
+        ...\n  deleting space \"helm-expt-parity-kub-met-3131-tls-argo-apps\"...\n\
+        \  deleting space \"argobot-helm-expt-parity-kub-met-3131-tls\"...\n  deleting\
+        \ cluster space \"helm-expt-parity-kub-met-3131-tls\" (worker + target)...\n\
+        \nDone."
+    clusterSpace: helm-expt-parity-kub-met-3131-tls
+    argoAppsSpace: helm-expt-parity-kub-met-3131-tls-argo-apps
+    releaseTarget: helm-expt-parity-kub-met-3131-tls/target
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install metrics-server /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/exact-chart-artifact/chart.tgz
+        --namespace kube-system-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 212865947af7715d777769dc65712ce8713c725c8ab9e805f8db55d2e345f537
+      objectCount: 9
+      liveHelmManifestSHA256: 85009ec5a4ade35f480b000aebb5a60f9dc490713bd3d58fedb0d132af551cf4
+      liveHelmManifestObjectCount: 9
+      namespace: kube-system-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/metrics-server   1/1   1     1     25s
+        pods: metrics-server-66d79df7c5-7vvq8   1/1   Running   0     25s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+        --base external-tls-ca --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+        --non-interactive --namespace kube-system-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 00342e7a9b35ae23eecc2c060e52bf2af9a6950ed8ce78ef64b5a5b4b98b3f03
+      objectCount: 10
+      namespace: kube-system-apply
+      manifestNamespaces:
+      - kube-system-apply
+      runtimeNamespaces: &id001
+      - kube-system-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# kube-system-apply
+
+          deployment.apps/metrics-server   1/1   1     1     31s'
+        pods: '# kube-system-apply
+
+          metrics-server-66d79df7c5-zcgbd   1/1   Running   0     31s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - kube-system-apply
+        retainedNamespaces: &id002 []
+        clusterScopedResources:
+          result: pass
+          objectCount: 5
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'apiservice.apiregistration.k8s.io "v1beta1.metrics.k8s.io" deleted
+
+            clusterrole.rbac.authorization.k8s.io "system:metrics-server-aggregated-reader"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "system:metrics-server" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "metrics-server:system:auth-delegator"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "system:metrics-server" deleted'
+        retainedNamespaceResources:
+          result: not-needed
+          namespaces: *id002
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+      controller: Argo CD OCI
+      app: kub-met-3131-tls-parity
+      manifestSHA256: 96fc8eca8e7242853554cb88d09b8b5eff1bc9d045337b71cdced15a48438ddf
+      objectCount: 10
+      namespace: kube-system-oci
+      manifestNamespaces:
+      - kube-system-oci
+      runtimeNamespaces: &id003
+      - kube-system-oci
+      ociRevision: sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: kube-system-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+              targetRevision: latest
+          revision: sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T11:45:20Z'
+          status: Healthy
+        summary:
+          images:
+          - registry.k8s.io/metrics-server/metrics-server:v0.8.1
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T11:44:49Z'
+          finishedAt: '2026-08-04T11:44:51Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 10
+          syncResultStatusCounts:
+            Synced: 10
+        history:
+        - id: 0
+          revision: sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca
+          deployedAt: '2026-08-04T11:44:51Z'
+          deployStartedAt: '2026-08-04T11:44:49Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: kube-system-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: kube-system-oci
+          name: metrics-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: kube-system-oci
+          name: metrics-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiregistration.k8s.io
+          kind: APIService
+          namespace: ''
+          name: v1beta1.metrics.k8s.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: kube-system-oci
+          name: metrics-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: system:metrics-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: system:metrics-server-aggregated-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: metrics-server:system:auth-delegator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: system:metrics-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: kube-system-oci
+          name: metrics-server-auth-reader
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kub-met-3131-tls-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-kub-met-3131-tls-argo-apps:argoproj.io/Application:argocd/kub-met-3131-tls-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              69b386ef-f814-4d4c-a33b-a76f64986baf\",\"spaceSlug\":\"helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+              ,\"unitId\":\"3f807842-ea1a-4f40-8...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-08-04T11:44:42Z\n\
+              \  Generation:          9\n  Resource Version:    1389\n  UID:     \
+              \            946f9752-92a8-48e0-9085-ba44afc859b2\nSpec:\n  Destination:\n\
+              \    Namespace:  kube-system-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-08-04T11:45:20Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-08-04T11:44:49Z\n    Deployed At:        2026-08-04T11:44:51Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T11:44:51Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-08-04T11:44:49Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/kube-system-oci\
+              \ serverside-applied\n        Name:        kube-system-oci\n       \
+              \ Namespace:   kube-system-oci\n        Status:      Synced\n      \
+              \  Sync Phase:  Sync\n        Version:     v1\n        Group:      \
+              \ \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/metrics-server serverside-applied\n\
+              \        Name:        metrics-server\n        Namespace:   kube-system-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
+              \     clusterrole.rbac.authorization.k8s.io/system:metrics-server serverside-applied\n\
+              \        Name:        system:metrics-server\n        Namespace:   kube-system-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
+              \     clusterrole.rbac.authorization.k8s.io/system:metrics-server-aggregated-reader\
+              \ serverside-applied\n        Name:        system:metrics-server-aggregated-reader\n\
+              \        Namespace:   kube-system-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       rbac.authorization.k8s.io\n        Hook Phase:  Running\n  \
+              \      Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator\
+              \ serverside-applied\n        Name:        metrics-server:system:auth-delegator\n\
+              \        Namespace:   kube-system-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       rbac.authorization.k8s.io\n        Hook Phase:  Running\n  \
+              \      Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server\
+              \ serverside-applied\n        Name:        system:metrics-server\n \
+              \       Namespace:   kube-system-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       rbac.authorization.k8s.io\n        Hook Phase:  Running\n  \
+              \      Kind:        RoleBinding\n        Message:     rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader\
+              \ serverside-applied\n        Name:        metrics-server-auth-reader\n\
+              \        Namespace:   kube-system-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       \n        Hook Phase:  Running\n        Kind:        Service\n\
+              \        Message:     service/metrics-server serverside-applied\n  \
+              \      Name:        metrics-server\n        Namespace:   kube-system-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       apps\n        Hook Phase:  Running\n\
+              \        Images:\n          registry.k8s.io/metrics-server/metrics-server:v0.8.1\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/metrics-server\
+              \ serverside-applied\n        Name:        metrics-server\n        Namespace:\
+              \   kube-system-oci\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       apiregistration.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        APIService\n   \
+              \     Message:     apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io\
+              \ serverside-applied\n        Name:        v1beta1.metrics.k8s.io\n\
+              \        Namespace:   kube-system-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n      Revision:\
+              \      sha256:9fcd9"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                MESSAGE
+
+              35s         Normal   OperationStarted     application/kub-met-3131-tls-parity   Initiated
+              automated sync to ''sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca''
+
+              35s         Normal   ResourceUpdated      application/kub-met-3131-tls-parity   Updated
+              sync status:  -> OutOfSync
+
+              35s         Normal   ResourceUpdated      application/kub-met-3131-tls-parity   Updated
+              health status:  -> Healthy
+
+              33s         Normal   OperationCompleted   application/kub-met-3131-tls-parity   Sync
+              operation to sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca
+              succeeded
+
+              32s         Normal   ResourceUpdated      application/kub-met-3131-tls-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              32s         Normal   ResourceUpdated      application/kub-met-3131-tls-parity   Updated
+              health status: Healthy -> Progressing
+
+              4s          Normal   ResourceUpdated      application/kub-met-3131-tls-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 10
+              artifact:
+                path: argocd-core-child.json
+                sha256: 9ac67e7de0a482fdf5c07b2d4c845e3df3c5d256a24154a8c27a223d3fea6168
+                bytes: 14116
+              output: "{\n  \"metadata\": {\n    \"name\": \"kub-met-3131-tls-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"946f9752-92a8-48e0-9085-ba44afc859b2\"\
+                ,\n    \"resourceVersion\": \"1407\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-08-04T11:44:42Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"argocd.argoproj.io/tracking-id\"\
+                : \"helm-expt-parity-kub-met-3131-tls-argo-apps:argoproj.io/Application:argocd/kub-met-3131-tls-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"69b386ef-f814-4d4c-a33b-a76f64986baf\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-kub-met-3131-tls-argo-apps\\\
+                \",\\\"unitId\\\":\\\"3f807842-ea1a-4f40-8682-be8690ff6110\\\",\\\"\
+                unitSlug\\\":\\\"kub-met-3131-tls-parity-app\\\",\\\"revisionNum\\\
+                \":2}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-08-04T11:44:42Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd\",\n        \"operation\": \"Update\",\n     \
+                \   \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"\
+                2026-08-04T11:45:25Z\",\n        \"fieldsType\": \"FieldsV1\",\n \
+                \       \"fieldsV1\": {\n          \"f:metadata\": {\n           \
+                \ \"f:annotations\": {\n              \"f:argocd.argoproj.io/hydrate\"\
+                : {}\n            }\n          }\n        }\n      },\n      {\n \
+                \       \"manager\": \"argocd-application-controller\",\n        \"\
+                operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T11:45:32Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"kube-system-oci\"\n    },\n    \"project\"\
+                : \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"kube-system-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"kube-system-oci\",\n        \"name\": \"metrics-server\",\n  \
+                \      \"status\": \"Synced\",\n        \"health\": {\n          \"\
+                status\": \"Healthy\"\n        }\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"kube-system-oci\",\n        \"name\": \"metrics-server\",\n  \
+                \      \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apiregistration.k8s.io\",\n        \"version\": \"v1\",\n    \
+                \    \"kind\": \"APIService\",\n        \"name\": \"v1beta1.metrics.k8s.io\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\",\n          \"message\": \"Passed: all\
+                \ checks passed\"\n        }\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 6085fbb945df024125f794507f3ec34412b662a688fa83dfab374738d38a7e61
+                bytes: 2021
+              output: "Name:               argocd/kub-met-3131-tls-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          kube-system-oci\nURL:                http://localhost:61879/applications/kub-met-3131-tls-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                STATUS\
+                \  HEALTH   AGE   MESSAGE                                        \
+                \                                      REASON\nClusterRoleBinding/metrics-server:system:auth-delegator\
+                \  Synced           48s                                          \
+                \                                              \nClusterRoleBinding/system:metrics-server\
+                \                 Synced           48s                           \
+                \                                                             \nRoleBinding/metrics-server-auth-reader\
+                \                   Synced           48s   rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader\
+                \ serverside-applied  \nNamespace/kube-system-oci                \
+                \                Synced           103s                           \
+                \                                                            \nServiceAccount/metrics-server\
+                \                            Synced           48s   serviceaccount/metrics-server\
+                \ serverside-applied                                     \nDeployment/metrics-server\
+                \                                Synced  Healthy  48s   deployment.apps/metrics-server\
+                \ serverside-applied                                    \n\u2514\u2500\
+                ReplicaSet/metrics-server-66d79df7c5                           Healthy\
+                \  48s                                                           \
+                \                             \n  \u2514\u2500Pod/metrics-server-66d79df7c5-xvl7m\
+                \                          Healthy  48s                          \
+                \                                                              \n\
+                ClusterRole/system:metrics-server                        Synced  \
+                \         48s                                                    \
+                \                                    \nClusterRole/system:metrics-server-aggregated-reader\
+                \      Synced           48s                                      \
+                \                                                  \nService/metrics-server\
+                \                                   Synced  Healthy  48s   service/metrics-server\
+                \ serverside-applied                                            \n\
+                APIService/v1beta1.metrics.k8s.io                        Synced  Healthy\
+                \  48s                                                           \
+                \                             Passed: all checks passed"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-met-3131-tls\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-met-3131-tls\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0d5cb82d3ea330e0ac51ad719bf5903528bc8add548ecacf5cf5d998c8b1755f\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-met-3131-tls-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-met-3131-tls-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-met-3131-tls-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-met-3131-tls\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-met-3131-tls-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps
+              targetRevision: latest
+          revision: sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T11:42:49Z'
+          status: Healthy
+        summary:
+          isAppOfApps: true
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T11:44:41Z'
+          finishedAt: '2026-08-04T11:44:42Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:ba5ae5c63614a3c3ea8bf6bfea5692ae68da304de517b25751bdde9be2a0fbbb
+          deployedAt: '2026-08-04T11:42:50Z'
+          deployStartedAt: '2026-08-04T11:42:49Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8
+          deployedAt: '2026-08-04T11:44:42Z'
+          deployStartedAt: '2026-08-04T11:44:41Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argobot-helm-expt-parity-kub-met-3131-tls
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kub-met-3131-tls-argo-apps
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kub-met-3131-tls-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kub-met-3131-tls-argo-apps\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-08-04T11:42:41Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  1282\n  UID:        \
+              \       03e4eccd-46c7-4daa-9fb3-875ee237ab29\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-08-04T11:42:49Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-08-04T11:42:49Z\n\
+              \    Deployed At:        2026-08-04T11:42:50Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:ba5ae5c63614a3c3ea8bf6bfea5692ae68da304de517b25751bdde9be2a0fbbb\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-08-04T11:44:41Z\n\
+              \    Deployed At:        2026-08-04T11:44:42Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T11:44:42Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-08-04T11:44:41Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/argobot-helm-expt-parity-kub-met-3131-tls\
+              \ serverside-applied\n        Name:        argobot-helm-expt-parity-kub-met-3131-tls\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-kub-met-3131-tls-argo-apps\
+              \ serverside-applied\n        Name:        helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/kub-met-3131-tls-parity\
+              \ serverside-applied\n        Name:        kub-met-3131-tls-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-08-04T11:44:42Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       argobot-helm-expt-parity-kub-met-3131-tls\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-kub-met-3131-tls-argo-apps\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       kub-met-3131-tls-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Is App\
+              \ Of Apps:  true\n  Sync:\n    Compared To:\n      Destination:\n  \
+              \      Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+              \        Target Revision:  latest\n    Revision:             sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    2m51s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:ba5ae5c63614a3c3ea8bf6bfea5692ae68da304de517b25751bdde9be2a0fbbb'\n\
+              \  Normal  ResourceUpdated     2m51s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  2m51s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  2m50s  argocd-application-controller\
+              \  Sync operation to sha256:ba5ae5c63614a3c3ea8bf6bfea5692ae68da304de517b25751bdde9be2a0fbbb\
+              \ succeeded\n  Normal  ResourceUpdated     2m48s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  Operati"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                    MESSAGE
+
+              2m51s       Normal   OperationStarted     application/helm-expt-parity-kub-met-3131-tls-argo-apps   Initiated
+              automated sync to ''sha256:ba5ae5c63614a3c3ea8bf6bfea5692ae68da304de517b25751bdde9be2a0fbbb''
+
+              2m51s       Normal   ResourceUpdated      application/helm-expt-parity-kub-met-3131-tls-argo-apps   Updated
+              sync status:  -> OutOfSync
+
+              2m51s       Normal   ResourceUpdated      application/helm-expt-parity-kub-met-3131-tls-argo-apps   Updated
+              health status:  -> Healthy
+
+              2m50s       Normal   OperationCompleted   application/helm-expt-parity-kub-met-3131-tls-argo-apps   Sync
+              operation to sha256:ba5ae5c63614a3c3ea8bf6bfea5692ae68da304de517b25751bdde9be2a0fbbb
+              succeeded
+
+              2m48s       Normal   ResourceUpdated      application/helm-expt-parity-kub-met-3131-tls-argo-apps   Updated
+              sync status: OutOfSync -> Synced
+
+              59s         Normal   OperationStarted     application/helm-expt-parity-kub-met-3131-tls-argo-apps   Initiated
+              automated sync to ''sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8''
+
+              59s         Normal   ResourceUpdated      application/helm-expt-parity-kub-met-3131-tls-argo-apps   Updated
+              sync status: Synced -> OutOfSync
+
+              58s         Normal   OperationCompleted   application/helm-expt-parity-kub-met-3131-tls-argo-apps   Sync
+              operation to sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8
+              succeeded
+
+              56s         Normal   ResourceUpdated      application/helm-expt-parity-kub-met-3131-tls-argo-apps   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-root.json
+                sha256: b46f9a4596a2b53e2071aa01cc03bd5d8e448211e5dbe076822f64ff9e9637df
+                bytes: 10652
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"03e4eccd-46c7-4daa-9fb3-875ee237ab29\"\
+                ,\n    \"resourceVersion\": \"1432\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-08-04T11:42:41Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-kub-met-3131-tls-argo-apps\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T11:42:41Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd\",\n        \"operation\": \"Update\",\n        \"apiVersion\"\
+                : \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-08-04T11:45:41Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:metadata\": {\n            \"f:annotations\": {\n \
+                \             \"f:argocd.argoproj.io/hydrate\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-08-04T11:45:48Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:isAppOfApps\": {}\n      \
+                \      },\n            \"f:sync\": {\n              \".\": {},\n \
+                \             \"f:comparedTo\": {\n                \".\": {},\n  \
+                \              \"f:destination\": {\n                  \".\": {},\n\
+                \                  \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argobot-helm-expt-parity-kub-met-3131-tls\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"names"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 4ae10fee85a6ed6c506f3c46a5ffdd352089c465174356019c619839c5f1b895
+                bytes: 1228
+              output: "Name:               argocd/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:62046/applications/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-argo-apps\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                STATUS\
+                \  HEALTH  AGE    MESSAGE                                        \
+                \                                         REASON\nApplication/argobot-helm-expt-parity-kub-met-3131-tls\
+                \    Synced          3m6s   application.argoproj.io/argobot-helm-expt-parity-kub-met-3131-tls\
+                \ serverside-applied    \nApplication/helm-expt-parity-kub-met-3131-tls-argo-apps\
+                \  Synced          3m15s  application.argoproj.io/helm-expt-parity-kub-met-3131-tls-argo-apps\
+                \ serverside-applied  \nApplication/kub-met-3131-tls-parity      \
+                \                Synced          74s    application.argoproj.io/kub-met-3131-tls-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-met-3131-tls\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-met-3131-tls\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0d5cb82d3ea330e0ac51ad719bf5903528bc8add548ecacf5cf5d998c8b1755f\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-met-3131-tls-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:208e0aaaac59d5a1089476bdfd9d76ee46234ee92f4f958340d774ff06f7cbe8\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-met-3131-tls-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-met-3131-tls-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-met-3131-tls\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-met-3131-tls-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-met-3131-tls-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# kube-system-oci
+
+          deployment.apps/metrics-server   1/1   1     1     66s'
+        pods: '# kube-system-oci
+
+          metrics-server-66d79df7c5-xvl7m   1/1   Running   0     66s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||kube-system
+    semanticNormalizations: &id004
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||kube-system
+      allowedExtraInConfigHub:
+      - v1|Namespace||kube-system
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations: *id004
+      comparisonSHA256: f1d304ab6c98134b65bbc78b51ab8d2586213dcc2937448cf961c1a963179ef0
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||kube-system
+      allowedExtraInConfigHub:
+      - v1|Namespace||kube-system
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: f1d304ab6c98134b65bbc78b51ab8d2586213dcc2937448cf961c1a963179ef0
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-08-04T11:42:42Z'
+    finishedAt: '2026-08-04T11:43:08Z'
+    elapsedSeconds: 25.281
+    timeoutSeconds: 900
+    command: helm upgrade --install metrics-server /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/exact-chart-artifact/chart.tgz
+      --namespace kube-system-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-08-04T11:43:13Z'
+    finishedAt: '2026-08-04T11:43:14Z'
+    elapsedSeconds: 0.646
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+      --base external-tls-ca --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+      --non-interactive --namespace kube-system-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-08-04T11:43:14Z'
+    finishedAt: '2026-08-04T11:43:14Z'
+    elapsedSeconds: 0.13
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-met-3131-tls.kubeconfig
+      --context kind-helm-expt-parity-kub-met-3131-tls apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/direct-apply-manifest.yaml
+    objectCount: 9
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-08-04T11:43:14Z'
+    finishedAt: '2026-08-04T11:43:45Z'
+    elapsedSeconds: 30.667
+    timeoutSeconds: 300
+    namespaces: kube-system-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-08-04T11:43:55Z'
+    finishedAt: '2026-08-04T11:43:56Z'
+    elapsedSeconds: 0.769
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
+      --base external-tls-ca --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+      --non-interactive --namespace kube-system-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-08-04T11:43:57Z'
+    finishedAt: '2026-08-04T11:44:29Z'
+    elapsedSeconds: 32.626
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+      --space helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls --target helm-expt-parity-kub-met-3131-tls/target
+    objectCount: 10
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-08-04T11:44:29Z'
+    finishedAt: '2026-08-04T11:44:30Z'
+    elapsedSeconds: 0.78
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls --release-target
+      helm-expt-parity-kub-met-3131-tls/target
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-08-04T11:44:30Z'
+    finishedAt: '2026-08-04T11:44:30Z'
+    elapsedSeconds: 0.514
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-08-04T11:44:30Z'
+    finishedAt: '2026-08-04T11:44:31Z'
+    elapsedSeconds: 0.812
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+    unitCount: 10
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-08-04T11:44:31Z'
+    finishedAt: '2026-08-04T11:44:32Z'
+    elapsedSeconds: 0.983
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kub-met-3131-tls-argo-apps kub-met-3131-tls-parity-app
+      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/argo-application.json
+      --target helm-expt-parity-kub-met-3131-tls/target --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-08-04T11:44:32Z'
+    finishedAt: '2026-08-04T11:44:33Z'
+    elapsedSeconds: 0.717
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-met-3131-tls-argo-apps
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-08-04T11:44:33Z'
+    finishedAt: '2026-08-04T11:45:24Z'
+    elapsedSeconds: 50.527
+    timeoutSeconds: 420
+    waitedSeconds: 50
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-08-04T11:45:56Z'
+    finishedAt: '2026-08-04T11:45:57Z'
+    elapsedSeconds: 0.178
+    timeoutSeconds: 180
+    namespaces: kube-system-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: exact-source-artifact
+    result: pass
+    detail: https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.13.1/metrics-server-3.13.1.tgz
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kub-met-3131-tls\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-met-3131-tls.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kub-met-3131-tls\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kub-met-3131-tls\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-met-3131-tls\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-met-3131-tls.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nstatus: {"
+  - name: cluster-target-discovery
+    result: pass
+    detail: "helm-expt-parity-kub-met-3131-tls: NAME      WORKER    PROVIDERTYPE \
+      \   PARAMETERS    SPACE                             \ntarget    worker    OCI\
+      \             {}            helm-expt-parity-kub-met-3131-tls\ntarget helm-expt-parity-kub-met-3131-tls/target:\
+      \ {\n  \"BridgeWorker\": {\n    \"BridgeWorkerID\": \"4be5e54d-7e7b-4df4-a67f-9da33db3d1d1\"\
+      ,\n    \"ClaimTTLSeconds\": 60,\n    \"Condition\": \"Ready\",\n    \"CreatedAt\"\
+      : \"2026-08-04T11:42:33.346102Z\",\n    \"CursorID\": 1937,\n    \"DisplayName\"\
+      : \"worker\",\n    \"EntityType\": \"BridgeWorker\",\n    \"LastMessage\": \"\
+      Server-hosted\",\n    \"LastSeenAt\": \"2026-08-04T11:42:42.148648166Z\",\n\
+      \    \"OrgRole\": \"none\",\n    \"OrganizationID\": \"12c33fa8-00b1-4011-ad3e-19d56458b29c\"\
+      ,\n    \"Permissions\": {\n      \"Manage\": {\n        \"UserIDs\":\nargo apps\
+      \ helm-expt-parity-kub-met-3131-tls-argo-apps: ID                      69b386ef-f814-4d4c-a33b-a76f64986baf\
+      \                                                                      \nName\
+      \                    helm-expt-parity-kub-met-3131-tls-ar"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=1 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"metrics-server\" does not exist. Installing it now.\nNAME:\
+      \ metrics-server\nLAST DEPLOYED: Tue Aug  4 12:42:43 2026\nNAMESPACE: kube-system-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\n***********************************************************************\n\
+      * Metrics Server                                                      *\n***********************************************************************\n\
+      \  Chart version: 3.13.1\n  App version:   0.8.1\n  Image tag:     registry.k8s.io/metrics-server/metrics-server:v0.8.1\n\
+      ***********************************************************************"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# kube-system-apply
+
+      deployment.apps/metrics-server   1/1   1     1     31s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=5
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  sourceArtifact:
+    result: pass
+    resolution: artifact-addressed
+    url: https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.13.1/metrics-server-3.13.1.tgz
+    expectedSHA256: 084e6edb680cf4e2acc30bd496568c53fdf663cbacf6e17876b25785c35b7a13
+    observedSHA256: 084e6edb680cf4e2acc30bd496568c53fdf663cbacf6e17876b25785c35b7a13
+    bytes: 14144
+    materializedPath: exact-chart-artifact/chart.tgz
+    command: curl --fail --location --retry 3 --output chart.tgz https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.13.1/metrics-server-3.13.1.tgz
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets:
+      - namespace: kube-system-helm
+        name: metrics-server-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: regularHelm
+        sourceNamespace: kube-system
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: kube-system-apply
+        name: metrics-server-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubKubectlApply
+        sourceNamespace: kube-system
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: kube-system-oci
+        name: metrics-server-tls
+        keys:
+        - tls.crt
+        - tls.key
+        lane: configHubOciArgo
+        sourceNamespace: kube-system
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-metrics-server-3-13-1-external-tls-ca/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: kube-system-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: kube-system-oci

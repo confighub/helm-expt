@@ -1,0 +1,83 @@
+Name:               argocd/kub-argo-10-2-1-d-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          argocd-oci
+URL:                https://argocd.example.com/applications/kub-argo-10-2-1-d-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-d-kub-argo-10-2-1-d
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                              STATUS  HEALTH   AGE    MESSAGE                                                                                            REASON
+Service/argo-cd-argocd-applicationset-controller                       Synced  Healthy  45s    service/argo-cd-argocd-applicationset-controller serverside-applied
+CustomResourceDefinition/applications.argoproj.io                      Synced  Healthy  7m2s                                                                                                      CRD is healthy
+CustomResourceDefinition/appprojects.argoproj.io                       Synced  Healthy  7m2s                                                                                                      CRD is healthy
+Deployment/argo-cd-argocd-dex-server                                   Synced  Healthy  45s    deployment.apps/argo-cd-argocd-dex-server serverside-applied
+└─ReplicaSet/argo-cd-argocd-dex-server-6678c94464                              Healthy  45s
+  └─Pod/argo-cd-argocd-dex-server-6678c94464-wkwxg                             Healthy  45s
+StatefulSet/argo-cd-argocd-application-controller                      Synced  Healthy  45s    statefulset.apps/argo-cd-argocd-application-controller serverside-applied                          partitioned roll out complete: 1 new pods have been updated...
+├─Pod/argo-cd-argocd-application-controller-0                                  Healthy  45s
+└─ControllerRevision/argo-cd-argocd-application-controller-5fdc7c8776                   45s
+NetworkPolicy/argo-cd-argocd-notifications-controller                  Synced           46s    networkpolicy.networking.k8s.io/argo-cd-argocd-notifications-controller serverside-applied
+ClusterRole/argo-cd-argocd-server                                      Synced           45s
+Role/argo-cd-argocd-server                                             Synced           45s    role.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied
+ConfigMap/argocd-ssh-known-hosts-cm                                    Synced           7m2s   configmap/argocd-ssh-known-hosts-cm serverside-applied
+Deployment/argo-cd-argocd-repo-server                                  Synced  Healthy  45s    deployment.apps/argo-cd-argocd-repo-server serverside-applied
+└─ReplicaSet/argo-cd-argocd-repo-server-67f47df849                             Healthy  45s
+  └─Pod/argo-cd-argocd-repo-server-67f47df849-wncx2                            Healthy  45s
+NetworkPolicy/argo-cd-argocd-repo-server                               Synced           46s    networkpolicy.networking.k8s.io/argo-cd-argocd-repo-server serverside-applied
+ClusterRole/argo-cd-argocd-application-controller                      Synced           45s
+RoleBinding/argo-cd-argocd-notifications-controller                    Synced           45s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller serverside-applied
+ConfigMap/argocd-tls-certs-cm                                          Synced           7m2s   configmap/argocd-tls-certs-cm serverside-applied
+Service/argo-cd-argocd-redis                                           Synced  Healthy  45s    service/argo-cd-argocd-redis serverside-applied
+ServiceAccount/argocd-server                                           Synced           7m2s   serviceaccount/argocd-server serverside-applied
+ClusterRoleBinding/argo-cd-argocd-server                               Synced           45s
+RoleBinding/argo-cd-argocd-dex-server                                  Synced           45s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-dex-server serverside-applied
+RoleBinding/argo-cd-argocd-server                                      Synced           45s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied
+Deployment/argo-cd-argocd-applicationset-controller                    Synced  Healthy  45s    deployment.apps/argo-cd-argocd-applicationset-controller serverside-applied
+└─ReplicaSet/argo-cd-argocd-applicationset-controller-7c655d7676               Healthy  45s
+  └─Pod/argo-cd-argocd-applicationset-controller-7c655d7676-5bs6c              Healthy  45s
+ConfigMap/argocd-notifications-cm                                      Synced           7m2s   configmap/argocd-notifications-cm serverside-applied
+ServiceAccount/argocd-notifications-controller                         Synced           7m2s   serviceaccount/argocd-notifications-controller serverside-applied
+NetworkPolicy/argo-cd-argocd-redis                                     Synced           46s    networkpolicy.networking.k8s.io/argo-cd-argocd-redis serverside-applied
+Role/argo-cd-argocd-applicationset-controller                          Synced           45s    role.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller serverside-applied
+RoleBinding/argo-cd-argocd-application-controller                      Synced           45s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-application-controller serverside-applied
+RoleBinding/argo-cd-argocd-repo-server                                 Synced           45s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-repo-server serverside-applied
+ConfigMap/argocd-rbac-cm                                               Synced           7m2s   configmap/argocd-rbac-cm serverside-applied
+ServiceAccount/argo-cd-argocd-repo-server                              Synced           46s    serviceaccount/argo-cd-argocd-repo-server serverside-applied
+ServiceAccount/argocd-application-controller                           Synced           7m2s   serviceaccount/argocd-application-controller serverside-applied
+CustomResourceDefinition/applicationsets.argoproj.io                   Synced  Healthy  7m2s                                                                                                      CRD is healthy
+Deployment/argo-cd-argocd-notifications-controller                     Synced  Healthy  45s    deployment.apps/argo-cd-argocd-notifications-controller serverside-applied
+└─ReplicaSet/argo-cd-argocd-notifications-controller-6b8d77655b                Healthy  45s
+  └─Pod/argo-cd-argocd-notifications-controller-6b8d77655b-l2tnm               Healthy  45s
+Deployment/argo-cd-argocd-server                                       Synced  Healthy  45s    deployment.apps/argo-cd-argocd-server serverside-applied
+└─ReplicaSet/argo-cd-argocd-server-58dfbb5959                                  Healthy  45s
+  └─Pod/argo-cd-argocd-server-58dfbb5959-g59jk                                 Healthy  45s
+ClusterRole/argo-cd-argocd-notifications-controller                    Synced           45s
+Role/argo-cd-argocd-dex-server                                         Synced           45s    role.rbac.authorization.k8s.io/argo-cd-argocd-dex-server serverside-applied
+Service/argo-cd-argocd-server                                          Synced  Healthy  45s    service/argo-cd-argocd-server serverside-applied
+ConfigMap/argocd-cmd-params-cm                                         Synced           7m2s   configmap/argocd-cmd-params-cm serverside-applied
+ConfigMap/argocd-gpg-keys-cm                                           Synced           7m2s   configmap/argocd-gpg-keys-cm serverside-applied
+NetworkPolicy/argo-cd-argocd-application-controller                    Synced           46s    networkpolicy.networking.k8s.io/argo-cd-argocd-application-controller serverside-applied
+NetworkPolicy/argo-cd-argocd-dex-server                                Synced           46s    networkpolicy.networking.k8s.io/argo-cd-argocd-dex-server serverside-applied
+NetworkPolicy/argo-cd-argocd-server                                    Synced           46s    networkpolicy.networking.k8s.io/argo-cd-argocd-server serverside-applied
+ClusterRoleBinding/argo-cd-argocd-application-controller               Synced           45s
+Role/argo-cd-argocd-application-controller                             Synced           45s    role.rbac.authorization.k8s.io/argo-cd-argocd-application-controller serverside-applied
+ClusterRoleBinding/argo-cd-argocd-notifications-controller             Synced           45s
+Role/argo-cd-argocd-notifications-controller                           Synced           45s    role.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller serverside-applied
+Role/argo-cd-argocd-repo-server                                        Synced           45s    role.rbac.authorization.k8s.io/argo-cd-argocd-repo-server serverside-applied
+RoleBinding/argo-cd-argocd-applicationset-controller                   Synced           45s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller serverside-applied
+Deployment/argo-cd-argocd-redis                                        Synced  Healthy  45s    deployment.apps/argo-cd-argocd-redis serverside-applied
+└─ReplicaSet/argo-cd-argocd-redis-569459f8b7                                   Healthy  45s
+  └─Pod/argo-cd-argocd-redis-569459f8b7-wm6b9                                  Healthy  45s
+Service/argo-cd-argocd-repo-server                                     Synced  Healthy  45s    service/argo-cd-argocd-repo-server serverside-applied
+ConfigMap/argo-cd-argocd-redis-health-configmap                        Synced           46s    configmap/argo-cd-argocd-redis-health-configmap serverside-applied
+ConfigMap/argocd-cm                                                    Synced           7m2s   configmap/argocd-cm serverside-applied
+Namespace/argocd-oci                                                   Synced           3m51s
+Service/argo-cd-argocd-dex-server                                      Synced  Healthy  45s    service/argo-cd-argocd-dex-server serverside-applied
+ServiceAccount/argocd-applicationset-controller                        Synced           7m2s   serviceaccount/argocd-applicationset-controller serverside-applied
+ServiceAccount/argocd-dex-server                                       Synced           7m2s   serviceaccount/argocd-dex-server serverside-applied

@@ -1,0 +1,1631 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: external-secrets-external-secrets-2.8.0-default-live-parity-20260605
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.8.0
+  base: default
+  result: pass
+  observedAt: '2026-08-04T13:40:37Z'
+  package:
+    path: data/kubara-catalog-refresh/current-candidates/packages/external-secrets/external-secrets/2.8.0
+  recipe:
+    path: data/kubara-catalog-refresh/current-candidates/recipes/external-secrets/external-secrets/2.8.0
+  variantRevision: data/kubara-catalog-refresh/current-candidates/recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kub-eso-2-8-0-d
+    kubeContext: kind-helm-expt-parity-kub-eso-2-8-0-d
+    namespace: external-secrets
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: external-secrets-helm
+      configHubKubectlApply: external-secrets-apply
+      configHubOciArgo: external-secrets-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-kub-eso-2-8-0-d --delete-config
+        --force
+      result: pass
+      detail: "Deleting kind cluster \"helm-expt-parity-kub-eso-2-8-0-d\"...\nDeleting\
+        \ cluster \"helm-expt-parity-kub-eso-2-8-0-d\" ...\nDeleted nodes: [\"helm-expt-parity-kub-eso-2-8-0-d-control-plane\"\
+        ]\n\nDeleting the ConfigHub config for \"helm-expt-parity-kub-eso-2-8-0-d\"\
+        ...\n  deleting space \"argobot-helm-expt-parity-kub-eso-2-8-0-d\"...\n  deleting\
+        \ space \"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"...\n  deleting cluster\
+        \ space \"helm-expt-parity-kub-eso-2-8-0-d\" (worker + target)...\n\nDone."
+    clusterSpace: helm-expt-parity-kub-eso-2-8-0-d
+    argoAppsSpace: helm-expt-parity-kub-eso-2-8-0-d-argo-apps
+    releaseTarget: helm-expt-parity-kub-eso-2-8-0-d/target
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install external-secrets /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/exact-chart-artifact/chart.tgz
+        --namespace external-secrets-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: bb3555fb22fc50b3cebf8a96068d20a887fcf58fc52cb3785704928cdaf40be3
+      objectCount: 44
+      liveHelmManifestSHA256: 48b9d0b3b198ef0547e825921d53032ba3c7bd01e280d50c6e7e1c710f59440d
+      liveHelmManifestObjectCount: 44
+      namespace: external-secrets-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/external-secrets                   1/1   1     1     37s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     37s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     37s'
+        pods: 'external-secrets-6d6bf58975-z7lgc                   1/1   Running   0     37s
+
+          external-secrets-cert-controller-6885f66755-hjcx8   1/1   Running   0     37s
+
+          external-secrets-webhook-677fdff9fb-pkxr6           1/1   Running   0     37s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/packages/external-secrets/external-secrets/2.8.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+        --non-interactive --namespace external-secrets-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: c8ccf7cd12c31a63be10d932f120bbe84eb102f750f77a5dc8296ba75e96b81a
+      objectCount: 45
+      namespace: external-secrets-apply
+      manifestNamespaces:
+      - external-secrets-apply
+      runtimeNamespaces: &id001
+      - external-secrets-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# external-secrets-apply
+
+          deployment.apps/external-secrets                   1/1   1     1     31s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     31s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     31s'
+        pods: '# external-secrets-apply
+
+          external-secrets-6d6bf58975-w8mtt                   1/1   Running   0     31s
+
+          external-secrets-cert-controller-688d84d7f7-9rrjv   1/1   Running   0     31s
+
+          external-secrets-webhook-6c84dc677b-qx7x2           1/1   Running   0     31s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - external-secrets-apply
+        retainedNamespaces: &id002 []
+        clusterScopedResources:
+          result: pass
+          objectCount: 34
+          preservedPreExistingObjects: []
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "external-secrets-cert-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-controller" deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-servicebindings"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "external-secrets-view" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "external-secrets-cert-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "external-secrets-controller"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "acraccesstokens.generators.external-secrets.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "cloudsmithaccesstokens.generators.external-secrets.io"
+            deleted
+
+            customresourcedefinition.apiextensions.k8s.io "clusterexternalsecrets.external-secrets.io"
+            deleted
+
+            customr'
+        retainedNamespaceResources:
+          result: not-needed
+          namespaces: *id002
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+      controller: Argo CD OCI
+      app: kub-eso-2-8-0-d-parity
+      manifestSHA256: 74e13d2b7032074e83fdcef02454d5f69c9922fed419a516378cc365d5c91334
+      objectCount: 45
+      namespace: external-secrets-oci
+      manifestNamespaces:
+      - external-secrets-oci
+      runtimeNamespaces: &id003
+      - external-secrets-oci
+      ociRevision: sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-external-secrets-oci-external-secrets-webhook.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: external-secrets-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+              targetRevision: latest
+          revision: sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T13:47:08Z'
+          status: Healthy
+        summary:
+          images:
+          - ghcr.io/external-secrets/external-secrets:v2.8.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T13:46:47Z'
+          finishedAt: '2026-08-04T13:46:48Z'
+          operationSyncResourceCount: 2
+          operationSyncResources:
+          - group: apiextensions.k8s.io
+            kind: CustomResourceDefinition
+            namespace: ''
+            name: secretstores.external-secrets.io
+          - group: apiextensions.k8s.io
+            kind: CustomResourceDefinition
+            namespace: ''
+            name: clustersecretstores.external-secrets.io
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a
+          deployedAt: '2026-08-04T13:46:44Z'
+          deployStartedAt: '2026-08-04T13:46:41Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: external-secrets-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: external-secrets-oci
+          name: external-secrets-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: external-secrets-oci
+          name: external-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: external-secrets-oci
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: external-secrets-oci
+          name: external-secrets-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: externalsecret-validate
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: secretstore-validate
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: acraccesstokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: cloudsmithaccesstokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clusterexternalsecrets.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clustergenerators.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clusterpushsecrets.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clustersecretstores.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: ecrauthorizationtokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: externalsecrets.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: fakes.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: gcraccesstokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: generatorstates.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: githubaccesstokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: gitlabdeploytokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: grafanas.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: mfas.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: passwords.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: pushsecrets.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: quayaccesstokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: secretstores.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: sshkeys.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: stssessiontokens.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: uuids.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: vaultdynamicsecrets.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: webhooks.generators.external-secrets.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: external-secrets-oci
+          name: external-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: external-secrets-oci
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: external-secrets-oci
+          name: external-secrets-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-edit
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-servicebindings
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: external-secrets-view
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: external-secrets-cert-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: external-secrets-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: external-secrets-oci
+          name: external-secrets-leaderelection
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: external-secrets-oci
+          name: external-secrets-leaderelection
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kub-eso-2-8-0-d-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-kub-eso-2-8-0-d-argo-apps:argoproj.io/Application:argocd/kub-eso-2-8-0-d-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              2f587860-8606-447e-8b8b-fa4b714a74a0\",\"spaceSlug\":\"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+              ,\"unitId\":\"707d95cf-6303-425c-90...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-08-04T13:46:34Z\n\
+              \  Generation:          14\n  Resource Version:    2236\n  UID:    \
+              \             a1274d40-7c0f-4fa1-8d8d-808b4bf32d4e\nSpec:\n  Destination:\n\
+              \    Namespace:  external-secrets-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-08-04T13:47:08Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-08-04T13:46:41Z\n    Deployed At:        2026-08-04T13:46:44Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T13:46:48Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Auto\
+              \ Heal Attempts Count:  1\n        Prune:                     true\n\
+              \        Resources:\n          Group:   apiextensions.k8s.io\n     \
+              \     Kind:    CustomResourceDefinition\n          Name:    secretstores.external-secrets.io\n\
+              \          Group:   apiextensions.k8s.io\n          Kind:    CustomResourceDefinition\n\
+              \          Name:    clustersecretstores.external-secrets.io\n      \
+              \  Revision:  sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-08-04T13:46:47Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       apiextensions.k8s.io\n     \
+              \   Hook Phase:  Running\n        Kind:        CustomResourceDefinition\n\
+              \        Message:     customresourcedefinition.apiextensions.k8s.io/clustersecretstores.external-secrets.io\
+              \ serverside-applied\n        Name:        clustersecretstores.external-secrets.io\n\
+              \        Namespace:   external-secrets-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/secretstores.external-secrets.io\
+              \ serverside-applied\n        Name:        secretstores.external-secrets.io\n\
+              \        Namespace:   external-secrets-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n      Revision:\
+              \      sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-08-04T13:46:48Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       external-secrets-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Kind:       Service\n    Name:       external-secrets-webhook\n\
+              \    Namespace:  external-secrets-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Kind:       ServiceAccount\n    Name:       external-secrets\n\
+              \    Namespace:  external-secrets-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Kind:       ServiceAccount\n    Name:       external-secrets-cert-controller\n\
+              \    Namespace:  external-secrets-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Kind:       ServiceAccount\n    Name:       external-secrets-webhook\n\
+              \    Namespace:  external-secrets-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Group:      admissionregistration.k8s.io\n    Kind:   \
+              \    ValidatingWebhookConfiguration\n    Name:       externalsecret-validate\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      admissionregistration.k8s.io\n\
+              \    Kind:       ValidatingWebhookConfiguration\n    Name:       secretstore-validate\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apiextensions.k8s.io\n\
+              \    Kind:       CustomResourceDefinition\n    Name:       acraccesstokens.generators.external-secrets.io\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apiextensions.k8s.io\n\
+              \    Kind:       CustomResourceDefinition\n    Name:       beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apiextensions.k8s.io\n\
+              \    Kind:       CustomResourceDefinition\n    Name:       cloudsmithaccesstokens.generators.external-secrets.io\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apiextensions.k8s.io\n\
+              \    Kind:       CustomResourceDefinition\n    Name:       clusterexternalsecrets.external-secrets.io\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apiextensions.k8s.io\n\
+              \    Kind:       CustomResourceDefinition\n    Name:       clustergenerators.generators.external-secrets.io\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      apiextensions.k8s.io\n\
+              \    Kind:       CustomResour"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                               MESSAGE
+
+              34s         Normal   OperationStarted     application/kub-eso-2-8-0-d-parity   Initiated
+              automated sync to ''sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a''
+
+              34s         Normal   ResourceUpdated      application/kub-eso-2-8-0-d-parity   Updated
+              sync status:  -> OutOfSync
+
+              34s         Normal   ResourceUpdated      application/kub-eso-2-8-0-d-parity   Updated
+              health status:  -> Healthy
+
+              31s         Normal   OperationCompleted   application/kub-eso-2-8-0-d-parity   Sync
+              operation to sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a
+              succeeded
+
+              30s         Normal   ResourceUpdated      application/kub-eso-2-8-0-d-parity   Updated
+              health status: Healthy -> Progressing
+
+              28s         Normal   OperationStarted     application/kub-eso-2-8-0-d-parity   Initiated
+              automated sync to ''sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a''
+
+              27s         Normal   ResourceUpdated      application/kub-eso-2-8-0-d-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              27s         Normal   OperationCompleted   application/kub-eso-2-8-0-d-parity   Partial
+              sync operation to sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a
+              succeeded
+
+              7s          Normal   ResourceUpdated      application/kub-eso-2-8-0-d-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 44
+              artifact:
+                path: argocd-core-child.json
+                sha256: 154e1383714b9b97e938a7438623953b25d40d3b6dff806b49ea18fc01b58cd6
+                bytes: 21191
+              output: "{\n  \"metadata\": {\n    \"name\": \"kub-eso-2-8-0-d-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"a1274d40-7c0f-4fa1-8d8d-808b4bf32d4e\"\
+                ,\n    \"resourceVersion\": \"2259\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-08-04T13:46:34Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"argocd.argoproj.io/tracking-id\"\
+                : \"helm-expt-parity-kub-eso-2-8-0-d-argo-apps:argoproj.io/Application:argocd/kub-eso-2-8-0-d-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"2f587860-8606-447e-8b8b-fa4b714a74a0\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\\\
+                \",\\\"unitId\\\":\\\"707d95cf-6303-425c-9045-e20c4395c85a\\\",\\\"\
+                unitSlug\\\":\\\"kub-eso-2-8-0-d-parity-app\\\",\\\"revisionNum\\\"\
+                :2}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-08-04T13:46:34Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd\",\n        \"operation\": \"Update\",\n     \
+                \   \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"\
+                2026-08-04T13:47:16Z\",\n        \"fieldsType\": \"FieldsV1\",\n \
+                \       \"fieldsV1\": {\n          \"f:metadata\": {\n           \
+                \ \"f:annotations\": {\n              \"f:argocd.argoproj.io/hydrate\"\
+                : {}\n            }\n          }\n        }\n      },\n      {\n \
+                \       \"manager\": \"argocd-application-controller\",\n        \"\
+                operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T13:47:24Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:autoHealAttemptsCount\"\
+                : {},\n                  \"f:prune\": {},\n                  \"f:resources\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"external-secrets-oci\"\n    },\n    \"project\"\
+                : \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"external-secrets-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"external-secrets-oci\",\n        \"name\": \"external-secrets-webhook\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"external-secrets-oci\",\n        \"name\"\
+                : \"external-secrets\",\n        \"status\": \"Synced\"\n      },\n\
+                \      {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"external-secrets-oci\",\n        \"name\"\
+                : \"external-secrets-cert-controller\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n   "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: fa69f33dabd9f404aaee04fd729a375ec48a4ddcf5c13ebcfb837d8947bbba7e
+                bytes: 7525
+              output: "Name:               argocd/kub-eso-2-8-0-d-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          external-secrets-oci\nURL:                http://localhost:51627/applications/kub-eso-2-8-0-d-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \                                       STATUS  HEALTH   AGE   MESSAGE\
+                \  REASON\nService/external-secrets-webhook                      \
+                \                                                Synced  Healthy \
+                \ 49s            \nServiceAccount/external-secrets-cert-controller\
+                \                                                       Synced   \
+                \        50s            \nCustomResourceDefinition/acraccesstokens.generators.external-secrets.io\
+                \                               Synced  Healthy  50s            CRD\
+                \ is healthy\nCustomResourceDefinition/stssessiontokens.generators.external-secrets.io\
+                \                              Synced  Healthy  50s            CRD\
+                \ is healthy\nDeployment/external-secrets-webhook                \
+                \                                                   Synced  Healthy\
+                \  49s            \n\u2514\u2500ReplicaSet/external-secrets-webhook-79cd8bb46c\
+                \                                                              Healthy\
+                \  49s            \n  \u2514\u2500Pod/external-secrets-webhook-79cd8bb46c-nkz4r\
+                \                                                             Healthy\
+                \  49s            \nRole/external-secrets-leaderelection         \
+                \                                                         Synced \
+                \          49s            \nValidatingWebhookConfiguration/externalsecret-validate\
+                \                                                Synced          \
+                \ 49s            \nCustomResourceDefinition/cloudsmithaccesstokens.generators.external-secrets.io\
+                \                        Synced  Healthy  50s            CRD is healthy\n\
+                CustomResourceDefinition/secretstores.external-secrets.io        \
+                \                                     Synced  Healthy  50s       \
+                \     CRD is healthy\nClusterRole/external-secrets-view          \
+                \                                                           Synced\
+                \           49s            \nCustomResourceDefinition/externalsecrets.external-secrets.io\
+                \                                          Synced  Healthy  50s  \
+                \          CRD is healthy\nCustomResourceDefinition/generatorstates.generators.external-secrets.io\
+                \                               Synced  Healthy  50s            CRD\
+                \ is healthy\nCustomResourceDefinition/pushsecrets.external-secrets.io\
+                \                                              Synced  Healthy  50s\
+                \            CRD is healthy\nCustomResourceDefinition/quayaccesstokens.generators.external-secrets.io\
+                \                              Synced  Healthy  50s            CRD\
+                \ is healthy\nCustomResourceDefinition/uuids.generators.external-secrets.io\
+                \                                         Synced  Healthy  50s   \
+                \         CRD is healthy\nDeployment/external-secrets            \
+                \                                                               Synced\
+                \  Healthy  49s            \n\u2514\u2500ReplicaSet/external-secrets-6d6bf58975\
+                \                                                                \
+                \      Healthy  49s            \n  \u2514\u2500Pod/external-secrets-6d6bf58975-xw4jq\
+                \                                                                \
+                \     Healthy  49s            \nRoleBinding/external-secrets-leaderelection\
+                \                                                           Synced\
+                \           49s            \nNamespace/external-secrets-oci      \
+                \                                                                \
+                \  Synced           3m8s           \nServiceAccount/external-secrets-webhook\
+                \                                                               Synced\
+                \           50s            \nCustomResourceDefinition/ecrauthorizationtokens.generators.external-secrets.io\
+                \                        Synced  Healthy  50s            CRD is healthy\n\
+                CustomResourceDefinition/githubaccesstokens.generators.external-secrets.io\
+                \                            Synced  Healthy  50s            CRD is\
+                \ healthy\nCustomResourceDefinition/gitlabdeploytokens.generators.external-secrets.io\
+                \                            Synced  Healthy  50s            CRD is\
+                \ healthy\nCustomResourceDefinition/webhooks.generators.external-secrets.io\
+                \                                      Synced  Healthy  50s      \
+                \      CRD is healthy\nClusterRole/external-secrets-controller   \
+                \                                                            Synced\
+                \           49s            \nClusterRoleBinding/external-secrets-cert-controller\
+                \                                                   Synced       \
+                \    49s            \nCustomResourceDefinition/beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io\
+                \  Synced  Healthy  50s            CRD is healthy\nCustomResourceDefinition/clustergenerators.generators.external-secrets.io\
+                \                             Synced  Healthy  50s            CRD\
+                \ is healthy\nCustomResourceDefinition/grafanas.generators.external-secrets.io\
+                \                                      Synced  Healthy  50s      \
+                \      CRD is healthy\nCustomResourceDefinition/sshkeys.generators.external-secrets.io\
+                \                                       Synced  Healthy  50s     \
+                \       CRD is healthy\nCustomResourceDefinition/vaultdynamicsecrets.generators.external-secrets.io\
+                \                           Synced  Healthy  50s            CRD is\
+                \ healthy\nDeployment/external-secrets-cert-controller           \
+                \                                                Synced  Healthy \
+                \ 49s            \n\u2514\u2500ReplicaSet/external-secrets-cert-controller-5d56859d75\
+                \                                                      Healthy  49s\
+                \            \n  \u2514\u2500Pod/external-secrets-cert-controller-5d56859d75-q2q97\
+                \                                                     Healthy  49s\
+                \            \nClusterRole/external-secrets-cert-controller      \
+                \                                                    Synced      \
+                \     49s            \nClusterRole/external-secrets-edit         \
+                \                                                            Synced\
+                \           49s            \nValidatingWebhookConfiguration/secretstore-validate\
+                \                                                   Synced       \
+                \    49s            \nCustomResourceDefinition/clusterexternalsecrets.external-secrets.io\
+                \                                   Synced  Healthy  50s         \
+                \   CRD is healthy\nCustomResourceDefinition/clusterpushsecrets.external-secrets.io\
+                \                                       Synced  Healthy  50s     \
+                \       CRD is healthy\nClusterRole/external-secrets-servicebindings\
+                \                                                          Synced\
+                \           49s            \nClusterRoleBinding/external-secrets-controller\
+                \                                                        Synced  \
+                \         49s            \nCustomResourceDefinition/clustersecretstores.external-secrets.io\
+                \                                      Synced  Healthy  50s      \
+                \      CRD is healthy\nCustomResourceDefinition/passwords.generators.external-secrets.io\
+                \                                     Synced  Healthy  50s       \
+                \     CRD is healthy\nServiceAccount/external-secrets            \
+                \                                                           Synced\
+                \           50s            \nCustomResourceDefinition/fakes.generators.external-secrets.io\
+                \                                         Synced  Healthy  50s   \
+                \         CRD is healthy\nCustomResourceDefinition/gcraccesstokens.generators.external-secrets.io\
+                \                               Synced  Healthy  50s            CRD\
+                \ is healthy\nCustomResourceDefinition/mfas.generators.external-secrets.io\
+                \                                          Synced  Healthy  50s  \
+                \          CRD is healthy"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-eso-2-8-0-d\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-eso-2-8-0-d\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d45cd73d90aa23d08ac293214f7cb80a50b0a9540fc908c19edd87c3211396af\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-eso-2-8-0-d-argo-apps\",\n      \"namespace\":\
+              \ \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-eso-2-8-0-d-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/kub-eso-2-8-0-d-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-eso-2-8-0-d\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n  \
+              \  {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-eso-2-8-0-d-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps
+              targetRevision: latest
+          revision: sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T13:42:29Z'
+          status: Healthy
+        summary:
+          isAppOfApps: true
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T13:46:32Z'
+          finishedAt: '2026-08-04T13:46:34Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:327349bab162b03f7eaa37ea9b5d69dcf897ade43ffe208668646d0ad6a579cd
+          deployedAt: '2026-08-04T13:42:31Z'
+          deployStartedAt: '2026-08-04T13:42:29Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b
+          deployedAt: '2026-08-04T13:46:34Z'
+          deployStartedAt: '2026-08-04T13:46:32Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argobot-helm-expt-parity-kub-eso-2-8-0-d
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kub-eso-2-8-0-d-argo-apps
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kub-eso-2-8-0-d-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kub-eso-2-8-0-d-argo-apps\nNamespace:\
+              \    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI Version:\
+              \  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n  Creation\
+              \ Timestamp:  2026-08-04T13:42:21Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        15\n  Resource Version:  2001\n  UID:        \
+              \       a3bc069b-c565-4774-9757-4595c84e8d94\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-08-04T13:42:29Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-08-04T13:42:29Z\n\
+              \    Deployed At:        2026-08-04T13:42:31Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:327349bab162b03f7eaa37ea9b5d69dcf897ade43ffe208668646d0ad6a579cd\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-08-04T13:46:32Z\n\
+              \    Deployed At:        2026-08-04T13:46:34Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T13:46:34Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-08-04T13:46:32Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/kub-eso-2-8-0-d-parity serverside-applied\n\
+              \        Name:        kub-eso-2-8-0-d-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/argobot-helm-expt-parity-kub-eso-2-8-0-d\
+              \ serverside-applied\n        Name:        argobot-helm-expt-parity-kub-eso-2-8-0-d\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\
+              \ serverside-applied\n        Name:        helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-08-04T13:46:35Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       argobot-helm-expt-parity-kub-eso-2-8-0-d\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n    Namespace: \
+              \ argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       kub-eso-2-8-0-d-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Is App\
+              \ Of Apps:  true\n  Sync:\n    Compared To:\n      Destination:\n  \
+              \      Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+              \        Target Revision:  latest\n    Revision:             sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  OperationStarted    5m5s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:327349bab162b03f7eaa37ea9b5d69dcf897ade43ffe208668646d0ad6a579cd'\n\
+              \  Normal  ResourceUpdated     5m5s  argocd-application-controller \
+              \ Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated    \
+              \ 5m5s  argocd-application-controller  Updated health status:  -> Healthy\n\
+              \  Normal  OperationCompleted  5m3s  argocd-application-controller \
+              \ Sync operation to sha256:327349bab162b03f7eaa37ea9b5d69dcf897ade43ffe208668646d0ad6a579cd\
+              \ succeeded\n  Normal  ResourceUpdated     5m1s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  OperationStarted\
+              \    62s   argo"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                   MESSAGE
+
+              5m5s        Normal   OperationStarted     application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Initiated
+              automated sync to ''sha256:327349bab162b03f7eaa37ea9b5d69dcf897ade43ffe208668646d0ad6a579cd''
+
+              5m5s        Normal   ResourceUpdated      application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Updated
+              sync status:  -> OutOfSync
+
+              5m5s        Normal   ResourceUpdated      application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Updated
+              health status:  -> Healthy
+
+              5m3s        Normal   OperationCompleted   application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Sync
+              operation to sha256:327349bab162b03f7eaa37ea9b5d69dcf897ade43ffe208668646d0ad6a579cd
+              succeeded
+
+              5m1s        Normal   ResourceUpdated      application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Updated
+              sync status: OutOfSync -> Synced
+
+              62s         Normal   OperationStarted     application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Initiated
+              automated sync to ''sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b''
+
+              62s         Normal   ResourceUpdated      application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Updated
+              sync status: Synced -> OutOfSync
+
+              60s         Normal   OperationCompleted   application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Sync
+              operation to sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b
+              succeeded
+
+              59s         Normal   ResourceUpdated      application/helm-expt-parity-kub-eso-2-8-0-d-argo-apps   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-root.json
+                sha256: a2b995bdb509a732feec801629a4a33a3ced781aa73dad1c17ecef2fe7bd55ef
+                bytes: 10634
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"a3bc069b-c565-4774-9757-4595c84e8d94\"\
+                ,\n    \"resourceVersion\": \"2285\",\n    \"generation\": 16,\n \
+                \   \"creationTimestamp\": \"2026-08-04T13:42:21Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\\\",\\\"\
+                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
+                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T13:42:21Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd\",\n        \"operation\": \"Update\",\n        \"apiVersion\"\
+                : \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-08-04T13:47:34Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:metadata\": {\n            \"f:annotations\": {\n \
+                \             \"f:argocd.argoproj.io/hydrate\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-08-04T13:47:41Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:isAppOfApps\": {}\n      \
+                \      },\n            \"f:sync\": {\n              \".\": {},\n \
+                \             \"f:comparedTo\": {\n                \".\": {},\n  \
+                \              \"f:destination\": {\n                  \".\": {},\n\
+                \                  \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argobot-helm-expt-parity-kub-eso-2-8-0-d\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\""
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 1a9152c5190e1758b4a061faf45614faa6d6540d04a045c506119c17feaad7a4
+                bytes: 1217
+              output: "Name:               argocd/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:51775/applications/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                               STATUS \
+                \ HEALTH  AGE    MESSAGE                                         \
+                \                                       REASON\nApplication/argobot-helm-expt-parity-kub-eso-2-8-0-d\
+                \    Synced          5m18s  application.argoproj.io/argobot-helm-expt-parity-kub-eso-2-8-0-d\
+                \ serverside-applied    \nApplication/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\
+                \  Synced          5m28s  application.argoproj.io/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\
+                \ serverside-applied  \nApplication/kub-eso-2-8-0-d-parity       \
+                \               Synced          75s    application.argoproj.io/kub-eso-2-8-0-d-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-eso-2-8-0-d\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-eso-2-8-0-d\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:d45cd73d90aa23d08ac293214f7cb80a50b0a9540fc908c19edd87c3211396af\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-eso-2-8-0-d-argo-apps\",\n      \"namespace\":\
+              \ \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f0708fe59ae43c6b71aa9341a29e2c3d1c23145e9dbf42c9d580fe1ef32c973b\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-eso-2-8-0-d-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/kub-eso-2-8-0-d-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-eso-2-8-0-d\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n  \
+              \  {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-eso-2-8-0-d-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# external-secrets-oci
+
+          deployment.apps/external-secrets                   1/1   1     1     66s
+
+          deployment.apps/external-secrets-cert-controller   1/1   1     1     66s
+
+          deployment.apps/external-secrets-webhook           1/1   1     1     66s'
+        pods: '# external-secrets-oci
+
+          external-secrets-6d6bf58975-xw4jq                   1/1   Running   0     66s
+
+          external-secrets-cert-controller-5d56859d75-q2q97   1/1   Running   0     66s
+
+          external-secrets-webhook-79cd8bb46c-nkz4r           1/1   Running   0     66s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||external-secrets
+    semanticNormalizations: &id004
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 44
+      configHubObjectCount: 45
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||external-secrets
+      allowedExtraInConfigHub:
+      - v1|Namespace||external-secrets
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations: *id004
+      comparisonSHA256: cc758260bed6872e25168f8cbefc0da1dc0d1eaa7274afb24c9e70432a8378b5
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 44
+      configHubObjectCount: 45
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||external-secrets
+      allowedExtraInConfigHub:
+      - v1|Namespace||external-secrets
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: cc758260bed6872e25168f8cbefc0da1dc0d1eaa7274afb24c9e70432a8378b5
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-08-04T13:42:25Z'
+    finishedAt: '2026-08-04T13:43:02Z'
+    elapsedSeconds: 36.867
+    timeoutSeconds: 900
+    command: helm upgrade --install external-secrets /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/exact-chart-artifact/chart.tgz
+      --namespace external-secrets-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-08-04T13:43:11Z'
+    finishedAt: '2026-08-04T13:43:18Z'
+    elapsedSeconds: 6.355
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/packages/external-secrets/external-secrets/2.8.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+      --non-interactive --namespace external-secrets-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-08-04T13:43:25Z'
+    finishedAt: '2026-08-04T13:43:25Z'
+    elapsedSeconds: 0.513
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-8-0-d.kubeconfig
+      --context kind-helm-expt-parity-kub-eso-2-8-0-d apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/confighub-rendered-crds.yaml
+    objectCount: 25
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-08-04T13:43:29Z'
+    finishedAt: '2026-08-04T13:43:29Z'
+    elapsedSeconds: 0.223
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-8-0-d.kubeconfig
+      --context kind-helm-expt-parity-kub-eso-2-8-0-d apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/direct-apply-manifest.yaml
+    objectCount: 19
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-08-04T13:43:29Z'
+    finishedAt: '2026-08-04T13:44:00Z'
+    elapsedSeconds: 30.673
+    timeoutSeconds: 300
+    namespaces: external-secrets-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-08-04T13:44:17Z'
+    finishedAt: '2026-08-04T13:44:23Z'
+    elapsedSeconds: 6.298
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/packages/external-secrets/external-secrets/2.8.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+      --non-interactive --namespace external-secrets-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-08-04T13:44:27Z'
+    finishedAt: '2026-08-04T13:46:19Z'
+    elapsedSeconds: 111.837
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+      --space helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d --target helm-expt-parity-kub-eso-2-8-0-d/target
+    objectCount: 45
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-08-04T13:46:19Z'
+    finishedAt: '2026-08-04T13:46:20Z'
+    elapsedSeconds: 0.793
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d --release-target
+      helm-expt-parity-kub-eso-2-8-0-d/target
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-08-04T13:46:20Z'
+    finishedAt: '2026-08-04T13:46:20Z'
+    elapsedSeconds: 0.496
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-08-04T13:46:20Z'
+    finishedAt: '2026-08-04T13:46:23Z'
+    elapsedSeconds: 2.48
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+    unitCount: 44
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-08-04T13:46:23Z'
+    finishedAt: '2026-08-04T13:46:24Z'
+    elapsedSeconds: 1.117
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kub-eso-2-8-0-d-argo-apps kub-eso-2-8-0-d-parity-app
+      /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/argo-application.json
+      --target helm-expt-parity-kub-eso-2-8-0-d/target --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-08-04T13:46:24Z'
+    finishedAt: '2026-08-04T13:46:25Z'
+    elapsedSeconds: 0.904
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-eso-2-8-0-d-argo-apps
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-08-04T13:46:25Z'
+    finishedAt: '2026-08-04T13:47:15Z'
+    elapsedSeconds: 50.317
+    timeoutSeconds: 420
+    waitedSeconds: 50
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-08-04T13:47:50Z'
+    finishedAt: '2026-08-04T13:47:50Z'
+    elapsedSeconds: 0.133
+    timeoutSeconds: 180
+    namespaces: external-secrets-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: exact-source-artifact
+    result: pass
+    detail: https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.8.0/external-secrets-2.8.0.tgz
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kub-eso-2-8-0-d\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-8-0-d.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kub-eso-2-8-0-d\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kub-eso-2-8-0-d\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-eso-2-8-0-d\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-eso-2-8-0-d.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argocd\"...\napiVersion: "
+  - name: cluster-target-discovery
+    result: pass
+    detail: "helm-expt-parity-kub-eso-2-8-0-d: NAME      WORKER    PROVIDERTYPE  \
+      \  PARAMETERS    SPACE                            \ntarget    worker    OCI\
+      \             {}            helm-expt-parity-kub-eso-2-8-0-d\ntarget helm-expt-parity-kub-eso-2-8-0-d/target:\
+      \ {\n  \"BridgeWorker\": {\n    \"BridgeWorkerID\": \"93bb52f3-982a-4ea7-a64d-83b197bb8f1c\"\
+      ,\n    \"ClaimTTLSeconds\": 60,\n    \"Condition\": \"Ready\",\n    \"CreatedAt\"\
+      : \"2026-08-04T13:42:13.970271Z\",\n    \"CursorID\": 1950,\n    \"DisplayName\"\
+      : \"worker\",\n    \"EntityType\": \"BridgeWorker\",\n    \"LastMessage\": \"\
+      Server-hosted\",\n    \"LastSeenAt\": \"2026-08-04T13:42:22.953791555Z\",\n\
+      \    \"OrgRole\": \"none\",\n    \"OrganizationID\": \"12c33fa8-00b1-4011-ad3e-19d56458b29c\"\
+      ,\n    \"Permissions\": {\n      \"Manage\": {\n        \"UserIDs\":\nargo apps\
+      \ helm-expt-parity-kub-eso-2-8-0-d-argo-apps: ID                      2f587860-8606-447e-8b8b-fa4b714a74a0\
+      \                                                                      \nName\
+      \                    helm-expt-parity-kub-eso-2-8-0-d-argo-app"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "external-secrets" does not exist. Installing it now.
+
+      NAME: external-secrets
+
+      LAST DEPLOYED: Tue Aug  4 14:42:26 2026
+
+      NAMESPACE: external-secrets-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      external-secrets has been deployed successfully in namespace external-secrets-helm!
+
+
+      In order to begin using ExternalSecrets, you will need to set up a SecretStore
+
+      or ClusterSecretStore resource (for example, by creating a ''vault'' SecretStore).
+
+
+      More information on the different types of SecretStores and how to configure
+      them
+
+      can be found in our Github: https://github.com/external-secrets/external-secrets'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# external-secrets-apply
+
+      deployment.apps/external-secrets                   1/1   1     1     31s
+
+      deployment.apps/external-secrets-cert-controller   1/1   1     1     31s
+
+      deployment.apps/external-secrets-webhook           1/1   1     1     31s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=34
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  sourceArtifact:
+    result: pass
+    resolution: artifact-addressed
+    url: https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.8.0/external-secrets-2.8.0.tgz
+    expectedSHA256: 251e4615013c6d2f9ade5cedf1cd8615613f286bfc381e44fb005f197e611ecd
+    observedSHA256: 251e4615013c6d2f9ade5cedf1cd8615613f286bfc381e44fb005f197e611ecd
+    bytes: 205224
+    materializedPath: exact-chart-artifact/chart.tgz
+    command: curl --fail --location --retry 3 --output chart.tgz https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.8.0/external-secrets-2.8.0.tgz
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: external-secrets-apply
+        name: external-secrets-webhook
+        keys: []
+        lane: configHubKubectlApply
+        sourceVariant: default
+        sourceNamespace: external-secrets
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: external-secrets-oci
+        name: external-secrets-webhook
+        keys: []
+        lane: configHubOciArgo
+        sourceVariant: default
+        sourceNamespace: external-secrets
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-external-secrets-2-8-0-default/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: external-secrets-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: external-secrets-oci

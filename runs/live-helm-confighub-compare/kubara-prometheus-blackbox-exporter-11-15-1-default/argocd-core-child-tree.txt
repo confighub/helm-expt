@@ -1,0 +1,22 @@
+Name:               argocd/kub-bbe-11151-d-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          monitoring-oci
+URL:                http://localhost:55562/applications/kub-bbe-11151-d-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-bbe-11151-d-kub-bbe-11151-d
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                              STATUS  HEALTH   AGE  MESSAGE                                                          REASON
+Namespace/monitoring-oci                               Synced           55s
+Service/prometheus-blackbox-exporter                   Synced  Healthy  20s  service/prometheus-blackbox-exporter serverside-applied
+ServiceAccount/prometheus-blackbox-exporter            Synced           20s  serviceaccount/prometheus-blackbox-exporter serverside-applied
+Deployment/prometheus-blackbox-exporter                Synced  Healthy  20s  deployment.apps/prometheus-blackbox-exporter serverside-applied
+└─ReplicaSet/prometheus-blackbox-exporter-8588c98dcc           Healthy  20s
+  └─Pod/prometheus-blackbox-exporter-8588c98dcc-d29md          Healthy  20s
+ConfigMap/prometheus-blackbox-exporter                 Synced           20s  configmap/prometheus-blackbox-exporter serverside-applied

@@ -1,0 +1,68 @@
+Name:               argocd/kub-cm-v1-21-0-crd-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          cert-manager-oci
+URL:                http://localhost:50444/applications/kub-cm-v1-21-0-crd-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                              STATUS  HEALTH   AGE    MESSAGE                                                                                          REASON
+CustomResourceDefinition/certificaterequests.cert-manager.io           Synced  Healthy  29s                                                                                                     CRD is healthy
+ClusterRole/cert-manager-cainjector                                    Synced           29s
+ClusterRole/cert-manager-controller-challenges                         Synced           29s
+RoleBinding/cert-manager-webhook:dynamic-serving                       Synced           29s    rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving serverside-applied
+Service/cert-manager                                                   Synced  Healthy  29s    service/cert-manager serverside-applied
+CustomResourceDefinition/challenges.acme.cert-manager.io               Synced  Healthy  29s                                                                                                     CRD is healthy
+CustomResourceDefinition/orders.acme.cert-manager.io                   Synced  Healthy  29s                                                                                                     CRD is healthy
+ClusterRole/cert-manager-controller-certificates                       Synced           29s
+ClusterRoleBinding/cert-manager-cainjector                             Synced           29s
+ClusterRoleBinding/cert-manager-controller-certificatesigningrequests  Synced           29s
+ClusterRoleBinding/cert-manager-controller-issuers                     Synced           29s
+CustomResourceDefinition/clusterissuers.cert-manager.io                Synced  Healthy  29s                                                                                                     CRD is healthy
+Service/cert-manager-cainjector                                        Synced  Healthy  29s    service/cert-manager-cainjector serverside-applied
+ServiceAccount/cert-manager                                            Synced           29s    serviceaccount/cert-manager serverside-applied
+ServiceAccount/cert-manager-webhook                                    Synced           29s    serviceaccount/cert-manager-webhook serverside-applied
+RoleBinding/cert-manager-cainjector:leaderelection                     Synced           29s    rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection serverside-applied
+Service/cert-manager-webhook                                           Synced  Healthy  29s    service/cert-manager-webhook serverside-applied
+ClusterRole/cert-manager-view                                          Synced           29s
+Role/cert-manager-webhook:dynamic-serving                              Synced           29s    role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving serverside-applied
+Namespace/cert-manager-oci                                             Synced           2m46s
+ValidatingWebhookConfiguration/cert-manager-webhook                    Synced           29s
+CustomResourceDefinition/certificates.cert-manager.io                  Synced  Healthy  29s                                                                                                     CRD is healthy
+ClusterRole/cert-manager-controller-ingress-shim                       Synced           29s
+ClusterRole/cert-manager-webhook:subjectaccessreviews                  Synced           29s
+ClusterRoleBinding/cert-manager-controller-clusterissuers              Synced           29s
+ClusterRoleBinding/cert-manager-controller-orders                      Synced           29s
+Role/cert-manager:leaderelection                                       Synced           29s    role.rbac.authorization.k8s.io/cert-manager:leaderelection serverside-applied
+CustomResourceDefinition/issuers.cert-manager.io                       Synced  Healthy  29s                                                                                                     CRD is healthy
+Deployment/cert-manager                                                Synced  Healthy  29s    deployment.apps/cert-manager serverside-applied
+└─ReplicaSet/cert-manager-8fcb9d456                                            Healthy  29s
+  └─Pod/cert-manager-8fcb9d456-9p2wz                                           Healthy  29s
+Deployment/cert-manager-cainjector                                     Synced  Healthy  29s    deployment.apps/cert-manager-cainjector serverside-applied
+└─ReplicaSet/cert-manager-cainjector-85c8bf6d8b                                Healthy  29s
+  └─Pod/cert-manager-cainjector-85c8bf6d8b-w6wkx                               Healthy  29s
+ClusterRoleBinding/cert-manager-controller-approve:cert-manager-io     Synced           29s
+RoleBinding/cert-manager:leaderelection                                Synced           29s    rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection serverside-applied
+MutatingWebhookConfiguration/cert-manager-webhook                      Synced           29s
+Deployment/cert-manager-webhook                                        Synced  Healthy  29s    deployment.apps/cert-manager-webhook serverside-applied
+└─ReplicaSet/cert-manager-webhook-85d7d5497                                    Healthy  29s
+  └─Pod/cert-manager-webhook-85d7d5497-w6dq2                                   Healthy  29s
+ClusterRole/cert-manager-cluster-view                                  Synced           29s
+ClusterRole/cert-manager-controller-clusterissuers                     Synced           29s
+ClusterRole/cert-manager-controller-issuers                            Synced           29s
+ClusterRole/cert-manager-controller-orders                             Synced           29s
+ClusterRole/cert-manager-edit                                          Synced           29s
+ClusterRoleBinding/cert-manager-controller-challenges                  Synced           29s
+ServiceAccount/cert-manager-cainjector                                 Synced           29s    serviceaccount/cert-manager-cainjector serverside-applied
+ClusterRole/cert-manager-controller-approve:cert-manager-io            Synced           29s
+ClusterRole/cert-manager-controller-certificatesigningrequests         Synced           29s
+ClusterRoleBinding/cert-manager-controller-certificates                Synced           29s
+ClusterRoleBinding/cert-manager-controller-ingress-shim                Synced           29s
+ClusterRoleBinding/cert-manager-webhook:subjectaccessreviews           Synced           29s
+Role/cert-manager-cainjector:leaderelection                            Synced           29s    role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection serverside-applied

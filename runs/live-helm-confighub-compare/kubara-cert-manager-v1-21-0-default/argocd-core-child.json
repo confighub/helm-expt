@@ -1,0 +1,1036 @@
+{
+  "metadata": {
+    "name": "kub-cm-v1-21-0-d-parity",
+    "namespace": "argocd",
+    "uid": "c8e8c486-ad12-4ebe-bf5a-497753204aeb",
+    "resourceVersion": "1919",
+    "generation": 10,
+    "creationTimestamp": "2026-08-04T12:08:57Z",
+    "annotations": {
+      "argocd.argoproj.io/hydrate": "normal",
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kub-cm-v1-21-0-d-argo-apps:argoproj.io/Application:argocd/kub-cm-v1-21-0-d-parity",
+      "confighub.com/origin": "{\"spaceId\":\"91a85ce1-7b26-4690-be56-775b0a67bb47\",\"spaceSlug\":\"helm-expt-parity-kub-cm-v1-21-0-d-argo-apps\",\"unitId\":\"ff279221-f1de-474b-b9b4-37486a8f5156\",\"unitSlug\":\"kub-cm-v1-21-0-d-parity-app\",\"revisionNum\":2}"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T12:08:57Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/origin": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T12:09:20Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/hydrate": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T12:09:27Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "cert-manager-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "cert-manager-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "cert-manager",
+        "name": "cert-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "cert-manager",
+        "name": "cert-manager-cainjector",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "cert-manager",
+        "name": "cert-manager-webhook",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "cert-manager",
+        "name": "cert-manager",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "cert-manager",
+        "name": "cert-manager-cainjector",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "cert-manager",
+        "name": "cert-manager-webhook",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "MutatingWebhookConfiguration",
+        "name": "cert-manager-webhook",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "cert-manager-webhook",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "cert-manager",
+        "name": "cert-manager",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "cert-manager",
+        "name": "cert-manager-cainjector",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "cert-manager",
+        "name": "cert-manager-webhook",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-cainjector",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-cluster-view",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-approve:cert-manager-io",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-certificates",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-certificatesigningrequests",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-challenges",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-clusterissuers",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-ingress-shim",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-issuers",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-controller-orders",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-edit",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-view",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "cert-manager-webhook:subjectaccessreviews",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-cainjector",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-approve:cert-manager-io",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-certificates",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-certificatesigningrequests",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-challenges",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-clusterissuers",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-ingress-shim",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-issuers",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-controller-orders",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "cert-manager-webhook:subjectaccessreviews",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "cert-manager",
+        "name": "cert-manager-webhook:dynamic-serving",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "kube-system",
+        "name": "cert-manager-cainjector:leaderelection",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "kube-system",
+        "name": "cert-manager:leaderelection",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "cert-manager",
+        "name": "cert-manager-webhook:dynamic-serving",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "kube-system",
+        "name": "cert-manager-cainjector:leaderelection",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "kube-system",
+        "name": "cert-manager:leaderelection",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "cert-manager-oci"
+        }
+      },
+      "revision": "sha256:b88430e7e92e608dacc81da6d0c7959527557f0d94f400e52e0f16ff2ced0e06"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T12:09:14Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:b88430e7e92e608dacc81da6d0c7959527557f0d94f400e52e0f16ff2ced0e06",
+        "deployedAt": "2026-08-04T12:09:06Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T12:09:04Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T12:09:20Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:b88430e7e92e608dacc81da6d0c7959527557f0d94f400e52e0f16ff2ced0e06",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-oci",
+            "status": "Synced",
+            "message": "namespace/cert-manager-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector",
+            "status": "Synced",
+            "message": "serviceaccount/cert-manager-cainjector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "cert-manager",
+            "name": "cert-manager",
+            "status": "Synced",
+            "message": "serviceaccount/cert-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook",
+            "status": "Synced",
+            "message": "serviceaccount/cert-manager-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-clusterissuers",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-cainjector",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-cainjector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-challenges",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-challenges serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-approve:cert-manager-io",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-orders",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-orders serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-webhook:subjectaccessreviews",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-certificates",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificates serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-certificatesigningrequests",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-view",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-view serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-issuers",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-issuers serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-edit",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-edit serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-ingress-shim",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-cluster-view",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/cert-manager-cluster-view serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-clusterissuers",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-clusterissuers serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-approve:cert-manager-io",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-approve:cert-manager-io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-challenges",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-challenges serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-certificates",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificates serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-cainjector",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-cainjector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-ingress-shim",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-ingress-shim serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-webhook:subjectaccessreviews",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-webhook:subjectaccessreviews serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-issuers",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-issuers serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-certificatesigningrequests",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-certificatesigningrequests serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-controller-orders",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/cert-manager-controller-orders serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "kube-system",
+            "name": "cert-manager-cainjector:leaderelection",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "kube-system",
+            "name": "cert-manager:leaderelection",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/cert-manager:leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook:dynamic-serving",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "cert-manager:leaderelection",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook:dynamic-serving",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system",
+            "name": "cert-manager-cainjector:leaderelection",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector",
+            "status": "Synced",
+            "message": "service/cert-manager-cainjector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "cert-manager",
+            "name": "cert-manager",
+            "status": "Synced",
+            "message": "service/cert-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook",
+            "status": "Synced",
+            "message": "service/cert-manager-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "cert-manager",
+            "name": "cert-manager-cainjector",
+            "status": "Synced",
+            "message": "deployment.apps/cert-manager-cainjector serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/jetstack/cert-manager-cainjector:v1.21.0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "cert-manager",
+            "name": "cert-manager-webhook",
+            "status": "Synced",
+            "message": "deployment.apps/cert-manager-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/jetstack/cert-manager-webhook:v1.21.0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "cert-manager",
+            "name": "cert-manager",
+            "status": "Synced",
+            "message": "deployment.apps/cert-manager serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/jetstack/cert-manager-controller:v1.21.0"
+            ]
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "MutatingWebhookConfiguration",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-webhook",
+            "status": "Synced",
+            "message": "mutatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "ValidatingWebhookConfiguration",
+            "namespace": "cert-manager-oci",
+            "name": "cert-manager-webhook",
+            "status": "Synced",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/cert-manager-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:b88430e7e92e608dacc81da6d0c7959527557f0d94f400e52e0f16ff2ced0e06",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-d-kub-cm-v1-21-0-d",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T12:09:04Z",
+      "finishedAt": "2026-08-04T12:09:06Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/jetstack/cert-manager-cainjector:v1.21.0",
+        "quay.io/jetstack/cert-manager-controller:v1.21.0",
+        "quay.io/jetstack/cert-manager-webhook:v1.21.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

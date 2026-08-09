@@ -1,0 +1,164 @@
+Name:               argocd/kub-kps-87-19-2-d-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          monitoring-oci
+URL:                http://localhost:58895/applications/kub-kps-87-19-2-d-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-kps-87-19-2-d-kub-kps-87-19-2-d
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                                                STATUS  HEALTH   AGE    MESSAGE                                                                                                                  REASON
+ConfigMap/kube-prometheus-stack-kubelet                                                  Synced           48s    configmap/kube-prometheus-stack-kubelet serverside-applied
+CustomResourceDefinition/scrapeconfigs.monitoring.coreos.com                             Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+ConfigMap/kube-prometheus-stack-grafana-overview                                         Synced           48s    configmap/kube-prometheus-stack-grafana-overview serverside-applied
+ServiceAccount/kube-prometheus-stack-operator                                            Synced           48s    serviceaccount/kube-prometheus-stack-operator serverside-applied
+CustomResourceDefinition/servicemonitors.monitoring.coreos.com                           Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+CustomResourceDefinition/thanosrulers.monitoring.coreos.com                              Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+ServiceMonitor/kube-prometheus-stack-kube-proxy                                          Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-proxy serverside-applied
+ClusterRoleBinding/kube-prometheus-stack-kube-state-metrics                              Synced           48s
+ConfigMap/kube-prometheus-stack-scheduler                                                Synced           48s    configmap/kube-prometheus-stack-scheduler serverside-applied
+Service/kube-prometheus-stack-kube-etcd                                                  Synced  Healthy  48s    service/kube-prometheus-stack-kube-etcd serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-apiserver-slos                                 Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-slos serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-state-metrics                                  Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-state-metrics serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-coredns                                              Synced           48s    configmap/kube-prometheus-stack-k8s-coredns serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-resources-namespace                                  Synced           48s    configmap/kube-prometheus-stack-k8s-resources-namespace serverside-applied
+CustomResourceDefinition/alertmanagers.monitoring.coreos.com                             Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+CustomResourceDefinition/prometheusrules.monitoring.coreos.com                           Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+PrometheusRule/kube-prometheus-stack-prometheus                                          Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-prometheus serverside-applied
+ServiceMonitor/kube-prometheus-stack-kube-controller-manager                             Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-controller-manager serverside-applied
+ConfigMap/kube-prometheus-stack-nodes-darwin                                             Synced           48s    configmap/kube-prometheus-stack-nodes-darwin serverside-applied
+Service/kube-prometheus-stack-coredns                                                    Synced  Healthy  47s    service/kube-prometheus-stack-coredns serverside-applied
+PrometheusRule/kube-prometheus-stack-node-exporter.rules                                 Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node-exporter.rules serverside-applied
+ClusterRole/kube-prometheus-stack-operator                                               Synced           48s
+Service/kube-prometheus-stack-kube-proxy                                                 Synced  Healthy  47s    service/kube-prometheus-stack-kube-proxy serverside-applied
+ServiceAccount/kube-prometheus-stack-alertmanager                                        Synced           48s    serviceaccount/kube-prometheus-stack-alertmanager serverside-applied
+PrometheusRule/kube-prometheus-stack-etcd                                                Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-etcd serverside-applied
+ServiceMonitor/kube-prometheus-stack-operator                                            Synced           45s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-operator serverside-applied
+ConfigMap/kube-prometheus-stack-grafana-config-dashboards                                Synced           48s    configmap/kube-prometheus-stack-grafana-config-dashboards serverside-applied
+CustomResourceDefinition/alertmanagerconfigs.monitoring.coreos.com                       Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+PrometheusRule/kube-prometheus-stack-k8s.rules.container-memory-swap                     Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-swap serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-system-kube-proxy                        Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-kube-proxy serverside-applied
+PrometheusRule/kube-prometheus-stack-prometheus-operator                                 Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-prometheus-operator serverside-applied
+ClusterRole/kube-prometheus-stack-grafana-clusterrole                                    Synced           48s
+ConfigMap/kube-prometheus-stack-prometheus                                               Synced           48s    configmap/kube-prometheus-stack-prometheus serverside-applied
+ClusterRoleBinding/kube-prometheus-stack-prometheus                                      Synced           48s
+Service/kube-prometheus-stack-prometheus-node-exporter                                   Synced  Healthy  48s    service/kube-prometheus-stack-prometheus-node-exporter serverside-applied
+MutatingWebhookConfiguration/kube-prometheus-stack-admission                             Synced           47s
+PrometheusRule/kube-prometheus-stack-config-reloaders                                    Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-config-reloaders serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-apps                                     Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-apps serverside-applied
+ClusterRoleBinding/kube-prometheus-stack-operator                                        Synced           48s
+ConfigMap/kube-prometheus-stack-k8s-resources-pod                                        Synced           48s    configmap/kube-prometheus-stack-k8s-resources-pod serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-apiserver-availability.rules                   Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-availability.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-scheduler.rules                                Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-scheduler.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-system-apiserver                         Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-apiserver serverside-applied
+Service/kube-prometheus-stack-kube-scheduler                                             Synced  Healthy  48s    service/kube-prometheus-stack-kube-scheduler serverside-applied
+Deployment/kube-prometheus-stack-grafana                                                 Synced  Healthy  47s    deployment.apps/kube-prometheus-stack-grafana serverside-applied
+└─ReplicaSet/kube-prometheus-stack-grafana-844d54856f                                            Healthy  47s
+  └─Pod/kube-prometheus-stack-grafana-844d54856f-rk26b                                           Healthy  47s
+PrometheusRule/kube-prometheus-stack-kubernetes-storage                                  Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-storage serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-system-kubelet                           Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-kubelet serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-resources-multicluster                               Synced           48s    configmap/kube-prometheus-stack-k8s-resources-multicluster serverside-applied
+ServiceAccount/kube-prometheus-stack-kube-state-metrics                                  Synced           48s    serviceaccount/kube-prometheus-stack-kube-state-metrics serverside-applied
+PrometheusRule/kube-prometheus-stack-k8s.rules.container-memory-cache                    Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-cache serverside-applied
+PrometheusRule/kube-prometheus-stack-k8s.rules.container-memory-rss                      Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-rss serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-resources                                Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-resources serverside-applied
+Service/kube-prometheus-stack-prometheus                                                 Synced  Healthy  48s    service/kube-prometheus-stack-prometheus serverside-applied
+PrometheusRule/kube-prometheus-stack-k8s.rules.pod-owner                                 Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.pod-owner serverside-applied
+ConfigMap/kube-prometheus-stack-grafana-datasource                                       Synced           48s    configmap/kube-prometheus-stack-grafana-datasource serverside-applied
+ServiceAccount/kube-prometheus-stack-prometheus-node-exporter                            Synced           48s    serviceaccount/kube-prometheus-stack-prometheus-node-exporter serverside-applied
+Prometheus/kube-prometheus-stack-prometheus                                              Synced  Healthy  45s    prometheus.monitoring.coreos.com/kube-prometheus-stack-prometheus serverside-applied                                     All instances are available
+├─ConfigMap/prometheus-kube-prometheus-stack-prometheus-rulefiles-0                                       45s
+├─Secret/prometheus-kube-prometheus-stack-prometheus                                                      45s
+├─Secret/prometheus-kube-prometheus-stack-prometheus-thanos-prometheus-http-client-file                   45s
+├─Secret/prometheus-kube-prometheus-stack-prometheus-tls-assets-0                                         45s
+├─Secret/prometheus-kube-prometheus-stack-prometheus-web-config                                           45s
+├─Service/prometheus-operated                                                                    Healthy  45s
+└─StatefulSet/prometheus-kube-prometheus-stack-prometheus                                        Healthy  45s                                                                                                                             statefulset rolling update complete 1 pods at revision prometheus-kube-prometheus-stack-prometheus-7d8cf5df65...
+  ├─Pod/prometheus-kube-prometheus-stack-prometheus-0                                            Healthy  45s
+  └─ControllerRevision/prometheus-kube-prometheus-stack-prometheus-7d8cf5df65                             45s
+ServiceMonitor/kube-prometheus-stack-kubelet                                             Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kubelet serverside-applied
+ConfigMap/kube-prometheus-stack-apiserver                                                Synced           48s    configmap/kube-prometheus-stack-apiserver serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-resources-cluster                                    Synced           48s    configmap/kube-prometheus-stack-k8s-resources-cluster serverside-applied
+ConfigMap/kube-prometheus-stack-namespace-by-workload                                    Synced           48s    configmap/kube-prometheus-stack-namespace-by-workload serverside-applied
+Deployment/kube-prometheus-stack-operator                                                Synced  Healthy  47s    deployment.apps/kube-prometheus-stack-operator serverside-applied
+└─ReplicaSet/kube-prometheus-stack-operator-658987fcfc                                           Healthy  47s
+  └─Pod/kube-prometheus-stack-operator-658987fcfc-2fcvv                                          Healthy  47s
+Alertmanager/kube-prometheus-stack-alertmanager                                          Synced           47s    alertmanager.monitoring.coreos.com/kube-prometheus-stack-alertmanager serverside-applied
+├─Secret/alertmanager-kube-prometheus-stack-alertmanager-cluster-tls-config                               46s
+├─Secret/alertmanager-kube-prometheus-stack-alertmanager-generated                                        46s
+├─Secret/alertmanager-kube-prometheus-stack-alertmanager-tls-assets-0                                     46s
+├─Secret/alertmanager-kube-prometheus-stack-alertmanager-web-config                                       46s
+├─Service/alertmanager-operated                                                                  Healthy  46s
+└─StatefulSet/alertmanager-kube-prometheus-stack-alertmanager                                    Healthy  46s                                                                                                                             statefulset rolling update complete 1 pods at revision alertmanager-kube-prometheus-stack-alertmanager-68ff754958...
+  ├─Pod/alertmanager-kube-prometheus-stack-alertmanager-0                                        Healthy  46s
+  └─ControllerRevision/alertmanager-kube-prometheus-stack-alertmanager-68ff754958                         46s
+ServiceMonitor/kube-prometheus-stack-kube-scheduler                                      Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-scheduler serverside-applied
+ClusterRole/kube-prometheus-stack-kube-state-metrics                                     Synced           48s
+ConfigMap/kube-prometheus-stack-nodes-aix                                                Synced           48s    configmap/kube-prometheus-stack-nodes-aix serverside-applied
+CustomResourceDefinition/podmonitors.monitoring.coreos.com                               Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+PrometheusRule/kube-prometheus-stack-k8s.rules.container-resource                        Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-resource serverside-applied
+PrometheusRule/kube-prometheus-stack-node-network                                        Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node-network serverside-applied
+Service/kube-prometheus-stack-operator                                                   Synced  Healthy  48s    service/kube-prometheus-stack-operator serverside-applied
+PrometheusRule/kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot           Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot serverside-applied
+ConfigMap/kube-prometheus-stack-proxy                                                    Synced           48s    configmap/kube-prometheus-stack-proxy serverside-applied
+ConfigMap/kube-prometheus-stack-workload-total                                           Synced           48s    configmap/kube-prometheus-stack-workload-total serverside-applied
+ServiceMonitor/kube-prometheus-stack-prometheus-node-exporter                            Synced           45s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-prometheus-node-exporter serverside-applied
+ConfigMap/kube-prometheus-stack-pod-total                                                Synced           48s    configmap/kube-prometheus-stack-pod-total serverside-applied
+ConfigMap/kube-prometheus-stack-nodes                                                    Synced           48s    configmap/kube-prometheus-stack-nodes serverside-applied
+ConfigMap/kube-prometheus-stack-persistentvolumesusage                                   Synced           48s    configmap/kube-prometheus-stack-persistentvolumesusage serverside-applied
+Service/kube-prometheus-stack-grafana                                                    Synced  Healthy  48s    service/kube-prometheus-stack-grafana serverside-applied
+ServiceAccount/kube-prometheus-stack-grafana                                             Synced           48s    serviceaccount/kube-prometheus-stack-grafana serverside-applied
+Deployment/kube-prometheus-stack-kube-state-metrics                                      Synced  Healthy  47s    deployment.apps/kube-prometheus-stack-kube-state-metrics serverside-applied
+└─ReplicaSet/kube-prometheus-stack-kube-state-metrics-7cfd6d45cc                                 Healthy  47s
+  └─Pod/kube-prometheus-stack-kube-state-metrics-7cfd6d45cc-kq7nk                                Healthy  47s
+PrometheusRule/kube-prometheus-stack-kube-apiserver-burnrate.rules                       Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-burnrate.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-kubelet.rules                                       Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubelet.rules serverside-applied
+ConfigMap/kube-prometheus-stack-grafana                                                  Synced           48s    configmap/kube-prometheus-stack-grafana serverside-applied
+ConfigMap/kube-prometheus-stack-namespace-by-pod                                         Synced           48s    configmap/kube-prometheus-stack-namespace-by-pod serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-apiserver-histogram.rules                      Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-histogram.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-prometheus-general.rules                       Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-prometheus-general.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-system-controller-manager                Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-controller-manager serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-system-scheduler                         Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-scheduler serverside-applied
+ServiceMonitor/kube-prometheus-stack-grafana                                             Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-grafana serverside-applied
+ClusterRoleBinding/kube-prometheus-stack-grafana-clusterrolebinding                      Synced           48s
+ConfigMap/kube-prometheus-stack-cluster-total                                            Synced           48s    configmap/kube-prometheus-stack-cluster-total serverside-applied
+Namespace/monitoring-oci                                                                 Synced           6m24s
+ClusterRole/kube-prometheus-stack-prometheus                                             Synced           48s
+Service/kube-prometheus-stack-kube-controller-manager                                    Synced  Healthy  48s    service/kube-prometheus-stack-kube-controller-manager serverside-applied
+PrometheusRule/kube-prometheus-stack-alertmanager.rules                                  Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-alertmanager.rules serverside-applied
+ConfigMap/kube-prometheus-stack-controller-manager                                       Synced           48s    configmap/kube-prometheus-stack-controller-manager serverside-applied
+ConfigMap/kube-prometheus-stack-node-cluster-rsrc-use                                    Synced           48s    configmap/kube-prometheus-stack-node-cluster-rsrc-use serverside-applied
+ConfigMap/kube-prometheus-stack-node-rsrc-use                                            Synced           48s    configmap/kube-prometheus-stack-node-rsrc-use serverside-applied
+ValidatingWebhookConfiguration/kube-prometheus-stack-admission                           Synced           47s
+CustomResourceDefinition/probes.monitoring.coreos.com                                    Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+ConfigMap/kube-prometheus-stack-k8s-resources-workloads-namespace                        Synced           48s    configmap/kube-prometheus-stack-k8s-resources-workloads-namespace serverside-applied
+PrometheusRule/kube-prometheus-stack-kube-prometheus-node-recording.rules                Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-prometheus-node-recording.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-kubernetes-system                                   Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system serverside-applied
+PrometheusRule/kube-prometheus-stack-node-exporter                                       Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node-exporter serverside-applied
+ServiceMonitor/kube-prometheus-stack-coredns                                             Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-coredns serverside-applied
+ServiceMonitor/kube-prometheus-stack-kube-state-metrics                                  Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-state-metrics serverside-applied
+ServiceMonitor/kube-prometheus-stack-prometheus                                          Synced           45s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-prometheus serverside-applied
+DaemonSet/kube-prometheus-stack-prometheus-node-exporter                                 Synced  Healthy  47s    daemonset.apps/kube-prometheus-stack-prometheus-node-exporter serverside-applied
+├─Pod/kube-prometheus-stack-prometheus-node-exporter-ssvqp                                       Healthy  47s
+└─ControllerRevision/kube-prometheus-stack-prometheus-node-exporter-7b88fb76f8                            47s
+ServiceMonitor/kube-prometheus-stack-alertmanager                                        Synced           47s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-alertmanager serverside-applied
+ServiceMonitor/kube-prometheus-stack-kube-etcd                                           Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-etcd serverside-applied
+ConfigMap/kube-prometheus-stack-alertmanager-overview                                    Synced           48s    configmap/kube-prometheus-stack-alertmanager-overview serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-resources-workload                                   Synced           48s    configmap/kube-prometheus-stack-k8s-resources-workload serverside-applied
+ServiceMonitor/kube-prometheus-stack-apiserver                                           Synced           46s    servicemonitor.monitoring.coreos.com/kube-prometheus-stack-apiserver serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-resources-node                                       Synced           48s    configmap/kube-prometheus-stack-k8s-resources-node serverside-applied
+Service/kube-prometheus-stack-alertmanager                                               Synced  Healthy  47s    service/kube-prometheus-stack-alertmanager serverside-applied
+Service/kube-prometheus-stack-kube-state-metrics                                         Synced  Healthy  48s    service/kube-prometheus-stack-kube-state-metrics serverside-applied
+ConfigMap/kube-prometheus-stack-etcd                                                     Synced           48s    configmap/kube-prometheus-stack-etcd serverside-applied
+ConfigMap/kube-prometheus-stack-k8s-resources-nodes-overview                             Synced           48s    configmap/kube-prometheus-stack-k8s-resources-nodes-overview serverside-applied
+CustomResourceDefinition/prometheuses.monitoring.coreos.com                              Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+CustomResourceDefinition/prometheusagents.monitoring.coreos.com                          Synced  Healthy  9m55s                                                                                                                           CRD is healthy
+PrometheusRule/kube-prometheus-stack-general.rules                                       Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-general.rules serverside-applied
+PrometheusRule/kube-prometheus-stack-node.rules                                          Synced           45s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node.rules serverside-applied
+ServiceAccount/kube-prometheus-stack-prometheus                                          Synced           48s    serviceaccount/kube-prometheus-stack-prometheus serverside-applied
+PrometheusRule/kube-prometheus-stack-k8s.rules.container-memory-working-set-by           Synced           46s    prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-working-set-by serverside-applied

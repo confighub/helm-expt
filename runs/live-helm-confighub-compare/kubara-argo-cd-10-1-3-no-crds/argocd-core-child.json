@@ -1,0 +1,1248 @@
+{
+  "metadata": {
+    "name": "kub-argo-10-1-3-nc-parity",
+    "namespace": "argocd",
+    "uid": "b7326468-cda1-40d6-9806-fbe920763334",
+    "resourceVersion": "2388",
+    "generation": 10,
+    "creationTimestamp": "2026-08-04T12:35:12Z",
+    "annotations": {
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kub-argo-10-1-3-nc-argo-apps:argoproj.io/Application:argocd/kub-argo-10-1-3-nc-parity",
+      "confighub.com/origin": "{\"spaceId\":\"88eb1ad2-42ab-4e73-8398-72ff2709fdf5\",\"spaceSlug\":\"helm-expt-parity-kub-argo-10-1-3-nc-argo-apps\",\"unitId\":\"4c9a5095-abf0-4cf5-958b-bd473a6a94fa\",\"unitSlug\":\"kub-argo-10-1-3-nc-parity-app\",\"revisionNum\":2}"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T12:35:12Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/origin": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T12:35:52Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "argocd-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-redis-health-configmap",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-cmd-params-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-gpg-keys-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-notifications-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-rbac-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-ssh-known-hosts-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "argocd",
+        "name": "argocd-tls-certs-cm",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "argocd-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-applicationset-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-dex-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-redis",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-repo-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-repo-server",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "argocd",
+        "name": "argocd-application-controller",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "argocd",
+        "name": "argocd-applicationset-controller",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "argocd",
+        "name": "argocd-dex-server",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "argocd",
+        "name": "argocd-notifications-controller",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "argocd",
+        "name": "argocd-server",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-applicationset-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-dex-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-notifications-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-redis",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-repo-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "StatefulSet",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-application-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "partitioned roll out complete: 1 new pods have been updated..."
+        }
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-application-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-dex-server",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-notifications-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-redis",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-repo-server",
+        "status": "Synced"
+      },
+      {
+        "group": "networking.k8s.io",
+        "version": "v1",
+        "kind": "NetworkPolicy",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "argo-cd-argocd-application-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "argo-cd-argocd-notifications-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "argo-cd-argocd-application-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "argo-cd-argocd-notifications-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-application-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-applicationset-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-dex-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-notifications-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-repo-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-application-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-applicationset-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-dex-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-notifications-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-repo-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "argocd",
+        "name": "argo-cd-argocd-server",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "argocd-oci"
+        }
+      },
+      "revision": "sha256:e63af4d832b2267b8e37255f5f60eca24d42c08e9cb4d562e1d53995eeb0fd35"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T12:35:43Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:e63af4d832b2267b8e37255f5f60eca24d42c08e9cb4d562e1d53995eeb0fd35",
+        "deployedAt": "2026-08-04T12:35:22Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T12:35:20Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T12:35:45Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:e63af4d832b2267b8e37255f5f60eca24d42c08e9cb4d562e1d53995eeb0fd35",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "argocd-oci",
+            "name": "argocd-oci",
+            "status": "Synced",
+            "message": "namespace/argocd-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/argo-cd-argocd-repo-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/argo-cd-argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/argo-cd-argocd-redis serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/argo-cd-argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "networking.k8s.io",
+            "version": "v1",
+            "kind": "NetworkPolicy",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server",
+            "status": "Synced",
+            "message": "networkpolicy.networking.k8s.io/argo-cd-argocd-dex-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server",
+            "status": "Synced",
+            "message": "serviceaccount/argo-cd-argocd-repo-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "argocd",
+            "name": "argocd-notifications-controller",
+            "status": "Synced",
+            "message": "serviceaccount/argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "argocd",
+            "name": "argocd-dex-server",
+            "status": "Synced",
+            "message": "serviceaccount/argocd-dex-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "argocd",
+            "name": "argocd-application-controller",
+            "status": "Synced",
+            "message": "serviceaccount/argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "argocd",
+            "name": "argocd-server",
+            "status": "Synced",
+            "message": "serviceaccount/argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "argocd",
+            "name": "argocd-applicationset-controller",
+            "status": "Synced",
+            "message": "serviceaccount/argocd-applicationset-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-ssh-known-hosts-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-ssh-known-hosts-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-cmd-params-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-cmd-params-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-gpg-keys-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-gpg-keys-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-notifications-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-notifications-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis-health-configmap",
+            "status": "Synced",
+            "message": "configmap/argo-cd-argocd-redis-health-configmap serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-rbac-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-rbac-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "argocd",
+            "name": "argocd-tls-certs-cm",
+            "status": "Synced",
+            "message": "configmap/argocd-tls-certs-cm serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "argocd-oci",
+            "name": "argo-cd-argocd-application-controller",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/argo-cd-argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "argocd-oci",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "argocd-oci",
+            "name": "argo-cd-argocd-notifications-controller",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "argocd-oci",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "argocd-oci",
+            "name": "argo-cd-argocd-application-controller",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/argo-cd-argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "argocd-oci",
+            "name": "argo-cd-argocd-notifications-controller",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/argo-cd-argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/argo-cd-argocd-dex-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/argo-cd-argocd-repo-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-repo-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-dex-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "service/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server",
+            "status": "Synced",
+            "message": "service/argo-cd-argocd-dex-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "status": "Synced",
+            "message": "service/argo-cd-argocd-applicationset-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server",
+            "status": "Synced",
+            "message": "service/argo-cd-argocd-repo-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis",
+            "status": "Synced",
+            "message": "service/argo-cd-argocd-redis serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-server",
+            "status": "Synced",
+            "message": "deployment.apps/argo-cd-argocd-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/argoproj/argocd:v3.4.5"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-dex-server",
+            "status": "Synced",
+            "message": "deployment.apps/argo-cd-argocd-dex-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/dexidp/dex:v2.45.1"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-redis",
+            "status": "Synced",
+            "message": "deployment.apps/argo-cd-argocd-redis serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ecr-public.aws.com/docker/library/redis:8.2.3-alpine"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-applicationset-controller",
+            "status": "Synced",
+            "message": "deployment.apps/argo-cd-argocd-applicationset-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/argoproj/argocd:v3.4.5"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-notifications-controller",
+            "status": "Synced",
+            "message": "deployment.apps/argo-cd-argocd-notifications-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/argoproj/argocd:v3.4.5"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-repo-server",
+            "status": "Synced",
+            "message": "deployment.apps/argo-cd-argocd-repo-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/argoproj/argocd:v3.4.5"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "StatefulSet",
+            "namespace": "argocd",
+            "name": "argo-cd-argocd-application-controller",
+            "status": "Synced",
+            "message": "statefulset.apps/argo-cd-argocd-application-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/argoproj/argocd:v3.4.5"
+            ]
+          }
+        ],
+        "revision": "sha256:e63af4d832b2267b8e37255f5f60eca24d42c08e9cb4d562e1d53995eeb0fd35",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-1-3-nc-kub-argo-10-1-3-nc",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T12:35:20Z",
+      "finishedAt": "2026-08-04T12:35:22Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ecr-public.aws.com/docker/library/redis:8.2.3-alpine",
+        "ghcr.io/dexidp/dex:v2.45.1",
+        "quay.io/argoproj/argocd:v3.4.5"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

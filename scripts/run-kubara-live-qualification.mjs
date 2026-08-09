@@ -4,7 +4,13 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-import { check, readYaml, repoRoot, toYaml } from "./lib/proof-common.mjs";
+import {
+  check,
+  readYaml,
+  repoRoot,
+  toYaml,
+  trackedExists,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--help";
 const continueOnFail = process.argv.includes("--continue-on-fail");
@@ -178,13 +184,21 @@ function runLane(item, commandMode, { allowReceiptResult = false } = {}) {
   return result;
 }
 
+// A qualification receipt counts when the repository holds it. All twenty of
+// these live-compare receipts exist on the machine that produced them and were
+// never committed, which is why this lane passes locally and is declared red in
+// CI. Reading the index rather than the filesystem makes both answers the same,
+// and the answer is that the evidence is not in the repository yet.
 function receiptPasses(item) {
-  return existsSync(join(repoRoot, item.receipt)) && loadReceipt(item).spec?.result === "pass";
+  return trackedExists(join(repoRoot, item.receipt)) && loadReceipt(item).spec?.result === "pass";
 }
 
 function loadReceipt(item) {
   const path = join(repoRoot, item.receipt);
-  check(existsSync(path), `${item.id}: receipt is missing at ${item.receipt}`);
+  check(
+    trackedExists(path),
+    `${item.id}: receipt at ${item.receipt} is not committed, so no reader can open it`,
+  );
   return readYaml(path);
 }
 
@@ -203,8 +217,8 @@ function summary({ allowIncomplete = false } = {}) {
   const rows = [];
   for (const item of lanes) {
     const path = join(repoRoot, item.receipt);
-    if (!existsSync(path)) {
-      check(allowIncomplete, `${item.id}: missing live qualification receipt`);
+    if (!trackedExists(path)) {
+      check(allowIncomplete, `${item.id}: live qualification receipt is not committed at ${item.receipt}`);
       rows.push({ ...summaryIdentity(item), result: "not-run", receipt: item.receipt });
       continue;
     }

@@ -1,0 +1,27 @@
+Name:               argocd/kub-met-3131-tls-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          kube-system-oci
+URL:                http://localhost:61879/applications/kub-met-3131-tls-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                STATUS  HEALTH   AGE   MESSAGE                                                                              REASON
+ClusterRoleBinding/metrics-server:system:auth-delegator  Synced           48s
+ClusterRoleBinding/system:metrics-server                 Synced           48s
+RoleBinding/metrics-server-auth-reader                   Synced           48s   rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader serverside-applied
+Namespace/kube-system-oci                                Synced           103s
+ServiceAccount/metrics-server                            Synced           48s   serviceaccount/metrics-server serverside-applied
+Deployment/metrics-server                                Synced  Healthy  48s   deployment.apps/metrics-server serverside-applied
+└─ReplicaSet/metrics-server-66d79df7c5                           Healthy  48s
+  └─Pod/metrics-server-66d79df7c5-xvl7m                          Healthy  48s
+ClusterRole/system:metrics-server                        Synced           48s
+ClusterRole/system:metrics-server-aggregated-reader      Synced           48s
+Service/metrics-server                                   Synced  Healthy  48s   service/metrics-server serverside-applied
+APIService/v1beta1.metrics.k8s.io                        Synced  Healthy  48s                                                                                        Passed: all checks passed
