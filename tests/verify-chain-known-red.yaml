@@ -27,8 +27,6 @@ spec:
   steps:
     - step: "node scripts/run-catalog-promotion-review.mjs --verify"
       error: "catalog promotion review CSV is stale"
-    - step: "node scripts/generate-helm-pain-reports.mjs --verify"
-      error: "helm pain report verification failed:"
     - step: "node scripts/generate-top100-catalog-analysis.mjs --verify"
       error: "expected 100 top100 proof entries; found 109"
     - step: "node scripts/generate-useful-base-design-queue.mjs --verify"

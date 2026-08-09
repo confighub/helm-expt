@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/karpenter/karpenter/1.14.0/control-points.yaml"
     valueModel: "recipes/karpenter/karpenter/1.14.0/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/karpenter/karpenter/1.14.0/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crd-policy"

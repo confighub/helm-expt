@@ -1,6 +1,13 @@
 chart,category,class,confighub_home
+aws-controllers-k8s/ec2-chart@1.18.4,credentials-secrets,build,recipe
+aws-controllers-k8s/eks-chart@1.16.3,credentials-secrets,build,recipe
+aws-controllers-k8s/iam-chart@1.7.3,credentials-secrets,build,recipe
+karpenter/karpenter@1.14.0,credentials-secrets,build,recipe
+nvidia/nvidia-device-plugin@0.19.3,credentials-secrets,build,recipe
 aqua/trivy-operator@0.32.1,secret-material,build,recipe
 bitnami/spark@10.0.3,secret-material,build,recipe
+cloudpirates/rabbitmq@0.21.13,secret-material,build,recipe
+cloudpirates/redis@0.34.11,secret-material,build,recipe
 crossplane-stable/crossplane@2.3.1,secret-material,build,recipe
 dex/dex@0.24.0,secret-material,build,recipe
 elastic/eck-operator@3.4.0,secret-material,build,recipe
@@ -21,6 +28,9 @@ argo-cd/argo-workflows@1.0.14,extension-slots,sme,extension-slot
 argo-cd/argocd-image-updater@1.2.2,extension-slots,sme,extension-slot
 autoscaler/cluster-autoscaler@9.57.0,extension-slots,sme,extension-slot
 autoscaler/vertical-pod-autoscaler@0.9.0,extension-slots,sme,extension-slot
+aws-controllers-k8s/ec2-chart@1.18.4,extension-slots,sme,extension-slot
+aws-controllers-k8s/eks-chart@1.16.3,extension-slots,sme,extension-slot
+aws-controllers-k8s/iam-chart@1.7.3,extension-slots,sme,extension-slot
 bitnami/apache@11.4.29,extension-slots,sme,extension-slot
 bitnami/contour@21.1.4,extension-slots,sme,extension-slot
 bitnami/elasticsearch@22.1.6,extension-slots,sme,extension-slot
@@ -31,6 +41,9 @@ bitnami/opensearch@2.0.10,extension-slots,sme,extension-slot
 bitnami/phpmyadmin@20.0.0,extension-slots,sme,extension-slot
 bitnami/spark@10.0.3,extension-slots,sme,extension-slot
 bitnami/zookeeper@13.8.7,extension-slots,sme,extension-slot
+cloudpirates/nginx@0.16.1,extension-slots,sme,extension-slot
+cloudpirates/rabbitmq@0.21.13,extension-slots,sme,extension-slot
+cloudpirates/redis@0.34.11,extension-slots,sme,extension-slot
 coredns/coredns@1.45.2,extension-slots,sme,extension-slot
 crossplane-stable/crossplane@2.3.1,extension-slots,sme,extension-slot
 elastic/eck-operator@3.4.0,extension-slots,sme,extension-slot
@@ -53,9 +66,11 @@ haproxytech/kubernetes-ingress@1.52.0,extension-slots,sme,extension-slot
 jaegertracing/jaeger-operator@2.57.0,extension-slots,sme,extension-slot
 jaegertracing/jaeger@4.8.0,extension-slots,sme,extension-slot
 jetstack/trust-manager@v0.22.1,extension-slots,sme,extension-slot
+karpenter/karpenter@1.14.0,extension-slots,sme,extension-slot
 kedacore/keda@2.19.0,extension-slots,sme,extension-slot
 kyverno/kyverno@3.8.1,extension-slots,sme,extension-slot
 nats/surveyor@0.20.9,extension-slots,sme,extension-slot
+nvidia/nvidia-device-plugin@0.19.3,extension-slots,sme,extension-slot
 open-telemetry/opentelemetry-operator@0.114.0,extension-slots,sme,extension-slot
 opencost/opencost@2.5.21,extension-slots,sme,extension-slot
 percona/pxc-operator@1.19.1,extension-slots,sme,extension-slot
@@ -71,6 +86,7 @@ sealed-secrets/sealed-secrets@2.18.6,extension-slots,sme,extension-slot
 stakater/reloader@2.2.12,extension-slots,sme,extension-slot
 strimzi/strimzi-kafka-operator@1.0.0,extension-slots,sme,extension-slot
 traefik/traefik@40.2.0,extension-slots,sme,extension-slot
+valkey/valkey@0.11.0,extension-slots,sme,extension-slot
 velero/velero@12.0.1,extension-slots,sme,extension-slot
 vm/victoria-logs-single@0.12.5,extension-slots,sme,extension-slot
 vm/victoria-metrics-single@0.39.0,extension-slots,sme,extension-slot
@@ -99,6 +115,9 @@ bitnami/phpmyadmin@20.0.0,tpl-extension-slots,sme,extension-slot
 bitnami/spark@10.0.3,tpl-extension-slots,sme,extension-slot
 bitnami/zookeeper@13.8.7,tpl-extension-slots,sme,extension-slot
 cloudnative-pg/cloudnative-pg@0.28.2,tpl-extension-slots,sme,extension-slot
+cloudpirates/nginx@0.16.1,tpl-extension-slots,sme,extension-slot
+cloudpirates/rabbitmq@0.21.13,tpl-extension-slots,sme,extension-slot
+cloudpirates/redis@0.34.11,tpl-extension-slots,sme,extension-slot
 coredns/coredns@1.45.2,tpl-extension-slots,sme,extension-slot
 crossplane-stable/crossplane@2.3.1,tpl-extension-slots,sme,extension-slot
 descheduler/descheduler@0.36.0,tpl-extension-slots,sme,extension-slot
@@ -142,6 +161,7 @@ sealed-secrets/sealed-secrets@2.18.6,tpl-extension-slots,sme,extension-slot
 stakater/reloader@2.2.12,tpl-extension-slots,sme,extension-slot
 strimzi/strimzi-kafka-operator@1.0.0,tpl-extension-slots,sme,extension-slot
 traefik/traefik@40.2.0,tpl-extension-slots,sme,extension-slot
+valkey/valkey@0.11.0,tpl-extension-slots,sme,extension-slot
 velero/velero@12.0.1,tpl-extension-slots,sme,extension-slot
 vm/victoria-logs-single@0.12.5,tpl-extension-slots,sme,extension-slot
 vm/victoria-metrics-single@0.39.0,tpl-extension-slots,sme,extension-slot
@@ -152,9 +172,13 @@ prometheus-community/prometheus@29.8.0,component-selection,standard,recipe
 prometheus-community/prometheus@29.9.0,component-selection,standard,recipe
 argo-cd/argo-cd@9.5.15,crd-policy,standard,recipe
 argo-cd/argo-cd@9.5.17,crd-policy,standard,recipe
+aws-controllers-k8s/eks-chart@1.16.3,crd-policy,standard,recipe
+aws-controllers-k8s/iam-chart@1.7.3,crd-policy,standard,recipe
 external-secrets/external-secrets@2.5.0,crd-policy,standard,recipe
 jetstack/cert-manager@v1.20.2,crd-policy,standard,recipe
+karpenter/karpenter@1.14.0,crd-policy,standard,recipe
 longhorn/longhorn@1.11.2,crd-policy,standard,recipe
+nvidia/nvidia-device-plugin@0.19.3,crd-policy,standard,recipe
 prometheus-community/kube-prometheus-stack@85.3.3,crd-policy,standard,recipe
 prometheus-community/kube-prometheus-stack@86.1.0,crd-policy,standard,recipe
 aqua/trivy-operator@0.32.1,crds,standard,recipe
@@ -207,6 +231,8 @@ bitnami/elasticsearch@22.1.6,stateful-storage,standard,operate-policy
 bitnami/opensearch@2.0.10,stateful-storage,standard,operate-policy
 bitnami/spark@10.0.3,stateful-storage,standard,operate-policy
 bitnami/zookeeper@13.8.7,stateful-storage,standard,operate-policy
+cloudpirates/rabbitmq@0.21.13,stateful-storage,standard,operate-policy
+cloudpirates/redis@0.34.11,stateful-storage,standard,operate-policy
 elastic/eck-operator@3.4.0,stateful-storage,standard,operate-policy
 elastic/logstash@8.5.1,stateful-storage,standard,operate-policy
 grafana/pyroscope@2.0.2,stateful-storage,standard,operate-policy

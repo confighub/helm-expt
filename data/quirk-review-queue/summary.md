@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 222
-charts affected: 100
-  standard (confirm a catalog-wide home): 76
-  build    (build a variant, then handle):  13
-  sme      (genuine per-chart human call):   133
+flagged quirks: 248
+charts affected: 109
+  standard (confirm a catalog-wide home): 82
+  build    (build a variant, then handle):  20
+  sme      (genuine per-chart human call):   146
 ```
 
 ## Work it down in this order
@@ -24,8 +24,8 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 | Category | Flags | Charts |
 | --- | ---: | ---: |
 | `crds` | 32 | 32 |
-| `stateful-storage` | 12 | 12 |
-| `crd-policy` | 7 | 7 |
+| `stateful-storage` | 14 | 14 |
+| `crd-policy` | 11 | 11 |
 | `replicaset-topology` | 3 | 3 |
 | `edge-ingress-policy` | 3 | 3 |
 | `ui-ingress-policy` | 3 | 3 |
@@ -48,7 +48,8 @@ _Resolution: build the variant that handles it (existing-secret base, rotation v
 
 | Category | Flags | Charts |
 | --- | ---: | ---: |
-| `secret-material` | 12 | 12 |
+| `secret-material` | 14 | 14 |
+| `credentials-secrets` | 5 | 5 |
 | `sync-secret-rotation` | 1 | 1 |
 
 ### 3. SME — genuine per-chart judgment (could be benign or a real blocker)
@@ -57,8 +58,8 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 
 | Category | Flags | Charts |
 | --- | ---: | ---: |
-| `tpl-extension-slots` | 62 | 62 |
-| `extension-slots` | 60 | 60 |
+| `extension-slots` | 69 | 69 |
+| `tpl-extension-slots` | 66 | 66 |
 | `tpl` | 6 | 6 |
 | `gitops-handoff` | 2 | 2 |
 | `chart-deprecation` | 2 | 2 |
