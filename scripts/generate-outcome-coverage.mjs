@@ -3,7 +3,15 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  listFiles,
+  listTrackedFiles,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "outcome-coverage");
@@ -204,7 +212,7 @@ function derivedVariantRows(targetRows) {
   const targetByExact = new Map(targetRows.map((row) => [`${row.chart}@${row.version}|${row.base}|${row.variant}`, row]));
   const targetByVariant = new Map(targetRows.map((row) => [`${row.chart}@${row.version}|${row.variant}`, row]));
   const matchedTargets = new Set();
-  const receipts = listFiles(join(repoRoot, "runs", "derived-variant-execution"))
+  const receipts = listTrackedFiles(join(repoRoot, "runs", "derived-variant-execution"))
     .filter((file) => file.endsWith("/variant-create-receipt.yaml"))
     .map((path) => {
       const receipt = readYaml(path);

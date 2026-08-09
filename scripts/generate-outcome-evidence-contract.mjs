@@ -3,7 +3,12 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
-import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  repoRoot,
+  trackedExists,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "outcome-evidence-contract");
@@ -169,6 +174,13 @@ function rowFor(item, claimById, statusByMetric, packageScripts) {
   for (const path of sources) {
     if (path === "runs") {
       check(existsSync(join(repoRoot, path)), `missing evidence directory ${path}`);
+    } else if (path.startsWith("runs/")) {
+      // A run receipt is evidence when it is committed. One that exists only on
+      // the machine that produced it cannot be opened by whoever reads the claim.
+      check(
+        trackedExists(join(repoRoot, path)),
+        `evidence ${path} for outcome ${item.id} is not committed, so no reader can open it`,
+      );
     } else {
       check(existsSync(join(repoRoot, path)), `missing evidence ${path} for outcome ${item.id}`);
     }

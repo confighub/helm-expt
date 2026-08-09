@@ -14,7 +14,15 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  listFiles,
+  listTrackedFiles,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "variant-promotion");
@@ -176,7 +184,7 @@ function indexPromotionReceipts() {
   const receipts = new Map();
   const runsRoot = join(repoRoot, "runs");
   if (!existsSync(runsRoot)) return receipts;
-  for (const path of listFiles(runsRoot).filter((file) => file.endsWith("variant-promotion-receipt.yaml"))) {
+  for (const path of listTrackedFiles(runsRoot).filter((file) => file.endsWith("variant-promotion-receipt.yaml"))) {
     const doc = readYaml(path);
     if (doc.kind !== RECEIPT_KIND) continue;
     const subject = doc.spec?.subject ?? {};
