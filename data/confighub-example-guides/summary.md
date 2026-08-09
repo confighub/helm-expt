@@ -17,7 +17,7 @@ What extra work, such as CRDs, Secrets, hooks, or setup jobs, is still mine to h
 
 | Count | Value |
 | --- | ---: |
-| Public package charts | 100 |
+| Public package charts | 109 |
 | Public preset config guides | 179 |
 | Guides with prerequisites | 55 |
 | Guides with recorded lifecycle routes | 12 |

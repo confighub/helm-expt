@@ -8,7 +8,7 @@ observed back with a receipt.
 ## Current Reading
 
 ```text
-top-100 runtime rows:             100
+top-100 runtime rows:             109
 top-100 rows with local evidence: 20
 first-wave chart/base pairs:      11
 Argo CD OCI lanes:                7
