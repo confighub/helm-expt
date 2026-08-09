@@ -3,7 +3,14 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, listFiles, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  listFiles,
+  listTrackedFiles,
+  repoRoot,
+  trackedExists,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outDir = join(repoRoot, "data", "status-dashboard");
@@ -88,9 +95,9 @@ function buildReport() {
   const scanDispositionRows = readCsv("data/scan-disposition-workdown/workdown.csv");
   const derivedWorkOrders = readCsv("data/variant-goldens/derived-expansion-wave/work-orders.csv");
   const derivedLiveReceiptCount = derivedWorkOrders.filter((row) =>
-    existsSync(join(repoRoot, "runs", "derived-variant-execution", row.id, "variant-create-receipt.yaml")),
+    trackedExists(join(repoRoot, "runs", "derived-variant-execution", row.id, "variant-create-receipt.yaml")),
   ).length;
-  const targetBoundDerivedReceiptCount = listFiles(join(repoRoot, "runs", "derived-variant-target-bound"))
+  const targetBoundDerivedReceiptCount = listTrackedFiles(join(repoRoot, "runs", "derived-variant-target-bound"))
     .filter((file) => /receipt\.ya?ml$/.test(file)).length;
   const usefulBasePipelineTotal = usefulBaseRows.length + usefulBaseRealizationRows.length;
   const selectedLiveParityPassCount = resultCount(liveRows, "pass");

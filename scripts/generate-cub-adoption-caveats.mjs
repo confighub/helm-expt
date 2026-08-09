@@ -28,7 +28,15 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, py, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  py,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  trackedExists,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--help";
 const packagesDir = join(repoRoot, "packages");
@@ -97,9 +105,12 @@ function chartSlug(chart) {
   return chart.replaceAll("/", "-");
 }
 
+// A receipt counts as evidence when the repository holds it. An uncommitted one
+// on the machine that ran the proof would otherwise decide this lane's output,
+// and nobody reviewing the result could open it.
 function receiptResult(rel) {
   const p = join(repoRoot, rel);
-  if (!existsSync(p)) return "";
+  if (!trackedExists(p)) return "";
   try {
     const doc = readYaml(p) ?? {};
     return doc.spec?.result ?? doc.result ?? "";

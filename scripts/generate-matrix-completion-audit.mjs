@@ -32,7 +32,14 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  trackedExists,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 
@@ -172,7 +179,7 @@ function localObservationReceiptPath(baseOutcome) {
 
 function localObservationSummary(baseOutcome) {
   const path = localObservationReceiptPath(baseOutcome);
-  if (!path || !existsSync(join(repoRoot, path))) return {};
+  if (!path || !trackedExists(join(repoRoot, path))) return {};
   const receipt = readYaml(join(repoRoot, path));
   const spec = receipt.spec ?? {};
   const checks = Array.isArray(spec.checks) ? spec.checks : [];

@@ -292,6 +292,43 @@ export function listFiles(root) {
   return result.sort();
 }
 
+// A generated surface must be a function of the repository, not of the machine
+// that ran the generator. `runs/` is gitignored with individual receipts
+// force-added, so a working copy can hold evidence the repository has never
+// seen, and a generator that walks the directory will count it. That is not
+// hypothetical: this repository holds twelve passing promotion receipts nobody
+// committed, and regenerating the promotion status on that machine moves twelve
+// rows from watch to proven on evidence no reviewer can open.
+//
+// These two read the index instead of the filesystem, so a receipt counts when
+// it is committed and not before. A clean checkout and a working copy then
+// produce the same output, which is what lets a scheduled job be trusted.
+let trackedFilesCache = null;
+
+function trackedFiles() {
+  if (trackedFilesCache) return trackedFilesCache;
+  const listed = command("git", ["ls-files", "-z", "--", "."]);
+  trackedFilesCache = new Set(listed.split("\0").filter(Boolean).map((path) => join(repoRoot, path)));
+  return trackedFilesCache;
+}
+
+export function listTrackedFiles(root) {
+  const prefix = `${root}/`;
+  return [...trackedFiles()].filter((path) => path === root || path.startsWith(prefix)).sort();
+}
+
+// True when the repository contains this path, as a committed file or as a
+// directory holding one. Evidence is cited both ways, so matching only exact
+// files would report a committed directory as missing.
+export function trackedExists(path) {
+  if (trackedFiles().has(path)) return true;
+  const prefix = `${path}/`;
+  for (const tracked of trackedFiles()) {
+    if (tracked.startsWith(prefix)) return true;
+  }
+  return false;
+}
+
 export function listYamlFiles(root) {
   if (!existsSync(root)) return [];
   return listFiles(root).filter((file) => [".yaml", ".yml"].some((suffix) => file.endsWith(suffix)));

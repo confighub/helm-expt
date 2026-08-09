@@ -3,6 +3,7 @@ import { dirname, join, relative } from "node:path";
 import {
   check,
   listFiles,
+  listTrackedFiles,
   readYaml,
   relativeRepo,
   repoRoot,
@@ -131,7 +132,7 @@ function helmEquivalenceLane(root, variant, packageReceipt) {
 
 function confighubProofIndex() {
   const index = new Map();
-  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("/confighub-proof-receipt.yaml"))) {
+  for (const receiptPath of listTrackedFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("/confighub-proof-receipt.yaml"))) {
     const receipt = readYaml(receiptPath);
     const packagePath = receipt.spec?.package?.path;
     const selectedBase = receipt.spec?.package?.selectedBase;
@@ -155,7 +156,7 @@ function confighubProofIndex() {
 
 function localKindIndex() {
   const index = new Map();
-  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => /observation-receipt\.(json|ya?ml)$/.test(file))) {
+  for (const receiptPath of listTrackedFiles(join(repoRoot, "runs")).filter((file) => /observation-receipt\.(json|ya?ml)$/.test(file))) {
     const receipt = readYaml(receiptPath);
     const revision = receipt.spec?.variantRevision;
     if (!revision) continue;
