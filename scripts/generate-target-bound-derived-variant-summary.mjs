@@ -1,6 +1,14 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  listFiles,
+  listTrackedFiles,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  write,
+} from "./lib/proof-common.mjs";
 
 const outputRoot = join(repoRoot, "data", "derived-variant-target-bound");
 const csvPath = join(outputRoot, "summary.csv");
@@ -27,7 +35,7 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const rows = listFiles(join(repoRoot, "runs", "derived-variant-target-bound"))
+  const rows = listTrackedFiles(join(repoRoot, "runs", "derived-variant-target-bound"))
     .filter((file) => file.endsWith("/receipt.yaml"))
     .map((receiptPath) => rowFor(receiptPath))
     .sort((left, right) => `${left.chart}|${left.base}|${left.variant}`.localeCompare(`${right.chart}|${right.base}|${right.variant}`));

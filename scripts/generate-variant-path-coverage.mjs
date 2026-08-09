@@ -3,7 +3,15 @@
 import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  check,
+  listFiles,
+  listTrackedFiles,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  write,
+} from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "variant-path-coverage");
@@ -99,7 +107,7 @@ function buildReport() {
       };
     });
 
-  const derivedRows = listFiles(join(repoRoot, "runs", "derived-variant-execution"))
+  const derivedRows = listTrackedFiles(join(repoRoot, "runs", "derived-variant-execution"))
     .filter((file) => file.endsWith("/variant-create-receipt.yaml"))
     .map((file) => {
       const doc = readYaml(file);

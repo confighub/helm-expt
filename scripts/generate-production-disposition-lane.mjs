@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import {
   check,
   listFiles,
+  listTrackedFiles,
   readYaml,
   relativeRepo,
   repoRoot,
@@ -265,7 +266,7 @@ function selectConfigHubProof(receipts, version, defaultBase) {
 
 function liveE2EIndex() {
   const result = new Map();
-  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json") || file.endsWith("observation-receipt.yaml"))) {
+  for (const receiptPath of listTrackedFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("observation-receipt.json") || file.endsWith("observation-receipt.yaml"))) {
     const receipt = receiptPath.endsWith(".json") ? JSON.parse(readFileSync(receiptPath, "utf8")) : readYaml(receiptPath);
     const chart = chartFromObservation(receipt);
     if (!chart || receipt.spec?.result !== "pass") continue;
