@@ -138,3 +138,22 @@ export function isManagedRecipeOutput(relativePath) {
   if (MANAGED_RECIPE_OUTPUT.has(relativePath)) return true;
   return /^publication\/flattening-safety-verdict[^/]*\.yaml$/.test(relativePath);
 }
+
+// Two rules meet here and only one of them can win. A record must describe the
+// file it points at, and a published release must stay byte for byte what it
+// published. The release wins, because correcting a record inside it would
+// rewrite evidence someone already pulled. A lane that finds a wrong record in
+// there must therefore say so and name the next release as the place it gets
+// fixed, rather than correcting it or passing over it.
+export function releaseBaselineFiles(repoRoot) {
+  const scope = readKubaraReleaseScope(repoRoot);
+  if (!scope.ok) return { ok: false, reason: scope.reason, has: () => false };
+  const files = new Set();
+  for (const [root, recorded] of scope.roots) {
+    for (const relativePath of Object.keys(recorded)) {
+      if (root.startsWith("recipes/") && isManagedRecipeOutput(relativePath)) continue;
+      files.add(`${root}/${relativePath}`);
+    }
+  }
+  return { ok: true, has: (repoRelativePath) => files.has(repoRelativePath) };
+}

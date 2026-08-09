@@ -366,6 +366,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `variant-promotion` | [variant-promotion/summary.md](./variant-promotion/summary.md) | server-side ConfigHub variant promotion status by chart/base |
 | `variant-promotion-closeout` | [variant-promotion-closeout/summary.md](./variant-promotion-closeout/summary.md) | actionable promotion queue: per variant, whether cub variant promote is ready-to-run, watch-grade pending receipt rerun, or blocked by a proof prerequisite, the owner class, and the exact next command or fix |
 | `variant-promotion-proof-batches` | [variant-promotion-proof-batches/summary.md](./variant-promotion-proof-batches/summary.md) | run plan: the ready-to-run promotions grouped into safe serial batches of 5-10 cub variant promote proof commands to run once ConfigHub auth returns (not completed evidence) |
+| `variant-revision-digests` | [variant-revision-digests/summary.md](./variant-revision-digests/summary.md) | supporting generated evidence |
 | `webhook-cert-lifecycle` | [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | webhook serving certificate lifecycle evidence and proof boundaries |
 
 ## Every CSV
@@ -376,7 +377,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 190 CSV files. Each row records the path, audience,
+It includes 191 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
