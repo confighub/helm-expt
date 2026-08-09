@@ -461,10 +461,10 @@
         <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
-      <p>Start with the recommended configuration. Before production, confirm that its tests cover your target.</p>
+      <p>The basic checks pass, but the catalog still needs a useful starting configuration for this chart.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>0.34.11</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>None recorded</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>0.34.11</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -523,7 +523,7 @@
   <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> unknown · <strong>Reason:</strong> No blocking reason recorded.</p>
+        <p><strong>Current status:</strong> unknown · <strong>Reason:</strong> - (no open gap: recommended capabilities built or n/a; Quirks modeled - Level 2)</p>
       </div>
     </section>
 
@@ -551,7 +551,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Status not recorded</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11</td></tr><tr><td>Tests completed</td><td>See the test results</td></tr><tr><td>Coverage</td><td>See coverage evidence</td></tr><tr><td>You must provide</td><td>Check the target requirements and configuration status</td></tr><tr><td>What the tools record</td><td>Rendered objects, test records, and checks</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 0/0)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -590,10 +590,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="quirks">
       <h2 id="quirks">What You Must Provide</h2>
-      <p>ConfigHub records the rendered objects, test results, and current limits.</p>
+      <p>exact rendered objects with render parity and receipts</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>None identified</td></tr><tr><td>You must provide</td><td>Check the configuration status and target requirements</td></tr><tr><td>What ConfigHub records</td><td>Exact rendered objects, checks, test results, and catalog evidence</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>None flagged</td></tr><tr><td>You must provide</td><td>the chart settings you need, until a reviewed base exists</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Optional chart inputs</td><td>None identified in the chart facts</td></tr><tr><td>How optional inputs are handled</td><td>No handling rule is recorded</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

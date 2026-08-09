@@ -7,24 +7,24 @@ required.
 ## Summary
 
 ~~~text
-charts: 100
+charts: 109
 covered: 20
-partial: 80
-average coverage: 89%
+partial: 89
+average coverage: 86%
 ~~~
 
 ## Coverage By Item
 
 | Item | Requirement | Pass | Todo | N/A |
 | --- | --- | ---: | ---: | ---: |
-| a | pinned chart version | 100 | 0 | 0 |
-| b | reviewed named base variant | 100 | 0 | 0 |
-| c | render parity receipt | 100 | 0 | 0 |
-| d | pain report and quirk axes | 100 | 0 | 0 |
-| e | facts declared | 100 | 0 | 0 |
-| f | scan and production disposition | 20 | 80 | 0 |
-| g | live witness or routed reason | 87 | 13 | 0 |
-| h | catalog and site entry | 100 | 0 | 0 |
+| a | pinned chart version | 109 | 0 | 0 |
+| b | reviewed named base variant | 109 | 0 | 0 |
+| c | render parity receipt | 100 | 9 | 0 |
+| d | pain report and quirk axes | 100 | 9 | 0 |
+| e | facts declared | 109 | 0 | 0 |
+| f | scan and production disposition | 20 | 89 | 0 |
+| g | live witness or routed reason | 87 | 22 | 0 |
+| h | catalog and site entry | 109 | 0 | 0 |
 
 ## Coverage By Bucket
 
@@ -33,28 +33,28 @@ average coverage: 89%
 | `try-from-public-catalog` | 20 |
 | `limitation-decision-first` | 9 |
 | `promote-after-review` | 37 |
-| `needs-useful-variant` | 33 |
-| `not-ready` | 1 |
+| `needs-useful-variant` | 37 |
+| `not-ready` | 6 |
 
 ## Lowest Coverage Rows
 
 | Chart | Coverage | Bucket | Next action |
 | --- | ---: | --- | --- |
+| `aws-controllers-k8s/ec2-chart@1.18.4` | 50% | `not-ready` | review chart analysis and create a recipe candidate |
+| `aws-controllers-k8s/eks-chart@1.16.3` | 50% | `not-ready` | review chart analysis and create a recipe candidate |
+| `aws-controllers-k8s/iam-chart@1.7.3` | 50% | `not-ready` | review chart analysis and create a recipe candidate |
+| `cloudpirates/nginx@0.16.1` | 50% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudpirates/rabbitmq@0.21.13` | 50% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudpirates/redis@0.34.11` | 50% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `karpenter/karpenter@1.14.0` | 50% | `not-ready` | review source/current-version drift and refresh recipe if needed |
+| `nvidia/nvidia-device-plugin@0.19.3` | 50% | `not-ready` | review chart analysis and create a recipe candidate |
+| `valkey/valkey@0.11.0` | 50% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `dex/dex@0.24.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `elastic/filebeat@8.5.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `elastic/kibana@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `elastic/metricbeat@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `gitlab/gitlab-runner@0.89.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `hashicorp/terraform@1.1.2` | 75% | `promote-after-review` | run catalog promotion review |
-| `istio/gateway@1.30.0` | 75% | `promote-after-review` | run catalog promotion review |
-| `istio/istiod@1.30.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `nats/surveyor@0.20.9` | 75% | `promote-after-review` | run catalog promotion review |
-| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `opencost/opencost@2.5.21` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `velero/velero@12.0.1` | 75% | `promote-after-review` | run catalog promotion review |
-| `aqua/trivy-operator@0.32.1` | 88% | `promote-after-review` | run catalog promotion review |
-| `argo-cd/argo-events@2.4.21` | 88% | `promote-after-review` | run catalog promotion review |
 
 ## Files
 

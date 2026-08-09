@@ -463,8 +463,8 @@ top-20 update candidates: 7
 production-disposition-needed entries: 0
 production-review-ready entries: 20
 entries matched to top-500 source rows: 67
-no hard gap in chart-facts: 78
-hard gap for at least one recommended capability: 31</code></pre>
+no hard gap in chart-facts: 87
+hard gap for at least one recommended capability: 22</code></pre>
 <h2 id="interpretation">Interpretation</h2>
 <ul><li>The top-20 entries are the public catalog-supported lane for the declared <code>local-test</code> scope.</li><li>The next-80 entries are proof-grade. They have deterministic recipe/package proof artifacts, but they still need user-shaped variants and promotion review before support is claimed.</li><li>Latest-version currentness is tracked only for the top-20 catalog-supported lane at the moment. The broader top-100 currentness lane should wait until the current top-20 update candidates are promoted or explicitly deferred.</li><li>Retained newer candidate versions are visible elsewhere in the catalog, but they are not counted as additional top-100 chart identities.</li></ul>
 <h2 id="readiness-tiers">Readiness Tiers</h2>
@@ -474,8 +474,8 @@ hard gap for at least one recommended capability: 31</code></pre>
 <tr><td>Proof-grade, not catalog-supported</td><td>89</td><td>The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review.</td></tr>
 <tr><td>Variant-rich</td><td>72</td><td>The chart has more than one base variant.</td></tr>
 <tr><td>Default-only</td><td>37</td><td>The chart has a proof path, but not enough variants for common user choices.</td></tr>
-<tr><td>No hard gap in chart-facts</td><td>78</td><td>Recommended capabilities are built, not applicable, or have a known path.</td></tr>
-<tr><td>Hard gap for a recommended capability</td><td>31</td><td>The core recipe may still work, but at least one useful capability is not yet enabled. See <code>data/chart-facts/summary.md</code>.</td></tr></tbody></table>
+<tr><td>No hard gap in chart-facts</td><td>87</td><td>Recommended capabilities are built, not applicable, or have a known path.</td></tr>
+<tr><td>Hard gap for a recommended capability</td><td>22</td><td>The core recipe may still work, but at least one useful capability is not yet enabled. See <code>data/chart-facts/summary.md</code>.</td></tr></tbody></table>
 <p>In plain English:</p>
 <pre><code>works now under declared proof scope
   109 charts have recipe/package proof artifacts.
@@ -487,7 +487,7 @@ works, but still needs user-shaped product review
   89 charts are proof-grade but not catalog-supported.
 
 works only with a named limitation or user/operator help
-  31 charts have at least one hard gap for a recommended extra capability.</code></pre>
+  22 charts have at least one hard gap for a recommended extra capability.</code></pre>
 <p>The hard-gap column is about missing recommended capabilities, not total chart failure. For example, a chart may have a working default recipe while still lacking an <code>existing-secret</code>, <code>no-crds</code>, or HA path for a specific variant.</p>
 <h2 id="current-user-answer">Current User Answer</h2>
 <table><thead><tr><th>Question</th><th>Count</th><th>Answer</th></tr></thead><tbody><tr><td>Can the repo prove a maintained recipe/package path exists?</td><td>109</td><td>Yes. Every top-100 entry has recipe/package proof artifacts.</td></tr>
@@ -495,7 +495,7 @@ works only with a named limitation or user/operator help
 <tr><td>Does it still need catalog promotion review before support is claimed?</td><td>89</td><td>Yes. These entries are proof-grade, not catalog-supported.</td></tr>
 <tr><td>Does it already have more than one base variant?</td><td>72</td><td>Yes. These entries cover more than the default shape.</td></tr>
 <tr><td>Is it still default-only?</td><td>37</td><td>Yes. These entries need user-shaped variants before a strong catalog recommendation.</td></tr>
-<tr><td>Does it have a named hard gap for at least one recommended capability?</td><td>31</td><td>Yes. The core recipe may work, but one useful variant or capability is missing or blocked.</td></tr>
+<tr><td>Does it have a named hard gap for at least one recommended capability?</td><td>22</td><td>Yes. The core recipe may work, but one useful variant or capability is missing or blocked.</td></tr>
 <tr><td>Is a supported top-20 chart behind the latest upstream version?</td><td>7</td><td>Yes. These need promotion proof before the catalog points at the newer chart.</td></tr></tbody></table>
 <h2 id="top-20-update-candidates">Top-20 Update Candidates</h2>
 <table><thead><tr><th>Chart</th><th>Supported version</th><th>Latest version</th><th>Variants</th><th>Required action</th></tr></thead><tbody><tr><td><code>argo-cd/argo-cd</code></td><td><code>9.5.15</code></td><td><code>9.5.17</code></td><td>default;no-crds</td><td>Run full promotion lanes before replacing the supported version.</td></tr>

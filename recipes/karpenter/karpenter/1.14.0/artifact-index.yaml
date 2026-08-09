@@ -49,18 +49,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "not-proven"
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
+      renderParity: "0/0"
+      inConfigHub: "0/0"
+      localLive: "0/0"
+      gitopsLive: "0/0"
+      liveParity: "0/0"
     featureSummary: ""
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "review source/current-version drift and refresh recipe if needed"
   installerPackage:
     path: "packages/karpenter/karpenter/1.14.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"

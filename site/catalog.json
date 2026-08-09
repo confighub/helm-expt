@@ -115,7 +115,7 @@
     "top100ChartsWithExtensionSlots": 82,
     "top100CoveragePromotionQueue": 37,
     "top100PromotionWaveRows": 31,
-    "top100CoverageUserVariantQueue": 33,
+    "top100CoverageUserVariantQueue": 37,
     "top100CoverageDecisionQueue": 9,
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
@@ -4130,7 +4130,7 @@
       "source_features": "capabilities;crds;cluster-rbac;webhooks",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/karpenter/karpenter/1.14.0",
       "recipe_path": "recipes/karpenter/karpenter/1.14.0/recipe.yaml",
       "catalog_path": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
@@ -4445,7 +4445,7 @@
       "source_features": "tpl;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "create recipe, package, variants, rendered digest, scans, and receipts",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/valkey/valkey/0.11.0",
       "recipe_path": "recipes/valkey/valkey/0.11.0/recipe.yaml",
       "catalog_path": "recipes/valkey/valkey/0.11.0/CATALOG.md",
@@ -5005,7 +5005,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
       "recipe_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
@@ -5040,7 +5040,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/eks-chart/1.16.3",
       "recipe_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
@@ -5075,7 +5075,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
       "recipe_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
@@ -5145,7 +5145,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/nginx/0.16.1",
       "recipe_path": "recipes/cloudpirates/nginx/0.16.1/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
@@ -5180,7 +5180,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/rabbitmq/0.21.13",
       "recipe_path": "recipes/cloudpirates/rabbitmq/0.21.13/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
@@ -5215,7 +5215,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/redis/0.34.11",
       "recipe_path": "recipes/cloudpirates/redis/0.34.11/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
@@ -5670,7 +5670,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nvidia-device-plugin/0.19.3",
       "recipe_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
@@ -6309,7 +6309,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
       "recipe_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
@@ -6344,7 +6344,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/eks-chart/1.16.3",
       "recipe_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
@@ -6379,7 +6379,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
       "recipe_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
@@ -6974,7 +6974,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/nginx/0.16.1",
       "recipe_path": "recipes/cloudpirates/nginx/0.16.1/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
@@ -7009,7 +7009,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/rabbitmq/0.21.13",
       "recipe_path": "recipes/cloudpirates/rabbitmq/0.21.13/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
@@ -7044,7 +7044,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/redis/0.34.11",
       "recipe_path": "recipes/cloudpirates/redis/0.34.11/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
@@ -8409,7 +8409,7 @@
       "source_features": "capabilities;crds;cluster-rbac;webhooks",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/karpenter/karpenter/1.14.0",
       "recipe_path": "recipes/karpenter/karpenter/1.14.0/recipe.yaml",
       "catalog_path": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
@@ -8896,7 +8896,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nvidia-device-plugin/0.19.3",
       "recipe_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
@@ -9800,7 +9800,7 @@
       "source_features": "tpl;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "create recipe, package, variants, rendered digest, scans, and receipts",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/valkey/valkey/0.11.0",
       "recipe_path": "recipes/valkey/valkey/0.11.0/recipe.yaml",
       "catalog_path": "recipes/valkey/valkey/0.11.0/CATALOG.md",
@@ -10887,7 +10887,7 @@
       "source_features": "capabilities;crds;cluster-rbac;webhooks",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "review source/current-version drift and refresh recipe if needed",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/karpenter/karpenter/1.14.0",
       "recipe_path": "recipes/karpenter/karpenter/1.14.0/recipe.yaml",
       "catalog_path": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
@@ -11130,7 +11130,7 @@
       "source_features": "tpl;stateful-storage",
       "source_classification": "P2 recipe/render/install policy",
       "top500_next_action": "create recipe, package, variants, rendered digest, scans, and receipts",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/valkey/valkey/0.11.0",
       "recipe_path": "recipes/valkey/valkey/0.11.0/recipe.yaml",
       "catalog_path": "recipes/valkey/valkey/0.11.0/CATALOG.md",
@@ -11562,7 +11562,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
       "recipe_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
@@ -11589,7 +11589,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/eks-chart/1.16.3",
       "recipe_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
@@ -11616,7 +11616,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
       "recipe_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
@@ -11670,7 +11670,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/nginx/0.16.1",
       "recipe_path": "recipes/cloudpirates/nginx/0.16.1/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
@@ -11697,7 +11697,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/rabbitmq/0.21.13",
       "recipe_path": "recipes/cloudpirates/rabbitmq/0.21.13/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
@@ -11724,7 +11724,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/cloudpirates/redis/0.34.11",
       "recipe_path": "recipes/cloudpirates/redis/0.34.11/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
@@ -12075,7 +12075,7 @@
       "source_features": "",
       "source_classification": "",
       "top500_next_action": "",
-      "not_yet_enabled": "",
+      "not_yet_enabled": "- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)",
       "package_path": "packages/nvidia/nvidia-device-plugin/0.19.3",
       "recipe_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
@@ -18866,6 +18866,25 @@
     },
     {
       "proof_surface_rank": "56",
+      "chart": "karpenter/karpenter@1.14.0",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "57",
       "chart": "prometheus-community/prometheus-pushgateway@3.6.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -18884,7 +18903,7 @@
       "helm_pain_report": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "57",
+      "proof_surface_rank": "58",
       "chart": "fluent/fluentd@0.5.3",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -18903,7 +18922,7 @@
       "helm_pain_report": "recipes/fluent/fluentd/0.5.3/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "58",
+      "proof_surface_rank": "59",
       "chart": "jaegertracing/jaeger-operator@2.57.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -18922,7 +18941,7 @@
       "helm_pain_report": "recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "59",
+      "proof_surface_rank": "60",
       "chart": "bitnami/memcached@8.5.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -18941,7 +18960,7 @@
       "helm_pain_report": "recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "60",
+      "proof_surface_rank": "61",
       "chart": "strimzi/strimzi-kafka-operator@1.0.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -18960,7 +18979,7 @@
       "helm_pain_report": "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "61",
+      "proof_surface_rank": "62",
       "chart": "opencost/opencost@2.5.21",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -18979,7 +18998,7 @@
       "helm_pain_report": "recipes/opencost/opencost/2.5.21/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "62",
+      "proof_surface_rank": "63",
       "chart": "gatekeeper/gatekeeper@3.22.2",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -18998,7 +19017,7 @@
       "helm_pain_report": "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "63",
+      "proof_surface_rank": "64",
       "chart": "bitnami/contour@21.1.4",
       "answer": "decision-needed-first",
       "plain_english": "A named capability gap affects the recommended path.",
@@ -19017,7 +19036,26 @@
       "helm_pain_report": "recipes/bitnami/contour/21.1.4/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "64",
+      "proof_surface_rank": "65",
+      "chart": "valkey/valkey@0.11.0",
+      "answer": "not-yet-user-ready",
+      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
+      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/valkey/valkey/0.11.0/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
+      "catalog_path": "recipes/valkey/valkey/0.11.0/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "66",
       "chart": "kyverno/kyverno-policies@3.8.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19036,7 +19074,7 @@
       "helm_pain_report": "recipes/kyverno/kyverno-policies/3.8.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "65",
+      "proof_surface_rank": "67",
       "chart": "elastic/metricbeat@8.5.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19055,7 +19093,7 @@
       "helm_pain_report": "recipes/elastic/metricbeat/8.5.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "66",
+      "proof_surface_rank": "68",
       "chart": "minio-operator/operator@7.1.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19074,7 +19112,7 @@
       "helm_pain_report": "recipes/minio-operator/operator/7.1.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "67",
+      "proof_surface_rank": "69",
       "chart": "percona/pxc-operator@1.19.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19093,7 +19131,7 @@
       "helm_pain_report": "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "68",
+      "proof_surface_rank": "70",
       "chart": "bitnami/apache@11.4.29",
       "answer": "decision-needed-first",
       "plain_english": "A named capability gap affects the recommended path.",
@@ -19112,7 +19150,7 @@
       "helm_pain_report": "recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "69",
+      "proof_surface_rank": "71",
       "chart": "grafana/pyroscope@2.0.2",
       "answer": "decision-needed-first",
       "plain_english": "A named capability gap affects the recommended path.",
@@ -19131,7 +19169,7 @@
       "helm_pain_report": "recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "70",
+      "proof_surface_rank": "72",
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19150,7 +19188,7 @@
       "helm_pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "71",
+      "proof_surface_rank": "73",
       "chart": "falcosecurity/falcosidekick@0.13.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19169,7 +19207,7 @@
       "helm_pain_report": "recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "72",
+      "proof_surface_rank": "74",
       "chart": "aqua/trivy-operator@0.32.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19188,7 +19226,7 @@
       "helm_pain_report": "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "73",
+      "proof_surface_rank": "75",
       "chart": "argo-cd/argo-events@2.4.21",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19207,7 +19245,7 @@
       "helm_pain_report": "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "74",
+      "proof_surface_rank": "76",
       "chart": "argo-cd/argo-rollouts@2.40.9",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19226,7 +19264,7 @@
       "helm_pain_report": "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "75",
+      "proof_surface_rank": "77",
       "chart": "argo-cd/argo-workflows@1.0.14",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19245,7 +19283,7 @@
       "helm_pain_report": "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "76",
+      "proof_surface_rank": "78",
       "chart": "argo-cd/argocd-image-updater@1.2.2",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19264,7 +19302,7 @@
       "helm_pain_report": "recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "77",
+      "proof_surface_rank": "79",
       "chart": "autoscaler/cluster-autoscaler@9.57.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19283,7 +19321,7 @@
       "helm_pain_report": "recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "78",
+      "proof_surface_rank": "80",
       "chart": "autoscaler/vertical-pod-autoscaler@0.9.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19302,7 +19340,64 @@
       "helm_pain_report": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "79",
+      "proof_surface_rank": "81",
+      "chart": "aws-controllers-k8s/ec2-chart@1.18.4",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "82",
+      "chart": "aws-controllers-k8s/eks-chart@1.16.3",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "83",
+      "chart": "aws-controllers-k8s/iam-chart@1.7.3",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "84",
       "chart": "bitnami/opensearch@2.0.10",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19321,7 +19416,64 @@
       "helm_pain_report": "recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "80",
+      "proof_surface_rank": "85",
+      "chart": "cloudpirates/nginx@0.16.1",
+      "answer": "not-yet-user-ready",
+      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
+      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
+      "catalog_path": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "86",
+      "chart": "cloudpirates/rabbitmq@0.21.13",
+      "answer": "not-yet-user-ready",
+      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
+      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
+      "catalog_path": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "87",
+      "chart": "cloudpirates/redis@0.34.11",
+      "answer": "not-yet-user-ready",
+      "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
+      "first_action": "Design at least one useful base variant before catalog promotion.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "Render parity alone is useful evidence, not a production or catalog recommendation.",
+      "catalog_path": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "88",
       "chart": "crossplane-stable/crossplane@2.3.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19340,7 +19492,7 @@
       "helm_pain_report": "recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "81",
+      "proof_surface_rank": "89",
       "chart": "grafana/promtail@6.17.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19359,7 +19511,7 @@
       "helm_pain_report": "recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "82",
+      "proof_surface_rank": "90",
       "chart": "grafana/rollout-operator@0.49.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19378,7 +19530,7 @@
       "helm_pain_report": "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "83",
+      "proof_surface_rank": "91",
       "chart": "haproxytech/kubernetes-ingress@1.52.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19397,7 +19549,7 @@
       "helm_pain_report": "recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "84",
+      "proof_surface_rank": "92",
       "chart": "istio/gateway@1.30.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19416,7 +19568,7 @@
       "helm_pain_report": "recipes/istio/gateway/1.30.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "85",
+      "proof_surface_rank": "93",
       "chart": "istio/istiod@1.30.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19435,7 +19587,7 @@
       "helm_pain_report": "recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "86",
+      "proof_surface_rank": "94",
       "chart": "jetstack/cert-manager-csi-driver@v0.14.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19454,7 +19606,7 @@
       "helm_pain_report": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "87",
+      "proof_surface_rank": "95",
       "chart": "jetstack/trust-manager@v0.22.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19473,7 +19625,7 @@
       "helm_pain_report": "recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "88",
+      "proof_surface_rank": "96",
       "chart": "linkerd/linkerd-crds@1.8.0",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19492,7 +19644,7 @@
       "helm_pain_report": "recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "89",
+      "proof_surface_rank": "97",
       "chart": "minio-operator/tenant@7.1.1",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19511,7 +19663,7 @@
       "helm_pain_report": "recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "90",
+      "proof_surface_rank": "98",
       "chart": "nats/nack@0.34.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19530,7 +19682,7 @@
       "helm_pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "91",
+      "proof_surface_rank": "99",
       "chart": "nats/surveyor@0.20.9",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19549,7 +19701,26 @@
       "helm_pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "92",
+      "proof_surface_rank": "100",
+      "chart": "nvidia/nvidia-device-plugin@0.19.3",
+      "answer": "review-needed",
+      "plain_english": "The chart needs manual review before a user-facing recommendation is made.",
+      "first_action": "Open top100 readiness and the chart catalog page.",
+      "recommended_base_or_variant": "default",
+      "command_or_file": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
+      "strongest_evidence": "not-proven",
+      "render_parity": "0/0",
+      "live_summary": "local:0/0 gitops:0/0 live-parity:0/0 two-cluster:0/0",
+      "first_promotion_wave": "no",
+      "promotion_wave_first_step": "-",
+      "promotion_wave_gaps": "-",
+      "hard_gap": "-",
+      "production_note": "No production claim.",
+      "catalog_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
+      "helm_pain_report": ""
+    },
+    {
+      "proof_surface_rank": "101",
       "chart": "open-telemetry/opentelemetry-operator@0.114.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19568,7 +19739,7 @@
       "helm_pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "93",
+      "proof_surface_rank": "102",
       "chart": "percona/pg-operator@3.0.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19587,7 +19758,7 @@
       "helm_pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "94",
+      "proof_surface_rank": "103",
       "chart": "percona/psmdb-operator@1.22.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19606,7 +19777,7 @@
       "helm_pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "95",
+      "proof_surface_rank": "104",
       "chart": "rook-release/rook-ceph@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19625,7 +19796,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "96",
+      "proof_surface_rank": "105",
       "chart": "rook-release/rook-ceph-cluster@v1.19.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19644,7 +19815,7 @@
       "helm_pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "97",
+      "proof_surface_rank": "106",
       "chart": "sealed-secrets/sealed-secrets@2.18.6",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19663,7 +19834,7 @@
       "helm_pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "98",
+      "proof_surface_rank": "107",
       "chart": "velero/velero@12.0.1",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -19682,7 +19853,7 @@
       "helm_pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "99",
+      "proof_surface_rank": "108",
       "chart": "vm/victoria-logs-single@0.12.5",
       "answer": "not-yet-user-ready",
       "plain_english": "The mechanism works, but the current base is too default-shaped to be a good user offer.",
@@ -19701,7 +19872,7 @@
       "helm_pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "proof_surface_rank": "100",
+      "proof_surface_rank": "109",
       "chart": "vm/victoria-metrics-single@0.39.0",
       "answer": "not-yet-public-catalog-proof-ready",
       "plain_english": "The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.",
@@ -24012,6 +24183,19 @@
     },
     {
       "rank": "56",
+      "chart": "karpenter/karpenter",
+      "version": "1.14.0",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "crds;existing-secret;webhooks;capabilities;rbac",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases",
+      "next_action": "review source/current-version drift and refresh recipe if needed",
+      "pain_report": ""
+    },
+    {
+      "rank": "57",
       "chart": "prometheus-community/prometheus-pushgateway",
       "version": "3.6.0",
       "bucket": "needs-better-base-variant",
@@ -24024,7 +24208,7 @@
       "pain_report": "recipes/prometheus-community/prometheus-pushgateway/3.6.0/helm-pain-report.yaml"
     },
     {
-      "rank": "57",
+      "rank": "58",
       "chart": "fluent/fluentd",
       "version": "0.5.3",
       "bucket": "needs-better-base-variant",
@@ -24037,7 +24221,7 @@
       "pain_report": "recipes/fluent/fluentd/0.5.3/helm-pain-report.yaml"
     },
     {
-      "rank": "58",
+      "rank": "59",
       "chart": "jaegertracing/jaeger-operator",
       "version": "2.57.0",
       "bucket": "works-with-operator-review",
@@ -24050,7 +24234,7 @@
       "pain_report": "recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
     },
     {
-      "rank": "59",
+      "rank": "60",
       "chart": "bitnami/memcached",
       "version": "8.5.5",
       "bucket": "needs-better-base-variant",
@@ -24063,7 +24247,7 @@
       "pain_report": "recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml"
     },
     {
-      "rank": "60",
+      "rank": "61",
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
       "bucket": "works-with-operator-review",
@@ -24076,7 +24260,7 @@
       "pain_report": "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"
     },
     {
-      "rank": "61",
+      "rank": "62",
       "chart": "opencost/opencost",
       "version": "2.5.21",
       "bucket": "needs-better-base-variant",
@@ -24089,7 +24273,7 @@
       "pain_report": "recipes/opencost/opencost/2.5.21/helm-pain-report.yaml"
     },
     {
-      "rank": "62",
+      "rank": "63",
       "chart": "gatekeeper/gatekeeper",
       "version": "3.22.2",
       "bucket": "works-with-target-prerequisites",
@@ -24102,7 +24286,7 @@
       "pain_report": "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
     },
     {
-      "rank": "63",
+      "rank": "64",
       "chart": "bitnami/contour",
       "version": "21.1.4",
       "bucket": "not-ready-yet",
@@ -24115,7 +24299,20 @@
       "pain_report": "recipes/bitnami/contour/21.1.4/helm-pain-report.yaml"
     },
     {
-      "rank": "64",
+      "rank": "65",
+      "chart": "valkey/valkey",
+      "version": "0.11.0",
+      "bucket": "needs-better-base-variant",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "required-values;tpl;storage",
+      "user_must_provide": "a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "pain_report": ""
+    },
+    {
+      "rank": "66",
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.0",
       "bucket": "needs-better-base-variant",
@@ -24128,7 +24325,7 @@
       "pain_report": "recipes/kyverno/kyverno-policies/3.8.0/helm-pain-report.yaml"
     },
     {
-      "rank": "65",
+      "rank": "67",
       "chart": "elastic/metricbeat",
       "version": "8.5.1",
       "bucket": "needs-better-base-variant",
@@ -24141,7 +24338,7 @@
       "pain_report": "recipes/elastic/metricbeat/8.5.1/helm-pain-report.yaml"
     },
     {
-      "rank": "66",
+      "rank": "68",
       "chart": "minio-operator/operator",
       "version": "7.1.1",
       "bucket": "needs-better-base-variant",
@@ -24154,7 +24351,7 @@
       "pain_report": "recipes/minio-operator/operator/7.1.1/helm-pain-report.yaml"
     },
     {
-      "rank": "67",
+      "rank": "69",
       "chart": "percona/pxc-operator",
       "version": "1.19.1",
       "bucket": "works-with-operator-review",
@@ -24167,7 +24364,7 @@
       "pain_report": "recipes/percona/pxc-operator/1.19.1/helm-pain-report.yaml"
     },
     {
-      "rank": "68",
+      "rank": "70",
       "chart": "bitnami/apache",
       "version": "11.4.29",
       "bucket": "not-ready-yet",
@@ -24180,7 +24377,7 @@
       "pain_report": "recipes/bitnami/apache/11.4.29/helm-pain-report.yaml"
     },
     {
-      "rank": "69",
+      "rank": "71",
       "chart": "grafana/pyroscope",
       "version": "2.0.2",
       "bucket": "not-ready-yet",
@@ -24193,7 +24390,7 @@
       "pain_report": "recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml"
     },
     {
-      "rank": "70",
+      "rank": "72",
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.60.1",
       "bucket": "needs-better-base-variant",
@@ -24206,7 +24403,7 @@
       "pain_report": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml"
     },
     {
-      "rank": "71",
+      "rank": "73",
       "chart": "falcosecurity/falcosidekick",
       "version": "0.13.1",
       "bucket": "needs-better-base-variant",
@@ -24219,7 +24416,7 @@
       "pain_report": "recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml"
     },
     {
-      "rank": "72",
+      "rank": "74",
       "chart": "aqua/trivy-operator",
       "version": "0.32.1",
       "bucket": "works-with-target-prerequisites",
@@ -24232,7 +24429,7 @@
       "pain_report": "recipes/aqua/trivy-operator/0.32.1/helm-pain-report.yaml"
     },
     {
-      "rank": "73",
+      "rank": "75",
       "chart": "argo-cd/argo-events",
       "version": "2.4.21",
       "bucket": "works-with-operator-review",
@@ -24245,7 +24442,7 @@
       "pain_report": "recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml"
     },
     {
-      "rank": "74",
+      "rank": "76",
       "chart": "argo-cd/argo-rollouts",
       "version": "2.40.9",
       "bucket": "works-with-operator-review",
@@ -24258,7 +24455,7 @@
       "pain_report": "recipes/argo-cd/argo-rollouts/2.40.9/helm-pain-report.yaml"
     },
     {
-      "rank": "75",
+      "rank": "77",
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
       "bucket": "works-with-operator-review",
@@ -24271,7 +24468,7 @@
       "pain_report": "recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml"
     },
     {
-      "rank": "76",
+      "rank": "78",
       "chart": "argo-cd/argocd-image-updater",
       "version": "1.2.2",
       "bucket": "needs-better-base-variant",
@@ -24284,7 +24481,7 @@
       "pain_report": "recipes/argo-cd/argocd-image-updater/1.2.2/helm-pain-report.yaml"
     },
     {
-      "rank": "77",
+      "rank": "79",
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "bucket": "works-with-operator-review",
@@ -24297,7 +24494,7 @@
       "pain_report": "recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml"
     },
     {
-      "rank": "78",
+      "rank": "80",
       "chart": "autoscaler/vertical-pod-autoscaler",
       "version": "0.9.0",
       "bucket": "works-with-target-prerequisites",
@@ -24310,7 +24507,46 @@
       "pain_report": "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml"
     },
     {
-      "rank": "79",
+      "rank": "81",
+      "chart": "aws-controllers-k8s/ec2-chart",
+      "version": "1.18.4",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "existing-secret",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": ""
+    },
+    {
+      "rank": "82",
+      "chart": "aws-controllers-k8s/eks-chart",
+      "version": "1.16.3",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "existing-secret",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": ""
+    },
+    {
+      "rank": "83",
+      "chart": "aws-controllers-k8s/iam-chart",
+      "version": "1.7.3",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "existing-secret",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": ""
+    },
+    {
+      "rank": "84",
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "bucket": "works-with-target-prerequisites",
@@ -24323,7 +24559,46 @@
       "pain_report": "recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml"
     },
     {
-      "rank": "80",
+      "rank": "85",
+      "chart": "cloudpirates/nginx",
+      "version": "0.16.1",
+      "bucket": "needs-better-base-variant",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "pain_report": ""
+    },
+    {
+      "rank": "86",
+      "chart": "cloudpirates/rabbitmq",
+      "version": "0.21.13",
+      "bucket": "needs-better-base-variant",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "pain_report": ""
+    },
+    {
+      "rank": "87",
+      "chart": "cloudpirates/redis",
+      "version": "0.34.11",
+      "bucket": "needs-better-base-variant",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "none-flagged",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion",
+      "pain_report": ""
+    },
+    {
+      "rank": "88",
       "chart": "crossplane-stable/crossplane",
       "version": "2.3.1",
       "bucket": "needs-better-base-variant",
@@ -24336,7 +24611,7 @@
       "pain_report": "recipes/crossplane-stable/crossplane/2.3.1/helm-pain-report.yaml"
     },
     {
-      "rank": "81",
+      "rank": "89",
       "chart": "grafana/promtail",
       "version": "6.17.1",
       "bucket": "needs-better-base-variant",
@@ -24349,7 +24624,7 @@
       "pain_report": "recipes/grafana/promtail/6.17.1/helm-pain-report.yaml"
     },
     {
-      "rank": "82",
+      "rank": "90",
       "chart": "grafana/rollout-operator",
       "version": "0.49.0",
       "bucket": "works-with-operator-review",
@@ -24362,7 +24637,7 @@
       "pain_report": "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     },
     {
-      "rank": "83",
+      "rank": "91",
       "chart": "haproxytech/kubernetes-ingress",
       "version": "1.52.0",
       "bucket": "needs-better-base-variant",
@@ -24375,7 +24650,7 @@
       "pain_report": "recipes/haproxytech/kubernetes-ingress/1.52.0/helm-pain-report.yaml"
     },
     {
-      "rank": "84",
+      "rank": "92",
       "chart": "istio/gateway",
       "version": "1.30.0",
       "bucket": "works-with-operator-review",
@@ -24388,7 +24663,7 @@
       "pain_report": "recipes/istio/gateway/1.30.0/helm-pain-report.yaml"
     },
     {
-      "rank": "85",
+      "rank": "93",
       "chart": "istio/istiod",
       "version": "1.30.0",
       "bucket": "needs-better-base-variant",
@@ -24401,7 +24676,7 @@
       "pain_report": "recipes/istio/istiod/1.30.0/helm-pain-report.yaml"
     },
     {
-      "rank": "86",
+      "rank": "94",
       "chart": "jetstack/cert-manager-csi-driver",
       "version": "v0.14.0",
       "bucket": "needs-better-base-variant",
@@ -24414,7 +24689,7 @@
       "pain_report": "recipes/jetstack/cert-manager-csi-driver/v0.14.0/helm-pain-report.yaml"
     },
     {
-      "rank": "87",
+      "rank": "95",
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "bucket": "works-with-target-prerequisites",
@@ -24427,7 +24702,7 @@
       "pain_report": "recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml"
     },
     {
-      "rank": "88",
+      "rank": "96",
       "chart": "linkerd/linkerd-crds",
       "version": "1.8.0",
       "bucket": "needs-better-base-variant",
@@ -24440,7 +24715,7 @@
       "pain_report": "recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml"
     },
     {
-      "rank": "89",
+      "rank": "97",
       "chart": "minio-operator/tenant",
       "version": "7.1.1",
       "bucket": "needs-better-base-variant",
@@ -24453,7 +24728,7 @@
       "pain_report": "recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml"
     },
     {
-      "rank": "90",
+      "rank": "98",
       "chart": "nats/nack",
       "version": "0.34.0",
       "bucket": "works-with-target-prerequisites",
@@ -24466,7 +24741,7 @@
       "pain_report": "recipes/nats/nack/0.34.0/helm-pain-report.yaml"
     },
     {
-      "rank": "91",
+      "rank": "99",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "bucket": "works-with-operator-review",
@@ -24479,7 +24754,20 @@
       "pain_report": "recipes/nats/surveyor/0.20.9/helm-pain-report.yaml"
     },
     {
-      "rank": "92",
+      "rank": "100",
+      "chart": "nvidia/nvidia-device-plugin",
+      "version": "0.19.3",
+      "bucket": "works-with-operator-review",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "recommended_first_base": "default (unreviewed first guess)",
+      "quirks": "existing-secret",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "confighub_absorbs": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate",
+      "pain_report": ""
+    },
+    {
+      "rank": "101",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "bucket": "works-with-target-prerequisites",
@@ -24492,7 +24780,7 @@
       "pain_report": "recipes/open-telemetry/opentelemetry-operator/0.114.0/helm-pain-report.yaml"
     },
     {
-      "rank": "93",
+      "rank": "102",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "bucket": "works-with-operator-review",
@@ -24505,7 +24793,7 @@
       "pain_report": "recipes/percona/pg-operator/3.0.0/helm-pain-report.yaml"
     },
     {
-      "rank": "94",
+      "rank": "103",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "bucket": "works-with-operator-review",
@@ -24518,7 +24806,7 @@
       "pain_report": "recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml"
     },
     {
-      "rank": "95",
+      "rank": "104",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -24531,7 +24819,7 @@
       "pain_report": "recipes/rook-release/rook-ceph/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "96",
+      "rank": "105",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "bucket": "needs-better-base-variant",
@@ -24544,7 +24832,7 @@
       "pain_report": "recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml"
     },
     {
-      "rank": "97",
+      "rank": "106",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "bucket": "works-with-target-prerequisites",
@@ -24557,7 +24845,7 @@
       "pain_report": "recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml"
     },
     {
-      "rank": "98",
+      "rank": "107",
       "chart": "velero/velero",
       "version": "12.0.1",
       "bucket": "works-with-target-prerequisites",
@@ -24570,7 +24858,7 @@
       "pain_report": "recipes/velero/velero/12.0.1/helm-pain-report.yaml"
     },
     {
-      "rank": "99",
+      "rank": "108",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "bucket": "needs-better-base-variant",
@@ -24583,7 +24871,7 @@
       "pain_report": "recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml"
     },
     {
-      "rank": "100",
+      "rank": "109",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "bucket": "works-with-operator-review",
@@ -50182,6 +50470,39 @@
     },
     {
       "rank": "56",
+      "chart": "karpenter/karpenter",
+      "version": "1.14.0",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/karpenter/karpenter/1.14.0/source-lock.yaml;recipes/karpenter/karpenter/1.14.0/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/karpenter/karpenter/1.14.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/karpenter/karpenter/1.14.0/value-model.yaml;recipes/karpenter/karpenter/1.14.0/helm-plan.yaml;recipes/karpenter/karpenter/1.14.0/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "crds;existing-secret;webhooks;capabilities;rbac",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "rank 166: catalog-candidate: proof:3 revision(s): not-reviewed-for-production: review source/current-version drift and refresh recipe if needed",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts; CRD handling split into explicit bases",
+      "next_action": "review source/current-version drift and refresh recipe if needed"
+    },
+    {
+      "rank": "57",
       "chart": "prometheus-community/prometheus-pushgateway",
       "version": "3.6.0",
       "user_status": "needs-better-base-variant",
@@ -50214,7 +50535,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "57",
+      "rank": "58",
       "chart": "fluent/fluentd",
       "version": "0.5.3",
       "user_status": "needs-better-base-variant",
@@ -50247,7 +50568,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "58",
+      "rank": "59",
       "chart": "jaegertracing/jaeger-operator",
       "version": "2.57.0",
       "user_status": "works-with-operator-review",
@@ -50280,7 +50601,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "59",
+      "rank": "60",
       "chart": "bitnami/memcached",
       "version": "8.5.5",
       "user_status": "needs-better-base-variant",
@@ -50313,7 +50634,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "60",
+      "rank": "61",
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
       "user_status": "works-with-operator-review",
@@ -50346,7 +50667,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "61",
+      "rank": "62",
       "chart": "opencost/opencost",
       "version": "2.5.21",
       "user_status": "needs-better-base-variant",
@@ -50379,7 +50700,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "62",
+      "rank": "63",
       "chart": "gatekeeper/gatekeeper",
       "version": "3.22.2",
       "user_status": "works-with-target-prerequisites",
@@ -50412,7 +50733,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "63",
+      "rank": "64",
       "chart": "bitnami/contour",
       "version": "21.1.4",
       "user_status": "not-ready-yet",
@@ -50445,7 +50766,40 @@
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
     },
     {
-      "rank": "64",
+      "rank": "65",
+      "chart": "valkey/valkey",
+      "version": "0.11.0",
+      "user_status": "needs-better-base-variant",
+      "chart_use_answer": "not-yet-user-ready",
+      "first_base": "default",
+      "catalog_path": "recipes/valkey/valkey/0.11.0/CATALOG.md",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/valkey/valkey/0.11.0/source-lock.yaml;recipes/valkey/valkey/0.11.0/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/valkey/valkey/0.11.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/valkey/valkey/0.11.0/value-model.yaml;recipes/valkey/valkey/0.11.0/helm-plan.yaml;recipes/valkey/valkey/0.11.0/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "required-values;tpl;storage",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "rank 213: not-in-catalog: not-proved: none: create recipe, package, variants, rendered digest, scans, and receipts",
+      "user_must_provide": "a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion"
+    },
+    {
+      "rank": "66",
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.0",
       "user_status": "needs-better-base-variant",
@@ -50478,7 +50832,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "65",
+      "rank": "67",
       "chart": "elastic/metricbeat",
       "version": "8.5.1",
       "user_status": "needs-better-base-variant",
@@ -50511,7 +50865,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "66",
+      "rank": "68",
       "chart": "minio-operator/operator",
       "version": "7.1.1",
       "user_status": "needs-better-base-variant",
@@ -50544,7 +50898,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "67",
+      "rank": "69",
       "chart": "percona/pxc-operator",
       "version": "1.19.1",
       "user_status": "works-with-operator-review",
@@ -50577,7 +50931,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "68",
+      "rank": "70",
       "chart": "bitnami/apache",
       "version": "11.4.29",
       "user_status": "not-ready-yet",
@@ -50610,7 +50964,7 @@
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
     },
     {
-      "rank": "69",
+      "rank": "71",
       "chart": "grafana/pyroscope",
       "version": "2.0.2",
       "user_status": "not-ready-yet",
@@ -50643,7 +50997,7 @@
       "next_action": "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
     },
     {
-      "rank": "70",
+      "rank": "72",
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.60.1",
       "user_status": "needs-better-base-variant",
@@ -50676,7 +51030,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "71",
+      "rank": "73",
       "chart": "falcosecurity/falcosidekick",
       "version": "0.13.1",
       "user_status": "needs-better-base-variant",
@@ -50709,7 +51063,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "72",
+      "rank": "74",
       "chart": "aqua/trivy-operator",
       "version": "0.32.1",
       "user_status": "works-with-target-prerequisites",
@@ -50742,7 +51096,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "73",
+      "rank": "75",
       "chart": "argo-cd/argo-events",
       "version": "2.4.21",
       "user_status": "works-with-operator-review",
@@ -50775,7 +51129,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "74",
+      "rank": "76",
       "chart": "argo-cd/argo-rollouts",
       "version": "2.40.9",
       "user_status": "works-with-operator-review",
@@ -50808,7 +51162,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "75",
+      "rank": "77",
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
       "user_status": "works-with-operator-review",
@@ -50841,7 +51195,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "76",
+      "rank": "78",
       "chart": "argo-cd/argocd-image-updater",
       "version": "1.2.2",
       "user_status": "needs-better-base-variant",
@@ -50874,7 +51228,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "77",
+      "rank": "79",
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "user_status": "works-with-operator-review",
@@ -50907,7 +51261,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "78",
+      "rank": "80",
       "chart": "autoscaler/vertical-pod-autoscaler",
       "version": "0.9.0",
       "user_status": "works-with-target-prerequisites",
@@ -50940,7 +51294,106 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "79",
+      "rank": "81",
+      "chart": "aws-controllers-k8s/ec2-chart",
+      "version": "1.18.4",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/source-lock.yaml;recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/aws-controllers-k8s/ec2-chart/1.18.4/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/aws-controllers-k8s/ec2-chart/1.18.4/value-model.yaml;recipes/aws-controllers-k8s/ec2-chart/1.18.4/helm-plan.yaml;recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "existing-secret",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "82",
+      "chart": "aws-controllers-k8s/eks-chart",
+      "version": "1.16.3",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/aws-controllers-k8s/eks-chart/1.16.3/source-lock.yaml;recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/aws-controllers-k8s/eks-chart/1.16.3/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/aws-controllers-k8s/eks-chart/1.16.3/value-model.yaml;recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-plan.yaml;recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "existing-secret",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "83",
+      "chart": "aws-controllers-k8s/iam-chart",
+      "version": "1.7.3",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml;recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/aws-controllers-k8s/iam-chart/1.7.3/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/aws-controllers-k8s/iam-chart/1.7.3/value-model.yaml;recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-plan.yaml;recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "existing-secret",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "84",
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "user_status": "works-with-target-prerequisites",
@@ -50973,7 +51426,106 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "80",
+      "rank": "85",
+      "chart": "cloudpirates/nginx",
+      "version": "0.16.1",
+      "user_status": "needs-better-base-variant",
+      "chart_use_answer": "not-yet-user-ready",
+      "first_base": "default",
+      "catalog_path": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/cloudpirates/nginx/0.16.1/source-lock.yaml;recipes/cloudpirates/nginx/0.16.1/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/cloudpirates/nginx/0.16.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/cloudpirates/nginx/0.16.1/value-model.yaml;recipes/cloudpirates/nginx/0.16.1/helm-plan.yaml;recipes/cloudpirates/nginx/0.16.1/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion"
+    },
+    {
+      "rank": "86",
+      "chart": "cloudpirates/rabbitmq",
+      "version": "0.21.13",
+      "user_status": "needs-better-base-variant",
+      "chart_use_answer": "not-yet-user-ready",
+      "first_base": "default",
+      "catalog_path": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/cloudpirates/rabbitmq/0.21.13/source-lock.yaml;recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/cloudpirates/rabbitmq/0.21.13/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/cloudpirates/rabbitmq/0.21.13/value-model.yaml;recipes/cloudpirates/rabbitmq/0.21.13/helm-plan.yaml;recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion"
+    },
+    {
+      "rank": "87",
+      "chart": "cloudpirates/redis",
+      "version": "0.34.11",
+      "user_status": "needs-better-base-variant",
+      "chart_use_answer": "not-yet-user-ready",
+      "first_base": "default",
+      "catalog_path": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/cloudpirates/redis/0.34.11/source-lock.yaml;recipes/cloudpirates/redis/0.34.11/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/cloudpirates/redis/0.34.11/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/cloudpirates/redis/0.34.11/value-model.yaml;recipes/cloudpirates/redis/0.34.11/helm-plan.yaml;recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "none-flagged",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "your wanted install shape, until a reviewed base exists",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "add at least one user-shaped variant before catalog promotion"
+    },
+    {
+      "rank": "88",
       "chart": "crossplane-stable/crossplane",
       "version": "2.3.1",
       "user_status": "needs-better-base-variant",
@@ -51006,7 +51558,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "81",
+      "rank": "89",
       "chart": "grafana/promtail",
       "version": "6.17.1",
       "user_status": "needs-better-base-variant",
@@ -51039,7 +51591,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "82",
+      "rank": "90",
       "chart": "grafana/rollout-operator",
       "version": "0.49.0",
       "user_status": "works-with-operator-review",
@@ -51072,7 +51624,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "83",
+      "rank": "91",
       "chart": "haproxytech/kubernetes-ingress",
       "version": "1.52.0",
       "user_status": "needs-better-base-variant",
@@ -51105,7 +51657,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "84",
+      "rank": "92",
       "chart": "istio/gateway",
       "version": "1.30.0",
       "user_status": "works-with-operator-review",
@@ -51138,7 +51690,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "85",
+      "rank": "93",
       "chart": "istio/istiod",
       "version": "1.30.0",
       "user_status": "needs-better-base-variant",
@@ -51171,7 +51723,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "86",
+      "rank": "94",
       "chart": "jetstack/cert-manager-csi-driver",
       "version": "v0.14.0",
       "user_status": "needs-better-base-variant",
@@ -51204,7 +51756,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "87",
+      "rank": "95",
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "user_status": "works-with-target-prerequisites",
@@ -51237,7 +51789,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "88",
+      "rank": "96",
       "chart": "linkerd/linkerd-crds",
       "version": "1.8.0",
       "user_status": "needs-better-base-variant",
@@ -51270,7 +51822,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "89",
+      "rank": "97",
       "chart": "minio-operator/tenant",
       "version": "7.1.1",
       "user_status": "needs-better-base-variant",
@@ -51303,7 +51855,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "90",
+      "rank": "98",
       "chart": "nats/nack",
       "version": "0.34.0",
       "user_status": "works-with-target-prerequisites",
@@ -51336,7 +51888,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "91",
+      "rank": "99",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "user_status": "works-with-operator-review",
@@ -51369,7 +51921,40 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "92",
+      "rank": "100",
+      "chart": "nvidia/nvidia-device-plugin",
+      "version": "0.19.3",
+      "user_status": "works-with-operator-review",
+      "chart_use_answer": "review-needed",
+      "first_base": "default",
+      "catalog_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
+      "current_proof": "not-in-current-catalog-lane (render parity 0/0)",
+      "proof_lane_rows": "",
+      "proof_lane_summary": "",
+      "variant_revisions": "",
+      "recipe_paths": "",
+      "package_paths": "",
+      "coverage_status": "partial",
+      "coverage_evidence": "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml;recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md;data/outcome-coverage/base-outcomes.csv;recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml;recipes/nvidia/nvidia-device-plugin/0.19.3/helm-plan.yaml;recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml;data/top100-readiness/readiness.csv;site/catalog.json",
+      "hooks_route": "",
+      "hooks_evidence": "",
+      "quirks": "existing-secret",
+      "quirk_route": "",
+      "quirk_evidence": "",
+      "runtime_gitops_results": "",
+      "runtime_gitops_receipts": "",
+      "gitops_health_residue": "",
+      "gitops_health_residue_evidence": "",
+      "live_compare_receipts": "",
+      "production_decisions": "",
+      "production_decision_paths": "",
+      "top500_route": "",
+      "user_must_provide": "an existing Secret for some bases (buildable - not yet run)",
+      "routed_or_absorbed": "exact rendered objects with render parity and receipts",
+      "next_action": "review chart analysis and create a recipe candidate"
+    },
+    {
+      "rank": "101",
       "chart": "open-telemetry/opentelemetry-operator",
       "version": "0.114.0",
       "user_status": "works-with-target-prerequisites",
@@ -51402,7 +51987,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "93",
+      "rank": "102",
       "chart": "percona/pg-operator",
       "version": "3.0.0",
       "user_status": "works-with-operator-review",
@@ -51435,7 +52020,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "94",
+      "rank": "103",
       "chart": "percona/psmdb-operator",
       "version": "1.22.0",
       "user_status": "works-with-operator-review",
@@ -51468,7 +52053,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "95",
+      "rank": "104",
       "chart": "rook-release/rook-ceph",
       "version": "v1.19.5",
       "user_status": "needs-better-base-variant",
@@ -51501,7 +52086,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "96",
+      "rank": "105",
       "chart": "rook-release/rook-ceph-cluster",
       "version": "v1.19.5",
       "user_status": "needs-better-base-variant",
@@ -51534,7 +52119,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "97",
+      "rank": "106",
       "chart": "sealed-secrets/sealed-secrets",
       "version": "2.18.6",
       "user_status": "works-with-target-prerequisites",
@@ -51567,7 +52152,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "98",
+      "rank": "107",
       "chart": "velero/velero",
       "version": "12.0.1",
       "user_status": "works-with-target-prerequisites",
@@ -51600,7 +52185,7 @@
       "next_action": "run catalog promotion review"
     },
     {
-      "rank": "99",
+      "rank": "108",
       "chart": "vm/victoria-logs-single",
       "version": "0.12.5",
       "user_status": "needs-better-base-variant",
@@ -51633,7 +52218,7 @@
       "next_action": "add at least one user-shaped variant before catalog promotion"
     },
     {
-      "rank": "100",
+      "rank": "109",
       "chart": "vm/victoria-metrics-single",
       "version": "0.39.0",
       "user_status": "works-with-operator-review",

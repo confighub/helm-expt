@@ -28,8 +28,8 @@ top-20 update candidates: 7
 production-disposition-needed entries: 0
 production-review-ready entries: 20
 entries matched to top-500 source rows: 67
-no hard gap in chart-facts: 78
-hard gap for at least one recommended capability: 31
+no hard gap in chart-facts: 87
+hard gap for at least one recommended capability: 22
 ```
 
 ## Interpretation
@@ -57,8 +57,8 @@ claim.
 | Proof-grade, not catalog-supported | 89 | The chart has deterministic proof artifacts but still needs user-shaped variants and promotion review. |
 | Variant-rich | 72 | The chart has more than one base variant. |
 | Default-only | 37 | The chart has a proof path, but not enough variants for common user choices. |
-| No hard gap in chart-facts | 78 | Recommended capabilities are built, not applicable, or have a known path. |
-| Hard gap for a recommended capability | 31 | The core recipe may still work, but at least one useful capability is not yet enabled. See `data/chart-facts/summary.md`. |
+| No hard gap in chart-facts | 87 | Recommended capabilities are built, not applicable, or have a known path. |
+| Hard gap for a recommended capability | 22 | The core recipe may still work, but at least one useful capability is not yet enabled. See `data/chart-facts/summary.md`. |
 
 In plain English:
 
@@ -73,7 +73,7 @@ works, but still needs user-shaped product review
   89 charts are proof-grade but not catalog-supported.
 
 works only with a named limitation or user/operator help
-  31 charts have at least one hard gap for a recommended extra capability.
+  22 charts have at least one hard gap for a recommended extra capability.
 ```
 
 The hard-gap column is about missing recommended capabilities, not total chart
@@ -89,7 +89,7 @@ lacking an `existing-secret`, `no-crds`, or HA path for a specific variant.
 | Does it still need catalog promotion review before support is claimed? | 89 | Yes. These entries are proof-grade, not catalog-supported. |
 | Does it already have more than one base variant? | 72 | Yes. These entries cover more than the default shape. |
 | Is it still default-only? | 37 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
-| Does it have a named hard gap for at least one recommended capability? | 31 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
+| Does it have a named hard gap for at least one recommended capability? | 22 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
 | Is a supported top-20 chart behind the latest upstream version? | 7 | Yes. These need promotion proof before the catalog points at the newer chart. |
 
 ## Top-20 Update Candidates
