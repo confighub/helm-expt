@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3` |
 | Installer package source | [packages/nvidia/nvidia-device-plugin/0.19.3](../../../../packages/nvidia/nvidia-device-plugin/0.19.3) |
 | Installer package receipt | [recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

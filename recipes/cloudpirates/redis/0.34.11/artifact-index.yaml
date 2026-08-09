@@ -32,6 +32,7 @@ spec:
     controlPoints: "recipes/cloudpirates/redis/0.34.11/control-points.yaml"
     valueModel: "recipes/cloudpirates/redis/0.34.11/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

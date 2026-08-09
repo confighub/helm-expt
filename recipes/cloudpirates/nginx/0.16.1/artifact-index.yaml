@@ -32,6 +32,7 @@ spec:
     controlPoints: "recipes/cloudpirates/nginx/0.16.1/control-points.yaml"
     valueModel: "recipes/cloudpirates/nginx/0.16.1/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

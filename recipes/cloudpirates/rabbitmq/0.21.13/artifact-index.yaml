@@ -32,6 +32,7 @@ spec:
     controlPoints: "recipes/cloudpirates/rabbitmq/0.21.13/control-points.yaml"
     valueModel: "recipes/cloudpirates/rabbitmq/0.21.13/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/cloudpirates/rabbitmq/0.21.13/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "dependency-lock"

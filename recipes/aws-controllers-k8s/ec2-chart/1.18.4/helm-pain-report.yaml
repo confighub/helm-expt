@@ -1,0 +1,120 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4"
+spec:
+  chart:
+    name: "aws-controllers-k8s/ec2-chart"
+    version: "1.18.4"
+    source: "oci://public.ecr.aws/aws-controllers-k8s"
+    digest: "17c082eac9ef1f859fdf72d4e86788ab7add27876da9f2ba7cd145eeea75bc20"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "Both variants render exactly 32 objects: 22 CustomResourceDefinitions, 1 Deployment, 1 ServiceAccount, 2 ClusterRoles, 2 ClusterRoleBindings, 3 Roles, and 1 RoleBinding, everything cluster-scoped or in ack-system."
+    - "The 22 CRDs split into 20 EC2 kinds (ec2.services.k8s.aws) plus the two common ACK CRDs fieldexports.services.k8s.aws and iamroleselectors.services.k8s.aws."
+    - "The release runs one image, public.ecr.aws/aws-controllers-k8s/ec2-controller:1.18.4, pinned to the chart version."
+    - "The witness scan is clean across every quirk class: zero hooks, zero lookups, zero resource-policy keep annotations, zero Capabilities checks, zero generated Secrets, zero webhooks, zero Namespace creation, zero subcharts (37 files scanned)."
+    - "The chart's one weird thing is resourceTags: the rendered ACK_RESOURCE_TAGS env var contains literal %CONTROLLER_VERSION% style tokens that the controller substitutes at runtime, so the rendered YAML shows what look like unexpanded template variables on purpose."
+    - "deletionPolicy is the highest-stakes value: the chart default delete removes the AWS resource when the Kubernetes resource is deleted, so under a pruning reconciler a pruned manifest means deleted cloud infrastructure; the eks-inference base sets retain to make that accident inert."
+    - "The eks-inference base renders aws.region as the literal string confighubplaceholder by design; the region belongs to the environment and is bound per variant by a set-env-var link that addresses AWS_REGION by name, with vet-placeholders failing while any sentinel remains."
+    - "The default base is an audit base, not a deployable one: AWS_REGION renders empty and no credentials are wired, so the controller cannot reach AWS as rendered."
+    - "installScope is cluster in both bases; switching to namespace changes the RBAC shape from ClusterRole to Role and activates watchNamespace, none of which is covered by these renders."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock.yaml pins the exact artifact oci://public.ecr.aws/aws-controllers-k8s/ec2-chart with packageSHA256 17c082ea... via the HELM_EXPT_CHART_ARTIFACT_URL/_SHA256 env pins, which must also be exported at verify time. The OCI manifestDigest has no kit field and is preserved in artifact-manifest-digest.yaml."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "The chart has zero dependencies (apiVersion v1, no charts/ directory, witness subcharts count 0). expectedDependencyCount is 0, the kit default."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "kubeVersion 1.31.0, apiVersions empty. The chart uses no Capabilities checks (witness capabilities count 0), so the profile is declarative rather than render-affecting."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "The chart ships zero helm hooks and zero test hooks (witness counts 0), so no hook lifecycle exists to manage. This spec renders with hooks visible (no --no-hooks flag) and declares hookPolicy hooks-rendered-visible, matching the lean entry; with zero hooks the rendered bytes are identical either way. Never claim hooks exist for this chart."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-policy"
+      detectedPainPoint: "22 CRDs (22 files, 22 documents in crds/) render with --include-crds and are counted in the 32 objects. Both flattening verdicts land flatten-with-routes with exactly one route, a CRD ordering declaration for the 22 EC2 CRDs; the eks-inference producer already emits it as the crds/controller split at Argo sync waves -20 and -10. The proof itself does not ship the route; it must travel with the bundle."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled-with-required-route"
+    -
+      id: "namespace"
+      detectedPainPoint: "Both variants target ack-system with release name ack-ec2. The chart creates no Namespace object (witness namespace-creation 0), so the installer supplies v1|Namespace||ack-system as the single support object, matching the kit default."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "credentials-secrets"
+      detectedPainPoint: "The chart generates no Secrets (witness generated-secrets 0; expectedSecretCount 0 for both bases). The eks-inference base references a pre-existing Secret ack-system/aws-creds with key credentials, mounted as the shared AWS credentials file. IRSA via serviceAccount annotation is the unmodeled alternative. The default base renders no credential wiring at all and cannot reach AWS."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "required-for-eks-inference"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "extraEnvVars, extraVolumes, extraVolumeMounts, deployment.annotations, deployment.labels, and image.pullSecrets are raw passthroughs into the Deployment and are empty in both audited bases. Renders with these populated are unaudited."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "unused-at-audited-values"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "aws-controllers-k8s/ec2-chart@1.18.4 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."

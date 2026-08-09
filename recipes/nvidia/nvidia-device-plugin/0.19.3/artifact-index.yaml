@@ -23,6 +23,7 @@ spec:
     controlPoints: "recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml"
     valueModel: "recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml"
     weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     controlPointCategories:
       - "capability-profile"
       - "crd-policy"

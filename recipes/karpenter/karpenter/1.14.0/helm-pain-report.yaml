@@ -1,0 +1,120 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  chart:
+    name: "karpenter/karpenter"
+    version: "1.14.0"
+    source: "oci://public.ecr.aws/karpenter"
+    digest: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "The chart renders 18 objects in the default and eks-inference bases and 13 in crds-managed; the difference is exactly the 5 CRDs."
+    - "The 5 CRDs are ec2nodeclasses.karpenter.k8s.aws, nodeclaims.karpenter.sh, nodepools.karpenter.sh, nodeoverlays.karpenter.sh, and capacitybuffers.autoscaling.x-k8s.io, shipped as 5 files in the crds/ directory."
+    - "Everything namespaced lands in kube-system with releaseName karpenter; the chart creates no Namespace and renders no Secret."
+    - "One container image, digest-pinned in chart defaults: public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23."
+    - "The chart's one weird thing is that Karpenter cannot schedule the node Karpenter runs on. The default nodeAffinity requires karpenter.sh/nodepool DoesNotExist, so the controller always needs a pre-existing nodegroup, and default replicas 2 plus required pod anti-affinity needs two such nodes."
+    - "settings.clusterName has no chart default and the deployment template hard-fails the render without it."
+    - "The witness records zero hooks, zero lookups, zero generated secrets, and zero namespace-creation sites across 19 scanned files; the only quirk classes present are capabilities-api-versions (2 sites) and crd-ordering (5 CRDs)."
+    - "All settings.* values flatten into plain env vars on the controller container (CLUSTER_NAME, FEATURE_GATES, BATCH_MAX_DURATION and friends), so the whole runtime configuration is readable off the rendered Deployment."
+    - "RBAC is substantial: 3 ClusterRoles, 2 ClusterRoleBindings, 2 Roles, and 2 RoleBindings, including a karpenter-admin aggregation ClusterRole."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock.yaml pins the exact artifact oci://public.ecr.aws/karpenter/karpenter at 1.14.0 with packageSHA256 d576f955..., resolution artifact-addressed. Regeneration must export HELM_EXPT_CHART_ARTIFACT_URL and HELM_EXPT_CHART_ARTIFACT_SHA256."
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "the packaged chart declares no dependencies and the witness records zero subcharts, so expectedDependencyCount is 0"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "every variant pins kubeVersion 1.31.0 with an empty apiVersions list. Two capability sites exist: the PDB apiVersion helper resolves to policy/v1 at 1.31.0, and the ServiceMonitor guard stays closed without monitoring.coreos.com/v1"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "the witness records zero helm-hooks and zero test-hooks, so the emitted hookPolicy no-hooks is truthful: renders pass --no-hooks and there are no hooks to hide"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-policy"
+      detectedPainPoint: "the chart ships 5 CRDs as crds-directory files. default and eks-inference render them in-bundle (verdict lane flatten-with-routes, route = CRD ordering declaration); crds-managed excludes them via variant renderFlags without --include-crds, and the karpenter-crd chart owns them out of band, so that base's lane is safe-to-flatten with CRD presence recorded as a platform precondition"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "split-by-variant"
+    -
+      id: "namespace"
+      detectedPainPoint: "all namespaced objects land in kube-system; the chart creates no Namespace and kube-system pre-exists on every cluster. The installer supportObjects default v1|Namespace||kube-system covers the cub-side namespace object"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "credentials-secrets"
+      detectedPainPoint: "zero generated secrets, zero lookup sites, no Secret rendered in any base (expectedSecretCount 0). AWS credentials arrive at runtime through the EKS Pod Identity association bound to the kube-system/karpenter ServiceAccount, outside the chart; AWS_REGION is the one credential-adjacent value and it ships as a placeholder env entry"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "none-generated"
+    -
+      id: "extension-slots"
+      detectedPainPoint: "extraVolumes, controller.extraVolumeMounts, controller.sidecarContainer, initContainers, and additionalClusterRoleRules are live template slots that no audited base exercises. additionalClusterRoleRules in particular can widen cluster RBAC and stays subject to scan-and-review"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "open-unaudited"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=extraVolumes, controller.sidecarContainer, additionalClusterRoleRules, initContainers, dnsConfig, logOutputPaths, and the remaining settings.* are not exhaustively checked; no audited base sets them; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "karpenter/karpenter@1.14.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, extension-slot, scan-gate, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains not-reviewed-for-production."

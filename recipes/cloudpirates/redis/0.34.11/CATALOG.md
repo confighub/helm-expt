@@ -50,6 +50,7 @@ for exact base-variant evidence.
 | Control points | [recipes/cloudpirates/redis/0.34.11/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/cloudpirates/redis/0.34.11/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/redis/0.34.11/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11` |
 | Installer package source | [packages/cloudpirates/redis/0.34.11](../../../../packages/cloudpirates/redis/0.34.11) |
 | Installer package receipt | [recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |

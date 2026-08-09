@@ -50,6 +50,7 @@ for exact base-variant evidence.
 | Control points | [recipes/valkey/valkey/0.11.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/valkey/valkey/0.11.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/valkey/valkey/0.11.0/catalog-status.yaml](catalog-status.yaml) |
+| Helm pain report | [recipes/valkey/valkey/0.11.0/helm-pain-report.yaml](helm-pain-report.yaml) |
 | Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0` |
 | Installer package source | [packages/valkey/valkey/0.11.0](../../../../packages/valkey/valkey/0.11.0) |
 | Installer package receipt | [recipes/valkey/valkey/0.11.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
