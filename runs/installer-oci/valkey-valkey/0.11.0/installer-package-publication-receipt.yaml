@@ -4,6 +4,7 @@ metadata:
   name: valkey-valkey-0.11.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0
+  observedAt: "2026-08-08T20:47:45.767Z"
   package:
     path: packages/valkey/valkey/0.11.0
     sha256: 1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c

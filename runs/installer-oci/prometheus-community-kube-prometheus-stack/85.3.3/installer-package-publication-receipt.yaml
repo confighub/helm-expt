@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-kube-prometheus-stack-85.3.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3
+  observedAt: "2026-08-08T20:47:35.928Z"
   package:
     path: packages/prometheus-community/kube-prometheus-stack/85.3.3
     sha256: cd92ab8dbd15343e9ece4bdaab87d3ca6ab5820d87c11bd3497b400c9d220798

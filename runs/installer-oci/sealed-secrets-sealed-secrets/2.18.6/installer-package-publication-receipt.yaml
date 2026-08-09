@@ -4,6 +4,7 @@ metadata:
   name: sealed-secrets-sealed-secrets-2.18.6
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6
+  observedAt: "2026-08-08T20:47:42.588Z"
   package:
     path: packages/sealed-secrets/sealed-secrets/2.18.6
     sha256: a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508

@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-alertmanager-1.37.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0
+  observedAt: "2026-08-08T20:47:35.523Z"
   package:
     path: packages/prometheus-community/alertmanager/1.37.0
     sha256: beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e

@@ -4,6 +4,7 @@ metadata:
   name: aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1
+  observedAt: "2026-08-08T20:46:56.052Z"
   package:
     path: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
     sha256: 9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624

@@ -4,6 +4,7 @@ metadata:
   name: vm-victoria-logs-single-0.12.5
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5
+  observedAt: "2026-08-08T20:47:46.897Z"
   package:
     path: packages/vm/victoria-logs-single/0.12.5
     sha256: 7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406

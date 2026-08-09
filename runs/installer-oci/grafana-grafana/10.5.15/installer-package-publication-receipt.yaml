@@ -4,6 +4,7 @@ metadata:
   name: grafana-grafana-10.5.15
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15
+  observedAt: "2026-08-08T20:47:15.235Z"
   package:
     path: packages/grafana/grafana/10.5.15
     sha256: 8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed

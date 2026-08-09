@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-prometheus-pushgateway-3.6.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0
+  observedAt: "2026-08-08T20:47:40.080Z"
   package:
     path: packages/prometheus-community/prometheus-pushgateway/3.6.0
     sha256: 11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2

@@ -4,6 +4,7 @@ metadata:
   name: cloudpirates-redis-0.34.11
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11
+  observedAt: "2026-08-08T20:47:06.160Z"
   package:
     path: packages/cloudpirates/redis/0.34.11
     sha256: 328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3

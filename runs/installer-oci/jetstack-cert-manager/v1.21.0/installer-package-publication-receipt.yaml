@@ -4,6 +4,7 @@ metadata:
   name: jetstack-cert-manager-v1.21.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0
+  observedAt: "2026-08-08T20:47:22.067Z"
   package:
     path: packages/jetstack/cert-manager/v1.21.0
     sha256: d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e

@@ -4,6 +4,7 @@ metadata:
   name: istio-istiod-1.30.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0
+  observedAt: "2026-08-08T20:47:20.136Z"
   package:
     path: packages/istio/istiod/1.30.0
     sha256: 084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6

@@ -4,6 +4,7 @@ metadata:
   name: gitlab-gitlab-runner-0.89.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0
+  observedAt: "2026-08-08T20:47:14.149Z"
   package:
     path: packages/gitlab/gitlab-runner/0.89.0
     sha256: e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e

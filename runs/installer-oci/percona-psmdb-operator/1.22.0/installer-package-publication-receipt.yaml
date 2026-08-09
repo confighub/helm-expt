@@ -4,6 +4,7 @@ metadata:
   name: percona-psmdb-operator-1.22.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0
+  observedAt: "2026-08-08T20:47:33.206Z"
   package:
     path: packages/percona/psmdb-operator/1.22.0
     sha256: 29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8

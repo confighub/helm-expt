@@ -4,6 +4,7 @@ metadata:
   name: policy-reporter-policy-reporter-3.9.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1
+  observedAt: "2026-08-08T20:47:33.956Z"
   package:
     path: packages/policy-reporter/policy-reporter/3.9.1
     sha256: 40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6

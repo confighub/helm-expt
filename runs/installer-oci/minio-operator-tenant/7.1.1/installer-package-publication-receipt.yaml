@@ -4,6 +4,7 @@ metadata:
   name: minio-operator-tenant-7.1.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1
+  observedAt: "2026-08-08T20:47:28.429Z"
   package:
     path: packages/minio-operator/tenant/7.1.1
     sha256: 441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129

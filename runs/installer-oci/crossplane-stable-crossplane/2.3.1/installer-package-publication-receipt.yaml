@@ -4,6 +4,7 @@ metadata:
   name: crossplane-stable-crossplane-2.3.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1
+  observedAt: "2026-08-08T20:47:06.966Z"
   package:
     path: packages/crossplane-stable/crossplane/2.3.1
     sha256: 243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016

@@ -4,6 +4,7 @@ metadata:
   name: jetstack-trust-manager-v0.22.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1
+  observedAt: "2026-08-08T20:47:22.435Z"
   package:
     path: packages/jetstack/trust-manager/v0.22.1
     sha256: 59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b

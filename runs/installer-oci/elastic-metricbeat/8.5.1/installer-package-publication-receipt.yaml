@@ -4,6 +4,7 @@ metadata:
   name: elastic-metricbeat-8.5.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1
+  observedAt: "2026-08-08T20:47:09.567Z"
   package:
     path: packages/elastic/metricbeat/8.5.1
     sha256: 1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80

@@ -4,6 +4,7 @@ metadata:
   name: hashicorp-vault-0.32.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0
+  observedAt: "2026-08-08T20:47:18.934Z"
   package:
     path: packages/hashicorp/vault/0.32.0
     sha256: bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654

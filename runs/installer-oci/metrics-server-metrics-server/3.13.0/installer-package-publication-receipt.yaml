@@ -4,6 +4,7 @@ metadata:
   name: metrics-server-metrics-server-3.13.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0
+  observedAt: "2026-08-08T20:47:27.106Z"
   package:
     path: packages/metrics-server/metrics-server/3.13.0
     sha256: 10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864

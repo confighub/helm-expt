@@ -4,6 +4,7 @@ metadata:
   name: kedacore-keda-2.19.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0
+  observedAt: "2026-08-08T20:47:23.231Z"
   package:
     path: packages/kedacore/keda/2.19.0
     sha256: 5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b

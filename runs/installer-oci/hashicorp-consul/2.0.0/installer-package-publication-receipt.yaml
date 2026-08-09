@@ -4,6 +4,7 @@ metadata:
   name: hashicorp-consul-2.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0
+  observedAt: "2026-08-08T20:47:18.250Z"
   package:
     path: packages/hashicorp/consul/2.0.0
     sha256: 0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43

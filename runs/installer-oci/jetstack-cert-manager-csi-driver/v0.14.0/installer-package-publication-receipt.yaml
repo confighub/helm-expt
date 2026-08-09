@@ -4,6 +4,7 @@ metadata:
   name: jetstack-cert-manager-csi-driver-v0.14.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0
+  observedAt: "2026-08-08T20:47:21.250Z"
   package:
     path: packages/jetstack/cert-manager-csi-driver/v0.14.0
     sha256: 3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951

@@ -4,6 +4,7 @@ metadata:
   name: bitnami-apache-11.4.29
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29
+  observedAt: "2026-08-08T20:46:56.439Z"
   package:
     path: packages/bitnami/apache/11.4.29
     sha256: 6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0

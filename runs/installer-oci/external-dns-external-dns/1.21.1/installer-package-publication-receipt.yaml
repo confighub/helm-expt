@@ -4,6 +4,7 @@ metadata:
   name: external-dns-external-dns-1.21.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1
+  observedAt: "2026-08-08T20:47:09.913Z"
   package:
     path: packages/external-dns/external-dns/1.21.1
     sha256: e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f

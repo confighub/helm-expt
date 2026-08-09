@@ -4,6 +4,7 @@ metadata:
   name: gatekeeper-gatekeeper-3.22.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2
+  observedAt: "2026-08-08T20:47:13.810Z"
   package:
     path: packages/gatekeeper/gatekeeper/3.22.2
     sha256: 93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40

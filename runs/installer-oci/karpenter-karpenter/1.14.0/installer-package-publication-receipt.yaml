@@ -4,6 +4,7 @@ metadata:
   name: karpenter-karpenter-1.14.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0
+  observedAt: "2026-08-08T20:47:22.824Z"
   package:
     path: packages/karpenter/karpenter/1.14.0
     sha256: 2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5

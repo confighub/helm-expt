@@ -4,6 +4,7 @@ metadata:
   name: secrets-store-csi-driver-secrets-store-csi-driver-1.6.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0
+  observedAt: "2026-08-08T20:47:42.949Z"
   package:
     path: packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
     sha256: 3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed

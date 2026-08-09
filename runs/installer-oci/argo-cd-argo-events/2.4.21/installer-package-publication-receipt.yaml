@@ -4,6 +4,7 @@ metadata:
   name: argo-cd-argo-events-2.4.21
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21
+  observedAt: "2026-08-08T20:46:52.091Z"
   package:
     path: packages/argo-cd/argo-events/2.4.21
     sha256: 305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848

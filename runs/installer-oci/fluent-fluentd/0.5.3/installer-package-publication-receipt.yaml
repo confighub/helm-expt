@@ -4,6 +4,7 @@ metadata:
   name: fluent-fluentd-0.5.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3
+  observedAt: "2026-08-08T20:47:13.474Z"
   package:
     path: packages/fluent/fluentd/0.5.3
     sha256: 73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9

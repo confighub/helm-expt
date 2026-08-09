@@ -4,6 +4,7 @@ metadata:
   name: percona-pg-operator-3.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0
+  observedAt: "2026-08-08T20:47:32.102Z"
   package:
     path: packages/percona/pg-operator/3.0.0
     sha256: 30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5

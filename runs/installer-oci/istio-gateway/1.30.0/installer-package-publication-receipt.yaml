@@ -4,6 +4,7 @@ metadata:
   name: istio-gateway-1.30.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0
+  observedAt: "2026-08-08T20:47:19.718Z"
   package:
     path: packages/istio/gateway/1.30.0
     sha256: 2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270

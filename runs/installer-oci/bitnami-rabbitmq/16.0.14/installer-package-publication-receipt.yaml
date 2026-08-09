@@ -4,6 +4,7 @@ metadata:
   name: bitnami-rabbitmq-16.0.14
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14
+  observedAt: "2026-08-08T20:47:03.120Z"
   package:
     path: packages/bitnami/rabbitmq/16.0.14
     sha256: fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9

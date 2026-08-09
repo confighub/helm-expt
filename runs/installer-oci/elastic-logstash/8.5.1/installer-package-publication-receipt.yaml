@@ -4,6 +4,7 @@ metadata:
   name: elastic-logstash-8.5.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1
+  observedAt: "2026-08-08T20:47:09.180Z"
   package:
     path: packages/elastic/logstash/8.5.1
     sha256: 83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3

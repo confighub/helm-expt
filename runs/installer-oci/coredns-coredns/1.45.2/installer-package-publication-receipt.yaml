@@ -4,6 +4,7 @@ metadata:
   name: coredns-coredns-1.45.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2
+  observedAt: "2026-08-08T20:47:06.568Z"
   package:
     path: packages/coredns/coredns/1.45.2
     sha256: 795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e

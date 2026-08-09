@@ -4,6 +4,7 @@ metadata:
   name: cloudnative-pg-cloudnative-pg-0.28.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2
+  observedAt: "2026-08-08T20:47:05.104Z"
   package:
     path: packages/cloudnative-pg/cloudnative-pg/0.28.2
     sha256: 8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013

@@ -4,6 +4,7 @@ metadata:
   name: bitnami-contour-21.1.4
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
+  observedAt: "2026-08-08T20:46:56.882Z"
   package:
     path: packages/bitnami/contour/21.1.4
     sha256: 8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48

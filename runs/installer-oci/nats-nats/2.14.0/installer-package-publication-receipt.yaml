@@ -4,6 +4,7 @@ metadata:
   name: nats-nats-2.14.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0
+  observedAt: "2026-08-08T20:47:29.190Z"
   package:
     path: packages/nats/nats/2.14.0
     sha256: 61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b

@@ -4,6 +4,7 @@ metadata:
   name: argo-cd-argo-workflows-1.0.14
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14
+  observedAt: "2026-08-08T20:46:52.996Z"
   package:
     path: packages/argo-cd/argo-workflows/1.0.14
     sha256: 63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388

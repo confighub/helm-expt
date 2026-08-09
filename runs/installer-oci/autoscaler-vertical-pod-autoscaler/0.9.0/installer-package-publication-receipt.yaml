@@ -4,6 +4,7 @@ metadata:
   name: autoscaler-vertical-pod-autoscaler-0.9.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0
+  observedAt: "2026-08-08T20:46:54.380Z"
   package:
     path: packages/autoscaler/vertical-pod-autoscaler/0.9.0
     sha256: 482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd

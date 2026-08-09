@@ -4,6 +4,7 @@ metadata:
   name: cloudpirates-rabbitmq-0.21.13
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13
+  observedAt: "2026-08-08T20:47:05.778Z"
   package:
     path: packages/cloudpirates/rabbitmq/0.21.13
     sha256: 610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864

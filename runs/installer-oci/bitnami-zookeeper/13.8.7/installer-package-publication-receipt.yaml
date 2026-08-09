@@ -4,6 +4,7 @@ metadata:
   name: bitnami-zookeeper-13.8.7
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7
+  observedAt: "2026-08-08T20:47:04.702Z"
   package:
     path: packages/bitnami/zookeeper/13.8.7
     sha256: 8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8

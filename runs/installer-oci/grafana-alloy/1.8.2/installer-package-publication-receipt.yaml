@@ -4,6 +4,7 @@ metadata:
   name: grafana-alloy-1.8.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2
+  observedAt: "2026-08-08T20:47:14.876Z"
   package:
     path: packages/grafana/alloy/1.8.2
     sha256: ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725

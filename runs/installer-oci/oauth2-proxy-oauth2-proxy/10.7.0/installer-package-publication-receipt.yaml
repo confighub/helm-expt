@@ -4,6 +4,7 @@ metadata:
   name: oauth2-proxy-oauth2-proxy-10.7.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0
+  observedAt: "2026-08-08T20:47:30.871Z"
   package:
     path: packages/oauth2-proxy/oauth2-proxy/10.7.0
     sha256: e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65

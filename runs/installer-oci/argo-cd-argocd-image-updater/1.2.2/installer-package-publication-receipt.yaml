@@ -4,6 +4,7 @@ metadata:
   name: argo-cd-argocd-image-updater-1.2.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2
+  observedAt: "2026-08-08T20:46:53.458Z"
   package:
     path: packages/argo-cd/argocd-image-updater/1.2.2
     sha256: f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718

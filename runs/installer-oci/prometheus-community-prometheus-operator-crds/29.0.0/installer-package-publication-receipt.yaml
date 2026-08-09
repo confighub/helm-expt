@@ -4,6 +4,7 @@ metadata:
   name: prometheus-community-prometheus-operator-crds-29.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0
+  observedAt: "2026-08-08T20:47:39.723Z"
   package:
     path: packages/prometheus-community/prometheus-operator-crds/29.0.0
     sha256: 98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664

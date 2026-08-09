@@ -4,6 +4,7 @@ metadata:
   name: bitnami-postgresql-18.7.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0
+  observedAt: "2026-08-08T20:47:02.559Z"
   package:
     path: packages/bitnami/postgresql/18.7.0
     sha256: 6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92

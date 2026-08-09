@@ -18,9 +18,18 @@
 // verification pulls the artifact instead of re-tarring it. Tar implementations
 // differ across platforms, and the published bytes are the fact.
 //
-// Needs the network and a registry credential, so this runs deliberately and
-// its output is committed. Usage:
+// Every receipt records the moment the registry was read, so its evidence ages
+// like the rest of this repository's rather than sitting outside the count.
+// Publishing takes that moment from the manifest fetch that follows the push.
+// A receipt already committed can record one without republishing: --reobserve
+// reads each published manifest again and refuses if the registry no longer
+// reports the digests the receipt claims. That path only reads, so it needs no
+// credential, and it stamps only what it checked.
+//
+// Needs the network, and publishing needs a registry credential, so this runs
+// deliberately and its output is committed. Usage:
 //   node scripts/publish-certified-bundles.mjs --receipt <path> [--dry-run]
+//   node scripts/publish-certified-bundles.mjs --reobserve
 
 import { execFile } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync, utimesSync } from "node:fs";
@@ -34,13 +43,98 @@ const run = promisify(execFile);
 const args = process.argv.slice(2);
 const receiptArg = args.includes("--receipt") ? args[args.indexOf("--receipt") + 1] : null;
 const dryRun = args.includes("--dry-run");
-check(receiptArg, "usage: node scripts/publish-certified-bundles.mjs --receipt <path> [--dry-run]");
+const reobserve = args.includes("--reobserve");
+check(
+  reobserve || receiptArg,
+  "usage: node scripts/publish-certified-bundles.mjs --receipt <path> [--dry-run], or --reobserve",
+);
 
 const REGISTRY =
   process.env.HELM_EXPT_BUNDLE_OCI_REGISTRY ||
   "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles";
 const ARTIFACT_TYPE = "application/vnd.confighub.config.bundle.v1";
 const EPOCH = new Date(0);
+
+// Reading the manifest back is what turns a push into a fact. The digests a
+// receipt carries come from what the registry serves, never from what this
+// script built, so the receipt describes the artifact a consumer will pull.
+async function fetchManifest(reference) {
+  const { stdout } = await run("oras", ["manifest", "fetch", reference], {
+    timeout: 120000,
+    maxBuffer: 8 * 1024 * 1024,
+  });
+  return { text: stdout, parsed: JSON.parse(stdout) };
+}
+
+// Both paths that write a receipt build it here, so a bundle that was just
+// published and one that was read again cannot describe themselves differently.
+function publicationRecord({ name, receipt, reference, manifest, observedAt, reproducible, stagedFiles, command }) {
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "CertifiedBundlePublicationReceipt",
+    metadata: { name },
+    spec: {
+      receipt,
+      reference,
+      artifactType: ARTIFACT_TYPE,
+      manifestDigest: `sha256:${sha256(manifest.text)}`,
+      layerDigest: manifest.parsed.layers[0].digest,
+      layerBytes: manifest.parsed.layers[0].size,
+      observedAt,
+      reproducible,
+      stagedFiles,
+      command,
+    },
+  };
+}
+
+// Recording when a committed receipt was last confirmed, without republishing.
+// Nothing is rebuilt and nothing is pushed: the manifest is read again and
+// checked against what the receipt already claims. A registry reporting
+// something else is a refusal rather than an update, because rewriting the
+// digests here would quietly turn a record of what was published into a record
+// of whatever happens to be there now.
+async function reobserveCommittedReceipts() {
+  const files = listFiles(join(repoRoot, "runs", "certified-bundles")).filter((path) =>
+    path.endsWith("/publication-receipt.yaml"),
+  );
+  check(files.length > 0, "no committed publication receipt was found under runs/certified-bundles/");
+  for (const path of files) {
+    const rel = relative(repoRoot, path);
+    const committed = readYaml(path);
+    const spec = committed.spec;
+    const manifest = await fetchManifest(spec.reference);
+    const observedAt = new Date().toISOString();
+    check(
+      manifest.parsed.artifactType === ARTIFACT_TYPE,
+      `${rel}: the registry reports artifact type ${manifest.parsed.artifactType}`,
+    );
+    const record = publicationRecord({
+      name: committed.metadata.name,
+      receipt: spec.receipt,
+      reference: spec.reference,
+      manifest,
+      observedAt,
+      reproducible: spec.reproducible,
+      stagedFiles: spec.stagedFiles,
+      command: spec.command,
+    });
+    for (const field of ["manifestDigest", "layerDigest", "layerBytes"]) {
+      check(
+        record.spec[field] === spec[field],
+        `${rel}: the registry reports ${field} ${record.spec[field]}, and the receipt claims ${spec[field]}. Republish deliberately rather than restamping a receipt that no longer describes the artifact.`,
+      );
+    }
+    write(path, `${toYaml(record)}\n`);
+    console.log(`${rel}\n  ${spec.reference}\n  observed ${observedAt}, digests unchanged`);
+  }
+  console.log(`re-observed ${files.length} published bundle(s)`);
+}
+
+if (reobserve) {
+  await reobserveCommittedReceipts();
+  process.exit(0);
+}
 
 const receiptPath = join(repoRoot, receiptArg);
 const receipt = readYaml(receiptPath);
@@ -128,33 +222,27 @@ await run(
   { cwd: pushDir, timeout: 300000 },
 );
 
-const { stdout: manifestText } = await run("oras", ["manifest", "fetch", reference], {
-  timeout: 120000,
-  maxBuffer: 8 * 1024 * 1024,
-});
-const manifest = JSON.parse(manifestText);
-check(manifest.artifactType === ARTIFACT_TYPE, `published artifact type is ${manifest.artifactType}`);
+const manifest = await fetchManifest(reference);
+const observedAt = new Date().toISOString();
 check(
-  manifest.layers[0].digest === `sha256:${layerSha}`,
+  manifest.parsed.artifactType === ARTIFACT_TYPE,
+  `published artifact type is ${manifest.parsed.artifactType}`,
+);
+check(
+  manifest.parsed.layers[0].digest === `sha256:${layerSha}`,
   "the registry reports a different layer digest than the bundle that was pushed",
 );
 
-const record = {
-  apiVersion: "evidence.confighub.com/v1alpha1",
-  kind: "CertifiedBundlePublicationReceipt",
-  metadata: { name },
-  spec: {
-    receipt: receiptArg,
-    reference,
-    artifactType: ARTIFACT_TYPE,
-    manifestDigest: `sha256:${sha256(manifestText)}`,
-    layerDigest: manifest.layers[0].digest,
-    layerBytes: manifest.layers[0].size,
-    reproducible: true,
-    stagedFiles: staged,
-    command: `oras push ${reference} --artifact-type ${ARTIFACT_TYPE} <tmp>/${artifactName}`,
-  },
-};
+const record = publicationRecord({
+  name,
+  receipt: receiptArg,
+  reference,
+  manifest,
+  observedAt,
+  reproducible: true,
+  stagedFiles: staged,
+  command: `oras push ${reference} --artifact-type ${ARTIFACT_TYPE} <tmp>/${artifactName}`,
+});
 const recordRel = `runs/certified-bundles/${bundleName}/publication-receipt.yaml`;
 write(join(repoRoot, recordRel), `${toYaml(record)}\n`);
 rmSync(work, { recursive: true, force: true });

@@ -4,6 +4,7 @@ metadata:
   name: bitnami-elasticsearch-22.1.6
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6
+  observedAt: "2026-08-08T20:46:57.256Z"
   package:
     path: packages/bitnami/elasticsearch/22.1.6
     sha256: ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c

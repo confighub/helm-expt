@@ -4,6 +4,7 @@ metadata:
   name: stakater-reloader-2.2.12
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12
+  observedAt: "2026-08-08T20:47:43.303Z"
   package:
     path: packages/stakater/reloader/2.2.12
     sha256: 297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75

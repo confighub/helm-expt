@@ -4,6 +4,7 @@ metadata:
   name: dex-dex-0.24.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0
+  observedAt: "2026-08-08T20:47:07.723Z"
   package:
     path: packages/dex/dex/0.24.0
     sha256: 61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1

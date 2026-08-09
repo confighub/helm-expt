@@ -4,6 +4,7 @@ metadata:
   name: traefik-traefik-40.2.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0
+  observedAt: "2026-08-08T20:47:45.046Z"
   package:
     path: packages/traefik/traefik/40.2.0
     sha256: 5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9

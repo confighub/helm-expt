@@ -4,6 +4,7 @@ metadata:
   name: elastic-eck-operator-3.4.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0
+  observedAt: "2026-08-08T20:47:08.063Z"
   package:
     path: packages/elastic/eck-operator/3.4.0
     sha256: cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d

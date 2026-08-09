@@ -4,6 +4,7 @@ metadata:
   name: nats-surveyor-0.20.9
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9
+  observedAt: "2026-08-08T20:47:29.632Z"
   package:
     path: packages/nats/surveyor/0.20.9
     sha256: d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6
