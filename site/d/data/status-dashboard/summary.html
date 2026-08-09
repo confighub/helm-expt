@@ -453,8 +453,8 @@ Where are the main residues?
 Which detailed CSV should I open next?</code></pre>
 <h2 id="current-state">Current State</h2>
 <table><thead><tr><th>Section</th><th>Metric</th><th>Value</th><th>Status</th><th>Source</th></tr></thead><tbody><tr><td>outcome coverage</td><td>maintained chart rows with model support</td><td>108/110</td><td>good</td><td><a href="../../../../data/outcome-coverage/chart-outcomes.csv">data/outcome-coverage/chart-outcomes.csv</a></td></tr>
-<tr><td>top100</td><td>catalog-supported charts</td><td>20/100</td><td>partial</td><td><a href="../../../../data/top100-readiness/readiness.csv">data/top100-readiness/readiness.csv</a></td></tr>
-<tr><td>top100</td><td>proof-grade non-catalog charts</td><td>80/100</td><td>partial</td><td><a href="../../../../data/top100-readiness/readiness.csv">data/top100-readiness/readiness.csv</a></td></tr>
+<tr><td>top100</td><td>catalog-supported charts</td><td>20/109</td><td>partial</td><td><a href="../../../../data/top100-readiness/readiness.csv">data/top100-readiness/readiness.csv</a></td></tr>
+<tr><td>top100</td><td>proof-grade non-catalog charts</td><td>89/109</td><td>partial</td><td><a href="../../../../data/top100-readiness/readiness.csv">data/top100-readiness/readiness.csv</a></td></tr>
 <tr><td>outcome coverage</td><td>variant-rich maintained chart rows</td><td>77/110</td><td>partial</td><td><a href="../../../../data/outcome-coverage/chart-outcomes.csv">data/outcome-coverage/chart-outcomes.csv</a></td></tr>
 <tr><td>chart use</td><td>public catalog answers</td><td>20/100</td><td>partial</td><td><a href="../../../../data/chart-use-guide/chart-use-guide.csv">data/chart-use-guide/chart-use-guide.csv</a></td></tr>
 <tr><td>chart use</td><td>proof-ready but not public catalog answers</td><td>37/100</td><td>partial</td><td><a href="../../../../data/chart-use-guide/chart-use-guide.csv">data/chart-use-guide/chart-use-guide.csv</a></td></tr>
@@ -479,11 +479,11 @@ Which detailed CSV should I open next?</code></pre>
 <tr><td>refresh</td><td>update candidates with proof-complete root paths</td><td>7/7</td><td>partial</td><td><a href="../../../../data/refresh-survival/refreshes.csv">data/refresh-survival/refreshes.csv</a></td></tr>
 <tr><td>refresh</td><td>latest refresh p0 action rows</td><td>0/7</td><td>partial</td><td><a href="../../../../data/latest-top20-refresh/action-queue/queue.csv">data/latest-top20-refresh/action-queue/queue.csv</a></td></tr>
 <tr><td>top500</td><td>source rows scanned</td><td>495/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
-<tr><td>top500</td><td>rows with current recipe proof</td><td>91/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
+<tr><td>top500</td><td>rows with current recipe proof</td><td>96/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
 <tr><td>top500</td><td>catalog-supported rows</td><td>20/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
-<tr><td>top500</td><td>proof-grade rows</td><td>71/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
-<tr><td>top500</td><td>rows with no current recipe proof</td><td>409/500</td><td>gap</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
-<tr><td>top500</td><td>version-drift review rows</td><td>21/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
+<tr><td>top500</td><td>proof-grade rows</td><td>75/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
+<tr><td>top500</td><td>rows with no current recipe proof</td><td>404/500</td><td>gap</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
+<tr><td>top500</td><td>version-drift review rows</td><td>26/500</td><td>partial</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a></td></tr>
 <tr><td>proof lanes</td><td>render parity rows</td><td>199/199</td><td>good</td><td><a href="../../../../data/outcome-coverage/base-outcomes.csv">data/outcome-coverage/base-outcomes.csv</a></td></tr>
 <tr><td>proof lanes</td><td>in-ConfigHub proof rows</td><td>198/199</td><td>partial</td><td><a href="../../../../data/outcome-coverage/base-outcomes.csv">data/outcome-coverage/base-outcomes.csv</a></td></tr>
 <tr><td>proof lanes</td><td>local live rows</td><td>148/199</td><td>partial</td><td><a href="../../../../data/outcome-coverage/base-outcomes.csv">data/outcome-coverage/base-outcomes.csv</a></td></tr>
@@ -745,24 +745,26 @@ Which detailed CSV should I open next?</code></pre>
 <tr><td>decision-needed-first</td><td>9</td><td>A named gap must be supported, disclosed, deferred, or blocked before promotion.</td></tr></tbody></table>
 <p>Use <a href="../chart-use-guide/summary.html">chart-use-guide/summary.md</a> for one row per top-100 chart and the next command or file to open.</p>
 <h2 id="top100-readiness">Top100 Readiness</h2>
-<table><thead><tr><th>Adoption bucket</th><th>Charts</th></tr></thead><tbody><tr><td>promote-after-review</td><td>37</td></tr>
-<tr><td>needs-useful-variant</td><td>33</td></tr>
+<table><thead><tr><th>Adoption bucket</th><th>Charts</th></tr></thead><tbody><tr><td>needs-useful-variant</td><td>37</td></tr>
+<tr><td>promote-after-review</td><td>37</td></tr>
 <tr><td>try-from-public-catalog</td><td>20</td></tr>
 <tr><td>limitation-decision-first</td><td>9</td></tr>
-<tr><td>not-ready</td><td>1</td></tr></tbody></table>
+<tr><td>not-ready</td><td>6</td></tr></tbody></table>
 <table><thead><tr><th>Strongest evidence</th><th>Charts</th></tr></thead><tbody><tr><td>live-helm-vs-confighub-parity</td><td>74</td></tr>
 <tr><td>in-confighub-proof</td><td>13</td></tr>
+<tr><td>not-proven</td><td>9</td></tr>
 <tr><td>local-kubernetes-live</td><td>8</td></tr>
 <tr><td>two-cluster-kind-parity</td><td>5</td></tr></tbody></table>
 <p>The top100 is model-supported, but not uniformly live-proven. Use <a href="../../../../data/top100-readiness/readiness.csv">top100-readiness/readiness.csv</a> for one row per chart, and <a href="../../../../data/outcome-coverage/base-outcomes.csv">outcome-coverage/base-outcomes.csv</a> for exact chart/base lane status.</p>
 <h2 id="top500-evidence-map">Top500 Evidence Map</h2>
 <p>The top500 table is retained source reconnaissance joined to the current recipe/package corpus. It shows which retained source-scan rows now have current proof, which rows only have source facts, and where the retained source version differs from the maintained recipe version.</p>
-<table><thead><tr><th>Catalog status</th><th>Rows</th></tr></thead><tbody><tr><td>not-in-catalog</td><td>409</td></tr>
-<tr><td>proof-grade</td><td>71</td></tr>
-<tr><td>catalog-supported</td><td>20</td></tr></tbody></table>
-<table><thead><tr><th>Recipe status</th><th>Rows</th></tr></thead><tbody><tr><td>no-current-recipe</td><td>409</td></tr>
+<table><thead><tr><th>Catalog status</th><th>Rows</th></tr></thead><tbody><tr><td>not-in-catalog</td><td>404</td></tr>
+<tr><td>proof-grade</td><td>75</td></tr>
+<tr><td>catalog-supported</td><td>20</td></tr>
+<tr><td>catalog-candidate</td><td>1</td></tr></tbody></table>
+<table><thead><tr><th>Recipe status</th><th>Rows</th></tr></thead><tbody><tr><td>no-current-recipe</td><td>404</td></tr>
 <tr><td>current-recipe-exact-version</td><td>70</td></tr>
-<tr><td>current-recipe-different-version</td><td>21</td></tr></tbody></table>
+<tr><td>current-recipe-different-version</td><td>26</td></tr></tbody></table>
 <p>Use <a href="../top500-catalog-analysis/summary.html">top500-catalog-analysis/summary.md</a> for the narrative and <a href="../../../../data/top500-catalog-analysis/review.csv">top500-catalog-analysis/review.csv</a> for one row per retained source-scan chart.</p>
 <h2 id="top20-catalog-status">Top20 Catalog Status</h2>
 <p>This is the compact chart-by-chart view for the public catalog. It shows the supported base variants, current evidence strength, and lane counts. The CSV also includes each chart's feature summary for hooks, CRDs, generated Secrets, webhooks, values schemas, and other tracked quirks. Use <a href="../../../../data/status-dashboard/top20-status.csv">top20-status.csv</a> when you want the same data in a spreadsheet.</p>

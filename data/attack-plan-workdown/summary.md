@@ -7,15 +7,15 @@ dedicated proof artifacts rather than replacing them.
 
 ```text
 import-contract examples complete: 3 / 3
-existing-secret hard gaps:         15
+existing-secret hard gaps:         12
 template-CRD/no-crds hard gaps:    3
 wave-2 variant work orders:        5
 top-20 production rows:            20
-top-100 runtime/GitOps rows:       100
+top-100 runtime/GitOps rows:       109
 top-100 rows with local runtime:   20
 latest top-20 candidates:          7
-rendered image rows reviewed:      652
-rendered subjects with mutable/floating images: 207
+rendered image rows reviewed:      659
+rendered subjects with mutable/floating images: 208
 ```
 
 ## Files

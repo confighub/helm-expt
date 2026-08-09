@@ -18,8 +18,8 @@ Which detailed CSV should I open next?
 | Section | Metric | Value | Status | Source |
 | --- | --- | ---: | --- | --- |
 | outcome coverage | maintained chart rows with model support | 108/110 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
-| top100 | catalog-supported charts | 20/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
-| top100 | proof-grade non-catalog charts | 80/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
+| top100 | catalog-supported charts | 20/109 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
+| top100 | proof-grade non-catalog charts | 89/109 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | outcome coverage | variant-rich maintained chart rows | 77/110 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | chart use | public catalog answers | 20/100 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | proof-ready but not public catalog answers | 37/100 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
@@ -44,11 +44,11 @@ Which detailed CSV should I open next?
 | refresh | update candidates with proof-complete root paths | 7/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | latest refresh p0 action rows | 0/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
 | top500 | source rows scanned | 495/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | rows with current recipe proof | 91/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | rows with current recipe proof | 96/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | catalog-supported rows | 20/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | proof-grade rows | 71/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
-| top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | proof-grade rows | 75/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | rows with no current recipe proof | 404/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
+| top500 | version-drift review rows | 26/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 199/199 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 198/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 148/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
@@ -385,16 +385,17 @@ top-100 chart and the next command or file to open.
 
 | Adoption bucket | Charts |
 | --- | ---: |
+| needs-useful-variant | 37 |
 | promote-after-review | 37 |
-| needs-useful-variant | 33 |
 | try-from-public-catalog | 20 |
 | limitation-decision-first | 9 |
-| not-ready | 1 |
+| not-ready | 6 |
 
 | Strongest evidence | Charts |
 | --- | ---: |
 | live-helm-vs-confighub-parity | 74 |
 | in-confighub-proof | 13 |
+| not-proven | 9 |
 | local-kubernetes-live | 8 |
 | two-cluster-kind-parity | 5 |
 
@@ -412,15 +413,16 @@ version differs from the maintained recipe version.
 
 | Catalog status | Rows |
 | --- | ---: |
-| not-in-catalog | 409 |
-| proof-grade | 71 |
+| not-in-catalog | 404 |
+| proof-grade | 75 |
 | catalog-supported | 20 |
+| catalog-candidate | 1 |
 
 | Recipe status | Rows |
 | --- | ---: |
-| no-current-recipe | 409 |
+| no-current-recipe | 404 |
 | current-recipe-exact-version | 70 |
-| current-recipe-different-version | 21 |
+| current-recipe-different-version | 26 |
 
 Use [top500-catalog-analysis/summary.md](../top500-catalog-analysis/summary.md)
 for the narrative and [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv)

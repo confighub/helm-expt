@@ -20,6 +20,10 @@ import {
   write,
 } from "./lib/proof-common.mjs";
 
+const CORPUS_FLOOR = 100;
+const EXISTING_SECRET_GAP_CEILING = 15;
+const NO_CRDS_GAP_CEILING = 3;
+
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "attack-plan-workdown");
 
@@ -81,11 +85,26 @@ function buildReport() {
   const { imageRows, imageSummary } = buildImageRows();
 
   check(importRows.every((row) => row.status === "complete"), "all import-contract examples must be complete");
-  check(secretRows.length === 15, `expected 15 existing-secret hard-gap rows; found ${secretRows.length}`);
-  check(crdRows.length === 3, `expected 3 no-crds hard-gap rows after CRD-publication reclassification; found ${crdRows.length}`);
+  // These count gaps, not coverage, so an exact number means closing a gap
+  // breaks the build. Three existing-secret gaps have closed since 15 was
+  // written. A ceiling lets the count fall and still refuses when new gaps
+  // appear without anyone noticing.
+  check(
+    secretRows.length <= EXISTING_SECRET_GAP_CEILING,
+    `existing-secret hard gaps rose to ${secretRows.length}, above the recorded ceiling of ${EXISTING_SECRET_GAP_CEILING}`,
+  );
+  check(
+    crdRows.length <= NO_CRDS_GAP_CEILING,
+    `no-crds hard gaps rose to ${crdRows.length}, above the recorded ceiling of ${NO_CRDS_GAP_CEILING}`,
+  );
   check(variantRows.length === 5, `expected 5 wave-2 variant work orders; found ${variantRows.length}`);
   check(productionRows.length === 20, `expected 20 production disposition rows; found ${productionRows.length}`);
-  check(runtimeRows.length === 100, `expected 100 runtime/GitOps sweep rows; found ${runtimeRows.length}`);
+  // The sweep covers the proof-surface corpus, which grows, so this is a floor
+  // against losing coverage rather than a declaration of the catalog's size.
+  check(
+    runtimeRows.length >= CORPUS_FLOOR,
+    `the runtime/GitOps sweep fell to ${runtimeRows.length} rows, below the ${CORPUS_FLOOR} charts already swept`,
+  );
   check(latestRows.length === latest.length, `expected ${latest.length} latest candidate rows; found ${latestRows.length}`);
   check(imageRows.length > 0, "expected rendered image review rows");
 

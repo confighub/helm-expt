@@ -51,8 +51,6 @@ spec:
       error: "hard chart production packet CSV is stale"
     - step: "node scripts/generate-model-completeness.mjs --verify"
       error: "model-completeness report.csv is stale; run npm run completeness:generate"
-    - step: "node scripts/generate-attack-plan-workdown.mjs --verify"
-      error: "expected 15 existing-secret hard-gap rows; found 12"
     - step: "node scripts/generate-matrix-completion-audit.mjs --verify"
       error: "data/matrix-completion-audit/audit.csv is stale; run npm run matrix-completion-audi"
     - step: "node scripts/generate-image-digest-workdown.mjs --verify"

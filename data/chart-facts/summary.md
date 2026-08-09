@@ -1,6 +1,6 @@
 # Chart Facts — what each chart is, and what we can't yet easily enable
 
-One row per chart with a recipe (100 charts). The headline column is **not_yet_enabled**:
+One row per chart with a recipe (109 charts). The headline column is **not_yet_enabled**:
 a recommended capability we cannot yet build because **no solution/workaround exists yet**. This is
 kept distinct from **buildable_not_yet_run** — capabilities with a known build path that simply
 haven't been run through the variant generator.
@@ -13,10 +13,10 @@ that are not yet current recipe rows. Use
 ## Headline
 
 ```text
-charts with a recipe:                       100
-no open gap (built or n/a; modeled L2):     78
+charts with a recipe:                       109
+no open gap (built or n/a; modeled L2):     87
 charts with a hard gap (no workaround yet):  22
-charts with buildable backlog (path exists): 38
+charts with buildable backlog (path exists): 43
 charts with remote dependency risk surfaced: 18
 non-exact dependency rows frozen to lock:    9
 remote-risk rows missing dependency provenance: 0

@@ -48,18 +48,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "not-proven"
     proofLanes:
-      renderParity: ""
-      inConfigHub: ""
-      localLive: ""
-      gitopsLive: ""
-      liveParity: ""
+      renderParity: "0/0"
+      inConfigHub: "0/0"
+      localLive: "0/0"
+      gitopsLive: "0/0"
+      liveParity: "0/0"
     featureSummary: ""
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/aws-controllers-k8s/eks-chart/1.16.3"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3"

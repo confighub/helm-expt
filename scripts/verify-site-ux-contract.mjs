@@ -4,9 +4,28 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
-const PUBLIC_CATALOG_COMPONENT_COUNT = 112;
-const PUBLIC_CATALOG_VERSION_COUNT = 139;
+// The catalog grows, so these are floors against losing a component or a
+// version, not declarations of how many there are. Everything else here checks
+// the pages against each other, which is the property that actually matters:
+// the home card, the catalog index, and the per-version pages must agree.
+const TOP100_EVIDENCE_COMPONENT_FLOOR = 100;
+const PUBLIC_CATALOG_COMPONENT_FLOOR = 112;
+const PUBLIC_CATALOG_VERSION_FLOOR = 139;
+
+// Counted once from the generated catalog index so every later check can
+// compare against what the site actually published.
+const catalogCounts = readCatalogCounts();
+
+function readCatalogCounts() {
+  const indexPath = path.join(root, "site/charts/index.html");
+  if (!fs.existsSync(indexPath)) return { components: 0, readinessComponents: 0, retainedVersions: 0 };
+  const html = fs.readFileSync(indexPath, "utf8");
+  return {
+    components: [...html.matchAll(/<tr data-chart-row\b/g)].length,
+    readinessComponents: [...html.matchAll(/data-evidence-surface="readiness-evidence"/g)].length,
+    retainedVersions: [...html.matchAll(/data-retained-version="[^"]+"\s+href="\.\/[^\"]+\.html"/g)].length,
+  };
+}
 
 const checks = [
   {
@@ -469,8 +488,8 @@ if (fs.existsSync(homePath)) {
   for (const href of ["./try.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
-  if (!home.includes(`>${PUBLIC_CATALOG_COMPONENT_COUNT} components<`)) {
-    failures.push(`site/index.html: the catalog route card must carry the current component count (${PUBLIC_CATALOG_COMPONENT_COUNT} components); a stale count contradicts the catalog page`);
+  if (!home.includes(`>${catalogCounts.components} components<`)) {
+    failures.push(`site/index.html: the catalog route card must carry the count the catalog page publishes (${catalogCounts.components} components); a stale count contradicts the catalog page`);
   }
   if (!home.includes('href="./hard-questions.html"')) failures.push("site/index.html: home navigation must link the FAQ like every other page");
   if (!home.includes("Retained versions stay pullable")) failures.push("site/index.html: the front page must state that retained versions stay pullable from this catalog's registry");
@@ -504,12 +523,12 @@ if (fs.existsSync(catalogIndexPath)) {
   const retainedVersionLinks = [...catalogIndex.matchAll(/data-retained-version="[^"]+"\s+href="\.\/[^\"]+\.html"/g)].length;
   const publicationReceiptLinks = [...catalogIndex.matchAll(/data-publication-receipt="[^"]+"/g)].length;
   const packagedConfigurationRecords = [...catalogIndex.matchAll(/data-packaged-configurations="[^"]+"/g)].length;
-  if (componentRows !== PUBLIC_CATALOG_COMPONENT_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_COMPONENT_COUNT} component rows, found ${componentRows}`);
-  if (readinessComponentRows !== TOP100_EVIDENCE_COMPONENT_COUNT) failures.push(`site/charts/index.html: expected ${TOP100_EVIDENCE_COMPONENT_COUNT} Top-100 readiness component rows, found ${readinessComponentRows}`);
-  if (publicationOnlyComponentRows !== PUBLIC_CATALOG_COMPONENT_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_COMPONENT_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT} honest publication-only component rows, found ${publicationOnlyComponentRows}`);
-  if (retainedVersionLinks !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} local retained-version links, found ${retainedVersionLinks}`);
-  if (publicationReceiptLinks !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} publication-receipt links, found ${publicationReceiptLinks}`);
-  if (packagedConfigurationRecords !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} per-version configuration records, found ${packagedConfigurationRecords}`);
+  if (componentRows < PUBLIC_CATALOG_COMPONENT_FLOOR) failures.push(`site/charts/index.html: component rows fell to ${componentRows}, below the floor of ${PUBLIC_CATALOG_COMPONENT_FLOOR}`);
+  if (readinessComponentRows < TOP100_EVIDENCE_COMPONENT_FLOOR) failures.push(`site/charts/index.html: readiness component rows fell to ${readinessComponentRows}, below the floor of ${TOP100_EVIDENCE_COMPONENT_FLOOR}`);
+  if (publicationOnlyComponentRows !== componentRows - readinessComponentRows) failures.push(`site/charts/index.html: ${componentRows} component rows minus ${readinessComponentRows} readiness rows should leave ${componentRows - readinessComponentRows} publication-only rows, found ${publicationOnlyComponentRows}`);
+  if (retainedVersionLinks < PUBLIC_CATALOG_VERSION_FLOOR) failures.push(`site/charts/index.html: retained-version links fell to ${retainedVersionLinks}, below the floor of ${PUBLIC_CATALOG_VERSION_FLOOR}`);
+  if (publicationReceiptLinks !== retainedVersionLinks) failures.push(`site/charts/index.html: ${retainedVersionLinks} retained versions but ${publicationReceiptLinks} publication-receipt links`);
+  if (packagedConfigurationRecords !== retainedVersionLinks) failures.push(`site/charts/index.html: ${retainedVersionLinks} retained versions but ${packagedConfigurationRecords} per-version configuration records`);
   if (catalogIndex.includes("Search charts")) failures.push("site/charts/index.html: filter still uses chart-first naming");
   const successorsRecordedMarks = [...catalogIndex.matchAll(/Successors recorded:/g)].length;
   const successorToMarks = [...catalogIndex.matchAll(/Successor to </g)].length;
@@ -522,7 +541,7 @@ if (fs.existsSync(chartPagesDir)) {
   const chartPages = fs.readdirSync(chartPagesDir)
     .filter((name) => name.endsWith(".html") && name !== "index.html")
     .map((name) => path.join(chartPagesDir, name));
-  if (chartPages.length !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts: expected ${PUBLIC_CATALOG_VERSION_COUNT} retained package-version pages, found ${chartPages.length}`);
+  if (chartPages.length !== catalogCounts.retainedVersions) failures.push(`site/charts: the catalog index lists ${catalogCounts.retainedVersions} retained versions but ${chartPages.length} package-version pages exist`);
   let retainedOnlyPages = 0;
   const requiredChartSections = [
     "What this page gives you",
@@ -579,7 +598,7 @@ if (fs.existsSync(chartPagesDir)) {
     if (html.includes("open the No ")) failures.push(`${file}: a fallback sentence was spliced into the evidence pointer; branch the sentence in the generator instead`);
     if (/href="\.\.\/\.\.\/packages\/[^"]*\/"/.test(html)) failures.push(`${file}: links a bare packages/ directory that GitHub Pages cannot serve; use the GitHub tree URL`);
   }
-  const expectedRetainedOnlyPages = PUBLIC_CATALOG_VERSION_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT;
+  const expectedRetainedOnlyPages = catalogCounts.retainedVersions - catalogCounts.readinessComponents;
   if (retainedOnlyPages !== expectedRetainedOnlyPages) failures.push(`site/charts: expected ${expectedRetainedOnlyPages} retained-only detail pages, found ${retainedOnlyPages}`);
 }
 

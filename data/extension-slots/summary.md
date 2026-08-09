@@ -16,7 +16,7 @@ its own render parity, scans, gates, and receipts.
 ~~~text
 top-20 catalog charts with explicit extension-slot control points: 13/20
 top-20 catalog charts without extension slots in chart facts:     7/20
-top-100 chart facts with extension slots surfaced:                82/100
+top-100 chart facts with extension slots surfaced:                91/100
 matched top-500 proof rows with extension-slot control points:    53
 top-500 source rows using tpl:                                    362/500
 top-500 source rows with raw/extra manifest values:               254/500

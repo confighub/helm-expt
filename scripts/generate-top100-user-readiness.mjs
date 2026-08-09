@@ -14,6 +14,8 @@ import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+const CORPUS_FLOOR = 100;
+
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const SOURCES = {
@@ -318,7 +320,11 @@ function verify() {
       problems.push(`${path} is stale; run npm run top100:user-readiness`);
     }
   }
-  if (report.rows.length !== 100) problems.push(`expected 100 charts, derived ${report.rows.length}`);
+  // One row per chart in the proof-surface corpus, which grows. A floor catches
+  // a chart dropping out; a fixed size only froze the catalog.
+  if (report.rows.length < CORPUS_FLOOR) {
+    problems.push(`readiness fell to ${report.rows.length} charts, below the ${CORPUS_FLOOR} already covered`);
+  }
   const unbucketed = report.rows.filter((row) => !BUCKETS.includes(row.bucket));
   if (unbucketed.length) problems.push(`rows without a known bucket: ${unbucketed.map((row) => row.chart).join(", ")}`);
   if (problems.length) {

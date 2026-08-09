@@ -95,6 +95,42 @@
     "dependency_range_policy": "not-needed",
     "dependency_refresh_survival": "—"
   },
+  "aws-controllers-k8s/ec2-chart": {
+    "version": "1.18.4",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)",
+    "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "aws-controllers-k8s/eks-chart": {
+    "version": "1.16.3",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)",
+    "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "aws-controllers-k8s/iam-chart": {
+    "version": "1.7.3",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)",
+    "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
   "aws-ebs-csi-driver/aws-ebs-csi-driver": {
     "version": "2.60.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
@@ -286,6 +322,42 @@
     "remote_dependency_risk": "1 remote repos; 1 non-exact constraints; vendored subcharts",
     "dependency_range_policy": "freeze-to-chart-lock",
     "dependency_refresh_survival": "not-in-refresh-survival-surface"
+  },
+  "cloudpirates/nginx": {
+    "version": "0.16.1",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "cloudpirates/rabbitmq": {
+    "version": "0.21.13",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "cloudpirates/redis": {
+    "version": "0.34.11",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "coredns/coredns": {
     "version": "1.45.2",
@@ -743,6 +815,18 @@
     "dependency_range_policy": "not-needed",
     "dependency_refresh_survival": "—"
   },
+  "karpenter/karpenter": {
+    "version": "1.14.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
   "kedacore/keda": {
     "version": "2.19.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
@@ -880,6 +964,18 @@
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "nvidia/nvidia-device-plugin": {
+    "version": "0.19.3",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); no-crds (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no dependency provenance",
     "hook_status": "—",
     "hook_route_evidence": "—",
     "hook_route_next_action": "—",
@@ -1153,6 +1249,18 @@
   },
   "traefik/traefik": {
     "version": "40.2.0",
+    "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no dependency provenance",
+    "hook_status": "—",
+    "hook_route_evidence": "—",
+    "hook_route_next_action": "—",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
+  },
+  "valkey/valkey": {
+    "version": "0.11.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "empty closure; no dependency provenance",

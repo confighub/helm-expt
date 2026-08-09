@@ -33,7 +33,7 @@ packages.
 | Count | Value |
 | --- | ---: |
 | Installer packages | 139 |
-| Public catalog packages | 100 |
+| Public catalog packages | 109 |
 | Package refs with publication receipts | 139 |
 | Assigned refs without publication receipts yet | 0 |
 
@@ -49,10 +49,10 @@ packages.
 | argo-cd/argocd-image-updater@1.2.2 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2 --base default --work-dir .tmp/demo/argo-cd-argocd-image-updater-1-2-2-default --non-interactive --namespace default` |
 | autoscaler/cluster-autoscaler@9.57.0 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base default --work-dir .tmp/demo/autoscaler-cluster-autoscaler-9-57-0-default --non-interactive --namespace default` |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base default --work-dir .tmp/demo/autoscaler-vertical-pod-autoscaler-0-9-0-default --non-interactive --namespace default` |
+| aws-controllers-k8s/ec2-chart@1.18.4 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4 --base default --work-dir .tmp/demo/aws-controllers-k8s-ec2-chart-1-18-4-default --non-interactive --namespace ack-system` |
+| aws-controllers-k8s/eks-chart@1.16.3 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base default --work-dir .tmp/demo/aws-controllers-k8s-eks-chart-1-16-3-default --non-interactive --namespace ack-system` |
+| aws-controllers-k8s/iam-chart@1.7.3 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base default --work-dir .tmp/demo/aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system` |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --base default --work-dir .tmp/demo/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default` |
-| bitnami/apache@11.4.29 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base default --work-dir .tmp/demo/bitnami-apache-11-4-29-default --non-interactive --namespace default` |
-| bitnami/contour@21.1.4 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base default --work-dir .tmp/demo/bitnami-contour-21-1-4-default --non-interactive --namespace default` |
-| bitnami/elasticsearch@22.1.6 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base default --work-dir .tmp/demo/bitnami-elasticsearch-22-1-6-default --non-interactive --namespace default` |
 
 ## Files
 
