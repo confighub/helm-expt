@@ -26,7 +26,7 @@ spec:
     to the lane that discovered the problem.
   steps:
     - step: "node scripts/run-catalog-promotion-review.mjs --verify"
-      error: "catalog promotion review CSV is stale"
+      error: "catalog promotion review CSV is stale; run npm run catalog:review"
     - step: "node scripts/generate-top100-catalog-analysis.mjs --verify"
       error: "expected 100 top100 proof entries; found 109"
     - step: "node scripts/generate-useful-base-design-queue.mjs --verify"
@@ -36,7 +36,7 @@ spec:
     - step: "node scripts/generate-outcome-coverage.mjs --verify"
       error: "data/outcome-coverage/summary.md is stale; run npm run outcomes:generate"
     - step: "node scripts/generate-outcome-evidence-contract.mjs --verify"
-      error: "outcome evidence contract summary is stale"
+      error: "outcome evidence contract summary is stale; run npm run outcomes:contract"
     - step: "node scripts/generate-secret-lifecycle.mjs --verify"
       error: "data/secret-lifecycle/secrets.csv is stale; run npm run secrets:lifecycle"
     - step: "node scripts/generate-quirk-coverage.mjs --verify"
@@ -48,7 +48,7 @@ spec:
     - step: "node scripts/generate-status-dashboard.mjs --verify"
       error: "data/status-dashboard/summary.md is stale; run npm run status:dashboard"
     - step: "node scripts/generate-hard-chart-production-packets.mjs --verify"
-      error: "hard chart production packet CSV is stale"
+      error: "hard chart production packet CSV is stale; run npm run hard-charts:packets"
     - step: "node scripts/generate-model-completeness.mjs --verify"
       error: "model-completeness report.csv is stale; run npm run completeness:generate"
     - step: "node scripts/generate-matrix-completion-audit.mjs --verify"

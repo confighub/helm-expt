@@ -142,8 +142,8 @@ if (mode === "--generate") {
   const report = buildReport();
   check(existsSync(summaryPath), "missing outcome evidence contract summary; run npm run outcomes:contract");
   check(existsSync(csvPath), "missing outcome evidence contract CSV; run npm run outcomes:contract");
-  check(readFileSync(summaryPath, "utf8") === report.summary, "outcome evidence contract summary is stale");
-  check(readFileSync(csvPath, "utf8") === report.csv, "outcome evidence contract CSV is stale");
+  check(readFileSync(summaryPath, "utf8") === report.summary, "outcome evidence contract summary is stale; run npm run outcomes:contract");
+  check(readFileSync(csvPath, "utf8") === report.csv, "outcome evidence contract CSV is stale; run npm run outcomes:contract");
   console.log(`verified outcome evidence contract for ${report.rows.length} outcome(s)`);
 } else {
   console.log(`Usage:

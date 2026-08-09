@@ -25,8 +25,8 @@ if (mode === "--generate") {
   const report = buildReport();
   check(existsSync(reviewCsvPath), "missing catalog promotion review CSV; run npm run catalog:review");
   check(existsSync(summaryPath), "missing catalog promotion summary; run npm run catalog:review");
-  check(readFileSync(reviewCsvPath, "utf8") === report.csv, "catalog promotion review CSV is stale");
-  check(readFileSync(summaryPath, "utf8") === report.summary, "catalog promotion summary is stale");
+  check(readFileSync(reviewCsvPath, "utf8") === report.csv, "catalog promotion review CSV is stale; run npm run catalog:review");
+  check(readFileSync(summaryPath, "utf8") === report.summary, "catalog promotion summary is stale; run npm run catalog:review");
   console.log("verified catalog promotion review outputs");
 } else {
   console.log(`Usage:
