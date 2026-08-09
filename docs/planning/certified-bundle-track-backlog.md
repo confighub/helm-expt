@@ -125,7 +125,7 @@ root credential.
     older family does not carry is the flattening verdict, the quirk
     dispositions, the routes, and the space guide. So this is a convergence
     question rather than a coverage gap, and it applies only where a bundle is
-    actually published. A `do-not-flatten` entry must never carry a
+    actually published. An `unsafe-to-flatten` entry must never carry a
     certified-bundle receipt: producing one would contradict its own verdict,
     which is the lane doing its job. L.
 30. **Record the composition index in the receipt.** Kubara pins components with

@@ -92,7 +92,7 @@ spec:
   variantScope:
     -
       values: "authentication or TLS enabled"
-      effect: "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference"
+      effect: "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference"
   verdict:
     lane: "safe-to-flatten"
     rationale: "The chart packages the shared credential helper and never calls it. Its render carries no Secret, no definitions and no lifecycle construct."

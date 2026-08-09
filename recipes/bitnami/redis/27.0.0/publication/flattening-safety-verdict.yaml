@@ -91,7 +91,7 @@ spec:
       values: "auth.existingSecret (the catalog's static-passwords lane)"
       effect: "external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "The default base's credentials are lookup-or-generate at render time, the exact construct a public flattened artifact must never freeze; the catalog's existing-secret work is the named exit."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

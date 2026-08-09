@@ -86,7 +86,7 @@ spec:
   variantScope:
     -
       values: "authentication or TLS enabled"
-      effect: "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference"
+      effect: "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference"
   verdict:
     lane: "safe-to-flatten"
     rationale: "This is where the bitnami databases and the bitnami caches part company. memcached does call the credential helper, and its auth is off by default, so the audited base renders no Secret. The lane follows what the base renders rather than what the chart could render."

@@ -182,7 +182,7 @@ function checkRecommendedBases() {
 // A lane word on a chart page is a claim about what happens if you ship that
 // chart as literal YAML, and the only thing entitled to make it is a verdict.
 function checkFlatteningClaims() {
-  const LANES = ["safe-to-flatten", "flatten-with-routes", "do-not-flatten"];
+  const LANES = ["safe-to-flatten", "flatten-with-routes", "unsafe-to-flatten"];
   const chartsDir = join(repoRoot, "site", "charts");
   if (!existsSync(chartsDir)) return;
 
@@ -211,7 +211,12 @@ function checkFlatteningClaims() {
   for (const file of readdirSync(chartsDir)) {
     if (!file.endsWith(".html") || file === "index.html") continue;
     const html = readFileSync(join(chartsDir, file), "utf8");
-    const claimed = LANES.filter((lane) => html.includes(lane));
+    // Match the whole token, not a substring. "unsafe-to-flatten" contains
+    // "safe-to-flatten", so a plain includes() reads every refusing page as a
+    // page claiming safety, and reports the exact opposite of the truth.
+    const claimed = LANES.filter((lane) =>
+      new RegExp(`(^|[^a-z-])${lane}([^a-z-]|$)`).test(html),
+    );
     if (claimed.length === 0) continue;
 
     // The page names its own identity, so read it rather than parsing the

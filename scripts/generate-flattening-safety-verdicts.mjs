@@ -92,7 +92,7 @@ const CHARTS = [
       {
         values: "hub.apimanagement.* enabled",
         effect:
-          "the webhook-cert helper goes live (lookup, genSelfSignedCert, webhook CA); that base needs its own verdict and trends do-not-flatten",
+          "the webhook-cert helper goes live (lookup, genSelfSignedCert, webhook CA); that base needs its own verdict and trends unsafe-to-flatten",
       },
       {
         values: "persistence.enabled: true",
@@ -236,7 +236,7 @@ const CHARTS = [
         disposition: "ordering declaration would ship with any bundle",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The certgen hook chain, live lookup-or-generate grafana credentials, and 86 capability branches exceed what emitted routes discharge today; the render-late installer package with its observed webhook-cert lifecycle evidence stays the certified route.",
@@ -274,7 +274,7 @@ const CHARTS = [
       {
         values: "tls.type: helm",
         effect:
-          "lookup-reuse plus genSelfSignedCert go live and freeze cert material into the bundle; that base is do-not-flatten unless certificates come from an external reference",
+          "lookup-reuse plus genSelfSignedCert go live and freeze cert material into the bundle; that base is unsafe-to-flatten unless certificates come from an external reference",
       },
     ],
   },
@@ -305,7 +305,7 @@ const CHARTS = [
         disposition: "ordering declaration would ship with any bundle",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "Migration and cleanup hooks with target-owned routes, a live lookup in config validation, and keep on the chart's own configmap exceed emitted routes; render-late stays certified, exactly the route the Sveltos fleet example ships (Sveltos installs this chart by Helm on the workload cluster).",
@@ -656,7 +656,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one password draw into a public artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The default base's credentials are lookup-or-generate at render time, the exact construct a public flattened artifact must never freeze; the catalog's existing-secret work is the named exit.",
@@ -720,7 +720,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The admin credential is read from the cluster and generated when absent, in the same helper pair, so a flattened bundle either freezes one draw into a shared artifact or renders against a cluster that was not there.",
@@ -800,7 +800,7 @@ const CHARTS = [
         disposition: "route to cert-manager or a certgen lifecycle route",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "Forty-four hook objects across install, upgrade, and delete, a Job that creates the federation secret, two connect-inject webhooks needing a CA, and thirty-nine CRDs. No set of emitted companions discharges that today.",
@@ -855,7 +855,7 @@ const CHARTS = [
         disposition: "route to cert-manager or a certgen lifecycle route",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The admission webhook's certificate comes from a hook Job chain that creates a Secret and patches the caBundle after install. A flattened bundle ships the webhook with an empty caBundle and nothing to fill it, so admission fails closed.",
@@ -919,7 +919,7 @@ const CHARTS = [
         disposition: "no emitted route discharges an uninstall Job",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "A default-path template reads the cluster to decide what to render, and the chart carries pre-upgrade, post-upgrade, and uninstall Jobs that a flattened bundle would silently skip.",
@@ -951,7 +951,7 @@ const CHARTS = [
       {
         values: "tls.type: helm",
         effect:
-          "freezes certificate material into the bundle; that base is do-not-flatten unless certificates come from an external reference",
+          "freezes certificate material into the bundle; that base is unsafe-to-flatten unless certificates come from an external reference",
       },
     ],
   },
@@ -973,7 +973,7 @@ const CHARTS = [
         disposition: "no emitted route discharges a live lookup-or-generate credential path",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The same shape as the audited 87.19.2: an admission-webhook certgen hook chain and grafana credentials read from the cluster and generated when absent.",
@@ -1056,7 +1056,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
@@ -1088,7 +1088,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
@@ -1120,7 +1120,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one keypair draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "Unlike the bitnami databases, this chart has no credential to manage. Its hazard is certificate material: the audited base generates a self-signed CA and server certificate at render time, which a public flattened artifact must never freeze.",
@@ -1156,7 +1156,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
@@ -1188,7 +1188,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
@@ -1220,7 +1220,7 @@ const CHARTS = [
         disposition: "a flattened bundle would freeze one credential draw into a shared artifact",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0.",
@@ -1374,7 +1374,7 @@ const CHARTS = [
       {
         values: "defaultFelixConfiguration.enabled: true",
         effect:
-          "renders the felix configuration, whose apiVersion is chosen by reading the cluster; that base trends do-not-flatten",
+          "renders the felix configuration, whose apiVersion is chosen by reading the cluster; that base trends unsafe-to-flatten",
       },
     ],
   },
@@ -1692,7 +1692,7 @@ const CHARTS = [
       {
         values: "a config section carrying credentials, such as a client basic-auth block",
         effect:
-          "puts secret material into the rendered bytes; that base is do-not-flatten until the credential comes from an external reference",
+          "puts secret material into the rendered bytes; that base is unsafe-to-flatten until the credential comes from an external reference",
       },
     ],
   },
@@ -1736,7 +1736,7 @@ const CHARTS = [
         disposition: "a flattened bundle would publish a working root credential in bytes that read as certified",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "The audited base writes the tenant's root credential into the rendered bytes as a literal value. That is worse than a generated one: every consumer of a published bundle would get the same known root password, from an artifact whose whole point is that it can be trusted. The installer package is this chart's certified route, because it renders at install time where the value can be replaced without republishing anything.",
@@ -2044,7 +2044,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2074,7 +2074,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2104,7 +2104,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2134,7 +2134,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2164,7 +2164,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2194,7 +2194,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2224,7 +2224,7 @@ const CHARTS = [
       {
         values: "authentication or TLS enabled",
         effect:
-          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference",
       },
     ],
   },
@@ -2253,7 +2253,7 @@ const CHARTS = [
         disposition: "no route needed for the audited base",
       },
     },
-    lane: "do-not-flatten",
+    lane: "unsafe-to-flatten",
     routes: [],
     rationale:
       "A pre-install hook mints the certificates Contour and Envoy present to each other, and a flattened bundle carries neither the hook nor the material it would have produced. A lifecycle route could discharge that, but naming one without a recorded run would be inventing it, so the lane refuses rather than promises. The installer package is this chart's certified route.",

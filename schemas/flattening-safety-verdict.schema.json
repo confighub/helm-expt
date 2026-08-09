@@ -83,7 +83,7 @@
           "required": ["lane", "rationale"],
           "additionalProperties": false,
           "properties": {
-            "lane": { "enum": ["safe-to-flatten", "flatten-with-routes", "do-not-flatten"] },
+            "lane": { "enum": ["safe-to-flatten", "flatten-with-routes", "unsafe-to-flatten"] },
             "rationale": { "type": "string" },
             "routes": {
               "description": "For flatten-with-routes: the named companion artifacts the bundle must ship.",

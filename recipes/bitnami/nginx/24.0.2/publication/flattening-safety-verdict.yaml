@@ -93,7 +93,7 @@ spec:
       values: "ingress.enabled with ingress.tls"
       effect: "adds an ingress TLS secret that generates its own certificate the same way"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "Unlike the bitnami databases, this chart has no credential to manage. Its hazard is certificate material: the audited base generates a self-signed CA and server certificate at render time, which a public flattened artifact must never freeze."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
