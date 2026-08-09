@@ -562,7 +562,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
   const verdictRel = `${recipe}/publication/${verdictFile}`;
   const verdictText = readFileSync(repoPath(verdictRel), "utf8");
   const lane = grab(verdictText, /lane:\s*"([a-z-]+)"/, `${verdictRel} lane`);
-  check(lane !== "do-not-flatten", `${chartName} ${base} is do-not-flatten and must not be bundled`);
+  check(lane !== "unsafe-to-flatten", `${chartName} ${base} is unsafe-to-flatten and must not be bundled`);
 
   const inventory = readFileSync(repoPath(inventoryRel), "utf8");
   const crdNames = [...inventory.matchAll(/kind: "CustomResourceDefinition"\n\s+name: "([^"]+)"/g)].map((m) => m[1]);
@@ -1198,7 +1198,7 @@ function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verd
     "safe-to-flatten": "Nothing this bundle carries is discharged at render time, so it delivers as it stands.",
     "flatten-with-routes":
       "This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.",
-    "do-not-flatten":
+    "unsafe-to-flatten":
       "This source is not certified to ship as literal rendered YAML. The render-late installer path stays its certified route.",
     "born-flattened": "Nothing renders here, so nothing is lost at render time.",
   }[verdict.lane];
@@ -1355,7 +1355,7 @@ function buildEksInferenceComponentReceipt(component) {
 
   // A chart-sourced component inherits the lane its chart's verdict decided.
   // Where a component wraps several charts, the strictest lane governs.
-  const LANE_ORDER = ["safe-to-flatten", "flatten-with-routes", "do-not-flatten"];
+  const LANE_ORDER = ["safe-to-flatten", "flatten-with-routes", "unsafe-to-flatten"];
   const cited = (component.recipes ?? []).map((recipe) => readVerdict(recipe)).filter(Boolean);
   let verdict;
   if (literal) {
@@ -1380,7 +1380,7 @@ function buildEksInferenceComponentReceipt(component) {
     };
   } else {
     verdict = {
-      lane: "do-not-flatten",
+      lane: "unsafe-to-flatten",
       status: "provisional",
       decidedBy: "no flattening-safety verdict covers this component's chart yet",
       notes: component.notes,
@@ -1795,7 +1795,7 @@ function buildAicrReceipt(entry) {
           routes: ["sync-wave ordering across the platform components"],
         },
         boundedness: [
-          "This verdict decides the wrapper, not the components. A component chart can be do-not-flatten and still ship inside this shape safely, because this shape does not flatten it.",
+          "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still ship inside this shape safely, because this shape does not flatten it.",
           "The ordering is upstream's. AICR computes deploymentOrder from the dependency graph, and the ordering-parity lane checks these sync-waves preserve it.",
           "The Applications carry automated sync policies. That is a delivery decision, not a flattening hazard, and the delivery proof holds the controller at zero rather than inheriting it silently.",
           "No workload ran. This verdict is config-plane only, like every AICR receipt.",

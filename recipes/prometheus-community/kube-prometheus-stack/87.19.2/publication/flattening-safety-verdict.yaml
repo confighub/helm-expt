@@ -104,7 +104,7 @@ spec:
       values: "grafana.admin.existingSecret plus prometheusOperator.admissionWebhooks disabled or cert-manager-owned"
       effect: "removes the generated-credential and certgen hazards; such a base deserves a fresh verdict and could reach flatten-with-routes"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "The certgen hook chain, live lookup-or-generate grafana credentials, and 86 capability branches exceed what emitted routes discharge today; the render-late installer package with its observed webhook-cert lifecycle evidence stays the certified route."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

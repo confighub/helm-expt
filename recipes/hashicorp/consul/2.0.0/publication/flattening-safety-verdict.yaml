@@ -91,7 +91,7 @@ spec:
   variantScope:
     []
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "Forty-four hook objects across install, upgrade, and delete, a Job that creates the federation secret, two connect-inject webhooks needing a CA, and thirty-nine CRDs. No set of emitted companions discharges that today."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

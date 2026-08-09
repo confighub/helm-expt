@@ -8,9 +8,9 @@ Each audited chart version gets one receipted answer to one question: what happe
 | jetstack/cert-manager | v1.21.0 | default | flatten-with-routes | recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml |
 | jetstack/cert-manager | v1.21.0 | crds-enabled | flatten-with-routes | recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml |
 | external-secrets/external-secrets | 2.8.0 | default | flatten-with-routes | recipes/external-secrets/external-secrets/2.8.0/publication/flattening-safety-verdict.yaml |
-| prometheus-community/kube-prometheus-stack | 87.19.2 | default | do-not-flatten | recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict.yaml |
+| prometheus-community/kube-prometheus-stack | 87.19.2 | default | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict.yaml |
 | metrics-server/metrics-server | 3.13.1 | default | safe-to-flatten | recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict.yaml |
-| kyverno/kyverno | 3.8.1 | default | do-not-flatten | recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml |
+| kyverno/kyverno | 3.8.1 | default | unsafe-to-flatten | recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | eks-inference | flatten-with-routes | recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict.yaml |
 | aws-controllers-k8s/iam-chart | 1.7.3 | eks-inference | flatten-with-routes | recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml |
 | aws-controllers-k8s/eks-chart | 1.16.3 | eks-inference | flatten-with-routes | recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict.yaml |
@@ -23,26 +23,26 @@ Each audited chart version gets one receipted answer to one question: what happe
 | nvidia/nvidia-device-plugin | 0.19.3 | default | safe-to-flatten | recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-default.yaml |
 | karpenter/karpenter | 1.14.0 | crds-managed | safe-to-flatten | recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml |
 | nvidia/nvidia-device-plugin | 0.19.3 | nfd-enabled | flatten-with-routes | recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml |
-| bitnami/redis | 27.0.0 | default | do-not-flatten | recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml |
+| bitnami/redis | 27.0.0 | default | unsafe-to-flatten | recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml |
 | argo-cd/argo-cd | 9.5.15 | default | flatten-with-routes | recipes/argo-cd/argo-cd/9.5.15/publication/flattening-safety-verdict.yaml |
-| grafana/grafana | 10.5.15 | default | do-not-flatten | recipes/grafana/grafana/10.5.15/publication/flattening-safety-verdict.yaml |
+| grafana/grafana | 10.5.15 | default | unsafe-to-flatten | recipes/grafana/grafana/10.5.15/publication/flattening-safety-verdict.yaml |
 | grafana/loki | 7.0.0 | default | flatten-with-routes | recipes/grafana/loki/7.0.0/publication/flattening-safety-verdict.yaml |
 | grafana/tempo | 1.24.4 | default | safe-to-flatten | recipes/grafana/tempo/1.24.4/publication/flattening-safety-verdict.yaml |
-| hashicorp/consul | 2.0.0 | default | do-not-flatten | recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict.yaml |
+| hashicorp/consul | 2.0.0 | default | unsafe-to-flatten | recipes/hashicorp/consul/2.0.0/publication/flattening-safety-verdict.yaml |
 | hashicorp/vault | 0.32.0 | default | safe-to-flatten | recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml |
-| ingress-nginx/ingress-nginx | 4.15.1 | default | do-not-flatten | recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml |
+| ingress-nginx/ingress-nginx | 4.15.1 | default | unsafe-to-flatten | recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml |
 | jetstack/cert-manager | v1.20.2 | default | flatten-with-routes | recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict.yaml |
-| longhorn/longhorn | 1.11.2 | default | do-not-flatten | recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml |
+| longhorn/longhorn | 1.11.2 | default | unsafe-to-flatten | recipes/longhorn/longhorn/1.11.2/publication/flattening-safety-verdict.yaml |
 | metrics-server/metrics-server | 3.13.0 | default | safe-to-flatten | recipes/metrics-server/metrics-server/3.13.0/publication/flattening-safety-verdict.yaml |
-| prometheus-community/kube-prometheus-stack | 85.3.3 | default | do-not-flatten | recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/flattening-safety-verdict.yaml |
+| prometheus-community/kube-prometheus-stack | 85.3.3 | default | unsafe-to-flatten | recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/flattening-safety-verdict.yaml |
 | prometheus-community/prometheus | 29.8.0 | default | safe-to-flatten | recipes/prometheus-community/prometheus/29.8.0/publication/flattening-safety-verdict.yaml |
 | secrets-store-csi-driver/secrets-store-csi-driver | 1.6.0 | default | flatten-with-routes | recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml |
-| bitnami/mongodb | 19.0.7 | default | do-not-flatten | recipes/bitnami/mongodb/19.0.7/publication/flattening-safety-verdict.yaml |
-| bitnami/mysql | 14.0.3 | default | do-not-flatten | recipes/bitnami/mysql/14.0.3/publication/flattening-safety-verdict.yaml |
-| bitnami/nginx | 24.0.2 | default | do-not-flatten | recipes/bitnami/nginx/24.0.2/publication/flattening-safety-verdict.yaml |
-| bitnami/postgresql | 18.6.7 | default | do-not-flatten | recipes/bitnami/postgresql/18.6.7/publication/flattening-safety-verdict.yaml |
-| bitnami/rabbitmq | 16.0.14 | default | do-not-flatten | recipes/bitnami/rabbitmq/16.0.14/publication/flattening-safety-verdict.yaml |
-| bitnami/redis | 25.5.3 | default | do-not-flatten | recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml |
+| bitnami/mongodb | 19.0.7 | default | unsafe-to-flatten | recipes/bitnami/mongodb/19.0.7/publication/flattening-safety-verdict.yaml |
+| bitnami/mysql | 14.0.3 | default | unsafe-to-flatten | recipes/bitnami/mysql/14.0.3/publication/flattening-safety-verdict.yaml |
+| bitnami/nginx | 24.0.2 | default | unsafe-to-flatten | recipes/bitnami/nginx/24.0.2/publication/flattening-safety-verdict.yaml |
+| bitnami/postgresql | 18.6.7 | default | unsafe-to-flatten | recipes/bitnami/postgresql/18.6.7/publication/flattening-safety-verdict.yaml |
+| bitnami/rabbitmq | 16.0.14 | default | unsafe-to-flatten | recipes/bitnami/rabbitmq/16.0.14/publication/flattening-safety-verdict.yaml |
+| bitnami/redis | 25.5.3 | default | unsafe-to-flatten | recipes/bitnami/redis/25.5.3/publication/flattening-safety-verdict.yaml |
 | external-secrets/external-secrets | 2.5.0 | default | flatten-with-routes | recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict.yaml |
 | gatekeeper/gatekeeper | 3.22.2 | default | flatten-with-routes | recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml |
 | fluent/fluent-bit | 0.57.6 | default | safe-to-flatten | recipes/fluent/fluent-bit/0.57.6/publication/flattening-safety-verdict.yaml |
@@ -72,7 +72,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | rook-release/rook-ceph-cluster | v1.19.5 | default | safe-to-flatten | recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml |
 | grafana/promtail | 6.17.1 | default | safe-to-flatten | recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml |
 | nats/nats | 2.14.0 | default | safe-to-flatten | recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml |
-| minio-operator/tenant | 7.1.1 | default | do-not-flatten | recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml |
+| minio-operator/tenant | 7.1.1 | default | unsafe-to-flatten | recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml |
 | external-dns/external-dns | 1.21.1 | default | flatten-with-routes | recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml |
 | grafana/alloy | 1.11.0 | default | flatten-with-routes | recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml |
 | grafana/alloy | 1.8.2 | default | flatten-with-routes | recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml |
@@ -93,7 +93,7 @@ Each audited chart version gets one receipted answer to one question: what happe
 | bitnami/phpmyadmin | 20.0.0 | default | safe-to-flatten | recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict.yaml |
 | bitnami/spark | 10.0.3 | default | safe-to-flatten | recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml |
 | bitnami/zookeeper | 13.8.7 | default | safe-to-flatten | recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml |
-| bitnami/contour | 21.1.4 | default | do-not-flatten | recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml |
+| bitnami/contour | 21.1.4 | default | unsafe-to-flatten | recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml |
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 

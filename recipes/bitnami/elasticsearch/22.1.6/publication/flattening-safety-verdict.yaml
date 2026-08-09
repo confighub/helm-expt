@@ -94,7 +94,7 @@ spec:
   variantScope:
     -
       values: "authentication or TLS enabled"
-      effect: "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference"
+      effect: "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is unsafe-to-flatten until the material comes from an external reference"
   verdict:
     lane: "safe-to-flatten"
     rationale: "The scan's hook finding is a values key rather than a template, and the credential helper it packages is never called from its own templates. The render confirms it: no Secret, no definitions, no hook."

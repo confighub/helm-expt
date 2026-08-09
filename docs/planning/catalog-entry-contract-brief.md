@@ -86,7 +86,7 @@ Two axes have to be added, because presence alone cannot express what the
 recent work discovered.
 
 **Permission**, from issue #1392. Some obligations are not merely optional, they
-are forbidden. A `do-not-flatten` entry must never carry a certified bundle. An
+are forbidden. An `unsafe-to-flatten` entry must never carry a certified bundle. An
 auditor who sees 16 bundle receipts against 139 entries and concludes 123 are
 missing has read a presence-only contract correctly and reached a false
 conclusion. So each obligation is `required`, `permitted`, or `forbidden` for a
@@ -134,7 +134,7 @@ additionally records which mechanism discharges it.
 | Lifecycle routes | required | required | required |
 | Target prerequisites | required | required | required |
 | Flattening-safety verdict | required | born-flattened, recorded once | forbidden |
-| Certified bundle receipt | permitted, gated on the verdict; forbidden when `do-not-flatten` | permitted | forbidden |
+| Certified bundle receipt | permitted, gated on the verdict; forbidden when `unsafe-to-flatten` | permitted | forbidden |
 | Packaged CRD bundle | required when a base declares a CRD prerequisite | conditional | forbidden |
 | Licence record | required | required | required |
 | Retention state | required | required | required |
@@ -195,7 +195,7 @@ rise sharply. That is the correct direction. A contract measured by how few gaps
 it shows is a contract that rewards silence.
 
 Do not require a certified bundle per entry. The verdict decides, and three
-entries are `do-not-flatten` today.
+entries are `unsafe-to-flatten` today.
 
 Do not couple target facts to routes. The measurement above shows 49 of 53
 routes need none, and 56 intents need target facts with no route.

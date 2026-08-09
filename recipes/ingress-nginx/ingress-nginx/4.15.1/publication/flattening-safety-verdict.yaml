@@ -87,7 +87,7 @@ spec:
       values: "controller.admissionWebhooks.enabled: false"
       effect: "removes the webhook and its certgen chain; that base trends safe-to-flatten"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "The admission webhook's certificate comes from a hook Job chain that creates a Secret and patches the caBundle after install. A flattened bundle ships the webhook with an empty caBundle and nothing to fill it, so admission fails closed."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

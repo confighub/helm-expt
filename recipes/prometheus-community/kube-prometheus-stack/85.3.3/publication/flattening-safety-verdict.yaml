@@ -104,7 +104,7 @@ spec:
       values: "grafana.admin.existingSecret with the admission webhooks disabled or cert-manager-owned"
       effect: "removes both hazards and deserves a fresh verdict"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "The same shape as the audited 87.19.2: an admission-webhook certgen hook chain and grafana credentials read from the cluster and generated when absent."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

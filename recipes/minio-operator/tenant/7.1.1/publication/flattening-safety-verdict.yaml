@@ -71,7 +71,7 @@ spec:
       values: "a configuration Secret supplied from outside the render"
       effect: "removes the credential from the bytes; that base trends flatten-with-routes with an external secret reference"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "The audited base writes the tenant's root credential into the rendered bytes as a literal value. That is worse than a generated one: every consumer of a published bundle would get the same known root password, from an artifact whose whole point is that it can be trusted. The installer package is this chart's certified route, because it renders at install time where the value can be replaced without republishing anything."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

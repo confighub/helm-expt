@@ -78,7 +78,7 @@ spec:
   variantScope:
     -
       values: "tls.type: helm"
-      effect: "freezes certificate material into the bundle; that base is do-not-flatten unless certificates come from an external reference"
+      effect: "freezes certificate material into the bundle; that base is unsafe-to-flatten unless certificates come from an external reference"
   verdict:
     lane: "safe-to-flatten"
     rationale: "No construct the audited base renders is discharged at render time; the chart's one hazard path is values-gated TLS material, exactly as in the audited 3.13.1."

@@ -95,7 +95,7 @@ spec:
       values: "certificates supplied from outside the render"
       effect: "removes the certgen hook from the install path; that base trends flatten-with-routes with an ordering declaration for the definitions"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "A pre-install hook mints the certificates Contour and Envoy present to each other, and a flattened bundle carries neither the hook nor the material it would have produced. A lifecycle route could discharge that, but naming one without a recorded run would be inventing it, so the lane refuses rather than promises. The installer package is this chart's certified route."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

@@ -79,7 +79,7 @@ spec:
   variantScope:
     []
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "A default-path template reads the cluster to decide what to render, and the chart carries pre-upgrade, post-upgrade, and uninstall Jobs that a flattened bundle would silently skip."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
