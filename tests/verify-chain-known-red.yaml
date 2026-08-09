@@ -73,7 +73,5 @@ spec:
       error: "data/preview-readiness/summary.md is stale; run npm run preview-readiness:generate"
     - step: "node scripts/generate-variant-backlog.mjs --verify"
       error: "variant-backlog backlog.csv is stale; run npm run variant-backlog:generate"
-    - step: "node scripts/generate-useful-base-realization-wave.mjs --verify"
-      error: "argo-cd/argo-workflows controller-default-reviewed variant digest mismatch"
     - step: "node scripts/run-external-scan-lane.mjs --verify"
       error: "external scan results are stale; the committed results and a fresh kube-linter run disagree, and regenerating them is the scan lane owner's call"
