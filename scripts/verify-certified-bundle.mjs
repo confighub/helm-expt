@@ -21,7 +21,7 @@ const mode = process.argv[2] ?? "--verify";
 
 const RECEIPTS_DIR = join(repoRoot, "data", "certified-bundles", "receipts");
 
-const LANES = ["safe-to-flatten", "flatten-with-routes", "do-not-flatten", "born-flattened"];
+const LANES = ["safe-to-flatten", "flatten-with-routes", "unsafe-to-flatten", "born-flattened"];
 const STATUSES = ["provisional", "certified"];
 const FINDINGS = ["absent", "present", "present-gated", "not-evaluated"];
 const CONTENTS_KINDS = [

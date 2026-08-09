@@ -267,3 +267,36 @@ A bundle's bytes are fixed and the images those bytes name are not: most
 references in the catalog's bundles are tags, which can be repushed. The receipt
 records every reference with how it is pinned and a boundary sentence, rather
 than letting a reader assume a certified bundle certifies what it starts.
+## 11. Permission is derived from the property, never asserted per entry
+An artifact can be **required**, **permitted**, or **forbidden** for a given
+entry, and those are not the same as present, unnecessary, or missing. Collapsing
+the two makes an absence unreadable: a reader counting bundles against catalog
+entries sees a shortfall where most of the gap is correct and some of it is
+prohibited.
+
+For the certified bundle the mapping is computed from the flattening lane, so
+nobody records a judgment twice:
+
+| lane | a certified bundle is |
+| --- | --- |
+| `safe-to-flatten` | permitted |
+| `flatten-with-routes` | permitted, once it ships the companions its verdict names |
+| `unsafe-to-flatten` | **forbidden** |
+| undecided | forbidden until a lane is decided |
+
+`scripts/publish-certified-bundles.mjs` already refuses on the lane, so the rule
+describes what the code does rather than adding a step. The installer package is
+the certified route for everything in the bottom two rows, which is why a
+forbidden bundle is not a gap in coverage.
+
+This is why the lane reads `unsafe-to-flatten` and not `do-not-flatten`. A lane
+is a **property of the chart**, in the same family as `safe-to-flatten` and
+`born-flattened`; an imperative invites someone to decide otherwise, and a
+property is what permission can be computed from. It says unsafe rather than
+impossible on purpose: `helm template` runs fine on these charts, and what fails
+is the guarantee, not the renderer.
+
+## 11a. Absence must say which kind it is
+Never let a reader infer why something is not there. Every absence is one of
+three things, and the surface says which: **not needed here**, **not permitted
+here**, or **not done yet**. The third is the only one that is work.

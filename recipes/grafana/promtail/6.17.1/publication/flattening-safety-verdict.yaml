@@ -76,7 +76,7 @@ spec:
   variantScope:
     -
       values: "a config section carrying credentials, such as a client basic-auth block"
-      effect: "puts secret material into the rendered bytes; that base is do-not-flatten until the credential comes from an external reference"
+      effect: "puts secret material into the rendered bytes; that base is unsafe-to-flatten until the credential comes from an external reference"
   verdict:
     lane: "safe-to-flatten"
     rationale: "The one Secret this base renders is the agent's own configuration file, which the chart stores as a Secret because a config may embed credentials. The audited base's does not."

@@ -512,6 +512,17 @@
 <h2 id="10e-state-what-the-artifact-does-not-cover">10e. State what the artifact does not cover</h2>
 <p>A receipt certifies rendering and packaging, never runtime health. Convergence is a separate record that does not exist yet.</p>
 <p>A bundle's bytes are fixed and the images those bytes name are not: most references in the catalog's bundles are tags, which can be repushed. The receipt records every reference with how it is pinned and a boundary sentence, rather than letting a reader assume a certified bundle certifies what it starts.</p>
+<h2 id="11-permission-is-derived-from-the-property-never-asserted-per-entry">11. Permission is derived from the property, never asserted per entry</h2>
+<p>An artifact can be <b>required</b>, <b>permitted</b>, or <b>forbidden</b> for a given entry, and those are not the same as present, unnecessary, or missing. Collapsing the two makes an absence unreadable: a reader counting bundles against catalog entries sees a shortfall where most of the gap is correct and some of it is prohibited.</p>
+<p>For the certified bundle the mapping is computed from the flattening lane, so nobody records a judgment twice:</p>
+<table><thead><tr><th>lane</th><th>a certified bundle is</th></tr></thead><tbody><tr><td><code>safe-to-flatten</code></td><td>permitted</td></tr>
+<tr><td><code>flatten-with-routes</code></td><td>permitted, once it ships the companions its verdict names</td></tr>
+<tr><td><code>unsafe-to-flatten</code></td><td><b>forbidden</b></td></tr>
+<tr><td>undecided</td><td>forbidden until a lane is decided</td></tr></tbody></table>
+<p><code>scripts/publish-certified-bundles.mjs</code> already refuses on the lane, so the rule describes what the code does rather than adding a step. The installer package is the certified route for everything in the bottom two rows, which is why a forbidden bundle is not a gap in coverage.</p>
+<p>This is why the lane reads <code>unsafe-to-flatten</code> and not <code>do-not-flatten</code>. A lane is a <b>property of the chart</b>, in the same family as <code>safe-to-flatten</code> and <code>born-flattened</code>; an imperative invites someone to decide otherwise, and a property is what permission can be computed from. It says unsafe rather than impossible on purpose: <code>helm template</code> runs fine on these charts, and what fails is the guarantee, not the renderer.</p>
+<h2 id="11a-absence-must-say-which-kind-it-is">11a. Absence must say which kind it is</h2>
+<p>Never let a reader infer why something is not there. Every absence is one of three things, and the surface says which: <b>not needed here</b>, <b>not permitted here</b>, or <b>not done yet</b>. The third is the only one that is work.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>tests/doctrine.md</code>. The source file is the authoritative version.</p></footer>

@@ -5,7 +5,7 @@
 //
 // This is the render-early product. The installer package stays the render-late
 // route and is published separately; a chart can have both, and a chart whose
-// verdict says do-not-flatten gets only the installer package. Publishing a
+// verdict says unsafe-to-flatten gets only the installer package. Publishing a
 // flattened bundle for such a chart would contradict its own verdict, so this
 // refuses to.
 //
@@ -142,8 +142,8 @@ const spec = receipt.spec;
 const name = receipt.metadata.name;
 
 check(
-  spec.verdict.lane !== "do-not-flatten",
-  `${name} is do-not-flatten, so it must not be published as a flattened bundle. Its certified route is the installer package.`,
+  spec.verdict.lane !== "unsafe-to-flatten",
+  `${name} is unsafe-to-flatten, so it must not be published as a flattened bundle. Its certified route is the installer package.`,
 );
 check(
   spec.verdict.status === "certified",

@@ -73,7 +73,7 @@ spec:
   variantScope:
     -
       values: "defaultFelixConfiguration.enabled: true"
-      effect: "renders the felix configuration, whose apiVersion is chosen by reading the cluster; that base trends do-not-flatten"
+      effect: "renders the felix configuration, whose apiVersion is chosen by reading the cluster; that base trends unsafe-to-flatten"
   verdict:
     lane: "flatten-with-routes"
     rationale: "Everything this base renders survives flattening except the teardown, which only matters when the release goes away and is exactly what a flattened bundle drops in silence. A recorded run watched that teardown happen as an explicit action, so the lane names a companion rather than hoping for one."

@@ -10,7 +10,7 @@ These six rules are the chart-specific application of rule 10 of [the doctrine](
 
 - **safe-to-flatten.** Nothing the audited base renders is discharged at render time.
 - **flatten-with-routes.** Flattening is safe once named companion artifacts travel with the bundle.
-- **do-not-flatten.** Something the base renders cannot be recovered by any companion the catalog can emit. The installer package is that chart's certified route.
+- **unsafe-to-flatten.** Something the base renders cannot be recovered by any companion the catalog can emit. The installer package is that chart's certified route.
 - **born-flattened.** The source never rendered in the first place.
 
 A lane is decided per base, not per chart. The same chart with `auth.existingSecret` set is a different question from the same chart without it, and `variantScope` records which values move the answer.
@@ -19,7 +19,7 @@ A lane is decided per base, not per chart. The same chart with `auth.existingSec
 
 This is the rule that produces the most wrong drafts, so it comes first.
 
-A packaged chart carries its whole dependency tree, including library charts it may never invoke. All six bitnami charts in the catalog package `charts/common/templates/_secrets.tpl`, whose lookup-or-generate credential helper is the classic do-not-flatten finding. Five of them call it. nginx does not — it has no credential to manage at all, and its real hazard is `genCA` in `templates/tls-secret.yaml`. A first pass gave all six the same rationale, and five of them were right for the wrong reason.
+A packaged chart carries its whole dependency tree, including library charts it may never invoke. All six bitnami charts in the catalog package `charts/common/templates/_secrets.tpl`, whose lookup-or-generate credential helper is the classic unsafe-to-flatten finding. Five of them call it. nginx does not — it has no credential to manage at all, and its real hazard is `genCA` in `templates/tls-secret.yaml`. A first pass gave all six the same rationale, and five of them were right for the wrong reason.
 
 Before citing a finding, check whether it is in the chart's own `templates/` or only in a vendored subchart, and if only vendored, find the call site or drop the claim.
 
@@ -55,7 +55,7 @@ Cross-check the render too, not just the chart. The witness looks for *generated
 
 `flatten-with-routes` names artifacts that have to exist. Before choosing it, check that the class has a route kind that can discharge it: hooks take `lifecycle-job`, keep policy takes `prune-protection`, CRDs take `apply-ordering`, credentials take `external-secret-reference`.
 
-A chart whose hooks cannot be expressed as an ordered set of actions is `do-not-flatten`, not `flatten-with-routes` with an aspiration. Consul's forty-four hook objects across nine phase combinations are the current example.
+A chart whose hooks cannot be expressed as an ordered set of actions is `unsafe-to-flatten`, not `flatten-with-routes` with an aspiration. Consul's forty-four hook objects across nine phase combinations are the current example.
 
 ## What the verdict must say
 
@@ -71,6 +71,6 @@ Then `npm run chart-claim-integrity:verify`, which refuses any page asserting a 
 
 ## What a decided lane does not mean
 
-It does not mean a bundle exists, and it does not mean one will. Publication is a separate step gated on the lane permitting it. A `do-not-flatten` entry must never carry a certified-bundle receipt, and `scripts/publish-certified-bundles.mjs` refuses to produce one.
+It does not mean a bundle exists, and it does not mean one will. Publication is a separate step gated on the lane permitting it. An `unsafe-to-flatten` entry must never carry a certified-bundle receipt, and `scripts/publish-certified-bundles.mjs` refuses to produce one.
 
 It also says nothing about runtime health. The verdict weighs what flattening loses at render time, not whether the result converges on a cluster.

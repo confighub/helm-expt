@@ -92,7 +92,7 @@ spec:
     routes:
       - "sync-wave ordering across the platform components"
   boundedness:
-    - "This verdict decides the wrapper, not the components. A component chart can be do-not-flatten and still ship inside this shape safely, because this shape does not flatten it."
+    - "This verdict decides the wrapper, not the components. A component chart can be unsafe-to-flatten and still ship inside this shape safely, because this shape does not flatten it."
     - "The ordering is upstream's. AICR computes deploymentOrder from the dependency graph, and the ordering-parity lane checks these sync-waves preserve it."
     - "The Applications carry automated sync policies. That is a delivery decision, not a flattening hazard, and the delivery proof holds the controller at zero rather than inheriting it silently."
     - "No workload ran. This verdict is config-plane only, like every AICR receipt."

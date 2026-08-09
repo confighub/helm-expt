@@ -98,7 +98,7 @@ spec:
       values: "admin.existingSecret"
       effect: "supplies the credential externally and removes both hazards; that base deserves its own verdict and trends flatten-with-routes"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "The admin credential is read from the cluster and generated when absent, in the same helper pair, so a flattened bundle either freezes one draw into a shared artifact or renders against a cluster that was not there."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

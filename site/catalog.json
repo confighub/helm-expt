@@ -13236,7 +13236,7 @@
       "crd_documents": "15",
       "gated_subcharts": "0",
       "scanned_files": "63",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13287,7 +13287,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "85",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13338,7 +13338,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "54",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13355,7 +13355,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "47",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13457,7 +13457,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13491,7 +13491,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "45",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13508,7 +13508,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "64",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13525,7 +13525,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "65",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13950,7 +13950,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "50",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "grafana",
@@ -14086,7 +14086,7 @@
       "crd_documents": "39",
       "gated_subcharts": "0",
       "scanned_files": "215",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "hashicorp",
@@ -14137,7 +14137,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "94",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "istio",
@@ -14324,7 +14324,7 @@
       "crd_documents": "27",
       "gated_subcharts": "5",
       "scanned_files": "195",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "kyverno",
@@ -14409,7 +14409,7 @@
       "crd_documents": "22",
       "gated_subcharts": "0",
       "scanned_files": "37",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "longhorn",
@@ -14511,7 +14511,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "10",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "nats",
@@ -14766,7 +14766,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "283",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "prometheus-community",
@@ -14817,7 +14817,7 @@
       "crd_documents": "18",
       "gated_subcharts": "5",
       "scanned_files": "286",
-      "decided_lanes": "default:do-not-flatten"
+      "decided_lanes": "default:unsafe-to-flatten"
     },
     {
       "repository": "prometheus-community",

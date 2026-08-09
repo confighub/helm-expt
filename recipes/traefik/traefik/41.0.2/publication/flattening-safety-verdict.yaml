@@ -86,7 +86,7 @@ spec:
   variantScope:
     -
       values: "hub.apimanagement.* enabled"
-      effect: "the webhook-cert helper goes live (lookup, genSelfSignedCert, webhook CA); that base needs its own verdict and trends do-not-flatten"
+      effect: "the webhook-cert helper goes live (lookup, genSelfSignedCert, webhook CA); that base needs its own verdict and trends unsafe-to-flatten"
     -
       values: "persistence.enabled: true"
       effect: "the keep-annotated PVC renders; the bundle must ship prune protection"

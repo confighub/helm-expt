@@ -113,7 +113,7 @@ spec:
       values: "reports-server.enabled and its postgres subchart"
       effect: "adds the generated-password hazard the audited base avoids"
   verdict:
-    lane: "do-not-flatten"
+    lane: "unsafe-to-flatten"
     rationale: "Migration and cleanup hooks with target-owned routes, a live lookup in config validation, and keep on the chart's own configmap exceed emitted routes; render-late stays certified, exactly the route the Sveltos fleet example ships (Sveltos installs this chart by Helm on the workload cluster)."
   boundedness:
     - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"

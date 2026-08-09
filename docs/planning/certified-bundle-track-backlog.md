@@ -10,6 +10,11 @@ care a doctrine change needs. The evidence discipline every task here inherits
 is rule 10 of [the doctrine](../../tests/doctrine.md); the model itself is
 [the certified bundle spec](../reference/certified-bundle-spec.md).
 
+The track has a closing record at
+[certified-bundle-track-conclusion.md](./certified-bundle-track-conclusion.md),
+which says what it proves and what it refuses to claim. This file is the detail
+underneath it: the work that is still open.
+
 ## Where the track stands
 
 The catalog holds 140 entries. All of them carry an installer-package receipt
@@ -125,7 +130,7 @@ root credential.
     older family does not carry is the flattening verdict, the quirk
     dispositions, the routes, and the space guide. So this is a convergence
     question rather than a coverage gap, and it applies only where a bundle is
-    actually published. A `do-not-flatten` entry must never carry a
+    actually published. An `unsafe-to-flatten` entry must never carry a
     certified-bundle receipt: producing one would contradict its own verdict,
     which is the lane doing its job. L.
 30. **Record the composition index in the receipt.** Kubara pins components with
