@@ -15,12 +15,18 @@
 // cannot go stale overnight, and it asks the more useful question anyway:
 // old compared to what else this repository knows.
 //
-// A receipt carrying no date at all is counted rather than failed. There are
-// hundreds, they belong to work this lane did not write, and turning that into
-// a red build would either block everyone or get suppressed. Instead the count
-// is recorded as a baseline and the lane refuses when it grows. Evidence that
-// cannot age is a gap the repository can close deliberately, and until then it
-// is visible and cannot get quietly worse.
+// A receipt carrying no date at all is counted rather than failed. Turning
+// evidence this lane did not write into a red build would either block everyone
+// or get suppressed. Instead the count is recorded as a baseline and the lane
+// refuses when it grows. Evidence that cannot age is a gap the repository can
+// close deliberately, and until then it is visible and cannot get quietly
+// worse.
+//
+// Reading the date is forgiving about how a receipt writes it, and needs to be.
+// This pattern accepted a double-quoted timestamp and not a single-quoted one
+// for its whole life, so it called 388 receipts unageable that had recorded
+// their moment all along. The count it published was wrong in the direction
+// that looks like a problem the repository has rather than one this lane has.
 //
 // Everything runs offline against committed bytes.
 
@@ -34,10 +40,53 @@ const summaryPath = join(repoRoot, "data", "receipt-aging", "summary.md");
 const csvPath = join(repoRoot, "data", "receipt-aging", "aging.csv");
 const baselinePath = join(repoRoot, "data", "receipt-aging", "undated-baseline.txt");
 
-// Receipts across this repository record their moment under several names.
-// Reading whichever one a receipt uses is the point: a lane that only knew one
-// spelling would report a gap that is really a naming difference.
-const DATE_FIELD = /^\s*([A-Za-z]+(?:At|Date)|date|timestamp)\s*:\s*"?(\d{4}-\d{2}-\d{2}[^"\s]*)/gm;
+// Receipts across this repository record their moment under several names, in
+// either quoting style, and some of them are written as JSON, which quotes the
+// field name too. Reading whichever form a receipt uses is the point: a lane
+// that only knew one spelling would report a gap that is really a difference in
+// how the receipt was written. The quotes are excluded from the captured value
+// as well as allowed around it, because a stamp that keeps its closing quote
+// parses as no date rather than as the date it plainly is.
+const DATE_FIELD = /^\s*["']?([A-Za-z]+(?:At|Date)|date|timestamp)["']?\s*:\s*["']?(\d{4}-\d{2}-\d{2}[^"'\s]*)/gm;
+// This reader fails silently. A form it cannot see becomes a receipt reported
+// as unable to age, which reads as a gap in the evidence rather than a gap in
+// the reader, so it is checked against the forms this repository actually
+// writes before it is trusted to count anything. The last two are forms it must
+// keep refusing, because a reader widened until everything matches would report
+// a freshness it never measured.
+const READABLE = [
+  ['  observedAt: "2026-08-08T19:42:36.152Z"', "2026-08-08T19:42:36.152Z"],
+  ["  observedAt: '2026-06-12T21:58:12Z'", "2026-06-12T21:58:12Z"],
+  ['      "date": "2026-06-05",', "2026-06-05"],
+  ["  date: 2026-05-27", "2026-05-27"],
+  ["  publishedDate: 2026-05-27", "2026-05-27"],
+  ["  timestamp: '2026-06-05T09:42:20Z'", "2026-06-05T09:42:20Z"],
+];
+const UNREADABLE = [
+  "  image: registry.example.com/thing:2026-08-08",
+  "  updatedAtVersion: 2026-01-01",
+];
+
+function checkReader() {
+  for (const [line, expected] of READABLE) {
+    DATE_FIELD.lastIndex = 0;
+    const match = [...line.matchAll(DATE_FIELD)][0];
+    check(match, `the date reader cannot see a form this repository writes: ${line.trim()}`);
+    check(
+      match[2] === expected,
+      `the date reader read ${match[2]} from ${line.trim()}, and the moment recorded there is ${expected}`,
+    );
+    check(!Number.isNaN(Date.parse(match[2])), `the date reader read something unparseable from ${line.trim()}`);
+  }
+  for (const line of UNREADABLE) {
+    DATE_FIELD.lastIndex = 0;
+    check(
+      [...line.matchAll(DATE_FIELD)].length === 0,
+      `the date reader took a moment from a line that records none: ${line.trim()}`,
+    );
+  }
+}
+
 const BUCKETS = [
   { label: "0 to 30 days", limit: 30 },
   { label: "31 to 90 days", limit: 90 },
@@ -57,6 +106,7 @@ if (!["--generate", "--verify"].includes(mode)) {
   process.exit(2);
 }
 
+checkReader();
 const report = analyse();
 
 if (mode === "--generate") {
@@ -200,6 +250,29 @@ function renderSummary(report) {
   const undatedRows = report.undatedFamilies
     .map((row) => `| \`${row.family}\` | ${row.count} |`)
     .join("\n");
+  // The section has to read honestly when it has nothing to list. A table with
+  // no rows under a paragraph about "them" is how a lane starts looking
+  // unmaintained even while it is doing its job.
+  const undatedSection =
+    report.undated.length === 0
+      ? `Every one of the ${report.total} committed receipts records a date, so none of
+this repository's evidence is beyond ageing. The count is still published and
+still ratcheted. A receipt that records no date raises it above the recorded
+baseline of zero and the lane refuses, which is why this section stays here now
+that it has nothing to list.`
+      : `${report.undated.length} of ${report.total} committed receipts record no date in any form.
+Their evidence cannot be aged at all, which is a stronger problem than being
+old, and it is invisible until someone counts.
+
+| Family | Receipts with no date |
+| --- | --- |
+${undatedRows}
+
+This lane does not fail on them. A red build over evidence this lane did not
+write would either block everyone or get suppressed. The count is recorded as a
+baseline instead, and the lane refuses when it grows. A new receipt has to carry
+a date, and the remaining gap can be closed deliberately rather than all at
+once.`;
   const span = Math.round((Date.parse(report.newest) - Date.parse(report.oldest)) / 86400000);
 
   return `# How old the evidence is
@@ -247,19 +320,7 @@ ${oldestRows}
 
 ## Receipts that cannot age
 
-${report.undated.length} of ${report.total} committed receipts record no date in any form.
-Their evidence cannot be aged at all, which is a stronger problem than being
-old, and it is invisible until someone counts.
-
-| Family | Receipts with no date |
-| --- | --- |
-${undatedRows}
-
-This lane does not fail on them. There are hundreds, they belong to work this
-lane did not write, and a red build would either block everyone or get
-suppressed. The count is recorded as a baseline instead, and the lane refuses
-when it grows. A new receipt has to carry a date, and the existing gap can be
-closed deliberately rather than all at once.
+${undatedSection}
 
 ## What this does not say
 
@@ -271,6 +332,12 @@ families deserve a re-run is a judgement this lane deliberately leaves open.
 It also measures only what receipts say about themselves. A receipt whose
 recorded date is wrong will be reported confidently and wrongly, which is worth
 knowing before treating any of these numbers as a freshness guarantee.
+
+The same caution applies to the count above. Reading a date takes several field
+names and either quoting style, and it once took only one of the two quoting
+styles, which reported 388 receipts as unable to age when every one of them had
+recorded its moment. A receipt that records its moment in some way this reader
+still does not know would be miscounted the same way.
 
 Everything runs offline against committed bytes. No cluster, no organization,
 and no network takes part.
