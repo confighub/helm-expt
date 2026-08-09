@@ -91,6 +91,47 @@ placeholder credential, the row stays `watch` until the name, warning, and
 recommended production route make that obvious. A base named
 `static-passwords` must not quietly contain fixed shared credentials.
 
+## 6f. Gated artifacts are referenced, never mirrored
+Some artifacts a catalog entry names are gated: they need an entitlement and a
+credential the reader has and this repository does not. The rules are the same
+whichever vendor gates them.
+
+Reference, never mirror. Retained configuration names the artifact and the
+catalog holds nothing of its bytes, so no proof pulls one and no lane depends
+on being able to. The credential that reaches a gated registry belongs to the
+cluster that pulls, never to this repository, which is what the
+credential-boundary lane enforces across every producer.
+
+Publish no vendor performance numbers for a gated runtime. The catalog has run
+none, and repeating a vendor's would pass off a claim it cannot verify.
+
+Name the terms a page listed on a date; never tell a reader which entitlement
+or tier they need. That is a reading of their situation rather than a fact
+about an artifact.
+
+Enumerate every gated reference, because an artifact nobody listed is an
+artifact nobody checked the terms for. Re-reading is tied to the reference
+rather than to a calendar: entries are keyed by the exact tag, so a version bump
+produces a reference nobody enumerated and the lane refuses it. A date-based
+cadence goes stale quietly, because nothing fails when a date passes.
+
+## 6g. A provenance claim may not degrade silently
+A claim that an artifact's provenance was verified is only worth making if its
+withdrawal is as visible as its assertion. An upstream that stops signing, or a
+chart that moves to a transport where the old signature does not apply, changes
+what the catalog can honestly say, and nothing about that change announces
+itself.
+
+So provenance is surveyed against a committed snapshot, and each run records
+every artifact whose verdict moved since the last one. A publisher who stops
+signing leaves a record rather than a silence, and the catalog withdraws the
+claim in the same place it made it.
+
+An unanswered question is not a negative answer. An artifact whose provenance
+could not be asked about is recorded as unknown, never as unsigned, because
+counting a refused request as evidence of absence would overstate the one thing
+this discipline exists to keep honest.
+
 ## 6d. Drift detection must state field coverage
 `cub-scout compare three-way --dry-from` can detect meaningful drift, but field
 coverage is part of the claim. A lane that catches replica or image drift but
@@ -162,3 +203,67 @@ agent must not continuously mutate a live variant, and every receipt records
 who mapped the intent (`mappedBy`). The switch-effect maps follow the same
 rule: classifications are computed by rendering, never asserted
 ([data/pilot-switch-map/](../data/pilot-switch-map/summary.md)).
+
+## 10. A claim must be openable, or it is not a claim
+Every recorded boolean or status names the artifact that earned it, or it reads
+false. `proven: true` on a route requires `provenBy` pointing at a receipt that
+exists; strict ingest refuses it otherwise.
+
+This rule exists because we broke it. Eight routes claimed a runtime was proven
+to execute them and cited nothing, while the run that looked like the proof
+recorded `syncOperationsObserved: 0` and stated in its own limits that no sync
+started. **Surviving delivery is not being executed.** The overclaim was inside
+the model built to prevent overclaiming, so grep our own artifacts for claim
+fields on a cadence, not only other people's.
+
+## 10a. Declare a debt; never read one out of prose
+`companionRequired` names the `routeKind` a disposition owes. Inferring that
+from the disposition's wording was implemented and reverted: it reported four
+resolutions as debts, because a namespace shipping inside its own bundle reads
+like a namespace that is missing.
+
+A check that cries wolf teaches readers to skip it. Where evidence cannot settle
+a class, leave the field absent and say so — never guess and never infer intent
+from a sentence.
+
+## 10b. A check that stops checking is worse than no check
+Tamper-test every gate the moment it is written, and keep the tamper as a
+self-test. A gate reporting zero findings is a hypothesis until you break
+something and watch it fail.
+
+Four ways ours went blind, all silent:
+- comparing two **local** files, so upstream drift was undetectable;
+- selecting a fixture by sort order (`[0]`), which stopped selecting the fixture
+  under test the moment new records landed;
+- reading a CSV by **column index** after the columns moved;
+- a mutation that rewrote a producer's **wording** rather than the structure the
+  check reads.
+
+## 10c. Evidence is not a decision, and one scanner never settles everything
+A witness scans a packaged chart; a verdict decides a lane. The pages say which
+they have, and that undecided is not the same as safe.
+
+- **A scan reports what an artifact contains, not what it calls.** All six
+  bitnami charts package the lookup-or-generate credential helper; five call it.
+- **Each scanner has a blind spot, so cross-check with a different one.** The
+  witness sees *generated* credentials and is blind to a literal one:
+  minio-operator/tenant renders `MINIO_ROOT_PASSWORD` from values and its
+  witness reports zero generated secrets. `verdict-render-parity:verify` now
+  refuses any verdict calling a class absent that its own render contains.
+
+## 10d. Follow the artifact, not its family
+memcached and zookeeper call the same credential helper as postgresql and redis.
+Their auth is off by default, so their base renders no Secret, and they are safe
+to flatten while the databases are not. **The lane follows what the base
+renders, not what the chart could render.**
+
+Precedent selects the question to ask. It never supplies the answer.
+
+## 10e. State what the artifact does not cover
+A receipt certifies rendering and packaging, never runtime health. Convergence
+is a separate record that does not exist yet.
+
+A bundle's bytes are fixed and the images those bytes name are not: most
+references in the catalog's bundles are tags, which can be repushed. The receipt
+records every reference with how it is pinned and a boundary sentence, rather
+than letting a reader assume a certified bundle certifies what it starts.

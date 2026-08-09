@@ -324,6 +324,54 @@ and the lane refuses an exception that stops matching anything. The two worth
 reading are a key that looks leaked and is the finding a review demonstrates
 catching, and Vault's own dev-mode token in a base named dev-mode.
 
+Tasks 41, 42 and 11 are done together, because they turned out to be one
+piece of work. The gated-artifact rules are
+[doctrine](../../tests/doctrine.md) now rather than a decision inside one
+planning note, every gated reference the retained configuration names is
+enumerated in a register with a lane refusing both an unlisted reference and a
+listing nothing names, and the re-read cadence is keyed to the reference
+instead of a calendar, so a version bump forces a fresh read while a passing
+date cannot.
+
+Nine of the ten references still have no per-artifact terms recorded. The
+reason is published: those NGC catalog pages are served behind bot detection,
+and reading them automatically would mean working around it. Measuring the gap
+was the honest option, and it leaves task 11 open as a reading job for a person
+rather than a lane nobody can build.
+
+Theme 3 moved too. Tasks 18 and 20 turned out to be already satisfied: the
+training entry's four choices are three declared control points plus one
+recorded gap, and the coverage section names which points have no reviewed
+change. Task 19 is done. The blast-radius checker now locates a control point
+three ways, and which form fits is a property of where the value lives rather
+than a preference. A token is a substring, a path resolves through the parsed
+document, and a valuesPath resolves inside the Helm values these Applications
+carry as an embedded YAML string, which is where most platform choices actually
+live. The v0.18.0 entry's record uses the precise forms and exists partly to
+prove them on real bytes. The checker also reads every record in its directory
+now instead of a list, so a new entry's record cannot be added and never read.
+
+Tasks 43 and 44 are done, and the answer to 43 is a number nobody had. The
+AICR track proved a provenance chain end to end, so the obvious question was
+how far it could reach.
+[The survey](../../data/upstream-provenance/summary.md) asks once per retained
+chart whether its publisher ships a Helm provenance file: 33 of 139 do, which
+is 24% of the catalog and the ceiling on any provenance claim by that
+mechanism. Twenty-one more are bitnami charts whose index now points at OCI
+rather than a tarball, so the convention does not reach them at all, which ties
+the provenance story to the repricing migration already recorded elsewhere.
+
+Building it was a lesson in not shipping a plausible number. The first run said
+3%, because the index scan was reading each entry's sources URL rather than its
+tarball URL, and a survey that answers the right question about the wrong file
+looks exactly like a survey. Two more defects followed: relative index URLs and
+a 403 counted as evidence of absence. The published number is the fourth one.
+
+Task 44 is the policy half and it is doctrine now. A provenance claim may not
+degrade silently, so each run compares its answers against the previous
+snapshot and records every chart whose verdict moved. An unanswered question is
+recorded as unknown, never as unsigned.
+
 Theme 1 is now closed. Task 3 is decided: the CPU starter tracks the one
 retained version it derives from and does not follow a newer one, because every
 proof it holds was produced from those bytes. The decision is in its derivation

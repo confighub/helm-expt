@@ -11,6 +11,8 @@ answers the claim.
 - Use `cub`, `helm`, `kubectl`, Argo, or Flux when doing product work.
 - Use `npm run ...` when checking committed repo evidence.
 - Prefer scoped verifiers over `npm run verify`.
+- CI runs the whole chain in six parallel shards, so a gate cannot go red
+  unnoticed the way several did before 2026-08-08.
 - Treat fresh live runs as evidence-producing work.
 - Never claim a live lane changed without a receipt and verifier.
 
@@ -32,6 +34,7 @@ answers the claim.
 | Committed two-cluster parity receipts validate. | `npm run kind-parity:verify` |
 | Committed ConfigHub/OCI live receipts validate. | `npm run live-parity:verify` |
 | The whole committed repo proof chain is consistent. | `npm run verify` |
+| One slice of that chain, the way CI runs it. | `npm run verify:shard -- --shard 1 --of 6` |
 
 ## Generate Versus Verify
 
@@ -77,3 +80,22 @@ Run fresh live commands only when fresh evidence is the task.
 - [Chain Of Proof](../user/chain-of-proof.md)
 - [NPM Test And Verification Scripts](../../tests/npm-scripts.md)
 
+## What CI Runs
+
+CI runs the entire `npm run verify` chain on every pull request, split into six
+shards that run in parallel. Before this, six gates ran in CI and the rest were
+checked only by whoever remembered to run the chain locally, which is how
+twenty-four of them came to be failing on main with nothing reporting it.
+
+Two jobs, because the chain is not quite uniform. Most steps read committed
+bytes and need nothing installed. Thirty-two re-render a package through the
+cub installer, read an OCI artifact through oras, or template a chart through
+helm, and those are listed in
+[tests/verify-chain-cli-steps.yaml](../../tests/verify-chain-cli-steps.yaml) and
+run in their own job with those tools installed once.
+
+The gates that were already red are declared in
+[tests/verify-chain-known-red.yaml](../../tests/verify-chain-known-red.yaml)
+with the error each produces. A declared gate that fails is carried; a declared
+gate that starts passing fails the run and asks to be removed from the list, so
+it can only shrink.

@@ -1,53 +1,62 @@
 # The certified bundle track backlog
 
-Status: working backlog, written 2026-08-07 after the model's first increments
-landed. It lists the next fifty tasks grouped by theme rather than strict
-priority, and it marks the ones that change how the Catalog and the Config
-Workshop work as a whole, because several of them are not really
-certified-bundle tasks at all.
+Status: working backlog. It lists what is left, grouped by theme rather than
+strict priority, and marks the ones that change how the Catalog and the Config
+Workshop work as a whole.
 
-Each task names what to do and why it matters. Sizes are rough: S is under a
-session, M is a session, L is more than one. A task marked **Workshop-wide**
-changes a shared surface, so it needs the same care a doctrine change needs.
+Sizes are rough: S is under a session, M is a session, L is more than one. A
+task marked **Workshop-wide** changes a shared surface, so it needs the same
+care a doctrine change needs. The evidence discipline every task here inherits
+is rule 10 of [the doctrine](../../tests/doctrine.md); the model itself is
+[the certified bundle spec](../reference/certified-bundle-spec.md).
 
-## What exists today
+## Where the track stands
 
-The receipt spec exists and four producers emit against it. The catalog holds
-135 entries, and all 135 installer packages are published with receipts. Eleven
-certified-bundle receipts describe real bundles, including all eight the
-eks-inference example publishes, each cross-checked against that repository's
-committed render. A strict consumer refuses malformed, tampered, uncited, or
-lane-drifted receipts, and proves each refusal in a self-test.
+The catalog holds 140 entries. All of them carry an installer-package receipt
+and a publication receipt, and 134 carry a flattening witness. On top of that
+floor, 90 audited bases across 82 chart versions have a decided lane: 42 safe to
+flatten, 32 needing companions, 16 refused.
 
-The flattening lane has evidence for 132 of 135 entries and a decided lane for
-12 chart versions across 19 audited bases. One route ships inside a bundle. Two
-charts are recorded as retained-exact after upstream republished their version
-strings under different bytes. CI refreshes the catalog weekly and gates the
-site on every pull request.
+71 of those bases are published as certified bundles, alongside 14 receipts from
+other producers. Between them they carry 45 routes: 34 ordering, 7 prune
+protection, 4 lifecycle. Strict ingest admits all 85 receipts and proves 17
+distinct refusals against a real one.
 
-The honest gaps are the ones these themes address. Most entries have evidence
-but no lane. No chart page shows either. The bundle carries two of its three
-promised artifact classes. Nothing yet stops a page claiming a chart is
-flattenable without a verdict.
+The honest gaps are what the themes below address. Roughly forty charts are
+still undecided, and the remaining ones are the hard cases rather than the cheap
+ones. No route has a proven runtime. Nothing teaches a delivery runtime to read
+a route, so a human applies every one of them. And no receipt records
+convergence, because the model certifies packaging and not runtime health.
+
+## What has shipped
+
+Numbers are kept so older pull requests still resolve.
+
+- **1.** Lanes for the top-20 charts.
+- **2.** Lanes for the charts the examples install.
+- **3.** The lane-decision procedure, at docs/reference/deciding-a-flattening-lane.md.
+- **8.** CRD ordering routes for the remaining flatten-with-routes bundles.
+- **9.** Prune-protection routes for keep-policy; seven bundles ship one.
+- **11.** The first lifecycle route built from a live observation, on gatekeeper, then tigera-operator.
+- **12.** automatic stays false for anything that runs a Job, enforced rather than stated.
+- **16, 31.** companionRequired, so a bundle owes prune protection rather than owing something, and a certified bundle missing a companion it names is refused.
+- **18.** The verdict on every chart page.
+- **19.** The evidence for undecided charts, which says undecided is not safe.
+- **20.** The claim-integrity gate: no page may claim a chart is flattenable without a verdict.
+- **27.** The Space guide as the bundle's third artifact class.
+- **28.** A published flattened bundle for every base whose lane permits one.
+- **33.** What a receipt says about an image digest, and the boundary it does not cover.
+- **34.** Weekly byte-drift detection on locked versions.
+- **35.** Re-witnessing on a cadence, carried by task 34.
+
+Plus one item no task asked for, which a lesson demanded: `verdict-render-parity:verify`
+refuses any verdict calling a class absent that its own render contains. It
+exists because a witness sees generated credentials and is blind to a literal
+one, and deciding a lane from the witness alone would have published a working
+root credential.
 
 ## Theme 1: decide lanes where the evidence already sits
 
-1. **Decide lanes for the top-20 charts.** The evidence view already names
-   which of them carry hooks, lookup, keep-policy, or generated credentials, so
-   the review has a starting point rather than a blank page. Scope it the way
-   the consumer contract scoped assessment coverage. L, and everything in this
-   theme depends on it.
-2. **Decide lanes for the charts the examples install.** Done for the three
-   that had witnesses and were still undecided: fluent-bit and
-   prometheus-blackbox-exporter are safe to flatten, and tigera-operator is
-   flatten-with-routes on the strength of a run that rendered its pre-delete
-   Job and executed it. The rest of the example set was already decided. Three
-   remaining charts have no witness because no packaged tarball is pinned for
-   them, which is a witness-coverage gap rather than a lane gap.
-3. **Write the lane-decision procedure down.** Done, at
-   `docs/reference/deciding-a-flattening-lane.md`. Six rules, each one drawn
-   from a draft that was wrong until the chart source contradicted it, plus the
-   regeneration order and what a decided lane does not mean.
 4. **Adversarially verify every new lane before it lands.** The first drafting
    pass produced real errors that only a refutation pass caught, including a
    wrong object count and a mis-quoted secret mount path. Keep the pass. S per
@@ -55,9 +64,9 @@ flattenable without a verdict.
 5. **Record why a chart stays undecided.** An entry with evidence and no lane
    should say what is missing, so the backlog reads from the data instead of
    from memory. S.
-6. **Report lane coverage as a number the site can show.** 12 of 135 is a fact
-   worth publishing, and publishing it is what makes it embarrassing enough to
-   fix. S.
+6. **Report lane coverage as a number the site can show.** 82 decided chart
+   versions against 134 witnessed is a fact worth publishing, and publishing it
+   is what keeps the remainder visible. S.
 7. **Decide the two first-party Kubara charts.** homer-dashboard and the
    template library carry provisional lanes in that repository because no
    upstream audit covers them. They need a first-party rule. S. **Workshop-wide**,
@@ -65,32 +74,10 @@ flattenable without a verdict.
 
 ## Theme 2: extend routes until the lane means something
 
-8. **Emit the CRD ordering route for the other five flatten-with-routes
-   bundles.** external-secrets, the three ACK charts, and karpenter all name the
-   same companion. The machinery exists, so this is mechanical. S.
-9. **Emit a prune-protection route for keep-policy.** Blocked, and worth
-   recording why before someone picks it up. No bundle that exists today has
-   keep-policy present, so the route has nothing honest to attach to.
-   cert-manager is the natural first case, and giving it a bundle means
-   shipping the three routes its verdict names, one of which is the
-   startupapicheck lifecycle route that task 10 must observe first. So this
-   follows task 10 rather than leading it. M. **Workshop-wide**.
 10. **Observe cert-manager's startupapicheck before routing it.** No
     lifecycle-route action packet exists for it, and emitting a hook route
     without recorded evidence would be inventing one. Run the hook lifecycle
     lane first. M.
-11. **Emit a lifecycle-job route from an observed hook.** Done, on gatekeeper
-    3.22.2 rather than kyverno. Kyverno's lane is do-not-flatten, so it can
-    carry no bundle and therefore no route. Gatekeeper had the same quality of
-    observation, a chart whose only real hazards are hooks and CRDs, and a
-    rendered base to bundle. Its 17 hook objects do not survive flattening, and
-    the route's 14 stages are the checks a recorded live run watched instead,
-    each citing its evidence file and hash. Strict ingest re-hashes every stage,
-    so a route cannot outlive the observation it claims.
-12. **Keep automatic false for anything that runs a Job.** Done, and enforced
-    rather than stated. A lifecycle route with `automatic: true` is refused, and
-    the self-test proves it. Ordering earned automatic because re-applying it
-    changes nothing; work does not get that by default.
 13. **Prove a route executes under Argo.** The route declares that Argo can
     express it as sync waves. Nothing has watched it happen, and until recently
     eight routes claimed otherwise. The claim is now gated: `proven` requires a
@@ -107,30 +94,12 @@ flattenable without a verdict.
     `runs/aicr-cpu-starter-delivery` proves sync waves survive delivery, and
     says in its own limits that no sync ever started. Neither is a substitute
     for watching a shipped route execute.
-16. **Fail a bundle whose verdict names a route it does not ship.** Done.
-    `companionRequired` now sits on the disposition row, drawn from the same
-    vocabulary as a route's `routeKind`, and strict ingest reads each shipped
-    route's own document to match it. A certified flatten-with-routes bundle
-    missing a companion it names is refused and the message says which class
-    owes which kind; a row owing a companion while its finding is absent is
-    refused too. Provisional bundles are named rather than failed. Only classes
-    whose evidence settles the question set the field, so webhook CA stays out:
-    a controller travelling in the same bundle fills an empty caBundle that
-    looks identical to one nothing will fill. Two self-test refusals cover it.
 17. **Teach the delivery runtime to read a route.** Everything above produces
     routes that a human applies. The model claims the runtime executes them. L.
     **Workshop-wide**.
 
 ## Theme 3: put the evidence in front of a reader
 
-18. **Render the flattening verdict on each chart page.** Twelve decided lanes
-    are invisible to anyone who does not read the repository. M.
-19. **Render the evidence for undecided charts.** "No hooks, no lookup, 25 CRDs
-    found, lane not yet decided" is more useful than silence and does not
-    overclaim. M.
-20. **Build the claim-integrity gate the flattening brief asked for.** A page
-    may not claim a chart is flattenable without a current verdict receipt. It
-    was deferred once and should not be deferred twice. M. **Workshop-wide**.
 21. **Add a catalog-wide flattening page.** The evidence view answers "what is
     in these charts" in one table, which is a question a buyer asks before a
     chart page can help them. M.
@@ -149,24 +118,10 @@ flattenable without a verdict.
 
 ## Theme 4: finish the bundle
 
-27. **Ship the Space guide README as the third artifact class.** Done. Every
-    receipt now ships exactly one guide, written from the receipt so it cannot
-    drift from what the bundle contains, and strict ingest refuses a bundle
-    without one. **Workshop-wide**.
-28. **Publish flattened bundles for the lanes that permit them.** Done for every
-    base that qualifies today. The catalog is now a two-product thing: the
-    installer package is the render-late route and a flattened bundle is the
-    render-early one, and 27 catalog bundles are published with a receipt each.
-    Publication stays gated on theme 1, so this list grows as lanes are decided
-    rather than by choosing to publish more. One qualifying base is deliberately
-    absent: nvidia's nfd-enabled render carries eight hook objects and no
-    observation exists to route them, so the companion-debt check refuses it,
-    which is the gate working rather than a gap. **Workshop-wide**, because it
-    decides what the catalog sells.
 29. **Emit a receipt per published bundle rather than per reference bundle.**
     The framing this task carried was wrong and is corrected here, because it
     read as 120 unreceipted entries. Every catalog entry already carries an
-    installer-package receipt and a publication receipt, 135 of each. What the
+    installer-package receipt and a publication receipt, 140 of each. What the
     older family does not carry is the flattening verdict, the quirk
     dispositions, the routes, and the space guide. So this is a convergence
     question rather than a coverage gap, and it applies only where a bundle is
@@ -176,37 +131,11 @@ flattenable without a verdict.
 30. **Record the composition index in the receipt.** Kubara pins components with
     a digest index and the receipt only points at it. A composition digest would
     let a consumer verify a platform rather than a component. M.
-31. **Make strict ingest refuse an unshipped route.** It refuses tampering and
-    uncited lanes. A missing companion artifact is the same class of defect. S.
 32. **Add convergence receipts to the model.** The receipt certifies rendering
     and packaging, and says so. What happened on the cluster is a separate
     record that does not exist yet. L. **Workshop-wide**.
-33. **Decide what a receipt says about an image digest.** Decided and shipped.
-    The receipt records every image reference the rendered object set names and
-    how each is pinned, with a boundary sentence saying the receipt certifies
-    the bytes and not the images those bytes name. It does not resolve tags to
-    digests, which would need the network and would go stale the moment it
-    landed. Across the catalog's bundles, 37 references are pinned by tag and 3
-    by digest, so the honest reading is that most bundles are reproducible in
-    what they are and not in what they start. Strict ingest re-derives the list
-    from the bundle's bytes and refuses a receipt that disagrees with its own
-    artifact. Resolving digests at publish time is the obvious follow-on and is
-    a larger question, because it changes what a bundle means on a re-push.
-
 ## Theme 5: upstream drift and retention
 
-34. **Detect byte drift on locked versions in the weekly job.** Done. The
-    weekly job now asks every locked package whether upstream still serves the
-    bytes the catalog recorded, and stops when one drifted with no decision in
-    the drift lane. The first sweep only caught the two Fairwinds charts
-    because no witness existed yet; a re-run would have compared two local
-    files and reported nothing. **Workshop-wide**.
-35. **Re-witness on a cadence rather than on demand.** Done by task 34, and
-    worth stating why rather than leaving it looking open. A witness records
-    findings scanned from bytes with a known hash, so it stays true for exactly
-    as long as those bytes are what upstream serves. The weekly recheck asks
-    that question, which is what keeps every witness honest without rescanning
-    anything.
 36. **Decide the retention rule for republished bytes.** Two charts are
     retained-exact by decision. The next one should follow a rule rather than a
     conversation. S. **Workshop-wide**.

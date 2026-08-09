@@ -60,9 +60,7 @@ subject.
 | [aicr-signature-verification.md](./reference/aicr-signature-verification.md) | Maintained decision for verifying upstream AICR signatures: pinned cosign in a container, a committed sigstore trust root, signed timestamps for Rekor v2 era entries, offline execution, and what the check does not cover. |
 | [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Maintained doctrine for the anonymous-to-managed boundary, source-and-intent records, source-neutral base variants, four OCI package roles, fleet delivery, apply policy, AI use, and keeping the human and machine views aligned. |
 | [config-catalog-demo-program.md](./planning/config-catalog-demo-program.md) | Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps. |
-| [catalog-kubara-composition-strategy.md](./planning/catalog-kubara-composition-strategy.md) | Strategy for platform composition: the catalog reviews parts and wiring facts, machines generate the wiring, deterministic gates check it, and ConfigHub records and delivers the result. |
 | [kubara-git-to-confighub-blog-brief.md](./planning/kubara-git-to-confighub-blog-brief.md) | Future public article brief using the same six-step adoption journey, buyer wording, proof boundaries, and GUI evidence order as the website. |
-| [three-pillars-brief.md](./planning/three-pillars-brief.md) | Brief behind the current website testing story: choices fixed before install, evidence users can inspect, and lifecycle work kept visible. |
 | [catalog-entry-contract-brief.md](./planning/catalog-entry-contract-brief.md) | Brief proposing one contract for every catalog entry: the three-state rule generalised across every era, plus a permission axis so a forbidden obligation is not read as a gap, a limits axis so each artifact says what it does not prove, and the measured cost of adopting it today. |
 | [catalog-refresh-plan.md](./planning/catalog-refresh-plan.md) | Plan for turning the weekly catalog refresh on: why its schedule is off, the never-delete-published-versions retention rule, the two preconditions (a current catalog, and every npm lane with a recorded role), and the gaps still open in the lane. |
 | [catalog-consumer-contract-brief.md](./planning/catalog-consumer-contract-brief.md) | Brief adopting the catalog consumer contract from integrator feedback: fetched-bytes digests, published paths, a change feed, retention and schema-version commitments, and the CORS and object-inventory keep-clauses. |
@@ -72,8 +70,6 @@ subject.
 | [aicr-pilot-variants-brief.md](./planning/aicr-pilot-variants-brief.md) | Brief for applying the Pilot variant model to AICR platform shapes: what parity means when the unit of change is a platform, the blast-radius level the entries' receipts already record, and the control-point map each entry needs. |
 | [aicr-version-refresh-brief.md](./planning/aicr-version-refresh-brief.md) | Brief for a second retained AICR version: what upstream changed since v0.14.0, why signature verification is the rung that justifies the refresh, what the derived starter costs, and the probe that decides whether to build it. |
 | [nim-ngc-license-read.md](./planning/nim-ngc-license-read.md) | Cited read of the NVIDIA NIM and NGC licensing surfaces with the config-plane verdict for the inference entry: retain the Apache-2.0 scaffolding, never touch the gated runtime artifacts, keys stay target facts. |
-| [certified-bundle-model-brief.md](./planning/certified-bundle-model-brief.md) | Brief for the certified bundle model: the catalog certifies charts, flattened bundles deliver them, and a per-chart flattening verdict arbitrates render-early against render-late. |
-| [flattening-safety-brief.md](./planning/flattening-safety-brief.md) | Brief for the flattening-safety audit lane: a receipted per-chart verdict on what breaks when a chart ships as literal rendered YAML instead of running Helm. |
 | [chart-successors-brief.md](./planning/chart-successors-brief.md) | Brief for replacing the six single-publisher chart sources: the measured breakage, the live-verified successor per component, the redis engine question, and the operator shape tax. |
 | [sveltos-fleet-brief.md](./planning/sveltos-fleet-brief.md) | Brief for the Sveltos fleet example in the Kubara style: a reference fleet we operate, governed changes with receipts, and a DIY path for readers with their own clusters. Chapters one and two are recorded live; the kyverno, canary, patching, and bulk-operation chapters are proven offline and await their live runs. |
 | [expected-results-and-clusters.md](./user/expected-results-and-clusters.md) | Practical guide for what users should see after each step, when they need a Kubernetes cluster, when to use kind or `cub cluster up`, and when npm verifiers are optional. |
@@ -285,6 +281,7 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [artifact-verifier-spec.md](./reference/artifact-verifier-spec.md) | What the artifact verifier must check. |
+| [redis-worked-example.md](./reference/redis-worked-example.md) | The catalog's reference chart in one place: the proof, installer-package, local end-to-end, scan and variant lanes that every later chart's generated spec follows. |
 | [certified-bundle-spec.md](./reference/certified-bundle-spec.md) | The shared bundle-plus-receipt spec every producer emits against: bundle shape, receipt fields, quirk dispositions, and the flattening-safety verdict lanes. |
 | [deciding-a-flattening-lane.md](./reference/deciding-a-flattening-lane.md) | How a lane is decided from a witness: six rules, each drawn from a draft the chart source proved wrong, plus the regeneration order and what a decided lane does not mean. |
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Seven-stage lifecycle, render parity boundary, hook routing, and support claims. |
@@ -352,14 +349,12 @@ Generated proof data for this section lives in:
 | [catalog-promotion-next-candidates.md](./planning/catalog-promotion-next-candidates.md) | Candidate charts for the next promotion wave. |
 | [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Planning model for the no-login verified-install wedge: public catalog package resolution, local apply, in-cluster receipt, and where ConfigHub Server begins. |
 | [verified-install-commercial-model.md](./planning/verified-install-commercial-model.md) | Commercial model for verified installs, factory scans, image digest inventory, signed artifacts, refresh SLAs, private catalogs, and fleet security queries. |
-| [post-coverage-strategy.md](./planning/post-coverage-strategy.md) | Post-100%-coverage synthesis tying user journeys (incl. serverless entry + ConfigHub-server + cub-scout), the open-issue backlog, the coverage substrate, and the competitive landscape into one sequenced roadmap (Phase A finish coverage → B legibility/trust → C productize → D commercial). |
 | [robust-sceptic-plan.md](./planning/robust-sceptic-plan.md) | Sceptic-facing attack taxonomy and adversarial test plan, including claims register, blast-radius accuracy, torture fixtures, environment matrix, and external reproduction. |
 | [corpus-rationalization-plan.md](./planning/corpus-rationalization-plan.md) | Named redundancy map across the data views (lane truth, hook family, readiness family) with merge/retire queue and the rules that stop view re-accretion. |
 | [maintenance-strategy.md](./planning/maintenance-strategy.md) | Maintenance NOTE: the free-tier daily-refresh SLA for public data and tests, perpetual append-only retention of all public data and its changes, and the free/paid boundary backed by a larger daily-updated private corpus. |
 | [where-does-my-hook-go.md](./planning/where-does-my-hook-go.md) | Problem analysis and solution proposal generalizing the hook disposition model (observed/routed/per-target/refused) to every Helm behavior that does not survive a config-only render: named routes, the default-plus-legible-off-ramp requirement for humans and agents, a phased plan, and the #684 review notes. |
 | [hook-route-execution-plan.md](./planning/hook-route-execution-plan.md) | Scope for executing hook lifecycle routes (closing automatic:false): what each route class needs, GitOps-native emission vs product-direct cub execution, the execution receipt, and the phasing so hooks are automated and audited rather than run by hand. |
 | [top20-full-proof-target.md](./planning/top20-full-proof-target.md) | Definition and status of the top-20 full proof milestone. |
-| [top100-full-proof-target.md](./planning/top100-full-proof-target.md) | Definition and status of the top-100 proof surface. |
 | [../data/top50-completion/summary.md](../data/top50-completion/summary.md) | Generated fifty-task completion plan: current status, evidence, verification command, and the next step for every agreed programme outcome. |
 | [top500-matrix-refresh-review.md](./planning/top500-matrix-refresh-review.md) | How the top-500 analysis should be regenerated and interpreted. |
 | [latest-top20-refresh-plan.md](./planning/latest-top20-refresh-plan.md) | Latest-version refresh plan for the supported top-20 charts. |
@@ -380,13 +375,6 @@ Redis demo:
 
 | File | Role |
 | --- | --- |
-| [redis-proof-spec.md](./reference/redis-proof-spec.md) | Overall Redis proof specification. |
-| [redis-installer-package-spec.md](./reference/redis-installer-package-spec.md) | Redis `cub installer` package requirements. |
-| [redis-default-variant-spec.md](./reference/redis-default-variant-spec.md) | Default Redis variant requirements. |
-| [redis-reuse-existing-secret-variant-spec.md](./reference/redis-reuse-existing-secret-variant-spec.md) | Redis existing-Secret variant requirements. |
-| [redis-variant-diff-spec.md](./reference/redis-variant-diff-spec.md) | Expected differences between Redis variants. |
-| [redis-local-e2e-spec.md](./reference/redis-local-e2e-spec.md) | Local kind live/e2e proof specification. |
-| [redis-local-scan-spec.md](./reference/redis-local-scan-spec.md) | Local scan proof specification. |
 
 ### Demo Docs
 
@@ -396,7 +384,6 @@ Redis demo:
 | [demo/redis/function-scan-lane.md](demo/redis/function-scan-lane.md) | Redis ConfigHub function scan lane. |
 | [demo/redis/safe-ops-lane.md](demo/redis/safe-ops-lane.md) | Redis safe operation lane. |
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis UX acceptance criteria. |
-| [demo/nginx/confighub-proof-plan.md](demo/nginx/confighub-proof-plan.md) | NGINX proof target plan. |
 
 ### Tests
 
@@ -459,8 +446,6 @@ not the primary user path.
 | [get-started-rewrite-brief.md](./planning/get-started-rewrite-brief.md) | Brief for Codex to rewrite the generated Get Started page (try.html) install-first around parity of outcomes: the full new copy, the recipe-vs-package explanation of `--pull`, verified commands, and generator notes. |
 | [persona-ux-rerun-2026-06-22.md](./planning/persona-ux-rerun-2026-06-22.md) | Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work. |
 | [persona-ux-audit-2026-06-22.md](./planning/persona-ux-audit-2026-06-22.md) | Ten-persona public-site audit after the homepage and guide restructuring, with verified findings and the next ranked UX fixes. |
-| [how-it-works-website-brief.md](./planning/how-it-works-website-brief.md) | Content + structure brief for the public site's "How it works" section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps. |
-| [landing-page-restructure-brief.md](./planning/landing-page-restructure-brief.md) | Brief for Codex to restructure the generated homepage around one narrative spine (look first, prove it on a cluster, change it and keep it) so the page makes one pitch instead of nine; executed by #1101. |
 | [fuzz-corpus-tests-roadmap.md](./planning/fuzz-corpus-tests-roadmap.md) | Roadmap for the non-website work (corpus, tests, fuzz, migration-UX): the test-our-tool principle, the persona taxonomy (F/G/cub-fuzz/Helm-migrant), the offline-first PR sequence, and the deferred live work. |
 | [helm-vs-cub-adoption-audit.md](./planning/helm-vs-cub-adoption-audit.md) | Adoption audit for places where cub is worse than or more confusing than plain Helm on the common journey, with each gap marked solved, managed, partial, or unmanaged. |
 | [per-chart-fact-sheet-spec.md](./planning/per-chart-fact-sheet-spec.md) | Design spec for the per-chart website page: section list, the exact data source per field, and a solid/partial/needs-more-testing status for each, plus the "level of support vs evidence depth" rule. |

@@ -449,6 +449,7 @@
     <article class="doc-body">
 
 <p>The decision table lives in <code>scripts/generate-flattening-safety-verdicts.mjs</code>. Nothing here is automatic, and the reason is written into the first rule below.</p>
+<p>These six rules are the chart-specific application of rule 10 of <a href="../../tests/doctrine.html">the doctrine</a>, which states the general form: a claim must be openable, evidence is not a decision, and one scanner never settles everything.</p>
 <h2 id="the-four-lanes">The four lanes</h2>
 <ul><li><b>safe-to-flatten.</b> Nothing the audited base renders is discharged at render time.</li><li><b>flatten-with-routes.</b> Flattening is safe once named companion artifacts travel with the bundle.</li><li><b>do-not-flatten.</b> Something the base renders cannot be recovered by any companion the catalog can emit. The installer package is that chart's certified route.</li><li><b>born-flattened.</b> The source never rendered in the first place.</li></ul>
 <p>A lane is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it, and <code>variantScope</code> records which values move the answer.</p>
