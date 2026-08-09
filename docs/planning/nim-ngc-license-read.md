@@ -142,3 +142,30 @@ Product-Specific Terms for AI Products, the NVIDIA Open Model Agreement, and
 the Llama 3.1 Community License Agreement, and the
 [profile record](../../examples/aicr/kserve-nim-inference/profile/model-profile.yaml)
 carries those names as dated data.
+
+## The rules generalized, 2026-08-08
+
+This read produced four rules that were never NIM-specific, and they are now
+[doctrine](../../tests/doctrine.md) rather than a decision recorded in one
+planning note: reference and never mirror, keep the credential with the cluster
+that pulls, publish no vendor performance numbers, and name the terms a page
+listed on a date without telling anyone which entitlement they need.
+
+The third open item above asked for a per-artifact re-read on the specific
+pages an entry references. One was read by hand and carried as data. The other
+nine are now enumerated in
+[the gated-artifact register](../../examples/aicr/claims/gated-artifacts.yaml),
+each with the catalog page a person can read, and
+[a lane](../../data/gated-artifacts/summary.md) refuses a gated reference the
+register does not list and a listing no document names.
+
+Their terms remain unread, and the reason is recorded rather than left as an
+absence: those catalog pages are served behind bot detection, and reading them
+automatically would mean working around it, which this catalog will not do. The
+gap is measured and published instead of filled with a guess.
+
+The re-read cadence is settled too, and it is not a date. Entries are keyed by
+the exact image reference including its tag, so a version bump produces a
+reference nobody enumerated and the lane refuses it until someone records what
+the new artifact's page says. A calendar cadence goes stale quietly, because
+nothing fails when a date passes.

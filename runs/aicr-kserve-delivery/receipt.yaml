@@ -1,0 +1,139 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrKserveDeliveryProofReceipt"
+metadata:
+  name: "aicr-kserve-nim-inference-delivery"
+spec:
+  observedAt: "2026-08-08T10:37:25.589Z"
+  input:
+    committedEntry: "examples/aicr/kserve-nim-inference"
+    platformDigest: "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720"
+    temporaryReference: "oci://localhost:32798/aicr-kserve-nim-inference:3ef33472"
+    digest: "sha256:6b6d405c7c98d51c274e35b3d54dc4aa980bb6d2b0e9815184595a980c40b805"
+    documentCount: 26
+    kindCounts:
+      ClusterServingRuntime: 10
+      InferenceService: 16
+    transportByteFaithful: true
+    canonicalDataSha256: "5aa16f0fcb78d1eedf4a607d9a03b6c7a66a3e3b4573fbef17b8917c1ed0f224"
+  cluster:
+    shape: "throwaway kind cluster with an isolated kubeconfig"
+    creationCommand: "kind create cluster"
+    kserve:
+      version: "v0.20.0"
+      installed: "custom resource definitions only"
+      controllerInstalled: false
+      reason: "with no controller nothing reconciles an InferenceService, so no pod is scheduled and no gated image is pulled"
+      crdManifest: "https://github.com/kserve/kserve/releases/download/v0.20.0/kserve-crds.yaml"
+  delivery:
+    appliedFrom: "the pulled OCI artifact, not the checkout"
+    documentsRetained: 26
+    documentsAccepted: 25
+    accepted:
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-llama-3.1-70b-instruct-1.1.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-llama-3.1-8b-instruct-1.1.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-llama3-70b-instruct-1.0.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-llama3-8b-instruct-1.0.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-mistral-7b-instruct-v03-1.0.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-mixtral-8x7b-instruct-v01-1.0.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-nv-embedqa-e5-v5-1.0.0"
+      -
+        kind: "ClusterServingRuntime"
+        name: "nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0"
+      -
+        kind: "InferenceService"
+        name: "llama-3-1-70b-instruct-2xgpu"
+      -
+        kind: "InferenceService"
+        name: "llama-3-1-8b-instruct-1xgpu"
+      -
+        kind: "InferenceService"
+        name: "llama-3-3-nemotron-49b-2xgpu"
+      -
+        kind: "InferenceService"
+        name: "llama3-70b-instruct-2xgpu"
+      -
+        kind: "InferenceService"
+        name: "llama3-70b-instruct-4xa100"
+      -
+        kind: "InferenceService"
+        name: "llama3-70b-instruct-4xgpu"
+      -
+        kind: "InferenceService"
+        name: "llama3-70b-instruct-4xh100"
+      -
+        kind: "InferenceService"
+        name: "llama3-8b-instruct-1xgpu"
+      -
+        kind: "InferenceService"
+        name: "llama3-8b-instruct-2xh100"
+      -
+        kind: "InferenceService"
+        name: "llama3-8b-instruct-2xa100"
+      -
+        kind: "InferenceService"
+        name: "llama3-8b-instruct-2xgpu"
+      -
+        kind: "InferenceService"
+        name: "mistral-7b-instruct-v03-1xgpu"
+      -
+        kind: "InferenceService"
+        name: "mixtral-8x22b-instruct-v01-8xgpu"
+      -
+        kind: "InferenceService"
+        name: "mixtral-8x7b-instruct-v01-2xgpu"
+      -
+        kind: "InferenceService"
+        name: "nv-embedqa-e5-v5-1xgpu"
+      -
+        kind: "InferenceService"
+        name: "nv-rerankqa-mistral-4b-v3-1xgpu"
+    documentsRefusedByKubernetes:
+      -
+        kind: "ClusterServingRuntime"
+        name: "llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2"
+        file: "kserve/runtimes/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2.yaml"
+        reason: "metadata.name is not an RFC 1123 subdomain, so the API server refuses it"
+    modelNamespace: "nim-models"
+    workloadPods: 0
+    gatedImagePullEvents: 0
+    serviceProven: false
+  licenseBoundary:
+    ngcContacted: false
+    imagesPulled: false
+    modelsFetched: false
+  cleanup:
+    cluster: "pass"
+    registry: "pass"
+    localFiles: "pass"
+  findings:
+    - "Upstream ships one document a Kubernetes API server cannot accept. ClusterServingRuntime llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2 carries underscores in metadata.name, which is not an RFC 1123 subdomain. The proof confirmed the refusal rather than assuming it, and the entry retains the document unchanged because retention records what upstream published, defects included."
+  limits:
+    - "This proof shows a real API server validating and storing the retained documents against real KServe definitions. It does not prove serving, model loading, or any workload behavior."
+    - "The KServe controller was deliberately not installed. With it, an InferenceService would attempt to pull a gated NIM image, which the licensing boundary forbids this project from doing."
+    - "This run used a temporary local registry; it does not prove public registry publication."
+    - "No ConfigHub organization was involved; the import and reviewed-change story is the separate variant proof receipt."
+status:
+  result: "pass"
+  ociTransport: "pass"
+  clusterUp: "pass"
+  crdInstall: "pass"
+  documentsAccepted: "pass"
+  boundaryProven: "pass"
+  claim: "A real Kubernetes API server validated all twenty-six retained KServe documents against KServe's own custom resource definitions and stored them unchanged, with no controller installed, no pod scheduled, and no gated image pulled."

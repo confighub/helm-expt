@@ -1483,6 +1483,8 @@ runs/aicr-cpu-starter-sync/receipt.yaml,aicr-cpu-starter-sync,observedAt,2026-08
 runs/aicr-cpu-starter-variant/receipt.yaml,aicr-cpu-starter-variant,recordedAt,2026-08-07T09:36:56.677Z,1
 runs/aicr-kserve-nim-import/receipt.yaml,aicr-kserve-nim-import,recordedAt,2026-08-07T12:42:47.424Z,1
 runs/sveltos-fleet-rehearsal/receipt.yaml,sveltos-fleet-rehearsal,recordedAt,2026-08-08T08:02:13.048Z,1
+runs/aicr-kserve-delivery/receipt.yaml,aicr-kserve-delivery,observedAt,2026-08-08T10:37:25.589Z,0
+runs/aicr-nim-operator-delivery/receipt.yaml,aicr-nim-operator-delivery,observedAt,2026-08-08T13:24:58.413Z,0
 runs/aicr-refusal-corpus/receipt.yaml,aicr-refusal-corpus,observedAt,2026-08-08T16:00:57.724Z,0
 runs/aicr-signature-verification/receipt.yaml,aicr-signature-verification,observedAt,2026-08-08T13:38:19.813Z,0
 runs/aicr-trust-root-review/receipt.yaml,aicr-trust-root-review,observedAt,2026-08-08T16:12:15.740Z,0

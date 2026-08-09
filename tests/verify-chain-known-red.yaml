@@ -1,0 +1,79 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: VerifyChainKnownRed
+metadata:
+  name: verify-chain-known-red
+spec:
+  description: >-
+    The gates that were already failing on main when CI started running the
+    whole chain. Each one is carried rather than fixed here, because turning the
+    chain on meant either declaring them or not turning it on.
+  measuredAt:
+    commit: c6f9fd34591f
+    how: >-
+      Every step of the chain was run against a clean checkout of main, one at a
+      time, with the full toolchain present. These are the ones that failed, and
+      the error each produced is recorded next to it.
+  contract: >-
+    A declared gate that fails is reported and does not fail the run. A declared
+    gate that passes does fail the run, with a message saying to remove it from
+    here. That is what makes this a ratchet rather than a list of excuses: it can
+    only shrink, and the shrinking is noticed.
+  note: >-
+    None of these are new breakage. They are what a chain nobody ran in CI
+    accumulates, and every one of them is a data surface whose generator needs
+    re-running or a count that moved. The credential-boundary gate was in this
+    set and is fixed in the same change that adds this file, because it belongs
+    to the lane that discovered the problem.
+  steps:
+    - step: "node scripts/run-catalog-promotion-review.mjs --verify"
+      error: "catalog promotion review CSV is stale"
+    - step: "node scripts/generate-helm-pain-reports.mjs --verify"
+      error: "helm pain report verification failed:"
+    - step: "node scripts/generate-top100-catalog-analysis.mjs --verify"
+      error: "expected 100 top100 proof entries; found 109"
+    - step: "node scripts/generate-useful-base-design-queue.mjs --verify"
+      error: "data/useful-base-design-queue/queue.csv is stale; run npm run top100:useful-base-qu"
+    - step: "node scripts/generate-lane-test-matrix.mjs --verify"
+      error: "lane-test CSV is stale; run npm run lane-tests:generate"
+    - step: "node scripts/generate-outcome-coverage.mjs --verify"
+      error: "data/outcome-coverage/summary.md is stale; run npm run outcomes:generate"
+    - step: "node scripts/generate-outcome-evidence-contract.mjs --verify"
+      error: "outcome evidence contract summary is stale"
+    - step: "node scripts/generate-secret-lifecycle.mjs --verify"
+      error: "data/secret-lifecycle/secrets.csv is stale; run npm run secrets:lifecycle"
+    - step: "node scripts/generate-quirk-coverage.mjs --verify"
+      error: "data/quirk-coverage summary is stale, reported with an absolute path this register does not repeat"
+    - step: "node scripts/generate-remote-dependency-closure.mjs --verify"
+      error: "data/remote-dependency-closure/top100.csv is stale; run npm run remote-deps:closure"
+    - step: "node scripts/generate-top20-base-readiness.mjs --verify"
+      error: "data/top20-base-readiness/base-readiness.csv is stale; run npm run top20:base-readi"
+    - step: "node scripts/generate-status-dashboard.mjs --verify"
+      error: "data/status-dashboard/summary.md is stale; run npm run status:dashboard"
+    - step: "node scripts/generate-hard-chart-production-packets.mjs --verify"
+      error: "hard chart production packet CSV is stale"
+    - step: "node scripts/generate-model-completeness.mjs --verify"
+      error: "model-completeness report.csv is stale; run npm run completeness:generate"
+    - step: "node scripts/generate-attack-plan-workdown.mjs --verify"
+      error: "expected 15 existing-secret hard-gap rows; found 12"
+    - step: "node scripts/generate-matrix-completion-audit.mjs --verify"
+      error: "data/matrix-completion-audit/audit.csv is stale; run npm run matrix-completion-audi"
+    - step: "node scripts/generate-image-digest-workdown.mjs --verify"
+      error: "data/image-digest-workdown/summary.md is stale; run npm run image-digests:workdown"
+    - step: "node scripts/generate-app-readiness.mjs --verify"
+      error: "data/app-readiness/summary.md is stale; run npm run app-readiness:generate"
+    - step: "node scripts/generate-chart-evidence-router.mjs --verify"
+      error: "data/chart-evidence-router/router.csv is stale; run npm run chart:evidence-router"
+    - step: "node scripts/generate-cub-adoption-caveats.mjs --verify"
+      error: "data/cub-adoption-caveats/caveats.csv is stale; run npm run cub-adoption-caveats:ge"
+    - step: "node scripts/run-kubara-live-qualification.mjs --verify --current"
+      error: "blackbox-default: missing live qualification receipt"
+    - step: "node scripts/run-kubara-live-qualification.mjs --verify"
+      error: "blackbox-default: missing live qualification receipt"
+    - step: "node scripts/generate-preview-readiness.mjs --verify"
+      error: "data/preview-readiness/summary.md is stale; run npm run preview-readiness:generate"
+    - step: "node scripts/generate-variant-backlog.mjs --verify"
+      error: "variant-backlog backlog.csv is stale; run npm run variant-backlog:generate"
+    - step: "node scripts/generate-useful-base-realization-wave.mjs --verify"
+      error: "argo-cd/argo-workflows controller-default-reviewed variant digest mismatch"
+    - step: "node scripts/run-external-scan-lane.mjs --verify"
+      error: "external scan results are stale; the committed results and a fresh kube-linter run disagree, and regenerating them is the scan lane owner's call"

@@ -11,25 +11,45 @@ record naming what may be changed and which documents each control point
 governs, and this checker holds that record to the committed bytes and to the
 receipts of every reviewed change already made.
 
-| Entry | Control point | Documents governed | Reviewed changes checked |
-| --- | --- | --- | --- |
-| `aicr-eks-h100-training-kubeflow` | `prometheus-storage-class` (upstream-derived) | 1 | none yet |
-| `aicr-eks-h100-training-kubeflow` | `accelerated-node-selector` | 4 | none yet |
-| `aicr-eks-h100-training-kubeflow` | `bundle-source` | 3 | none yet |
-| `aicr-cpu-starter` | `prometheus-storage-class` (upstream-derived) | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
-| `aicr-kserve-nim-inference` | `model-cache-claim` | 16 | `runs/aicr-kserve-nim-import/receipt.yaml` |
-| `aicr-kserve-nim-inference` | `nim-telemetry-mode` | 10 | none yet |
+| Entry | Control point | Locator | Documents governed | Reviewed changes checked |
+| --- | --- | --- | --- | --- |
+| `aicr-cpu-starter` | `prometheus-storage-class` (upstream-derived) | `token` | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
+| `aicr-eks-h100-training-kubeflow-v0-18-0` | `prometheus-storage-class` (upstream-derived) | `valuesPath` | 1 | none yet |
+| `aicr-eks-h100-training-kubeflow-v0-18-0` | `bundle-source` | `path` | 3 | none yet |
+| `aicr-eks-h100-training-kubeflow` | `prometheus-storage-class` (upstream-derived) | `token` | 1 | none yet |
+| `aicr-eks-h100-training-kubeflow` | `accelerated-node-selector` | `token` | 4 | none yet |
+| `aicr-eks-h100-training-kubeflow` | `bundle-source` | `token` | 3 | none yet |
+| `aicr-kserve-nim-inference` | `model-cache-claim` | `token` | 16 | `runs/aicr-kserve-nim-import/receipt.yaml` |
+| `aicr-kserve-nim-inference` | `nim-telemetry-mode` | `token` | 10 | none yet |
 
 ## Coverage
 
-2 of 6 declared control points have a reviewed
+2 of 8 declared control points have a reviewed
 change with a receipt behind it. A control point with none is not a defect; it
 is a change nobody has needed yet, and listing it keeps the gap visible rather
 than letting an empty column read as completeness.
 
 ## Control points an entry documents but does not declare
 
+- `aicr-eks-h100-training-kubeflow-v0-18-0` declares no control point for `workload-selector`. The generation receipt records this selector as a generation input and it appears in no rendered Application. It travels inside the bundle payload the path-sourced Applications point at, which this document scope does not cover. Declaring it here would fail the checker, and it should, because the record describes what these documents contain.
 - `aicr-eks-h100-training-kubeflow` declares no control point for `workload-selector`. The generation receipt records this selector as a generation input, and it does not appear anywhere in the rendered Applications. It is carried inside the bundle payload that the path-sourced Applications point at, which this document scope does not cover. Declaring it here would fail the checker, and it should, because the record describes what these documents contain.
+
+## A control point is located three ways
+
+Which form fits is a property of where the value lives rather than a
+preference.
+
+A `token` is a substring of the rendered bytes. It is the bluntest form and the
+only one that reaches anywhere, which is why it stays.
+
+A `path` resolves through the parsed document, so it names exactly which field
+it means. A value that happens to appear in an unrelated string cannot be
+mistaken for the control point.
+
+A `valuesPath` resolves inside the Helm values these Applications carry as an
+embedded YAML string. That is where most platform choices actually live, and a
+path over the outer document cannot reach them. Parsing that string is what
+turns "the storage class" from a substring into a field.
 
 The checker refuses three ways. It refuses when a control point reaches a
 document the record does not declare, which is how an under-declared change

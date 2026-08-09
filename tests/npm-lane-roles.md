@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 19
+lanes outside the chain: 22
 should join the chain:   2
-deliberately outside:    17
+deliberately outside:    20
 superseded:              0
 ```
 
@@ -43,6 +43,9 @@ superseded:              0
 | `kubara-mini-idp:orphan-audit:receipt-verify` | That runs/kubara-mini-idp-reconcile/orphan-audit.yaml still binds to the current reconciler: auditor and reconciler script digests, the reconcile plan digest, the apply-attempt ledger digest, read-only execution with zero mutation commands, stable opening/closing organization-wide ConfigHub snapshot fingerprints, and expected==observed counts for Spaces/Units/Links/Targets/Triggers/Filters against the freshly recomputed allowlist. | offline | passes |
 | `kubara-release:verify-static` | That the offline half of the Kubara + ConfigHub release acceptance holds: data/kubara-release-acceptance/contract.yaml and the adoption-screenshot contract re-derive exactly, the named package.json scripts are verbatim, the recorded release scope still contains its immutable 120-root and baseline catalogs unchanged, the current shape / mini-IDP plan / site consumption agree, and twenty-two further offline sub-lanes pass. | confighub | not run here, needs confighub |
 | `kubara-release:verify` | Runs the whole Kubara release front door: the offline static contract (data/kubara-release-acceptance/contract.yaml plus catalog counts, tree SHAs and required evidence paths), then the final-state gates — current site live-evidence, adoption screenshots, public site pages, the 130-root final catalog and the installer-OCI catalog — and then executes ten downstream acceptance commands in order. | confighub | not run here, needs confighub |
+| `verify:shard` | One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun. | offline | green: this is how CI runs the chain, in six parallel shards, rather than a gate of its own |
+| `verify:shard:offline` | A slice of the chain excluding the thirty-two steps that shell out to cub, oras or helm, carrying the gates declared in tests/verify-chain-known-red.yaml. Needs nothing installed beyond Node, git and a YAML reader. | offline | green: six of these run in parallel on every pull request |
+| `verify:shard:cli` | The thirty-two chain steps that re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm. None of that can be done by reading files, so they are separated and their tools installed once. | network | green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing |
 
 ## Superseded
 
