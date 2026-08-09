@@ -1,0 +1,628 @@
+{
+  "metadata": {
+    "name": "kub-eso-2-8-0-nc-parity",
+    "namespace": "argocd",
+    "uid": "98466659-bec3-490c-9034-29334dd955d2",
+    "resourceVersion": "1924",
+    "generation": 10,
+    "creationTimestamp": "2026-08-04T13:53:27Z",
+    "annotations": {
+      "argocd.argoproj.io/hydrate": "normal",
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kub-eso-2-8-0-nc-argo-apps:argoproj.io/Application:argocd/kub-eso-2-8-0-nc-parity",
+      "confighub.com/origin": "{\"spaceId\":\"8e5f0158-c7e6-4828-9d46-f105a21731df\",\"spaceSlug\":\"helm-expt-parity-kub-eso-2-8-0-nc-argo-apps\",\"unitId\":\"c7b55082-65dc-4088-b1a1-acd6c8814109\",\"unitSlug\":\"kub-eso-2-8-0-nc-parity-app\",\"revisionNum\":2}"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:53:27Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/origin": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:54:10Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/hydrate": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:54:17Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-nc-kub-eso-2-8-0-nc",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "external-secrets-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "external-secrets-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-webhook",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-webhook",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "externalsecret-validate",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "secretstore-validate",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-webhook",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-edit",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-servicebindings",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-view",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "external-secrets-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-leaderelection",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-leaderelection",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-nc-kub-eso-2-8-0-nc",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "external-secrets-oci"
+        }
+      },
+      "revision": "sha256:9d70fc00cefdcefe203880b8e4756ecbd8979f3b9cde0fdd9d398fd499cb70d4"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T13:53:59Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:9d70fc00cefdcefe203880b8e4756ecbd8979f3b9cde0fdd9d398fd499cb70d4",
+        "deployedAt": "2026-08-04T13:53:36Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-nc-kub-eso-2-8-0-nc",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T13:53:34Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T13:54:10Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:9d70fc00cefdcefe203880b8e4756ecbd8979f3b9cde0fdd9d398fd499cb70d4",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-nc-kub-eso-2-8-0-nc",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-oci",
+            "status": "Synced",
+            "message": "namespace/external-secrets-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-webhook",
+            "status": "Synced",
+            "message": "serviceaccount/external-secrets-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-cert-controller",
+            "status": "Synced",
+            "message": "serviceaccount/external-secrets-cert-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets",
+            "status": "Synced",
+            "message": "serviceaccount/external-secrets serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-edit",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/external-secrets-edit serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-cert-controller",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/external-secrets-cert-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-controller",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/external-secrets-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-view",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/external-secrets-view serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-servicebindings",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/external-secrets-servicebindings serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-cert-controller",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/external-secrets-cert-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-controller",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/external-secrets-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "Role",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-leaderelection",
+            "status": "Synced",
+            "message": "role.rbac.authorization.k8s.io/external-secrets-leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-leaderelection",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/external-secrets-leaderelection serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-webhook",
+            "status": "Synced",
+            "message": "service/external-secrets-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets",
+            "status": "Synced",
+            "message": "deployment.apps/external-secrets serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/external-secrets/external-secrets:v2.8.0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-cert-controller",
+            "status": "Synced",
+            "message": "deployment.apps/external-secrets-cert-controller serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/external-secrets/external-secrets:v2.8.0"
+            ]
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "external-secrets-oci",
+            "name": "external-secrets-webhook",
+            "status": "Synced",
+            "message": "deployment.apps/external-secrets-webhook serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "ghcr.io/external-secrets/external-secrets:v2.8.0"
+            ]
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "ValidatingWebhookConfiguration",
+            "namespace": "external-secrets-oci",
+            "name": "secretstore-validate",
+            "status": "Synced",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/secretstore-validate serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "version": "v1",
+            "kind": "ValidatingWebhookConfiguration",
+            "namespace": "external-secrets-oci",
+            "name": "externalsecret-validate",
+            "status": "Synced",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/externalsecret-validate serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:9d70fc00cefdcefe203880b8e4756ecbd8979f3b9cde0fdd9d398fd499cb70d4",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-nc-kub-eso-2-8-0-nc",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T13:53:34Z",
+      "finishedAt": "2026-08-04T13:53:36Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ghcr.io/external-secrets/external-secrets:v2.8.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

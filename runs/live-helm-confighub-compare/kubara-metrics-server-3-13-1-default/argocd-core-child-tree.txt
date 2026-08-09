@@ -1,0 +1,27 @@
+Name:               argocd/kub-met-3131-d-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          kube-system-oci
+URL:                http://localhost:56752/applications/kub-met-3131-d-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-d-kub-met-3131-d
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                STATUS  HEALTH   AGE   MESSAGE                                                                              REASON
+Service/metrics-server                                   Synced  Healthy  49s   service/metrics-server serverside-applied
+ServiceAccount/metrics-server                            Synced           49s   serviceaccount/metrics-server serverside-applied
+APIService/v1beta1.metrics.k8s.io                        Synced  Healthy  49s                                                                                        Passed: all checks passed
+Deployment/metrics-server                                Synced  Healthy  49s   deployment.apps/metrics-server serverside-applied
+└─ReplicaSet/metrics-server-5fcf57755d                           Healthy  49s
+  └─Pod/metrics-server-5fcf57755d-p6g7x                          Healthy  49s
+ClusterRole/system:metrics-server                        Synced           49s
+ClusterRoleBinding/system:metrics-server                 Synced           49s
+Namespace/kube-system-oci                                Synced           102s
+ClusterRole/system:metrics-server-aggregated-reader      Synced           49s
+ClusterRoleBinding/metrics-server:system:auth-delegator  Synced           49s
+RoleBinding/metrics-server-auth-reader                   Synced           49s   rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader serverside-applied

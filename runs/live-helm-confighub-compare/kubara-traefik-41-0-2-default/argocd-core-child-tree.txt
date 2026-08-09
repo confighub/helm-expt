@@ -1,0 +1,49 @@
+Name:               argocd/kub-tra-41-0-2-d-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          traefik-oci
+URL:                http://localhost:49697/applications/kub-tra-41-0-2-d-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-kub-tra-41-0-2-d
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                      STATUS  HEALTH   AGE    MESSAGE                                     REASON
+CustomResourceDefinition/middlewares.traefik.io                Synced  Healthy  2m56s                                              CRD is healthy
+Namespace/traefik-oci                                          Synced           2m6s
+CustomResourceDefinition/accesscontrolpolicies.hub.traefik.io  Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/serverstransports.traefik.io          Synced  Healthy  2m56s                                              CRD is healthy
+ClusterRoleBinding/traefik-traefik                             Synced           38s
+Service/traefik                                                Synced  Healthy  38s    service/traefik serverside-applied
+CustomResourceDefinition/apicatalogitems.hub.traefik.io        Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/middlewaretcps.traefik.io             Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/uplinks.hub.traefik.io                Synced  Healthy  2m56s                                              CRD is healthy
+ServiceAccount/traefik                                         Synced           38s    serviceaccount/traefik serverside-applied
+IngressClass/traefik                                           Synced           38s
+CustomResourceDefinition/apiratelimits.hub.traefik.io          Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/apiversions.hub.traefik.io            Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/tlsstores.traefik.io                  Synced  Healthy  2m55s                                              CRD is healthy
+CustomResourceDefinition/apis.hub.traefik.io                   Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/contentitems.hub.traefik.io           Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/traefikservices.traefik.io            Synced  Healthy  2m55s                                              CRD is healthy
+CustomResourceDefinition/apiplans.hub.traefik.io               Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/apiportalauths.hub.traefik.io         Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/ingressroutetcps.traefik.io           Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/managedapplications.hub.traefik.io    Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/aiservices.hub.traefik.io             Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/apibundles.hub.traefik.io             Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/apiportals.hub.traefik.io             Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/managedsubscriptions.hub.traefik.io   Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/serverstransporttcps.traefik.io       Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/tlsoptions.traefik.io                 Synced  Healthy  2m55s                                              CRD is healthy
+Deployment/traefik                                             Synced  Healthy  38s    deployment.apps/traefik serverside-applied
+└─ReplicaSet/traefik-69fb68b6c7                                        Healthy  38s
+  └─Pod/traefik-69fb68b6c7-g9vvb                                       Healthy  38s
+ClusterRole/traefik-traefik                                    Synced           38s
+CustomResourceDefinition/apiauths.hub.traefik.io               Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/ingressroutes.traefik.io              Synced  Healthy  2m56s                                              CRD is healthy
+CustomResourceDefinition/ingressrouteudps.traefik.io           Synced  Healthy  2m56s                                              CRD is healthy

@@ -1,0 +1,1684 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: jetstack-cert-manager-v1.21.0-crds-enabled-live-parity-20260605
+spec:
+  chart: jetstack/cert-manager
+  version: v1.21.0
+  base: crds-enabled
+  result: pass
+  observedAt: '2026-08-04T12:10:01Z'
+  package:
+    path: data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+  recipe:
+    path: data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0
+  variantRevision: data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kub-cm-v1-21-0-crd
+    kubeContext: kind-helm-expt-parity-kub-cm-v1-21-0-crd
+    namespace: cert-manager
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: cert-manager-helm
+      configHubKubectlApply: cert-manager-apply
+      configHubOciArgo: cert-manager-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-kub-cm-v1-21-0-crd --delete-config
+        --force
+      result: pass
+      detail: "Deleting kind cluster \"helm-expt-parity-kub-cm-v1-21-0-crd\"...\n\
+        Deleting cluster \"helm-expt-parity-kub-cm-v1-21-0-crd\" ...\nDeleted nodes:\
+        \ [\"helm-expt-parity-kub-cm-v1-21-0-crd-control-plane\"]\n\nDeleting the\
+        \ ConfigHub config for \"helm-expt-parity-kub-cm-v1-21-0-crd\"...\n  deleting\
+        \ space \"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"...\n  deleting space\
+        \ \"argobot-helm-expt-parity-kub-cm-v1-21-0-crd\"...\n  deleting cluster space\
+        \ \"helm-expt-parity-kub-cm-v1-21-0-crd\" (worker + target)...\n\nDone."
+    clusterSpace: helm-expt-parity-kub-cm-v1-21-0-crd
+    argoAppsSpace: helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+    releaseTarget: helm-expt-parity-kub-cm-v1-21-0-crd/target
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install cert-manager /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/exact-chart-artifact/chart.tgz
+        --namespace cert-manager-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967
+      objectCount: 46
+      liveHelmManifestSHA256: 2d9d4c34db85ea71b1976ab81ecc8a0f6b919aaf7e94003d1474ea420bd93dd0
+      liveHelmManifestObjectCount: 46
+      namespace: cert-manager-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/cert-manager              1/1   1     1     28s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     28s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     28s'
+        pods: 'cert-manager-8fcb9d456-t9x42               1/1   Running   0     28s
+
+          cert-manager-cainjector-85c8bf6d8b-rfx5j   1/1   Running   0     28s
+
+          cert-manager-webhook-85d7d5497-cfzg6       1/1   Running   0     28s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+        --base crds-enabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+        --non-interactive --namespace cert-manager-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 5e81e97489563abee159a3ff6c6b5924de7840005e0a51c2c7bdb4466ef7f1d2
+      objectCount: 47
+      namespace: cert-manager-apply
+      manifestNamespaces:
+      - cert-manager
+      - cert-manager-apply
+      - kube-system
+      runtimeNamespaces: &id001
+      - cert-manager
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     10s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     10s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     10s'
+        pods: '# cert-manager
+
+          cert-manager-8fcb9d456-6z9kn               1/1   Running   0     10s
+
+          cert-manager-cainjector-85c8bf6d8b-r29tf   1/1   Running   0     10s
+
+          cert-manager-webhook-85d7d5497-4w2kw       1/1   Running   0     10s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - cert-manager
+        - cert-manager-apply
+        retainedNamespaces: &id002
+        - kube-system
+        clusterScopedResources:
+          result: pass
+          objectCount: 31
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "cert-manager-cainjector"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-cluster-view" deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-approve:cert-manager-io"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-certificates"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-certificatesigningrequests"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-challenges"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-clusterissuers"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-ingress-shim"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-issuers"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-controller-orders"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-edit" deleted
+
+            clusterrole.rbac.authorization.k8s.io "cert-manager-view" deleted
+
+            clusterrole.rbac.authorizati'
+        retainedNamespaceResources:
+          result: pass
+          namespaces: *id002
+          objectCount: 4
+          preservedPreExistingObjects: []
+          manifest: retained-namespace-apply-cleanup.yaml
+          detail: 'role.rbac.authorization.k8s.io "cert-manager-cainjector:leaderelection"
+            deleted from kube-system namespace
+
+            role.rbac.authorization.k8s.io "cert-manager:leaderelection" deleted from
+            kube-system namespace
+
+            rolebinding.rbac.authorization.k8s.io "cert-manager-cainjector:leaderelection"
+            deleted from kube-system namespace
+
+            rolebinding.rbac.authorization.k8s.io "cert-manager:leaderelection" deleted
+            from kube-system namespace'
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+      controller: Argo CD OCI
+      app: kub-cm-v1-21-0-crd-parity
+      manifestSHA256: 2a817679f3f0f118f3895b2cc856e2226fdf7354cc461c8d5096e6388df48b0b
+      objectCount: 47
+      namespace: cert-manager-oci
+      manifestNamespaces:
+      - cert-manager
+      - cert-manager-oci
+      - kube-system
+      runtimeNamespaces: &id003
+      - cert-manager
+      ociRevision: sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: cert-manager-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+              targetRevision: latest
+          revision: sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T12:15:16Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/jetstack/cert-manager-cainjector:v1.21.0
+          - quay.io/jetstack/cert-manager-controller:v1.21.0
+          - quay.io/jetstack/cert-manager-webhook:v1.21.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T12:15:04Z'
+          finishedAt: '2026-08-04T12:15:06Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 47
+          syncResultStatusCounts:
+            Synced: 47
+        history:
+        - id: 0
+          revision: sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49
+          deployedAt: '2026-08-04T12:15:06Z'
+          deployStartedAt: '2026-08-04T12:15:04Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: cert-manager-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: cert-manager
+          name: cert-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: cert-manager
+          name: cert-manager-cainjector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: cert-manager
+          name: cert-manager-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: cert-manager
+          name: cert-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: cert-manager
+          name: cert-manager-cainjector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: cert-manager
+          name: cert-manager-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: cert-manager-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: cert-manager-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: certificaterequests.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: certificates.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: challenges.acme.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: clusterissuers.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: issuers.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          namespace: ''
+          name: orders.acme.cert-manager.io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: cert-manager
+          name: cert-manager
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: cert-manager
+          name: cert-manager-cainjector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: cert-manager
+          name: cert-manager-webhook
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-cainjector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-cluster-view
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-approve:cert-manager-io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-certificates
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-certificatesigningrequests
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-challenges
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-clusterissuers
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-ingress-shim
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-issuers
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-controller-orders
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-edit
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-view
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: cert-manager-webhook:subjectaccessreviews
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-cainjector
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-approve:cert-manager-io
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-certificates
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-certificatesigningrequests
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-challenges
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-clusterissuers
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-ingress-shim
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-issuers
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-controller-orders
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: cert-manager-webhook:subjectaccessreviews
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: cert-manager
+          name: cert-manager-webhook:dynamic-serving
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: kube-system
+          name: cert-manager-cainjector:leaderelection
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: kube-system
+          name: cert-manager:leaderelection
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: cert-manager
+          name: cert-manager-webhook:dynamic-serving
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: kube-system
+          name: cert-manager-cainjector:leaderelection
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: kube-system
+          name: cert-manager:leaderelection
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kub-cm-v1-21-0-crd-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps:argoproj.io/Application:argocd/kub-cm-v1-21-0-crd-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              fae1724d-00e3-4fdb-a5d2-6d2e471d7e43\",\"spaceSlug\":\"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+              ,\"unitId\":\"240e4db7-0ce9-4cfc...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-08-04T12:14:57Z\n\
+              \  Generation:          9\n  Resource Version:    1966\n  UID:     \
+              \            13ed5015-4e8e-4be8-94bd-9b7d80d8ff3b\nSpec:\n  Destination:\n\
+              \    Namespace:  cert-manager-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-08-04T12:15:16Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-08-04T12:15:04Z\n    Deployed At:        2026-08-04T12:15:06Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T12:15:06Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-08-04T12:15:04Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/cert-manager-oci\
+              \ serverside-applied\n        Name:        cert-manager-oci\n      \
+              \  Namespace:   cert-manager-oci\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   \n        Hook Phase:  Running\n        Kind:        ServiceAccount\n\
+              \        Message:     serviceaccount/cert-manager-cainjector serverside-applied\n\
+              \        Name:        cert-manager-cainjector\n        Namespace:  \
+              \ cert-manager\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/cert-manager serverside-applied\n        Name:  \
+              \      cert-manager\n        Namespace:   cert-manager\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        ServiceAccount\n        Message:     serviceaccount/cert-manager-webhook\
+              \ serverside-applied\n        Name:        cert-manager-webhook\n  \
+              \      Namespace:   cert-manager\n        Status:      Synced\n    \
+              \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
+              \   apiextensions.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io\
+              \ serverside-applied\n        Name:        certificaterequests.cert-manager.io\n\
+              \        Namespace:   cert-manager-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/orders.acme.cert-manager.io\
+              \ serverside-applied\n        Name:        orders.acme.cert-manager.io\n\
+              \        Namespace:   cert-manager-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io\
+              \ serverside-applied\n        Name:        certificates.cert-manager.io\n\
+              \        Namespace:   cert-manager-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io\
+              \ serverside-applied\n        Name:        challenges.acme.cert-manager.io\n\
+              \        Namespace:   cert-manager-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io\
+              \ serverside-applied\n        Name:        clusterissuers.cert-manager.io\n\
+              \        Namespace:   cert-manager-oci\n        Status:      Synced\n\
+              \        Sync Phase:  Sync\n        Version:     v1\n        Group:\
+              \       apiextensions.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        CustomResourceDefinition\n        Message:     customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io\
+              \ serverside-applied\n        Name:        issuers.cert-manager.io\n\
+              \        Namespace:   cert-manager-oci\n        Status:      Synced\n\
+              \        Sy"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                  MESSAGE
+
+              15s         Normal   OperationStarted     application/kub-cm-v1-21-0-crd-parity   Initiated
+              automated sync to ''sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49''
+
+              15s         Normal   ResourceUpdated      application/kub-cm-v1-21-0-crd-parity   Updated
+              sync status:  -> OutOfSync
+
+              15s         Normal   ResourceUpdated      application/kub-cm-v1-21-0-crd-parity   Updated
+              health status:  -> Healthy
+
+              12s         Normal   OperationCompleted   application/kub-cm-v1-21-0-crd-parity   Sync
+              operation to sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49
+              succeeded
+
+              12s         Normal   ResourceUpdated      application/kub-cm-v1-21-0-crd-parity   Updated
+              health status: Healthy -> Progressing
+
+              10s         Normal   ResourceUpdated      application/kub-cm-v1-21-0-crd-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              3s          Normal   ResourceUpdated      application/kub-cm-v1-21-0-crd-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 47
+              artifact:
+                path: argocd-core-child.json
+                sha256: 516dbb46f632b90f64d9a847047ac3d120cf21394a31ef1623db9a54a6679a4c
+                bytes: 39537
+              output: "{\n  \"metadata\": {\n    \"name\": \"kub-cm-v1-21-0-crd-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"13ed5015-4e8e-4be8-94bd-9b7d80d8ff3b\"\
+                ,\n    \"resourceVersion\": \"1982\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-08-04T12:14:57Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"argocd.argoproj.io/tracking-id\"\
+                : \"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps:argoproj.io/Application:argocd/kub-cm-v1-21-0-crd-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"fae1724d-00e3-4fdb-a5d2-6d2e471d7e43\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\\\
+                \",\\\"unitId\\\":\\\"240e4db7-0ce9-4cfc-9802-61a00055c29b\\\",\\\"\
+                unitSlug\\\":\\\"kub-cm-v1-21-0-crd-parity-app\\\",\\\"revisionNum\\\
+                \":2}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-08-04T12:14:57Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd\",\n        \"operation\": \"Update\",\n     \
+                \   \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\": \"\
+                2026-08-04T12:15:20Z\",\n        \"fieldsType\": \"FieldsV1\",\n \
+                \       \"fieldsV1\": {\n          \"f:metadata\": {\n           \
+                \ \"f:annotations\": {\n              \"f:argocd.argoproj.io/hydrate\"\
+                : {}\n            }\n          }\n        }\n      },\n      {\n \
+                \       \"manager\": \"argocd-application-controller\",\n        \"\
+                operation\": \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T12:15:27Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"cert-manager-oci\"\n    },\n    \"project\"\
+                : \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"cert-manager-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"cert-manager\",\n        \"name\": \"cert-manager\",\n       \
+                \ \"status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Healthy\"\n        }\n      },\n      {\n        \"version\":\
+                \ \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"cert-manager\",\n        \"name\": \"cert-manager-cainjector\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"Service\",\n       \
+                \ \"namespace\": \"cert-manager\",\n        \"name\": \"cert-manager-webhook\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \""
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: bcc070400c09d37ba90ad237cb85e692242b13ac2e5bb9b2b3083c49739ee642
+                bytes: 7394
+              output: "Name:               argocd/kub-cm-v1-21-0-crd-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          cert-manager-oci\nURL:                http://localhost:50444/applications/kub-cm-v1-21-0-crd-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \        STATUS  HEALTH   AGE    MESSAGE                         \
+                \                                                                \
+                \ REASON\nCustomResourceDefinition/certificaterequests.cert-manager.io\
+                \           Synced  Healthy  29s                                 \
+                \                                                                \
+                \    CRD is healthy\nClusterRole/cert-manager-cainjector         \
+                \                           Synced           29s                 \
+                \                                                                \
+                \                    \nClusterRole/cert-manager-controller-challenges\
+                \                         Synced           29s                   \
+                \                                                                \
+                \                  \nRoleBinding/cert-manager-webhook:dynamic-serving\
+                \                       Synced           29s    rolebinding.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving\
+                \ serverside-applied    \nService/cert-manager                   \
+                \                                Synced  Healthy  29s    service/cert-manager\
+                \ serverside-applied                                             \
+                \             \nCustomResourceDefinition/challenges.acme.cert-manager.io\
+                \               Synced  Healthy  29s                             \
+                \                                                                \
+                \        CRD is healthy\nCustomResourceDefinition/orders.acme.cert-manager.io\
+                \                   Synced  Healthy  29s                         \
+                \                                                                \
+                \            CRD is healthy\nClusterRole/cert-manager-controller-certificates\
+                \                       Synced           29s                     \
+                \                                                                \
+                \                \nClusterRoleBinding/cert-manager-cainjector    \
+                \                         Synced           29s                   \
+                \                                                                \
+                \                  \nClusterRoleBinding/cert-manager-controller-certificatesigningrequests\
+                \  Synced           29s                                          \
+                \                                                           \nClusterRoleBinding/cert-manager-controller-issuers\
+                \                     Synced           29s                       \
+                \                                                                \
+                \              \nCustomResourceDefinition/clusterissuers.cert-manager.io\
+                \                Synced  Healthy  29s                            \
+                \                                                                \
+                \         CRD is healthy\nService/cert-manager-cainjector        \
+                \                                Synced  Healthy  29s    service/cert-manager-cainjector\
+                \ serverside-applied                                             \
+                \  \nServiceAccount/cert-manager                                 \
+                \           Synced           29s    serviceaccount/cert-manager serverside-applied\
+                \                                                   \nServiceAccount/cert-manager-webhook\
+                \                                    Synced           29s    serviceaccount/cert-manager-webhook\
+                \ serverside-applied                                           \n\
+                RoleBinding/cert-manager-cainjector:leaderelection               \
+                \      Synced           29s    rolebinding.rbac.authorization.k8s.io/cert-manager-cainjector:leaderelection\
+                \ serverside-applied  \nService/cert-manager-webhook             \
+                \                              Synced  Healthy  29s    service/cert-manager-webhook\
+                \ serverside-applied                                             \
+                \     \nClusterRole/cert-manager-view                            \
+                \              Synced           29s                              \
+                \                                                                \
+                \       \nRole/cert-manager-webhook:dynamic-serving              \
+                \                Synced           29s    role.rbac.authorization.k8s.io/cert-manager-webhook:dynamic-serving\
+                \ serverside-applied           \nNamespace/cert-manager-oci      \
+                \                                       Synced           2m46s   \
+                \                                                                \
+                \                                \nValidatingWebhookConfiguration/cert-manager-webhook\
+                \                    Synced           29s                        \
+                \                                                                \
+                \             \nCustomResourceDefinition/certificates.cert-manager.io\
+                \                  Synced  Healthy  29s                          \
+                \                                                                \
+                \           CRD is healthy\nClusterRole/cert-manager-controller-ingress-shim\
+                \                       Synced           29s                     \
+                \                                                                \
+                \                \nClusterRole/cert-manager-webhook:subjectaccessreviews\
+                \                  Synced           29s                          \
+                \                                                                \
+                \           \nClusterRoleBinding/cert-manager-controller-clusterissuers\
+                \              Synced           29s                              \
+                \                                                                \
+                \       \nClusterRoleBinding/cert-manager-controller-orders      \
+                \                Synced           29s                            \
+                \                                                                \
+                \         \nRole/cert-manager:leaderelection                     \
+                \                  Synced           29s    role.rbac.authorization.k8s.io/cert-manager:leaderelection\
+                \ serverside-applied                    \nCustomResourceDefinition/issuers.cert-manager.io\
+                \                       Synced  Healthy  29s                     \
+                \                                                                \
+                \                CRD is healthy\nDeployment/cert-manager         \
+                \                                       Synced  Healthy  29s    deployment.apps/cert-manager\
+                \ serverside-applied                                             \
+                \     \n\u2514\u2500ReplicaSet/cert-manager-8fcb9d456            \
+                \                                Healthy  29s                    \
+                \                                                                \
+                \                 \n  \u2514\u2500Pod/cert-manager-8fcb9d456-9p2wz\
+                \                                           Healthy  29s         \
+                \                                                                \
+                \                            \nDeployment/cert-manager-cainjector\
+                \                                     Synced  Healthy  29s    deployment.apps/cert-manager-cainjector\
+                \ serverside-applied                                       \n\u2514\
+                \u2500ReplicaSet/cert-manager-cainjector-85c8bf6d8b              \
+                \                  Healthy  29s                                  \
+                \                                                                \
+                \   \n  \u2514\u2500Pod/cert-manager-cainjector-85c8bf6d8b-w6wkx \
+                \                              Healthy  29s                      \
+                \                                                                \
+                \               \nClusterRoleBinding/cert-manager-controller-approve:cert-manager-io\
+                \     Synced           29s                                       \
+                \                                                              \n\
+                RoleBinding/cert-manager:leaderelection                          \
+                \      Synced           29s    rolebinding.rbac.authorization.k8s.io/cert-manager:leaderelection\
+                \ serverside-applied             \nMutatingWebhookConfiguration/cert-manager-webhook\
+                \                      Synced           29s                      \
+                \                                                                \
+                \               \nDeployme"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-cm-v1-21-0-crd\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-cm-v1-21-0-crd\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1d8c9dd7454ce269118e4bdd7c4eb09a07b7f4168b09ac2a411ae22ba2bb9d67\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-cm-v1-21-0-crd-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-cm-v1-21-0-crd-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-cm-v1-21-0-crd\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-cm-v1-21-0-crd-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+              targetRevision: latest
+          revision: sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T12:11:44Z'
+          status: Healthy
+        summary:
+          isAppOfApps: true
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T12:14:55Z'
+          finishedAt: '2026-08-04T12:14:57Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:bd2d437b58ba8878208435de8bd7c932af925b4fbd613f88dd601fe3444b3fff
+          deployedAt: '2026-08-04T12:11:46Z'
+          deployStartedAt: '2026-08-04T12:11:44Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d
+          deployedAt: '2026-08-04T12:14:57Z'
+          deployStartedAt: '2026-08-04T12:14:55Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argobot-helm-expt-parity-kub-cm-v1-21-0-crd
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kub-cm-v1-21-0-crd-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-08-04T12:11:36Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        13\n  Resource Version:  1787\n  UID:        \
+              \       425c93b9-02bc-4685-a763-b883260e92ea\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-08-04T12:11:44Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-08-04T12:11:44Z\n\
+              \    Deployed At:        2026-08-04T12:11:46Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:bd2d437b58ba8878208435de8bd7c932af925b4fbd613f88dd601fe3444b3fff\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-08-04T12:14:55Z\n\
+              \    Deployed At:        2026-08-04T12:14:57Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T12:14:57Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-08-04T12:14:55Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\
+              \ serverside-applied\n        Name:        helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/argobot-helm-expt-parity-kub-cm-v1-21-0-crd\
+              \ serverside-applied\n        Name:        argobot-helm-expt-parity-kub-cm-v1-21-0-crd\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/kub-cm-v1-21-0-crd-parity\
+              \ serverside-applied\n        Name:        kub-cm-v1-21-0-crd-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-08-04T12:14:57Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       argobot-helm-expt-parity-kub-cm-v1-21-0-crd\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       kub-cm-v1-21-0-crd-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n    Is App\
+              \ Of Apps:  true\n  Sync:\n    Compared To:\n      Destination:\n  \
+              \      Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+              \        Target Revision:  latest\n    Revision:             sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    3m52s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:bd2d437b58ba8878208435de8bd7c932af925b4fbd613f88dd601fe3444b3fff'\n\
+              \  Normal  ResourceUpdated     3m52s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  3m52s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  3m50s  argocd-application-controller\
+              \  Sync operation to sha256:bd2d437b58ba8878208435de8bd7c932af925b4fbd613f88dd601fe3444b3fff\
+              \ succeeded\n  Normal  ResourceUpdated     3m49s  argocd-application-controller\
+              \  Updated sync status: OutOf"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+
+              3m52s       Normal   OperationStarted     application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Initiated
+              automated sync to ''sha256:bd2d437b58ba8878208435de8bd7c932af925b4fbd613f88dd601fe3444b3fff''
+
+              3m52s       Normal   ResourceUpdated      application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Updated
+              sync status:  -> OutOfSync
+
+              3m52s       Normal   ResourceUpdated      application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Updated
+              health status:  -> Healthy
+
+              3m50s       Normal   OperationCompleted   application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Sync
+              operation to sha256:bd2d437b58ba8878208435de8bd7c932af925b4fbd613f88dd601fe3444b3fff
+              succeeded
+
+              3m49s       Normal   ResourceUpdated      application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Updated
+              sync status: OutOfSync -> Synced
+
+              41s         Normal   OperationStarted     application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Initiated
+              automated sync to ''sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d''
+
+              41s         Normal   ResourceUpdated      application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Updated
+              sync status: Synced -> OutOfSync
+
+              39s         Normal   OperationCompleted   application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Sync
+              operation to sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d
+              succeeded
+
+              38s         Normal   ResourceUpdated      application/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-root.json
+                sha256: 1947c47ef37578be0fffd8f054eecfd997427b491dfb1bc7a1c76be4eb59b59e
+                bytes: 10688
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"425c93b9-02bc-4685-a763-b883260e92ea\"\
+                ,\n    \"resourceVersion\": \"2009\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-08-04T12:11:36Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/hydrate\": \"normal\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\\\",\\\
+                \"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\"\
+                :{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T12:11:36Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd\",\n        \"operation\": \"Update\",\n        \"apiVersion\"\
+                : \"argoproj.io/v1alpha1\",\n        \"time\": \"2026-08-04T12:15:37Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:metadata\": {\n            \"f:annotations\": {\n \
+                \             \"f:argocd.argoproj.io/hydrate\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-08-04T12:15:44Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:isAppOfApps\": {}\n      \
+                \      },\n            \"f:sync\": {\n              \".\": {},\n \
+                \             \"f:comparedTo\": {\n                \".\": {},\n  \
+                \              \"f:destination\": {\n                  \".\": {},\n\
+                \                  \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argobot-helm-expt-parity-kub-cm-v1-21-0-crd\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n    "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 5d8dc5306e3907091f0ee89a3f4fd619c30af825a2488d1cb84fb9b39829697b
+                bytes: 1250
+              output: "Name:               argocd/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:50566/applications/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                  STATUS\
+                \  HEALTH  AGE    MESSAGE                                        \
+                \                                           REASON\nApplication/kub-cm-v1-21-0-crd-parity\
+                \                      Synced          54s    application.argoproj.io/kub-cm-v1-21-0-crd-parity\
+                \ serverside-applied                      \nApplication/argobot-helm-expt-parity-kub-cm-v1-21-0-crd\
+                \    Synced          4m5s   application.argoproj.io/argobot-helm-expt-parity-kub-cm-v1-21-0-crd\
+                \ serverside-applied    \nApplication/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\
+                \  Synced          4m15s  application.argoproj.io/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-cm-v1-21-0-crd\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-cm-v1-21-0-crd\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1d8c9dd7454ce269118e4bdd7c4eb09a07b7f4168b09ac2a411ae22ba2bb9d67\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:fdd069fd749236ba294b5d5a1e1fea4f23a601826cd68d50afd3d1ae0cef6f8d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-cm-v1-21-0-crd-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-cm-v1-21-0-crd-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:7768762ace0ce2790b5c32fba6d0d2ab038da1582308b734a428ad73d1b6fe49\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-cm-v1-21-0-crd\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-cm-v1-21-0-crd-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# cert-manager
+
+          deployment.apps/cert-manager              1/1   1     1     47s
+
+          deployment.apps/cert-manager-cainjector   1/1   1     1     47s
+
+          deployment.apps/cert-manager-webhook      1/1   1     1     47s'
+        pods: '# cert-manager
+
+          cert-manager-8fcb9d456-9p2wz               1/1   Running   0     47s
+
+          cert-manager-cainjector-85c8bf6d8b-w6wkx   1/1   Running   0     47s
+
+          cert-manager-webhook-85d7d5497-w6dq2       1/1   Running   0     47s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||cert-manager
+    semanticNormalizations: &id004
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 46
+      configHubObjectCount: 47
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||cert-manager
+      allowedExtraInConfigHub:
+      - v1|Namespace||cert-manager
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations: *id004
+      comparisonSHA256: 3bf904a0dc8cc13d86e2fe42c35bed00a2a909cecfcba68b450453b727593b5b
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 46
+      configHubObjectCount: 47
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||cert-manager
+      allowedExtraInConfigHub:
+      - v1|Namespace||cert-manager
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 3bf904a0dc8cc13d86e2fe42c35bed00a2a909cecfcba68b450453b727593b5b
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-08-04T12:11:39Z'
+    finishedAt: '2026-08-04T12:12:06Z'
+    elapsedSeconds: 27.324
+    timeoutSeconds: 900
+    command: helm upgrade --install cert-manager /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/exact-chart-artifact/chart.tgz
+      --namespace cert-manager-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-08-04T12:12:13Z'
+    finishedAt: '2026-08-04T12:12:13Z'
+    elapsedSeconds: 0.651
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+      --base crds-enabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+      --non-interactive --namespace cert-manager-apply
+  - name: configHub-direct-crd-apply
+    result: pass
+    startedAt: '2026-08-04T12:12:15Z'
+    finishedAt: '2026-08-04T12:12:16Z'
+    elapsedSeconds: 0.262
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-crd.kubeconfig
+      --context kind-helm-expt-parity-kub-cm-v1-21-0-crd apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/confighub-rendered-crds.yaml
+    objectCount: 6
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-08-04T12:12:17Z'
+    finishedAt: '2026-08-04T12:12:17Z'
+    elapsedSeconds: 0.268
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-crd.kubeconfig
+      --context kind-helm-expt-parity-kub-cm-v1-21-0-crd apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/direct-apply-manifest.yaml
+    objectCount: 40
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-08-04T12:12:17Z'
+    finishedAt: '2026-08-04T12:12:27Z'
+    elapsedSeconds: 10.262
+    timeoutSeconds: 300
+    namespaces: cert-manager
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-08-04T12:12:48Z'
+    finishedAt: '2026-08-04T12:12:49Z'
+    elapsedSeconds: 0.637
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
+      --base crds-enabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+      --non-interactive --namespace cert-manager-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-08-04T12:12:50Z'
+    finishedAt: '2026-08-04T12:14:43Z'
+    elapsedSeconds: 113.019
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+      --space helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd --target helm-expt-parity-kub-cm-v1-21-0-crd/target
+    objectCount: 47
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-08-04T12:14:43Z'
+    finishedAt: '2026-08-04T12:14:44Z'
+    elapsedSeconds: 0.723
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+      --release-target helm-expt-parity-kub-cm-v1-21-0-crd/target
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-08-04T12:14:44Z'
+    finishedAt: '2026-08-04T12:14:44Z'
+    elapsedSeconds: 0.524
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-08-04T12:14:44Z'
+    finishedAt: '2026-08-04T12:14:47Z'
+    elapsedSeconds: 2.38
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-cm-v1-21-0-crd-kub-cm-v1-21-0-crd
+    unitCount: 47
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-08-04T12:14:47Z'
+    finishedAt: '2026-08-04T12:14:48Z'
+    elapsedSeconds: 1.032
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+      kub-cm-v1-21-0-crd-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-cert-manager-v1-21-0-crds-enabled/argo-application.json
+      --target helm-expt-parity-kub-cm-v1-21-0-crd/target --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-08-04T12:14:48Z'
+    finishedAt: '2026-08-04T12:14:48Z'
+    elapsedSeconds: 0.734
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-08-04T12:14:48Z'
+    finishedAt: '2026-08-04T12:15:19Z'
+    elapsedSeconds: 30.19
+    timeoutSeconds: 420
+    waitedSeconds: 30
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-08-04T12:15:52Z'
+    finishedAt: '2026-08-04T12:15:53Z'
+    elapsedSeconds: 0.157
+    timeoutSeconds: 180
+    namespaces: cert-manager
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: exact-source-artifact
+    result: pass
+    detail: https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kub-cm-v1-21-0-crd\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-crd.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kub-cm-v1-21-0-crd\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kub-cm-v1-21-0-crd\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-cm-v1-21-0-crd\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-cm-v1-21-0-crd.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace "
+  - name: cluster-target-discovery
+    result: pass
+    detail: "helm-expt-parity-kub-cm-v1-21-0-crd: NAME      WORKER    PROVIDERTYPE\
+      \    PARAMETERS    SPACE                               \ntarget    worker  \
+      \  OCI             {}            helm-expt-parity-kub-cm-v1-21-0-crd\ntarget\
+      \ helm-expt-parity-kub-cm-v1-21-0-crd/target: {\n  \"BridgeWorker\": {\n   \
+      \ \"BridgeWorkerID\": \"1fe5d84f-9dcc-4cb3-902c-af9ccc32c193\",\n    \"ClaimTTLSeconds\"\
+      : 60,\n    \"Condition\": \"Ready\",\n    \"CreatedAt\": \"2026-08-04T12:11:29.039112Z\"\
+      ,\n    \"CursorID\": 1940,\n    \"DisplayName\": \"worker\",\n    \"EntityType\"\
+      : \"BridgeWorker\",\n    \"LastMessage\": \"Server-hosted\",\n    \"LastSeenAt\"\
+      : \"2026-08-04T12:11:37.90271097Z\",\n    \"OrgRole\": \"none\",\n    \"OrganizationID\"\
+      : \"12c33fa8-00b1-4011-ad3e-19d56458b29c\",\n    \"Permissions\": {\n      \"\
+      Manage\": {\n        \"UserIDs\": \nargo apps helm-expt-parity-kub-cm-v1-21-0-crd-argo-apps:\
+      \ ID                      fae1724d-00e3-4fdb-a5d2-6d2e471d7e43             \
+      \                                                         \nName           \
+      \         helm-expt-parity-kub-cm-v1"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "cert-manager" does not exist. Installing it now.
+
+      NAME: cert-manager
+
+      LAST DEPLOYED: Tue Aug  4 13:11:39 2026
+
+      NAMESPACE: cert-manager-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None
+
+      NOTES:
+
+      cert-manager v1.21.0 has been deployed successfully!
+
+
+      In order to begin issuing certificates, you will need to set up a ClusterIssuer
+
+      or Issuer resource (for example, by creating a ''letsencrypt-staging'' issuer).
+
+
+      More information on the different types of issuers and how to configure them
+
+      can be found in our documentation:
+
+
+      https://cert-manager.io/docs/configuration/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Ingress resources, take a look at the `ingress-shim`
+
+      documentation:
+
+
+      https://cert-manager.io/docs/usage/ingress/
+
+
+      For information on how to configure cert-manager to automatically provision
+
+      Certificates for Gateway API resources, take a look at the `gateway resource`
+
+      documentation:
+
+
+      https://cert-manager.io'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# cert-manager
+
+      deployment.apps/cert-manager              1/1   1     1     10s
+
+      deployment.apps/cert-manager-cainjector   1/1   1     1     10s
+
+      deployment.apps/cert-manager-webhook      1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=31
+  - name: confighub-kubectl-apply-retained-namespace-cleanup
+    result: pass
+    detail: objects=4 namespaces=kube-system
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  sourceArtifact:
+    result: pass
+    resolution: artifact-addressed
+    url: https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz
+    expectedSHA256: 9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97
+    observedSHA256: 9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97
+    bytes: 153302
+    materializedPath: exact-chart-artifact/chart.tgz
+    command: curl --fail --location --retry 3 --output chart.tgz https://charts.jetstack.io/charts/cert-manager-v1.21.0.tgz
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: cert-manager
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: cert-manager

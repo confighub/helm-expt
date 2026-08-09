@@ -1,0 +1,65 @@
+Name:               argocd/kub-eso-2-8-0-d-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          external-secrets-oci
+URL:                http://localhost:51627/applications/kub-eso-2-8-0-d-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to latest (sha256:)
+Health Status:      Healthy
+
+KIND/NAME                                                                                             STATUS  HEALTH   AGE   MESSAGE  REASON
+Service/external-secrets-webhook                                                                      Synced  Healthy  49s
+ServiceAccount/external-secrets-cert-controller                                                       Synced           50s
+CustomResourceDefinition/acraccesstokens.generators.external-secrets.io                               Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/stssessiontokens.generators.external-secrets.io                              Synced  Healthy  50s            CRD is healthy
+Deployment/external-secrets-webhook                                                                   Synced  Healthy  49s
+└─ReplicaSet/external-secrets-webhook-79cd8bb46c                                                              Healthy  49s
+  └─Pod/external-secrets-webhook-79cd8bb46c-nkz4r                                                             Healthy  49s
+Role/external-secrets-leaderelection                                                                  Synced           49s
+ValidatingWebhookConfiguration/externalsecret-validate                                                Synced           49s
+CustomResourceDefinition/cloudsmithaccesstokens.generators.external-secrets.io                        Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/secretstores.external-secrets.io                                             Synced  Healthy  50s            CRD is healthy
+ClusterRole/external-secrets-view                                                                     Synced           49s
+CustomResourceDefinition/externalsecrets.external-secrets.io                                          Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/generatorstates.generators.external-secrets.io                               Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/pushsecrets.external-secrets.io                                              Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/quayaccesstokens.generators.external-secrets.io                              Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/uuids.generators.external-secrets.io                                         Synced  Healthy  50s            CRD is healthy
+Deployment/external-secrets                                                                           Synced  Healthy  49s
+└─ReplicaSet/external-secrets-6d6bf58975                                                                      Healthy  49s
+  └─Pod/external-secrets-6d6bf58975-xw4jq                                                                     Healthy  49s
+RoleBinding/external-secrets-leaderelection                                                           Synced           49s
+Namespace/external-secrets-oci                                                                        Synced           3m8s
+ServiceAccount/external-secrets-webhook                                                               Synced           50s
+CustomResourceDefinition/ecrauthorizationtokens.generators.external-secrets.io                        Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/githubaccesstokens.generators.external-secrets.io                            Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/gitlabdeploytokens.generators.external-secrets.io                            Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/webhooks.generators.external-secrets.io                                      Synced  Healthy  50s            CRD is healthy
+ClusterRole/external-secrets-controller                                                               Synced           49s
+ClusterRoleBinding/external-secrets-cert-controller                                                   Synced           49s
+CustomResourceDefinition/beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io  Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/clustergenerators.generators.external-secrets.io                             Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/grafanas.generators.external-secrets.io                                      Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/sshkeys.generators.external-secrets.io                                       Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/vaultdynamicsecrets.generators.external-secrets.io                           Synced  Healthy  50s            CRD is healthy
+Deployment/external-secrets-cert-controller                                                           Synced  Healthy  49s
+└─ReplicaSet/external-secrets-cert-controller-5d56859d75                                                      Healthy  49s
+  └─Pod/external-secrets-cert-controller-5d56859d75-q2q97                                                     Healthy  49s
+ClusterRole/external-secrets-cert-controller                                                          Synced           49s
+ClusterRole/external-secrets-edit                                                                     Synced           49s
+ValidatingWebhookConfiguration/secretstore-validate                                                   Synced           49s
+CustomResourceDefinition/clusterexternalsecrets.external-secrets.io                                   Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/clusterpushsecrets.external-secrets.io                                       Synced  Healthy  50s            CRD is healthy
+ClusterRole/external-secrets-servicebindings                                                          Synced           49s
+ClusterRoleBinding/external-secrets-controller                                                        Synced           49s
+CustomResourceDefinition/clustersecretstores.external-secrets.io                                      Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/passwords.generators.external-secrets.io                                     Synced  Healthy  50s            CRD is healthy
+ServiceAccount/external-secrets                                                                       Synced           50s
+CustomResourceDefinition/fakes.generators.external-secrets.io                                         Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/gcraccesstokens.generators.external-secrets.io                               Synced  Healthy  50s            CRD is healthy
+CustomResourceDefinition/mfas.generators.external-secrets.io                                          Synced  Healthy  50s            CRD is healthy

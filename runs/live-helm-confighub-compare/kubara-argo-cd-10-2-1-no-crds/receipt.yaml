@@ -1,0 +1,1875 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: argo-cd-argo-cd-10.2.1-no-crds-live-parity-20260605
+spec:
+  chart: argo-cd/argo-cd
+  version: 10.2.1
+  base: no-crds
+  result: pass
+  observedAt: '2026-08-04T13:54:52Z'
+  package:
+    path: data/kubara-catalog-refresh/current-candidates/packages/argo-cd/argo-cd/10.2.1
+  recipe:
+    path: data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1
+  variantRevision: data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-kub-argo-10-2-1-nc
+    kubeContext: kind-helm-expt-parity-kub-argo-10-2-1-nc
+    namespace: argocd
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: argocd-helm
+      configHubKubectlApply: argocd-apply
+      configHubOciArgo: argocd-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-kub-argo-10-2-1-nc --delete-config
+        --force
+      result: pass
+      detail: "Deleting kind cluster \"helm-expt-parity-kub-argo-10-2-1-nc\"...\n\
+        Deleting cluster \"helm-expt-parity-kub-argo-10-2-1-nc\" ...\nDeleted nodes:\
+        \ [\"helm-expt-parity-kub-argo-10-2-1-nc-control-plane\"]\n\nDeleting the\
+        \ ConfigHub config for \"helm-expt-parity-kub-argo-10-2-1-nc\"...\n  deleting\
+        \ space \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"...\n  deleting space\
+        \ \"argobot-helm-expt-parity-kub-argo-10-2-1-nc\"...\n  deleting cluster space\
+        \ \"helm-expt-parity-kub-argo-10-2-1-nc\" (worker + target)...\n\nDone."
+    clusterSpace: helm-expt-parity-kub-argo-10-2-1-nc
+    argoAppsSpace: helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+    releaseTarget: helm-expt-parity-kub-argo-10-2-1-nc/target
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-cd /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/exact-chart-artifact/chart.tgz
+        --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 51d717634a2d0098d0791629aad974dc79b1ec0de68e4adfe00005de2003ca14
+      objectCount: 52
+      liveHelmManifestSHA256: 9486aa3247889c1e53cc21db566542996d280eb79037555e51134249eb3c55da
+      liveHelmManifestObjectCount: 52
+      namespace: argocd-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     16s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     16s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     16s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     16s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     16s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     16s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   16s'
+        pods: 'argo-cd-argocd-application-controller-0                     1/1   Running     0     16s
+
+          argo-cd-argocd-applicationset-controller-57f95b4ddc-s7clq   1/1   Running     0     16s
+
+          argo-cd-argocd-dex-server-8465869b85-9rml6                  1/1   Running     0     16s
+
+          argo-cd-argocd-notifications-controller-f869bd8d-ql4hl      1/1   Running     0     16s
+
+          argo-cd-argocd-redis-569459f8b7-bffmw                       1/1   Running     0     16s
+
+          argo-cd-argocd-redis-secret-init-f8c82                      0/1   Completed   0     38s
+
+          argo-cd-argocd-repo-server-cdc79644c-t6rvj                  1/1   Running     0     16s
+
+          argo-cd-argocd-server-969d75cfc-8ksjz                       1/1   Running     0     16s'
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/packages/argo-cd/argo-cd/10.2.1
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+        --non-interactive --namespace argocd-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 64d1d45b50442fdeb0e14e933bd88652ee69d088456c645cc7a209637c871cf5
+      objectCount: 53
+      namespace: argocd-apply
+      manifestNamespaces:
+      - argocd
+      - argocd-apply
+      runtimeNamespaces: &id001
+      - argocd
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     21s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     21s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     21s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     21s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     21s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     21s
+
+          deployment.apps/argocd-applicationset-controller           1/1   1     1     2m43s
+
+          deployment.apps/argocd-dex-server                          1/1   1     1     2m43s
+
+          deployment.apps/argocd-notifications-controller            1/1   1     1     2m43s
+
+          deployment.apps/argocd-redis                               1/1   1     1     2m43s
+
+          deployment.apps/argocd-repo-server                         1/1   1     1     2m43s
+
+          deployment.apps/argocd-server                              1/1   1     1     2m43s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   20s
+
+          statefulset.apps/argocd-application-controller           1/1   2m43s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                     1/1   Running   0     20s
+
+          argo-cd-argocd-applicationset-controller-7c655d7676-4zgvp   1/1   Running   0     21s
+
+          argo-cd-argocd-dex-server-6678c94464-kdp2b                  1/1   Running   0     21s
+
+          argo-cd-argocd-notifications-controller-6b8d77655b-swzmf    1/1   Running   0     21s
+
+          argo-cd-argocd-redis-569459f8b7-x6wkk                       1/1   Running   0     21s
+
+          argo-cd-argocd-repo-server-67f47df849-2h92t                 1/1   Running   0     20s
+
+          argo-cd-argocd-server-58dfbb5959-b6nvx                      1/1   Running   0     21s
+
+          argocd-application-controller-0                             1/1   Running   0     2m38s
+
+          argocd-applicationset-controller-568dfdf75b-gfhhs           1/1   Running   0     2m38s
+
+          argocd-dex-server-856bcdf9ff-hlfrk                          1/1   Running   0     2m38s
+
+          argocd-notifications-controller-6b4fd8f59-w8cfj             1/1   Running   0     2m38s
+
+          argocd-redis-54c57dd6ff-cq2rx                               1/1   Running   0     2m38s
+
+          argocd-repo-server-fd55df7c-nbrjz                           1/1   Running   0     2m38s
+
+          argocd-server-7fdbf6ccd5-z2jhk                              1/1   Running   0     2m38s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
+        namespaces:
+        - argocd-apply
+        retainedNamespaces: &id002
+        - argocd
+        clusterScopedResources:
+          result: pass
+          objectCount: 6
+          preservedPreExistingObjects: []
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-application-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted
+
+            clusterrole.rbac.authorization.k8s.io "argo-cd-argocd-server" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-application-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "argo-cd-argocd-server" deleted'
+        retainedNamespaceResources:
+          result: pass
+          namespaces: *id002
+          objectCount: 32
+          preservedPreExistingObjects:
+          - v1|ConfigMap|argocd|argocd-cm
+          - v1|ConfigMap|argocd|argocd-cmd-params-cm
+          - v1|ConfigMap|argocd|argocd-gpg-keys-cm
+          - v1|ConfigMap|argocd|argocd-notifications-cm
+          - v1|ConfigMap|argocd|argocd-rbac-cm
+          - v1|ConfigMap|argocd|argocd-ssh-known-hosts-cm
+          - v1|ConfigMap|argocd|argocd-tls-certs-cm
+          - v1|Secret|argocd|argocd-notifications-secret
+          - v1|Secret|argocd|argocd-secret
+          - v1|ServiceAccount|argocd|argocd-application-controller
+          - v1|ServiceAccount|argocd|argocd-applicationset-controller
+          - v1|ServiceAccount|argocd|argocd-dex-server
+          - v1|ServiceAccount|argocd|argocd-notifications-controller
+          - v1|ServiceAccount|argocd|argocd-server
+          manifest: retained-namespace-apply-cleanup.yaml
+          detail: 'configmap "argo-cd-argocd-redis-health-configmap" deleted from
+            argocd namespace
+
+            deployment.apps "argo-cd-argocd-applicationset-controller" deleted from
+            argocd namespace
+
+            deployment.apps "argo-cd-argocd-dex-server" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-notifications-controller" deleted from
+            argocd namespace
+
+            deployment.apps "argo-cd-argocd-redis" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-repo-server" deleted from argocd namespace
+
+            deployment.apps "argo-cd-argocd-server" deleted from argocd namespace
+
+            networkpolicy.networking.k8s.io "argo-cd-argocd-application-controller"
+            deleted from argocd namespace
+
+            networkpolicy.networking.k8s.io "argo-cd-argocd-dex-server" deleted from
+            argocd namespace
+
+            networkpolicy.networking.k8s.io "argo-cd-argocd-notifications-controller"
+            deleted from argocd namespace
+
+            networkpolicy.networking.k8s.io "argo-cd-argocd-redis" deleted from argocd
+            namespace
+
+            networkpolicy.networking.k8s.io "argo-cd-argocd-repo-server" deleted from '
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+      controller: Argo CD OCI
+      app: kub-argo-10-2-1-nc-parity
+      manifestSHA256: 83a519aec2924f159fa1d2c19120e09cf9b1d9bd0ba93a7d7384023f59f0c26c
+      objectCount: 53
+      namespace: argocd-oci
+      manifestNamespaces:
+      - argocd
+      - argocd-oci
+      runtimeNamespaces: &id003
+      - argocd
+      ociRevision: sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-argocd-argocd-notifications-secret.yaml
+      - secret-argocd-argocd-secret.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+              targetRevision: latest
+          revision: sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T14:00:51Z'
+          status: Healthy
+        summary:
+          images:
+          - ecr-public.aws.com/docker/library/redis:8.2.3-alpine
+          - ghcr.io/dexidp/dex:v2.45.1
+          - quay.io/argoproj/argocd:v3.4.5
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T14:00:33Z'
+          finishedAt: '2026-08-04T14:00:36Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 51
+          syncResultStatusCounts:
+            Synced: 51
+        history:
+        - id: 0
+          revision: sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd
+          deployedAt: '2026-08-04T14:00:36Z'
+          deployStartedAt: '2026-08-04T14:00:33Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argo-cd-argocd-redis-health-configmap
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-cmd-params-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-gpg-keys-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-notifications-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-rbac-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-ssh-known-hosts-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ConfigMap
+          namespace: argocd
+          name: argocd-tls-certs-cm
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: argocd-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: argocd
+          name: argo-cd-argocd-applicationset-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: argocd
+          name: argo-cd-argocd-dex-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: argocd
+          name: argo-cd-argocd-redis
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: argocd
+          name: argo-cd-argocd-repo-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: argocd
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: argocd
+          name: argo-cd-argocd-repo-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: argocd
+          name: argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: argocd
+          name: argocd-applicationset-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: argocd
+          name: argocd-dex-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: argocd
+          name: argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: argocd
+          name: argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: argocd
+          name: argo-cd-argocd-applicationset-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: argocd
+          name: argo-cd-argocd-dex-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: argocd
+          name: argo-cd-argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: argocd
+          name: argo-cd-argocd-redis
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: argocd
+          name: argo-cd-argocd-repo-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: argocd
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: argocd
+          name: argo-cd-argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: argocd
+          name: argo-cd-argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: argocd
+          name: argo-cd-argocd-dex-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: argocd
+          name: argo-cd-argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: argocd
+          name: argo-cd-argocd-redis
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: argocd
+          name: argo-cd-argocd-repo-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: argocd
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-cd-argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-cd-argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: argo-cd-argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: argo-cd-argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: argocd
+          name: argo-cd-argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: argocd
+          name: argo-cd-argocd-applicationset-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: argocd
+          name: argo-cd-argocd-dex-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: argocd
+          name: argo-cd-argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: argocd
+          name: argo-cd-argocd-repo-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: argocd
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: argocd
+          name: argo-cd-argocd-application-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: argocd
+          name: argo-cd-argocd-applicationset-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: argocd
+          name: argo-cd-argocd-dex-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: argocd
+          name: argo-cd-argocd-notifications-controller
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: argocd
+          name: argo-cd-argocd-repo-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: argocd
+          name: argo-cd-argocd-server
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         kub-argo-10-2-1-nc-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-kub-argo-10-2-1-nc-argo-apps:argoproj.io/Application:argocd/kub-argo-10-2-1-nc-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              1dc6069e-d3e7-49cd-9d28-f967598abd7f\",\"spaceSlug\":\"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+              ,\"unitId\":\"0c3e8da5-bc26-4fda...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-08-04T14:00:26Z\n\
+              \  Generation:          9\n  Resource Version:    2414\n  UID:     \
+              \            c38b879b-7ff9-4efd-b0e4-3e870334c305\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-08-04T14:00:51Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-08-04T14:00:33Z\n    Deployed At:        2026-08-04T14:00:36Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T14:00:36Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-08-04T14:00:33Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/argocd-oci\
+              \ serverside-applied\n        Name:        argocd-oci\n        Namespace:\
+              \   argocd-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       networking.k8s.io\n \
+              \       Hook Phase:  Running\n        Kind:        NetworkPolicy\n \
+              \       Message:     networkpolicy.networking.k8s.io/argo-cd-argocd-repo-server\
+              \ serverside-applied\n        Name:        argo-cd-argocd-repo-server\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/argo-cd-argocd-notifications-controller\
+              \ serverside-applied\n        Name:        argo-cd-argocd-notifications-controller\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/argo-cd-argocd-application-controller\
+              \ serverside-applied\n        Name:        argo-cd-argocd-application-controller\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/argo-cd-argocd-dex-server\
+              \ serverside-applied\n        Name:        argo-cd-argocd-dex-server\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/argo-cd-argocd-server\
+              \ serverside-applied\n        Name:        argo-cd-argocd-server\n \
+              \       Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/argo-cd-argocd-redis\
+              \ serverside-applied\n        Name:        argo-cd-argocd-redis\n  \
+              \      Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       \n   \
+              \     Hook Phase:  Running\n        Kind:        ServiceAccount\n  \
+              \      Message:     serviceaccount/argocd-application-controller serverside-applied\n\
+              \        Name:        argocd-application-controller\n        Namespace:\
+              \   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/argocd-notifications-controller serverside-applied\n\
+              \        Name:        argocd-notifications-controller\n        Namespace:\
+              \   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/argocd-applicationset-controller serverside-applied\n\
+              \        Name:        argocd-applicationset-controller\n        Namespace:\
+              \   argocd\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/argocd-server serverside-applied\n        Name"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                  MESSAGE
+
+              26s         Normal   OperationStarted     application/kub-argo-10-2-1-nc-parity   Initiated
+              automated sync to ''sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd''
+
+              26s         Normal   ResourceUpdated      application/kub-argo-10-2-1-nc-parity   Updated
+              sync status:  -> OutOfSync
+
+              26s         Normal   ResourceUpdated      application/kub-argo-10-2-1-nc-parity   Updated
+              health status:  -> Healthy
+
+              23s         Normal   OperationCompleted   application/kub-argo-10-2-1-nc-parity   Sync
+              operation to sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd
+              succeeded
+
+              22s         Normal   ResourceUpdated      application/kub-argo-10-2-1-nc-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              22s         Normal   ResourceUpdated      application/kub-argo-10-2-1-nc-parity   Updated
+              health status: Healthy -> Progressing
+
+              8s          Normal   ResourceUpdated      application/kub-argo-10-2-1-nc-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 51
+              artifact:
+                path: argocd-core-child.json
+                sha256: 74e41b7c76a8497eceda0ae4775286bf824e0dd68f8033fcce0bb1226c8f0570
+                bytes: 39760
+              output: "{\n  \"metadata\": {\n    \"name\": \"kub-argo-10-2-1-nc-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c38b879b-7ff9-4efd-b0e4-3e870334c305\"\
+                ,\n    \"resourceVersion\": \"2436\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-08-04T14:00:26Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps:argoproj.io/Application:argocd/kub-argo-10-2-1-nc-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"1dc6069e-d3e7-49cd-9d28-f967598abd7f\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\\\
+                \",\\\"unitId\\\":\\\"0c3e8da5-bc26-4fda-924d-29441b9eab02\\\",\\\"\
+                unitSlug\\\":\\\"kub-argo-10-2-1-nc-parity-app\\\",\\\"revisionNum\\\
+                \":2}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-08-04T14:00:26Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd-application-controller\",\n        \"operation\"\
+                : \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-08-04T14:01:07Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd-oci\"\n    },\n    \"project\": \"\
+                default\",\n    \"syncPolicy\": {\n      \"automated\": {\n      \
+                \  \"prune\": true,\n        \"selfHeal\": true\n      },\n      \"\
+                syncOptions\": [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argo-cd-argocd-redis-health-configmap\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ConfigMap\",\n        \"namespace\"\
+                : \"argocd\",\n        \"name\": \"argocd-cm\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"ConfigMap\",\n        \"namespace\": \"argocd\"\
+                ,\n        \"name\": \"argocd-cmd-params-cm\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"ConfigMap\",\n        \"namespace\": \"argocd\"\
+                ,\n        \"name\": \"argocd-gpg-keys-cm\",\n        \"status\":\
+                \ \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"ConfigMap\",\n        \"namespace\": \"argocd\"\
+                ,\n        \"name\": \"argocd-notifications-cm\",\n        \"status\"\
+                : \"Synced\"\n      },\n      {\n        \"version\": \"v1\",\n  \
+                \      \"kind\": \"ConfigMap\",\n        \"namespace\": \"argocd\"\
+                ,\n        \"name\": \"argocd-rbac-cm\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ConfigMap\",\n        \"namespace\": \"argocd\",\n        \"name\"\
+                : \"argocd-ssh-known-hosts-cm\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"ConfigMap\",\n        \"namespace\": \"argocd\",\n    "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: eb56e260c7ad849584c8a3e4ea1059e790acfe9525f3103c4c1a05ad1e21296a
+                bytes: 10030
+              output: "Name:               argocd/kub-argo-10-2-1-nc-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd-oci\nURL:                https://argocd.example.com/applications/kub-argo-10-2-1-nc-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \        STATUS  HEALTH   AGE    MESSAGE                         \
+                \                                                                \
+                \   REASON\nNetworkPolicy/argo-cd-argocd-redis                   \
+                \                  Synced           41s    networkpolicy.networking.k8s.io/argo-cd-argocd-redis\
+                \ serverside-applied                            \nRoleBinding/argo-cd-argocd-notifications-controller\
+                \                    Synced           41s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller\
+                \ serverside-applied   \nConfigMap/argo-cd-argocd-redis-health-configmap\
+                \                        Synced           41s    configmap/argo-cd-argocd-redis-health-configmap\
+                \ serverside-applied                                 \nConfigMap/argocd-cm\
+                \                                                    Synced      \
+                \     6m11s  configmap/argocd-cm serverside-applied              \
+                \                                               \nConfigMap/argocd-notifications-cm\
+                \                                      Synced           6m11s  configmap/argocd-notifications-cm\
+                \ serverside-applied                                             \
+                \  \nConfigMap/argocd-ssh-known-hosts-cm                         \
+                \           Synced           6m11s  configmap/argocd-ssh-known-hosts-cm\
+                \ serverside-applied                                             \n\
+                Service/argo-cd-argocd-dex-server                                \
+                \      Synced  Healthy  41s    service/argo-cd-argocd-dex-server serverside-applied\
+                \                                               \nServiceAccount/argocd-dex-server\
+                \                                       Synced           6m11s  serviceaccount/argocd-dex-server\
+                \ serverside-applied                                             \
+                \   \nNetworkPolicy/argo-cd-argocd-server                        \
+                \            Synced           41s    networkpolicy.networking.k8s.io/argo-cd-argocd-server\
+                \ serverside-applied                           \nClusterRoleBinding/argo-cd-argocd-application-controller\
+                \               Synced           41s                             \
+                \                                                                \
+                \          \nNetworkPolicy/argo-cd-argocd-application-controller \
+                \                   Synced           41s    networkpolicy.networking.k8s.io/argo-cd-argocd-application-controller\
+                \ serverside-applied           \nNetworkPolicy/argo-cd-argocd-notifications-controller\
+                \                  Synced           41s    networkpolicy.networking.k8s.io/argo-cd-argocd-notifications-controller\
+                \ serverside-applied         \nClusterRole/argo-cd-argocd-notifications-controller\
+                \                    Synced           41s                        \
+                \                                                                \
+                \               \nClusterRoleBinding/argo-cd-argocd-notifications-controller\
+                \             Synced           41s                               \
+                \                                                                \
+                \        \nRole/argo-cd-argocd-notifications-controller          \
+                \                 Synced           41s    role.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller\
+                \ serverside-applied          \nServiceAccount/argocd-application-controller\
+                \                           Synced           6m11s  serviceaccount/argocd-application-controller\
+                \ serverside-applied                                    \nNetworkPolicy/argo-cd-argocd-dex-server\
+                \                                Synced           41s    networkpolicy.networking.k8s.io/argo-cd-argocd-dex-server\
+                \ serverside-applied                       \nClusterRole/argo-cd-argocd-application-controller\
+                \                      Synced           41s                      \
+                \                                                                \
+                \                 \nRole/argo-cd-argocd-applicationset-controller\
+                \                          Synced           41s    role.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller\
+                \ serverside-applied         \nConfigMap/argocd-cmd-params-cm    \
+                \                                     Synced           6m11s  configmap/argocd-cmd-params-cm\
+                \ serverside-applied                                             \
+                \     \nConfigMap/argocd-tls-certs-cm                            \
+                \              Synced           6m11s  configmap/argocd-tls-certs-cm\
+                \ serverside-applied                                             \
+                \      \nNamespace/argocd-oci                                    \
+                \               Synced           3m17s                           \
+                \                                                                \
+                \          \nService/argo-cd-argocd-repo-server                  \
+                \                   Synced  Healthy  41s    service/argo-cd-argocd-repo-server\
+                \ serverside-applied                                             \
+                \ \nServiceAccount/argocd-notifications-controller               \
+                \          Synced           6m11s  serviceaccount/argocd-notifications-controller\
+                \ serverside-applied                                  \nRoleBinding/argo-cd-argocd-applicationset-controller\
+                \                   Synced           41s    rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller\
+                \ serverside-applied  \nServiceAccount/argocd-applicationset-controller\
+                \                        Synced           6m11s  serviceaccount/argocd-applicationset-controller\
+                \ serverside-applied                                 \nServiceAccount/argocd-server\
+                \                                           Synced           6m11s\
+                \  serviceaccount/argocd-server serverside-applied               \
+                \                                     \nDeployment/argo-cd-argocd-dex-server\
+                \                                   Synced  Healthy  41s    deployment.apps/argo-cd-argocd-dex-server\
+                \ serverside-applied                                       \n\u2514\
+                \u2500ReplicaSet/argo-cd-argocd-dex-server-6678c94464            \
+                \                  Healthy  41s                                  \
+                \                                                                \
+                \     \n  \u2514\u2500Pod/argo-cd-argocd-dex-server-6678c94464-pvx7w\
+                \                             Healthy  40s                       \
+                \                                                                \
+                \                \nClusterRole/argo-cd-argocd-server             \
+                \                         Synced           41s                   \
+                \                                                                \
+                \                    \nRole/argo-cd-argocd-application-controller\
+                \                             Synced           41s    role.rbac.authorization.k8s.io/argo-cd-argocd-application-controller\
+                \ serverside-applied            \nRole/argo-cd-argocd-dex-server \
+                \                                        Synced           41s    role.rbac.authorization.k8s.io/argo-cd-argocd-dex-server\
+                \ serverside-applied                        \nRole/argo-cd-argocd-server\
+                \                                             Synced           41s\
+                \    role.rbac.authorization.k8s.io/argo-cd-argocd-server serverside-applied\
+                \                            \nConfigMap/argocd-rbac-cm          \
+                \                                     Synced           6m11s  configmap/argocd-rbac-cm\
+                \ serverside-applied                                             \
+                \           \nService/argo-cd-argocd-applicationset-controller   \
+                \                    Synced  Healthy  41s    service/argo-cd-argocd-applicationset-controller\
+                \ serverside-applied                                \nService/argo-cd-argocd-server\
+                \                                          Synced  Healthy  41s  \
+                \  service/argo-cd-argocd-server serverside-applied              \
+                \                                     \nDeployment/argo-cd"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-argo-10-2-1-nc\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-argo-10-2-1-nc\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:4d47111e3b1265c586b45c2cd8f9ebb2e3cc60cf95fc335079e58cc2dfe79049\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-argo-10-2-1-nc-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-argo-10-2-1-nc-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-argo-10-2-1-nc\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-argo-10-2-1-nc-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+              targetRevision: latest
+          revision: sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f
+          status: Synced
+        health:
+          lastTransitionTime: '2026-08-04T13:56:37Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-08-04T14:00:25Z'
+          finishedAt: '2026-08-04T14:00:26Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 3
+          syncResultStatusCounts:
+            Synced: 3
+        history:
+        - id: 0
+          revision: sha256:7ee76c99f25eee810683145855ca73790196c06a6a7624c8bdd7fbba076f3395
+          deployedAt: '2026-08-04T13:56:38Z'
+          deployStartedAt: '2026-08-04T13:56:37Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f
+          deployedAt: '2026-08-04T14:00:26Z'
+          deployStartedAt: '2026-08-04T14:00:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: argobot-helm-expt-parity-kub-argo-10-2-1-nc
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: kub-argo-10-2-1-nc-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-08-04T13:56:29Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        14\n  Resource Version:  2125\n  UID:        \
+              \       ccbde102-80e1-4ff9-b0da-cbf7a8adf2e8\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-08-04T13:56:37Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-08-04T13:56:37Z\n\
+              \    Deployed At:        2026-08-04T13:56:38Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:7ee76c99f25eee810683145855ca73790196c06a6a7624c8bdd7fbba076f3395\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-08-04T14:00:25Z\n\
+              \    Deployed At:        2026-08-04T14:00:26Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-08-04T14:00:26Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-08-04T14:00:25Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/kub-argo-10-2-1-nc-parity\
+              \ serverside-applied\n        Name:        kub-argo-10-2-1-nc-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/argobot-helm-expt-parity-kub-argo-10-2-1-nc\
+              \ serverside-applied\n        Name:        argobot-helm-expt-parity-kub-argo-10-2-1-nc\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\
+              \ serverside-applied\n        Name:        helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-08-04T14:00:26Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       argobot-helm-expt-parity-kub-argo-10-2-1-nc\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n    Group:\
+              \      argoproj.io\n    Kind:       Application\n    Name:       kub-argo-10-2-1-nc-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \  Source Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n\
+              \    Compared To:\n      Destination:\n        Namespace:  argocd\n\
+              \        Server:     https://kubernetes.default.svc\n      Source:\n\
+              \        Path:             .\n        Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+              \        Target Revision:  latest\n    Revision:             sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    4m40s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:7ee76c99f25eee810683145855ca73790196c06a6a7624c8bdd7fbba076f3395'\n\
+              \  Normal  ResourceUpdated     4m40s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  4m40s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  4m39s  argocd-application-controller\
+              \  Sync operation to sha256:7ee76c99f25eee810683145855ca73790196c06a6a7624c8bdd7fbba076f3395\
+              \ succeeded\n  Normal  ResourceUpdated     4m35s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  O"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                      MESSAGE
+
+              4m40s       Normal   OperationStarted     application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Initiated
+              automated sync to ''sha256:7ee76c99f25eee810683145855ca73790196c06a6a7624c8bdd7fbba076f3395''
+
+              4m40s       Normal   ResourceUpdated      application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Updated
+              sync status:  -> OutOfSync
+
+              4m40s       Normal   ResourceUpdated      application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Updated
+              health status:  -> Healthy
+
+              4m39s       Normal   OperationCompleted   application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Sync
+              operation to sha256:7ee76c99f25eee810683145855ca73790196c06a6a7624c8bdd7fbba076f3395
+              succeeded
+
+              4m35s       Normal   ResourceUpdated      application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Updated
+              sync status: OutOfSync -> Synced
+
+              52s         Normal   OperationStarted     application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Initiated
+              automated sync to ''sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f''
+
+              52s         Normal   ResourceUpdated      application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Updated
+              sync status: Synced -> OutOfSync
+
+              51s         Normal   OperationCompleted   application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Sync
+              operation to sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f
+              succeeded
+
+              49s         Normal   ResourceUpdated      application/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 3
+              artifact:
+                path: argocd-core-root.json
+                sha256: 25ab6e620d3ec0bd2b2f5a6fabee9af982898b65e03de12a77e61a7157a316f0
+                bytes: 10211
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ccbde102-80e1-4ff9-b0da-cbf7a8adf2e8\"\
+                ,\n    \"resourceVersion\": \"2464\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-08-04T13:56:29Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-08-04T13:56:29Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-08-04T14:01:25Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argobot-helm-expt-parity-kub-argo-10-2-1-nc\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"kub-argo-10-2-1-nc-parity\",\n        \"status\"\
+                : \"Synced\"\n      }\n    ],\n    \"sync\": {\n      \"status\":\
+                \ \"Synced\",\n      \"comparedTo\": {\n        \"source\": {\n  \
+                \        \"repoURL\": \"oci://oci.hub.confighub.c"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 2015b12ac1e6708d28a809636c8ac20118108d60c9ec44a81e0e40ddfda03309
+                bytes: 1254
+              output: "Name:               argocd/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                https://argocd.example.com/applications/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                  STATUS\
+                \  HEALTH  AGE    MESSAGE                                        \
+                \                                           REASON\nApplication/argobot-helm-expt-parity-kub-argo-10-2-1-nc\
+                \    Synced          4m55s  application.argoproj.io/argobot-helm-expt-parity-kub-argo-10-2-1-nc\
+                \ serverside-applied    \nApplication/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\
+                \  Synced          5m4s   application.argoproj.io/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\
+                \ serverside-applied  \nApplication/kub-argo-10-2-1-nc-parity    \
+                \                  Synced          67s    application.argoproj.io/kub-argo-10-2-1-nc-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 3
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"argobot-helm-expt-parity-kub-argo-10-2-1-nc\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/argobot-helm-expt-parity-kub-argo-10-2-1-nc\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:4d47111e3b1265c586b45c2cd8f9ebb2e3cc60cf95fc335079e58cc2dfe79049\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:e86acd020a9432a1aec30ef6659a79e7d8262bc002e71502764fca5b077c5c2f\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              kub-argo-10-2-1-nc-parity\",\n      \"namespace\": \"argocd\",\n   \
+              \   \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/kub-argo-10-2-1-nc-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:46183162bc19da5e8d869358f84c608afb564831c5ad524a84f91d645e0318cd\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"argobot-helm-expt-parity-kub-argo-10-2-1-nc\",\n\
+              \      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n \
+              \   {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"helm-expt-parity-kub-argo-10-2-1-nc-argo-apps\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"kub-argo-10-2-1-nc-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 3,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# argocd
+
+          deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     58s
+
+          deployment.apps/argo-cd-argocd-redis                       1/1   1     1     58s
+
+          deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     59s
+
+          deployment.apps/argo-cd-argocd-server                      1/1   1     1     58s
+
+          deployment.apps/argocd-applicationset-controller           1/1   1     1     6m29s
+
+          deployment.apps/argocd-dex-server                          1/1   1     1     6m29s
+
+          deployment.apps/argocd-notifications-controller            1/1   1     1     6m29s
+
+          deployment.apps/argocd-redis                               1/1   1     1     6m29s
+
+          deployment.apps/argocd-repo-server                         1/1   1     1     6m29s
+
+          deployment.apps/argocd-server                              1/1   1     1     6m29s
+
+          statefulset.apps/argo-cd-argocd-application-controller   1/1   58s
+
+          statefulset.apps/argocd-application-controller           1/1   6m29s'
+        pods: '# argocd
+
+          argo-cd-argocd-application-controller-0                     1/1   Running   0     58s
+
+          argo-cd-argocd-applicationset-controller-7c655d7676-vc7zc   1/1   Running   0     58s
+
+          argo-cd-argocd-dex-server-6678c94464-pvx7w                  1/1   Running   0     58s
+
+          argo-cd-argocd-notifications-controller-6b8d77655b-7mkcx    1/1   Running   0     58s
+
+          argo-cd-argocd-redis-569459f8b7-s8bkv                       1/1   Running   0     58s
+
+          argo-cd-argocd-repo-server-67f47df849-q2wvc                 1/1   Running   0     58s
+
+          argo-cd-argocd-server-58dfbb5959-x7rwj                      1/1   Running   0     58s
+
+          argocd-application-controller-0                             1/1   Running   0     6m24s
+
+          argocd-applicationset-controller-568dfdf75b-gfhhs           1/1   Running   0     6m24s
+
+          argocd-dex-server-856bcdf9ff-hlfrk                          1/1   Running   0     6m24s
+
+          argocd-notifications-controller-6b4fd8f59-w8cfj             1/1   Running   0     6m24s
+
+          argocd-redis-54c57dd6ff-cq2rx                               1/1   Running   0     6m24s
+
+          argocd-repo-server-fd55df7c-nbrjz                           1/1   Running   0     6m24s
+
+          argocd-server-7fdbf6ccd5-z2jhk                              1/1   Running   0     6m24s'
+        notReady: []
+        terminalReadinessBlockers: {}
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||argocd
+    semanticNormalizations: &id004
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 52
+      configHubObjectCount: 53
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||argocd
+      allowedExtraInConfigHub:
+      - v1|Namespace||argocd
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations: *id004
+      comparisonSHA256: c1f17aba3691f61e9be8126597ddf1e370a5ad041a853a05d29f8f2f7f7307c4
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 52
+      configHubObjectCount: 53
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||argocd
+      allowedExtraInConfigHub:
+      - v1|Namespace||argocd
+      unallowedExtraInConfigHub: []
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c1f17aba3691f61e9be8126597ddf1e370a5ad041a853a05d29f8f2f7f7307c4
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-08-04T13:56:35Z'
+    finishedAt: '2026-08-04T13:57:13Z'
+    elapsedSeconds: 38.725
+    timeoutSeconds: 900
+    command: helm upgrade --install argo-cd /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/exact-chart-artifact/chart.tgz
+      --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-08-04T13:57:20Z'
+    finishedAt: '2026-08-04T13:57:21Z'
+    elapsedSeconds: 0.698
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/packages/argo-cd/argo-cd/10.2.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+      --non-interactive --namespace argocd-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-08-04T13:57:27Z'
+    finishedAt: '2026-08-04T13:57:28Z'
+    elapsedSeconds: 0.448
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-argo-10-2-1-nc.kubeconfig
+      --context kind-helm-expt-parity-kub-argo-10-2-1-nc apply --server-side --force-conflicts
+      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/direct-apply-manifest.yaml
+    objectCount: 52
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-08-04T13:57:28Z'
+    finishedAt: '2026-08-04T13:57:49Z'
+    elapsedSeconds: 20.947
+    timeoutSeconds: 300
+    namespaces: argocd
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-08-04T13:57:59Z'
+    finishedAt: '2026-08-04T13:57:59Z'
+    elapsedSeconds: 0.457
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/packages/argo-cd/argo-cd/10.2.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+      --non-interactive --namespace argocd-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-08-04T13:58:04Z'
+    finishedAt: '2026-08-04T14:00:12Z'
+    elapsedSeconds: 128.656
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+      --space helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc --target helm-expt-parity-kub-argo-10-2-1-nc/target
+    objectCount: 53
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-08-04T14:00:12Z'
+    finishedAt: '2026-08-04T14:00:13Z'
+    elapsedSeconds: 0.8
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+      --release-target helm-expt-parity-kub-argo-10-2-1-nc/target
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-08-04T14:00:13Z'
+    finishedAt: '2026-08-04T14:00:14Z'
+    elapsedSeconds: 0.56
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-08-04T14:00:14Z'
+    finishedAt: '2026-08-04T14:00:16Z'
+    elapsedSeconds: 1.889
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-argo-10-2-1-nc-kub-argo-10-2-1-nc
+    unitCount: 51
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-08-04T14:00:16Z'
+    finishedAt: '2026-08-04T14:00:17Z'
+    elapsedSeconds: 1.022
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+      kub-argo-10-2-1-nc-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/argo-application.json
+      --target helm-expt-parity-kub-argo-10-2-1-nc/target --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-08-04T14:00:17Z'
+    finishedAt: '2026-08-04T14:00:17Z'
+    elapsedSeconds: 0.741
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-kub-argo-10-2-1-nc-argo-apps
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-08-04T14:00:18Z'
+    finishedAt: '2026-08-04T14:00:58Z'
+    elapsedSeconds: 40.945
+    timeoutSeconds: 420
+    waitedSeconds: 40
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-08-04T14:01:34Z'
+    finishedAt: '2026-08-04T14:01:34Z'
+    elapsedSeconds: 0.152
+    timeoutSeconds: 180
+    namespaces: argocd
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: exact-source-artifact
+    result: pass
+    detail: https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.2.1/argo-cd-10.2.1.tgz
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kub-argo-10-2-1-nc\" (kubeconfig:\
+      \ /Users/alexis/.confighub/clusters/helm-expt-parity-kub-argo-10-2-1-nc.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kub-argo-10-2-1-nc\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kub-argo-10-2-1-nc\"\nYou can\
+      \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kub-argo-10-2-1-nc\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-kub-argo-10-2-1-nc.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argoc"
+  - name: cluster-target-discovery
+    result: pass
+    detail: "helm-expt-parity-kub-argo-10-2-1-nc: NAME      WORKER    PROVIDERTYPE\
+      \    PARAMETERS    SPACE                               \ntarget    worker  \
+      \  OCI             {}            helm-expt-parity-kub-argo-10-2-1-nc\ntarget\
+      \ helm-expt-parity-kub-argo-10-2-1-nc/target: {\n  \"BridgeWorker\": {\n   \
+      \ \"BridgeWorkerID\": \"ab5d09c9-ef67-4c96-b95a-a7f1b630fcdd\",\n    \"ClaimTTLSeconds\"\
+      : 60,\n    \"Condition\": \"Ready\",\n    \"CreatedAt\": \"2026-08-04T13:56:21.659661Z\"\
+      ,\n    \"CursorID\": 1952,\n    \"DisplayName\": \"worker\",\n    \"EntityType\"\
+      : \"BridgeWorker\",\n    \"LastMessage\": \"Server-hosted\",\n    \"LastSeenAt\"\
+      : \"2026-08-04T13:56:30.810296052Z\",\n    \"OrgRole\": \"none\",\n    \"OrganizationID\"\
+      : \"12c33fa8-00b1-4011-ad3e-19d56458b29c\",\n    \"Permissions\": {\n      \"\
+      Manage\": {\n        \"UserIDs\":\nargo apps helm-expt-parity-kub-argo-10-2-1-nc-argo-apps:\
+      \ ID                      1dc6069e-d3e7-49cd-9d28-f967598abd7f             \
+      \                                                         \nName           \
+      \         helm-expt-parity-kub-argo-"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=3 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"argo-cd\" does not exist. Installing it now.\nNAME: argo-cd\n\
+      LAST DEPLOYED: Tue Aug  4 14:56:35 2026\nNAMESPACE: argocd-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nIn order\
+      \ to access the server UI you have the following options:\n\n1. kubectl port-forward\
+      \ service/argo-cd-argocd-server -n argocd-helm 8080:443\n\n    and then open\
+      \ the browser on http://localhost:8080 and accept the certificate\n\n2. enable\
+      \ ingress in the values file `server.ingress.enabled` and either\n      - Add\
+      \ the annotation for ssl passthrough: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough\n\
+      \      - Set the `configs.params.\"server.insecure\"` in the values file and\
+      \ terminate SSL at your ingress: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts\n\
+      \n\nAfter reaching the UI the first time you can login with username: admin\
+      \ and the random password generated during the installation."
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=3 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# argocd
+
+      deployment.apps/argo-cd-argocd-applicationset-controller   1/1   1     1     21s
+
+      deployment.apps/argo-cd-argocd-dex-server                  1/1   1     1     21s
+
+      deployment.apps/argo-cd-argocd-notifications-controller    1/1   1     1     21s
+
+      deployment.apps/argo-cd-argocd-redis                       1/1   1     1     21s
+
+      deployment.apps/argo-cd-argocd-repo-server                 1/1   1     1     21s
+
+      deployment.apps/argo-cd-argocd-server                      1/1   1     1     21s
+
+      deployment.apps/argocd-applicationset-controller           1/1   1     1     2m43s
+
+      deployment.apps/argocd-dex-server                          1/1   1     1     2m43s
+
+      deployment.apps/argocd-notifications-controller            1/1   1     1     2m43s
+
+      deployment.apps/argocd-redis                               1/1   1     1     2m43s
+
+      deployment.apps/argocd-repo-server                         1/1   1     1     2m43s
+
+      deployment.apps/argocd-server                              1/1   1     1     2m43s
+
+      statefu'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=6
+  - name: confighub-kubectl-apply-retained-namespace-cleanup
+    result: pass
+    detail: objects=32 namespaces=argocd
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=3 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  sourceArtifact:
+    result: pass
+    resolution: artifact-addressed
+    url: https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.2.1/argo-cd-10.2.1.tgz
+    expectedSHA256: 27e930e366d22c999002008ad5ec7961bda00410a84287210d0fffbee8150885
+    observedSHA256: 27e930e366d22c999002008ad5ec7961bda00410a84287210d0fffbee8150885
+    bytes: 229303
+    materializedPath: exact-chart-artifact/chart.tgz
+    command: curl --fail --location --retry 3 --output chart.tgz https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.2.1/argo-cd-10.2.1.tgz
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: applications.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: regularHelm
+      - name: applicationsets.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: regularHelm
+      - name: appprojects.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: regularHelm
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: argocd
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubKubectlApply
+      stagedCRDs:
+      - name: applications.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: configHubKubectlApply
+      - name: applicationsets.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: configHubKubectlApply
+      - name: appprojects.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: configHubKubectlApply
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: argocd
+        name: argocd-redis
+        keys:
+        - auth
+        lane: configHubOciArgo
+      stagedCRDs:
+      - name: applications.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: configHubOciArgo
+      - name: applicationsets.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: configHubOciArgo
+      - name: appprojects.argoproj.io
+        sourceVariant: default
+        sourcePath: /Users/alexis/code/helm-expt/data/kubara-catalog-refresh/current-candidates/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+        sourceSHA256: a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780
+        sourceURL: ''
+        applyMode: server-side
+        lane: configHubOciArgo
+      stagedObjectStores: []
+      stagedNamespaces: []
+      lifecycleActions: []
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kubara-argo-cd-10-2-1-no-crds/target-facts-confighub-oci.yaml
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: argocd-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: argocd-oci

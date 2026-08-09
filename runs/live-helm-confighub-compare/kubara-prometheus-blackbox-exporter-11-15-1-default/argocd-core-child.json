@@ -1,0 +1,360 @@
+{
+  "metadata": {
+    "name": "kub-bbe-11151-d-parity",
+    "namespace": "argocd",
+    "uid": "36db09ca-9f6e-46ed-a0c2-ca1221767d50",
+    "resourceVersion": "1225",
+    "generation": 9,
+    "creationTimestamp": "2026-08-04T11:05:54Z",
+    "annotations": {
+      "argocd.argoproj.io/hydrate": "normal",
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kub-bbe-11151-d-argo-apps:argoproj.io/Application:argocd/kub-bbe-11151-d-parity",
+      "confighub.com/origin": "{\"spaceId\":\"4984222a-74a3-4970-a95f-a589841fee47\",\"spaceSlug\":\"helm-expt-parity-kub-bbe-11151-d-argo-apps\",\"unitId\":\"9c6e51e9-bac1-4f12-9112-9fc53cb6d300\",\"unitSlug\":\"kub-bbe-11151-d-parity-app\",\"revisionNum\":2}"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T11:05:54Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/origin": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T11:06:06Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/hydrate": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T11:06:14Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-bbe-11151-d-kub-bbe-11151-d",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "monitoring-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "ConfigMap",
+        "namespace": "monitoring",
+        "name": "prometheus-blackbox-exporter",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "monitoring-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "monitoring",
+        "name": "prometheus-blackbox-exporter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "monitoring",
+        "name": "prometheus-blackbox-exporter",
+        "status": "Synced"
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "monitoring",
+        "name": "prometheus-blackbox-exporter",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-bbe-11151-d-kub-bbe-11151-d",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "monitoring-oci"
+        }
+      },
+      "revision": "sha256:ada6fbbbb1522d7f6cbc887afbfd50e7074499bf737689a6a62d52ead8fa8e4e"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T11:06:05Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:ada6fbbbb1522d7f6cbc887afbfd50e7074499bf737689a6a62d52ead8fa8e4e",
+        "deployedAt": "2026-08-04T11:06:02Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-bbe-11151-d-kub-bbe-11151-d",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T11:06:01Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T11:06:07Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:ada6fbbbb1522d7f6cbc887afbfd50e7074499bf737689a6a62d52ead8fa8e4e",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-bbe-11151-d-kub-bbe-11151-d",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "monitoring-oci",
+            "name": "monitoring-oci",
+            "status": "Synced",
+            "message": "namespace/monitoring-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "monitoring",
+            "name": "prometheus-blackbox-exporter",
+            "status": "Synced",
+            "message": "serviceaccount/prometheus-blackbox-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ConfigMap",
+            "namespace": "monitoring",
+            "name": "prometheus-blackbox-exporter",
+            "status": "Synced",
+            "message": "configmap/prometheus-blackbox-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "monitoring",
+            "name": "prometheus-blackbox-exporter",
+            "status": "Synced",
+            "message": "service/prometheus-blackbox-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "monitoring",
+            "name": "prometheus-blackbox-exporter",
+            "status": "Synced",
+            "message": "deployment.apps/prometheus-blackbox-exporter serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "quay.io/prometheus/blackbox-exporter:v0.28.0"
+            ]
+          }
+        ],
+        "revision": "sha256:ada6fbbbb1522d7f6cbc887afbfd50e7074499bf737689a6a62d52ead8fa8e4e",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-bbe-11151-d-kub-bbe-11151-d",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T11:06:01Z",
+      "finishedAt": "2026-08-04T11:06:02Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "quay.io/prometheus/blackbox-exporter:v0.28.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

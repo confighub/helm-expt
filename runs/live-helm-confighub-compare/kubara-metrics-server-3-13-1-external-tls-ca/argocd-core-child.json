@@ -1,0 +1,455 @@
+{
+  "metadata": {
+    "name": "kub-met-3131-tls-parity",
+    "namespace": "argocd",
+    "uid": "946f9752-92a8-48e0-9085-ba44afc859b2",
+    "resourceVersion": "1407",
+    "generation": 10,
+    "creationTimestamp": "2026-08-04T11:44:42Z",
+    "annotations": {
+      "argocd.argoproj.io/hydrate": "normal",
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kub-met-3131-tls-argo-apps:argoproj.io/Application:argocd/kub-met-3131-tls-parity",
+      "confighub.com/origin": "{\"spaceId\":\"69b386ef-f814-4d4c-a33b-a76f64986baf\",\"spaceSlug\":\"helm-expt-parity-kub-met-3131-tls-argo-apps\",\"unitId\":\"3f807842-ea1a-4f40-8682-be8690ff6110\",\"unitSlug\":\"kub-met-3131-tls-parity-app\",\"revisionNum\":2}"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T11:44:42Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/origin": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T11:45:25Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/hydrate": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T11:45:32Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:prune": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "kube-system-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "kube-system-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "kube-system-oci",
+        "name": "metrics-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "kube-system-oci",
+        "name": "metrics-server",
+        "status": "Synced"
+      },
+      {
+        "group": "apiregistration.k8s.io",
+        "version": "v1",
+        "kind": "APIService",
+        "name": "v1beta1.metrics.k8s.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "Passed: all checks passed"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "kube-system-oci",
+        "name": "metrics-server",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "system:metrics-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "system:metrics-server-aggregated-reader",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "metrics-server:system:auth-delegator",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "system:metrics-server",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "kube-system-oci",
+        "name": "metrics-server-auth-reader",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "kube-system-oci"
+        }
+      },
+      "revision": "sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T11:45:20Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca",
+        "deployedAt": "2026-08-04T11:44:51Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T11:44:49Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T11:45:25Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca",
+          "prune": true,
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Namespace",
+            "namespace": "kube-system-oci",
+            "name": "kube-system-oci",
+            "status": "Synced",
+            "message": "namespace/kube-system-oci serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "ServiceAccount",
+            "namespace": "kube-system-oci",
+            "name": "metrics-server",
+            "status": "Synced",
+            "message": "serviceaccount/metrics-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "kube-system-oci",
+            "name": "system:metrics-server",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/system:metrics-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRole",
+            "namespace": "kube-system-oci",
+            "name": "system:metrics-server-aggregated-reader",
+            "status": "Synced",
+            "message": "clusterrole.rbac.authorization.k8s.io/system:metrics-server-aggregated-reader serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "kube-system-oci",
+            "name": "metrics-server:system:auth-delegator",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "ClusterRoleBinding",
+            "namespace": "kube-system-oci",
+            "name": "system:metrics-server",
+            "status": "Synced",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "version": "v1",
+            "kind": "RoleBinding",
+            "namespace": "kube-system-oci",
+            "name": "metrics-server-auth-reader",
+            "status": "Synced",
+            "message": "rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "",
+            "version": "v1",
+            "kind": "Service",
+            "namespace": "kube-system-oci",
+            "name": "metrics-server",
+            "status": "Synced",
+            "message": "service/metrics-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apps",
+            "version": "v1",
+            "kind": "Deployment",
+            "namespace": "kube-system-oci",
+            "name": "metrics-server",
+            "status": "Synced",
+            "message": "deployment.apps/metrics-server serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync",
+            "images": [
+              "registry.k8s.io/metrics-server/metrics-server:v0.8.1"
+            ]
+          },
+          {
+            "group": "apiregistration.k8s.io",
+            "version": "v1",
+            "kind": "APIService",
+            "namespace": "kube-system-oci",
+            "name": "v1beta1.metrics.k8s.io",
+            "status": "Synced",
+            "message": "apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:9fcd91b815e45d9237f27de4f75c524e375798638a308f952afe88dca575ccca",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-met-3131-tls-kub-met-3131-tls",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T11:44:49Z",
+      "finishedAt": "2026-08-04T11:44:51Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "registry.k8s.io/metrics-server/metrics-server:v0.8.1"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

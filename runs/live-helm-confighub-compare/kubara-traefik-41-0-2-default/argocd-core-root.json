@@ -1,0 +1,332 @@
+{
+  "metadata": {
+    "name": "helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+    "namespace": "argocd",
+    "uid": "34e97cbd-7787-4ba6-a805-95af7a34607b",
+    "resourceVersion": "1665",
+    "generation": 14,
+    "creationTimestamp": "2026-08-04T13:36:18Z",
+    "annotations": {
+      "argocd.argoproj.io/hydrate": "normal",
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-kub-tra-41-0-2-d-argo-apps\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\".\",\"repoURL\":\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
+    },
+    "finalizers": [
+      "resources-finalizer.argocd.argoproj.io"
+    ],
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:36:18Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:kubectl.kubernetes.io/last-applied-configuration": {}
+            },
+            "f:finalizers": {
+              "v:\"resources-finalizer.argocd.argoproj.io\"": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:39:48Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/hydrate": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:39:54Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:isAppOfApps": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "argocd"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "ServerSideApply.ForceConflicts=true",
+        "RespectIgnoreDifferences=true",
+        "CreateNamespace=false"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "argobot-helm-expt-parity-kub-tra-41-0-2-d",
+        "status": "Synced"
+      },
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+        "status": "Synced"
+      },
+      {
+        "group": "argoproj.io",
+        "version": "v1alpha1",
+        "kind": "Application",
+        "namespace": "argocd",
+        "name": "kub-tra-41-0-2-d-parity",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "argocd"
+        }
+      },
+      "revision": "sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T13:36:25Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:5cbe1cdf11274419110dc6626e31520abc9e42f38de677f3567a6ea545d58382",
+        "deployedAt": "2026-08-04T13:36:27Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T13:36:25Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      },
+      {
+        "revision": "sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69",
+        "deployedAt": "2026-08-04T13:38:59Z",
+        "id": 1,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T13:38:57Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T13:39:48Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69",
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "ServerSideApply.ForceConflicts=true",
+            "RespectIgnoreDifferences=true",
+            "CreateNamespace=false"
+          ]
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+            "status": "Synced",
+            "message": "application.argoproj.io/helm-expt-parity-kub-tra-41-0-2-d-argo-apps serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "kub-tra-41-0-2-d-parity",
+            "status": "Synced",
+            "message": "application.argoproj.io/kub-tra-41-0-2-d-parity serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "argoproj.io",
+            "version": "v1alpha1",
+            "kind": "Application",
+            "namespace": "argocd",
+            "name": "argobot-helm-expt-parity-kub-tra-41-0-2-d",
+            "status": "Synced",
+            "message": "application.argoproj.io/argobot-helm-expt-parity-kub-tra-41-0-2-d serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:023789636f2d8c9ed883b316c2d8c59ac7937f464d997bae3c0247e7d1243b69",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-tra-41-0-2-d-argo-apps",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T13:38:57Z",
+      "finishedAt": "2026-08-04T13:38:59Z"
+    },
+    "sourceType": "Directory",
+    "summary": {},
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}

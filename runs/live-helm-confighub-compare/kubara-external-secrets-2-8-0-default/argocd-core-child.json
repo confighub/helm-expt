@@ -1,0 +1,722 @@
+{
+  "metadata": {
+    "name": "kub-eso-2-8-0-d-parity",
+    "namespace": "argocd",
+    "uid": "a1274d40-7c0f-4fa1-8d8d-808b4bf32d4e",
+    "resourceVersion": "2259",
+    "generation": 15,
+    "creationTimestamp": "2026-08-04T13:46:34Z",
+    "annotations": {
+      "argocd.argoproj.io/hydrate": "normal",
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-kub-eso-2-8-0-d-argo-apps:argoproj.io/Application:argocd/kub-eso-2-8-0-d-parity",
+      "confighub.com/origin": "{\"spaceId\":\"2f587860-8606-447e-8b8b-fa4b714a74a0\",\"spaceSlug\":\"helm-expt-parity-kub-eso-2-8-0-d-argo-apps\",\"unitId\":\"707d95cf-6303-425c-9045-e20c4395c85a\",\"unitSlug\":\"kub-eso-2-8-0-d-parity-app\",\"revisionNum\":2}"
+    },
+    "managedFields": [
+      {
+        "manager": "argocd-controller",
+        "operation": "Apply",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:46:34Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/tracking-id": {},
+              "f:confighub.com/origin": {}
+            }
+          },
+          "f:spec": {
+            "f:destination": {
+              "f:namespace": {},
+              "f:server": {}
+            },
+            "f:project": {},
+            "f:source": {
+              "f:path": {},
+              "f:repoURL": {},
+              "f:targetRevision": {}
+            },
+            "f:syncPolicy": {
+              "f:automated": {
+                "f:prune": {},
+                "f:selfHeal": {}
+              },
+              "f:syncOptions": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:47:16Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:argocd.argoproj.io/hydrate": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "argocd-application-controller",
+        "operation": "Update",
+        "apiVersion": "argoproj.io/v1alpha1",
+        "time": "2026-08-04T13:47:24Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:status": {
+            ".": {},
+            "f:controllerNamespace": {},
+            "f:health": {
+              ".": {},
+              "f:lastTransitionTime": {},
+              "f:status": {}
+            },
+            "f:history": {},
+            "f:operationState": {
+              ".": {},
+              "f:finishedAt": {},
+              "f:message": {},
+              "f:operation": {
+                ".": {},
+                "f:initiatedBy": {
+                  ".": {},
+                  "f:automated": {}
+                },
+                "f:retry": {
+                  ".": {},
+                  "f:limit": {}
+                },
+                "f:sync": {
+                  ".": {},
+                  "f:autoHealAttemptsCount": {},
+                  "f:prune": {},
+                  "f:resources": {},
+                  "f:revision": {},
+                  "f:source": {
+                    ".": {},
+                    "f:path": {},
+                    "f:repoURL": {},
+                    "f:targetRevision": {}
+                  },
+                  "f:syncOptions": {}
+                }
+              },
+              "f:phase": {},
+              "f:startedAt": {},
+              "f:syncResult": {
+                ".": {},
+                "f:resources": {},
+                "f:revision": {},
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              }
+            },
+            "f:reconciledAt": {},
+            "f:resourceHealthSource": {},
+            "f:resources": {},
+            "f:sourceHydrator": {},
+            "f:sourceType": {},
+            "f:summary": {
+              ".": {},
+              "f:images": {}
+            },
+            "f:sync": {
+              ".": {},
+              "f:comparedTo": {
+                ".": {},
+                "f:destination": {
+                  ".": {},
+                  "f:namespace": {},
+                  "f:server": {}
+                },
+                "f:source": {
+                  ".": {},
+                  "f:path": {},
+                  "f:repoURL": {},
+                  "f:targetRevision": {}
+                }
+              },
+              "f:revision": {},
+              "f:status": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "source": {
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d",
+      "path": ".",
+      "targetRevision": "latest"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "external-secrets-oci"
+    },
+    "project": "default",
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "ServerSideApply=true",
+        "CreateNamespace=true"
+      ]
+    }
+  },
+  "status": {
+    "resources": [
+      {
+        "version": "v1",
+        "kind": "Namespace",
+        "name": "external-secrets-oci",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "Service",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-webhook",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced"
+      },
+      {
+        "version": "v1",
+        "kind": "ServiceAccount",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-webhook",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "externalsecret-validate",
+        "status": "Synced"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "version": "v1",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "secretstore-validate",
+        "status": "Synced"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "acraccesstokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "cloudsmithaccesstokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "clusterexternalsecrets.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "clustergenerators.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "clusterpushsecrets.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "clustersecretstores.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "ecrauthorizationtokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "externalsecrets.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "fakes.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "gcraccesstokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "generatorstates.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "githubaccesstokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "gitlabdeploytokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "grafanas.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "mfas.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "passwords.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "pushsecrets.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "quayaccesstokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "secretstores.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "sshkeys.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "stssessiontokens.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "uuids.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "vaultdynamicsecrets.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "version": "v1",
+        "kind": "CustomResourceDefinition",
+        "name": "webhooks.generators.external-secrets.io",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy",
+          "message": "CRD is healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "apps",
+        "version": "v1",
+        "kind": "Deployment",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-webhook",
+        "status": "Synced",
+        "health": {
+          "status": "Healthy"
+        }
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-edit",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-servicebindings",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRole",
+        "name": "external-secrets-view",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "external-secrets-cert-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "ClusterRoleBinding",
+        "name": "external-secrets-controller",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "Role",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-leaderelection",
+        "status": "Synced"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "version": "v1",
+        "kind": "RoleBinding",
+        "namespace": "external-secrets-oci",
+        "name": "external-secrets-leaderelection",
+        "status": "Synced"
+      }
+    ],
+    "sync": {
+      "status": "Synced",
+      "comparedTo": {
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "destination": {
+          "server": "https://kubernetes.default.svc",
+          "namespace": "external-secrets-oci"
+        }
+      },
+      "revision": "sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a"
+    },
+    "health": {
+      "status": "Healthy",
+      "lastTransitionTime": "2026-08-04T13:47:08Z"
+    },
+    "history": [
+      {
+        "revision": "sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a",
+        "deployedAt": "2026-08-04T13:46:44Z",
+        "id": 0,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-08-04T13:46:41Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      }
+    ],
+    "reconciledAt": "2026-08-04T13:47:16Z",
+    "operationState": {
+      "operation": {
+        "sync": {
+          "revision": "sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a",
+          "prune": true,
+          "resources": [
+            {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "name": "secretstores.external-secrets.io"
+            },
+            {
+              "group": "apiextensions.k8s.io",
+              "kind": "CustomResourceDefinition",
+              "name": "clustersecretstores.external-secrets.io"
+            }
+          ],
+          "source": {
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d",
+            "path": ".",
+            "targetRevision": "latest"
+          },
+          "syncOptions": [
+            "ServerSideApply=true",
+            "CreateNamespace=true"
+          ],
+          "autoHealAttemptsCount": 1
+        },
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        }
+      },
+      "phase": "Succeeded",
+      "message": "successfully synced (all tasks run)",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "external-secrets-oci",
+            "name": "clustersecretstores.external-secrets.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/clustersecretstores.external-secrets.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "version": "v1",
+            "kind": "CustomResourceDefinition",
+            "namespace": "external-secrets-oci",
+            "name": "secretstores.external-secrets.io",
+            "status": "Synced",
+            "message": "customresourcedefinition.apiextensions.k8s.io/secretstores.external-secrets.io serverside-applied",
+            "hookPhase": "Running",
+            "syncPhase": "Sync"
+          }
+        ],
+        "revision": "sha256:c76fd9db01d3a4defb90e535ce5eeb684428a82131afdd932cd5c9478131ba4a",
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-kub-eso-2-8-0-d-kub-eso-2-8-0-d",
+          "path": ".",
+          "targetRevision": "latest"
+        }
+      },
+      "startedAt": "2026-08-04T13:46:47Z",
+      "finishedAt": "2026-08-04T13:46:48Z"
+    },
+    "sourceType": "Directory",
+    "summary": {
+      "images": [
+        "ghcr.io/external-secrets/external-secrets:v2.8.0"
+      ]
+    },
+    "resourceHealthSource": "appTree",
+    "controllerNamespace": "argocd",
+    "sourceHydrator": {}
+  }
+}
