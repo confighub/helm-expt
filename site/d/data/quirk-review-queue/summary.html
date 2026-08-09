@@ -446,17 +446,17 @@
     <article class="doc-body">
 <p>Every <code>needs-operator-decision</code> disposition across the catalog's <code>helm-pain-report.yaml</code> files. These are the quirks that are <b>disclosed</b> (so the chart is Level-2 supported) but <b>not yet reviewed/handled</b>. This queue classifies them so they can be worked down honestly - it does NOT resolve them (that is per-chart SME/build work; auto-resolving would be cosmetic).</p>
 <h2 id="headline">Headline</h2>
-<pre><code>flagged quirks: 222
-charts affected: 100
-  standard (confirm a catalog-wide home): 76
-  build    (build a variant, then handle):  13
-  sme      (genuine per-chart human call):   133</code></pre>
+<pre><code>flagged quirks: 248
+charts affected: 109
+  standard (confirm a catalog-wide home): 82
+  build    (build a variant, then handle):  20
+  sme      (genuine per-chart human call):   146</code></pre>
 <h2 id="work-it-down-in-this-order">Work it down in this order</h2>
 <h3 id="1-standard-quickest-wins-confirm-the-known-confighub-home-applies">1. Standard - quickest wins (confirm the known ConfigHub home applies)</h3>
 <p>_Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / scan+admission gate / operate policy / ingress policy)_</p>
 <table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>crds</code></td><td>32</td><td>32</td></tr>
-<tr><td><code>stateful-storage</code></td><td>12</td><td>12</td></tr>
-<tr><td><code>crd-policy</code></td><td>7</td><td>7</td></tr>
+<tr><td><code>stateful-storage</code></td><td>14</td><td>14</td></tr>
+<tr><td><code>crd-policy</code></td><td>11</td><td>11</td></tr>
 <tr><td><code>replicaset-topology</code></td><td>3</td><td>3</td></tr>
 <tr><td><code>edge-ingress-policy</code></td><td>3</td><td>3</td></tr>
 <tr><td><code>ui-ingress-policy</code></td><td>3</td><td>3</td></tr>
@@ -474,12 +474,13 @@ charts affected: 100
 <tr><td><code>provider-integration</code></td><td>1</td><td>1</td></tr></tbody></table>
 <h3 id="2-build-needs-a-concrete-variant-first">2. Build - needs a concrete variant first</h3>
 <p>_Resolution: build the variant that handles it (existing-secret base, rotation variant) then re-disposition_</p>
-<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>secret-material</code></td><td>12</td><td>12</td></tr>
+<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>secret-material</code></td><td>14</td><td>14</td></tr>
+<tr><td><code>credentials-secrets</code></td><td>5</td><td>5</td></tr>
 <tr><td><code>sync-secret-rotation</code></td><td>1</td><td>1</td></tr></tbody></table>
 <h3 id="3-sme-genuine-per-chart-judgment-could-be-benign-or-a-real-blocker">3. SME - genuine per-chart judgment (could be benign or a real blocker)</h3>
 <p>_Resolution: per-chart human call: confirm safe (lifecycle policy / explicit extension owner) OR mark an honest blocker_</p>
-<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>tpl-extension-slots</code></td><td>62</td><td>62</td></tr>
-<tr><td><code>extension-slots</code></td><td>60</td><td>60</td></tr>
+<table><thead><tr><th>Category</th><th>Flags</th><th>Charts</th></tr></thead><tbody><tr><td><code>extension-slots</code></td><td>69</td><td>69</td></tr>
+<tr><td><code>tpl-extension-slots</code></td><td>66</td><td>66</td></tr>
 <tr><td><code>tpl</code></td><td>6</td><td>6</td></tr>
 <tr><td><code>gitops-handoff</code></td><td>2</td><td>2</td></tr>
 <tr><td><code>chart-deprecation</code></td><td>2</td><td>2</td></tr>
