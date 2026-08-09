@@ -84,12 +84,12 @@ if (mode === "--generate") {
   const report = buildReport();
   check(existsSync(summaryPath), "missing hard chart production packet summary; run npm run hard-charts:packets");
   check(existsSync(packetsCsvPath), "missing hard chart production packet CSV; run npm run hard-charts:packets");
-  check(readFileSync(summaryPath, "utf8") === report.summary, "hard chart production packet summary is stale");
-  check(readFileSync(packetsCsvPath, "utf8") === report.csv, "hard chart production packet CSV is stale");
+  check(readFileSync(summaryPath, "utf8") === report.summary, "hard chart production packet summary is stale; run npm run hard-charts:packets");
+  check(readFileSync(packetsCsvPath, "utf8") === report.csv, "hard chart production packet CSV is stale; run npm run hard-charts:packets");
   const expectedFiles = new Map(report.packetFiles.map((packet) => [packet.path, packet.contents]));
   for (const [path, contents] of expectedFiles) {
     check(existsSync(path), `missing hard chart packet ${relativeRepo(path)}; run npm run hard-charts:packets`);
-    check(readFileSync(path, "utf8") === contents, `hard chart packet ${relativeRepo(path)} is stale`);
+    check(readFileSync(path, "utf8") === contents, `hard chart packet ${relativeRepo(path)} is stale; run npm run hard-charts:packets`);
   }
   console.log(`verified ${report.rows.length} hard chart production packet(s)`);
 } else {
