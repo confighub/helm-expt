@@ -86,6 +86,7 @@ Complete journeys someone has already run end to end.
 | [nim-ngc-license-read.md](./planning/nim-ngc-license-read.md) | Cited read of the NVIDIA NIM and NGC licensing surfaces with the config-plane verdict for the inference entry: retain the Apache-2.0 scaffolding, never touch the gated runtime artifacts, keys stay target facts. |
 | [pathway-route-hooks-transparently.md](./user/pathway-route-hooks-transparently.md) | Test pathway (Helm-user + SecOps × hook/lifecycle): render parity proves the non-hook objects, the hook runs as an explicit non-automatic route with a receipt, shown side-by-side vs. what Helm/Argo/Flux do silently. Anchored on fluent/fluent-bit; live proof via `npm run hook-test:proof`. |
 | [sveltos-fleet-brief.md](./planning/sveltos-fleet-brief.md) | Brief for the Sveltos fleet example in the Kubara style: a reference fleet we operate, governed changes with receipts, and a DIY path for readers with their own clusters. Chapters one and two are recorded live; the kyverno, canary, patching, and bulk-operation chapters are proven offline and await their live runs. |
+| [remote-url-oci-probe.md](./planning/remote-url-oci-probe.md) | The live probe of the Sveltos remote fetch path: which OCI artifact shapes a ClusterProfile deploys today, which two fail and why, and the Secret type and TLS the fetcher requires. Mirrored from the Sveltos repository. |
 
 ### The catalog and its contracts
 
