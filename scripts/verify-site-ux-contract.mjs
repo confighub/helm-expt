@@ -30,7 +30,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "You find out what a chart does by installing it.", "Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Unsure what your chart will install?","Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/variants.html",
@@ -294,6 +294,22 @@ for (const check of checks) {
   }
   if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(text)) {
     failures.push(`${check.file}: global generated timestamp appears on a human-facing page`);
+  }
+}
+
+// Two of the generator's notes are placed by searching the rendered page for a
+// landmark and splicing a paragraph in front of it. A stylesheet comment that
+// merely named a tag was landmark enough: the note went into the <style> block,
+// broke the rules after it, and every other gate passed. Nothing in a
+// stylesheet is ever a paragraph, so this is cheap to state and impossible to
+// argue with.
+for (const file of [...menuGuidePages, "site/index.html"]) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) continue;
+  const text = fs.readFileSync(fullPath, "utf8");
+  for (const style of text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) {
+    const stray = style[1].match(/<\/?(?:p|div|section|main|header|a|span)\b[^>]*>/);
+    if (stray) failures.push(`${file}: HTML spliced into a <style> block near ${JSON.stringify(stray[0])}`);
   }
 }
 

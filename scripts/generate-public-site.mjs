@@ -1727,6 +1727,15 @@ function homeDesignCss() {
   .sources b { color: var(--muted); font-weight: 600; }
 
   .term { background: var(--term-bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-family: var(--mono); }
+  /* The explanations belong against the command they explain. Left to the
+     injectors both notes landed as bare paragraphs at the top of the first
+     section, orphaned from the terminal they describe, which read as a layout
+     accident. Do not write an HTML tag into this comment: an injector searches
+     the rendered page for one, and it will inject into the stylesheet. */
+  .hero-term { display: grid; gap: 13px; }
+  .term-note { margin: 0; font-size: .84rem; line-height: 1.6; color: var(--muted); }
+  .term-note b { color: var(--ink); font-weight: 650; }
+  .term-note code { font-family: var(--mono); font-size: .95em; }
   .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
   .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
   .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
@@ -1808,15 +1817,16 @@ function configTestCentreHome(catalog) {
         </div>
         <div class="hero">
           <div>
-            <p class="lead">You find out what a chart does by installing it. Look first instead. See what it creates, what it needs before it runs, and <a href="./known-gaps.html">what we have not checked</a>.</p>
-            <p class="lead">Keep the result as files or OCI. ConfigHub stores the reviewed objects as shared data when your team needs changes, approvals, promotion, and rollout.</p>
-            <p class="lead">Start with a catalog package, your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML.</p>
+            <p class="lead">Unsure what your chart will install? Look first instead. See what it creates, what it needs before it runs, and <a href="./known-gaps.html">what is left over</a>.</p>
+            <p class="lead">Output files or OCI. ConfigHub stores the reviewed objects as shared data when your team needs changes, approvals, promotion, and rollout.</p>
+            <p class="lead">Input a catalog package, your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML.</p>
             <div class="cta-row">
               <a class="btn primary" href="./try.html">Try Redis</a>
               <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
             </div>
             <div class="sources"><b>start without signing in:</b> public Helm packages &middot; your Helm values &middot; AICR &middot; OCI &middot; YAML</div>
           </div>
+          <div class="hero-term">
           <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
             <pre class="term-body"><code><span class="pr">$</span> cub installer setup \\
@@ -1829,6 +1839,9 @@ Rendered 14 manifest(s) to ./redis/out/manifests
 Wrote rendered OCI ./redis-rendered.oci:latest
   objects:   sha256:... (14 manifest files)
   pull-back: <span class="ok">verified</span></code></pre>
+          </div>
+          <p class="term-note installer-command-note"><b>What this command does.</b> <code>cub installer</code> is a released, open-source plugin for the <code>cub</code> CLI. <code>cub installer setup</code> pulls a catalog package and writes its Kubernetes files locally. It does not apply them to a cluster. Use kubectl, Argo CD, or Flux for that.</p>
+          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>. No account is needed to pull and render public catalog packages.</p>
           </div>
         </div>
         <div class="sources"><b>checked:</b> <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous package pull, 14 non-secret objects, OCI pull-back, and the same selected base from Redis 25.5.3 to 27.0.0</a></div>
