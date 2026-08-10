@@ -42,12 +42,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API",
   },
-  "anonymous-oci-ci:verify": {
-    proves: "The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI->work->OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.",
-    requires: "offline",
-    disposition: "join-the-chain",
-    status: "red: summary is stale and only the live --run rewrites it, so clearing it needs a registry run",
-  },
   "helm-org:fleet:verify": {
     proves: "That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one.",
     requires: "confighub",

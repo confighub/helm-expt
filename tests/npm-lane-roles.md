@@ -9,17 +9,15 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 22
-should join the chain:   1
+lanes outside the chain: 21
+should join the chain:   0
 deliberately outside:    21
 superseded:              0
 ```
 
 ## Cheap, offline, and belongs in the chain
 
-| lane | proves | requires | status |
-| --- | --- | --- | --- |
-| `anonymous-oci-ci:verify` | The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI->work->OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt. | offline | red: summary is stale and only the live --run rewrites it, so clearing it needs a registry run |
+None.
 
 ## Deliberately outside, because it needs the world
 
