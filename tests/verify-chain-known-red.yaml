@@ -25,8 +25,6 @@ spec:
     set and is fixed in the same change that adds this file, because it belongs
     to the lane that discovered the problem.
   steps:
-    - step: "node scripts/run-catalog-promotion-review.mjs --verify"
-      error: "catalog promotion review CSV is stale; run npm run catalog:review"
     - step: "node scripts/generate-useful-base-design-queue.mjs --verify"
       error: "data/useful-base-design-queue/queue.csv is stale; run npm run top100:useful-base-qu"
     - step: "node scripts/generate-outcome-evidence-contract.mjs --verify"

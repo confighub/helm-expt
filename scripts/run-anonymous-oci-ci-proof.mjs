@@ -471,7 +471,7 @@ without a ConfigHub account.
 
 **${receipt.status.result.toUpperCase()}.** ${receipt.status.claim}
 
-The job pulled [${chart}@${version}](${spec.source.reference}) at
+The job pulled ${chart}@${version} from \`${spec.source.reference}\` at
 \`${spec.source.observedManifestDigest}\`, selected the \`${base}\` preset, and
 rendered ${spec.work.objectCount} Kubernetes objects:
 ${spec.work.objectKinds.map((kind) => `\`${kind}\``).join(", ")}.
