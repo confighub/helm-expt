@@ -1804,7 +1804,7 @@ function configTestCentreHome(catalog) {
           <div>
             <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
             <h1>A catalog of deployment previews and patterns, using standard config formats and ConfigHub</h1>
-            <p class="lead">A chart can install CRDs, run hooks, and expect Secrets that do not exist yet. You usually find out when it fails. Read the exact objects first, and read what we have not proven.</p>
+            <p class="lead">A chart can install CRDs, run hooks, and expect Secrets that do not exist yet. You usually find out when it fails. Read the exact objects first, and read <a href="./known-gaps.html">what we have not proven</a>.</p>
             <p class="lead">Keep the result as files or OCI. ConfigHub stores the reviewed objects as shared data when your team needs changes, approvals, promotion, and rollout.</p>
             <p class="lead">Start with a catalog package, your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML.</p>
             <div class="cta-row">
