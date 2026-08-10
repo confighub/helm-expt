@@ -2,5 +2,6 @@
 .helm/
 .tmp/
 runs/
+node_modules
 node_modules/
 .workbook-build/node_modules
