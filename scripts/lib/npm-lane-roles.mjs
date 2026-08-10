@@ -66,12 +66,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "not run here, needs confighub",
   },
-  "hook-replacement:proof:verify": {
-    proves: "Validates runs/hook-replacement-proof/receipt.yaml (kind, an allowed result, and presence of the neither/argo/flux legs) and byte-compares data/hook-replacement-proof/summary.md and by-controller.html against what the generator re-renders from it, so the published claim that all three recommended hook-replacement paths delivered and ran the routed Job matches the recorded run.",
-    requires: "offline",
-    disposition: "join-the-chain",
-    status: "red: runs/hook-replacement-proof/receipt.yaml was never recorded, so the proof has to run before this lane can pass",
-  },
   "kubara-catalog-full-coverage:verify": {
     proves: "Re-verifies the final Kubara catalogs 1.1.0 coverage state end to end: the immutable 120-root recipe/package baseline, the ten additive roots and their proof and installer-package receipts, the ten OCI publication receipts against the live remote manifest and layer digests, the installer-OCI catalog rows, and that data/kubara-catalog-1.1-full-coverage/receipt.yaml records pass with ten published packages.",
     requires: "confighub",
