@@ -1710,7 +1710,9 @@ function homeDesignCss() {
   .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
 
-  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center; padding: 34px 0 30px; border-top: 1px solid var(--line); }
+  .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
+  .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
@@ -1800,11 +1802,13 @@ function configTestCentreHome(catalog) {
             <a href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
+        <div class="hero-head">
+          <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
+          <h1>A catalog of deployment previews and patterns, using standard config formats and ConfigHub</h1>
+        </div>
         <div class="hero">
           <div>
-            <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
-            <h1>A catalog of deployment previews and patterns, using standard config formats and ConfigHub</h1>
-            <p class="lead">A chart can install CRDs, run hooks, and expect Secrets that do not exist yet. You usually find out when it fails. Read the exact objects first, and read <a href="./known-gaps.html">what we have not proven</a>.</p>
+            <p class="lead">You find out what a chart does by installing it. Look first instead. See what it creates, what it needs before it runs, and <a href="./known-gaps.html">what we have not checked</a>.</p>
             <p class="lead">Keep the result as files or OCI. ConfigHub stores the reviewed objects as shared data when your team needs changes, approvals, promotion, and rollout.</p>
             <p class="lead">Start with a catalog package, your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML.</p>
             <div class="cta-row">
