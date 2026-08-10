@@ -711,6 +711,52 @@ spec:
         - "recipes/kedacore/keda/2.19.0/CATALOG.md"
         - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
     -
+      chart: "kyverno/kyverno"
+      version: "3.8.1"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "live-helm-vs-confighub-parity"
+      sourceFeatures:
+        - "lookup"
+        - "generated-facts"
+        - "tpl"
+        - "capabilities"
+        - "hooks"
+        - "crds"
+        - "cluster-rbac"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 45
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+        - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+        - "recipes/kyverno/kyverno/3.8.1/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/kyverno/kyverno/3.8.1/control-points.yaml"
+        - "recipes/kyverno/kyverno/3.8.1/value-model.yaml"
+        - "recipes/kyverno/kyverno/3.8.1/helm-plan.yaml"
+        - "recipes/kyverno/kyverno/3.8.1/CATALOG.md"
+        - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+    -
       chart: "nats/nack"
       version: "0.34.0"
       variants:
@@ -1219,6 +1265,52 @@ spec:
         - "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-plan.yaml"
         - "recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md"
         - "recipes/strimzi/strimzi-kafka-operator/1.0.0/helm-pain-report.yaml"
+    -
+      chart: "traefik/traefik"
+      version: "40.2.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "live-helm-vs-confighub-parity"
+      sourceFeatures:
+        - "lookup"
+        - "generated-facts"
+        - "tpl"
+        - "capabilities"
+        - "crds"
+        - "cluster-rbac"
+        - "webhooks"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 27
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/traefik/traefik/40.2.0/helm-pain-report.yaml"
+        - "recipes/traefik/traefik/40.2.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/traefik/traefik/40.2.0/control-points.yaml"
+        - "recipes/traefik/traefik/40.2.0/value-model.yaml"
+        - "recipes/traefik/traefik/40.2.0/helm-plan.yaml"
+        - "recipes/traefik/traefik/40.2.0/CATALOG.md"
+        - "recipes/traefik/traefik/40.2.0/helm-pain-report.yaml"
     -
       chart: "vm/victoria-metrics-single"
       version: "0.39.0"

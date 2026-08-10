@@ -1049,8 +1049,13 @@ function splitFragment(value) {
   return [value.slice(0, hash), value.slice(hash)];
 }
 
+// Anything carrying a URI scheme is a reference, not a path this site can
+// resolve, so the check must recognise the shape rather than a list of schemes
+// someone remembered. The list missed oci://, which is how several charts name
+// their source registry, and those references read as broken relative links the
+// moment a page had reason to show one.
 function isExternalHref(value) {
-  return /^(https?:|mailto:|data:|javascript:|#)/.test(value);
+  return /^([a-z][a-z0-9+.-]*:|#)/i.test(value);
 }
 
 function resolveRelativeHref(baseDir, href) {

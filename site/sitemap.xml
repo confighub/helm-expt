@@ -214,6 +214,12 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/autoscaler-cluster-autoscaler-9-57-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/autoscaler-vertical-pod-autoscaler-0-9-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-controllers-k8s-ec2-chart-1-18-4-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-controllers-k8s-eks-chart-1-16-3-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-controllers-k8s-eks-chart-1-16-3-eks-inference/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-controllers-k8s-iam-chart-1-7-3-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-controllers-k8s-iam-chart-1-7-3-eks-inference/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/bitnami-apache-11-4-29-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/bitnami-apache-11-4-29-legacy/README.html</loc></url>
@@ -249,6 +255,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/bitnami-zookeeper-13-8-7-legacy/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/cloudnative-pg-cloudnative-pg-0-28-2-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/cloudpirates-nginx-0-16-1-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/cloudpirates-rabbitmq-0-21-13-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/cloudpirates-redis-0-34-11-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/coredns-coredns-1-45-2-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/crossplane-stable-crossplane-2-3-1-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/descheduler-descheduler-0-36-0-default/README.html</loc></url>
@@ -313,6 +322,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/jetstack-cert-manager-v1-20-2-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/jetstack-trust-manager-v0-22-1-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/jetstack-trust-manager-v0-22-1-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/karpenter-karpenter-1-14-0-crds-managed/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/karpenter-karpenter-1-14-0-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/karpenter-karpenter-1-14-0-eks-inference/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/kedacore-keda-2-19-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/kedacore-keda-2-19-0-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/kyverno-kyverno-3-8-1-default/README.html</loc></url>
@@ -332,6 +344,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/nats-surveyor-0-20-9-default-reviewed/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/nats-surveyor-0-20-9-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/nvidia-nvidia-device-plugin-0-19-3-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/nvidia-nvidia-device-plugin-0-19-3-eks-inference/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/open-telemetry-opentelemetry-operator-0-114-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/open-telemetry-opentelemetry-operator-0-114-0-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/opencost-opencost-2-5-21-default/README.html</loc></url>
@@ -372,6 +387,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/strimzi-strimzi-kafka-operator-1-0-0-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/traefik-traefik-40-2-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/traefik-traefik-40-2-0-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/valkey-valkey-0-11-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/velero-velero-12-0-1-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/velero-velero-12-0-1-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/vm-victoria-logs-single-0-12-5-default/README.html</loc></url>

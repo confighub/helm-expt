@@ -686,7 +686,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time
 - **Quirks & disposition:** crds;existing-secret;webhooks;capabilities;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
-- **Skill:** none
+- **Skill:** serious-chart-playbooks (docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review source/current-version drift and refresh recipe if needed
 
@@ -794,7 +794,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** required-values;tpl;storage — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
@@ -986,7 +986,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run)
 - **Quirks & disposition:** existing-secret — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review chart analysis and create a recipe candidate
 
@@ -998,7 +998,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run)
 - **Quirks & disposition:** existing-secret — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review chart analysis and create a recipe candidate
 
@@ -1010,7 +1010,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run)
 - **Quirks & disposition:** existing-secret — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review chart analysis and create a recipe candidate
 
@@ -1034,7 +1034,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
@@ -1046,7 +1046,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
@@ -1058,7 +1058,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 
@@ -1214,7 +1214,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run)
 - **Quirks & disposition:** existing-secret — exact rendered objects with render parity and receipts
-- **Skill:** none
+- **Skill:** none ()
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review chart analysis and create a recipe candidate
 

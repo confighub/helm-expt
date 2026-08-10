@@ -1,0 +1,124 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1-18-4-default"
+  labels:
+    component: "aws-controllers-k8s/ec2-chart"
+    chart: "aws-controllers-k8s/ec2-chart"
+    version: "1.18.4"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "aws-controllers-k8s/ec2-chart"
+  chart:
+    name: "aws-controllers-k8s/ec2-chart"
+    version: "1.18.4"
+    sourceRepository: "oci://public.ecr.aws/aws-controllers-k8s"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/aws-controllers-k8s/ec2-chart/1.18.4"
+    variant: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/variants/default/variant.yaml"
+    revision: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/default"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"
+    sourceLock: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/source-lock.yaml"
+    namespace: "ack-system"
+    releaseName: "ack-ec2"
+    valuesProfile: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "hooks-rendered-visible"
+  renderOutput:
+    renderedObjects: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-status"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/aws-controllers-k8s/ec2-chart/1.18.4"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/default"
+    fullModelPath:
+      - "chart/version: aws-controllers-k8s/ec2-chart@1.18.4"
+      - "recipe: recipes/aws-controllers-k8s/ec2-chart/1.18.4"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml"
+      - "rendered revision: recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"
+      - "package base: packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

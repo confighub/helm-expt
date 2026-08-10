@@ -1,0 +1,89 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0-19-3-nfd-enabled"
+  labels:
+    sourceType: "helm"
+    component: "nvidia/nvidia-device-plugin"
+    sourceVersion: "0.19.3"
+    base: "nfd-enabled"
+spec:
+  source:
+    type: "helm"
+    name: "nvidia/nvidia-device-plugin"
+    version: "0.19.3"
+    record: "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3"
+  baseVariant:
+    name: "nfd-enabled"
+    revision: "r001"
+    digest: "c20ca54b5d86089e41ff8cec4cd8d246ae937c7b3c8fe06ba5ae7c22d78998c3"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml"
+    inventory: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/object-inventory.yaml"
+    objectCount: 26
+  inputs:
+    fixedAtBuildTime:
+      - "chart=nvidia/nvidia-device-plugin"
+      - "version=0.19.3"
+      - "base=nfd-enabled"
+      - "valuesProfile=recipes/nvidia/nvidia-device-plugin/0.19.3/effective-values-nfd-enabled.yaml"
+      - "namespace=gpu-operator"
+      - "releaseName=nvidia-device-plugin"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      requirements:
+        []
+      actions:
+        []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+    sourceRecord: "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-status"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

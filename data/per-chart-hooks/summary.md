@@ -22,9 +22,9 @@ Render parity proves every **non-hook** object in a chart. A hook (a Job, a test
 | k8s-dashboard/kubernetes-dashboard@7.14.0 | routed | 1 | 0/1 | — |
 | kedacore/keda@2.19.0 | observed | 1 | 0/1 | serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity |
 | kong/kong@3.2.0 | routed | 1 | 0/1 | — |
-| kyverno/kyverno@3.8.1 | observed | 9 | 0/9 | hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity |
+| kyverno/kyverno@3.8.1 | observed | 9 | 0/9 | hook-and-secret-lifecycle |
 | projectcalico/tigera-operator@v3.32.0 | observed | 2 | 0/2 | hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity |
-| prometheus-community/kube-prometheus-stack@85.3.0 | observed | 23 | 0/23 | serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel; live-parity |
+| prometheus-community/kube-prometheus-stack@85.3.0 | observed | 23 | 0/23 | serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel |
 
 ## What each disposition means
 - **blocked** — the route is known but a precondition (images / CRDs / deps) blocks live observation.

@@ -4,7 +4,7 @@ These rows need a human support decision before catalog promotion. The generator
 does not decide the outcome. It records the evidence and the options to review.
 
 ~~~text
-decision rows: 9
+decision rows: 7
 ~~~
 
 ## bitnami/apache@11.4.29
@@ -180,55 +180,5 @@ Evidence:
 
 ```text
 recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml;recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml;recipes/grafana/pyroscope/2.0.2/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/grafana/pyroscope/2.0.2/control-points.yaml;recipes/grafana/pyroscope/2.0.2/value-model.yaml;recipes/grafana/pyroscope/2.0.2/helm-plan.yaml;recipes/grafana/pyroscope/2.0.2/CATALOG.md;recipes/grafana/pyroscope/2.0.2/helm-pain-report.yaml
-```
-
-## kyverno/kyverno@3.8.1
-
-Current evidence: live-helm-vs-confighub-parity.
-
-Named limitation: existing-secret (chart ships no Secret toggle).
-
-Known variants: default;no-crds.
-
-Source features: lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage.
-
-Options:
-
-1. Support the path by adding the required base variant, lifecycle route, target fact, or live evidence.
-2. Disclose the limitation and promote only the safe supported base.
-3. Defer promotion until the chart has a better user-shaped path.
-4. Block the path for public catalog use if it cannot be represented safely.
-
-Next action: decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle).
-
-Evidence:
-
-```text
-recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;recipes/kyverno/kyverno/3.8.1/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/kyverno/kyverno/3.8.1/control-points.yaml;recipes/kyverno/kyverno/3.8.1/value-model.yaml;recipes/kyverno/kyverno/3.8.1/helm-plan.yaml;recipes/kyverno/kyverno/3.8.1/CATALOG.md;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml
-```
-
-## traefik/traefik@40.2.0
-
-Current evidence: live-helm-vs-confighub-parity.
-
-Named limitation: existing-secret (chart ships no Secret toggle).
-
-Known variants: default;no-crds.
-
-Source features: lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage.
-
-Options:
-
-1. Support the path by adding the required base variant, lifecycle route, target fact, or live evidence.
-2. Disclose the limitation and promote only the safe supported base.
-3. Defer promotion until the chart has a better user-shaped path.
-4. Block the path for public catalog use if it cannot be represented safely.
-
-Next action: decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle).
-
-Evidence:
-
-```text
-recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml;recipes/traefik/traefik/40.2.0/helm-pain-report.yaml;recipes/traefik/traefik/40.2.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/traefik/traefik/40.2.0/control-points.yaml;recipes/traefik/traefik/40.2.0/value-model.yaml;recipes/traefik/traefik/40.2.0/helm-plan.yaml;recipes/traefik/traefik/40.2.0/CATALOG.md;recipes/traefik/traefik/40.2.0/helm-pain-report.yaml
 ```
 

@@ -32,6 +32,6 @@ A `HelmRenderIntent` is a generated config object for one real base variant in t
 
 ## Current Coverage
 
-Generated objects: 199.
+Generated objects: 245.
 
 The verifier fails if the generated CSV, JSON, summary, contract, or per-intent YAML files drift from the master matrix, variant declarations, or joined route/prerequisite data.

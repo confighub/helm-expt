@@ -447,8 +447,8 @@
 <p>These generated work orders turn the first promotion wave into assignable review tasks. They do not promote any chart by themselves.</p>
 <p>Each chart is already proof-grade and has strict parity evidence: either two-cluster kind parity or live Helm-vs-ConfigHub parity. Promotion still requires selecting the user-facing base, closing scan/gate and lifecycle questions, choosing the support scope, and linking live evidence or a routed deferral.</p>
 <h2 id="summary">Summary</h2>
-<pre><code>charts: 31
-work orders: 174</code></pre>
+<pre><code>charts: 33
+work orders: 193</code></pre>
 <h2 id="work-orders-by-chart">Work Orders By Chart</h2>
 <h3 id="aquatrivy-operator0321">aqua/trivy-operator@0.32.1</h3>
 <p>Variants: <code>default;no-crds</code>&lt;br&gt; Evidence: <code>live-helm-vs-confighub-parity</code>&lt;br&gt; Feature focus: <code>-</code>&lt;br&gt; Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade</p>
@@ -584,6 +584,17 @@ work orders: 174</code></pre>
 <tr><td>6</td><td>template-and-capability-boundary</td><td>catalog reviewer</td><td>The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base.</td></tr>
 <tr><td>7</td><td>selected-live-evidence</td><td>operator reviewer</td><td>The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale.</td></tr>
 <tr><td>8</td><td>target-scoped-support-decision</td><td>catalog owner</td><td>A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome.</td></tr></tbody></table>
+<h3 id="kyvernokyverno381">kyverno/kyverno@3.8.1</h3>
+<p>Variants: <code>default;no-crds</code>&lt;br&gt; Evidence: <code>live-helm-vs-confighub-parity</code>&lt;br&gt; Feature focus: <code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code>&lt;br&gt; Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade</p>
+<table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>variant-selection</td><td>catalog reviewer</td><td>A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason.</td></tr>
+<tr><td>2</td><td>scan-and-gate-disposition</td><td>security reviewer</td><td>Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support.</td></tr>
+<tr><td>3</td><td>crd-lifecycle</td><td>platform reviewer</td><td>CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base.</td></tr>
+<tr><td>4</td><td>storage-and-rollback-policy</td><td>operator reviewer</td><td>Storage class assumptions, PVC behavior, backup/rollback boundary, and destructive-change policy are written for the selected base.</td></tr>
+<tr><td>5</td><td>generated-fact-policy</td><td>catalog reviewer</td><td>Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base.</td></tr>
+<tr><td>6</td><td>rbac-scope</td><td>security reviewer</td><td>Cluster permissions are accepted for the support scope or a narrower base is selected.</td></tr>
+<tr><td>7</td><td>template-and-capability-boundary</td><td>catalog reviewer</td><td>The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base.</td></tr>
+<tr><td>8</td><td>selected-live-evidence</td><td>operator reviewer</td><td>The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale.</td></tr>
+<tr><td>9</td><td>target-scoped-support-decision</td><td>catalog owner</td><td>A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome.</td></tr></tbody></table>
 <h3 id="natsnack0340">nats/nack@0.34.0</h3>
 <p>Variants: <code>default;no-crds</code>&lt;br&gt; Evidence: <code>live-helm-vs-confighub-parity</code>&lt;br&gt; Feature focus: <code>-</code>&lt;br&gt; Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade</p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>variant-selection</td><td>catalog reviewer</td><td>A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason.</td></tr>
@@ -680,6 +691,18 @@ work orders: 174</code></pre>
 <tr><td>5</td><td>template-and-capability-boundary</td><td>catalog reviewer</td><td>The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base.</td></tr>
 <tr><td>6</td><td>selected-live-evidence</td><td>operator reviewer</td><td>The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale.</td></tr>
 <tr><td>7</td><td>target-scoped-support-decision</td><td>catalog owner</td><td>A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome.</td></tr></tbody></table>
+<h3 id="traefiktraefik4020">traefik/traefik@40.2.0</h3>
+<p>Variants: <code>default;no-crds</code>&lt;br&gt; Evidence: <code>live-helm-vs-confighub-parity</code>&lt;br&gt; Feature focus: <code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code>&lt;br&gt; Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade</p>
+<table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>variant-selection</td><td>catalog reviewer</td><td>A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason.</td></tr>
+<tr><td>2</td><td>scan-and-gate-disposition</td><td>security reviewer</td><td>Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support.</td></tr>
+<tr><td>3</td><td>crd-lifecycle</td><td>platform reviewer</td><td>CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base.</td></tr>
+<tr><td>4</td><td>webhook-readiness</td><td>platform reviewer</td><td>Webhook readiness, CA/material injection, failure policy, and observation path are recorded or explicitly deferred.</td></tr>
+<tr><td>5</td><td>storage-and-rollback-policy</td><td>operator reviewer</td><td>Storage class assumptions, PVC behavior, backup/rollback boundary, and destructive-change policy are written for the selected base.</td></tr>
+<tr><td>6</td><td>generated-fact-policy</td><td>catalog reviewer</td><td>Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base.</td></tr>
+<tr><td>7</td><td>rbac-scope</td><td>security reviewer</td><td>Cluster permissions are accepted for the support scope or a narrower base is selected.</td></tr>
+<tr><td>8</td><td>template-and-capability-boundary</td><td>catalog reviewer</td><td>The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base.</td></tr>
+<tr><td>9</td><td>selected-live-evidence</td><td>operator reviewer</td><td>The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale.</td></tr>
+<tr><td>10</td><td>target-scoped-support-decision</td><td>catalog owner</td><td>A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome.</td></tr></tbody></table>
 <h3 id="vmvictoria-metrics-single0390">vm/victoria-metrics-single@0.39.0</h3>
 <p>Variants: <code>default;default-reviewed</code>&lt;br&gt; Evidence: <code>live-helm-vs-confighub-parity</code>&lt;br&gt; Feature focus: <code>-</code>&lt;br&gt; Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade</p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>variant-selection</td><td>catalog reviewer</td><td>A selected variant is named from default;default-reviewed and the non-selected variants have a written promote/defer reason.</td></tr>

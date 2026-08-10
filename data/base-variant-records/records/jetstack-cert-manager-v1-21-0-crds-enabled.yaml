@@ -1,0 +1,89 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "jetstack-cert-manager-v1-21-0-crds-enabled"
+  labels:
+    sourceType: "helm"
+    component: "jetstack/cert-manager"
+    sourceVersion: "v1.21.0"
+    base: "crds-enabled"
+spec:
+  source:
+    type: "helm"
+    name: "jetstack/cert-manager"
+    version: "v1.21.0"
+    record: "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
+  baseVariant:
+    name: "crds-enabled"
+    revision: "r001"
+    digest: "6a20eb804503d1208b2bc49fef6c802e21ee03b82fc87af980e36c1328f34e2d"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+    inventory: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/object-inventory.yaml"
+    objectCount: 46
+  inputs:
+    fixedAtBuildTime:
+      - "chart=jetstack/cert-manager"
+      - "version=v1.21.0"
+      - "base=crds-enabled"
+      - "valuesProfile=recipes/jetstack/cert-manager/v1.21.0/effective-values-crds-enabled.yaml"
+      - "namespace=cert-manager"
+      - "releaseName=cert-manager"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      requirements:
+        []
+      actions:
+        []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+    sourceRecord: "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-status"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

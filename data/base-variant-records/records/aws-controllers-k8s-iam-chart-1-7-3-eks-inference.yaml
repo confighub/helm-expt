@@ -1,0 +1,154 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1-7-3-eks-inference"
+  labels:
+    sourceType: "helm"
+    component: "aws-controllers-k8s/iam-chart"
+    sourceVersion: "1.7.3"
+    base: "eks-inference"
+spec:
+  source:
+    type: "helm"
+    name: "aws-controllers-k8s/iam-chart"
+    version: "1.7.3"
+    record: "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
+  baseVariant:
+    name: "eks-inference"
+    revision: "r001"
+    digest: "cfb019239b2a3c17d763b54da9071c8e84767d2c851356beaea43fbce2ecbd84"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
+    inventory: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+    objectCount: 19
+  inputs:
+    fixedAtBuildTime:
+      - "chart=aws-controllers-k8s/iam-chart"
+      - "version=1.7.3"
+      - "base=eks-inference"
+      - "valuesProfile=recipes/aws-controllers-k8s/iam-chart/1.7.3/effective-values-eks-inference.yaml"
+      - "namespace=ack-system"
+      - "releaseName=ack-iam"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    installTime:
+      -
+        name: "aws-creds"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "credentials"
+          name: "aws-creds"
+          namespace: "ack-system"
+          purpose: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
+      -
+        name: "requiredValues-1"
+        type: "requiredValues"
+        required: true
+        details:
+          installerInput: "awsRegion"
+          path: "aws.region"
+          purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+          source: "platform-profile"
+          stage: "pre-apply"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredSecrets:
+          -
+            keys:
+              - "credentials"
+            name: "aws-creds"
+            namespace: "ack-system"
+            purpose: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
+        requiredValues:
+          -
+            installerInput: "awsRegion"
+            path: "aws.region"
+            purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+            source: "platform-profile"
+            stage: "pre-apply"
+      requirements:
+        -
+          category: "secret"
+          name: "ack-system/aws-creds"
+          namespace: "ack-system"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
+          check: ""
+          declarationPath: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+        -
+          category: "value"
+          name: "aws.region"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+          check: ""
+          declarationPath: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+      actions:
+        []
+      coverage:
+        state: "attached"
+        reason: "2 target prerequisites declared by this base."
+        declarationSource: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+        nextAction: ""
+    sourceRecord: "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-status"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

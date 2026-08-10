@@ -52,8 +52,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "limitation-decision-first"
-    userStatus: "proof-grade-with-named-limitation"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "2/2"
@@ -62,8 +62,8 @@ spec:
       gitopsLive: "1/2"
       liveParity: "1/2"
     featureSummary: "generated-secrets;crds;webhooks;required-values;values-schema;extension-slots"
-    hardGap: "existing-secret (chart ships no Secret toggle)"
-    nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
+    hardGap: "-"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/traefik/traefik/40.2.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0"

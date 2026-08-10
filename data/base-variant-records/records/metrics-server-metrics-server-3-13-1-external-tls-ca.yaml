@@ -1,0 +1,160 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "metrics-server-metrics-server-3-13-1-external-tls-ca"
+  labels:
+    sourceType: "helm"
+    component: "metrics-server/metrics-server"
+    sourceVersion: "3.13.1"
+    base: "external-tls-ca"
+spec:
+  source:
+    type: "helm"
+    name: "metrics-server/metrics-server"
+    version: "3.13.1"
+    record: "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-1-external-tls-ca.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1"
+  baseVariant:
+    name: "external-tls-ca"
+    revision: "r001"
+    digest: "cc3f8af059e9dc6738892daabfd1520260bba0188b2b726994a77b32146345a9"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
+    inventory: "recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/rendered/object-inventory.yaml"
+    objectCount: 9
+  inputs:
+    fixedAtBuildTime:
+      - "chart=metrics-server/metrics-server"
+      - "version=3.13.1"
+      - "base=external-tls-ca"
+      - "valuesProfile=recipes/metrics-server/metrics-server/3.13.1/effective-values-external-tls-ca.yaml"
+      - "namespace=kube-system"
+      - "releaseName=metrics-server"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "metrics-server-tls"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "metrics-server-tls"
+          namespace: "kube-system"
+          purpose: "metrics-server serving certificate"
+      -
+        name: "requiredValues-1"
+        type: "requiredValues"
+        required: true
+        details:
+          installerInput: "apiServiceCaBundle"
+          installerInputFormat: "base64-pem"
+          path: "apiService.caBundle"
+          purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+          regularHelmFormat: "pem"
+          source: "metrics-server-tls-ca"
+          stage: "pre-render"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredSecrets:
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "metrics-server-tls"
+            namespace: "kube-system"
+            purpose: "metrics-server serving certificate"
+        requiredValues:
+          -
+            installerInput: "apiServiceCaBundle"
+            installerInputFormat: "base64-pem"
+            path: "apiService.caBundle"
+            purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+            regularHelmFormat: "pem"
+            source: "metrics-server-tls-ca"
+            stage: "pre-render"
+      requirements:
+        -
+          category: "secret"
+          name: "kube-system/metrics-server-tls"
+          namespace: "kube-system"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "metrics-server serving certificate"
+          check: ""
+          declarationPath: "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
+        -
+          category: "value"
+          name: "apiService.caBundle"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+          check: ""
+          declarationPath: "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
+      actions:
+        []
+      coverage:
+        state: "attached"
+        reason: "2 target prerequisites declared by this base."
+        declarationSource: "recipes/metrics-server/metrics-server/3.13.1/variants/external-tls-ca/variant.yaml"
+        nextAction: ""
+    sourceRecord: "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-1-external-tls-ca.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-status"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

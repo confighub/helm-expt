@@ -55,6 +55,20 @@
     },
     {
       "chart": "argo-cd/argo-cd",
+      "version": "10.1.3",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "argo-cd/argo-cd",
+      "version": "10.2.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "argo-cd/argo-cd",
       "version": "9.5.15",
       "top_skill": "live-parity",
       "matched_signals": [
@@ -187,6 +201,27 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "aws-controllers-k8s/ec2-chart",
+      "version": "1.18.4",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "aws-controllers-k8s/eks-chart",
+      "version": "1.16.3",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "aws-controllers-k8s/iam-chart",
+      "version": "1.7.3",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
@@ -776,6 +811,27 @@
       ]
     },
     {
+      "chart": "cloudpirates/nginx",
+      "version": "0.16.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "cloudpirates/rabbitmq",
+      "version": "0.21.13",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "cloudpirates/redis",
+      "version": "0.34.11",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "coredns/coredns",
       "version": "1.45.2",
       "top_skill": "hook-and-secret-lifecycle",
@@ -981,6 +1037,50 @@
           "title": "Live Parity",
           "doc": "docs/skills/live-parity.md",
           "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "external-secrets/external-secrets",
+      "version": "2.7.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
+    },
+    {
+      "chart": "external-secrets/external-secrets",
+      "version": "2.8.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
         }
       ]
     },
@@ -1234,6 +1334,13 @@
     },
     {
       "chart": "grafana/alloy",
+      "version": "1.11.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "grafana/alloy",
       "version": "1.8.2",
       "top_skill": "target-facts-and-lifecycle",
       "matched_signals": [
@@ -1321,6 +1428,28 @@
           "title": "Live Parity",
           "doc": "docs/skills/live-parity.md",
           "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "grafana/loki",
+      "version": "7.1.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
         }
       ]
     },
@@ -1683,6 +1812,28 @@
       ]
     },
     {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.21.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
+    },
+    {
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "top_skill": "live-parity",
@@ -1695,6 +1846,42 @@
           "title": "Live Parity",
           "doc": "docs/skills/live-parity.md",
           "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "karpenter/karpenter",
+      "version": "1.14.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "crds+webhooks",
+        "webhooks",
+        "crds"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
         }
       ]
     },
@@ -1766,6 +1953,13 @@
       ]
     },
     {
+      "chart": "kyverno/kyverno-policies",
+      "version": "3.8.2",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "kyverno/kyverno",
       "version": "3.8.1",
       "top_skill": "hook-and-secret-lifecycle",
@@ -1801,6 +1995,22 @@
           "title": "Live Parity",
           "doc": "docs/skills/live-parity.md",
           "why": "has live, GitOps/OCI, or two-cluster parity work"
+        }
+      ]
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.2",
+      "top_skill": "hook-and-secret-lifecycle",
+      "matched_signals": [
+        "hooks:8"
+      ],
+      "applicable": [
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
         }
       ]
     },
@@ -1850,6 +2060,20 @@
       ]
     },
     {
+      "chart": "longhorn/longhorn",
+      "version": "1.12.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "metallb/metallb",
+      "version": "0.16.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "metrics-server/metrics-server",
       "version": "3.13.0",
       "top_skill": "hook-and-secret-lifecycle",
@@ -1878,6 +2102,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "metrics-server/metrics-server",
+      "version": "3.13.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "minio-operator/operator",
@@ -1965,6 +2196,20 @@
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
         }
       ]
+    },
+    {
+      "chart": "nvidia/nvidia-device-plugin",
+      "version": "0.19.3",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "oauth2-proxy/oauth2-proxy",
+      "version": "10.7.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "open-telemetry/opentelemetry-operator",
@@ -2059,6 +2304,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "policy-reporter/policy-reporter",
+      "version": "3.9.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "projectcalico/tigera-operator",
@@ -2197,6 +2449,64 @@
       ]
     },
     {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "87.15.1",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "hooks:2"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "87.19.2",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious",
+        "hooks:2"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "hook-and-secret-lifecycle",
+          "title": "Hook And Secret Lifecycle",
+          "doc": "docs/skills/hook-and-secret-lifecycle.md",
+          "why": "uses Helm hooks, generated Secret material, or webhook certificates"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
+    },
+    {
       "chart": "prometheus-community/kube-state-metrics",
       "version": "7.4.0",
       "top_skill": "hook-and-secret-lifecycle",
@@ -2257,6 +2567,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "prometheus-community/prometheus-blackbox-exporter",
+      "version": "11.15.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "prometheus-community/prometheus-node-exporter",
@@ -2496,6 +2813,13 @@
       ]
     },
     {
+      "chart": "stakater/reloader",
+      "version": "2.2.14",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "strimzi/strimzi-kafka-operator",
       "version": "1.0.0",
       "top_skill": "target-facts-and-lifecycle",
@@ -2571,8 +2895,38 @@
       ]
     },
     {
+      "chart": "traefik/traefik",
+      "version": "41.0.2",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "valkey/valkey",
+      "version": "0.11.0",
+      "top_skill": "target-facts-and-lifecycle",
+      "matched_signals": [
+        "stateful-storage"
+      ],
+      "applicable": [
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        }
+      ]
+    },
+    {
       "chart": "velero/velero",
       "version": "12.0.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "velero/velero",
+      "version": "12.1.0",
       "top_skill": "none",
       "matched_signals": [],
       "applicable": []

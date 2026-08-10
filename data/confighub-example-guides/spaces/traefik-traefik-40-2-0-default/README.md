@@ -32,7 +32,7 @@ The current catalog record does not identify an extra Secret, CRD, or setup step
 
 The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
-Known limitation: existing-secret (chart ships no Secret toggle).
+For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
 
 ## Why you can trust it
 
@@ -98,8 +98,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known limitation: existing-secret (chart ships no Secret toggle).
-- Resolve the named gap first: existing-secret (chart ships no Secret toggle).
+- Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
 

@@ -10,15 +10,15 @@ The generator emits files only for real base rows in the master matrix. Candidat
 
 | Measure | Count |
 | --- | ---: |
-| Real base rows in the matrix | 199 |
-| Generated HelmRenderIntent objects | 199 |
+| Real base rows in the matrix | 245 |
+| Generated HelmRenderIntent objects | 245 |
 | Candidate/custom-discussion rows skipped | 67 |
-| Intents with lifecycle routes attached | 14 |
-| Intents whose routes name the Argo CD and Flux handling | 14 |
-| Intents with target facts declared by the base variant | 67 |
+| Intents with lifecycle routes attached | 21 |
+| Intents whose routes name the Argo CD and Flux handling | 21 |
+| Intents with target facts declared by the base variant | 89 |
 | Intents with action records from observed prerequisite failures | 27 |
-| Lifecycle contract gaps named for follow-up | 3 |
-| Target-prerequisite reviews still missing | 132 |
+| Lifecycle contract gaps named for follow-up | 10 |
+| Target-prerequisite reviews still missing | 156 |
 
 ## Contract Coverage
 
@@ -26,14 +26,14 @@ Every render intent now states whether its lifecycle and target-prerequisite con
 
 | Lifecycle state | Intents |
 | --- | ---: |
-| `actionable-gap` | 3 |
+| `actionable-gap` | 10 |
 | `attached` | 12 |
-| `no-route-required` | 184 |
+| `no-route-required` | 223 |
 
 | Target-prerequisite state | Intents |
 | --- | ---: |
-| `actionable-gap` | 132 |
-| `attached` | 56 |
+| `actionable-gap` | 156 |
+| `attached` | 78 |
 | `attached-with-observed-actions` | 11 |
 
 Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need a route or target-prerequisite review.
@@ -42,8 +42,8 @@ Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need 
 
 | Layer | Intents |
 | --- | ---: |
-| F2a | 95 |
-| F2b | 104 |
+| F2a | 124 |
+| F2b | 121 |
 
 ## Model
 

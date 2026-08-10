@@ -32,7 +32,7 @@ The current catalog record does not identify an extra Secret, CRD, or setup step
 
 The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Known limitation: existing-secret (chart ships no Secret toggle).
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config.
 
 ## Why you can trust it
 
@@ -99,8 +99,7 @@ After upload, create environment versions with `cub variant create` and move rev
 ## Limits
 
 - GitOps OCI live evidence is watch for this preset config.
-- Known limitation: existing-secret (chart ships no Secret toggle).
-- Resolve the named gap first: existing-secret (chart ships no Secret toggle).
+- Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
 

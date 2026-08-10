@@ -41,7 +41,7 @@ The catalog records 8 extra steps for this preset. We call these lifecycle route
 - **During upgrade:** The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.
 - **When uninstalling:** The run removes both completed Jobs and their temporary RBAC objects.
 
-Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
+Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -118,7 +118,6 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known limitation: existing-secret (chart ships no Secret toggle).
 - Production support is target-scoped. Use production support decisions before claiming production readiness.
 
 ## Source files

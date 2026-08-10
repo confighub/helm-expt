@@ -459,7 +459,7 @@
 <h2 id="what-to-check">What to check</h2>
 <p>The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.</p>
 <p>The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.</p>
-<p>CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Known limitation: existing-secret (chart ships no Secret toggle).</p>
+<p>CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 6 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
@@ -493,7 +493,7 @@
 <tr><td>Live Helm vs ConfigHub comparison</td><td><code>watch</code></td></tr>
 <tr><td>Lifecycle routes</td><td><code>0</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
-<ul><li>GitOps OCI live evidence is watch for this preset config.</li><li>Known limitation: existing-secret (chart ships no Secret toggle).</li><li>Resolve the named gap first: existing-secret (chart ships no Secret toggle).</li></ul>
+<ul><li>GitOps OCI live evidence is watch for this preset config.</li><li>Do not present as a catalog-supported chart until promotion review and support decisions are recorded.</li></ul>
 <h2 id="source-files">Source files</h2>
 <ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html">https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/traefik-traefik-40-2-0-no-crds.yaml"><code>data/helm-render-intents/intents/traefik-traefik-40-2-0-no-crds.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"><code>recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/traefik/traefik/40.2.0/bases/no-crds"><code>packages/traefik/traefik/40.2.0/bases/no-crds</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/traefik-traefik-40-2-0/no-crds"><code>site/sh/traefik-traefik-40-2-0/no-crds</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
     </article>

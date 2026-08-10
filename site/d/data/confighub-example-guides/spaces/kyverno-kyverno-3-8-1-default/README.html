@@ -460,7 +460,7 @@
 <p>This preset needs a setup step before Kubernetes can accept all of the rendered objects. The step is described below and is part of the tested install path.</p>
 <p>The catalog records 5 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.</p>
 <ul><li><b>Before install:</b> preserve-ordering.</li><li><b>Before install:</b> target-facts-or-preflight.</li><li><b>After install:</b> Test hooks become checks, not hidden install behavior.</li><li><b>During upgrade:</b> Resource migration after upgrade must be recorded as an upgrade operation.</li><li><b>When uninstalling:</b> Webhook and APIService cleanup belongs to delete or rollback policy.</li></ul>
-<p>Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).</p>
+<p>Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 69 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Hook and lifecycle work is counted and linked to the route record.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
@@ -498,7 +498,7 @@
 <tr><td>Live Helm vs ConfigHub comparison</td><td><code>yes</code></td></tr>
 <tr><td>Lifecycle routes</td><td><code>5</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
-<ul><li>Known limitation: existing-secret (chart ships no Secret toggle).</li><li>Resolve the named gap first: existing-secret (chart ships no Secret toggle).</li></ul>
+<ul><li>Do not present as a catalog-supported chart until promotion review and support decisions are recorded.</li></ul>
 <h2 id="source-files">Source files</h2>
 <ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html">https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"><code>data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/default"><code>packages/kyverno/kyverno/3.8.1/bases/default</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/kyverno-kyverno-3-8-1/default"><code>site/sh/kyverno-kyverno-3-8-1/default</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
     </article>

@@ -70,6 +70,6 @@ Evidence:
 
 ## Current boundary
 
-These are the three canonical examples, not an automatic classification of all 203 base records. Unclassified records continue to say `not-yet-classified`; the generator does not guess from a chart name. Add a classification only when ownership, target scope, policy, rollout choice, and evidence are known.
+These are the three canonical examples, not an automatic classification of all 249 base records. Unclassified records continue to say `not-yet-classified`; the generator does not guess from a chart name. Add a classification only when ownership, target scope, policy, rollout choice, and evidence are known.
 
 Source: [config-catalog/operational-class-examples.yaml](../../config-catalog/operational-class-examples.yaml). Schema: [schemas/operational-class-examples.schema.json](../../schemas/operational-class-examples.schema.json).

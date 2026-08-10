@@ -449,9 +449,9 @@
 <p>It is a routing surface over the maintained top-100 data. It does not replace the detailed proof lanes, production decisions, or per-chart catalog pages.</p>
 <h2 id="summary">Summary</h2>
 <table><thead><tr><th>Answer</th><th>Charts</th><th>Meaning</th></tr></thead><tbody><tr><td>yes-public-catalog</td><td>20</td><td>Public catalog entry exists. Choose a base and check the lane you need.</td></tr>
-<tr><td>not-yet-public-catalog-proof-ready</td><td>37</td><td>Proof exists and variants look useful, but catalog promotion review is not done.</td></tr>
+<tr><td>not-yet-public-catalog-proof-ready</td><td>39</td><td>Proof exists and variants look useful, but catalog promotion review is not done.</td></tr>
 <tr><td>not-yet-user-ready</td><td>37</td><td>The current proof is too default-shaped; design a useful base variant first.</td></tr>
-<tr><td>decision-needed-first</td><td>9</td><td>A named gap must be supported, disclosed, deferred, or blocked before promotion.</td></tr></tbody></table>
+<tr><td>decision-needed-first</td><td>7</td><td>A named gap must be supported, disclosed, deferred, or blocked before promotion.</td></tr></tbody></table>
 <h2 id="how-to-use-this">How To Use This</h2>
 <ol><li>Find the chart in <a href="../../../../data/chart-use-guide/chart-use-guide.csv">chart-use-guide.csv</a>.</li><li>Read the <code>answer</code> and <code>first_action</code> columns.</li><li>Open the per-chart <code>catalog_path</code> for variants and receipts.</li><li>Open the <code>helm_pain_report</code> when the row has a hard gap or quirk.</li><li>Check production decisions before using any row as a production-support claim.</li></ol>
 <h2 id="public-catalog-rows">Public Catalog Rows</h2>
@@ -479,7 +479,9 @@
 
 <h2 id="first-promotion-wave">First Promotion Wave</h2>
 <p>These proof-ready rows are the first strict top-100 promotion-review packet. They are good candidates for turning machine proof into a public catalog offer, but they still need review, production disposition, and selected live evidence before their catalog status changes.</p>
-<table><thead><tr><th>Chart</th><th>Recommended base</th><th>Evidence</th><th>First step</th></tr></thead><tbody><tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
+<table><thead><tr><th>Chart</th><th>Recommended base</th><th>Evidence</th><th>First step</th></tr></thead><tbody><tr><td><code>traefik/traefik@40.2.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
+<tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
+<tr><td><code>kyverno/kyverno@3.8.1</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
 <tr><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
 <tr><td><code>kedacore/keda@2.19.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
 <tr><td><code>prometheus-community/kube-state-metrics@7.4.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>
@@ -513,10 +515,10 @@
 <p>Detailed gaps are in <a href="../top100-promotion-wave/summary.html">../top100-promotion-wave/summary.md</a>.</p>
 <h2 id="next-non-catalog-rows">Next Non-Catalog Rows</h2>
 <p>These rows have proof value but need promotion review, a better base variant, or a limitation decision before they should be treated as catalog offers.</p>
-<table><thead><tr><th>Chart</th><th>Answer</th><th>Evidence</th><th>First action</th></tr></thead><tbody><tr><td><code>traefik/traefik@40.2.0</code></td><td><code>decision-needed-first</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Decide whether to support, disclose, defer, or block the hard gap before promotion.</td></tr>
+<table><thead><tr><th>Chart</th><th>Answer</th><th>Evidence</th><th>First action</th></tr></thead><tbody><tr><td><code>traefik/traefik@40.2.0</code></td><td><code>not-yet-public-catalog-proof-ready</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Run catalog promotion review and add selected live lanes for the base a user would actually try.</td></tr>
 <tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>not-yet-public-catalog-proof-ready</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Run catalog promotion review and add selected live lanes for the base a user would actually try.</td></tr>
 <tr><td><code>gitlab/gitlab-runner@0.89.0</code></td><td><code>not-yet-user-ready</code></td><td><code>in-confighub-proof</code></td><td>Design at least one useful base variant before catalog promotion.</td></tr>
-<tr><td><code>kyverno/kyverno@3.8.1</code></td><td><code>decision-needed-first</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Decide whether to support, disclose, defer, or block the hard gap before promotion.</td></tr>
+<tr><td><code>kyverno/kyverno@3.8.1</code></td><td><code>not-yet-public-catalog-proof-ready</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Run catalog promotion review and add selected live lanes for the base a user would actually try.</td></tr>
 <tr><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td><code>not-yet-public-catalog-proof-ready</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Run catalog promotion review and add selected live lanes for the base a user would actually try.</td></tr>
 <tr><td><code>fluent/fluent-bit@0.57.6</code></td><td><code>not-yet-user-ready</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Design at least one useful base variant before catalog promotion.</td></tr>
 <tr><td><code>runix/pgadmin4@1.62.0</code></td><td><code>not-yet-user-ready</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Design at least one useful base variant before catalog promotion.</td></tr>

@@ -1,0 +1,89 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "traefik-traefik-41-0-2-default"
+  labels:
+    sourceType: "helm"
+    component: "traefik/traefik"
+    sourceVersion: "41.0.2"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "traefik/traefik"
+    version: "41.0.2"
+    record: "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "f1a4f9f6dd5e2ec87b135a38de6022ba8c85a9c7210a9873d7f821f46d407602"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 31
+  inputs:
+    fixedAtBuildTime:
+      - "chart=traefik/traefik"
+      - "version=41.0.2"
+      - "base=default"
+      - "valuesProfile=recipes/traefik/traefik/41.0.2/effective-values.yaml"
+      - "namespace=traefik"
+      - "releaseName=traefik"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      requirements:
+        []
+      actions:
+        []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+    sourceRecord: "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-status"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

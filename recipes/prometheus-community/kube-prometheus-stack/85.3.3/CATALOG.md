@@ -33,7 +33,7 @@ for exact base-variant evidence.
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 |
 | Feature summary | hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen |
-| Hard gap | existing-secret (chart ships no Secret toggle) |
+| Hard gap | - |
 | Next action | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 
 ## Artifact Chain
