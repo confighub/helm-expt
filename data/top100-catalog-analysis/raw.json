@@ -1528,7 +1528,7 @@
       "package_path": "packages/karpenter/karpenter/1.14.0",
       "recipe_path": "recipes/karpenter/karpenter/1.14.0/recipe.yaml",
       "catalog_path": "recipes/karpenter/karpenter/1.14.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/karpenter/karpenter/1.14.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -1771,7 +1771,7 @@
       "package_path": "packages/valkey/valkey/0.11.0",
       "recipe_path": "recipes/valkey/valkey/0.11.0/recipe.yaml",
       "catalog_path": "recipes/valkey/valkey/0.11.0/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/valkey/valkey/0.11.0/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2203,7 +2203,7 @@
       "package_path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
       "recipe_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/aws-controllers-k8s/ec2-chart/1.18.4/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2230,7 +2230,7 @@
       "package_path": "packages/aws-controllers-k8s/eks-chart/1.16.3",
       "recipe_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2257,7 +2257,7 @@
       "package_path": "packages/aws-controllers-k8s/iam-chart/1.7.3",
       "recipe_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml",
       "catalog_path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2311,7 +2311,7 @@
       "package_path": "packages/cloudpirates/nginx/0.16.1",
       "recipe_path": "recipes/cloudpirates/nginx/0.16.1/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/nginx/0.16.1/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2338,7 +2338,7 @@
       "package_path": "packages/cloudpirates/rabbitmq/0.21.13",
       "recipe_path": "recipes/cloudpirates/rabbitmq/0.21.13/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/cloudpirates/rabbitmq/0.21.13/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2365,7 +2365,7 @@
       "package_path": "packages/cloudpirates/redis/0.34.11",
       "recipe_path": "recipes/cloudpirates/redis/0.34.11/recipe.yaml",
       "catalog_path": "recipes/cloudpirates/redis/0.34.11/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",
@@ -2716,7 +2716,7 @@
       "package_path": "packages/nvidia/nvidia-device-plugin/0.19.3",
       "recipe_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml",
       "catalog_path": "recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md",
-      "helm_pain_report": ""
+      "helm_pain_report": "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-pain-report.yaml"
     },
     {
       "proof_surface": "next80-proof-grade",

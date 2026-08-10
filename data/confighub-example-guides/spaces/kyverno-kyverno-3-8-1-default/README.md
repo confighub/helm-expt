@@ -38,7 +38,7 @@ The catalog records 5 extra steps for this preset. We call these lifecycle route
 - **During upgrade:** Resource migration after upgrade must be recorded as an upgrade operation.
 - **When uninstalling:** Webhook and APIService cleanup belongs to delete or rollback policy.
 
-Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
+Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -109,8 +109,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known limitation: existing-secret (chart ships no Secret toggle).
-- Resolve the named gap first: existing-secret (chart ships no Secret toggle).
+- Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
 

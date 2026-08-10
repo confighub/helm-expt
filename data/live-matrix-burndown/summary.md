@@ -19,27 +19,27 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 389 |
-| Variants needing at least one live command | 96 |
-| Live commands remaining | 142 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 73 |
-| Two-cluster kind parity commands | 69 |
-| Watch/blocked/review rows | 135 |
-| Ready-to-run todo rows | 7 |
+| Matrix variant rows | 464 |
+| Variants needing at least one live command | 142 |
+| Live commands remaining | 234 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 119 |
+| Two-cluster kind parity commands | 115 |
+| Watch/blocked/review rows | 165 |
+| Ready-to-run todo rows | 69 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 69 |
-| `live-parity` | 73 |
+| `kind-parity` | 115 |
+| `live-parity` | 119 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 59 |
-| `todo` | 27 |
+| `blocked` | 65 |
+| `todo` | 113 |
 | `watch` | 56 |
 
 ## By Run Readiness
@@ -48,9 +48,9 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 16 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 71 |
-| `ready-to-run` | 7 |
-| `review-target-first` | 46 |
+| `model-or-stage-first` | 95 |
+| `ready-to-run` | 69 |
+| `review-target-first` | 52 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -92,13 +92,26 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
+| argo-cd/argo-cd | 10.1.3 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default |
+| argo-cd/argo-cd | 10.2.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default |
+| aws-controllers-k8s/ec2-chart | 1.18.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default |
+| aws-controllers-k8s/ec2-chart | 1.18.4 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference |
+| aws-controllers-k8s/eks-chart | 1.16.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default |
+| aws-controllers-k8s/eks-chart | 1.16.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference |
+| aws-controllers-k8s/iam-chart | 1.7.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default |
+| aws-controllers-k8s/iam-chart | 1.7.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference |
 | bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
+| cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
+| cloudpirates/rabbitmq | 0.21.13 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/rabbitmq/0.21.13 --base default |
+| cloudpirates/redis | 0.34.11 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base default |
+| grafana/alloy | 1.11.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/alloy/1.11.0 --base default |
 | grafana/grafana | 10.5.15 | customer-acme-prod | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod |
 | grafana/grafana | 10.5.15 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east |
+| grafana/loki | 7.1.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/loki/7.1.0 --base default |
 | hashicorp/vault | 0.32.0 | regulated-prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east |
 | hashicorp/vault | 0.32.0 | staging-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base staging-us-east |
-| prometheus-community/prometheus | 29.8.0 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base prod-us-east |
-| prometheus-community/prometheus | 29.8.0 | staging-eu-west | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base staging-eu-west |
+| jetstack/cert-manager | v1.21.0 | crds-enabled | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager/v1.21.0 --base crds-enabled |
+| jetstack/cert-manager | v1.21.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/jetstack/cert-manager/v1.21.0 --base default |
 
 ## Full Queue
 

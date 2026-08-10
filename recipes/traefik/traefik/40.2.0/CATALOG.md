@@ -28,13 +28,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | limitation-decision-first |
-| User status | proof-grade-with-named-limitation |
+| Adoption bucket | promote-after-review |
+| User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | generated-secrets;crds;webhooks;required-values;values-schema;extension-slots |
-| Hard gap | existing-secret (chart ships no Secret toggle) |
-| Next action | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| Hard gap | - |
+| Next action | run catalog promotion review |
 
 ## Artifact Chain
 

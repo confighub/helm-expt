@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "top100-catalog-analysis");
 const rawPath = join(outputRoot, "raw.json");
@@ -132,7 +133,11 @@ function artifactEntries({ top500ByChart, productionByChart, latestByChart }) {
         not_yet_enabled: notYetEnabledFor(chart),
         package_path: spec.installerPackage?.path ?? "",
         recipe_path: spec.recipe?.path ?? relativeRepo(root),
-        catalog_path: relativeRepo(join(root, "CATALOG.md")),
+        // An immutable release root keeps its catalog views in an overlay, so
+        // the in-root path does not exist for those entries and every link to it
+        // is broken. Resolving through catalogDerivedPath is the one-line fix the
+        // catalog entry contract brief called for.
+        catalog_path: relativeRepo(catalogDerivedPath(root, "CATALOG.md")),
         helm_pain_report: spec.recipe?.helmPainReport ?? "",
       };
     })

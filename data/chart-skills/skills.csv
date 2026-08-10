@@ -1,5 +1,7 @@
 chart,version,applicable_skills,skill_count,top_skill,matched_signals,skill_docs
 aqua/trivy-operator,0.32.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
+argo-cd/argo-cd,10.1.3,,0,none,,
+argo-cd/argo-cd,10.2.1,,0,none,,
 argo-cd/argo-cd,9.5.15,live-parity,1,live-parity,live,docs/skills/live-parity.md
 argo-cd/argo-cd,9.5.17,live-parity,1,live-parity,live,docs/skills/live-parity.md
 argo-cd/argo-events,2.4.21,live-parity,1,live-parity,live,docs/skills/live-parity.md
@@ -8,6 +10,9 @@ argo-cd/argo-workflows,1.0.14,hook-and-secret-lifecycle; live-parity,2,hook-and-
 argo-cd/argocd-image-updater,1.2.2,live-parity,1,live-parity,live,docs/skills/live-parity.md
 autoscaler/cluster-autoscaler,9.57.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 autoscaler/vertical-pod-autoscaler,0.9.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
+aws-controllers-k8s/ec2-chart,1.18.4,,0,none,,
+aws-controllers-k8s/eks-chart,1.16.3,,0,none,,
+aws-controllers-k8s/iam-chart,1.7.3,,0,none,,
 aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,,0,none,,
 bitnami/apache,11.4.29,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/contour,21.1.4,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,hooks:1; generated-facts; crds; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
@@ -31,6 +36,9 @@ bitnami/redis,27.0.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 bitnami/spark,10.0.3,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 bitnami/zookeeper,13.8.7,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 cloudnative-pg/cloudnative-pg,0.28.2,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; generated-facts; webhooks; crds; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+cloudpirates/nginx,0.16.1,,0,none,,
+cloudpirates/rabbitmq,0.21.13,,0,none,,
+cloudpirates/redis,0.34.11,,0,none,,
 coredns/coredns,1.45.2,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 crossplane-stable/crossplane,2.3.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 descheduler/descheduler,0.36.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
@@ -42,6 +50,8 @@ elastic/logstash,8.5.1,target-facts-and-lifecycle; live-parity,2,target-facts-an
 elastic/metricbeat,8.5.1,target-facts-and-lifecycle,1,target-facts-and-lifecycle,stateful-storage,docs/skills/target-facts-and-lifecycle.md
 external-dns/external-dns,1.21.1,target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,3,target-facts-and-lifecycle,crds; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 external-secrets/external-secrets,2.5.0,serious-chart-playbooks; large-app-evidence-funnel; live-parity,3,serious-chart-playbooks,named-serious; live,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+external-secrets/external-secrets,2.7.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
+external-secrets/external-secrets,2.8.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 fairwinds-stable/goldilocks,10.3.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; generated-facts; webhooks; crds; lookup; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 fairwinds-stable/vpa,4.11.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; webhooks; crds; lookup; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 falcosecurity/falco,9.0.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,lookup; stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
@@ -50,9 +60,11 @@ fluent/fluent-bit,0.57.6,hook-and-secret-lifecycle; live-parity,2,hook-and-secre
 fluent/fluentd,0.5.3,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 gatekeeper/gatekeeper,3.22.2,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; hooks:4; webhooks; crds; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 gitlab/gitlab-runner,0.89.0,hook-and-secret-lifecycle; target-facts-and-lifecycle,2,hook-and-secret-lifecycle,generated-facts,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md
+grafana/alloy,1.11.0,,0,none,,
 grafana/alloy,1.8.2,target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,3,target-facts-and-lifecycle,crds; stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 grafana/grafana,10.5.15,live-parity,1,live-parity,live,docs/skills/live-parity.md
 grafana/loki,7.0.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,named-serious; generated-facts; webhooks; crds; lookup; stateful-storage; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+grafana/loki,7.1.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 grafana/promtail,6.17.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 grafana/pyroscope,2.0.2,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,generated-facts; crds; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 grafana/rollout-operator,0.49.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
@@ -68,31 +80,44 @@ jaegertracing/jaeger-operator,2.57.0,serious-chart-playbooks; hook-and-secret-li
 jaegertracing/jaeger,4.8.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 jetstack/cert-manager-csi-driver,v0.14.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 jetstack/cert-manager,v1.20.2,serious-chart-playbooks; large-app-evidence-funnel; live-parity,3,serious-chart-playbooks,named-serious; live,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+jetstack/cert-manager,v1.21.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 jetstack/trust-manager,v0.22.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
+karpenter/karpenter,1.14.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel,4,serious-chart-playbooks,crds+webhooks; webhooks; crds,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md
 kedacore/keda,2.19.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; hooks:1; webhooks; crds; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 kyverno/kyverno-policies,3.8.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,lookup; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+kyverno/kyverno-policies,3.8.2,,0,none,,
 kyverno/kyverno,3.8.1,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,hooks:8; generated-facts; crds; lookup; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+kyverno/kyverno,3.8.2,hook-and-secret-lifecycle,1,hook-and-secret-lifecycle,hooks:8,docs/skills/hook-and-secret-lifecycle.md
 linkerd/linkerd-crds,1.8.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 longhorn/longhorn,1.11.2,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+longhorn/longhorn,1.12.0,,0,none,,
+metallb/metallb,0.16.1,,0,none,,
 metrics-server/metrics-server,3.13.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+metrics-server/metrics-server,3.13.1,,0,none,,
 minio-operator/operator,7.1.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 minio-operator/tenant,7.1.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/nack,0.34.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/nats,2.14.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/surveyor,0.20.9,,0,none,,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,target-facts-and-lifecycle,1,target-facts-and-lifecycle,stateful-storage,docs/skills/target-facts-and-lifecycle.md
+nvidia/nvidia-device-plugin,0.19.3,,0,none,,
+oauth2-proxy/oauth2-proxy,10.7.0,,0,none,,
 open-telemetry/opentelemetry-operator,0.114.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 opencost/opencost,2.5.21,target-facts-and-lifecycle,1,target-facts-and-lifecycle,stateful-storage,docs/skills/target-facts-and-lifecycle.md
 percona/pg-operator,3.0.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 percona/psmdb-operator,1.22.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 percona/pxc-operator,1.19.1,target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,3,target-facts-and-lifecycle,crds; lookup; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+policy-reporter/policy-reporter,3.9.1,,0,none,,
 projectcalico/tigera-operator,v3.32.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,hooks:1; lookup; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/alertmanager,1.37.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/kube-prometheus-stack,85.3.3,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,named-serious; hooks:2; generated-facts; webhooks; crds; lookup; stateful-storage; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 prometheus-community/kube-prometheus-stack,86.1.0,serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel; live-parity,4,serious-chart-playbooks,named-serious; hooks:2; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+prometheus-community/kube-prometheus-stack,87.15.1,serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel,3,serious-chart-playbooks,named-serious; hooks:2,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/large-app-evidence-funnel.md
+prometheus-community/kube-prometheus-stack,87.19.2,serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel,3,serious-chart-playbooks,named-serious; hooks:2,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/large-app-evidence-funnel.md
 prometheus-community/kube-state-metrics,7.4.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/prometheus-adapter,5.3.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 prometheus-community/prometheus-blackbox-exporter,11.10.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
+prometheus-community/prometheus-blackbox-exporter,11.15.1,,0,none,,
 prometheus-community/prometheus-node-exporter,4.55.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/prometheus-operator-crds,29.0.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,generated-facts; crds; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 prometheus-community/prometheus-pushgateway,3.6.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
@@ -104,8 +129,12 @@ runix/pgadmin4,1.62.0,target-facts-and-lifecycle; live-parity,2,target-facts-and
 sealed-secrets/sealed-secrets,2.18.6,live-parity,1,live-parity,live,docs/skills/live-parity.md
 secrets-store-csi-driver/secrets-store-csi-driver,1.6.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 stakater/reloader,2.2.12,live-parity,1,live-parity,live,docs/skills/live-parity.md
+stakater/reloader,2.2.14,,0,none,,
 strimzi/strimzi-kafka-operator,1.0.0,target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,3,target-facts-and-lifecycle,crds; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 traefik/traefik,40.2.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; generated-facts; webhooks; crds; lookup; stateful-storage; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+traefik/traefik,41.0.2,,0,none,,
+valkey/valkey,0.11.0,target-facts-and-lifecycle,1,target-facts-and-lifecycle,stateful-storage,docs/skills/target-facts-and-lifecycle.md
 velero/velero,12.0.1,,0,none,,
+velero/velero,12.1.0,,0,none,,
 vm/victoria-logs-single,0.12.5,live-parity,1,live-parity,live,docs/skills/live-parity.md
 vm/victoria-metrics-single,0.39.0,live-parity,1,live-parity,live,docs/skills/live-parity.md

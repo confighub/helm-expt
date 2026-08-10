@@ -447,13 +447,13 @@
 <p>This generated file turns the strict top-100 coverage contract into the next work queues. It is not a production support claim. It says which missing evidence or product decision would move a partial row toward covered.</p>
 <h2 id="summary">Summary</h2>
 <pre><code>partial rows: 89
-promotion-review: 37
+promotion-review: 39
 user-shaped-variant: 37
-limitation-decision: 9
+limitation-decision: 7
 supported-refresh: 0</code></pre>
 <h2 id="queues">Queues</h2>
-<table><thead><tr><th>Queue</th><th>Rows</th><th>First step</th><th>Done when</th></tr></thead><tbody><tr><td><code>limitation-decision</code></td><td>9</td><td>decide whether to support, disclose, defer, or block: named limitation</td><td>the limitation has a recorded support, disclosure, deferral, or blocker decision</td></tr>
-<tr><td><code>promotion-review</code></td><td>37</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td><td>scan/disposition evidence exists and at least one selected base has live witness or routed deferral</td></tr>
+<table><thead><tr><th>Queue</th><th>Rows</th><th>First step</th><th>Done when</th></tr></thead><tbody><tr><td><code>limitation-decision</code></td><td>7</td><td>decide whether to support, disclose, defer, or block: named limitation</td><td>the limitation has a recorded support, disclosure, deferral, or blocker decision</td></tr>
+<tr><td><code>promotion-review</code></td><td>39</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td><td>scan/disposition evidence exists and at least one selected base has live witness or routed deferral</td></tr>
 <tr><td><code>user-shaped-variant</code></td><td>37</td><td>design one realistic base variant a Helm user would actually choose</td><td>a realistic named base variant exists and the chart moves to promotion or limitation review</td></tr>
 <tr><td><code>supported-refresh</code></td><td>0</td><td>refresh target-scoped production support evidence</td><td>fresh target-scoped receipts support the current claim</td></tr>
 <tr><td><code>review</code></td><td>6</td><td>review row and choose the next evidence lane</td><td>the row has a concrete next action and evidence path</td></tr></tbody></table>
@@ -465,8 +465,6 @@ supported-refresh: 0</code></pre>
 <tr><td>1</td><td><code>limitation-decision</code></td><td><code>bitnami/spark@10.0.3</code></td><td>88%</td><td>f</td><td>decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td>1</td><td><code>limitation-decision</code></td><td><code>bitnami/zookeeper@13.8.7</code></td><td>88%</td><td>f</td><td>decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td>1</td><td><code>limitation-decision</code></td><td><code>grafana/pyroscope@2.0.2</code></td><td>88%</td><td>f</td><td>decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle)</td></tr>
-<tr><td>1</td><td><code>limitation-decision</code></td><td><code>kyverno/kyverno@3.8.1</code></td><td>88%</td><td>f</td><td>decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle)</td></tr>
-<tr><td>1</td><td><code>limitation-decision</code></td><td><code>traefik/traefik@40.2.0</code></td><td>88%</td><td>f</td><td>decide whether to support, disclose, defer, or block: existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td>2</td><td><code>promotion-review</code></td><td><code>aqua/trivy-operator@0.32.1</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
 <tr><td>2</td><td><code>promotion-review</code></td><td><code>argo-cd/argo-events@2.4.21</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
 <tr><td>2</td><td><code>promotion-review</code></td><td><code>argo-cd/argo-rollouts@2.40.9</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
@@ -477,7 +475,9 @@ supported-refresh: 0</code></pre>
 <tr><td>2</td><td><code>promotion-review</code></td><td><code>elastic/eck-operator@3.4.0</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
 <tr><td>2</td><td><code>promotion-review</code></td><td><code>elastic/logstash@8.5.1</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
 <tr><td>2</td><td><code>promotion-review</code></td><td><code>external-dns/external-dns@1.21.1</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
-<tr><td>2</td><td><code>promotion-review</code></td><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr></tbody></table>
+<tr><td>2</td><td><code>promotion-review</code></td><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
+<tr><td>2</td><td><code>promotion-review</code></td><td><code>gatekeeper/gatekeeper@3.22.2</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr>
+<tr><td>2</td><td><code>promotion-review</code></td><td><code>grafana/alloy@1.8.2</code></td><td>88%</td><td>f</td><td>run catalog promotion review, choose one supported base, then add selected live evidence</td></tr></tbody></table>
 <h2 id="files">Files</h2>
 <table><thead><tr><th>File</th><th>Use</th></tr></thead><tbody><tr><td><a href="../../../../data/top100-coverage/work-queue.csv">work-queue.csv</a></td><td>Spreadsheet queue with every partial row.</td></tr>
 <tr><td><a href="decisions-needed.html">decisions-needed.md</a></td><td>Human decision memos for limitation-decision rows.</td></tr>

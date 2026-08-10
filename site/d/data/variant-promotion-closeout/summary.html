@@ -449,17 +449,17 @@
 <p>This surface turns the master matrix promotion column into a product-and-engineering queue: for every variant, whether <code>cub variant promote</code> is <b>ready to run now</b>, <b>watch-grade pending receipt rerun</b>, or <b>blocked</b> by a proof prerequisite, with the exact next command or fix and the owner who has to act.</p>
 <p>Promotion is a <b>ConfigHub server value</b>, not a helm-expt-only trick: <code>cub variant promote</code> clones and promotes a Unit server-side. See <a href="../../docs/reference/variant-promotion-closeout.html">variant-promotion-closeout reference</a>. Source of record: <a href="../../../../data/variant-promotion/status.csv">variant-promotion/status.csv</a>.</p>
 <h2 id="owner-classes">Owner classes</h2>
-<table><thead><tr><th>Owner class</th><th>Variants</th><th>Meaning</th></tr></thead><tbody><tr><td><code>run-proof</code></td><td>32</td><td>A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI.</td></tr>
+<table><thead><tr><th>Owner class</th><th>Variants</th><th>Meaning</th></tr></thead><tbody><tr><td><code>run-proof</code></td><td>78</td><td>A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI.</td></tr>
 <tr><td><code>catalog-modeling</code></td><td>0</td><td>Needs catalog/model work before promotion is meaningful.</td></tr>
 <tr><td><code>not-applicable-if-any</code></td><td>167</td><td>Promotion does not apply to this variant.</td></tr></tbody></table>
 <table><thead><tr><th>Readiness</th><th>Variants</th></tr></thead><tbody><tr><td><code>promotion-proven</code></td><td>167</td></tr>
+<tr><td><code>blocked-needs-confighub-proof</code></td><td>47</td></tr>
 <tr><td><code>watch-grade</code></td><td>29</td></tr>
-<tr><td><code>blocked-proof-failed</code></td><td>2</td></tr>
-<tr><td><code>blocked-needs-confighub-proof</code></td><td>1</td></tr></tbody></table>
+<tr><td><code>blocked-proof-failed</code></td><td>2</td></tr></tbody></table>
 <table><thead><tr><th>Promotion state</th><th>Variants</th></tr></thead><tbody><tr><td><code>yes</code></td><td>167</td></tr>
+<tr><td><code>todo</code></td><td>47</td></tr>
 <tr><td><code>watch</code></td><td>29</td></tr>
-<tr><td><code>no</code></td><td>2</td></tr>
-<tr><td><code>todo</code></td><td>1</td></tr></tbody></table>
+<tr><td><code>no</code></td><td>2</td></tr></tbody></table>
 <h2 id="ready-to-run-now-0">Ready to run now (0)</h2>
 <p>These variants already have a server-side clone and ConfigHub upload proof; only the <code>cub variant promote</code> receipt is missing. <b>A representative set of commands (not run here - promotion is a ConfigHub-server action):</b></p>
 <pre><code></code></pre>
@@ -496,9 +496,55 @@
 <tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>runs/metrics-server-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>runs/secrets-store-csi-driver-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr></tbody></table>
-<h2 id="blocked-needs-the-confighub-proof-first-1">Blocked - needs the ConfigHub proof first (1)</h2>
+<h2 id="blocked-needs-the-confighub-proof-first-47">Blocked - needs the ConfigHub proof first (47)</h2>
 <p>No ConfigHub upload proof exists yet, so there is no clone to promote.</p>
-<table><thead><tr><th>Chart</th><th>Base</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-cd@9.5.17</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr></tbody></table>
+<table><thead><tr><th>Chart</th><th>Base</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-cd@10.1.3</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>argo-cd/argo-cd@10.1.3</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>argo-cd/argo-cd@10.2.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>argo-cd/argo-cd@10.2.1</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>argo-cd/argo-cd@9.5.17</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>aws-controllers-k8s/ec2-chart@1.18.4</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>aws-controllers-k8s/ec2-chart@1.18.4</td><td>eks-inference</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>aws-controllers-k8s/eks-chart@1.16.3</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>aws-controllers-k8s/eks-chart@1.16.3</td><td>eks-inference</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>aws-controllers-k8s/iam-chart@1.7.3</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>aws-controllers-k8s/iam-chart@1.7.3</td><td>eks-inference</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>cloudpirates/nginx@0.16.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>cloudpirates/rabbitmq@0.21.13</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>cloudpirates/redis@0.34.11</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>external-secrets/external-secrets@2.7.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>external-secrets/external-secrets@2.7.0</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>external-secrets/external-secrets@2.8.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>external-secrets/external-secrets@2.8.0</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>grafana/alloy@1.11.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>grafana/loki@7.1.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>jetstack/cert-manager@v1.21.0</td><td>crds-enabled</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>jetstack/cert-manager@v1.21.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>karpenter/karpenter@1.14.0</td><td>crds-managed</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>karpenter/karpenter@1.14.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>karpenter/karpenter@1.14.0</td><td>eks-inference</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>kyverno/kyverno-policies@3.8.2</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>kyverno/kyverno@3.8.2</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>longhorn/longhorn@1.12.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>metallb/metallb@0.16.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>metrics-server/metrics-server@3.13.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>metrics-server/metrics-server@3.13.1</td><td>external-tls-ca</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>nvidia/nvidia-device-plugin@0.19.3</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>nvidia/nvidia-device-plugin@0.19.3</td><td>eks-inference</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>nvidia/nvidia-device-plugin@0.19.3</td><td>nfd-enabled</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>oauth2-proxy/oauth2-proxy@10.7.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>policy-reporter/policy-reporter@3.9.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.15.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.15.1</td><td>existing-secret</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.15.1</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.19.2</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.19.2</td><td>existing-secret</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.19.2</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>prometheus-community/prometheus-blackbox-exporter@11.15.1</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>stakater/reloader@2.2.14</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>traefik/traefik@41.0.2</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>valkey/valkey@0.11.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td>velero/velero@12.1.0</td><td>default</td><td>run the ConfigHub proof lane first</td></tr></tbody></table>
 <h2 id="boundaries">Boundaries</h2>
 <ul><li>Read-only projection over <code>variant-promotion/status.csv</code>. No live run, no ConfigHub-server call, no <code>runs/</code> edit, and no status changed.</li><li><code>ready-to-run</code> lists the command; it does not run it. Promotion is a ConfigHub server action and is executed deliberately, not by this surface.</li><li>A <code>watch-grade</code> row is a recorded decision (mechanics proven, old receipt still used the fallback), never silently rounded to proven.</li></ul>
     </article>

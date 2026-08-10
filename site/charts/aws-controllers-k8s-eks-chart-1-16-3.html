@@ -439,7 +439,7 @@
     <p class="tagline">Catalog readiness: Checked; review before use.</p>
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart source repository's LICENSE, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
     
-    <pre>No runnable row recorded yet.</pre>
+    <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base default --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-default --non-interactive --namespace ack-system</pre>
   </header>
   <main>
     <section aria-labelledby="pillars-here">
@@ -454,7 +454,7 @@
 
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
-      <p class="stat-strip">default configuration: <strong>20</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> hook or setup routes. These counts come from the linked test records.</p>
+      <p class="stat-strip">default configuration: <strong>20</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> target prerequisites · <strong>0</strong> hook or setup routes · <strong>1/1</strong> checks passing. These counts come from the linked test records.</p>
       <div class="grid">
         <div class="metric"><strong>default</strong><span>First recorded base variant</span></div>
         <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
@@ -477,7 +477,16 @@
     <section aria-labelledby="setting-sources">
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
       <p>Helm values define each base render. ConfigHub changes begin after upload and are recorded against the rendered objects. Secrets, CRDs, hooks, and setup jobs are listed separately because they are install work, not hidden settings. Live cluster state is observed separately and does not silently become the desired configuration.</p>
-      <p>No runnable base has a recorded setting source yet.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Helm values</th><th>ConfigHub changes</th><th>Install work</th></tr></thead>
+        <tbody><tr><td>default</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.</td></tr><tr><td>eks-inference</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/effective-values-eks-inference.yaml">effective-values-eks-inference.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>2 prerequisites recorded.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <p><strong>Upgrade rule:</strong> if a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The values profile shows the Helm side; Unit revision history shows the ConfigHub side.</p>
       <p><a href="../d/docs/user/helm-presets-and-values.html#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
     </section>
@@ -503,12 +512,12 @@
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
       <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>
-      <p>The <a href="../d/data/base-variant-records/summary.html">base-variant record index</a> connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
-      <p>Open the <a href="../d/data/helm-render-intents/summary.html">render-output summary</a> to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
+      <p>The <a href="../../data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">default base-variant record</a> connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
+      <p>Open the <a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>None recorded for the recommended base variant.<br>No separate setup command recorded.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../d/data/helm-render-intents/summary.html">render-output summary</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../d/data/helm-render-intents/summary.html">render-intent summary</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Complete starting record</td><td><a href="../d/data/base-variant-records/summary.html">base-variant record index</a></td><td>The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's setup section</a></td><td>Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>None recorded for the recommended base variant.<br>No separate setup command recorded.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Complete starting record</td><td><a href="../../data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">default base-variant record</a></td><td>The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's setup section</a></td><td>Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -518,7 +527,7 @@
       </style>
       <div class="grid">
         <div class="card"><h3>Choose base variant</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
-        <div class="card"><h3>Record inputs</h3><p>Keep the values, namespace, release name, source lock, <a href="../d/data/helm-render-intents/summary.html">render-intent summary</a>, full YAML output, package base, test results, and setup instructions together.</p></div>
+        <div class="card"><h3>Record inputs</h3><p>Keep the values, namespace, release name, source lock, <a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">default render intent</a>, full YAML output, package base, test results, and setup instructions together.</p></div>
         <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a base variant, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
       <p><a href="../d/docs/user/helm-render-intents.html">How render intents work</a> · <a href="../d/data/helm-render-intents/summary.html">All generated render intents</a> · <a href="../d/data/base-variant-records/summary.html">All base variant records</a></p>
@@ -532,15 +541,15 @@
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>First recorded command</h3>
-        <p>No runnable row recorded yet.</p>
-        
+        <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base default --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-default --non-interactive --namespace ack-system</code></p>
+        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/default/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/default/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p>
         <h3>You should see something like this</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> unknown · <strong>Reason:</strong> - (no open gap: recommended capabilities built or n/a; Quirks modeled - Level 2)</p>
+        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Promotion depends on upstream and downstream ConfigHub Spaces; The ConfigHub proof lane is missing</p>
       </div>
     </section>
 
@@ -550,11 +559,100 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
-      <p class="mono" style="font-size:.9rem">0 matrix rows for aws-controllers-k8s/eks-chart@1.16.3 · <a href="../matrix.html">open the full matrix</a></p>
-      <p>No matrix rows are recorded for this chart/version.</p>
+      <p class="mono" style="font-size:.9rem">3 matrix rows for aws-controllers-k8s/eks-chart@1.16.3 · <a href="../matrix.html">open the full matrix</a></p>
+      <div class="matrix-row-grid"><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F1</span>
+            <h3>(source)</h3>
+          </div>
+          <span class="row-kind">Source</span>
+        </div>
+        <p class="row-purpose">Upstream chart source</p>
+        <dl>
+          <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
+          <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
+          <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
+          <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Checks for (source)">
+          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+        </div>
+        <p class="row-links"><a href="../d/recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.html">catalog</a> · <a href="oci://public.ecr.aws/aws-controllers-k8s" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2a</span>
+            <h3>default</h3>
+          </div>
+          <span class="row-kind">Base</span>
+        </div>
+        <p class="row-purpose">F2a honest default base</p>
+        <dl>
+          <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>Helm values</dt><dd><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/effective-values.yaml">effective-values.yaml</a></dd>
+          <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base default --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-default --non-interactive --namespace ack-system</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
+          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
+          <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">Open the full record.</a></dd>
+          <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
+          <dt>Next</dt><dd>Review chart analysis and create a recipe candidate</dd>
+          <dt>Reason</dt><dd>Promotion depends on upstream and downstream ConfigHub Spaces; The ConfigHub tests is missing</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Checks for default">
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill todo" title="ConfigHub: todo"><b>C</b><em>todo</em></span><span class="lane-pill todo" title="Local: todo"><b>L</b><em>todo</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill todo" title="GitOps: todo"><b>G</b><em>todo</em></span><span class="lane-pill todo" title="Live parity: todo"><b>P</b><em>todo</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill todo" title="Promotion: todo"><b>V</b><em>todo</em></span>
+        </div>
+        <p class="row-links"><a href="../d/recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.html">catalog</a> · <a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/default/variant.yaml">variant</a> · <a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">base record</a> · <a href="../../packages/aws-controllers-k8s/eks-chart/1.16.3/bases/default">package base</a> · <a href="oci://public.ecr.aws/aws-controllers-k8s" rel="noopener">source repo</a></p>
+      </article><article class="matrix-row-card">
+        <div class="matrix-row-head">
+          <div>
+            <span class="row-layer">F2b</span>
+            <h3>eks-inference</h3>
+          </div>
+          <span class="row-kind">Base</span>
+        </div>
+        <p class="row-purpose">Runnable base variant</p>
+        <dl>
+          <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>Helm values</dt><dd><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/effective-values-eks-inference.yaml">effective-values-eks-inference.yaml</a></dd>
+          <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base eks-inference --work-dir ./aws-controllers-k8s-eks-chart-1-16-3-eks-inference --non-interactive --namespace ack-system</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/eks-inference/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/eks-inference/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
+          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
+          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
+          <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml">Open the full record.</a></dd>
+          <dt>Prerequisites</dt><dd>2 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
+          <dt>Next</dt><dd>Review chart analysis and create a recipe candidate</dd>
+          <dt>Reason</dt><dd>Promotion depends on upstream and downstream ConfigHub Spaces; The ConfigHub tests is missing</dd>
+        </dl>
+        <div class="lane-strip" aria-label="Checks for eks-inference">
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill todo" title="ConfigHub: todo"><b>C</b><em>todo</em></span><span class="lane-pill todo" title="Local: todo"><b>L</b><em>todo</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill todo" title="GitOps: todo"><b>G</b><em>todo</em></span><span class="lane-pill todo" title="Live parity: todo"><b>P</b><em>todo</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill todo" title="Promotion: todo"><b>V</b><em>todo</em></span>
+        </div>
+        <p class="row-links"><a href="../d/recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.html">catalog</a> · <a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml">variant</a> · <a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml">render intent</a> · <a href="../../data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml">base record</a> · <a href="../../packages/aws-controllers-k8s/eks-chart/1.16.3/bases/eks-inference">package base</a> · <a href="oci://public.ecr.aws/aws-controllers-k8s" rel="noopener">source repo</a></p>
+      </article></div>
     </section>
 
-    
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Images</th></tr></thead>
+        <tbody><tr><td>default</td><td><code>public.ecr.aws/aws-controllers-k8s/eks-controller:1.16.3</code></td></tr><tr><td>eks-inference</td><td><code>public.ecr.aws/aws-controllers-k8s/eks-controller:1.16.3</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
 
     <section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
@@ -592,10 +690,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="proof">
       <h2 id="proof">What Has Been Tested</h2>
       <p>Each check answers a different question. A watch, blocked, or missing result names work that remains. It does not change a passing Helm render match.</p>
-      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity. Not yet tested: ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
       <div class="card"><table>
         <thead><tr><th>Check</th><th>Status across configurations</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>not recorded</td></tr><tr><td>ConfigHub proof</td><td>not recorded</td></tr><tr><td>Local live</td><td>not recorded</td></tr><tr><td>GitOps/OCI live</td><td>not recorded</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>not recorded</td></tr><tr><td>Two-cluster kind</td><td>not recorded</td></tr></tbody>
+        <tbody><tr><td>Render parity</td><td>yes: 2/2</td></tr><tr><td>ConfigHub proof</td><td>todo: 2/2</td></tr><tr><td>Local live</td><td>todo: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>todo: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>todo: 2/2</td></tr><tr><td>Two-cluster kind</td><td>todo: 2/2</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -605,7 +703,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody></tbody>
+        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td></tr><tr><td>eks-inference</td><td>real</td><td>yes</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td><td>todo</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -633,6 +731,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
       <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <h3>What each base needs before apply</h3>
+      <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Required resource</th><th>How to provide it</th><th>Full record</th></tr></thead>
+        <tbody><tr><td>eks-inference</td><td>Secret ack-system/aws-creds key credentials</td><td><code>kubectl create namespace ack-system --dry-run=client -o yaml | kubectl apply -f -</code><br><code>kubectl -n ack-system create secret generic aws-creds --from-literal=credentials=&lt;value&gt;</code></td><td><a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml">full render intent</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
       <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
@@ -657,7 +767,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="files">Source And Evidence Files</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../d/recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.html">recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../d/data/helm-render-intents/summary.html">data/helm-render-intents/summary.md</a></td></tr><tr><td>Base variant records</td><td><a href="../d/data/base-variant-records/summary.html">data/base-variant-records/summary.md</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml">recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/aws-controllers-k8s/eks-chart/1.16.3">packages/aws-controllers-k8s/eks-chart/1.16.3</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../d/data/installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Installer OCI publication receipt</td><td><a href="../../runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml">runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Production review records</td><td><a href="../d/data/production-disposition/summary.html">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../d/data/master-catalog-matrix/summary.html">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../d/data/chart-skills/summary.html">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../d/data/chart-evidence-router/summary.html">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current test status</td><td><a href="../d/docs/user/current-proof-status.html">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../d/recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.html">recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../d/data/helm-render-intents/summary.html">data/helm-render-intents/summary.md</a></td></tr><tr><td>Base variant records</td><td><a href="../d/data/base-variant-records/summary.html">data/base-variant-records/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml</a></td></tr><tr><td>First base variant record</td><td><a href="../../data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml">data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml">recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml">recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/aws-controllers-k8s/eks-chart/1.16.3">packages/aws-controllers-k8s/eks-chart/1.16.3</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../d/data/installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Installer OCI publication receipt</td><td><a href="../../runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml">runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml">recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml</a></td></tr><tr><td>Production review records</td><td><a href="../d/data/production-disposition/summary.html">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../d/data/master-catalog-matrix/summary.html">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../d/data/chart-skills/summary.html">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../d/data/chart-evidence-router/summary.html">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current test status</td><td><a href="../d/docs/user/current-proof-status.html">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

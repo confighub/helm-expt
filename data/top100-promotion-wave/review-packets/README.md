@@ -26,6 +26,7 @@ chart. Each packet is a review input. It is not a catalog support claim.
 | `jaegertracing/jaeger-operator@2.57.0` | no-crds | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 6 | [jaegertracing-jaeger-operator-2-57-0.yaml](./jaegertracing-jaeger-operator-2-57-0.yaml) |
 | `jetstack/trust-manager@v0.22.1` | default | `live-helm-vs-confighub-parity` | high=0, medium=4, gates=allow;warn | 4 | [jetstack-trust-manager-v0-22-1.yaml](./jetstack-trust-manager-v0-22-1.yaml) |
 | `kedacore/keda@2.19.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=17, gates=allow;warn | 8 | [kedacore-keda-2-19-0.yaml](./kedacore-keda-2-19-0.yaml) |
+| `kyverno/kyverno@3.8.1` | default | `live-helm-vs-confighub-parity` | high=0, medium=45, gates=allow;warn | 9 | [kyverno-kyverno-3-8-1.yaml](./kyverno-kyverno-3-8-1.yaml) |
 | `nats/nack@0.34.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=8, gates=allow;warn | 4 | [nats-nack-0-34-0.yaml](./nats-nack-0-34-0.yaml) |
 | `nats/nats@2.14.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=1, gates=allow;warn | 5 | [nats-nats-2-14-0.yaml](./nats-nats-2-14-0.yaml) |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=9, gates=allow;warn | 4 | [open-telemetry-opentelemetry-operator-0-114-0.yaml](./open-telemetry-opentelemetry-operator-0-114-0.yaml) |
@@ -39,6 +40,7 @@ chart. Each packet is a review input. It is not a catalog support claim.
 | `sealed-secrets/sealed-secrets@2.18.6` | default | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 4 | [sealed-secrets-sealed-secrets-2-18-6.yaml](./sealed-secrets-sealed-secrets-2-18-6.yaml) |
 | `stakater/reloader@2.2.12` | controller-default-reviewed | `live-helm-vs-confighub-parity` | high=0, medium=4, gates=warn | 6 | [stakater-reloader-2-2-12.yaml](./stakater-reloader-2-2-12.yaml) |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=20, gates=allow;warn | 7 | [strimzi-strimzi-kafka-operator-1-0-0.yaml](./strimzi-strimzi-kafka-operator-1-0-0.yaml) |
+| `traefik/traefik@40.2.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=27, gates=allow;warn | 10 | [traefik-traefik-40-2-0.yaml](./traefik-traefik-40-2-0.yaml) |
 | `vm/victoria-metrics-single@0.39.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=0, gates=allow | 4 | [vm-victoria-metrics-single-0-39-0.yaml](./vm-victoria-metrics-single-0-39-0.yaml) |
 
 ## Rule

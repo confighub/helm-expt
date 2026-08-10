@@ -41,7 +41,7 @@ The catalog records 8 extra steps for this preset. We call these lifecycle route
 - **During upgrade:** Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.
 - **When uninstalling:** The run removes both completed Jobs and their temporary RBAC objects.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -118,7 +118,6 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known limitation: existing-secret (chart ships no Secret toggle).
 - Production support is target-scoped. Use production support decisions before claiming production readiness.
 
 ## Source files

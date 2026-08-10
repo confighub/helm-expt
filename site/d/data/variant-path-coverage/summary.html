@@ -447,14 +447,14 @@
     <article class="doc-body">
 <p>This generated report tracks proof status at the chart, base-variant, and variant-path level. It exists because Helm quirks do not always belong to the whole chart. Some appear only in a base variant, a diff between bases, a derived ConfigHub variant, or an upgrade/customization path.</p>
 <h2 id="rows-by-path-type">Rows By Path Type</h2>
-<ul><li>base-to-base-diff: 2</li><li>base-variant: 199</li><li>derived-confighub-variant: 10</li><li>upgrade-simulation: 4</li></ul>
+<ul><li>base-to-base-diff: 2</li><li>base-variant: 245</li><li>derived-confighub-variant: 10</li><li>upgrade-simulation: 4</li></ul>
 <h2 id="path-type-meanings">Path Type Meanings</h2>
 <table><thead><tr><th>Path type</th><th>Meaning</th></tr></thead><tbody><tr><td><code>base-variant</code></td><td>A render-time <code>cub installer</code> base. This is where Helm values, CRDs, topology, storage, generated-vs-existing Secret choices, and other object-shape changes belong.</td></tr>
 <tr><td><code>base-to-base-diff</code></td><td>A comparison between two rendered bases. Use it to see what a variant changes before treating it as a deployable choice.</td></tr>
 <tr><td><code>derived-confighub-variant</code></td><td>A post-render ConfigHub variant created from an uploaded base. It should not hide a Helm rerender.</td></tr>
 <tr><td><code>upgrade-simulation</code></td><td>A simulated change path. It records expected consequences but is not live operation proof.</td></tr></tbody></table>
 <h2 id="rows-by-live-status">Rows By Live Status</h2>
-<ul><li>blocked: 35</li><li>fail: 18</li><li>not-attempted: 10</li><li>not-tested: 4</li><li>not-tested-by-diff: 2</li><li>pass: 127</li><li>watch: 19</li></ul>
+<ul><li>blocked: 35</li><li>fail: 18</li><li>missing: 46</li><li>not-attempted: 10</li><li>not-tested: 4</li><li>not-tested-by-diff: 2</li><li>pass: 127</li><li>watch: 19</li></ul>
 <h2 id="live-status-meanings">Live Status Meanings</h2>
 <table><thead><tr><th>Live status</th><th>Meaning</th></tr></thead><tbody><tr><td><code>pass</code></td><td>At least one live lane for this exact path passed. Check the row to see which lane and receipt.</td></tr>
 <tr><td><code>missing</code></td><td>No committed live receipt exists for this exact path yet. This is backlog, not failure.</td></tr>

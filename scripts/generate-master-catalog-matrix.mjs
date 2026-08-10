@@ -32,6 +32,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "master-catalog-matrix");
@@ -267,7 +268,12 @@ function buildReport(generatedAt) {
       const version = chartAtVersion.slice(at + 1);
       const variant = outcome.base;
       const recipePath = outcome.recipe_path;
-      const recipeCatalogPath = `${recipePath}/CATALOG.md`;
+      // An immutable release root keeps its catalog views in an overlay, so the
+      // in-root path does not exist for those entries. Enrolling them put those
+      // rows in this matrix for the first time, and every link to CATALOG.md
+      // from the rendered matrix was broken until this resolved through the
+      // overlay.
+      const recipeCatalogPath = relativeRepo(catalogDerivedPath(join(repoRoot, recipePath), "CATALOG.md"));
       const variantPath = `${recipePath}/variants/${variant}/variant.yaml`;
       const packageBasePath = `packages/${chartName}/${version}/bases/${variant}`;
       const variantRevisionPath = `${recipePath}/revisions/${variant}/r001/variant-revision.yaml`;

@@ -8,7 +8,7 @@ clear without turning every non-pass row into a product defect.
 ## Snapshot
 
 ~~~text
-chart/base rows:          199
+chart/base rows:          245
 local live observed rows: 199
 local live pass rows:     148
 local live non-pass rows: 51

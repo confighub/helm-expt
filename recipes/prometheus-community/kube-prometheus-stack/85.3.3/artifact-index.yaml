@@ -60,7 +60,7 @@ spec:
       gitopsLive: "2/2"
       liveParity: "2/2"
     featureSummary: "hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen"
-    hardGap: "existing-secret (chart ships no Secret toggle)"
+    hardGap: "-"
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"

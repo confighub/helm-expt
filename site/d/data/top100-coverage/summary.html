@@ -449,32 +449,32 @@
 <pre><code>charts: 109
 covered: 20
 partial: 89
-average coverage: 86%</code></pre>
+average coverage: 87%</code></pre>
 <h2 id="coverage-by-item">Coverage By Item</h2>
 <table><thead><tr><th>Item</th><th>Requirement</th><th>Pass</th><th>Todo</th><th>N/A</th></tr></thead><tbody><tr><td>a</td><td>pinned chart version</td><td>109</td><td>0</td><td>0</td></tr>
 <tr><td>b</td><td>reviewed named base variant</td><td>109</td><td>0</td><td>0</td></tr>
 <tr><td>c</td><td>render parity receipt</td><td>100</td><td>9</td><td>0</td></tr>
-<tr><td>d</td><td>pain report and quirk axes</td><td>100</td><td>9</td><td>0</td></tr>
+<tr><td>d</td><td>pain report and quirk axes</td><td>109</td><td>0</td><td>0</td></tr>
 <tr><td>e</td><td>facts declared</td><td>109</td><td>0</td><td>0</td></tr>
 <tr><td>f</td><td>scan and production disposition</td><td>20</td><td>89</td><td>0</td></tr>
 <tr><td>g</td><td>live witness or routed reason</td><td>87</td><td>22</td><td>0</td></tr>
 <tr><td>h</td><td>catalog and site entry</td><td>109</td><td>0</td><td>0</td></tr></tbody></table>
 <h2 id="coverage-by-bucket">Coverage By Bucket</h2>
 <table><thead><tr><th>Bucket</th><th>Charts</th></tr></thead><tbody><tr><td><code>try-from-public-catalog</code></td><td>20</td></tr>
-<tr><td><code>limitation-decision-first</code></td><td>9</td></tr>
-<tr><td><code>promote-after-review</code></td><td>37</td></tr>
+<tr><td><code>promote-after-review</code></td><td>39</td></tr>
 <tr><td><code>needs-useful-variant</code></td><td>37</td></tr>
+<tr><td><code>limitation-decision-first</code></td><td>7</td></tr>
 <tr><td><code>not-ready</code></td><td>6</td></tr></tbody></table>
 <h2 id="lowest-coverage-rows">Lowest Coverage Rows</h2>
-<table><thead><tr><th>Chart</th><th>Coverage</th><th>Bucket</th><th>Next action</th></tr></thead><tbody><tr><td><code>aws-controllers-k8s/ec2-chart@1.18.4</code></td><td>50%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
-<tr><td><code>aws-controllers-k8s/eks-chart@1.16.3</code></td><td>50%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
-<tr><td><code>aws-controllers-k8s/iam-chart@1.7.3</code></td><td>50%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
-<tr><td><code>cloudpirates/nginx@0.16.1</code></td><td>50%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
-<tr><td><code>cloudpirates/rabbitmq@0.21.13</code></td><td>50%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
-<tr><td><code>cloudpirates/redis@0.34.11</code></td><td>50%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
-<tr><td><code>karpenter/karpenter@1.14.0</code></td><td>50%</td><td><code>not-ready</code></td><td>review source/current-version drift and refresh recipe if needed</td></tr>
-<tr><td><code>nvidia/nvidia-device-plugin@0.19.3</code></td><td>50%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
-<tr><td><code>valkey/valkey@0.11.0</code></td><td>50%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<table><thead><tr><th>Chart</th><th>Coverage</th><th>Bucket</th><th>Next action</th></tr></thead><tbody><tr><td><code>aws-controllers-k8s/ec2-chart@1.18.4</code></td><td>63%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
+<tr><td><code>aws-controllers-k8s/eks-chart@1.16.3</code></td><td>63%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
+<tr><td><code>aws-controllers-k8s/iam-chart@1.7.3</code></td><td>63%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
+<tr><td><code>cloudpirates/nginx@0.16.1</code></td><td>63%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td><code>cloudpirates/rabbitmq@0.21.13</code></td><td>63%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td><code>cloudpirates/redis@0.34.11</code></td><td>63%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td><code>karpenter/karpenter@1.14.0</code></td><td>63%</td><td><code>not-ready</code></td><td>review source/current-version drift and refresh recipe if needed</td></tr>
+<tr><td><code>nvidia/nvidia-device-plugin@0.19.3</code></td><td>63%</td><td><code>not-ready</code></td><td>review chart analysis and create a recipe candidate</td></tr>
+<tr><td><code>valkey/valkey@0.11.0</code></td><td>63%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
 <tr><td><code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</code></td><td>75%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
 <tr><td><code>dex/dex@0.24.0</code></td><td>75%</td><td><code>needs-useful-variant</code></td><td>add at least one user-shaped variant before catalog promotion</td></tr>
 <tr><td><code>elastic/filebeat@8.5.1</code></td><td>75%</td><td><code>promote-after-review</code></td><td>run catalog promotion review</td></tr>

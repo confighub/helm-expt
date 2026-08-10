@@ -456,12 +456,12 @@
 <tr><td><code>n/a</code></td><td>Promotion is not applicable for this row.</td></tr></tbody></table>
 <h2 id="counts">Counts</h2>
 <table><thead><tr><th>Status</th><th>Rows</th></tr></thead><tbody><tr><td>blocked</td><td>2</td></tr>
-<tr><td>missing-confighub-proof</td><td>1</td></tr>
+<tr><td>missing-confighub-proof</td><td>47</td></tr>
 <tr><td>proven</td><td>167</td></tr>
 <tr><td>proven-with-watch</td><td>29</td></tr></tbody></table>
 <p>Matrix values:</p>
 <table><thead><tr><th>Matrix value</th><th>Rows</th></tr></thead><tbody><tr><td>no</td><td>2</td></tr>
-<tr><td>todo</td><td>1</td></tr>
+<tr><td>todo</td><td>47</td></tr>
 <tr><td>watch</td><td>29</td></tr>
 <tr><td>yes</td><td>167</td></tr></tbody></table>
 <h2 id="watch-rows">Watch Rows</h2>
@@ -478,7 +478,26 @@
 <tr><td><code>bitnami/nginx@25.0.0/existing-tls-ingress</code></td><td>runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml</td><td>ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass</td></tr>
 <tr><td><code>bitnami/nginx@25.0.0/http-clusterip</code></td><td>runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml</td><td>ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass</td></tr></tbody></table>
 <h2 id="first-todo-rows">First TODO Rows</h2>
-<table><thead><tr><th>Row</th><th>Status</th><th>Next action</th></tr></thead><tbody><tr><td><code>argo-cd/argo-cd@9.5.17/no-crds</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr></tbody></table>
+<table><thead><tr><th>Row</th><th>Status</th><th>Next action</th></tr></thead><tbody><tr><td><code>argo-cd/argo-cd@10.1.3/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>argo-cd/argo-cd@10.1.3/no-crds</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>argo-cd/argo-cd@10.2.1/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>argo-cd/argo-cd@10.2.1/no-crds</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>argo-cd/argo-cd@9.5.17/no-crds</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>aws-controllers-k8s/ec2-chart@1.18.4/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>aws-controllers-k8s/ec2-chart@1.18.4/eks-inference</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>aws-controllers-k8s/eks-chart@1.16.3/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>aws-controllers-k8s/eks-chart@1.16.3/eks-inference</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>aws-controllers-k8s/iam-chart@1.7.3/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>aws-controllers-k8s/iam-chart@1.7.3/eks-inference</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>cloudpirates/nginx@0.16.1/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>cloudpirates/rabbitmq@0.21.13/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>cloudpirates/redis@0.34.11/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.7.0/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.7.0/no-crds</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.8.0/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.8.0/no-crds</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>grafana/alloy@1.11.0/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr>
+<tr><td><code>grafana/loki@7.1.0/default</code></td><td>missing-confighub-proof</td><td>run the ConfigHub proof lane first</td></tr></tbody></table>
 <h2 id="regenerate">Regenerate</h2>
 <pre><code>npm run variant-promotion:status
 npm run variant-promotion:status:verify</code></pre>

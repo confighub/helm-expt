@@ -1,0 +1,147 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "karpenter-karpenter-1-14-0-eks-inference"
+  labels:
+    sourceType: "helm"
+    component: "karpenter/karpenter"
+    sourceVersion: "1.14.0"
+    base: "eks-inference"
+spec:
+  source:
+    type: "helm"
+    name: "karpenter/karpenter"
+    version: "1.14.0"
+    record: "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+  baseVariant:
+    name: "eks-inference"
+    revision: "r001"
+    digest: "1cb9f238a15e453a6f6d71bf79dc53596a541f27a72985c922787fc0dab3aff3"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml"
+    inventory: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+    objectCount: 18
+  inputs:
+    fixedAtBuildTime:
+      - "chart=karpenter/karpenter"
+      - "version=1.14.0"
+      - "base=eks-inference"
+      - "valuesProfile=recipes/karpenter/karpenter/1.14.0/effective-values-eks-inference.yaml"
+      - "namespace=kube-system"
+      - "releaseName=karpenter"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    installTime:
+      -
+        name: "requiredTopology-1"
+        type: "requiredTopology"
+        required: true
+        details:
+          minimumSchedulableNodes: 1
+          purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+      -
+        name: "requiredValues-1"
+        type: "requiredValues"
+        required: true
+        details:
+          installerInput: "awsRegion"
+          path: "controller.env[AWS_REGION]"
+          purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+          source: "platform-profile"
+          stage: "pre-render"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredTopology:
+          minimumSchedulableNodes: 1
+          purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+        requiredValues:
+          -
+            installerInput: "awsRegion"
+            path: "controller.env[AWS_REGION]"
+            purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+            source: "platform-profile"
+            stage: "pre-render"
+      requirements:
+        -
+          category: "topology"
+          name: "target topology"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+          check: ""
+          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+        -
+          category: "value"
+          name: "controller.env[AWS_REGION]"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+          check: ""
+          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+      actions:
+        []
+      coverage:
+        state: "attached"
+        reason: "2 target prerequisites declared by this base."
+        declarationSource: "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+        nextAction: ""
+    sourceRecord: "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

@@ -1,0 +1,292 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "karpenter-karpenter-1-14-0-crds-managed"
+  labels:
+    component: "karpenter/karpenter"
+    chart: "karpenter/karpenter"
+    version: "1.14.0"
+    base: "crds-managed"
+    catalogLayer: "F2b"
+spec:
+  component: "karpenter/karpenter"
+  chart:
+    name: "karpenter/karpenter"
+    version: "1.14.0"
+    sourceRepository: "oci://public.ecr.aws/karpenter"
+    sourceContent: ""
+  baseVariant: "crds-managed"
+  renderInputs:
+    recipe: "recipes/karpenter/karpenter/1.14.0"
+    variant: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+    revision: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+    packageBase: "packages/karpenter/karpenter/1.14.0/bases/crds-managed"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+    sourceLock: "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
+    namespace: "kube-system"
+    releaseName: "karpenter"
+    valuesProfile: "recipes/karpenter/karpenter/1.14.0/effective-values-crds-managed.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.31.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml"
+    revision: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+    packageBase: "packages/karpenter/karpenter/1.14.0/bases/crds-managed"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          name: "capacitybuffers.autoscaling.x-k8s.io"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        -
+          name: "ec2nodeclasses.karpenter.k8s.aws"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        -
+          name: "nodeclaims.karpenter.sh"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        -
+          name: "nodeoverlays.karpenter.sh"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        -
+          name: "nodepools.karpenter.sh"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+      requiredTopology:
+        minimumSchedulableNodes: 1
+        purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+      requiredValues:
+        -
+          installerInput: "awsRegion"
+          path: "controller.env[AWS_REGION]"
+          purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+          source: "platform-profile"
+          stage: "pre-render"
+    requirements:
+      -
+        category: "crd"
+        name: "capacitybuffers.autoscaling.x-k8s.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: ""
+        check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+          - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+      -
+        category: "crd"
+        name: "ec2nodeclasses.karpenter.k8s.aws"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: ""
+        check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+          - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+      -
+        category: "crd"
+        name: "nodeclaims.karpenter.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: ""
+        check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+          - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+      -
+        category: "crd"
+        name: "nodeoverlays.karpenter.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: ""
+        check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+          - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+      -
+        category: "crd"
+        name: "nodepools.karpenter.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: ""
+        check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
+        packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+          - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
+      -
+        category: "topology"
+        name: "target topology"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+        check: ""
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+      -
+        category: "value"
+        name: "controller.env[AWS_REGION]"
+        namespace: ""
+        requiredBefore: "render"
+        freshness:
+          policy: "recheck-before-render"
+          maxAge: "one-render"
+        purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+        check: ""
+        declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+    actions:
+      []
+    coverage:
+      state: "attached"
+      reason: "7 target prerequisites declared by this base."
+      declarationSource: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/karpenter/karpenter/1.14.0/effective-values-crds-managed.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 7
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/karpenter/karpenter/1.14.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/karpenter/karpenter/1.14.0/bases/crds-managed"
+    fullModelPath:
+      - "chart/version: karpenter/karpenter@1.14.0"
+      - "recipe: recipes/karpenter/karpenter/1.14.0"
+      - "base variant: crds-managed"
+      - "render intent: data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+      - "rendered revision: recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+      - "package base: packages/karpenter/karpenter/1.14.0/bases/crds-managed"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

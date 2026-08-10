@@ -461,7 +461,7 @@
         <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
-      <p>A named capability gap affects the recommended path.</p>
+      <p>The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
         <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>3.8.1</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
@@ -602,7 +602,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (2), You or your delivery pipeline (3); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>5 chart-specific lifecycle routes are recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
-          <dt>Next</dt><dd>Review limitation before promotion: existing secret (chart ships no Secret toggle)</dd>
+          <dt>Next</dt><dd>Run catalog promotion review</dd>
           <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
@@ -629,7 +629,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (3), You or your delivery pipeline (3); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>6 chart-specific lifecycle routes are recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>22 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
-          <dt>Next</dt><dd>Review limitation before promotion: existing secret (chart ships no Secret toggle)</dd>
+          <dt>Next</dt><dd>Run catalog promotion review</dd>
           <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for no-crds">
@@ -793,7 +793,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); optional chart inputs handled by reviewed base configurations; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>Hooks; Crds; Generated secrets; optional chart inputs; Install vs upgrade divergence; Required values; Lookup; Generated facts.; Tpl; Capabilities; Rbac; Storage</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); optional chart inputs handled by reviewed base configurations; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Optional chart inputs</td><td>Tpl powered values</td></tr><tr><td>How optional inputs are handled</td><td>Keep empty in supported bases; Or make a reviewed installer base when populated</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>Hooks; Crds; Generated secrets; optional chart inputs; Install vs upgrade divergence; Required values; Lookup; Generated facts.; Tpl; Capabilities; Rbac; Storage</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; hooks classified and routed (not silently executed); optional chart inputs handled by reviewed base configurations; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Optional chart inputs</td><td>Tpl powered values</td></tr><tr><td>How optional inputs are handled</td><td>Keep empty in supported bases; Or make a reviewed installer base when populated</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -847,7 +847,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Production review status</td><td>Not reviewed for production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted limits</td><td>None recorded</td></tr><tr><td>Open policy decisions</td><td>None recorded for this policy checklist</td></tr><tr><td>Next action</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody>
+        <tbody><tr><td>Production review status</td><td>Not reviewed for production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted limits</td><td>None recorded</td></tr><tr><td>Open policy decisions</td><td>None recorded for this policy checklist</td></tr><tr><td>Next action</td><td>run catalog promotion review</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

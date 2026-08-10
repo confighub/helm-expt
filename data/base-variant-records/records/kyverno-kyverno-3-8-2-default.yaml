@@ -1,0 +1,299 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "kyverno-kyverno-3-8-2-default"
+  labels:
+    sourceType: "helm"
+    component: "kyverno/kyverno"
+    sourceVersion: "3.8.2"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "kyverno/kyverno"
+    version: "3.8.2"
+    record: "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "bba363d100eb83b0a8e76c4e5519ae2d505288503bfae2243edac56b01e8f522"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 69
+  inputs:
+    fixedAtBuildTime:
+      - "chart=kyverno/kyverno"
+      - "version=3.8.2"
+      - "base=default"
+      - "valuesProfile=recipes/kyverno/kyverno/3.8.2/effective-values.yaml"
+      - "namespace=kyverno"
+      - "releaseName=kyverno"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      -
+        routeName: "delete-cleanup-policy"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "accept-target-policy"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — at uninstall, automatically"
+        operatingDetails: "Webhook and APIService cleanup belongs to delete or rollback policy."
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.8.1"
+        evidence:
+          - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "none — your cluster handles it"
+          flux: "none — your cluster handles it"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "upgrade-action-with-receipt"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "pre-apply"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: "Resource migration after upgrade must be recorded as an upgrade operation."
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.8.1"
+        evidence:
+          - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PreSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "explicit-test-check"
+        quirkClass: "hook-test"
+        lifecyclePhase: "observe"
+        actionKind: "run-test"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
+        operatingDetails: "Test hooks become checks, not hidden install behavior."
+        command: "# run the chart's test/check (helm test equivalent)"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.8.1"
+        evidence:
+          - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PostSync test Job (Argo has no native helm test)"
+          flux: "HelmRelease .spec.test.enable=true"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "# run the chart's test/check (helm test equivalent)"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PostSync test Job (Argo has no native helm test)"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "HelmRelease .spec.test.enable=true"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "preserve-ordering"
+        quirkClass: "hook-weight-ordering"
+        lifecyclePhase: "pre-apply"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your applier — must apply CRDs before dependent objects"
+        operatingDetails: ""
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.8.1"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "no extra hook — keep CRDs before dependent objects"
+          flux: "no extra hook — make sure CRDs are applied before workloads"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "target-facts-or-preflight"
+        quirkClass: "target-facts"
+        lifecyclePhase: "preflight"
+        actionKind: "stage-target-facts"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        operatingDetails: ""
+        command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "3.8.1"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 3.8.1; recipe version 3.8.2"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "none — supply the inputs before sync"
+          flux: "none — supply the inputs before sync"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      requirements:
+        []
+      actions:
+        []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+    sourceRecord: "data/helm-render-intents/intents/kyverno-kyverno-3-8-2-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

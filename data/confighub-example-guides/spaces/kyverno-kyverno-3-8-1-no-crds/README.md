@@ -39,7 +39,7 @@ The catalog records 6 extra steps for this preset. We call these lifecycle route
 - **When uninstalling:** delete-cleanup-policy.
 - **When uninstalling:** preserve-cleanup-policy.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -113,8 +113,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known limitation: existing-secret (chart ships no Secret toggle).
-- Resolve the named gap first: existing-secret (chart ships no Secret toggle).
+- Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
 

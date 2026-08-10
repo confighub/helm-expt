@@ -14,9 +14,9 @@ the detailed proof lanes, production decisions, or per-chart catalog pages.
 | Answer | Charts | Meaning |
 | --- | ---: | --- |
 | yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the lane you need. |
-| not-yet-public-catalog-proof-ready | 37 | Proof exists and variants look useful, but catalog promotion review is not done. |
+| not-yet-public-catalog-proof-ready | 39 | Proof exists and variants look useful, but catalog promotion review is not done. |
 | not-yet-user-ready | 37 | The current proof is too default-shaped; design a useful base variant first. |
-| decision-needed-first | 9 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
+| decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
 
 ## How To Use This
 
@@ -63,7 +63,9 @@ before their catalog status changes.
 
 | Chart | Recommended base | Evidence | First step |
 | --- | --- | --- | --- |
+| `traefik/traefik@40.2.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `external-dns/external-dns@1.21.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `kyverno/kyverno@3.8.1` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `kedacore/keda@2.19.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `prometheus-community/kube-state-metrics@7.4.0` | `default` | `live-helm-vs-confighub-parity` | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -104,10 +106,10 @@ or a limitation decision before they should be treated as catalog offers.
 
 | Chart | Answer | Evidence | First action |
 | --- | --- | --- | --- |
-| `traefik/traefik@40.2.0` | `decision-needed-first` | `live-helm-vs-confighub-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `traefik/traefik@40.2.0` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `external-dns/external-dns@1.21.1` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `gitlab/gitlab-runner@0.89.0` | `not-yet-user-ready` | `in-confighub-proof` | Design at least one useful base variant before catalog promotion. |
-| `kyverno/kyverno@3.8.1` | `decision-needed-first` | `live-helm-vs-confighub-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `kyverno/kyverno@3.8.1` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | `not-yet-public-catalog-proof-ready` | `live-helm-vs-confighub-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `fluent/fluent-bit@0.57.6` | `not-yet-user-ready` | `live-helm-vs-confighub-parity` | Design at least one useful base variant before catalog promotion. |
 | `runix/pgadmin4@1.62.0` | `not-yet-user-ready` | `live-helm-vs-confighub-parity` | Design at least one useful base variant before catalog promotion. |

@@ -1,0 +1,124 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "jetstack-cert-manager-v1-21-0-crds-enabled"
+  labels:
+    component: "jetstack/cert-manager"
+    chart: "jetstack/cert-manager"
+    version: "v1.21.0"
+    base: "crds-enabled"
+    catalogLayer: "F2b"
+spec:
+  component: "jetstack/cert-manager"
+  chart:
+    name: "jetstack/cert-manager"
+    version: "v1.21.0"
+    sourceRepository: "https://charts.jetstack.io"
+    sourceContent: ""
+  baseVariant: "crds-enabled"
+  renderInputs:
+    recipe: "recipes/jetstack/cert-manager/v1.21.0"
+    variant: "recipes/jetstack/cert-manager/v1.21.0/variants/crds-enabled/variant.yaml"
+    revision: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/cert-manager/v1.21.0/bases/crds-enabled"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
+    sourceLock: "recipes/jetstack/cert-manager/v1.21.0/source-lock.yaml"
+    namespace: "cert-manager"
+    releaseName: "cert-manager"
+    valuesProfile: "recipes/jetstack/cert-manager/v1.21.0/effective-values-crds-enabled.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/object-inventory.yaml"
+    revision: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/cert-manager/v1.21.0/bases/crds-enabled"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/jetstack/cert-manager/v1.21.0/effective-values-crds-enabled.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager/v1.21.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.21.0/bases/crds-enabled"
+    fullModelPath:
+      - "chart/version: jetstack/cert-manager@v1.21.0"
+      - "recipe: recipes/jetstack/cert-manager/v1.21.0"
+      - "base variant: crds-enabled"
+      - "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+      - "rendered revision: recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
+      - "package base: packages/jetstack/cert-manager/v1.21.0/bases/crds-enabled"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

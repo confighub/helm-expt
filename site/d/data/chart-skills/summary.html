@@ -448,16 +448,18 @@
 <p>Answers <b>&quot;is there a skill for this chart?&quot;</b> - which of the thematic operating playbooks under <a href="../../docs/skills/README.html">docs/skills/</a> apply to each chart, and why. Skills are thematic, not per-chart; this derives applicability from each chart's facts in the master matrix by documented rules (see <a href="contract.html">contract.md</a>). It is advisory help (&quot;which playbook applies&quot;), not a proof.</p>
 <p>Two forms: <a href="../../../../data/chart-skills/skills.csv">skills.csv</a> (spreadsheet) and <a href="../../../../data/chart-skills/skills.json">skills.json</a> (stable interface for agents).</p>
 <h2 id="coverage">Coverage</h2>
-<p>102 of 110 charts have at least one applicable skill. A chart with none is a plain chart that needs no special playbook.</p>
+<p>111 of 139 charts have at least one applicable skill. A chart with none is a plain chart that needs no special playbook.</p>
 <table><thead><tr><th>Skill</th><th>Charts</th></tr></thead><tbody><tr><td><a href="../../docs/skills/live-parity.html">Live Parity</a></td><td>97</td></tr>
-<tr><td><a href="../../docs/skills/target-facts-and-lifecycle.html">Target Facts And Lifecycle</a></td><td>54</td></tr>
-<tr><td><a href="../../docs/skills/hook-and-secret-lifecycle.html">Hook And Secret Lifecycle</a></td><td>41</td></tr>
-<tr><td><a href="../../docs/skills/large-app-evidence-funnel.html">Large App Evidence Funnel</a></td><td>22</td></tr>
-<tr><td><a href="../../docs/skills/serious-chart-playbooks.html">Serious Chart Playbooks</a></td><td>13</td></tr></tbody></table>
+<tr><td><a href="../../docs/skills/target-facts-and-lifecycle.html">Target Facts And Lifecycle</a></td><td>56</td></tr>
+<tr><td><a href="../../docs/skills/hook-and-secret-lifecycle.html">Hook And Secret Lifecycle</a></td><td>45</td></tr>
+<tr><td><a href="../../docs/skills/large-app-evidence-funnel.html">Large App Evidence Funnel</a></td><td>29</td></tr>
+<tr><td><a href="../../docs/skills/serious-chart-playbooks.html">Serious Chart Playbooks</a></td><td>20</td></tr></tbody></table>
 <h2 id="how-to-read-one-row">How To Read One Row</h2>
 <p><code>applicable_skills</code> lists the playbook slugs that apply; <code>top_skill</code> is the most specific; <code>matched_signals</code> is the feature evidence that triggered them (e.g. <code>named-serious; hooks:8; crds; webhooks</code>); <code>skill_docs</code> links the playbooks. A chart almost always also keeps its lifecycle-route facts in <a href="../lifecycle-routes/summary.html">../lifecycle-routes/</a>.</p>
 <h2 id="charts">Charts</h2>
 <table><thead><tr><th>Chart</th><th>Skills</th><th>Top</th><th>Signals</th></tr></thead><tbody><tr><td>aqua/trivy-operator@0.32.1</td><td>1</td><td>live-parity</td><td>live</td></tr>
+<tr><td>argo-cd/argo-cd@10.1.3</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>argo-cd/argo-cd@10.2.1</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>argo-cd/argo-cd@9.5.15</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>argo-cd/argo-cd@9.5.17</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>argo-cd/argo-events@2.4.21</td><td>1</td><td>live-parity</td><td>live</td></tr>
@@ -466,6 +468,9 @@
 <tr><td>argo-cd/argocd-image-updater@1.2.2</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>autoscaler/cluster-autoscaler@9.57.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>autoscaler/vertical-pod-autoscaler@0.9.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
+<tr><td>aws-controllers-k8s/ec2-chart@1.18.4</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>aws-controllers-k8s/eks-chart@1.16.3</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>aws-controllers-k8s/iam-chart@1.7.3</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>bitnami/apache@11.4.29</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; lookup; live</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>4</td><td>hook-and-secret-lifecycle</td><td>hooks:1; generated-facts; crds; lookup; live</td></tr>
@@ -489,6 +494,9 @@
 <tr><td>bitnami/spark@10.0.3</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; lookup; stateful-storage; live</td></tr>
 <tr><td>bitnami/zookeeper@13.8.7</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; lookup; stateful-storage; live</td></tr>
 <tr><td>cloudnative-pg/cloudnative-pg@0.28.2</td><td>5</td><td>serious-chart-playbooks</td><td>crds+webhooks; generated-facts; webhooks; crds; live</td></tr>
+<tr><td>cloudpirates/nginx@0.16.1</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>cloudpirates/rabbitmq@0.21.13</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>cloudpirates/redis@0.34.11</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>coredns/coredns@1.45.2</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; live</td></tr>
 <tr><td>crossplane-stable/crossplane@2.3.1</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>descheduler/descheduler@0.36.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
@@ -500,6 +508,8 @@
 <tr><td>elastic/metricbeat@8.5.1</td><td>1</td><td>target-facts-and-lifecycle</td><td>stateful-storage</td></tr>
 <tr><td>external-dns/external-dns@1.21.1</td><td>3</td><td>target-facts-and-lifecycle</td><td>crds; live</td></tr>
 <tr><td>external-secrets/external-secrets@2.5.0</td><td>3</td><td>serious-chart-playbooks</td><td>named-serious; live</td></tr>
+<tr><td>external-secrets/external-secrets@2.7.0</td><td>2</td><td>serious-chart-playbooks</td><td>named-serious</td></tr>
+<tr><td>external-secrets/external-secrets@2.8.0</td><td>2</td><td>serious-chart-playbooks</td><td>named-serious</td></tr>
 <tr><td>fairwinds-stable/goldilocks@10.3.0</td><td>5</td><td>serious-chart-playbooks</td><td>crds+webhooks; generated-facts; webhooks; crds; lookup; live</td></tr>
 <tr><td>fairwinds-stable/vpa@4.11.0</td><td>5</td><td>serious-chart-playbooks</td><td>crds+webhooks; webhooks; crds; lookup; live</td></tr>
 <tr><td>falcosecurity/falco@9.0.0</td><td>2</td><td>target-facts-and-lifecycle</td><td>lookup; stateful-storage; live</td></tr>
@@ -508,9 +518,11 @@
 <tr><td>fluent/fluentd@0.5.3</td><td>2</td><td>target-facts-and-lifecycle</td><td>stateful-storage; live</td></tr>
 <tr><td>gatekeeper/gatekeeper@3.22.2</td><td>5</td><td>serious-chart-playbooks</td><td>crds+webhooks; hooks:4; webhooks; crds; live</td></tr>
 <tr><td>gitlab/gitlab-runner@0.89.0</td><td>2</td><td>hook-and-secret-lifecycle</td><td>generated-facts</td></tr>
+<tr><td>grafana/alloy@1.11.0</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>grafana/alloy@1.8.2</td><td>3</td><td>target-facts-and-lifecycle</td><td>crds; stateful-storage; live</td></tr>
 <tr><td>grafana/grafana@10.5.15</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>grafana/loki@7.0.0</td><td>5</td><td>serious-chart-playbooks</td><td>named-serious; generated-facts; webhooks; crds; lookup; stateful-storage; live</td></tr>
+<tr><td>grafana/loki@7.1.0</td><td>2</td><td>serious-chart-playbooks</td><td>named-serious</td></tr>
 <tr><td>grafana/promtail@6.17.1</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>grafana/pyroscope@2.0.2</td><td>4</td><td>hook-and-secret-lifecycle</td><td>generated-facts; crds; lookup; stateful-storage; live</td></tr>
 <tr><td>grafana/rollout-operator@0.49.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
@@ -526,31 +538,44 @@
 <tr><td>jaegertracing/jaeger@4.8.0</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; lookup; live</td></tr>
 <tr><td>jetstack/cert-manager-csi-driver@v0.14.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>jetstack/cert-manager@v1.20.2</td><td>3</td><td>serious-chart-playbooks</td><td>named-serious; live</td></tr>
+<tr><td>jetstack/cert-manager@v1.21.0</td><td>2</td><td>serious-chart-playbooks</td><td>named-serious</td></tr>
 <tr><td>jetstack/trust-manager@v0.22.1</td><td>1</td><td>live-parity</td><td>live</td></tr>
+<tr><td>karpenter/karpenter@1.14.0</td><td>4</td><td>serious-chart-playbooks</td><td>crds+webhooks; webhooks; crds</td></tr>
 <tr><td>kedacore/keda@2.19.0</td><td>5</td><td>serious-chart-playbooks</td><td>crds+webhooks; hooks:1; webhooks; crds; live</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>2</td><td>target-facts-and-lifecycle</td><td>lookup; live</td></tr>
+<tr><td>kyverno/kyverno-policies@3.8.2</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>kyverno/kyverno@3.8.1</td><td>4</td><td>hook-and-secret-lifecycle</td><td>hooks:8; generated-facts; crds; lookup; stateful-storage; live</td></tr>
+<tr><td>kyverno/kyverno@3.8.2</td><td>1</td><td>hook-and-secret-lifecycle</td><td>hooks:8</td></tr>
 <tr><td>linkerd/linkerd-crds@1.8.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>longhorn/longhorn@1.11.2</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; live</td></tr>
+<tr><td>longhorn/longhorn@1.12.0</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>metallb/metallb@0.16.1</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>metrics-server/metrics-server@3.13.0</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; lookup; live</td></tr>
+<tr><td>metrics-server/metrics-server@3.13.1</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>minio-operator/operator@7.1.1</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>minio-operator/tenant@7.1.1</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>nats/nack@0.34.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>nats/nats@2.14.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>nats/surveyor@0.20.9</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td><td>1</td><td>target-facts-and-lifecycle</td><td>stateful-storage</td></tr>
+<tr><td>nvidia/nvidia-device-plugin@0.19.3</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>oauth2-proxy/oauth2-proxy@10.7.0</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>open-telemetry/opentelemetry-operator@0.114.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>opencost/opencost@2.5.21</td><td>1</td><td>target-facts-and-lifecycle</td><td>stateful-storage</td></tr>
 <tr><td>percona/pg-operator@3.0.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>percona/psmdb-operator@1.22.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>percona/pxc-operator@1.19.1</td><td>3</td><td>target-facts-and-lifecycle</td><td>crds; lookup; live</td></tr>
+<tr><td>policy-reporter/policy-reporter@3.9.1</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>projectcalico/tigera-operator@v3.32.0</td><td>3</td><td>hook-and-secret-lifecycle</td><td>hooks:1; lookup; live</td></tr>
 <tr><td>prometheus-community/alertmanager@1.37.0</td><td>2</td><td>target-facts-and-lifecycle</td><td>stateful-storage; live</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>5</td><td>serious-chart-playbooks</td><td>named-serious; hooks:2; generated-facts; webhooks; crds; lookup; stateful-storage; live</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@86.1.0</td><td>4</td><td>serious-chart-playbooks</td><td>named-serious; hooks:2; live</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.15.1</td><td>3</td><td>serious-chart-playbooks</td><td>named-serious; hooks:2</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@87.19.2</td><td>3</td><td>serious-chart-playbooks</td><td>named-serious; hooks:2</td></tr>
 <tr><td>prometheus-community/kube-state-metrics@7.4.0</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; stateful-storage; live</td></tr>
 <tr><td>prometheus-community/prometheus-adapter@5.3.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>prometheus-community/prometheus-blackbox-exporter@11.10.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
+<tr><td>prometheus-community/prometheus-blackbox-exporter@11.15.1</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>prometheus-community/prometheus-node-exporter@4.55.0</td><td>3</td><td>hook-and-secret-lifecycle</td><td>generated-facts; live</td></tr>
 <tr><td>prometheus-community/prometheus-operator-crds@29.0.0</td><td>4</td><td>hook-and-secret-lifecycle</td><td>generated-facts; crds; live</td></tr>
 <tr><td>prometheus-community/prometheus-pushgateway@3.6.0</td><td>2</td><td>target-facts-and-lifecycle</td><td>stateful-storage; live</td></tr>
@@ -562,9 +587,13 @@
 <tr><td>sealed-secrets/sealed-secrets@2.18.6</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>stakater/reloader@2.2.12</td><td>1</td><td>live-parity</td><td>live</td></tr>
+<tr><td>stakater/reloader@2.2.14</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>strimzi/strimzi-kafka-operator@1.0.0</td><td>3</td><td>target-facts-and-lifecycle</td><td>crds; live</td></tr>
 <tr><td>traefik/traefik@40.2.0</td><td>5</td><td>serious-chart-playbooks</td><td>crds+webhooks; generated-facts; webhooks; crds; lookup; stateful-storage; live</td></tr>
+<tr><td>traefik/traefik@41.0.2</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>valkey/valkey@0.11.0</td><td>1</td><td>target-facts-and-lifecycle</td><td>stateful-storage</td></tr>
 <tr><td>velero/velero@12.0.1</td><td>0</td><td>none</td><td>-</td></tr>
+<tr><td>velero/velero@12.1.0</td><td>0</td><td>none</td><td>-</td></tr>
 <tr><td>vm/victoria-logs-single@0.12.5</td><td>1</td><td>live-parity</td><td>live</td></tr>
 <tr><td>vm/victoria-metrics-single@0.39.0</td><td>1</td><td>live-parity</td><td>live</td></tr></tbody></table>
 <h2 id="boundaries">Boundaries</h2>

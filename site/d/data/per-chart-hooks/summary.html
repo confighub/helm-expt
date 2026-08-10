@@ -461,9 +461,9 @@
 <tr><td>k8s-dashboard/kubernetes-dashboard@7.14.0</td><td>routed</td><td>1</td><td>0/1</td><td>-</td></tr>
 <tr><td>kedacore/keda@2.19.0</td><td>observed</td><td>1</td><td>0/1</td><td>serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity</td></tr>
 <tr><td>kong/kong@3.2.0</td><td>routed</td><td>1</td><td>0/1</td><td>-</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>observed</td><td>9</td><td>0/9</td><td>hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>observed</td><td>9</td><td>0/9</td><td>hook-and-secret-lifecycle</td></tr>
 <tr><td>projectcalico/tigera-operator@v3.32.0</td><td>observed</td><td>2</td><td>0/2</td><td>hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>observed</td><td>23</td><td>0/23</td><td>serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel; live-parity</td></tr></tbody></table>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>observed</td><td>23</td><td>0/23</td><td>serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel</td></tr></tbody></table>
 <h2 id="what-each-disposition-means">What each disposition means</h2>
 <ul><li><b>blocked</b> - the route is known but a precondition (images / CRDs / deps) blocks live observation.</li><li><b>observed</b> - a live receipt exists - the hook ran and was recorded.</li><li><b>per-target</b> - the route depends on the target - it runs only where the precondition holds.</li><li><b>routed</b> - the hook is named and has a route, not yet observed live.</li></ul>
 <ul><li>Per-chart detail (colored cards): <code>data/per-chart-hooks/by-chart.html</code>.</li><li>Flat data (one row per route): <code>data/per-chart-hooks/cards.csv</code>.</li><li>Source: <code>data/lifecycle-route-actions/actions.csv</code> + <code>data/chart-skills/skills.csv</code>.</li></ul>
