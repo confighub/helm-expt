@@ -42,12 +42,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API",
   },
-  "anonymous-oci-ci:verify": {
-    proves: "The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI->work->OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.",
-    requires: "offline",
-    disposition: "join-the-chain",
-    status: "red: summary is stale and only the live --run rewrites it, so clearing it needs a registry run",
-  },
   "helm-org:fleet:verify": {
     proves: "That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one.",
     requires: "confighub",
@@ -65,12 +59,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     requires: "confighub",
     disposition: "keep-outside",
     status: "not run here, needs confighub",
-  },
-  "hook-replacement:proof:verify": {
-    proves: "Validates runs/hook-replacement-proof/receipt.yaml (kind, an allowed result, and presence of the neither/argo/flux legs) and byte-compares data/hook-replacement-proof/summary.md and by-controller.html against what the generator re-renders from it, so the published claim that all three recommended hook-replacement paths delivered and ran the routed Job matches the recorded run.",
-    requires: "offline",
-    disposition: "join-the-chain",
-    status: "red: runs/hook-replacement-proof/receipt.yaml was never recorded, so the proof has to run before this lane can pass",
   },
   "kubara-catalog-full-coverage:verify": {
     proves: "Re-verifies the final Kubara catalogs 1.1.0 coverage state end to end: the immutable 120-root recipe/package baseline, the ten additive roots and their proof and installer-package receipts, the ten OCI publication receipts against the live remote manifest and layer digests, the installer-OCI catalog rows, and that data/kubara-catalog-1.1-full-coverage/receipt.yaml records pass with ten published packages.",

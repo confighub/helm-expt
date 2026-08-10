@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookReplacementProofReceipt"
+metadata:
+  name: "hook-repl-20260810-1uie"
+spec:
+  fixture: "tests/fixtures/hook-replacement-probe"
+  branch: "hook-replacement-proof-run"
+  observedAt: "2026-08-10T18:14:10.965Z"
+  result: "pass"
+  claim: "The recommended replacement for a Helm post-install Job hook (a routed, explicit lifecycle action) is delivered and runs — workload applied and hook completed — under all three recommended paths: Argo CD (PostSync hook), Flux (Kustomization), and neither (kubectl direct)."
+  run:
+    rig: "hook-repl-20260810-1uie"
+    cleanup:
+      result: "pass"
+  legs:
+    neither:
+      mode: "kubectl direct (neither)"
+      workloadApplied: "yes"
+      hookRan: "yes"
+      result: "pass"
+    argo:
+      mode: "Argo CD (PostSync hook)"
+      workloadApplied: "yes"
+      hookRan: "yes"
+      result: "pass"
+    flux:
+      mode: "Flux (Kustomization)"
+      workloadApplied: "yes"
+      hookRan: "yes"
+      result: "pass"
+  conclusion: "All three recommended replacement paths delivered the workload and ran the routed hook to completion. The emitted Argo/Flux steps are not just YAML — a real controller executes them, and the no-controller path works too."

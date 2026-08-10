@@ -447,13 +447,12 @@
     <article class="doc-body">
 <p>This page is generated. It lists every npm lane that is named like a gate and is not run by <code>npm run verify</code>, with what it proves and why it sits outside.</p>
 <p>Two such lanes went stale unnoticed before this page existed. <code>app-readiness</code> claimed to check every catalog chart while covering 95 of 120 rendered subjects, and <code>preview-readiness</code> was wrong in three fields of four. Nothing failed, because nothing ran them.</p>
-<pre><code>lanes outside the chain: 23
-should join the chain:   2
+<pre><code>lanes outside the chain: 21
+should join the chain:   0
 deliberately outside:    21
 superseded:              0</code></pre>
 <h2 id="cheap-offline-and-belongs-in-the-chain">Cheap, offline, and belongs in the chain</h2>
-<table><thead><tr><th>lane</th><th>proves</th><th>requires</th><th>status</th></tr></thead><tbody><tr><td><code>anonymous-oci-ci:verify</code></td><td>The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI-&gt;work-&gt;OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.</td><td>offline</td><td>red: summary is stale and only the live --run rewrites it, so clearing it needs a registry run</td></tr>
-<tr><td><code>hook-replacement:proof:verify</code></td><td>Validates runs/hook-replacement-proof/receipt.yaml (kind, an allowed result, and presence of the neither/argo/flux legs) and byte-compares data/hook-replacement-proof/summary.md and by-controller.html against what the generator re-renders from it, so the published claim that all three recommended hook-replacement paths delivered and ran the routed Job matches the recorded run.</td><td>offline</td><td>red: runs/hook-replacement-proof/receipt.yaml was never recorded, so the proof has to run before this lane can pass</td></tr></tbody></table>
+<p>None.</p>
 <h2 id="deliberately-outside-because-it-needs-the-world">Deliberately outside, because it needs the world</h2>
 <table><thead><tr><th>lane</th><th>proves</th><th>requires</th><th>status</th></tr></thead><tbody><tr><td><code>helm-org:verify</code></td><td>Every planned Space in the live ConfigHub <code>helm-catalog</code> organization exists, carries the planned labels, holds at least one Unit, and its recipe Unit data still equals the committed data/helm-render-intents/intents/&lt;space&gt;.yaml.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
 <tr><td><code>helm-org:policy:verify</code></td><td>That the live helm-catalog ConfigHub organization's apply-policy topology - the Trigger definition Space, Trigger filters, and per-Space WhereTrigger assignments - still matches both config-catalog/policies/catalog-standard.yaml and the committed receipt data/apply-policy-profiles/live-helm-catalog.yaml, field by field.</td><td>confighub</td><td>not run here, needs confighub</td></tr>
