@@ -30,7 +30,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "You usually find out when it fails.", "Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "You find out what a chart does by installing it.", "Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/variants.html",
