@@ -151,20 +151,36 @@ Measured against 139 recipe roots.
 |---|---|---|
 | Catalog views: status, artifact index, page | **139 of 139** | none |
 | Installer package and publication receipt | 139 of 139 | none |
-| Helm pain report | 130 of 139 | 9 entries |
-| Render intent, which carries lifecycle and target-facts states | 110 of 139 | **29 entries holding 46 variants** |
-| Lifecycle declared with a real decision | 15 of 199 intents | 184 generated defaults |
-| Target facts declared attached | 67 of 199 intents | 132 actionable gaps |
+| Helm pain report | **139 of 139** | none, closed in #1442 |
+| Render intent, which carries lifecycle and target-facts states | **139 of 139** | none, closed in #1459 |
+| Lifecycle declared with a real decision | 12 of 245 intents | 223 generated defaults, 10 actionable gaps |
+| Target facts declared attached | 89 of 245 intents | 156 actionable gaps |
+
+The first four rows were measured again on 2026-08-09 and the two that showed a
+gap have closed. Neither was missing data. The nine pain reports were an unrun
+generator, and the render intents were a deadlock, described below. The last two
+rows grew because the denominator did: 199 intents became 245 when every entry
+joined, and the gap counts rose accordingly, which this brief predicted and
+called the correct direction.
 
 The catalog views row corrects issue #1375, which reported 20 of 135 missing.
 They are complete. The generators resolve them through `catalogDerivedPath()`
 in `scripts/lib/catalog-derived-views.mjs`, which redirects immutable roots to
 an overlay; counting raw in-root paths produced the wrong answer.
 
-The largest genuine gap is the 29 orphan roots. They hold 46 variants that no
-render intent covers, so no lifecycle or target-facts state exists for them at
-all. They are not in the fourth state, they are outside the system that has
-states.
+The 29 orphan roots were not a data gap. They held 46 variants that no render
+intent covered, and the reason was a deadlock rather than missing work. The
+master matrix aborted on a base with no render intent, and the intents are
+generated from that matrix, so an entry added to the catalog later could enter
+neither. #1454 made the matrix record the absence as an actionable gap, #1456
+made the contract lane refuse on an uncovered base instead of counting intent
+files, and #1459 then enrolled every entry: 245 base rows, 245 intents, none
+uncovered.
+
+The lesson generalises past this row. A lane declared known-red at the head of a
+dependency chain freezes every surface below it, and the register makes that
+invisible, because a frozen chain reads as one tolerated failure rather than as
+everything downstream being unreachable.
 
 ## What it would break, and what to do about it
 
@@ -188,7 +204,8 @@ says which.
 
 ## What not to do
 
-Do not enrol the 184 generated lifecycle defaults by keeping them. Deleting the
+Do not enrol the generated lifecycle defaults by keeping them. There are 223 of
+them now that every entry has an intent. Deleting the
 unconditional fall-through at `generate-helm-render-intents.mjs:607` moves 184
 records from a false declaration to an honest gap, and the count of gaps will
 rise sharply. That is the correct direction. A contract measured by how few gaps
@@ -202,12 +219,13 @@ routes need none, and 56 intents need target facts with no route.
 
 ## The first increment
 
-1. Fix the four raw-path readers. It clears four chain failures and costs a line
-   each.
-2. Enrol the 29 orphan roots so every entry has the states, before adding any
-   new obligation to the list.
+1. ~~Fix the four raw-path readers.~~ Done for the two that broke published
+   links, in #1459. `run-legacy-patch-review` and `generate-top100-user-readiness`
+   remain.
+2. ~~Enrol the 29 orphan roots so every entry has the states.~~ Done in #1459,
+   at 245 of 245.
 3. Replace the generated lifecycle default with an honest gap, and accept the
-   rise in the gap count.
+   rise in the gap count. Still open, and now 223 records rather than 184.
 4. Settle the lane vocabulary.
 5. Only then extend the three-state rule to the remaining obligations, with the
    permission and limits axes, one obligation at a time, each with a lane that
