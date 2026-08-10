@@ -442,25 +442,28 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../examples/sveltos/fleet-rehearsal/README.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <blockquote><p>This example now lives at <a href="https://github.com/confighub/sveltos-confighub">confighub/sveltos-confighub</a>. This copy is a frozen mirror; new work, live recordings, and issues belong in that repository.</p></blockquote>
 <p>The governed fleet chapters should not meet their cluster machinery for the first time on patch day. This rehearsal runs the delivery path they share, today, with no ConfigHub account, so the day confighubai/confighub#4975 closes the only untested piece is the approval boundary itself.</p>
 <h2 id="what-it-runs">What it runs</h2>
-<p>One command builds a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), installs Argo CD from the <a href="../../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">pinned upstream manifest</a> and Sveltos v1.12.0 from the chapter-one source lock, and then drives the shared machinery:</p>
-<ol><li>Kyverno converges on all four clusters from portable OCI digests reconciled by Argo CD.</li><li>A demo application (podinfo, pinned in the source lock) rides the same rails to all four clusters with a different replica count per environment, so the per-environment fan-out is visible in the app itself.</li><li>A values change lands on the pilot cluster alone; the other three hold their state.</li><li>A chart version bump lands on the pilot alone with the values intact.</li><li>Drift injected on the pilot is repaired by Sveltos.</li></ol>
+<p>One command builds a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label) and installs Sveltos from the <a href="../../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">pinned manifest</a>. The management cluster registers itself as a Sveltos-managed cluster, so one bootstrap profile can hand it every wave of fleet profiles from the registry.</p>
+<p>Each wave publishes the complete current set of fleet profiles as one raw-YAML OCI image. Sveltos fetches that image itself and sends the profiles to every managed cluster. Nothing else carries the configuration.</p>
+<ol><li>Kyverno converges on all four clusters from the fetched profile set.</li><li>A demo application (podinfo, pinned in the source lock) rides the same rails to all four clusters with a different replica count per environment, so the per-environment fan-out is visible in the app itself.</li><li>A values change lands on the pilot cluster alone; the other three hold their state.</li><li>A chart version bump lands on the pilot alone with the values intact.</li><li>Drift injected on the pilot is repaired by Sveltos.</li></ol>
 <p>The receipt records phase timings, so it also measures what this machine can carry before a real recording day.</p>
+<h2 id="the-layer-contract">The layer contract</h2>
+<p>The <a href="../../../docs/planning/remote-url-oci-probe.html">live remote fetch probe</a> recorded what the fetcher accepts, and this lane holds to it. Profiles ship as a single raw-YAML layer, and the runner refuses to publish a gzipped or tar layer because the fetcher would misread it. The registry serves TLS, because the fetcher speaks HTTPS only, and the certificate authority reaches the controller in a Secret of type <code>addons.projectsveltos.io/cluster-profile</code>, which is the type it requires.</p>
 <h2 id="the-boundary">The boundary</h2>
-<p>No review, approval, or promotion is claimed and no ConfigHub organization is touched. Argo CD comes from the pinned upstream manifest instead of <code>cub cluster up</code>, and Applications are applied with kubectl instead of being delivered as ConfigHub Units. The receipt states these differences, its verifier refuses a receipt that claims governance, and no chapter matrix cell is ever filled by a rehearsal.</p>
+<p>No review, approval, or promotion is claimed and no ConfigHub organization is touched. The registry stands in for the ConfigHub OCI gateway, the profiles come straight from the reviewed example files instead of an approved ConfigHub revision, and the bootstrap profile is applied with kubectl as cluster setup. The receipt states these differences, its verifier refuses a receipt that claims governance, and no chapter matrix cell is ever filled by a rehearsal.</p>
 <h2 id="the-recorded-run">The recorded run</h2>
-<p>The <a href="../../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">committed receipt</a> and the <a href="../../../data/sveltos-fleet-rehearsal/summary.html">summary with phase timings</a> record the first rehearsal on the reference machine.</p>
+<p>The <a href="../../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">committed receipt</a> and the <a href="../../../data/sveltos-fleet-rehearsal/summary.html">summary with phase timings</a> record the first rehearsal on the reference machine. That run delivered the artifacts through a GitOps controller, which this design replaced with the direct fetch path above. The verifier recognizes the older receipt and waits for the re-record instead of checking it against the new contract.</p>
 <h2 id="run-it">Run it</h2>
-<pre><code># Deterministic self-test first: the revision ladder, the portable OCI
-# round trip, the Argo pin refusal, and the receipt contract. Seconds.
+<pre><code># Deterministic self-test first: the revision ladder, the raw-YAML
+# publication contract with its gzip and tar refusals, the Secret type and
+# bootstrap profile the fetcher requires, and the receipt contract. Seconds.
 npm run sveltos-fleet-rehearsal:self-test
 
-# The live rehearsal. It creates its own clusters and registry, records
+# The live rehearsal. It creates its own clusters and TLS registry, records
 # the receipt with timings, and cleans up. Expect twenty to forty minutes.
 HELM_EXPT_ALLOW_LIVE_SVELTOS_REHEARSAL=1 npm run sveltos-fleet-rehearsal:run
 

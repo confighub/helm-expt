@@ -445,29 +445,30 @@
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This rehearsal exists so the governed chapters do not meet their cluster machinery for the first time on patch day. It built the full reference fleet and drove the shared delivery path end to end with no ConfigHub involved.</p>
-<p>Boundary: no review, approval, or promotion is claimed. Argo CD came from the pinned upstream manifest instead of cub cluster up, Applications were applied with kubectl instead of delivered as ConfigHub Units, and the chapter matrices are untouched. When this receipt was recorded (2026-08-08), the governed lanes were still blocked by confighubai/confighub#4975.</p>
-<p>What ran: a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), Kyverno 3.8.1 converged on all four clusters from portable OCI digests reconciled by Argo CD v3.4.6, a values change landed on the pilot alone, a chart version bump to 3.8.2 landed on the pilot alone with the values intact, the other three clusters held their state through both, and injected drift was repaired. The demo application rode the same rails: podinfo 6.14.1 converged on all four clusters with per-environment replica counts.</p>
-<table><thead><tr><th>Phase</th><th>Duration</th></tr></thead><tbody><tr><td>temporary OCI registry ready</td><td>1.3s</td></tr>
-<tr><td>management cluster ready</td><td>25s</td></tr>
-<tr><td>Argo CD converged on the management cluster</td><td>57.9s</td></tr>
-<tr><td>four workload clusters ready</td><td>102.7s</td></tr>
-<tr><td>Sveltos controllers converged</td><td>101s</td></tr>
+<p>Boundary: no review, approval, or promotion is claimed. The registry stands in for the ConfigHub OCI gateway, the profiles come straight from the reviewed example files instead of an approved ConfigHub revision, and the chapter matrices are untouched. When this receipt was recorded (2026-08-10), the governed lanes were still blocked by confighubai/confighub#4975.</p>
+<p>The delivery path: each wave of fleet profiles was published as one raw-YAML OCI image, and Sveltos v1.13.0 on the management cluster fetched it from the registry and sent it to every managed cluster.</p>
+<p>What ran: a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), Kyverno 3.8.1 converged on all four clusters from the fetched profile set, a values change landed on the pilot alone, a chart version bump to 3.8.2 landed on the pilot alone with the values intact, the other three clusters held their state through both, and injected drift was repaired. The demo application rode the same rails: podinfo 6.14.1 converged on all four clusters with per-environment replica counts.</p>
+<table><thead><tr><th>Phase</th><th>Duration</th></tr></thead><tbody><tr><td>temporary TLS OCI registry ready</td><td>1.3s</td></tr>
+<tr><td>management cluster ready</td><td>24.5s</td></tr>
+<tr><td>four workload clusters ready</td><td>103.8s</td></tr>
+<tr><td>Sveltos controllers converged</td><td>86.3s</td></tr>
 <tr><td>four workload clusters registered</td><td>1s</td></tr>
-<tr><td>baseline delivered to all four clusters</td><td>192.4s</td></tr>
-<tr><td>application delivered to all four clusters</td><td>28.8s</td></tr>
-<tr><td>values change delivered to the pilot only</td><td>55s</td></tr>
-<tr><td>version bump delivered to the pilot only</td><td>103.8s</td></tr>
-<tr><td>injected drift repaired on the pilot</td><td>15.3s</td></tr>
-<tr><td>Total measured</td><td>684s</td></tr></tbody></table>
+<tr><td>management cluster enrolled for remote fetch</td><td>0.2s</td></tr>
+<tr><td>baseline delivered to all four clusters</td><td>155.1s</td></tr>
+<tr><td>application delivered to all four clusters</td><td>58.8s</td></tr>
+<tr><td>values change delivered to the pilot only</td><td>78.5s</td></tr>
+<tr><td>version bump delivered to the pilot only</td><td>132.7s</td></tr>
+<tr><td>injected drift repaired on the pilot</td><td>9.2s</td></tr>
+<tr><td>Total measured</td><td>651s</td></tr></tbody></table>
 <table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Clusters converged at baseline</td><td>4/4</td></tr>
 <tr><td>Application clusters converged</td><td>4/4, replicas per environment</td></tr>
 <tr><td>Selective values change</td><td>pilot only</td></tr>
 <tr><td>Selective version bump</td><td>pilot only, values intact</td></tr>
-<tr><td>Distinct pilot digests across waves</td><td>3</td></tr>
+<tr><td>Distinct wave digests fetched</td><td>4</td></tr>
 <tr><td>Drift repaired</td><td>pass</td></tr>
 <tr><td>Cleanup</td><td>Pass</td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
-<ul><li>No ConfigHub organization, review, approval, or release was involved; this is not a governance proof.</li><li>The portable OCI used a temporary anonymous registry; this is not a permanent public package.</li><li>The rehearsal used five local kind clusters on one machine. It measures this machine, not a production fleet.</li><li>The chapter matrices are untouched; only the governed lanes may fill their observed cells.</li></ul>
+<ul><li>No ConfigHub organization, review, approval, or release was involved; this is not a governance proof.</li><li>The profile artifacts used a temporary TLS registry standing in for the ConfigHub OCI gateway; they are not permanent public packages.</li><li>The layer contract is the one recorded by the remote fetch probe: a single raw-YAML layer. Gzipped and tar layers are refused before publication.</li><li>The rehearsal used five local kind clusters on one machine. It measures this machine, not a production fleet.</li><li>The chapter matrices are untouched; only the governed lanes may fill their observed cells.</li></ul>
 <ul><li><a href="../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">Committed receipt</a></li><li><a href="../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">Rehearsal source lock</a></li></ul>
     </article>
   </main>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Sveltos fleet chapters · Config Workshop</title>
-  <meta name="description" content="The Sveltos fleet chapters: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/fleet-chapters.html">
-  <meta property="og:title" content="The Sveltos fleet chapters · Config Workshop">
-  <meta property="og:description" content="The Sveltos fleet chapters: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry · Config Workshop</title>
+  <meta name="description" content="Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/remote-url-oci-probe.html">
+  <meta property="og:title" content="Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry · Config Workshop">
+  <meta property="og:description" content="Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/fleet-chapters.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/remote-url-oci-probe.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,46 +433,44 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The Sveltos fleet chapters</h1>
-    <p class="lead">This example now lives at <a href="https://github.com/confighub/sveltos-confighub">confighub/sveltos-confighub</a>. This copy is a frozen mirror; new work, live recordings, and issues belong in that repository. <a href="../../../../../docs/demo/sveltos/fleet-chapters.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/remote-url-oci-probe.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<blockquote></blockquote>
-<p>This page ties the five Sveltos fleet chapters into one story. Config comes from ConfigHub, which publishes changes as OCI images on its OCI gateway. Sveltos fetches the configuration from that gateway and sends it to all Sveltos-managed clusters. A platform team manages one fleet: a management cluster running Sveltos, and four workload clusters grouped as pilot, staging, and two production clusters. ConfigHub keeps every reviewed record and its approval history; OCI carries exact digests; Sveltos selects clusters by label and reconciles them. Each chapter makes one operational claim and backs it with a machine-checked matrix, a receipt contract, and deterministic self-tests.</p>
-<h2 id="the-five-chapters">The five chapters</h2>
-<ol><li><b><a href="../../../examples/sveltos/kyverno-fleet/README.html">Kyverno across the fleet</a></b> installs admission policy through a reviewed record with an approval gate, because policy is the clearest case for review before a change reaches every cluster. Recorded live.</li><li><b>The canary, in the same example</b>: the reviewed profile selected only the pilot cluster, and one approved selector change added the second cluster at a new OCI digest. Recorded live in the <a href="../../../data/sveltos-oci-delivery-proof/summary.html">two-wave proof</a>.</li><li><b><a href="../../../examples/sveltos/env-rollout/README.html">Environment rollout</a></b> promotes one reviewed values change pilot to staging to production, with a <a href="../../../data/sveltos-env-rollout/matrix.html">per-cluster matrix</a> showing which cluster runs which revision at every checkpoint.</li><li><b><a href="../../../examples/sveltos/cve-patch/README.html">CVE patching</a></b> is fleet patch day with evidence: one reviewed version bump with digest-bound provenance, promoted through the same groups, closed by a coverage audit that proves no cluster was missed. It does not scan for vulnerabilities and does not verify any advisory claim. The <a href="../../../data/sveltos-cve-patch/matrix.html">matrix</a> tracks chart versions.</li><li><b><a href="../../../examples/sveltos/bulk-ops/README.html">Bulk operations</a></b> is the change-it-once claim: one reviewed edit fans out to every record in one pass, and a zero-drift audit closes the run with a set-aware query across the Spaces, out-of-band checks on every record, and drift repaired on every cluster. The <a href="../../../data/sveltos-bulk-ops/matrix.html">matrix</a> shows all three checkpoints.</li></ol>
-<p>The chapters share one fleet design and hand their state forward: chapter four starts from chapter three's outcome and chapter five from chapter four's, and the repository gate enforces that continuity mechanically.</p>
-<h2 id="what-is-proven-today-and-what-is-not">What is proven today and what is not</h2>
-<p>Chapters one and two are recorded live. Chapters three, four, and five are fully drafted and proven offline: their governance logic, their receipts, and their refusal behavior all run against fake ConfigHub and OCI surfaces in the repository gate, in seconds, with no account or cluster. Their live runs have not happened, every observed matrix cell is honestly empty, and each drafted runner refuses to start while the server defect below stands.</p>
-<h2 id="why-one-server-issue-blocks-every-live-run">Why one server issue blocks every live run</h2>
-<p>The claim these chapters sell is not that configuration can be pushed to clusters. Anyone can push. The claim is that nothing reaches any cluster except an exactly approved revision, and the only evidence for that is watching the approval boundary from both sides. Before approval, the record must visibly show &quot;blocked, waiting for approval&quot; with no approval on file: that observation proves the change was actually held. After someone approves that exact revision, the block lifts and the approval is on record: that proves the bytes that shipped are the bytes that were approved.</p>
-<p>On the current server the first half is broken. A freshly created record in a Space wired with the standard approval policy never shows the block marker at all, even though the policy is attached correctly. The pipeline can never witness the &quot;held for review&quot; state, so it refuses to record a proof that skips it, because that state is the whole point. There is no side door either: the older CLI had a command that provoked a rejection we could record as evidence, but it was removed, so reading the markers is the only way left to observe the boundary. The defect is tracked in confighubai/confighub#4975.</p>
-<p>Every drafted runner therefore starts with a gate preflight: it creates a throwaway record, waits briefly for the block marker, and refuses with the issue number if the marker never appears. The refusal costs seconds instead of the seven-minute fleet build. The day the server fix lands, each chapter records with one command, listed in its README.</p>
-<h2 id="run-the-offline-proofs-yourself">Run the offline proofs yourself</h2>
-<p>Every chapter's checks run without any account, cluster, or network access:</p>
-<pre><code>npm run sveltos-example:self-test
-npm run sveltos-oci-delivery:self-test
-npm run sveltos-env-rollout:self-test
-npm run sveltos-env-rollout-proof:self-test
-npm run sveltos-cve-patch:self-test
-npm run sveltos-cve-patch-proof:self-test
-npm run sveltos-bulk-ops:self-test
-npm run sveltos-bulk-ops-proof:self-test</code></pre>
-<p>The delivery machinery the chapters share can be rehearsed today with no account at all: the <a href="../../../examples/sveltos/fleet-rehearsal/README.html">fleet rehearsal</a> builds the five-cluster kind fleet, converges Kyverno everywhere from OCI digests fetched by Sveltos itself, delivers a demo application to all four clusters with per-environment replica counts, lands a values change and a version bump on the pilot alone, and repairs injected drift, under a receipt that explicitly claims no governance. An earlier recording used a GitOps controller as the OCI carrier; the <a href="../../planning/remote-url-oci-probe.html">live remoteURL probe</a> verified the direct fetch path this design now uses.</p>
-<p>To find out whether the server fix has landed, one probe answers for every lane: <code>CUB_CONTEXT=my-policy npm run sveltos-gate:probe</code> wires a throwaway record, watches for the block marker, cleans up, and reports either the refusal with the issue number or that the lanes are unblocked. The patched chart's digest and values fit can be checked any day with <code>npm run sveltos-cve-patch-proof:verify-chart</code>, with no account or cluster.</p>
-<p>Fleet proofs run serially against the organization, never in parallel. The planning brief behind the chapters is <a href="../../planning/sveltos-fleet-brief.html">sveltos-fleet-brief.md</a>.</p>
+<blockquote><p>This example now lives at <a href="https://github.com/confighub/sveltos-confighub">confighub/sveltos-confighub</a>. This copy is a frozen mirror; new work, live recordings, and issues belong in that repository.</p></blockquote>
+<p>Run on 2026-08-10 against Sveltos v1.13.0, whose <code>controllers/url_source.go</code> is byte-identical to commit 4f9a59e that the maintainer pointed us at. The probe answers one question: which OCI artifact shapes does <code>policyRefs[].remoteURL</code> deploy today, ahead of the ConfigHub OCI-gateway integration.</p>
+<h2 id="setup">Setup</h2>
+<p>Two kind clusters (management and one workload registered with <code>environment: staging</code>), Sveltos v1.13.0 from the pinned upstream manifest with ServiceMonitors filtered out, and a TLS <code>registry:2</code> container with a self-signed certificate. Three artifacts were pushed with oras, one tag each, all containing the same kind of payload: a Namespace plus a ConfigMap. Each ClusterProfile used:</p>
+<pre><code>spec:
+  clusterSelector:
+    matchLabels:
+      environment: staging
+  policyRefs:
+    - deploymentType: Remote
+      remoteURL:
+        url: oci://&lt;registry&gt;/probe/&lt;shape&gt;:v1
+        interval: 1m0s
+        secretRef:
+          name: sveltos-oci-ca
+          namespace: projectsveltos</code></pre>
+<h2 id="results">Results</h2>
+<table><thead><tr><th>Artifact shape</th><th>Result</th></tr></thead><tbody><tr><td>Single layer of raw YAML bytes (documents separated by <code>---</code>)</td><td>Provisioned; resources deployed to the workload cluster</td></tr>
+<tr><td>Single layer that is an uncompressed ustar tar of <code>.yaml</code> files</td><td>Provisioned; resources deployed to the workload cluster</td></tr>
+<tr><td>Single layer that is a gzipped tar of the same files</td><td>Failed: the gzip bytes fall through to the raw-YAML branch and decoding stops at <code>yaml: control characters are not allowed</code></td></tr>
+<tr><td>Uncompressed tar written by default macOS bsdtar</td><td>Failed: AppleDouble metadata entries such as <code>._ns.yaml</code> end in <code>.yaml</code>, match the extension filter, and inject binary content</td></tr></tbody></table>
+<h2 id="operational-findings">Operational findings</h2>
+<ol><li>The auth Secret must have type <code>addons.projectsveltos.io/cluster-profile</code>. An Opaque Secret fails with <code>unsupported secret type</code>.</li><li>The <code>caFile</code> key works: the addon-controller trusted our self-signed registry after reading the CA from the Secret.</li><li>The ORAS client is HTTPS-only. A plain-HTTP local registry cannot be used, which is why this probe runs a TLS registry.</li><li>Layer media types are ignored entirely; only the content shape matters.</li></ol>
+<h2 id="what-this-means-for-the-integration">What this means for the integration</h2>
+<p>The direct path in the agreed architecture statement works today: publish raw YAML (or a clean uncompressed tar) as an OCI image, point the reviewed ClusterProfile's <code>remoteURL</code> at it, and Sveltos deploys and re-checks it on its interval. The two failure shapes are avoidable by the publisher and fixable in the addon-controller: a gzip sniff before the tar parse, and skipping <code>._*</code> and <code>PaxHeader</code> entries in the extension filter. Whichever side moves, the artifact contract should be written down where both projects can point at it.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/sveltos/fleet-chapters.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/remote-url-oci-probe.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
