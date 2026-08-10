@@ -1186,7 +1186,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -1506,7 +1506,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -1671,7 +1671,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -1991,7 +1991,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -5675,7 +5675,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -5866,7 +5866,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -5972,7 +5972,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -6161,7 +6161,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -6267,7 +6267,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -6458,7 +6458,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -13651,7 +13651,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -13757,7 +13757,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -13863,7 +13863,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -18087,7 +18087,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -19478,7 +19478,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -19643,7 +19643,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -21085,7 +21085,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -23814,7 +23814,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -24603,7 +24603,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -29754,7 +29754,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -30189,7 +30189,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -31311,7 +31311,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -31492,7 +31492,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -31673,7 +31673,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -34841,7 +34841,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -35118,7 +35118,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -35542,7 +35542,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -35648,7 +35648,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -36057,7 +36057,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -36254,7 +36254,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -37491,7 +37491,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -37597,7 +37597,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -37703,7 +37703,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -37809,7 +37809,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -40214,7 +40214,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -46821,7 +46821,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -48001,7 +48001,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -49183,7 +49183,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -50372,7 +50372,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -51552,7 +51552,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -52734,7 +52734,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -54050,7 +54050,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -56014,7 +56014,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -57286,7 +57286,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -57392,7 +57392,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -57732,7 +57732,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "operations": {
           "resourceClass": "not-yet-classified",

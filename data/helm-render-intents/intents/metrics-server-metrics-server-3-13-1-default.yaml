@@ -44,7 +44,7 @@ spec:
     gitopsOciLive: "yes"
     liveDualParity: "todo"
     twoClusterKind: "todo"
-    variantPromotion: "missing-status"
+    variantPromotion: "missing-confighub-proof"
   lifecycle:
     routeContract: "n/a"
     routeCount: "0"

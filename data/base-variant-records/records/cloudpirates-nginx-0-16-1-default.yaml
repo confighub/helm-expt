@@ -75,7 +75,7 @@ spec:
     gitopsOciLive: "todo"
     liveDualParity: "todo"
     twoClusterKind: "todo"
-    variantPromotion: "missing-status"
+    variantPromotion: "missing-confighub-proof"
   operations:
     resourceClass: "not-yet-classified"
     ownerClass: "not-yet-classified"

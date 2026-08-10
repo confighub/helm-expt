@@ -18,23 +18,23 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 32 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 78 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 167 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 167 |
+| `blocked-needs-confighub-proof` | 47 |
 | `watch-grade` | 29 |
 | `blocked-proof-failed` | 2 |
-| `blocked-needs-confighub-proof` | 1 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 167 |
+| `todo` | 47 |
 | `watch` | 29 |
 | `no` | 2 |
-| `todo` | 1 |
 
 ## Ready to run now (0)
 
@@ -86,13 +86,59 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | runs/secrets-store-csi-driver-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (1)
+## Blocked — needs the ConfigHub proof first (47)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
 | Chart | Base | Next action |
 | --- | --- | --- |
+| argo-cd/argo-cd@10.1.3 | default | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.1.3 | no-crds | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.2.1 | default | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.2.1 | no-crds | run the ConfigHub proof lane first |
 | argo-cd/argo-cd@9.5.17 | no-crds | run the ConfigHub proof lane first |
+| aws-controllers-k8s/ec2-chart@1.18.4 | default | run the ConfigHub proof lane first |
+| aws-controllers-k8s/ec2-chart@1.18.4 | eks-inference | run the ConfigHub proof lane first |
+| aws-controllers-k8s/eks-chart@1.16.3 | default | run the ConfigHub proof lane first |
+| aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | run the ConfigHub proof lane first |
+| aws-controllers-k8s/iam-chart@1.7.3 | default | run the ConfigHub proof lane first |
+| aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | run the ConfigHub proof lane first |
+| cloudpirates/nginx@0.16.1 | default | run the ConfigHub proof lane first |
+| cloudpirates/rabbitmq@0.21.13 | default | run the ConfigHub proof lane first |
+| cloudpirates/redis@0.34.11 | default | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.7.0 | default | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.7.0 | no-crds | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.8.0 | default | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.8.0 | no-crds | run the ConfigHub proof lane first |
+| grafana/alloy@1.11.0 | default | run the ConfigHub proof lane first |
+| grafana/loki@7.1.0 | default | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.0 | crds-enabled | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.0 | default | run the ConfigHub proof lane first |
+| karpenter/karpenter@1.14.0 | crds-managed | run the ConfigHub proof lane first |
+| karpenter/karpenter@1.14.0 | default | run the ConfigHub proof lane first |
+| karpenter/karpenter@1.14.0 | eks-inference | run the ConfigHub proof lane first |
+| kyverno/kyverno-policies@3.8.2 | default | run the ConfigHub proof lane first |
+| kyverno/kyverno@3.8.2 | default | run the ConfigHub proof lane first |
+| longhorn/longhorn@1.12.0 | default | run the ConfigHub proof lane first |
+| metallb/metallb@0.16.1 | default | run the ConfigHub proof lane first |
+| metrics-server/metrics-server@3.13.1 | default | run the ConfigHub proof lane first |
+| metrics-server/metrics-server@3.13.1 | external-tls-ca | run the ConfigHub proof lane first |
+| nvidia/nvidia-device-plugin@0.19.3 | default | run the ConfigHub proof lane first |
+| nvidia/nvidia-device-plugin@0.19.3 | eks-inference | run the ConfigHub proof lane first |
+| nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | run the ConfigHub proof lane first |
+| oauth2-proxy/oauth2-proxy@10.7.0 | default | run the ConfigHub proof lane first |
+| policy-reporter/policy-reporter@3.9.1 | default | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@87.15.1 | default | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@87.19.2 | default | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | run the ConfigHub proof lane first |
+| prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | run the ConfigHub proof lane first |
+| stakater/reloader@2.2.14 | default | run the ConfigHub proof lane first |
+| traefik/traefik@41.0.2 | default | run the ConfigHub proof lane first |
+| valkey/valkey@0.11.0 | default | run the ConfigHub proof lane first |
+| velero/velero@12.1.0 | default | run the ConfigHub proof lane first |
 
 ## Boundaries
 

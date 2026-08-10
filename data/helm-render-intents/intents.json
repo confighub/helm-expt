@@ -712,7 +712,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -894,7 +894,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -1183,7 +1183,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -1365,7 +1365,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -5292,7 +5292,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -5434,7 +5434,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -5635,7 +5635,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -5777,7 +5777,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -5977,7 +5977,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -6119,7 +6119,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -14587,7 +14587,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -14729,7 +14729,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -14871,7 +14871,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -19106,7 +19106,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -19288,7 +19288,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -20312,7 +20312,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -20494,7 +20494,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -24123,7 +24123,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -25149,7 +25149,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -30764,7 +30764,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -30906,7 +30906,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -31924,7 +31924,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -32261,7 +32261,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -32456,7 +32456,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -34927,7 +34927,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -35500,7 +35500,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -36068,7 +36068,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -36210,7 +36210,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -36698,7 +36698,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -36840,7 +36840,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -38479,7 +38479,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -38621,7 +38621,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -38763,7 +38763,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -38905,7 +38905,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -41255,7 +41255,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -46136,7 +46136,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -47144,7 +47144,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -48120,7 +48120,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -49132,7 +49132,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -50140,7 +50140,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -51116,7 +51116,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "yes",
@@ -53736,7 +53736,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -56067,7 +56067,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -57191,7 +57191,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -57333,7 +57333,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -57781,7 +57781,7 @@
           "gitopsOciLive": "todo",
           "liveDualParity": "todo",
           "twoClusterKind": "todo",
-          "variantPromotion": "missing-status"
+          "variantPromotion": "missing-confighub-proof"
         },
         "lifecycle": {
           "routeContract": "n/a",
