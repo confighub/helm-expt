@@ -43,10 +43,14 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
+  // Only the tool that produces the findings is recorded. Trivy and kubeconform
+  // used to be probed and written into the committed results, which meant this
+  // lane published whichever scanners happened to be installed on the machine
+  // that last ran it. CI installs neither, so the committed file and a CI run
+  // could never agree, and the lane was declared red for months over a field no
+  // finding depends on. Add a tool here only when its output changes a row.
   const tools = {
     kubeLinter: toolVersion("kube-linter", ["version"]),
-    trivy: toolVersion("trivy", ["--version"]),
-    kubeconform: toolVersion("kubeconform", ["-v"]),
   };
   check(tools.kubeLinter.available, "external scan lane currently requires kube-linter");
   const subjects = supportedVariantSubjects();
@@ -191,11 +195,14 @@ ConfigHub function checks or chart-specific production dispositions.
 
 ## Tool Status
 
+Every finding below comes from kube-linter. No other scanner contributes to a
+row, so no other scanner is recorded here. Adding Trivy or kubeconform to this
+lane is open work, and each would arrive with its own findings and its own
+pinned version.
+
 | Tool | Available | Version |
 | --- | --- | --- |
 | kube-linter | ${summary.toolStatus.kubeLinter.available ? "yes" : "no"} | ${summary.toolStatus.kubeLinter.version || "n/a"} |
-| Trivy | ${summary.toolStatus.trivy.available ? "yes" : "no"} | ${summary.toolStatus.trivy.version || "n/a"} |
-| kubeconform | ${summary.toolStatus.kubeconform.available ? "yes" : "no"} | ${summary.toolStatus.kubeconform.version || "n/a"} |
 
 ## Summary
 
