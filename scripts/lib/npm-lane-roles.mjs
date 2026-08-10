@@ -36,6 +36,12 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing",
   },
+  "site:published:verify": {
+    proves: "That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. `site:verify` proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466).",
+    requires: "network",
+    disposition: "keep-outside",
+    status: "green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API",
+  },
   "anonymous-oci-ci:verify": {
     proves: "The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI->work->OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.",
     requires: "offline",
