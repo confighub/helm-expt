@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "prometheus-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-prometheus-server-only-ephemeral-confighub-proof"
+    selector: "Labels.Proof = 'prometheus-server-only-ephemeral-confighub-proof'"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    packagePath: "packages/prometheus-community/prometheus/29.8.0"
+    variant: "server-only-ephemeral"
+  changeset:
+    slug: "prometheus-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Prometheus safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "prometheus-server-only-ephemeral-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-monitoring-prometheus-server --space helm-prometheus-server-only-ephemeral-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-monitoring-prometheus-server"
+    output: "Unit deployment-monitoring-prometheus-server (a0165de4-d646-40de-8b74-2cd4cf31a2e9) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-prometheus-server-only-ephemeral-confighub-proof --where \"Labels.Proof = 'prometheus-server-only-ephemeral-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req ZkQGoKsdtOocHcymZImJcuvDXXPNDGVE: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-prometheus-server-only-ephemeral-confighub-proof --where \"Labels.Proof = 'prometheus-server-only-ephemeral-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

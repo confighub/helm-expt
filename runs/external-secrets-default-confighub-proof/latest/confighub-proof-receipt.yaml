@@ -1,0 +1,246 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "external-secrets-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/external-secrets/external-secrets/2.5.0"
+    name: "external-secrets-external-secrets"
+    chart: "external-secrets/external-secrets"
+    chartVersion: "2.5.0"
+    bases:
+      - "default"
+      - "no-crds"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "default"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret external-secrets/external-secrets-webhook"
+            namespace: "external-secrets"
+            suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+      -
+        base: "no-crds"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret external-secrets/external-secrets-webhook"
+            namespace: "external-secrets"
+            suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+          -
+            kind: "ClusterFeature"
+            name: "CRD acraccesstokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD cloudsmithaccesstokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterexternalsecrets.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustergenerators.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clusterpushsecrets.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD clustersecretstores.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD ecrauthorizationtokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD externalsecrets.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD fakes.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD gcraccesstokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD generatorstates.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD githubaccesstokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD grafanas.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD mfas.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD passwords.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD pushsecrets.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD quayaccesstokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD secretstores.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD sshkeys.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD stssessiontokens.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD uuids.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD vaultdynamicsecrets.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD webhooks.generators.external-secrets.io"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+  render:
+    command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir .tmp/confighub-proof/external-secrets-default --non-interactive --namespace external-secrets"
+    result: "pass"
+    manifestCount: 42
+    separatedSecretCount: 1
+    facts:
+      targetFactChecks:
+        base: "default"
+        mode: "record"
+        result: "recorded"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              []
+            name: "external-secrets-webhook"
+            namespace: "external-secrets"
+            purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+            sourceVariant: "default"
+            suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+        requiredTopology: null
+        requiredValues:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/external-secrets-default"
+    result: "pass"
+    manifestCount: 42
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o .tmp/confighub-proof/external-secrets-default-archives/external-secrets-a.tgz"
+    sha256: "22daa6ffce0022a52f1ef7394f9a5f807b644805f7280d04dbccfae813771e60"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/external-secrets-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/external-secrets-default --space helm-external-secrets-default-confighub-proof --component ExternalSecrets --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ExternalSecrets --unit-label HelmChart=external-secrets-external-secrets --unit-label HelmChartVersion=2.5.0 --unit-label Variant=default --unit-label Proof=external-secrets-default-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-external-secrets-default-confighub-proof"
+    unitCount: 43
+    kubernetesUnitCount: 42
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret external-secrets/external-secrets-webhook"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/external-secrets-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/external-secrets-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-external-secrets-default-confighub-proof (post-render):\n      Deployment/external-secrets [external-secrets] ghcr.io/external-secrets/external-secrets:v2.5.0\n      Deployment/external-secrets-cert-controller [cert-controller] ghcr.io/external-secrets/external-secrets:v2.5.0\n      Deployment/external-secrets-webhook [webhook] ghcr.io/external-secrets/external-secrets:v2.5.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-external-secrets-default-confighub-proof --environment Staging --region local --namespace external-secrets --space-pattern template:ExternalSecrets-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-external-secrets-default-confighub-proof"
+    downstreamSpace: "ExternalSecrets-default-staging"
+    clonedUnitCount: 43
+    namespace: "external-secrets"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-external-secrets-external-secrets-cert-controller"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-external-secrets-default-confighub-proof"
+      - "ExternalSecrets-default-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

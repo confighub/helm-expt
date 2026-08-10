@@ -1,0 +1,215 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "external-secrets-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-external-secrets-default-confighub-proof"
+    selector: "Labels.Proof = 'external-secrets-default-confighub-proof'"
+  subject:
+    chart: "external-secrets/external-secrets"
+    chartVersion: "2.5.0"
+    packagePath: "packages/external-secrets/external-secrets/2.5.0"
+    variant: "default"
+    configHubUnitCount: 42
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-acraccesstokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "16f515226bb4bef09ed529aff85706c256c3119d0f74ed26574a65637deea94f"
+    -
+      slug: "customresourcedefinition-clustergenerators-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "2d52e169b4d2bb19aa4d473a21ea90fa94aff977f27a6720895b160fd870295a"
+    -
+      slug: "customresourcedefinition-clusterpushsecrets-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "b5dcc362f9594ea6dae9990e25c37aea2977ad24b647cbf44e46d63385e3f1a0"
+    -
+      slug: "customresourcedefinition-ecrauthorizationtokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "9d451b2bb5709c6a5ef4135f35d29867188e1035005a16a71d256797209976d4"
+    -
+      slug: "customresourcedefinition-externalsecrets-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "d7c3dcec751b3f5a1c56445b7488aeee0beae75e0e5130c1327a1961e5bc434c"
+    -
+      slug: "customresourcedefinition-fakes-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "94cae0a6c5fd5af5f79bc198d1e4c9dde5ca32aa9715aff1613c6ed1c76ba3f0"
+    -
+      slug: "customresourcedefinition-gcraccesstokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "dfbeb45404cbf84100a25a44a53132c198d7cdfcbb8e58cb56035c98e29708a8"
+    -
+      slug: "customresourcedefinition-pushsecrets-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "4fd36946045eb9ec8599ef3fa9c5c1f83a42eb4c9f2090419d3ef7e593abc49a"
+    -
+      slug: "customresourcedefinition-sshkeys-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "2f9cacd20abacbeb756238ac4decef1b2dbc6282a080d5d6a4fa37ee9961fb42"
+    -
+      slug: "customresourcedefinition-webhooks-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "e34973fe23a4d825c2d7c18c31b60a76aeb89b41df1090cc8bc0173a81bdcd54"
+    -
+      slug: "namespace-external-secrets"
+      headRevisionNum: 1
+      dataHash: "9ed0ab628cd33d59c0f421c063a862b79f7b91f907b86566eca36912da0b0e61"
+    -
+      slug: "clusterrole-external-secrets-servicebindings"
+      headRevisionNum: 2
+      dataHash: "c4324feaee371fa1ab691870f59073778db017eece85c085a4a2204f228314ba"
+    -
+      slug: "clusterrole-external-secrets-view"
+      headRevisionNum: 2
+      dataHash: "a429a42edbf0f16703a94beaa2122a86d68977b8edb920980bac4a76e5631b57"
+    -
+      slug: "customresourcedefinition-cloudsmithaccesstokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "f3f53bccb3b5c0c4fcd1c91a540973c4315a417f01a58fc33c0b970e659e14a2"
+    -
+      slug: "customresourcedefinition-clusterexternalsecrets-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "9242f7db1b9a3789e131734430f65d9549de45413212855d167c8155887b0540"
+    -
+      slug: "customresourcedefinition-githubaccesstokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "1d177f2ed001cc76cd939fcd6095658ab6428fbc94caebbd41632fd32ceb0841"
+    -
+      slug: "customresourcedefinition-generatorstates-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "51daffc7a381e5221a4bbdfe274d31fa5add9656437af87cd5e871228b6c5243"
+    -
+      slug: "customresourcedefinition-grafanas-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "4e2445d12e4ad05627719176f90dc4088a14298734468db6fc85d0a4c7e553e1"
+    -
+      slug: "customresourcedefinition-mfas-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "e2b63dafbbdd09125e34adea11acfe91d7d897aa5eb947f72d42ca91b0828461"
+    -
+      slug: "customresourcedefinition-passwords-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "72ef666dcd0e24b71a2a8fe122ed01c86203f7a3a323ea90dc77a604b6a263da"
+    -
+      slug: "customresourcedefinition-quayaccesstokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "afade5dda91d22cef87c0ffd5fbf7c6181910a1feffa8cbe2f5627d1e61ce5bc"
+    -
+      slug: "customresourcedefinition-clustersecretstores-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "e82f0986a1ac3bf0e912cb466834ec2c2d1ce84b2dff4e6df665caef23a5313a"
+    -
+      slug: "customresourcedefinition-vaultdynamicsecrets-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "434cb759b0596dcbef5c3e9fb585261542e648df509b1458cb5e1a564fc5e8fb"
+    -
+      slug: "customresourcedefinition-stssessiontokens-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "8165ee9e2f33e9f19638e0a9d8a3c2beb274a80c65cf7aefe5277dc0fc40c9d3"
+    -
+      slug: "customresourcedefinition-uuids-generators-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "74b525e87a6a8dc0898f13fc0d53a4cc637280834a73f490af3ff6164f7604f1"
+    -
+      slug: "customresourcedefinition-secretstores-external-secrets-io"
+      headRevisionNum: 2
+      dataHash: "3edd0a0b3fbf314b4c0f176cabdc0cb0c2f2b3c0ce397434e7b74a31f5248555"
+    -
+      slug: "deployment-external-secrets-external-secrets-cert-controller"
+      headRevisionNum: 2
+      dataHash: "d69dd846350a7bc47efb757a0d6d51093d37d8cf594b1821f063802d8aee46e2"
+    -
+      slug: "validatingwebhookconfiguration-externalsecret-validate"
+      headRevisionNum: 2
+      dataHash: "b89949c22b7070b2347007ecd3db4685f7c3996d4af2052d802fb8bbf6fc7a6b"
+    -
+      slug: "clusterrole-external-secrets-edit"
+      headRevisionNum: 2
+      dataHash: "1577ee5f222aa46293be4e69218cff6cbfb58dd666482606e6e5300f7332e2bb"
+    -
+      slug: "clusterrole-external-secrets-controller"
+      headRevisionNum: 2
+      dataHash: "9ad75871040280af25afecefd5844bc636757045b4832d6b331619f189f95bcb"
+    -
+      slug: "clusterrolebinding-external-secrets-cert-controller"
+      headRevisionNum: 2
+      dataHash: "4379df9a1d3a17cb6b84c539c15f1d53d77342a16a0c23d077ebe21e3f090622"
+    -
+      slug: "clusterrolebinding-external-secrets-controller"
+      headRevisionNum: 2
+      dataHash: "1b77569aa56d38197435d77bb65c40a6e91178137925313bd028088e2d6d4629"
+    -
+      slug: "deployment-external-secrets-external-secrets"
+      headRevisionNum: 2
+      dataHash: "0545a5e275dbcd3b098fc17d3cdbf41d7472c79c2bd8e44df6050c76c6ee74f2"
+    -
+      slug: "deployment-external-secrets-external-secrets-webhook"
+      headRevisionNum: 2
+      dataHash: "13dfc8d9a9480237c8315de482f596fc167fc256509944221c3e81945aa38ce0"
+    -
+      slug: "role-external-secrets-external-secrets-leaderelection"
+      headRevisionNum: 2
+      dataHash: "921e1452b679d12f88b00f43847bc7a30f2d9efc85b3d2a204ca3e81ac66f765"
+    -
+      slug: "rolebinding-external-secrets-external-secrets-leaderelection"
+      headRevisionNum: 2
+      dataHash: "c3aa9f5216df40c0f8add6acee611b021cbb36ecea91797dcec244034404f568"
+    -
+      slug: "service-external-secrets-external-secrets-webhook"
+      headRevisionNum: 2
+      dataHash: "784908ac169c9403c82f9a39e2514013aa4be090b981eaf32748daee004db50a"
+    -
+      slug: "serviceaccount-external-secrets-external-secrets"
+      headRevisionNum: 1
+      dataHash: "8a19e7dd9cab6f33a7e052e92981bc19c1ca5b1f383a866b1ee111013dfb976d"
+    -
+      slug: "serviceaccount-external-secrets-external-secrets-cert-controller"
+      headRevisionNum: 1
+      dataHash: "38ef0ca014174cfe4b1b081bb10bef5addbf7b737bed0cfe06e421e62cfa4aa9"
+    -
+      slug: "serviceaccount-external-secrets-external-secrets-webhook"
+      headRevisionNum: 1
+      dataHash: "72c931950825d0bebd3fd3a9ed972c3a97f9aacf55d33682945726d4285fbb06"
+    -
+      slug: "validatingwebhookconfiguration-secretstore-validate"
+      headRevisionNum: 2
+      dataHash: "c9164d17887cae3942ce5261f30f74ca7871be27a2d7dda84f6b4bf447932724"
+    -
+      slug: "clusterrole-external-secrets-cert-controller"
+      headRevisionNum: 2
+      dataHash: "b97c75bc2d0318ad2eb3f80405b62e73b0388935e1b8aab98da318fa525c52cc"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 42
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 42
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 42
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

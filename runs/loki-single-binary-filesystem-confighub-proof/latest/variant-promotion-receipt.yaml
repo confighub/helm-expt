@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantPromotionReceipt"
+metadata:
+  name: "loki-single-binary-filesystem-variant-promotion-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    cubClientVersion: "Version:    dev"
+    cubServerVersion: "v0.1.80"
+  subject:
+    chart: "grafana/loki"
+    chartVersion: "7.0.0"
+    packagePath: "packages/grafana/loki/7.0.0"
+    variant: "single-binary-filesystem"
+    upstreamSpace: "helm-loki-single-binary-filesystem-confighub-proof"
+    downstreamSpace: "Loki-single-binary-filesystem-staging"
+  commands:
+    upstreamUpdate: "cub unit update statefulset-loki-loki runs/loki-single-binary-filesystem-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-loki-single-binary-filesystem-confighub-proof --change-desc ..."
+    upstreamAddUnit: "cub unit create promotion-marker-loki-single-binary-filesystem runs/loki-single-binary-filesystem-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-loki-single-binary-filesystem-confighub-proof --allow-exists"
+    dryRun: "cub variant promote Loki-single-binary-filesystem-staging --dry-run -o mutations"
+    changeset: "cub changeset create loki-single-binary-filesystem-variant-promote-20260527 --space Loki-single-binary-filesystem-staging --description ... --allow-exists"
+    promote: "cub variant promote Loki-single-binary-filesystem-staging --changeset Loki-single-binary-filesystem-staging/loki-single-binary-filesystem-variant-promote-20260527 --change-desc ..."
+    fallbackPromote: "cub variant promote Loki-single-binary-filesystem-staging --change-desc ..."
+  upstreamChange:
+    changedUnit: "statefulset-loki-loki"
+    beforeHeadRevisionNum: 2
+    afterHeadRevisionNum: 3
+    annotation: "helm-expt.confighub.com/promotion-proof=loki-single-binary-filesystem-promotion-20260527"
+    updateResult: "pass"
+  upstreamAddition:
+    markerUnit: "promotion-marker-loki-single-binary-filesystem"
+    upstreamUnitID: "87bb1117-725b-4419-bcbc-36aa00fd2ceb"
+    result: "pass"
+    proofOnly: true
+  preview:
+    result: "pass"
+    output: "  + promotion-marker-loki-single-binary-filesystem"
+  changeset:
+    slug: "loki-single-binary-filesystem-variant-promote-20260527"
+    result: "pass"
+    output: "Successfully created changeset loki-single-binary-filesystem-variant-promote-20260527 (f57715af-8237-49d3-85d8-f2c9f632d37e)"
+  promote:
+    result: "pass"
+    output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-loki-loki\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-loki-single-binary-filesystem\nBulk create operation completed:\n  Success: 1 unit(s)"
+  fallbackPromote:
+    used: false
+    result: "not-used"
+    output: ""
+  assertions:
+    changedUnitCaughtUp: "pass"
+    upstreamHeadRevisionNum: 3
+    downstreamUpstreamRevisionNumBefore: 2
+    downstreamUpstreamRevisionNumAfter: 3
+    addedUnitCloned: "pass"
+    addedUnitSlug: "promotion-marker-loki-single-binary-filesystem"
+    addedUnitDownstreamUpstreamUnitID: "87bb1117-725b-4419-bcbc-36aa00fd2ceb"
+    deletionHandling: "not-tested"
+    fieldOwnership: "not-tested"
+  result: "pass"
+  reason: "server-side promotion passed through a changeset"
+  limitations:
+    - "This receipt proves ConfigHub server-side promotion mechanics for changed Units and newly added Units."
+    - "It does not prove deletion handling, field ownership conflict handling, target apply, GitOps sync, or Kubernetes workload convergence."
+    - "The added ConfigMap is proof-only and is not part of the Helm chart's rendered object set."

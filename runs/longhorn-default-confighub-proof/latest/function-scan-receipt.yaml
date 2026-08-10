@@ -1,0 +1,215 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "longhorn-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-longhorn-default-confighub-proof"
+    selector: "Labels.Proof = 'longhorn-default-confighub-proof'"
+  subject:
+    chart: "longhorn/longhorn"
+    chartVersion: "1.11.2"
+    packagePath: "packages/longhorn/longhorn/1.11.2"
+    variant: "default"
+    configHubUnitCount: 42
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-longhorn-role"
+      headRevisionNum: 2
+      dataHash: "4f5b7244db3648216d354212de9f4432e7dace856d4b2ed054a45dd91d60f7a9"
+    -
+      slug: "customresourcedefinition-backingimagedatasources-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "7c59825c07611ba86d7342dbcd3935765284577ec08160f92810571384161dc2"
+    -
+      slug: "customresourcedefinition-backingimagemanagers-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "186fc104587ef6a1c772a30bfc27053be338d54865e5f95a25c2ca472dcbfe93"
+    -
+      slug: "customresourcedefinition-backupbackingimages-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "91b488d4eabf31698b2f22f819e23d68252b98496261d477638f5a33be6a9c2f"
+    -
+      slug: "customresourcedefinition-backuptargets-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "3efa8fc97696a89e7c29a21278b125b85c70533c1793b396628663ec805ac774"
+    -
+      slug: "customresourcedefinition-backupvolumes-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "9916bc9bea8d8be004107adb052b858af5c9c9d4cb742806b2896ecfd184bd88"
+    -
+      slug: "customresourcedefinition-engines-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "cf7d8d7c9536c1c12f2d1335bccbf4a1bf7caf119a63ed1d8f4ebdba7844b2e1"
+    -
+      slug: "customresourcedefinition-instancemanagers-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "be2f34f0fba8f110c6845a5bb1b6805025a2a647e328b6df6e8190cc6a9281dd"
+    -
+      slug: "customresourcedefinition-replicas-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "82ac773ecc9379a0ff6bb6ac5439b44536963ea678fb03c6b06578234c080347"
+    -
+      slug: "customresourcedefinition-recurringjobs-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "4de8f69496d33cede780b841602f76401a9cad9458f230fb5785f7d172ff0324"
+    -
+      slug: "customresourcedefinition-sharemanagers-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "c540941b41015ccd70595bbd913d3e312ab6ecd92fd7bd580492c8f3df5ac592"
+    -
+      slug: "customresourcedefinition-systemrestores-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "95d442682b41f3a5a02eece9b4ce4885ebb7fd4b2d870ee26a6f2110e13d6dfc"
+    -
+      slug: "namespace-longhorn-system"
+      headRevisionNum: 1
+      dataHash: "3f96ac20581c8d6651d7a089eb47ebe412ca41105a58ff71bd91d24a8c8630fe"
+    -
+      slug: "priorityclass-longhorn-critical"
+      headRevisionNum: 1
+      dataHash: "7305f6d0c7e8ae285d138e80ddda1f4ccb8d28477a5cec271147dbf93bb51cd2"
+    -
+      slug: "customresourcedefinition-backingimages-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "b41aedc634411c2b9540c46ee089e394dbc47ee266f02b7e283f4b5afb9c469e"
+    -
+      slug: "customresourcedefinition-backups-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "a4476bbc90721f00df415ddf348a39f0e65112a99c6ce06bb8a1f789465ba5e3"
+    -
+      slug: "customresourcedefinition-engineimages-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "145982a5c2c08ade5cab00fc7c6e0085199d4ead7e7d934b8fe97c87a2d50337"
+    -
+      slug: "customresourcedefinition-nodes-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "6865840c45d34a25a9c063fb2c0c7b83ef1a0381b7948dba815f069cd1ad270f"
+    -
+      slug: "customresourcedefinition-settings-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "849b52c3400f91ab16835c35f6daf4b5e8883ecfabab4a13238476fc836276e1"
+    -
+      slug: "customresourcedefinition-snapshots-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "3e60f03e269070ff2d3328f73ae5a36be0c5c70e20e9cd13c59d5ba02a324e4c"
+    -
+      slug: "customresourcedefinition-orphans-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "4a041ba204ab7f52e92ec05a720eca21554dd1ceaee82ded5521a94fdb5b76cb"
+    -
+      slug: "customresourcedefinition-supportbundles-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "0aef4233b64e031ebb973d0aac2bb2119d6ecfa35794c680a7cc80da2b42ac87"
+    -
+      slug: "customresourcedefinition-systembackups-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "6ef04922223aeab2d86950e66369870e870b79fbd2f366c611017ec0b985ad1d"
+    -
+      slug: "daemonset-longhorn-system-longhorn-manager"
+      headRevisionNum: 2
+      dataHash: "22a426ccd5facc42c1726c33a64be1042520d8faa17ab736bec598897ba6e2f6"
+    -
+      slug: "customresourcedefinition-volumes-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "3546e34bfff56f94e48092c615aa4bb560d2848b8b064503bd7a2691a7db7e05"
+    -
+      slug: "customresourcedefinition-volumeattachments-longhorn-io"
+      headRevisionNum: 2
+      dataHash: "fffa67b54b7ad87b27ec5817ed7fe2c6679198902b745c6c31f1603a3e852ff7"
+    -
+      slug: "deployment-longhorn-system-longhorn-ui"
+      headRevisionNum: 2
+      dataHash: "6a214772015f6eca7d331e68c9090b144b90affd69645af93726b07545e1aaba"
+    -
+      slug: "clusterrolebinding-longhorn-bind"
+      headRevisionNum: 2
+      dataHash: "656f1f64ef563a6297926f56fc8a093fbe3c4e449deaea66d146eb176937ad9d"
+    -
+      slug: "clusterrolebinding-longhorn-support-bundle"
+      headRevisionNum: 2
+      dataHash: "a78fab2e98fb6a64d417b90195e58f8e009763698d6feef48398e4632ffa5852"
+    -
+      slug: "configmap-longhorn-system-longhorn-default-resource"
+      headRevisionNum: 1
+      dataHash: "879e199bc96411c850f490691d55e6881bbf92b8d7aa1ac3f91f51a90eb74e4e"
+    -
+      slug: "configmap-longhorn-system-longhorn-default-setting"
+      headRevisionNum: 1
+      dataHash: "756400f71cf4d91de2058eeb3027550c869853b20a3ea57c46b5dc9877a9fc03"
+    -
+      slug: "configmap-longhorn-system-longhorn-storageclass"
+      headRevisionNum: 1
+      dataHash: "874dad6e3b9f7b5854a89187c29459e32cdfcf04a8fe3aa7b464055d74bda657"
+    -
+      slug: "deployment-longhorn-system-longhorn-driver-deployer"
+      headRevisionNum: 2
+      dataHash: "07ccf2b058673286648988168e6b918c394160a302c294dd4d5d040ea8d41059"
+    -
+      slug: "role-longhorn-system-longhorn"
+      headRevisionNum: 2
+      dataHash: "6dc6be58a205709af00d86137eb05057decff4b2a2cd9ecb5756b2d818720d7e"
+    -
+      slug: "rolebinding-longhorn-system-longhorn"
+      headRevisionNum: 2
+      dataHash: "b57d93af493c048ff4116559d7194289ac67e067ada01c59c6e9ebe32be93720"
+    -
+      slug: "service-longhorn-system-longhorn-admission-webhook"
+      headRevisionNum: 2
+      dataHash: "75e920976f5b0def946a5ddd2aa8f51093c500be15d1d8b5f5db04c3fe7ae8f1"
+    -
+      slug: "service-longhorn-system-longhorn-backend"
+      headRevisionNum: 2
+      dataHash: "16d18956296242543e80c45478da6efe46a8266b24ce70e0986bbc0315f38801"
+    -
+      slug: "service-longhorn-system-longhorn-frontend"
+      headRevisionNum: 2
+      dataHash: "e399934431ccb2c623a786ce9fccd8bca407ab490ee8aa7520694e69e29b0649"
+    -
+      slug: "service-longhorn-system-longhorn-recovery-backend"
+      headRevisionNum: 2
+      dataHash: "4d00aee443018e717f047eecebb5c683ddffb5fad56a27fd99791fc6bd2021d5"
+    -
+      slug: "serviceaccount-longhorn-system-longhorn-service-account"
+      headRevisionNum: 1
+      dataHash: "11a5a72f6fb4ad3d5c61f6bf61151a0630d1e3320b574aa69e1367fc0deac58a"
+    -
+      slug: "serviceaccount-longhorn-system-longhorn-support-bundle"
+      headRevisionNum: 1
+      dataHash: "c858518ffceac850235ec58e0fc14aaee272b997692620e51b90a4826d4147b4"
+    -
+      slug: "serviceaccount-longhorn-system-longhorn-ui-service-account"
+      headRevisionNum: 1
+      dataHash: "a174108537c460262ce413a64172252fc7da06804a94b055537caf5760dd1e3e"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 42
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 42
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 42
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

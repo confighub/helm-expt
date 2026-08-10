@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "prometheus-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/prometheus-community/prometheus/29.8.0"
+    name: "prometheus"
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.8.0"
+    bases:
+      - "default"
+      - "server-only-ephemeral"
+    selectedBase: "server-only-ephemeral"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir .tmp/confighub-proof/prometheus-server-only-ephemeral --non-interactive --namespace monitoring"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/prometheus-server-only-ephemeral"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/prometheus-community/prometheus/29.8.0 -o .tmp/confighub-proof/prometheus-server-only-ephemeral-archives/prometheus-a.tgz"
+    sha256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/prometheus-server-only-ephemeral"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/prometheus-server-only-ephemeral --space helm-prometheus-server-only-ephemeral-confighub-proof --component Prometheus --layer App --environment Demo --owner ConfigHubHelm --variant server-only-ephemeral --unit-label Component=Prometheus --unit-label HelmChart=prometheus-community-prometheus --unit-label HelmChartVersion=29.8.0 --unit-label Variant=server-only-ephemeral --unit-label Proof=prometheus-server-only-ephemeral-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-prometheus-server-only-ephemeral-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/prometheus-server-only-ephemeral"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/prometheus-server-only-ephemeral"
+    result: "pass"
+    summary: "No changes.\nImages in helm-prometheus-server-only-ephemeral-confighub-proof (post-render):\n      Deployment/prometheus-server [prometheus-server] quay.io/prometheus/prometheus:v3.11.3\n      Deployment/prometheus-server [prometheus-server-configmap-reload] quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-prometheus-server-only-ephemeral-confighub-proof --environment Staging --region local --namespace monitoring --space-pattern template:Prometheus-server-only-ephemeral-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-prometheus-server-only-ephemeral-confighub-proof"
+    downstreamSpace: "Prometheus-server-only-ephemeral-staging"
+    clonedUnitCount: 8
+    namespace: "monitoring"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-monitoring-prometheus-server"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-prometheus-server-only-ephemeral-confighub-proof"
+      - "Prometheus-server-only-ephemeral-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

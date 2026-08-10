@@ -1,0 +1,121 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "tempo-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/grafana/tempo/1.24.4"
+    name: "grafana-tempo"
+    chart: "grafana/tempo"
+    chartVersion: "1.24.4"
+    bases:
+      - "local-persistent"
+      - "s3-query-observability"
+    selectedBase: "local-persistent"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "s3-query-observability"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret tempo/tempo-s3-credentials keys access_key,secret_key"
+            namespace: "tempo"
+            suggestedSource: "kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "CRD servicemonitors.monitoring.coreos.com"
+            namespace: ""
+            suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          -
+            kind: "ClusterFeature"
+            name: "S3-compatible object store tempo/tempo-object-store"
+            namespace: "tempo"
+            suggestedSource: "create or bind an S3-compatible endpoint, bucket, and credentials before apply"
+  render:
+    command: "cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir .tmp/confighub-proof/tempo-local-persistent --non-interactive --namespace tempo"
+    result: "pass"
+    manifestCount: 5
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: "local-persistent"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/tempo-local-persistent"
+    result: "pass"
+    manifestCount: 5
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/grafana/tempo/1.24.4 -o .tmp/confighub-proof/tempo-local-persistent-archives/tempo-a.tgz"
+    sha256: "ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/tempo-local-persistent"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/tempo-local-persistent --space helm-tempo-local-persistent-confighub-proof --component Tempo --layer App --environment Demo --owner ConfigHubHelm --variant local-persistent --unit-label Component=Tempo --unit-label HelmChart=grafana-tempo --unit-label HelmChartVersion=1.24.4 --unit-label Variant=local-persistent --unit-label Proof=tempo-local-persistent-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-tempo-local-persistent-confighub-proof"
+    unitCount: 6
+    kubernetesUnitCount: 5
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/tempo-local-persistent"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/tempo-local-persistent"
+    result: "pass"
+    summary: "No changes.\nImages in helm-tempo-local-persistent-confighub-proof (post-render):\n      StatefulSet/tempo [tempo] docker.io/grafana/tempo:2.9.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-tempo-local-persistent-confighub-proof --environment Staging --region local --namespace tempo --space-pattern template:Tempo-local-persistent-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-tempo-local-persistent-confighub-proof"
+    downstreamSpace: "Tempo-local-persistent-staging"
+    clonedUnitCount: 6
+    namespace: "tempo"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-tempo-tempo"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-tempo-local-persistent-confighub-proof"
+      - "Tempo-local-persistent-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

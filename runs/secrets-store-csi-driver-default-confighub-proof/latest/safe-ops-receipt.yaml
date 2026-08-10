@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "secrets-store-csi-driver-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-secrets-store-csi-driver-default-confighub-proof"
+    selector: "Labels.Proof = 'secrets-store-csi-driver-default-confighub-proof'"
+  subject:
+    chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+    chartVersion: "1.6.0"
+    packagePath: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    variant: "default"
+  changeset:
+    slug: "secrets-store-csi-driver-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Secrets Store CSI Driver safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "secrets-store-csi-driver-default-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve daemonset-kube-system-secrets-store-csi-driver --space helm-secrets-store-csi-driver-default-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "daemonset-kube-system-secrets-store-csi-driver"
+    output: "Unit daemonset-kube-system-secrets-store-csi-driver (cbd7c8a2-1111-4a01-8118-24dd32fe5b93) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-secrets-store-csi-driver-default-confighub-proof --where \"Labels.Proof = 'secrets-store-csi-driver-default-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req rPUVCgmSreLNZgCknVYFsSPRGQNgSjfz: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-secrets-store-csi-driver-default-confighub-proof --where \"Labels.Proof = 'secrets-store-csi-driver-default-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

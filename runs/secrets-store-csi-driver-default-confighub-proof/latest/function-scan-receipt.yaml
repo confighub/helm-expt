@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "secrets-store-csi-driver-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-secrets-store-csi-driver-default-confighub-proof"
+    selector: "Labels.Proof = 'secrets-store-csi-driver-default-confighub-proof'"
+  subject:
+    chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+    chartVersion: "1.6.0"
+    packagePath: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    variant: "default"
+    configHubUnitCount: 11
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-secretproviderclasses-rolebinding"
+      headRevisionNum: 2
+      dataHash: "4910febf0b01e8b0c0c0a6a5765772dd6cc6dc9fd8569bf542e64daba21f9444"
+    -
+      slug: "clusterrole-secretproviderclasses-admin-role"
+      headRevisionNum: 2
+      dataHash: "ccb3b9ebb36ef462184c2efa10ed85f815685c4c71a42582fc8eb928ba958d1b"
+    -
+      slug: "clusterrole-secretproviderclasses-role"
+      headRevisionNum: 2
+      dataHash: "8f825a4015b8c573d9706d5b14af4cb06cf08f4896668f6de752aa7c2191c2a8"
+    -
+      slug: "clusterrole-secretproviderclasses-viewer-role"
+      headRevisionNum: 2
+      dataHash: "f5ae5be64f7d70979d9e54d784a58466bed996e31fa7b810e5eea427b0440495"
+    -
+      slug: "clusterrole-secretproviderclasspodstatuses-viewer-role"
+      headRevisionNum: 2
+      dataHash: "5f3b26f1f259426015478b7a8fac43ea6c7bcb57c91f09e0347889195a1cc574"
+    -
+      slug: "csidriver-secrets-store-csi-k8s-io"
+      headRevisionNum: 2
+      dataHash: "6a0383b6d0944b47014a36903c3285cd00432c50f3e0163fabd2ee0674e2adcd"
+    -
+      slug: "customresourcedefinition-secretproviderclasses-secrets-store-csi-x-k8s-io"
+      headRevisionNum: 2
+      dataHash: "214ea6c5dc8988ec19530e3901c7c628d92e8d50ed3d265f737fb9d2f823604a"
+    -
+      slug: "customresourcedefinition-secretproviderclasspodstatuses-secrets-store-csi-x-k8s-io"
+      headRevisionNum: 2
+      dataHash: "00abe31023f3767b237e27a76963cffca7dba0a6aed32e2354040cfb24d5382d"
+    -
+      slug: "daemonset-kube-system-secrets-store-csi-driver"
+      headRevisionNum: 2
+      dataHash: "ee89fbcebefd7e064fae5cb4ceadafd15d4ba9ad89479b1294acd963f814021b"
+    -
+      slug: "namespace-kube-system"
+      headRevisionNum: 1
+      dataHash: "4484776d2c3d810f7db9de9221ee6e5016f86c3884527327420acf9e833bd251"
+    -
+      slug: "serviceaccount-kube-system-secrets-store-csi-driver"
+      headRevisionNum: 1
+      dataHash: "1a7ce00c511888c9116034067a0de53abb10ac833851d44a326c8b3b41cec9b9"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 11
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
