@@ -23,7 +23,8 @@
 // Usage:
 //   node scripts/verify-no-temp-paths.mjs   # exit 1 on any hit
 import { spawnSync } from "node:child_process";
-import { dirname } from "node:path";
+import { readlinkSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -38,6 +39,34 @@ const RECORDED_EVIDENCE = [
   "data/crd-ordering-gap/summary.html",
   "site/d/data/crd-ordering-gap/summary.html",
 ];
+
+// A symlink carries its machine-specific path in the link rather than in any
+// file's bytes, so a content scan cannot see it. One reached main and broke the
+// public site for thirteen deploys: a tracked `node_modules -> /Users/.../
+// helm-expt/node_modules` left by a worktree, swept in by `git add -A`, because
+// .gitignore said `node_modules/` with a trailing slash and that matches a
+// directory rather than a link. GitHub Pages tars the repo with --dereference,
+// the target does not exist on a runner, and tar exits 1 with no message.
+//
+// Nothing tracked here needs a symlink that leaves the repository, so any
+// absolute or escaping target fails.
+const links = spawnSync("git", ["ls-files", "-s"], { cwd: repoRoot, encoding: "utf8", maxBuffer: 1024 * 1024 * 64 });
+if (links.error) throw links.error;
+const escaping = links.stdout
+  .split("\n")
+  .filter((line) => line.startsWith("120000"))
+  .map((line) => line.split("\t")[1])
+  .filter(Boolean)
+  .map((path) => ({ path, target: readlinkSync(join(repoRoot, path)) }))
+  .filter(({ target }) => target.startsWith("/") || target.startsWith("../"));
+
+if (escaping.length) {
+  for (const { path, target } of escaping) {
+    console.error(`no-temp-paths gate: tracked symlink leaves the repository: ${path} -> ${target}`);
+  }
+  console.error("A runner cannot resolve these, and GitHub Pages tars with --dereference, so the deploy fails.");
+  process.exit(1);
+}
 
 const res = spawnSync(
   "git",
