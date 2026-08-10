@@ -18,22 +18,22 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 78 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 66 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
-| `not-applicable-if-any` | 167 | Promotion does not apply to this variant. |
+| `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
-| `promotion-proven` | 167 |
+| `promotion-proven` | 179 |
 | `blocked-needs-confighub-proof` | 47 |
-| `watch-grade` | 29 |
+| `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
-| `yes` | 167 |
+| `yes` | 179 |
 | `todo` | 47 |
-| `watch` | 29 |
+| `watch` | 17 |
 | `no` | 2 |
 
 ## Ready to run now (0)
@@ -47,7 +47,7 @@ the `cub variant promote` receipt is missing. **A representative set of commands
 
 The full 0-row ready-to-run set is in [closeout.csv](./closeout.csv).
 
-## Watch-grade — rerun on the fixed server (29)
+## Watch-grade — rerun on the fixed server (17)
 
 Server-side promotion mechanics are proven for these, but the committed receipts
 were recorded before the changeset-bound add-new-units server fix. The next action is:
@@ -56,7 +56,6 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 
 | Chart | Base | Evidence |
 | --- | --- | --- |
-| argo-cd/argo-cd@9.5.15 | default | runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.7 | static-passwords | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
@@ -73,18 +72,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/rabbitmq@16.0.14 | static-passwords | runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | default | runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| external-secrets/external-secrets@2.5.0 | default | runs/external-secrets-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/loki@7.0.0 | single-binary-filesystem | runs/loki-confighub-proof/latest/variant-promotion-receipt.yaml |
-| grafana/tempo@1.24.4 | local-persistent | runs/tempo-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/consul@2.0.0 | default-control-plane | runs/consul-confighub-proof/latest/variant-promotion-receipt.yaml |
-| hashicorp/vault@0.32.0 | dev-mode | runs/vault-confighub-proof/latest/variant-promotion-receipt.yaml |
-| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | runs/ingress-nginx-confighub-proof/latest/variant-promotion-receipt.yaml |
-| jetstack/cert-manager@v1.20.2 | crds-enabled | runs/cert-manager-confighub-proof/latest/variant-promotion-receipt.yaml |
-| longhorn/longhorn@1.11.2 | default | runs/longhorn-confighub-proof/latest/variant-promotion-receipt.yaml |
-| metrics-server/metrics-server@3.13.0 | default | runs/metrics-server-confighub-proof/latest/variant-promotion-receipt.yaml |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | runs/secrets-store-csi-driver-confighub-proof/latest/variant-promotion-receipt.yaml |
 
 ## Blocked — needs the ConfigHub proof first (47)
 

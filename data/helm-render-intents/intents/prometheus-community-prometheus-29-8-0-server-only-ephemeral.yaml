@@ -44,7 +44,7 @@ spec:
     gitopsOciLive: "yes"
     liveDualParity: "yes"
     twoClusterKind: "todo"
-    variantPromotion: "proven-with-watch"
+    variantPromotion: "proven"
   lifecycle:
     routeContract: "n/a"
     routeCount: "0"

@@ -1654,7 +1654,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -17820,7 +17820,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -25007,7 +25007,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -26300,7 +26300,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -26935,7 +26935,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -28103,7 +28103,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -28757,7 +28757,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -30290,7 +30290,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -35784,7 +35784,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -36352,7 +36352,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -52554,7 +52554,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "todo",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -55499,7 +55499,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven-with-watch"
+          "variantPromotion": "proven"
         },
         "lifecycle": {
           "routeContract": "n/a",

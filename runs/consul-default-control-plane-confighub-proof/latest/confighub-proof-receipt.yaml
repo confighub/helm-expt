@@ -1,0 +1,131 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "consul-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/hashicorp/consul/2.0.0"
+    name: "hashicorp-consul"
+    chart: "hashicorp/consul"
+    chartVersion: "2.0.0"
+    bases:
+      - "default-control-plane"
+      - "secure-mesh-existing-secrets"
+    selectedBase: "default-control-plane"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "secure-mesh-existing-secrets"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret consul/consul-ca-cert key tls.crt"
+            namespace: "consul"
+            suggestedSource: "kubectl -n consul create secret generic consul-ca-cert --from-literal=tls.crt=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "Secret consul/consul-server-cert keys tls.crt,tls.key"
+            namespace: "consul"
+            suggestedSource: "kubectl -n consul create secret generic consul-server-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "Secret consul/consul-gossip-encryption-key key key"
+            namespace: "consul"
+            suggestedSource: "kubectl -n consul create secret generic consul-gossip-encryption-key --from-literal=key=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "Secret consul/consul-bootstrap-acl-token key token"
+            namespace: "consul"
+            suggestedSource: "kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>"
+          -
+            kind: "ClusterFeature"
+            name: "minimum schedulable nodes 3"
+            namespace: ""
+            suggestedSource: "use a target with at least 3 schedulable nodes before applying this base"
+  render:
+    command: "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir .tmp/confighub-proof/consul-default-control-plane --non-interactive --namespace consul"
+    result: "pass"
+    manifestCount: 69
+    separatedSecretCount: 0
+    facts:
+      targetFactChecks:
+        base: "default-control-plane"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/consul-default-control-plane"
+    result: "pass"
+    manifestCount: 69
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/hashicorp/consul/2.0.0 -o .tmp/confighub-proof/consul-default-control-plane-archives/consul-a.tgz"
+    sha256: "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/consul-default-control-plane"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/consul-default-control-plane --space helm-consul-default-control-plane-confighub-proof --component Consul --layer App --environment Demo --owner ConfigHubHelm --variant default-control-plane --unit-label Component=Consul --unit-label HelmChart=hashicorp-consul --unit-label HelmChartVersion=2.0.0 --unit-label Variant=default-control-plane --unit-label Proof=consul-default-control-plane-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-consul-default-control-plane-confighub-proof"
+    unitCount: 70
+    kubernetesUnitCount: 69
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
+    result: "pass"
+    summary: "Plan: 0 to add, 3 to change, 0 to delete.\nSpace helm-consul-default-control-plane-confighub-proof:\n  ~ service-consul-consul-consul-dns\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/consul-default-control-plane/out/manifests/service-consul-consul-consul-dns.yaml:\n      Resource: v1/Service consul/consul-consul-dns\n        - [Delete] spec.ports.?port=53;@0  (#2)\n          name: dns-tcp\n          port: 53\n          protocol: TCP\n          targetPort: dns-tcp"
+  serverSideVariant:
+    command: "cub variant create staging helm-consul-default-control-plane-confighub-proof --environment Staging --region local --namespace consul --space-pattern template:Consul-default-control-plane-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-consul-default-control-plane-confighub-proof"
+    downstreamSpace: "Consul-default-control-plane-staging"
+    clonedUnitCount: 70
+    namespace: "consul"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-consul-consul-consul-server"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-consul-default-control-plane-confighub-proof"
+      - "Consul-default-control-plane-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
