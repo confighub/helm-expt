@@ -25,6 +25,7 @@ const kubaraPath = join(siteRoot, "kubara.html");
 const entryPathReferencePath = join(siteRoot, "entry-path-reference.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
+const guidesPath = join(siteRoot, "guides.html");
 const docsPath = join(siteRoot, "docs.html");
 const docsReferencePath = join(siteRoot, "docs-reference.html");
 const verificationPath = join(siteRoot, "verification.html");
@@ -184,6 +185,7 @@ const SITE_PAGE_RELPATHS = {
   entryPathReferenceHtml: "entry-path-reference.html",
   futureHtml: "future.html",
   operationsHtml: "operations.html",
+  guidesHtml: "guides.html",
   docsHtml: "docs.html",
   docsReferenceHtml: "docs-reference.html",
   verificationHtml: "verification.html",
@@ -282,6 +284,7 @@ if (mode === "--generate") {
   write(entryPathReferencePath, site.entryPathReferenceHtml);
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
+  write(guidesPath, site.guidesHtml);
   write(docsPath, site.docsHtml);
   write(docsReferencePath, site.docsReferenceHtml);
   write(verificationPath, site.verificationHtml);
@@ -368,6 +371,8 @@ if (mode === "--generate") {
   check(readFileSync(entryPathReferencePath, "utf8") === site.entryPathReferenceHtml, "site/entry-path-reference.html is stale");
   check(readFileSync(futurePath, "utf8") === site.futureHtml, "site/future.html is stale");
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
+  check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
+  check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(docsReferencePath, "utf8") === site.docsReferenceHtml, "site/docs-reference.html is stale");
   check(readFileSync(verificationPath, "utf8") === site.verificationHtml, "site/verification.html is stale");
@@ -844,6 +849,7 @@ function buildSite(generatedAt) {
     entryPathReferenceHtml: calmPage(entryPathReferenceHtml(catalog)),
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
+    guidesHtml: calmPage(guidesHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
     docsReferenceHtml: calmPage(docsReferenceHtml(catalog)),
     verificationHtml: calmPage(verificationHtml(catalog)),
@@ -1550,7 +1556,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try Redis</a><a href="${link("testing.html")}">Examples</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1726,6 +1732,12 @@ function homeDesignCss() {
   :root[data-theme="light"] .btn.primary { color: #fff; }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
+  /* The third action is a different kind of thing from the first two. They are
+     jobs a reader arrived with; this one is a way to understand the tool. Given
+     equal weight it competed with them, so it reads as a link that happens to
+     sit on the same line. */
+  .btn.quiet { color: var(--muted); padding-left: 6px; padding-right: 6px; }
+  .btn.quiet:hover { color: var(--ink); text-decoration: underline; }
   .sources { font-family: var(--mono); font-size: .74rem; color: var(--faint); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
   .sources b { color: var(--muted); font-weight: 600; }
 
@@ -1805,8 +1817,7 @@ function configTestCentreHome(catalog) {
         <nav class="bar">
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
-            <a href="./try.html">Try Redis</a>
-            <a href="./testing.html">Examples</a>
+            <a href="./guides.html">Guides</a>
             <a href="./charts/index.html">Catalog</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
@@ -1824,8 +1835,9 @@ function configTestCentreHome(catalog) {
             <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
             <p class="lead">Input data from our Catalog or your own package: Helm, an AICR recipe for AI, OCI image, or Kubernetes YAML.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./try.html">Try Redis</a>
+              <a class="btn primary" href="./charts/index.html">Check a public chart</a>
               <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
+              <a class="btn quiet" href="./try.html">See a worked example</a>
             </div>
           </div>
           <div class="hero-term">
@@ -3802,6 +3814,57 @@ function docsReferenceHtml(catalog) {
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Use the main guides first, then the matrix and generated data when you need exact status.</footer>
+</body>
+</html>
+`;
+}
+
+// The three teaching surfaces used to sit under three different names, and one
+// of them was called "Try Redis" in the navigation, which only parses if you
+// already know Redis is our example chart. To a visitor it reads as an offer of
+// Redis itself. This page gives them one door and puts them in order of how much
+// of an afternoon they cost.
+function guidesHtml() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guides · Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Learn this by doing it</h1>
+    <p class="lead">Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check rather than a description of what would happen.</p>
+    <p>The first needs no account, no server, and no cluster. The later two use ConfigHub and a cluster where the flow being shown requires them, and each says so before it asks. If you want instructions for a step you are already on, read the <a href="./docs.html">Docs</a> instead.</p>
+  </header>
+  <main>
+    <section aria-labelledby="short">
+      <h2 id="short">Run a short example</h2>
+      <p>The shortest one. Pull one public package, render it locally, and read the exact Kubernetes objects it produces. It contacts neither ConfigHub Server nor Kubernetes, so it is the fastest way to see what the tool does.</p>
+      <p><a href="./try.html">Open the short example</a></p>
+    </section>
+
+    <section aria-labelledby="examples">
+      <h2 id="examples">Work through an example like yours</h2>
+      <p>Start from your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML. Each example carries the commands and the evidence for one worked flow, including promotions, fleet rollouts, and policy checks.</p>
+      <p><a href="./testing.html">Open the worked examples</a></p>
+    </section>
+
+    <section aria-labelledby="walkthrough">
+      <h2 id="walkthrough">Follow one package end to end</h2>
+      <p>The longest guide. It takes a single Redis configuration through pulling, inspecting, verifying, changing, and upgrading, and shows what stays the same across versions.</p>
+      <p><a href="./redis-walkthrough.html">Open the detailed walkthrough</a></p>
+    </section>
+
+    <section aria-labelledby="after">
+      <h2 id="after">After a guide</h2>
+      <p>Choose where the reviewed result goes on the <a href="./how-it-works.html">Deployment</a> page, find a configuration to start from in the <a href="./charts/index.html">Catalog</a>, or read <a href="./known-gaps.html">what is not ready yet</a>.</p>
+    </section>
+  </main>
+  <footer>Each guide runs real commands and ends with output you can check. Start with the short one.</footer>
 </body>
 </html>
 `;
