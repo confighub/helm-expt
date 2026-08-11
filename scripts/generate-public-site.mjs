@@ -6502,14 +6502,57 @@ function retainedCatalogVersionCell(catalog, entry) {
   }).join("<br>");
 }
 
+// The configuration names are the most useful strings on the row and used to be
+// inert text, so the one link in the cell was the version receipt and the eye
+// landed on words it could not click. Each name now opens the chart page's
+// option cards.
 function retainedCatalogConfigurationsCell(catalog, entry) {
   const rows = retainedInstallerRows(catalog, entry.chart);
+  const page = `./${chartPageFileName(entry)}#matrix-options`;
   return rows.map((row) => {
     const configurations = String(row.bases ?? "").split(";").filter(Boolean);
     const label = configurations.length === 1 ? "configuration" : "configurations";
     const identity = `${row.chart}@${row.version}`;
-    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${escapeHtml(configurations.join(", "))}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
+    const links = configurations
+      .map((name) => `<a href="${page}">${escapeHtml(name)}</a>`)
+      .join(", ");
+    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${links}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
   }).join("<br>");
+}
+
+// Whether a configuration survives being shipped as plain rendered YAML is the
+// hardest fact the catalog holds about it, and it was reachable only by opening
+// the chart page. The verdict is recorded per configuration, so the column
+// reports it that way rather than collapsing a version to one answer.
+function flatteningVerdictSearchText(catalog, entry) {
+  const repository = String(entry.chart || "").split("/")[0];
+  const name = String(entry.chart || "").split("/").slice(1).join("/");
+  const row = (catalog.flatteningEvidence || []).find(
+    (candidate) =>
+      candidate.repository === repository &&
+      candidate.chart === name &&
+      candidate.version === entry.version,
+  );
+  return String(row?.decided_lanes || "").trim();
+}
+
+function flatteningVerdictCell(catalog, entry) {
+  const repository = String(entry.chart || "").split("/")[0];
+  const name = String(entry.chart || "").split("/").slice(1).join("/");
+  const row = (catalog.flatteningEvidence || []).find(
+    (candidate) =>
+      candidate.repository === repository &&
+      candidate.chart === name &&
+      candidate.version === entry.version,
+  );
+  const decided = String(row?.decided_lanes || "").trim();
+  if (!decided) return `<span data-flattening="undecided" style="color:var(--muted)">No verdict yet. Undecided is not the same as safe.</span>`;
+  const parts = decided.split(";").map((part) => part.trim()).filter(Boolean);
+  const lines = parts.map((part) => {
+    const [base, verdict] = part.split(":").map((piece) => (piece || "").trim());
+    return `${escapeHtml(base)}: <strong>${escapeHtml(verdict)}</strong>`;
+  }).join("<br>");
+  return `<span data-flattening="decided">${lines}</span>`;
 }
 
 function installerOciRefForEntry(entry) {
@@ -6625,6 +6668,9 @@ function chartIndexHtml(catalog) {
         catalog.licensesByChartVersion?.get(`${entry.chart}|${entry.version}`)?.chart?.spdx
           ?? catalog.chartLicenseByChart?.get(entry.chart)?.spdx,
         ...retainedRows.flatMap((row) => [row.version, row.bases, row.installer_oci_ref]),
+        // So a reader can filter by the answer as well as read it: searching
+        // "flatten-with-routes" or "safe-to-flatten" narrows the table.
+        flatteningVerdictSearchText(catalog, entry),
       ]
         .filter(Boolean)
         .join(" ")
@@ -6652,10 +6698,40 @@ function chartIndexHtml(catalog) {
         <td>${firstPathCell(entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
         <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
+        <td>${flatteningVerdictCell(catalog, entry)}</td>
         <td>${retainedCatalogConfigurationsCell(catalog, entry)}</td>
       </tr>`;
     })
     .join("\n");
+
+// The AICR entries are catalog entries, and until now the Catalog page did not
+// mention them once. A reader told to bring "an AICR recipe for AI" arrived at
+// the Catalog, searched, and found nothing — the entries were reachable only
+// through a demo link on the Examples page. This renders them from the same
+// register the entry-naming gate checks, so the list cannot drift from the
+// entries that actually exist.
+function aicrEntriesSection() {
+  const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
+  const entries = register?.spec?.entries ?? [];
+  check(entries.length > 0, "AICR entry register has no entries; the Catalog section would be empty");
+  const rows = entries.map((entry) => {
+    const page = `../d/${String(entry.page).replace(/\.md$/, ".html")}`;
+    const names = (entry.names ?? []).map((name) => escapeHtml(name)).join(", ");
+    return `<tr><td><a href="${page}">${escapeHtml(entry.id)}</a></td><td class="mono">${escapeHtml(String(entry.retainedVersion))}</td><td>${names}</td></tr>`;
+  }).join("\n            ");
+  return `<div id="aicr" data-aicr-entries>
+      <h3>AI platform entries, from AICR recipes</h3>
+      <p>These are not Helm charts, so they are not in the table above. AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms: you describe the platform you want and it picks the components, orders the installs, and writes the files. The catalog retains these the same way it retains a chart — exact version, pinned digest, a receipt for every claim.</p>
+      <div class="card"><table>
+        <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
+        <tbody>
+            ${rows}
+        </tbody>
+      </table></div>
+      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>, which explains the entry classes, what exists today, and what is still open. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> is the one that runs without a GPU.</p>
+    </div>`;
+}
+
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What each catalog entry contains</h2>
       <p>The catalog starts with ${catalog.summary.retainedComponents} components and all ${catalog.summary.retainedPackageVersions} retained package versions, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
@@ -6703,9 +6779,10 @@ function chartIndexHtml(catalog) {
         </div>
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
+        <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AICR entries</a> are below this table.</p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Packaged configurations by version</th></tr></thead>
+        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
@@ -6734,11 +6811,24 @@ ${chartRowsHtml}
             }
             count.textContent = visible + " of " + rows.length + " components shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
           };
-          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", update));
+          // A filtered view is worth sharing, so the query lives in the URL:
+          // charts/index.html?q=eks-inference lands on those rows directly.
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("q")) text.value = params.get("q");
+          const remember = () => {
+            const next = new URLSearchParams(window.location.search);
+            if (text.value.trim()) next.set("q", text.value.trim());
+            else next.delete("q");
+            const query = next.toString();
+            history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
+          };
+          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
         })();
       </script>
     </section>
+
+    ${aicrEntriesSection()}
 
     ${catalogContextHtml}
 
