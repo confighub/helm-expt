@@ -13,13 +13,13 @@ rather than in every sentence.
 
 | Entry | Retained version | Pages that name it | Where |
 | --- | --- | --- | --- |
-| `eks-h100-training-kubeflow` | v0.14.0 | 7 | `claim-integrity.md`, `cpu-starter.md`, `eks-h100-inference-nim.md`, `eks-h100-training-kubeflow-v0-18-0.md`, `index.md`, `kserve-nim-inference.md`, `aicr-composition-model.md` |
+| `eks-h100-training-kubeflow` | v0.14.0 | 8 | `claim-integrity.md`, `cpu-starter.md`, `eks-h100-inference-nim.md`, `eks-h100-training-kubeflow-v0-18-0.md`, `eks-h100-training-kubeflow.md`, `index.md`, `kserve-nim-inference.md`, `aicr-composition-model.md` |
 | `eks-h100-training-kubeflow-v0-18-0` | v0.18.0 | 1 | `index.md` |
 | `eks-h100-inference-nim` | v0.14.0 | 2 | `eks-h100-inference-nim.md`, `index.md` |
 | `kserve-nim-inference` | 3ef33472 | 4 | `claim-integrity.md`, `eks-h100-inference-nim.md`, `index.md`, `kserve-nim-inference.md` |
 | `cpu-starter` | v0.14.0 | 3 | `cpu-starter.md`, `index.md`, `aicr-composition-model.md` |
 
-17 entry references across 11 pages in scope all
+18 entry references across 11 pages in scope all
 name their version. A new page mentioning an entry fails the lane until it
 does the same.
 

@@ -729,7 +729,7 @@ const humanDocLeadChecks = [
   },
   {
     file: "site/d/docs/demo/aicr/eks-h100-training-kubeflow.html",
-    lead: "You do not need to know AICR to follow this",
+    lead: "know AICR to follow it",
   },
   {
     file: "site/d/docs/reference/direct-cub-helm-model.html",

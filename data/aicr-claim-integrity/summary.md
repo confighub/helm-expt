@@ -55,7 +55,7 @@ cover.
 | `index-cites-the-kserve-shapes` | `index.md` | "sixteen model shapes", "sixteen model-by-GPU shapes" | `kserve-model-shapes` = 16 |
 | `index-cites-the-kserve-runtimes` | `index.md` | "ten serving runtimes" | `kserve-serving-runtimes` = 10 |
 | `index-cites-the-kserve-surfaces` | `index.md` | "twenty-six retained surfaces" | `kserve-retained-surfaces` = 26 |
-| `index-cites-the-kserve-rungs` | `index.md` | "two rungs" | `kserve-rungs-climbed` = 2 |
+| `index-cites-the-kserve-rungs` | `index.md` | "two of those stages" | `kserve-rungs-climbed` = 2 |
 | `claim-page-cites-the-training-applications` | `claim-integrity.md` | "seventeen Applications", "seventeen Application objects" | `training-applications` = 17 |
 | `claim-page-cites-the-inference-overlays` | `claim-integrity.md` | "eight overlays" | `inference-nim-overlays` = 8 |
 | `claim-page-cites-the-inference-components` | `claim-integrity.md` | "seventeen components" | `inference-nim-components` = 17 |
