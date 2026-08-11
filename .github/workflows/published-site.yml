@@ -1,0 +1,60 @@
+name: Published site
+
+# Every other check in this repository reads its own bytes. None of them can
+# tell whether a reader can see the site, and that gap was not theoretical: the
+# public site failed to deploy thirteen times in a row, from 2026-08-09 10:21 to
+# 2026-08-10 13:42, while thirteen verify chains passed green on the same
+# commits. Two homepage rewrites sat on main unpublished. See #1465 and #1466.
+#
+# This job leaves the filesystem. After a push to main it waits for the Pages
+# deploy and then fetches the published pages to confirm they are the ones main
+# holds, and it repeats that once a day so a deploy that quietly stops working
+# is noticed on the first failure rather than the thirteenth.
+#
+# When this fails, the site is broken for readers right now. Read the message:
+# it distinguishes a failed deploy from a deploy that landed and served
+# something stale, and those want different fixes.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Daily, offset from the top of the hour to avoid the queue there.
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: published-site
+  cancel-in-progress: false
+
+jobs:
+  published-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      # A push has to wait: the Pages deploy for this very commit is still in
+      # flight when this job starts. A scheduled run should not wait, because
+      # there is nothing in flight and a slow answer is a wrong answer.
+      - name: Published pages match main
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            node scripts/verify-published-site.mjs --wait-minutes 15
+          else
+            node scripts/verify-published-site.mjs
+          fi

@@ -30,7 +30,11 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "You find out what a chart does by installing it.", "Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Unsure what your chart will install?", "Check a public chart", "Check my Helm values", "See a worked example", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "an AICR recipe for AI", "Store reviewed objects in ConfigHub", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+  },
+  {
+    file: "site/guides.html",
+    terms: ["Learn this by doing it", "Run a short example", "Work through an example like yours", "Follow one package end to end", "Open the short example", "Open the worked examples", "Open the detailed walkthrough", "After a guide"],
   },
   {
     file: "site/variants.html",
@@ -152,6 +156,7 @@ const checks = [
 
 const menuGuidePages = [
   "site/index.html",
+  "site/guides.html",
   "site/try.html",
   "site/confighub.html",
   "site/redis-walkthrough.html",
@@ -195,7 +200,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Try Redis", "Check my Helm values", "ConfigHub stores the reviewed objects as shared data"],
+    headerTerms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Check a public chart", "Check my Helm values", "See a worked example", "Store reviewed objects in ConfigHub"],
   },
   {
     file: "site/try.html",
@@ -242,7 +247,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["Try Redis", "Examples", "Catalog", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Guides", "Catalog", "Deployment", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
@@ -297,6 +302,22 @@ for (const check of checks) {
   }
 }
 
+// Two of the generator's notes are placed by searching the rendered page for a
+// landmark and splicing a paragraph in front of it. A stylesheet comment that
+// merely named a tag was landmark enough: the note went into the <style> block,
+// broke the rules after it, and every other gate passed. Nothing in a
+// stylesheet is ever a paragraph, so this is cheap to state and impossible to
+// argue with.
+for (const file of [...menuGuidePages, "site/index.html"]) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) continue;
+  const text = fs.readFileSync(fullPath, "utf8");
+  for (const style of text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) {
+    const stray = style[1].match(/<\/?(?:p|div|section|main|header|a|span)\b[^>]*>/);
+    if (stray) failures.push(`${file}: HTML spliced into a <style> block near ${JSON.stringify(stray[0])}`);
+  }
+}
+
 for (const file of menuGuidePages) {
   const fullPath = path.join(root, file);
   if (!fs.existsSync(fullPath)) continue;
@@ -308,7 +329,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try Redis", "Examples", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;

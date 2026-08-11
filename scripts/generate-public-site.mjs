@@ -25,6 +25,7 @@ const kubaraPath = join(siteRoot, "kubara.html");
 const entryPathReferencePath = join(siteRoot, "entry-path-reference.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
+const guidesPath = join(siteRoot, "guides.html");
 const docsPath = join(siteRoot, "docs.html");
 const docsReferencePath = join(siteRoot, "docs-reference.html");
 const verificationPath = join(siteRoot, "verification.html");
@@ -184,6 +185,7 @@ const SITE_PAGE_RELPATHS = {
   entryPathReferenceHtml: "entry-path-reference.html",
   futureHtml: "future.html",
   operationsHtml: "operations.html",
+  guidesHtml: "guides.html",
   docsHtml: "docs.html",
   docsReferenceHtml: "docs-reference.html",
   verificationHtml: "verification.html",
@@ -282,6 +284,7 @@ if (mode === "--generate") {
   write(entryPathReferencePath, site.entryPathReferenceHtml);
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
+  write(guidesPath, site.guidesHtml);
   write(docsPath, site.docsHtml);
   write(docsReferencePath, site.docsReferenceHtml);
   write(verificationPath, site.verificationHtml);
@@ -368,6 +371,8 @@ if (mode === "--generate") {
   check(readFileSync(entryPathReferencePath, "utf8") === site.entryPathReferenceHtml, "site/entry-path-reference.html is stale");
   check(readFileSync(futurePath, "utf8") === site.futureHtml, "site/future.html is stale");
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
+  check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
+  check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(docsReferencePath, "utf8") === site.docsReferenceHtml, "site/docs-reference.html is stale");
   check(readFileSync(verificationPath, "utf8") === site.verificationHtml, "site/verification.html is stale");
@@ -844,6 +849,7 @@ function buildSite(generatedAt) {
     entryPathReferenceHtml: calmPage(entryPathReferenceHtml(catalog)),
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
+    guidesHtml: calmPage(guidesHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
     docsReferenceHtml: calmPage(docsReferenceHtml(catalog)),
     verificationHtml: calmPage(verificationHtml(catalog)),
@@ -1550,7 +1556,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try Redis</a><a href="${link("testing.html")}">Examples</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1712,7 +1718,10 @@ function homeDesignCss() {
 
   .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); }
   .hero-head h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
-  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center; padding: 22px 0 30px; }
+  /* Top-aligned, not centred: the right column carries the terminal and two
+     notes now, so centring dropped the lead half a screen below the headline
+     and left a hole where the reader looks first. */
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
@@ -1723,10 +1732,25 @@ function homeDesignCss() {
   :root[data-theme="light"] .btn.primary { color: #fff; }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
+  /* The third action is a different kind of thing from the first two. They are
+     jobs a reader arrived with; this one is a way to understand the tool. Given
+     equal weight it competed with them, so it reads as a link that happens to
+     sit on the same line. */
+  .btn.quiet { color: var(--muted); padding-left: 6px; padding-right: 6px; }
+  .btn.quiet:hover { color: var(--ink); text-decoration: underline; }
   .sources { font-family: var(--mono); font-size: .74rem; color: var(--faint); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
   .sources b { color: var(--muted); font-weight: 600; }
 
   .term { background: var(--term-bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-family: var(--mono); }
+  /* The explanations belong against the command they explain. Left to the
+     injectors both notes landed as bare paragraphs at the top of the first
+     section, orphaned from the terminal they describe, which read as a layout
+     accident. Do not write an HTML tag into this comment: an injector searches
+     the rendered page for one, and it will inject into the stylesheet. */
+  .hero-term { display: grid; gap: 13px; }
+  .term-note { margin: 0; font-size: .84rem; line-height: 1.6; color: var(--muted); }
+  .term-note b { color: var(--ink); font-weight: 650; }
+  .term-note code { font-family: var(--mono); font-size: .95em; }
   .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
   .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
   .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
@@ -1793,8 +1817,7 @@ function configTestCentreHome(catalog) {
         <nav class="bar">
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
-            <a href="./try.html">Try Redis</a>
-            <a href="./testing.html">Examples</a>
+            <a href="./guides.html">Guides</a>
             <a href="./charts/index.html">Catalog</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
@@ -1808,15 +1831,16 @@ function configTestCentreHome(catalog) {
         </div>
         <div class="hero">
           <div>
-            <p class="lead">You find out what a chart does by installing it. Look first instead. See what it creates, what it needs before it runs, and <a href="./known-gaps.html">what we have not checked</a>.</p>
-            <p class="lead">Keep the result as files or OCI. ConfigHub stores the reviewed objects as shared data when your team needs changes, approvals, promotion, and rollout.</p>
-            <p class="lead">Start with a catalog package, your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML.</p>
+            <p class="lead">Unsure what your chart will install? Look first instead. See what it creates, what it needs before it runs, and <a href="./known-gaps.html">what is left over</a>.</p>
+            <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
+            <p class="lead">Input data from our Catalog or your own package: Helm, an AICR recipe for AI, OCI image, or Kubernetes YAML.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./try.html">Try Redis</a>
+              <a class="btn primary" href="./charts/index.html">Check a public chart</a>
               <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
+              <a class="btn quiet" href="./try.html">See a worked example</a>
             </div>
-            <div class="sources"><b>start without signing in:</b> public Helm packages &middot; your Helm values &middot; AICR &middot; OCI &middot; YAML</div>
           </div>
+          <div class="hero-term">
           <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
             <pre class="term-body"><code><span class="pr">$</span> cub installer setup \\
@@ -1830,8 +1854,10 @@ Wrote rendered OCI ./redis-rendered.oci:latest
   objects:   sha256:... (14 manifest files)
   pull-back: <span class="ok">verified</span></code></pre>
           </div>
+          <p class="term-note installer-command-note"><b>What this command does.</b> <code>cub installer</code> is a released, open-source plugin for the <code>cub</code> CLI. <code>cub installer setup</code> pulls a catalog package and writes its Kubernetes files locally. It does not apply them to a cluster. Use kubectl, Argo CD, or Flux for that.</p>
+          <p class="term-note"><b>Before you run it.</b> <a href="./try.html#install-cub">Install the cub CLI</a>. No account is needed to pull and render public catalog packages.</p>
+          </div>
         </div>
-        <div class="sources"><b>checked:</b> <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous package pull, 14 non-secret objects, OCI pull-back, and the same selected base from Redis 25.5.3 to 27.0.0</a></div>
       </header>
 
       <main>
@@ -3788,6 +3814,58 @@ function docsReferenceHtml(catalog) {
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Use the main guides first, then the matrix and generated data when you need exact status.</footer>
+</body>
+</html>
+`;
+}
+
+// The three teaching surfaces used to sit under three different names, and one
+// of them was called "Try Redis" in the navigation, which only parses if you
+// already know Redis is our example chart. To a visitor it reads as an offer of
+// Redis itself. This page gives them one door and puts them in order of how much
+// of an afternoon they cost.
+function guidesHtml() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guides · Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Learn this by doing it</h1>
+    <p class="lead">Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check rather than a description of what would happen.</p>
+    <p>The first needs no account, no server, and no cluster. The later two use <a href="./confighub.html">ConfigHub</a> and a cluster where the flow being shown requires them, and each says so before it asks. If you want instructions for a step you are already on, read the <a href="./docs.html">Docs</a> instead.</p>
+  </header>
+  <main>
+    <section aria-labelledby="short">
+      <h2 id="short">Run a short example</h2>
+      <p>The shortest one. Pull one public package, render it locally, and read the exact Kubernetes objects it produces. It contacts neither <a href="./confighub.html">ConfigHub</a> Server nor Kubernetes, so it is the fastest way to see what the tool does.</p>
+      <p><a href="./try.html">Open the short example</a></p>
+    </section>
+
+    <section aria-labelledby="examples">
+      <h2 id="examples">Work through an example like yours</h2>
+      <p>Start from your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML. Each example carries the commands and the evidence for one worked flow, including promotions, fleet rollouts, and policy checks.</p>
+      <p><a href="./testing.html">Open the worked examples</a></p>
+    </section>
+
+    <section aria-labelledby="walkthrough">
+      <h2 id="walkthrough">Follow one package end to end</h2>
+      <p>The longest guide. It takes a single Redis configuration through pulling, inspecting, verifying, changing, and upgrading, and shows what stays the same across versions.</p>
+      <p><a href="./redis-walkthrough.html">Open the detailed walkthrough</a></p>
+    </section>
+
+    <section aria-labelledby="after">
+      <h2 id="after">After a guide</h2>
+      <p>Choose where the reviewed result goes on the <a href="./how-it-works.html">Deployment</a> page, find a configuration to start from in the <a href="./charts/index.html">Catalog</a>, or read <a href="./known-gaps.html">what is not ready yet</a>.</p>
+      <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without a server</a> if you would rather not.</p>
+    </section>
+  </main>
+  <footer>Each guide runs real commands and ends with output you can check. Start with the short one.</footer>
 </body>
 </html>
 `;
@@ -6424,14 +6502,57 @@ function retainedCatalogVersionCell(catalog, entry) {
   }).join("<br>");
 }
 
+// The configuration names are the most useful strings on the row and used to be
+// inert text, so the one link in the cell was the version receipt and the eye
+// landed on words it could not click. Each name now opens the chart page's
+// option cards.
 function retainedCatalogConfigurationsCell(catalog, entry) {
   const rows = retainedInstallerRows(catalog, entry.chart);
+  const page = `./${chartPageFileName(entry)}#matrix-options`;
   return rows.map((row) => {
     const configurations = String(row.bases ?? "").split(";").filter(Boolean);
     const label = configurations.length === 1 ? "configuration" : "configurations";
     const identity = `${row.chart}@${row.version}`;
-    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${escapeHtml(configurations.join(", "))}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
+    const links = configurations
+      .map((name) => `<a href="${page}">${escapeHtml(name)}</a>`)
+      .join(", ");
+    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${links}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
   }).join("<br>");
+}
+
+// Whether a configuration survives being shipped as plain rendered YAML is the
+// hardest fact the catalog holds about it, and it was reachable only by opening
+// the chart page. The verdict is recorded per configuration, so the column
+// reports it that way rather than collapsing a version to one answer.
+function flatteningVerdictSearchText(catalog, entry) {
+  const repository = String(entry.chart || "").split("/")[0];
+  const name = String(entry.chart || "").split("/").slice(1).join("/");
+  const row = (catalog.flatteningEvidence || []).find(
+    (candidate) =>
+      candidate.repository === repository &&
+      candidate.chart === name &&
+      candidate.version === entry.version,
+  );
+  return String(row?.decided_lanes || "").trim();
+}
+
+function flatteningVerdictCell(catalog, entry) {
+  const repository = String(entry.chart || "").split("/")[0];
+  const name = String(entry.chart || "").split("/").slice(1).join("/");
+  const row = (catalog.flatteningEvidence || []).find(
+    (candidate) =>
+      candidate.repository === repository &&
+      candidate.chart === name &&
+      candidate.version === entry.version,
+  );
+  const decided = String(row?.decided_lanes || "").trim();
+  if (!decided) return `<span data-flattening="undecided" style="color:var(--muted)">No verdict yet. Undecided is not the same as safe.</span>`;
+  const parts = decided.split(";").map((part) => part.trim()).filter(Boolean);
+  const lines = parts.map((part) => {
+    const [base, verdict] = part.split(":").map((piece) => (piece || "").trim());
+    return `${escapeHtml(base)}: <strong>${escapeHtml(verdict)}</strong>`;
+  }).join("<br>");
+  return `<span data-flattening="decided">${lines}</span>`;
 }
 
 function installerOciRefForEntry(entry) {
@@ -6547,6 +6668,9 @@ function chartIndexHtml(catalog) {
         catalog.licensesByChartVersion?.get(`${entry.chart}|${entry.version}`)?.chart?.spdx
           ?? catalog.chartLicenseByChart?.get(entry.chart)?.spdx,
         ...retainedRows.flatMap((row) => [row.version, row.bases, row.installer_oci_ref]),
+        // So a reader can filter by the answer as well as read it: searching
+        // "flatten-with-routes" or "safe-to-flatten" narrows the table.
+        flatteningVerdictSearchText(catalog, entry),
       ]
         .filter(Boolean)
         .join(" ")
@@ -6574,10 +6698,40 @@ function chartIndexHtml(catalog) {
         <td>${firstPathCell(entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
         <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
+        <td>${flatteningVerdictCell(catalog, entry)}</td>
         <td>${retainedCatalogConfigurationsCell(catalog, entry)}</td>
       </tr>`;
     })
     .join("\n");
+
+// The AICR entries are catalog entries, and until now the Catalog page did not
+// mention them once. A reader told to bring "an AICR recipe for AI" arrived at
+// the Catalog, searched, and found nothing — the entries were reachable only
+// through a demo link on the Examples page. This renders them from the same
+// register the entry-naming gate checks, so the list cannot drift from the
+// entries that actually exist.
+function aicrEntriesSection() {
+  const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
+  const entries = register?.spec?.entries ?? [];
+  check(entries.length > 0, "AICR entry register has no entries; the Catalog section would be empty");
+  const rows = entries.map((entry) => {
+    const page = `../d/${String(entry.page).replace(/\.md$/, ".html")}`;
+    const names = (entry.names ?? []).map((name) => escapeHtml(name)).join(", ");
+    return `<tr><td><a href="${page}">${escapeHtml(entry.id)}</a></td><td class="mono">${escapeHtml(String(entry.retainedVersion))}</td><td>${names}</td></tr>`;
+  }).join("\n            ");
+  return `<div id="aicr" data-aicr-entries>
+      <h3>AI platform entries, from AICR recipes</h3>
+      <p>These are not Helm charts, so they are not in the table above. AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms: you describe the platform you want and it picks the components, orders the installs, and writes the files. The catalog retains these the same way it retains a chart — exact version, pinned digest, a receipt for every claim.</p>
+      <div class="card"><table>
+        <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
+        <tbody>
+            ${rows}
+        </tbody>
+      </table></div>
+      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>, which explains the entry classes, what exists today, and what is still open. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> is the one that runs without a GPU.</p>
+    </div>`;
+}
+
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What each catalog entry contains</h2>
       <p>The catalog starts with ${catalog.summary.retainedComponents} components and all ${catalog.summary.retainedPackageVersions} retained package versions, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
@@ -6625,9 +6779,10 @@ function chartIndexHtml(catalog) {
         </div>
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
+        <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AICR entries</a> are below this table.</p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Packaged configurations by version</th></tr></thead>
+        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
@@ -6656,11 +6811,24 @@ ${chartRowsHtml}
             }
             count.textContent = visible + " of " + rows.length + " components shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
           };
-          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", update));
+          // A filtered view is worth sharing, so the query lives in the URL:
+          // charts/index.html?q=eks-inference lands on those rows directly.
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("q")) text.value = params.get("q");
+          const remember = () => {
+            const next = new URLSearchParams(window.location.search);
+            if (text.value.trim()) next.set("q", text.value.trim());
+            else next.delete("q");
+            const query = next.toString();
+            history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
+          };
+          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
         })();
       </script>
     </section>
+
+    ${aicrEntriesSection()}
 
     ${catalogContextHtml}
 

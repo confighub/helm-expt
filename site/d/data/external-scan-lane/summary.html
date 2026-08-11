@@ -437,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>External Scan Lane</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/external-scan-lane/summary.md">View source markdown</a>.</p>
   </header>
@@ -447,9 +447,8 @@
 <p>This lane runs a market-standard rendered-manifest scanner against the exact supported top-20 rendered object sets.</p>
 <p>It is additive to the existing local scan/gate receipts. It does not replace ConfigHub function checks or chart-specific production dispositions.</p>
 <h2 id="tool-status">Tool Status</h2>
-<table><thead><tr><th>Tool</th><th>Available</th><th>Version</th></tr></thead><tbody><tr><td>kube-linter</td><td>yes</td><td>0.8.3</td></tr>
-<tr><td>Trivy</td><td>yes</td><td>Version: 0.71.1</td></tr>
-<tr><td>kubeconform</td><td>no</td><td>n/a</td></tr></tbody></table>
+<p>Every finding below comes from kube-linter. No other scanner contributes to a row, so no other scanner is recorded here. Adding Trivy or kubeconform to this lane is open work, and each would arrive with its own findings and its own pinned version.</p>
+<table><thead><tr><th>Tool</th><th>Available</th><th>Version</th></tr></thead><tbody><tr><td>kube-linter</td><td>yes</td><td>0.8.3</td></tr></tbody></table>
 <h2 id="summary">Summary</h2>
 <pre><code>charts scanned: 20
 variant rendered object sets scanned: 42

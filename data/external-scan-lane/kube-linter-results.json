@@ -11,14 +11,6 @@
       "kubeLinter": {
         "available": true,
         "version": "0.8.3"
-      },
-      "trivy": {
-        "available": true,
-        "version": "Version: 0.71.1"
-      },
-      "kubeconform": {
-        "available": false,
-        "version": ""
       }
     }
   },

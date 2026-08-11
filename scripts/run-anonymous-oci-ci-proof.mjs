@@ -78,6 +78,19 @@ if (mode === "--run") {
   verifyReceipt(receipt);
   console.log(`wrote ${displayPath(receiptPath)}: ${receipt.status.result}`);
   if (receipt.status.result !== "pass") process.exitCode = 1;
+} else if (mode === "--render") {
+  // The summary is derived entirely from the committed receipt, so re-rendering
+  // it needs no registry, no network, and no new run. Without this mode the only
+  // way to refresh a summary whose wording had drifted was `--run`, and the lane
+  // sat red for months behind a live run it never actually needed.
+  check(
+    existsSync(committedReceiptPath),
+    `${relativeRepo(committedReceiptPath)} is missing`,
+  );
+  const receipt = readYaml(committedReceiptPath);
+  verifyReceipt(receipt);
+  write(summaryPath, renderSummary(receipt));
+  console.log(`wrote ${displayPath(summaryPath)} from the committed receipt`);
 } else if (mode === "--verify") {
   check(
     existsSync(committedReceiptPath),
@@ -458,7 +471,7 @@ without a ConfigHub account.
 
 **${receipt.status.result.toUpperCase()}.** ${receipt.status.claim}
 
-The job pulled [${chart}@${version}](${spec.source.reference}) at
+The job pulled ${chart}@${version} from \`${spec.source.reference}\` at
 \`${spec.source.observedManifestDigest}\`, selected the \`${base}\` preset, and
 rendered ${spec.work.objectCount} Kubernetes objects:
 ${spec.work.objectKinds.map((kind) => `\`${kind}\``).join(", ")}.
