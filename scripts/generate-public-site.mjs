@@ -1821,7 +1821,7 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">Unsure what your chart will install? Look first instead. See what it creates, what it needs before it runs, and <a href="./known-gaps.html">what is left over</a>.</p>
-            <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts.</p>
+            <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
             <p class="lead">Input data from our Catalog or your own package: Helm, an AICR recipe for AI, OCI image, or Kubernetes YAML.</p>
             <div class="cta-row">
               <a class="btn primary" href="./try.html">Try Redis</a>
