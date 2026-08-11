@@ -21,7 +21,7 @@ function readCatalogCounts() {
   if (!fs.existsSync(indexPath)) return { components: 0, readinessComponents: 0, retainedVersions: 0 };
   const html = fs.readFileSync(indexPath, "utf8");
   return {
-    components: [...html.matchAll(/<tr data-chart-row\b/g)].length,
+    components: [...html.matchAll(/<tr data-chart-row data-kind="helm-chart"/g)].length,
     readinessComponents: [...html.matchAll(/data-evidence-surface="readiness-evidence"/g)].length,
     retainedVersions: [...html.matchAll(/data-retained-version="[^"]+"\s+href="\.\/[^\"]+\.html"/g)].length,
   };
@@ -74,7 +74,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "components shown; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "catalog entries shown, including 5 AI platform entries; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -538,7 +538,7 @@ if (fs.existsSync(catalogIndexPath)) {
   for (const machineOption of [">catalog-supported</option>", ">proof-grade / machine-proof-only</option>", ">start-here</option>", ">render-only</option>"]) {
     if (catalogIndex.includes(machineOption)) failures.push(`site/charts/index.html: exposes internal filter label ${JSON.stringify(machineOption)}`);
   }
-  const componentRows = [...catalogIndex.matchAll(/<tr data-chart-row\b/g)].length;
+  const componentRows = [...catalogIndex.matchAll(/<tr data-chart-row data-kind="helm-chart"/g)].length;
   const readinessComponentRows = [...catalogIndex.matchAll(/data-evidence-surface="readiness-evidence"/g)].length;
   const publicationOnlyComponentRows = [...catalogIndex.matchAll(/data-evidence-surface="publication-only"/g)].length;
   const retainedVersionLinks = [...catalogIndex.matchAll(/data-retained-version="[^"]+"\s+href="\.\/[^\"]+\.html"/g)].length;

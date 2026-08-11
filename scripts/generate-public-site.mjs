@@ -6692,7 +6692,7 @@ function chartIndexHtml(catalog) {
       } else if (successorRole) {
         successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
       }
-      return `<tr data-chart-row data-evidence-surface="${evidenceSurface}" data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
+      return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
         <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(entry, firstRow)}</td>
@@ -6710,6 +6710,43 @@ function chartIndexHtml(catalog) {
 // through a demo link on the Examples page. This renders them from the same
 // register the entry-naming gate checks, so the list cannot drift from the
 // entries that actually exist.
+function aicrCatalogRows() {
+  const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
+  const entries = register?.spec?.entries ?? [];
+  check(entries.length > 0, "AICR entry register has no entries; the Catalog would list none");
+  const needs = {
+    "cpu-starter": "Nothing. No GPU, no cloud account, no NGC key.",
+    "eks-h100-training-kubeflow": "AWS and GPU capacity to run it. Reading it costs nothing.",
+    "eks-h100-training-kubeflow-v0-18-0": "AWS and GPU capacity to run it. Reading it costs nothing.",
+    "eks-h100-inference-nim": "AWS, GPU capacity, and NGC access for the model images.",
+    "kserve-nim-inference": "AWS, GPU capacity, and NGC access for the model images.",
+  };
+  const builds = {
+    "cpu-starter": "The platform spine without accelerators.",
+    "eks-h100-training-kubeflow": "EKS, H100 nodes, Kubeflow, and a training job.",
+    "eks-h100-training-kubeflow-v0-18-0": "The same training platform, regenerated four minor versions later.",
+    "eks-h100-inference-nim": "A cluster that can serve NIM models.",
+    "kserve-nim-inference": "The exact shape one model runs in.",
+  };
+  return entries.map((entry) => {
+    const id = String(entry.id);
+    const page = `../d/${String(entry.page).replace(/\.md$/, ".html")}`;
+    const version = String(entry.retainedVersion);
+    const search = [id, "aicr", "ai platform", version, builds[id] ?? "", needs[id] ?? "", (entry.names ?? []).join(" ")]
+      .join(" ")
+      .toLowerCase();
+    return `<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="${escapeHtml(search)}">
+        <td><a href="${page}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td class="mono">${escapeHtml(version)}</td>
+        <td><a href="${page}">Read the entry</a></td>
+        <td>${escapeHtml(builds[id] ?? "An AI platform entry.")}</td>
+        <td>${escapeHtml(needs[id] ?? "")}</td>
+        <td><span style="color:var(--muted)">Not a Helm chart, so no flattening verdict applies.</span></td>
+        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
+      </tr>`;
+  }).join("\n");
+}
+
 function aicrEntriesSection() {
   const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
   const entries = register?.spec?.entries ?? [];
@@ -6774,6 +6811,7 @@ function aicrEntriesSection() {
         <label for="chart-filter"><strong>Search components</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
+          <label>Type<br><select id="kind-filter"><option value="">All entries</option><option value="helm-chart">Helm charts</option><option value="ai-platform">AI platforms (AICR)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
           <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
@@ -6786,6 +6824,7 @@ function aicrEntriesSection() {
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
         <tbody>
+${aicrCatalogRows()}
 ${chartRowsHtml}
         </tbody>
       </table></div>
@@ -6797,6 +6836,7 @@ ${chartRowsHtml}
           const status = document.getElementById("status-filter");
           const hooks = document.getElementById("hook-filter");
           const crds = document.getElementById("crd-filter");
+          const kind = document.getElementById("kind-filter");
           const count = document.getElementById("chart-filter-count");
           const update = () => {
             const query = text.value.trim().toLowerCase();
@@ -6807,11 +6847,12 @@ ${chartRowsHtml}
                 (!level.value || row.dataset.level === level.value) &&
                 (!status.value || row.dataset.status === status.value) &&
                 (!hooks.value || row.dataset.hooks === hooks.value) &&
-                (!crds.value || row.dataset.crds === crds.value);
+                (!crds.value || row.dataset.crds === crds.value) &&
+                (!kind.value || row.dataset.kind === kind.value);
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " components shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
+            count.textContent = visible + " of " + rows.length + " catalog entries shown, including 5 AI platform entries; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
@@ -6824,7 +6865,7 @@ ${chartRowsHtml}
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };
-          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
+          [text, level, status, hooks, crds, kind].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
         })();
       </script>
