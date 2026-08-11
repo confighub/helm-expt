@@ -6797,9 +6797,7 @@ function aicrEntriesSection() {
   <header>
     ${topNav("..")}
     <h1>Choose a component, version, and configuration</h1>
-    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages.</p>
-    <p>It keeps all ${catalog.summary.retainedPackageVersions} retained package versions across ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
-    <p><a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
+    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages. It keeps all ${catalog.summary.retainedPackageVersions} retained package versions across ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt, and five AI platform entries. Choose one, then inspect its packaged configurations, setup, and evidence. <a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
     ${aicrEntriesSection()}
@@ -6856,12 +6854,19 @@ ${chartRowsHtml}
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
+          const controls = [["q", text], ["kind", kind], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
-          if (params.get("q")) text.value = params.get("q");
+          for (const [name, node] of controls) {
+            const value = params.get(name);
+            if (value) node.value = value;
+          }
           const remember = () => {
             const next = new URLSearchParams(window.location.search);
-            if (text.value.trim()) next.set("q", text.value.trim());
-            else next.delete("q");
+            for (const [name, node] of controls) {
+              const value = String(node.value || "").trim();
+              if (value) next.set(name, value);
+              else next.delete(name);
+            }
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };

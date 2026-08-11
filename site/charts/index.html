@@ -435,9 +435,7 @@
   <header>
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../guides.html">Guides</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Choose a component, version, and configuration</h1>
-    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages.</p>
-    <p>It keeps all 139 retained package versions across 112 components, 139 of them published with a receipt. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
-    <p><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Missing something you need? Tell us.</a></p>
+    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages. It keeps all 139 retained package versions across 112 components, 139 of them published with a receipt, and five AI platform entries. Choose one, then inspect its packaged configurations, setup, and evidence. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Missing something you need? Tell us.</a></p>
   </header>
   <main>
     <div id="aicr" data-aicr-entries>
@@ -1559,12 +1557,19 @@
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
+          const controls = [["q", text], ["kind", kind], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
-          if (params.get("q")) text.value = params.get("q");
+          for (const [name, node] of controls) {
+            const value = params.get(name);
+            if (value) node.value = value;
+          }
           const remember = () => {
             const next = new URLSearchParams(window.location.search);
-            if (text.value.trim()) next.set("q", text.value.trim());
-            else next.delete("q");
+            for (const [name, node] of controls) {
+              const value = String(node.value || "").trim();
+              if (value) next.set(name, value);
+              else next.delete(name);
+            }
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };
