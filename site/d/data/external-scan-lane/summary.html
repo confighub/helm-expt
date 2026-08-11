@@ -447,9 +447,8 @@
 <p>This lane runs a market-standard rendered-manifest scanner against the exact supported top-20 rendered object sets.</p>
 <p>It is additive to the existing local scan/gate receipts. It does not replace ConfigHub function checks or chart-specific production dispositions.</p>
 <h2 id="tool-status">Tool Status</h2>
-<table><thead><tr><th>Tool</th><th>Available</th><th>Version</th></tr></thead><tbody><tr><td>kube-linter</td><td>yes</td><td>0.8.3</td></tr>
-<tr><td>Trivy</td><td>yes</td><td>Version: 0.71.1</td></tr>
-<tr><td>kubeconform</td><td>no</td><td>n/a</td></tr></tbody></table>
+<p>Every finding below comes from kube-linter. No other scanner contributes to a row, so no other scanner is recorded here. Adding Trivy or kubeconform to this lane is open work, and each would arrive with its own findings and its own pinned version.</p>
+<table><thead><tr><th>Tool</th><th>Available</th><th>Version</th></tr></thead><tbody><tr><td>kube-linter</td><td>yes</td><td>0.8.3</td></tr></tbody></table>
 <h2 id="summary">Summary</h2>
 <pre><code>charts scanned: 20
 variant rendered object sets scanned: 42

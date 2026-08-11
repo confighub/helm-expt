@@ -8,11 +8,14 @@ ConfigHub function checks or chart-specific production dispositions.
 
 ## Tool Status
 
+Every finding below comes from kube-linter. No other scanner contributes to a
+row, so no other scanner is recorded here. Adding Trivy or kubeconform to this
+lane is open work, and each would arrive with its own findings and its own
+pinned version.
+
 | Tool | Available | Version |
 | --- | --- | --- |
 | kube-linter | yes | 0.8.3 |
-| Trivy | yes | Version: 0.71.1 |
-| kubeconform | no | n/a |
 
 ## Summary
 
