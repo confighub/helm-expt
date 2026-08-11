@@ -1,76 +1,58 @@
-# The AICR catalog retains exact AI-platform shapes
+# Start from an AI platform somebody already checked
 
-UNOFFICIAL/EXPERIMENTAL. This page is the starting point for the AICR entries in
-the catalog. It names the three entry classes we track, what exists today, what
-is planned, and the exact boundary every claim respects.
+UNOFFICIAL/EXPERIMENTAL. Teams assembling GPU platforms copy YAML from blog
+posts, and an H100 misconfiguration has a dollar sign attached. This page lists
+five AI platform entries you can read before you run anything, and says what
+each one needs.
 
 AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms
 ([github.com/NVIDIA/aicr](https://github.com/NVIDIA/aicr)). You describe the
 platform you want and AICR picks the components, orders the installs, and writes
-the files. The catalog applies the same discipline here that it applies to Helm
-charts and to the Kubara platform: retain exact versions, pin every package by an
-immutable OCI digest, and attach a receipt to every claim. Teams assembling GPU
-platforms copy YAML from blog posts today, and an H100 misconfiguration has a
-dollar sign attached.
+the files. It does not decide how your team reviews, approves, or promotes them.
+That is the part this catalog adds, the same way it adds it to Helm charts.
 
-The gap these entries fill is governance, and it is worth being precise about
-that. AICR itself carries provenance: it signs its recipe catalog, ships
-per-component health checks, and emits attestable evidence from validation
-runs against real hardware. What no one offers is the governed half, meaning
-reviewed changes with previews, variant lineage, promotion history, and a
-record of what each change touched, applied to AI-platform configuration the
-same way it is applied to charts. The
-[comparison of AICR's evidence with our receipts](../../reference/aicr-evidence-and-our-receipts.md)
-sets out which tool answers which question.
+## Which entry should I open?
 
-## Where this track stands
+| Entry | What it builds | What you need | Retained version |
+| --- | --- | --- | --- |
+| [CPU starter](./cpu-starter.md) | The platform spine without accelerators. Start here to see the mechanics. | Nothing. No GPU, no cloud account, no NGC key. | Derived from AICR v0.14.0 |
+| [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | A training platform: EKS, H100 nodes, Kubeflow, a training job. | AWS and GPU capacity to run it. Reading it costs nothing. | AICR v0.14.0 |
+| [The same platform, four minor versions later](./eks-h100-training-kubeflow-v0-18-0.md) | The same training platform regenerated, so you can see what upstream changed. | As above. | AICR v0.18.0 |
+| [The AICR-native NIM platform](./eks-h100-inference-nim.md) | A cluster that can serve NIM models. | AWS, GPU capacity, and NGC access to run the models. | AICR v0.14.0, `platform: nim` |
+| [NIM on KServe](./kserve-nim-inference.md) | The exact shape one model runs in, at model level rather than cluster level. | As above. | Upstream commit 3ef33472 |
 
-Five entries exist and every claim on these pages is checked by a lane that
-runs in CI. [The closing record](../../planning/aicr-track-conclusion.md) says
-what the track proves, what it refuses to claim, and what is left for whoever
-picks it up.
+The training entry carries the proven mechanics. The two inference entries
+answer the serving question at different granularities: the AICR-native entry
+stands up a cluster that can serve NIM, and the KServe entry names the shape a
+given model runs in. The [inference entry](./eks-h100-inference-nim.md) compares
+them directly.
 
-## Three entry classes track how buyers differ
+## What has actually been run
 
-Buyers train, they serve, or they want to try the mechanics without GPUs. The
-taxonomy follows that split.
+Every proof here ran on kind or against ConfigHub, and every one is
+config-plane only: import, render, digest pinning, variants, promotion,
+delivery wiring. **No GPU workload ran to produce or verify any receipt in this
+catalog.** Workload claims stay absent rather than implied.
 
-| Entry class | Status | Source |
-| --- | --- | --- |
-| Training | Exists: [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | NVIDIA AICR v0.14.0, retained exactly |
-| Training, second retained version | Exists: [the same platform four minor versions later](./eks-h100-training-kubeflow-v0-18-0.md) | NVIDIA AICR v0.18.0, retained exactly, from the same criteria |
-| Inference / serving, platform level | Exists: [the AICR-native NIM platform](./eks-h100-inference-nim.md) | NVIDIA AICR v0.14.0 with `platform: nim`, retained exactly |
-| Inference / serving, model level | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
-| CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules, with no upstream equivalent; needs no GPU, cloud account, or NGC key |
+The [CPU starter](./cpu-starter.md) has been taken furthest: imported into
+ConfigHub with a reviewed gp3 override, promoted to staging, delivered to a kind
+cluster, and one component synced to Healthy with its volume bound by the
+reviewed storage class. The training entry proved import, a reviewed Grafana
+change, and a staging promotion. The [inference entry](./kserve-nim-inference.md)
+proved two of those stages: import of all twenty-six retained surfaces with the license boundary held
+live, a reviewed model-cache rename that touched exactly the sixteen model
+shapes that mount it and left all ten serving runtimes untouched, and delivery
+of its serving surface to a kind cluster.
+What an entry has not done is listed per entry in the
+[platform evidence record](../../../data/aicr-platform-evidence/summary.md)
+rather than left to inference. Each receipt is recompiled offline by its own
+verify lane, so these are checkable rather than asserted.
 
-Five entries exist today, covering four shapes. The training entry carries the
-proven mechanics and is retained at two upstream versions, the two inference
-entries answer the serving question at different granularities, and the CPU
-starter is a rule-governed derivation of the training entry. The inference pair
-is deliberate: the AICR-native entry stands up a cluster that can serve NIM, and
-the KServe entry, retained at upstream commit 3ef33472, names the exact shape a
-given model runs in. Retaining both keeps the sourcing choice visible instead of
-implied, and the [entry page](./eks-h100-inference-nim.md) compares them
-directly.
+[The closing record](../../planning/aicr-track-conclusion.md) says what this
+track proves, what it refuses to claim, and what is left for whoever picks it
+up.
 
-The catalog refuses manufactured variety: new entries come from upstream versions, from
-deliberately authored shapes whose provenance is named, or from recorded
-derivations of an existing entry. The inference entry's sixteen model-by-GPU
-shapes are upstream-authored variety, retained exactly, and the starter's
-seven components are byte-identical copies selected by rules the derivation
-receipt records.
-
-The inference class carries a licensing boundary worth stating early. NIM
-deploys through public Helm charts and the NIM Operator, so the deployment
-shapes can be cataloged, but the runtime images and models behind them are
-NGC-gated under NVIDIA AI Enterprise licensing. The entry retains the
-configuration shapes and never redistributes the gated artifacts. The
-[license read](../../planning/nim-ngc-license-read.md) verified this boundary
-against the actual terms: the scaffolding the entry would retain is Apache-2.0,
-the gated material is exactly what a config-plane entry never touches, and NGC
-API keys enter the shape only as target facts.
-
-## Retained versions while upstream moves
+## Why the versions look old
 
 The training entry retains NVIDIA AICR v0.14.0 exactly: the release commit, the
 release-asset checksum, and the binary checksum are pinned in its
@@ -103,7 +85,7 @@ reports the same build commit that signature names, so the entry's provenance
 runs from an upstream signer to the bytes on disk rather than from a checksum
 alone.
 
-## One digest pins each shape
+## How do I know these are the files AICR wrote?
 
 Every entry carries the digest spine the Kubara importer proved: one immutable
 OCI payload per component plus one digest-bound platform index. For the training
@@ -144,30 +126,16 @@ variant-promotion receipt that changed one Grafana credential in a development
 variant and promoted it to staging with matching data hashes. The
 [entry page](./eks-h100-training-kubeflow.md) walks through both.
 
-## Each entry climbs the same proof ladder
+## What this catalog turns down
 
-The proofs repeat one ladder per entry, and each rung has a committed receipt
-its verify lane recompiles offline. The training entry proved import, the
-reviewed Grafana change, and the staging promotion. The
-[CPU starter](./cpu-starter.md) climbed the whole ladder: ConfigHub import
-with the reviewed gp3 override and its staging promotion, config-plane
-delivery to a kind cluster with the application controller held at zero, and
-one reviewed component synced to Healthy with its volume bound by the
-reviewed storage class. The
-[inference entry](./kserve-nim-inference.md) has climbed two rungs: the
-ConfigHub import of all twenty-six retained surfaces with the license boundary
-held live, then the reviewed model-cache claim rename that changed exactly the
-sixteen model shapes that mount it, left all ten serving runtimes untouched,
-and reached staging through a previewed promotion, then config-plane delivery
-of its serving surface to a kind cluster. The rungs an entry has not climbed
-stay absent from its claims rather than implied, and the
-[platform evidence record](../../../data/aicr-platform-evidence/summary.md)
-lists those gaps per entry rather than leaving them to inference.
+The catalog refuses manufactured variety. A new entry comes from an upstream
+version, from a deliberately authored shape whose provenance is named, or from a
+recorded derivation of an entry that already exists. The inference entry's
+sixteen model-by-GPU shapes are upstream-authored variety retained exactly, and
+the starter's seven components are byte-identical copies selected by rules its
+derivation receipt records.
 
-## What the entries refuse is recorded too
-
-A ladder records what the catalog accepted. The
-[refusal corpus](./refusal-corpus.md) records what it turns down, by running
+The [refusal corpus](./refusal-corpus.md) records what it turns down, by running
 the shipped lanes against changes a contributor could plausibly propose and
 publishing the verdicts. Two of those candidates have to be accepted, because
 lanes that refused everything would look identical to lanes that refused the
@@ -177,11 +145,3 @@ The counts on these pages are checked the same way. Every number followed by a
 counted noun is bound to a quantity computed from committed bytes, and
 [the claim-integrity lane](./claim-integrity.md) refuses both a number that has
 drifted and a counted claim nobody declared.
-
-## The boundary every receipt states
-
-All proofs here run on kind or against ConfigHub, and they prove config-plane
-mechanics only: import, render, digest pinning, variant, promotion, delivery
-wiring. No GPU workload ran to produce or verify any receipt in this catalog.
-Workload-plane claims wait until a real GPU target exists, and they stay absent
-rather than implied.

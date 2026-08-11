@@ -215,7 +215,10 @@ spec:
     - id: index-cites-the-kserve-rungs
       quantity: kserve-rungs-climbed
       page: index.md
-      phrases: ["two rungs"]
+      # "rungs" is our word for the proof ladder. The index is written for a
+      # reader who has never met it, so the plainer phrasing is declared here
+      # rather than dropping a checked number to get readable prose.
+      phrases: ["two of those stages"]
 
     - id: claim-page-cites-the-training-applications
       quantity: training-applications

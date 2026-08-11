@@ -1,14 +1,12 @@
-# AICR builds the AI platform. ConfigHub governs it.
+# Read an EKS + H100 + Kubeflow platform before you build one
 
-You do not need to know AICR to follow this. AICR is a tool from NVIDIA for
+This is one entry in [the AI platform catalog](./index.md). You do not need to
+know AICR to follow it. AICR is a tool from NVIDIA for
 building AI-cluster platforms. You describe the platform you want, for example an
 EKS cluster with H100 GPUs, Ubuntu, Kubeflow, and a training job. AICR then picks
 15 components, puts them in the right install order, and hands you the files to
 install them. It does not decide how your team reviews, approves, or promotes
 those files.
-
-This entry belongs to [the AICR catalog overview](./index.md), which names the
-entry classes, the retained-versions discipline, and the shared proof boundary.
 
 That is where ConfigHub comes in, and the boundary is the whole point. AICR
 decides what goes in the platform. It selects the 15 components, sets the install
@@ -28,7 +26,7 @@ storage type, the selector for GPU nodes, the selector for the training job, and
 where the installer reads the published package. The first three are set when the
 files are built. The fourth points the installer at the built package.
 
-## What problem this solves
+## Why you would want this
 
 The recipe pins most of the platform before installation. Four choices remain at
 install time: the StorageClass, the selector for accelerated nodes, the selector
@@ -40,7 +38,7 @@ Keeping the recipe, those four choices, and the generated files together answers
 practical questions later: what did we ask AICR to build, and what did each cluster
 actually receive?
 
-## What is committed
+## What is in the repository
 
 - [aicr.yaml](../../../examples/aicr/eks-h100-training-kubeflow/aicr.yaml) is the
   `AICRConfig` that describes the recipe and bundle commands.
@@ -89,7 +87,7 @@ absolute output directory. The committed copy changes only those path prefixes t
 paths relative to the bundle root, so the checksum list is portable and does not expose
 a workstation path.
 
-## One digest pins the whole shape
+## How you know these are the files AICR wrote
 
 The [digest-index](../../../examples/aicr/eks-h100-training-kubeflow/digest-index/README.md)
 directory compiles the whole example into one digest-bound platform index, following
@@ -111,7 +109,7 @@ records `compiled-offline` and claims no registry push. As everywhere in this
 example, the index proves config-plane mechanics only. No GPU workload ran to
 produce or verify it.
 
-## Rebuild the example
+## Rebuild it yourself
 
 Install AICR v0.14.0, then run these commands from the example directory:
 
@@ -160,7 +158,7 @@ criteria, command options, release and binary checksums, every generated file, t
 local OCI manifest, the two `ArtifactGenerator` resources, and the matching
 `ExternalArtifact` references.
 
-## What Flux needs for the OCI bundle
+## Deliver it with Flux
 
 AICR's OCI form requires Flux v2.7 or newer, the `source-watcher` controller, and
 `ExternalArtifact=true` on `helm-controller`. The target also needs an
@@ -168,7 +166,7 @@ AICR's OCI form requires Flux v2.7 or newer, the `source-watcher` controller, an
 artifact. Those are part of the operating configuration, so the receipt records them
 instead of leaving them as setup knowledge.
 
-## The Argo CD path
+## Deliver it with Argo CD
 
 AICR can also generate an `argocd-helm` bundle. This output is a Helm chart that
 creates one parent Argo CD `Application` and 16 component `Application` objects. The
@@ -202,7 +200,7 @@ references, and the complete set of sync waves. Run
 `npm run aicr-argocd-example:public-verify` to pull both public artifacts without
 registry credentials and check their recorded digests.
 
-## The ConfigHub base variant
+## Keep it in ConfigHub
 
 The live demo imports the public literal configuration OCI:
 
@@ -230,7 +228,7 @@ records the source reference and resolved digest on the Space. ConfigHub can the
 changes to those files and manage derived variants for environments or cluster
 classes.
 
-## OCI in, ConfigHub, OCI out
+## The whole round trip, start to finish
 
 A separate live test checked the next boundary. It imported the same
 17-Application literal configuration OCI into a temporary ConfigHub base, published
@@ -262,7 +260,7 @@ nothing was sent to Kubernetes. Run
 `npm run aicr-argocd-example:hub-policy-check` while authenticated to repeat that
 check.
 
-## Change it in development, then promote it
+## Change one value and promote it
 
 The generated AICR configuration includes the example Grafana setting
 `adminPassword: admin` inside the `kube-prometheus-stack` Application. ConfigHub can
