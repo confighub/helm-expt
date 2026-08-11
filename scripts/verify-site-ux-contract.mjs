@@ -30,7 +30,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Unsure what your chart will install?","Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Unsure what your chart will install?","Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "an AICR recipe for AI", "Store reviewed objects in ConfigHub", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/variants.html",
@@ -195,7 +195,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Try Redis", "Check my Helm values", "ConfigHub stores the reviewed objects as shared data"],
+    headerTerms: ["A catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Try Redis", "Check my Helm values", "Store reviewed objects in ConfigHub"],
   },
   {
     file: "site/try.html",
