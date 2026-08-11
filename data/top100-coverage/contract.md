@@ -40,7 +40,7 @@ target-scoped decision and fresh receipts.
 charts: 109
 covered: 20
 partial: 89
-average coverage: 87%
+average coverage: 88%
 ~~~
 
 Regenerate:

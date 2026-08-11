@@ -45,7 +45,7 @@ source-reviewed hook routes not yet maintained: 8
 | Promote proof-grade charts | 39 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `traefik/traefik@40.2.0`<br>`external-dns/external-dns@1.21.1`<br>`kyverno/kyverno@3.8.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0` |
 | Design user-shaped variants | 37 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1` |
 | Resolve limitations and compatibility blockers | 7 | Decide whether to support, disclose, defer, or refuse the named gap for the target scope. | The catalog page, compatibility decision, or hard-gap row agrees on the supported path. | `bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7`<br>`bitnami/phpmyadmin@20.0.0`<br>`bitnami/contour@21.1.4` |
-| Expand live evidence | 22 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | - |
+| Expand live evidence | 22 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `karpenter/karpenter@1.14.0`<br>`valkey/valkey@0.11.0`<br>`aws-controllers-k8s/ec2-chart@1.18.4`<br>`aws-controllers-k8s/eks-chart@1.16.3`<br>`aws-controllers-k8s/iam-chart@1.7.3` |
 | Promote reviewed hook routes | 8 | Open `data/hook-route-candidates/summary.md` and choose one candidate route. | The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker. | `k8s-dashboard/kubernetes-dashboard@7.14.0`<br>`gitlab/gitlab@10.0.0`<br>`bitnami/kafka@32.4.3`<br>`bitnami/minio@17.0.21`<br>`datadog/datadog@3.214.0` |
 
 ## Proof-Focus Rows
@@ -146,7 +146,7 @@ decision before catalog promotion.
 | `in-confighub-proof` | 13 | Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane. |
 | `live-helm-vs-confighub-parity` | 74 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
 | `local-kubernetes-live` | 8 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
-| `not-proven` | 9 | No committed proof lane evidence found. |
+| `render-parity` | 9 | Regular Helm and cub installer setup render-equivalent objects. |
 | `two-cluster-kind-parity` | 5 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 
 ## How To Read This

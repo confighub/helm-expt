@@ -597,7 +597,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base default --work-dir ./karpenter-karpenter-1-14-0-default --non-interactive --namespace kube-system</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/karpenter-karpenter-1-14-0/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/karpenter-karpenter-1-14-0/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
-          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml">Open the full record.</a></dd>
@@ -624,7 +624,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base crds-managed --work-dir ./karpenter-karpenter-1-14-0-crds-managed --non-interactive --namespace kube-system</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/karpenter-karpenter-1-14-0/crds-managed/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/karpenter-karpenter-1-14-0/crds-managed/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
-          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml">Open the full record.</a></dd>
@@ -651,7 +651,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base eks-inference --work-dir ./karpenter-karpenter-1-14-0-eks-inference --non-interactive --namespace kube-system</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/karpenter-karpenter-1-14-0/eks-inference/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/karpenter-karpenter-1-14-0/eks-inference/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
-          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml">Open the full record.</a></dd>
@@ -712,7 +712,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0</td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 0/0)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td></tr><tr><td>Next action</td><td>review source/current-version drift and refresh recipe if needed</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0</td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 3/3; Local live 0/3; Live parity 0/3)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Next action</td><td>review source/current-version drift and refresh recipe if needed</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

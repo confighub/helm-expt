@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 135
-charts needing variant work: 85
-charts already variant-complete: 50
-total variants to build: 106
+charts: 139
+charts needing variant work: 87
+charts already variant-complete: 52
+total variants to build: 110
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 66 charts
+- `existing-secret`: 68 charts
+- `ha`: 19 charts
 - `no-crds`: 19 charts
-- `ha`: 17 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -53,6 +53,8 @@ total variants to build: 106
 | `bitnami/spark@10.0.3` | 3 | existing-secret |
 | `bitnami/zookeeper@13.8.7` | 3 | existing-secret |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | 2 | existing-secret |
+| `cloudpirates/rabbitmq@0.21.13` | 1 | existing-secret, ha |
+| `cloudpirates/redis@0.34.11` | 1 | existing-secret, ha |
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |

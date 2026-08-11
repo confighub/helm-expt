@@ -59,14 +59,14 @@ spec:
   proofSummary:
     adoptionBucket: "needs-useful-variant"
     userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "not-proven"
+    strongestEvidence: "render-parity"
     proofLanes:
-      renderParity: "0/0"
-      inConfigHub: "0/0"
-      localLive: "0/0"
-      gitopsLive: "0/0"
-      liveParity: "0/0"
-    featureSummary: ""
+      renderParity: "1/1"
+      inConfigHub: "0/1"
+      localLive: "0/1"
+      gitopsLive: "0/1"
+      liveParity: "0/1"
+    featureSummary: "required-values;values-schema;extension-slots"
     hardGap: "-"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:

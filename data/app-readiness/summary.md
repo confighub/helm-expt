@@ -4,7 +4,7 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **120** default renders; **91** ship RBAC; **69** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **124** default renders; **91** ship RBAC; **69** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 

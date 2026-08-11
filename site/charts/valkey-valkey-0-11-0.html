@@ -580,7 +580,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0 --base default --work-dir ./valkey-valkey-0-11-0-default --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/valkey-valkey-0-11-0/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/valkey-valkey-0-11-0/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
-          <dt>Evidence</dt><dd>Not proven</dd>
+          <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/valkey-valkey-0-11-0-default.yaml">Open the full record.</a></dd>
@@ -612,8 +612,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
-      <p>No chart-specific password or CRD caveat is recorded for this chart. For direct delivery, define how removed objects are pruned and how field conflicts are resolved. Argo CD and Flux can own those reconciliation jobs when their delivery path and pruning settings are recorded for the selected preset.</p>
-      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a></p>
+      <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
+      <div class="card"><table>
+        <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>No CRD first-ordering caveat recorded for this chart.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="../d/docs/user/cub-deployment-path.html">cub deployment path</a></p>
     </section>
 
     <section aria-labelledby="playbooks">
@@ -631,7 +641,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 0/0)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; mandatory chart inputs; the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 1/1; Local live 0/1; Live parity 0/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; mandatory chart inputs; the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

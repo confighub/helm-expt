@@ -338,7 +338,7 @@
   "cloudpirates/rabbitmq": {
     "version": "0.21.13",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); ha (buildable — not yet run)",
     "dependency_lock": "locked 1 deps; Chart.lock digest",
     "hook_status": "—",
     "hook_route_evidence": "—",
@@ -350,7 +350,7 @@
   "cloudpirates/redis": {
     "version": "0.34.11",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—",
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run); ha (buildable — not yet run)",
     "dependency_lock": "locked 1 deps; Chart.lock digest",
     "hook_status": "—",
     "hook_route_evidence": "—",

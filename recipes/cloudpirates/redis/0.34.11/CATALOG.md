@@ -32,9 +32,9 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | needs-useful-variant |
 | User status | proof-grade-needs-user-shaped-variant |
-| Strongest evidence | not-proven |
-| Proof lanes | render parity 0/0; ConfigHub 0/0; local live 0/0; GitOps live 0/0; live parity 0/0 |
-| Feature summary | - |
+| Strongest evidence | render-parity |
+| Proof lanes | render parity 1/1; ConfigHub 0/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Feature summary | extension-slots |
 | Hard gap | - |
 | Next action | add at least one user-shaped variant before catalog promotion |
 

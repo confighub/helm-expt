@@ -36,6 +36,9 @@ bitnami/redis@27.0.0,2,default;reuse-existing-secret,existing-secret,none,0,reci
 bitnami/spark@10.0.3,3,default;ha;legacy,existing-secret;ha,existing-secret,1,recipes/bitnami/spark/10.0.3
 bitnami/zookeeper@13.8.7,3,default;ha;legacy,existing-secret;ha,existing-secret,1,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/cloudnative-pg/cloudnative-pg/0.28.2
+cloudpirates/nginx@0.16.1,1,default,,none,0,recipes/cloudpirates/nginx/0.16.1
+cloudpirates/rabbitmq@0.21.13,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/rabbitmq/0.21.13
+cloudpirates/redis@0.34.11,1,default,existing-secret;ha,existing-secret;ha,2,recipes/cloudpirates/redis/0.34.11
 coredns/coredns@1.45.2,1,default,existing-secret,existing-secret,1,recipes/coredns/coredns/1.45.2
 crossplane-stable/crossplane@2.3.1,1,default,existing-secret,existing-secret,1,recipes/crossplane-stable/crossplane/2.3.1
 descheduler/descheduler@0.36.0,1,default,,none,0,recipes/descheduler/descheduler/0.36.0
@@ -130,6 +133,7 @@ stakater/reloader@2.2.14,1,default,,none,0,recipes/stakater/reloader/2.2.14
 strimzi/strimzi-kafka-operator@1.0.0,2,default;no-crds,no-crds,none,0,recipes/strimzi/strimzi-kafka-operator/1.0.0
 traefik/traefik@40.2.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/traefik/traefik/40.2.0
 traefik/traefik@41.0.2,1,default,no-crds,no-crds,1,recipes/traefik/traefik/41.0.2
+valkey/valkey@0.11.0,1,default,,none,0,recipes/valkey/valkey/0.11.0
 velero/velero@12.0.1,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/velero/velero/12.0.1
 velero/velero@12.1.0,1,default,existing-secret;no-crds,existing-secret;no-crds,2,recipes/velero/velero/12.1.0
 vm/victoria-logs-single@0.12.5,1,default,existing-secret;ha,existing-secret;ha,2,recipes/vm/victoria-logs-single/0.12.5
