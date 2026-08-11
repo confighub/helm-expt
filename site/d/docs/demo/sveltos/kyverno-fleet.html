@@ -449,7 +449,8 @@
     <article class="doc-body">
 <blockquote></blockquote>
 <p>This example is for a platform team that needs to install the same system component on a group of clusters. The team should review the configuration once, keep its history in ConfigHub, and let a fleet controller handle cluster selection and reconciliation.</p>
-<p>ConfigHub stores the reviewed configuration and runs the catalog's checks against it. Sveltos runs on a management cluster, selects workload clusters by label, and installs the declared add-on. ConfigHub keeps the reviewed record; Sveltos handles cluster selection and reconciliation.</p>
+<p>ConfigHub stores the reviewed configuration and runs the catalog's checks against it. ConfigHub publishes changes as OCI images on its OCI gateway. Sveltos runs on a management cluster, fetches the configuration from that gateway, and sends it to the clusters it selects by label. ConfigHub keeps the reviewed record; Sveltos handles cluster selection and reconciliation.</p>
+<p>The runs recorded below used a GitOps controller to carry the OCI artifact to the management cluster, because Sveltos could not yet fetch it directly. It can now, and the <a href="../../planning/remote-url-oci-probe.html">live probe</a> records what that path accepts. The steps below stay as they were recorded, and the re-recordings will follow the direct path.</p>
 <h2 id="the-reviewed-configuration">The reviewed configuration</h2>
 <p>The <a href="../../../../../examples/sveltos/kyverno-fleet/clusterprofile.yaml">ClusterProfile</a> contains the decisions a reviewer needs to see:</p>
 <ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install <code>kyverno/kyverno</code> chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>use <code>ContinuousWithDriftDetection</code> so Sveltos restores the reviewed settings.</li></ul>

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-10 (commit `18f0b061f`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-11 (commit `0c1f49364`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 265 |
-| Fresh (no linked source newer than the doc) | 40 |
-| **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 147 |
+| Authored docs tracked | 266 |
+| Fresh (no linked source newer than the doc) | 41 |
+| **Review-due** | 77 |
+| No linked evidence sources (cannot auto-trigger) | 148 |
 
 ## Review queue
 
@@ -74,7 +74,6 @@ most recently changed triggers.
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 23 | `tests/persona-ux-strategy.md (2026-07-14)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 23 | `tests/persona-ux-strategy.md (2026-07-14)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 18 | `tests/doctrine.md (2026-08-09)`<br>`tests/README.md (2026-07-28)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
-| [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 15 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 15 | `data/chart-use-guide/summary.md (2026-08-10)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/secret-lifecycle/summary.md (2026-07-29)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-07-27 | 14 | `data/master-catalog-matrix/matrix.html (2026-08-10)`<br>`data/variant-promotion/summary.md (2026-08-10)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 14 | `tests/doctrine.md (2026-08-09)`<br>`tests/README.md (2026-07-28)` |
@@ -99,19 +98,19 @@ most recently changed triggers.
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 7 | `tests/doctrine.md (2026-08-09)` |
 | [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) | user | 2026-08-02 | 7 | `data/cub-adoption-caveats/summary.md (2026-08-08)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 3 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/variant-promotion/summary.md (2026-08-10)`<br>`data/base-variant-records/summary.md (2026-08-10)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 3 | `data/flattening-safety/summary.md (2026-08-09)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [README.md](../../README.md) | root | 2026-08-08 | 2 | `CATALOG.md (2026-08-10)`<br>`data/extension-slots/summary.md (2026-08-09)`<br>`data/runtime-gitops/summary.md (2026-08-09)` |
-| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-08-09 | 2 | `data/receipt-aging/summary.md (2026-08-10)`<br>`data/credential-boundary/summary.md (2026-08-09)`<br>`tests/doctrine.md (2026-08-09)` |
-| [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-08-09 | 2 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/operational-class-examples/summary.md (2026-08-10)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-08-09 | 1 | `data/master-catalog-matrix/matrix.html (2026-08-10)`<br>`CATALOG.md (2026-08-10)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
+| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-08-09 | 2 | `data/receipt-aging/summary.md (2026-08-11)`<br>`data/credential-boundary/summary.md (2026-08-09)`<br>`tests/doctrine.md (2026-08-09)` |
+| [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 2 | `data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 2 | `data/variant-promotion/summary.md (2026-08-10)`<br>`data/base-variant-records/summary.md (2026-08-10)`<br>`data/helm-render-intents/summary.md (2026-08-10)` |
 | [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 1 | `data/aicr-claim-integrity/summary.md (2026-08-08)`<br>`data/aicr-entry-naming/summary.md (2026-08-08)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 1 | `tests/doctrine.md (2026-08-09)`<br>`data/gated-artifacts/summary.md (2026-08-08)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-08-08 | 1 | `data/aicr-ordering-parity/summary.md (2026-08-08)` |
+| [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-08-09 | 1 | `data/operational-class-examples/summary.md (2026-08-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 
 ## Docs with no linked evidence sources
@@ -204,6 +203,7 @@ into this freshness model.
 - [docs/planning/onboarding-and-entry-paths.md](../../docs/planning/onboarding-and-entry-paths.md)
 - [docs/planning/per-chart-fact-sheet-spec.md](../../docs/planning/per-chart-fact-sheet-spec.md)
 - [docs/planning/persona-ux-audit-2026-06-22.md](../../docs/planning/persona-ux-audit-2026-06-22.md)
+- [docs/planning/remote-url-oci-probe.md](../../docs/planning/remote-url-oci-probe.md)
 - [docs/planning/review-prompts.md](../../docs/planning/review-prompts.md)
 - [docs/planning/server-account-pitch.md](../../docs/planning/server-account-pitch.md)
 - [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)

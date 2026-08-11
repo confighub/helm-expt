@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sveltos Kyverno fleet · Config Workshop</title>
-  <meta name="description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html">
-  <meta property="og:title" content="Sveltos Kyverno fleet · Config Workshop">
-  <meta property="og:description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry · Config Workshop</title>
+  <meta name="description" content="Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/remote-url-oci-probe.html">
+  <meta property="og:title" content="Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry · Config Workshop">
+  <meta property="og:description" content="Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/remote-url-oci-probe.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,62 +437,40 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../guides.html">Guides</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Sveltos Kyverno fleet</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../../examples/sveltos/kyverno-fleet/README.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Live probe: ClusterProfile remoteURL fetching YAML from an OCI registry</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/remote-url-oci-probe.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <blockquote><p>This example now lives at <a href="https://github.com/confighub/sveltos-confighub">confighub/sveltos-confighub</a>. This copy is a frozen mirror; new work, live recordings, and issues belong in that repository.</p></blockquote>
-<p>This example shows how ConfigHub and Sveltos can divide the work of managing a platform component across a cluster fleet.</p>
-<p>ConfigHub stores the reviewed configuration, its variants, policy checks, and promotion history. Sveltos runs on a management cluster, selects workload clusters by label, and installs the declared add-on. Teams can change the configuration once in ConfigHub instead of running an upgrade command against each cluster.</p>
-<p>This Space requires approval before apply because it changes cluster-wide admission policy, even though this example targets staging.</p>
-<h2 id="what-to-inspect">What to inspect</h2>
-<p>Open the <code>clusterprofile</code> Unit first. It contains the Sveltos <code>ClusterProfile</code> used by the live demo Space:</p>
-<ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install Kyverno chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>keep the cluster aligned with <code>ContinuousWithDriftDetection</code>.</li></ul>
-<p>The chart version and values are fixed in the reviewed object. The separate <a href="../../../../../examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"><code>clusterprofile-pilot.yaml</code></a> file adds <code>rollout=pilot</code>. The two-wave proof starts with that narrower selector, then removes only the rollout label after review.</p>
-<h2 id="what-the-live-tests-showed">What the live tests showed</h2>
-<p>The test used Sveltos v1.12.0 with separate kind management and workload clusters. ConfigHub stored the <code>ClusterProfile</code> under the catalog's standard checks. The exact object exported from ConfigHub was applied to the management cluster.</p>
-<p>In the first run, Sveltos selected the staging workload cluster, installed Kyverno 3.8.1, and reported the Helm feature as <code>Provisioned</code>. All four Kyverno deployments became available. The test then changed the admission-controller replica count from three to one on the workload cluster. Sveltos restored it to three.</p>
-<p>The current OCI delivery run used two workload clusters. ConfigHub blocked the pilot profile until its exact revision was approved. It published the approved profile as a private release and as a temporary portable OCI. Argo CD reconciled that OCI digest on the management cluster. Sveltos installed Kyverno on the pilot and left the second cluster unchanged.</p>
-<p>The next ConfigHub revision removed only <code>spec.clusterSelector.matchLabels.rollout</code>. That revision was also blocked until approval and published at a different OCI digest. Sveltos then kept the pilot healthy and installed Kyverno on the second staging cluster. The test changed the replica count on both clusters, and Sveltos restored both.</p>
-<h2 id="what-remains">What remains</h2>
-<p>The current run installed Sveltos directly from a pinned upstream manifest and used a temporary registry for the portable OCI. It used two local kind clusters. A permanent package, a larger fleet, and a rollout that pauses after a failed target still need their own tests.</p>
-<h2 id="chapter-three">Chapter three</h2>
-<p>The <a href="../env-rollout/README.html">environment rollout example</a> starts the next chapter: one reviewed values change promoted from pilot to staging to production, with a per-cluster matrix that shows exactly which cluster runs which revision at each checkpoint.</p>
-<h2 id="repeat-and-verify">Repeat and verify</h2>
-<p>The <a href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">website guide</a> explains the commands and results. The <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml">source profile</a>, <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml">pilot profile</a>, <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml">source lock</a>, and <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml">live receipt</a> record the first result. The <a href="https://confighub.github.io/helm-expt/site/d/data/sveltos-oci-delivery-proof/summary.html">OCI delivery summary</a> and <a href="https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml">OCI delivery receipt</a> record the automated handoff.</p>
-<h2 id="how-to-run-the-live-proof">How to run the live proof</h2>
-<p>Run the offline self-tests first. They drive the same approval bracket, portable OCI round trip, and receipt checks against fake ConfigHub and OCI surfaces. They need no account, cluster, or network access and finish in seconds.</p>
-<pre><code>npm run sveltos-example:self-test
-npm run sveltos-oci-delivery:self-test</code></pre>
-<p>The two-wave delivery proof is fully self-contained: it creates its own kind management cluster, two workload clusters, and a local OCI registry, records the receipt, and cleans up. The fleet build takes five to seven minutes.</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code># 1. Two authenticated contexts, deliberately separate: the maintained
-#    policy organization that owns the reviewed profile, and a scratch
-#    organization for the throwaway cluster Spaces. A browser round trip
-#    each, well under a minute.
-cub --context my-policy auth login     # choose the catalog organization
-cub --context my-scratch auth login    # choose a scratch organization
-
-# 2. Explicit consent plus both contexts, then one command. The fleet
-#    builds in five to seven minutes (registry, management cluster, two
-#    workload clusters, Sveltos converged); the two delivery waves add a
-#    few minutes more.
-HELM_EXPT_ALLOW_LIVE_SVELTOS_OCI_PROOF=1 \
-HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
-CUB_CONTEXT=my-policy \
-SVELTOS_CLUSTER_CONTEXT=my-scratch \
-npm run sveltos-oci-delivery:run
-
-# 3. Verify the recorded receipt offline, no live access needed.
-#    A few seconds.
-npm run sveltos-oci-delivery:verify</code></pre>
-<p>The recorded run used the maintainers' catalog organization, named <code>helm-catalog</code>, because it owns the approval policy space and trigger filter the runner checks for. To run this in your own organization, create that wiring first from <a href="../../../../../config-catalog/policies/catalog-standard.yaml">the committed policy</a>; the runner verifies its preconditions and stops early with a named reason instead of failing after the fleet build.</p>
-<p>Known limit: on current hub.confighub.com the approval gate does not appear in the Unit's <code>ApplyGates</code> from the Space trigger-filter wiring, so the run stops at the approval-boundary observation. That behavior is tracked in confighubai/confighub#4975, a tracker that is not public; <code>npm run sveltos-gate:probe</code> answers the same question from outside. The run is expected to pass once the defect is resolved. When cleaning up scratch Spaces by hand, delete each management Space before its <code>-argo-apps</code> sibling, or the Target is stranded by a dangling reference (confighubai/confighub#4980).</p>
+<p>Run on 2026-08-10 against Sveltos v1.13.0, whose <code>controllers/url_source.go</code> is byte-identical to commit 4f9a59e that the maintainer pointed us at. The probe answers one question: which OCI artifact shapes does <code>policyRefs[].remoteURL</code> deploy today, ahead of the ConfigHub OCI-gateway integration.</p>
+<h2 id="setup">Setup</h2>
+<p>Two kind clusters (management and one workload registered with <code>environment: staging</code>), Sveltos v1.13.0 from the pinned upstream manifest with ServiceMonitors filtered out, and a TLS <code>registry:2</code> container with a self-signed certificate. Three artifacts were pushed with oras, one tag each, all containing the same kind of payload: a Namespace plus a ConfigMap. Each ClusterProfile used:</p>
+<pre><code>spec:
+  clusterSelector:
+    matchLabels:
+      environment: staging
+  policyRefs:
+    - deploymentType: Remote
+      remoteURL:
+        url: oci://&lt;registry&gt;/probe/&lt;shape&gt;:v1
+        interval: 1m0s
+        secretRef:
+          name: sveltos-oci-ca
+          namespace: projectsveltos</code></pre>
+<h2 id="results">Results</h2>
+<table><thead><tr><th>Artifact shape</th><th>Result</th></tr></thead><tbody><tr><td>Single layer of raw YAML bytes (documents separated by <code>---</code>)</td><td>Provisioned; resources deployed to the workload cluster</td></tr>
+<tr><td>Single layer that is an uncompressed ustar tar of <code>.yaml</code> files</td><td>Provisioned; resources deployed to the workload cluster</td></tr>
+<tr><td>Single layer that is a gzipped tar of the same files</td><td>Failed: the gzip bytes fall through to the raw-YAML branch and decoding stops at <code>yaml: control characters are not allowed</code></td></tr>
+<tr><td>Uncompressed tar written by default macOS bsdtar</td><td>Failed: AppleDouble metadata entries such as <code>._ns.yaml</code> end in <code>.yaml</code>, match the extension filter, and inject binary content</td></tr></tbody></table>
+<h2 id="operational-findings">Operational findings</h2>
+<ol><li>The auth Secret must have type <code>addons.projectsveltos.io/cluster-profile</code>. An Opaque Secret fails with <code>unsupported secret type</code>.</li><li>The <code>caFile</code> key works: the addon-controller trusted our self-signed registry after reading the CA from the Secret.</li><li>The ORAS client is HTTPS-only. A plain-HTTP local registry cannot be used, which is why this probe runs a TLS registry.</li><li>Layer media types are ignored entirely; only the content shape matters.</li></ol>
+<h2 id="what-this-means-for-the-integration">What this means for the integration</h2>
+<p>The direct path in the agreed architecture statement works today: publish raw YAML (or a clean uncompressed tar) as an OCI image, point the reviewed ClusterProfile's <code>remoteURL</code> at it, and Sveltos deploys and re-checks it on its interval. The two failure shapes are avoidable by the publisher and fixable in the addon-controller: a gzip sniff before the tar parse, and skipping <code>._*</code> and <code>PaxHeader</code> entries in the extension filter. Whichever side moves, the artifact contract should be written down where both projects can point at it.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>examples/sveltos/kyverno-fleet/README.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/remote-url-oci-probe.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
