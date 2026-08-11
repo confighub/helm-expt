@@ -6721,7 +6721,7 @@ function aicrEntriesSection() {
   }).join("\n            ");
   return `<div id="aicr" data-aicr-entries>
       <h3>AI platform entries, from AICR recipes</h3>
-      <p>These are not Helm charts, so they are not in the table above. AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms: you describe the platform you want and it picks the components, orders the installs, and writes the files. The catalog retains these the same way it retains a chart — exact version, pinned digest, a receipt for every claim.</p>
+      <p>These are not Helm charts, so they are not in the component table below. AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms: you describe the platform you want and it picks the components, orders the installs, and writes the files. The catalog retains these the same way it retains a chart — exact version, pinned digest, a receipt for every claim.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
         <tbody>
@@ -6765,6 +6765,8 @@ function aicrEntriesSection() {
     <p><a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
+    ${aicrEntriesSection()}
+
     <section aria-labelledby="charts">
       <h2 id="charts">Search the catalog</h2>
       <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them.</p>
@@ -6779,7 +6781,7 @@ function aicrEntriesSection() {
         </div>
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
-        <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AICR entries</a> are below this table.</p>
+        <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
@@ -6827,8 +6829,6 @@ ${chartRowsHtml}
         })();
       </script>
     </section>
-
-    ${aicrEntriesSection()}
 
     ${catalogContextHtml}
 
