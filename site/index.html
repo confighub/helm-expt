@@ -92,6 +92,12 @@
   :root[data-theme="light"] .btn.primary { color: #fff; }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
+  /* The third action is a different kind of thing from the first two. They are
+     jobs a reader arrived with; this one is a way to understand the tool. Given
+     equal weight it competed with them, so it reads as a link that happens to
+     sit on the same line. */
+  .btn.quiet { color: var(--muted); padding-left: 6px; padding-right: 6px; }
+  .btn.quiet:hover { color: var(--ink); text-decoration: underline; }
   .sources { font-family: var(--mono); font-size: .74rem; color: var(--faint); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
   .sources b { color: var(--muted); font-weight: 600; }
 
@@ -174,8 +180,9 @@
             <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
             <p class="lead">Input data from our Catalog or your own package: Helm, an AICR recipe for AI, OCI image, or Kubernetes YAML.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./try.html">Try Redis</a>
+              <a class="btn primary" href="./charts/index.html">Check a public chart</a>
               <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
+              <a class="btn quiet" href="./try.html">See a worked example</a>
             </div>
           </div>
           <div class="hero-term">
