@@ -3838,12 +3838,12 @@ function guidesHtml() {
     ${topNav(".")}
     <h1>Learn this by doing it</h1>
     <p class="lead">Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check rather than a description of what would happen.</p>
-    <p>The first needs no account, no server, and no cluster. The later two use ConfigHub and a cluster where the flow being shown requires them, and each says so before it asks. If you want instructions for a step you are already on, read the <a href="./docs.html">Docs</a> instead.</p>
+    <p>The first needs no account, no server, and no cluster. The later two use <a href="./confighub.html">ConfigHub</a> and a cluster where the flow being shown requires them, and each says so before it asks. If you want instructions for a step you are already on, read the <a href="./docs.html">Docs</a> instead.</p>
   </header>
   <main>
     <section aria-labelledby="short">
       <h2 id="short">Run a short example</h2>
-      <p>The shortest one. Pull one public package, render it locally, and read the exact Kubernetes objects it produces. It contacts neither ConfigHub Server nor Kubernetes, so it is the fastest way to see what the tool does.</p>
+      <p>The shortest one. Pull one public package, render it locally, and read the exact Kubernetes objects it produces. It contacts neither <a href="./confighub.html">ConfigHub</a> Server nor Kubernetes, so it is the fastest way to see what the tool does.</p>
       <p><a href="./try.html">Open the short example</a></p>
     </section>
 
@@ -3862,7 +3862,7 @@ function guidesHtml() {
     <section aria-labelledby="after">
       <h2 id="after">After a guide</h2>
       <p>Choose where the reviewed result goes on the <a href="./how-it-works.html">Deployment</a> page, find a configuration to start from in the <a href="./charts/index.html">Catalog</a>, or read <a href="./known-gaps.html">what is not ready yet</a>.</p>
-      <p>Some steps in the later two guides store the result in ConfigHub. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without a server</a> if you would rather not.</p>
+      <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without a server</a> if you would rather not.</p>
     </section>
   </main>
   <footer>Each guide runs real commands and ends with output you can check. Start with the short one.</footer>
