@@ -15,28 +15,29 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 130
-machine checks pass: 130
+recipes reviewed: 139
+machine checks pass: 139
 machine checks fail: 0
-proof-grade: 92
-catalog-candidate: 18
+proof-grade: 96
+catalog-candidate: 23
 catalog-supported: 20
 blocked: 0
-default-only recipes: 45
-multi-variant recipes: 85
-recipes with warning gates: 116
+default-only recipes: 49
+multi-variant recipes: 90
+recipes with warning gates: 122
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 50
+- `bespoke-top20`: 55
 - `next80-full`: 80
+- `successor-full`: 4
 
 ## Support Levels
 
-- `machine-proof-only`: 92
-- `promotion-review-needed`: 18
+- `machine-proof-only`: 96
+- `promotion-review-needed`: 23
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -50,6 +51,9 @@ proof work.
 | `argo-cd/argo-cd@10.1.3` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@10.2.1` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@9.5.17` | 2 | warn | run human catalog promotion review |
+| `aws-controllers-k8s/ec2-chart@1.18.4` | 2 | warn | run human catalog promotion review |
+| `aws-controllers-k8s/eks-chart@1.16.3` | 2 | warn | run human catalog promotion review |
+| `aws-controllers-k8s/iam-chart@1.7.3` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.0.9` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.1.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@24.0.4` | 2 | warn | run human catalog promotion review |
@@ -60,11 +64,10 @@ proof work.
 | `external-secrets/external-secrets@2.7.0` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.8.0` | 2 | warn | run human catalog promotion review |
 | `jetstack/cert-manager@v1.21.0` | 2 | warn | run human catalog promotion review |
+| `karpenter/karpenter@1.14.0` | 3 | blocked | run human catalog promotion review |
 | `metrics-server/metrics-server@3.13.1` | 2 | warn | run human catalog promotion review |
+| `nvidia/nvidia-device-plugin@0.19.3` | 3 | warn | run human catalog promotion review |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | warn | run human catalog promotion review |
-| `prometheus-community/kube-prometheus-stack@87.15.1` | 3 | warn | run human catalog promotion review |
-| `prometheus-community/kube-prometheus-stack@87.19.2` | 3 | warn | run human catalog promotion review |
-| `prometheus-community/prometheus@29.9.0` | 2 | warn | run human catalog promotion review |
 
 ## Main Gaps
 
