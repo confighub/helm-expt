@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `5758b9a7b`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `84e40b931`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,8 +23,8 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 273 |
-| Fresh (no linked source newer than the doc) | 41 |
+| Authored docs tracked | 274 |
+| Fresh (no linked source newer than the doc) | 42 |
 | **Review-due** | 78 |
 | No linked evidence sources (cannot auto-trigger) | 154 |
 
@@ -35,13 +35,13 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 63 | `data/README.md (2026-08-12)`<br>`data/csv-index.csv (2026-08-12)`<br>`CATALOG.md (2026-08-12)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 63 | `data/outcome-coverage/feature-outcomes.csv (2026-08-12)`<br>`data/top100-readiness/next80-queues.csv (2026-08-12)`<br>`data/top100-readiness/readiness.csv (2026-08-12)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 63 | `data/quirk-coverage/summary.md (2026-08-12)`<br>`data/top100-coverage/summary.md (2026-08-12)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 62 | `data/outcome-coverage/summary.md (2026-08-12)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 62 | `data/top100-user-readiness/summary.md (2026-08-12)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 62 | `data/quirk-coverage/coverage.csv (2026-08-12)`<br>`data/quirk-coverage/summary.md (2026-08-12)`<br>`data/extension-slots/summary.md (2026-08-09)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 62 | `data/chart-facts/chart-facts.csv (2026-08-12)`<br>`data/top100-coverage/summary.md (2026-08-12)`<br>`data/top100-readiness/readiness.csv (2026-08-12)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 62 | `data/README.md (2026-08-12)`<br>`data/csv-index.csv (2026-08-12)`<br>`CATALOG.md (2026-08-12)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 62 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`tests/npm-scripts.md (2026-07-28)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 61 | `data/outcome-coverage/base-outcomes.csv (2026-08-10)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-08-10)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 61 | `data/top100-readiness/summary.md (2026-08-12)`<br>`data/top100-user-readiness/summary.md (2026-08-12)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
