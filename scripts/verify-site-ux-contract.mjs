@@ -39,7 +39,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "changes.schema.json", "Keep private configuration private"],
+    terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep private configuration private"],
   },
   {
     file: "site/challenge.html",

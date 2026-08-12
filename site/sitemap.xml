@@ -193,6 +193,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/variant-work-orders.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/challenge-intake/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-claim-integrity-audit-2026-06-22/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-evidence-router/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-fact-sheets/summary.html</loc></url>
@@ -851,6 +852,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/observation-freshness-slo.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/per-chart-recipes.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/proof-kit-migration.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/question-intake-operation.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/quirk-coverage.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-worked-example.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/residue-families.html</loc></url>

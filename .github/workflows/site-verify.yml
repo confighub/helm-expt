@@ -58,6 +58,9 @@ jobs:
       - name: Documentation map
         run: node scripts/verify-doc-map.mjs
 
+      - name: Public question intake record
+        run: npm run challenge-intake:verify
+
       - name: Verdicts agree with their own renders
         run: node scripts/verify-verdict-against-render.mjs --verify
 

@@ -158,6 +158,7 @@ The honesty surface: evidence, gaps, and refusals.
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
 | [hard-questions.md](./user/hard-questions.md) | Skeptical user route: hooks, upgrades, overlays, false-green sync, free versus managed, and how to challenge the model. |
 | [known-gaps-we-surface.md](./user/known-gaps-we-surface.md) | User-facing guide to current watch findings that the project deliberately surfaces instead of hiding. |
+| [question-intake-operation.md](./reference/question-intake-operation.md) | How maintainers acknowledge a public chart question, decide it with evidence, close the loop, and publish aggregate results without committing private data. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [verification-lanes.md](./user/verification-lanes.md) | Plain-English definition of each verification lane and the commands that check them. |
 | [verification.md](./user/verification.md) | Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route. |
