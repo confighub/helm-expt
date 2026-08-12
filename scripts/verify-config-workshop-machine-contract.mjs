@@ -224,7 +224,7 @@ function consumerVerdict(entry, family) {
 
 function localPathForUrl(url) {
   if (url.startsWith(SITE_BASE_URL)) {
-    const relPath = decodeURIComponent(url.slice(SITE_BASE_URL.length)) || "index.html";
+    const relPath = decodeURIComponent(url.slice(SITE_BASE_URL.length).split(/[?#]/)[0]) || "index.html";
     return join(siteRoot, relPath.endsWith("/") ? `${relPath}index.html` : relPath);
   }
   if (url.startsWith(GITHUB_BLOB_BASE_URL)) {

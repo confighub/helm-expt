@@ -737,18 +737,78 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="proof">
       <h2 id="proof">What Has Been Tested</h2>
-      <p>Each check answers a different question. A watch, blocked, or missing result names work that remains. It does not change a passing Helm render match.</p>
-      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof. Not yet tested: Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
-      <div class="card"><table>
-        <thead><tr><th>Check</th><th>Status across configurations</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>yes: 1/1</td></tr><tr><td>ConfigHub proof</td><td>yes: 1/1</td></tr><tr><td>Local live</td><td>no: 1/1</td></tr><tr><td>GitOps/OCI live</td><td>watch: 1/1</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>watch: 1/1</td></tr><tr><td>Two-cluster kind</td><td>watch: 1/1</td></tr></tbody>
+      <p>Choose the question you care about. <strong>Not checked</strong> means this catalog has no version-specific result; it is not a pass.</p>
+      <div class="card"><table class="coverage-table">
+        <thead><tr><th>Question</th><th>Status</th><th>Evidence</th></tr></thead>
+        <tbody><tr>
+          <td data-label="Question">Can I pull these exact package bytes again?</td>
+          <td data-label="Status">Checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/gitlab-gitlab-runner/0.89.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
+        </tr><tr>
+          <td data-label="Question">What does this chart contain?</td>
+          <td data-label="Status">Partly checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/source-lock.yaml">Source lock</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/CATALOG.md">Chart guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml">Render result</a> · <a href="../changes.json">All 6 evidence links</a></td>
+        </tr><tr>
+          <td data-label="Question">Does the recorded render match Helm?</td>
+          <td data-label="Status">Checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml">Render result</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gitlab-gitlab-runner-0-89-0-default.yaml">Render record</a></td>
+        </tr><tr>
+          <td data-label="Question">Did the supplied values change the render?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Were hooks, CRDs, or setup steps checked?</td>
+          <td data-label="Status">Not applicable</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did this version run on a local Kubernetes cluster?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did an OCI delivery through GitOps run?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did Helm and ConfigHub reach the same live result?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Was the result compared on separate clusters?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Was a ConfigHub promotion tested?</td>
+          <td data-label="Status">Checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/gitlab-runner-default-confighub-proof/latest/variant-promotion-receipt.yaml">Promotion receipt</a></td>
+        </tr><tr>
+          <td data-label="Question">Did this version string point at changed upstream bytes?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr></tbody>
       </table></div>
       <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
+        @media (max-width: 640px) {
+          table.coverage-table { display: block; white-space: normal; overflow: visible; }
+          .coverage-table thead { display: none; }
+          .coverage-table tbody { display: block; }
+          .coverage-table tr {
+            display: grid;
+            grid-template-columns: minmax(7.5rem, .38fr) minmax(0, 1fr);
+            gap: 4px 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--line);
+          }
+          .coverage-table tr:last-child { border-bottom: 0; }
+          .coverage-table td { display: block; width: auto; padding: 0; border: 0; white-space: normal; }
+          .coverage-table td:first-child { grid-column: 1 / -1; color: var(--ink); font-weight: 650; }
+          .coverage-table td:nth-child(n + 2)::before {
+            content: attr(data-label) ": ";
+            color: var(--muted);
+            font-weight: 600;
+          }
+        }
       </style>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof. Not yet tested: Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
         <tbody><tr><td>default</td><td>real</td><td>yes</td><td>yes</td><td>no</td><td>watch</td><td>watch</td><td>watch</td></tr></tbody>

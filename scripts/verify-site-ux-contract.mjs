@@ -688,6 +688,19 @@ if (fs.existsSync(chartPagesDir)) {
     "ConfigHub absorbs",
     "Operator Playbooks And Fact Sheet",
   ];
+  const coverageQuestions = [
+    "Can I pull these exact package bytes again?",
+    "What does this chart contain?",
+    "Does the recorded render match Helm?",
+    "Did the supplied values change the render?",
+    "Were hooks, CRDs, or setup steps checked?",
+    "Did this version run on a local Kubernetes cluster?",
+    "Did an OCI delivery through GitOps run?",
+    "Did Helm and ConfigHub reach the same live result?",
+    "Was the result compared on separate clusters?",
+    "Was a ConfigHub promotion tested?",
+    "Did this version string point at changed upstream bytes?",
+  ];
   for (const fullPath of chartPages) {
     const html = fs.readFileSync(fullPath, "utf8");
     const file = path.relative(root, fullPath);
@@ -716,6 +729,12 @@ if (fs.existsSync(chartPagesDir)) {
     }
     for (const phrase of forbiddenChartCopy) {
       if (html.toLowerCase().includes(phrase.toLowerCase())) failures.push(`${file}: contains internal chart wording ${JSON.stringify(phrase)}`);
+    }
+    for (const question of coverageQuestions) {
+      if (!html.includes(question)) failures.push(`${file}: does not state version-specific coverage for ${JSON.stringify(question)}`);
+    }
+    if (!html.includes("Not checked</strong> means this catalog has no version-specific result; it is not a pass.")) {
+      failures.push(`${file}: does not explain that missing question coverage is not a pass`);
     }
     if (!html.toLowerCase().includes("publication receipt")) failures.push(`${file}: does not expose its version-specific publication receipt`);
     if (!html.includes("Licenses: chart ")) failures.push(`${file}: does not state its chart license; every catalog page must carry one with its evidence basis`);
