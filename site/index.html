@@ -230,10 +230,10 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <h2>Four places drift appears</h2>
           <p class="intro">Start before deployment. Add ConfigHub when a reviewed result needs history across environments or clusters.</p>
           <div class="verbs">
-            <div class="verb"><span class="n">01</span><h3>Check the render</h3><p>See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.</p><span class="route">runs on your laptop</span></div>
-            <div class="verb"><span class="n">02</span><h3>Pin the package</h3><p>Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.</p><span class="route">runs on your laptop</span></div>
-            <div class="verb"><span class="n">03</span><h3>Relate environments</h3><p>Save variants and promote reviewed changes instead of copying values between development and production.</p><span class="route">needs a ConfigHub account</span></div>
-            <div class="verb"><span class="n">04</span><h3>Compare live state</h3><p>Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.</p><span class="route">needs an account and a cluster</span></div>
+            <div class="verb"><span class="n">01</span><h3>Check the render</h3><p>See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.</p><p><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></p><span class="route">runs on your laptop</span></div>
+            <div class="verb"><span class="n">02</span><h3>Pin the package</h3><p>Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.</p><p><a href="./did-this-chart-version-change.html">Did this chart version change upstream?</a></p><span class="route">runs on your laptop</span></div>
+            <div class="verb"><span class="n">03</span><h3>Relate environments</h3><p>Save variants and promote reviewed changes instead of copying values between development and production.</p><p><a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a></p><span class="route">needs a ConfigHub account</span></div>
+            <div class="verb"><span class="n">04</span><h3>Compare live state</h3><p>Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.</p><p><a href="./does-cluster-match-approved-config.html">Does the cluster match what we approved?</a></p><span class="route">needs an account and a cluster</span></div>
           </div>
           <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
         </section>

@@ -42,6 +42,22 @@ const checks = [
     terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Existing release name", "Existing namespace", "See the read-only commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep private configuration private"],
   },
   {
+    file: "site/why-did-helm-ignore-my-values.html",
+    terms: ["Why did Helm ignore my values?", "Runs on your laptop", "auth.passwrod", "same object-set hash", "Open the Redis values diagnostic", "Start this check"],
+  },
+  {
+    file: "site/did-this-chart-version-change.html",
+    terms: ["Did this chart version change upstream?", "A version string is only a label", "fairwinds-stable/goldilocks@10.3.0", "Open the upstream change record", "Start this check"],
+  },
+  {
+    file: "site/why-do-dev-and-prod-differ.html",
+    terms: ["Why do development and production differ?", "Needs a ConfigHub account", "development changed", "Staging stayed", "promotion receipt", "Start this check"],
+  },
+  {
+    file: "site/does-cluster-match-approved-config.html",
+    terms: ["Does the cluster match what we approved?", "Needs a ConfigHub account and a Kubernetes cluster", "found the replica change", "missed the environment-variable change", "live drift receipt", "Start this check"],
+  },
+  {
     file: "site/challenge.html",
     terms: ["Check a Helm answer against retained evidence", "Investigate a Helm problem", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
   },

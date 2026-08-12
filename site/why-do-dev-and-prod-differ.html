@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Investigate a Helm problem &middot; Config Workshop</title>
-  <meta name="description" content="Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/ask.html">
-  <meta property="og:title" content="Investigate a Helm problem &amp;middot; Config Workshop">
-  <meta property="og:description" content="Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.">
+  <title>Why do development and production differ? &middot; Config Workshop</title>
+  <meta name="description" content="Record development and production as related configurations so their exact differences and promotion history remain visible.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html">
+  <meta property="og:title" content="Why do development and production differ? &amp;middot; Config Workshop">
+  <meta property="og:description" content="Record development and production as related configurations so their exact differences and promotion history remain visible.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/ask.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -513,189 +513,25 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Ask</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Investigate a Helm problem with your AI</h1>
-    <p class="lead">Start with one question. This page builds a prompt for the assistant you already use. The prompt checks the exact chart locally, then compares its answer with retained evidence when we have it.</p>
-    <p>Your entries stay in this browser. Keep secrets and private repository details out of the prompt. A public GitHub issue opens only when you choose to file one.</p>
+    <h1>Why do development and production differ?</h1>
+    <p class="lead">Store development and production as related configurations. Then every intentional difference has a field diff and every promotion has a revision record.</p>
+    <p><strong>Needs a ConfigHub account. A cluster is needed only when you deploy the result.</strong></p>
   </header>
   <main>
-    <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. Describe the decision</h2>
-      <div class="card">
-        <p><label for="question-type"><strong>What do you need to know?</strong></label><br>
-          <select id="question-type" style="width:100%;padding:10px;margin-top:6px"><option value="install-shape">What will this install, and what must already exist?</option><option value="ignored-values">Did Helm ignore one of my values?</option><option value="upgrade-risk">What could break in this upgrade?</option><option value="lifecycle-work">What do hooks, CRDs, or setup jobs require?</option><option value="supply-drift">Do these version and digest records identify the same bytes?</option><option value="rollback-history">Can I return to the exact configuration that ran before?</option></select></p>
-        <p><label for="question"><strong>Your exact question</strong></label><br>
-          <textarea id="question" rows="3" style="width:100%;padding:10px;margin-top:6px" placeholder="For example: Why did replicas stay at one after I set replicaCount to three?"></textarea></p>
-        <div class="grid">
-          <p><label for="chart"><strong>Public chart</strong></label><br>
-            <input id="chart" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="bitnami/redis"></p>
-          <p><label for="version"><strong>Version or version pair</strong></label><br>
-            <input id="version" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="25.5.3 or 25.5.3 -> 27.0.0"></p>
-        </div>
-        <div class="grid">
-          <p><label for="release"><strong>Existing release name</strong> <span style="color:var(--muted)">(optional)</span></label><br>
-            <input id="release" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="my-release"></p>
-          <p><label for="namespace"><strong>Existing namespace</strong> <span style="color:var(--muted)">(optional)</span></label><br>
-            <input id="namespace" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="my-namespace"></p>
-        </div>
-        <p><label for="source-visibility"><strong>Can the source be discussed publicly?</strong></label><br>
-          <select id="source-visibility" style="width:100%;padding:10px;margin-top:6px">
-            <option value="public">Yes, it is a public chart</option>
-            <option value="private">No, keep this investigation private</option>
-          </select></p>
-        <p><label for="values-summary"><strong>Values, flags, or symptoms</strong> <span style="color:var(--muted)">(optional, remove secrets)</span></label><br>
-          <textarea id="values-summary" rows="5" style="width:100%;padding:10px;margin-top:6px" placeholder="Namespace, release name, values keys, error text, or the change you expected"></textarea></p>
-        <button class="button primary" id="build-prompt-button" type="button">Build my prompt</button>
-        <p>If the chart is already installed, add its release name and namespace. The prompt will capture Helm's status, values, manifest, hooks, history, and stored release records before it compares an upgrade. <a href="./d/docs/user/existing-helm-release-diagnostic.html">See the read-only commands</a>.</p>
-      </div>
+    <section aria-labelledby="example">
+      <h2 id="example">See one example</h2>
+      <p>In the checked NGINX example, development changed <code>spec.replicas</code> from three to four. Staging stayed at three until that exact change was promoted. The staging namespace remained unchanged.</p><p>The receipt records the base, development, and staging revisions instead of asking someone to reconstruct the change from copied values files.</p>
     </section>
-
-    <section id="prompt-result" aria-labelledby="run-prompt" hidden>
-      <h2 id="run-prompt">2. Run the prompt with your assistant</h2>
-      <p>The assistant does the render and comparison on your machine. Config Workshop supplies retained package records and receipts, not a second AI service.</p>
-      <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
-      <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
+    <section aria-labelledby="evidence">
+      <h2 id="evidence">Check the record</h2>
+      <p><a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-promotion-proof/receipt.yaml">Open the development-to-staging promotion receipt</a>. Its limits say that this is one field promotion; rollback and fleet rollout are separate checks.</p>
     </section>
-
-    <section id="compare-result" aria-labelledby="compare-answer" hidden>
-      <h2 id="compare-answer">3. Compare the answer with retained evidence</h2>
-      <p>Paste the assistant&#39;s <code>WORKSHOP FINDING</code> below. Check the exact chart in the Catalog. A missing or <code>not_checked</code> coverage field is not a pass.</p>
-      <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Check the Catalog</a> <a class="button secondary" href="./changes.json">Open the machine feed</a> <a class="button secondary" href="./changes.schema.json">Read its schema</a></p>
-      <textarea id="assistant-finding" rows="14" style="width:100%;padding:10px" placeholder="Paste the WORKSHOP FINDING here before opening a public issue."></textarea>
-      <div id="public-handoff">
-        <p><strong>Public chart still missing or wrong?</strong> Open a prefilled issue, review every field, and submit only public information.</p>
-        <button class="button primary" id="file-public-question" type="button">File the public question</button>
-        <p>We aim to acknowledge a complete report within two business days and post an entry, refusal, or evidence decision within seven days.</p>
-        <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
-      </div>
-      <div id="private-handoff" hidden>
-        <p><strong>Keep private configuration private.</strong> Do not file a public issue. Keep the finding locally, or <a href="./confighub.html">use ConfigHub</a> when the reviewed result needs a shared record.</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="more-detail" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:28px">
-      <h2 id="more-detail" style="margin-top:0">More detail</h2>
-      <p>The longer reference page explains all six questions, the benchmark, and the evidence behind this workflow.</p>
-    </section>
-    <section aria-labelledby="deeper-reference">
-      <h2 id="deeper-reference">Detailed reference</h2>
-      <p><a href="./challenge.html">Read the six-question Helm investigation guide</a>. It includes worked evidence for ignored values, upgrade risk, lifecycle work, upstream republishing, and exact rollback records.</p>
+    <section aria-labelledby="next-action">
+      <h2 id="next-action">Do this next</h2>
+      <p>Follow the ConfigHub tutorial to create a development configuration, make one change, and promote it to production.</p>
+      <p><a class="button primary" href="https://docs.confighub.com/get-started/tutorial/">Start this check</a></p>
     </section>
   </main>
-  <footer>This page runs in your browser. It has no telemetry and sends nothing until you choose a public GitHub issue.</footer>
-  <script>
-  (() => {
-    const questions = {"install-shape":{"label":"What will this install, and what must already exist?","instruction":"List every rendered object and identify required namespaces, Secrets, CRDs, APIs, storage, cloud services, hooks, and setup jobs.","issueOption":"install-shape: What will this install, and what must already exist?"},"ignored-values":{"label":"Did Helm ignore one of my values?","instruction":"Remove each supplied values key one at a time, re-render, and report keys whose removal does not change the object set.","issueOption":"ignored-values: Did Helm ignore one of my values?"},"upgrade-risk":{"label":"What could break in this upgrade?","instruction":"Render both versions with the same release context. Report deleted or renamed objects, immutable-field changes, storage changes, selector changes, and lifecycle changes.","issueOption":"upgrade-risk: What could break in this upgrade?"},"lifecycle-work":{"label":"What do hooks, CRDs, or setup jobs require?","instruction":"Identify Helm lifecycle work, explain its order, and separate work performed by Helm from work required by kubectl, Argo CD, or Flux.","issueOption":"lifecycle-work: What do hooks, CRDs, or setup jobs require?"},"supply-drift":{"label":"Do these version and digest records identify the same bytes?","instruction":"Record the chart and package digests available now. Compare them with retained digests and dated republish evidence when it exists.","issueOption":"supply-drift: Do these version and digest records identify the same bytes?"},"rollback-history":{"label":"Can I return to the exact configuration that ran before?","instruction":"Identify which prior rendered objects and package digests are actually retained. Do not treat a version label or a fresh re-render as historical proof.","issueOption":"rollback-history: Can I return to the exact configuration that ran before?"}};
-    const issueUrl = "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml";
-    const byId = (id) => document.getElementById(id);
-    const requestedQuestion = window.location.hash.slice(1);
-    if (questions[requestedQuestion]) byId("question-type").value = requestedQuestion;
-
-    function selectedQuestion() {
-      return questions[byId("question-type").value];
-    }
-
-    function buildPrompt() {
-      const code = byId("question-type").value;
-      const item = selectedQuestion();
-      const question = byId("question").value.trim() || item.label;
-      const chart = byId("chart").value.trim() || "<repo/chart>";
-      const version = byId("version").value.trim() || "<exact version or version pair>";
-      const release = byId("release").value.trim();
-      const namespace = byId("namespace").value.trim();
-      const visibility = byId("source-visibility").value;
-      const values = byId("values-summary").value.trim() || "<none supplied>";
-      const privacy = visibility === "private"
-        ? "This source is private. Do not upload it, quote private values, or open a public issue."
-        : "This is a public chart. Ask before opening any public issue.";
-      const prompt = [
-        "I need help with one Helm decision.",
-        "",
-        "Question code: " + code,
-        "Question: " + question,
-        "Chart: " + chart,
-        "Version: " + version,
-        "Existing release: " + (release || "<none supplied>"),
-        "Existing namespace: " + (namespace || "<none supplied>"),
-        "Values, flags, or symptoms (secrets removed): " + values,
-        "Privacy: " + privacy,
-        "",
-        "Work locally. Use Helm and ordinary shell tools. Do not upload my chart or values.",
-        release && namespace
-          ? "1. Capture the existing release locally with: helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and kubectl get secret -l owner=helm,name=" + release + ". Treat every output file as sensitive."
-          : "1. No existing release context was supplied. State that release status, history, stored values, hooks, and live drift are unknown.",
-        "2. Resolve the exact chart source and version. Record the chart digest and every render command.",
-        "3. Render with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. If any input is missing, name it instead of guessing.",
-        "4. " + item.instruction,
-        release && namespace
-          ? "5. Compare the candidate with Helm's recorded manifest and history. Check pending states, removed or renamed objects, immutable fields, storage changes, hooks, CRDs, release-record size, and the risk of reusing old values. Keep Helm's record separate from live cluster state."
-          : "5. Do not claim upgrade, rollback, or live-state safety without an existing release capture.",
-        "6. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json.",
-        "7. Resolve the exact chart and version, including declared aliases. Read each coverage status. Missing or not_checked coverage means Config Workshop has not checked that claim.",
-        "8. Open the canonical_url and cite the relevant evidence_urls for every historical or live claim. Keep your own computed findings separate from retained evidence.",
-        "9. Recommend one next step: a local command, comparison with an existing catalog entry, a public submission with my approval, or saving the reviewed result in ConfigHub.",
-        "",
-        "Return this block at the end:",
-        "WORKSHOP FINDING",
-        "question_code: " + code,
-        "question: " + question,
-        "chart: " + chart,
-        "version: " + version,
-        "render_digest: <sha256 or unknown>",
-        "catalog_match: <exact, alias, absent, or unknown>",
-        "coverage: <coverage fields used, including not_checked>",
-        "findings: <short factual list>",
-        "receipt_urls: <URLs actually used, or none>",
-        "recommended_next_step: <one action>"
-      ].join("\n");
-
-      byId("prompt-output").value = prompt;
-      byId("prompt-result").hidden = false;
-      byId("compare-result").hidden = false;
-      byId("catalog-lookup").href = "./charts/index.html?q=" + encodeURIComponent(chart.replace(/@.*$/, ""));
-      const isPrivate = visibility === "private";
-      byId("public-handoff").hidden = isPrivate;
-      byId("private-handoff").hidden = !isPrivate;
-      byId("prompt-result").scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    byId("build-prompt-button").addEventListener("click", buildPrompt);
-    byId("copy-prompt").addEventListener("click", async () => {
-      const output = byId("prompt-output");
-      try {
-        await navigator.clipboard.writeText(output.value);
-      } catch {
-        output.select();
-        document.execCommand("copy");
-      }
-      byId("copy-status").textContent = "Copied.";
-    });
-    byId("file-public-question").addEventListener("click", () => {
-      const code = byId("question-type").value;
-      const item = selectedQuestion();
-      const question = byId("question").value.trim() || item.label;
-      const chart = byId("chart").value.trim();
-      const version = byId("version").value.trim();
-      const finding = byId("assistant-finding").value.trim();
-      const values = byId("values-summary").value.trim() || "No public values supplied. See the question and assistant finding.";
-      if (!chart || !version) {
-        window.alert("Add the public chart and exact version before opening the issue.");
-        return;
-      }
-      const target = new URL(issueUrl);
-      target.searchParams.set("title", "Problem chart: " + chart + " " + version + " - " + question);
-      target.searchParams.set("question_code", item.issueOption);
-      target.searchParams.set("question", question);
-      target.searchParams.set("chart", chart);
-      target.searchParams.set("version", version);
-      target.searchParams.set("values", values);
-      target.searchParams.set("expected", "Answer the stated question for this exact chart and version, with evidence for historical or live claims.");
-      target.searchParams.set("observed", finding || "No WORKSHOP FINDING was pasted. Please add the assistant result or describe what the catalog got wrong.");
-      target.searchParams.set("failure_type", "Other");
-      target.searchParams.set("reproduction", "1. Generated a local prompt at " + window.location.href + "\n2. Ran it with a local AI assistant and Helm\n3. Compared the result with changes.json and the chart page\n\nAssistant finding:\n" + (finding || "Not supplied"));
-      target.searchParams.set("artifacts", "Config Workshop question code: " + code);
-      window.open(target.toString(), "_blank", "noopener");
-    });
-  })();
-  </script>
+  <footer>One question, one checked example, and one next action.</footer>
 </body>
 </html>
