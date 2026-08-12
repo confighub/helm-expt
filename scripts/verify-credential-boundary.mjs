@@ -252,7 +252,7 @@ value arrives at install time.
 The AICR inference compiler has enforced this for one entry since the NGC
 license read, because retaining an upstream document that carried a key would
 publish that key. The rule was never AICR-specific, and this is it applied
-everywhere: ${report.scanned + report.skipped} committed documents in scope,
+everywhere: every committed document in scope,
 ${report.undeclared.length} undeclared literal credential values.
 
 ## How a value is judged
@@ -293,9 +293,12 @@ It also cannot tell a real credential from a convincing string. It refuses a
 literal value in a secret surface whatever that value means, which is the point:
 the shape is the problem, and judging the string would be guessing.
 
-${report.skipped} documents mention none of the credential words, so they cannot hold an
-assignment and are not parsed. The remaining ${report.scanned} are parsed and walked, and
-${report.unparsed} could not be parsed and are counted rather than skipped silently.
+A document that mentions none of the credential words is not parsed, because it
+cannot hold an assignment. The rest are parsed and walked, and a document that
+fails to parse is counted in the run output rather than skipped silently. The
+counts stay out of this file on purpose: they moved with every unrelated merge,
+which made the gate stale three times in one afternoon, and a summary that
+changes only when a finding or an exception changes is one a reviewer can trust.
 
 Everything runs offline against committed bytes. No cluster, no organization,
 and no network takes part.
