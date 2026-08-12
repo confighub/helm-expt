@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `472689143`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `c85301ac0`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 272 |
+| Authored docs tracked | 273 |
 | Fresh (no linked source newer than the doc) | 40 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 154 |
+| No linked evidence sources (cannot auto-trigger) | 155 |
 
 ## Review queue
 
@@ -51,9 +51,9 @@ most recently changed triggers.
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 58 | `data/variant-promotion/summary.md (2026-08-10)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 57 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/variant-goldens/derived-expansion-wave/README.md (2026-06-30)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 57 | `data/image-digest-workdown/summary.md (2026-08-12)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
-| [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 55 | `data/master-catalog-matrix/matrix.csv (2026-08-12)`<br>`data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/master-catalog-matrix/summary.md (2026-08-12)` |
-| [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 55 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/outcome-evidence-contract/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
-| [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 55 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/lifecycle-route-actions/summary.md (2026-08-10)`<br>`data/live-matrix-burndown/summary.md (2026-08-10)` |
+| [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 56 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/master-catalog-matrix/matrix.csv (2026-08-12)`<br>`data/master-catalog-matrix/summary.md (2026-08-12)` |
+| [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 56 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/outcome-evidence-contract/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
+| [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 56 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/lifecycle-route-actions/summary.md (2026-08-10)`<br>`data/live-matrix-burndown/summary.md (2026-08-10)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-21 | 52 | `data/top100-coverage/summary.md (2026-08-12)`<br>`tests/README.md (2026-07-28)` |
 | [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 50 | `CATALOG.md (2026-08-12)`<br>`data/chart-facts/summary.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)` |
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-23 | 50 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)`<br>`data/next-ten-waves/summary.md (2026-08-10)` |
@@ -76,11 +76,11 @@ most recently changed triggers.
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 23 | `tests/persona-ux-strategy.md (2026-07-14)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 18 | `tests/doctrine.md (2026-08-09)`<br>`tests/README.md (2026-07-28)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 17 | `data/app-readiness/summary.md (2026-08-12)` |
+| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-07-27 | 17 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/outcome-evidence-contract/summary.md (2026-08-12)`<br>`data/variant-promotion/summary.md (2026-08-10)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 17 | `data/secret-lifecycle/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)`<br>`data/claims-register/summary.md (2026-07-29)` |
-| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-07-27 | 16 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/outcome-evidence-contract/summary.md (2026-08-12)`<br>`data/variant-promotion/summary.md (2026-08-10)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 15 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
+| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 15 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`CATALOG.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-29 | 14 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 14 | `CATALOG.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)`<br>`data/master-catalog-matrix/matrix.html (2026-08-12)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 14 | `tests/doctrine.md (2026-08-09)`<br>`tests/README.md (2026-07-28)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-07-30 | 13 | `data/app-readiness/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-07-28 | 13 | `data/installer-oci-packages/packages.csv (2026-08-10)`<br>`data/installer-oci-packages/packages.json (2026-08-10)`<br>`data/installer-oci-packages/summary.md (2026-08-09)` |
@@ -189,6 +189,7 @@ into this freshness model.
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
 - [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
 - [docs/planning/chapter-three-gateway-rework.md](../../docs/planning/chapter-three-gateway-rework.md)
+- [docs/planning/config-workshop-ai-drift-growth-strategy.md](../../docs/planning/config-workshop-ai-drift-growth-strategy.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
 - [docs/planning/fuzz-corpus-tests-roadmap.md](../../docs/planning/fuzz-corpus-tests-roadmap.md)
 - [docs/planning/get-started-rewrite-brief.md](../../docs/planning/get-started-rewrite-brief.md)
