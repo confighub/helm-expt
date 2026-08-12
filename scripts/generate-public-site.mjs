@@ -26,6 +26,7 @@ const entryPathReferencePath = join(siteRoot, "entry-path-reference.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
+const askPath = join(siteRoot, "ask.html");
 const challengePath = join(siteRoot, "challenge.html");
 const comparePath = join(siteRoot, "compare.html");
 const whatsNewPath = join(siteRoot, "whats-new.html");
@@ -45,6 +46,8 @@ const day1OperationsPath = join(siteRoot, "day1-operations.html");
 const chartIndexPath = join(chartPagesRoot, "index.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const changesJsonPath = join(siteRoot, "changes.json");
+const changesSchemaPath = join(siteRoot, "changes.schema.json");
+const changesSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-changes.schema.json");
 const readmePath = join(siteRoot, "README.md");
 const generatedAtPath = join(siteRoot, "generated-at.txt");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -98,6 +101,7 @@ const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", 
 const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
 const flatteningEvidencePath = join(repoRoot, "data", "flattening-safety", "evidence.csv");
 const flatteningCoveragePath = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
+const upstreamDriftPath = join(repoRoot, "data", "upstream-drift", "drift.csv");
 // The catalog grows. These were exact counts, so every chart added to the
 // public catalog broke the site gate and read as a regression rather than as
 // growth. They are floors now. What they still catch is the thing that matters,
@@ -147,6 +151,12 @@ const CATALOG_OCI_DELIVERY_SUMMARY = "data/catalog-oci-delivery-proof/summary.md
 const INSTALLER_COMMAND_NOTE =
   "cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.";
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
+const PROBLEM_CHART_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml";
+const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
+const CHART_ALIASES = {
+  "minio-operator/operator": ["minio/operator"],
+  "minio-operator/tenant": ["minio/tenant"],
+};
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
@@ -189,6 +199,7 @@ const SITE_PAGE_RELPATHS = {
   futureHtml: "future.html",
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
+  askHtml: "ask.html",
   challengeHtml: "challenge.html",
   compareHtml: "compare.html",
   whatsNewHtml: "whats-new.html",
@@ -237,6 +248,7 @@ const PAGE_DESCRIPTIONS = {
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
+  "ask.html": "Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
   "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
   "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
@@ -293,6 +305,7 @@ if (mode === "--generate") {
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
+  write(askPath, site.askHtml);
   write(challengePath, site.challengeHtml);
   write(comparePath, site.compareHtml);
   write(whatsNewPath, site.whatsNewHtml);
@@ -316,6 +329,7 @@ if (mode === "--generate") {
   for (const script of site.presetScripts) write(script.path, script.content);
   write(catalogJsonPath, site.catalogJson);
   write(changesJsonPath, site.changesJson);
+  write(changesSchemaPath, site.changesSchemaJson);
   write(readmePath, site.readme);
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
@@ -384,6 +398,8 @@ if (mode === "--generate") {
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
+  check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
+  check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(challengePath), "site/challenge.html is missing; run npm run site:generate");
   check(readFileSync(challengePath, "utf8") === site.challengeHtml, "site/challenge.html is stale");
   check(existsSync(comparePath), "site/compare.html is missing; run npm run site:generate");
@@ -417,6 +433,8 @@ if (mode === "--generate") {
   }
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(changesJsonPath, "utf8") === site.changesJson, "site/changes.json is stale");
+  check(existsSync(changesSchemaPath), "site/changes.schema.json is missing; run npm run site:generate");
+  check(readFileSync(changesSchemaPath, "utf8") === site.changesSchemaJson, "site/changes.schema.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   check(existsSync(sitemapPath), "site/sitemap.xml is missing; run npm run site:generate");
   check(readFileSync(sitemapPath, "utf8") === site.sitemapXml, "site/sitemap.xml is stale");
@@ -522,6 +540,7 @@ function buildSite(generatedAt) {
   const cubAdoptionCaveats = existsSync(cubAdoptionCaveatsPath) ? parseCsv(readFileSync(cubAdoptionCaveatsPath, "utf8")) : [];
   const flatteningEvidence = existsSync(flatteningEvidencePath) ? parseCsv(readFileSync(flatteningEvidencePath, "utf8")) : [];
   const flatteningCoverage = existsSync(flatteningCoveragePath) ? parseCsv(readFileSync(flatteningCoveragePath, "utf8")) : [];
+  const upstreamDrift = existsSync(upstreamDriftPath) ? parseCsv(readFileSync(upstreamDriftPath, "utf8")) : [];
   const matrixDisposition = matrixLaneDispositionCounts(masterCatalogMatrix);
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
@@ -734,6 +753,7 @@ function buildSite(generatedAt) {
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
       masterCatalogMatrix: "data/master-catalog-matrix/matrix.csv",
       cubAdoptionCaveats: "data/cub-adoption-caveats/caveats.csv",
+      upstreamDrift: "data/upstream-drift/drift.csv",
     },
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
@@ -821,6 +841,7 @@ function buildSite(generatedAt) {
     chartEvidenceRouter: publicChartEvidenceRouter,
     cubAdoptionCaveats,
     masterCatalogMatrix: publicMatrixRows,
+    upstreamDrift,
   };
   const evidenceBearingChartPages = catalog.catalogEntries.map((entry) => ({
     fileName: chartPageFileName(entry),
@@ -847,7 +868,8 @@ function buildSite(generatedAt) {
   );
   const site = {
     catalogJson: `${JSON.stringify(siteSafe({ schema_version: "1", generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
-    changesJson: `${JSON.stringify({ schema_version: "1", generated_at: catalog.generatedAt, entries: (catalog.installerOciPackages ?? []).map((row) => ({ chart: row.chart, version: row.version, digest: row.published_digest || (row.rendered_yaml_sha256s ?? "").split(";")[0] || "" })) })}\n`,
+    changesJson: buildChangesFeed(catalog),
+    changesSchemaJson: readFileSync(changesSchemaSourcePath, "utf8"),
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -867,6 +889,7 @@ function buildSite(generatedAt) {
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml(catalog)),
+    askHtml: calmPage(askHtml()),
     challengeHtml: calmPage(challengeHtml(catalog)),
     compareHtml: calmPage(compareHtml(catalog)),
     whatsNewHtml: calmPage(whatsNewHtml(catalog)),
@@ -992,6 +1015,136 @@ function canonicalUrl(relPath) {
   return SITE_BASE_URL + target.replace(/index\.html$/, "");
 }
 
+function githubEvidenceUrl(value) {
+  const path = String(value ?? "").trim();
+  if (!path) return "";
+  if (/^https?:\/\//.test(path)) return path;
+  return `${GITHUB_BLOB_BASE_URL}${path.replace(/^\.\//, "")}`;
+}
+
+function evidenceUrls(values, fallback = "") {
+  const urls = [];
+  for (const value of values.flatMap((item) => String(item ?? "").split(";"))) {
+    const url = githubEvidenceUrl(value);
+    if (url && !urls.includes(url)) urls.push(url);
+  }
+  if (!urls.length && fallback) urls.push(fallback);
+  return urls.slice(0, 6);
+}
+
+function aggregateCoverage(rows, field, checkedValues = ["yes", "pass", "proven", "checked"]) {
+  const values = rows.map((row) => String(row[field] ?? "").trim().toLowerCase()).filter(Boolean);
+  if (!values.length) return "not_checked";
+  const applicable = values.filter((value) => !["n/a", "not-applicable", "not-applicable-source"].includes(value));
+  if (!applicable.length) return "not_applicable";
+  const checked = applicable.filter((value) => checkedValues.includes(value)).length;
+  if (checked === applicable.length) return "checked";
+  if (checked > 0) return "partial";
+  return "not_checked";
+}
+
+function coverageItem(status, values = [], fallback = "") {
+  const urls = ["checked", "partial"].includes(status) ? evidenceUrls(values, fallback) : [];
+  return { status, evidence_urls: urls };
+}
+
+function buildChangesFeed(catalog) {
+  const matrixByVersion = new Map();
+  for (const row of catalog.masterCatalogMatrix ?? []) {
+    if (row.row_kind !== "base") continue;
+    const key = `${row.chart}|${row.version}`;
+    if (!matrixByVersion.has(key)) matrixByVersion.set(key, []);
+    matrixByVersion.get(key).push(row);
+  }
+  const routerByVersion = new Map(
+    (catalog.chartEvidenceRouter ?? []).map((row) => [`${row.chart}|${row.version}`, row]),
+  );
+  const driftByVersion = new Map(
+    (catalog.upstreamDrift ?? []).map((row) => [`${row.repository}/${row.chart}|${row.version}`, row]),
+  );
+
+  const entries = (catalog.installerOciPackages ?? [])
+    .map((row) => {
+      const key = `${row.chart}|${row.version}`;
+      const matrixRows = matrixByVersion.get(key) ?? [];
+      const router = routerByVersion.get(key);
+      const drift = driftByVersion.get(key);
+      const canonical = canonicalUrl(`charts/${chartPageFileName(row)}`);
+      const valuesDiagnostics = `recipes/${row.chart}/${row.version}/values-diagnostics.yaml`;
+      const chartAnalysisStatus = router?.coverage_status === "covered"
+        ? "checked"
+        : router
+          ? "partial"
+          : "not_checked";
+      const promotionStatus = aggregateCoverage(matrixRows, "variant_promotion_status", ["proven"]);
+
+      return {
+        chart: row.chart,
+        version: row.version,
+        aliases: CHART_ALIASES[row.chart] ?? [],
+        digest: row.published_digest || (row.rendered_yaml_sha256s ?? "").split(";")[0] || "",
+        canonical_url: canonical,
+        package_oci_ref: row.installer_oci_ref,
+        coverage: {
+          retained_package: coverageItem(
+            row.publication_status === "published-receipt" && row.publication_receipt ? "checked" : "not_checked",
+            [row.publication_receipt],
+            canonical,
+          ),
+          chart_analysis: coverageItem(chartAnalysisStatus, [router?.coverage_evidence], canonical),
+          render_parity: coverageItem(
+            aggregateCoverage(matrixRows, "lane_render_parity"),
+            matrixRows.flatMap((item) => [item.variant_revision_path, item.render_intent_path]),
+            canonical,
+          ),
+          values_diagnostics: coverageItem(
+            existsSync(join(repoRoot, valuesDiagnostics)) ? "checked" : "not_checked",
+            [valuesDiagnostics],
+            canonical,
+          ),
+          lifecycle_observation: coverageItem(
+            aggregateCoverage(matrixRows, "lane_lifecycle_observed"),
+            matrixRows.flatMap((item) => [item.lifecycle_route_contract_path, item.target_run_receipt]),
+            canonical,
+          ),
+          local_kubernetes: coverageItem(
+            aggregateCoverage(matrixRows, "lane_local_kind"),
+            matrixRows.map((item) => item.target_run_receipt),
+            canonical,
+          ),
+          gitops_oci: coverageItem(
+            aggregateCoverage(matrixRows, "lane_gitops_oci_live"),
+            [router?.runtime_gitops_receipts],
+            canonical,
+          ),
+          live_parity: coverageItem(
+            aggregateCoverage(matrixRows, "lane_live_dual_parity"),
+            [router?.live_compare_receipts],
+            canonical,
+          ),
+          two_cluster: coverageItem(
+            aggregateCoverage(matrixRows, "lane_two_cluster_kind"),
+            matrixRows.map((item) => item.target_run_receipt),
+            canonical,
+          ),
+          promotion: coverageItem(
+            promotionStatus,
+            matrixRows.map((item) => item.variant_promotion_evidence),
+            canonical,
+          ),
+          upstream_republish: coverageItem(
+            drift ? "checked" : "not_checked",
+            [drift?.republished_witness, drift?.retained_evidence],
+            canonical,
+          ),
+        },
+      };
+    })
+    .sort((left, right) => left.chart.localeCompare(right.chart) || left.version.localeCompare(right.version));
+
+  return `${JSON.stringify({ schema_version: "1", generated_at: catalog.generatedAt, entries }, null, 2)}\n`;
+}
+
 function pageTitle(html) {
   return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "Config Workshop").trim();
 }
@@ -1049,7 +1202,8 @@ function buildLlmsTxt() {
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
-- [Change feed](${SITE_BASE_URL}changes.json): a compact chart, version, and digest list for cheap background polling; the full index is catalog.json.
+- [Change feed](${SITE_BASE_URL}changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
+- [Change feed schema](${SITE_BASE_URL}changes.schema.json): the versioned JSON Schema for changes.json.
 - [Component Catalog](${SITE_BASE_URL}charts/): 112 components, all 139 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
@@ -1057,7 +1211,8 @@ function buildLlmsTxt() {
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
-- [Challenge your AI](${SITE_BASE_URL}challenge.html): a prompt to give your assistant with a misbehaving chart; it checks the chart, compares against this catalog&#39;s receipts, and files uncovered charts so they get checked entries.
+- [Investigate a Helm problem](${SITE_BASE_URL}ask.html): build a local prompt around one exact question, then compare the answer with retained evidence.
+- [Helm investigation reference](${SITE_BASE_URL}challenge.html): the six question families, worked evidence, and benchmark behind the shorter Ask flow.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](${SITE_BASE_URL}how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
@@ -1069,6 +1224,18 @@ function buildLlmsTxt() {
 - [Kubara with ConfigHub](${SITE_BASE_URL}kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
 - [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
+
+## Machine contract
+
+Use changes.json to resolve an exact chart and version. Its schema_version defines the field meanings.
+
+Read coverage before citing a verdict. Missing coverage means we have not checked that claim.
+
+Use the canonical chart URL and cite the evidence URLs. Page copy is a guide, while receipts hold the evidence.
+
+Schema version 1 keeps existing field meanings stable. A breaking change uses a new major version.
+
+When an entry is absent, render locally. Ask the user before filing a public issue.
 `;
 }
 
@@ -1587,7 +1754,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("ask.html")}">Ask</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1829,10 +1996,10 @@ function homeDesignCss() {
 
 function configTestCentreHome(catalog) {
   const nextSteps = [
-    ["01", "Inspect and test", "Create the exact Kubernetes objects. Check the inputs, risky defaults, prerequisites, and chart-specific setup.", "local or CI"],
-    ["02", "Keep the result", "Keep the reviewed objects as readable files or a digest-pinned OCI package.", "same objects"],
-    ["03", "Deploy your way", "Use kubectl for a test, or give the OCI package to Argo CD or Flux.", "your delivery tool"],
-    ["04", "Manage in ConfigHub", "Save the objects as shared data. Change, approve, promote, publish, and roll out reviewed releases.", "team operations"],
+    ["01", "Check the render", "See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.", "runs on your laptop"],
+    ["02", "Pin the package", "Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.", "runs on your laptop"],
+    ["03", "Relate environments", "Save variants and promote reviewed changes instead of copying values between development and production.", "needs a ConfigHub account"],
+    ["04", "Compare live state", "Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.", "needs an account and a cluster"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -1850,6 +2017,7 @@ function configTestCentreHome(catalog) {
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
             <a href="./guides.html">Guides</a>
+            <a href="./ask.html">Ask</a>
             <a href="./charts/index.html">Catalog</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
@@ -1863,15 +2031,14 @@ function configTestCentreHome(catalog) {
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Drift starts before you deploy: a chart you did not read, a values key Helm silently ignored, a package republished under the same version string. See the exact objects before you install. Pin what you reviewed so it cannot shift under you. Keep records that show what changed, where, and who approved it, and <a href="./known-gaps.html">what we have not checked</a>.</p>
-            <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
-            <p class="lead">Input data from our Catalog or your own package: Helm, an <a href="./charts/index.html">AICR recipe for AI</a>, OCI image, or Kubernetes YAML.</p>
-            <p class="lead">This site is a catalog of deployment previews and patterns, using standard config formats and ConfigHub.</p>
-            <p class="lead">Config Workshop is this site. cub installer is the free tool its commands use. <a href="./confighub.html">ConfigHub</a> is the product that stores reviewed configuration.</p>
+            <p class="lead">Helm and AI can tell you what a chart renders today. They cannot recover package bytes, decisions, or prior state that nobody kept.</p>
+            <p class="lead">Config Workshop keeps reviewed packages and dated receipts. Check an exact version, then pin the result you chose.</p>
+            <p class="lead">Save it in <a href="./confighub.html">ConfigHub</a> when your team needs shared changes, promotion, or rollback.</p>
+            <p class="lead">Config Workshop is this public site. <code>cub installer</code> is the free local tool used by its package examples. ConfigHub is the product that stores and changes reviewed configuration.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./charts/index.html">Check a public chart</a>
-              <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
-              <a class="btn quiet" href="./try.html">See a worked example</a>
+              <a class="btn primary" href="./charts/index.html">Check an exact chart</a>
+              <a class="btn ghost" href="./ask.html">Investigate a Helm problem</a>
+              <a class="btn quiet" href="./confighub.html">Keep a reviewed result</a>
             </div>
           </div>
           <div class="hero-term">
@@ -1898,12 +2065,12 @@ Wrote rendered OCI ./redis-rendered.oci:latest
         <section class="section">
           <span class="eyebrow">Choose one</span>
           <h2>Choose where to start</h2>
-          <p class="intro">Each path gives you exact Kubernetes objects to inspect before you decide what happens next.</p>
+          <p class="intro">Each path gives you exact Kubernetes objects to inspect before you decide what happens next. New here? <a href="./try.html">Run the short Redis example</a>.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
             <a class="route-card" href="./charts/index.html"><h3>I have a specific chart to check <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Look it up. Each entry shows the exact objects, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog&#39;s registry even when an upstream source changes its terms.</p><span class="go">Search the catalog &rarr;</span></a>
-            <a class="route-card mid" href="./d/docs/user/broken-chart-triage.html"><h3>My chart or upgrade is misbehaving <span class="tag">triage</span></h3><p>Work from the failure you see to the record that explains it: render, prerequisites, ordering, drift.</p><span class="go">Start the triage &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>My chart or upgrade is misbehaving <span class="tag">one question</span></h3><p>Build a local prompt around the exact decision, then compare the answer with retained evidence.</p><span class="go">Investigate the problem &rarr;</span></a>
             <a class="route-card" href="./testing.html#bring-your-own"><h3>Check my own values <span class="tag">your chart</span></h3><p>Preview values written by your team or an AI. Review the exact objects before anything applies.</p><span class="go">Open the worked flow &rarr;</span></a>
             <a class="route-card" href="./d/docs/user/gitops-adopter-guide.html"><h3>I reviewed it, now deploy it <span class="tag">kubectl &middot; Argo &middot; Flux</span></h3><p>Copy-paste delivery for the reviewed objects, with pruning and ordering handled per path.</p><span class="go">Open the deploy guide &rarr;</span></a>
             <a class="route-card mid" href="./compare.html"><h3>How is this different from my tools? <span class="tag">honest answer</span></h3><p>Versus helm template, kubectl diff, and Kustomize, including who does not need this site at all.</p><span class="go">Read the comparison &rarr;</span></a>
@@ -1914,8 +2081,8 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
         <section class="section">
           <span class="eyebrow">One path</span>
-          <h2>What happens next</h2>
-          <p class="intro">Start without a server or account. Add ConfigHub when the reviewed result needs to become a shared, changing record.</p>
+          <h2>Four places drift appears</h2>
+          <p class="intro">Start before deployment. Add ConfigHub when a reviewed result needs history across environments or clusters.</p>
           <div class="verbs">
             ${nextSteps.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
           </div>
@@ -1927,7 +2094,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <h2>Check the result and the limits</h2>
           <p class="intro">A tested example names its source, version, objects, checks, and receipts. Depending on the example, checks cover parity, risky defaults, prerequisites, live readiness, upgrades, promotion, or rollback.</p>
           <p class="intro">The page says which checks ran and which did not. Known gaps stay visible.</p>
-          <div class="cta-row"><a class="btn ghost" href="./challenge.html">Challenge your AI</a><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
+          <div class="cta-row"><a class="btn ghost" href="./ask.html">Investigate a Helm problem</a><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
         </section>
       </main>
 
@@ -4013,19 +4180,224 @@ spec:
       <p>Pruning and CRD ordering differ per path. The <a href="./d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> has the tested details; the <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> shows the failure you avoid.</p>`;
 }
 
-// The challenge page challenges the reader to act, not to admire a benchmark.
-// The reader we care about already has an AI assistant and a misbehaving chart.
-// The assistant is good at render-level hazards (our own benchmark: 96.7% in
-// under a minute per chart) and cannot check its own answer. So the page hands
-// the assistant a prompt that does the checks, compares against the catalog
-// where we have receipts, and sends us the chart where we do not. Submissions
-// arrive as public issues, which populates the catalog demand-first and gives
-// us the question signal a static site cannot otherwise see. The benchmark that
-// justifies all this stays on the page, condensed, with its run data committed
-// under data/ai-benchmark.
+function askHtml() {
+  const questions = {
+    "install-shape": {
+      label: "What will this install, and what must already exist?",
+      instruction: "List every rendered object and identify required namespaces, Secrets, CRDs, APIs, storage, cloud services, hooks, and setup jobs.",
+      issueOption: "install-shape: What will this install, and what must already exist?",
+    },
+    "ignored-values": {
+      label: "Did Helm ignore one of my values?",
+      instruction: "Remove each supplied values key one at a time, re-render, and report keys whose removal does not change the object set.",
+      issueOption: "ignored-values: Did Helm ignore one of my values?",
+    },
+    "upgrade-risk": {
+      label: "What could break in this upgrade?",
+      instruction: "Render both versions with the same release context. Report deleted or renamed objects, immutable-field changes, storage changes, selector changes, and lifecycle changes.",
+      issueOption: "upgrade-risk: What could break in this upgrade?",
+    },
+    "lifecycle-work": {
+      label: "What do hooks, CRDs, or setup jobs require?",
+      instruction: "Identify Helm lifecycle work, explain its order, and separate work performed by Helm from work required by kubectl, Argo CD, or Flux.",
+      issueOption: "lifecycle-work: What do hooks, CRDs, or setup jobs require?",
+    },
+    "supply-drift": {
+      label: "Do these version and digest records identify the same bytes?",
+      instruction: "Record the chart and package digests available now. Compare them with retained digests and dated republish evidence when it exists.",
+      issueOption: "supply-drift: Do these version and digest records identify the same bytes?",
+    },
+    "rollback-history": {
+      label: "Can I return to the exact configuration that ran before?",
+      instruction: "Identify which prior rendered objects and package digests are actually retained. Do not treat a version label or a fresh re-render as historical proof.",
+      issueOption: "rollback-history: Can I return to the exact configuration that ran before?",
+    },
+  };
+  const options = Object.entries(questions)
+    .map(([code, item]) => `<option value="${escapeHtml(code)}">${escapeHtml(item.label)}</option>`)
+    .join("");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Investigate a Helm problem &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Investigate a Helm problem with your AI</h1>
+    <p class="lead">Start with one question. This page builds a prompt for the assistant you already use. The prompt checks the exact chart locally, then compares its answer with retained evidence when we have it.</p>
+    <p>Your entries stay in this browser. Keep secrets and private repository details out of the prompt. A public GitHub issue opens only when you choose to file one.</p>
+  </header>
+  <main>
+    <section aria-labelledby="build-prompt">
+      <h2 id="build-prompt">1. Describe the decision</h2>
+      <div class="card">
+        <p><label for="question-type"><strong>What do you need to know?</strong></label><br>
+          <select id="question-type" style="width:100%;padding:10px;margin-top:6px">${options}</select></p>
+        <p><label for="question"><strong>Your exact question</strong></label><br>
+          <textarea id="question" rows="3" style="width:100%;padding:10px;margin-top:6px" placeholder="For example: Why did replicas stay at one after I set replicaCount to three?"></textarea></p>
+        <div class="grid">
+          <p><label for="chart"><strong>Public chart</strong></label><br>
+            <input id="chart" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="bitnami/redis"></p>
+          <p><label for="version"><strong>Version or version pair</strong></label><br>
+            <input id="version" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="25.5.3 or 25.5.3 -> 27.0.0"></p>
+        </div>
+        <p><label for="source-visibility"><strong>Can the source be discussed publicly?</strong></label><br>
+          <select id="source-visibility" style="width:100%;padding:10px;margin-top:6px">
+            <option value="public">Yes, it is a public chart</option>
+            <option value="private">No, keep this investigation private</option>
+          </select></p>
+        <p><label for="values-summary"><strong>Values, flags, or symptoms</strong> <span style="color:var(--muted)">(optional, remove secrets)</span></label><br>
+          <textarea id="values-summary" rows="5" style="width:100%;padding:10px;margin-top:6px" placeholder="Namespace, release name, values keys, error text, or the change you expected"></textarea></p>
+        <button class="button primary" id="build-prompt-button" type="button">Build my prompt</button>
+      </div>
+    </section>
+
+    <section id="prompt-result" aria-labelledby="run-prompt" hidden>
+      <h2 id="run-prompt">2. Run the prompt with your assistant</h2>
+      <p>The assistant does the render and comparison on your machine. Config Workshop supplies retained package records and receipts, not a second AI service.</p>
+      <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
+      <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
+    </section>
+
+    <section id="compare-result" aria-labelledby="compare-answer" hidden>
+      <h2 id="compare-answer">3. Compare the answer with retained evidence</h2>
+      <p>Paste the assistant&#39;s <code>WORKSHOP FINDING</code> below. Check the exact chart in the Catalog. A missing or <code>not_checked</code> coverage field is not a pass.</p>
+      <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Check the Catalog</a> <a class="button secondary" href="./changes.json">Open the machine feed</a> <a class="button secondary" href="./changes.schema.json">Read its schema</a></p>
+      <textarea id="assistant-finding" rows="14" style="width:100%;padding:10px" placeholder="Paste the WORKSHOP FINDING here before opening a public issue."></textarea>
+      <div id="public-handoff">
+        <p><strong>Public chart still missing or wrong?</strong> Open a prefilled issue, review every field, and submit only public information.</p>
+        <button class="button primary" id="file-public-question" type="button">File the public question</button>
+        <p>We aim to acknowledge a complete report within two business days and post an entry, refusal, or evidence decision within seven days.</p>
+      </div>
+      <div id="private-handoff" hidden>
+        <p><strong>Keep private configuration private.</strong> Do not file a public issue. Keep the finding locally, or <a href="./confighub.html">use ConfigHub</a> when the reviewed result needs a shared record.</p>
+      </div>
+    </section>
+
+    ${referenceStartHtml("The longer reference page explains all six questions, the benchmark, and the evidence behind this workflow.")}
+    <section aria-labelledby="deeper-reference">
+      <h2 id="deeper-reference">Detailed reference</h2>
+      <p><a href="./challenge.html">Read the six-question Helm investigation guide</a>. It includes worked evidence for ignored values, upgrade risk, lifecycle work, upstream republishing, and exact rollback records.</p>
+    </section>
+  </main>
+  <footer>This page runs in your browser. It has no telemetry and sends nothing until you choose a public GitHub issue.</footer>
+  <script>
+  (() => {
+    const questions = ${JSON.stringify(questions)};
+    const issueUrl = ${JSON.stringify(PROBLEM_CHART_ISSUE_URL)};
+    const byId = (id) => document.getElementById(id);
+
+    function selectedQuestion() {
+      return questions[byId("question-type").value];
+    }
+
+    function buildPrompt() {
+      const code = byId("question-type").value;
+      const item = selectedQuestion();
+      const question = byId("question").value.trim() || item.label;
+      const chart = byId("chart").value.trim() || "<repo/chart>";
+      const version = byId("version").value.trim() || "<exact version or version pair>";
+      const visibility = byId("source-visibility").value;
+      const values = byId("values-summary").value.trim() || "<none supplied>";
+      const privacy = visibility === "private"
+        ? "This source is private. Do not upload it, quote private values, or open a public issue."
+        : "This is a public chart. Ask before opening any public issue.";
+      const prompt = [
+        "I need help with one Helm decision.",
+        "",
+        "Question code: " + code,
+        "Question: " + question,
+        "Chart: " + chart,
+        "Version: " + version,
+        "Values, flags, or symptoms (secrets removed): " + values,
+        "Privacy: " + privacy,
+        "",
+        "Work locally. Use Helm and ordinary shell tools. Do not upload my chart or values.",
+        "1. Resolve the exact chart source and version. Record the chart digest and every render command.",
+        "2. Render with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. If any input is missing, name it instead of guessing.",
+        "3. " + item.instruction,
+        "4. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json.",
+        "5. Resolve the exact chart and version, including declared aliases. Read each coverage status. Missing or not_checked coverage means Config Workshop has not checked that claim.",
+        "6. Open the canonical_url and cite the relevant evidence_urls for every historical or live claim. Keep your own computed findings separate from retained evidence.",
+        "7. Recommend one next step: a local command, comparison with an existing catalog entry, a public submission with my approval, or saving the reviewed result in ConfigHub.",
+        "",
+        "Return this block at the end:",
+        "WORKSHOP FINDING",
+        "question_code: " + code,
+        "question: " + question,
+        "chart: " + chart,
+        "version: " + version,
+        "render_digest: <sha256 or unknown>",
+        "catalog_match: <exact, alias, absent, or unknown>",
+        "coverage: <coverage fields used, including not_checked>",
+        "findings: <short factual list>",
+        "receipt_urls: <URLs actually used, or none>",
+        "recommended_next_step: <one action>"
+      ].join("\\n");
+
+      byId("prompt-output").value = prompt;
+      byId("prompt-result").hidden = false;
+      byId("compare-result").hidden = false;
+      byId("catalog-lookup").href = "./charts/index.html?q=" + encodeURIComponent(chart.replace(/@.*$/, ""));
+      const isPrivate = visibility === "private";
+      byId("public-handoff").hidden = isPrivate;
+      byId("private-handoff").hidden = !isPrivate;
+      byId("prompt-result").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    byId("build-prompt-button").addEventListener("click", buildPrompt);
+    byId("copy-prompt").addEventListener("click", async () => {
+      const output = byId("prompt-output");
+      try {
+        await navigator.clipboard.writeText(output.value);
+      } catch {
+        output.select();
+        document.execCommand("copy");
+      }
+      byId("copy-status").textContent = "Copied.";
+    });
+    byId("file-public-question").addEventListener("click", () => {
+      const code = byId("question-type").value;
+      const item = selectedQuestion();
+      const question = byId("question").value.trim() || item.label;
+      const chart = byId("chart").value.trim();
+      const version = byId("version").value.trim();
+      const finding = byId("assistant-finding").value.trim();
+      const values = byId("values-summary").value.trim() || "No public values supplied. See the question and assistant finding.";
+      if (!chart || !version) {
+        window.alert("Add the public chart and exact version before opening the issue.");
+        return;
+      }
+      const target = new URL(issueUrl);
+      target.searchParams.set("title", "Problem chart: " + chart + " " + version + " - " + question);
+      target.searchParams.set("question_code", item.issueOption);
+      target.searchParams.set("question", question);
+      target.searchParams.set("chart", chart);
+      target.searchParams.set("version", version);
+      target.searchParams.set("values", values);
+      target.searchParams.set("expected", "Answer the stated question for this exact chart and version, with evidence for historical or live claims.");
+      target.searchParams.set("observed", finding || "No WORKSHOP FINDING was pasted. Please add the assistant result or describe what the catalog got wrong.");
+      target.searchParams.set("failure_type", "Other");
+      target.searchParams.set("reproduction", "1. Generated a local prompt at " + window.location.href + "\\n2. Ran it with a local AI assistant and Helm\\n3. Compared the result with changes.json and the chart page\\n\\nAssistant finding:\\n" + (finding || "Not supplied"));
+      target.searchParams.set("artifacts", "Config Workshop question code: " + code);
+      window.open(target.toString(), "_blank", "noopener");
+    });
+  })();
+  </script>
+</body>
+</html>
+`;
+}
+
+// The challenge page is the detailed evidence layer for the shorter Ask flow.
+// It explains the six question families and the benchmark that shaped them.
 function challengeHtml() {
   const GH = "https://github.com/confighub/helm-expt/blob/main/";
-  const NEW_ISSUE = "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml";
+  const NEW_ISSUE = PROBLEM_CHART_ISSUE_URL;
   const promptText = `I have a Helm chart problem. Chart: &lt;repo/chart@version&gt;. My values: &lt;paste, secrets removed&gt;.
 
 1. Render it exactly as installed: helm template rel &lt;chart&gt; --version &lt;v&gt; -f values.yaml --include-crds
@@ -4080,15 +4452,15 @@ function challengeHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Challenge your AI &middot; Config Workshop</title>
+  <title>Helm investigation reference &middot; Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Give your AI this prompt</h1>
-    <p class="lead">Your assistant is good with a chart in front of it. Our own benchmark says so: with a shell and Helm it found most render-level hazards in under a minute. What it cannot do is check its own answer, and neither can you.</p>
-    <p>So here is the deal. Give it the prompt below with your misbehaving chart. If the chart already has a checked entry here, your assistant gets receipts to verify itself against. If it does not, send us the chart and it will get one.</p>
+    <h1>Check a Helm answer against retained evidence</h1>
+    <p class="lead">A capable assistant can render a chart and explain what it sees. This page adds version-specific package records, known limits, and receipts for facts that depend on history or a live run.</p>
+    <p>For a shorter prompt built around your exact question, start with <a href="./ask.html">Investigate a Helm problem</a>. This page keeps the full six-question reference and the benchmark behind it.</p>
   </header>
   <main>
     <section aria-labelledby="the-prompt">

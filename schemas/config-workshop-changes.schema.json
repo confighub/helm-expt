@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/changes.schema.json",
+  "title": "Config Workshop change feed",
+  "description": "A compact index of retained chart versions and the evidence families checked for each one.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "entries"],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence_urls"],
+      "properties": {
+        "status": {
+          "enum": ["checked", "partial", "not_checked", "not_applicable"]
+        },
+        "evidence_urls": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": ["checked", "partial"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_urls": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chart",
+        "version",
+        "aliases",
+        "digest",
+        "canonical_url",
+        "package_oci_ref",
+        "coverage"
+      ],
+      "properties": {
+        "chart": {
+          "type": "string",
+          "minLength": 3,
+          "pattern": "^[^/]+/[^/]+$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[^/]+/[^/]+$"
+          }
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "canonical_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://confighub\\.github\\.io/helm-expt/site/charts/.+\\.html$"
+        },
+        "package_oci_ref": {
+          "type": "string",
+          "pattern": "^oci://"
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "retained_package",
+            "chart_analysis",
+            "render_parity",
+            "values_diagnostics",
+            "lifecycle_observation",
+            "local_kubernetes",
+            "gitops_oci",
+            "live_parity",
+            "two_cluster",
+            "promotion",
+            "upstream_republish"
+          ],
+          "properties": {
+            "retained_package": { "$ref": "#/$defs/coverage" },
+            "chart_analysis": { "$ref": "#/$defs/coverage" },
+            "render_parity": { "$ref": "#/$defs/coverage" },
+            "values_diagnostics": { "$ref": "#/$defs/coverage" },
+            "lifecycle_observation": { "$ref": "#/$defs/coverage" },
+            "local_kubernetes": { "$ref": "#/$defs/coverage" },
+            "gitops_oci": { "$ref": "#/$defs/coverage" },
+            "live_parity": { "$ref": "#/$defs/coverage" },
+            "two_cluster": { "$ref": "#/$defs/coverage" },
+            "promotion": { "$ref": "#/$defs/coverage" },
+            "upstream_republish": { "$ref": "#/$defs/coverage" }
+          }
+        }
+      }
+    }
+  }
+}

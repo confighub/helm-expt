@@ -4,6 +4,7 @@ title: "Problem chart: <repo/chart> <version>"
 labels:
   - chart-analysis
   - product-proof
+  - challenge-intake
 body:
   - type: markdown
     attributes:
@@ -11,6 +12,30 @@ body:
         Thanks for sending a hard chart. Public charts that break the model are useful adversarial input.
 
         Please do not paste private values, secrets, credentials, private repository URLs, or customer data. If the chart or values are private, describe the shape and use a managed/private support channel instead.
+
+        We aim to acknowledge a complete report within two business days and post an entry, refusal, or evidence decision within seven days.
+  - type: dropdown
+    id: question_code
+    attributes:
+      label: What decision were you trying to make?
+      options:
+        - "install-shape: What will this install, and what must already exist?"
+        - "ignored-values: Did Helm ignore one of my values?"
+        - "upgrade-risk: What could break in this upgrade?"
+        - "lifecycle-work: What do hooks, CRDs, or setup jobs require?"
+        - "supply-drift: Do these version and digest records identify the same bytes?"
+        - "rollback-history: Can I return to the exact configuration that ran before?"
+        - "other: Another question"
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: What were you trying to find out?
+      description: State the question in your own words. This helps us improve the catalog around real decisions rather than chart names alone.
+      placeholder: "Why did replicas stay at one after I set replicaCount to three?"
+    validations:
+      required: true
   - type: input
     id: chart
     attributes:

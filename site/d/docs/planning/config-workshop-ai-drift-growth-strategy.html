@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Config Workshop AI and drift growth strategy · Config Workshop</title>
+  <meta name="description" content="Config Workshop AI and drift growth strategy: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/config-workshop-ai-drift-growth-strategy.html">
+  <meta property="og:title" content="Config Workshop AI and drift growth strategy · Config Workshop">
+  <meta property="og:description" content="Config Workshop AI and drift growth strategy: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/config-workshop-ai-drift-growth-strategy.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Ask</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Config Workshop AI and drift growth strategy</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/config-workshop-ai-drift-growth-strategy.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Date: 2026-08-12</p>
+<p>This record decides what Config Workshop is for and how it should attract users who already have an AI assistant.</p>
+<p>The decision rests on the two committed AI benchmark rounds. Static chart facts are easy to reproduce. Historical records are not.</p>
+<h2 id="the-decision">The decision</h2>
+<p>Config Workshop helps Kubernetes operators make a decision about an exact configuration when trust has become uncertain.</p>
+<p>That moment usually arrives before an install, during an upgrade, or after environments stop matching.</p>
+<p>The site should help the visitor do three things.</p>
+<ol><li>Inspect the exact configuration they are considering.</li><li>Check it against retained packages and dated receipts.</li><li>Keep the reviewed result when future changes must remain accountable.</li></ol>
+<p>The distinctive asset is custody. The site retains bytes, digests, old versions, test receipts, and known gaps.</p>
+<p>An assistant can inspect the chart in front of it. It cannot recover a package that changed upstream or a revision nobody retained.</p>
+<p>The free path produces a useful local result. ConfigHub starts when that result must become shared, changeable, and recoverable.</p>
+<h3 id="who-the-site-serves">Who the site serves</h3>
+<p>The primary visitor operates Kubernetes configuration and has a decision to make now.</p>
+<p>They may use Helm, AICR, OCI, or plain Kubernetes YAML. Helm remains the strongest acquisition path because its failure modes are common.</p>
+<p>The site also serves the visitor's assistant. Machine pages should help it resolve exact versions and cite evidence without guessing.</p>
+<h3 id="what-each-visitor-should-do">What each visitor should do</h3>
+<table><thead><tr><th>Visitor</th><th>Moment</th><th>One action</th></tr></thead><tbody><tr><td>Operator with a public chart</td><td>Before an install or upgrade</td><td>Find the exact version and run its local check.</td></tr>
+<tr><td>Operator with an uncovered problem</td><td>During a Helm investigation</td><td>Generate a local report, then submit the public chart and exact question.</td></tr>
+<tr><td>Team repeating the change</td><td>After choosing a reviewed result</td><td>Save that result in ConfigHub and follow the official tutorial.</td></tr>
+<tr><td>AI assistant</td><td>While answering its user's question</td><td>Resolve the exact version, read declared coverage, and cite the receipt.</td></tr></tbody></table>
+<h3 id="keep-one-site-with-two-layers">Keep one site with two layers</h3>
+<p>The site should stay on one domain. Separating the product front door from the evidence archive would weaken every claim.</p>
+<p>The presentation should still have two clear layers.</p>
+<table><thead><tr><th>Layer</th><th>Purpose</th><th>Typical pages</th></tr></thead><tbody><tr><td>Action layer</td><td>Help a person answer one question and take one next step.</td><td>Home, Ask, Try, Catalog, ConfigHub</td></tr>
+<tr><td>Evidence layer</td><td>Let people and tools inspect methods, receipts, refusals, and generated records.</td><td>Chart evidence, matrix, verification, known gaps, machine files</td></tr></tbody></table>
+<p>The experimental label belongs to the methods and current coverage. Each receipt remains a specific record with a stated scope.</p>
+<p>Growth should come from useful results before signup. The evidence archive makes those results credible, rather than competing with the product journey.</p>
+<h2 id="test-the-challenge-flywheel">Test the challenge flywheel</h2>
+<p>The current loop is prompt, local analysis, catalog lookup, public issue, and a future catalog entry.</p>
+<p>It is worth testing, but its present form asks too much before the visitor receives a personal result.</p>
+<h3 id="where-the-current-loop-breaks">Where the current loop breaks</h3>
+<table><thead><tr><th>Break</th><th>Consequence</th><th>Repair</th></tr></thead><tbody><tr><td>The prompt is long and generic.</td><td>A visitor must translate their problem into our workflow.</td><td>Generate a shorter prompt from the decision they select.</td></tr>
+<tr><td>A public issue is a large request.</td><td>Private-chart users leave, while public-chart users may stop after the local answer.</td><td>Give the local answer first and make submission optional.</td></tr>
+<tr><td>The page promises a checked entry.</td><td>An unbounded queue can break trust quickly.</td><td>Publish an acknowledgement target and a decision target.</td></tr>
+<tr><td><code>changes.json</code> lacks declared coverage.</td><td>An assistant may treat an absent verdict as a passing verdict.</td><td>Publish coverage families and canonical evidence URLs.</td></tr>
+<tr><td>The issue records the artifact more clearly than the question.</td><td>Catalog growth follows charts without revealing user demand.</td><td>Capture a stable question code and the user's words.</td></tr>
+<tr><td>Organic traffic is unknown.</td><td>Silence cannot distinguish weak demand from weak distribution.</td><td>Run a controlled outreach cohort for thirty days.</td></tr></tbody></table>
+<h3 id="replace-it-with-a-question-first-evidence-loop">Replace it with a question-first evidence loop</h3>
+<p>Add a static <code>ask.html</code> page. It should run entirely in the browser until the visitor chooses to open a public issue.</p>
+<p>The page asks what decision the visitor needs to make. It then asks for the public chart and exact version.</p>
+<p>The page generates a tailored prompt for the visitor's assistant. The prompt returns a small structured finding with these fields.</p>
+<table><thead><tr><th>Field</th><th>Why it exists</th></tr></thead><tbody><tr><td><code>question_code</code> and <code>question</code></td><td>Preserve the decision the visitor was trying to make.</td></tr>
+<tr><td><code>chart</code>, <code>version</code>, and <code>render_digest</code></td><td>Bind the answer to exact input and output.</td></tr>
+<tr><td><code>catalog_match</code> and <code>coverage</code></td><td>Show which Workshop records were available.</td></tr>
+<tr><td><code>findings</code> and <code>receipt_urls</code></td><td>Separate computed observations from retained evidence.</td></tr>
+<tr><td><code>recommended_next_step</code></td><td>Lead to a local command, a public submission, or ConfigHub.</td></tr></tbody></table>
+<p>The issue link should carry this finding into the problem-chart template. The visitor still reviews every field before submission.</p>
+<p>Private charts remain local. Public issues should never receive private values, repository URLs, credentials, or customer data.</p>
+<p>Question capture cannot be passive without telemetry. The visitor must choose to submit the question or provide feedback.</p>
+<h3 id="use-a-thirty-day-falsification-test">Use a thirty-day falsification test</h3>
+<p>Organic demand cannot be measured without approved analytics. Use a controlled cohort with a known denominator instead.</p>
+<p>Send forty qualified invitations over thirty days. A qualified invitation reaches someone discussing a current problem with a public Helm chart.</p>
+<p>Record only aggregate counts in the repository. Keep contact details and private conversations outside the public project.</p>
+<p>The planning hypothesis is deliberately modest.</p>
+<table><thead><tr><th>Result</th><th>Thirty-day threshold</th></tr></thead><tbody><tr><td>Public submissions</td><td>Four from forty invitations</td></tr>
+<tr><td>Triage-ready submissions</td><td>Three with an exact question, chart, version, and reproduction</td></tr>
+<tr><td>Closed loops</td><td>Two receive an entry, refusal, or evidence decision within seven days</td></tr>
+<tr><td>User confirmation</td><td>One submitter confirms that the answer changed or confirmed their decision</td></tr></tbody></table>
+<p>The approach fails its first test if fewer than three submissions are triage-ready.</p>
+<p>It also fails if fewer than half of accepted submissions receive a decision within seven days.</p>
+<p>A third failure signal appears when every submitter stops after the local answer and declines the public evidence step.</p>
+<p>That last result would still validate the local tool. It would reject the demand-first catalog flywheel as the growth mechanism.</p>
+<h2 id="design-the-three-entry-points">Design the three entry points</h2>
+<h3 id="a-person-with-a-misbehaving-chart">A person with a misbehaving chart</h3>
+<p>The first page should be <code>ask.html</code>, titled &quot;Investigate a Helm problem with your AI.&quot;</p>
+<p>It should start with the decision, then collect a public chart and version. The page generates the tailored local prompt.</p>
+<p>The result should offer one next step.</p>
+<table><thead><tr><th>Result</th><th>Next step</th></tr></thead><tbody><tr><td>Checked catalog entry exists</td><td>Compare the assistant's answer with its receipts.</td></tr>
+<tr><td>Public chart has no entry</td><td>Review and submit the generated problem-chart issue.</td></tr>
+<tr><td>Configuration is private</td><td>Keep the report local and use local tools.</td></tr>
+<tr><td>Team needs a durable record</td><td>Save the reviewed objects in ConfigHub.</td></tr></tbody></table>
+<p><code>cub installer</code> is the handoff when the catalog already publishes a package. Plain Helm remains valid for an uncovered chart.</p>
+<h3 id="an-ai-assistant-pointed-at-the-site">An AI assistant pointed at the site</h3>
+<p>The assistant should open <code>llms.txt</code>, then resolve the chart through the versioned machine contract.</p>
+<p>The contract needs four things that the current feed does not provide together.</p>
+<table><thead><tr><th>Requirement</th><th>Contract behavior</th></tr></thead><tbody><tr><td>Exact identity</td><td>Publish chart, version, aliases, and canonical URL.</td></tr>
+<tr><td>Declared coverage</td><td>Name each verdict family as checked, unchecked, or unavailable.</td></tr>
+<tr><td>Citable evidence</td><td>Publish receipt URLs beside each checked family.</td></tr>
+<tr><td>Stable meaning</td><td>Validate the schema and change its major version when meanings break.</td></tr></tbody></table>
+<p>The assistant should return a local command when static analysis is enough. It should suggest ConfigHub when the question needs history or shared state.</p>
+<h3 id="a-search-or-answer-engine-arrival">A search or answer-engine arrival</h3>
+<p>Search visitors should land on a page matching the question they asked, rather than a general product page.</p>
+<p>Four focused drift sections can share one generated page. Each section needs one example, one receipt, and one action.</p>
+<p>The titles should match ordinary questions.</p>
+<table><thead><tr><th>Search question</th><th>First action</th></tr></thead><tbody><tr><td>Why did Helm ignore my values?</td><td>Run the per-key render comparison.</td></tr>
+<tr><td>Did this chart version change upstream?</td><td>Check the retained and current digests.</td></tr>
+<tr><td>Why do development and production differ?</td><td>Compare recorded variants and promotion history.</td></tr>
+<tr><td>Does the cluster match what we approved?</td><td>Open the desired-versus-live evidence and its limits.</td></tr></tbody></table>
+<p>Each page should end with the same three boundary labels already used across the site.</p>
+<h2 id="sequence-the-four-kinds-of-drift">Sequence the four kinds of drift</h2>
+<p>The site should present drift in the order a configuration acquires history.</p>
+<table><thead><tr><th>Drift stage</th><th>User problem</th><th>Current value</th><th>Boundary</th><th>Evidence needed before louder claims</th></tr></thead><tbody><tr><td>Pre-deploy drift</td><td>The chart is unread, or a values key changes nothing.</td><td>Render exact objects and compare each supplied key.</td><td>Runs on your laptop</td><td>Prove exhaustive supplied-key checks beyond the current example.</td></tr>
+<tr><td>Supply drift</td><td>A version string points at changed or unavailable bytes.</td><td>Retain exact packages and publish dated digest witnesses.</td><td>Runs on your laptop</td><td>Run recurring sweeps before making present-tense claims.</td></tr>
+<tr><td>Environment drift</td><td>Development and production no longer share a clear lineage.</td><td>Store variants and promote reviewed changes. The matrix reports 179 promotion-proven rows.</td><td>Needs a ConfigHub account</td><td>Add one complete development-to-production story with deletion behavior.</td></tr>
+<tr><td>Runtime drift</td><td>Live objects differ from reviewed desired state.</td><td>Compare desired and observed state where current receipts cover the fields.</td><td>Needs an account and a cluster</td><td>Expand field coverage and close pruning and conflict gaps.</td></tr></tbody></table>
+<p>The first two stages earn attention and trust. They should remain useful before a visitor creates an account.</p>
+<p>Environment drift is the clearest product conversion. ConfigHub keeps the reviewed result and its changes across environments.</p>
+<p>Runtime drift supports fleet and enterprise value. The site should keep this claim narrower until its field and convergence evidence improves.</p>
+<h2 id="prioritized-backlog">Prioritized backlog</h2>
+<table><thead><tr><th>Rank</th><th>Issue</th><th>Change</th><th>Acceptance</th></tr></thead><tbody><tr><td>1</td><td>#1537 and #1539</td><td>Build the question-first <code>ask.html</code> page and generated prompt.</td><td>Local-only operation, stable question code, public issue handoff, and private-chart boundary.</td></tr>
+<tr><td>2</td><td>#1538</td><td>Finish the machine contract already started by <code>schema_version</code>.</td><td>JSON Schema, coverage families, aliases, canonical URLs, receipt URLs, consumer gate, and compatibility text.</td></tr>
+<tr><td>3</td><td>#1251</td><td>Put the custody position and four drift stages on the home journey.</td><td>One purpose, three visitor actions, and a direct ConfigHub handoff without enlarging the hero.</td></tr>
+<tr><td>4</td><td>#1537</td><td>Run the receiving operation and thirty-day test.</td><td>Triage label, acknowledgement target, decision target, monthly aggregate, and close-the-loop comment.</td></tr>
+<tr><td>5</td><td>#1540</td><td>Publish the retention promise and computed corpus value.</td><td>Retained-version count, oldest date, replaced byte-pair count, license gate, and additive-only policy.</td></tr>
+<tr><td>6</td><td>#1406</td><td>Make catalog coverage answer the visitor's question.</td><td>Each chart page names checked families and links the matching receipts.</td></tr>
+<tr><td>7</td><td>#1251</td><td>Prove one exact handoff from local result into ConfigHub.</td><td>The same digest is visible before upload and in the saved base, followed by one official tutorial step.</td></tr>
+<tr><td>8</td><td>#15</td><td>Add the existing-release diagnostic to the misbehaving-chart path.</td><td>Show prior Helm release state, likely upgrade hazards, and evidence limits.</td></tr>
+<tr><td>9</td><td>New issue below</td><td>Add generated search sections for the four drift questions.</td><td>Each section has one example, one receipt, one action, and a canonical URL.</td></tr>
+<tr><td>10</td><td>#949</td><td>Keep runtime drift claims aligned with shipped remediation evidence.</td><td>Field coverage, pruning, conflict behavior, and live convergence remain explicit per path.</td></tr></tbody></table>
+<h3 id="new-issue-draft">New issue draft</h3>
+<p><b>Title:</b> Add search entry pages for the four configuration drift questions</p>
+<p><b>Body:</b></p>
+<p>Config Workshop now leads with configuration drift, but search visitors still land on broad pages.</p>
+<p>Generate one focused entry for each stage: pre-deploy, supply, environment, and runtime drift.</p>
+<p>Each entry must answer one ordinary question. It must link one receipt and offer one next action.</p>
+<p>Use the existing boundary labels. Keep runtime claims scoped to current desired-versus-live field coverage.</p>
+<p>Acceptance requires canonical URLs, machine links in <code>llms.txt</code>, and the existing site verification gates.</p>
+<p>Umbrella: #1251.</p>
+<h2 id="draft-copy-for-the-first-three-changes">Draft copy for the first three changes</h2>
+<h3 id="rank-1-copy-for-the-ask-page">Rank 1 copy for the Ask page</h3>
+<p><b>Page title</b></p>
+<p>Investigate a Helm problem with your AI</p>
+<p><b>Lead</b></p>
+<p>Start with the decision you need to make. Choose a question, add a public chart and version, then give the generated prompt to your assistant.</p>
+<p>Your assistant renders the chart locally. It tests your values and checks this catalog for retained bytes and receipts.</p>
+<p>Private values stay on your laptop. You choose whether to file a public question.</p>
+<p><b>Form labels</b></p>
+<ul><li>What are you trying to decide?</li><li>Which public chart and version are involved?</li><li>What did you expect to happen?</li></ul>
+<p><b>Buttons</b></p>
+<ul><li>Build my prompt</li><li>Check the catalog</li><li>File the public question</li></ul>
+<p><b>Proposed response promise</b></p>
+<p>We acknowledge public submissions within two business days. We post an entry, refusal, or evidence decision within seven days.</p>
+<p>Publish that sentence only after the receiving owner accepts the timing.</p>
+<h3 id="rank-2-copy-for-llmstxt">Rank 2 copy for <code>llms.txt</code></h3>
+<pre><code>## Machine contract
+
+Use changes.json to resolve an exact chart and version. Its schema_version defines the field meanings.
+
+Read coverage before citing a verdict. Missing coverage means we have not checked that claim.
+
+Use the canonical chart URL and cite the receipt URLs. Page copy is a guide, while receipts hold the evidence.
+
+Schema version 1 keeps existing field meanings stable. A breaking change uses a new major version.
+
+When an entry is absent, render locally. Ask the user before filing a public issue.</code></pre>
+<h3 id="rank-3-copy-for-the-home-page">Rank 3 copy for the home page</h3>
+<p><b>Headline</b></p>
+<p>Detect and Stop Config Drift</p>
+<p><b>Lead</b></p>
+<p>Helm and AI can tell you what a chart renders today. They cannot recover bytes, decisions, or prior state that nobody kept.</p>
+<p>Config Workshop keeps reviewed packages and receipts. Use them to check an exact version, then pin the result you chose.</p>
+<p>Save it in ConfigHub when your team needs shared changes, promotion, or rollback.</p>
+<p><b>Primary actions</b></p>
+<ul><li>Check an exact chart</li><li>Investigate a Helm problem</li><li>Keep a reviewed result</li></ul>
+<p><b>Drift sequence</b></p>
+<p>Check what will render. Pin the bytes you reviewed. Keep environments related. Compare approved state with the live cluster.</p>
+<p>Use the existing boundary labels beneath the action that needs each level.</p>
+<h2 id="what-this-strategy-deliberately-rejects">What this strategy deliberately rejects</h2>
+<p>The Workshop should not compete with a capable assistant on static chart explanation.</p>
+<p>It should not build a general private-chart upload service before the local prompt produces measurable demand.</p>
+<p>It should not make runtime drift the main promise while field coverage and convergence evidence remain partial.</p>
+<p>The durable position is simpler. Assistants compute from current bytes. Config Workshop and ConfigHub keep the records they will need later.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/config-workshop-ai-drift-growth-strategy.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

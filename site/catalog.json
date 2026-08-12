@@ -39,7 +39,8 @@
     "chartSkills": "data/chart-skills/skills.json",
     "chartEvidenceRouter": "data/chart-evidence-router/router.csv",
     "masterCatalogMatrix": "data/master-catalog-matrix/matrix.csv",
-    "cubAdoptionCaveats": "data/cub-adoption-caveats/caveats.csv"
+    "cubAdoptionCaveats": "data/cub-adoption-caveats/caveats.csv",
+    "upstreamDrift": "data/upstream-drift/drift.csv"
   },
   "commandRoutes": [
     {
@@ -88288,6 +88289,30 @@
       "completion_action_families": "",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": ""
+    }
+  ],
+  "upstreamDrift": [
+    {
+      "recipe": "recipes/fairwinds-stable/goldilocks/10.3.0",
+      "repository": "fairwinds-stable",
+      "chart": "goldilocks",
+      "version": "10.3.0",
+      "decision": "retained-exact",
+      "retained_sha256": "9498a6f49cdea77f8777e9f8640a7711c63644fd1d5f7c8c81c313902190f2fd",
+      "republished_sha256": "3e51ce8032b0217d667b7e9084d36c76262b4ea566151f8fa47d422cbbd475db",
+      "republished_witness": "data/flattening-safety/witnesses/fairwinds-stable-goldilocks-10.3.0-republished.yaml",
+      "retained_evidence": "recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml"
+    },
+    {
+      "recipe": "recipes/fairwinds-stable/vpa/4.11.0",
+      "repository": "fairwinds-stable",
+      "chart": "vpa",
+      "version": "4.11.0",
+      "decision": "retained-exact",
+      "retained_sha256": "28b48002bf80aa397e078375170ae929bebd6cbfd2788628f3cf5363629a1098",
+      "republished_sha256": "2751f4ad7d3bc9114f79f03106e91676ae8cdbf3fe55a832159c8ae3b51c0c45",
+      "republished_witness": "data/flattening-safety/witnesses/fairwinds-stable-vpa-4.11.0-republished.yaml",
+      "retained_evidence": "recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml"
     }
   ]
 }
