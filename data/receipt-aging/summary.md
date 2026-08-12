@@ -32,18 +32,18 @@ receipt, and the full table is in the CSV for the rest.
 
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
-| `live-helm-confighub-compare` | 219 | 58 | 68 | none |
+| `live-helm-confighub-compare` | 219 | 59 | 68 | none |
 | `live-kind-parity` | 179 | 58 | 67 | none |
 | `next80-local-kind` | 176 | 62 | 62 | none |
-| `installer-oci` | 139 | 3 | 3 | none |
+| `installer-oci` | 139 | 4 | 4 | none |
 | `certified-bundles` | 74 | 4 | 4 | none |
-| `latest-top20-refresh` | 40 | 77 | 77 | none |
-| `derived-variant-execution` | 10 | 68 | 68 | none |
-| `derived-variant-target-bound` | 6 | 68 | 68 | none |
-| `alertmanager-ha-confighub-proof` | 4 | 77 | 77 | none |
-| `argo-cd-confighub-proof` | 4 | 77 | 77 | none |
-| `argo-cd-default-confighub-proof` | 4 | 77 | 77 | none |
-| `argo-cd-no-crds-confighub-proof` | 4 | 77 | 77 | none |
+| `latest-top20-refresh` | 40 | 78 | 78 | none |
+| `derived-variant-execution` | 10 | 69 | 69 | none |
+| `derived-variant-target-bound` | 6 | 69 | 69 | none |
+| `alertmanager-ha-confighub-proof` | 4 | 78 | 78 | none |
+| `argo-cd-confighub-proof` | 4 | 78 | 78 | none |
+| `argo-cd-default-confighub-proof` | 4 | 78 | 78 | none |
+| `argo-cd-no-crds-confighub-proof` | 4 | 78 | 78 | none |
 
 ## The oldest evidence, one family at a time
 
@@ -53,16 +53,16 @@ families whose evidence has aged furthest.
 
 | Family | Receipt | Recorded | Age in days |
 | --- | --- | --- | --- |
-| `redis-confighub` | `upload-oci-receipt.yaml` | 2026-05-26 | 78 |
-| `redis-local-kind` | `observation-receipt.yaml` | 2026-05-26 | 78 |
-| `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 77 |
-| `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 77 |
-| `alertmanager-ha-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 77 |
-| `argo-cd-9517-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 77 |
-| `argo-cd-9517-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 77 |
-| `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 77 |
-| `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 77 |
-| `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 77 |
+| `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 78 |
+| `alertmanager-ha-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-cd-9517-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-cd-9517-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-events-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 78 |
+| `argo-events-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 78 |
 
 ## Receipts that cannot age
 
