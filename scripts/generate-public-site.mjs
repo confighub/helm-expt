@@ -1752,6 +1752,7 @@ function homeDesignCss() {
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
+  .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
   .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
@@ -1864,8 +1865,9 @@ function configTestCentreHome(catalog) {
           <div>
             <p class="lead">Drift starts before you deploy: a chart you did not read, a values key Helm silently ignored, a package republished under the same version string. See the exact objects before you install. Pin what you reviewed so it cannot shift under you. Keep records that show what changed, where, and who approved it, and <a href="./known-gaps.html">what we have not checked</a>.</p>
             <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
-            <p class="lead">Input data from our Catalog or your own package: Helm, an AICR recipe for AI, OCI image, or Kubernetes YAML.</p>
+            <p class="lead">Input data from our Catalog or your own package: Helm, an <a href="./charts/index.html">AICR recipe for AI</a>, OCI image, or Kubernetes YAML.</p>
             <p class="lead">This site is a catalog of deployment previews and patterns, using standard config formats and ConfigHub.</p>
+            <p class="lead">Config Workshop is this site. cub installer is the free tool its commands use. <a href="./confighub.html">ConfigHub</a> is the product that stores reviewed configuration.</p>
             <div class="cta-row">
               <a class="btn primary" href="./charts/index.html">Check a public chart</a>
               <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
@@ -2872,7 +2874,7 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="commercial">
       <h2 id="commercial">3. Use the commercial product for private and production work</h2>
-      <p>ConfigHub is available as a self-sign-up service and as a standalone enterprise product.</p>
+      <p>ConfigHub is available as a hosted service you sign up for yourself, free to start, and as a standalone enterprise product.</p>
       ${markdownLikeTable([
         ["Need", "Commercial capability"],
         ...commercialRows,
@@ -3149,6 +3151,7 @@ function tryHtml(catalog) {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Try a simple example: Redis</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
   <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
   <p>You do not need ConfigHub for this test. It runs on your machine and contacts neither ConfigHub Server nor Kubernetes. No account or registry login is required.</p>
   <p>ConfigHub becomes useful when you want to keep this result, change it with your team, or promote it between environments.</p>
@@ -3290,6 +3293,7 @@ function configHubHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Keep and manage your configuration with ConfigHub</h1>
+  <p class="boundary-chip">Needs a ConfigHub account</p>
   <p class="lead">ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
   <p>The public Catalog and first examples work without ConfigHub. Continue here when you want to keep and manage the result with a team.</p>
 </header>
@@ -3351,6 +3355,7 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Detailed Redis walkthrough</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in when you want to record a change, compare it with an upgrade, promote it, and record a rollback.</p>
     <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade the same selection</b> &rarr;</span> <span><b>review one stored change</b></span></div>
   </div>
@@ -3519,6 +3524,7 @@ function serverlessHtml(catalog) {
       <div class="hero-copy">
         <p class="eyebrow">All local, no sign-in</p>
         <h1>Work without an account</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
         <p class="lead">Everything on this page runs on your laptop. You can render any public catalog package, edit its fields, and push an OCI bundle without signing in to anything.</p>
         <p>Inspect the objects and prerequisites, keep them as files, or write the non-secret objects to OCI. A cluster is needed only when you choose to deploy them.</p>
         <div class="chips" aria-label="What this path needs"><span>local or CI</span><span>no ConfigHub Server</span><span>no account</span></div>
@@ -4509,7 +4515,7 @@ function proofHtml(catalog) {
 
     <section aria-labelledby="sceptic">
       <h2 id="sceptic">4. Find tests designed to expose failure</h2>
-      <p>A breaking chart should become a repeatable test, a named limit, or a required setup step. It must not disappear into prose.</p>
+      <p>You still need to test on your own cluster before production. The contributor doctrine behind these tests is part of <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a>.</p>
       <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       ${markdownLikeTable([
         ["Test or record", "What it answers", "Open"],
@@ -4526,7 +4532,7 @@ function proofHtml(catalog) {
       <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. A passing verifier means committed evidence is self-consistent; it does not replace fresh live evidence for a new target.</footer>
+  <footer>Generated from helm-expt proof data. What a passing verifier does and does not mean is part of <a href="./d/docs/reference/how-the-catalog-is-built.html">how the catalog is built</a>.</footer>
 </body>
 </html>
 `;
@@ -5134,7 +5140,7 @@ function privateHtml(catalog) {
     ${topNav("..")}
     <h1>Choose SaaS or enterprise ConfigHub</h1>
     <p class="lead">Use the public tools without ConfigHub Server for local work. Add a commercial ConfigHub product when your team needs to keep private configuration, review changes together, or operate releases over time.</p>
-    <p>ConfigHub is available as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">self-sign-up SaaS</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a>.</p>
+    <p>ConfigHub is available as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">hosted service you sign up for yourself</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a>.</p>
   </header>
   <main>
     <section aria-labelledby="why-upgrade">
@@ -5428,6 +5434,7 @@ function journeyHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Build an App from saved configuration</h1>
+  <p class="boundary-chip">Needs a ConfigHub account</p>
     <p class="lead">Use this page after configuration is saved in ConfigHub. An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
   <p>Configuration gets saved by uploading it from an <a href="./testing.html">example</a> or your own package, which needs a free ConfigHub account. Nothing on this page works before that upload, and everything works after it.</p>
     <p>New to ConfigHub? Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> to install, change, and promote one component. Use the <a href="./testing.html">Examples page</a> when your starting point is Helm, AICR, OCI, or YAML.</p>
@@ -5533,6 +5540,7 @@ function variantsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Decide where a change belongs</h1>
+  <p class="boundary-chip">Needs a ConfigHub account</p>
     <p class="lead">Use this page after a Helm chart has become a shared base in ConfigHub. It answers one question: should a change rebuild the base, or belong to one environment?</p>
   <p>A chart becomes a shared base when you upload its reviewed render, which needs a free ConfigHub account. The <a href="./testing.html">examples page</a> shows the upload; come back here once it has run.</p>
     <p>A variant is one named configuration of the same component, such as development, staging, production, a region, or a customer.</p>
@@ -6140,6 +6148,7 @@ function examplesHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Choose a worked example</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
     <p class="tagline">Choose the kind of configuration you have, then follow one worked example to exact Kubernetes objects and a checked result.</p>
     <p>After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs.</p>
     <p>In a hurry with your own chart? One command, no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then check the chart&#39;s catalog page for the hazards a render alone cannot show.</p>
@@ -6252,12 +6261,12 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", `<strong>Project home:</strong> this work now lives at <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>; the pages below remain as a mirror. <strong>Current v0.13 primary path:</strong> byte-identical generation from upstream and ConfigHub-aligned catalogs across four clusters, 13 effective renders, two applications, a deterministic ordinary-Kubara-to-clean-Git preparer, component-first OCI/import contracts, and generated matrix and wiring evidence. The retained four-cluster ConfigHub organization now has passing faithful and adapted live receipts, including 16 exact selector migrations with retained PostgreSQL PVC identities and an immediate zero-action run. Orphan, public-matrix, GUI, and fresh-user-selected-organization proof remain separate gates. <strong>Historical v0.12 read-only evidence:</strong> the retained one-cluster route, OCI delivery, Argo bootstrap, and healthy Metrics Server receipt.`, `<a href="./kubara.html"><strong>Why Kubara users add ConfigHub</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
+        ["Kubara", `<strong>Project home:</strong> this work now lives at <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>; the pages below remain as a mirror. Kubara generates a platform's configuration; ConfigHub keeps it as governed data across the four retained clusters, with live receipts behind each claim. The architecture, version history, and proof boundaries live on the <a href="./kubara.html">Kubara page</a>.`, `<a href="./kubara.html"><strong>Why Kubara users add ConfigHub</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
       <p><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Kubara's catalogs, <code>config.yaml</code>, values overlays, generated components, and hub-and-spoke model remain recognizable. ConfigHub adds exact component retention, semantic review, approvals, promotion, rollback, a component-by-cluster matrix with explicit live or unknown state, and visible wiring. Argo CD still reconciles.</p>
-      <p>The current Kubara v0.13.0 source selects seven platform roles across one hub and three spokes. hx-web and cubbychat use the shared certificate and ingress services on all four targets. The guide proves byte-identical generation from Kubara's upstream catalog snapshot and the ConfigHub-aligned export, with no AI translation or required migration. The retained four-cluster organization has exact current Argo and workload observations. Visible platform state is never treated as proof of exact governed inventory or of a fresh selected-organization import.</p>
+      <p>The current Kubara source selects seven platform roles across one hub and three spokes. The <a href="./kubara.html">Kubara page</a> holds the architecture, the exact observation boundaries, and what the receipts do and do not prove.</p>
       <p><a href="./kubara.html"><strong>Start with the Kubara buyer journey</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Follow the six-step tutorial</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
     </section>
 
@@ -6611,6 +6620,7 @@ function operationsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Operate saved configuration</h1>
+  <p class="boundary-chip">Needs an account and a cluster</p>
     <p class="lead">Use this page after an application and its target already exist. It shows how to review a change, approve it, deliver it, and check the live result.</p>
     <p>ConfigHub keeps the desired configuration and revision history. OCI carries a reviewed release to Argo CD or Flux. Live checks show what reached the cluster.</p>
     <p>If you have not chosen a configuration yet, start with the Catalog, Variants, or Apps pages.</p>
@@ -7104,6 +7114,7 @@ function aicrEntriesSection() {
   <header>
     ${topNav("..")}
     <h1>Choose a component, version, and configuration</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages. It keeps all ${catalog.summary.retainedPackageVersions} retained package versions across ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt, and five AI platform entries. Choose one, then inspect its packaged configurations, setup, and evidence. <a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
@@ -8405,6 +8416,7 @@ function chartPageHtml(catalog, entry) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
+    <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">${isReadyToTry ? "Choose a tested starting configuration" : "Review a recorded configuration"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
     <p>${isReadyToTry ? "Start with" : "The first recorded configuration is"} <strong>${escapeHtml(entry.start_variant)}</strong>. ${isReadyToTry ? "The page also shows other recorded choices." : "Read its status before use; it is not yet a polished public example."} The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>

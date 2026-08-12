@@ -81,6 +81,7 @@
   /* Top-aligned, not centred: the right column carries the terminal and two
      notes now, so centring dropped the lead half a screen below the headline
      and left a hole where the reader looks first. */
+  .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
   .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: start; padding: 22px 0 30px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
   .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
@@ -177,8 +178,9 @@
           <div>
             <p class="lead">Drift starts before you deploy: a chart you did not read, a values key Helm silently ignored, a package republished under the same version string. See the exact objects before you install. Pin what you reviewed so it cannot shift under you. Keep records that show what changed, where, and who approved it, and <a href="./known-gaps.html">what we have not checked</a>.</p>
             <p class="lead">Output data as OCI or files. Store reviewed objects in ConfigHub when your team needs changes, approvals, promotion, rollouts</p>
-            <p class="lead">Input data from our Catalog or your own package: Helm, an AICR recipe for AI, OCI image, or Kubernetes YAML.</p>
+            <p class="lead">Input data from our Catalog or your own package: Helm, an <a href="./charts/index.html">AICR recipe for AI</a>, OCI image, or Kubernetes YAML.</p>
             <p class="lead">This site is a catalog of deployment previews and patterns, using standard config formats and ConfigHub.</p>
+            <p class="lead">Config Workshop is this site. cub installer is the free tool its commands use. <a href="./confighub.html">ConfigHub</a> is the product that stores reviewed configuration.</p>
             <div class="cta-row">
               <a class="btn primary" href="./charts/index.html">Check a public chart</a>
               <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
