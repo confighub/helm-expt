@@ -26,6 +26,7 @@ const entryPathReferencePath = join(siteRoot, "entry-path-reference.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
+const challengePath = join(siteRoot, "challenge.html");
 const docsPath = join(siteRoot, "docs.html");
 const docsReferencePath = join(siteRoot, "docs-reference.html");
 const verificationPath = join(siteRoot, "verification.html");
@@ -186,6 +187,7 @@ const SITE_PAGE_RELPATHS = {
   futureHtml: "future.html",
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
+  challengeHtml: "challenge.html",
   docsHtml: "docs.html",
   docsReferenceHtml: "docs-reference.html",
   verificationHtml: "verification.html",
@@ -285,6 +287,7 @@ if (mode === "--generate") {
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
+  write(challengePath, site.challengeHtml);
   write(docsPath, site.docsHtml);
   write(docsReferencePath, site.docsReferenceHtml);
   write(verificationPath, site.verificationHtml);
@@ -373,6 +376,8 @@ if (mode === "--generate") {
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(existsSync(guidesPath), "site/guides.html is missing; run npm run site:generate");
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
+  check(existsSync(challengePath), "site/challenge.html is missing; run npm run site:generate");
+  check(readFileSync(challengePath, "utf8") === site.challengeHtml, "site/challenge.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(docsReferencePath, "utf8") === site.docsReferenceHtml, "site/docs-reference.html is stale");
   check(readFileSync(verificationPath, "utf8") === site.verificationHtml, "site/verification.html is stale");
@@ -850,6 +855,7 @@ function buildSite(generatedAt) {
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml(catalog)),
+    challengeHtml: calmPage(challengeHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
     docsReferenceHtml: calmPage(docsReferenceHtml(catalog)),
     verificationHtml: calmPage(verificationHtml(catalog)),
@@ -1035,6 +1041,7 @@ function buildLlmsTxt() {
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Ask your AI these questions](${SITE_BASE_URL}challenge.html): a benchmark we ran on ourselves; twelve fleet questions answered from committed receipts that a capable assistant could not answer, with the receipts linked.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](${SITE_BASE_URL}how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
@@ -1896,7 +1903,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <h2>Check the result and the limits</h2>
           <p class="intro">A tested example names its source, version, objects, checks, and receipts. Depending on the example, checks cover parity, risky defaults, prerequisites, live readiness, upgrades, promotion, or rollback.</p>
           <p class="intro">The page says which checks ran and which did not. Known gaps stay visible.</p>
-          <div class="cta-row"><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
+          <div class="cta-row"><a class="btn ghost" href="./challenge.html">Ask your AI these questions</a><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
         </section>
       </main>
 
@@ -3822,6 +3829,145 @@ function docsReferenceHtml(catalog) {
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Use the main guides first, then the matrix and generated data when you need exact status.</footer>
+</body>
+</html>
+`;
+}
+
+// The challenge page is the bake-off turned outward. Two rounds of racing a
+// capable assistant against the committed receipts produced twelve questions
+// the assistant could not answer, answered slowly, or answered about artifacts
+// a fleet does not run. Only questions whose house answer traces to a committed
+// receipt appear; the run data itself is committed under data/ai-benchmark so
+// the page's own claim is checkable. The three questions the assistant answered
+// as well as we did are listed too, because saying so is what makes the other
+// twelve believable.
+function challengeHtml() {
+  const GH = "https://github.com/confighub/helm-expt/blob/main/";
+  const rows = [
+    {
+      heading: "Was this chart republished under the same version string?",
+      paste: "Our CI pins fairwinds/goldilocks 10.3.0 at one sha256. Overnight, helm pull of the same version returned a different digest. Was it republished, were the bytes we vetted ever real, and what changed inside?",
+      assistant: "It worked for 32 minutes, and worked well, and ended at &quot;cannot cryptographically confirm the old digest was ever served&quot; and &quot;the exact byte-diff is unrecoverable&quot;. Today&#39;s registry only serves today&#39;s bytes.",
+      answer: `We hold the vetted bytes. The <a href="./d/data/upstream-drift/summary.html">drift record</a> carries both digests, the <a href="${GH}recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml">locked receipt</a> describes the retained package, and a <a href="${GH}data/flattening-safety/witnesses/fairwinds-stable-goldilocks-10.3.0-republished.yaml">103-file witness</a> records what the republished tarball contains.`,
+    },
+    {
+      heading: "Which publishers republished bytes under an unchanged version?",
+      paste: "Across the charts we depend on, which publishers republished different bytes under an unchanged version string this year? I need both digests for the audit.",
+      assistant: "It answered cannot-determine, and it was right: superseded digests are overwritten in place and no transparency log covers Helm repositories. Its best investigative lead still missed one of the two real cases.",
+      answer: `In our sweep of 2026-08-07 the answer was exactly two: goldilocks 10.3.0 and vpa 4.11.0. Both digest pairs are recorded in the <a href="./d/data/upstream-drift/summary.html">drift record</a>. The answer is dated because it is a measurement, not a promise.`,
+    },
+    {
+      heading: "Which CRDs change schema in this upgrade step?",
+      paste: "kube-prometheus-stack 85.3.3 to 86.1.0: which of the ten CRDs change schema, are any added or removed, and do any served or storage versions flip? Our PrometheusRule objects must not fail validation mid-upgrade.",
+      assistant: "It got this right in 12 minutes by rendering both versions and diffing. We answer in one click. We expect this row to become a question assistants answer well, and we will say so when it does.",
+      answer: `Six CRDs changed, four did not, none were added or removed, and no served or storage version flips. The <a href="${GH}data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml">committed delta receipt</a> names the property paths, computed from the two committed renders.`,
+    },
+    {
+      heading: "Which upgrade changes are destructive at apply time?",
+      paste: "Between kube-prometheus-stack 85.3.3 and 87.19.2, which rendered-object changes are destructive on upgrade: immutable selector changes, renamed resources that orphan state, changed volumeClaimTemplates?",
+      assistant: "It matched our committed renders down to a single added ConfigMap, then declined to stake a production deploy on its answer. That refusal was good judgment. We stake the render-level claim because our renders are committed from locked bytes.",
+      answer: `Both versions&#39; full renders are committed: <a href="${GH}recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml">85.3.3</a> and <a href="${GH}recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml">87.19.2</a>, with object inventories. The claim is scoped to the render under default values; the live two-major-version upgrade receipt is on our build list, and this page will say when it exists.`,
+    },
+    {
+      heading: "This chart does not even render on defaults. What is the minimal working setup?",
+      paste: "grafana/loki 7.0.0 fails helm template with default values. What is the minimal set of values that renders and converges on a real cluster, for both deployment shapes?",
+      assistant: "It earned the answer in 14 minutes with a live kind cluster, and it found a hard-anti-affinity scheduling trap in more operational detail than our receipts hold. On content it arguably beat us. We keep this row because the honest race result is part of the record.",
+      answer: `The <a href="${GH}recipes/grafana/loki/7.0.0/default-render-blocker.yaml">render blocker</a> is receipted, the working values are committed beside it, and the <a href="./d/data/live-kind-parity/summary.html">live kind parity record</a> covers the converging shape.`,
+    },
+    {
+      heading: "What has upstream passed us, and what has actually been reviewed?",
+      paste: "Of our top-20 pins, which have newer upstream versions, and what is the review state of each candidate?",
+      assistant: "It got the newer-exists half from public indexes, then correctly stated that the review half has no source anywhere outside our own records, and refused to fabricate the table.",
+      answer: `As of the committed refresh snapshot, 7 of 20 pins had candidates, every candidate was proof-complete, and every one was gated on an explicit replacement decision. The <a href="./d/data/refresh-survival/summary.html">refresh survival record</a> holds the table. Dated, because review state moves when we review.`,
+    },
+    {
+      heading: "What must be staged before a hookless GitOps apply converges?",
+      paste: "For each webhook-carrying chart we run, which exact Secret and CRDs must be staged for a hookless GitOps apply to converge?",
+      assistant: "It took 16 minutes and silently answered for chart versions our fleet does not run. Where its charts happened to coincide with ours, it matched. Plausible guidance, unmoored from the pins, is the failure mode a pinned catalog exists to remove.",
+      answer: `The <a href="./d/data/webhook-cert-lifecycle/summary.html">webhook certificate lifecycle record</a> answers per pinned chart and version, from staged evidence.`,
+    },
+    {
+      heading: "Does upgrade revert our post-install edit, and can we roll back to what we actually ran?",
+      paste: "After install we changed a replica count directly on the rendered configuration. Does the next chart upgrade silently revert it? And can we roll back to the recorded revisions we ran, not to a re-render?",
+      assistant: "The second half is unanswerable in the Helm model, and it said so: helm rollback re-renders from templates, and recorded revisions of the rendered objects do not exist there.",
+      answer: `The <a href="./d/data/redis-upgrade-app-proof/summary.html">upgrade proof</a> records the edit surviving the upgrade and the rollback restoring an exact recorded revision. The <a href="./d/docs/user/day2-upgrade-rollback.html">day-2 guide</a> shows the commands.`,
+    },
+    {
+      heading: "How old is the evidence behind this claim?",
+      paste: "This page says the chart passed live parity. Proven when? How old is the oldest evidence, and which proof families have aged furthest?",
+      assistant: "A claim&#39;s age is invisible to anything that only sees the claim. You cannot date someone else&#39;s proof after the fact.",
+      answer: `The <a href="./d/data/receipt-aging/summary.html">receipt aging record</a> dates about 1,771 receipts and names the oldest in every family, including our own 76-day-old parity families. The record implicates us too, which is the point.`,
+    },
+    {
+      heading: "What exactly runs on each cluster right now, and what proves it?",
+      paste: "Four clusters. What exact version or digest runs where right now, and what evidence proves it rather than asserts it?",
+      assistant: "Even with cluster credentials an assistant can observe, but it cannot produce the standing record that binds desired state to observed state. That binding cannot be manufactured after the fact.",
+      answer: `The <a href="./d/data/kubara-platform-matrix/summary.html">36-cell fleet matrix</a> keeps desired placement, delivered release, reconciler sync, and Kubernetes readiness apart per cell, and its live overlay receipt binds the page to an observation with a date.`,
+    },
+    {
+      heading: "What ran before this release, and can old evidence be rewritten?",
+      paste: "What ran per cluster under the release before this one, and how do we keep old evidence from being rewritten to match today?",
+      assistant: "The previous platform state exists on no cluster anywhere. That is destroyed information, and no capability recovers it.",
+      answer: `The <a href="./d/data/kubara-platform-matrix/historical-v0.12.0/summary.html">frozen v0.12.0 matrix</a> is retained beside the current one, and the <a href="./d/data/variant-revision-digests/summary.html">revision digest record</a> holds 26 frozen records under an explicit no-rewrite rule.`,
+    },
+    {
+      heading: "Which AI-proposed edits would have taken production down?",
+      paste: "An AI proposed a change to our training runtime. Which of its edits would have broken production, what caught each one, and what shipped instead?",
+      assistant: "The proposal, the per-check verdicts, and the shipped candidate are three records that nobody can reconstruct after the fact.",
+      answer: `The <a href="./d/data/ai-change-review/summary.html">change review record</a> holds all three. Read its own honesty notes: the proposal is a deterministic fixture rather than a live AI transcript, and &quot;would have broken production&quot; is what the checks assert, not an observed outage.`,
+    },
+  ];
+  const commodity = [
+    `Whether a chart&#39;s <code>lookup()</code> behaves differently under Argo CD and Flux. Four minutes, correct, and it staked the answer. Our <a href="${GH}data/flux-lookup-proof/summary.md">three-path live proof</a> is committed; its site page is on the build list.`,
+    `What breaks when CRDs and resources apply in the wrong order, per delivery path. Five minutes, correct on the failure string and the fix. Our <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> answers the same, from a live run.`,
+    `Whether Helm warns about a misspelled values key. Nine minutes, correct: it does not, and the objects render as if the key were absent. Our <a href="${GH}recipes/bitnami/redis/27.0.0/values-diagnostics.yaml">values diagnostics</a> prove the same with digest-identical renders.`,
+  ];
+  const rowsHtml = rows.map((row, index) => `<h3>${index + 1}. ${row.heading}</h3>
+      <p style="border-left: 3px solid var(--line-strong); padding: 8px 14px; font-style: italic;">&quot;${row.paste}&quot;</p>
+      <p><strong>What a capable assistant did.</strong> ${row.assistant}</p>
+      <p><strong>What the records say.</strong> ${row.answer}</p>`).join("\n      ");
+  const commodityHtml = commodity.map((item) => `<li>${item}</li>`).join("\n        ");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask your AI these questions &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Ask your AI these questions</h1>
+    <p class="lead">We ran a benchmark on ourselves. We gave a capable AI assistant, with a shell, Helm, and the network, eighteen questions an on-call engineer might ask about a Helm fleet, and we answered the same eighteen from this catalog&#39;s committed receipts.</p>
+    <p>The assistant did well. It never contradicted a receipt, and twice it refused to invent an answer it could not source. Three questions it answered as fast and as correctly as we did; they are listed below and we say so. The rest it could not answer, answered slowly, or answered confidently about artifacts our fleet does not run. The reason is not reasoning. Some answers live in records that only exist if someone kept them. The full run data is committed in <a href="${GH}data/ai-benchmark/">data/ai-benchmark</a>, so this page&#39;s own claim is checkable.</p>
+    <p>Paste any question below into your own assistant, about your own fleet, and compare. Next to each one is the receipt we answer from.</p>
+  </header>
+  <main>
+    <section aria-labelledby="records-win">
+      <h2 id="records-win">Twelve questions where records win</h2>
+      ${rowsHtml}
+    </section>
+
+    <section aria-labelledby="assistant-fine">
+      <h2 id="assistant-fine">Three questions your assistant answers fine</h2>
+      <p>We raced these too, and lost on speed or tied. Keeping them here is what makes the twelve above believable.</p>
+      <ul>
+        ${commodityHtml}
+      </ul>
+      <p>A question we cannot yet answer from a committed receipt does not appear on this page at all. It goes on the build list instead.</p>
+    </section>
+
+    <section aria-labelledby="try-fleet">
+      <h2 id="try-fleet">Try it on your fleet</h2>
+      <p><strong>Runs on your laptop.</strong> Pull any of the retained package versions from the <a href="./charts/index.html">Catalog</a> and read the exact objects, or start with the <a href="./try.html">short example</a>. No account, no server.</p>
+      <p><strong>Needs a ConfigHub account.</strong> Variants, approvals, promotion, and the revision history that made questions 8 and 11 answerable. Read <a href="./confighub.html">what ConfigHub adds</a>.</p>
+      <p><strong>Needs an account and a cluster.</strong> The fleet matrix that answers question 10: a standing record binding what should run to what a reconciler and Kubernetes actually report.</p>
+      <p>Zero fabricated receipts across eighteen questions and two rounds. Two near-misses where confident answers outran the evidence, both documented in the committed run data. That is the state of the art, and it is why records still matter.</p>
+    </section>
+  </main>
+  <footer>Every answer above traces to a committed receipt. When an assistant answers a row as well as we do, the row says so.</footer>
 </body>
 </html>
 `;

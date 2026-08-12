@@ -37,6 +37,10 @@ const checks = [
     terms: ["Learn this by doing it", "Run a short example", "Work through an example like yours", "Follow one package end to end", "Open the short example", "Open the worked examples", "Open the detailed walkthrough", "After a guide"],
   },
   {
+    file: "site/challenge.html",
+    terms: ["Ask your AI these questions", "Twelve questions where records win", "Three questions your assistant answers fine", "Try it on your fleet", "Zero fabricated receipts", "data/ai-benchmark", "republished", "cannot yet answer from a committed receipt does not appear"],
+  },
+  {
     file: "site/variants.html",
     terms: ["Decide where a change belongs", "1. See the model", "payments-api/prod-us", "2. Decide where the change belongs", "3. Follow a safe flow", "4. Run the commands", "reuse-existing-secret", "5. Open worked examples", "6. Read the details"],
   },
@@ -157,6 +161,7 @@ const checks = [
 const menuGuidePages = [
   "site/index.html",
   "site/guides.html",
+  "site/challenge.html",
   "site/try.html",
   "site/confighub.html",
   "site/redis-walkthrough.html",
