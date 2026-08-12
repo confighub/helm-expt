@@ -71,7 +71,7 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "1. What ConfigHub adds", "2. Follow the official tutorial", "official tutorial", "3. Create an account", "Sign up for ConfigHub", "4. Read the background", "Read the ConfigHub blog"],
+    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "1. What ConfigHub adds", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "3. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "4. Read the background", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
