@@ -36,4 +36,8 @@ Use the canonical chart URL and cite the evidence URLs. Page copy is a guide, wh
 
 Schema version 1 keeps existing field meanings stable. A breaking change uses a new major version.
 
+The retention object is computed from committed package receipts, license evidence, and upstream-republish records. Normal catalog refreshes are additive. Do not infer that a version was checked before its oldest_publication_receipt_at value.
+
+When upstream_republished_version_pairs is non-zero, use the linked drift evidence. A version string alone is not enough to identify those bytes.
+
 When an entry is absent, render locally. Ask the user before filing a public issue.

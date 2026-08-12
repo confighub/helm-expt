@@ -5,7 +5,7 @@
   "description": "A compact index of retained chart versions and the evidence families checked for each one.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "generated_at", "entries"],
+  "required": ["schema_version", "generated_at", "retention", "entries"],
   "properties": {
     "schema_version": {
       "const": "1"
@@ -13,6 +13,9 @@
     "generated_at": {
       "type": "string",
       "format": "date-time"
+    },
+    "retention": {
+      "$ref": "#/$defs/retention"
     },
     "entries": {
       "type": "array",
@@ -22,6 +25,69 @@
     }
   },
   "$defs": {
+    "retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "retained_components",
+        "retained_package_versions",
+        "published_package_versions",
+        "oldest_publication_receipt_at",
+        "upstream_republished_version_pairs",
+        "license_gate",
+        "license_evidence_as_of",
+        "evidence_urls"
+      ],
+      "properties": {
+        "policy": {
+          "const": "additive_only"
+        },
+        "retained_components": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retained_package_versions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "published_package_versions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oldest_publication_receipt_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "upstream_republished_version_pairs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "license_gate": {
+          "const": "evidence_required_before_listing"
+        },
+        "license_evidence_as_of": {
+          "type": "string",
+          "format": "date"
+        },
+        "evidence_urls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["policy", "packages", "upstream_republishes", "licenses"],
+          "properties": {
+            "policy": { "$ref": "#/$defs/evidenceUrl" },
+            "packages": { "$ref": "#/$defs/evidenceUrl" },
+            "upstream_republishes": { "$ref": "#/$defs/evidenceUrl" },
+            "licenses": { "$ref": "#/$defs/evidenceUrl" }
+          }
+        }
+      }
+    },
+    "evidenceUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
     "coverage": {
       "type": "object",
       "additionalProperties": false,

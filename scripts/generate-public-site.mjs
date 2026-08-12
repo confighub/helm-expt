@@ -1048,6 +1048,44 @@ function coverageItem(status, values = [], fallback = "") {
   return { status, evidence_urls: urls };
 }
 
+function buildRetentionSummary(catalog) {
+  const publishedRows = (catalog.installerOciPackages ?? []).filter(
+    (row) => row.publication_status === "published-receipt" && row.publication_receipt,
+  );
+  const publicationDates = publishedRows.map((row) => {
+    const receiptPath = join(repoRoot, row.publication_receipt);
+    check(existsSync(receiptPath), `${row.chart}@${row.version}: publication receipt is missing`);
+    const observedAt = readYaml(receiptPath)?.spec?.observedAt;
+    check(observedAt && !Number.isNaN(Date.parse(observedAt)), `${row.chart}@${row.version}: publication receipt has no valid observedAt`);
+    return observedAt;
+  }).sort();
+  const replacedPairs = (catalog.upstreamDrift ?? []).filter((row) => {
+    const retained = String(row.retained_sha256 ?? "");
+    const republished = String(row.republished_sha256 ?? "");
+    return /^[a-f0-9]{64}$/.test(retained) && /^[a-f0-9]{64}$/.test(republished) && retained !== republished;
+  });
+
+  check(publicationDates.length === publishedRows.length, "every published package must have a dated receipt");
+  check(replacedPairs.length === (catalog.upstreamDrift ?? []).length, "every upstream republish row must name two different byte digests");
+
+  return {
+    policy: "additive_only",
+    retained_components: new Set((catalog.installerOciPackages ?? []).map((row) => row.chart)).size,
+    retained_package_versions: (catalog.installerOciPackages ?? []).length,
+    published_package_versions: publishedRows.length,
+    oldest_publication_receipt_at: publicationDates[0],
+    upstream_republished_version_pairs: replacedPairs.length,
+    license_gate: "evidence_required_before_listing",
+    license_evidence_as_of: catalog.chartLicensesResearchedAt,
+    evidence_urls: {
+      policy: githubEvidenceUrl("docs/reference/how-the-catalog-is-built.md"),
+      packages: githubEvidenceUrl("data/installer-oci-packages/summary.md"),
+      upstream_republishes: githubEvidenceUrl("data/upstream-drift/summary.md"),
+      licenses: githubEvidenceUrl("data/chart-licenses/chart-licenses.yaml"),
+    },
+  };
+}
+
 function buildChangesFeed(catalog) {
   const matrixByVersion = new Map();
   for (const row of catalog.masterCatalogMatrix ?? []) {
@@ -1142,7 +1180,12 @@ function buildChangesFeed(catalog) {
     })
     .sort((left, right) => left.chart.localeCompare(right.chart) || left.version.localeCompare(right.version));
 
-  return `${JSON.stringify({ schema_version: "1", generated_at: catalog.generatedAt, entries }, null, 2)}\n`;
+  return `${JSON.stringify({
+    schema_version: "1",
+    generated_at: catalog.generatedAt,
+    retention: buildRetentionSummary(catalog),
+    entries,
+  }, null, 2)}\n`;
 }
 
 function pageTitle(html) {
@@ -1234,6 +1277,10 @@ Read coverage before citing a verdict. Missing coverage means we have not checke
 Use the canonical chart URL and cite the evidence URLs. Page copy is a guide, while receipts hold the evidence.
 
 Schema version 1 keeps existing field meanings stable. A breaking change uses a new major version.
+
+The retention object is computed from committed package receipts, license evidence, and upstream-republish records. Normal catalog refreshes are additive. Do not infer that a version was checked before its oldest_publication_receipt_at value.
+
+When upstream_republished_version_pairs is non-zero, use the linked drift evidence. A version string alone is not enough to identify those bytes.
 
 When an entry is absent, render locally. Ask the user before filing a public issue.
 `;
@@ -7336,6 +7383,7 @@ function renderedObjectsPathFromRevision(revisionPath) {
 }
 
 function chartIndexHtml(catalog) {
+  const retention = buildRetentionSummary(catalog);
   const chartRowsHtml = catalog.catalogComponents
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
@@ -7459,9 +7507,12 @@ function aicrEntriesSection() {
 }
 
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
-      <h2 id="catalog-summary">What each catalog entry contains</h2>
-      <p>The catalog starts with ${catalog.summary.retainedComponents} components and all ${catalog.summary.retainedPackageVersions} retained package versions, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
-      <p>The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
+      <h2 id="catalog-summary">What stays available</h2>
+      <p>The catalog retains ${retention.retained_package_versions} exact package versions across ${retention.retained_components} components. ${retention.published_package_versions} have a dated registry receipt; the oldest current receipt is from ${retention.oldest_publication_receipt_at.slice(0, 10)}. A new review adds a version. It does not silently replace an older package.</p>
+      <p>We have caught ${retention.upstream_republished_version_pairs} cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="../d/data/upstream-drift/summary.html">Read those cases</a>.</p>
+      <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="../d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>
+      <h3>What each catalog entry contains</h3>
+      <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
     </section>
 
     <section aria-labelledby="base-variants">
@@ -7487,7 +7538,7 @@ function aicrEntriesSection() {
     ${topNav("..")}
     <h1>Choose a component, version, and configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages. It keeps all ${catalog.summary.retainedPackageVersions} retained package versions across ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt, and five AI platform entries. Choose one, then inspect its packaged configurations, setup, and evidence. <a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
+    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages. Choose one, then inspect its packaged configurations, setup, and evidence. Published versions stay pinned: a new review adds a version instead of silently replacing the one you used. <a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
     ${aicrEntriesSection()}
