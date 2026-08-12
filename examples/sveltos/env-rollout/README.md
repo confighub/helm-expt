@@ -5,10 +5,42 @@
 > This copy is a frozen mirror; new work, live recordings, and issues belong
 > in that repository.
 
-This is chapter three of the Sveltos fleet example. Chapters one and two
-delivered one reviewed `ClusterProfile` and expanded its selector from a pilot
-cluster to a second cluster. This chapter promotes one reviewed change through
-environment groups: pilot first, then staging, then two production clusters.
+One reviewed values change moves from pilot to staging to production, and
+every wave is approved on its own before any cluster sees it. This chapter
+is recorded live.
+
+[Sveltos](https://projectsveltos.io) selects the clusters and installs the
+add-on; ConfigHub holds the reviewed record, gates it, and publishes the
+approved revision as an OCI image that Sveltos fetches. The run pinned
+Sveltos v1.13.0 and used the addon controller build that decompresses
+gzipped layers, which the ConfigHub gateway serves.
+
+## Why this chapter exists
+
+Promoting a change through environments is the operation every platform team
+does and few can evidence. The claim here is not that configuration reached
+the clusters. It is that nothing reached any cluster except a revision a
+named person approved, and that the other environments held their state
+while one moved.
+
+## See the result
+
+The [matrix](../../../data/sveltos-env-rollout/matrix.md) shows which cluster
+ran which revision at four checkpoints: the baseline, then after each wave.
+The [receipt](../../../runs/sveltos-env-rollout-proof/receipt.yaml) records
+six approval brackets, the release digest per wave, the gateway reference
+per environment, and the controller image that read them.
+
+## How it works
+
+The reviewed `ClusterProfile` for each environment lives in its own
+ConfigHub Space with an approval gate. Approving a revision publishes it to
+the ConfigHub OCI gateway. One bootstrap profile per environment points
+Sveltos at that Space's gateway reference, and Sveltos fetches it and sends
+the reviewed profile to the clusters matching that environment label.
+
+Promotion never touches the bootstrap profile. Publishing the approved
+release moves the tag, and the fleet follows on its interval.
 
 ## The design
 
@@ -43,23 +75,18 @@ run earns them.
 
 ## Current status
 
-No live run has been recorded. On the current server the approval gate never
-appears in a Unit's `ApplyGates` from the Space trigger-filter wiring, so the
-approval boundary cannot be observed live. These runners still carry the delivery path the fleet rehearsal replaced,
-where a GitOps controller moved the artifact instead of Sveltos fetching
-it. No live run is recorded until they are rebuilt on the recorded path. The offline surfaces below are deterministic and
-verified in the repository gate; every observed cell in the matrix stays
-honestly empty until the live proof runs.
+Recorded live. The receipt at
+[runs/sveltos-env-rollout-proof/receipt.yaml](../../../runs/sveltos-env-rollout-proof/receipt.yaml)
+holds six approval brackets across the three environments, a distinct
+release digest per wave, the gateway reference per environment, and the
+addon controller image the run used. The matrix generator fills the observed
+columns from that receipt, so every cell in the matrix is an observation
+rather than an expectation.
 
-The live runner is drafted in
-`scripts/run-sveltos-env-rollout-proof.mjs` and stays behind that blocker on
-purpose. Before it builds anything it probes the approval gate on a throwaway
-Space and Unit; while the defect stands, the probe refuses in seconds and
-names the issue, instead of failing after the seven-minute fleet build. Its
-self-test proves the whole governance walk offline: six approval brackets
-across the three environments, a distinct OCI digest per revision, and a
-receipt bound to the reviewed example files. Once the receipt is recorded,
-the matrix generator fills the observed columns from it.
+Before it builds anything the runner probes the approval gate on a throwaway
+Space and Unit, so a wiring problem refuses in seconds instead of failing
+after the fleet build. Its self-test proves the same governance walk offline
+against fake ConfigHub and cluster surfaces, with no account or cluster.
 
 ## Chapter four
 
@@ -90,23 +117,24 @@ npm run sveltos-env-rollout-proof:self-test
 The live proof follows the two-wave runner's discipline: a self-contained
 kind fleet, one approval bracket per environment revision, each approved
 revision published as an OCI image that Sveltos fetches itself, Sveltos
-convergence per environment group, and a convergence audit at the end. Fleet proofs run serially against the
-organization, never in parallel. To find out whether the server fix has landed, run the two-minute probe. It
-wires one throwaway Space, creates one probe Unit, watches for the approval
-gate, and cleans up after itself. One passing probe unblocks every drafted
-fleet lane.
+convergence per environment group, and a convergence audit at the end. Fleet
+proofs run serially against the organization, never in parallel.
+
+Confirm the approval wiring first. The probe wires one throwaway Space,
+creates one probe Unit, watches for the approval gate, and cleans up after
+itself:
 
 ```bash
 CUB_CONTEXT=my-policy npm run sveltos-gate:probe
 ```
 
-Once the runner carries the recorded delivery path, the run is one command:
+Then record the run. One authenticated context is enough, because no cluster
+Spaces are created:
 
 ```bash
 HELM_EXPT_ALLOW_LIVE_SVELTOS_ENV_ROLLOUT=1 \
-HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
 CUB_CONTEXT=my-policy \
-SVELTOS_CLUSTER_CONTEXT=my-scratch \
+SVELTOS_ADDON_CONTROLLER_IMAGE=docker.io/projectsveltos/addon-controller:v1.13.0-ch \
 npm run sveltos-env-rollout-proof:run
 
 # Then refresh the summary and the observed matrix columns.

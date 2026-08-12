@@ -49,11 +49,10 @@ four's, and the repository gate enforces that continuity mechanically.
 
 ## What is proven today and what is not
 
-Chapters one and two are recorded live. Chapters three, four, and five are
-fully drafted and proven offline: their governance logic, their receipts, and
-their refusal behavior all run against fake ConfigHub and OCI surfaces in the
-repository gate, in seconds, with no account or cluster. Their live runs have
-not happened and every observed matrix cell is honestly empty.
+All five chapters are recorded live. Every observed matrix cell comes from a
+committed receipt, and the same governance logic also runs offline against
+fake ConfigHub and cluster surfaces in the repository gate, in seconds, with
+no account or cluster.
 
 ## What the chapters still wait on
 
@@ -70,10 +69,11 @@ after it is created. An earlier report here said the gate never appeared;
 that was a misreading in this repository's own observation code, which asked
 the server for a projection it does not return, and it has been withdrawn.
 
-What remains is ours. These three runners still carry the delivery path the
-fleet rehearsal replaced, where a GitOps controller moved the artifact
-instead of Sveltos fetching it from the gateway. They record once they are
-rebuilt on the recorded path, each with one command, listed in its README.
+Every chapter now fetches each approved release from the gateway, and each
+one is recorded. What remains is not a run but a release: the gateway serves
+gzipped layers, so these recordings used an addon controller build that
+decompresses them, and each receipt names the image it used. When that fix
+ships in a Sveltos release, the chapters re-record against it.
 
 Every drafted runner starts with a gate preflight: it creates a throwaway
 record, waits for the approval gate to attach, and refuses in seconds if it
