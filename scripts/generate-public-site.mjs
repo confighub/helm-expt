@@ -3596,13 +3596,30 @@ function howItWorksHtml() {
 }
 
 function configHubHtml() {
+  const localReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/receipt.yaml"));
+  const publicReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/public-oci-receipt.yaml"));
+  const uploadReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"));
+  const objectCount = localReceipt?.spec?.baseline?.objectCount;
+  const objectSetDigest = localReceipt?.spec?.reviewed?.objectSetSha256;
+  const ociReference = publicReceipt?.spec?.artifact?.reference;
+  const ociDigest = publicReceipt?.spec?.artifact?.digest;
+  check(objectCount === 5, "ConfigHub handoff example must retain five reviewed objects");
+  check(objectSetDigest === localReceipt?.spec?.output?.pulledObjectsSha256, "local OCI pull-back changed the reviewed object set");
+  check(objectSetDigest === publicReceipt?.spec?.artifact?.objectSetSha256, "public OCI changed the reviewed object set");
+  check(objectSetDigest === uploadReceipt?.spec?.objectSetSha256, "ConfigHub upload changed the reviewed object set");
+  check(ociDigest === uploadReceipt?.spec?.source?.digest, "ConfigHub upload did not record the public OCI digest");
+  check(ociDigest === uploadReceipt?.spec?.space?.externalSourceDigest, "saved ConfigHub base did not retain the public OCI digest");
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Use ConfigHub · Config Workshop</title>
-<style>${siteCss()}</style>
+<style>${siteCss()}
+  .handoff-proof { max-width: 880px; padding-left: 1.3rem; }
+  .handoff-proof li { margin: 12px 0; }
+  .handoff-proof code { overflow-wrap: anywhere; word-break: break-all; }
+</style>
 </head>
 <body>
 <header class="hero human-hero">
@@ -3618,13 +3635,20 @@ function configHubHtml() {
     <p>Start from reviewed files or OCI. Store them as a base configuration, then make separate variants for each environment. Review exact diffs and promote approved changes.</p>
     <p>Publish release OCI for Argo CD or Flux. Keep the source, changes, approvals, releases, and rollout history together.</p>
   </section>
-  <section aria-labelledby="review-tutorial">
-    <h2 id="review-tutorial">2. Follow the official tutorial</h2>
-    <p>Start with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">official tutorial</a>. It covers one component, one change, a production variant, and a promotion.</p>
+  <section aria-labelledby="exact-handoff">
+    <h2 id="exact-handoff">2. See one exact handoff</h2>
+    <p>A worked NGINX example starts with AI-written Helm values. The review keeps the requested three replicas, removes six risky settings, and produces ${escapeHtml(String(objectCount))} Kubernetes objects.</p>
+    <p>We calculate one hash from those objects at each step. Matching hashes mean the objects did not change.</p>
+    <ol class="handoff-proof">
+      <li><strong>Review locally.</strong> The ${escapeHtml(String(objectCount))} objects have object-set hash <code>${escapeHtml(objectSetDigest)}</code>.</li>
+      <li><strong>Publish the OCI.</strong> Pulling <code>${escapeHtml(ociReference)}</code> back produces the same object-set hash. The OCI digest is <code>${escapeHtml(ociDigest)}</code>.</li>
+      <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same ${escapeHtml(String(objectCount))} objects with the same object-set hash, and records the same OCI digest as their source.</li>
+    </ol>
+    <p>The matching hashes show that the handoff preserves the reviewed objects. Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
   </section>
-  <section aria-labelledby="create-account">
-    <h2 id="create-account">3. Create an account</h2>
-    <p><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Sign up for ConfigHub</a> to save a reviewed configuration and work with your team.</p>
+  <section aria-labelledby="review-tutorial">
+    <h2 id="review-tutorial">3. Continue with the official tutorial</h2>
+    <p><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Create a ConfigHub account</a> when you are ready to save a reviewed configuration. Then continue with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">official tutorial</a> to create a development deployment, make a change, add production, and promote the reviewed result.</p>
   </section>
   <section aria-labelledby="read-blog">
     <h2 id="read-blog">4. Read the background</h2>
