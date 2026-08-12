@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try Redis · Config Workshop</title>
-  <meta name="description" content="Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try.html">
-  <meta property="og:title" content="Try Redis · Config Workshop">
-  <meta property="og:description" content="Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One change, dev to production, with the records to prove it · Config Workshop</title>
+  <meta name="description" content="One change, dev to production, with the records to prove it: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/approval-story.html">
+  <meta property="og:title" content="One change, dev to production, with the records to prove it · Config Workshop">
+  <meta property="og:description" content="One change, dev to production, with the records to prove it: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try.html">
-<style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/approval-story.html">
+  <style>
     :root {
       color-scheme: light dark;
       --ink: #131a20;
@@ -427,142 +427,34 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
     }
   </style>
 </head>
-<body class="calm-page">
-<header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-  <h1>Try a simple example: Redis</h1>
-  <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
-  <p>You do not need ConfigHub for this test. It runs on your machine and contacts neither ConfigHub Server nor Kubernetes. No account or registry login is required.</p>
-  <p>ConfigHub becomes useful when you want to keep this result, change it with your team, or promote it between environments.</p>
-</header>
-<main>
-  <section aria-labelledby="install-cub">
-    <h2 id="install-cub">1. Install cub and the package plugin</h2>
-    <p>Install the ConfigHub CLI. Then install the plugin that reads catalog packages.</p>
-    <pre><code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash
-export PATH="$HOME/.confighub/bin:$PATH"
-cub plugin install confighub/installer
-cub installer version
-kustomize version</code></pre>
-    <p>The plugin release contains the program for your operating system. You do not need Go.</p>
-    <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
-    <p>If <code>kustomize version</code> fails, follow the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official Kustomize installation instructions</a>.</p>
-    <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  </section>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>One change, dev to production, with the records to prove it</h1>
+    <p class="lead">Teams ask what an approval actually looks like here. This is the recorded cycle, from the Kubara fleet work, with the receipts and screens that exist today and one honest limit named at the end. <a href="../../../../docs/user/approval-story.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
 
-  <section aria-labelledby="render-package">
-    <h2 id="render-package">2. Render the Redis package</h2>
-    <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
-    <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base reuse-existing-secret \
-    --work-dir ./redis \
-    --namespace redis \
-    --non-interactive \
-    --output-oci ./redis-25.oci</code></pre>
-    <p>The chart renders 13 objects. <code>cub installer</code> adds one explicit Namespace, so the output contains 14 manifest files and no Secret. It also writes a local OCI package.</p>
-    <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
-  </section>
-
-  <section aria-labelledby="inspect-result">
-    <h2 id="inspect-result">3. Inspect the result</h2>
-    <p>Read the selected configuration and its objects. Nothing has been applied to a cluster.</p>
-    <pre><code>cat ./redis/out/spec/selection.yaml
-ls ./redis/out/manifests
-grep -R "^kind:" ./redis/out/manifests</code></pre>
-    <p>The catalog keeps the source inputs beside the result. It also records the required Secret and the checks for this configuration.</p>
-    <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
-  </section>
-
-  <section aria-labelledby="finished">
-    <h2 id="finished">You have finished the first example</h2>
-    <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
-    <p><strong>Next:</strong> <a href="./how-it-works.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
-    <p>Other paths: <a href="./testing.html">choose another worked example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
-  </section>
-</main>
-<footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
+<h2 id="the-cycle">The cycle</h2>
+<ol><li>A value changes in a development variant. The change is a diff against a recorded revision, not an edit to a template.</li><li>The change is previewed: the exact objects that would ship, before anything ships.</li><li>Production Spaces carry an approval gate. The approval binds to the exact observed revision head, so approving yesterday's revision authorizes nothing about today's. This mechanism is proven: hash-stable, head-bound, blocked-then-allowed, in the change-review receipt.</li><li>Promotion moves the exact reviewed revision downstream. No rebuild from a tag, no re-render between review and delivery.</li><li>Rollback restores one production target to an exact earlier recorded release while its twin keeps the newer one. The <a href="day2-upgrade-rollback.html">upgrade and rollback proof</a> shows it on redis; the Kubara fleet pages show it across four clusters.</li></ol>
+<p>The <a href="../demo/kubara/gui-tour.html">GUI tour</a> walks the screens with receipts behind each frame.</p>
+<h2 id="the-honest-limit">The honest limit</h2>
+<p>Our approval receipt does not yet record the approver's identity (<code>approverIdentityRecordedInReceipt: false</code> in the committed record), and the recorded apply was a dry run. The binding mechanism is proven; the named-person production claim is not, and this page will say so until the receipt exists. That gap is on the build list, not hidden under this page.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/approval-story.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -559,7 +559,44 @@
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
-  </section>
+        <h3 id="now-deploy">Now deploy it, three ways</h3>
+      <p><strong>Runs on your laptop until the apply:</strong> pushing the rendered layout to a registry needs only registry credentials, not a ConfigHub account.</p>
+      <p>First, put the rendered bundle somewhere a controller can pull: <code>flux push artifact oci://REGISTRY/redis-rendered:v1 --path ./redis/out/manifests --source local --revision v1</code> (or <code>oras cp</code> the local layout).</p>
+      <p><strong>kubectl</strong></p>
+      <pre><code>kubectl apply -f ./redis/out/manifests/</code></pre>
+      <p><strong>Flux</strong></p>
+      <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata: { name: redis-rendered, namespace: flux-system }
+spec:
+  interval: 5m
+  url: oci://REGISTRY/redis-rendered
+  ref: { tag: v1 }
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: { name: redis-rendered, namespace: flux-system }
+spec:
+  interval: 10m
+  sourceRef: { kind: OCIRepository, name: redis-rendered }
+  path: "."
+  prune: true
+  wait: true</code></pre>
+      <p><strong>Argo CD (3.x with OCI sources enabled)</strong></p>
+      <pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: redis-rendered, namespace: argocd }
+spec:
+  project: default
+  source:
+    repoURL: oci://REGISTRY/redis-rendered
+    targetRevision: v1
+    path: .
+  destination: { server: https://kubernetes.default.svc, namespace: redis }
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]</code></pre>
+      <p>Pruning and CRD ordering differ per path. The <a href="./d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> has the tested details; the <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> shows the failure you avoid.</p>
+    </section>
 
   <section aria-labelledby="next">
     <h2 id="next">5. Next step</h2>

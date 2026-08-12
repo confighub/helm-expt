@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `c74ddf16a`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `7e70ad7da`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 270 |
+| Authored docs tracked | 272 |
 | Fresh (no linked source newer than the doc) | 40 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 152 |
+| No linked evidence sources (cannot auto-trigger) | 154 |
 
 ## Review queue
 
@@ -244,6 +244,7 @@ into this freshness model.
 - [docs/reference/verification-properties.md](../../docs/reference/verification-properties.md)
 - [docs/user/adopting-existing-apps.md](../../docs/user/adopting-existing-apps.md)
 - [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md)
+- [docs/user/approval-story.md](../../docs/user/approval-story.md)
 - [docs/user/broken-chart-triage.md](../../docs/user/broken-chart-triage.md)
 - [docs/user/change-routing-before-oci.md](../../docs/user/change-routing-before-oci.md)
 - [docs/user/choose-your-path.md](../../docs/user/choose-your-path.md)
@@ -261,6 +262,7 @@ into this freshness model.
 - [docs/user/large-config-operations.md](../../docs/user/large-config-operations.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
 - [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md)
+- [docs/user/nim-coverage.md](../../docs/user/nim-coverage.md)
 - [docs/user/prometheus-overlay-promotion-example.md](../../docs/user/prometheus-overlay-promotion-example.md)
 - [docs/user/try-now.md](../../docs/user/try-now.md)
 - [docs/user/ux-proposal-bulk-scan-patch-tutorial.md](../../docs/user/ux-proposal-bulk-scan-patch-tutorial.md)

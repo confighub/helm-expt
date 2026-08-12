@@ -102,7 +102,7 @@ const checks = [
   },
   {
     file: "site/known-gaps.html",
-    terms: ["See what is not ready yet", "1. Read the current limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "What to do now"],
+    terms: ["See what is not ready yet", "1. Read the current limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
   },
   {
     file: "site/docs.html",
