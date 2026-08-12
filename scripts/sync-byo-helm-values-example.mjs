@@ -737,6 +737,28 @@ Kubernetes objects, a separate README Unit explains the example, and the shared
 catalog checks are attached. The source OCI reference and digest are recorded
 on the Space.
 
+## One exact handoff
+
+The three checks below use the same five Kubernetes objects. The object-set
+hash is calculated from the objects, so matching hashes show that the handoff
+did not silently rerender or replace them.
+
+| Checkpoint | Object-set SHA-256 | OCI source digest |
+| --- | --- | --- |
+| Reviewed locally and pulled back from local OCI | \`${localReceipt.spec.reviewed.objectSetSha256}\` | \`${expectedDigest}\` |
+| Pulled anonymously from the public registry | \`${localReceipt.spec.reviewed.objectSetSha256}\` | \`${expectedDigest}\` |
+| Read back from the saved ConfigHub base | \`${localReceipt.spec.reviewed.objectSetSha256}\` | \`${expectedDigest}\` |
+
+This is the boundary between the public workshop and ConfigHub: review a
+result locally, then save those exact objects when the team needs variants,
+approvals, promotion, or release history.
+
+After the base is saved, continue with the
+[official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/).
+It shows the next steps: create a development deployment, make a change, add a
+production deployment, and flow the reviewed change from base to development
+to production.
+
 ## Current status
 
 - Public OCI push: **${publicReceipt?.status?.result ?? "not-run"}**
