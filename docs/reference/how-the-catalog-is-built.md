@@ -19,6 +19,17 @@ upstream drift record is what this discipline buys: when a publisher
 republishes different bytes under the same version string, this catalog can
 say so, with both digests.
 
+The public `changes.json` file computes the current retained-version count, the
+oldest registry receipt, and the number of version strings whose upstream bytes
+were replaced. Those numbers come from package receipts and drift records. They
+are not maintained by hand.
+
+A chart enters the catalog only after its chart license and the source of that
+license information are recorded. Normal refreshes add entries and do not
+rewrite old packages. If a legal or factual correction is required, the package
+must be marked and the reason recorded. A correction must never look like an
+ordinary refresh.
+
 ## The matrix taxonomy
 
 The master matrix keeps one row per chart, version, and base. Layer marks the

@@ -36,11 +36,28 @@ const errors = validateFeed(feed, { checkFiles: true });
 
 check(schema.$id === `${SITE_BASE_URL}changes.schema.json`, "schema $id must be the public schema URL");
 check(schema.properties?.schema_version?.const === "1", "schema must pin major version 1");
+check(schema.required?.includes("retention"), "schema must require the retention summary");
 check(
   COVERAGE_FAMILIES.every((family) => schema.$defs?.entry?.properties?.coverage?.required?.includes(family)),
   "schema must require every coverage family",
 );
 check(feed.entries.length === (catalog.installerOciPackages ?? []).length, "feed must contain every retained package version");
+
+const publishedRows = (catalog.installerOciPackages ?? []).filter(
+  (row) => row.publication_status === "published-receipt" && row.publication_receipt,
+);
+const publicationDates = publishedRows.map((row) => {
+  const text = readFileSync(join(repoRoot, row.publication_receipt), "utf8");
+  const observedAt = text.match(/^  observedAt: "([^"]+)"$/m)?.[1];
+  check(observedAt && !Number.isNaN(Date.parse(observedAt)), `${row.chart}@${row.version}: publication receipt has no valid observedAt`);
+  return observedAt;
+}).sort();
+check(feed.retention.retained_components === new Set(catalog.installerOciPackages.map((row) => row.chart)).size, "retention component count differs from catalog.json");
+check(feed.retention.retained_package_versions === catalog.installerOciPackages.length, "retention version count differs from catalog.json");
+check(feed.retention.published_package_versions === publishedRows.length, "retention publication count differs from catalog.json");
+check(feed.retention.oldest_publication_receipt_at === publicationDates[0], "retention oldest receipt date differs from publication evidence");
+check(feed.retention.upstream_republished_version_pairs === (catalog.upstreamDrift ?? []).length, "retention republish count differs from the drift record");
+check(feed.retention.license_evidence_as_of === catalog.chartLicensesResearchedAt, "retention license date differs from the chart-license record");
 
 for (const row of catalog.installerOciPackages ?? []) {
   const entry = resolveEntry(feed, row.chart, row.version);
@@ -72,11 +89,23 @@ check(
   validateFeed(falseChecked, { checkFiles: false }).some((message) => message.includes("requires evidence")),
   "self-test: checked coverage without evidence must fail validation",
 );
+const missingRetention = structuredClone(feed);
+delete missingRetention.retention;
+check(
+  validateFeed(missingRetention, { checkFiles: false }).some((message) => message.includes("retention")),
+  "self-test: deleting the retention summary must fail validation",
+);
+const falseRetentionCount = structuredClone(feed);
+falseRetentionCount.retention.retained_package_versions += 1;
+check(
+  validateFeed(falseRetentionCount, { checkFiles: false }).some((message) => message.includes("retained_package_versions")),
+  "self-test: an impossible retention count must fail validation",
+);
 
 const llms = readFileSync(llmsPath, "utf8");
 const ask = readFileSync(askPath, "utf8");
 const issueTemplate = readFileSync(issueTemplatePath, "utf8");
-for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json"]) {
+for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json", "retention object is computed", "Normal catalog refreshes are additive"]) {
   check(llms.includes(term), `site/llms.txt must explain the machine contract: ${term}`);
 }
 for (const term of ["Question code", "WORKSHOP FINDING", "not_checked", "changes.schema.json", "File the public question"]) {
@@ -99,6 +128,7 @@ function validateFeed(candidate, { checkFiles }) {
   const findings = [];
   if (candidate?.schema_version !== "1") findings.push("schema_version must equal 1");
   if (!candidate?.generated_at || Number.isNaN(Date.parse(candidate.generated_at))) findings.push("generated_at must be an ISO timestamp");
+  validateRetention(candidate?.retention, candidate?.entries, findings, checkFiles);
   if (!Array.isArray(candidate?.entries)) return [...findings, "entries must be an array"];
 
   const identities = new Set();
@@ -150,6 +180,38 @@ function validateFeed(candidate, { checkFiles }) {
     }
   }
   return findings;
+}
+
+function validateRetention(retention, entries, findings, checkFiles) {
+  if (!retention || typeof retention !== "object") {
+    findings.push("retention summary is required");
+    return;
+  }
+  if (retention.policy !== "additive_only") findings.push("retention policy must be additive_only");
+  if (retention.license_gate !== "evidence_required_before_listing") findings.push("retention license_gate is invalid");
+  for (const field of ["retained_components", "retained_package_versions", "published_package_versions", "upstream_republished_version_pairs"]) {
+    if (!Number.isInteger(retention[field]) || retention[field] < 0) findings.push(`retention ${field} must be a non-negative integer`);
+  }
+  if (Array.isArray(entries) && retention.retained_package_versions !== entries.length) {
+    findings.push("retention retained_package_versions must equal the number of entries");
+  }
+  if (!retention.oldest_publication_receipt_at || Number.isNaN(Date.parse(retention.oldest_publication_receipt_at))) {
+    findings.push("retention oldest_publication_receipt_at must be an ISO timestamp");
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(retention.license_evidence_as_of ?? "")) {
+    findings.push("retention license_evidence_as_of must be an ISO date");
+  }
+  for (const name of ["policy", "packages", "upstream_republishes", "licenses"]) {
+    const url = retention.evidence_urls?.[name];
+    if (!String(url ?? "").startsWith("https://")) {
+      findings.push(`retention ${name} evidence must use https`);
+      continue;
+    }
+    if (checkFiles) {
+      const localPath = localPathForUrl(url);
+      if (localPath && !existsSync(localPath)) findings.push(`retention ${name} evidence target is missing: ${url}`);
+    }
+  }
 }
 
 function resolveEntry(candidate, chart, version) {

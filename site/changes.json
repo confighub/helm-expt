@@ -1,6 +1,22 @@
 {
   "schema_version": "1",
   "generated_at": "2026-08-08T00:00:00Z",
+  "retention": {
+    "policy": "additive_only",
+    "retained_components": 112,
+    "retained_package_versions": 139,
+    "published_package_versions": 139,
+    "oldest_publication_receipt_at": "2026-08-08T20:46:49.694Z",
+    "upstream_republished_version_pairs": 2,
+    "license_gate": "evidence_required_before_listing",
+    "license_evidence_as_of": "2026-08-08",
+    "evidence_urls": {
+      "policy": "https://github.com/confighub/helm-expt/blob/main/docs/reference/how-the-catalog-is-built.md",
+      "packages": "https://github.com/confighub/helm-expt/blob/main/data/installer-oci-packages/summary.md",
+      "upstream_republishes": "https://github.com/confighub/helm-expt/blob/main/data/upstream-drift/summary.md",
+      "licenses": "https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml"
+    }
+  },
   "entries": [
     {
       "chart": "aqua/trivy-operator",
