@@ -23,12 +23,16 @@ name: Weekly catalog refresh
 # maintainer can regenerate reproducibly at all.
 
 on:
-  # The schedule is deliberately switched off. This job is not ready to run
-  # unattended: its derived-views step refreshes review.csv without refreshing
-  # the two committed views that copy latest_version out of it, so the pull
-  # request it opens would contradict itself and merging it would turn
-  # `npm run verify` red. docs/planning/catalog-refresh-plan.md records what has
-  # to be true before the cron comes back, and the maintainer decides when.
+  # The schedule is deliberately switched off, and the reason has changed since
+  # this comment was first written. The machinery itself is now believed sound:
+  # the derived-views step refreshes every committed view that copies
+  # latest_version out of review.csv, the guard below refuses any diff outside
+  # the refresh surface, and the pull request this job opens runs the full
+  # verify chain before it can merge, so an incomplete refresh cannot land
+  # silently. The remaining hold is a maintainer decision: the catalog is not
+  # yet current, and issue #1443 records what a full refresh run needs
+  # (regenerate to a fixpoint, never a single pass). The maintainer decides
+  # when the cron comes back.
   #
   #  schedule:
   #    # Mondays, 06:00 UTC.
@@ -36,7 +40,7 @@ on:
   workflow_dispatch:
     inputs:
       acknowledge_known_gap:
-        description: "Type 'yes' to run anyway, knowing the derived-view fan-out is incomplete"
+        description: "Type 'yes' to run while the schedule hold is in place"
         required: true
         default: "no"
 
@@ -65,7 +69,7 @@ jobs:
       - name: Refuse an unacknowledged run
         run: |
           if [ "${{ inputs.acknowledge_known_gap }}" != "yes" ]; then
-            echo "::error::This lane is held. Its derived-view fan-out is incomplete, so the pull request it opens would contradict itself. See docs/planning/catalog-refresh-plan.md. Dispatch with acknowledge_known_gap=yes only to test the machinery."
+            echo "::error::This lane is held while the catalog is brought current; the maintainer decides when the cron returns. The pull request it opens runs the full verify chain, so a bad refresh cannot merge silently. Dispatch with acknowledge_known_gap=yes only to test the machinery."
             exit 1
           fi
 
