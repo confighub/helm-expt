@@ -502,6 +502,77 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
     </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
+      <p>Choose the question you care about. <strong>Not checked</strong> means this catalog has no version-specific result; it is not a pass.</p>
+      <div class="card"><table class="coverage-table">
+        <thead><tr><th>Question</th><th>Status</th><th>Evidence</th></tr></thead>
+        <tbody><tr>
+          <td data-label="Question">Can I pull these exact package bytes again?</td>
+          <td data-label="Status">Checked</td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/argo-cd-argo-cd/9.5.17/installer-package-publication-receipt.yaml">Package receipt</a></td>
+        </tr><tr>
+          <td data-label="Question">What does this chart contain?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Does the recorded render match Helm?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did the supplied values change the render?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Were hooks, CRDs, or setup steps checked?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did this version run on a local Kubernetes cluster?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did an OCI delivery through GitOps run?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did Helm and ConfigHub reach the same live result?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Was the result compared on separate clusters?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Was a ConfigHub promotion tested?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr><tr>
+          <td data-label="Question">Did this version string point at changed upstream bytes?</td>
+          <td data-label="Status">Not checked</td>
+          <td data-label="Evidence">No linked result</td>
+        </tr></tbody>
+      </table></div>
+      <style>
+        @media (max-width: 640px) {
+          table.coverage-table { display: block; white-space: normal; overflow: visible; }
+          .coverage-table thead { display: none; }
+          .coverage-table tbody { display: block; }
+          .coverage-table tr {
+            display: grid;
+            grid-template-columns: minmax(7.5rem, .38fr) minmax(0, 1fr);
+            gap: 4px 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--line);
+          }
+          .coverage-table tr:last-child { border-bottom: 0; }
+          .coverage-table td { display: block; width: auto; padding: 0; border: 0; white-space: normal; }
+          .coverage-table td:first-child { grid-column: 1 / -1; color: var(--ink); font-weight: 650; }
+          .coverage-table td:nth-child(n + 2)::before {
+            content: attr(data-label) ": ";
+            color: var(--muted);
+            font-weight: 600;
+          }
+        }
+      </style>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac</code> and manifest <code>sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116</code>, and records an inspect-result digest.</p>
       <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./argo-cd-argo-cd-9-5-15.html">9.5.15 evidence page</a>.</p>

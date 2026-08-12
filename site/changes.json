@@ -63,13 +63,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html#proof"
           ]
         },
         "live_parity": {
@@ -82,7 +82,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html#proof"
           ]
         },
         "promotion": {
@@ -255,7 +255,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html#proof"
           ]
         },
         "gitops_oci": {
@@ -274,7 +274,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html#proof"
           ]
         },
         "promotion": {
@@ -391,13 +391,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html#proof"
           ]
         },
         "live_parity": {
@@ -410,7 +410,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html#proof"
           ]
         },
         "promotion": {
@@ -471,13 +471,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html#proof"
           ]
         },
         "live_parity": {
@@ -490,7 +490,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html#proof"
           ]
         },
         "promotion": {
@@ -555,13 +555,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html#proof"
           ]
         },
         "live_parity": {
@@ -575,7 +575,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html#proof"
           ]
         },
         "promotion": {
@@ -635,13 +635,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html#proof"
           ]
         },
         "live_parity": {
@@ -653,7 +653,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html#proof"
           ]
         },
         "promotion": {
@@ -713,13 +713,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html#proof"
           ]
         },
         "live_parity": {
@@ -787,19 +787,19 @@
         "lifecycle_observation": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html#proof"
           ]
         },
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html#proof"
           ]
         },
         "live_parity": {
@@ -812,7 +812,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html#proof"
           ]
         },
         "promotion": {
@@ -1145,7 +1145,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html#proof"
           ]
         },
         "gitops_oci": {
@@ -1234,7 +1234,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html#proof"
           ]
         },
         "promotion": {
@@ -1298,7 +1298,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html#proof"
           ]
         },
         "gitops_oci": {
@@ -1370,13 +1370,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html#proof"
           ]
         },
         "live_parity": {
@@ -1388,7 +1388,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html#proof"
           ]
         },
         "promotion": {
@@ -1448,13 +1448,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html#proof"
           ]
         },
         "live_parity": {
@@ -1638,13 +1638,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html#proof"
           ]
         },
         "live_parity": {
@@ -1657,7 +1657,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html#proof"
           ]
         },
         "promotion": {
@@ -1718,7 +1718,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html#proof"
           ]
         },
         "gitops_oci": {
@@ -1910,7 +1910,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html#proof"
           ]
         },
         "gitops_oci": {
@@ -1984,7 +1984,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -2113,7 +2113,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html#proof"
           ]
         },
         "gitops_oci": {
@@ -2247,13 +2247,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html#proof"
           ]
         },
         "live_parity": {
@@ -2266,7 +2266,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html#proof"
           ]
         },
         "promotion": {
@@ -2329,7 +2329,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html#proof"
           ]
         },
         "gitops_oci": {
@@ -2467,7 +2467,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html#proof"
           ]
         },
         "gitops_oci": {
@@ -2543,7 +2543,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html"
+            "https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html#proof"
           ]
         },
         "gitops_oci": {
@@ -2617,13 +2617,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html#proof"
           ]
         },
         "live_parity": {
@@ -2636,7 +2636,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html#proof"
           ]
         },
         "promotion": {
@@ -2893,13 +2893,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html#proof"
           ]
         },
         "live_parity": {
@@ -2911,7 +2911,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html#proof"
           ]
         },
         "promotion": {
@@ -2969,13 +2969,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html#proof"
           ]
         },
         "live_parity": {
@@ -2987,7 +2987,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html#proof"
           ]
         },
         "promotion": {
@@ -3045,13 +3045,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html#proof"
           ]
         },
         "live_parity": {
@@ -3063,7 +3063,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html#proof"
           ]
         },
         "promotion": {
@@ -3193,13 +3193,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html#proof"
           ]
         },
         "live_parity": {
@@ -3213,7 +3213,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html#proof"
           ]
         },
         "promotion": {
@@ -3414,13 +3414,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html#proof"
           ]
         },
         "live_parity": {
@@ -3433,7 +3433,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html#proof"
           ]
         },
         "promotion": {
@@ -3564,13 +3564,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html#proof"
           ]
         },
         "live_parity": {
@@ -3584,7 +3584,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html#proof"
           ]
         },
         "promotion": {
@@ -3642,13 +3642,13 @@
         "lifecycle_observation": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html#proof"
           ]
         },
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -3665,7 +3665,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html#proof"
           ]
         },
         "promotion": {
@@ -3836,13 +3836,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html#proof"
           ]
         },
         "live_parity": {
@@ -3854,7 +3854,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html#proof"
           ]
         },
         "promotion": {
@@ -3913,19 +3913,19 @@
         "lifecycle_observation": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html#proof"
           ]
         },
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html#proof"
           ]
         },
         "live_parity": {
@@ -3938,7 +3938,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html#proof"
           ]
         },
         "promotion": {
@@ -4000,13 +4000,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html#proof"
           ]
         },
         "live_parity": {
@@ -4018,7 +4018,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html#proof"
           ]
         },
         "promotion": {
@@ -4076,13 +4076,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html#proof"
           ]
         },
         "live_parity": {
@@ -4094,7 +4094,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html#proof"
           ]
         },
         "promotion": {
@@ -4154,13 +4154,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html#proof"
           ]
         },
         "live_parity": {
@@ -4172,7 +4172,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html#proof"
           ]
         },
         "promotion": {
@@ -4230,7 +4230,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html#proof"
           ]
         },
         "gitops_oci": {
@@ -4244,7 +4244,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html#proof"
           ]
         },
         "promotion": {
@@ -4306,13 +4306,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html#proof"
           ]
         },
         "live_parity": {
@@ -4325,7 +4325,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html#proof"
           ]
         },
         "promotion": {
@@ -4510,13 +4510,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html#proof"
           ]
         },
         "live_parity": {
@@ -4529,7 +4529,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html#proof"
           ]
         },
         "promotion": {
@@ -4587,13 +4587,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html#proof"
           ]
         },
         "live_parity": {
@@ -4606,7 +4606,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html#proof"
           ]
         },
         "promotion": {
@@ -4667,13 +4667,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html#proof"
           ]
         },
         "live_parity": {
@@ -4686,7 +4686,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html#proof"
           ]
         },
         "promotion": {
@@ -4801,13 +4801,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html#proof"
           ]
         },
         "live_parity": {
@@ -4819,7 +4819,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html#proof"
           ]
         },
         "promotion": {
@@ -4881,7 +4881,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html#proof"
           ]
         },
         "gitops_oci": {
@@ -4895,7 +4895,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html#proof"
           ]
         },
         "promotion": {
@@ -4957,13 +4957,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html#proof"
           ]
         },
         "live_parity": {
@@ -4976,7 +4976,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html#proof"
           ]
         },
         "promotion": {
@@ -5037,13 +5037,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html#proof"
           ]
         },
         "live_parity": {
@@ -5056,7 +5056,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html"
+            "https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html#proof"
           ]
         },
         "promotion": {
@@ -5115,13 +5115,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html#proof"
           ]
         },
         "live_parity": {
@@ -5133,7 +5133,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html#proof"
           ]
         },
         "promotion": {
@@ -5193,7 +5193,7 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -5212,7 +5212,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html#proof"
           ]
         },
         "promotion": {
@@ -5346,13 +5346,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html#proof"
           ]
         },
         "live_parity": {
@@ -5366,7 +5366,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html#proof"
           ]
         },
         "promotion": {
@@ -5426,13 +5426,13 @@
         "lifecycle_observation": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html#proof"
           ]
         },
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html#proof"
           ]
         },
         "gitops_oci": {
@@ -5453,7 +5453,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html#proof"
           ]
         },
         "promotion": {
@@ -5652,13 +5652,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html#proof"
           ]
         },
         "live_parity": {
@@ -5670,7 +5670,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html#proof"
           ]
         },
         "promotion": {
@@ -5730,13 +5730,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html#proof"
           ]
         },
         "live_parity": {
@@ -5804,19 +5804,19 @@
         "lifecycle_observation": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html#proof"
           ]
         },
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html#proof"
           ]
         },
         "live_parity": {
@@ -5829,7 +5829,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html#proof"
           ]
         },
         "promotion": {
@@ -5944,13 +5944,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html#proof"
           ]
         },
         "live_parity": {
@@ -5962,7 +5962,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html#proof"
           ]
         },
         "promotion": {
@@ -6026,7 +6026,7 @@
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html#proof"
           ]
         },
         "live_parity": {
@@ -6039,7 +6039,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html#proof"
           ]
         },
         "promotion": {
@@ -6172,7 +6172,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -6191,7 +6191,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html#proof"
           ]
         },
         "promotion": {
@@ -6254,13 +6254,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html#proof"
           ]
         },
         "live_parity": {
@@ -6273,7 +6273,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html#proof"
           ]
         },
         "promotion": {
@@ -6388,7 +6388,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -6514,7 +6514,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -6528,7 +6528,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html#proof"
           ]
         },
         "promotion": {
@@ -6588,13 +6588,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html#proof"
           ]
         },
         "live_parity": {
@@ -6607,7 +6607,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html"
+            "https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html#proof"
           ]
         },
         "promotion": {
@@ -6780,7 +6780,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -6799,7 +6799,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html#proof"
           ]
         },
         "promotion": {
@@ -6916,13 +6916,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html#proof"
           ]
         },
         "live_parity": {
@@ -6934,7 +6934,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html#proof"
           ]
         },
         "promotion": {
@@ -6994,7 +6994,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html#proof"
           ]
         },
         "gitops_oci": {
@@ -7008,7 +7008,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html#proof"
           ]
         },
         "promotion": {
@@ -7068,13 +7068,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html#proof"
           ]
         },
         "live_parity": {
@@ -7087,7 +7087,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html#proof"
           ]
         },
         "promotion": {
@@ -7148,13 +7148,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html#proof"
           ]
         },
         "live_parity": {
@@ -7167,7 +7167,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html#proof"
           ]
         },
         "promotion": {
@@ -7497,7 +7497,7 @@
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html#proof"
           ]
         },
         "live_parity": {
@@ -7510,7 +7510,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html#proof"
           ]
         },
         "promotion": {
@@ -7639,13 +7639,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html#proof"
           ]
         },
         "live_parity": {
@@ -7658,7 +7658,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html#proof"
           ]
         },
         "promotion": {
@@ -7719,13 +7719,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html#proof"
           ]
         },
         "live_parity": {
@@ -7738,7 +7738,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html#proof"
           ]
         },
         "promotion": {
@@ -7799,13 +7799,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html#proof"
           ]
         },
         "live_parity": {
@@ -7818,7 +7818,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html"
+            "https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html#proof"
           ]
         },
         "promotion": {
@@ -7939,7 +7939,7 @@
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html#proof"
           ]
         },
         "live_parity": {
@@ -7951,7 +7951,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html#proof"
           ]
         },
         "promotion": {
@@ -8011,13 +8011,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8030,7 +8030,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html#proof"
           ]
         },
         "promotion": {
@@ -8093,7 +8093,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html#proof"
           ]
         },
         "gitops_oci": {
@@ -8340,13 +8340,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8359,7 +8359,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html#proof"
           ]
         },
         "promotion": {
@@ -8420,7 +8420,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html#proof"
           ]
         },
         "gitops_oci": {
@@ -8556,13 +8556,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8576,7 +8576,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html#proof"
           ]
         },
         "promotion": {
@@ -8638,13 +8638,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8657,7 +8657,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html#proof"
           ]
         },
         "promotion": {
@@ -8774,13 +8774,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8793,7 +8793,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html#proof"
           ]
         },
         "promotion": {
@@ -8852,13 +8852,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8870,7 +8870,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html#proof"
           ]
         },
         "promotion": {
@@ -8928,13 +8928,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html#proof"
           ]
         },
         "live_parity": {
@@ -8946,7 +8946,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html#proof"
           ]
         },
         "promotion": {
@@ -9004,13 +9004,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html#proof"
           ]
         },
         "live_parity": {
@@ -9022,7 +9022,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html#proof"
           ]
         },
         "promotion": {
@@ -9080,7 +9080,7 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-cluster-v1-19-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-cluster-v1-19-5.html#proof"
           ]
         },
         "gitops_oci": {
@@ -9150,13 +9150,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html#proof"
           ]
         },
         "live_parity": {
@@ -9168,7 +9168,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html#proof"
           ]
         },
         "promotion": {
@@ -9228,13 +9228,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html#proof"
           ]
         },
         "live_parity": {
@@ -9247,7 +9247,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html"
+            "https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html#proof"
           ]
         },
         "promotion": {
@@ -9308,13 +9308,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html#proof"
           ]
         },
         "live_parity": {
@@ -9327,7 +9327,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html#proof"
           ]
         },
         "promotion": {
@@ -9388,13 +9388,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html"
+            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html"
+            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html#proof"
           ]
         },
         "live_parity": {
@@ -9407,7 +9407,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html"
+            "https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html#proof"
           ]
         },
         "promotion": {
@@ -9524,13 +9524,13 @@
         "local_kubernetes": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html#proof"
           ]
         },
         "live_parity": {
@@ -9543,7 +9543,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html#proof"
           ]
         },
         "promotion": {
@@ -9604,13 +9604,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html#proof"
           ]
         },
         "live_parity": {
@@ -9623,7 +9623,7 @@
         "two_cluster": {
           "status": "partial",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html#proof"
           ]
         },
         "promotion": {
@@ -9931,13 +9931,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html#proof"
           ]
         },
         "live_parity": {
@@ -9949,7 +9949,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html"
+            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html#proof"
           ]
         },
         "promotion": {
@@ -10009,13 +10009,13 @@
         "local_kubernetes": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html#proof"
           ]
         },
         "gitops_oci": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html#proof"
           ]
         },
         "live_parity": {
@@ -10028,7 +10028,7 @@
         "two_cluster": {
           "status": "checked",
           "evidence_urls": [
-            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html"
+            "https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html#proof"
           ]
         },
         "promotion": {

@@ -157,6 +157,19 @@ const CHART_ALIASES = {
   "minio-operator/operator": ["minio/operator"],
   "minio-operator/tenant": ["minio/tenant"],
 };
+const COVERAGE_QUESTIONS = [
+  ["retained_package", "Can I pull these exact package bytes again?"],
+  ["chart_analysis", "What does this chart contain?"],
+  ["render_parity", "Does the recorded render match Helm?"],
+  ["values_diagnostics", "Did the supplied values change the render?"],
+  ["lifecycle_observation", "Were hooks, CRDs, or setup steps checked?"],
+  ["local_kubernetes", "Did this version run on a local Kubernetes cluster?"],
+  ["gitops_oci", "Did an OCI delivery through GitOps run?"],
+  ["live_parity", "Did Helm and ConfigHub reach the same live result?"],
+  ["two_cluster", "Was the result compared on separate clusters?"],
+  ["promotion", "Was a ConfigHub promotion tested?"],
+  ["upstream_republish", "Did this version string point at changed upstream bytes?"],
+];
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
@@ -843,17 +856,21 @@ function buildSite(generatedAt) {
     masterCatalogMatrix: publicMatrixRows,
     upstreamDrift,
   };
+  const changesEntries = buildChangesEntries(catalog);
+  const changesByVersion = new Map(
+    changesEntries.map((entry) => [`${entry.chart}|${entry.version}`, entry]),
+  );
   const evidenceBearingChartPages = catalog.catalogEntries.map((entry) => ({
     fileName: chartPageFileName(entry),
     path: join(chartPagesRoot, chartPageFileName(entry)),
-    html: chartPageHtml(catalog, entry),
+    html: chartPageHtml(catalog, entry, changesByVersion.get(`${entry.chart}|${entry.version}`)),
   }));
   const retainedOnlyChartPages = catalog.installerOciPackages
     .filter((row) => !publicChartKeys.has(`${row.chart}|${row.version}`))
     .map((row) => ({
       fileName: chartPageFileName(row),
       path: join(chartPagesRoot, chartPageFileName(row)),
-      html: retainedVersionPageHtml(catalog, row),
+      html: retainedVersionPageHtml(catalog, row, changesByVersion.get(`${row.chart}|${row.version}`)),
     }));
   check(
     retainedOnlyChartPages.length === catalog.installerOciPackages.length - evidenceBearingChartPages.length,
@@ -868,7 +885,7 @@ function buildSite(generatedAt) {
   );
   const site = {
     catalogJson: `${JSON.stringify(siteSafe({ schema_version: "1", generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
-    changesJson: buildChangesFeed(catalog),
+    changesJson: buildChangesFeed(catalog, changesEntries),
     changesSchemaJson: readFileSync(changesSchemaSourcePath, "utf8"),
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
@@ -1048,6 +1065,87 @@ function coverageItem(status, values = [], fallback = "") {
   return { status, evidence_urls: urls };
 }
 
+function coverageStatusLabel(status) {
+  return {
+    checked: "Checked",
+    partial: "Partly checked",
+    not_checked: "Not checked",
+    not_applicable: "Not applicable",
+  }[status] ?? "Not checked";
+}
+
+function coverageEvidenceLabel(url) {
+  const path = new URL(url).pathname;
+  if (/installer-package-publication-receipt/i.test(path)) return "Package receipt";
+  if (/variant-promotion-receipt/i.test(path)) return "Promotion receipt";
+  if (/runtime-gitops/i.test(path)) return "GitOps receipt";
+  if (/live-helm-confighub-compare/i.test(path)) return "Live comparison";
+  if (/observation-receipt|live-kind-parity/i.test(path)) return "Cluster receipt";
+  if (/source-lock/i.test(path)) return "Source lock";
+  if (/\/CATALOG\.md$/i.test(path)) return "Chart guide";
+  if (/helm-pain-report/i.test(path)) return "Chart review";
+  if (/control-points/i.test(path)) return "Control points";
+  if (/outcome-coverage/i.test(path)) return "Coverage record";
+  if (/receipt/i.test(path)) return "Receipt";
+  if (/render-intent/i.test(path)) return "Render record";
+  if (/variant-revision/i.test(path)) return "Render result";
+  if (/values-diagnostics/i.test(path)) return "Values report";
+  if (/upstream-drift/i.test(path)) return "Drift record";
+  if (url.includes("#proof")) return "Version results below";
+  return "Evidence";
+}
+
+function coverageQuestionTable(coverageEntry) {
+  if (!coverageEntry?.coverage) return "<p>No question coverage record exists for this version.</p>";
+  const rows = COVERAGE_QUESTIONS.map(([family, question]) => {
+    const item = coverageEntry.coverage[family] ?? { status: "not_checked", evidence_urls: [] };
+    const urls = item.evidence_urls ?? [];
+    const visibleUrls = urls.slice(0, 3);
+    const labels = visibleUrls.map((url) => coverageEvidenceLabel(url));
+    const labelTotals = new Map(labels.map((label) => [label, labels.filter((itemLabel) => itemLabel === label).length]));
+    const labelSeen = new Map();
+    const links = visibleUrls.map((url, index) => {
+      const label = labels[index];
+      const occurrence = (labelSeen.get(label) ?? 0) + 1;
+      labelSeen.set(label, occurrence);
+      const displayLabel = labelTotals.get(label) > 1 ? `${label} ${occurrence}` : label;
+      return `<a href="${escapeHtml(url)}">${escapeHtml(displayLabel)}</a>`;
+    });
+    if (urls.length > 3) links.push(`<a href="../changes.json">All ${urls.length} evidence links</a>`);
+    return [question, coverageStatusLabel(item.status), links.length ? links.join(" · ") : "No linked result"];
+  });
+  return `<div class="card"><table class="coverage-table">
+        <thead><tr><th>Question</th><th>Status</th><th>Evidence</th></tr></thead>
+        <tbody>${rows.map(([question, status, evidence]) => `<tr>
+          <td data-label="Question">${escapeHtml(question)}</td>
+          <td data-label="Status">${escapeHtml(status)}</td>
+          <td data-label="Evidence">${evidence}</td>
+        </tr>`).join("")}</tbody>
+      </table></div>
+      <style>
+        @media (max-width: 640px) {
+          table.coverage-table { display: block; white-space: normal; overflow: visible; }
+          .coverage-table thead { display: none; }
+          .coverage-table tbody { display: block; }
+          .coverage-table tr {
+            display: grid;
+            grid-template-columns: minmax(7.5rem, .38fr) minmax(0, 1fr);
+            gap: 4px 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--line);
+          }
+          .coverage-table tr:last-child { border-bottom: 0; }
+          .coverage-table td { display: block; width: auto; padding: 0; border: 0; white-space: normal; }
+          .coverage-table td:first-child { grid-column: 1 / -1; color: var(--ink); font-weight: 650; }
+          .coverage-table td:nth-child(n + 2)::before {
+            content: attr(data-label) ": ";
+            color: var(--muted);
+            font-weight: 600;
+          }
+        }
+      </style>`;
+}
+
 function buildRetentionSummary(catalog) {
   const publishedRows = (catalog.installerOciPackages ?? []).filter(
     (row) => row.publication_status === "published-receipt" && row.publication_receipt,
@@ -1086,7 +1184,7 @@ function buildRetentionSummary(catalog) {
   };
 }
 
-function buildChangesFeed(catalog) {
+function buildChangesEntries(catalog) {
   const matrixByVersion = new Map();
   for (const row of catalog.masterCatalogMatrix ?? []) {
     if (row.row_kind !== "base") continue;
@@ -1101,13 +1199,14 @@ function buildChangesFeed(catalog) {
     (catalog.upstreamDrift ?? []).map((row) => [`${row.repository}/${row.chart}|${row.version}`, row]),
   );
 
-  const entries = (catalog.installerOciPackages ?? [])
+  return (catalog.installerOciPackages ?? [])
     .map((row) => {
       const key = `${row.chart}|${row.version}`;
       const matrixRows = matrixByVersion.get(key) ?? [];
       const router = routerByVersion.get(key);
       const drift = driftByVersion.get(key);
       const canonical = canonicalUrl(`charts/${chartPageFileName(row)}`);
+      const proofSection = `${canonical}#proof`;
       const valuesDiagnostics = `recipes/${row.chart}/${row.version}/values-diagnostics.yaml`;
       const chartAnalysisStatus = router?.coverage_status === "covered"
         ? "checked"
@@ -1129,57 +1228,59 @@ function buildChangesFeed(catalog) {
             [row.publication_receipt],
             canonical,
           ),
-          chart_analysis: coverageItem(chartAnalysisStatus, [router?.coverage_evidence], canonical),
+          chart_analysis: coverageItem(chartAnalysisStatus, [router?.coverage_evidence], proofSection),
           render_parity: coverageItem(
             aggregateCoverage(matrixRows, "lane_render_parity"),
             matrixRows.flatMap((item) => [item.variant_revision_path, item.render_intent_path]),
-            canonical,
+            proofSection,
           ),
           values_diagnostics: coverageItem(
             existsSync(join(repoRoot, valuesDiagnostics)) ? "checked" : "not_checked",
             [valuesDiagnostics],
-            canonical,
+            proofSection,
           ),
           lifecycle_observation: coverageItem(
             aggregateCoverage(matrixRows, "lane_lifecycle_observed"),
             matrixRows.flatMap((item) => [item.lifecycle_route_contract_path, item.target_run_receipt]),
-            canonical,
+            proofSection,
           ),
           local_kubernetes: coverageItem(
             aggregateCoverage(matrixRows, "lane_local_kind"),
             matrixRows.map((item) => item.target_run_receipt),
-            canonical,
+            proofSection,
           ),
           gitops_oci: coverageItem(
             aggregateCoverage(matrixRows, "lane_gitops_oci_live"),
             [router?.runtime_gitops_receipts],
-            canonical,
+            proofSection,
           ),
           live_parity: coverageItem(
             aggregateCoverage(matrixRows, "lane_live_dual_parity"),
             [router?.live_compare_receipts],
-            canonical,
+            proofSection,
           ),
           two_cluster: coverageItem(
             aggregateCoverage(matrixRows, "lane_two_cluster_kind"),
             matrixRows.map((item) => item.target_run_receipt),
-            canonical,
+            proofSection,
           ),
           promotion: coverageItem(
             promotionStatus,
             matrixRows.map((item) => item.variant_promotion_evidence),
-            canonical,
+            proofSection,
           ),
           upstream_republish: coverageItem(
             drift ? "checked" : "not_checked",
             [drift?.republished_witness, drift?.retained_evidence],
-            canonical,
+            proofSection,
           ),
         },
       };
     })
     .sort((left, right) => left.chart.localeCompare(right.chart) || left.version.localeCompare(right.version));
+}
 
+function buildChangesFeed(catalog, entries = buildChangesEntries(catalog)) {
   return `${JSON.stringify({
     schema_version: "1",
     generated_at: catalog.generatedAt,
@@ -8389,7 +8490,7 @@ function successionCalloutHtml(catalog, chart) {
   return `<div class="card" data-succession-note><p>${sentences.join(" ")}</p></div>`;
 }
 
-function retainedVersionPageHtml(catalog, row) {
+function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const identity = `${row.chart}@${row.version}`;
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
   const published = row.publication_status === "published-receipt";
@@ -8493,6 +8594,8 @@ ${escapeHtml(row.setup_command)}</code></pre>
     ${packagedImagesSection}
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
+      <p>Choose the question you care about. <strong>Not checked</strong> means this catalog has no version-specific result; it is not a pass.</p>
+      ${coverageQuestionTable(coverageEntry)}
       <p>${published
         ? `The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.`
         : "Nothing has been published for this version, so no publication receipt exists and no digest is bound. The package itself is committed and can be inspected from this repository."}</p>
@@ -8604,7 +8707,7 @@ function flatteningSectionHtml(catalog, entry) {
 `;
 }
 
-function chartPageHtml(catalog, entry) {
+function chartPageHtml(catalog, entry, coverageEntry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const isReadyToTry = entry.proof_surface === "top20-catalog-supported";
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -8985,12 +9088,9 @@ ${teaching ? `\n    ${teaching}\n` : ""}
 
     <section aria-labelledby="proof">
       <h2 id="proof">What Has Been Tested</h2>
-      <p>Each check answers a different question. A watch, blocked, or missing result names work that remains. It does not change a passing Helm render match.</p>
+      <p>Choose the question you care about. <strong>Not checked</strong> means this catalog has no version-specific result; it is not a pass.</p>
+      ${coverageQuestionTable(coverageEntry)}
       <p><strong>How much is proven, and what more testing would add:</strong> ${evidenceDepthSummary(lanes)}</p>
-      ${markdownLikeTable([
-        ["Check", "Status across configurations"],
-        ...lanes,
-      ])}
       ${markdownLikeTable([
         ["Base", "Readiness", "Render", "ConfigHub", "Local live", "GitOps/OCI", "Live parity", "Two-cluster kind"],
         ...proofEvidenceRows,
