@@ -224,7 +224,7 @@ const PAGE_DESCRIPTIONS = {
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
   "confighub.html": "Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.",
   "redis-walkthrough.html": "Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.",
-  "serverless.html": "Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.",
+  "serverless.html": "Run a public catalog package with no account and no sign-in, and keep the rendered objects under your control.",
   "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
@@ -1898,7 +1898,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <h2>Choose where to start</h2>
           <p class="intro">Each path gives you exact Kubernetes objects to inspect before you decide what happens next.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-          <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, promotion, history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
+          <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
             <a class="route-card" href="./charts/index.html"><h3>I have a specific chart to check <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Look it up. Each entry shows the exact objects, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog&#39;s registry even when an upstream source changes its terms.</p><span class="go">Search the catalog &rarr;</span></a>
             <a class="route-card mid" href="./d/docs/user/broken-chart-triage.html"><h3>My chart or upgrade is misbehaving <span class="tag">triage</span></h3><p>Work from the failure you see to the record that explains it: render, prerequisites, ordering, drift.</p><span class="go">Start the triage &rarr;</span></a>
@@ -2857,7 +2857,7 @@ function offeringHtml(catalog) {
         ["Task", "Start here", "What happens"],
         ...publicRows,
       ], { rawSecondColumn: true })}
-      <p>The local tools work today. A hosted path without sign-in is planned, not yet a shipped service. <a href="./serverless.html">Read the current no-server and no-account boundary</a>.</p>
+      <p>The local tools work today. A hosted path without sign-in is planned, not yet a shipped service. <a href="./serverless.html">Read what works without an account</a>.</p>
     </section>
 
     <section aria-labelledby="managed">
@@ -3225,9 +3225,9 @@ function howItWorksHtml() {
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
     <h3>Local files</h3>
-    <p><strong>No ConfigHub account.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
+    <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected.</p>
+    <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected.</p>
     <h3>ConfigHub</h3>
     <p>Import the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
@@ -3268,7 +3268,7 @@ function howItWorksHtml() {
   <section aria-labelledby="next">
     <h2 id="next">5. Next step</h2>
     <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
-    <p>Use ConfigHub when you want shared configuration, variants, approvals, promotions, or rollout history.</p>
+    <p>Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
     <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
   </section>
 </main>
@@ -3365,7 +3365,7 @@ ${INSTALLER_PLUGIN_INSTALL_COMMAND}
 cub installer version
 kustomize version</code></pre>
   <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. <code>cub plugin install</code> downloads the release for your operating system and architecture. If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>. If <code>kustomize version</code> fails, use the <a href="${KUSTOMIZE_INSTALL_URL}">official kustomize installation instructions</a>; Go is not required to install cub installer. If you installed an early source build with no recorded source, run <code>cub plugin uninstall installer</code> once, then repeat the install command above. Full cub setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
-  <p>No ConfigHub account is needed for the catalog paths on this page.</p>
+  <p>The catalog paths on this page run on your laptop and need no sign-in anywhere.</p>
   ${installerCommandNoteHtml()}
 
   <h2>The fastest first run</h2>
@@ -3509,7 +3509,7 @@ function serverlessHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>No-server tools · Config Workshop</title>
+  <title>Work without an account · Config Workshop</title>
   <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
@@ -3517,8 +3517,8 @@ function serverlessHtml(catalog) {
     ${topNav(".")}
     <div class="install-hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">No server and no account</p>
-        <h1>Use the tools without ConfigHub Server</h1>
+        <p class="eyebrow">All local, no sign-in</p>
+        <h1>Work without an account</h1>
         <p class="lead">Everything on this page runs on your laptop. You can render any public catalog package, edit its fields, and push an OCI bundle without signing in to anything.</p>
         <p>Inspect the objects and prerequisites, keep them as files, or write the non-secret objects to OCI. A cluster is needed only when you choose to deploy them.</p>
         <div class="chips" aria-label="What this path needs"><span>local or CI</span><span>no ConfigHub Server</span><span>no account</span></div>
@@ -3620,7 +3620,7 @@ function serverlessHtml(catalog) {
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared history, variants, approvals, promotion, or fleet rollout.</p></footer>
+  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared variants, approvals, or a fleet rollout.</p></footer>
 </body>
 </html>
 `;
@@ -4160,7 +4160,7 @@ function guidesHtml() {
     <section aria-labelledby="after">
       <h2 id="after">After a guide</h2>
       <p>Choose where the reviewed result goes on the <a href="./how-it-works.html">Deployment</a> page, find a configuration to start from in the <a href="./charts/index.html">Catalog</a>, or read <a href="./known-gaps.html">what is not ready yet</a>.</p>
-      <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without a server</a> if you would rather not.</p>
+      <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without an account</a> if you would rather not.</p>
     </section>
   </main>
   <footer>Each guide runs real commands and ends with output you can check. Start with the short one.</footer>
@@ -4239,7 +4239,7 @@ function docsHtml() {
     <section aria-labelledby="continue">
       <h2 id="continue">More references</h2>
       <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, repository note, and generated data source.</p>
-      <p><a href="./confighub.html">Continue with ConfigHub</a> when you want shared records, variants, approvals, promotion, and rollout history.</p>
+      <p><a href="./confighub.html">Continue with ConfigHub</a> when your team needs shared variants, approvals, and rollout history.</p>
     </section>
   </main>
   <footer>Choose the guide for the work in front of you. Use the full reference index only when you need deeper detail.</footer>
@@ -4471,7 +4471,7 @@ function proofHtml(catalog) {
     ${topNav(".")}
     <h1>See what has been tested</h1>
     <p class="lead">A render comparison, a ConfigHub upload, an OCI delivery, and a live Kubernetes run answer different questions. Use this page to see how far each claim was tested.</p>
-    <p>No result covers every chart, values file, cluster, or production environment. Open the matrix for the exact configuration and the receipt for the exact test.</p>
+    <p>Every result names its scope: one chart, one values file, one test environment. Open the matrix for the exact configuration and the receipt for the exact test.</p>
     ${humanLinks([["Check one claim", "./verification.html"], ["Read the matrix", "./matrix.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
@@ -4561,7 +4561,7 @@ function hardQuestionsHtml(catalog) {
 	          status: "answered",
 	          question: "Is this just Helm with extra paperwork?",
 	          answer:
-	            "No. You keep your Helm charts and values. The Catalog adds tested starting configurations and shows their exact Kubernetes objects. ConfigHub stores the reviewed objects, changes, approvals, and release history.",
+	            "No. You keep your Helm charts and values. The Catalog adds tested starting configurations and shows their exact Kubernetes objects. ConfigHub stores the reviewed objects, the approvals, and the release history.",
 	          links: [["Choosing commands", "../docs/user/choosing-commands.md"], ["Browse charts", "./charts/index.html"]],
 	        },
 	        {
@@ -5140,7 +5140,7 @@ function privateHtml(catalog) {
     <section aria-labelledby="why-upgrade">
       <h2 id="why-upgrade">1 · Decide whether you need an account</h2>
       <p>You do not need an account to try public catalog packages, inspect rendered objects, or run the public checks.</p>
-      <p>Add ConfigHub when you want to save and share the reviewed result. It also adds environment versions, approvals, releases, and operating history.</p>
+      <p>Add ConfigHub when you want to save and share the reviewed result. It also adds environment versions, approvals, and operating history.</p>
     </section>
 
     <section aria-labelledby="tiers">
@@ -5429,6 +5429,7 @@ function journeyHtml(catalog) {
     ${topNav(".")}
     <h1>Build an App from saved configuration</h1>
     <p class="lead">Use this page after configuration is saved in ConfigHub. An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
+  <p>Configuration gets saved by uploading it from an <a href="./testing.html">example</a> or your own package, which needs a free ConfigHub account. Nothing on this page works before that upload, and everything works after it.</p>
     <p>New to ConfigHub? Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> to install, change, and promote one component. Use the <a href="./testing.html">Examples page</a> when your starting point is Helm, AICR, OCI, or YAML.</p>
     <p>An App reads the exact Kubernetes objects, proposes a change, runs checks, waits for approval, publishes a release, and records the result. AI can help, but the reviewed objects and policy result decide what ships.</p>
     <p class="quiet-line"><a href="./demo-org.html">The demo org</a> shows catalog configurations, variant trees, promotions, and apply gates in ConfigHub.</p>
@@ -5533,6 +5534,7 @@ function variantsHtml(catalog) {
     ${topNav(".")}
     <h1>Decide where a change belongs</h1>
     <p class="lead">Use this page after a Helm chart has become a shared base in ConfigHub. It answers one question: should a change rebuild the base, or belong to one environment?</p>
+  <p>A chart becomes a shared base when you upload its reviewed render, which needs a free ConfigHub account. The <a href="./testing.html">examples page</a> shows the upload; come back here once it has run.</p>
     <p>A variant is one named configuration of the same component, such as development, staging, production, a region, or a customer.</p>
     <p>If the change affects what Helm renders, change the Helm source and rebuild the base. If it changes one environment after render, use a derived ConfigHub variant.</p>
   </header>
@@ -5729,7 +5731,7 @@ function existingAppsHtml(catalog) {
       <div class="grid">
         <div class="card"><h3>Match the current app</h3><p>Create or select a base that renders the same object set as the existing Helm release.</p><p><a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
         <div class="card"><h3>Create a managed variant</h3><p>Once the base is trusted, use a derived variant for environment, region, customer, or target-specific refinements.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Move into operations</h3><p>After upload, use scans, approvals, delivery, observations, upgrades, and rollback records.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
+        <div class="card"><h3>Move into operations</h3><p>After upload, use scans, approvals, and the rest of the operations records.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
       </div>
     </section>
   </main>
@@ -6226,7 +6228,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <h3>Local or CI — available now</h3>
       <p>Use public tools and packages without ConfigHub Server or an account. Public catalog packages also need no Google registry login.</p>
       <h3>Hosted without sign-in — planned</h3>
-      <p>A public service will inspect open configuration. It will not create private history, variants, approvals, or releases.</p>
+      <p>A public service will inspect open configuration. Private variants, approvals, and releases stay with your ConfigHub account.</p>
       <h3>ConfigHub — available now</h3>
       <p>Save the reviewed objects and work with a team. An account is required. Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "examples")}">official tutorial</a>.</p>
       <p>These three choices apply to starting examples. The examples below use ConfigHub Server because their job is to manage saved configuration.</p>
@@ -7123,7 +7125,7 @@ function aicrEntriesSection() {
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
-        <p>Not in the catalog? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send it to us</a> and it gets a checked entry.</p>
+        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send it to us</a> and it gets a checked entry.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
