@@ -30,7 +30,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Detect and Stop Config Drift", "Drift starts before you deploy", "catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Check a public chart", "Check my Helm values", "See a worked example", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "an AICR recipe for AI", "Store reviewed objects in ConfigHub", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["Detect and Stop Config Drift", "Drift starts before you deploy", "catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Check a public chart", "Check my Helm values", "See a worked example", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI</a>", "Store reviewed objects in ConfigHub", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/guides.html",
