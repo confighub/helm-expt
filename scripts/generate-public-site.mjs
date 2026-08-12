@@ -4319,6 +4319,7 @@ function askHtml() {
         <p><strong>Public chart still missing or wrong?</strong> Open a prefilled issue, review every field, and submit only public information.</p>
         <button class="button primary" id="file-public-question" type="button">File the public question</button>
         <p>We aim to acknowledge a complete report within two business days and post an entry, refusal, or evidence decision within seven days.</p>
+        <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
       </div>
       <div id="private-handoff" hidden>
         <p><strong>Keep private configuration private.</strong> Do not file a public issue. Keep the finding locally, or <a href="./confighub.html">use ConfigHub</a> when the reviewed result needs a shared record.</p>

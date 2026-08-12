@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `c85301ac0`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `5758b9a7b`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 273 |
-| Fresh (no linked source newer than the doc) | 40 |
+| Fresh (no linked source newer than the doc) | 41 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 155 |
+| No linked evidence sources (cannot auto-trigger) | 154 |
 
 ## Review queue
 
@@ -189,7 +189,6 @@ into this freshness model.
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
 - [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
 - [docs/planning/chapter-three-gateway-rework.md](../../docs/planning/chapter-three-gateway-rework.md)
-- [docs/planning/config-workshop-ai-drift-growth-strategy.md](../../docs/planning/config-workshop-ai-drift-growth-strategy.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
 - [docs/planning/fuzz-corpus-tests-roadmap.md](../../docs/planning/fuzz-corpus-tests-roadmap.md)
 - [docs/planning/get-started-rewrite-brief.md](../../docs/planning/get-started-rewrite-brief.md)

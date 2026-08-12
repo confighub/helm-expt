@@ -103,6 +103,8 @@ Send forty qualified invitations over thirty days. A qualified invitation reache
 
 Record only aggregate counts in the repository. Keep contact details and private conversations outside the public project.
 
+The maintained response process and monthly record are in [How public chart questions are handled](../reference/question-intake-operation.md) and [`data/challenge-intake/summary.md`](../../data/challenge-intake/summary.md).
+
 The planning hypothesis is deliberately modest.
 
 | Result | Thirty-day threshold |
