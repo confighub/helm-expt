@@ -2,6 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import vm from "node:vm";
 
 const root = process.cwd();
 // The catalog grows, so these are floors against losing a component or a
@@ -30,15 +31,19 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Detect and Stop Config Drift", "Drift starts before you deploy", "catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Check a public chart", "Check my Helm values", "See a worked example", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI</a>", "Store reviewed objects in ConfigHub", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["Detect and Stop Config Drift", "cannot recover package bytes", "keeps reviewed packages and dated receipts", "Check an exact chart", "Investigate a Helm problem", "Keep a reviewed result", "cub installer setup", "--output-oci", "Choose where to start", "Four places drift appears", "Check the result and the limits", "Save it in", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/guides.html",
     terms: ["Learn this by doing it", "Run a short example", "Work through an example like yours", "Follow one package end to end", "Open the short example", "Open the worked examples", "Open the detailed walkthrough", "After a guide"],
   },
   {
+    file: "site/ask.html",
+    terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "changes.schema.json", "Keep private configuration private"],
+  },
+  {
     file: "site/challenge.html",
-    terms: ["Give your AI this prompt", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
+    terms: ["Check a Helm answer against retained evidence", "Investigate a Helm problem", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
   },
   {
     file: "site/compare.html",
@@ -169,6 +174,7 @@ const checks = [
 const menuGuidePages = [
   "site/index.html",
   "site/guides.html",
+  "site/ask.html",
   "site/challenge.html",
   "site/compare.html",
   "site/whats-new.html",
@@ -187,6 +193,7 @@ const menuGuidePages = [
 
 const humanSplitPages = [
   "site/index.html",
+  "site/ask.html",
   "site/try.html",
   "site/confighub.html",
   "site/redis-walkthrough.html",
@@ -215,7 +222,11 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Detect and Stop Config Drift", "catalog of deployment previews and patterns, using standard config formats and ConfigHub", "Check a public chart", "Check my Helm values", "See a worked example", "Store reviewed objects in ConfigHub"],
+    headerTerms: ["Detect and Stop Config Drift", "cannot recover package bytes", "keeps reviewed packages and dated receipts", "Check an exact chart", "Investigate a Helm problem", "Keep a reviewed result"],
+  },
+  {
+    file: "site/ask.html",
+    headerTerms: ["Investigate a Helm problem with your AI", "Start with one question", "Your entries stay in this browser"],
   },
   {
     file: "site/try.html",
@@ -262,7 +273,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["Guides", "Catalog", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Guides", "Ask", "Catalog", "Deployment", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
@@ -300,6 +311,19 @@ function sentences(text) {
 
 function wordCount(text) {
   return text.match(/[A-Za-z0-9][A-Za-z0-9'/:+._-]*/g)?.length ?? 0;
+}
+
+for (const file of ["site/ask.html"]) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) continue;
+  const html = fs.readFileSync(fullPath, "utf8");
+  for (const [index, match] of [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].entries()) {
+    try {
+      new vm.Script(match[1], { filename: `${file} inline script ${index + 1}` });
+    } catch (error) {
+      failures.push(`${file}: inline script ${index + 1} does not parse: ${error.message}`);
+    }
+  }
 }
 
 for (const check of checks) {
@@ -371,7 +395,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Ask", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -585,7 +609,7 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
   if (!home.includes(`>${catalogCounts.components} components<`)) {

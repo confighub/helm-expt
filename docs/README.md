@@ -169,6 +169,7 @@ Where a design is written down before it is built.
 
 | Document | Purpose |
 | --- | --- |
+| [config-workshop-ai-drift-growth-strategy.md](./planning/config-workshop-ai-drift-growth-strategy.md) | Decision-ready positioning for the Workshop, its AI-assisted question path, the four drift stages, a thirty-day demand test, and the ranked growth backlog. |
 | [confighub-data-model.md](./user/confighub-data-model.md) | The vocabulary the model assumes — chart base, recipe, Unit, space, variant, target, worker, OCI bundle, target fact, route, receipt — and how they fit in one line. |
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today. |

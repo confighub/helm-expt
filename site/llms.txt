@@ -3,7 +3,8 @@
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
 - [Catalog JSON](https://confighub.github.io/helm-expt/site/catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
-- [Change feed](https://confighub.github.io/helm-expt/site/changes.json): a compact chart, version, and digest list for cheap background polling; the full index is catalog.json.
+- [Change feed](https://confighub.github.io/helm-expt/site/changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
+- [Change feed schema](https://confighub.github.io/helm-expt/site/changes.schema.json): the versioned JSON Schema for changes.json.
 - [Component Catalog](https://confighub.github.io/helm-expt/site/charts/): 112 components, all 139 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](https://confighub.github.io/helm-expt/site/matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](https://confighub.github.io/helm-expt/site/generated-at.txt): the timestamp of the last site generation.
@@ -11,7 +12,8 @@
 - [Try Redis](https://confighub.github.io/helm-expt/site/try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Versus what you already use](https://confighub.github.io/helm-expt/site/compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](https://confighub.github.io/helm-expt/site/whats-new.html): the twenty newest receipts, from the committed aging table.
-- [Challenge your AI](https://confighub.github.io/helm-expt/site/challenge.html): a prompt to give your assistant with a misbehaving chart; it checks the chart, compares against this catalog&#39;s receipts, and files uncovered charts so they get checked entries.
+- [Investigate a Helm problem](https://confighub.github.io/helm-expt/site/ask.html): build a local prompt around one exact question, then compare the answer with retained evidence.
+- [Helm investigation reference](https://confighub.github.io/helm-expt/site/challenge.html): the six question families, worked evidence, and benchmark behind the shorter Ask flow.
 - [Detailed Redis walkthrough](https://confighub.github.io/helm-expt/site/redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](https://confighub.github.io/helm-expt/site/testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
@@ -23,3 +25,15 @@
 - [Kubara with ConfigHub](https://confighub.github.io/helm-expt/site/kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
 - [Kubara six-step tutorial](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
+
+## Machine contract
+
+Use changes.json to resolve an exact chart and version. Its schema_version defines the field meanings.
+
+Read coverage before citing a verdict. Missing coverage means we have not checked that claim.
+
+Use the canonical chart URL and cite the evidence URLs. Page copy is a guide, while receipts hold the evidence.
+
+Schema version 1 keeps existing field meanings stable. A breaking change uses a new major version.
+
+When an entry is absent, render locally. Ask the user before filing a public issue.

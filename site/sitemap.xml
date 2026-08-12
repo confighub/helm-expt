@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://confighub.github.io/helm-expt/site/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/ai.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/ask.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/challenge.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html</loc></url>
@@ -775,6 +776,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-claim-integrity-audit-2026-06-22.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-successors-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-catalog-demo-program.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-workshop-ai-drift-growth-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/corpus-rationalization-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html</loc></url>
