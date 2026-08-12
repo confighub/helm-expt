@@ -8150,7 +8150,6 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="setting-sources">
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
-      <p>Helm values define each base render. ConfigHub changes begin after upload and are recorded against the rendered objects. Secrets, CRDs, hooks, and setup jobs are listed separately because they are install work, not hidden settings. Live cluster state is observed separately and does not silently become the desired configuration.</p>
       ${settingSourceRows.length
         ? markdownLikeTable([
             ["Base variant", "Helm values", "ConfigHub changes", "Install work"],
@@ -8164,7 +8163,7 @@ function chartPageHtml(catalog, entry) {
     ${flatteningSectionHtml(catalog, entry)}
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
-      <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>
+      <p>A base variant is a starting configuration we have already rendered and checked. Pick the one whose trade-off you want; the table below shows what each one changes.</p>
       <p>The ${firstBaseRecordLink} connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
       <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
