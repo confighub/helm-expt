@@ -41,6 +41,14 @@ const checks = [
     terms: ["Give your AI this prompt", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
   },
   {
+    file: "site/compare.html",
+    terms: ["Versus what you already use", "Six jobs, four tools", "helm template", "kubectl diff", "Kustomize overlays", "you do not need this site", "This works with your tools, not instead of them"],
+  },
+  {
+    file: "site/whats-new.html",
+    terms: ["What changed recently", "Twenty newest receipts", "changes.json", "receipt-aging"],
+  },
+  {
     file: "site/variants.html",
     terms: ["Decide where a change belongs", "1. See the model", "payments-api/prod-us", "2. Decide where the change belongs", "3. Follow a safe flow", "4. Run the commands", "reuse-existing-secret", "5. Open worked examples", "6. Read the details"],
   },
@@ -66,7 +74,7 @@ const checks = [
   },
   {
     file: "site/serverless.html",
-    terms: ["Use the tools without ConfigHub Server", "no server means the command does not contact ConfigHub Server", "No account means you do not sign in", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
+    terms: ["Use the tools without ConfigHub Server", "Everything on this page runs on your laptop", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
   },
   {
     file: "site/how-it-works.html",
@@ -162,6 +170,8 @@ const menuGuidePages = [
   "site/index.html",
   "site/guides.html",
   "site/challenge.html",
+  "site/compare.html",
+  "site/whats-new.html",
   "site/try.html",
   "site/confighub.html",
   "site/redis-walkthrough.html",
@@ -217,7 +227,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Choose how to deploy it", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub keeps reviewed Kubernetes configuration as shared data"],
+    headerTerms: ["Choose how to deploy it", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub stores your approved configuration and its history"],
   },
   {
     file: "site/kubara.html",
@@ -237,7 +247,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/serverless.html",
-    headerTerms: ["Use the tools without ConfigHub Server", "no server means the command does not contact ConfigHub Server", "No account means you do not sign in", "A cluster is needed only when you choose to deploy"],
+    headerTerms: ["Use the tools without ConfigHub Server", "Everything on this page runs on your laptop", "A cluster is needed only when you choose to deploy"],
   },
   {
     file: "site/ai.html",

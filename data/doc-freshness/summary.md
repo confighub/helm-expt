@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `a2c966987`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `c74ddf16a`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 267 |
+| Authored docs tracked | 270 |
 | Fresh (no linked source newer than the doc) | 40 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 149 |
+| No linked evidence sources (cannot auto-trigger) | 152 |
 
 ## Review queue
 
@@ -101,11 +101,11 @@ most recently changed triggers.
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 7 | `tests/doctrine.md (2026-08-09)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [README.md](../../README.md) | root | 2026-08-08 | 4 | `CATALOG.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)`<br>`data/extension-slots/summary.md (2026-08-09)` |
+| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-08-09 | 4 | `data/credential-boundary/summary.md (2026-08-12)`<br>`data/receipt-aging/summary.md (2026-08-12)`<br>`tests/doctrine.md (2026-08-09)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 4 | `data/app-readiness/summary.md (2026-08-12)`<br>`data/outcome-coverage/summary.md (2026-08-12)`<br>`data/anonymous-oci-ci-proof/summary.md (2026-08-10)` |
 | [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 3 | `data/aicr-claim-integrity/summary.md (2026-08-11)`<br>`data/aicr-entry-naming/summary.md (2026-08-11)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 3 | `data/flattening-safety/summary.md (2026-08-09)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
-| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-08-09 | 2 | `data/receipt-aging/summary.md (2026-08-10)`<br>`data/credential-boundary/summary.md (2026-08-09)`<br>`tests/doctrine.md (2026-08-09)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-08-09 | 2 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/operational-class-examples/summary.md (2026-08-10)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
@@ -230,6 +230,7 @@ into this freshness model.
 - [docs/reference/generated-fact-receipts.md](../../docs/reference/generated-fact-receipts.md)
 - [docs/reference/helm-community-persona-reference.md](../../docs/reference/helm-community-persona-reference.md)
 - [docs/reference/helm-import-contract.md](../../docs/reference/helm-import-contract.md)
+- [docs/reference/how-the-catalog-is-built.md](../../docs/reference/how-the-catalog-is-built.md)
 - [docs/reference/lane-test-doctrine.md](../../docs/reference/lane-test-doctrine.md)
 - [docs/reference/observation-freshness-slo.md](../../docs/reference/observation-freshness-slo.md)
 - [docs/reference/per-chart-recipes.md](../../docs/reference/per-chart-recipes.md)
@@ -246,11 +247,13 @@ into this freshness model.
 - [docs/user/broken-chart-triage.md](../../docs/user/broken-chart-triage.md)
 - [docs/user/change-routing-before-oci.md](../../docs/user/change-routing-before-oci.md)
 - [docs/user/choose-your-path.md](../../docs/user/choose-your-path.md)
+- [docs/user/ci-render-check.md](../../docs/user/ci-render-check.md)
 - [docs/user/confighub-data-model.md](../../docs/user/confighub-data-model.md)
 - [docs/user/creating-variants.md](../../docs/user/creating-variants.md)
 - [docs/user/cub-variant-command-surface.md](../../docs/user/cub-variant-command-surface.md)
 - [docs/user/custom-overlays.md](../../docs/user/custom-overlays.md)
 - [docs/user/derived-variant-walkthrough.md](../../docs/user/derived-variant-walkthrough.md)
+- [docs/user/example-rendered-diff.md](../../docs/user/example-rendered-diff.md)
 - [docs/user/expected-results-and-clusters.md](../../docs/user/expected-results-and-clusters.md)
 - [docs/user/first-run-walkthrough.md](../../docs/user/first-run-walkthrough.md)
 - [docs/user/how-the-harness-works.md](../../docs/user/how-the-harness-works.md)

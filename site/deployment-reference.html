@@ -561,25 +561,7 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Why keep the rendered objects</h3>
-  <div class="vs">
-    <div class="col helm">
-      <h3>Helm: rebuilt from templates</h3>
-      <ul>
-        <li>Every setting has to be wired into the template up front.</li>
-        <li>Need a setting the chart didn't expose? You're stuck, or you copy the whole chart.</li>
-        <li><code>helm upgrade</code> rebuilds from the templates and <strong>overwrites</strong> what you changed.</li>
-      </ul>
-    </div>
-    <div class="col">
-      <h3>ConfigHub: kept as data you can query and edit</h3>
-      <ul>
-        <li>Render once to plain YAML Units you can read.</li>
-        <li>Query the same records across apps and environments, without scraping clusters or hunting through templates first.</li>
-        <li>Change an exact field afterward, by hand, a script, or an AI agent.</li>
-        <li>On upgrade, ConfigHub keeps non-conflicting recorded changes and shows you when the new base changes the same field.</li>
-      </ul>
-    </div>
-  </div>
+  <p>ConfigHub keeps the exact objects you reviewed, so you can change one field later without re-running Helm. The full comparison with helm template, kubectl diff, and Kustomize lives on <a href="./compare.html">its own page</a>, with the honest boundary stated.</p>
 
   <h3 id="setting-sources">Where a setting belongs</h3>
   <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
