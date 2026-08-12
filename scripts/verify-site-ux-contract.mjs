@@ -39,7 +39,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep private configuration private"],
+    terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Existing release name", "Existing namespace", "See the read-only commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep private configuration private"],
   },
   {
     file: "site/challenge.html",
@@ -135,7 +135,7 @@ const checks = [
   },
   {
     file: "site/existing-apps.html",
-    terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster"],
+    terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster", "Check an existing Helm release"],
   },
   {
     file: "site/ai.html",

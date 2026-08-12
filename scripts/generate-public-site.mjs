@@ -4417,6 +4417,12 @@ function askHtml() {
           <p><label for="version"><strong>Version or version pair</strong></label><br>
             <input id="version" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="25.5.3 or 25.5.3 -> 27.0.0"></p>
         </div>
+        <div class="grid">
+          <p><label for="release"><strong>Existing release name</strong> <span style="color:var(--muted)">(optional)</span></label><br>
+            <input id="release" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="my-release"></p>
+          <p><label for="namespace"><strong>Existing namespace</strong> <span style="color:var(--muted)">(optional)</span></label><br>
+            <input id="namespace" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="my-namespace"></p>
+        </div>
         <p><label for="source-visibility"><strong>Can the source be discussed publicly?</strong></label><br>
           <select id="source-visibility" style="width:100%;padding:10px;margin-top:6px">
             <option value="public">Yes, it is a public chart</option>
@@ -4425,6 +4431,7 @@ function askHtml() {
         <p><label for="values-summary"><strong>Values, flags, or symptoms</strong> <span style="color:var(--muted)">(optional, remove secrets)</span></label><br>
           <textarea id="values-summary" rows="5" style="width:100%;padding:10px;margin-top:6px" placeholder="Namespace, release name, values keys, error text, or the change you expected"></textarea></p>
         <button class="button primary" id="build-prompt-button" type="button">Build my prompt</button>
+        <p>If the chart is already installed, add its release name and namespace. The prompt will capture Helm's status, values, manifest, hooks, history, and stored release records before it compares an upgrade. <a href="./d/docs/user/existing-helm-release-diagnostic.html">See the read-only commands</a>.</p>
       </div>
     </section>
 
@@ -4474,6 +4481,8 @@ function askHtml() {
       const question = byId("question").value.trim() || item.label;
       const chart = byId("chart").value.trim() || "<repo/chart>";
       const version = byId("version").value.trim() || "<exact version or version pair>";
+      const release = byId("release").value.trim();
+      const namespace = byId("namespace").value.trim();
       const visibility = byId("source-visibility").value;
       const values = byId("values-summary").value.trim() || "<none supplied>";
       const privacy = visibility === "private"
@@ -4486,17 +4495,25 @@ function askHtml() {
         "Question: " + question,
         "Chart: " + chart,
         "Version: " + version,
+        "Existing release: " + (release || "<none supplied>"),
+        "Existing namespace: " + (namespace || "<none supplied>"),
         "Values, flags, or symptoms (secrets removed): " + values,
         "Privacy: " + privacy,
         "",
         "Work locally. Use Helm and ordinary shell tools. Do not upload my chart or values.",
-        "1. Resolve the exact chart source and version. Record the chart digest and every render command.",
-        "2. Render with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. If any input is missing, name it instead of guessing.",
-        "3. " + item.instruction,
-        "4. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json.",
-        "5. Resolve the exact chart and version, including declared aliases. Read each coverage status. Missing or not_checked coverage means Config Workshop has not checked that claim.",
-        "6. Open the canonical_url and cite the relevant evidence_urls for every historical or live claim. Keep your own computed findings separate from retained evidence.",
-        "7. Recommend one next step: a local command, comparison with an existing catalog entry, a public submission with my approval, or saving the reviewed result in ConfigHub.",
+        release && namespace
+          ? "1. Capture the existing release locally with: helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and kubectl get secret -l owner=helm,name=" + release + ". Treat every output file as sensitive."
+          : "1. No existing release context was supplied. State that release status, history, stored values, hooks, and live drift are unknown.",
+        "2. Resolve the exact chart source and version. Record the chart digest and every render command.",
+        "3. Render with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. If any input is missing, name it instead of guessing.",
+        "4. " + item.instruction,
+        release && namespace
+          ? "5. Compare the candidate with Helm's recorded manifest and history. Check pending states, removed or renamed objects, immutable fields, storage changes, hooks, CRDs, release-record size, and the risk of reusing old values. Keep Helm's record separate from live cluster state."
+          : "5. Do not claim upgrade, rollback, or live-state safety without an existing release capture.",
+        "6. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json.",
+        "7. Resolve the exact chart and version, including declared aliases. Read each coverage status. Missing or not_checked coverage means Config Workshop has not checked that claim.",
+        "8. Open the canonical_url and cite the relevant evidence_urls for every historical or live claim. Keep your own computed findings separate from retained evidence.",
+        "9. Recommend one next step: a local command, comparison with an existing catalog entry, a public submission with my approval, or saving the reviewed result in ConfigHub.",
         "",
         "Return this block at the end:",
         "WORKSHOP FINDING",
@@ -6282,7 +6299,7 @@ function existingAppsHtml(catalog) {
     <section aria-labelledby="next">
       <h2 id="next">3. Choose the first managed step</h2>
       <div class="grid">
-        <div class="card"><h3>Match the current app</h3><p>Create or select a base that renders the same object set as the existing Helm release.</p><p><a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
+        <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values, manifest, hooks, and history. Then create or select a base that matches the reviewed object set.</p><p><a href="../docs/user/existing-helm-release-diagnostic.md">Check an existing Helm release</a> &middot; <a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
         <div class="card"><h3>Create a managed variant</h3><p>Once the base is trusted, use a derived variant for environment, region, customer, or target-specific refinements.</p><p><a href="./variants.html">Variants</a></p></div>
         <div class="card"><h3>Move into operations</h3><p>After upload, use scans, approvals, and the rest of the operations records.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
       </div>

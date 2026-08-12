@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adopting Existing Apps · Config Workshop</title>
-  <meta name="description" content="Adopting Existing Apps: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/adopting-existing-apps.html">
-  <meta property="og:title" content="Adopting Existing Apps · Config Workshop">
-  <meta property="og:description" content="Adopting Existing Apps: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Check an Existing Helm Release · Config Workshop</title>
+  <meta name="description" content="Check an Existing Helm Release: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/existing-helm-release-diagnostic.html">
+  <meta property="og:title" content="Check an Existing Helm Release · Config Workshop">
+  <meta property="og:description" content="Check an Existing Helm Release: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/adopting-existing-apps.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/existing-helm-release-diagnostic.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -442,89 +442,51 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Ask</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Adopting Existing Apps</h1>
-    <p class="lead">This project should not only help with new Helm installs. It should also give teams a way to adopt apps they already run through Argo CD, Flux, KRM YAML, Kustomize, rendered manifests, or other Kubernetes configuration sources. <a href="../../../../docs/user/adopting-existing-apps.md">View source markdown</a>.</p>
+    <h1>Check an Existing Helm Release</h1>
+    <p class="lead">Use this guide when a Helm release is stuck, an upgrade is risky, or you need to know what Helm recorded before you move the configuration into ConfigHub. <a href="../../../../docs/user/existing-helm-release-diagnostic.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
-<p>The goal is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>Keep the app running.
-Import or discover the desired state.
-Attach ConfigHub labels, links, variants, scans, gates, and receipts.
-Only move to a cub installer recipe when the app needs a maintained render path.</code></pre>
-<h2 id="short-answer">Short Answer</h2>
-<p>Yes, a user should be able to start from an existing app, a group of apps, a platform slice, a stack, rendered manifests, GitOps objects, or a live cluster. The first step should be read-only discovery or import, not a forced rewrite.</p>
-<p>The expected first result is:</p>
-<pre><code>ConfigHub found the app or objects.
-ConfigHub shows source, target, labels, and object inventory.
-No cluster change was made yet.
-The next decision is keep imported, create a derived variant, or graduate to a
-maintained cub installer recipe.</code></pre>
-<h2 id="why-this-matters">Why This Matters</h2>
-<p>Most real teams do not start from a blank cluster. They already have:</p>
-<ul><li>Argo CD Applications;</li><li>Flux HelmReleases;</li><li>Flux Kustomizations;</li><li>KRM YAML or Kustomize output;</li><li>rendered manifests in Git;</li><li>manually imported or live Kubernetes resources.</li></ul>
-<p>The adoption path must not say &quot;rewrite all of that first.&quot; It should let the team upgrade into ConfigHub gradually.</p>
-<h2 id="current-entry-points">Current Entry Points</h2>
-<table><thead><tr><th>Existing source</th><th>Current entry point</th><th>What ConfigHub should preserve</th></tr></thead><tbody><tr><td>Argo CD Application</td><td>Read the Application and rendered objects through Argo CD or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>controller ownership, source reference, rendered resources, links, target</td></tr>
-<tr><td>Flux HelmRelease</td><td>Read the HelmRelease and rendered objects through Flux or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>chart source, values source, rendered resources, links, target</td></tr>
-<tr><td>Flux Kustomization</td><td>Read the Kustomization and rendered objects through Flux or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>Kustomize source, rendered resources, links, target</td></tr>
-<tr><td>KRM YAML / rendered manifests</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>resource identity, labels, target, provenance, scans</td></tr>
-<tr><td>Public Helm chart with no existing app</td><td><code>helm template</code> or the <code>cub installer</code> catalog path</td><td>local Helm render or maintained catalog package depending on intent</td></tr></tbody></table>
-<h2 id="a-small-plain-yaml-example">A Small Plain YAML Example</h2>
-<p>The repository includes a four-object application under <a href="../../examples/plain-yaml/acme-web/README.html"><code>examples/plain-yaml/acme-web</code></a>. It has one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
-<p>Upload the files as one Unit per Kubernetes object:</p>
-<pre><code>cub variant upload \
-  --component plain-yaml-acme-web \
-  --variant base \
-  --space plain-yaml-acme-web-base \
-  --granularity per-resource \
-  examples/plain-yaml/acme-web</code></pre>
-<p>The <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">focused receipt</a> reads the four Units back and compares them with the four files. The source and stored object-set hashes match. The separate README Unit explains the example inside the <code>helm-catalog</code> demo organization.</p>
-<p>This proves the import boundary. No cluster apply, promotion, release, or workload observation is claimed by this receipt.</p>
-<p>The current cub v0.2.9 command surface does not provide a one-step GitOps discovery/import command. Read the controller objects and desired Kubernetes objects first. Review their source, target, namespace, and ownership, then use <code>cub variant upload</code> for the YAML or literal OCI you chose to store. The upload creates ConfigHub records; it does not change the controller or cluster.</p>
-<h2 id="adoption-levels">Adoption Levels</h2>
-<table><thead><tr><th>Level</th><th>What happens</th><th>User value</th></tr></thead><tbody><tr><td>Observe</td><td>Import or discover the existing app and record where it came from.</td><td>The team can see and search the app in ConfigHub without changing delivery.</td></tr>
-<tr><td>Explain</td><td>Add component, chart, variant, environment, region, target, and source labels; preserve links.</td><td>The app becomes understandable and comparable.</td></tr>
-<tr><td>Check</td><td>Run scans, schema checks, policy checks, and drift/live observations.</td><td>The team gets evidence without rewriting the app.</td></tr>
-<tr><td>Variant</td><td>Clone/refine post-render ConfigHub state with <code>cub variant create</code> where safe.</td><td>The team can create environment/customer variants without rerendering Helm when the change is post-render.</td></tr>
-<tr><td>Graduate</td><td>If the app needs a maintained render path, create a <code>cub installer</code> recipe/package/base.</td><td>The app gets catalog-grade repeatability, Helm-equivalence proof, receipts, upgrade support, and maintenance policy.</td></tr></tbody></table>
-<h2 id="routing-rule">Routing Rule</h2>
-<p>Use the narrowest adoption path that matches the user's intent:</p>
-<table><thead><tr><th>User says</th><th>Route</th></tr></thead><tbody><tr><td>&quot;I already have Argo managing this app.&quot;</td><td>Discover/import the Argo app first. Do not force a recipe rewrite.</td></tr>
-<tr><td>&quot;I already have Flux HelmRelease or Kustomization objects.&quot;</td><td>Discover/import Flux first. Preserve the GitOps source and target.</td></tr>
-<tr><td>&quot;I have KRM YAML or rendered manifests.&quot;</td><td>Import as ConfigHub Units, then scan, label, link, and review.</td></tr>
-<tr><td>&quot;I want to turn this into a maintained catalog entry.&quot;</td><td>Create or request a <code>cub installer</code> recipe/package and base variants.</td></tr>
-<tr><td>&quot;I want prod from dev with target/gates/labels changed.&quot;</td><td>Use a derived ConfigHub variant after import or upload.</td></tr>
-<tr><td>&quot;I want a values file, wrapper chart, or overlay that changes object shape.&quot;</td><td>Use the installer recipe/base path or managed overlay import.</td></tr>
-<tr><td>&quot;My existing Helm release is stuck or risky to upgrade.&quot;</td><td><a href="existing-helm-release-diagnostic.html">Capture Helm's release record</a>, compare it with the candidate render, and keep the result local until it is reviewed.</td></tr></tbody></table>
-<h2 id="what-not-to-overclaim">What Not To Overclaim</h2>
-<p>Importing an existing app does not automatically prove it is a supported catalog recipe.</p>
-<p>Use precise language:</p>
-<pre><code>imported into ConfigHub
-scanned
-linked to source
-observed live
-variant-created
-graduated to maintained recipe</code></pre>
-<p>Do not collapse those into one generic &quot;managed&quot; claim.</p>
-<h2 id="product-shape">Product Shape</h2>
-<p>The user-facing flow should be:</p>
-<pre><code>Choose source: Argo, Flux, KRM, Helm, rendered YAML
-Preview discovered apps and objects
-Select app/component
-Import with labels and links
-Run checks
-Decide: keep imported, create derived variant, or graduate to recipe</code></pre>
-<p>The product should make the first step low risk. A team should be able to say:</p>
-<pre><code>Show ConfigHub my existing app.
-Do not change my cluster yet.
-Tell me what you found and what you can prove.</code></pre>
-<p>That is how existing Argo, Flux, KRM, and rendered-manifest estates enter the same ConfigHub model without making Helm users start over.</p>
+<p>The commands below only read the release and cluster. They write the result to your machine. Review the files before sharing them because Helm values and release records can contain credentials.</p>
+<h2 id="capture-helms-record">Capture Helm's Record</h2>
+<p>Set the release name and namespace, then run the commands.</p>
+<pre><code>release=my-release
+namespace=my-namespace
+output=./helm-release-check
+
+mkdir -p &quot;$output&quot;
+helm status &quot;$release&quot; -n &quot;$namespace&quot; -o yaml &gt; &quot;$output/status.yaml&quot;
+helm get values &quot;$release&quot; -n &quot;$namespace&quot; -a -o yaml &gt; &quot;$output/values-all.yaml&quot;
+helm get manifest &quot;$release&quot; -n &quot;$namespace&quot; &gt; &quot;$output/manifest.yaml&quot;
+helm get hooks &quot;$release&quot; -n &quot;$namespace&quot; &gt; &quot;$output/hooks.yaml&quot;
+helm history &quot;$release&quot; -n &quot;$namespace&quot; -o yaml &gt; &quot;$output/history.yaml&quot;
+kubectl get secret -n &quot;$namespace&quot; \
+  -l &quot;owner=helm,name=$release&quot; -o json &gt; &quot;$output/storage-secrets.json&quot;</code></pre>
+<p>Read these files in this order:</p>
+<ol><li><code>status.yaml</code> shows whether Helm considers the release deployed, failed, pending, or superseded.</li><li><code>history.yaml</code> shows the revisions Helm knows about and which revision a rollback would select.</li><li><code>values-all.yaml</code> shows the effective values Helm recorded, including defaults. Treat it as sensitive.</li><li><code>manifest.yaml</code> is the ordinary Kubernetes object set Helm recorded for the current revision.</li><li><code>hooks.yaml</code> shows install, upgrade, rollback, or test work that is separate from the ordinary object set.</li><li><code>storage-secrets.json</code> shows the release records stored in the namespace. Large records can approach the Kubernetes Secret size limit.</li></ol>
+<h2 id="compare-the-next-version">Compare the Next Version</h2>
+<p>Render the candidate with the same release name, namespace, and values. Pin the chart version. Add any API-version or Kubernetes-version flags that matter to this chart.</p>
+<pre><code>chart=repo/chart
+new_version=1.2.3
+
+helm template &quot;$release&quot; &quot;$chart&quot; \
+  --namespace &quot;$namespace&quot; \
+  --version &quot;$new_version&quot; \
+  -f &quot;$output/values-all.yaml&quot; \
+  &gt; &quot;$output/candidate-manifest.yaml&quot;
+
+diff -u &quot;$output/manifest.yaml&quot; &quot;$output/candidate-manifest.yaml&quot; || true</code></pre>
+<p>Check the diff for removed or renamed objects, selector changes, immutable fields, storage changes, new CRDs, and changed hooks. Do not assume <code>--reuse-values</code> is safe: values retained from an older release may no longer match the new chart's schema or defaults.</p>
+<h2 id="what-the-files-can-tell-you">What the Files Can Tell You</h2>
+<p>This capture answers three useful questions:</p>
+<ul><li>What release state and revision history did Helm record?</li><li>Which values, ordinary objects, and hooks produced the current Helm record?</li><li>What would change if the candidate chart were rendered with the same context?</li></ul>
+<p>The files do not prove that the live cluster still matches Helm's record. They also do not prove that admission webhooks will accept the candidate, that a hook will succeed, or that a rollback can reverse a database or storage migration. Compare live objects and workload health separately before changing production.</p>
+<h2 id="moving-the-result-into-confighub">Moving the Result into ConfigHub</h2>
+<p>Use the captured Helm record as evidence, not as an automatic new source of truth. First decide whether the ConfigHub base should match the existing release exactly or contain an intended correction. Save that decision with the chart source, values, release context, rendered objects, hooks, prerequisites, and receipts.</p>
+<p>The <a href="../../../ask.html">Ask page</a> builds a local diagnostic prompt around the same facts. The <a href="adopting-existing-apps.html">existing application guide</a> explains how to record the reviewed result without changing delivery first.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/user/adopting-existing-apps.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/user/existing-helm-release-diagnostic.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

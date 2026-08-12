@@ -53,7 +53,7 @@ team upgrade into ConfigHub gradually.
 | Flux HelmRelease | Read the HelmRelease and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | chart source, values source, rendered resources, links, target |
 | Flux Kustomization | Read the Kustomization and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | Kustomize source, rendered resources, links, target |
 | KRM YAML / rendered manifests | `cub variant upload <files-or-oci-ref>` | resource identity, labels, target, provenance, scans |
-| Public Helm chart with no existing app | `cub helm template`, `cub helm install`, or the `cub installer` catalog path | local Helm render, direct ConfigHub base, or maintained recipe/package depending on intent |
+| Public Helm chart with no existing app | `helm template` or the `cub installer` catalog path | local Helm render or maintained catalog package depending on intent |
 
 ## A Small Plain YAML Example
 
@@ -109,6 +109,7 @@ Use the narrowest adoption path that matches the user's intent:
 | "I want to turn this into a maintained catalog entry." | Create or request a `cub installer` recipe/package and base variants. |
 | "I want prod from dev with target/gates/labels changed." | Use a derived ConfigHub variant after import or upload. |
 | "I want a values file, wrapper chart, or overlay that changes object shape." | Use the installer recipe/base path or managed overlay import. |
+| "My existing Helm release is stuck or risky to upgrade." | [Capture Helm's release record](./existing-helm-release-diagnostic.md), compare it with the candidate render, and keep the result local until it is reviewed. |
 
 ## What Not To Overclaim
 
