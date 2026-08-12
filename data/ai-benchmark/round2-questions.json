@@ -1,0 +1,260 @@
+[
+ {
+  "id": "time-republish-forensic-1",
+  "question": "Our CI pins fairwinds/goldilocks 10.3.0 at sha256:9498a6f49cde... from when we first vetted it. Last night the digest check started failing: helm pull of the same version 10.3.0 now yields sha256:3e51ce8032b0.... Did Fairwinds actually republish different bytes under the same version string, were the bytes we originally vetted ever real, and what is inside the republished tarball compared to what we reviewed?",
+  "whyHardForBareAgent": "helm pull can only fetch today's bytes. The retained digest 9498a6f4... no longer exists upstream, so a bare agent cannot confirm the old artifact ever existed, cannot say when the swap happened, and cannot diff the two tarballs' contents. It will either declare the pin was wrong or guess. The repo holds both sides: the locked receipt for the retained bytes and a 103-file witness of the republished bytes.",
+  "groundTruth": "data/upstream-drift/summary.md; data/upstream-drift/drift.csv; data/flattening-safety/witnesses/fairwinds-stable-goldilocks-10.3.0-republished.yaml; recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 20,
+  "userSituation": "Argo showed drift / a digest pin broke in CI overnight and the on-call engineer must decide whether it's an attack, a republish, or their own bad pin",
+  "productSurface": "site+tool",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-republish-sweep-2",
+  "question": "Across the ~139 charts we depend on, which publishers republished different bytes under an unchanged version string this year? I need the list with both digests so I can audit every environment that pulled during the window.",
+  "whyHardForBareAgent": "Answering requires a historical baseline digest for every chart version, taken months ago. A bare agent pulling today sees only the current bytes and has nothing to compare against; no public transparency log covers Helm repos. It can only answer 'unknowable from here' or fabricate. The catalog's witness sweep verified every fetched package against its locked hash and found exactly two: goldilocks 10.3.0 and vpa 4.11.0, with retained and republished digests recorded.",
+  "groundTruth": "data/upstream-drift/drift.csv; data/upstream-drift/summary.md; data/flattening-safety/witnesses/fairwinds-stable-vpa-4.11.0-republished.yaml; recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 45,
+  "userSituation": "post-incident review / supply-chain audit after a security bulletin asks 'could an artifact have been swapped under you?'",
+  "productSurface": "site",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-crd-upgrade-delta-3",
+  "question": "We run kube-prometheus-stack 85.3.3 and want 86.1.0. Which of the 10 CRDs change schema in that step, are any CRDs added or removed, do any served/storage versions flip, and which property paths appear? Our PrometheusRule and AlertmanagerConfig objects must not start failing validation mid-upgrade.",
+  "whyHardForBareAgent": "It is answerable with helm pull of both versions plus a semantic diff of ten multi-thousand-line CRD schemas, but the agent must render both versions with correct CRD inclusion, then classify diffs by served/storage/conversion semantics rather than text lines. Agents reliably summarize ('some monitoring CRDs changed') instead of enumerating; the committed receipt has the exact per-CRD answer (6 changed, 4 unchanged, 0 added/removed, property paths named) computed from the two committed renders.",
+  "groundTruth": "data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml; recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml; recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 40,
+  "userSituation": "CRD ordering broke production last time; the platform team now requires a named CRD delta before any monitoring-stack upgrade is approved",
+  "productSurface": "site+tool",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-destructive-render-diff-4",
+  "question": "Between kube-prometheus-stack 85.3.3 and 87.19.2 (two major versions), which rendered-object changes are destructive on upgrade: immutable selector or volumeClaimTemplate changes on StatefulSets, resources renamed so the old object is orphaned rather than upgraded, and Services whose identity changes? helm upgrade will only tell me at apply time, in production.",
+  "whyHardForBareAgent": "Both versions are still fetchable, so an agent can render and diff ~81k lines a side, but the destructive classification requires Kubernetes server-side semantics (which fields are immutable, which renames orphan state) applied across a name-matched object join, not a text diff. Prior-round static questions were single-version and cheap; this one fails when the agent renders with wrong values/CRD settings or flags cosmetic label churn as destructive. The repo holds both renders committed from locked bytes, so the answer is computable offline and stable.",
+  "groundTruth": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml; recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml; recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml; recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/object-inventory.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 60,
+  "userSituation": "evaluating under deadline: a two-major-version monitoring upgrade is scheduled for Friday and the change board wants the destructive-change list in writing",
+  "productSurface": "site+tool",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-values-silent-keys-5",
+  "question": "My values.yaml worked on bitnami/redis 25.5.3. Before I move to 27.0.0: which of my keys does the chart silently ignore, and will Helm warn me about any of them? Specifically, we once shipped auth.passwrod (typo) and nothing complained \u2014 would that render the same objects as no override at all on 27.0.0?",
+  "whyHardForBareAgent": "Helm accepts unknown value paths without warning, so there is no command that lists ignored keys; the agent must know to run a mutation experiment per suspect key and compare rendered-object digests. The catalog commits exactly that experiment: values-diagnostics for both versions record the synthetic auth.passwrod injection with identical baseline and mutated rendered-object SHA256s, proving no-rendered-change, plus the value-model naming which paths are actually load-bearing per variant.",
+  "groundTruth": "recipes/bitnami/redis/27.0.0/values-diagnostics.yaml; recipes/bitnami/redis/25.5.3/values-diagnostics.yaml; recipes/bitnami/redis/27.0.0/value-model.yaml; recipes/bitnami/redis/25.5.3/value-model.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 30,
+  "userSituation": "post-incident review: an auth override never took effect because of a typo Helm swallowed, and the team now audits every values key before each upgrade",
+  "productSurface": "site+tool",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-edit-survives-upgrade-6",
+  "question": "After installing redis 25.5.3 we scaled replicas from 3 to 2 directly on the rendered config. If we upgrade the chart to 27.0.0, does the upgrade silently put the replica count back to the chart default? And after the upgrade, can we roll back to byte-for-byte the exact configuration we ran before \u2014 not a re-render of the old chart, the recorded revisions themselves?",
+  "whyHardForBareAgent": "The first half needs a live upgrade rehearsal (cluster, both packages, a recorded post-install edit); the second half is unanswerable in the Helm model at all \u2014 helm rollback re-renders, it does not restore recorded revisions, and generated values plus lookup calls make re-renders differ from what ran. The committed live proof records the full sequence: replicas stayed 2 through 25.5.3\u219227.0.0, the promotion fanned out through development and staging, and the rollback restored the exact pre-upgrade Unit revisions and reconciled both clusters back to 25.5.3 with matching object sets.",
+  "groundTruth": "data/redis-upgrade-app-proof/summary.md; docs/user/day2-upgrade-rollback.md; docs/user/day2-upgrade-story.md",
+  "testable": "structural-only",
+  "userSituation": "evaluating under deadline: an upgrade is planned on a system carrying post-install edits, and the rollback story must be proven before the change window",
+  "productSurface": "tool+confighub",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-upstream-lag-7",
+  "question": "Of the top-20 charts we standardized on, which ones has upstream moved past since we pinned, what is the latest candidate version for each, and has anyone actually rendered and proven those candidates yet \u2014 or would we be the first? I don't want a bot bump; I want to know the review state per chart.",
+  "whyHardForBareAgent": "The 'what's newer upstream' half is cheap; the 'has the candidate been proven, and what review still stands between candidate and replacement' half has no upstream source at all \u2014 it is the catalog's own promotion state. A bare agent will conflate 'newer exists' with 'ready to adopt'. The committed refresh-survival table answers per chart: 7 of 20 have candidates, all 7 candidate-proof-complete, all 7 blocked on an explicit target-scoped support decision, none silently rolled forward.",
+  "groundTruth": "data/refresh-survival/summary.md; data/refresh-survival/refreshes.csv; data/refresh-survival/kube-prometheus-stack-upgrade-seed.md; data/latest-top20-refresh/promotion-readiness.md",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 50,
+  "userSituation": "quarterly dependency review: management asks how far behind upstream the platform is and what adopting each newer version would take",
+  "productSurface": "site+confighub",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "time-evidence-age-8",
+  "question": "This catalog page says redis passed live Helm-vs-ConfigHub parity and a live upgrade proof. When were those proofs actually run, how old is the oldest evidence the catalog is still standing on, and which proof families have aged the furthest since?",
+  "whyHardForBareAgent": "A claim's age is invisible to any tool that only sees the claim; a bare agent cannot date someone else's proof and has no way to distinguish this morning's receipt from a stale one. The committed receipt-aging lane dates all ~1771 receipts against the newest one (2026-08-10), bands them (297 within 30 days, 1474 within 90), and names the oldest receipt per family \u2014 including the 76-day-old parity families that most need a re-run.",
+  "groundTruth": "data/receipt-aging/summary.md; data/receipt-aging/aging.csv; data/doc-freshness/summary.md",
+  "testable": "structural-only",
+  "userSituation": "evaluating under deadline: before trusting a vendor's 'proven live' claim, the engineer asks the diligence question \u2014 proven when, and is it still true?",
+  "productSurface": "site",
+  "axis": "TIME: history, drift, upgrade deltas"
+ },
+ {
+  "id": "loki-minimal-converging-values",
+  "question": "grafana/loki 7.0.0 fails `helm template` with chart defaults ('Please define loki.storage.bucketNames.chunks'). What is the minimal set of values that produces a valid render AND a converging install on a fresh cluster \u2014 and are there two distinct minimal shapes (filesystem single-binary vs object-store simple-scalable) with different prerequisites?",
+  "whyHardForBareAgent": "The render failure is cheap to reproduce, but 'minimal AND converges' requires iterating values against a live kind cluster: schemaConfig.configs, deploymentMode, storage selection, and replica zeroing interact, and a values set that renders can still deadlock at runtime (write StatefulSet waiting on object storage). The repo holds two proven converging value shapes with live receipts; a bare agent must burn a cluster and many iterations to earn the same claim rather than guessing from docs.",
+  "groundTruth": "recipes/grafana/loki/7.0.0/default-render-blocker.yaml (exact error + mitigation list); recipes/grafana/loki/7.0.0/effective-values.yaml and recipes/grafana/loki/7.0.0/effective-values-simple-scalable-minio.yaml (the two proven value sets); runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml and runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml (live convergence, both pass); data/live-kind-parity/summary.md lines 150-151",
+  "testable": "bare-agent-empirical",
+  "userSituation": "evaluating under deadline \u2014 'the chart won't even render, do I trust this thing enough to ship by Friday?'",
+  "productSurface": "site+tool",
+  "minutesEstimateForBareAgent": 60,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "lookup-argo-vs-flux-drift",
+  "question": "A chart in our fleet calls lookup(). Argo CD keeps showing it OutOfSync while the identical HelmRelease under Flux is clean. Is the render engine the actual cause \u2014 does lookup() resolve differently under Argo's template-time render versus Flux's install-time render on a live cluster, and what exactly does an offline `helm template` miss?",
+  "whyHardForBareAgent": "Everyone repeats the folklore ('lookup returns empty under helm template'), but demonstrating the Argo-vs-Flux split empirically requires a probe chart plus a kind cluster with a real Flux helm-controller reconciling a HelmRelease \u2014 the Flux leg is the part agents assert instead of run. The repo has a three-row live proof (helm template=false, helm install=true, Flux helm-controller=true) with the probe chart committed.",
+  "groundTruth": "data/flux-lookup-proof/summary.md (three-path result table); runs/flux-lookup-proof/receipt.yaml (live receipt); tests/fixtures/flux-lookup-probe/ (the probe chart + GitRepository/HelmRelease manifests)",
+  "testable": "bare-agent-empirical",
+  "userSituation": "Argo showed drift \u2014 post-incident 'why does Argo disagree with Flux about the same chart?'",
+  "productSurface": "site+tool",
+  "minutesEstimateForBareAgent": 45,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "crd-ordering-delivery-paths",
+  "question": "We pull the rendered chart bundle from OCI and plain `kubectl apply` it \u2014 no Helm, no GitOps controller. On a FIRST install of a chart that ships a CRD plus a CR of that CRD, does the CR get created? Which of the four delivery paths (helm install, Argo CD, Flux, plain apply) order CRDs correctly, and what is the minimal fix for the one that doesn't?",
+  "whyHardForBareAgent": "The single-path reproduction is doable on kind in ~20 minutes, but the question is the four-path matrix plus the verified fix (apply CRD, wait --for=condition=established, then apply CR): the agent must know that 'kubectl apply once' can pass by luck depending on file order and server timing, so a clean demonstration needs a controlled bundle and repeat runs. The repo proved it live and recorded the exact failure string and the working remediation.",
+  "groundTruth": "data/crd-ordering-gap/summary.md (live result table: apply-together fails with 'no matches for kind', CRD-first+wait passes; affected/not-affected path list); runs/crd-ordering-gap/receipt.yaml",
+  "testable": "bare-agent-empirical",
+  "userSituation": "CRD ordering broke production \u2014 first install of an operator chart left CRs uncreated",
+  "productSurface": "tool+confighub",
+  "minutesEstimateForBareAgent": 40,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "kps-hidden-lifecycle-work",
+  "question": "kube-prometheus-stack's `helm template` output applied as-is does not converge. What is the exact ordered work Helm performs silently around those objects (CRDs established first, admission-cert Job, workload, webhook-patch Job, hook cleanup), can Argo CD and Flux each execute that order from a staged OCI bundle, and does the 85.3.3 \u2192 86.1.0 upgrade survive the same route?",
+  "whyHardForBareAgent": "Answering requires standing up Argo CD and Flux on separate fresh clusters, decomposing the chart into ordered stages (sync waves / dependsOn), running install AND upgrade, and verifying CA-bundle match + server dry-run + six workload readinesses after each \u2014 hours of cluster work with several non-obvious traps (completed hook Jobs must be removed before replacement or the upgrade wedges). The repo holds both the direct-route receipts and the Argo+Flux install-and-upgrade receipts with per-stage results.",
+  "groundTruth": "data/kps-lifecycle-route-proof/summary.md + runs/kps-lifecycle-route-proof/receipt.yaml + runs/kps-lifecycle-route-proof/no-crds-receipt.yaml (direct route, per-route pass table); data/kps-gitops-lifecycle-proof/summary.md + runs/kps-gitops-lifecycle-proof/receipt.yaml (Argo + Flux, install digest -> upgrade digest, stage-by-stage); data/lifecycle-routes/routes.csv (machine-readable route contract)",
+  "testable": "structural-only",
+  "userSituation": "post-incident review \u2014 'the GitOps migration of our monitoring stack half-applied and we want to know every step Helm was doing for us'",
+  "productSurface": "site+confighub",
+  "minutesEstimateForBareAgent": 240,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "webhook-cert-staging-per-chart",
+  "question": "Our GitOps path renders with --no-hooks, so admission-webhook charts (ingress-nginx, kube-prometheus-stack, VPA, vertical-pod-autoscaler) never run their cert-generation Jobs. For each chart, what exact Secret (name and namespace) must be staged before apply for the install to converge, and which bases also need CRDs staged \u2014 and what does that staging deliberately NOT prove about production cert rotation?",
+  "whyHardForBareAgent": "Per-chart, the agent must diff hook objects out of the render, infer the serving-cert Secret each webhook mounts, stage it with valid cert material matching the webhook's service DNS names, and verify convergence live \u2014 the Secret names and required-CRD counts differ per chart and per base (e.g. kube-prometheus-stack no-crds needs 10 CRDs staged, VPA needs 2). The repo has eight passing staged-route receipts with the exact Secret and CRD list per row, plus an explicit not-proven boundary.",
+  "groundTruth": "data/webhook-cert-lifecycle/summary.md + data/webhook-cert-lifecycle/evidence.csv + data/webhook-cert-lifecycle/receipts/*.yaml (per-chart staged Secret + CRD counts); runs/next80-local-kind/ingress-nginx-ingress-nginx-4.15.1-default/observation-receipt.yaml and sibling observation receipts",
+  "testable": "bare-agent-empirical",
+  "userSituation": "Argo showed drift / install stuck \u2014 webhook Deployment CrashLooping on a missing TLS secret after a hookless apply",
+  "productSurface": "site+tool",
+  "minutesEstimateForBareAgent": 90,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "cert-manager-live-convergence",
+  "question": "helm template shows cert-manager v1.20.2's webhook and its startupapicheck post-install hook. On a real cluster: does the install converge with CRDs applied externally, does cainjector actually populate every webhook clientConfig.caBundle, and does the API server then accept an Issuer via server-side dry-run \u2014 i.e., what does the hook verify at runtime that no offline render can? (The stronger claim \u2014 that the webhook fails closed and blocks unrelated deploys before its CA is ready \u2014 has NO committed receipt and is aspirational.)",
+  "whyHardForBareAgent": "The render tells you a webhook and a hook exist; it cannot tell you whether caBundle injection wins the race or whether an Issuer create would be admitted. Proving it needs a live cluster, external CRD staging (default base renders 0 CRDs \u2014 external-crds-required), a readiness wait on three deployments, a caBundle field check, and a server dry-run of a CR. The repo's lifecycle observation receipt records each of those checks passing, keyed to the exact chart version and base.",
+  "groundTruth": "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml (checks: external-crds established=6, webhook-ca-bundle non-empty, server-dry-run Issuer accepted, 3 deployments ready; lifecycleModel.hookPolicy=startupapicheck-becomes-post-apply-api-dry-run); runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml; data/live-kind-parity/summary.md lines 178-179 (two-cluster parity pass). Aspirational gap: no receipt exercises fail-closed blocking of other deploys pre-CA.",
+  "testable": "bare-agent-empirical",
+  "userSituation": "evaluating under deadline \u2014 'cert-manager gates every other chart we install; prove it comes up clean before we build on it'",
+  "productSurface": "site",
+  "minutesEstimateForBareAgent": 50,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "template-vs-live-fleet-gap",
+  "question": "Across our supported chart fleet, for which chart@version\u00d7base pairs does `helm template` output NOT match what a live `helm install` actually leaves on the cluster \u2014 and when they differ, how many are benign object-set gaps (CRDs from crds/, hook objects) versus the 16 recorded semantic object diffs, versus runtime-only failures (unpullable pinned images, crash loops, missing prerequisite Secrets) where object parity still passed?",
+  "whyHardForBareAgent": "This is a fleet-scale live question: the committed answer rests on 179 two-vanilla-kind-cluster receipts (130 pass / 3 watch / 46 blocked, with a per-row reason taxonomy). A bare agent can run one or two charts live in an hour; reproducing the fleet answer means hundreds of cluster-pair runs, and the interesting rows (e.g. kube-prometheus-stack default: helm render 124 objects vs 114 live, missing exactly the 10 CRDs) are only findable by doing the comparison, not by reading templates.",
+  "groundTruth": "data/live-kind-parity/summary.md + data/live-kind-parity/summary.csv (per-row result, semantic_parity, reason taxonomy); runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml (worked example: missingFromInstaller = 10 monitoring.coreos.com CRDs, semanticDiffs=[]); data/live-parity-rerun-plan/summary.md (per-row interpretation and next action)",
+  "testable": "structural-only",
+  "userSituation": "post-incident review \u2014 'we previewed with helm template, the cluster ended up with something else, which other charts can do this to us?'",
+  "productSurface": "site+confighub",
+  "minutesEstimateForBareAgent": 480,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "silent-hook-receipted-execution",
+  "question": "During last night's install, Helm ran a post-install Job with cluster credentials that nobody reviewed or approved. Can that same Job be executed instead as an explicit, named, receipted lifecycle action with an identical outcome \u2014 and across our top-100 charts with hooks, which have actual execution/observation evidence versus only render-level 'the hook object exists' evidence?",
+  "whyHardForBareAgent": "The first half needs a live demonstration on a probe chart (helm-install-runs-it-silently vs routed explicit execution, same Job, same outcome) \u2014 reproducible but nontrivial. The second half is an evidence-state question a bare agent cannot answer at all: distinguishing render-proven from lifecycle-observed hooks requires the repo's receipt index (54 top-500 hook charts, 5 maintained queue rows, 5/5 route receipts, 5/5 observations), and its explicit rule that a route receipt is not execution proof.",
+  "groundTruth": "data/hook-execution-proof/summary.md (three-path table: template parity / silent helm run / receipted explicit execution, all pass) + runs/hook-execution-proof/receipt.yaml + tests/fixtures/hook-job-probe/; data/hook-lifecycle/summary.md + data/hook-lifecycle/receipt-index.csv + data/hook-lifecycle/maintained-hook-queue.csv (evidence-state per hook chart); data/lifecycle-routes/routes.csv (executor + automatic=false contract, 0/53 safe-as-automatic)",
+  "testable": "bare-agent-empirical",
+  "userSituation": "post-incident review \u2014 'what privileged steps ran during install that we never saw, and how do we make them visible and approvable next time?'",
+  "productSurface": "tool+confighub",
+  "minutesEstimateForBareAgent": 75,
+  "axis": "state-runtime"
+ },
+ {
+  "id": "crd-collision-catalog-1",
+  "question": "We already run kube-prometheus-stack from this catalog and other teams keep installing more charts from it onto the same clusters. Which CRDs does more than one catalog chart try to ship, exactly which charts collide on each, and for the kube-prometheus-stack / prometheus-operator-crds pair, what does the catalog prescribe so the second install doesn't fight the first for CRD ownership?",
+  "whyHardForBareAgent": "Answering requires the rendered object set of every retained chart-version in the catalog (139 chart-versions, 245 revision renders, each under its recorded effective values, kubeVersion, and api-versions capability profile), then a pairwise join on CRD identity. A bare agent must fetch and render all of them: hours of work, and several retained artifacts are no longer fetchable at all (Bitnami OCI 403s; two Fairwinds versions were republished with different bytes), so the exact retained renders cannot be reconstructed. The repo answers with one query over committed inventories: the 10 monitoring.coreos.com CRDs are shipped by both kube-prometheus-stack and prometheus-operator-crds; fieldexports.services.k8s.aws and iamroleselectors.services.k8s.aws are shipped by all three ACK charts (ec2 1.18.4, eks 1.16.3, iam 1.7.3); podlogs.monitoring.grafana.com by grafana/alloy and grafana/pyroscope. The prescribed fix is the kps no-crds variant, whose targetFacts record each externalized CRD with a suggested prerequisite source.",
+  "groundTruth": "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/object-inventory.yaml; recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/object-inventory.yaml; recipes/aws-controllers-k8s/ec2-chart/1.18.4, recipes/aws-controllers-k8s/eks-chart/1.16.3, recipes/aws-controllers-k8s/iam-chart/1.7.3 (object-inventory.yaml under revisions/*/r001/rendered/); recipes/grafana/alloy/1.11.0 and recipes/grafana/pyroscope/2.0.2 inventories; recipes/prometheus-community/kube-prometheus-stack/87.19.2/variants/no-crds/variant.yaml (targetFacts.requiredCRDs with suggestedSource); ordering semantics receipt: data/crd-ordering-gap/summary.md + runs/crd-ordering-gap/receipt.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 240,
+  "userSituation": "CRD ordering broke production \u2014 a second chart install clobbered or conflicted with CRDs an existing release owned",
+  "productSurface": "site+tool",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "fleet-digest-accountability-1",
+  "question": "We run a four-cluster platform (dev, staging, prod-a, prod-b). For every component and app, which exact chart version or image digest is running on which cluster right now, and what evidence proves the answer instead of asserting it?",
+  "whyHardForBareAgent": "A bare agent with helm and a shell has no standing record binding desired state to observed state across four clusters; even with cluster credentials it can query live objects, but it cannot produce the thing the question demands \u2014 a reconciliation receipt that pins the desired matrix to source digests (16 verified) and validates all 36 component-by-cluster cells against live observation, plus a scoped residue audit proving zero unclassified or Argo-prunable leftovers. Records of what was observed, when, against which digests, cannot be manufactured after the fact. The repo holds exactly this: a 36-cell matrix (8 components/apps x 4 clusters, observed=24, disabled=12) where hx-web is pinned to nginx@sha256:6784fb08... and cubbychat to three digest-pinned images, each cell carrying Argo sync, health, and observed version.",
+  "groundTruth": "data/kubara-platform-matrix/matrix.json (and matrix.csv, summary.md); runs/kubara-mini-idp-reconcile/receipt.yaml (validation accepted-current-live, 16 source digests verified, 36 cells parsed); runs/kubara-mini-idp-reconcile/orphan-audit.yaml (residue-clean, SHA-256 c588c488...); per-cluster effective renders under data/kubara-effective-renders/current-platform/",
+  "testable": "structural-only",
+  "userSituation": "Argo showed drift / an auditor or incident commander asks what is actually running in prod",
+  "productSurface": "site+confighub",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "rollback-history-1",
+  "question": "Last release we were on platform v0.12.0 and cert-manager sat OutOfSync everywhere; now we're on v0.13.0. What exactly was running per cluster under the old release versus now, and how do I keep the old evidence from being silently rewritten to match today?",
+  "whyHardForBareAgent": "The v0.12.0 state no longer exists on any cluster \u2014 no live query can recover it, and a bare agent cannot fabricate the historical observation. The repo retains the v0.12.0 matrix as a frozen historical evidence view (argo-cd 10.1.3 substituted via argobot delivery, cert-manager v1.21.0 watch/OutOfSync on all four clusters, external-secrets 2.7.0 observed on dev only) separate from the current v0.13.0 matrix (argo-cd 10.2.1 observed everywhere), with receipt timestamps. The repo also states the freeze rule as policy: revision digest records inside a pinned release baseline stay byte-for-byte even when later edits make them stale (26 frozen records, ceiling enforced), because a published release must remain what it published \u2014 correcting it would rewrite evidence someone already pulled.",
+  "groundTruth": "data/kubara-platform-matrix/historical-v0.12.0/matrix.json and summary.md (receipt times 2026-08-03); data/kubara-platform-matrix/matrix.json (current v0.13.0); data/variant-revision-digests/summary.md + digests.csv (245 revisions: 175 attached, 26 frozen by the release baseline, 0 stale)",
+  "testable": "structural-only",
+  "userSituation": "post-incident review \u2014 reconstructing what a rolled-back or superseded release actually looked like",
+  "productSurface": "site+confighub",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "approval-binding-1",
+  "question": "Prove that the training-runtime configuration in production was approved by a person, that the approval binds to the exact revision that is head, and that the bytes there today are the bytes that were approved \u2014 not something edited after sign-off.",
+  "whyHardForBareAgent": "This is a question about records, not about YAML: a bare agent can read a values file and say it looks fine, but it cannot produce a recorded approval, a revision selector, or a before/after enforcement trace, and it cannot demonstrate that apply was blocked before approval and allowed after. The repo's live receipt shows the full chain: the reviewed object stored without field changes, content hash unchanged during approval, revision selector HeadRevisionNum, 1 recorded approval, dry-run against the recorded OCI target blocked pre-approval and allowed post-approval. Any answer that lacks these records is an assertion, and records cannot be manufactured after the fact.",
+  "groundTruth": "runs/ai-change-review-live-proof/receipt.yaml; data/ai-change-review-live-proof/summary.md (approval table: hash unchanged, HeadRevisionNum, dry-run blocked-then-allowed); policy: config-catalog/policies/catalog-standard.yaml; reviewed object: data/ai-change-review/reviewed.yaml",
+  "testable": "structural-only",
+  "userSituation": "post-incident review / compliance audit \u2014 'who approved this and is it still what they approved?'",
+  "productSurface": "confighub",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "ai-edit-provenance-1",
+  "question": "An AI assistant proposed a change to our PyTorch training runtime a while back \u2014 bump to eight H100 nodes and update the image. If that had shipped unreviewed, which of its specific edits would have taken production down, what mechanism caught each one, and what record shows the change that actually shipped instead?",
+  "whyHardForBareAgent": "The unchecked proposal, the review verdicts, and the shipped candidate are three distinct committed records; a bare agent can lint a values file it is handed, but it cannot reconstruct which edits the original proposal contained, which check caught which edit (8 nodes vs the recorded target limit of 4 \u2014 caught by target facts the cluster spec alone doesn't carry; digest-pinned image replaced with a mutable tag \u2014 warned; API key left as an unresolved placeholder \u2014 blocked), nor show the reviewed candidate that shipped with 4 nodes, the pinned digest restored, and the key read from the existing training-provider-credentials Secret. The repo holds all three records plus a live ConfigHub proof of the same objects crossing the approval boundary.",
+  "groundTruth": "data/ai-change-review/proposal.yaml (unchecked), data/ai-change-review/reviewed.yaml (shipped), data/ai-change-review/receipt.yaml + summary.md (per-check verdicts and the 4-node target limit); live counterpart runs/ai-change-review-live-proof/receipt.yaml; source object examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/013-kubeflow-trainer-post/templates/torch-distributed-cluster-training-runtime.yaml",
+  "testable": "structural-only",
+  "userSituation": "post-incident review after an AI-assisted config change \u2014 'what did the agent actually change and what stopped the bad parts?'",
+  "productSurface": "tool+confighub",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "version-republish-1",
+  "question": "helm pull of fairwinds goldilocks 10.3.0 today gives me a tarball whose sha256 doesn't match what we deployed in June \u2014 same chart, same version string. Did the publisher republish this version with different bytes, which digest is the one we actually reviewed, and how do I tell the two artifacts apart?",
+  "whyHardForBareAgent": "A bare agent can hash today's tarball (3e51ce8032b0...) but has nothing to compare it against: the previously published bytes are gone from the upstream repo, the version string is identical, and no public record distinguishes the two. It cannot even establish that a republication happened, let alone name the reviewed digest. The repo retained the original bytes' digest (9498a6f49cde...) in the chart's installer-package receipt, recorded the republication with both digests and a decision (retained-exact), and committed a content witness of the republished package (103 scanned files) so either artifact can be identified on arrival. Same finding for fairwinds vpa 4.11.0. Asked empirically ('has this version been republished with different bytes?'), the bare agent must either guess or say it cannot know.",
+  "groundTruth": "data/upstream-drift/summary.md + drift.csv (both digest pairs and the retained-exact decision); recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml (retained bytes); data/flattening-safety/witnesses/fairwinds-stable-goldilocks-10.3.0-republished.yaml (republished-content witness)",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 60,
+  "userSituation": "Argo showed drift \u2014 a re-fetched chart renders differently even though the pinned version never changed",
+  "productSurface": "site",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "provenance-ceiling-1",
+  "question": "Security is asking for supply-chain provenance on our whole platform stack before Friday. Of the 139 pinned charts in this catalog, how many even publish a Helm provenance file for our exact versions, which upstream repositories sign everything they publish, and for which charts can the question not be asked at all?",
+  "whyHardForBareAgent": "The complete answer requires constructing the index URL and tarball URL for 139 exact chart versions across 58 upstream repositories with heterogeneous hosting (classic index.yaml repos, GitHub Pages, OCI registries where the .prov convention does not exist), then probing each \u2014 one to three hours of fiddly, failure-prone network work, and OCI-hosted charts (all 21 retained Bitnami charts among them) will be silently misclassified rather than reported as unaskable. The repo committed the full survey (2026-08-08): 33 of 139 charts publish provenance (24%), 74 publish none, 32 could not be asked; 9 of 58 repositories sign at least one retained chart, with argo-helm and external-secrets signing every retained chart. That number is the stated ceiling on any provenance claim for the fleet.",
+  "groundTruth": "data/upstream-provenance/provenance.csv (per-chart rows), data/upstream-provenance/summary.md (33/139, per-repository verdict table), data/upstream-provenance/survey.json",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 120,
+  "userSituation": "evaluating under deadline \u2014 a security questionnaire about the whole stack, not one chart",
+  "productSurface": "site",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ },
+ {
+  "id": "fleet-blast-radius-1",
+  "question": "We manage a four-environment redis fleet (dev, staging, prod-us-east, prod-eu-west) as variants of one base. If we bump image.digest in the base, which environments actually change, which rendered objects change in each, and which environments are shielded because they pin their own value \u2014 and why should I believe the prediction?",
+  "whyHardForBareAgent": "Given the fleet spec, a bare agent must render the chart four times under layered override precedence and diff full object sets per candidate change (three base keys x four environments = twelve render-diffs), where a single precedence mistake flips an answer from 'shielded' to 'changed'; and it can offer no accuracy warrant for its method beyond this one run. The repo answers from the committed value-source-map: image.digest touches exactly 2 objects (StatefulSet redis-master, redis-replicas) in dev, staging, and prod-us-east while prod-eu-west is shielded by its own image.digest pin; auth.password touches 3 objects with both prods shielded; replica.replicaCount touches 1 with everything but dev shielded \u2014 and the prediction mechanism carries a separate accuracy receipt (13/13 recorded cases correct).",
+  "groundTruth": "data/blast-radius-fleet/summary.md (per-environment pins and per-change object sets); data/blast-radius-accuracy/summary.md (13/13 prediction-accuracy proof); underlying map recipes/bitnami/redis/25.5.3/value-source-map.yaml",
+  "testable": "bare-agent-empirical",
+  "minutesEstimateForBareAgent": 45,
+  "userSituation": "planning a fleet-wide base change \u2014 'what does this bump actually touch in prod?'",
+  "productSurface": "tool+confighub",
+  "axis": "composition/fleet/accountability \u2014 multi-chart CRD ownership, fleet digest accountability, human approval binding, AI-change provenance, upstream republication"
+ }
+]
