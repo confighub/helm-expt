@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `88a329a1d`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `a2c966987`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 266 |
-| Fresh (no linked source newer than the doc) | 39 |
-| **Review-due** | 79 |
-| No linked evidence sources (cannot auto-trigger) | 148 |
+| Authored docs tracked | 267 |
+| Fresh (no linked source newer than the doc) | 40 |
+| **Review-due** | 78 |
+| No linked evidence sources (cannot auto-trigger) | 149 |
 
 ## Review queue
 
@@ -41,7 +41,7 @@ most recently changed triggers.
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 62 | `data/top100-user-readiness/summary.md (2026-08-12)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 62 | `data/quirk-coverage/coverage.csv (2026-08-12)`<br>`data/quirk-coverage/summary.md (2026-08-12)`<br>`data/extension-slots/summary.md (2026-08-09)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 62 | `data/chart-facts/chart-facts.csv (2026-08-12)`<br>`data/top100-coverage/summary.md (2026-08-12)`<br>`data/top100-readiness/readiness.csv (2026-08-12)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 62 | `CATALOG.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)`<br>`data/outcome-coverage/chart-outcomes.csv (2026-08-12)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 62 | `data/README.md (2026-08-12)`<br>`data/csv-index.csv (2026-08-12)`<br>`CATALOG.md (2026-08-12)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 62 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`tests/npm-scripts.md (2026-07-28)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 61 | `data/outcome-coverage/base-outcomes.csv (2026-08-10)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-08-10)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 61 | `data/top100-readiness/summary.md (2026-08-12)`<br>`data/top100-user-readiness/summary.md (2026-08-12)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
@@ -107,7 +107,6 @@ most recently changed triggers.
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-08-09 | 2 | `data/receipt-aging/summary.md (2026-08-10)`<br>`data/credential-boundary/summary.md (2026-08-09)`<br>`tests/doctrine.md (2026-08-09)` |
 | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-08-09 | 2 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/operational-class-examples/summary.md (2026-08-10)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-08-11 | 1 | `CATALOG.md (2026-08-12)`<br>`data/cub-adoption-caveats/summary.md (2026-08-12)`<br>`data/master-catalog-matrix/matrix.html (2026-08-12)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 1 | `tests/doctrine.md (2026-08-09)`<br>`data/gated-artifacts/summary.md (2026-08-08)` |
@@ -189,6 +188,7 @@ into this freshness model.
 - [docs/planning/catalog-promotion-next-candidates.md](../../docs/planning/catalog-promotion-next-candidates.md)
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
 - [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
+- [docs/planning/chapter-three-gateway-rework.md](../../docs/planning/chapter-three-gateway-rework.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
 - [docs/planning/fuzz-corpus-tests-roadmap.md](../../docs/planning/fuzz-corpus-tests-roadmap.md)
 - [docs/planning/get-started-rewrite-brief.md](../../docs/planning/get-started-rewrite-brief.md)

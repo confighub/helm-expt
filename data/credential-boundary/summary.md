@@ -12,7 +12,7 @@ value arrives at install time.
 The AICR inference compiler has enforced this for one entry since the NGC
 license read, because retaining an upstream document that carried a key would
 publish that key. The rule was never AICR-specific, and this is it applied
-everywhere: 5163 committed documents in scope,
+everywhere: 5166 committed documents in scope,
 0 undeclared literal credential values.
 
 ## How a value is judged
@@ -65,7 +65,7 @@ It also cannot tell a real credential from a convincing string. It refuses a
 literal value in a secret surface whatever that value means, which is the point:
 the shape is the problem, and judging the string would be guessing.
 
-2876 documents mention none of the credential words, so they cannot hold an
+2879 documents mention none of the credential words, so they cannot hold an
 assignment and are not parsed. The remaining 2287 are parsed and walked, and
 39 could not be parsed and are counted rather than skipped silently.
 
