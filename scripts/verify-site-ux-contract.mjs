@@ -38,7 +38,7 @@ const checks = [
   },
   {
     file: "site/challenge.html",
-    terms: ["Ask your AI these questions", "Twelve questions where records win", "Three questions your assistant answers fine", "Try it on your fleet", "Zero fabricated receipts", "data/ai-benchmark", "republished", "cannot yet answer from a committed receipt does not appear"],
+    terms: ["Give your AI this prompt", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
   },
   {
     file: "site/variants.html",
