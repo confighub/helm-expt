@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Does the cluster match what we approved? &middot; Config Workshop</title>
-  <meta name="description" content="Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html">
-  <meta property="og:title" content="Does the cluster match what we approved? &amp;middot; Config Workshop">
-  <meta property="og:description" content="Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.">
+  <title>Runtime Drift and Delivery Boundaries · Config Workshop</title>
+  <meta name="description" content="Runtime Drift and Delivery Boundaries: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/runtime-drift-boundaries.html">
+  <meta property="og:title" content="Runtime Drift and Delivery Boundaries · Config Workshop">
+  <meta property="og:description" content="Runtime Drift and Delivery Boundaries: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/runtime-drift-boundaries.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,139 +427,39 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
     }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Ask</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Does the cluster match what we approved?</h1>
-    <p class="lead">Compare the reviewed desired objects with the objects reported by the cluster. Read the field coverage before treating a clean result as a match.</p>
-    <p><strong>Needs a ConfigHub account and a Kubernetes cluster for a standing comparison.</strong></p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Ask</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Runtime Drift and Delivery Boundaries</h1>
+    <p class="lead">This guide answers one question: what does a clean result mean after reviewed Kubernetes configuration moves toward a cluster? <a href="../../../../docs/user/runtime-drift-boundaries.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="example">
-      <h2 id="example">See one example</h2>
-      <p>Our live gap test changed replicas and a container environment variable. The current comparison found the replica change but missed the environment-variable change.</p><p>That makes this result a warning, not a pass. A clean report covers only the fields named by the receipt.</p><h3>What each path can tell you</h3><div class="catalog"><div class="card">
-        <h4>Local files or OCI</h4>
-        <p>Runs on your laptop.</p>
-        <p><strong>Live comparison:</strong> No live comparison runs unless you choose a separate cluster check.</p>
-        <p><strong>Removal:</strong> Not applicable until something deploys the files.</p>
-        <p><strong>Conflicts:</strong> No apply conflict exists until a delivery tool writes to Kubernetes.</p>
-        <p><strong>A green result means:</strong> The local files passed the named local checks. Nothing is claimed about a cluster.</p>
-      </div><div class="card">
-        <h4>kubectl apply</h4>
-        <p>Needs a Kubernetes cluster; no ConfigHub account is required.</p>
-        <p><strong>Live comparison:</strong> A separate kubectl or cub-scout check can compare selected desired and live fields.</p>
-        <p><strong>Removal:</strong> Ordinary kubectl apply does not delete an object omitted from the next file set.</p>
-        <p><strong>Conflicts:</strong> Server-side apply reports field ownership conflicts; the current resolution workflow remains awkward.</p>
-        <p><strong>A green result means:</strong> The Kubernetes API accepted the apply. Workload readiness and complete convergence need separate checks.</p>
-      </div><div class="card">
-        <h4>Argo CD or Flux</h4>
-        <p>Needs a registry and cluster; a ConfigHub account is optional.</p>
-        <p><strong>Live comparison:</strong> The controller reports sync or reconciliation for the objects it manages.</p>
-        <p><strong>Removal:</strong> Omitted objects are deleted only when pruning is enabled and tested for that path.</p>
-        <p><strong>Conflicts:</strong> Apply and ownership conflicts appear in controller status and must be resolved deliberately.</p>
-        <p><strong>A green result means:</strong> The controller reconciled its declared objects. Application health and external prerequisites need separate checks.</p>
-      </div><div class="card">
-        <h4>ConfigHub plus Argo CD or Flux</h4>
-        <p>Needs a ConfigHub account; live comparison also needs a cluster.</p>
-        <p><strong>Live comparison:</strong> ConfigHub keeps the approved desired revisions; current observation receipts compare only their named fields with live state.</p>
-        <p><strong>Removal:</strong> The downstream Argo CD or Flux path removes omitted objects only when pruning is enabled and tested.</p>
-        <p><strong>Conflicts:</strong> ConfigHub shows source and variant changes for review; delivery-time field ownership conflicts still come from Kubernetes or the controller.</p>
-        <p><strong>A green result means:</strong> Approval and publication prove the desired release record. Controller sync, workload health, and live observation remain separate results.</p>
-      </div></div>
-    </section>
-    <section aria-labelledby="evidence">
-      <h2 id="evidence">Check the record</h2>
-      <p><a href="https://github.com/confighub/helm-expt/blob/main/runs/drift-detection-gap/receipt.yaml">Open the live drift receipt</a>. The <a href="./d/data/drift-detection-gap/summary.html">plain-English summary</a> shows the detected field and the missed field.</p><p><a href="./d/data/prune-gap-proof/summary.html">Check removal behavior</a> and <a href="./d/data/ssa-conflict-gap/summary.html">check field conflicts</a> separately.</p>
-    </section>
-    <section aria-labelledby="next-action">
-      <h2 id="next-action">Do this next</h2>
-      <p>Read the current gap before you choose a desired-versus-live check for production.</p>
-      <p><a class="button primary" href="./known-gaps.html">Start this check</a></p>
-    </section>
+    <article class="doc-body">
+
+<p>The answer depends on the delivery path. Local files, <code>kubectl</code>, Argo CD or Flux, and ConfigHub with a GitOps controller do not observe the same things.</p>
+<p>The canonical path record is <a href="../../../../config-catalog/runtime-path-boundaries.yaml"><code>config-catalog/runtime-path-boundaries.yaml</code></a>. The <a href="../../../does-cluster-match-approved-config.html">public question page</a> is generated from that record.</p>
+<h2 id="read-four-results-separately">Read Four Results Separately</h2>
+<ol><li>A local check says something about the reviewed files. It says nothing about a cluster.</li><li>A successful <code>kubectl apply</code> says the Kubernetes API accepted the request. It does not prove workload readiness, and ordinary apply does not remove objects omitted from a later file set.</li><li>Argo CD or Flux reports whether its declared objects reconcile. Removal depends on pruning being enabled and tested. A green controller result does not prove every external prerequisite or application behavior.</li><li>ConfigHub records the approved desired revisions, checks, and publication. Argo CD or Flux still performs delivery. Live observation is a separate result with its own field coverage.</li></ol>
+<h2 id="current-field-coverage">Current Field Coverage</h2>
+<p>The retained live test changed a Deployment's replicas and one container environment variable. The comparison found the replica change and missed the environment-variable change. Treat the current result as partial.</p>
+<ul><li><a href="../../../../runs/drift-detection-gap/receipt.yaml">Live drift receipt</a></li><li><a href="../../data/prune-gap-proof/summary.html">Pruning gap</a></li><li><a href="../../data/ssa-conflict-gap/summary.html">Server-side apply conflict gap</a></li></ul>
+<p>Keep these questions separate when you review a path:</p>
+<ul><li>Did the reviewed files pass their checks?</li><li>Did the delivery tool accept or reconcile them?</li><li>Were omitted objects removed?</li><li>Did a field ownership conflict stop the update?</li><li>Is the workload healthy?</li><li>Which desired and live fields were actually compared?</li></ul>
+<p>A single green label cannot answer all six questions.</p>
+    </article>
   </main>
-  <footer>One question, one checked example, and one next action.</footer>
+  <footer><p>Generated from the committed markdown file <code>docs/user/runtime-drift-boundaries.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

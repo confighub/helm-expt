@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-12 (commit `84e40b931`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-12 (commit `f0497ec9a`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 274 |
-| Fresh (no linked source newer than the doc) | 42 |
+| Authored docs tracked | 276 |
+| Fresh (no linked source newer than the doc) | 43 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 154 |
+| No linked evidence sources (cannot auto-trigger) | 155 |
 
 ## Review queue
 
@@ -99,10 +99,10 @@ most recently changed triggers.
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-08-02 | 8 | `data/confighub-example-guides/summary.md (2026-08-10)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-02 | 8 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-10)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 7 | `tests/doctrine.md (2026-08-09)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 5 | `data/byo-helm-values-review/public-and-confighub.md (2026-08-12)`<br>`data/app-readiness/summary.md (2026-08-12)`<br>`data/outcome-coverage/summary.md (2026-08-12)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [README.md](../../README.md) | root | 2026-08-08 | 4 | `CATALOG.md (2026-08-12)`<br>`data/status-dashboard/summary.md (2026-08-12)`<br>`data/extension-slots/summary.md (2026-08-09)` |
 | [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-08-09 | 4 | `data/credential-boundary/summary.md (2026-08-12)`<br>`data/receipt-aging/summary.md (2026-08-12)`<br>`tests/doctrine.md (2026-08-09)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 4 | `data/app-readiness/summary.md (2026-08-12)`<br>`data/outcome-coverage/summary.md (2026-08-12)`<br>`data/anonymous-oci-ci-proof/summary.md (2026-08-10)` |
 | [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 3 | `data/aicr-claim-integrity/summary.md (2026-08-11)`<br>`data/aicr-entry-naming/summary.md (2026-08-11)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 3 | `data/flattening-safety/summary.md (2026-08-09)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
@@ -255,6 +255,7 @@ into this freshness model.
 - [docs/user/custom-overlays.md](../../docs/user/custom-overlays.md)
 - [docs/user/derived-variant-walkthrough.md](../../docs/user/derived-variant-walkthrough.md)
 - [docs/user/example-rendered-diff.md](../../docs/user/example-rendered-diff.md)
+- [docs/user/existing-helm-release-diagnostic.md](../../docs/user/existing-helm-release-diagnostic.md)
 - [docs/user/expected-results-and-clusters.md](../../docs/user/expected-results-and-clusters.md)
 - [docs/user/first-run-walkthrough.md](../../docs/user/first-run-walkthrough.md)
 - [docs/user/how-the-harness-works.md](../../docs/user/how-the-harness-works.md)

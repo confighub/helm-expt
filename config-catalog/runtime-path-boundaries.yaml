@@ -1,0 +1,43 @@
+apiVersion: workshop.confighub.com/v1alpha1
+kind: RuntimePathBoundaries
+metadata:
+  name: config-workshop-runtime-paths
+spec:
+  paths:
+    - id: local-files
+      label: Local files or OCI
+      liveComparison: No live comparison runs unless you choose a separate cluster check.
+      removals: Not applicable until something deploys the files.
+      conflicts: No apply conflict exists until a delivery tool writes to Kubernetes.
+      greenMeans: The local files passed the named local checks. Nothing is claimed about a cluster.
+      boundary: Runs on your laptop.
+    - id: kubectl
+      label: kubectl apply
+      liveComparison: A separate kubectl or cub-scout check can compare selected desired and live fields.
+      removals: Ordinary kubectl apply does not delete an object omitted from the next file set.
+      conflicts: Server-side apply reports field ownership conflicts; the current resolution workflow remains awkward.
+      greenMeans: The Kubernetes API accepted the apply. Workload readiness and complete convergence need separate checks.
+      boundary: Needs a Kubernetes cluster; no ConfigHub account is required.
+    - id: gitops
+      label: Argo CD or Flux
+      liveComparison: The controller reports sync or reconciliation for the objects it manages.
+      removals: Omitted objects are deleted only when pruning is enabled and tested for that path.
+      conflicts: Apply and ownership conflicts appear in controller status and must be resolved deliberately.
+      greenMeans: The controller reconciled its declared objects. Application health and external prerequisites need separate checks.
+      boundary: Needs a registry and cluster; a ConfigHub account is optional.
+    - id: confighub-gitops
+      label: ConfigHub plus Argo CD or Flux
+      liveComparison: ConfigHub keeps the approved desired revisions; current observation receipts compare only their named fields with live state.
+      removals: The downstream Argo CD or Flux path removes omitted objects only when pruning is enabled and tested.
+      conflicts: ConfigHub shows source and variant changes for review; delivery-time field ownership conflicts still come from Kubernetes or the controller.
+      greenMeans: Approval and publication prove the desired release record. Controller sync, workload health, and live observation remain separate results.
+      boundary: Needs a ConfigHub account; live comparison also needs a cluster.
+  currentFieldCoverage:
+    result: watch
+    detected: spec.replicas
+    missed: container environment variables
+    receipt: runs/drift-detection-gap/receipt.yaml
+  relatedEvidence:
+    pruning: data/prune-gap-proof/summary.md
+    conflicts: data/ssa-conflict-gap/summary.md
+    liveFieldCoverage: data/drift-detection-gap/summary.md

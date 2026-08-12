@@ -106,6 +106,7 @@ const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "c
 const flatteningEvidencePath = join(repoRoot, "data", "flattening-safety", "evidence.csv");
 const flatteningCoveragePath = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
 const upstreamDriftPath = join(repoRoot, "data", "upstream-drift", "drift.csv");
+const runtimePathBoundariesPath = join(repoRoot, "config-catalog", "runtime-path-boundaries.yaml");
 // The catalog grows. These were exact counts, so every chart added to the
 // public catalog broke the site gate and read as a regression rather than as
 // growth. They are floors now. What they still catch is the thing that matters,
@@ -3611,7 +3612,7 @@ function howItWorksHtml() {
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
-    <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
+    <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./does-cluster-match-approved-config.html">What each path can prove</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
         ${nowDeployBlocksHtml()}
     </section>
 
@@ -4691,12 +4692,39 @@ function environmentDifferenceHtml() {
 }
 
 function approvedClusterHtml() {
+  const boundaries = readYaml(runtimePathBoundariesPath);
+  const paths = boundaries?.spec?.paths ?? [];
+  check(
+    paths.map((path) => path.id).join(",") === "local-files,kubectl,gitops,confighub-gitops",
+    "runtime path boundary record must cover local files, kubectl, GitOps, and ConfigHub plus GitOps in order",
+  );
+  for (const path of paths) {
+    for (const key of ["label", "liveComparison", "removals", "conflicts", "greenMeans", "boundary"]) {
+      check(typeof path[key] === "string" && path[key].trim(), `runtime path ${path.id} is missing ${key}`);
+    }
+  }
+  const coverage = boundaries?.spec?.currentFieldCoverage ?? {};
+  check(coverage.result === "watch", "runtime field coverage must remain watch until the missing field is covered");
+  check(coverage.detected === "spec.replicas", "runtime field coverage lost its detected replica field");
+  check(coverage.missed === "container environment variables", "runtime field coverage lost its missed environment-variable field");
+  const pathCards = `<div class="catalog">${paths
+    .map(
+      (path) => `<div class="card">
+        <h4>${escapeHtml(path.label)}</h4>
+        <p>${escapeHtml(path.boundary)}</p>
+        <p><strong>Live comparison:</strong> ${escapeHtml(path.liveComparison)}</p>
+        <p><strong>Removal:</strong> ${escapeHtml(path.removals)}</p>
+        <p><strong>Conflicts:</strong> ${escapeHtml(path.conflicts)}</p>
+        <p><strong>A green result means:</strong> ${escapeHtml(path.greenMeans)}</p>
+      </div>`,
+    )
+    .join("")}</div>`;
   return driftQuestionPageHtml({
     title: "Does the cluster match what we approved?",
     lead: "Compare the reviewed desired objects with the objects reported by the cluster. Read the field coverage before treating a clean result as a match.",
     boundary: "Needs a ConfigHub account and a Kubernetes cluster for a standing comparison.",
-    example: `<p>Our live gap test changed replicas and a container environment variable. The current comparison found the replica change but missed the environment-variable change.</p><p>That makes this result a warning, not a pass. A clean report covers only the fields named by the receipt.</p>`,
-    evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}runs/drift-detection-gap/receipt.yaml">Open the live drift receipt</a>. The <a href="./d/data/drift-detection-gap/summary.html">plain-English summary</a> shows the detected field and the missed field.</p>`,
+    example: `<p>Our live gap test changed replicas and a container environment variable. The current comparison found the replica change but missed the environment-variable change.</p><p>That makes this result a warning, not a pass. A clean report covers only the fields named by the receipt.</p><h3>What each path can tell you</h3>${pathCards}`,
+    evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}${escapeHtml(coverage.receipt)}">Open the live drift receipt</a>. The <a href="./d/${escapeHtml(boundaries.spec.relatedEvidence.liveFieldCoverage.replace(/\.md$/, ".html"))}">plain-English summary</a> shows the detected field and the missed field.</p><p><a href="./d/${escapeHtml(boundaries.spec.relatedEvidence.pruning.replace(/\.md$/, ".html"))}">Check removal behavior</a> and <a href="./d/${escapeHtml(boundaries.spec.relatedEvidence.conflicts.replace(/\.md$/, ".html"))}">check field conflicts</a> separately.</p>`,
     action: "Read the current gap before you choose a desired-versus-live check for production.",
     actionHref: "./known-gaps.html",
   });
