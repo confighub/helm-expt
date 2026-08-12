@@ -558,7 +558,7 @@
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
-    <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
+    <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./does-cluster-match-approved-config.html">What each path can prove</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
         <h3 id="now-deploy">Now deploy it, three ways</h3>
       <p><strong>Runs on your laptop until the apply:</strong> pushing the rendered layout to a registry needs only registry credentials, not a ConfigHub account.</p>
       <p>First, put the rendered bundle somewhere a controller can pull: <code>flux push artifact oci://REGISTRY/redis-rendered:v1 --path ./redis/out/manifests --source local --revision v1</code> (or <code>oras cp</code> the local layout).</p>

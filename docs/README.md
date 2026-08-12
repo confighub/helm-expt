@@ -177,6 +177,7 @@ Where a design is written down before it is built.
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today. |
 | [model-and-vocabulary.md](./user/model-and-vocabulary.md) | One page for the source-and-intent role, the five main terms (recipe, rendering, render record, base variant, derived variant), the F1-F4 stages, and where each artifact lives today. |
 | [reverse-reconcile-design.md](./user/reverse-reconcile-design.md) | User-facing design for the reverse live-to-desired frontier: authority policy, bounds check, fixture receipt, and the missing `cub` write-back capability. |
+| [runtime-drift-boundaries.md](./user/runtime-drift-boundaries.md) | What local files, kubectl, Argo CD or Flux, and ConfigHub can each say about live state, pruning, conflicts, convergence, and workload health. |
 
 ### Understanding the harness
 
