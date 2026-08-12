@@ -1,5 +1,12 @@
 # The inference entry retains NIM on KServe as configuration
 
+**What is inside.** The retained KServe tree: ten serving runtimes and sixteen
+model shapes, from a single `InferenceService` on one GPU to
+`llama3-70b-instruct` on four H100s, each a complete file you can read. What
+you need to run one: AWS or equivalent GPU capacity and NGC access for the
+model images. Reading costs nothing.
+
+
 UNOFFICIAL/EXPERIMENTAL. This entry belongs to
 [the AICR catalog overview](./index.md). It retains NVIDIA's KServe reference
 implementation for NIM inference as governed configuration, pinned by one

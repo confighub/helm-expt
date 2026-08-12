@@ -3194,7 +3194,7 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
   <section aria-labelledby="finished">
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
-    <p><strong>Next:</strong> <a href="./how-it-works.html">choose how to deploy the reviewed result</a>.</p>
+    <p><strong>Next:</strong> <a href="./how-it-works.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
     <p>Other paths: <a href="./testing.html">choose another worked example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
   </section>
 </main>
@@ -3262,7 +3262,8 @@ function howItWorksHtml() {
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
-  </section>
+        ${nowDeployBlocksHtml()}
+    </section>
 
   <section aria-labelledby="next">
     <h2 id="next">5. Next step</h2>
@@ -3959,6 +3960,51 @@ function whatsNewHtml() {
 </body>
 </html>
 `;
+}
+
+
+// Every render path ends with delivery. The persona study's strongest causal
+// signal: every run that reached a deploy document converted, and the reader
+// who could not find one deployed by hand. The manifests are complete rather
+// than fragments, and the registry push that must happen first is stated.
+function nowDeployBlocksHtml() {
+  return `<h3 id="now-deploy">Now deploy it, three ways</h3>
+      <p><strong>Runs on your laptop until the apply:</strong> pushing the rendered layout to a registry needs only registry credentials, not a ConfigHub account.</p>
+      <p>First, put the rendered bundle somewhere a controller can pull: <code>flux push artifact oci://REGISTRY/redis-rendered:v1 --path ./redis/out/manifests --source local --revision v1</code> (or <code>oras cp</code> the local layout).</p>
+      <p><strong>kubectl</strong></p>
+      <pre><code>kubectl apply -f ./redis/out/manifests/</code></pre>
+      <p><strong>Flux</strong></p>
+      <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata: { name: redis-rendered, namespace: flux-system }
+spec:
+  interval: 5m
+  url: oci://REGISTRY/redis-rendered
+  ref: { tag: v1 }
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: { name: redis-rendered, namespace: flux-system }
+spec:
+  interval: 10m
+  sourceRef: { kind: OCIRepository, name: redis-rendered }
+  path: "."
+  prune: true
+  wait: true</code></pre>
+      <p><strong>Argo CD (3.x with OCI sources enabled)</strong></p>
+      <pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: redis-rendered, namespace: argocd }
+spec:
+  project: default
+  source:
+    repoURL: oci://REGISTRY/redis-rendered
+    targetRevision: v1
+    path: .
+  destination: { server: https://kubernetes.default.svc, namespace: redis }
+  syncPolicy:
+    syncOptions: [CreateNamespace=true]</code></pre>
+      <p>Pruning and CRD ordering differ per path. The <a href="./d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> has the tested details; the <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> shows the failure you avoid.</p>`;
 }
 
 // The challenge page challenges the reader to act, not to admire a benchmark.
@@ -4903,45 +4949,51 @@ function knownGapsHtml(catalog) {
   const gaps = [
     [
       "Fixed placeholder credentials",
-      "watch",
+      "Blocks production use of those renders",
       "Some deterministic demo renders contain a fixed placeholder. A placeholder must never be presented as a generated production credential.",
       "Choose an existing-Secret configuration and supply your own Secret for real use.",
       "../data/default-credential-check/summary.md",
+      "Permanent boundary: a placeholder never becomes a credential. The existing-Secret bases are the fix.",
     ],
     [
       "cub-direct no prune",
-      "watch",
+      "Plan around it",
       "Plain apply does not remove an object when it disappears from the desired configuration.",
       "Enable and verify pruning in Argo CD or Flux, or delete the object explicitly during the upgrade.",
       "../data/prune-gap-proof/summary.md",
+      "Permanent boundary of plain apply. Argo CD and Flux pruning are the tested paths.",
     ],
     [
       "cub-direct CRD ordering",
-      "watch",
+      "Plan around it",
       "Kubernetes must establish a CRD before it can accept objects that use that CRD.",
       "Install and wait for the CRDs first, or use a tested Argo CD or Flux ordering path.",
       "../data/crd-ordering-gap/summary.md",
+      "Permanent boundary of cub-direct. The ordered Argo CD and Flux paths are tested.",
     ],
     [
       "cub-scout drift field coverage",
-      "watch",
+      "Treat results as partial",
       "The current drift check finds changes to replicas and images, but it does not find every container environment-variable change.",
       "Treat the result as partial and inspect environment variables separately.",
       "../data/drift-detection-gap/summary.md",
+      "Being extended. Environment-variable coverage is open work.",
     ],
     [
       "SSA conflict ergonomics",
-      "watch",
+      "Slows you down",
       "Server-side apply reports a conflict instead of silently overwriting a manual live edit, but the resolution workflow is still awkward.",
       "Stop and choose whether the live or desired value should win. Record the decision before retrying.",
       "../data/ssa-conflict-gap/summary.md",
+      "Being improved. The conflict is correct; the resolution workflow is the work.",
     ],
     [
       "Helm-to-cub migration friction",
-      "watch",
+      "Slows you down",
       "cub safely rejects some normal Helm usage, but several error messages still do not explain the required change clearly.",
       "Use the migration guide. Keep using Helm for a case when the safe cub path is unclear.",
       "../data/helm-habit-friction/summary.md",
+      "Being improved, message by message.",
     ],
   ];
   return `<!doctype html>
@@ -4964,9 +5016,9 @@ function knownGapsHtml(catalog) {
     <section aria-labelledby="gaps">
       <h2 id="gaps">1. Read the current limits</h2>
       ${markdownLikeTable([
-        ["Problem", "Status", "What it means", "What to do now", "Evidence"],
-        ...gaps.map(([name, status, body, action, href]) => [name, status, body, action, `<a href="${href}">Open evidence</a>`]),
-      ], { rawFifthColumn: true })}
+        ["Problem", "Severity", "What it means, and what to do now", "Fix or boundary", "Evidence"],
+        ...gaps.map(([name, severity, body, action, href, disposition]) => [name, severity, `${body}<br><strong>Do now:</strong> ${action}`, disposition, `<a href="${href}">Open evidence</a>`]),
+      ], { rawFifthColumn: true, rawThirdColumn: true })}
     </section>
 
     <section aria-labelledby="next">
@@ -7071,6 +7123,7 @@ function aicrEntriesSection() {
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
+        <p>Not in the catalog? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">send it to us</a> and it gets a checked entry.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
@@ -8402,7 +8455,7 @@ function chartPageHtml(catalog, entry) {
           ], { rawSecondColumn: true })
         : "<p>No runnable base has a recorded setting source yet.</p>"}
       <p><strong>Upgrade rule:</strong> if a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The values profile shows the Helm side; Unit revision history shows the ConfigHub side.</p>
-      <p><a href="../../docs/user/helm-presets-and-values.md#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
+      <p><a href="../../docs/user/helm-presets-and-values.md#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>. For the staging commands behind each prerequisite, open the <a href="../d/data/target-prerequisite-actions/summary.html">prerequisite action packets</a>.</p>
     </section>
 
     ${flatteningSectionHtml(catalog, entry)}
