@@ -461,7 +461,7 @@ target/preflight rows: 9</code></pre>
 <tr><td><code>vendored-traefik-lifecycle-hook</code></td><td>1</td></tr></tbody></table>
 <h2 id="work-orders-by-chart">Work Orders By Chart</h2>
 <h3 id="kongkong320">kong/kong@3.2.0</h3>
-<p>Pattern: <code>database-migration-pair</code>&lt;br&gt; Phases: <code>pre-upgrade, post-upgrade</code>&lt;br&gt; Dependency source: <code>chart-own</code>&lt;br&gt; Candidate route: <code>upgrade-action-with-receipt</code></p>
+<p>Pattern: <code>database-migration-pair</code><br> Phases: <code>pre-upgrade, post-upgrade</code><br> Dependency source: <code>chart-own</code><br> Candidate route: <code>upgrade-action-with-receipt</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>ordered-upgrade-action</td><td>operator reviewer</td><td>The pre-upgrade and post-upgrade actions are mapped to an ordered lifecycle route with rollback and failure-handling notes.</td></tr>
 <tr><td>3</td><td>target-preflight</td><td>platform reviewer</td><td>Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope.</td></tr>
@@ -470,7 +470,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>6</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>7</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="k8s-dashboardkubernetes-dashboard7140">k8s-dashboard/kubernetes-dashboard@7.14.0</h3>
-<p>Pattern: <code>database-migration-pair (vendored)</code>&lt;br&gt; Phases: <code>pre-upgrade, post-upgrade</code>&lt;br&gt; Dependency source: <code>vendored kong subchart</code>&lt;br&gt; Candidate route: <code>upgrade-action-with-receipt (if rendered)</code></p>
+<p>Pattern: <code>database-migration-pair (vendored)</code><br> Phases: <code>pre-upgrade, post-upgrade</code><br> Dependency source: <code>vendored kong subchart</code><br> Candidate route: <code>upgrade-action-with-receipt (if rendered)</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>dependency-closure-review</td><td>catalog reviewer</td><td>The dependency source, dependency lock, and affected bases are recorded before the route is admitted to the maintained queue.</td></tr>
 <tr><td>3</td><td>ordered-upgrade-action</td><td>operator reviewer</td><td>The pre-upgrade and post-upgrade actions are mapped to an ordered lifecycle route with rollback and failure-handling notes.</td></tr>
@@ -479,7 +479,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>6</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>7</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="gitlabgitlab1000">gitlab/gitlab@10.0.0</h3>
-<p>Pattern: <code>vendored-traefik-lifecycle-hook</code>&lt;br&gt; Phases: <code>post-install, post-upgrade</code>&lt;br&gt; Dependency source: <code>vendored traefik subchart</code>&lt;br&gt; Candidate route: <code>argocd-or-flux-lifecycle-hook</code></p>
+<p>Pattern: <code>vendored-traefik-lifecycle-hook</code><br> Phases: <code>post-install, post-upgrade</code><br> Dependency source: <code>vendored traefik subchart</code><br> Candidate route: <code>argocd-or-flux-lifecycle-hook</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>dependency-closure-review</td><td>catalog reviewer</td><td>The dependency source, dependency lock, and affected bases are recorded before the route is admitted to the maintained queue.</td></tr>
 <tr><td>3</td><td>target-preflight</td><td>platform reviewer</td><td>Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope.</td></tr>
@@ -489,7 +489,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>7</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>8</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="airflow-helmairflow890">airflow-helm/airflow@8.9.0</h3>
-<p>Pattern: <code>migration-and-sync-hooks</code>&lt;br&gt; Phases: <code>post-install, post-upgrade</code>&lt;br&gt; Dependency source: <code>chart-own</code>&lt;br&gt; Candidate route: <code>explicit-managed-action</code></p>
+<p>Pattern: <code>migration-and-sync-hooks</code><br> Phases: <code>post-install, post-upgrade</code><br> Dependency source: <code>chart-own</code><br> Candidate route: <code>explicit-managed-action</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>target-preflight</td><td>platform reviewer</td><td>Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope.</td></tr>
 <tr><td>3</td><td>maintained-route-receipt</td><td>catalog reviewer</td><td>A HookLifecycleRouteReceipt or explicit blocker exists in the maintained hook lifecycle area for the selected base.</td></tr>
@@ -497,7 +497,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>5</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>6</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="bitnamikafka3243">bitnami/kafka@32.4.3</h3>
-<p>Pattern: <code>provisioning-job</code>&lt;br&gt; Phases: <code>post-install, post-upgrade</code>&lt;br&gt; Dependency source: <code>chart-own</code>&lt;br&gt; Candidate route: <code>explicit-managed-action</code></p>
+<p>Pattern: <code>provisioning-job</code><br> Phases: <code>post-install, post-upgrade</code><br> Dependency source: <code>chart-own</code><br> Candidate route: <code>explicit-managed-action</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>provisioning-mode-split</td><td>catalog reviewer</td><td>The catalog has a provisioning-off base and, if useful, a provisioning-enabled base with target facts and a managed action receipt.</td></tr>
 <tr><td>3</td><td>target-preflight</td><td>platform reviewer</td><td>Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope.</td></tr>
@@ -506,7 +506,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>6</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>7</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="bitnamiminio17021">bitnami/minio@17.0.21</h3>
-<p>Pattern: <code>provisioning-job</code>&lt;br&gt; Phases: <code>post-install, post-upgrade</code>&lt;br&gt; Dependency source: <code>chart-own (also vendored into bitnami/thanos)</code>&lt;br&gt; Candidate route: <code>explicit-managed-action</code></p>
+<p>Pattern: <code>provisioning-job</code><br> Phases: <code>post-install, post-upgrade</code><br> Dependency source: <code>chart-own (also vendored into bitnami/thanos)</code><br> Candidate route: <code>explicit-managed-action</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>dependency-closure-review</td><td>catalog reviewer</td><td>The dependency source, dependency lock, and affected bases are recorded before the route is admitted to the maintained queue.</td></tr>
 <tr><td>3</td><td>provisioning-mode-split</td><td>catalog reviewer</td><td>The catalog has a provisioning-off base and, if useful, a provisioning-enabled base with target facts and a managed action receipt.</td></tr>
@@ -516,7 +516,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>7</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>8</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="datadogdatadog32140">datadog/datadog@3.214.0</h3>
-<p>Pattern: <code>environment-conditional-hooks</code>&lt;br&gt; Phases: <code>pre-install, pre-upgrade, post-install, post-upgrade</code>&lt;br&gt; Dependency source: <code>chart-own plus vendored datadog-csi-driver</code>&lt;br&gt; Candidate route: <code>target-class-preflight-and-upgrade-action</code></p>
+<p>Pattern: <code>environment-conditional-hooks</code><br> Phases: <code>pre-install, pre-upgrade, post-install, post-upgrade</code><br> Dependency source: <code>chart-own plus vendored datadog-csi-driver</code><br> Candidate route: <code>target-class-preflight-and-upgrade-action</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>dependency-closure-review</td><td>catalog reviewer</td><td>The dependency source, dependency lock, and affected bases are recorded before the route is admitted to the maintained queue.</td></tr>
 <tr><td>3</td><td>target-scope-split</td><td>platform reviewer</td><td>Supported target classes are split into separate scopes with preflight checks or explicit unsupported-target blockers.</td></tr>
@@ -526,7 +526,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>7</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>8</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="bitnamithanos1731">bitnami/thanos@17.3.1</h3>
-<p>Pattern: <code>provisioning-job (vendored)</code>&lt;br&gt; Phases: <code>post-install, post-upgrade</code>&lt;br&gt; Dependency source: <code>vendored minio subchart</code>&lt;br&gt; Candidate route: <code>explicit-managed-action</code></p>
+<p>Pattern: <code>provisioning-job (vendored)</code><br> Phases: <code>post-install, post-upgrade</code><br> Dependency source: <code>vendored minio subchart</code><br> Candidate route: <code>explicit-managed-action</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>dependency-closure-review</td><td>catalog reviewer</td><td>The dependency source, dependency lock, and affected bases are recorded before the route is admitted to the maintained queue.</td></tr>
 <tr><td>3</td><td>provisioning-mode-split</td><td>catalog reviewer</td><td>The catalog has a provisioning-off base and, if useful, a provisioning-enabled base with target facts and a managed action receipt.</td></tr>
@@ -536,7 +536,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>7</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>8</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="apache-airflowairflow1210">apache-airflow/airflow@1.21.0</h3>
-<p>Pattern: <code>hook-like-migration-jobs</code>&lt;br&gt; Phases: <code>none found by static scan</code>&lt;br&gt; Dependency source: <code>chart-own lifecycle-like Jobs</code>&lt;br&gt; Candidate route: <code>recipe-time-lifecycle-verification</code></p>
+<p>Pattern: <code>hook-like-migration-jobs</code><br> Phases: <code>none found by static scan</code><br> Dependency source: <code>chart-own lifecycle-like Jobs</code><br> Candidate route: <code>recipe-time-lifecycle-verification</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>hook-free-claim-review</td><td>catalog reviewer</td><td>The chart records whether lifecycle jobs are normal desired state, managed actions, or blockers for the selected base.</td></tr>
 <tr><td>3</td><td>target-preflight</td><td>platform reviewer</td><td>Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope.</td></tr>
@@ -545,7 +545,7 @@ target/preflight rows: 9</code></pre>
 <tr><td>6</td><td>runtime-observation-or-execution</td><td>operator reviewer</td><td>The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred.</td></tr>
 <tr><td>7</td><td>maintained-queue-admission</td><td>catalog owner</td><td>The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named.</td></tr></tbody></table>
 <h3 id="argo-cdargo-workflows1014">argo-cd/argo-workflows@1.0.14</h3>
-<p>Pattern: <code>install-critical-crd-hook</code>&lt;br&gt; Phases: <code>pre-install, pre-upgrade</code>&lt;br&gt; Dependency source: <code>chart-own</code>&lt;br&gt; Candidate route: <code>preflight-or-presync-crd-apply</code></p>
+<p>Pattern: <code>install-critical-crd-hook</code><br> Phases: <code>pre-install, pre-upgrade</code><br> Dependency source: <code>chart-own</code><br> Candidate route: <code>preflight-or-presync-crd-apply</code></p>
 <table><thead><tr><th>Order</th><th>Work type</th><th>Reviewer</th><th>Done when</th></tr></thead><tbody><tr><td>1</td><td>base-rendering-review</td><td>catalog reviewer</td><td>The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base.</td></tr>
 <tr><td>2</td><td>target-preflight</td><td>platform reviewer</td><td>Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope.</td></tr>
 <tr><td>3</td><td>maintained-route-receipt</td><td>catalog reviewer</td><td>A HookLifecycleRouteReceipt or explicit blocker exists in the maintained hook lifecycle area for the selected base.</td></tr>
