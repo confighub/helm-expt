@@ -27,6 +27,8 @@ const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
 const challengePath = join(siteRoot, "challenge.html");
+const comparePath = join(siteRoot, "compare.html");
+const whatsNewPath = join(siteRoot, "whats-new.html");
 const docsPath = join(siteRoot, "docs.html");
 const docsReferencePath = join(siteRoot, "docs-reference.html");
 const verificationPath = join(siteRoot, "verification.html");
@@ -188,6 +190,8 @@ const SITE_PAGE_RELPATHS = {
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
   challengeHtml: "challenge.html",
+  compareHtml: "compare.html",
+  whatsNewHtml: "whats-new.html",
   docsHtml: "docs.html",
   docsReferenceHtml: "docs-reference.html",
   verificationHtml: "verification.html",
@@ -240,6 +244,8 @@ const PAGE_DESCRIPTIONS = {
   "quirks.html": "Find the hooks, CRDs, Secrets, webhooks, cluster lookups, storage, and other setup a Helm chart still needs.",
   "hard-questions.html": "Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.",
   "known-gaps.html": "See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.",
+  "compare.html": "What this answers versus helm template, kubectl diff, and Kustomize overlays, including who does not need it.",
+  "whats-new.html": "The twenty newest receipts in the catalog, from the committed evidence-aging table.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
   "tiers.html": "The tiers page moved: commercial options now live on the private page.",
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
@@ -288,6 +294,8 @@ if (mode === "--generate") {
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
   write(challengePath, site.challengeHtml);
+  write(comparePath, site.compareHtml);
+  write(whatsNewPath, site.whatsNewHtml);
   write(docsPath, site.docsHtml);
   write(docsReferencePath, site.docsReferenceHtml);
   write(verificationPath, site.verificationHtml);
@@ -378,6 +386,10 @@ if (mode === "--generate") {
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(existsSync(challengePath), "site/challenge.html is missing; run npm run site:generate");
   check(readFileSync(challengePath, "utf8") === site.challengeHtml, "site/challenge.html is stale");
+  check(existsSync(comparePath), "site/compare.html is missing; run npm run site:generate");
+  check(readFileSync(comparePath, "utf8") === site.compareHtml, "site/compare.html is stale");
+  check(existsSync(whatsNewPath), "site/whats-new.html is missing; run npm run site:generate");
+  check(readFileSync(whatsNewPath, "utf8") === site.whatsNewHtml, "site/whats-new.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
   check(readFileSync(docsReferencePath, "utf8") === site.docsReferenceHtml, "site/docs-reference.html is stale");
   check(readFileSync(verificationPath, "utf8") === site.verificationHtml, "site/verification.html is stale");
@@ -856,6 +868,8 @@ function buildSite(generatedAt) {
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml(catalog)),
     challengeHtml: calmPage(challengeHtml(catalog)),
+    compareHtml: calmPage(compareHtml(catalog)),
+    whatsNewHtml: calmPage(whatsNewHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
     docsReferenceHtml: calmPage(docsReferenceHtml(catalog)),
     verificationHtml: calmPage(verificationHtml(catalog)),
@@ -1041,6 +1055,8 @@ function buildLlmsTxt() {
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
+- [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Challenge your AI](${SITE_BASE_URL}challenge.html): a prompt to give your assistant with a misbehaving chart; it checks the chart, compares against this catalog&#39;s receipts, and files uncovered charts so they get checked entries.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
@@ -1881,10 +1897,15 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <span class="eyebrow">Choose one</span>
           <h2>Choose where to start</h2>
           <p class="intro">Each path gives you exact Kubernetes objects to inspect before you decide what happens next.</p>
+          <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
+          <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, promotion, history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
-            <a class="route-card" href="./try.html"><h3>Try Redis <span class="tag">catalog package</span></h3><p>Pull one reviewed configuration. Read its 14 objects. Build a local OCI and verify it by pulling it back.</p><span class="go">Start the short example &rarr;</span></a>
-            <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
-            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog's registry even when an upstream source changes its terms.</p><span class="go">Choose a configuration &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>I have a specific chart to check <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Look it up. Each entry shows the exact objects, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog&#39;s registry even when an upstream source changes its terms.</p><span class="go">Search the catalog &rarr;</span></a>
+            <a class="route-card mid" href="./d/docs/user/broken-chart-triage.html"><h3>My chart or upgrade is misbehaving <span class="tag">triage</span></h3><p>Work from the failure you see to the record that explains it: render, prerequisites, ordering, drift.</p><span class="go">Start the triage &rarr;</span></a>
+            <a class="route-card" href="./testing.html#bring-your-own"><h3>Check my own values <span class="tag">your chart</span></h3><p>Preview values written by your team or an AI. Review the exact objects before anything applies.</p><span class="go">Open the worked flow &rarr;</span></a>
+            <a class="route-card" href="./d/docs/user/gitops-adopter-guide.html"><h3>I reviewed it, now deploy it <span class="tag">kubectl &middot; Argo &middot; Flux</span></h3><p>Copy-paste delivery for the reviewed objects, with pruning and ordering handled per path.</p><span class="go">Open the deploy guide &rarr;</span></a>
+            <a class="route-card mid" href="./compare.html"><h3>How is this different from my tools? <span class="tag">honest answer</span></h3><p>Versus helm template, kubectl diff, and Kustomize, including who does not need this site at all.</p><span class="go">Read the comparison &rarr;</span></a>
+            <a class="route-card" href="./confighub.html"><h3>Evaluating for a team <span class="tag">records</span></h3><p>Approvals bound to exact revisions, promotion, rollback to recorded state, and fleet history.</p><span class="go">See what ConfigHub adds &rarr;</span></a>
           </div>
           <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
@@ -2009,25 +2030,7 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Why keep the rendered objects</h3>
-  <div class="vs">
-    <div class="col helm">
-      <h3>Helm: rebuilt from templates</h3>
-      <ul>
-        <li>Every setting has to be wired into the template up front.</li>
-        <li>Need a setting the chart didn't expose? You're stuck, or you copy the whole chart.</li>
-        <li><code>helm upgrade</code> rebuilds from the templates and <strong>overwrites</strong> what you changed.</li>
-      </ul>
-    </div>
-    <div class="col">
-      <h3>ConfigHub: kept as data you can query and edit</h3>
-      <ul>
-        <li>Render once to plain YAML Units you can read.</li>
-        <li>Query the same records across apps and environments, without scraping clusters or hunting through templates first.</li>
-        <li>Change an exact field afterward, by hand, a script, or an AI agent.</li>
-        <li>On upgrade, ConfigHub keeps non-conflicting recorded changes and shows you when the new base changes the same field.</li>
-      </ul>
-    </div>
-  </div>
+  <p>ConfigHub keeps the exact objects you reviewed, so you can change one field later without re-running Helm. The full comparison with helm template, kubectl diff, and Kustomize lives on <a href="./compare.html">its own page</a>, with the honest boundary stated.</p>
 
   <h3 id="setting-sources">Where a setting belongs</h3>
   <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
@@ -3216,7 +3219,7 @@ function howItWorksHtml() {
   <h1>Choose how to deploy it</h1>
   <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
   <p>You can stop with local files, publish them directly as OCI, or save them in ConfigHub and publish a reviewed release OCI later.</p>
-  <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Use it for changes, approvals, promotion, release OCI, and rollout history.</p>
+  <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
   <section aria-labelledby="keep">
@@ -3263,7 +3266,7 @@ function howItWorksHtml() {
 
   <section aria-labelledby="next">
     <h2 id="next">5. Next step</h2>
-    <p>Use Docs for instructions about your source, required setup, delivery tool, or problem.</p>
+    <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
     <p>Use ConfigHub when you want shared configuration, variants, approvals, promotions, or rollout history.</p>
     <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
   </section>
@@ -3515,7 +3518,7 @@ function serverlessHtml(catalog) {
       <div class="hero-copy">
         <p class="eyebrow">No server and no account</p>
         <h1>Use the tools without ConfigHub Server</h1>
-        <p class="lead">Here, no server means the command does not contact ConfigHub Server. No account means you do not sign in. The first examples provide both.</p>
+        <p class="lead">Everything on this page runs on your laptop. You can render any public catalog package, edit its fields, and push an OCI bundle without signing in to anything.</p>
         <p>Inspect the objects and prerequisites, keep them as files, or write the non-secret objects to OCI. A cluster is needed only when you choose to deploy them.</p>
         <div class="chips" aria-label="What this path needs"><span>local or CI</span><span>no ConfigHub Server</span><span>no account</span></div>
       </div>
@@ -3830,6 +3833,129 @@ function docsReferenceHtml(catalog) {
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Use the main guides first, then the matrix and generated data when you need exact status.</footer>
+</body>
+</html>
+`;
+}
+
+// The comparison every persona asked for and the site never answered: what is
+// this versus helm template, kubectl diff, and Kustomize overlays. The honest
+// answer includes the disqualifier, because publishing who should not use this
+// is what makes the rest believable. Rows are jobs, not features, and the tools
+// are treated as things this works with rather than competes against.
+function compareHtml() {
+  const rows = [
+    ["See what a chart will create, before any cluster exists",
+      "Yes. This is the job it does.",
+      "No. It diffs against a live cluster, so it needs one.",
+      "No. Overlays patch objects you already have.",
+      "Same answer as helm template, plus the catalog's recorded hazards for 112 charts: hooks, CRDs, lookups, generated secrets."],
+    ["Diff a values change before applying it",
+      "Yes, by rendering twice and diffing yourself.",
+      "Yes, against what the cluster runs now.",
+      "Yes, between overlays.",
+      "The same two-render diff, plus committed worked examples with the numbers already in them."],
+    ["Know a published package did not change under you",
+      "No. helm pull fetches today's bytes and keeps no history.",
+      "No.",
+      "No.",
+      "Yes. Packages are retained at pinned digests, and the drift record caught two publishers republishing under unchanged version strings."],
+    ["Keep an exact record of what shipped, per environment",
+      "Partly. Releases live in cluster Secrets and re-render from templates.",
+      "No.",
+      "Partly, if your Git discipline is perfect and nobody edits live.",
+      "Yes, with ConfigHub: immutable releases at exact digests, per variant, with revision history."],
+    ["Roll back to exactly what ran before",
+      "No. helm rollback re-renders from templates.",
+      "No.",
+      "Git revert re-renders; the old rendered state is not kept.",
+      "Yes, with ConfigHub: recorded revisions restore the exact bytes, proven in the upgrade receipt."],
+    ["Require an approval bound to an exact revision",
+      "No.",
+      "No.",
+      "PR review approves a diff, not a revision a cluster converges to.",
+      "Yes, with ConfigHub: approving yesterday's revision authorizes nothing about today's."],
+  ];
+  const rowsHtml = rows.map(([job, helm, kdiff, kust, here]) => `<tr><td><strong>${job}</strong></td><td>${helm}</td><td>${kdiff}</td><td>${kust}</td><td>${here}</td></tr>`).join("\n        ");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Versus what you already use &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Versus what you already use</h1>
+    <p class="lead">You already have helm template, kubectl diff, and Kustomize, and they are good tools. This page says what each one answers, what none of them answer, and who does not need us at all.</p>
+    <p><strong>If you are one person with three charts and you already read your helm template output, you do not need this site.</strong> Bookmark the catalog for the day a chart misbehaves, and carry on.</p>
+  </header>
+  <main>
+    <section aria-labelledby="jobs">
+      <h2 id="jobs">Six jobs, four tools</h2>
+      <div class="card" style="overflow-x: auto;"><table>
+        <thead><tr><th>The job</th><th>helm template</th><th>kubectl diff</th><th>Kustomize overlays</th><th>This catalog, and ConfigHub where marked</th></tr></thead>
+        <tbody>
+        ${rowsHtml}
+        </tbody>
+      </table></div>
+      <p>The first two rows work with no account anywhere. The last three name ConfigHub because records are what answer them, and records need a place to live. That boundary is the honest one: nothing on this site pretends a laptop can answer a history question.</p>
+    </section>
+
+    <section aria-labelledby="works-with">
+      <h2 id="works-with">This works with your tools, not instead of them</h2>
+      <p>The catalog renders Helm charts to plain Kubernetes objects. You can patch those objects with Kustomize exactly as you do today, keep reviewing PRs, and keep your reconciler. Nothing here replaces your overlays or wants to own your YAML. If you arrived expecting a Kustomize replacement, this is not one, and you can stop reading here.</p>
+      <p>Two worked artifacts to take with you either way: <a href="./d/docs/user/example-rendered-diff.html">one real rendered diff between two chart versions</a>, computed from committed renders, and <a href="./d/docs/user/ci-render-check.html">a GitHub Actions workflow</a> that renders and diffs on every pull request with no account and no server.</p>
+    </section>
+  </main>
+  <footer>The fastest way to check any claim in the table is the receipt behind it. Start with the drift record and the upgrade proof.</footer>
+</body>
+</html>
+`;
+}
+
+// What changed recently, rendered from the committed receipt-aging table so the
+// page is deterministic and dated rather than a hand-maintained list that rots.
+function whatsNewHtml() {
+  const csv = readFileSync(join(repoRoot, "data", "receipt-aging", "aging.csv"), "utf8");
+  const rows = parseCsv(csv);
+  check(rows.length > 100, "receipt-aging table looks truncated; refusing to render What's new from it");
+  check(rows[0].receipt && rows[0].family && rows[0].age_days !== undefined, "receipt-aging columns changed; update whatsNewHtml");
+  const recent = [...rows]
+    .filter((row) => row.recorded)
+    .sort((left, right) => Number(left.age_days) - Number(right.age_days))
+    .slice(0, 20);
+  const items = recent.map((row) => `<tr><td class="mono">${escapeHtml(String(row.recorded).slice(0, 10))}</td><td>${escapeHtml(row.family)}</td><td class="mono" style="overflow-wrap: anywhere;">${escapeHtml(row.receipt)}</td></tr>`).join("\n        ");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What changed &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>What changed recently</h1>
+    <p class="lead">The twenty newest receipts in the catalog, straight from the committed evidence-aging table. A returning visitor can tell in one look whether anything moved since last time.</p>
+    <p>For the machine-readable version, <a href="./changes.json">changes.json</a> lists every chart, version, and digest. The <a href="./d/data/receipt-aging/summary.html">full aging record</a> dates every receipt and names the oldest in each family, including ours.</p>
+  </header>
+  <main>
+    <section aria-labelledby="recent">
+      <h2 id="recent">Twenty newest receipts</h2>
+      <div class="card" style="overflow-x: auto;"><table>
+        <thead><tr><th>Recorded</th><th>Proof family</th><th>Receipt</th></tr></thead>
+        <tbody>
+        ${items}
+        </tbody>
+      </table></div>
+      <p>Charts added and versions retained appear here as their receipts land. Gaps closed appear as the lane that was red going green in the verify chain.</p>
+    </section>
+  </main>
+  <footer>Generated from data/receipt-aging/aging.csv. If this page looks stale, the aging table is what to regenerate.</footer>
 </body>
 </html>
 `;
@@ -4644,7 +4770,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "What happens when a chart's upstream source changes its terms?",
           answer:
-            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. Packages are republished here at exact digests. When an upstream's terms or availability change, the catalog records the measured fact instead of removing the entry. Where a reviewed successor exists, the component's page and catalog row link it.",
+            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. The full retention reasoning is in <a href=\"./d/docs/reference/how-the-catalog-is-built.html\">How the catalog is built</a>.",
           links: [["Registry migration guide", "./d/docs/user/image-registry-migration.html"], ["Component Catalog", "./charts/index.html"]],
         },
 	        {
@@ -5962,6 +6088,7 @@ function examplesHtml(catalog) {
     <h1>Choose a worked example</h1>
     <p class="tagline">Choose the kind of configuration you have, then follow one worked example to exact Kubernetes objects and a checked result.</p>
     <p>After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs.</p>
+    <p>In a hurry with your own chart? One command, no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then check the chart&#39;s catalog page for the hazards a render alone cannot show.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>

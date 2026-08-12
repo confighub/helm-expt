@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>No-server tools · Config Workshop</title>
-  <meta name="description" content="Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/serverless.html">
-  <meta property="og:title" content="No-server tools · Config Workshop">
-  <meta property="og:description" content="Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.">
+  <title>How the catalog is built, and why the records are shaped this way · Config Workshop</title>
+  <meta name="description" content="How the catalog is built, and why the records are shaped this way: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/how-the-catalog-is-built.html">
+  <meta property="og:title" content="How the catalog is built, and why the records are shaped this way · Config Workshop">
+  <meta property="og:description" content="How the catalog is built, and why the records are shaped this way: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/serverless.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/how-the-catalog-is-built.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,302 +427,37 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .install-hero-grid {
-      display: block;
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    .install-hero .hero-copy {
-      max-width: 60ch;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .eyebrow {
-      margin: 0 0 10px;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      font-size: .78rem;
-    }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-    .chips span {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 10px;
-      color: var(--muted);
-      background: var(--panel);
-      font-size: .9rem;
-    }
-    .install-hero .terminal-card {
-      margin-top: 28px;
-      width: 100%;
-    }
-    .caption {
-      margin: 18px auto 0;
-      max-width: 60ch;
-      text-align: center;
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .narrow-section {
-      max-width: 760px;
-      margin: 48px auto 0;
-      padding-top: 32px;
-      border-top: 1px solid var(--line);
-    }
-    .narrow-section p { max-width: 60ch; }
-    .callout-section {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 20px;
-      background: var(--panel);
-    }
-    .callout-section h2 { margin-top: 0; }
-    .step-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 18px 0;
-    }
-    .terminal-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--term);
-      overflow: hidden;
-    }
-    .terminal-title {
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-      color: #b7c3cf;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .78rem;
-      background: #111922;
-    }
-    .terminal-body {
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-      background: var(--term);
-    }
-    .term-catch {
-      display: inline-block;
-      width: 100%;
-      margin: 2px 0;
-      padding: 2px 6px;
-      border-left: 3px solid #f0c36d;
-      background: rgba(240,195,109,.18);
-      color: #ffe3a1;
-      font-weight: 700;
-    }
-    .term-comment { color: #7f8b96; }
-    .term-prompt { color: #78d99d; font-weight: 700; }
-    .mono-line {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .9rem;
-      overflow-wrap: anywhere;
-    }
-    @media (max-width: 640px) {
-      .step-grid { grid-template-columns: 1fr; }
-      .narrow-section { margin-top: 34px; padding-top: 24px; }
-      .callout-section { padding: 16px; }
-      .install-hero .hero-copy { text-align: left; }
-      .caption { text-align: left; }
-    }
-
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
     }
   </style>
 </head>
-<body class="calm-page">
-  <header class="hero human-hero install-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <div class="install-hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">No server and no account</p>
-        <h1>Use the tools without ConfigHub Server</h1>
-        <p class="lead">Everything on this page runs on your laptop. You can render any public catalog package, edit its fields, and push an OCI bundle without signing in to anything.</p>
-        <p>Inspect the objects and prerequisites, keep them as files, or write the non-secret objects to OCI. A cluster is needed only when you choose to deploy them.</p>
-        <div class="chips" aria-label="What this path needs"><span>local or CI</span><span>no ConfigHub Server</span><span>no account</span></div>
-      </div>
-      <div class="terminal-card" aria-label="Redis install comparison">
-        <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># before either install: provide the password separately</span>
-<span class="term-prompt">$</span> kubectl create namespace redis
-<span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \
-    --from-literal=redis-password="$(openssl rand -base64 32)"
-
-<span class="term-comment"># plain Helm with the preset's recorded values</span>
-<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
-    --version 25.5.3 -n redis \
-    --set auth.existingSecret=redis-existing-secret \
-    --set auth.existingSecretPasswordKey=redis-password \
-    --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
-
-<span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base reuse-existing-secret --namespace redis \
-    --work-dir ./redis --non-interactive \
-    --output-oci ./redis-rendered.oci
-<span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
-      </div>
-    </div>
-    <p class="caption">The preset's rendered objects have a committed Helm-equivalence receipt. Run the Helm and cub lanes on separate throwaway clusters when you want to compare the live result.</p>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>How the catalog is built, and why the records are shaped this way</h1>
+    <p class="lead">This page holds the reasoning that used to sit on the reference pages. The pages link here so a person mid-task gets the lookup, and a person asking why gets this. <a href="../../../../docs/reference/how-the-catalog-is-built.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section class="narrow-section callout-section" aria-labelledby="package-note">
-      <h2 id="package-note">1. Pull a public catalog package</h2>
-      <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
-      <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
-    </section>
+    <article class="doc-body">
 
-    <section class="narrow-section" aria-labelledby="where-it-fits">
-      <h2 id="where-it-fits">2. Choose a no-account task</h2>
-      <p>You can use them before an OCI package is built, after you pull one, or between an input package and an output package.</p>
-      <div class="step-grid">
-        <div class="card"><h3>Build OCI from local configuration</h3><p>Inspect and test a chart, recipe, installer package, or set of Kubernetes files. Then build an OCI package.</p></div>
-        <div class="card"><h3>Inspect an OCI package</h3><p>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</p></div>
-        <div class="card"><h3>Change an OCI package</h3><p>Pull a package, test or edit the exact objects, and build a new package. Publishing it to a registry requires registry credentials.</p></div>
-      </div>
-      <p>Here, work means inspect, explain, test, scan, compare, or edit. It can run as a local command or in CI today. A public hosted service that can do this work without signing in is planned, but not yet shipped.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="change-oci">
-      <h2 id="change-oci">3. Change an existing OCI without signing in</h2>
-      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
-      <div class="terminal-card">
-        <div class="terminal-title">public OCI → checked local OCI</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \
-  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683 \
-  --object Deployment/nginx --namespace nginx \
-  --field spec.replicas --value 4 \
-  --output oci-layout:./nginx-replicas-4:reviewed</code></pre>
-      </div>
-      <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
-      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="how">
-      <h2 id="how">4. Render a Helm package before applying it</h2>
-  <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
-      <div class="step-grid">
-        <div class="card">
-          <h3>1 · Render</h3>
-          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code>. The <code>reuse-existing-secret</code> preset records the Secret name and key the target must supply; it does not put password material in the rendered OCI.</p>
-        </div>
-        <div class="card">
-          <h3>2 · Apply</h3>
-          <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
-        </div>
-      </div>
-      <p><strong>Same render, same working result, visible before apply.</strong></p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="gitops">
-      <h2 id="gitops">5. Deliver the OCI with Argo CD or Flux</h2>
-      <p>Already running Argo CD or Flux from an OCI registry? Give <code>--output-oci</code> a registry reference. The installer pushes the non-secret objects, reads the artifact back, and checks the object-set digest before returning.</p>
-      <div class="terminal-card">
-        <div class="terminal-title">redis → OCI</div>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base reuse-existing-secret --namespace redis \
-    --work-dir ./redis --non-interactive \
-    --output-oci oci://&lt;your-registry&gt;/redis:v1
-<span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
-<span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
-      </div>
-      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="edges">
-      <h2 id="edges">6. Read the current limits</h2>
-      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
-      <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
-      <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
-      <p><a href="./try.html">Open Get Started</a> · <a href="d/docs/user/serverless-mode.html">Read the source guide</a></p>
-    </section>
+<h2 id="retained-versions">Retained versions</h2>
+<p>Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. Packages are republished here at exact digests. When an upstream's terms or availability change, the catalog records the measured fact instead of removing the entry. Where a reviewed successor exists, the component's page and catalog row link it.</p>
+<p>The retention is deliberate rather than a failure to update: a retained entry stays byte-for-byte reproducible while upstream moves, and refreshing the catalog creates a new entry beside the old one instead of overwriting it. The upstream drift record is what this discipline buys: when a publisher republishes different bytes under the same version string, this catalog can say so, with both digests.</p>
+<h2 id="the-matrix-taxonomy">The matrix taxonomy</h2>
+<p>The master matrix keeps one row per chart, version, and base. Layer marks the path from the source chart, through bases and target inputs, to derived variants. Rows carry lane dispositions rather than one status, because a lane that has not run is different from a lane that failed, and both are different from a lane that passed on another version.</p>
+<h2 id="what-a-passing-verifier-means">What a passing verifier means</h2>
+<p>A breaking chart should become a repeatable test, a named limit, or a required setup step. It must not disappear into prose.</p>
+<p>A passing verifier means committed evidence is self-consistent. It does not replace fresh live evidence for a new target. You still need to test on your own cluster before production.</p>
+    </article>
   </main>
-  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=serverless">Save the configuration in ConfigHub</a> when it needs shared history, variants, approvals, promotion, or fleet rollout.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/how-the-catalog-is-built.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -143,6 +143,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/compare.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/confighub.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/custom-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/CATALOG.html</loc></url>
@@ -840,6 +841,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-community-persona-reference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-import-contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-quirk-support-matrix.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/how-the-catalog-is-built.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/kube-prometheus-stack-serious-chart-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/lane-test-doctrine.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/master-catalog-matrix.html</loc></url>
@@ -878,6 +880,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/chart-hooks-what-happens.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/choose-your-path.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/choosing-commands.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ci-render-check.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/config-catalog-demonstrations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/confighub-data-model.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/creating-variants.html</loc></url>
@@ -889,6 +892,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-rollback.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-story.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/derived-variant-walkthrough.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/example-rendered-diff.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/expected-results-and-clusters.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/extension-slots.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/first-run-walkthrough.html</loc></url>
@@ -1153,4 +1157,5 @@
   <url><loc>https://confighub.github.io/helm-expt/site/try.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/variants.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/verification.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/whats-new.html</loc></url>
 </urlset>
