@@ -40,15 +40,20 @@ const exampleFiles = [
   "examples/sveltos/cve-patch/clusterprofile-pilot.yaml",
   "examples/sveltos/cve-patch/patch-candidate.yaml",
 ];
+// The committed live receipt fills the observed columns, so the fixture
+// compile has to see it too or a recorded matrix is compared against an
+// unrecorded one.
+const liveReceiptFile = "runs/sveltos-bulk-ops-proof/receipt.yaml";
 const outputFiles = [
   "data/sveltos-bulk-ops/matrix.csv",
   "data/sveltos-bulk-ops/matrix.md",
   "data/sveltos-bulk-ops/matrix.html",
 ];
 const environments = ["pilot", "staging", "prod"];
-// No live run is recorded yet: these runners still carry the superseded
-// delivery path, which the fleet rehearsal has already replaced.
-const blocker = "awaiting-oci-native-rerun";
+// The runner now delivers through the ConfigHub OCI gateway, and nothing
+// external stands in the way. What every observed cell waits for is a live run
+// recorded on that path.
+const blocker = "awaiting-gateway-recording";
 const proofStatus = "awaiting-live-run";
 
 if (mode === "--generate") {
@@ -267,7 +272,7 @@ function compileBulk(root) {
 
 // When the live runner has committed its receipt, the observed columns come
 // from it; until then every observed cell stays honestly empty. The live lane
-// is drafted in scripts/run-sveltos-bulk-ops-proof.mjs behind that rework.
+// is scripts/run-sveltos-bulk-ops-proof.mjs.
 function fillObservedColumns(compiled, root) {
   const liveReceiptPath = join(
     root, "runs", "sveltos-bulk-ops-proof", "receipt.yaml",
@@ -365,9 +370,10 @@ function renderMarkdown(compiled) {
         "come from the reviewed example files.",
       ]
       : [
-        "No live run has been recorded yet. The approval boundary is blocked by",
-        `no live run is recorded yet, so every observed cell below stays empty until the live proof`,
-        "earns it. The expected columns come from the reviewed example files.",
+        "No live run has been recorded yet. The runner delivers through the",
+        "ConfigHub OCI gateway, and every observed cell below stays empty until a",
+        "live run earns it. The expected columns come from the reviewed example",
+        "files.",
       ]),
     "",
   ];
@@ -406,7 +412,7 @@ function renderHtml(compiled) {
     '<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sveltos bulk operations matrix</title>',
     "<style>:root{color-scheme:light dark}body{font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;margin:24px;background:#fff;color:#17212b}h1{font-size:1.7rem;margin-bottom:.25rem}.lede{max-width:95ch;color:#3f4d5a}.legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}.key{border-radius:.25rem;padding:.3rem .5rem;font-weight:700}.baseline{background:#dce9ff;color:#173b75}.changed{background:#d7f2df;color:#14532d}.awaiting{background:#fff0bd;color:#634b00}.observed{background:#d7f2df;color:#14532d}.failed{background:#fadbd8;color:#7b241c}table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:.84rem}caption{text-align:left;font-size:1rem;font-weight:700;padding:.5rem 0}th,td{border:1px solid #aeb8c2;padding:.5rem;text-align:left;vertical-align:top}thead th{background:#edf1f5;color:#17212b}code{white-space:normal;overflow-wrap:anywhere}@media(prefers-color-scheme:dark){body{background:#10161d;color:#eef4fa}.lede{color:#c6d1dc}thead th{background:#25313d;color:#fff}.baseline{background:#173b75;color:#fff}.changed{background:#14532d;color:#fff}.awaiting{background:#634b00;color:#fff}.observed{background:#14532d;color:#fff}.failed{background:#7b241c;color:#fff}}</style></head>",
     "<body><main><h1>Sveltos bulk operations, the per-cluster matrix</h1>",
-    `<p class="lede">The change-it-once claim: one reviewed edit raises <code>${change.spec.valuesPath}</code> from ${change.spec.before} to ${change.spec.after} and fans out to every environment record in one pass, each record still enforcing its own approval gate. The chapter closes with a zero-drift audit: a set-aware query across the Spaces must find no armed gates, no record may have changed out of band, and drift injected on every cluster must be repaired. ${compiled.live ? "The observed columns come from the committed live receipt in <code>runs/sveltos-bulk-ops-proof/receipt.yaml</code>." : `No live run has been recorded yet; these runners still carry the superseded delivery path, so every observed cell stays empty until the live proof earns it.`}</p>`,
+    `<p class="lede">The change-it-once claim: one reviewed edit raises <code>${change.spec.valuesPath}</code> from ${change.spec.before} to ${change.spec.after} and fans out to every environment record in one pass, each record still enforcing its own approval gate. The chapter closes with a zero-drift audit: a set-aware query across the Spaces must find no armed gates, no record may have changed out of band, and drift injected on every cluster must be repaired. ${compiled.live ? "The observed columns come from the committed live receipt in <code>runs/sveltos-bulk-ops-proof/receipt.yaml</code>." : "No live run has been recorded yet, so every observed cell stays empty until a live run earns it."}</p>`,
     `<div class="legend"><span class="key baseline">baseline revision</span><span class="key changed">changed revision</span>${compiled.live ? '<span class="key observed">observed live</span>' : '<span class="key awaiting">awaiting live run</span>'}</div>`,
   ];
   const tables = [];
@@ -467,10 +473,12 @@ function stableJson(value) {
 function selfTest() {
   const fixtureRoot = mkdtempSync(join(tmpdir(), "helm-expt-sveltos-bulk-ops-self-test-"));
   try {
-    for (const file of exampleFiles) {
+    for (const file of [...exampleFiles, liveReceiptFile]) {
+      const source = join(repoRoot, file);
+      if (!existsSync(source)) continue;
       const destination = join(fixtureRoot, file);
       mkdirSync(dirname(destination), { recursive: true });
-      cpSync(join(repoRoot, file), destination);
+      cpSync(source, destination);
     }
     const first = buildOutputs(compileBulk(fixtureRoot));
     const second = buildOutputs(compileBulk(fixtureRoot));
@@ -490,13 +498,26 @@ function selfTest() {
       csv.trim().split("\n").length === 13,
       "the matrix must hold twelve cluster rows across three checkpoints",
     );
+    // Before the live run every row must stay honestly empty. After it, every
+    // row must carry an observation, because a recorded run that leaves cells
+    // blank is the same dishonesty pointing the other way.
+    if (existsSync(join(repoRoot, liveReceiptFile))) {
+      check(
+        csv.split("observed-pass").length === 13 && !csv.includes(proofStatus),
+        "every matrix row must carry its observation once the live run is recorded",
+      );
+    } else {
+      check(
+        csv.split(proofStatus).length === 13,
+        "every matrix row must stay honestly awaiting the live run",
+      );
+    }
+    // Four clusters expect drift repair. Once the run is recorded each of them
+    // also reports it, so the token appears in the observed column too.
     check(
-      csv.split(proofStatus).length === 13,
-      "every matrix row must stay honestly awaiting the live run",
-    );
-    check(
-      csv.split("injected-and-restored").length === 5,
-      "the audit checkpoint must expect drift repair on all four clusters",
+      csv.split("injected-and-restored").length
+        === (existsSync(join(repoRoot, liveReceiptFile)) ? 9 : 5),
+      "the audit checkpoint must expect drift repair on all four clusters, and report it once recorded",
     );
     const html = first["data/sveltos-bulk-ops/matrix.html"];
     check(

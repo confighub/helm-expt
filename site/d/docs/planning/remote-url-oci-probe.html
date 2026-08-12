@@ -442,6 +442,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/remote-url-oci-probe.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <blockquote><p>This example now lives at <a href="https://github.com/confighub/sveltos-confighub">confighub/sveltos-confighub</a>. This copy is a frozen mirror; new work, live recordings, and issues belong in that repository.</p></blockquote>
@@ -469,6 +470,29 @@
 <ol><li>The auth Secret must have type <code>addons.projectsveltos.io/cluster-profile</code>. An Opaque Secret fails with <code>unsupported secret type</code>.</li><li>The <code>caFile</code> key works: the addon-controller trusted our self-signed registry after reading the CA from the Secret.</li><li>The ORAS client is HTTPS-only. A plain-HTTP local registry cannot be used, which is why this probe runs a TLS registry.</li><li>Layer media types are ignored entirely; only the content shape matters.</li></ol>
 <h2 id="what-this-means-for-the-integration">What this means for the integration</h2>
 <p>The direct path in the agreed architecture statement works today: publish raw YAML (or a clean uncompressed tar) as an OCI image, point the reviewed ClusterProfile's <code>remoteURL</code> at it, and Sveltos deploys and re-checks it on its interval. The two failure shapes are avoidable by the publisher and fixable in the addon-controller: a gzip sniff before the tar parse, and skipping <code>._*</code> and <code>PaxHeader</code> entries in the extension filter. Whichever side moves, the artifact contract should be written down where both projects can point at it.</p>
+<h2 id="re-probe-against-the-fix-build-2026-08-10">Re-probe against the fix build, 2026-08-10</h2>
+<p>The maintainer built <code>projectsveltos/addon-controller:v1.13.0-ch</code> with a gzip sniff before the tar parse and an AppleDouble filter in the layer reader. The same probe ran again against that image, with the deployment confirmed to be running it, and every shape now deploys.</p>
+<table><thead><tr><th>Artifact shape</th><th>Result on the fix build</th></tr></thead><tbody><tr><td>Single layer of raw YAML bytes</td><td>Provisioned</td></tr>
+<tr><td>Uncompressed ustar tar of <code>.yaml</code> files</td><td>Provisioned</td></tr>
+<tr><td>Gzipped tar of the same files</td><td>Provisioned, where the released build failed</td></tr>
+<tr><td>Tar written by macOS bsdtar carrying an AppleDouble <code>._ns.yaml</code> entry</td><td>Provisioned, where the released build failed</td></tr></tbody></table>
+<p>One caution worth recording. A macOS tar only carries AppleDouble entries when the source file has extended attributes, and <code>tar -tf</code> hides those entries when listing, so an archive can look clean and not be. The first attempt at this re-probe pushed an archive with no AppleDouble entry at all and passed without exercising the fix. The confirmed result above used an archive whose raw bytes contain <code>._ns.yaml</code>.</p>
+<p>The catalog keeps publishing single raw-YAML layers, because that shape works on every build, released or patched.</p>
+<h2 id="the-gateway-path-proven-end-to-end-2026-08-12">The gateway path, proven end to end, 2026-08-12</h2>
+<p>The architecture statement says config comes from ConfigHub, which publishes changes as OCI images on its OCI gateway, and Sveltos fetches from that gateway. That whole sentence now has a measurement behind it.</p>
+<p>A Space was wired the way the chapters wire one, with the approval filter and a release target. One reviewed Unit was created, the approval gate attached about a second later, the exact revision was approved, and <code>cub release publish</code> published the Space. A single kind cluster running Sveltos then fetched that release directly:</p>
+<pre><code>policyRefs:
+  - deploymentType: Remote
+    remoteURL:
+      url: oci://oci.hub.confighub.com/space/&lt;space&gt;:latest
+      interval: 1m0s
+      secretRef:
+        name: confighub-gateway
+        namespace: projectsveltos</code></pre>
+<p>The Secret carries the <code>cub</code> bearer token under the <code>token</code> key and the Sveltos cluster-profile type. Thirty seconds later the ClusterSummary read <code>Provisioned</code> and the reviewed <code>ClusterProfile</code> was on the cluster. No temporary registry, no re-push, and no other controller took part.</p>
+<p>Two constraints fell out of the run and both matter to anyone repeating it.</p>
+<p>The gateway serves each release as one <code>application/vnd.oci.image.layer.v1.tar+gzip</code> layer, so the fetcher has to gunzip. The same profile against the released build failed with the gzip bytes decoded as YAML, and succeeded against the build carrying the gzip fix. Reading a ConfigHub release from the gateway therefore needs an addon controller with that fix.</p>
+<p>OCI repository names are lowercase, so a Space whose name carries uppercase characters cannot be addressed through the gateway at all. The gateway also answers <code>Space has no release target</code> for a Space that was never given one, which is a clearer signal than a plain not-found.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/planning/remote-url-oci-probe.md</code>. The source file is the authoritative version.</p></footer>
