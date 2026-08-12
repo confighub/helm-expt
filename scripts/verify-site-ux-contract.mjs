@@ -74,7 +74,7 @@ const checks = [
   },
   {
     file: "site/serverless.html",
-    terms: ["Use the tools without ConfigHub Server", "Everything on this page runs on your laptop", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
+    terms: ["Work without an account", "Everything on this page runs on your laptop", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
   },
   {
     file: "site/how-it-works.html",
@@ -247,7 +247,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/serverless.html",
-    headerTerms: ["Use the tools without ConfigHub Server", "Everything on this page runs on your laptop", "A cluster is needed only when you choose to deploy"],
+    headerTerms: ["Work without an account", "Everything on this page runs on your laptop", "A cluster is needed only when you choose to deploy"],
   },
   {
     file: "site/ai.html",
@@ -470,6 +470,43 @@ for (const file of technicalEnglishPages) {
       const count = wordCount(sentence);
       if (count > 25) {
         failures.push(`${file}: technical prose has ${count} words: ${JSON.stringify(sentence.slice(0, 180))}`);
+      }
+    }
+  }
+}
+
+// Two AI-speak shapes are banned mechanically; the full pattern list lives in
+// docs/planning/house-voice.md. A paragraph that opens by denying something
+// teaches nothing until sentence two, and a predicate that unloads four
+// abstract nouns signals breadth while informing nothing. Q&A pages are exempt
+// from the opener rule because "Not yet." is the honest answer to a question.
+const aiSpeakPages = [...new Set([...technicalEnglishPages, ...menuGuidePages, "site/serverless.html", "site/guides.html", "site/compare.html", "site/whats-new.html", "site/challenge.html"])];
+const negationExemptPages = new Set(["site/hard-questions.html"]);
+const abstractNouns = new Set(["changes", "approvals", "approval", "promotion", "promotions", "history", "rollouts", "rollout", "visibility", "governance", "workflows", "operations", "delivery", "observations", "releases", "scans", "records", "upgrades", "variants"]);
+function paragraphTexts(html) {
+  return [...html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((match) => decodeBasicHtml(match[1]
+      .replace(/<code\b[^>]*>[\s\S]*?<\/code>/gi, " command ")
+      .replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+for (const file of aiSpeakPages) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${file}: missing file`);
+    continue;
+  }
+  const html = fs.readFileSync(fullPath, "utf8");
+  for (const text of paragraphTexts(html)) {
+    if (!negationExemptPages.has(file) && /^(No|Not|Nothing|None|Never|Neither)[ .,:]/.test(text)) {
+      failures.push(`${file}: paragraph opens with a denial; lead with what the reader gets: ${JSON.stringify(text.slice(0, 120))}`);
+    }
+    for (const match of text.matchAll(/\b([\w-]+(?: [\w-]+)?), ([\w-]+(?: [\w-]+)?), ([\w-]+(?: [\w-]+)?),(?: and| or)? ([\w-]+(?: [\w-]+)?)[.!?]/g)) {
+      const items = [match[1], match[2], match[3], match[4]].map((item) => item.toLowerCase());
+      if (items[3] === "more") continue;
+      const abstract = items.filter((item) => abstractNouns.has(item.split(" ").pop())).length;
+      if (abstract >= 3) {
+        failures.push(`${file}: a sentence ends by unloading four abstract nouns; cap the list at three: ${JSON.stringify(match[0].slice(0, 120))}`);
       }
     }
   }

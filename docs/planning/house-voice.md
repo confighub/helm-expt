@@ -128,6 +128,32 @@ Three real surfaces, before and after. Paste the *after* into the generator.
 > earned; the gaps are named." *(Move the `Generated at:` line to the footer — build
 > exhaust never opens a chart page. Rule 7.)*
 
+## The AI-speak patterns
+
+Five sentence shapes that make a page read as machine-written. Each was found on the
+live site by a hostile-editor review; each has a human repair.
+
+1. **The noun-list predicate.** A verb followed by four or more abstract nouns doing the
+   actual work. "Use it for changes, approvals, promotion, release history." Repair:
+   name one thing the reader does and one moment they do it in.
+2. **The negative definition.** Defining a term by what it is not, or by restating its
+   own words. "Here, no server means the command does not contact ConfigHub Server."
+   Repair: say what the reader gets, in their vocabulary, and drop the coined term.
+3. **The denial opener.** Beginning with what the thing does not do, so the reader
+   reaches sentence three before learning what it is. "The starter invents nothing."
+   Repair: "The CPU starter is the AICR training platform with the GPU parts removed."
+4. **Passive provenance.** The record is the subject and the person disappears. "One NGC
+   surface was read, and the entry records which." Repair: "We read the NGC catalog page
+   for Llama 3.1 8B on 2026-08-07 and saved the licence terms."
+5. **Restating the page title as a finding.** A first sentence that paraphrases the
+   heading in more abstract words. Repair: delete it; start with the first real fact.
+
+Two of these are banned mechanically by `verify-site-ux-contract.mjs`: a paragraph that
+opens with a denial (No, Not, Nothing, None, Never, Neither), and a sentence that ends by
+unloading four abstract nouns. Q&A pages are exempt from the opener rule, because "Not
+yet." is the honest answer to a question and honesty outranks shape. The other three
+patterns stay editorial: check for them when you touch a page.
+
 ## Where to apply it, in order
 
 1. The homepage hero and the four journey cards.

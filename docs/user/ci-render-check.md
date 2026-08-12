@@ -25,6 +25,10 @@ jobs:
           git fetch origin ${{ github.base_ref }} --depth 1
           git checkout origin/${{ github.base_ref }} -- values.yaml || true
           helm template rel ./chart -f values.yaml --include-crds > base.yaml
+      - name: Validate the rendered objects
+        run: |
+          curl -sL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz | tar xz
+          ./kubeconform -summary -ignore-missing-schemas pr.yaml
       - name: Diff and comment
         run: |
           diff -u base.yaml pr.yaml > render.diff || true
@@ -40,7 +44,13 @@ jobs:
 ```
 
 Adjust the chart path and values file to your layout. The `head -200` keeps a
-large diff from flooding the PR; the full diff stays in the job log.
+large diff from flooding the PR; the full diff stays in the job log. The
+kubeconform step validates every rendered object against the Kubernetes schema
+before the diff posts, so a values change that renders an invalid object fails
+the check instead of shipping. `-ignore-missing-schemas` keeps CRD-defined
+kinds from failing the run; drop it if you also publish schemas for your CRDs.
+For a Kustomize overlay, the same shape works with `kustomize build` in place
+of `helm template` on both sides.
 
 For charts in this catalog, the committed render receipts give you the same
 comparison against the reviewed baseline instead of against your own previous
