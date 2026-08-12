@@ -1137,6 +1137,14 @@ function renderInlineMarkdown(text, docRepoPath, renderedDocs) {
     .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (whole, label, href) => `<a href="${resolveDocHref(href, docRepoPath, renderedDocs)}">${label}</a>`)
     .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
     .replace(/(^|[\s(])\*([^*\s][^*]*?)\*(?=$|[\s).,;:!?])/g, "$1<i>$2</i>");
+  // A line break is the one tag repository markdown uses inside a table cell,
+  // because a cell cannot hold a paragraph. Escaping it printed <br> as text in
+  // every cell of the Kubara matrix, 121 times on one published page, which
+  // turned the page that exists to keep four facts apart into markup soup. It
+  // carries no attributes and no scripting, so it is allowed back through.
+  // Code spans are already placeholders here, so a literal `<br>` in backticks
+  // stays literal.
+  out = out.replace(/&lt;br\s*\/?&gt;/g, "<br>");
   return out.replace(/\u0000(\d+)\u0000/g, (whole, index) => codeSpans[Number(index)]);
 }
 

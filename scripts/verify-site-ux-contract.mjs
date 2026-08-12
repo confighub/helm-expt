@@ -318,6 +318,33 @@ for (const file of [...menuGuidePages, "site/index.html"]) {
   }
 }
 
+// Repository markdown uses <br> inside table cells, because a cell cannot hold
+// a paragraph. The renderer escaped it, so every cell of the Kubara matrix
+// printed the tag as text — 121 times on one published page, on the page whose
+// whole purpose is keeping four facts legible. Nineteen rendered pages carried
+// it. A line break that shows as markup is a rendering failure, so it fails
+// here rather than being noticed in a screenshot.
+for (const file of renderedDocPages()) {
+  const text = fs.readFileSync(path.join(root, file), "utf8");
+  const escaped = (text.match(/&lt;br\s*\/?&gt;/g) ?? []).length;
+  if (escaped) failures.push(`${file}: ${escaped} line break(s) rendered as escaped markup instead of <br>`);
+}
+
+function renderedDocPages() {
+  const root_ = path.join(root, "site/d");
+  if (!fs.existsSync(root_)) return [];
+  const out = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const next = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(next);
+      else if (entry.name.endsWith(".html")) out.push(path.relative(root, next));
+    }
+  };
+  walk(root_);
+  return out;
+}
+
 for (const file of menuGuidePages) {
   const fullPath = path.join(root, file);
   if (!fs.existsSync(fullPath)) continue;
