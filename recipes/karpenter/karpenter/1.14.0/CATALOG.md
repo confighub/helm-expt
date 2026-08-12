@@ -30,9 +30,9 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | not-ready |
 | User status | not-in-current-catalog-lane |
-| Strongest evidence | not-proven |
-| Proof lanes | render parity 0/0; ConfigHub 0/0; local live 0/0; GitOps live 0/0; live parity 0/0 |
-| Feature summary | - |
+| Strongest evidence | render-parity |
+| Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
+| Feature summary | crds;webhooks;extension-slots |
 | Hard gap | - |
 | Next action | review source/current-version drift and refresh recipe if needed |
 

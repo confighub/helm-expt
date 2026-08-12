@@ -455,7 +455,7 @@
 <h2 id="high-value-counts">High-Value Counts</h2>
 <p>The NGINX chart exposes concrete extension slots such as <code>serverBlock</code>, <code>streamServerBlock</code>, and <code>extraDeploy</code>. The broader catalog has many similar surfaces: raw manifests, sidecars, extra config blocks, templated snippets, and add-on slots.</p>
 <pre><code>explicit extension-slot control points in top-20 catalog: 13/20
-extension slots surfaced in current top-100 chart facts: 82/100
+extension slots surfaced in current top-100 chart facts: 91/100
 matched top-500 proof rows with extension slots: 53
 top-500 source rows using tpl: 362/500</code></pre>
 <h2 id="count-contract">Count Contract</h2>
@@ -467,22 +467,22 @@ top-500 source rows using tpl: 362/500</code></pre>
 <h2 id="axes">Axes</h2>
 <table><thead><tr><th>Axis</th><th>Coverage tier</th><th>Source top-100</th><th>Modeled or supported</th><th>Source top-500</th><th>Remaining gap</th></tr></thead><tbody><tr><td><code>lookup-target-facts</code></td><td><code>tracked-and-surfaced</code></td><td>47</td><td>26</td><td>244</td><td>Target-fact enforcement is stronger for selected charts than for every top-100 source row.</td></tr>
 <tr><td><code>generated-facts</code></td><td><code>tracked-and-surfaced</code></td><td>60</td><td>29</td><td>282</td><td>Not every generated-fact path has field-level reachability yet.</td></tr>
-<tr><td><code>capability-profile</code></td><td><code>partly-tracked</code></td><td>81</td><td>49</td><td>370</td><td>161/199 render receipts declare renderer flags and kubeVersion.</td></tr>
-<tr><td><code>helm-flag-profile</code></td><td><code>partly-tracked</code></td><td>n/a</td><td>161</td><td>n/a</td><td>161/199 render receipts include the expected flag profile.</td></tr>
+<tr><td><code>capability-profile</code></td><td><code>partly-tracked</code></td><td>81</td><td>50</td><td>370</td><td>207/245 render receipts declare renderer flags and kubeVersion.</td></tr>
+<tr><td><code>helm-flag-profile</code></td><td><code>partly-tracked</code></td><td>n/a</td><td>197</td><td>n/a</td><td>197/245 render receipts include the expected flag profile.</td></tr>
 <tr><td><code>hook-phase</code></td><td><code>partly-tracked</code></td><td>11</td><td>5</td><td>54</td><td>Hook presence and phase are tracked, but lifecycle receipts are not complete.</td></tr>
 <tr><td><code>hook-delete-policy</code></td><td><code>source-scanned-not-surfaced</code></td><td>10</td><td>0</td><td>44</td><td>Delete policy can change cleanup, rerun, and rollback behavior.</td></tr>
 <tr><td><code>hook-weight-ordering</code></td><td><code>source-scanned-not-surfaced</code></td><td>3</td><td>0</td><td>21</td><td>Weight ordering affects lifecycle sequencing and may not map cleanly to GitOps.</td></tr>
-<tr><td><code>crds</code></td><td><code>tracked-and-surfaced</code></td><td>24</td><td>37</td><td>102</td><td>CRD upgrade safety remains operator-reviewed.</td></tr>
-<tr><td><code>crd-upgrade-behavior</code></td><td><code>disclosed-not-complete</code></td><td>24</td><td>37</td><td>102</td><td>Schema conversion and multi-version upgrade behavior are not fully modeled.</td></tr>
+<tr><td><code>crds</code></td><td><code>tracked-and-surfaced</code></td><td>24</td><td>38</td><td>102</td><td>CRD upgrade safety remains operator-reviewed.</td></tr>
+<tr><td><code>crd-upgrade-behavior</code></td><td><code>disclosed-not-complete</code></td><td>24</td><td>38</td><td>102</td><td>Schema conversion and multi-version upgrade behavior are not fully modeled.</td></tr>
 <tr><td><code>install-vs-upgrade</code></td><td><code>tracked-and-surfaced</code></td><td>38</td><td>18</td><td>177</td><td>It is not yet tied to upgrade-simulation receipts for every affected chart.</td></tr>
-<tr><td><code>dependency-lock</code></td><td><code>tracked-and-surfaced</code></td><td>n/a</td><td>110</td><td>n/a</td><td>110 dependency locks found.</td></tr>
+<tr><td><code>dependency-lock</code></td><td><code>tracked-and-surfaced</code></td><td>n/a</td><td>139</td><td>n/a</td><td>139 dependency locks found.</td></tr>
 <tr><td><code>library-chart</code></td><td><code>tracked-by-lock-not-front-door</code></td><td>n/a</td><td>2</td><td>n/a</td><td>Library chart presence is not yet a chart-facts column.</td></tr>
 <tr><td><code>dependency-alias</code></td><td><code>tracked-by-lock-not-front-door</code></td><td>n/a</td><td>6</td><td>n/a</td><td>Alias-driven subchart identity can obscure where objects come from.</td></tr>
 <tr><td><code>import-values</code></td><td><code>not-scanned</code></td><td>unknown</td><td>0</td><td>unknown</td><td>Imported subchart values can create hidden high-density value paths.</td></tr>
-<tr><td><code>required-or-fail</code></td><td><code>tracked-and-surfaced</code></td><td>71</td><td>33</td><td>309</td><td>Not every required value has a typed user prompt.</td></tr>
-<tr><td><code>values-schema</code></td><td><code>tracked-and-surfaced</code></td><td>36</td><td>14</td><td>178</td><td>Schemas are not yet centralized in a ConfigHub schema registry.</td></tr>
-<tr><td><code>tpl-extension-slots</code></td><td><code>tracked-and-surfaced</code></td><td>88</td><td>82</td><td>362</td><td>Per-field provenance for arbitrary tpl content is not complete.</td></tr>
-<tr><td><code>explicit-extension-slot-control-points</code></td><td><code>tracked-and-surfaced</code></td><td>65</td><td>82</td><td>254</td><td>The broader source scan sees more raw/extra manifest values than the current modeled chart-facts surface.</td></tr>
+<tr><td><code>required-or-fail</code></td><td><code>tracked-and-surfaced</code></td><td>71</td><td>34</td><td>309</td><td>Not every required value has a typed user prompt.</td></tr>
+<tr><td><code>values-schema</code></td><td><code>tracked-and-surfaced</code></td><td>36</td><td>15</td><td>178</td><td>Schemas are not yet centralized in a ConfigHub schema registry.</td></tr>
+<tr><td><code>tpl-extension-slots</code></td><td><code>tracked-and-surfaced</code></td><td>88</td><td>91</td><td>362</td><td>Per-field provenance for arbitrary tpl content is not complete.</td></tr>
+<tr><td><code>explicit-extension-slot-control-points</code></td><td><code>tracked-and-surfaced</code></td><td>65</td><td>91</td><td>254</td><td>The broader source scan sees more raw/extra manifest values than the current modeled chart-facts surface.</td></tr>
 <tr><td><code>semver-compare</code></td><td><code>source-scanned-not-surfaced</code></td><td>71</td><td>0</td><td>309</td><td>It is not yet promoted to chart facts or variant-path coverage.</td></tr>
 <tr><td><code>files-get</code></td><td><code>source-scanned-not-surfaced</code></td><td>31</td><td>0</td><td>129</td><td>Bundled-file content can affect rendered config without appearing in values.</td></tr>
 <tr><td><code>time-uuid-functions</code></td><td><code>source-scanned-not-surfaced</code></td><td>40</td><td>0</td><td>140</td><td>These are distinct from secret generation and should be a separate nondeterminism axis.</td></tr>

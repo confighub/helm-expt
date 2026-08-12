@@ -52,14 +52,14 @@ spec:
   proofSummary:
     adoptionBucket: "not-ready"
     userStatus: "not-in-current-catalog-lane"
-    strongestEvidence: "not-proven"
+    strongestEvidence: "render-parity"
     proofLanes:
-      renderParity: "0/0"
-      inConfigHub: "0/0"
-      localLive: "0/0"
-      gitopsLive: "0/0"
-      liveParity: "0/0"
-    featureSummary: ""
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:

@@ -446,12 +446,12 @@
     <article class="doc-body">
 <p>Derived from each chart's real <code>control-points.yaml</code> using the <code>per-chart-recipes.md</code> method: a standard variant is recommended only where a detected behavior calls for it (no padding), minus the variants the chart already ships. This <b>scopes</b> the wave-based variant build; it does not author the variants (those are bespoke per chart - see <code>data/catalog-promotion-wave2/variant-work-orders.yaml</code> for the worked shape).</p>
 <h2 id="headline">Headline</h2>
-<pre><code>charts: 135
-charts needing variant work: 85
-charts already variant-complete: 50
-total variants to build: 106</code></pre>
+<pre><code>charts: 139
+charts needing variant work: 87
+charts already variant-complete: 52
+total variants to build: 110</code></pre>
 <h2 id="build-volume-by-dimension-highest-leverage-first">Build volume by dimension (highest-leverage first)</h2>
-<ul><li><code>existing-secret</code>: 66 charts</li><li><code>no-crds</code>: 19 charts</li><li><code>ha</code>: 17 charts</li><li><code>ingress-tls</code>: 3 charts</li><li><code>tls</code>: 1 charts</li></ul>
+<ul><li><code>existing-secret</code>: 68 charts</li><li><code>ha</code>: 19 charts</li><li><code>no-crds</code>: 19 charts</li><li><code>ingress-tls</code>: 3 charts</li><li><code>tls</code>: 1 charts</li></ul>
 <h2 id="per-chart-backlog-charts-needing-work">Per-chart backlog (charts needing work)</h2>
 <table><thead><tr><th>Chart</th><th>Has</th><th>Build next</th></tr></thead><tbody><tr><td><code>aqua/trivy-operator@0.32.1</code></td><td>2</td><td>existing-secret</td></tr>
 <tr><td><code>argo-cd/argo-cd@10.1.3</code></td><td>2</td><td>existing-secret, ha</td></tr>
@@ -480,6 +480,8 @@ total variants to build: 106</code></pre>
 <tr><td><code>bitnami/spark@10.0.3</code></td><td>3</td><td>existing-secret</td></tr>
 <tr><td><code>bitnami/zookeeper@13.8.7</code></td><td>3</td><td>existing-secret</td></tr>
 <tr><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td>2</td><td>existing-secret</td></tr>
+<tr><td><code>cloudpirates/rabbitmq@0.21.13</code></td><td>1</td><td>existing-secret, ha</td></tr>
+<tr><td><code>cloudpirates/redis@0.34.11</code></td><td>1</td><td>existing-secret, ha</td></tr>
 <tr><td><code>coredns/coredns@1.45.2</code></td><td>1</td><td>existing-secret</td></tr>
 <tr><td><code>crossplane-stable/crossplane@2.3.1</code></td><td>1</td><td>existing-secret</td></tr>
 <tr><td><code>dex/dex@0.24.0</code></td><td>1</td><td>existing-secret</td></tr>

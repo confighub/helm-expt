@@ -449,11 +449,11 @@
 <ul><li>user or application credential material, such as passwords, tokens, TLS keys, object-store credentials, and existing Secret references;</li><li>Kubernetes lifecycle state, such as webhook serving certificates and service-account token Secrets.</li></ul>
 <p>The survey is built from committed top-100 artifact indexes, rendered object sets, target facts, hook lifecycle receipts, and webhook certificate lifecycle receipts. It does not run live lanes.</p>
 <h2 id="summary">Summary</h2>
-<pre><code>variants surveyed: 179
-secret rows: 91
-variant dispositions: not-applicable=118, staged=26, delivered=21, needs-lane-support=6, delivered-and-staged=4, observed=4
-secret dispositions: staged=47, delivered=31, needs-lane-support=8, observed=5
-secret roles: user-credential-material=52, kubernetes-lifecycle-state=25, secret-material-review=14
+<pre><code>variants surveyed: 195
+secret rows: 96
+variant dispositions: not-applicable=129, staged=29, delivered=23, needs-lane-support=6, delivered-and-staged=4, observed=4
+secret dispositions: staged=50, delivered=33, needs-lane-support=8, observed=5
+secret roles: user-credential-material=57, kubernetes-lifecycle-state=25, secret-material-review=14
 lifecycle secrets still needing lane support: 8</code></pre>
 <h2 id="reading-rule">Reading Rule</h2>
 <ul><li><code>delivered</code> means the rendered artifact contains the Secret and the recipe or installer package records how it is handled.</li><li><code>staged</code> means the selected base requires a target Secret before apply.</li><li><code>observed</code> means committed lifecycle evidence records the Secret staging or controller behavior for that base.</li><li><code>needs-lane-support</code> means the Secret is visible, but the repo should add a staging receipt, lifecycle observation, or explicit refusal before stronger live or production claims.</li><li><code>not-applicable</code> means the base has no rendered Secret and no required target Secret in the committed artifact index.</li></ul>

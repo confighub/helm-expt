@@ -50,14 +50,14 @@ spec:
   proofSummary:
     adoptionBucket: "not-ready"
     userStatus: "not-in-current-catalog-lane"
-    strongestEvidence: "not-proven"
+    strongestEvidence: "render-parity"
     proofLanes:
-      renderParity: "0/0"
-      inConfigHub: "0/0"
-      localLive: "0/0"
-      gitopsLive: "0/0"
-      liveParity: "0/0"
-    featureSummary: ""
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "extension-slots"
     hardGap: "-"
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:

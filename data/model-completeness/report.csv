@@ -10,6 +10,9 @@ argo-cd/argo-workflows@1.0.14,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,
 argo-cd/argocd-image-updater@1.2.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/argo-cd/argocd-image-updater/1.2.2
 autoscaler/cluster-autoscaler@9.57.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/autoscaler/cluster-autoscaler/9.57.0
 autoscaler/vertical-pod-autoscaler@0.9.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/autoscaler/vertical-pod-autoscaler/0.9.0
+aws-controllers-k8s/ec2-chart@1.18.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/aws-controllers-k8s/ec2-chart/1.18.4
+aws-controllers-k8s/eks-chart@1.16.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/aws-controllers-k8s/eks-chart/1.16.3
+aws-controllers-k8s/iam-chart@1.7.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/aws-controllers-k8s/iam-chart/1.7.3
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
 bitnami/apache@11.4.29,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/bitnami/apache/11.4.29
 bitnami/contour@21.1.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/bitnami/contour/21.1.4
@@ -33,6 +36,9 @@ bitnami/redis@27.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not
 bitnami/spark@10.0.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/bitnami/spark/10.0.3
 bitnami/zookeeper@13.8.7,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/bitnami/zookeeper/13.8.7
 cloudnative-pg/cloudnative-pg@0.28.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/cloudnative-pg/cloudnative-pg/0.28.2
+cloudpirates/nginx@0.16.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/cloudpirates/nginx/0.16.1
+cloudpirates/rabbitmq@0.21.13,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/cloudpirates/rabbitmq/0.21.13
+cloudpirates/redis@0.34.11,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/cloudpirates/redis/0.34.11
 coredns/coredns@1.45.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/coredns/coredns/1.45.2
 crossplane-stable/crossplane@2.3.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/crossplane-stable/crossplane/2.3.1
 descheduler/descheduler@0.36.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/descheduler/descheduler/0.36.0
@@ -76,6 +82,7 @@ jetstack/cert-manager-csi-driver@v0.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,pr
 jetstack/cert-manager@v1.20.2,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,behaviorally_complete,recipes/jetstack/cert-manager/v1.20.2
 jetstack/cert-manager@v1.21.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/jetstack/cert-manager/v1.21.0
 jetstack/trust-manager@v0.22.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/jetstack/trust-manager/v0.22.1
+karpenter/karpenter@1.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/karpenter/karpenter/1.14.0
 kedacore/keda@2.19.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/kedacore/keda/2.19.0
 kyverno/kyverno-policies@3.8.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.8.0
 kyverno/kyverno-policies@3.8.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/kyverno/kyverno-policies/3.8.2
@@ -93,6 +100,7 @@ nats/nack@0.34.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-
 nats/nats@2.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/nats/2.14.0
 nats/surveyor@0.20.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/nats/surveyor/0.20.9
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+nvidia/nvidia-device-plugin@0.19.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/nvidia/nvidia-device-plugin/0.19.3
 oauth2-proxy/oauth2-proxy@10.7.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/oauth2-proxy/oauth2-proxy/10.7.0
 open-telemetry/opentelemetry-operator@0.114.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/open-telemetry/opentelemetry-operator/0.114.0
 opencost/opencost@2.5.21,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/opencost/opencost/2.5.21
@@ -125,6 +133,7 @@ stakater/reloader@2.2.14,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-re
 strimzi/strimzi-kafka-operator@1.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/strimzi/strimzi-kafka-operator/1.0.0
 traefik/traefik@40.2.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/traefik/traefik/40.2.0
 traefik/traefik@41.0.2,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/traefik/traefik/41.0.2
+valkey/valkey@0.11.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/valkey/valkey/0.11.0
 velero/velero@12.0.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/velero/velero/12.0.1
 velero/velero@12.1.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/velero/velero/12.1.0
 vm/victoria-logs-single@0.12.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/vm/victoria-logs-single/0.12.5

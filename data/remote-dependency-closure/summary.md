@@ -18,7 +18,7 @@ files.
 
 ~~~text
 source top-100 rows with remote, vendored, or non-exact dependencies: 49
-rows with a maintained dependency lock:                         19/49
+rows with a maintained dependency lock:                         21/49
 source-only rows without a maintained recipe:                   30/49
 locked rows with dependencies but no dependency provenance:      0/49
 non-exact dependency rows frozen to Chart.lock:                  9/49
@@ -58,14 +58,14 @@ P2 source rows:                                                  2
 | 26 | `apache-airflow/airflow@1.21.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 29 | `nextcloud/nextcloud@9.1.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 32 | `bitnami/minio@17.0.21` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 34 | `metallb/metallb@0.16.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 34 | `metallb/metallb@0.16.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 2 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 38 | `kyverno/kyverno@3.8.1` | `dependency-range-policy` | `source-version-lock-present` | 5 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
 | 39 | `gitea/gitea@12.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 40 | `sonarqube/sonarqube@2026.3.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 41 | `cloudnative-pg/cloudnative-pg@0.28.2` | `dependency-range-policy` | `source-version-lock-present` | 1 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
 | 43 | `datadog/datadog@3.214.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 44 | `bitnami/thanos@17.3.1` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 46 | `oauth2-proxy/oauth2-proxy@10.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 46 | `oauth2-proxy/oauth2-proxy@10.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 1 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 47 | `bitnami/wordpress@31.0.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 49 | `goauthentik/authentik@2026.5.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 66 | `bitnami/elasticsearch@22.1.6` | `dependency-range-policy` | `source-version-lock-present` | 2 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
@@ -81,12 +81,12 @@ P2 source rows:                                                  2
 | `https://charts.bitnami.com/bitnami` | 1 |
 | `https://charts.min.io/` | 1 |
 | `https://cloudnative-pg.github.io/grafana-dashboards` | 1 |
+| `https://dandydeveloper.github.io/charts` | 1 |
 | `https://falcosecurity.github.io/charts` | 1 |
 | `https://grafana-community.github.io/helm-charts` | 1 |
 | `https://grafana.github.io/helm-charts` | 1 |
 | `https://kyverno.github.io/api` | 1 |
 | `https://kyverno.github.io/reports-server/` | 1 |
-| `https://openreports.github.io/reports-api` | 1 |
 
 ## How To Use This
 
