@@ -202,7 +202,7 @@ Runtime drift supports fleet and enterprise value. The site should keep this cla
 | 6 | #1406 | Make catalog coverage answer the visitor's question. | Each chart page names checked families and links the matching receipts. |
 | 7 | #1251 | Prove one exact handoff from local result into ConfigHub. | The same digest is visible before upload and in the saved base, followed by one official tutorial step. |
 | 8 | #15 | Add the existing-release diagnostic to the misbehaving-chart path. | Show prior Helm release state, likely upgrade hazards, and evidence limits. |
-| 9 | New issue below | Add generated search sections for the four drift questions. | Each section has one example, one receipt, one action, and a canonical URL. |
+| 9 | #1546 | Add generated search sections for the four drift questions. | Each section has one example, one receipt, one action, and a canonical URL. |
 | 10 | #949 | Keep runtime drift claims aligned with shipped remediation evidence. | Field coverage, pruning, conflict behavior, and live convergence remain explicit per path. |
 
 ### New issue draft

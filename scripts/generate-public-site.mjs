@@ -27,6 +27,10 @@ const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
 const askPath = join(siteRoot, "ask.html");
+const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
+const upstreamVersionPath = join(siteRoot, "did-this-chart-version-change.html");
+const environmentDifferencePath = join(siteRoot, "why-do-dev-and-prod-differ.html");
+const approvedClusterPath = join(siteRoot, "does-cluster-match-approved-config.html");
 const challengePath = join(siteRoot, "challenge.html");
 const comparePath = join(siteRoot, "compare.html");
 const whatsNewPath = join(siteRoot, "whats-new.html");
@@ -213,6 +217,10 @@ const SITE_PAGE_RELPATHS = {
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
   askHtml: "ask.html",
+  ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
+  upstreamVersionHtml: "did-this-chart-version-change.html",
+  environmentDifferenceHtml: "why-do-dev-and-prod-differ.html",
+  approvedClusterHtml: "does-cluster-match-approved-config.html",
   challengeHtml: "challenge.html",
   compareHtml: "compare.html",
   whatsNewHtml: "whats-new.html",
@@ -262,6 +270,10 @@ const PAGE_DESCRIPTIONS = {
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "ask.html": "Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.",
+  "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
+  "did-this-chart-version-change.html": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
+  "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
+  "does-cluster-match-approved-config.html": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
   "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
   "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
@@ -319,6 +331,10 @@ if (mode === "--generate") {
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
   write(askPath, site.askHtml);
+  write(ignoredValuesPath, site.ignoredValuesHtml);
+  write(upstreamVersionPath, site.upstreamVersionHtml);
+  write(environmentDifferencePath, site.environmentDifferenceHtml);
+  write(approvedClusterPath, site.approvedClusterHtml);
   write(challengePath, site.challengeHtml);
   write(comparePath, site.compareHtml);
   write(whatsNewPath, site.whatsNewHtml);
@@ -413,6 +429,14 @@ if (mode === "--generate") {
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
+  check(existsSync(ignoredValuesPath), "site/why-did-helm-ignore-my-values.html is missing; run npm run site:generate");
+  check(readFileSync(ignoredValuesPath, "utf8") === site.ignoredValuesHtml, "site/why-did-helm-ignore-my-values.html is stale");
+  check(existsSync(upstreamVersionPath), "site/did-this-chart-version-change.html is missing; run npm run site:generate");
+  check(readFileSync(upstreamVersionPath, "utf8") === site.upstreamVersionHtml, "site/did-this-chart-version-change.html is stale");
+  check(existsSync(environmentDifferencePath), "site/why-do-dev-and-prod-differ.html is missing; run npm run site:generate");
+  check(readFileSync(environmentDifferencePath, "utf8") === site.environmentDifferenceHtml, "site/why-do-dev-and-prod-differ.html is stale");
+  check(existsSync(approvedClusterPath), "site/does-cluster-match-approved-config.html is missing; run npm run site:generate");
+  check(readFileSync(approvedClusterPath, "utf8") === site.approvedClusterHtml, "site/does-cluster-match-approved-config.html is stale");
   check(existsSync(challengePath), "site/challenge.html is missing; run npm run site:generate");
   check(readFileSync(challengePath, "utf8") === site.challengeHtml, "site/challenge.html is stale");
   check(existsSync(comparePath), "site/compare.html is missing; run npm run site:generate");
@@ -907,6 +931,10 @@ function buildSite(generatedAt) {
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml(catalog)),
     askHtml: calmPage(askHtml()),
+    ignoredValuesHtml: calmPage(ignoredValuesHtml()),
+    upstreamVersionHtml: calmPage(upstreamVersionHtml()),
+    environmentDifferenceHtml: calmPage(environmentDifferenceHtml()),
+    approvedClusterHtml: calmPage(approvedClusterHtml()),
     challengeHtml: calmPage(challengeHtml(catalog)),
     compareHtml: calmPage(compareHtml(catalog)),
     whatsNewHtml: calmPage(whatsNewHtml(catalog)),
@@ -1356,6 +1384,10 @@ function buildLlmsTxt() {
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Investigate a Helm problem](${SITE_BASE_URL}ask.html): build a local prompt around one exact question, then compare the answer with retained evidence.
+- [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
+- [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
+- [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
+- [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
 - [Helm investigation reference](${SITE_BASE_URL}challenge.html): the six question families, worked evidence, and benchmark behind the shorter Ask flow.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
@@ -2144,10 +2176,10 @@ function homeDesignCss() {
 
 function configTestCentreHome(catalog) {
   const nextSteps = [
-    ["01", "Check the render", "See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.", "runs on your laptop"],
-    ["02", "Pin the package", "Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.", "runs on your laptop"],
-    ["03", "Relate environments", "Save variants and promote reviewed changes instead of copying values between development and production.", "needs a ConfigHub account"],
-    ["04", "Compare live state", "Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.", "needs an account and a cluster"],
+    ["01", "Check the render", "See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.", "runs on your laptop", "./why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
+    ["02", "Pin the package", "Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.", "runs on your laptop", "./did-this-chart-version-change.html", "Did this chart version change upstream?"],
+    ["03", "Relate environments", "Save variants and promote reviewed changes instead of copying values between development and production.", "needs a ConfigHub account", "./why-do-dev-and-prod-differ.html", "Why do development and production differ?"],
+    ["04", "Compare live state", "Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.", "needs an account and a cluster", "./does-cluster-match-approved-config.html", "Does the cluster match what we approved?"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -2232,7 +2264,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <h2>Four places drift appears</h2>
           <p class="intro">Start before deployment. Add ConfigHub when a reviewed result needs history across environments or clusters.</p>
           <div class="verbs">
-            ${nextSteps.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
+            ${nextSteps.map(([n, name, desc, route, href, question]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(question)}</a></p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
           </div>
           <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
         </section>
@@ -4470,6 +4502,8 @@ function askHtml() {
     const questions = ${JSON.stringify(questions)};
     const issueUrl = ${JSON.stringify(PROBLEM_CHART_ISSUE_URL)};
     const byId = (id) => document.getElementById(id);
+    const requestedQuestion = window.location.hash.slice(1);
+    if (questions[requestedQuestion]) byId("question-type").value = requestedQuestion;
 
     function selectedQuestion() {
       return questions[byId("question-type").value];
@@ -4581,6 +4615,91 @@ function askHtml() {
 </body>
 </html>
 `;
+}
+
+function driftQuestionPageHtml({ title, lead, boundary, example, evidence, action, actionHref }) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)} &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>${escapeHtml(title)}</h1>
+    <p class="lead">${lead}</p>
+    <p><strong>${escapeHtml(boundary)}</strong></p>
+  </header>
+  <main>
+    <section aria-labelledby="example">
+      <h2 id="example">See one example</h2>
+      ${example}
+    </section>
+    <section aria-labelledby="evidence">
+      <h2 id="evidence">Check the record</h2>
+      ${evidence}
+    </section>
+    <section aria-labelledby="next-action">
+      <h2 id="next-action">Do this next</h2>
+      <p>${action}</p>
+      <p><a class="button primary" href="${escapeHtml(actionHref)}">Start this check</a></p>
+    </section>
+  </main>
+  <footer>One question, one checked example, and one next action.</footer>
+</body>
+</html>`;
+}
+
+function ignoredValuesHtml() {
+  return driftQuestionPageHtml({
+    title: "Why did Helm ignore my values?",
+    lead: "Helm accepts keys that a chart never reads. Test each value you supplied by rendering once with it and once without it, then compare the Kubernetes objects.",
+    boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
+    example: `<p>Redis 27.0.0 accepts the misspelled key <code>auth.passwrod</code>. The baseline and changed renders have the same object-set hash, so the key changed nothing and Helm gave no warning.</p><pre><code>auth:
+  passwrod: wrong-key-is-ignored</code></pre><p>This record proves that one key on one chart version. It does not claim that every possible Redis value has been tested.</p>`,
+    evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}recipes/bitnami/redis/27.0.0/values-diagnostics.yaml">Open the Redis values diagnostic</a>. It records both render hashes, the no-change result, and the limit of the check.</p>`,
+    action: "Choose the ignored-values question, add your chart and values, and run the generated comparison locally.",
+    actionHref: "./ask.html#ignored-values",
+  });
+}
+
+function upstreamVersionHtml() {
+  return driftQuestionPageHtml({
+    title: "Did this chart version change upstream?",
+    lead: "A version string is only a label. Record the package digest when you review a chart, then compare that digest with later downloads of the same version.",
+    boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
+    example: `<p>The catalog found two version labels that later pointed at different bytes. For <code>fairwinds-stable/goldilocks@10.3.0</code>, the retained package starts <code>9498a6f49cde</code>; the republished package starts <code>3e51ce8032b0</code>.</p><p>The catalog keeps the reviewed package and records the newer bytes separately. It does not silently replace the package behind earlier evidence.</p>`,
+    evidence: `<p><a href="./d/data/upstream-drift/summary.html">Open the upstream change record</a>. It links the retained publication receipt and the witness for the republished package.</p>`,
+    action: "Choose the supply-drift question and check the current digest against the retained record.",
+    actionHref: "./ask.html#supply-drift",
+  });
+}
+
+function environmentDifferenceHtml() {
+  return driftQuestionPageHtml({
+    title: "Why do development and production differ?",
+    lead: "Store development and production as related configurations. Then every intentional difference has a field diff and every promotion has a revision record.",
+    boundary: "Needs a ConfigHub account. A cluster is needed only when you deploy the result.",
+    example: `<p>In the checked NGINX example, development changed <code>spec.replicas</code> from three to four. Staging stayed at three until that exact change was promoted. The staging namespace remained unchanged.</p><p>The receipt records the base, development, and staging revisions instead of asking someone to reconstruct the change from copied values files.</p>`,
+    evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}runs/byo-helm-values-promotion-proof/receipt.yaml">Open the development-to-staging promotion receipt</a>. Its limits say that this is one field promotion; rollback and fleet rollout are separate checks.</p>`,
+    action: "Follow the ConfigHub tutorial to create a development configuration, make one change, and promote it to production.",
+    actionHref: CONFIGHUB_TUTORIAL_URL,
+  });
+}
+
+function approvedClusterHtml() {
+  return driftQuestionPageHtml({
+    title: "Does the cluster match what we approved?",
+    lead: "Compare the reviewed desired objects with the objects reported by the cluster. Read the field coverage before treating a clean result as a match.",
+    boundary: "Needs a ConfigHub account and a Kubernetes cluster for a standing comparison.",
+    example: `<p>Our live gap test changed replicas and a container environment variable. The current comparison found the replica change but missed the environment-variable change.</p><p>That makes this result a warning, not a pass. A clean report covers only the fields named by the receipt.</p>`,
+    evidence: `<p><a href="${GITHUB_BLOB_BASE_URL}runs/drift-detection-gap/receipt.yaml">Open the live drift receipt</a>. The <a href="./d/data/drift-detection-gap/summary.html">plain-English summary</a> shows the detected field and the missed field.</p>`,
+    action: "Read the current gap before you choose a desired-versus-live check for production.",
+    actionHref: "./known-gaps.html",
+  });
 }
 
 // The challenge page is the detailed evidence layer for the shorter Ask flow.
