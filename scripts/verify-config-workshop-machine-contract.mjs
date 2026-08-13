@@ -11,6 +11,7 @@ const schemaPath = join(siteRoot, "changes.schema.json");
 const catalogPath = join(siteRoot, "catalog.json");
 const llmsPath = join(siteRoot, "llms.txt");
 const askPath = join(siteRoot, "ask.html");
+const checkScriptPath = join(siteRoot, "check-config.js");
 const issueTemplatePath = join(repoRoot, ".github", "ISSUE_TEMPLATE", "problem-chart.yml");
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -104,14 +105,15 @@ check(
 
 const llms = readFileSync(llmsPath, "utf8");
 const ask = readFileSync(askPath, "utf8");
+const checkScript = readFileSync(checkScriptPath, "utf8");
 const issueTemplate = readFileSync(issueTemplatePath, "utf8");
 for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json", "retention object is computed", "Normal catalog refreshes are additive"]) {
   check(llms.includes(term), `site/llms.txt must explain the machine contract: ${term}`);
 }
-for (const term of ["Question code", "WORKSHOP FINDING", "not_checked", "changes.schema.json", "File the public question"]) {
+for (const term of ["Choose a question", "WORKSHOP FINDING", "Only completed checks count as evidence", "review.schema.json", "Propose this public case"]) {
   check(ask.includes(term), `site/ask.html must expose the question-first contract: ${term}`);
 }
-for (const term of ["config-diff", "Compare with:", "comparison_digest", "Optional comparison: add what you run today"]) {
+for (const term of ["config-diff", "Comparison objects", "Source reference", "Optional comparison: add what you run today"]) {
   check(ask.includes(term), `site/ask.html must expose the local comparison path: ${term}`);
 }
 for (const forbidden of [
@@ -119,10 +121,11 @@ for (const forbidden of [
   'target.searchParams.set("values"',
   "Assistant finding:",
 ]) {
-  check(!ask.includes(forbidden), `site/ask.html must not put the full assistant answer in the GitHub URL: ${forbidden}`);
+  check(!checkScript.includes(forbidden), `site/check-config.js must not put private inputs or the full assistant answer in the GitHub URL: ${forbidden}`);
 }
-for (const term of ["maxIssueUrlLength = 1800", 'lastIndexOf("WORKSHOP FINDING")', "The answer stays out of the link"]) {
-  check(ask.includes(term), `site/ask.html must keep the public issue handoff bounded: ${term}`);
+check(ask.includes('"maxIssueUrlLength":1800'), "site/ask.html must keep the public issue URL below 1,800 characters");
+for (const term of ['lastIndexOf("WORKSHOP FINDING")', "target.toString().length <= settings.maxIssueUrlLength", "Paste the copied finding or review record"]) {
+  check(checkScript.includes(term), `site/check-config.js must keep the public issue handoff bounded: ${term}`);
 }
 for (const term of ["challenge-intake", "id: question_code", "id: question", "config-diff", "two business days", "within seven days"]) {
   check(issueTemplate.includes(term), `problem-chart issue template must expose the receiving contract: ${term}`);
