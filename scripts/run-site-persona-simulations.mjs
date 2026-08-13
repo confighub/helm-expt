@@ -482,7 +482,7 @@ function markdown(journeys, language, baselineJourneys = []) {
       "",
     );
   }
-  return `${lines.join("\n")}\n`;
+  return `${lines.join("\n").trimEnd()}\n`;
 }
 
 await mkdir(outDir, { recursive: true });

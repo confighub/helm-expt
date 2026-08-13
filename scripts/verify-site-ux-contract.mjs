@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import "./verify-configuration-review-contract.mjs";
 
 const root = process.cwd();
 // The catalog grows, so these are floors against losing a component or a
@@ -39,7 +40,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Check your configuration", "your chart is missing from the Catalog", "render the chart locally", "For Helm, choose the question and chart", "AICR example", "inspect an OCI package", "review Kubernetes YAML or an existing app", "Other jobs", "hooks and CRD setup", "live drift coverage and its limits", "promotion and fleet rollout examples", "package publication receipts and immutable digests", "how Checked and Not checked evidence works", "placeholder credentials and other known gaps", "After a check", "write reviewed files as OCI", "save and audit exact diffs in ConfigHub", "No, keep this investigation private", "Choose a question", "Optional comparison: add what you run today", "Installed Helm release", "Local YAML files", "OCI package", "Git path or revision", "Live Kubernetes objects", "Existing release name", "Existing namespace", "Read the existing-release commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "comparison_digest", "Check this chart in the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Save the reviewed result for your team", "Save this result in ConfigHub"],
+    terms: ["Check your configuration", "Here is the chart and values my AI produced", "The Catalog</strong> answers questions we have already investigated", "ConfigHub</strong> retains an accepted answer", "Use the Catalog for a known case. Use this page for your own chart or values, a new version, or an unexpected result.", "Questions we help answer", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "Build a local prompt for your chart and values", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build my prompt", "WORKSHOP FINDING", "Check and retain the rendered result", "I already have rendered YAML", "Check these objects", "This is a first check, not a Helm render", "Keep or share the reviewed result", "Compare with the Catalog", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "ConfigurationReview schema", "Save the same result in ConfigHub", "Provider None", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "What happens next", "The review finds a placeholder credential", "blocking ConfigHub apply gate", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -87,7 +88,7 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "Use Check my config with your own AI assistant", "1. What ConfigHub adds", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "3. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "4. Read the background", "Read the ConfigHub blog"],
+    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "The Catalog answers cases already investigated", "Check my config investigates a new case", "does not repeat the investigation on every change", "1. What ConfigHub adds", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -123,7 +124,7 @@ const checks = [
   },
   {
     file: "site/known-gaps.html",
-    terms: ["See what is not ready yet", "1. Read the current limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
+    terms: ["Delivery limitations and known gaps", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
   },
   {
     file: "site/docs.html",
@@ -242,7 +243,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/ask.html",
-    headerTerms: ["Check your configuration", "Use the AI assistant you already have", "Use the Catalog when it already covers", "your chart is missing from the Catalog", "render the chart locally", "Choose the question and chart", "Copy the prompt into your assistant", "Check its answer against the Catalog", "The work stays on your machine", "Other inputs:", "AICR example", "inspect an OCI package", "review Kubernetes YAML or an existing app"],
+    headerTerms: ["Check your configuration", "chart and values my AI produced", "The Catalog", "questions we have already investigated", "This page", "new chart, version, values set, or existing deployment", "ConfigHub", "retains an accepted answer", "own AI assistant and local Helm tools", "inspect and compare it directly in your browser", "Your files stay on your machine", "Start with a chart and values", "I already have rendered YAML"],
   },
   {
     file: "site/try.html",
@@ -250,7 +251,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "The Catalog finds cases we already know", "Use Check my config with your own AI assistant", "local comparison answers one question", "Create an account", "Open the tutorial"],
+    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "The Catalog answers cases already investigated", "Check my config investigates a new case", "local comparison answers one question", "review record", "Create an account", "Open the tutorial"],
   },
   {
     file: "site/how-it-works.html",
@@ -333,9 +334,11 @@ for (const file of ["site/ask.html"]) {
   const fullPath = path.join(root, file);
   if (!fs.existsSync(fullPath)) continue;
   const html = fs.readFileSync(fullPath, "utf8");
-  for (const [index, match] of [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].entries()) {
+  const scripts = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)]
+    .filter((match) => !/\btype=["']application\/json["']/i.test(match[1]));
+  for (const [index, match] of scripts.entries()) {
     try {
-      new vm.Script(match[1], { filename: `${file} inline script ${index + 1}` });
+      new vm.Script(match[2], { filename: `${file} inline script ${index + 1}` });
     } catch (error) {
       failures.push(`${file}: inline script ${index + 1} does not parse: ${error.message}`);
     }

@@ -151,6 +151,8 @@ data/secret-lifecycle/variant-summary.csv,secret-lifecycle,supporting,machine-re
 data/serious-chart-reviews/kube-prometheus-stack.csv,serious-chart-reviews,supporting,supporting generated CSV,,,
 data/site-persona-simulations-2026-08-13-after/journeys.csv,site-persona-simulations-2026-08-13-after,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13-after/summary.md,,
 data/site-persona-simulations-2026-08-13-after/language.csv,site-persona-simulations-2026-08-13-after,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13-after/summary.md,,
+data/site-persona-simulations-2026-08-13-question-journeys/journeys.csv,site-persona-simulations-2026-08-13-question-journeys,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13-question-journeys/summary.md,,
+data/site-persona-simulations-2026-08-13-question-journeys/language.csv,site-persona-simulations-2026-08-13-question-journeys,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13-question-journeys/summary.md,,
 data/site-persona-simulations-2026-08-13/journeys.csv,site-persona-simulations-2026-08-13,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13/summary.md,,
 data/site-persona-simulations-2026-08-13/language.csv,site-persona-simulations-2026-08-13,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13/summary.md,,
 data/status-dashboard/active-proof-queue.csv,status-dashboard,user/front-door,"current non-pass live parity rows with their next step, support artifact, receipt, and rerun command",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify

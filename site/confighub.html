@@ -520,15 +520,16 @@
   <h1>Keep and manage your configuration with ConfigHub</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
   <p class="lead">ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
-  <p>The Catalog finds cases we already know. Use Check my config with your own AI assistant for a new or uncertain case. Both work locally without a ConfigHub account. Continue here when your team wants to keep and manage the reviewed result.</p>
-  <p>A local comparison answers one question at one moment. ConfigHub keeps the compared configurations and their diffs.</p>
+  <p>The Catalog answers cases already investigated. Check my config investigates a new case. Both work without a ConfigHub account. Continue here when your team wants to keep the accepted objects, source, checks, comparison, and decision together.</p>
+  <p>A local comparison answers one question at one moment. ConfigHub keeps both configurations, their exact diffs, and the review record so the team does not repeat the investigation on every change.</p>
   <p>It relates them to Git or OCI sources and releases. Live observations can be added when you connect deployment targets.</p>
   <p><a class="button primary" href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Create an account</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Open the tutorial</a></p>
 </header>
 <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>Start from reviewed files or OCI. Store them as a base configuration, then make separate variants for each environment. ConfigHub shows the exact diffs and records which change was approved and promoted.</p>
+    <p>Start from reviewed files or OCI. Store the exact objects as a base configuration and store the source, question, comparison, checks, and decision as a non-deployable review Unit. Then make separate variants for each environment. ConfigHub shows the exact diffs and records which change was approved and promoted.</p>
     <p>Relate the records to Git or OCI sources, publish release OCI for Argo CD or Flux, and compare desired configuration with live observations. Keep the source, changes, approvals, releases, and rollout history together.</p>
   </section>
   <section aria-labelledby="exact-handoff">
@@ -541,13 +542,24 @@
       <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same 5 objects with the same object-set hash, and records the same OCI digest as their source.</li>
     </ol>
     <p>The matching hashes show that the handoff preserves the reviewed objects. Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
+    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code>, attach the review digest, and create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
+  </section>
+  <section aria-labelledby="continue-work">
+    <h2 id="continue-work">3. Continue from the retained answer</h2>
+    <div class="card"><table>
+        <thead><tr><th>Job</th><th>What ConfigHub keeps</th><th>Start here</th></tr></thead>
+        <tbody><tr><td>Compare development and production</td><td>Both variants, their source relationship, and exact object diff.</td><td><a href="./why-do-dev-and-prod-differ.html">Compare environments</a></td></tr><tr><td>Promote and publish</td><td>The reviewed change, approval, promotion result, and immutable release OCI.</td><td><a href="./testing.html#managed">Promotion and OCI examples</a></td></tr><tr><td>Roll back</td><td>The prior object revision or release digest. External effects remain outside the rollback claim.</td><td><a href="./redis-walkthrough.html">Redis promotion and rollback</a></td></tr><tr><td>Compare desired with live</td><td>The approved desired objects and a separately dated live observation.</td><td><a href="./does-cluster-match-approved-config.html">Desired and live comparison</a></td></tr><tr><td>Roll out to a fleet</td><td>The selected targets, waves, approvals, and result for every target.</td><td><a href="./testing.html#platforms">Fleet examples</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
   </section>
   <section aria-labelledby="review-tutorial">
-    <h2 id="review-tutorial">3. Continue with the official tutorial</h2>
+    <h2 id="review-tutorial">4. Continue with the official tutorial</h2>
     <p><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Create a ConfigHub account</a> when you are ready to save a reviewed configuration. Then continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">official tutorial</a> to create a development deployment, make a change, add production, and promote the reviewed result.</p>
-  </section>
-  <section aria-labelledby="read-blog">
-    <h2 id="read-blog">4. Read the background</h2>
     <p><a href="https://confighub.com/blog/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
     <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Catalog Read-Only Guide For Agents · Config Workshop</title>
-  <meta name="description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
-  <meta property="og:title" content="Catalog Read-Only Guide For Agents · Config Workshop">
-  <meta property="og:description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Check a configuration, keep the answer · Config Workshop</title>
+  <meta name="description" content="Check a configuration, keep the answer: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/configuration-question-workflow.html">
+  <meta property="og:title" content="Check a configuration, keep the answer · Config Workshop">
+  <meta property="og:description" content="Check a configuration, keep the answer: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/configuration-question-workflow.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,58 +433,48 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Check my config</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Catalog Read-Only Guide For Agents</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/catalog.md">View source markdown</a>.</p>
+    <h1>Check a configuration, keep the answer</h1>
+    <p class="lead">Config Workshop helps with a configuration that is new, uncertain, or different from one already in the Catalog. The most common starting point is a Helm chart and values written or changed by an AI assistant: <a href="../../../../docs/user/configuration-question-workflow.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>This guide does not redesign the catalog. Treat the catalog and chart pages as evidence to read, not as pages to rewrite.</p>
-<h2 id="product-boundary">Product Boundary</h2>
-<p>The public front door supports <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code> without requiring a ConfigHub account. ConfigHub begins when a user claims the configuration so it can be saved, changed, approved, promoted, or rolled out.</p>
-<p>Treat <code>work</code> as a reusable operation, not a product or a mandatory first step. It may mean render, inspect, explain, test, scan, compare, or edit. The operation may sit before an OCI is built, after one is pulled, or between an input OCI and an output OCI. Local and GitHub Actions use are proven. The public Check my config page can inspect and compare rendered YAML in the browser without sign-in; hosted chart rendering, OCI pulls, cluster checks, and live tests are still planned and must not be described as available.</p>
-<p>Inside an existing delivery flow, distinguish ConfigHub's three roles:</p>
-<ul><li>congruent pass-through: keep the specs and user-supplied metadata, add only the recorded <code>confighub.com/origin</code> provenance annotation, and publish a new OCI artifact;</li><li>transformation: create a reviewed variant and publish the changed objects;</li><li>fan-out: publish specific outputs or deliver one reviewed release to several targets.</li></ul>
-<p>Require input and output digests and a field comparison for each pass-through claim. Do not infer congruent output from a successful import, or fleet rollout from one controller becoming healthy.</p>
-<p>Do not treat every OCI artifact as interchangeable. Check whether a link is a source or installer package, a literal bundle for <code>cub variant upload</code>, a portable deployment bundle, or a ConfigHub release. The consumer and receipt must match the artifact.</p>
-<p>For source-neutral examples, start with <code>config-catalog/program.yaml</code> and <code>docs/reference/config-catalog-doctrine.md</code>. The AICR example keeps separate receipts for generation, OCI packaging, ConfigHub upload, required-approval behavior, and promotion. Do not use one of those receipts to claim a later stage.</p>
-<p>For the no-account boundary, use <code>runs/serverless-oci-gitops-proof/receipt.yaml</code>. It proves one public installer OCI input, isolated local rendering, one temporary output OCI, and Flux reconciliation. It does not prove hosted output or ConfigHub operations.</p>
-<p>For the CI execution mode, use <code>runs/anonymous-oci-ci-proof/receipt.yaml</code>. It proves anonymous public OCI pull, rendering, object inspection, local OCI-layout creation, and pull-back comparison in GitHub Actions. The output is a workflow artifact, not a public registry package.</p>
-<p>For the first continuous upgrade path, use <code>runs/redis-upgrade-app-proof/receipt.yaml</code>. It proves one Redis package upgrade, one retained post-render replica change, two sequential environment promotions, and the same portable OCI digest on two Argo CD clusters. Keep its three product limits: the promotion dry-run printed no mutations, the portable registry was temporary, and the observations were not submitted to ConfigHub observation storage.</p>
-<h2 id="what-not-to-touch-in-this-pass">What Not To Touch In This Pass</h2>
-<p>Do not edit these unless the user explicitly asks for catalog work:</p>
-<ul><li><code>site/charts/*.html</code></li><li><code>site/charts/index.html</code></li><li><code>data/master-catalog-matrix/*</code></li><li><code>recipes/*/*/*/CATALOG.md</code></li><li><code>packages/*/*/*/README.md</code></li><li>generated chart evidence under <code>data/</code></li></ul>
-<p>If a catalog output is wrong, fix the source generator or source data in a separate catalog task.</p>
-<h2 id="fast-read-only-routes">Fast Read-Only Routes</h2>
-<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>Can I use this chart today?</td><td><code>data/chart-use-guide/summary.md</code></td></tr>
-<tr><td>Where are this chart's evidence files?</td><td><code>data/chart-evidence-router/summary.md</code> and <code>data/chart-evidence-router/router.csv</code></td></tr>
-<tr><td>What is the broad row status?</td><td><code>data/master-catalog-matrix/matrix.html</code> or <code>data/master-catalog-matrix/matrix.csv</code></td></tr>
-<tr><td>What render-intent file exists for a real base?</td><td><code>data/helm-render-intents/summary.md</code> and <code>data/helm-render-intents/intents.csv</code></td></tr>
-<tr><td>Which claims are backed or refused?</td><td><code>data/claims-register/summary.md</code></td></tr>
-<tr><td>What known gaps affect the row?</td><td><code>data/model-gap-workdown/summary.md</code>, <code>data/target-prerequisite-workdown/summary.md</code>, and <code>data/live-parity-decisions/summary.md</code></td></tr></tbody></table>
-<h2 id="inspect-one-chart-from-the-terminal">Inspect One Chart From The Terminal</h2>
-<p>Use <code>rg</code> before opening large files:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/chart-use-guide data/chart-evidence-router data/helm-render-intents</code></pre>
-<p>Then open the smallest matching source:</p>
-<ul><li>chart-use row for the short recommendation;</li><li>evidence-router row for paths to receipts and decisions;</li><li>render-intent row for the base config;</li><li>matrix row for lane status.</li></ul>
-<h2 id="read-a-render-intent">Read A Render Intent</h2>
-<p>Start with:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/helm-render-intents/intents.csv</code></pre>
-<p>Then open the matching YAML under <code>data/helm-render-intents/intents/</code>.</p>
-<p>A render intent records the chart version, base, values profile, namespace, release name, capability profile, source lock, lifecycle routes, target prerequisites, and evidence links for a real base row. It is not a production promise.</p>
-<h2 id="how-to-report-catalog-findings">How To Report Catalog Findings</h2>
-<p>When summarizing a chart, include:</p>
-<ul><li>chart and version;</li><li>recommended or inspected base;</li><li>current route: use now, review, improve base, blocked, or refused;</li><li>strongest evidence lane;</li><li>known target prerequisites or lifecycle routes;</li><li>next action and source file.</li></ul>
-<p>Do not claim more than the source row claims.</p>
+
+<blockquote><p>Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.</p></blockquote>
+<p>The same workflow also accepts rendered Kubernetes YAML, an OCI bundle, an AICR recipe, or configuration exported from an existing deployment.</p>
+<h2 id="questions-this-workflow-should-answer">Questions this workflow should answer</h2>
+<table><thead><tr><th>Question</th><th>What a useful answer contains</th></tr></thead><tbody><tr><td>I set a value. Why did the rendered object not change?</td><td>If Helm ignored the setting, check first for a misspelled or wrong values path. Render with and without that value. Identify the correct path or report that the chart does not expose the field.</td></tr>
+<tr><td>AI wrote these values. What did they actually change?</td><td>Compare the candidate with chart defaults, a matching Catalog configuration, and optionally the current deployment. Show exact object and field changes. Check credentials, permissions, images, storage, hooks, and CRDs.</td></tr>
+<tr><td>Can I upgrade this chart without breaking production?</td><td>Render both versions with the same release context. Compare objects, values, hooks, CRDs, immutable fields, storage, and required Secrets. Include the current Helm release record when it is available.</td></tr>
+<tr><td>The chart does not expose the field I need. Must I fork it?</td><td>Show the rendered object and the missing field. Keep the chart unchanged when a reviewed post-render edit is enough. Check that edit for overlap when the chart is upgraded.</td></tr>
+<tr><td>How should Argo CD or Flux handle this chart's hooks and CRDs?</td><td>List each hook, CRD, and setup job in execution order. State who runs it, what must already exist, and which controller path has actually been tested.</td></tr>
+<tr><td>Can I roll back to exactly what ran before?</td><td>Look for a retained rendered revision or OCI digest. Restore those exact objects when they exist. Separate Kubernetes configuration from database migrations and other external effects.</td></tr>
+<tr><td>How is this candidate different from production?</td><td>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</td></tr>
+<tr><td>Where does this vulnerable image run, and how can I update it safely?</td><td>Search the supplied estate or ConfigHub records, show every affected environment and cluster, test the candidate, and promote it through a limited rollout wave.</td></tr></tbody></table>
+<h2 id="one-answer-shape">One answer shape</h2>
+<p>Every investigation should return the same useful result:</p>
+<ol><li>The exact Kubernetes objects that were inspected.</li><li>The source, version, values, namespace, release name, and capabilities used to produce them, when those facts are available.</li><li>A comparison with the relevant default, Catalog configuration, prior version, desired configuration, or live result.</li><li>Required Secrets, CRDs, hooks, APIs, storage, setup jobs, and other target requirements.</li><li>Checks that ran, findings they produced, and important checks that did not run.</li><li>One recommended next action.</li><li>A <code>ConfigurationReview</code> record that links the inspected objects to the question, source, comparison, and findings.</li></ol>
+<p>The result may remain as local files. It may also be packaged as OCI. When a team needs shared history, variants, approvals, promotion, or delivery, the same objects and review record can be stored in ConfigHub.</p>
+<h2 id="the-three-public-jobs">The three public jobs</h2>
+<p><b>Catalog</b> answers questions already investigated for a named source and version. It provides retained packages, useful configurations, setup requirements, checks, and known limits.</p>
+<p><b>Check my config</b> investigates a new chart, version, values set, OCI bundle, or existing deployment. The browser can inspect rendered YAML without sending it to a server. For Helm rendering and deeper comparisons, it builds a prompt for the user's local AI assistant.</p>
+<p><b>ConfigHub</b> retains an accepted answer. It stores the exact objects and a non-deployable review Unit, then lets a team make variants, review diffs, promote changes, publish releases, and compare desired configuration with live observations.</p>
+<h2 id="from-an-investigation-to-the-catalog">From an investigation to the Catalog</h2>
+<p>A public investigation does not become a known-good configuration merely because it rendered. A maintainer must reproduce it, check the source and inputs, classify its setup work, record the result, and decide whether to add or refuse the case. Accepted cases become new versioned Catalog entries. A new review never silently replaces an older retained version.</p>
+<p>Private charts and values remain private. Their review records can still be kept locally or in the user's ConfigHub organization, but they are not public Catalog candidates.</p>
+<h2 id="limits">Limits</h2>
+<p>A browser check does not run Helm, contact a cluster, test an admission webhook, execute a hook, or prove that a workload became healthy. It is useful for object inventory, straightforward configuration checks, and a first comparison. The review record names its method so later tools do not mistake a browser check for live evidence.</p>
+<p>An AI answer is advice until its commands, objects, diffs, and cited evidence have been checked. Missing evidence stays marked as not checked.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/agent/catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/user/configuration-question-workflow.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

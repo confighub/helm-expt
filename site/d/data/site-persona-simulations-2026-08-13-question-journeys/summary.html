@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Catalog Read-Only Guide For Agents · Config Workshop</title>
-  <meta name="description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
-  <meta property="og:title" content="Catalog Read-Only Guide For Agents · Config Workshop">
-  <meta property="og:description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Public-site persona simulations · Config Workshop</title>
+  <meta name="description" content="Public-site persona simulations: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-13-question-journeys/summary.html">
+  <meta property="og:title" content="Public-site persona simulations · Config Workshop">
+  <meta property="og:description" content="Public-site persona simulations: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-13-question-journeys/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -438,53 +438,63 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Check my config</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Catalog Read-Only Guide For Agents</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/catalog.md">View source markdown</a>.</p>
+    <h1>Public-site persona simulations</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/site-persona-simulations-2026-08-13-question-journeys/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>This guide does not redesign the catalog. Treat the catalog and chart pages as evidence to read, not as pages to rewrite.</p>
-<h2 id="product-boundary">Product Boundary</h2>
-<p>The public front door supports <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code> without requiring a ConfigHub account. ConfigHub begins when a user claims the configuration so it can be saved, changed, approved, promoted, or rolled out.</p>
-<p>Treat <code>work</code> as a reusable operation, not a product or a mandatory first step. It may mean render, inspect, explain, test, scan, compare, or edit. The operation may sit before an OCI is built, after one is pulled, or between an input OCI and an output OCI. Local and GitHub Actions use are proven. The public Check my config page can inspect and compare rendered YAML in the browser without sign-in; hosted chart rendering, OCI pulls, cluster checks, and live tests are still planned and must not be described as available.</p>
-<p>Inside an existing delivery flow, distinguish ConfigHub's three roles:</p>
-<ul><li>congruent pass-through: keep the specs and user-supplied metadata, add only the recorded <code>confighub.com/origin</code> provenance annotation, and publish a new OCI artifact;</li><li>transformation: create a reviewed variant and publish the changed objects;</li><li>fan-out: publish specific outputs or deliver one reviewed release to several targets.</li></ul>
-<p>Require input and output digests and a field comparison for each pass-through claim. Do not infer congruent output from a successful import, or fleet rollout from one controller becoming healthy.</p>
-<p>Do not treat every OCI artifact as interchangeable. Check whether a link is a source or installer package, a literal bundle for <code>cub variant upload</code>, a portable deployment bundle, or a ConfigHub release. The consumer and receipt must match the artifact.</p>
-<p>For source-neutral examples, start with <code>config-catalog/program.yaml</code> and <code>docs/reference/config-catalog-doctrine.md</code>. The AICR example keeps separate receipts for generation, OCI packaging, ConfigHub upload, required-approval behavior, and promotion. Do not use one of those receipts to claim a later stage.</p>
-<p>For the no-account boundary, use <code>runs/serverless-oci-gitops-proof/receipt.yaml</code>. It proves one public installer OCI input, isolated local rendering, one temporary output OCI, and Flux reconciliation. It does not prove hosted output or ConfigHub operations.</p>
-<p>For the CI execution mode, use <code>runs/anonymous-oci-ci-proof/receipt.yaml</code>. It proves anonymous public OCI pull, rendering, object inspection, local OCI-layout creation, and pull-back comparison in GitHub Actions. The output is a workflow artifact, not a public registry package.</p>
-<p>For the first continuous upgrade path, use <code>runs/redis-upgrade-app-proof/receipt.yaml</code>. It proves one Redis package upgrade, one retained post-render replica change, two sequential environment promotions, and the same portable OCI digest on two Argo CD clusters. Keep its three product limits: the promotion dry-run printed no mutations, the portable registry was temporary, and the observations were not submitted to ConfigHub observation storage.</p>
-<h2 id="what-not-to-touch-in-this-pass">What Not To Touch In This Pass</h2>
-<p>Do not edit these unless the user explicitly asks for catalog work:</p>
-<ul><li><code>site/charts/*.html</code></li><li><code>site/charts/index.html</code></li><li><code>data/master-catalog-matrix/*</code></li><li><code>recipes/*/*/*/CATALOG.md</code></li><li><code>packages/*/*/*/README.md</code></li><li>generated chart evidence under <code>data/</code></li></ul>
-<p>If a catalog output is wrong, fix the source generator or source data in a separate catalog task.</p>
-<h2 id="fast-read-only-routes">Fast Read-Only Routes</h2>
-<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>Can I use this chart today?</td><td><code>data/chart-use-guide/summary.md</code></td></tr>
-<tr><td>Where are this chart's evidence files?</td><td><code>data/chart-evidence-router/summary.md</code> and <code>data/chart-evidence-router/router.csv</code></td></tr>
-<tr><td>What is the broad row status?</td><td><code>data/master-catalog-matrix/matrix.html</code> or <code>data/master-catalog-matrix/matrix.csv</code></td></tr>
-<tr><td>What render-intent file exists for a real base?</td><td><code>data/helm-render-intents/summary.md</code> and <code>data/helm-render-intents/intents.csv</code></td></tr>
-<tr><td>Which claims are backed or refused?</td><td><code>data/claims-register/summary.md</code></td></tr>
-<tr><td>What known gaps affect the row?</td><td><code>data/model-gap-workdown/summary.md</code>, <code>data/target-prerequisite-workdown/summary.md</code>, and <code>data/live-parity-decisions/summary.md</code></td></tr></tbody></table>
-<h2 id="inspect-one-chart-from-the-terminal">Inspect One Chart From The Terminal</h2>
-<p>Use <code>rg</code> before opening large files:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/chart-use-guide data/chart-evidence-router data/helm-render-intents</code></pre>
-<p>Then open the smallest matching source:</p>
-<ul><li>chart-use row for the short recommendation;</li><li>evidence-router row for paths to receipts and decisions;</li><li>render-intent row for the base config;</li><li>matrix row for lane status.</li></ul>
-<h2 id="read-a-render-intent">Read A Render Intent</h2>
-<p>Start with:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/helm-render-intents/intents.csv</code></pre>
-<p>Then open the matching YAML under <code>data/helm-render-intents/intents/</code>.</p>
-<p>A render intent records the chart version, base, values profile, namespace, release name, capability profile, source lock, lifecycle routes, target prerequisites, and evidence links for a real base row. It is not a production promise.</p>
-<h2 id="how-to-report-catalog-findings">How To Report Catalog Findings</h2>
-<p>When summarizing a chart, include:</p>
-<ul><li>chart and version;</li><li>recommended or inspected base;</li><li>current route: use now, review, improve base, blocked, or refused;</li><li>strongest evidence lane;</li><li>known target prerequisites or lifecycle routes;</li><li>next action and source file.</li></ul>
-<p>Do not claim more than the source row claims.</p>
+<p>Site tested: http://127.0.0.1:8766/site/</p>
+<p>This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after five clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.</p>
+<h2 id="results">Results</h2>
+<table><thead><tr><th>Persona</th><th>Runs</th><th>Success</th><th>Partial</th><th>Fail</th><th>Answered on starting page</th><th>Useful first click when navigation was needed</th><th>Median clicks</th></tr></thead><tbody><tr><td>Application developer using AI-written configuration</td><td>180</td><td>177</td><td>3</td><td>0</td><td>97/180</td><td>53/83</td><td>0</td></tr>
+<tr><td>GitOps operator responsible for delivery</td><td>180</td><td>166</td><td>14</td><td>0</td><td>85/180</td><td>58/95</td><td>1</td></tr>
+<tr><td>Platform engineer managing environments and fleets</td><td>180</td><td>168</td><td>12</td><td>0</td><td>90/180</td><td>65/90</td><td>1</td></tr>
+<tr><td>Security-minded release reviewer</td><td>180</td><td>160</td><td>20</td><td>0</td><td>64/180</td><td>93/116</td><td>1</td></tr></tbody></table>
+<h2 id="by-category">By category</h2>
+<table><thead><tr><th>Category</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>comprehension</td><td>137</td><td>7</td><td>0</td></tr>
+<tr><td>navigation</td><td>144</td><td>0</td><td>0</td></tr>
+<tr><td>action</td><td>140</td><td>4</td><td>0</td></tr>
+<tr><td>recovery</td><td>121</td><td>23</td><td>0</td></tr>
+<tr><td>conversion</td><td>129</td><td>15</td><td>0</td></tr></tbody></table>
+<h2 id="cross-format">Cross-format</h2>
+<table><thead><tr><th>Input format</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>Helm</td><td>547</td><td>47</td><td>0</td></tr>
+<tr><td>AICR</td><td>18</td><td>0</td><td>0</td></tr>
+<tr><td>OCI</td><td>52</td><td>2</td><td>0</td></tr>
+<tr><td>YAML</td><td>27</td><td>0</td><td>0</td></tr>
+<tr><td>mixed</td><td>27</td><td>0</td><td>0</td></tr></tbody></table>
+<h2 id="goals-that-still-need-work">Goals that still need work</h2>
+<table><thead><tr><th>Goal</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>block placeholder credentials</td><td>1</td><td>8</td><td>0</td></tr>
+<tr><td>find delivery limitations</td><td>4</td><td>5</td><td>0</td></tr>
+<tr><td>audit an exact diff</td><td>4</td><td>5</td><td>0</td></tr>
+<tr><td>keep configuration history</td><td>5</td><td>4</td><td>0</td></tr>
+<tr><td>handle CRDs on first install</td><td>6</td><td>3</td><td>0</td></tr>
+<tr><td>understand rollback proof</td><td>6</td><td>3</td><td>0</td></tr>
+<tr><td>promote and publish a release</td><td>7</td><td>2</td><td>0</td></tr>
+<tr><td>roll back a promoted release</td><td>7</td><td>2</td><td>0</td></tr>
+<tr><td>pause or inspect a rollout wave</td><td>7</td><td>2</td><td>0</td></tr>
+<tr><td>understand checked versus not checked</td><td>7</td><td>2</td><td>0</td></tr>
+<tr><td>handle CRD ordering risk</td><td>7</td><td>2</td><td>0</td></tr>
+<tr><td>write reviewed objects as OCI</td><td>8</td><td>1</td><td>0</td></tr>
+<tr><td>save a reviewed result for my team</td><td>8</td><td>1</td><td>0</td></tr>
+<tr><td>compare development and production</td><td>8</td><td>1</td><td>0</td></tr>
+<tr><td>render and inspect without applying</td><td>8</td><td>1</td><td>0</td></tr></tbody></table>
+<h2 id="navigation-language">Navigation language</h2>
+<p>These are synthetic forced-choice trials, not observed preferences.</p>
+<table><thead><tr><th>Preferred label</th><th>Count</th></tr></thead><tbody><tr><td>Check my config</td><td>39</td></tr>
+<tr><td>Investigate</td><td>21</td></tr>
+<tr><td>Compare</td><td>16</td></tr>
+<tr><td>Help with a chart</td><td>4</td></tr></tbody></table>
+<p>The current label <code>Check my config</code> was preferred in 39 of 80 synthetic trials. The page itself must explain that it builds a prompt for the visitor's own AI assistant; the navigation label does not have to carry that whole explanation.</p>
+<h2 id="change-from-baseline">Change from baseline</h2>
+<p>The baseline and candidate use the same personas, goals, starting pages, click limit, and scoring rules.</p>
+<table><thead><tr><th>Measure</th><th>Baseline</th><th>Candidate</th><th>Change</th></tr></thead><tbody><tr><td>Successful journeys</td><td>692/720</td><td>671/720</td><td>-21</td></tr>
+<tr><td>Partial journeys</td><td>28/720</td><td>49/720</td><td>+21</td></tr>
+<tr><td>Failed journeys</td><td>0/720</td><td>0/720</td><td>0</td></tr>
+<tr><td>Answered on starting page</td><td>312/720</td><td>336/720</td><td>+24</td></tr>
+<tr><td>Useful first click when needed</td><td>288/408 (70.6%)</td><td>269/384 (70.1%)</td><td>-0.5 points</td></tr></tbody></table>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/agent/catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/site-persona-simulations-2026-08-13-question-journeys/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

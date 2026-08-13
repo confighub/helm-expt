@@ -548,7 +548,7 @@
       <h2 id="work-mode">2 · Choose where the work runs</h2>
       <div class="card"><table>
         <thead><tr><th>Choice</th><th>What it means</th><th>Status</th></tr></thead>
-        <tbody><tr><td>Local, no server</td><td>Run tools on your machine or in CI. Public package pulls need no sign-in.</td><td>Available</td></tr><tr><td>Hosted, no sign-in</td><td>Inspect and test public configuration through an anonymous service.</td><td>Planned</td></tr><tr><td>ConfigHub</td><td>Record, change, release, and promote the result. Continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=testing">official tutorial</a>.</td><td>Available; account required</td></tr></tbody>
+        <tbody><tr><td>Local, no server</td><td>Run tools on your machine or in CI. Public package pulls need no sign-in.</td><td>Available</td></tr><tr><td>Hosted, no sign-in</td><td>Inspect and compare rendered Kubernetes YAML in the browser. The files stay on the user's machine.</td><td>Available for object inventory, selected manifest checks, and object comparison</td></tr><tr><td>ConfigHub</td><td>Record, change, release, and promote the result. Continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=testing">official tutorial</a>.</td><td>Available; account required</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -556,7 +556,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>These choices apply before configuration is saved. Public package and registry paths work now. The hosted anonymous service does not. Managed variants, promotions, Apps, gates, and fleet examples use ConfigHub Server.</p>
+      <p>These choices apply before configuration is saved. Chart rendering, OCI pulls, cluster checks, and deeper analysis still run locally or in CI. Managed variants, promotions, Apps, gates, and fleet examples use ConfigHub Server.</p>
     </section>
     <section aria-labelledby="bring-your-own">
       <h2 id="bring-your-own">3 · Helm: bring your own chart and values</h2>

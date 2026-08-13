@@ -1,5 +1,5 @@
-name: Problem chart report
-description: Send a public Helm chart, values file, or catalog mismatch that should become a fixture, receipt, or named refusal.
+name: Public configuration question
+description: Send a public Helm, AICR, OCI, or Kubernetes configuration case that should become a checked answer, named refusal, or documented limit.
 title: "Problem chart: <repo/chart> <version>"
 labels:
   - chart-analysis
@@ -9,23 +9,26 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for sending a hard chart. Public charts that break the model are useful adversarial input.
+        Thanks for sending a configuration question. Public cases that expose a missing answer or a wrong assumption help improve the Catalog.
 
         Please do not paste private values, secrets, credentials, private repository URLs, or customer data. If the chart or values are private, describe the shape and use a managed/private support channel instead.
 
-        We aim to acknowledge a complete report within two business days and post an entry, refusal, or evidence decision within seven days.
+        We aim to acknowledge a complete report within two business days and post a Catalog answer, refusal, or evidence decision within seven days. Rendering alone does not make a case known-good; a maintainer must reproduce and classify it first.
   - type: dropdown
     id: question_code
     attributes:
       label: What decision were you trying to make?
       options:
+        - "ai-values: AI wrote these values. What did they actually change?"
+        - "ignored-values: I set a value. Why did the rendered object not change?"
+        - "upgrade-risk: Can I upgrade this chart without breaking production?"
+        - "custom-field: The chart does not expose the field I need. Must I fork it?"
+        - "lifecycle-work: How should Argo CD or Flux handle this chart's hooks and CRDs?"
+        - "rollback-history: Can I roll back to exactly what ran before?"
+        - "config-diff: How is this candidate different from production?"
+        - "fleet-image: Where does this vulnerable image run, and how can I update it safely?"
         - "install-shape: What will this install, and what must already exist?"
-        - "ignored-values: Did Helm ignore one of my values?"
-        - "upgrade-risk: What could break in this upgrade?"
-        - "config-diff: How does this candidate differ from what I run now?"
-        - "lifecycle-work: What do hooks, CRDs, or setup jobs require?"
         - "supply-drift: Do these version and digest records identify the same bytes?"
-        - "rollback-history: Can I return to the exact configuration that ran before?"
         - "other: Another question"
     validations:
       required: true
@@ -40,23 +43,23 @@ body:
   - type: input
     id: chart
     attributes:
-      label: Chart
-      description: Helm repository/name, Artifact Hub link, or chart URL.
-      placeholder: "bitnami/redis"
+      label: Public source
+      description: Helm repository/name, Artifact Hub link, AICR recipe, OCI reference, public Git path, or other public source.
+      placeholder: "bitnami/redis or oci://registry/repository@sha256:..."
     validations:
       required: true
   - type: input
     id: version
     attributes:
-      label: Chart version
-      placeholder: "25.5.3"
+      label: Exact version or digest
+      placeholder: "25.5.3 or sha256:..."
     validations:
       required: true
   - type: textarea
     id: values
     attributes:
-      label: Values and flags
-      description: Public values, flags, capability profile, namespace, release name, and whether hooks/CRDs were included.
+      label: Inputs and choices
+      description: Public values, flags, source choices, capability profile, namespace, release name, and whether hooks/CRDs were included.
       placeholder: |
         helm template ...
         values.yaml:
@@ -66,15 +69,15 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: Expected Helm behavior
-      description: What regular Helm does, or what you expected it to do.
+      label: Expected result
+      description: What the source tool does, or what you expected the configuration to produce.
     validations:
       required: true
   - type: textarea
     id: observed
     attributes:
-      label: Observed helm-expt / ConfigHub behavior
-      description: What did the catalog, recipe, package, live parity lane, or verifier do instead?
+      label: Observed result
+      description: What did Config Workshop, the Catalog, the package, the check, or ConfigHub do instead?
     validations:
       required: true
   - type: dropdown
@@ -90,6 +93,7 @@ body:
         - Secret/target prerequisite is unclear
         - Variant choice is missing or confusing
         - Documentation or command is wrong
+        - AICR, OCI, or Kubernetes YAML case is missing
         - Other
     validations:
       required: true

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How public chart questions are handled · Config Workshop</title>
-  <meta name="description" content="How public chart questions are handled: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>How public configuration questions are handled · Config Workshop</title>
+  <meta name="description" content="How public configuration questions are handled: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/question-intake-operation.html">
-  <meta property="og:title" content="How public chart questions are handled · Config Workshop">
-  <meta property="og:description" content="How public chart questions are handled: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="How public configuration questions are handled · Config Workshop">
+  <meta property="og:description" content="How public configuration questions are handled: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/question-intake-operation.html">
   <style>
@@ -442,16 +442,21 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Check my config</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>How public chart questions are handled</h1>
-    <p class="lead">Config Workshop asks for one exact question about a public Helm chart. This page explains what happens after someone submits that question. <a href="../../../../docs/reference/question-intake-operation.md">View source markdown</a>.</p>
+    <h1>How public configuration questions are handled</h1>
+    <p class="lead">Config Workshop asks for one exact question about a public Helm chart, AICR recipe, OCI package, or Kubernetes object set. This page explains what happens after someone submits that question. <a href="../../../../docs/reference/question-intake-operation.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
-<p>The process has one purpose: give the submitter a useful, citable decision. Adding a chart to the catalog is one possible outcome. A clear refusal or a statement that the available evidence does not answer the question is also a valid outcome.</p>
+<p>The process has one purpose: give the submitter a useful, citable decision. Adding a checked case to the Catalog is one possible outcome. A clear refusal or a statement that the available evidence does not answer the question is also a valid outcome.</p>
+<h2 id="from-a-question-to-a-catalog-answer">From a question to a Catalog answer</h2>
+<p>The public question starts with an unknown configuration. It becomes a Catalog answer only after a maintainer completes this sequence:</p>
+<ol><li>reproduce the exact chart, version, values, release context, and question;</li><li>lock the available source and package digests;</li><li>render the exact Kubernetes objects and compare them with Helm when Helm is the source;</li><li>record prerequisites and lifecycle work, including Secrets, CRDs, hooks, setup jobs, and target requirements;</li><li>run the checks that apply and list the checks that did not run;</li><li>answer the operator's question in plain English, with one recommended action and one clear limit; and</li><li>either add the versioned case to the Catalog or publish a named refusal or evidence decision.</li></ol>
+<p>Rendering is necessary, but it does not make a configuration known-good. The Catalog entry must preserve the question, inputs, object hash, comparison, checks, decision, and evidence links. A later chart version is a new case unless retained evidence proves that the answer still applies.</p>
 <h2 id="what-a-complete-report-contains">What a complete report contains</h2>
 <p>A report is ready for triage when it includes:</p>
-<ol><li>the decision the operator needs to make;</li><li>the public chart and exact version;</li><li>public values or flags needed to reproduce it;</li><li>the expected and observed behavior; and</li><li>commands or public artifacts that reproduce the result.</li></ol>
+<ol><li>the decision the operator needs to make;</li><li>the public source and exact version or digest;</li><li>public values or flags needed to reproduce it;</li><li>the expected and observed behavior; and</li><li>commands or public artifacts that reproduce the result.</li></ol>
+<p>When the user generated a <code>workshop-review.json</code> record, attach it after checking that it contains no private source details or credentials. The record helps triage, but maintainers must reproduce the case independently.</p>
 <p>Do not ask a submitter to publish private values, credentials, customer data, or private repository links. A private problem stays local or moves to a private support channel.</p>
 <h2 id="response-targets">Response targets</h2>
 <p>We aim to acknowledge a complete report within two business days. We aim to post a catalog entry, named refusal, or evidence decision within seven days.</p>

@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Check my config &middot; Config Workshop</title>
-  <meta name="description" content="Check a Helm configuration with your own AI assistant, compare the answer with retained evidence, and find the right path for AICR, OCI, or Kubernetes YAML.">
+  <meta name="description" content="Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/ask.html">
   <meta property="og:title" content="Check my config &amp;middot; Config Workshop">
-  <meta property="og:description" content="Check a Helm configuration with your own AI assistant, compare the answer with retained evidence, and find the right path for AICR, OCI, or Kubernetes YAML.">
+  <meta property="og:description" content="Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/ask.html">
   <style>
@@ -514,19 +514,36 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Check my config</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Check your configuration</h1>
-    <p class="lead">Use the AI assistant you already have. For Helm, this page builds a local prompt for one chart and one question, then helps you compare the answer with our Catalog.</p>
-    <p>Use the Catalog when it already covers your exact chart and version. Use this page when your chart is missing from the Catalog.</p>
-    <p>It also handles your own values, a different version, an installed release, a comparison, or a result you do not understand. The prompt tells your assistant to render the chart locally.</p>
-    <p><strong>1.</strong> Choose the question and chart. <strong>2.</strong> Copy the prompt into your assistant. <strong>3.</strong> Check its answer against the Catalog.</p>
-    <p>The work stays on your machine. For a private chart, choose <strong>No, keep this investigation private</strong>. Keep secrets out of the prompt. GitHub opens only if you choose to report a problem with a public chart.</p>
-    <p><strong>Other inputs:</strong> Follow the <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR example</a>, <a href="./d/docs/user/inspect-oci-package.html">inspect an OCI package</a>, or <a href="./existing-apps.html">review Kubernetes YAML or an existing app</a>.</p>
+    <p class="lead">Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.</p>
+    <p><strong>The Catalog</strong> answers questions we have already investigated. <strong>This page</strong> helps investigate a new chart, version, values set, or existing deployment. <strong>ConfigHub</strong> retains an accepted answer so your team does not repeat the investigation on every change.</p>
+    <p><strong>Use the Catalog for a known case. Use this page for your own chart or values, a new version, or an unexpected result.</strong></p>
+    <p>Use your own AI assistant and local Helm tools when a chart must be rendered. If you already have Kubernetes YAML, this page can inspect and compare it directly in your browser.</p>
+    <p>Your files stay on your machine, and you need no account. Keep secrets out of prompts and public reports.</p>
+    <p><a class="button primary" href="#build-prompt">Start with a chart and values</a> <a class="button secondary" href="#check-files">I already have rendered YAML</a></p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+    <section aria-labelledby="questions-we-answer">
+      <h2 id="questions-we-answer">Questions we help answer</h2>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What the answer should contain</th></tr></thead>
+        <tbody><tr><td><a href="#ai-values">AI wrote these values. What did they actually change?</a></td><td>Render the candidate and compare it with the chart defaults, the Catalog, and optionally the current deployment. Show exact changes and check credentials, permissions, images, storage, hooks, and CRDs.</td></tr><tr><td><a href="#ignored-values">I set a value. Why did the rendered object not change?</a></td><td>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</td></tr><tr><td><a href="#upgrade-risk">Can I upgrade this chart without breaking production?</a></td><td>Render both versions with the same release context. Compare objects, hooks, CRDs, immutable fields, storage, Secrets, and the current Helm release record when available.</td></tr><tr><td><a href="#custom-field">The chart does not expose the field I need. Must I fork it?</a></td><td>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</td></tr><tr><td><a href="#lifecycle-work">How should Argo CD or Flux handle this chart's hooks and CRDs?</a></td><td>List each hook, CRD, and setup job in order. State who runs it, what must already exist, and which controller path has been tested.</td></tr><tr><td><a href="#rollback-history">Can I roll back to exactly what ran before?</a></td><td>Find a retained rendered revision or OCI digest and restore those exact objects. Keep database migrations and other external effects outside the configuration claim.</td></tr><tr><td><a href="#config-diff">How is this candidate different from production?</a></td><td>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</td></tr><tr><td><a href="#fleet-image">Where does this vulnerable image run, and how can I update it safely?</a></td><td>Search supplied estate or ConfigHub records, show every affected environment and cluster, test the candidate, and promote it through a limited rollout wave.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Every answer starts with the exact objects and a comparison when one is available. It then names required setup, completed and omitted checks, one recommended action, and a review record you can retain.</p>
+    </section>
+
     <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. For Helm, choose the question and chart</h2>
+      <h2 id="build-prompt">1. Build a local prompt for your chart and values</h2>
+      <p>Choose one decision. The generated prompt tells your AI assistant to run Helm locally, record every input, compare exact objects, and keep computed findings separate from Catalog evidence.</p>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
-          <select id="question-type" style="width:100%;padding:10px;margin-top:6px"><option value="install-shape">What will this install, and what must already exist?</option><option value="ignored-values">Did Helm ignore one of my values?</option><option value="upgrade-risk">What could break in this upgrade?</option><option value="config-diff">How does this candidate differ from what I run now?</option><option value="lifecycle-work">What do hooks, CRDs, or setup jobs require?</option><option value="supply-drift">Do these version and digest records identify the same bytes?</option><option value="rollback-history">Can I return to the exact configuration that ran before?</option></select></p>
+          <select id="question-type" style="width:100%;padding:10px;margin-top:6px"><optgroup label="Common questions"><option value="ai-values">AI wrote these values. What did they actually change?</option><option value="ignored-values">I set a value. Why did the rendered object not change?</option><option value="upgrade-risk">Can I upgrade this chart without breaking production?</option><option value="custom-field">The chart does not expose the field I need. Must I fork it?</option><option value="lifecycle-work">How should Argo CD or Flux handle this chart's hooks and CRDs?</option><option value="rollback-history">Can I roll back to exactly what ran before?</option><option value="config-diff">How is this candidate different from production?</option><option value="fleet-image">Where does this vulnerable image run, and how can I update it safely?</option></optgroup><optgroup label="More questions"><option value="install-shape">What will this install, and what must already exist?</option><option value="supply-drift">Do these version and digest records identify the same bytes?</option></optgroup></select></p>
         <p><label for="question"><strong>Add detail to the question</strong> <span style="color:var(--muted)">(optional)</span></label><br>
           <textarea id="question" rows="3" style="width:100%;padding:10px;margin-top:6px" placeholder="For example: Why did replicas stay at one after I set replicaCount to three?"></textarea></p>
         <div class="grid">
@@ -573,200 +590,90 @@
     </section>
 
     <section id="prompt-result" aria-labelledby="run-prompt" hidden>
-      <h2 id="run-prompt">2. Copy and run the prompt</h2>
-      <p>Paste this into the assistant you already use. It runs Helm and ordinary shell tools on your machine. This site does not receive the prompt or answer.</p>
+      <h2 id="run-prompt">2. Run the investigation on your machine</h2>
+      <p>Paste this into the assistant you already use. It runs Helm and ordinary shell tools locally, writes the candidate and comparison objects to files, and returns a short <code>WORKSHOP FINDING</code>. This site does not receive the prompt or answer.</p>
       <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
       <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
-      <p>When the assistant finishes, return here with its final <code>WORKSHOP FINDING</code> block.</p>
+      <p>When the assistant finishes, return with <code>candidate.yaml</code>, the optional comparison file, and its final <code>WORKSHOP FINDING</code> block.</p>
     </section>
 
-    <section id="compare-result" aria-labelledby="compare-answer" hidden>
-      <h2 id="compare-answer">3. Check the answer</h2>
-      <p>Open this chart in the Catalog. Each test says <strong>Checked</strong> or <strong>Not checked</strong>. Not checked means that we have not verified the claim.</p>
-      <p><a class="button primary" id="catalog-lookup" href="./charts/index.html">Check this chart in the Catalog</a></p>
-      <p>If the Catalog already answers your case, use its package, instructions, and evidence. If it does not, the investigation gives you a concrete result to act on or report.</p>
-      <p><label for="assistant-finding"><strong>Assistant's WORKSHOP FINDING</strong></label><br>
-        <textarea id="assistant-finding" rows="14" style="width:100%;padding:10px;margin-top:6px" placeholder="Paste the final WORKSHOP FINDING block here."></textarea></p>
-      <details style="margin:18px 0">
-        <summary><strong>Optional: machine-readable evidence for tools and agents</strong></summary>
-        <p><a href="./changes.json">Open the evidence feed</a> or <a href="./changes.schema.json">read its schema</a>.</p>
-      </details>
-      <div id="public-handoff">
-        <h3>Optional: report a public Catalog gap</h3>
-        <p>Use this when the public chart is missing or the Catalog answer is wrong. GitHub opens with the chart and question filled in. The answer stays out of the link. Paste the copied <code>WORKSHOP FINDING</code>, review every field, and submit only public information.</p>
-        <button class="button primary" id="file-public-question" type="button">File the public question</button>
-        <p id="public-handoff-status" role="status" style="color:var(--muted)"></p>
-        <p>We aim to acknowledge a complete report within two business days and post an entry, refusal, or evidence decision within seven days.</p>
-        <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
+    <section id="check-files" aria-labelledby="check-files-title">
+      <h2 id="check-files-title">3. Check and retain the rendered result</h2>
+      <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
+      <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
+      <div class="card">
+        <div class="grid">
+          <p><label for="source-type"><strong>Starting format</strong></label><br>
+            <select id="source-type" style="width:100%;padding:10px;margin-top:6px">
+              <option value="helm">Helm chart and values</option>
+              <option value="aicr">AICR recipe</option>
+              <option value="oci">OCI package</option>
+              <option value="kubernetes-yaml">Kubernetes YAML</option>
+              <option value="existing-release">Existing release or deployment</option>
+              <option value="mixed">More than one source</option>
+              <option value="unknown">Unknown</option>
+            </select></p>
+          <p><label for="source-reference"><strong>Source reference</strong></label><br>
+            <input id="source-reference" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="Chart, Git revision, OCI digest, or local path"></p>
+        </div>
+        <h3>Candidate objects</h3>
+        <p><input id="candidate-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="candidate-name" type="text" value="candidate.yaml" aria-label="Candidate file name" style="padding:8px"></p>
+        <textarea id="candidate-yaml" rows="14" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste rendered Kubernetes YAML, or choose a local file above."></textarea>
+        <h3>Comparison objects <span style="color:var(--muted);font-weight:400">(optional)</span></h3>
+        <p><input id="comparison-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="comparison-name" type="text" value="comparison.yaml" aria-label="Comparison file name" style="padding:8px"></p>
+        <textarea id="comparison-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste chart defaults, a prior version, production, or another exact object set."></textarea>
+        <p><label for="assistant-finding"><strong>Assistant's WORKSHOP FINDING</strong> <span style="color:var(--muted)">(optional)</span></label><br>
+          <textarea id="assistant-finding" rows="10" style="width:100%;padding:10px;margin-top:6px" placeholder="Paste the final WORKSHOP FINDING block here."></textarea></p>
+        <button class="button primary" id="run-browser-check" type="button">Check these objects</button>
       </div>
-      <div id="private-handoff" hidden>
-        <h3>Optional: save a private result</h3>
-        <p>Do not file a public issue. Keep the finding locally, or <a href="./confighub.html">use ConfigHub</a> when the reviewed result needs a shared record.</p>
-      </div>
-      <h3>Save the reviewed result for your team</h3>
-      <p>You can stop with local files. Use ConfigHub when the reviewed configuration must be shared, changed, approved, promoted, or released.</p>
-      <p><a class="button secondary" href="./confighub.html">Save this result in ConfigHub</a></p>
     </section>
 
-    <section aria-labelledby="other-jobs">
-      <h2 id="other-jobs">Other jobs</h2>
-      <p>For package behavior, read about <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a>, <a href="./does-cluster-match-approved-config.html">live drift coverage and its limits</a>, and <a href="./known-gaps.html">placeholder credentials and other known gaps</a>.</p>
-      <p>For team operations, open the <a href="./testing.html#platforms">promotion and fleet rollout examples</a>.</p>
-      <p>For evidence, open <a href="./charts/index.html">package publication receipts and immutable digests</a>, or read <a href="./verification.html">how Checked and Not checked evidence works</a>.</p>
-      <p>After a check, you can <a href="./how-it-works.html#now-deploy">write reviewed files as OCI</a>, or <a href="./confighub.html">save and audit exact diffs in ConfigHub</a>.</p>
+    <section id="review-result" aria-labelledby="review-result-title" hidden>
+      <h2 id="review-result-title">4. Keep or share the reviewed result</h2>
+      <div id="browser-check-summary" class="card"></div>
+      <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Compare with the Catalog</a></p>
+      <h3>Download the result</h3>
+      <p>The review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
+      <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
+      <textarea id="review-record-output" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
+      <p><a href="./review.schema.json">Read the ConfigurationReview schema</a>.</p>
+
+      <h3>Save the same result in ConfigHub</h3>
+      <p>ConfigHub stores the rendered objects in a reviewed base Space. It stores the complete review record as a <code>Provider None</code> Unit, so the evidence remains with the configuration but is not included in deployment releases.</p>
+      <p>If the candidate contains a Kubernetes Secret, stage that Secret separately. <code>cub variant upload</code> deliberately does not upload rendered Secret data.</p>
+      <p><label for="component-slug"><strong>Component name</strong></label><br>
+        <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>
+      <textarea id="handoff-command" rows="14" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button secondary" id="copy-handoff" type="button">Copy ConfigHub commands</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+      <p><a href="./confighub.html">See what ConfigHub adds after the handoff</a>.</p>
+
+      <h3>Optional: propose a public Catalog case</h3>
+      <p>Use this only for a public source when the Catalog is missing the case or its answer is wrong. GitHub opens with a short chart, version, and question link. Paste the copied finding or review record, remove private data, and include reproduction commands.</p>
+      <button class="button secondary" id="file-public-question" type="button">Propose this public case</button>
+      <p id="public-handoff-status" role="status" style="color:var(--muted)"></p>
+      <p>A maintainer must reproduce and classify the case before it becomes a Catalog entry. Rendering alone does not make it known-good.</p>
+      <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
     </section>
 
-    <section aria-labelledby="optional-reference">
-      <h2 id="optional-reference">Optional: read the deeper guide</h2>
-      <p><a href="./challenge.html">Open the Helm investigation guide</a> for worked examples covering ignored values, upgrade risk, lifecycle work, upstream republishing, and exact rollback records.</p>
+    <section aria-labelledby="next-jobs">
+      <h2 id="next-jobs">What happens next</h2>
+      <div class="card"><table>
+        <thead><tr><th>Result</th><th>Next step</th></tr></thead>
+        <tbody><tr><td>The Catalog already covers the case</td><td>Use its retained package, useful configuration, setup instructions, and evidence.</td></tr><tr><td>The review finds a values problem</td><td>Correct the value and render again. Keep the new object hash with the review.</td></tr><tr><td>The review finds a placeholder credential</td><td>Fix it by replacing the placeholder or using an existing external Secret. <a href="./d/data/apply-policy-profiles/summary.html">See the blocking ConfigHub apply gate</a>, or <a href="./known-gaps.html">read the credential limitation</a>.</td></tr><tr><td>The render is surprising</td><td>Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again.</td></tr><tr><td>The chart does not expose the required field</td><td>Keep the chart when possible and record the smallest object change as a ConfigHub variant.</td></tr><tr><td>The configuration needs hooks, CRDs, Secrets, or setup work</td><td>Choose an explicit owner and order. Use only a delivery route whose evidence covers that work.</td></tr><tr><td>The result should remain portable</td><td>Keep the YAML and review record locally, or <a href="./how-it-works.html#now-deploy">publish the reviewed files as OCI</a>.</td></tr><tr><td>A team needs history, promotion, or rollout</td><td><a href="./confighub.html">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>Additional references:</strong> <a href="./challenge.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./verification.html">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>
     </section>
   </main>
   <footer>This page runs in your browser. It has no telemetry and sends nothing until you choose a public GitHub issue.</footer>
-  <script>
-  (() => {
-    const questions = {"install-shape":{"label":"What will this install, and what must already exist?","instruction":"List every rendered object and identify required namespaces, Secrets, CRDs, APIs, storage, cloud services, hooks, and setup jobs.","issueOption":"install-shape: What will this install, and what must already exist?"},"ignored-values":{"label":"Did Helm ignore one of my values?","instruction":"Remove each supplied values key one at a time, re-render, and report keys whose removal does not change the object set.","issueOption":"ignored-values: Did Helm ignore one of my values?"},"upgrade-risk":{"label":"What could break in this upgrade?","instruction":"Render both versions with the same release context. Report deleted or renamed objects, immutable-field changes, storage changes, selector changes, and lifecycle changes.","issueOption":"upgrade-risk: What could break in this upgrade?"},"config-diff":{"label":"How does this candidate differ from what I run now?","instruction":"Load both configurations with their exact identities. Report added, removed, and changed objects and fields, plus lifecycle or prerequisite differences. Separate a rendered diff from live cluster drift.","issueOption":"config-diff: How does this candidate differ from what I run now?"},"lifecycle-work":{"label":"What do hooks, CRDs, or setup jobs require?","instruction":"Identify Helm lifecycle work, explain its order, and separate work performed by Helm from work required by kubectl, Argo CD, or Flux.","issueOption":"lifecycle-work: What do hooks, CRDs, or setup jobs require?"},"supply-drift":{"label":"Do these version and digest records identify the same bytes?","instruction":"Record the chart and package digests available now. Compare them with retained digests and dated republish evidence when it exists.","issueOption":"supply-drift: Do these version and digest records identify the same bytes?"},"rollback-history":{"label":"Can I return to the exact configuration that ran before?","instruction":"Identify which prior rendered objects and package digests are actually retained. Do not treat a version label or a fresh re-render as historical proof.","issueOption":"rollback-history: Can I return to the exact configuration that ran before?"}};
-    const issueUrl = "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml";
-    const maxIssueUrlLength = 1800;
-    const byId = (id) => document.getElementById(id);
-    const comparisonInstructions = {
-      none: "No existing configuration was supplied. Keep the result candidate-only and do not imply that a comparison ran.",
-      "chart-version": "Render the stated comparison version with the same release name, namespace, values, capabilities, hook policy, and CRD policy as the candidate.",
-      "helm-release": "Capture the installed release with helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and Helm's stored release Secret. Treat the output as sensitive.",
-      "local-files": "Read the stated local YAML files. Record their paths and calculate a digest before comparing them.",
-      oci: "Pull the stated OCI reference. Record its immutable digest, extract the Kubernetes objects locally, and calculate their object-set digest.",
-      git: "Read the stated Git revision and path without changing the working tree. Record the commit and calculate a digest of the selected Kubernetes objects.",
-      "live-cluster": "Use the stated kubectl context and namespace. Record the exact object selection and keep live state separate from Helm's release record and desired configuration.",
-    };
-    const requestedQuestion = window.location.hash.slice(1);
-    if (questions[requestedQuestion]) byId("question-type").value = requestedQuestion;
-    byId("comparison-source").addEventListener("change", () => {
-      byId("helm-release-context").hidden = byId("comparison-source").value !== "helm-release";
-    });
-
-    function selectedQuestion() {
-      return questions[byId("question-type").value];
-    }
-
-    function buildPrompt() {
-      const code = byId("question-type").value;
-      const item = selectedQuestion();
-      const question = byId("question").value.trim() || item.label;
-      const chart = byId("chart").value.trim() || "<repo/chart>";
-      const version = byId("version").value.trim() || "<exact version or version pair>";
-      const release = byId("release").value.trim();
-      const namespace = byId("namespace").value.trim();
-      const comparisonSource = byId("comparison-source").value;
-      const comparisonLabel = byId("comparison-source").selectedOptions[0].textContent;
-      const comparisonReference = byId("comparison-reference").value.trim();
-      const visibility = byId("source-visibility").value;
-      const values = byId("values-summary").value.trim() || "<none supplied>";
-      const privacy = visibility === "private"
-        ? "This source is private. Do not upload it, quote private values, or open a public issue."
-        : "This is a public chart. Ask before opening any public issue.";
-      const prompt = [
-        "I need help with one Helm decision.",
-        "",
-        "Question code: " + code,
-        "Question: " + question,
-        "Chart: " + chart,
-        "Version: " + version,
-        "Existing release: " + (release || "<none supplied>"),
-        "Existing namespace: " + (namespace || "<none supplied>"),
-        "Compare with: " + comparisonLabel,
-        "Existing configuration reference: " + (comparisonReference || "<none supplied>"),
-        "Values, flags, or symptoms (secrets removed): " + values,
-        "Privacy: " + privacy,
-        "",
-        "Work locally. Use Helm and ordinary shell tools. Use cub installer when an exact Config Workshop package exists. Do not upload my chart, values, or existing configuration.",
-        release && namespace
-          ? "1. Capture the existing release locally with: helm status, helm get values -a, helm get manifest, helm get hooks, helm history, and kubectl get secret -l owner=helm,name=" + release + ". Treat every output file as sensitive."
-          : "1. No existing release context was supplied. State that release status, history, stored values, hooks, and live drift are unknown.",
-        "2. Resolve the exact chart source and version. Record the chart digest and every render command.",
-        "3. Render with the release name, namespace, values, capabilities, hooks, and CRD flags stated above. If any input is missing, name it instead of guessing.",
-        "4. " + comparisonInstructions[comparisonSource] + (comparisonSource === "none" ? "" : " If the reference is incomplete, name what is missing instead of guessing."),
-        "5. " + item.instruction,
-        release && namespace
-          ? "6. Compare the candidate with Helm's recorded manifest and history. Check pending states, removed or renamed objects, immutable fields, storage changes, hooks, CRDs, release-record size, and the risk of reusing old values. Keep Helm's record separate from live cluster state."
-          : "6. Do not claim upgrade, rollback, or live-state safety without an existing release capture.",
-        "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json.",
-        "8. Resolve the exact chart and version, including declared aliases. Read each coverage status. Missing or not_checked coverage means Config Workshop has not checked that claim.",
-        "9. Open the canonical_url and cite the relevant evidence_urls for every historical or live claim. Keep your own computed findings separate from retained evidence.",
-        "10. Recommend one next step: a local command, comparison with an existing catalog entry, a public submission with my approval, or saving the reviewed result in ConfigHub.",
-        "",
-        "Return this block at the end:",
-        "WORKSHOP FINDING",
-        "question_code: " + code,
-        "question: " + question,
-        "chart: " + chart,
-        "version: " + version,
-        "render_digest: <sha256 or unknown>",
-        "comparison: <source and exact identity, or none>",
-        "comparison_digest: <sha256 or unknown>",
-        "catalog_match: <exact, alias, absent, or unknown>",
-        "coverage: <coverage fields used, including not_checked>",
-        "findings: <short factual list>",
-        "receipt_urls: <URLs actually used, or none>",
-        "recommended_next_step: <one action>"
-      ].join("\n");
-
-      byId("prompt-output").value = prompt;
-      byId("prompt-result").hidden = false;
-      byId("compare-result").hidden = false;
-      byId("catalog-lookup").href = "./charts/index.html?q=" + encodeURIComponent(chart.replace(/@.*$/, ""));
-      const isPrivate = visibility === "private";
-      byId("public-handoff").hidden = isPrivate;
-      byId("private-handoff").hidden = !isPrivate;
-      byId("prompt-result").scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    byId("build-prompt-button").addEventListener("click", buildPrompt);
-    byId("copy-prompt").addEventListener("click", async () => {
-      const output = byId("prompt-output");
-      try {
-        await navigator.clipboard.writeText(output.value);
-      } catch {
-        output.select();
-        document.execCommand("copy");
-      }
-      byId("copy-status").textContent = "Copied.";
-    });
-    byId("file-public-question").addEventListener("click", () => {
-      const code = byId("question-type").value;
-      const item = selectedQuestion();
-      const question = byId("question").value.trim() || item.label;
-      const chart = byId("chart").value.trim();
-      const version = byId("version").value.trim();
-      const finding = byId("assistant-finding").value.trim();
-      if (!chart || !version) {
-        window.alert("Add the public chart and exact version before opening the issue.");
-        return;
-      }
-      const shortText = (value, length) => value.replace(/\s+/g, " ").trim().slice(0, length);
-      const marker = finding.lastIndexOf("WORKSHOP FINDING");
-      const findingToCopy = marker >= 0 ? finding.slice(marker).trim() : finding;
-      const target = new URL(issueUrl);
-      target.searchParams.set("title", shortText("Problem chart: " + chart + " " + version + " - " + question, 200));
-      target.searchParams.set("question_code", item.issueOption);
-      target.searchParams.set("question", shortText(question, 300));
-      target.searchParams.set("chart", shortText(chart, 160));
-      target.searchParams.set("version", shortText(version, 80));
-      target.searchParams.set("expected", "Answer the stated question for this exact chart and version, with evidence for historical or live claims.");
-      target.searchParams.set("failure_type", "Other");
-      target.searchParams.set("reproduction", "1. Generated a local prompt at " + window.location.origin + window.location.pathname + "\n2. Ran it with a local AI assistant and Helm\n3. Compared the result with changes.json and the chart page");
-      target.searchParams.set("artifacts", "Config Workshop question code: " + code);
-      const targetUrl = target.toString().length <= maxIssueUrlLength ? target.toString() : issueUrl;
-      const status = byId("public-handoff-status");
-      if (findingToCopy && navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(findingToCopy).then(
-          () => { status.textContent = "GitHub opened. Paste the copied WORKSHOP FINDING into the observed-behavior field."; },
-          () => { status.textContent = "GitHub opened. Copy the WORKSHOP FINDING from the box above into the observed-behavior field."; },
-        );
-      } else {
-        status.textContent = "GitHub opened. Paste the WORKSHOP FINDING into the observed-behavior field before submitting.";
-      }
-      window.open(targetUrl, "_blank", "noopener");
-    });
-  })();
-  </script>
+  <script id="configuration-question-data" type="application/json">{"ai-values":{"group":"common","label":"AI wrote these values. What did they actually change?","answer":"Render the candidate and compare it with the chart defaults, the Catalog, and optionally the current deployment. Show exact changes and check credentials, permissions, images, storage, hooks, and CRDs.","instruction":"Render the candidate, the chart defaults, and any exact Catalog match. Compare their objects and fields. Check credentials, RBAC, images, storage, hooks, CRDs, and target requirements.","issueOption":"ai-values: AI wrote these values. What did they actually change?","recommendation":"Review the exact object diff, correct the values or rendered objects, and retain the accepted result."},"ignored-values":{"group":"common","label":"I set a value. Why did the rendered object not change?","answer":"If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.","instruction":"Remove each supplied values key one at a time, re-render, and report keys whose removal does not change the object set. Identify the correct value path when the chart exposes one.","issueOption":"ignored-values: I set a value. Why did the rendered object not change?","recommendation":"Use the chart's effective value path, or treat the requirement as a reviewed post-render change when the chart does not expose it."},"upgrade-risk":{"group":"common","label":"Can I upgrade this chart without breaking production?","answer":"Render both versions with the same release context. Compare objects, hooks, CRDs, immutable fields, storage, Secrets, and the current Helm release record when available.","instruction":"Render both versions with the same release context. Report deleted or renamed objects, immutable-field changes, storage changes, selector changes, Secret requirements, and lifecycle changes.","issueOption":"upgrade-risk: Can I upgrade this chart without breaking production?","recommendation":"Test the candidate against the retained current configuration, then promote it through a limited environment or rollout wave."},"custom-field":{"group":"common","label":"The chart does not expose the field I need. Must I fork it?","answer":"Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.","instruction":"Confirm whether the chart exposes the requested field. If it does not, identify the exact rendered object and field, show the smallest post-render edit, and explain how an upgrade overlap would be detected.","issueOption":"custom-field: The chart does not expose the field I need. Must I fork it?","recommendation":"Keep the chart when possible and record the smallest object-level change as a derived configuration."},"lifecycle-work":{"group":"common","label":"How should Argo CD or Flux handle this chart's hooks and CRDs?","answer":"List each hook, CRD, and setup job in order. State who runs it, what must already exist, and which controller path has been tested.","instruction":"Identify Helm lifecycle work, explain its order, and separate work performed by Helm from work required by kubectl, Argo CD, or Flux. Cite controller-specific evidence when it exists.","issueOption":"lifecycle-work: How should Argo CD or Flux handle this chart's hooks and CRDs?","recommendation":"Choose an explicit owner and order for every prerequisite and lifecycle action before delivery."},"rollback-history":{"group":"common","label":"Can I roll back to exactly what ran before?","answer":"Find a retained rendered revision or OCI digest and restore those exact objects. Keep database migrations and other external effects outside the configuration claim.","instruction":"Identify which prior rendered objects and package digests are actually retained. Do not treat a version label or a fresh re-render as historical proof. Name external effects that object rollback cannot reverse.","issueOption":"rollback-history: Can I roll back to exactly what ran before?","recommendation":"Restore a retained object set or OCI digest, and handle external state with its own recovery plan."},"config-diff":{"group":"common","label":"How is this candidate different from production?","answer":"Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.","instruction":"Load both configurations with their exact identities. Report added, removed, and changed objects and fields, plus lifecycle or prerequisite differences. Separate a desired-config diff from live cluster drift.","issueOption":"config-diff: How is this candidate different from production?","recommendation":"Review and approve the exact desired-config diff, then check live state separately after delivery."},"fleet-image":{"group":"common","label":"Where does this vulnerable image run, and how can I update it safely?","answer":"Search supplied estate or ConfigHub records, show every affected environment and cluster, test the candidate, and promote it through a limited rollout wave.","instruction":"Inventory every supplied desired configuration and live observation for the named image or digest. Show affected environments and targets, the proposed object changes, the test plan, rollout scope, and rollback boundary.","issueOption":"fleet-image: Where does this vulnerable image run, and how can I update it safely?","recommendation":"Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves."},"install-shape":{"group":"additional","label":"What will this install, and what must already exist?","answer":"List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.","instruction":"List every rendered object and identify required namespaces, Secrets, CRDs, APIs, storage, cloud services, hooks, and setup jobs.","issueOption":"install-shape: What will this install, and what must already exist?","recommendation":"Provide or route every prerequisite, then deliver only the reviewed object set."},"supply-drift":{"group":"additional","label":"Do these version and digest records identify the same bytes?","answer":"Record the available chart and package digests and compare them with retained, dated evidence.","instruction":"Record the chart and package digests available now. Compare them with retained digests and dated republish evidence when it exists.","issueOption":"supply-drift: Do these version and digest records identify the same bytes?","recommendation":"Use an immutable digest for the reviewed input and retain the source record with the result."}}</script>
+  <script id="configuration-check-settings" type="application/json">{"issueUrl":"https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml","maxIssueUrlLength":1800}</script>
+  <script src="./check-config.js"></script>
 </body>
 </html>

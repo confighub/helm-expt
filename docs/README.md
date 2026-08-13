@@ -119,6 +119,7 @@ Charts as they actually behave, including when they misbehave.
 | [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant` command surface and how Space/Unit metadata maps to derived variants. |
 | [derived-variant-walkthrough.md](./user/derived-variant-walkthrough.md) | Captured real `cub variant create` read back from its receipt: faithful 7-unit clone, no Helm re-render, gates applied, honest intended-state-only scope. |
 | [helm-pain-points.md](./user/helm-pain-points.md) | User-facing map from common Helm pain points to current proof, handoffs, and per-chart reports. |
+| [helm-user-pain-evidence.md](./reference/helm-user-pain-evidence.md) | Public Helm, chart, GitOps, and operator reports behind the ten configuration questions used by Check my config. |
 | [helm-presets-and-values.md](./user/helm-presets-and-values.md) | How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices. |
 | [helm-render-intents.md](./user/helm-render-intents.md) | The Helm-specific source-and-intent record, with examples and generated coverage states for render inputs, captured output, lifecycle routes, target prerequisites, runner evidence, freshness, and incomplete contracts. |
 | [helm-to-cub-migration.md](./user/helm-to-cub-migration.md) | Helm-fluent dev's cheat-sheet: how Helm habits (--set, -f values.yaml, --set image.tag, --set-string, release names) map to cub's declared-input / named-base model, and why the declared model catches the typo footgun Helm absorbs. |
@@ -159,7 +160,7 @@ The honesty surface: evidence, gaps, and refusals.
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
 | [hard-questions.md](./user/hard-questions.md) | Skeptical user route: hooks, upgrades, overlays, false-green sync, free versus managed, and how to challenge the model. |
 | [known-gaps-we-surface.md](./user/known-gaps-we-surface.md) | User-facing guide to current watch findings that the project deliberately surfaces instead of hiding. |
-| [question-intake-operation.md](./reference/question-intake-operation.md) | How maintainers acknowledge a public chart question, decide it with evidence, close the loop, and publish aggregate results without committing private data. |
+| [question-intake-operation.md](./reference/question-intake-operation.md) | How maintainers turn a public Helm, AICR, OCI, or YAML question into a reproduced Catalog answer, named refusal, or evidence decision. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [verification-lanes.md](./user/verification-lanes.md) | Plain-English definition of each verification lane and the commands that check them. |
 | [verification.md](./user/verification.md) | Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route. |
@@ -176,6 +177,7 @@ Where a design is written down before it is built.
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today. |
 | [model-and-vocabulary.md](./user/model-and-vocabulary.md) | One page for the source-and-intent role, the five main terms (recipe, rendering, render record, base variant, derived variant), the F1-F4 stages, and where each artifact lives today. |
+| [configuration-question-workflow.md](./user/configuration-question-workflow.md) | The decision-led workflow for checking an unknown configuration, comparing it with known or current config, retaining the reviewed result, and turning accepted public cases into Catalog entries. |
 | [reverse-reconcile-design.md](./user/reverse-reconcile-design.md) | User-facing design for the reverse live-to-desired frontier: authority policy, bounds check, fixture receipt, and the missing `cub` write-back capability. |
 | [runtime-drift-boundaries.md](./user/runtime-drift-boundaries.md) | What local files, kubectl, Argo CD or Flux, and ConfigHub can each say about live state, pruning, conflicts, convergence, and workload health. |
 

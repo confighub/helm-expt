@@ -12,12 +12,13 @@
 - [Try Redis](https://confighub.github.io/helm-expt/site/try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Versus what you already use](https://confighub.github.io/helm-expt/site/compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](https://confighub.github.io/helm-expt/site/whats-new.html): the twenty newest receipts, from the committed aging table.
-- [Check my config](https://confighub.github.io/helm-expt/site/ask.html): use your own AI assistant to investigate one Helm question, or choose the matching AICR, OCI, or Kubernetes YAML path.
+- [Check my config](https://confighub.github.io/helm-expt/site/ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
+- [Configuration review schema](https://confighub.github.io/helm-expt/site/review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
 - [Why did Helm ignore my values?](https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Why do development and production differ?](https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
-- [Helm investigation reference](https://confighub.github.io/helm-expt/site/challenge.html): the six question families, worked evidence, and benchmark behind the shorter Check my config flow.
+- [Helm investigation reference](https://confighub.github.io/helm-expt/site/challenge.html): worked Helm evidence and the benchmark behind the shorter Check my config flow.
 - [Detailed Redis walkthrough](https://confighub.github.io/helm-expt/site/redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](https://confighub.github.io/helm-expt/site/testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
