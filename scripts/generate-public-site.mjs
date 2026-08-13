@@ -4439,7 +4439,7 @@ function askHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Check your configuration</h1>
-    <p class="lead">Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.</p>
+    <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p><strong>The Catalog</strong> answers questions we have already investigated. <strong>This page</strong> helps investigate a new chart, version, values set, or existing deployment. <strong>ConfigHub</strong> retains an accepted answer so your team does not repeat the investigation on every change.</p>
     <p><strong>Use the Catalog for a known case. Use this page for your own chart or values, a new version, or an unexpected result.</strong></p>
     <p>Use your own AI assistant and local Helm tools when a chart must be rendered. If you already have Kubernetes YAML, this page can inspect and compare it directly in your browser.</p>
