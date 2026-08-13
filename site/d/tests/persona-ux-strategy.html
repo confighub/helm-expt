@@ -437,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../guides.html">Guides</a><a href="../../ask.html">Ask</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../hard-questions.html">FAQ</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../guides.html">Guides</a><a href="../../ask.html">Check my config</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../hard-questions.html">FAQ</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Persona UX Testing Strategy</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/persona-ux-strategy.md">View source markdown</a>.</p>
   </header>
@@ -447,16 +447,17 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> Persona UX testing checks whether a human can understand and use the public site. It complements proof lanes. It does not replace render, live, or ConfigHub evidence.</p>
 <p>Issue: https://github.com/confighub/helm-expt/issues/1018</p>
 <h2 id="scope">Scope</h2>
-<p>By default, this audit covers the free/public website and documentation surface: home, Get Started, Helm Catalog, chart pages, Variants, Apps, Ops, Docs, FAQ, and generated public data linked from those pages. Commercial and managed-edition flows are out of scope unless a run explicitly asks for them.</p>
+<p>By default, this audit covers the free public website and its main journeys: Home, Guides, Check my config, Catalog, Try Redis, Examples, Deployment, Docs, ConfigHub, FAQ, and the generated evidence linked from those pages. It covers Helm, AICR, OCI, Kubernetes YAML, and mixed-source journeys. Commercial and managed-edition flows are out of scope unless a run explicitly asks for them.</p>
 <h2 id="when-to-run">When To Run</h2>
 <p>Run this after major public-site, user-doc, homepage, catalog, FAQ, or Get Started changes.</p>
 <h2 id="depth-requirement">Depth Requirement</h2>
 <p>Do not stop at the homepage or top navigation. Each persona run must include a depth pass through the pages the persona would naturally reach within one or two clicks of home:</p>
-<table><thead><tr><th>Entry point</th><th>One-click pages</th><th>Two-click pages to sample</th></tr></thead><tbody><tr><td>Home</td><td>Get Started, Helm Catalog, Variants, Apps, Ops, Docs, FAQ</td><td>Redis chart page, kube-prometheus-stack chart page, How It Works, Known Gaps, AI-assisted changes, GitOps adopter guide, upgrade/rollback guide</td></tr>
-<tr><td>Helm Catalog</td><td>chart index, chart page, matrix link</td><td>chart recipe/catalog link, per-chart caveats, lifecycle/action route, source chart URL</td></tr>
-<tr><td>Apps</td><td>existing-app section, app examples</td><td>adopting existing apps, ConfigHub data model, custom app or stack guide</td></tr>
-<tr><td>Ops</td><td>observe, rollback, delivery, scan/gate cards</td><td>verify-it-yourself, day-2 upgrade/rollback, why-synced-is-not-working, cub-scout diff design</td></tr>
-<tr><td>FAQ</td><td>skeptical questions</td><td>the guide or data page linked from each answer</td></tr></tbody></table>
+<table><thead><tr><th>Entry point</th><th>One-click pages</th><th>Two-click pages to sample</th></tr></thead><tbody><tr><td>Home</td><td>Guides, Check my config, Catalog, Deployment, Docs, ConfigHub</td><td>Redis chart page, Examples, Known Gaps, GitOps guide, upgrade and rollback guide</td></tr>
+<tr><td>Check my config</td><td>Catalog lookup, private boundary, ConfigHub handoff</td><td>Helm investigation reference, existing-release guide, evidence feed</td></tr>
+<tr><td>Catalog</td><td>search results and a component page</td><td>packaged configuration, setup work, source record, receipt</td></tr>
+<tr><td>Examples</td><td>Helm, AICR, OCI, and YAML starts</td><td>promotion, GitOps delivery, fleet, policy, and App demonstrations</td></tr>
+<tr><td>Deployment</td><td>local files, OCI, and ConfigHub choices</td><td>hooks and CRDs, Argo CD and Flux, managed operations</td></tr>
+<tr><td>Docs and FAQ</td><td>task question or skeptical question</td><td>the command, guide, gap, or evidence page linked from the answer</td></tr></tbody></table>
 <p>For every deeper page sampled, record whether the user can still answer:</p>
 <pre><code>What am I trying to do?
 What should I type?
@@ -466,14 +467,10 @@ Is this a proved path, a watch path, a blocked path, or planned work?
 Where do I go next?</code></pre>
 <p>If a page answers only by linking to raw data, treat that as a possible bounce unless the persona is the skeptical reviewer.</p>
 <h2 id="personas">Personas</h2>
-<table><thead><tr><th>Persona</th><th>What they want</th></tr></thead><tbody><tr><td>Novice Kubernetes user</td><td>Learn what this is without knowing ConfigHub.</td></tr>
-<tr><td>Low-skill Helm user</td><td>Copy commands and see expected output.</td></tr>
-<tr><td>Helm expert</td><td>Understand where values, hooks, CRDs, and upgrades go.</td></tr>
-<tr><td>GitOps platform engineer</td><td>Keep Argo or Flux and know what changes.</td></tr>
-<tr><td>SRE or on-call engineer</td><td>Triage what broke and what evidence exists.</td></tr>
-<tr><td>Chart maintainer</td><td>See whether their chart can be represented honestly.</td></tr>
-<tr><td>AI-curious product lead</td><td>Understand what AI can safely help with.</td></tr>
-<tr><td>Skeptical reviewer</td><td>Find limits, watch rows, refusals, and proof scope.</td></tr></tbody></table>
+<table><thead><tr><th>Persona</th><th>What they want</th></tr></thead><tbody><tr><td>Application developer using AI-written configuration</td><td>Check values or YAML, get exact objects, and take one useful next step.</td></tr>
+<tr><td>GitOps operator</td><td>Keep Argo CD or Flux and understand OCI, hooks, CRDs, pruning, and delivery limits.</td></tr>
+<tr><td>Platform engineer</td><td>Create variants, promote changes, and operate environments or fleets.</td></tr>
+<tr><td>Security-minded release reviewer</td><td>Find provenance, checks, approvals, gaps, and exact rollback evidence.</td></tr></tbody></table>
 <h2 id="seed-questions">Seed Questions</h2>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>What is ConfigHub?
@@ -496,13 +493,24 @@ where the site answered well
 where the persona would bounce
 improvement candidate
 voice owner: marketing voice or technical voice</code></pre>
+<h2 id="reproducible-bulk-run">Reproducible Bulk Run</h2>
+<p>Run the deterministic synthetic study after a substantial navigation or copy change:</p>
+<pre><code>npm run site:persona:simulate</code></pre>
+<p>To compare a local candidate with a saved baseline, pass the local site URL, an output directory, the current navigation label, and the baseline CSV:</p>
+<pre><code>npm run site:persona:simulate -- \
+  --base-url http://127.0.0.1:8767/site/ \
+  --out-dir data/site-persona-simulations-2026-08-13-after \
+  --current-label &quot;Check my config&quot; \
+  --compare-with data/site-persona-simulations-2026-08-13/journeys.csv</code></pre>
+<p>The runner executes 200 simulations for each of the four personas: 180 live journeys from nine public entry pages and 20 synthetic label trials. A live journey follows only visible internal links, stops after five clicks, and succeeds only when it finds all required facts plus a relevant action.</p>
+<p>Treat these as routing diagnostics, not user research. Report first-click improvement separately from eventual success; a site that answers a question after five clicks can still have a poor front door. Keep language trials explicitly labeled as synthetic. Confirm consequential failures in a browser before changing the site.</p>
 <h2 id="voice-split">Voice Split</h2>
 <p>Use <b>marketing voice</b> for intros, landing pages, user motivation, and marketing content. It should be plain, direct, optimistic, and human.</p>
 <p>Use <b>technical voice</b> for technical content. It should define scope, prerequisites, current status, evidence, limits, and next actions precisely.</p>
 <h2 id="output">Output</h2>
 <p>The output is a ranked website plan, not a new proof surface. Keep the proof links underneath the user journey.</p>
 <p>Recorded runs:</p>
-<ul><li><a href="../docs/planning/persona-ux-rerun-2026-06-22.html">Persona UX rerun, 2026-06-22</a></li><li><a href="../docs/planning/persona-ux-audit-2026-06-22.html">Persona UX audit, 2026-06-22</a></li></ul>
+<ul><li><a href="../data/site-persona-simulations-2026-08-13/summary.html">800-run public-site simulation, 2026-08-13</a></li><li><a href="../data/site-persona-simulations-2026-08-13-after/summary.html">Candidate rerun and baseline comparison, 2026-08-13</a></li><li><a href="../docs/planning/persona-ux-rerun-2026-06-22.html">Persona UX rerun, 2026-06-22</a></li><li><a href="../docs/planning/persona-ux-audit-2026-06-22.html">Persona UX audit, 2026-06-22</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>tests/persona-ux-strategy.md</code>. The source file is the authoritative version.</p></footer>

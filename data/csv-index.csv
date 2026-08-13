@@ -149,6 +149,10 @@ data/scan-disposition-workdown/workdown.csv,scan-disposition-workdown,user/front
 data/secret-lifecycle/secrets.csv,secret-lifecycle,supporting,supporting generated CSV,data/secret-lifecycle/summary.md,,
 data/secret-lifecycle/variant-summary.csv,secret-lifecycle,supporting,machine-readable summary,data/secret-lifecycle/summary.md,,
 data/serious-chart-reviews/kube-prometheus-stack.csv,serious-chart-reviews,supporting,supporting generated CSV,,,
+data/site-persona-simulations-2026-08-13-after/journeys.csv,site-persona-simulations-2026-08-13-after,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13-after/summary.md,,
+data/site-persona-simulations-2026-08-13-after/language.csv,site-persona-simulations-2026-08-13-after,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13-after/summary.md,,
+data/site-persona-simulations-2026-08-13/journeys.csv,site-persona-simulations-2026-08-13,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13/summary.md,,
+data/site-persona-simulations-2026-08-13/language.csv,site-persona-simulations-2026-08-13,supporting,supporting generated CSV,data/site-persona-simulations-2026-08-13/summary.md,,
 data/status-dashboard/active-proof-queue.csv,status-dashboard,user/front-door,"current non-pass live parity rows with their next step, support artifact, receipt, and rerun command",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify
 data/status-dashboard/next-work-queues.csv,status-dashboard,user/front-door,"machine-readable next work queues: section, item, count, action, source table, and detail",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify
 data/status-dashboard/status.csv,status-dashboard,user/front-door,"front-door status dashboard across top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify

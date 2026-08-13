@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Investigate a Helm problem &middot; Config Workshop</title>
-  <meta name="description" content="Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.">
+  <title>Check my config &middot; Config Workshop</title>
+  <meta name="description" content="Check a Helm configuration with your own AI assistant, compare the answer with retained evidence, and find the right path for AICR, OCI, or Kubernetes YAML.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/ask.html">
-  <meta property="og:title" content="Investigate a Helm problem &amp;middot; Config Workshop">
-  <meta property="og:description" content="Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.">
+  <meta property="og:title" content="Check my config &amp;middot; Config Workshop">
+  <meta property="og:description" content="Check a Helm configuration with your own AI assistant, compare the answer with retained evidence, and find the right path for AICR, OCI, or Kubernetes YAML.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/ask.html">
   <style>
@@ -512,16 +512,18 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Ask</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Ask one question about a Helm chart</h1>
-    <p class="lead">Use the AI assistant you already have. This page builds a local prompt for one chart and one question, then helps you compare the answer with our Catalog.</p>
-    <p>Use the Catalog when it already covers your exact chart and version. Use this page for your own values, a different version, an installed release, a comparison with existing configuration, or a result you do not understand.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Check my config</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Check your configuration</h1>
+    <p class="lead">Use the AI assistant you already have. For Helm, this page builds a local prompt for one chart and one question, then helps you compare the answer with our Catalog.</p>
+    <p>Use the Catalog when it already covers your exact chart and version. Use this page when your chart is missing from the Catalog.</p>
+    <p>It also handles your own values, a different version, an installed release, a comparison, or a result you do not understand. The prompt tells your assistant to render the chart locally.</p>
     <p><strong>1.</strong> Choose the question and chart. <strong>2.</strong> Copy the prompt into your assistant. <strong>3.</strong> Check its answer against the Catalog.</p>
-    <p>The work stays on your machine. Keep secrets out of the prompt. GitHub opens only if you choose to report a problem with a public chart.</p>
+    <p>The work stays on your machine. For a private chart, choose <strong>No, keep this investigation private</strong>. Keep secrets out of the prompt. GitHub opens only if you choose to report a problem with a public chart.</p>
+    <p><strong>Other inputs:</strong> Follow the <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR example</a>, <a href="./d/docs/user/inspect-oci-package.html">inspect an OCI package</a>, or <a href="./existing-apps.html">review Kubernetes YAML or an existing app</a>.</p>
   </header>
   <main>
     <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. Choose the question and chart</h2>
+      <h2 id="build-prompt">1. For Helm, choose the question and chart</h2>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px"><option value="install-shape">What will this install, and what must already exist?</option><option value="ignored-values">Did Helm ignore one of my values?</option><option value="upgrade-risk">What could break in this upgrade?</option><option value="config-diff">How does this candidate differ from what I run now?</option><option value="lifecycle-work">What do hooks, CRDs, or setup jobs require?</option><option value="supply-drift">Do these version and digest records identify the same bytes?</option><option value="rollback-history">Can I return to the exact configuration that ran before?</option></select></p>
@@ -601,9 +603,17 @@
         <h3>Optional: save a private result</h3>
         <p>Do not file a public issue. Keep the finding locally, or <a href="./confighub.html">use ConfigHub</a> when the reviewed result needs a shared record.</p>
       </div>
-      <h3>Keep a result for your team</h3>
+      <h3>Save the reviewed result for your team</h3>
       <p>You can stop with local files. Use ConfigHub when the reviewed configuration must be shared, changed, approved, promoted, or released.</p>
-      <p><a class="button secondary" href="./confighub.html">See what ConfigHub adds</a></p>
+      <p><a class="button secondary" href="./confighub.html">Save this result in ConfigHub</a></p>
+    </section>
+
+    <section aria-labelledby="other-jobs">
+      <h2 id="other-jobs">Other jobs</h2>
+      <p>For package behavior, read about <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a>, <a href="./does-cluster-match-approved-config.html">live drift coverage and its limits</a>, and <a href="./known-gaps.html">placeholder credentials and other known gaps</a>.</p>
+      <p>For team operations, open the <a href="./testing.html#platforms">promotion and fleet rollout examples</a>.</p>
+      <p>For evidence, open <a href="./charts/index.html">package publication receipts and immutable digests</a>, or read <a href="./verification.html">how Checked and Not checked evidence works</a>.</p>
+      <p>After a check, you can <a href="./how-it-works.html#now-deploy">write reviewed files as OCI</a>, or <a href="./confighub.html">save and audit exact diffs in ConfigHub</a>.</p>
     </section>
 
     <section aria-labelledby="optional-reference">

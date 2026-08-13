@@ -31,15 +31,15 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Detect and Stop Config Drift", "Search the <a href=\"./charts/index.html\">Catalog</a>", "Use <a href=\"./ask.html\">Ask</a>", "Retained versions stay pullable", "Search known configurations", "Ask about my configuration", "Keep it in ConfigHub", "cub installer setup", "--output-oci", "Find, investigate, then keep", "Wire it together in ConfigHub", "Four places drift appears", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["Detect and Stop Config Drift", "Search the <a href=\"./charts/index.html\">Catalog</a>", "Use <a href=\"./ask.html\">Check my config</a>", "Retained versions stay pullable", "AI assistant you already use", "Search known configurations", "Check my config", "Keep it in ConfigHub", "cub installer setup", "--output-oci", "Find, investigate, then keep", "Wire it together in ConfigHub", "Four places drift appears", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/guides.html",
-    terms: ["Learn this by doing it", "Run a short example", "Work through an example like yours", "Follow one package end to end", "Open the short example", "Open the worked examples", "Open the detailed walkthrough", "After a guide"],
+    terms: ["Learn this by doing it", "Run a short example", "Work through an example like yours", "Follow one package end to end", "Open the short example", "Open Helm, AICR, OCI, YAML, promotion, and fleet examples", "Open the detailed walkthrough", "After a guide"],
   },
   {
     file: "site/ask.html",
-    terms: ["Ask one question about a Helm chart", "Choose a question", "Optional comparison: add what you run today", "Installed Helm release", "Local YAML files", "OCI package", "Git path or revision", "Live Kubernetes objects", "Existing release name", "Existing namespace", "Read the existing-release commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "comparison_digest", "Check this chart in the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep a result for your team", "See what ConfigHub adds"],
+    terms: ["Check your configuration", "your chart is missing from the Catalog", "render the chart locally", "For Helm, choose the question and chart", "AICR example", "inspect an OCI package", "review Kubernetes YAML or an existing app", "Other jobs", "hooks and CRD setup", "live drift coverage and its limits", "promotion and fleet rollout examples", "package publication receipts and immutable digests", "how Checked and Not checked evidence works", "placeholder credentials and other known gaps", "After a check", "write reviewed files as OCI", "save and audit exact diffs in ConfigHub", "No, keep this investigation private", "Choose a question", "Optional comparison: add what you run today", "Installed Helm release", "Local YAML files", "OCI package", "Git path or revision", "Live Kubernetes objects", "Existing release name", "Existing namespace", "Read the existing-release commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "comparison_digest", "Check this chart in the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Save the reviewed result for your team", "Save this result in ConfigHub"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -59,7 +59,7 @@ const checks = [
   },
   {
     file: "site/challenge.html",
-    terms: ["Check a Helm answer against retained evidence", "Investigate a Helm problem", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
+    terms: ["Check a Helm answer against retained evidence", "Check my config", "The prompt", "Six questions worth asking", "Why send us a chart?", "problem-chart", "changes.json", "secrets removed", "Zero fabricated receipts", "data/ai-benchmark"],
   },
   {
     file: "site/compare.html",
@@ -83,11 +83,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "continue the detailed Redis walkthrough", "choose another worked example", "keep the result in ConfigHub"],
+    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "check your configuration with your AI assistant", "choose a Helm, AICR, OCI, YAML, promotion, or fleet example", "continue the detailed Redis walkthrough", "keep the result in ConfigHub"],
   },
   {
     file: "site/confighub.html",
-    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "1. What ConfigHub adds", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "3. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "4. Read the background", "Read the ConfigHub blog"],
+    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "Use Check my config with your own AI assistant", "1. What ConfigHub adds", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "3. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "4. Read the background", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -99,7 +99,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Track required setup", "source and intent record", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step"],
+    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Track required setup", "source and intent record", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
   },
   {
     file: "site/deployment-reference.html",
@@ -107,7 +107,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "retains exact package versions", "use Ask to investigate it", "A useful public result can become a new test", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "catalog entries shown, including 5 AI platform entries; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "retains exact package versions", "check your configuration with your own AI assistant", "A useful public result can become a new test", "immutable digest", "Browse version pages and publication receipts", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "catalog entries shown, including 5 AI platform entries; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -127,7 +127,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find instructions for the step you are doing", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Component Catalog", "Worked Examples", "Deployment", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
+    terms: ["Find instructions for the step you are doing", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Component Catalog", "Worked Examples", "How do I check my own Helm values", "How do I turn reviewed files into a deployable OCI?", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I roll a change through a fleet?", "How complete is the live drift check?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
   },
   {
     file: "site/docs-reference.html",
@@ -238,11 +238,11 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Detect and Stop Config Drift", "Search the", "Use", "Catalog", "Ask", "Retained versions stay pullable", "Search known configurations", "Ask about my configuration", "Keep it in ConfigHub"],
+    headerTerms: ["Detect and Stop Config Drift", "Search the", "Use", "Catalog", "Check my config", "AI assistant you already use", "Retained versions stay pullable", "Search known configurations", "Keep it in ConfigHub"],
   },
   {
     file: "site/ask.html",
-    headerTerms: ["Ask one question about a Helm chart", "Use the AI assistant you already have", "Use the Catalog when it already covers", "Choose the question and chart", "Copy the prompt into your assistant", "Check its answer against the Catalog", "The work stays on your machine"],
+    headerTerms: ["Check your configuration", "Use the AI assistant you already have", "Use the Catalog when it already covers", "your chart is missing from the Catalog", "render the chart locally", "Choose the question and chart", "Copy the prompt into your assistant", "Check its answer against the Catalog", "The work stays on your machine", "Other inputs:", "AICR example", "inspect an OCI package", "review Kubernetes YAML or an existing app"],
   },
   {
     file: "site/try.html",
@@ -250,7 +250,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "The Catalog finds cases we already know", "Ask investigates a new or uncertain case", "local comparison answers one question", "Create an account", "Open the tutorial"],
+    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "The Catalog finds cases we already know", "Use Check my config with your own AI assistant", "local comparison answers one question", "Create an account", "Open the tutorial"],
   },
   {
     file: "site/how-it-works.html",
@@ -289,7 +289,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["Guides", "Ask", "Catalog", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Guides", "Check my config", "Catalog", "Deployment", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
@@ -411,7 +411,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Ask", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Check my config", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;

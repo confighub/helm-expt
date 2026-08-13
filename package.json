@@ -835,6 +835,7 @@
     "site:ux:verify": "node scripts/verify-site-ux-contract.mjs",
     "verify:machine-contract": "node scripts/verify-config-workshop-machine-contract.mjs",
     "site:published:verify": "node scripts/verify-published-site.mjs",
+    "site:persona:simulate": "node scripts/run-site-persona-simulations.mjs",
     "chart-claim-integrity": "node scripts/verify-chart-claim-integrity.mjs --report",
     "chart-claim-integrity:verify": "node scripts/verify-chart-claim-integrity.mjs --verify",
     "p0:contracts": "node scripts/verify-p0-proof-contracts.mjs",
