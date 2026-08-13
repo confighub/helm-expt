@@ -8,10 +8,11 @@ Issue: https://github.com/confighub/helm-expt/issues/1018
 
 ## Scope
 
-By default, this audit covers the free/public website and documentation surface:
-home, Get Started, Helm Catalog, chart pages, Variants, Apps, Ops, Docs, FAQ,
-and generated public data linked from those pages. Commercial and managed-edition
-flows are out of scope unless a run explicitly asks for them.
+By default, this audit covers the free public website and its main journeys:
+Home, Guides, Check my config, Catalog, Try Redis, Examples, Deployment, Docs,
+ConfigHub, FAQ, and the generated evidence linked from those pages. It covers
+Helm, AICR, OCI, Kubernetes YAML, and mixed-source journeys. Commercial and
+managed-edition flows are out of scope unless a run explicitly asks for them.
 
 ## When To Run
 
@@ -26,11 +27,12 @@ two clicks of home:
 
 | Entry point | One-click pages | Two-click pages to sample |
 | --- | --- | --- |
-| Home | Get Started, Helm Catalog, Variants, Apps, Ops, Docs, FAQ | Redis chart page, kube-prometheus-stack chart page, How It Works, Known Gaps, AI-assisted changes, GitOps adopter guide, upgrade/rollback guide |
-| Helm Catalog | chart index, chart page, matrix link | chart recipe/catalog link, per-chart caveats, lifecycle/action route, source chart URL |
-| Apps | existing-app section, app examples | adopting existing apps, ConfigHub data model, custom app or stack guide |
-| Ops | observe, rollback, delivery, scan/gate cards | verify-it-yourself, day-2 upgrade/rollback, why-synced-is-not-working, cub-scout diff design |
-| FAQ | skeptical questions | the guide or data page linked from each answer |
+| Home | Guides, Check my config, Catalog, Deployment, Docs, ConfigHub | Redis chart page, Examples, Known Gaps, GitOps guide, upgrade and rollback guide |
+| Check my config | Catalog lookup, private boundary, ConfigHub handoff | Helm investigation reference, existing-release guide, evidence feed |
+| Catalog | search results and a component page | packaged configuration, setup work, source record, receipt |
+| Examples | Helm, AICR, OCI, and YAML starts | promotion, GitOps delivery, fleet, policy, and App demonstrations |
+| Deployment | local files, OCI, and ConfigHub choices | hooks and CRDs, Argo CD and Flux, managed operations |
+| Docs and FAQ | task question or skeptical question | the command, guide, gap, or evidence page linked from the answer |
 
 For every deeper page sampled, record whether the user can still answer:
 
@@ -50,14 +52,10 @@ unless the persona is the skeptical reviewer.
 
 | Persona | What they want |
 | --- | --- |
-| Novice Kubernetes user | Learn what this is without knowing ConfigHub. |
-| Low-skill Helm user | Copy commands and see expected output. |
-| Helm expert | Understand where values, hooks, CRDs, and upgrades go. |
-| GitOps platform engineer | Keep Argo or Flux and know what changes. |
-| SRE or on-call engineer | Triage what broke and what evidence exists. |
-| Chart maintainer | See whether their chart can be represented honestly. |
-| AI-curious product lead | Understand what AI can safely help with. |
-| Skeptical reviewer | Find limits, watch rows, refusals, and proof scope. |
+| Application developer using AI-written configuration | Check values or YAML, get exact objects, and take one useful next step. |
+| GitOps operator | Keep Argo CD or Flux and understand OCI, hooks, CRDs, pruning, and delivery limits. |
+| Platform engineer | Create variants, promote changes, and operate environments or fleets. |
+| Security-minded release reviewer | Find provenance, checks, approvals, gaps, and exact rollback evidence. |
 
 ## Seed Questions
 
@@ -89,6 +87,37 @@ improvement candidate
 voice owner: marketing voice or technical voice
 ```
 
+## Reproducible Bulk Run
+
+Run the deterministic synthetic study after a substantial navigation or copy
+change:
+
+```bash
+npm run site:persona:simulate
+```
+
+To compare a local candidate with a saved baseline, pass the local site URL,
+an output directory, the current navigation label, and the baseline CSV:
+
+```bash
+npm run site:persona:simulate -- \
+  --base-url http://127.0.0.1:8767/site/ \
+  --out-dir data/site-persona-simulations-2026-08-13-after \
+  --current-label "Check my config" \
+  --compare-with data/site-persona-simulations-2026-08-13/journeys.csv
+```
+
+The runner executes 200 simulations for each of the four personas: 180 live
+journeys from nine public entry pages and 20 synthetic label trials. A live
+journey follows only visible internal links, stops after five clicks, and
+succeeds only when it finds all required facts plus a relevant action.
+
+Treat these as routing diagnostics, not user research. Report first-click
+improvement separately from eventual success; a site that answers a question
+after five clicks can still have a poor front door. Keep language trials
+explicitly labeled as synthetic. Confirm consequential failures in a browser
+before changing the site.
+
 ## Voice Split
 
 Use **marketing voice** for intros, landing pages, user motivation, and marketing
@@ -104,5 +133,7 @@ links underneath the user journey.
 
 Recorded runs:
 
+- [800-run public-site simulation, 2026-08-13](../data/site-persona-simulations-2026-08-13/summary.md)
+- [Candidate rerun and baseline comparison, 2026-08-13](../data/site-persona-simulations-2026-08-13-after/summary.md)
 - [Persona UX rerun, 2026-06-22](../docs/planning/persona-ux-rerun-2026-06-22.md)
 - [Persona UX audit, 2026-06-22](../docs/planning/persona-ux-audit-2026-06-22.md)

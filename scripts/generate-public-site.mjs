@@ -270,7 +270,7 @@ const PAGE_DESCRIPTIONS = {
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
-  "ask.html": "Build a local AI prompt around one Helm decision, compare the answer with retained evidence, and choose whether to submit a public chart.",
+  "ask.html": "Check a Helm configuration with your own AI assistant, compare the answer with retained evidence, and find the right path for AICR, OCI, or Kubernetes YAML.",
   "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
   "did-this-chart-version-change.html": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
@@ -1384,12 +1384,12 @@ function buildLlmsTxt() {
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
-- [Investigate a Helm problem](${SITE_BASE_URL}ask.html): build a local prompt around one exact question, then compare the answer with retained evidence.
+- [Check my config](${SITE_BASE_URL}ask.html): use your own AI assistant to investigate one Helm question, or choose the matching AICR, OCI, or Kubernetes YAML path.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
-- [Helm investigation reference](${SITE_BASE_URL}challenge.html): the six question families, worked evidence, and benchmark behind the shorter Ask flow.
+- [Helm investigation reference](${SITE_BASE_URL}challenge.html): the six question families, worked evidence, and benchmark behind the shorter Check my config flow.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Deployment](${SITE_BASE_URL}how-it-works.html): choose whether reviewed objects stay as files, move through OCI, or become managed ConfigHub configuration.
@@ -1935,7 +1935,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("ask.html")}">Ask</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("ask.html")}">Check my config</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -2198,7 +2198,7 @@ function configTestCentreHome(catalog) {
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
             <a href="./guides.html">Guides</a>
-            <a href="./ask.html">Ask</a>
+            <a href="./ask.html">Check my config</a>
             <a href="./charts/index.html">Catalog</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
@@ -2212,14 +2212,14 @@ function configTestCentreHome(catalog) {
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Ask</a> when you have your own values, a new version, or an unexpected result.</p>
+            <p class="lead">Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> when you have your own values, a new version, or an unexpected result.</p>
             <p class="lead">The Catalog keeps exact versions, useful configurations, checks, and known limits. Retained versions stay pullable from this catalog's registry.</p>
-            <p class="lead">Ask investigates a new case locally and compares it with those records.</p>
+            <p class="lead">The Check my config page builds a local prompt for the AI assistant you already use, then helps you compare its answer with those records.</p>
             <p class="lead">Both work without an account. Save the reviewed result in <a href="./confighub.html">ConfigHub</a> when your team needs shared changes, promotion, or rollback.</p>
             <p class="lead">Config Workshop is this public site. <code>cub installer</code> is the free local tool used by its package examples. ConfigHub is the product that stores and changes reviewed configuration.</p>
             <div class="cta-row">
               <a class="btn primary" href="./charts/index.html">Search known configurations</a>
-              <a class="btn ghost" href="./ask.html">Ask about my configuration</a>
+              <a class="btn ghost" href="./ask.html">Check my config</a>
               <a class="btn quiet" href="./confighub.html">Keep it in ConfigHub</a>
             </div>
           </div>
@@ -2252,7 +2252,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
             <a class="route-card" href="./charts/index.html"><h3>1. Find a retained starting point <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>The Catalog keeps exact versions, useful configurations, variants, setup requirements, checks, and known limits.</p><span class="go">Search the Catalog &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. Investigate or compare my case <span class="tag">one question</span></h3><p>Use your own chart, values, version, or existing release. Compare a candidate with the Catalog, local files, OCI, Git, or what you run today.</p><span class="go">Ask a Helm question &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. Check or compare my configuration <span class="tag">one question</span></h3><p>Use your own Helm chart, values, version, or existing release. The same page directs AICR, OCI, and Kubernetes YAML to the right worked example.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./confighub.html"><h3>3. Wire it together in ConfigHub <span class="tag">team record</span></h3><p>Keep both configurations and their diffs, relate them to Git or OCI and live targets, then approve, promote, and release changes.</p><span class="go">See what ConfigHub adds &rarr;</span></a>
           </div>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
@@ -2274,7 +2274,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <h2>Check the result and the limits</h2>
           <p class="intro">A tested example names its source, version, objects, checks, and receipts. Depending on the example, checks cover parity, risky defaults, prerequisites, live readiness, upgrades, promotion, or rollback.</p>
           <p class="intro">The page says which checks ran and which did not. Known gaps stay visible.</p>
-          <div class="cta-row"><a class="btn ghost" href="./ask.html">Investigate a Helm problem</a><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
+          <div class="cta-row"><a class="btn ghost" href="./ask.html">Check my config</a><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
         </section>
       </main>
 
@@ -3545,7 +3545,8 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
     <p><strong>Next:</strong> <a href="./how-it-works.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
-    <p>Other paths: <a href="./testing.html">choose another worked example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
+    <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
+    <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
   </section>
 </main>
 <footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
@@ -3618,7 +3619,7 @@ function howItWorksHtml() {
   <section aria-labelledby="next">
     <h2 id="next">5. Next step</h2>
     <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
-    <p>Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
+    <p>Open <a href="./testing.html#managed">the managed examples</a> for promotion and OCI delivery, or <a href="./testing.html#platforms">the platform examples</a> for fleet rollouts. Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
     <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
   </section>
 </main>
@@ -3659,7 +3660,7 @@ function configHubHtml() {
   <h1>Keep and manage your configuration with ConfigHub</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
   <p class="lead">ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
-  <p>The Catalog finds cases we already know. Ask investigates a new or uncertain case. Both work locally without a ConfigHub account. Continue here when your team wants to keep and manage the reviewed result.</p>
+  <p>The Catalog finds cases we already know. Use Check my config with your own AI assistant for a new or uncertain case. Both work locally without a ConfigHub account. Continue here when your team wants to keep and manage the reviewed result.</p>
   <p>A local comparison answers one question at one moment. ConfigHub keeps the compared configurations and their diffs.</p>
   <p>It relates them to Git or OCI sources and releases. Live observations can be added when you connect deployment targets.</p>
   <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Create an account</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
@@ -4433,21 +4434,23 @@ function askHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Investigate a Helm problem &middot; Config Workshop</title>
+  <title>Check my config &middot; Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Ask one question about a Helm chart</h1>
-    <p class="lead">Use the AI assistant you already have. This page builds a local prompt for one chart and one question, then helps you compare the answer with our Catalog.</p>
-    <p>Use the Catalog when it already covers your exact chart and version. Use this page for your own values, a different version, an installed release, a comparison with existing configuration, or a result you do not understand.</p>
+    <h1>Check your configuration</h1>
+    <p class="lead">Use the AI assistant you already have. For Helm, this page builds a local prompt for one chart and one question, then helps you compare the answer with our Catalog.</p>
+    <p>Use the Catalog when it already covers your exact chart and version. Use this page when your chart is missing from the Catalog.</p>
+    <p>It also handles your own values, a different version, an installed release, a comparison, or a result you do not understand. The prompt tells your assistant to render the chart locally.</p>
     <p><strong>1.</strong> Choose the question and chart. <strong>2.</strong> Copy the prompt into your assistant. <strong>3.</strong> Check its answer against the Catalog.</p>
-    <p>The work stays on your machine. Keep secrets out of the prompt. GitHub opens only if you choose to report a problem with a public chart.</p>
+    <p>The work stays on your machine. For a private chart, choose <strong>No, keep this investigation private</strong>. Keep secrets out of the prompt. GitHub opens only if you choose to report a problem with a public chart.</p>
+    <p><strong>Other inputs:</strong> Follow the <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR example</a>, <a href="./d/docs/user/inspect-oci-package.html">inspect an OCI package</a>, or <a href="./existing-apps.html">review Kubernetes YAML or an existing app</a>.</p>
   </header>
   <main>
     <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. Choose the question and chart</h2>
+      <h2 id="build-prompt">1. For Helm, choose the question and chart</h2>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px">${options}</select></p>
@@ -4527,9 +4530,17 @@ function askHtml() {
         <h3>Optional: save a private result</h3>
         <p>Do not file a public issue. Keep the finding locally, or <a href="./confighub.html">use ConfigHub</a> when the reviewed result needs a shared record.</p>
       </div>
-      <h3>Keep a result for your team</h3>
+      <h3>Save the reviewed result for your team</h3>
       <p>You can stop with local files. Use ConfigHub when the reviewed configuration must be shared, changed, approved, promoted, or released.</p>
-      <p><a class="button secondary" href="./confighub.html">See what ConfigHub adds</a></p>
+      <p><a class="button secondary" href="./confighub.html">Save this result in ConfigHub</a></p>
+    </section>
+
+    <section aria-labelledby="other-jobs">
+      <h2 id="other-jobs">Other jobs</h2>
+      <p>For package behavior, read about <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a>, <a href="./does-cluster-match-approved-config.html">live drift coverage and its limits</a>, and <a href="./known-gaps.html">placeholder credentials and other known gaps</a>.</p>
+      <p>For team operations, open the <a href="./testing.html#platforms">promotion and fleet rollout examples</a>.</p>
+      <p>For evidence, open <a href="./charts/index.html">package publication receipts and immutable digests</a>, or read <a href="./verification.html">how Checked and Not checked evidence works</a>.</p>
+      <p>After a check, you can <a href="./how-it-works.html#now-deploy">write reviewed files as OCI</a>, or <a href="./confighub.html">save and audit exact diffs in ConfigHub</a>.</p>
     </section>
 
     <section aria-labelledby="optional-reference">
@@ -4801,7 +4812,7 @@ function approvedClusterHtml() {
   });
 }
 
-// The challenge page is the detailed evidence layer for the shorter Ask flow.
+// The challenge page is the detailed evidence layer for Check my config.
 // It explains the six question families and the benchmark that shaped them.
 function challengeHtml() {
   const GH = "https://github.com/confighub/helm-expt/blob/main/";
@@ -4868,7 +4879,7 @@ function challengeHtml() {
     ${topNav(".")}
     <h1>Check a Helm answer against retained evidence</h1>
     <p class="lead">A capable assistant can render a chart and explain what it sees. This page adds version-specific package records, known limits, and receipts for facts that depend on history or a live run.</p>
-    <p>For a shorter prompt built around your exact question, start with <a href="./ask.html">Investigate a Helm problem</a>. This page keeps the full six-question reference and the benchmark behind it.</p>
+    <p>For a shorter prompt built around your exact question, start with <a href="./ask.html">Check my config</a>. This page keeps the full six-question reference and the benchmark behind it.</p>
   </header>
   <main>
     <section aria-labelledby="the-prompt">
@@ -4934,7 +4945,7 @@ function guidesHtml() {
     <section aria-labelledby="examples">
       <h2 id="examples">Work through an example like yours</h2>
       <p>Start from your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML. Each example carries the commands and the evidence for one worked flow, including promotions, fleet rollouts, and policy checks.</p>
-      <p><a href="./testing.html">Open the worked examples</a></p>
+      <p><a href="./testing.html">Open Helm, AICR, OCI, YAML, promotion, and fleet examples</a></p>
     </section>
 
     <section aria-labelledby="walkthrough">
@@ -4980,6 +4991,8 @@ function docsHtml() {
       <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
       <p>Worked Examples covers your own Helm values, AICR recipes for AI infrastructure, OCI, or Kubernetes YAML.</p>
+      <h3><a href="./ask.html">How do I check my own Helm values or a result I do not understand?</a></h3>
+      <p>Build a local prompt for the AI assistant you already use. Private charts and values stay on your machine.</p>
       <h3><a href="./kubara.html">How do I add ConfigHub to an existing Kubara platform?</a></h3>
       <p>Keep Kubara's component selection, generated topology, Git hand-off, and Argo reconciliation while following one six-step adoption tutorial with explicit evidence checkpoints.</p>
     </section>
@@ -4988,6 +5001,8 @@ function docsHtml() {
       <h2 id="prepare">Prepare it for deployment</h2>
       <h3><a href="./how-it-works.html">Where should the files live?</a></h3>
       <p>Deployment explains the local files, OCI, and ConfigHub choices in one sequence.</p>
+      <h3><a href="./how-it-works.html#now-deploy">How do I turn reviewed files into a deployable OCI?</a></h3>
+      <p>Choose the local OCI or ConfigHub release path, then let Argo CD or Flux pull the reviewed objects.</p>
       <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
       <p>See how required setup is recorded, ordered, tested, or blocked.</p>
       <h3><a href="./d/docs/user/helm-presets-and-values.html">Should I change the source input or the rendered object?</a></h3>
@@ -5004,6 +5019,8 @@ function docsHtml() {
       <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, rollout, and rollback.</p>
       <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
       <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
+      <h3><a href="./testing.html#platforms">How do I roll a change through a fleet?</a></h3>
+      <p>Open the Kubara and Sveltos examples for platform configuration, cluster assignments, and rollout evidence.</p>
       <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
       <p>Start read-only from GitOps, YAML, Helm, or a live cluster.</p>
       <h3><a href="./d/docs/user/image-registry-migration.html">What if an upstream registry or its terms change?</a></h3>
@@ -5014,6 +5031,8 @@ function docsHtml() {
       <h2 id="check">Check a result or solve a problem</h2>
       <h3><a href="./verification.html">How do I check a result?</a></h3>
       <p>Find the command that checks generated Kubernetes files, a saved test record, or a live cluster.</p>
+      <h3><a href="./does-cluster-match-approved-config.html">How complete is the live drift check?</a></h3>
+      <p>See which fields the current drift check covers and which differences it can still miss.</p>
       <h3><a href="./known-gaps.html">What is not working yet?</a></h3>
       <p>Read the named limitations and the evidence behind them.</p>
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
@@ -7900,14 +7919,14 @@ function aicrEntriesSection() {
     <h1>Choose a component, version, and configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">The Config Workshop Catalog retains exact package versions, useful configurations, variants, setup requirements, checks, and known limits. Use it when we already cover your starting point. Published versions stay pinned: a new review adds a version instead of silently replacing the one you used.</p>
-    <p>Each page says what was checked and what was not. If your chart, version, values, or question is not answered, <a href="../ask.html">use Ask to investigate it</a> or compare it with an older version, an installed release, local files, OCI, Git, or live Kubernetes output. A useful public result can become a new test, configuration, variant, or named warning in the Catalog.</p>
+    <p>Each page says what was checked and what was not. If your chart, version, values, or question is not answered, <a href="../ask.html">check your configuration with your own AI assistant</a>. You can compare it with an older version, an installed release, local files, OCI, Git, or live Kubernetes output. A useful public result can become a new test, configuration, variant, or named warning in the Catalog.</p>
   </header>
   <main>
     ${aicrEntriesSection()}
 
     <section aria-labelledby="charts">
       <h2 id="charts">Search the catalog</h2>
-      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them.</p>
+      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, immutable digest, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them. <a href="#chart-table">Browse version pages and publication receipts</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search components</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
@@ -7921,7 +7940,7 @@ function aicrEntriesSection() {
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
-        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Use Ask to investigate one question</a>, then choose whether to report the public result for Catalog review.</p>
+        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>

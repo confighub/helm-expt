@@ -433,11 +433,11 @@
 </head>
 <body>
   <header>
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../guides.html">Guides</a><a href="../ask.html">Ask</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../guides.html">Guides</a><a href="../ask.html">Check my config</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Choose a component, version, and configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">The Config Workshop Catalog retains exact package versions, useful configurations, variants, setup requirements, checks, and known limits. Use it when we already cover your starting point. Published versions stay pinned: a new review adds a version instead of silently replacing the one you used.</p>
-    <p>Each page says what was checked and what was not. If your chart, version, values, or question is not answered, <a href="../ask.html">use Ask to investigate it</a> or compare it with an older version, an installed release, local files, OCI, Git, or live Kubernetes output. A useful public result can become a new test, configuration, variant, or named warning in the Catalog.</p>
+    <p>Each page says what was checked and what was not. If your chart, version, values, or question is not answered, <a href="../ask.html">check your configuration with your own AI assistant</a>. You can compare it with an older version, an installed release, local files, OCI, Git, or live Kubernetes output. A useful public result can become a new test, configuration, variant, or named warning in the Catalog.</p>
   </header>
   <main>
     <div id="aicr" data-aicr-entries>
@@ -458,7 +458,7 @@
 
     <section aria-labelledby="charts">
       <h2 id="charts">Search the catalog</h2>
-      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them.</p>
+      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, immutable digest, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them. <a href="#chart-table">Browse version pages and publication receipts</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search components</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
@@ -472,7 +472,7 @@
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
-        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Use Ask to investigate one question</a>, then choose whether to report the public result for Catalog review.</p>
+        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
