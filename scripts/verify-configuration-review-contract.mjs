@@ -58,6 +58,8 @@ function verify() {
     "--provider None",
     "workshop-review.json",
     "candidate.yaml",
+    "buildAiHandoffPrompt",
+    "latestCandidate = candidateText",
   ]) check(browserScript.includes(term), `browser review script is missing ${term}`);
 
   const askPage = read("site/ask.html");
@@ -70,6 +72,9 @@ function verify() {
     "Check and retain the rendered result",
     "Download review record",
     "Save the same result in ConfigHub",
+    "This page does not send your files to an AI service",
+    "Use your own AI assistant",
+    "Copy instructions for my AI",
     "Optional: propose a public Catalog case",
     "review.schema.json",
     "check-config.js",

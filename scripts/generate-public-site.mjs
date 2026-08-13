@@ -3696,6 +3696,7 @@ function configHubHtml() {
     </ol>
     <p>The matching hashes show that the handoff preserves the reviewed objects. Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
     <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code>, attach the review digest, and create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
+    <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
   <section aria-labelledby="continue-work">
     <h2 id="continue-work">3. Continue from the retained answer</h2>
@@ -4518,6 +4519,7 @@ function askHtml() {
       <h2 id="check-files-title">3. Check and retain the rendered result</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
+      <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
       <div class="card">
         <div class="grid">
           <p><label for="source-type"><strong>Starting format</strong></label><br>
@@ -4563,6 +4565,11 @@ function askHtml() {
         <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>
       <textarea id="handoff-command" rows="14" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button secondary" id="copy-handoff" type="button">Copy ConfigHub commands</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+
+      <h4>Use your own AI assistant</h4>
+      <p>If Claude, Codex, or another assistant is already running on your machine, download the candidate and review record above. Then copy these instructions into that assistant. It will inspect the same files, ask before writing to ConfigHub, run the generated commands, and read the stored objects back.</p>
+      <textarea id="ai-handoff-prompt" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button secondary" id="copy-ai-handoff" type="button">Copy instructions for my AI</button> <span id="ai-handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
       <p><a href="./confighub.html">See what ConfigHub adds after the handoff</a>.</p>
 
       <h3>Optional: propose a public Catalog case</h3>

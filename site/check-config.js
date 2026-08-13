@@ -331,7 +331,7 @@
     };
     latestReviewJson = JSON.stringify(latestReview, null, 2) + "\n";
     latestReviewDigest = await sha256(latestReviewJson);
-    latestCandidate = candidateText + "\n";
+    latestCandidate = candidateText;
     byId("browser-check-summary").innerHTML =
       "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; <code>" + escapeHtml(candidateDigest) + "</code></p>" +
       comparisonSummary(comparison) +
@@ -366,6 +366,35 @@
       "  " + reviewUnit + " ./workshop-review.json",
     ].join("\n");
     byId("handoff-command").value = command;
+    buildAiHandoffPrompt();
+  }
+
+  function buildAiHandoffPrompt() {
+    if (!latestReview) return;
+    const component = safeSlug(byId("component-slug").value || latestReview.spec.source.identity);
+    const space = component + "-reviewed";
+    const prompt = [
+      "I have already checked a rendered Kubernetes configuration in Config Workshop.",
+      "Help me retain that exact reviewed result in ConfigHub.",
+      "",
+      "The current directory contains:",
+      "- candidate.yaml: the exact Kubernetes objects I accepted",
+      "- workshop-review.json: the browser review record",
+      "",
+      "Do this:",
+      "1. Read both files through the workspace you already have open. Treat them as private unless workshop-review.json explicitly says the source is public. Do not disclose them through another service or a public issue.",
+      "2. Calculate the SHA-256 of candidate.yaml and confirm that it matches spec.candidate.sha256 in workshop-review.json. The expected SHA-256 of workshop-review.json is " + latestReviewDigest + ". Stop if either digest differs.",
+      "3. Summarize the recorded findings and the checks listed under spec.checks.notChecked. Do not describe an omitted check as passed.",
+      "4. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
+      "5. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
+      "6. Show me the exact ConfigHub commands below and ask for approval before running them.",
+      "7. After approval, run the commands. Then read the stored result with `cub unit list --space " + space + "` and `cub k8s get all --space " + space + " --show data`.",
+      "8. Report the Space, stored Units, review digest, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
+      "",
+      "Exact ConfigHub commands:",
+      byId("handoff-command").value,
+    ].join("\n");
+    byId("ai-handoff-prompt").value = prompt;
   }
 
   function download(name, content, type) {
@@ -446,6 +475,7 @@
   byId("download-review").addEventListener("click", () => latestReviewJson && download("workshop-review.json", latestReviewJson, "application/json"));
   byId("download-candidate").addEventListener("click", () => latestCandidate && download("candidate.yaml", latestCandidate, "application/yaml"));
   byId("copy-handoff").addEventListener("click", () => copyText(byId("handoff-command").value, "handoff-copy-status"));
+  byId("copy-ai-handoff").addEventListener("click", () => copyText(byId("ai-handoff-prompt").value, "ai-handoff-copy-status"));
   byId("file-public-question").addEventListener("click", openPublicIssue);
   window.addEventListener("hashchange", applyQuestionHash);
   applyQuestionHash();

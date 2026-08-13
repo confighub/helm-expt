@@ -601,6 +601,7 @@
       <h2 id="check-files-title">3. Check and retain the rendered result</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
+      <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
       <div class="card">
         <div class="grid">
           <p><label for="source-type"><strong>Starting format</strong></label><br>
@@ -646,6 +647,11 @@
         <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>
       <textarea id="handoff-command" rows="14" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button secondary" id="copy-handoff" type="button">Copy ConfigHub commands</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+
+      <h4>Use your own AI assistant</h4>
+      <p>If Claude, Codex, or another assistant is already running on your machine, download the candidate and review record above. Then copy these instructions into that assistant. It will inspect the same files, ask before writing to ConfigHub, run the generated commands, and read the stored objects back.</p>
+      <textarea id="ai-handoff-prompt" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button secondary" id="copy-ai-handoff" type="button">Copy instructions for my AI</button> <span id="ai-handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
       <p><a href="./confighub.html">See what ConfigHub adds after the handoff</a>.</p>
 
       <h3>Optional: propose a public Catalog case</h3>
