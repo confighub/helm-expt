@@ -10,7 +10,7 @@ This is the status index for the source pathways and ConfigHub App demonstration
 
 ### Work without an account
 
-**Serverless:** The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.
+**Serverless:** The work does not depend on ConfigHub Server. It can run as a local command or in CI. The public Check my config page can also inspect and compare rendered YAML inside the browser without uploading it.
 
 **Anonymous:** The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
 

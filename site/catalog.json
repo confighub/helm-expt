@@ -39443,7 +39443,7 @@
           "accessModel": {
             "anonymous": "The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.",
             "composable": "The work can sit before OCI, after OCI, or between an input OCI and an output OCI. A user can choose one shape or combine several; ConfigHub is not required until they want saved records and managed operations.",
-            "serverless": "The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service."
+            "serverless": "The work does not depend on ConfigHub Server. It can run as a local command or in CI. The public Check my config page can also inspect and compare rendered YAML inside the browser without uploading it."
           },
           "anonymousFlows": [
             {
@@ -39915,7 +39915,7 @@
             "Claim the configuration in ConfigHub when it needs stored operations."
           ],
           "workedExample": {
-            "limit": "The hosted anonymous service is planned. Some delivery proofs still use workflow artifacts or temporary registries and are labeled that way.",
+            "limit": "The hosted browser check handles rendered YAML only. Hosted chart rendering, OCI pulls, cluster checks, and live tests are not available. Some delivery proofs still use workflow artifacts or temporary registries and are labeled that way.",
             "result": "Local and CI proofs pull public packages without ConfigHub credentials, inspect or change exact objects, build OCI, and compare the output after pulling it back. The reviewed NGINX change is also published as a permanent public OCI and imported into a ConfigHub Space at its recorded digest.",
             "status": "working"
           }
