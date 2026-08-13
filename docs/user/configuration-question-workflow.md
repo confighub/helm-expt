@@ -56,6 +56,14 @@ or existing deployment. The browser can inspect rendered YAML without sending
 it to a server. For Helm rendering and deeper comparisons, it builds a prompt
 for the user's local AI assistant.
 
+The page does not run an AI service. A user may work with their own Claude,
+Codex, or other assistant. The assistant can run the local investigation,
+explain findings, propose a corrected candidate, or complete the ConfigHub
+handoff. The user still checks the exact files, commands, diffs, and evidence.
+The page supplies a separate handoff prompt that tells the assistant to verify
+the downloaded file digests, preserve the accepted objects, stop for Secrets,
+ask before writing to ConfigHub, and read the stored result back.
+
 **ConfigHub** retains an accepted answer. It stores the exact objects and a
 non-deployable review Unit, then lets a team make variants, review diffs,
 promote changes, publish releases, and compare desired configuration with live
