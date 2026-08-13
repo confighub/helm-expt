@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/review.schema.json",
+  "title": "Config Workshop configuration review",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "const": "workshop.confighub.com/v1alpha1" },
+    "kind": { "const": "ConfigurationReview" },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "createdAt"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["question", "source", "candidate", "comparison", "checks", "finding", "recommendation"],
+      "properties": {
+        "question": {
+          "type": "object",
+          "required": ["code", "text"],
+          "properties": {
+            "code": { "type": "string", "minLength": 1 },
+            "text": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "source": {
+          "type": "object",
+          "required": ["type", "visibility"],
+          "properties": {
+            "type": { "enum": ["helm", "aicr", "oci", "kubernetes-yaml", "existing-release", "mixed", "unknown"] },
+            "visibility": { "enum": ["public", "private"] },
+            "identity": { "type": "string" },
+            "version": { "type": "string" },
+            "valuesSummary": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "candidate": { "$ref": "#/$defs/objectSet" },
+        "comparison": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status": { "enum": ["not-supplied", "compared"] },
+            "objectSet": { "$ref": "#/$defs/objectSet" },
+            "added": { "type": "array", "items": { "type": "string" } },
+            "removed": { "type": "array", "items": { "type": "string" } },
+            "changed": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        },
+        "checks": {
+          "type": "object",
+          "required": ["method", "scope", "findings", "notChecked"],
+          "properties": {
+            "method": { "type": "string", "minLength": 1 },
+            "scope": { "type": "string", "minLength": 1 },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["code", "level", "message"],
+                "properties": {
+                  "code": { "type": "string", "minLength": 1 },
+                  "level": { "enum": ["review", "warning", "information"] },
+                  "object": { "type": "string" },
+                  "message": { "type": "string", "minLength": 1 }
+                },
+                "additionalProperties": false
+              }
+            },
+            "notChecked": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        },
+        "finding": { "type": "string" },
+        "recommendation": { "type": "string", "minLength": 1 },
+        "catalog": {
+          "type": "object",
+          "properties": {
+            "status": { "enum": ["not-looked-up", "exact", "related", "absent"] },
+            "url": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "objectSet": {
+      "type": "object",
+      "required": ["name", "sha256", "objectCount", "objects"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "objectCount": { "type": "integer", "minimum": 0 },
+        "objects": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

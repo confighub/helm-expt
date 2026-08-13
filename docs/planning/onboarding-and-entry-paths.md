@@ -45,9 +45,10 @@ different promises.
 | ConfigHub | Yes | Yes | Available. Record changes, release them, add environments, and promote them through the official tutorial. |
 
 Public package and OCI pulls already work without registry login. They support
-the local path. They do not prove that the hosted anonymous service exists.
+the local path. The browser page can now inspect and compare rendered YAML, but
+these receipts do not prove hosted chart rendering, OCI pulls, or live checks.
 
-Do not describe the hosted anonymous service as released until a public
+Do not describe hosted chart rendering, OCI pulls, or live checking as released until a public
 endpoint and a recorded test exist.
 
 Do not repeat these three choices throughout later examples. After a person

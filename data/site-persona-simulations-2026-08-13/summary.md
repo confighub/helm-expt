@@ -8,28 +8,28 @@ This is synthetic usability testing, not human-subject research. Four determinis
 
 | Persona | Runs | Success | Partial | Fail | Answered on starting page | Useful first click when navigation was needed | Median clicks |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Application developer using AI-written configuration | 180 | 157 | 21 | 2 | 79/180 | 59/101 | 1 |
-| GitOps operator responsible for delivery | 180 | 154 | 26 | 0 | 75/180 | 65/105 | 1 |
-| Platform engineer managing environments and fleets | 180 | 160 | 20 | 0 | 71/180 | 67/109 | 1 |
-| Security-minded release reviewer | 180 | 156 | 24 | 0 | 54/180 | 81/126 | 1 |
+| Application developer using AI-written configuration | 180 | 177 | 3 | 0 | 95/180 | 57/85 | 0 |
+| GitOps operator responsible for delivery | 180 | 167 | 13 | 0 | 76/180 | 70/104 | 1 |
+| Platform engineer managing environments and fleets | 180 | 173 | 7 | 0 | 77/180 | 67/103 | 1 |
+| Security-minded release reviewer | 180 | 175 | 5 | 0 | 64/180 | 94/116 | 1 |
 
 ## By category
 
 | Category | Success | Partial | Fail |
 | --- | ---: | ---: | ---: |
-| comprehension | 123 | 21 | 0 |
-| navigation | 140 | 4 | 0 |
-| action | 138 | 6 | 0 |
-| recovery | 103 | 39 | 2 |
-| conversion | 123 | 21 | 0 |
+| comprehension | 140 | 4 | 0 |
+| navigation | 144 | 0 | 0 |
+| action | 141 | 3 | 0 |
+| recovery | 130 | 14 | 0 |
+| conversion | 137 | 7 | 0 |
 
 ## Cross-format
 
 | Input format | Success | Partial | Fail |
 | --- | ---: | ---: | ---: |
-| Helm | 514 | 78 | 2 |
+| Helm | 568 | 26 | 0 |
 | AICR | 18 | 0 | 0 |
-| OCI | 41 | 13 | 0 |
+| OCI | 52 | 2 | 0 |
 | YAML | 27 | 0 | 0 |
 | mixed | 27 | 0 | 0 |
 
@@ -37,21 +37,21 @@ This is synthetic usability testing, not human-subject research. Four determinis
 
 | Goal | Success | Partial | Fail |
 | --- | ---: | ---: | ---: |
-| recover when my chart is missing | 0 | 9 | 0 |
-| understand checked versus not checked | 1 | 8 | 0 |
-| block placeholder credentials | 1 | 8 | 0 |
 | find delivery limitations | 2 | 7 | 0 |
-| compare desired and live state | 2 | 7 | 0 |
-| understand OCI in and OCI out | 3 | 6 | 0 |
-| understand base and derived variants | 3 | 6 | 0 |
-| audit an exact diff | 4 | 5 | 0 |
-| write reviewed objects as OCI | 5 | 4 | 0 |
-| promote a reviewed change | 5 | 4 | 0 |
-| pause or inspect a rollout wave | 5 | 4 | 0 |
-| find live drift | 5 | 4 | 0 |
-| find an existing OCI package example | 6 | 3 | 0 |
-| handle CRDs on first install | 6 | 3 | 0 |
-| keep a private configuration private | 7 | 0 | 2 |
+| promote and publish a release | 7 | 2 | 0 |
+| roll back a promoted release | 7 | 2 | 0 |
+| understand checked versus not checked | 7 | 2 | 0 |
+| write reviewed objects as OCI | 8 | 1 | 0 |
+| save a reviewed result for my team | 8 | 1 | 0 |
+| promote a reviewed change | 8 | 1 | 0 |
+| deliver with kubectl | 8 | 1 | 0 |
+| understand OCI in and OCI out | 8 | 1 | 0 |
+| handle CRDs on first install | 8 | 1 | 0 |
+| compare desired and live state | 8 | 1 | 0 |
+| assign configuration to a fleet | 8 | 1 | 0 |
+| understand fleet rollout | 8 | 1 | 0 |
+| pause or inspect a rollout wave | 8 | 1 | 0 |
+| require approval for production | 8 | 1 | 0 |
 
 ## Navigation language
 

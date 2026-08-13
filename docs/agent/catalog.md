@@ -15,7 +15,9 @@ rolled out.
 Treat `work` as a reusable operation, not a product or a mandatory first step. It may
 mean render, inspect, explain, test, scan, compare, or edit. The operation may sit
 before an OCI is built, after one is pulled, or between an input OCI and an output
-OCI. Local and GitHub Actions use are proven. A hosted anonymous service is planned
+OCI. Local and GitHub Actions use are proven. The public Check my config page can
+inspect and compare rendered YAML in the browser without sign-in; hosted chart
+rendering, OCI pulls, cluster checks, and live tests are still planned
 and must not be described as available.
 
 Inside an existing delivery flow, distinguish ConfigHub's three roles:

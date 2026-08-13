@@ -105,6 +105,28 @@ is a large, useful catalog of configuration in the formats teams already use. Ea
 entry should help a person understand what the configuration does, try it, check the
 evidence, and use it as the start of their own application or fleet.
 
+## Known answers and new investigations
+
+The Catalog and the Check my config workflow have different jobs.
+
+- The Catalog answers questions that this project has already investigated for an
+  exact source and version.
+- Check my config investigates a new chart, version, values set, OCI, YAML object set,
+  or existing deployment.
+- ConfigHub retains an accepted answer when a team needs to compare it again, change
+  it, promote it, or deliver it.
+
+Both public paths produce the same kind of answer: exact objects, a comparison when
+one is available, prerequisites and lifecycle work, checks that ran, checks that did
+not run, one recommended action, and a clear limit. The optional
+`ConfigurationReview` record links those parts to the inspected object hashes.
+
+A public investigation does not become a Catalog entry merely because it rendered.
+Maintainers must reproduce it, lock the source, classify its prerequisites and
+lifecycle work, run the applicable checks, and publish the decision and evidence for
+that exact version. The intake process is documented in
+[How public configuration questions are handled](question-intake-operation.md).
+
 ## The ways configuration enters
 
 There are three current entry paths.

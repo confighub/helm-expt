@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Catalog Read-Only Guide For Agents · Config Workshop</title>
-  <meta name="description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
-  <meta property="og:title" content="Catalog Read-Only Guide For Agents · Config Workshop">
-  <meta property="og:description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Helm questions drawn from user reports · Config Workshop</title>
+  <meta name="description" content="Helm questions drawn from user reports: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/helm-user-pain-evidence.html">
+  <meta property="og:title" content="Helm questions drawn from user reports · Config Workshop">
+  <meta property="og:description" content="Helm questions drawn from user reports: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/helm-user-pain-evidence.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,58 +433,38 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../ask.html">Check my config</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Catalog Read-Only Guide For Agents</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/catalog.md">View source markdown</a>.</p>
+    <h1>Helm questions drawn from user reports</h1>
+    <p class="lead">This note records why Config Workshop asks its current configuration questions. It combines the project's Helm pain-point work with public reports from Helm users. It is not a survey and does not claim that every Helm user has the same problems. <a href="../../../../docs/reference/helm-user-pain-evidence.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>This guide does not redesign the catalog. Treat the catalog and chart pages as evidence to read, not as pages to rewrite.</p>
-<h2 id="product-boundary">Product Boundary</h2>
-<p>The public front door supports <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code> without requiring a ConfigHub account. ConfigHub begins when a user claims the configuration so it can be saved, changed, approved, promoted, or rolled out.</p>
-<p>Treat <code>work</code> as a reusable operation, not a product or a mandatory first step. It may mean render, inspect, explain, test, scan, compare, or edit. The operation may sit before an OCI is built, after one is pulled, or between an input OCI and an output OCI. Local and GitHub Actions use are proven. The public Check my config page can inspect and compare rendered YAML in the browser without sign-in; hosted chart rendering, OCI pulls, cluster checks, and live tests are still planned and must not be described as available.</p>
-<p>Inside an existing delivery flow, distinguish ConfigHub's three roles:</p>
-<ul><li>congruent pass-through: keep the specs and user-supplied metadata, add only the recorded <code>confighub.com/origin</code> provenance annotation, and publish a new OCI artifact;</li><li>transformation: create a reviewed variant and publish the changed objects;</li><li>fan-out: publish specific outputs or deliver one reviewed release to several targets.</li></ul>
-<p>Require input and output digests and a field comparison for each pass-through claim. Do not infer congruent output from a successful import, or fleet rollout from one controller becoming healthy.</p>
-<p>Do not treat every OCI artifact as interchangeable. Check whether a link is a source or installer package, a literal bundle for <code>cub variant upload</code>, a portable deployment bundle, or a ConfigHub release. The consumer and receipt must match the artifact.</p>
-<p>For source-neutral examples, start with <code>config-catalog/program.yaml</code> and <code>docs/reference/config-catalog-doctrine.md</code>. The AICR example keeps separate receipts for generation, OCI packaging, ConfigHub upload, required-approval behavior, and promotion. Do not use one of those receipts to claim a later stage.</p>
-<p>For the no-account boundary, use <code>runs/serverless-oci-gitops-proof/receipt.yaml</code>. It proves one public installer OCI input, isolated local rendering, one temporary output OCI, and Flux reconciliation. It does not prove hosted output or ConfigHub operations.</p>
-<p>For the CI execution mode, use <code>runs/anonymous-oci-ci-proof/receipt.yaml</code>. It proves anonymous public OCI pull, rendering, object inspection, local OCI-layout creation, and pull-back comparison in GitHub Actions. The output is a workflow artifact, not a public registry package.</p>
-<p>For the first continuous upgrade path, use <code>runs/redis-upgrade-app-proof/receipt.yaml</code>. It proves one Redis package upgrade, one retained post-render replica change, two sequential environment promotions, and the same portable OCI digest on two Argo CD clusters. Keep its three product limits: the promotion dry-run printed no mutations, the portable registry was temporary, and the observations were not submitted to ConfigHub observation storage.</p>
-<h2 id="what-not-to-touch-in-this-pass">What Not To Touch In This Pass</h2>
-<p>Do not edit these unless the user explicitly asks for catalog work:</p>
-<ul><li><code>site/charts/*.html</code></li><li><code>site/charts/index.html</code></li><li><code>data/master-catalog-matrix/*</code></li><li><code>recipes/*/*/*/CATALOG.md</code></li><li><code>packages/*/*/*/README.md</code></li><li>generated chart evidence under <code>data/</code></li></ul>
-<p>If a catalog output is wrong, fix the source generator or source data in a separate catalog task.</p>
-<h2 id="fast-read-only-routes">Fast Read-Only Routes</h2>
-<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>Can I use this chart today?</td><td><code>data/chart-use-guide/summary.md</code></td></tr>
-<tr><td>Where are this chart's evidence files?</td><td><code>data/chart-evidence-router/summary.md</code> and <code>data/chart-evidence-router/router.csv</code></td></tr>
-<tr><td>What is the broad row status?</td><td><code>data/master-catalog-matrix/matrix.html</code> or <code>data/master-catalog-matrix/matrix.csv</code></td></tr>
-<tr><td>What render-intent file exists for a real base?</td><td><code>data/helm-render-intents/summary.md</code> and <code>data/helm-render-intents/intents.csv</code></td></tr>
-<tr><td>Which claims are backed or refused?</td><td><code>data/claims-register/summary.md</code></td></tr>
-<tr><td>What known gaps affect the row?</td><td><code>data/model-gap-workdown/summary.md</code>, <code>data/target-prerequisite-workdown/summary.md</code>, and <code>data/live-parity-decisions/summary.md</code></td></tr></tbody></table>
-<h2 id="inspect-one-chart-from-the-terminal">Inspect One Chart From The Terminal</h2>
-<p>Use <code>rg</code> before opening large files:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/chart-use-guide data/chart-evidence-router data/helm-render-intents</code></pre>
-<p>Then open the smallest matching source:</p>
-<ul><li>chart-use row for the short recommendation;</li><li>evidence-router row for paths to receipts and decisions;</li><li>render-intent row for the base config;</li><li>matrix row for lane status.</li></ul>
-<h2 id="read-a-render-intent">Read A Render Intent</h2>
-<p>Start with:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/helm-render-intents/intents.csv</code></pre>
-<p>Then open the matching YAML under <code>data/helm-render-intents/intents/</code>.</p>
-<p>A render intent records the chart version, base, values profile, namespace, release name, capability profile, source lock, lifecycle routes, target prerequisites, and evidence links for a real base row. It is not a production promise.</p>
-<h2 id="how-to-report-catalog-findings">How To Report Catalog Findings</h2>
-<p>When summarizing a chart, include:</p>
-<ul><li>chart and version;</li><li>recommended or inspected base;</li><li>current route: use now, review, improve base, blocked, or refused;</li><li>strongest evidence lane;</li><li>known target prerequisites or lifecycle routes;</li><li>next action and source file.</li></ul>
-<p>Do not claim more than the source row claims.</p>
+
+<h2 id="project-sources">Project sources</h2>
+<ul><li><a href="../user/helm-pain-points.html">Helm pain points</a> describes the project's fifteen operational problem areas.</li><li><a href="../user/configuration-question-workflow.html">Configuration question workflow</a> turns those areas into decisions a user can ask about one exact configuration.</li><li>The internal planning material under <code>~/Desktop/HELM</code> adds sceptical-user, serverless, Catalog-maintainer, GitOps, and fleet-operator perspectives.</li></ul>
+<h2 id="repeated-public-reports">Repeated public reports</h2>
+<table><thead><tr><th>User problem</th><th>Representative reports</th></tr></thead><tbody><tr><td>A chart upgrade combines old and new values in an unexpected way.</td><td><a href="https://github.com/helm/helm/issues/3957">Helm #3957</a>, <a href="https://github.com/cert-manager/cert-manager/issues/7352">cert-manager #7352</a></td></tr>
+<tr><td>An interrupted or failed upgrade leaves the release stuck.</td><td><a href="https://github.com/helm/helm/issues/8987">Helm #8987</a>, <a href="https://github.com/helm/helm/issues/10599">Helm #10599</a></td></tr>
+<tr><td>An existing Secret is configured, but an upgrade still asks for a password or fails authentication.</td><td><a href="https://github.com/bitnami/charts/issues/24290">Bitnami PostgreSQL #24290</a>, <a href="https://github.com/grafana/helm-charts/issues/3790">Grafana charts #3790</a></td></tr>
+<tr><td>A small chart change reaches immutable fields or persistent storage.</td><td><a href="https://github.com/grafana/helm-charts/issues/1256">Grafana charts #1256</a>, <a href="https://github.com/grafana/helm-charts/issues/1184">Grafana charts #1184</a></td></tr>
+<tr><td>CRD versions, ownership, and install order do not follow the ordinary workload path.</td><td><a href="https://github.com/prometheus-community/helm-charts/issues/2921">Prometheus Community charts #2921</a>, <a href="https://github.com/argoproj/argo-cd/issues/20124">Argo CD #20124</a></td></tr>
+<tr><td>GitOps changes Helm's hook, ordering, values, drift, or OCI behavior.</td><td><a href="https://github.com/argoproj/argo-cd/issues/11074">Argo CD #11074</a>, <a href="https://github.com/fluxcd/helm-controller/issues/300">Flux helm-controller #300</a>, <a href="https://github.com/fluxcd/flux2/discussions/1085">Flux discussion #1085</a></td></tr>
+<tr><td>Values and templates become hard to read, test, or customize without a fork or another overlay system.</td><td><a href="https://www.reddit.com/r/kubernetes/comments/1ayt7hl/to_kustomize_or_to_helm_which_manifest_tooling_do/">Reddit: Helm or Kustomize</a>, <a href="https://www.reddit.com/r/devops/comments/1kui6os/whats_one_devops_tool_you_still_dont_fully_trust/">Reddit: tools people do not trust</a></td></tr>
+<tr><td>Rollback does not reverse database migrations or other state outside Kubernetes objects.</td><td><a href="https://www.reddit.com/r/kubernetes/comments/1dpkvsy/rollback_strategy_for_helm_releases/">Reddit: Helm rollback strategy</a></td></tr></tbody></table>
+<h2 id="what-the-reports-change-in-the-product">What the reports change in the product</h2>
+<p>The first question should not be &quot;which feature do you want?&quot; It should be the decision the user is trying to make:</p>
+<ul><li>What did these values change?</li><li>What could break in this upgrade?</li><li>What must exist before installation?</li><li>Can I avoid a chart fork?</li><li>Who runs the hooks and installs the CRDs?</li><li>Can I return to the exact prior objects?</li><li>How does this differ from what runs now?</li><li>Which environments or clusters are affected?</li></ul>
+<p>Each answer must name the source and inputs, show exact objects, separate desired configuration from live state, state what was not checked, and end in one action. That action may remain local, produce OCI, become a public Catalog candidate, or save the reviewed result in ConfigHub.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/agent/catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/helm-user-pain-evidence.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

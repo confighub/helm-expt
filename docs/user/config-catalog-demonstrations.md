@@ -10,7 +10,7 @@ The catalog begins with Helm and adds other configuration formats without making
 
 ### Work without an account
 
-**Serverless:** The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.
+**Serverless:** The work does not depend on ConfigHub Server. It can run as a local command or in CI. The public Check my config page can also inspect and compare rendered YAML inside the browser without uploading it.
 
 **Anonymous:** The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
 
@@ -309,7 +309,7 @@ Current limit: The plain YAML example has no Helm parity question because there 
 
 **Worked example: working.** Local and CI proofs pull public packages without ConfigHub credentials, inspect or change exact objects, build OCI, and compare the output after pulling it back. The reviewed NGINX change is also published as a permanent public OCI and imported into a ConfigHub Space at its recorded digest.
 
-**Broader status: partial.** The hosted anonymous service is planned. Some delivery proofs still use workflow artifacts or temporary registries and are labeled that way.
+**Broader status: partial.** The hosted browser check handles rendered YAML only. Hosted chart rendering, OCI pulls, cluster checks, and live tests are not available. Some delivery proofs still use workflow artifacts or temporary registries and are labeled that way.
 
 A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.
 

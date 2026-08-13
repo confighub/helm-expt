@@ -147,7 +147,7 @@ function renderSummary(report) {
 
 ${statusSentence}
 
-Config Workshop invites operators with a current public Helm problem to ask one exact question. Public submissions use the \`challenge-intake\` label. Private charts, values, contact details, and conversations stay outside this repository.
+Config Workshop invites operators with a current public configuration problem to ask one exact question. The source may be Helm, AICR, OCI, or Kubernetes YAML. Public submissions use the \`challenge-intake\` label. Private source, values, contact details, and conversations stay outside this repository.
 
 ## Current totals
 
@@ -169,7 +169,7 @@ ${monthRows}
 
 ## How reports are handled
 
-A complete public report should be acknowledged within two business days. It should receive a catalog entry, a named refusal, or an evidence decision within seven days. [Read the response process and comment templates](../../docs/reference/question-intake-operation.md).
+A complete public report should be acknowledged within two business days. It should receive a Catalog answer, a named refusal, or an evidence decision within seven days. Rendering alone does not make a case known-good. [Read the response process and comment templates](../../docs/reference/question-intake-operation.md).
 
 ## How to read this record
 
