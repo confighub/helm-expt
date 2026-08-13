@@ -111,7 +111,20 @@ for (const term of ["## Machine contract", "Missing coverage means we have not c
 for (const term of ["Question code", "WORKSHOP FINDING", "not_checked", "changes.schema.json", "File the public question"]) {
   check(ask.includes(term), `site/ask.html must expose the question-first contract: ${term}`);
 }
-for (const term of ["challenge-intake", "id: question_code", "id: question", "two business days", "within seven days"]) {
+for (const term of ["config-diff", "Compare with:", "comparison_digest", "Optional comparison: add what you run today"]) {
+  check(ask.includes(term), `site/ask.html must expose the local comparison path: ${term}`);
+}
+for (const forbidden of [
+  'target.searchParams.set("observed"',
+  'target.searchParams.set("values"',
+  "Assistant finding:",
+]) {
+  check(!ask.includes(forbidden), `site/ask.html must not put the full assistant answer in the GitHub URL: ${forbidden}`);
+}
+for (const term of ["maxIssueUrlLength = 1800", 'lastIndexOf("WORKSHOP FINDING")', "The answer stays out of the link"]) {
+  check(ask.includes(term), `site/ask.html must keep the public issue handoff bounded: ${term}`);
+}
+for (const term of ["challenge-intake", "id: question_code", "id: question", "config-diff", "two business days", "within seven days"]) {
   check(issueTemplate.includes(term), `problem-chart issue template must expose the receiving contract: ${term}`);
 }
 

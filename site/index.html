@@ -177,14 +177,15 @@
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Helm and AI can tell you what a chart renders today. They cannot recover package bytes, decisions, or prior state that nobody kept.</p>
-            <p class="lead">Config Workshop keeps reviewed packages and dated receipts. Check an exact version, then pin the result you chose.</p>
-            <p class="lead">Save it in <a href="./confighub.html">ConfigHub</a> when your team needs shared changes, promotion, or rollback.</p>
+            <p class="lead">Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Ask</a> when you have your own values, a new version, or an unexpected result.</p>
+            <p class="lead">The Catalog keeps exact versions, useful configurations, checks, and known limits. Retained versions stay pullable from this catalog's registry.</p>
+            <p class="lead">Ask investigates a new case locally and compares it with those records.</p>
+            <p class="lead">Both work without an account. Save the reviewed result in <a href="./confighub.html">ConfigHub</a> when your team needs shared changes, promotion, or rollback.</p>
             <p class="lead">Config Workshop is this public site. <code>cub installer</code> is the free local tool used by its package examples. ConfigHub is the product that stores and changes reviewed configuration.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./charts/index.html">Check an exact chart</a>
-              <a class="btn ghost" href="./ask.html">Investigate a Helm problem</a>
-              <a class="btn quiet" href="./confighub.html">Keep a reviewed result</a>
+              <a class="btn primary" href="./charts/index.html">Search known configurations</a>
+              <a class="btn ghost" href="./ask.html">Ask about my configuration</a>
+              <a class="btn quiet" href="./confighub.html">Keep it in ConfigHub</a>
             </div>
           </div>
           <div class="hero-term">
@@ -209,20 +210,18 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
       <main>
         <section class="section">
-          <span class="eyebrow">Choose one</span>
-          <h2>Choose where to start</h2>
-          <p class="intro">Each path gives you exact Kubernetes objects to inspect before you decide what happens next. New here? <a href="./try.html">Run the short Redis example</a>.</p>
+          <span class="eyebrow">One public path</span>
+          <h2>Find, investigate, then keep</h2>
+          <p class="intro">Start with a retained answer when one exists. Investigate your own case when it does not. Keep the reviewed result only when you need a shared operational record.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>I have a specific chart to check <span class="tag">112 components</span></h3><p>Look it up. Each entry shows the exact objects, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog&#39;s registry even when an upstream source changes its terms.</p><span class="go">Search the catalog &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>My chart or upgrade is misbehaving <span class="tag">one question</span></h3><p>Build a local prompt around the exact decision, then compare the answer with retained evidence.</p><span class="go">Investigate the problem &rarr;</span></a>
-            <a class="route-card" href="./testing.html#bring-your-own"><h3>Check my own values <span class="tag">your chart</span></h3><p>Preview values written by your team or an AI. Review the exact objects before anything applies.</p><span class="go">Open the worked flow &rarr;</span></a>
-            <a class="route-card" href="./d/docs/user/gitops-adopter-guide.html"><h3>I reviewed it, now deploy it <span class="tag">kubectl &middot; Argo &middot; Flux</span></h3><p>Copy-paste delivery for the reviewed objects, with pruning and ordering handled per path.</p><span class="go">Open the deploy guide &rarr;</span></a>
-            <a class="route-card mid" href="./compare.html"><h3>How is this different from my tools? <span class="tag">honest answer</span></h3><p>Versus helm template, kubectl diff, and Kustomize, including who does not need this site at all.</p><span class="go">Read the comparison &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>Evaluating for a team <span class="tag">records</span></h3><p>Approvals bound to exact revisions, promotion, rollback to recorded state, and fleet history.</p><span class="go">See what ConfigHub adds &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. Find a retained starting point <span class="tag">112 components</span></h3><p>The Catalog keeps exact versions, useful configurations, variants, setup requirements, checks, and known limits.</p><span class="go">Search the Catalog &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. Investigate or compare my case <span class="tag">one question</span></h3><p>Use your own chart, values, version, or existing release. Compare a candidate with the Catalog, local files, OCI, Git, or what you run today.</p><span class="go">Ask a Helm question &rarr;</span></a>
+            <a class="route-card" href="./confighub.html"><h3>3. Wire it together in ConfigHub <span class="tag">team record</span></h3><p>Keep both configurations and their diffs, relate them to Git or OCI and live targets, then approve, promote, and release changes.</p><span class="go">See what ConfigHub adds &rarr;</span></a>
           </div>
-          <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
+          <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
+          <p class="intro"><a href="./testing.html">Browse the examples</a> for Helm, AICR, OCI, YAML, promotions, and fleets. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
 
         <section class="section">

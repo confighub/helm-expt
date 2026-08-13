@@ -22,6 +22,7 @@ body:
         - "install-shape: What will this install, and what must already exist?"
         - "ignored-values: Did Helm ignore one of my values?"
         - "upgrade-risk: What could break in this upgrade?"
+        - "config-diff: How does this candidate differ from what I run now?"
         - "lifecycle-work: What do hooks, CRDs, or setup jobs require?"
         - "supply-drift: Do these version and digest records identify the same bytes?"
         - "rollback-history: Can I return to the exact configuration that ran before?"

@@ -31,7 +31,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Detect and Stop Config Drift", "cannot recover package bytes", "keeps reviewed packages and dated receipts", "Check an exact chart", "Investigate a Helm problem", "Keep a reviewed result", "cub installer setup", "--output-oci", "Choose where to start", "Four places drift appears", "Check the result and the limits", "Save it in", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["Detect and Stop Config Drift", "Search the <a href=\"./charts/index.html\">Catalog</a>", "Use <a href=\"./ask.html\">Ask</a>", "Retained versions stay pullable", "Search known configurations", "Ask about my configuration", "Keep it in ConfigHub", "cub installer setup", "--output-oci", "Find, investigate, then keep", "Wire it together in ConfigHub", "Four places drift appears", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/guides.html",
@@ -39,7 +39,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Investigate a Helm problem with your AI", "What do you need to know?", "Existing release name", "Existing namespace", "See the read-only commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "Check the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep private configuration private"],
+    terms: ["Ask one question about a Helm chart", "Choose a question", "Optional comparison: add what you run today", "Installed Helm release", "Local YAML files", "OCI package", "Git path or revision", "Live Kubernetes objects", "Existing release name", "Existing namespace", "Read the existing-release commands", "helm get values -a", "helm get hooks", "Do not claim upgrade, rollback, or live-state safety", "Build my prompt", "WORKSHOP FINDING", "comparison_digest", "Check this chart in the Catalog", "File the public question", "two business days", "seven days", "public intake totals", "changes.schema.json", "Keep a result for your team", "See what ConfigHub adds"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -107,7 +107,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "catalog entries shown, including 5 AI platform entries; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "retains exact package versions", "use Ask to investigate it", "A useful public result can become a new test", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "catalog entries shown, including 5 AI platform entries; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -238,11 +238,11 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Detect and Stop Config Drift", "cannot recover package bytes", "keeps reviewed packages and dated receipts", "Check an exact chart", "Investigate a Helm problem", "Keep a reviewed result"],
+    headerTerms: ["Detect and Stop Config Drift", "Search the", "Use", "Catalog", "Ask", "Retained versions stay pullable", "Search known configurations", "Ask about my configuration", "Keep it in ConfigHub"],
   },
   {
     file: "site/ask.html",
-    headerTerms: ["Investigate a Helm problem with your AI", "Start with one question", "Your entries stay in this browser"],
+    headerTerms: ["Ask one question about a Helm chart", "Use the AI assistant you already have", "Use the Catalog when it already covers", "Choose the question and chart", "Copy the prompt into your assistant", "Check its answer against the Catalog", "The work stays on your machine"],
   },
   {
     file: "site/try.html",
@@ -250,7 +250,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "public Catalog and first examples work without ConfigHub"],
+    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "The Catalog finds cases we already know", "Ask investigates a new or uncertain case", "local comparison answers one question", "Create an account", "Open the tutorial"],
   },
   {
     file: "site/how-it-works.html",
