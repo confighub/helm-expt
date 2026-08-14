@@ -4,6 +4,25 @@ The controlled thirty-day test has not started. The zero counts below are a base
 
 Config Workshop invites operators with a current public configuration problem to ask one exact question. The source may be Helm, AICR, OCI, or Kubernetes YAML. Public submissions use the `challenge-intake` label. Private source, values, contact details, and conversations stay outside this repository.
 
+## Questions found before outreach
+
+Before sending any invitations, we reviewed 40 recent public Helm discussions. This is a small research sample, not customer or site usage data. It helps us link people directly to a relevant question instead of asking them to start again on a generic page.
+
+| Question | Discussions |
+| --- | ---: |
+| What will this install, and what must already exist? | 8 |
+| How is this candidate different from production? | 6 |
+| I set a value. Why did the rendered object not change? | 5 |
+| The chart does not expose the field I need. Must I fork it? | 5 |
+| Can I upgrade this chart without breaking production? | 4 |
+| How should Argo CD or Flux handle this chart's hooks and CRDs? | 4 |
+| Where does this vulnerable image run, and how can I update it safely? | 3 |
+| Can I roll back to exactly what ran before? | 2 |
+| Do these version and digest records identify the same bytes? | 2 |
+| AI wrote these values. What did they actually change? | 1 |
+
+These counts do not change the public intake totals below. Nobody in the research sample counts as a participant until an invitation is sent and recorded in the monthly aggregate.
+
 ## Current totals
 
 | Measure | Count | Thirty-day target |

@@ -2,7 +2,10 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { CONFIGURATION_QUESTIONS } from "./lib/configuration-questions.mjs";
+import {
+  CONFIGURATION_QUESTIONS,
+  CONFIGURATION_QUESTION_RESEARCH,
+} from "./lib/configuration-questions.mjs";
 
 const root = process.cwd();
 const selfTest = process.argv.includes("--self-test");
@@ -20,7 +23,7 @@ function validateQuestions(questions) {
   const entries = Object.entries(questions);
   const labels = new Set();
   if (entries.length !== 10) findings.push(`expected 10 question definitions, found ${entries.length}`);
-  if (entries.filter(([, item]) => item.group === "common").length !== 8) findings.push("expected eight common questions");
+  if (entries.filter(([, item]) => item.group === "common").length !== 9) findings.push("expected nine common questions");
   for (const [code, item] of entries) {
     if (!/^[a-z][a-z0-9-]+$/.test(code)) findings.push(`${code}: invalid question code`);
     if (!['common', 'additional'].includes(item.group)) findings.push(`${code}: invalid group`);
@@ -34,9 +37,29 @@ function validateQuestions(questions) {
   return findings;
 }
 
+function validateResearch(research, questions) {
+  const findings = [];
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(research.asOf || "")) findings.push("research date must use YYYY-MM-DD");
+  if (!Number.isInteger(research.sampleSize) || research.sampleSize < 1) findings.push("research sampleSize must be a positive integer");
+  const countEntries = Object.entries(research.counts || {});
+  for (const [code, count] of countEntries) {
+    if (!questions[code]) findings.push(`research count uses unknown question ${code}`);
+    if (!Number.isInteger(count) || count < 0) findings.push(`research count for ${code} must be a non-negative integer`);
+  }
+  for (const code of Object.keys(questions)) {
+    if (!(code in (research.counts || {}))) findings.push(`research count is missing ${code}`);
+  }
+  const total = countEntries.reduce((sum, [, count]) => sum + Number(count || 0), 0);
+  if (total !== research.sampleSize) findings.push(`research counts total ${total}; expected ${research.sampleSize}`);
+  if (!String(research.description || "").includes("not customer or site usage data")) findings.push("research description must state that the sample is not usage data");
+  return findings;
+}
+
 function verify() {
   const findings = validateQuestions(CONFIGURATION_QUESTIONS);
   check(findings.length === 0, `configuration question contract failed:\n- ${findings.join('\n- ')}`);
+  const researchFindings = validateResearch(CONFIGURATION_QUESTION_RESEARCH, CONFIGURATION_QUESTIONS);
+  check(researchFindings.length === 0, `configuration question research contract failed:\n- ${researchFindings.join('\n- ')}`);
 
   const schemaText = read("schemas/config-workshop-review.schema.json");
   const schema = JSON.parse(schemaText);
@@ -63,6 +86,9 @@ function verify() {
     "candidate.yaml",
     "buildAiHandoffPrompt",
     "latestCandidate = candidateText",
+    "URLSearchParams",
+    "question-context",
+    "You are checking ",
   ]) check(browserScript.includes(term), `browser review script is missing ${term}`);
 
   const askPage = read("site/ask.html");
@@ -82,7 +108,9 @@ function verify() {
     "Use your own AI assistant",
     "Copy handoff for my AI",
     "Optional: propose a public Catalog case",
-    "Other Questions You Can Check",
+    "Questions People Are Asking",
+    "40 recent public Helm discussions",
+    "not customer or site usage totals",
     "What Happens to a Public Question",
     "review.schema.json",
     "check-config.js",
@@ -109,6 +137,9 @@ if (selfTest) {
   const broken = structuredClone(CONFIGURATION_QUESTIONS);
   broken["ai-values"].answer = "";
   check(validateQuestions(broken).some((finding) => finding.includes("ai-values: missing answer")), "self-test did not reject a missing answer");
+  const brokenResearch = structuredClone(CONFIGURATION_QUESTION_RESEARCH);
+  brokenResearch.counts["ai-values"] = 2;
+  check(validateResearch(brokenResearch, CONFIGURATION_QUESTIONS).some((finding) => finding.includes("expected 40")), "self-test did not reject mismatched research counts");
   console.log("verified configuration review contract self-test");
 } else {
   verify();

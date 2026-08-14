@@ -225,13 +225,13 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
         <section class="section">
           <span class="eyebrow">Common questions</span>
-          <h2>Four Problems We Help Solve</h2>
-          <p class="intro">Start with the exact configuration. Add ConfigHub when the answer must remain available across environments or clusters.</p>
+          <h2>Four Common Helm Questions</h2>
+          <p class="intro">These appeared most often in a review of 40 recent public Helm discussions. This is a small research sample, not customer or site usage data.</p>
           <div class="verbs">
-            <div class="verb"><span class="n">01</span><h3>What will this install?</h3><p>See the exact objects, ignored values, risky defaults, and required setup before deployment.</p><p><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></p><span class="route">runs on your laptop</span></div>
-            <div class="verb"><span class="n">02</span><h3>Did the package change?</h3><p>Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.</p><p><a href="./did-this-chart-version-change.html">Did this chart version change upstream?</a></p><span class="route">runs on your laptop</span></div>
-            <div class="verb"><span class="n">03</span><h3>Why do environments differ?</h3><p>Compare related configurations and promote reviewed changes instead of copying values between environments.</p><p><a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a></p><span class="route">needs a ConfigHub account</span></div>
-            <div class="verb"><span class="n">04</span><h3>Does the cluster match?</h3><p>Compare the configuration you approved with what your clusters report, within the fields named by each check.</p><p><a href="./does-cluster-match-approved-config.html">Does the cluster match what we approved?</a></p><span class="route">needs an account and a cluster</span></div>
+            <div class="verb"><span class="n">01</span><h3>What will this install, and what must already exist?</h3><p>List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.</p><p><a href="./ask.html#install-shape">Start this check &rarr;</a></p><span class="route">8 of 40 discussions</span></div>
+            <div class="verb"><span class="n">02</span><h3>How is this candidate different from production?</h3><p>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</p><p><a href="./ask.html#config-diff">Start this check &rarr;</a></p><span class="route">6 of 40 discussions</span></div>
+            <div class="verb"><span class="n">03</span><h3>I set a value. Why did the rendered object not change?</h3><p>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</p><p><a href="./ask.html#ignored-values">Start this check &rarr;</a></p><span class="route">5 of 40 discussions</span></div>
+            <div class="verb"><span class="n">04</span><h3>The chart does not expose the field I need. Must I fork it?</h3><p>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</p><p><a href="./ask.html#custom-field">Start this check &rarr;</a></p><span class="route">5 of 40 discussions</span></div>
           </div>
           <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
         </section>

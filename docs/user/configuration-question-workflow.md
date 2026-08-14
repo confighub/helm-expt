@@ -15,14 +15,21 @@ recipe, or configuration exported from an existing deployment.
 
 | Question | What a useful answer contains |
 | --- | --- |
-| I set a value. Why did the rendered object not change? | If Helm ignored the setting, check first for a misspelled or wrong values path. Render with and without that value. Identify the correct path or report that the chart does not expose the field. |
-| AI wrote these values. What did they actually change? | Compare the candidate with chart defaults, a matching Catalog configuration, and optionally the current deployment. Show exact object and field changes. Check credentials, permissions, images, storage, hooks, and CRDs. |
-| Can I upgrade this chart without breaking production? | Render both versions with the same release context. Compare objects, values, hooks, CRDs, immutable fields, storage, and required Secrets. Include the current Helm release record when it is available. |
-| The chart does not expose the field I need. Must I fork it? | Show the rendered object and the missing field. Keep the chart unchanged when a reviewed post-render edit is enough. Check that edit for overlap when the chart is upgraded. |
-| How should Argo CD or Flux handle this chart's hooks and CRDs? | List each hook, CRD, and setup job in execution order. State who runs it, what must already exist, and which controller path has actually been tested. |
-| Can I roll back to exactly what ran before? | Look for a retained rendered revision or OCI digest. Restore those exact objects when they exist. Separate Kubernetes configuration from database migrations and other external effects. |
+| What will this install, and what must already exist? | List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job. |
 | How is this candidate different from production? | Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift. |
+| I set a value. Why did the rendered object not change? | If Helm ignored the setting, check first for a misspelled or wrong values path. Render with and without that value. Identify the correct path or report that the chart does not expose the field. |
+| The chart does not expose the field I need. Must I fork it? | Show the rendered object and the missing field. Keep the chart unchanged when a reviewed post-render edit is enough. Check that edit for overlap when the chart is upgraded. |
+| Can I upgrade this chart without breaking production? | Render both versions with the same release context. Compare objects, values, hooks, CRDs, immutable fields, storage, and required Secrets. Include the current Helm release record when it is available. |
+| How should Argo CD or Flux handle this chart's hooks and CRDs? | List each hook, CRD, and setup job in execution order. State who runs it, what must already exist, and which controller path has actually been tested. |
 | Where does this vulnerable image run, and how can I update it safely? | Search the supplied estate or ConfigHub records, show every affected environment and cluster, test the candidate, and promote it through a limited rollout wave. |
+| Can I roll back to exactly what ran before? | Look for a retained rendered revision or OCI digest. Restore those exact objects when they exist. Separate Kubernetes configuration from database migrations and other external effects. |
+| Do these version and digest records identify the same bytes? | Record the available chart and package digests and compare them with retained, dated evidence. |
+| AI wrote these values. What did they actually change? | Compare the candidate with chart defaults, a matching Catalog configuration, and optionally the current deployment. Show exact object and field changes. Check credentials, permissions, images, storage, hooks, and CRDs. |
+
+This order reflects a review of 40 recent public Helm discussions prepared
+before outreach. It is a small research sample, not customer or site usage
+data. The source conversations and contact details are not stored in this
+repository.
 
 ## One answer shape
 

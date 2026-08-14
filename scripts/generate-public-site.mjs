@@ -4,7 +4,10 @@ import { join, posix } from "node:path";
 import { check, listFiles, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
 import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
-import { CONFIGURATION_QUESTIONS } from "./lib/configuration-questions.mjs";
+import {
+  CONFIGURATION_QUESTIONS,
+  CONFIGURATION_QUESTION_RESEARCH,
+} from "./lib/configuration-questions.mjs";
 
 const siteRoot = join(repoRoot, "site");
 const chartPagesRoot = join(siteRoot, "charts");
@@ -2190,12 +2193,13 @@ function homeDesignCss() {
 }
 
 function configTestCentreHome(catalog) {
-  const nextSteps = [
-    ["01", "What will this install?", "See the exact objects, ignored values, risky defaults, and required setup before deployment.", "runs on your laptop", "./why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
-    ["02", "Did the package change?", "Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.", "runs on your laptop", "./did-this-chart-version-change.html", "Did this chart version change upstream?"],
-    ["03", "Why do environments differ?", "Compare related configurations and promote reviewed changes instead of copying values between environments.", "needs a ConfigHub account", "./why-do-dev-and-prod-differ.html", "Why do development and production differ?"],
-    ["04", "Does the cluster match?", "Compare the configuration you approved with what your clusters report, within the fields named by each check.", "needs an account and a cluster", "./does-cluster-match-approved-config.html", "Does the cluster match what we approved?"],
-  ];
+  const nextSteps = ["install-shape", "config-diff", "ignored-values", "custom-field"]
+    .map((code, index) => ({
+      code,
+      number: String(index + 1).padStart(2, "0"),
+      ...CONFIGURATION_QUESTIONS[code],
+      observed: CONFIGURATION_QUESTION_RESEARCH.counts[code],
+    }));
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -2274,10 +2278,10 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
         <section class="section">
           <span class="eyebrow">Common questions</span>
-          <h2>Four Problems We Help Solve</h2>
-          <p class="intro">Start with the exact configuration. Add ConfigHub when the answer must remain available across environments or clusters.</p>
+          <h2>Four Common Helm Questions</h2>
+          <p class="intro">These appeared most often in a review of 40 recent public Helm discussions. This is a small research sample, not customer or site usage data.</p>
           <div class="verbs">
-            ${nextSteps.map(([n, name, desc, route, href, question]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(question)}</a></p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
+            ${nextSteps.map((item) => `<div class="verb"><span class="n">${item.number}</span><h3>${escapeHtml(item.label)}</h3><p>${escapeHtml(item.answer)}</p><p><a href="./ask.html#${escapeHtml(item.code)}">Start this check &rarr;</a></p><span class="route">${item.observed} of ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} discussions</span></div>`).join("\n            ")}
           </div>
           <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
         </section>
@@ -4412,7 +4416,11 @@ spec:
 }
 
 function askHtml() {
-  const questionEntries = Object.entries(CONFIGURATION_QUESTIONS);
+  const questionEntries = Object.entries(CONFIGURATION_QUESTIONS)
+    .sort(([codeA, itemA], [codeB, itemB]) => {
+      const countDifference = CONFIGURATION_QUESTION_RESEARCH.counts[codeB] - CONFIGURATION_QUESTION_RESEARCH.counts[codeA];
+      return countDifference || itemA.label.localeCompare(itemB.label);
+    });
   const options = [
     ["common", "Common questions"],
     ["additional", "More questions"],
@@ -4421,10 +4429,10 @@ function askHtml() {
     .map(([code, item]) => `<option value="${escapeHtml(code)}">${escapeHtml(item.label)}</option>`)
     .join("")}</optgroup>`).join("");
   const questionRows = questionEntries
-    .filter(([, item]) => item.group === "common")
     .map(([code, item]) => [
+      CONFIGURATION_QUESTION_RESEARCH.counts[code],
       `<a href="#${escapeHtml(code)}">${escapeHtml(item.label)}</a>`,
-      escapeHtml(item.answer),
+      item.answer,
     ]);
   return `<!doctype html>
 <html lang="en">
@@ -4438,6 +4446,7 @@ function askHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Check your configuration</h1>
+    <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
     <p>Your AI assistant and Helm tools run on your machine. This page can compare rendered YAML in your browser. Your files are not uploaded.</p>
@@ -4571,12 +4580,13 @@ function askHtml() {
     </section>
 
     <section aria-labelledby="questions-we-answer">
-      <h2 id="questions-we-answer">Other Questions You Can Check</h2>
+      <h2 id="questions-we-answer">Questions People Are Asking</h2>
+      <p>We reviewed 40 recent public Helm discussions before starting outreach. The counts describe that small research sample; they are not customer or site usage totals.</p>
       <p>Choose the question closest to the decision you need to make. Each link selects it in the form above.</p>
       ${markdownLikeTable([
-        ["Question", "What the answer should contain"],
+        ["Recent discussions", "Question", "What the answer should contain"],
         ...questionRows,
-      ], { rawFirstColumn: true })}
+      ], { rawSecondColumn: true, firstColumnWidthCh: 10 })}
     </section>
 
     <section aria-labelledby="public-question-decisions">
