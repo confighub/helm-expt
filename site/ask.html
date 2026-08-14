@@ -515,32 +515,16 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Check my config</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Check your configuration</h1>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
-    <p><strong>The Catalog</strong> answers questions we have already investigated. <strong>This page</strong> helps investigate a new chart, version, values set, or existing deployment. <strong>ConfigHub</strong> retains an accepted answer so your team does not repeat the investigation on every change.</p>
-    <p><strong>Use the Catalog for a known case. Use this page for your own chart or values, a new version, or an unexpected result.</strong></p>
-    <p>Use your own AI assistant and local Helm tools when a chart must be rendered. If you already have Kubernetes YAML, this page can inspect and compare it directly in your browser.</p>
-    <p>Your files stay on your machine, and you need no account. Keep secrets out of prompts and public reports.</p>
-    <p><a class="button primary" href="#build-prompt">Start with a chart and values</a> <a class="button secondary" href="#check-files">I already have rendered YAML</a></p>
+    <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
+    <p>Your AI assistant and Helm tools run on your machine. This page can compare rendered YAML in your browser. Your files are not uploaded.</p>
+    <p>You get the exact objects, a comparison, the checks that ran, and a review record you can keep.</p>
+    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <button class="button secondary" id="load-example" type="button">See a 30-second example</button> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <section aria-labelledby="questions-we-answer">
-      <h2 id="questions-we-answer">Questions we help answer</h2>
-      <div class="card"><table>
-        <thead><tr><th>Question</th><th>What the answer should contain</th></tr></thead>
-        <tbody><tr><td><a href="#ai-values">AI wrote these values. What did they actually change?</a></td><td>Render the candidate and compare it with the chart defaults, the Catalog, and optionally the current deployment. Show exact changes and check credentials, permissions, images, storage, hooks, and CRDs.</td></tr><tr><td><a href="#ignored-values">I set a value. Why did the rendered object not change?</a></td><td>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</td></tr><tr><td><a href="#upgrade-risk">Can I upgrade this chart without breaking production?</a></td><td>Render both versions with the same release context. Compare objects, hooks, CRDs, immutable fields, storage, Secrets, and the current Helm release record when available.</td></tr><tr><td><a href="#custom-field">The chart does not expose the field I need. Must I fork it?</a></td><td>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</td></tr><tr><td><a href="#lifecycle-work">How should Argo CD or Flux handle this chart's hooks and CRDs?</a></td><td>List each hook, CRD, and setup job in order. State who runs it, what must already exist, and which controller path has been tested.</td></tr><tr><td><a href="#rollback-history">Can I roll back to exactly what ran before?</a></td><td>Find a retained rendered revision or OCI digest and restore those exact objects. Keep database migrations and other external effects outside the configuration claim.</td></tr><tr><td><a href="#config-diff">How is this candidate different from production?</a></td><td>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</td></tr><tr><td><a href="#fleet-image">Where does this vulnerable image run, and how can I update it safely?</a></td><td>Search supplied estate or ConfigHub records, show every affected environment and cluster, test the candidate, and promote it through a limited rollout wave.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Every answer starts with the exact objects and a comparison when one is available. It then names required setup, completed and omitted checks, one recommended action, and a review record you can retain.</p>
-    </section>
-
     <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. Build a local prompt for your chart and values</h2>
-      <p>Choose one decision. The generated prompt tells your AI assistant to run Helm locally, record every input, compare exact objects, and keep computed findings separate from Catalog evidence.</p>
+      <h2 id="build-prompt">1. Check a chart and values</h2>
+      <p>Choose one question. We build a prompt for your AI assistant. It runs Helm locally, records the inputs, and compares the exact objects.</p>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px"><optgroup label="Common questions"><option value="ai-values">AI wrote these values. What did they actually change?</option><option value="ignored-values">I set a value. Why did the rendered object not change?</option><option value="upgrade-risk">Can I upgrade this chart without breaking production?</option><option value="custom-field">The chart does not expose the field I need. Must I fork it?</option><option value="lifecycle-work">How should Argo CD or Flux handle this chart's hooks and CRDs?</option><option value="rollback-history">Can I roll back to exactly what ran before?</option><option value="config-diff">How is this candidate different from production?</option><option value="fleet-image">Where does this vulnerable image run, and how can I update it safely?</option></optgroup><optgroup label="More questions"><option value="install-shape">What will this install, and what must already exist?</option><option value="supply-drift">Do these version and digest records identify the same bytes?</option></optgroup></select></p>
@@ -640,19 +624,20 @@
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><a href="./review.schema.json">Read the ConfigurationReview schema</a>.</p>
 
-      <h3>Save the same result in ConfigHub</h3>
-      <p>ConfigHub stores the rendered objects in a reviewed base Space. It stores the complete review record as a <code>Provider None</code> Unit, so the evidence remains with the configuration but is not included in deployment releases.</p>
+      <h3>Keep this reviewed result in ConfigHub</h3>
+      <p>ConfigHub stores the exact Kubernetes objects you approved. It keeps the review record beside them without adding that record to a deployment release.</p>
+      <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code>. The upload records this hash and the review hash on the saved configuration.</p>
       <p>If the candidate contains a Kubernetes Secret, stage that Secret separately. <code>cub variant upload</code> deliberately does not upload rendered Secret data.</p>
       <p><label for="component-slug"><strong>Component name</strong></label><br>
         <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>
       <textarea id="handoff-command" rows="14" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
-      <p><button class="button secondary" id="copy-handoff" type="button">Copy ConfigHub commands</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+      <p><button class="button primary" id="copy-handoff" type="button">Copy commands to keep this result</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
 
       <h4>Use your own AI assistant</h4>
       <p>If Claude, Codex, or another assistant is already running on your machine, download the candidate and review record above. Then copy these instructions into that assistant. It will inspect the same files, ask before writing to ConfigHub, run the generated commands, and read the stored objects back.</p>
       <textarea id="ai-handoff-prompt" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
-      <p><button class="button secondary" id="copy-ai-handoff" type="button">Copy instructions for my AI</button> <span id="ai-handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
-      <p><a href="./confighub.html">See what ConfigHub adds after the handoff</a>.</p>
+      <p><button class="button secondary" id="copy-ai-handoff" type="button">Copy handoff for my AI</button> <span id="ai-handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+      <p><a href="./confighub.html">See how ConfigHub keeps this result</a>.</p>
 
       <h3>Optional: propose a public Catalog case</h3>
       <p>Use this only for a public source when the Catalog is missing the case or its answer is wrong. GitHub opens with a short chart, version, and question link. Paste the copied finding or review record, remove private data, and include reproduction commands.</p>
@@ -660,6 +645,28 @@
       <p id="public-handoff-status" role="status" style="color:var(--muted)"></p>
       <p>A maintainer must reproduce and classify the case before it becomes a Catalog entry. Rendering alone does not make it known-good.</p>
       <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
+    </section>
+
+    <section aria-labelledby="questions-we-answer">
+      <h2 id="questions-we-answer">Other Questions You Can Check</h2>
+      <p>Choose the question closest to the decision you need to make. Each link selects it in the form above.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What the answer should contain</th></tr></thead>
+        <tbody><tr><td><a href="#ai-values">AI wrote these values. What did they actually change?</a></td><td>Render the candidate and compare it with the chart defaults, the Catalog, and optionally the current deployment. Show exact changes and check credentials, permissions, images, storage, hooks, and CRDs.</td></tr><tr><td><a href="#ignored-values">I set a value. Why did the rendered object not change?</a></td><td>If Helm ignored a setting, check first for a misspelled or wrong values path. Render with and without the value, identify the correct path, or report that the chart does not expose the field.</td></tr><tr><td><a href="#upgrade-risk">Can I upgrade this chart without breaking production?</a></td><td>Render both versions with the same release context. Compare objects, hooks, CRDs, immutable fields, storage, Secrets, and the current Helm release record when available.</td></tr><tr><td><a href="#custom-field">The chart does not expose the field I need. Must I fork it?</a></td><td>Show the rendered object and missing field. Keep the chart unchanged when a reviewed post-render edit is enough, then check that edit for overlap on upgrade.</td></tr><tr><td><a href="#lifecycle-work">How should Argo CD or Flux handle this chart's hooks and CRDs?</a></td><td>List each hook, CRD, and setup job in order. State who runs it, what must already exist, and which controller path has been tested.</td></tr><tr><td><a href="#rollback-history">Can I roll back to exactly what ran before?</a></td><td>Find a retained rendered revision or OCI digest and restore those exact objects. Keep database migrations and other external effects outside the configuration claim.</td></tr><tr><td><a href="#config-diff">How is this candidate different from production?</a></td><td>Compare the two exact object sets and their source records. Keep desired-configuration differences separate from live-cluster drift.</td></tr><tr><td><a href="#fleet-image">Where does this vulnerable image run, and how can I update it safely?</a></td><td>Search supplied estate or ConfigHub records, show every affected environment and cluster, test the candidate, and promote it through a limited rollout wave.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="public-question-decisions">
+      <h2 id="public-question-decisions">What Happens to a Public Question</h2>
+      <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
+      <p>Within seven days, we aim to post one clear outcome. It may be a Catalog entry, a named warning, a refusal, or a request for more evidence.</p>
+      <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
 
     <section aria-labelledby="next-jobs">

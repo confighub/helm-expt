@@ -172,20 +172,19 @@
           </span>
         </nav>
         <div class="hero-head">
-          <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
-          <h1>Detect and Stop Config Drift</h1>
+          <span class="eyebrow">Helm first &middot; AICR, OCI and YAML also supported</span>
+          <h1>See What Your Configuration Will Do</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> when you have your own values, a new version, or an unexpected result.</p>
-            <p class="lead">The Catalog keeps exact versions, useful configurations, checks, and known limits. Retained versions stay pullable from this catalog's registry.</p>
-            <p class="lead">The Check my config page builds a local prompt for the AI assistant you already use. It can also compare rendered YAML directly in your browser. Your files are not uploaded.</p>
-            <p class="lead">Both work without an account. Save the reviewed result in <a href="./confighub.html">ConfigHub</a> when your team needs shared changes, promotion, or rollback.</p>
-            <p class="lead">Config Workshop is this public site. <code>cub installer</code> is the free local tool used by its package examples. ConfigHub is the product that stores and changes reviewed configuration.</p>
+            <p class="lead">See the exact Kubernetes objects before you deploy. Compare them with a tested Catalog configuration, the chart defaults, or what is running now.</p>
+            <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
+            <p class="lead">If AI wrote the values, Check my config builds a local prompt for the assistant you already use. Your files stay on your machine.</p>
+            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs exact diffs, promotion, or cluster comparison.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./charts/index.html">Search known configurations</a>
-              <a class="btn ghost" href="./ask.html">Check my config</a>
-              <a class="btn quiet" href="./confighub.html">Keep it in ConfigHub</a>
+              <a class="btn primary" href="./ask.html">Check my config</a>
+              <a class="btn ghost" href="./charts/index.html">Search tested configurations</a>
+              <a class="btn quiet" href="./try.html">Try Redis</a>
             </div>
           </div>
           <div class="hero-term">
@@ -211,28 +210,28 @@ Wrote rendered OCI ./redis-rendered.oci:latest
       <main>
         <section class="section">
           <span class="eyebrow">One public path</span>
-          <h2>Find, investigate, then keep</h2>
-          <p class="intro">Start with a retained answer when one exists. Investigate your own case when it does not. Keep the reviewed result only when you need a shared operational record.</p>
+          <h2>Find, Check, Then Keep</h2>
+          <p class="intro">Use a tested answer when one exists. Check your own case when it does not. Save the version you approve when your team needs it again.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>1. Find a retained starting point <span class="tag">112 components</span></h3><p>The Catalog keeps exact versions, useful configurations, variants, setup requirements, checks, and known limits.</p><span class="go">Search the Catalog &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. Check or compare my configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in the browser. Keep the reviewed result as files, OCI, or a ConfigHub record.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>3. Wire it together in ConfigHub <span class="tag">team record</span></h3><p>Keep both configurations and their diffs, relate them to Git or OCI and live targets, then approve, promote, and release changes.</p><span class="go">See what ConfigHub adds &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">112 components</span></h3><p>Choose an exact chart version and a useful starting configuration. Retained versions stay pullable, so you can return to the package you used.</p><span class="go">Search the Catalog &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
+            <a class="route-card" href="./confighub.html"><h3>3. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. See later changes, promote them between environments, and compare them with your clusters.</p><span class="go">Keep the reviewed result &rarr;</span></a>
           </div>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
           <p class="intro"><a href="./testing.html">Browse the examples</a> for Helm, AICR, OCI, YAML, promotions, and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
         </section>
 
         <section class="section">
-          <span class="eyebrow">One path</span>
-          <h2>Four places drift appears</h2>
-          <p class="intro">Start before deployment. Add ConfigHub when a reviewed result needs history across environments or clusters.</p>
+          <span class="eyebrow">Common questions</span>
+          <h2>Four Problems We Help Solve</h2>
+          <p class="intro">Start with the exact configuration. Add ConfigHub when the answer must remain available across environments or clusters.</p>
           <div class="verbs">
-            <div class="verb"><span class="n">01</span><h3>Check the render</h3><p>See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.</p><p><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></p><span class="route">runs on your laptop</span></div>
-            <div class="verb"><span class="n">02</span><h3>Pin the package</h3><p>Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.</p><p><a href="./did-this-chart-version-change.html">Did this chart version change upstream?</a></p><span class="route">runs on your laptop</span></div>
-            <div class="verb"><span class="n">03</span><h3>Relate environments</h3><p>Save variants and promote reviewed changes instead of copying values between development and production.</p><p><a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a></p><span class="route">needs a ConfigHub account</span></div>
-            <div class="verb"><span class="n">04</span><h3>Compare live state</h3><p>Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.</p><p><a href="./does-cluster-match-approved-config.html">Does the cluster match what we approved?</a></p><span class="route">needs an account and a cluster</span></div>
+            <div class="verb"><span class="n">01</span><h3>What will this install?</h3><p>See the exact objects, ignored values, risky defaults, and required setup before deployment.</p><p><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></p><span class="route">runs on your laptop</span></div>
+            <div class="verb"><span class="n">02</span><h3>Did the package change?</h3><p>Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.</p><p><a href="./did-this-chart-version-change.html">Did this chart version change upstream?</a></p><span class="route">runs on your laptop</span></div>
+            <div class="verb"><span class="n">03</span><h3>Why do environments differ?</h3><p>Compare related configurations and promote reviewed changes instead of copying values between environments.</p><p><a href="./why-do-dev-and-prod-differ.html">Why do development and production differ?</a></p><span class="route">needs a ConfigHub account</span></div>
+            <div class="verb"><span class="n">04</span><h3>Does the cluster match?</h3><p>Compare the configuration you approved with what your clusters report, within the fields named by each check.</p><p><a href="./does-cluster-match-approved-config.html">Does the cluster match what we approved?</a></p><span class="route">needs an account and a cluster</span></div>
           </div>
           <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
         </section>

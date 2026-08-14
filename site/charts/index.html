@@ -434,36 +434,20 @@
 <body>
   <header>
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../guides.html">Guides</a><a href="../ask.html">Check my config</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Choose a component, version, and configuration</h1>
+    <h1>Find a Tested Helm Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">The Config Workshop Catalog retains exact package versions, useful configurations, variants, setup requirements, checks, and known limits. Use it when we already cover your starting point. Published versions stay pinned: a new review adds a version instead of silently replacing the one you used.</p>
-    <p>Each page says what was checked and what was not. If your chart, version, values, or question is not answered, <a href="../ask.html">check your configuration with your own AI assistant</a>. You can compare it with an older version, an installed release, local files, OCI, Git, or live Kubernetes output. A useful public result can become a new test, configuration, variant, or named warning in the Catalog.</p>
+    <p class="lead">Choose a Helm chart version and a useful starting configuration that we have tested and documented.</p>
+    <p>Each page shows the Helm values, rendered Kubernetes objects, required setup, checks, and known limits. A new review adds a version instead of replacing the package you already used.</p>
+    <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
   </header>
   <main>
-    <div id="aicr" data-aicr-entries>
-      <h3>AI platform entries, from AICR recipes</h3>
-      <p>These are not Helm charts, so they are not in the component table below. AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms: you describe the platform you want and it picks the components, orders the installs, and writes the files. The catalog retains these the same way it retains a chart — exact version, pinned digest, a receipt for every claim.</p>
-      <div class="card"><table>
-        <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
-        <tbody>
-            <tr><td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow.html">eks-h100-training-kubeflow</a></td><td class="mono">v0.14.0</td><td>training entry, EKS + H100 + Kubeflow</td></tr>
-            <tr><td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html">eks-h100-training-kubeflow-v0-18-0</a></td><td class="mono">v0.18.0</td><td>v0.18.0 training entry, AICR v0.18.0 entry</td></tr>
-            <tr><td><a href="../d/docs/demo/aicr/eks-h100-inference-nim.html">eks-h100-inference-nim</a></td><td class="mono">v0.14.0</td><td>AICR-native inference entry, AICR-native NIM platform</td></tr>
-            <tr><td><a href="../d/docs/demo/aicr/kserve-nim-inference.html">kserve-nim-inference</a></td><td class="mono">3ef33472</td><td>KServe entry, NIM on KServe</td></tr>
-            <tr><td><a href="../d/docs/demo/aicr/cpu-starter.html">cpu-starter</a></td><td class="mono">v0.14.0</td><td>CPU starter, starter entry</td></tr>
-        </tbody>
-      </table></div>
-      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>, which explains the entry classes, what exists today, and what is still open. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> is the one that runs without a GPU.</p>
-    </div>
-
     <section aria-labelledby="charts">
-      <h2 id="charts">Search the catalog</h2>
-      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, immutable digest, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them. <a href="#chart-table">Browse version pages and publication receipts</a>.</p>
+      <h2 id="charts">Search Helm Configurations</h2>
+      <p>Pick a chart and version. Its page shows the package digest, available configurations, and the evidence attached to that exact version.</p>
       <div class="card">
-        <label for="chart-filter"><strong>Search components</strong></label>
+        <label for="chart-filter"><strong>Search Helm charts</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Type<br><select id="kind-filter"><option value="">All entries</option><option value="helm-chart">Helm charts</option><option value="ai-platform">AI platforms (AICR)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
           <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
@@ -471,57 +455,11 @@
         </div>
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
-        <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
         <tbody>
-<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-training-kubeflow aicr ai platform v0.14.0 eks, h100 nodes, kubeflow, and a training job. aws and gpu capacity to run it. reading it costs nothing. training entry eks + h100 + kubeflow">
-        <td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow.html">eks-h100-training-kubeflow</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
-        <td class="mono">v0.14.0</td>
-        <td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow.html">Read the entry</a></td>
-        <td>EKS, H100 nodes, Kubeflow, and a training job.</td>
-        <td>AWS and GPU capacity to run it. Reading it costs nothing.</td>
-        <td><span style="color:var(--muted)">Not a Helm chart, so no flattening verdict applies.</span></td>
-        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
-      </tr>
-<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-training-kubeflow-v0-18-0 aicr ai platform v0.18.0 the same training platform, regenerated four minor versions later. aws and gpu capacity to run it. reading it costs nothing. v0.18.0 training entry aicr v0.18.0 entry">
-        <td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html">eks-h100-training-kubeflow-v0-18-0</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
-        <td class="mono">v0.18.0</td>
-        <td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html">Read the entry</a></td>
-        <td>The same training platform, regenerated four minor versions later.</td>
-        <td>AWS and GPU capacity to run it. Reading it costs nothing.</td>
-        <td><span style="color:var(--muted)">Not a Helm chart, so no flattening verdict applies.</span></td>
-        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
-      </tr>
-<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-inference-nim aicr ai platform v0.14.0 a cluster that can serve nim models. aws, gpu capacity, and ngc access for the model images. aicr-native inference entry aicr-native nim platform">
-        <td><a href="../d/docs/demo/aicr/eks-h100-inference-nim.html">eks-h100-inference-nim</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
-        <td class="mono">v0.14.0</td>
-        <td><a href="../d/docs/demo/aicr/eks-h100-inference-nim.html">Read the entry</a></td>
-        <td>A cluster that can serve NIM models.</td>
-        <td>AWS, GPU capacity, and NGC access for the model images.</td>
-        <td><span style="color:var(--muted)">Not a Helm chart, so no flattening verdict applies.</span></td>
-        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
-      </tr>
-<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="kserve-nim-inference aicr ai platform 3ef33472 the exact shape one model runs in. aws, gpu capacity, and ngc access for the model images. kserve entry nim on kserve">
-        <td><a href="../d/docs/demo/aicr/kserve-nim-inference.html">kserve-nim-inference</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
-        <td class="mono">3ef33472</td>
-        <td><a href="../d/docs/demo/aicr/kserve-nim-inference.html">Read the entry</a></td>
-        <td>The exact shape one model runs in.</td>
-        <td>AWS, GPU capacity, and NGC access for the model images.</td>
-        <td><span style="color:var(--muted)">Not a Helm chart, so no flattening verdict applies.</span></td>
-        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
-      </tr>
-<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="cpu-starter aicr ai platform v0.14.0 the platform spine without accelerators. nothing. no gpu, no cloud account, no ngc key. cpu starter starter entry">
-        <td><a href="../d/docs/demo/aicr/cpu-starter.html">cpu-starter</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
-        <td class="mono">v0.14.0</td>
-        <td><a href="../d/docs/demo/aicr/cpu-starter.html">Read the entry</a></td>
-        <td>The platform spine without accelerators.</td>
-        <td>Nothing. No GPU, no cloud account, no NGC key.</td>
-        <td><span style="color:var(--muted)">Not a Helm chart, so no flattening verdict applies.</span></td>
-        <td>Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
-      </tr>
 <tr data-chart-row data-kind="helm-chart" data-evidence-surface="readiness-evidence" data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="aqua/trivy-operator 0.32.1 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2) apache-2.0 0.32.1 default;no-crds oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1">
         <td><a href="./aqua-trivy-operator-0-32-1.html">aqua/trivy-operator</a></td>
         <td><span data-retained-version-record="aqua/trivy-operator@0.32.1"><a data-retained-version="aqua/trivy-operator@0.32.1" href="./aqua-trivy-operator-0-32-1.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"><strong>0.32.1</strong></a> <a data-publication-receipt="aqua/trivy-operator@0.32.1" href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
@@ -1540,7 +1478,6 @@
           const status = document.getElementById("status-filter");
           const hooks = document.getElementById("hook-filter");
           const crds = document.getElementById("crd-filter");
-          const kind = document.getElementById("kind-filter");
           const count = document.getElementById("chart-filter-count");
           const update = () => {
             const query = text.value.trim().toLowerCase();
@@ -1551,16 +1488,15 @@
                 (!level.value || row.dataset.level === level.value) &&
                 (!status.value || row.dataset.status === status.value) &&
                 (!hooks.value || row.dataset.hooks === hooks.value) &&
-                (!crds.value || row.dataset.crds === crds.value) &&
-                (!kind.value || row.dataset.kind === kind.value);
+                (!crds.value || row.dataset.crds === crds.value);
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " catalog entries shown, including 5 AI platform entries; 139 retained package versions remain available";
+            count.textContent = visible + " of " + rows.length + " Helm charts shown; 139 retained package versions remain available";
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["kind", kind], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
@@ -1576,7 +1512,7 @@
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };
-          [text, level, status, hooks, crds, kind].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
+          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
         })();
       </script>
@@ -1589,14 +1525,28 @@
       <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="../d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>
       <h3>What each catalog entry contains</h3>
       <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
-    </section>
-
-    <section aria-labelledby="base-variants">
-      <h2 id="base-variants">Why the catalog offers several configurations</h2>
+      <h3 id="base-variants">Why the catalog offers several configurations</h3>
       <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
       <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
       <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
       <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
+    </section>
+
+    <section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
+      <h2 id="aicr-title">Other Supported Input: AICR</h2>
+      <p>Helm is the main Catalog path today. AICR entries are kept separately because they describe complete AI platforms rather than individual Helm charts.</p>
+      <p>Each entry records the exact AICR version, generated files, pinned digest, and evidence for its claims.</p>
+      <div class="card"><table>
+        <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
+        <tbody>
+            <tr><td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow.html">eks-h100-training-kubeflow</a></td><td class="mono">v0.14.0</td><td>training entry, EKS + H100 + Kubeflow</td></tr>
+            <tr><td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html">eks-h100-training-kubeflow-v0-18-0</a></td><td class="mono">v0.18.0</td><td>v0.18.0 training entry, AICR v0.18.0 entry</td></tr>
+            <tr><td><a href="../d/docs/demo/aicr/eks-h100-inference-nim.html">eks-h100-inference-nim</a></td><td class="mono">v0.14.0</td><td>AICR-native inference entry, AICR-native NIM platform</td></tr>
+            <tr><td><a href="../d/docs/demo/aicr/kserve-nim-inference.html">kserve-nim-inference</a></td><td class="mono">3ef33472</td><td>KServe entry, NIM on KServe</td></tr>
+            <tr><td><a href="../d/docs/demo/aicr/cpu-starter.html">cpu-starter</a></td><td class="mono">v0.14.0</td><td>CPU starter, starter entry</td></tr>
+        </tbody>
+      </table></div>
+      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> runs without a GPU. The shorter Try AICR path is still being completed in <a href="https://github.com/confighub/helm-expt/issues/1502">issue #1502</a>.</p>
     </section>
 
     <section aria-labelledby="actions">
