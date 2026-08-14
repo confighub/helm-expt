@@ -2191,10 +2191,10 @@ function homeDesignCss() {
 
 function configTestCentreHome(catalog) {
   const nextSteps = [
-    ["01", "Check the render", "See the exact objects, ignored values, risky defaults, prerequisites, and chart-specific setup before deployment.", "runs on your laptop", "./why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
-    ["02", "Pin the package", "Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.", "runs on your laptop", "./did-this-chart-version-change.html", "Did this chart version change upstream?"],
-    ["03", "Relate environments", "Save variants and promote reviewed changes instead of copying values between development and production.", "needs a ConfigHub account", "./why-do-dev-and-prod-differ.html", "Why do development and production differ?"],
-    ["04", "Compare live state", "Compare the reviewed configuration with what clusters report, within the field coverage named by each receipt.", "needs an account and a cluster", "./does-cluster-match-approved-config.html", "Does the cluster match what we approved?"],
+    ["01", "What will this install?", "See the exact objects, ignored values, risky defaults, and required setup before deployment.", "runs on your laptop", "./why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
+    ["02", "Did the package change?", "Keep the reviewed files and package digest so a version cannot quietly point at different bytes later.", "runs on your laptop", "./did-this-chart-version-change.html", "Did this chart version change upstream?"],
+    ["03", "Why do environments differ?", "Compare related configurations and promote reviewed changes instead of copying values between environments.", "needs a ConfigHub account", "./why-do-dev-and-prod-differ.html", "Why do development and production differ?"],
+    ["04", "Does the cluster match?", "Compare the configuration you approved with what your clusters report, within the fields named by each check.", "needs an account and a cluster", "./does-cluster-match-approved-config.html", "Does the cluster match what we approved?"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -2221,20 +2221,19 @@ function configTestCentreHome(catalog) {
           </span>
         </nav>
         <div class="hero-head">
-          <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
-          <h1>Detect and Stop Config Drift</h1>
+          <span class="eyebrow">Helm first &middot; AICR, OCI and YAML also supported</span>
+          <h1>See What Your Configuration Will Do</h1>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> when you have your own values, a new version, or an unexpected result.</p>
-            <p class="lead">The Catalog keeps exact versions, useful configurations, checks, and known limits. Retained versions stay pullable from this catalog's registry.</p>
-            <p class="lead">The Check my config page builds a local prompt for the AI assistant you already use. It can also compare rendered YAML directly in your browser. Your files are not uploaded.</p>
-            <p class="lead">Both work without an account. Save the reviewed result in <a href="./confighub.html">ConfigHub</a> when your team needs shared changes, promotion, or rollback.</p>
-            <p class="lead">Config Workshop is this public site. <code>cub installer</code> is the free local tool used by its package examples. ConfigHub is the product that stores and changes reviewed configuration.</p>
+            <p class="lead">See the exact Kubernetes objects before you deploy. Compare them with a tested Catalog configuration, the chart defaults, or what is running now.</p>
+            <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
+            <p class="lead">If AI wrote the values, Check my config builds a local prompt for the assistant you already use. Your files stay on your machine.</p>
+            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs exact diffs, promotion, or cluster comparison.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./charts/index.html">Search known configurations</a>
-              <a class="btn ghost" href="./ask.html">Check my config</a>
-              <a class="btn quiet" href="./confighub.html">Keep it in ConfigHub</a>
+              <a class="btn primary" href="./ask.html">Check my config</a>
+              <a class="btn ghost" href="./charts/index.html">Search tested configurations</a>
+              <a class="btn quiet" href="./try.html">Try Redis</a>
             </div>
           </div>
           <div class="hero-term">
@@ -2260,23 +2259,23 @@ Wrote rendered OCI ./redis-rendered.oci:latest
       <main>
         <section class="section">
           <span class="eyebrow">One public path</span>
-          <h2>Find, investigate, then keep</h2>
-          <p class="intro">Start with a retained answer when one exists. Investigate your own case when it does not. Keep the reviewed result only when you need a shared operational record.</p>
+          <h2>Find, Check, Then Keep</h2>
+          <p class="intro">Use a tested answer when one exists. Check your own case when it does not. Save the version you approve when your team needs it again.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>1. Find a retained starting point <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>The Catalog keeps exact versions, useful configurations, variants, setup requirements, checks, and known limits.</p><span class="go">Search the Catalog &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. Check or compare my configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in the browser. Keep the reviewed result as files, OCI, or a ConfigHub record.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>3. Wire it together in ConfigHub <span class="tag">team record</span></h3><p>Keep both configurations and their diffs, relate them to Git or OCI and live targets, then approve, promote, and release changes.</p><span class="go">See what ConfigHub adds &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose an exact chart version and a useful starting configuration. See its objects, required setup, checks, and known limits.</p><span class="go">Search the Catalog &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
+            <a class="route-card" href="./confighub.html"><h3>3. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. See later changes, promote them between environments, and compare them with your clusters.</p><span class="go">Keep the reviewed result &rarr;</span></a>
           </div>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
           <p class="intro"><a href="./testing.html">Browse the examples</a> for Helm, AICR, OCI, YAML, promotions, and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
         </section>
 
         <section class="section">
-          <span class="eyebrow">One path</span>
-          <h2>Four places drift appears</h2>
-          <p class="intro">Start before deployment. Add ConfigHub when a reviewed result needs history across environments or clusters.</p>
+          <span class="eyebrow">Common questions</span>
+          <h2>Four Problems We Help Solve</h2>
+          <p class="intro">Start with the exact configuration. Add ConfigHub when the answer must remain available across environments or clusters.</p>
           <div class="verbs">
             ${nextSteps.map(([n, name, desc, route, href, question]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(question)}</a></p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
           </div>
@@ -4440,25 +4439,15 @@ function askHtml() {
     ${topNav(".")}
     <h1>Check your configuration</h1>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
-    <p><strong>The Catalog</strong> answers questions we have already investigated. <strong>This page</strong> helps investigate a new chart, version, values set, or existing deployment. <strong>ConfigHub</strong> retains an accepted answer so your team does not repeat the investigation on every change.</p>
-    <p><strong>Use the Catalog for a known case. Use this page for your own chart or values, a new version, or an unexpected result.</strong></p>
-    <p>Use your own AI assistant and local Helm tools when a chart must be rendered. If you already have Kubernetes YAML, this page can inspect and compare it directly in your browser.</p>
-    <p>Your files stay on your machine, and you need no account. Keep secrets out of prompts and public reports.</p>
-    <p><a class="button primary" href="#build-prompt">Start with a chart and values</a> <a class="button secondary" href="#check-files">I already have rendered YAML</a></p>
+    <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
+    <p>Your AI assistant and Helm tools run on your machine. This page can compare rendered YAML in your browser. Your files are not uploaded.</p>
+    <p>You get the exact objects, a comparison, the checks that ran, and a review record you can keep.</p>
+    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <button class="button secondary" id="load-example" type="button">See a 30-second example</button> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
   <main>
-    <section aria-labelledby="questions-we-answer">
-      <h2 id="questions-we-answer">Questions we help answer</h2>
-      ${markdownLikeTable([
-        ["Question", "What the answer should contain"],
-        ...questionRows,
-      ], { rawFirstColumn: true })}
-      <p>Every answer starts with the exact objects and a comparison when one is available. It then names required setup, completed and omitted checks, one recommended action, and a review record you can retain.</p>
-    </section>
-
     <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. Build a local prompt for your chart and values</h2>
-      <p>Choose one decision. The generated prompt tells your AI assistant to run Helm locally, record every input, compare exact objects, and keep computed findings separate from Catalog evidence.</p>
+      <h2 id="build-prompt">1. Check a chart and values</h2>
+      <p>Choose one question. We build a prompt for your AI assistant. It runs Helm locally, records the inputs, and compares the exact objects.</p>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px">${options}</select></p>
@@ -4558,19 +4547,20 @@ function askHtml() {
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><a href="./review.schema.json">Read the ConfigurationReview schema</a>.</p>
 
-      <h3>Save the same result in ConfigHub</h3>
-      <p>ConfigHub stores the rendered objects in a reviewed base Space. It stores the complete review record as a <code>Provider None</code> Unit, so the evidence remains with the configuration but is not included in deployment releases.</p>
+      <h3>Keep this reviewed result in ConfigHub</h3>
+      <p>ConfigHub stores the exact Kubernetes objects you approved. It keeps the review record beside them without adding that record to a deployment release.</p>
+      <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code>. The upload records this hash and the review hash on the saved configuration.</p>
       <p>If the candidate contains a Kubernetes Secret, stage that Secret separately. <code>cub variant upload</code> deliberately does not upload rendered Secret data.</p>
       <p><label for="component-slug"><strong>Component name</strong></label><br>
         <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>
       <textarea id="handoff-command" rows="14" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
-      <p><button class="button secondary" id="copy-handoff" type="button">Copy ConfigHub commands</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+      <p><button class="button primary" id="copy-handoff" type="button">Copy commands to keep this result</button> <span id="handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
 
       <h4>Use your own AI assistant</h4>
       <p>If Claude, Codex, or another assistant is already running on your machine, download the candidate and review record above. Then copy these instructions into that assistant. It will inspect the same files, ask before writing to ConfigHub, run the generated commands, and read the stored objects back.</p>
       <textarea id="ai-handoff-prompt" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
-      <p><button class="button secondary" id="copy-ai-handoff" type="button">Copy instructions for my AI</button> <span id="ai-handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
-      <p><a href="./confighub.html">See what ConfigHub adds after the handoff</a>.</p>
+      <p><button class="button secondary" id="copy-ai-handoff" type="button">Copy handoff for my AI</button> <span id="ai-handoff-copy-status" role="status" style="color:var(--muted)"></span></p>
+      <p><a href="./confighub.html">See how ConfigHub keeps this result</a>.</p>
 
       <h3>Optional: propose a public Catalog case</h3>
       <p>Use this only for a public source when the Catalog is missing the case or its answer is wrong. GitHub opens with a short chart, version, and question link. Paste the copied finding or review record, remove private data, and include reproduction commands.</p>
@@ -4578,6 +4568,22 @@ function askHtml() {
       <p id="public-handoff-status" role="status" style="color:var(--muted)"></p>
       <p>A maintainer must reproduce and classify the case before it becomes a Catalog entry. Rendering alone does not make it known-good.</p>
       <p><a href="./d/data/challenge-intake/summary.html">See the public intake totals and response process</a>.</p>
+    </section>
+
+    <section aria-labelledby="questions-we-answer">
+      <h2 id="questions-we-answer">Other Questions You Can Check</h2>
+      <p>Choose the question closest to the decision you need to make. Each link selects it in the form above.</p>
+      ${markdownLikeTable([
+        ["Question", "What the answer should contain"],
+        ...questionRows,
+      ], { rawFirstColumn: true })}
+    </section>
+
+    <section aria-labelledby="public-question-decisions">
+      <h2 id="public-question-decisions">What Happens to a Public Question</h2>
+      <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
+      <p>Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning or refusal, or a decision that more evidence is needed.</p>
+      <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
 
     <section aria-labelledby="next-jobs">

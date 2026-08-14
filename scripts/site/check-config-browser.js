@@ -17,6 +17,48 @@
     git: "Read the stated Git revision and path without changing the working tree. Record the commit and calculate a digest of the selected Kubernetes objects.",
     "live-cluster": "Use the stated kubectl context and namespace. Record the exact object selection and keep live state separate from Helm's release record and desired configuration.",
   };
+  const exampleCandidate = [
+    "apiVersion: apps/v1",
+    "kind: Deployment",
+    "metadata:",
+    "  name: ai-written-nginx",
+    "spec:",
+    "  replicas: 3",
+    "  selector:",
+    "    matchLabels:",
+    "      app: ai-written-nginx",
+    "  template:",
+    "    metadata:",
+    "      labels:",
+    "        app: ai-written-nginx",
+    "    spec:",
+    "      containers:",
+    "        - name: nginx",
+    "          image: nginx:latest",
+    "          securityContext:",
+    "            privileged: true",
+  ].join("\n");
+  const exampleComparison = [
+    "apiVersion: apps/v1",
+    "kind: Deployment",
+    "metadata:",
+    "  name: ai-written-nginx",
+    "spec:",
+    "  replicas: 1",
+    "  selector:",
+    "    matchLabels:",
+    "      app: ai-written-nginx",
+    "  template:",
+    "    metadata:",
+    "      labels:",
+    "        app: ai-written-nginx",
+    "    spec:",
+    "      containers:",
+    "        - name: nginx",
+    "          image: nginx:1.27.5",
+    "          securityContext:",
+    "            runAsNonRoot: true",
+  ].join("\n");
 
   let latestReview = null;
   let latestReviewJson = "";
@@ -25,6 +67,23 @@
 
   function selectedQuestion() {
     return questions[byId("question-type").value];
+  }
+
+  async function loadExample() {
+    byId("question-type").value = "ai-values";
+    byId("question").value = "AI changed this workload. What matters before I deploy it?";
+    byId("chart").value = "bitnami/nginx";
+    byId("version").value = "24.0.2";
+    byId("values-summary").value = "The candidate increases replicas, changes the image tag, and enables privileged mode.";
+    byId("source-visibility").value = "public";
+    byId("source-type").value = "helm";
+    byId("source-reference").value = "bitnami/nginx@24.0.2 example";
+    byId("candidate-name").value = "candidate.yaml";
+    byId("candidate-yaml").value = exampleCandidate;
+    byId("comparison-name").value = "catalog-starting-point.yaml";
+    byId("comparison-yaml").value = exampleComparison;
+    byId("assistant-finding").value = "Example: the candidate changes one Deployment, uses an unpinned image tag, and requests privileged mode.";
+    await runBrowserCheck();
   }
 
   function applyQuestionHash() {
@@ -338,6 +397,7 @@
       "<h3>Findings to review</h3>" + findingList(findings) +
       "<p><strong>Not checked:</strong> Helm rendering, schema and admission behavior, lifecycle execution, live health, and external effects.</p>";
     byId("review-record-output").value = latestReviewJson;
+    byId("handoff-candidate-digest").textContent = candidateDigest;
     byId("review-result").hidden = false;
     buildHandoffCommands();
     byId("review-result").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -357,6 +417,7 @@
       "  --space " + space + " \\",
       "  --granularity per-resource \\",
       "  --change-desc \"Config Workshop " + latestReview.metadata.id + "\" \\",
+      "  --annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
       "  --annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
       "  ./candidate.yaml",
       "",
@@ -389,7 +450,7 @@
       "5. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
       "6. Show me the exact ConfigHub commands below and ask for approval before running them.",
       "7. After approval, run the commands. Then read the stored result with `cub unit list --space " + space + "` and `cub k8s get all --space " + space + " --show data`.",
-      "8. Report the Space, stored Units, review digest, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
+      "8. Report the Space, stored Units, candidate digest, review digest, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
       "",
       "Exact ConfigHub commands:",
       byId("handoff-command").value,
@@ -466,6 +527,7 @@
   byId("comparison-source").addEventListener("change", () => {
     byId("helm-release-context").hidden = byId("comparison-source").value !== "helm-release";
   });
+  byId("load-example").addEventListener("click", loadExample);
   byId("build-prompt-button").addEventListener("click", buildPrompt);
   byId("copy-prompt").addEventListener("click", () => copyText(byId("prompt-output").value, "copy-status"));
   byId("candidate-file").addEventListener("change", () => loadFile(byId("candidate-file"), "candidate-yaml", "candidate-name"));
