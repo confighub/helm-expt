@@ -12,6 +12,10 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import {
+  CONFIGURATION_QUESTIONS,
+  CONFIGURATION_QUESTION_RESEARCH,
+} from "./lib/configuration-questions.mjs";
 
 const sourcePath = join(repoRoot, "data", "challenge-intake", "monthly.csv");
 const summaryPath = join(repoRoot, "data", "challenge-intake", "summary.md");
@@ -143,11 +147,25 @@ function renderSummary(report) {
     const publicTotal = row.cohort_public_submissions + row.other_public_submissions;
     return `| ${row.month} | ${row.status.replaceAll("_", " ")} | ${row.qualified_invitations} | ${publicTotal} | ${row.triage_ready_submissions} | ${row.decisions_within_7_days} | ${row.user_confirmations} | ${row.local_only_responses} |`;
   }).join("\n");
+  const researchRows = Object.entries(CONFIGURATION_QUESTION_RESEARCH.counts)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .map(([code, count]) => `| ${CONFIGURATION_QUESTIONS[code].label} | ${count} |`)
+    .join("\n");
   return `# Public question intake
 
 ${statusSentence}
 
 Config Workshop invites operators with a current public configuration problem to ask one exact question. The source may be Helm, AICR, OCI, or Kubernetes YAML. Public submissions use the \`challenge-intake\` label. Private source, values, contact details, and conversations stay outside this repository.
+
+## Questions found before outreach
+
+Before sending any invitations, we reviewed ${CONFIGURATION_QUESTION_RESEARCH.sampleSize} recent public Helm discussions. This is a small research sample, not customer or site usage data. It helps us link people directly to a relevant question instead of asking them to start again on a generic page.
+
+| Question | Discussions |
+| --- | ---: |
+${researchRows}
+
+These counts do not change the public intake totals below. Nobody in the research sample counts as a participant until an invitation is sent and recorded in the monthly aggregate.
 
 ## Current totals
 

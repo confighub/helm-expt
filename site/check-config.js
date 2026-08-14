@@ -86,11 +86,40 @@
     await runBrowserCheck();
   }
 
-  function applyQuestionHash() {
+  function updateQuestionContext() {
+    const chart = byId("chart").value.trim();
+    const version = byId("version").value.trim();
+    const context = byId("question-context");
+    if (!chart) {
+      context.hidden = true;
+      return;
+    }
+    const question = byId("question").value.trim() || selectedQuestion().label;
+    const source = version ? chart + "@" + version : chart;
+    byId("question-context-text").textContent = "You are checking " + source + ": " + question;
+    context.hidden = false;
+  }
+
+  function applyQuestionHash(scroll = true) {
     const code = window.location.hash.slice(1);
-    if (!questions[code]) return;
+    if (!questions[code]) return false;
     byId("question-type").value = code;
-    byId("build-prompt").scrollIntoView({ block: "start" });
+    updateQuestionContext();
+    if (scroll) byId("build-prompt").scrollIntoView({ block: "start" });
+    return true;
+  }
+
+  function applyUrlContext() {
+    const params = new URLSearchParams(window.location.search);
+    const clean = (name, maxLength) => (params.get(name) || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
+    const chart = clean("chart", 160);
+    const version = clean("version", 80);
+    const question = clean("question", 300);
+    if (chart) byId("chart").value = chart;
+    if (version) byId("version").value = version;
+    if (question) byId("question").value = question;
+    updateQuestionContext();
+    return Boolean(chart || version || question);
   }
 
   function sourceIdentity() {
@@ -527,6 +556,10 @@
   byId("comparison-source").addEventListener("change", () => {
     byId("helm-release-context").hidden = byId("comparison-source").value !== "helm-release";
   });
+  byId("question-type").addEventListener("change", updateQuestionContext);
+  byId("question").addEventListener("input", updateQuestionContext);
+  byId("chart").addEventListener("input", updateQuestionContext);
+  byId("version").addEventListener("input", updateQuestionContext);
   byId("load-example").addEventListener("click", loadExample);
   byId("build-prompt-button").addEventListener("click", buildPrompt);
   byId("copy-prompt").addEventListener("click", () => copyText(byId("prompt-output").value, "copy-status"));
@@ -539,6 +572,8 @@
   byId("copy-handoff").addEventListener("click", () => copyText(byId("handoff-command").value, "handoff-copy-status"));
   byId("copy-ai-handoff").addEventListener("click", () => copyText(byId("ai-handoff-prompt").value, "ai-handoff-copy-status"));
   byId("file-public-question").addEventListener("click", openPublicIssue);
-  window.addEventListener("hashchange", applyQuestionHash);
-  applyQuestionHash();
+  window.addEventListener("hashchange", () => applyQuestionHash(true));
+  const hasQuestionHash = applyQuestionHash(false);
+  const hasUrlContext = applyUrlContext();
+  if (hasQuestionHash && !hasUrlContext) byId("build-prompt").scrollIntoView({ block: "start" });
 })();

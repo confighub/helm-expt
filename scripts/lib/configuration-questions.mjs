@@ -64,7 +64,7 @@ export const CONFIGURATION_QUESTIONS = {
     recommendation: "Use ConfigHub or another complete estate inventory to scope the change, then test and roll it out in controlled waves.",
   },
   "install-shape": {
-    group: "additional",
+    group: "common",
     label: "What will this install, and what must already exist?",
     answer: "List the rendered objects and every required namespace, Secret, CRD, API, storage class, cloud service, hook, and setup job.",
     instruction: "List every rendered object and identify required namespaces, Secrets, CRDs, APIs, storage, cloud services, hooks, and setup jobs.",
@@ -78,5 +78,25 @@ export const CONFIGURATION_QUESTIONS = {
     instruction: "Record the chart and package digests available now. Compare them with retained digests and dated republish evidence when it exists.",
     issueOption: "supply-drift: Do these version and digest records identify the same bytes?",
     recommendation: "Use an immutable digest for the reviewed input and retain the source record with the result.",
+  },
+};
+
+// Aggregate research only. The source conversations and contact details stay
+// outside the repository.
+export const CONFIGURATION_QUESTION_RESEARCH = {
+  asOf: "2026-08-14",
+  sampleSize: 40,
+  description: "A review of 40 recent public Helm discussions prepared before outreach. This is a small research sample, not customer or site usage data.",
+  counts: {
+    "install-shape": 8,
+    "config-diff": 6,
+    "ignored-values": 5,
+    "custom-field": 5,
+    "upgrade-risk": 4,
+    "lifecycle-work": 4,
+    "fleet-image": 3,
+    "rollback-history": 2,
+    "supply-drift": 2,
+    "ai-values": 1,
   },
 };
