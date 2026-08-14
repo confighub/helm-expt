@@ -2264,7 +2264,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
           <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose an exact chart version and a useful starting configuration. See its objects, required setup, checks, and known limits.</p><span class="go">Search the Catalog &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose an exact chart version and a useful starting configuration. Retained versions stay pullable, so you can return to the package you used.</p><span class="go">Search the Catalog &rarr;</span></a>
             <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./confighub.html"><h3>3. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. See later changes, promote them between environments, and compare them with your clusters.</p><span class="go">Keep the reviewed result &rarr;</span></a>
           </div>
@@ -3670,19 +3670,19 @@ function configHubHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Keep and manage your configuration with ConfigHub</h1>
+  <h1>Keep This Reviewed Configuration in ConfigHub</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
-  <p class="lead">ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
-  <p>The Catalog answers cases already investigated. Check my config investigates a new case. Both work without a ConfigHub account. Continue here when your team wants to keep the accepted objects, source, checks, comparison, and decision together.</p>
-  <p>A local comparison answers one question at one moment. ConfigHub keeps both configurations, their exact diffs, and the review record so the team does not repeat the investigation on every change.</p>
-  <p>It relates them to Git or OCI sources and releases. Live observations can be added when you connect deployment targets.</p>
-  <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Create an account</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
+  <p class="lead">Save the exact Kubernetes configuration you approved. ConfigHub keeps it with its source, checks, and later changes.</p>
+  <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
+  <p>ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
+  <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Keep a reviewed result in ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
 </header>
 <main>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>Start from reviewed files or OCI. Store the exact objects as a base configuration and store the source, question, comparison, checks, and decision as a non-deployable review Unit. Then make separate variants for each environment. ConfigHub shows the exact diffs and records which change was approved and promoted.</p>
-    <p>Relate the records to Git or OCI sources, publish release OCI for Argo CD or Flux, and compare desired configuration with live observations. Keep the source, changes, approvals, releases, and rollout history together.</p>
+    <p>Upload reviewed files or OCI. ConfigHub stores each Kubernetes object and keeps the source and review record beside it.</p>
+    <p>Create a version for each environment. ConfigHub shows the exact diff, records the approval, and keeps the promotion history.</p>
+    <p>Publish a release for Argo CD or Flux. Add live observations when you need to compare the approved configuration with a cluster.</p>
   </section>
   <section aria-labelledby="exact-handoff">
     <h2 id="exact-handoff">2. See one exact handoff</h2>
@@ -3694,7 +3694,7 @@ function configHubHtml() {
       <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same ${escapeHtml(String(objectCount))} objects with the same object-set hash, and records the same OCI digest as their source.</li>
     </ol>
     <p>The matching hashes show that the handoff preserves the reviewed objects. Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
-    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code>, attach the review digest, and create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
+    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
     <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
   <section aria-labelledby="continue-work">
@@ -4582,7 +4582,7 @@ function askHtml() {
     <section aria-labelledby="public-question-decisions">
       <h2 id="public-question-decisions">What Happens to a Public Question</h2>
       <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
-      <p>Within seven days, we aim to post one clear outcome: a Catalog entry, a named warning or refusal, or a decision that more evidence is needed.</p>
+      <p>Within seven days, we aim to post one clear outcome. It may be a Catalog entry, a named warning, a refusal, or a request for more evidence.</p>
       <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>
     </section>
 
@@ -7785,17 +7785,18 @@ function aicrEntriesSection() {
     const names = (entry.names ?? []).map((name) => escapeHtml(name)).join(", ");
     return `<tr><td><a href="${page}">${escapeHtml(entry.id)}</a></td><td class="mono">${escapeHtml(String(entry.retainedVersion))}</td><td>${names}</td></tr>`;
   }).join("\n            ");
-  return `<div id="aicr" data-aicr-entries>
-      <h3>AI platform entries, from AICR recipes</h3>
-      <p>These are not Helm charts, so they are not in the component table below. AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms: you describe the platform you want and it picks the components, orders the installs, and writes the files. The catalog retains these the same way it retains a chart — exact version, pinned digest, a receipt for every claim.</p>
+  return `<section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
+      <h2 id="aicr-title">Other Supported Input: AICR</h2>
+      <p>Helm is the main Catalog path today. AICR entries are kept separately because they describe complete AI platforms rather than individual Helm charts.</p>
+      <p>Each entry records the exact AICR version, generated files, pinned digest, and evidence for its claims.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
         <tbody>
             ${rows}
         </tbody>
       </table></div>
-      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>, which explains the entry classes, what exists today, and what is still open. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> is the one that runs without a GPU.</p>
-    </div>`;
+      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> runs without a GPU. The shorter Try AICR path is still being completed in <a href="https://github.com/confighub/helm-expt/issues/1502">issue #1502</a>.</p>
+    </section>`;
 }
 
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
@@ -7805,10 +7806,7 @@ function aicrEntriesSection() {
       <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="../d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>
       <h3>What each catalog entry contains</h3>
       <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
-    </section>
-
-    <section aria-labelledby="base-variants">
-      <h2 id="base-variants">Why the catalog offers several configurations</h2>
+      <h3 id="base-variants">Why the catalog offers several configurations</h3>
       <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
       <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
       <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
@@ -7828,22 +7826,20 @@ function aicrEntriesSection() {
 <body>
   <header>
     ${topNav("..")}
-    <h1>Choose a component, version, and configuration</h1>
+    <h1>Find a Tested Helm Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">The Config Workshop Catalog retains exact package versions, useful configurations, variants, setup requirements, checks, and known limits. Use it when we already cover your starting point. Published versions stay pinned: a new review adds a version instead of silently replacing the one you used.</p>
-    <p>Each page says what was checked and what was not. If your chart, version, values, or question is not answered, <a href="../ask.html">check your configuration with your own AI assistant</a>. You can compare it with an older version, an installed release, local files, OCI, Git, or live Kubernetes output. A useful public result can become a new test, configuration, variant, or named warning in the Catalog.</p>
+    <p class="lead">Choose a Helm chart version and a useful starting configuration that we have tested and documented.</p>
+    <p>Each page shows the Helm values, rendered Kubernetes objects, required setup, checks, and known limits. A new review adds a version instead of replacing the package you already used.</p>
+    <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
   </header>
   <main>
-    ${aicrEntriesSection()}
-
     <section aria-labelledby="charts">
-      <h2 id="charts">Search the catalog</h2>
-      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, immutable digest, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them. <a href="#chart-table">Browse version pages and publication receipts</a>.</p>
+      <h2 id="charts">Search Helm Configurations</h2>
+      <p>Pick a chart and version. Its page shows the package digest, available configurations, and the evidence attached to that exact version.</p>
       <div class="card">
-        <label for="chart-filter"><strong>Search components</strong></label>
+        <label for="chart-filter"><strong>Search Helm charts</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Type<br><select id="kind-filter"><option value="">All entries</option><option value="helm-chart">Helm charts</option><option value="ai-platform">AI platforms (AICR)</option></select></label>
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
           <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
@@ -7851,13 +7847,11 @@ function aicrEntriesSection() {
         </div>
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
-        <p>Looking for an AI platform rather than a chart? The <a href="#aicr">AI platform entries</a> are at the top of this page.</p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Packaged configurations by version</th></tr></thead>
         <tbody>
-${aicrCatalogRows()}
 ${chartRowsHtml}
         </tbody>
       </table></div>
@@ -7869,7 +7863,6 @@ ${chartRowsHtml}
           const status = document.getElementById("status-filter");
           const hooks = document.getElementById("hook-filter");
           const crds = document.getElementById("crd-filter");
-          const kind = document.getElementById("kind-filter");
           const count = document.getElementById("chart-filter-count");
           const update = () => {
             const query = text.value.trim().toLowerCase();
@@ -7880,16 +7873,15 @@ ${chartRowsHtml}
                 (!level.value || row.dataset.level === level.value) &&
                 (!status.value || row.dataset.status === status.value) &&
                 (!hooks.value || row.dataset.hooks === hooks.value) &&
-                (!crds.value || row.dataset.crds === crds.value) &&
-                (!kind.value || row.dataset.kind === kind.value);
+                (!crds.value || row.dataset.crds === crds.value);
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " catalog entries shown, including 5 AI platform entries; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
+            count.textContent = visible + " of " + rows.length + " Helm charts shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["kind", kind], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
@@ -7905,13 +7897,15 @@ ${chartRowsHtml}
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };
-          [text, level, status, hooks, crds, kind].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
+          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
         })();
       </script>
     </section>
 
     ${catalogContextHtml}
+
+    ${aicrEntriesSection()}
 
     <section aria-labelledby="actions">
       <h2 id="actions">How the catalog handles required setup</h2>
