@@ -192,6 +192,7 @@ const menuGuidePages = [
   "site/index.html",
   "site/guides.html",
   "site/ask.html",
+  "site/promote.html",
   "site/challenge.html",
   "site/compare.html",
   "site/whats-new.html",
@@ -211,6 +212,7 @@ const menuGuidePages = [
 const humanSplitPages = [
   "site/index.html",
   "site/ask.html",
+  "site/promote.html",
   "site/try.html",
   "site/confighub.html",
   "site/redis-walkthrough.html",
@@ -290,7 +292,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["Guides", "Check my config", "Catalog", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["Guides", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
@@ -414,7 +416,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Check my config", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -628,13 +630,15 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
   if (!home.includes(`>${catalogCounts.components} components<`)) {
     failures.push(`site/index.html: the catalog route card must carry the count the catalog page publishes (${catalogCounts.components} components); a stale count contradicts the catalog page`);
   }
-  if (!home.includes('href="./hard-questions.html"')) failures.push("site/index.html: home navigation must link the FAQ like every other page");
+  if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./hard-questions.html"')) {
+    failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
+  }
   if (!home.includes("Retained versions stay pullable")) failures.push("site/index.html: the front page must state that retained versions stay pullable from this catalog's registry");
 }
 
@@ -643,6 +647,56 @@ if (fs.existsSync(faqPath)) {
   const faq = fs.readFileSync(faqPath, "utf8");
   if (!faq.includes("What happens when a chart's upstream source changes its terms?")) {
     failures.push("site/hard-questions.html: the FAQ must answer the upstream-terms-change question");
+  }
+}
+
+const promotePath = path.join(root, "site/promote.html");
+if (!fs.existsSync(promotePath)) {
+  failures.push("site/promote.html: missing promotion workshop page");
+} else {
+  const promote = fs.readFileSync(promotePath, "utf8");
+  for (const phrase of [
+    "Test a change before it moves",
+    "What are you changing?",
+    "What changes",
+    "What stays the same",
+    "What you should test",
+    "What to do next",
+    "The comparison runs in your browser",
+    "chart's 13 Kubernetes objects",
+    "adds the explicit Namespace as the fourteenth deployable object",
+    "Keep and run the promotion in ConfigHub",
+  ]) {
+    if (!promote.includes(phrase)) failures.push(`site/promote.html: missing user-facing promotion step ${JSON.stringify(phrase)}`);
+  }
+  const dataText = promote.match(/<script id="promotion-example-data" type="application\/json">([\s\S]*?)<\/script>/)?.[1];
+  if (!dataText) {
+    failures.push("site/promote.html: missing embedded Redis promotion example");
+  } else {
+    try {
+      const data = JSON.parse(dataText);
+      for (const [label, yaml, version] of [
+        ["current", data.currentYaml, "25.5.3"],
+        ["candidate", data.candidateYaml, "27.0.0"],
+      ]) {
+        if (!yaml.includes(`helm.sh/chart: redis-${version}`)) failures.push(`site/promote.html: ${label} Redis example is not version ${version}`);
+        if (yaml.split(/^---\s*$/m).filter((document) => document.trim()).length !== 13) failures.push(`site/promote.html: ${label} Redis example must contain 13 rendered Kubernetes objects`);
+        if (!yaml.includes("secretName: redis-existing-secret")) failures.push(`site/promote.html: ${label} Redis example lost the external Secret reference`);
+        if (/^kind:\s*Secret\s*$/m.test(yaml)) failures.push(`site/promote.html: ${label} Redis example must not contain credential data`);
+        const replicaStatefulSet = yaml.split(/^---\s*$/m).find((document) => /^kind:\s*StatefulSet\s*$/m.test(document) && /^  name:\s*redis-replicas\s*$/m.test(document));
+        if (!replicaStatefulSet || !/^  replicas:\s*2\s*$/m.test(replicaStatefulSet)) failures.push(`site/promote.html: ${label} Redis example must retain the two-replica change`);
+      }
+    } catch (error) {
+      failures.push(`site/promote.html: embedded Redis promotion data is invalid JSON: ${error.message}`);
+    }
+  }
+  const browserScript = path.join(root, "site/promote-config.js");
+  if (!fs.existsSync(browserScript)) failures.push("site/promote-config.js: missing browser comparison script");
+  else {
+    const script = fs.readFileSync(browserScript, "utf8");
+    for (const phrase of ["compareObjectSets", "PromotionReview", "canonicalFileText", "download-promotion-review", "download-promotion-current", "copy-ai-promotion"]) {
+      if (!script.includes(phrase)) failures.push(`site/promote-config.js: missing ${JSON.stringify(phrase)}`);
+    }
   }
 }
 

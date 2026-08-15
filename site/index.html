@@ -133,7 +133,7 @@
   .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
   .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
 
-  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .routes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
   .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
@@ -163,11 +163,11 @@
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
             <a href="./guides.html">Guides</a>
-            <a href="./ask.html">Check my config</a>
             <a href="./charts/index.html">Catalog</a>
+            <a href="./ask.html">Check my config</a>
+            <a href="./promote.html">Promote my config</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
-            <a href="./hard-questions.html">FAQ</a>
             <a href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
@@ -180,7 +180,7 @@
             <p class="lead">See the exact Kubernetes objects before you deploy. Compare them with a tested Catalog configuration, the chart defaults, or what is running now.</p>
             <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
             <p class="lead">If AI wrote the values, Check my config builds a local prompt for the assistant you already use. Your files stay on your machine.</p>
-            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs exact diffs, promotion, or cluster comparison.</p>
+            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn ghost" href="./charts/index.html">Search tested configurations</a>
@@ -217,7 +217,8 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <div class="routes">
             <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">112 components</span></h3><p>Choose an exact chart version and a useful starting configuration. Retained versions stay pullable, so you can return to the package you used.</p><span class="go">Search the Catalog &rarr;</span></a>
             <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>3. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. See later changes, promote them between environments, and compare them with your clusters.</p><span class="go">Keep the reviewed result &rarr;</span></a>
+            <a class="route-card" href="./promote.html"><h3>3. Test the next move <span class="tag">browser-local</span></h3><p>Compare the current and proposed objects. See what changes and what must run in staging before production.</p><span class="go">Promote my config &rarr;</span></a>
+            <a class="route-card" href="./confighub.html"><h3>4. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. Run each promotion with its approval, release, and cluster result.</p><span class="go">Keep the reviewed result &rarr;</span></a>
           </div>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
           <p class="intro"><a href="./testing.html">Browse the examples</a> for Helm, AICR, OCI, YAML, promotions, and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>

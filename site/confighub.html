@@ -516,7 +516,7 @@
 </head>
 <body class="calm-page">
 <header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./ask.html">Check my config</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
   <h1>Keep This Reviewed Configuration in ConfigHub</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
   <p class="lead">Save the exact Kubernetes configuration you approved. ConfigHub keeps it with its source, checks, and later changes.</p>
@@ -545,8 +545,9 @@
     <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
     <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
-  <section aria-labelledby="continue-work">
+  <section id="promotion" aria-labelledby="continue-work">
     <h2 id="continue-work">3. Continue from the retained answer</h2>
+    <p>Start with the public <a href="./promote.html">Promote my config</a> comparison. ConfigHub is the next step when the same proposed object hash must move through named environments with approvals, release digests, and target results.</p>
     <div class="card"><table>
         <thead><tr><th>Job</th><th>What ConfigHub keeps</th><th>Start here</th></tr></thead>
         <tbody><tr><td>Compare development and production</td><td>Both variants, their source relationship, and exact object diff.</td><td><a href="./why-do-dev-and-prod-differ.html">Compare environments</a></td></tr><tr><td>Promote and publish</td><td>The reviewed change, approval, promotion result, and immutable release OCI.</td><td><a href="./testing.html#managed">Promotion and OCI examples</a></td></tr><tr><td>Roll back</td><td>The prior object revision or release digest. External effects remain outside the rollback claim.</td><td><a href="./redis-walkthrough.html">Redis promotion and rollback</a></td></tr><tr><td>Compare desired with live</td><td>The approved desired objects and a separately dated live observation.</td><td><a href="./does-cluster-match-approved-config.html">Desired and live comparison</a></td></tr><tr><td>Roll out to a fleet</td><td>The selected targets, waves, approvals, and result for every target.</td><td><a href="./testing.html#platforms">Fleet examples</a></td></tr></tbody>

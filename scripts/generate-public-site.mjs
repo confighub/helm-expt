@@ -31,6 +31,7 @@ const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
 const askPath = join(siteRoot, "ask.html");
+const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
 const upstreamVersionPath = join(siteRoot, "did-this-chart-version-change.html");
 const environmentDifferencePath = join(siteRoot, "why-do-dev-and-prod-differ.html");
@@ -60,6 +61,8 @@ const reviewSchemaPath = join(siteRoot, "review.schema.json");
 const reviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-review.schema.json");
 const checkConfigScriptPath = join(siteRoot, "check-config.js");
 const checkConfigScriptSourcePath = join(repoRoot, "scripts", "site", "check-config-browser.js");
+const promoteConfigScriptPath = join(siteRoot, "promote-config.js");
+const promoteConfigScriptSourcePath = join(repoRoot, "scripts", "site", "promote-config-browser.js");
 const readmePath = join(siteRoot, "README.md");
 const generatedAtPath = join(siteRoot, "generated-at.txt");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -133,6 +136,14 @@ const UNKNOWN_ACTION_LABELS = {
 };
 const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
 const REDIS_27_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "27.0.0");
+const REDIS_25_REUSE_RENDER_PATH = join(
+  repoRoot,
+  "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+);
+const REDIS_27_REUSE_RENDER_PATH = join(
+  repoRoot,
+  "recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",
+);
 const REDIS_IMAGE_DIGEST =
   "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
@@ -226,6 +237,7 @@ const SITE_PAGE_RELPATHS = {
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
   askHtml: "ask.html",
+  promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
   upstreamVersionHtml: "did-this-chart-version-change.html",
   environmentDifferenceHtml: "why-do-dev-and-prod-differ.html",
@@ -279,6 +291,7 @@ const PAGE_DESCRIPTIONS = {
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "ask.html": "Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.",
+  "promote.html": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
   "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
   "did-this-chart-version-change.html": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
@@ -340,6 +353,7 @@ if (mode === "--generate") {
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
   write(askPath, site.askHtml);
+  write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
   write(upstreamVersionPath, site.upstreamVersionHtml);
   write(environmentDifferencePath, site.environmentDifferenceHtml);
@@ -370,6 +384,7 @@ if (mode === "--generate") {
   write(changesSchemaPath, site.changesSchemaJson);
   write(reviewSchemaPath, site.reviewSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
+  write(promoteConfigScriptPath, site.promoteConfigScript);
   write(readmePath, site.readme);
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
@@ -418,6 +433,7 @@ if (mode === "--generate") {
   check(existsSync(changesJsonPath), "site/changes.json is missing; run npm run site:generate");
   check(existsSync(reviewSchemaPath), "site/review.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
+  check(existsSync(promoteConfigScriptPath), "site/promote-config.js is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
@@ -442,6 +458,8 @@ if (mode === "--generate") {
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
+  check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");
+  check(readFileSync(promotePath, "utf8") === site.promoteHtml, "site/promote.html is stale");
   check(existsSync(ignoredValuesPath), "site/why-did-helm-ignore-my-values.html is missing; run npm run site:generate");
   check(readFileSync(ignoredValuesPath, "utf8") === site.ignoredValuesHtml, "site/why-did-helm-ignore-my-values.html is stale");
   check(existsSync(upstreamVersionPath), "site/did-this-chart-version-change.html is missing; run npm run site:generate");
@@ -487,6 +505,7 @@ if (mode === "--generate") {
   check(readFileSync(changesSchemaPath, "utf8") === site.changesSchemaJson, "site/changes.schema.json is stale");
   check(readFileSync(reviewSchemaPath, "utf8") === site.reviewSchemaJson, "site/review.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
+  check(readFileSync(promoteConfigScriptPath, "utf8") === site.promoteConfigScript, "site/promote-config.js is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   check(existsSync(sitemapPath), "site/sitemap.xml is missing; run npm run site:generate");
   check(readFileSync(sitemapPath, "utf8") === site.sitemapXml, "site/sitemap.xml is stale");
@@ -928,6 +947,7 @@ function buildSite(generatedAt) {
     changesSchemaJson: readFileSync(changesSchemaSourcePath, "utf8"),
     reviewSchemaJson: readFileSync(reviewSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
+    promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -948,6 +968,7 @@ function buildSite(generatedAt) {
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml(catalog)),
     askHtml: calmPage(askHtml()),
+    promoteHtml: calmPage(promoteHtml()),
     ignoredValuesHtml: calmPage(ignoredValuesHtml()),
     upstreamVersionHtml: calmPage(upstreamVersionHtml()),
     environmentDifferenceHtml: calmPage(environmentDifferenceHtml()),
@@ -1401,6 +1422,7 @@ function buildLlmsTxt() {
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
+- [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
 - [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
@@ -1438,9 +1460,13 @@ When an entry is absent, render locally. Ask the user before filing a public iss
 }
 
 function splitFragment(value) {
+  const query = value.indexOf("?");
   const hash = value.indexOf("#");
-  if (hash < 0) return [value, ""];
-  return [value.slice(0, hash), value.slice(hash)];
+  const suffixStart = [query, hash]
+    .filter((index) => index >= 0)
+    .sort((left, right) => left - right)[0];
+  if (suffixStart === undefined) return [value, ""];
+  return [value.slice(0, suffixStart), value.slice(suffixStart)];
 }
 
 // Anything carrying a URI scheme is a reference, not a path this site can
@@ -1952,7 +1978,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("ask.html")}">Check my config</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("hard-questions.html")}">FAQ</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("ask.html")}">Check my config</a><a href="${link("promote.html")}">Promote my config</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -2169,7 +2195,7 @@ function homeDesignCss() {
   .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
   .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
 
-  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .routes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
   .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
@@ -2216,11 +2242,11 @@ function configTestCentreHome(catalog) {
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
             <a href="./guides.html">Guides</a>
-            <a href="./ask.html">Check my config</a>
             <a href="./charts/index.html">Catalog</a>
+            <a href="./ask.html">Check my config</a>
+            <a href="./promote.html">Promote my config</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
-            <a href="./hard-questions.html">FAQ</a>
             <a href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
@@ -2233,7 +2259,7 @@ function configTestCentreHome(catalog) {
             <p class="lead">See the exact Kubernetes objects before you deploy. Compare them with a tested Catalog configuration, the chart defaults, or what is running now.</p>
             <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
             <p class="lead">If AI wrote the values, Check my config builds a local prompt for the assistant you already use. Your files stay on your machine.</p>
-            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs exact diffs, promotion, or cluster comparison.</p>
+            <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn ghost" href="./charts/index.html">Search tested configurations</a>
@@ -2270,7 +2296,8 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <div class="routes">
             <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose an exact chart version and a useful starting configuration. Retained versions stay pullable, so you can return to the package you used.</p><span class="go">Search the Catalog &rarr;</span></a>
             <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>3. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. See later changes, promote them between environments, and compare them with your clusters.</p><span class="go">Keep the reviewed result &rarr;</span></a>
+            <a class="route-card" href="./promote.html"><h3>3. Test the next move <span class="tag">browser-local</span></h3><p>Compare the current and proposed objects. See what changes and what must run in staging before production.</p><span class="go">Promote my config &rarr;</span></a>
+            <a class="route-card" href="./confighub.html"><h3>4. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. Run each promotion with its approval, release, and cluster result.</p><span class="go">Keep the reviewed result &rarr;</span></a>
           </div>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
           <p class="intro"><a href="./testing.html">Browse the examples</a> for Helm, AICR, OCI, YAML, promotions, and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
@@ -3635,6 +3662,7 @@ function howItWorksHtml() {
 
   <section aria-labelledby="next">
     <h2 id="next">5. Next step</h2>
+    <p>If the objects are changing, <a href="./promote.html">compare the current and proposed configuration first</a>. The browser review records what changed and the tests still required before staging or production.</p>
     <p>Open <a href="./docs.html">Docs</a> and pick the question closest to your current step; each answer opens the commands for it.</p>
     <p>Open <a href="./testing.html#managed">the managed examples</a> for promotion and OCI delivery, or <a href="./testing.html#platforms">the platform examples</a> for fleet rollouts. Use ConfigHub when you want shared configuration, approvals, and rollout history.</p>
     <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
@@ -3701,8 +3729,9 @@ function configHubHtml() {
     <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
     <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
-  <section aria-labelledby="continue-work">
+  <section id="promotion" aria-labelledby="continue-work">
     <h2 id="continue-work">3. Continue from the retained answer</h2>
+    <p>Start with the public <a href="./promote.html">Promote my config</a> comparison. ConfigHub is the next step when the same proposed object hash must move through named environments with approvals, release digests, and target results.</p>
     ${markdownLikeTable([
       ["Job", "What ConfigHub keeps", "Start here"],
       ["Compare development and production", "Both variants, their source relationship, and exact object diff.", `<a href="./why-do-dev-and-prod-differ.html">Compare environments</a>`],
@@ -4621,6 +4650,113 @@ function askHtml() {
 `;
 }
 
+function redisRenderWithReplicaOverride(path) {
+  const source = readFileSync(path, "utf8");
+  const marker = "# Source: redis/templates/replicas/application.yaml";
+  const start = source.indexOf(marker);
+  check(start >= 0, `${path} is missing the Redis replica StatefulSet`);
+  const end = source.indexOf("\n---", start);
+  const sectionEnd = end >= 0 ? end : source.length;
+  const section = source.slice(start, sectionEnd);
+  check(/^  replicas: 3\s*$/m.test(section), `${path} does not have the expected three-replica catalog render`);
+  const changed = section.replace(/^  replicas: 3\s*$/m, "  replicas: 2");
+  check(changed !== section, `${path} replica override did not apply`);
+  return `${source.slice(0, start)}${changed}${source.slice(sectionEnd)}`;
+}
+
+function promoteHtml() {
+  const exampleData = JSON.stringify({
+    currentYaml: redisRenderWithReplicaOverride(REDIS_25_REUSE_RENDER_PATH),
+    candidateYaml: redisRenderWithReplicaOverride(REDIS_27_REUSE_RENDER_PATH),
+  }).replaceAll("<", "\\u003c");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promote my config &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+  <script defer src="./promote-config.js"></script>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Test a change before it moves</h1>
+    <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
+    <p class="lead">Compare the Kubernetes configuration you use now with the one you want to move. See what changes, what stays the same, and what to test before staging or production.</p>
+    <p>The comparison runs in your browser. Your files are not uploaded, and you do not need an account.</p>
+    <p><button class="button primary" id="load-redis-promotion" type="button">Run the Redis upgrade example</button> <button class="button secondary" id="use-own-yaml" type="button">Compare my rendered YAML</button></p>
+  </header>
+  <main>
+    <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">
+      <h2 id="promotion-inputs-title">1. What are you changing?</h2>
+      <p>Choose the job, then add the current and proposed Kubernetes YAML. Render Helm, AICR, or another source first so you compare the objects that will actually be delivered.</p>
+      <div class="card">
+        <div class="grid">
+          <p><label for="change-type"><strong>Change</strong></label><br>
+            <select id="change-type" style="width:100%;padding:10px;margin-top:6px">
+              <option value="upgrade">Upgrade a chart or package</option>
+              <option value="settings">Change some settings</option>
+              <option value="environment">Move a tested configuration</option>
+            </select></p>
+          <p><label for="destination"><strong>Where is it going?</strong></label><br>
+            <input id="destination" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="staging, production, or a target name"></p>
+        </div>
+        <h3>Current configuration</h3>
+        <p><input id="current-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="current-label" type="text" value="current.yaml" aria-label="Current configuration name" style="padding:8px"></p>
+        <textarea id="current-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you use now."></textarea>
+        <h3>Proposed configuration</h3>
+        <p><input id="candidate-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="candidate-label" type="text" value="candidate.yaml" aria-label="Proposed configuration name" style="padding:8px"></p>
+        <textarea id="candidate-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you want to move."></textarea>
+        <p id="example-note" hidden><strong>Redis example:</strong> both inputs use the catalog's <code>reuse-existing-secret</code> configuration. The default configuration is not used because it can generate or reuse a password during rendering. Both inputs also contain the recorded change from three replicas to two. This comparison contains the chart's 13 Kubernetes objects; <code>cub installer</code> adds the explicit Namespace as the fourteenth deployable object.</p>
+        <button class="button primary" id="compare-promotion" type="button">Compare this change</button>
+      </div>
+    </section>
+
+    <section id="promotion-result" aria-labelledby="promotion-result-title" hidden>
+      <h2 id="promotion-result-title">2. Review the change</h2>
+      <p class="stat-strip"><strong id="promotion-status"></strong> &middot; <span id="promotion-counts"></span></p>
+      <h3>What changes</h3>
+      <ul id="what-changes"></ul>
+      <h3>What stays the same</h3>
+      <ul id="what-stays"></ul>
+      <h3>What you should test</h3>
+      <ul id="tests-required"></ul>
+      <h3>What to do next</h3>
+      <ul id="next-actions"></ul>
+      <p><strong>Current file:</strong> <code id="current-digest"></code><br><strong>Proposed file:</strong> <code id="candidate-digest"></code></p>
+      <p>These hashes identify the files compared in this browser. Use the proposed hash in staging and production so a later render cannot quietly replace the reviewed result.</p>
+      <p><button class="button primary" id="download-promotion-review" type="button">Download the review</button> <button class="button secondary" id="download-promotion-current" type="button">Download current YAML</button> <button class="button secondary" id="download-promotion-candidate" type="button">Download proposed YAML</button></p>
+      <details>
+        <summary><strong>Open the review record</strong></summary>
+        <textarea id="promotion-review-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      </details>
+
+      <h3>Use your own AI assistant</h3>
+      <p>Download both YAML files and the review record. Then give this prompt to Claude, Codex, or the assistant you already use. It asks the assistant to work locally, explain the object changes, and keep untested claims visible.</p>
+      <textarea id="ai-promotion-prompt" rows="16" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button secondary" id="copy-ai-promotion" type="button">Copy the AI review prompt</button> <span id="ai-promotion-copy-status" role="status" style="color:var(--muted)"></span></p>
+
+      <h3>Keep and run the promotion in ConfigHub</h3>
+      <p>The browser review stops before deployment. ConfigHub keeps the accepted objects as related environment variants and shows the exact destination diff.</p>
+      <p>It can then run checks and approvals, publish the reviewed OCI, and record what happened on each target.</p>
+      <p><a class="button primary" href="./confighub.html#promotion">Keep this promotion in ConfigHub</a> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
+      <p><a href="./d/data/redis-upgrade-app-proof/summary.html">Open the Redis promotion, two-cluster rollout, and rollback evidence</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis 25.5.3</a> · <a href="./charts/bitnami-redis-27-0-0.html">Redis 27.0.0</a></p>
+    </section>
+
+    <section aria-labelledby="promotion-boundary">
+      <h2 id="promotion-boundary">3. What this page can decide</h2>
+      <p>This page compares two exact object sets and records their hashes. It does not run Helm, contact Kubernetes, execute hooks, establish CRDs, test an application, or prove a rollback.</p>
+      <p>A correct promotion also needs the source inputs, required setup, destination facts, test result, approval, delivered digest, and live outcome. The Catalog records these for cases we have tested. ConfigHub keeps them together for your own environments.</p>
+      <p><a href="./docs.html#promotion">Promotion instructions</a> · <a href="./hard-questions.html">FAQ and limitations</a> · <a href="./known-gaps.html">Known gaps</a></p>
+    </section>
+  </main>
+  <script id="promotion-example-data" type="application/json">${exampleData}</script>
+</body>
+</html>
+`;
+}
+
 function driftQuestionPageHtml({ title, lead, boundary, example, evidence, action, actionHref }) {
   return `<!doctype html>
 <html lang="en">
@@ -4936,6 +5072,8 @@ function docsHtml() {
       <h2 id="manage">Change or operate saved configuration</h2>
       <h3><a href="./d/docs/user/variants-after-upload.html">How do I make environment variants?</a></h3>
       <p>Create, compare, and promote development and production variants.</p>
+      <h3 id="promotion"><a href="./promote.html">How do I test a change before promotion?</a></h3>
+      <p>Compare the current and proposed Kubernetes objects in your browser. The result names what changed and what still needs a staging test.</p>
       <h3><a href="../docs/user/day2-upgrade-story.md">How do I upgrade and roll back?</a></h3>
       <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, rollout, and rollback.</p>
       <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
@@ -6970,7 +7108,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
       ${markdownLikeTable([
         ["Job", "Working example", "Where to go"],
         ["Save and change", "Upload reviewed objects as a base variant. Make an exact development or customer change without changing the source chart.", `<a href="./variants.html">Variants</a> · <a href="./d/docs/user/variants-after-upload.html">Command walkthrough</a>`],
-        ["Promote", worked(pathways, "promotions").result, `<a href="./d/data/byo-helm-values-promotion-proof/summary.html">BYO Helm promotion</a> · <a href="./redis-walkthrough.html">Redis promotion and rollback</a>`],
+        ["Promote", worked(pathways, "promotions").result, `<a href="./promote.html"><strong>Compare my next change</strong></a> · <a href="./d/data/byo-helm-values-promotion-proof/summary.html">BYO Helm promotion</a> · <a href="./redis-walkthrough.html">Redis promotion and rollback</a>`],
         ["Deliver through OCI", worked(pathways, "oci-delivery").result, `<a href="./operations.html">Delivery guide</a> · <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">Argo CD and Flux proof</a>`],
         ["Apply checks and approvals", "Schema, placeholder, and lifecycle-route checks can block bad configuration. Image and probe checks warn. Selected production and system configuration also requires approval.", `<a href="./d/data/apply-policy-functional-proof/summary.html">Functional proof</a> · <a href="./d/data/apply-policy-profiles/summary.html">Policy assignments</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
@@ -7841,6 +7979,7 @@ function aicrEntriesSection() {
     <p class="lead">Choose a Helm chart version and a useful starting configuration that we have tested and documented.</p>
     <p>Each page shows the Helm values, rendered Kubernetes objects, required setup, checks, and known limits. A new review adds a version instead of replacing the package you already used.</p>
     <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
+    <p>Already chose a configuration? <a href="../promote.html">Compare its next version or environment before it moves</a>.</p>
   </header>
   <main>
     <section aria-labelledby="charts">
@@ -8757,6 +8896,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     <p class="tagline">${published ? "Publication proof: recorded" : "Publication proof: not yet earned"} · runtime proof: not inherited.</p>
     ${licenseLine}
     ${successionCalloutHtml(catalog, row.chart)}
+    <p><a class="button primary" href="../promote.html?chart=${encodeURIComponent(row.chart)}&current=${encodeURIComponent(row.version)}&base=${encodeURIComponent(row.default_base)}">Plan an upgrade or promotion</a></p>
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
@@ -9146,6 +9286,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
     ${chartLicenseLineHtml(catalog, entry.chart, entry.version)}
     ${successionCalloutHtml(catalog, entry.chart)}
+    <p><a class="button primary" href="../promote.html?chart=${encodeURIComponent(entry.chart)}&current=${encodeURIComponent(entry.version)}&base=${encodeURIComponent(entry.start_variant)}">Plan an upgrade or promotion</a></p>
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
@@ -11207,6 +11348,8 @@ Open \`site/index.html\` first for the public launch front door.
 Open \`site/how-it-works.html\` to choose where reviewed configuration lives and how it reaches Kubernetes.
 Open \`site/deployment-reference.html\` for the detailed source, render, route, variant, check, and delivery model.
 Open \`site/try.html\` for the short Redis example.
+Open \`site/ask.html\` to check a new configuration and keep its review record.
+Open \`site/promote.html\` to compare current and proposed objects before staging or production.
 Open \`site/testing.html\` for working starting, managed, platform, and App examples.
 Open \`site/kubara.html\` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.
