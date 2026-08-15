@@ -516,40 +516,17 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Test a change before it moves</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
-    <p class="lead">Compare the Kubernetes configuration you use now with the one you want to move. See what changes, what stays the same, and what to test before staging or production.</p>
-    <p>The comparison runs in your browser. Your files are not uploaded, and you do not need an account.</p>
-    <p><button class="button primary" id="load-redis-promotion" type="button">Run the Redis upgrade example</button> <button class="button secondary" id="use-own-yaml" type="button">Compare my rendered YAML</button></p>
+    <p class="lead">Upgrading a chart, or moving a change toward production? See what changes, what stays the same, and what to test, before your cluster finds out.</p>
+    <p>Some upgrades cannot apply at all: an immutable StatefulSet field fails at apply time, in production. Comparing the exact objects first is how you catch that on your laptop.</p>
+    <p>The comparison runs in your browser. Your files are not uploaded, and you do not need an account. A finished review is below: the Redis upgrade loads automatically, so you see the whole answer before pasting anything.</p>
+    <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">
-      <h2 id="promotion-inputs-title">1. What are you changing?</h2>
-      <p>Choose the job, then add the current and proposed Kubernetes YAML. Render Helm, AICR, or another source first so you compare the objects that will actually be delivered.</p>
-      <div class="card">
-        <div class="grid">
-          <p><label for="change-type"><strong>Change</strong></label><br>
-            <select id="change-type" style="width:100%;padding:10px;margin-top:6px">
-              <option value="upgrade">Upgrade a chart or package</option>
-              <option value="settings">Change some settings</option>
-              <option value="environment">Move a tested configuration</option>
-            </select></p>
-          <p><label for="destination"><strong>Where is it going?</strong></label><br>
-            <input id="destination" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="staging, production, or a target name"></p>
-        </div>
-        <h3>Current configuration</h3>
-        <p><input id="current-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="current-label" type="text" value="current.yaml" aria-label="Current configuration name" style="padding:8px"></p>
-        <textarea id="current-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you use now."></textarea>
-        <h3>Proposed configuration</h3>
-        <p><input id="candidate-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="candidate-label" type="text" value="candidate.yaml" aria-label="Proposed configuration name" style="padding:8px"></p>
-        <textarea id="candidate-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you want to move."></textarea>
-        <p id="example-note" hidden><strong>Redis example:</strong> both inputs use the catalog's <code>reuse-existing-secret</code> configuration. The default configuration is not used because it can generate or reuse a password during rendering. Both inputs also contain the recorded change from three replicas to two. This comparison contains the chart's 13 Kubernetes objects; <code>cub installer</code> adds the explicit Namespace as the fourteenth deployable object.</p>
-        <button class="button primary" id="compare-promotion" type="button">Compare this change</button>
-      </div>
-    </section>
-
     <section id="promotion-result" aria-labelledby="promotion-result-title" hidden>
-      <h2 id="promotion-result-title">2. Review the change</h2>
+      <h2 id="promotion-result-title">1. The review</h2>
       <p class="stat-strip"><strong id="promotion-status"></strong> &middot; <span id="promotion-counts"></span></p>
+      <p id="example-note" hidden><strong>Redis example:</strong> both inputs use the catalog's <code>reuse-existing-secret</code> configuration. The default configuration is not used because it can generate or reuse a password during rendering. Both inputs also contain the recorded change from three replicas to two. This comparison contains the chart's 13 Kubernetes objects; <code>cub installer</code> adds the explicit Namespace as the fourteenth deployable object.</p>
       <h3>What changes</h3>
       <ul id="what-changes"></ul>
       <h3>What stays the same</h3>
@@ -576,6 +553,30 @@
       <p>It can then run checks and approvals, publish the reviewed OCI, and record what happened on each target.</p>
       <p><a class="button primary" href="./confighub.html#promotion">Keep this promotion in ConfigHub</a> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
       <p><a href="./d/data/redis-upgrade-app-proof/summary.html">Open the Redis promotion, two-cluster rollout, and rollback evidence</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis 25.5.3</a> · <a href="./charts/bitnami-redis-27-0-0.html">Redis 27.0.0</a></p>
+    </section>
+
+    <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">
+      <h2 id="promotion-inputs-title">2. What are you changing?</h2>
+      <p>Choose the job, then add the current and proposed Kubernetes YAML. Render Helm, AICR, or another source first so you compare the objects that will actually be delivered.</p>
+      <div class="card">
+        <div class="grid">
+          <p><label for="change-type"><strong>Change</strong></label><br>
+            <select id="change-type" style="width:100%;padding:10px;margin-top:6px">
+              <option value="upgrade">Upgrade a chart or package</option>
+              <option value="settings">Change some settings</option>
+              <option value="environment">Move a tested configuration</option>
+            </select></p>
+          <p><label for="destination"><strong>Where is it going?</strong></label><br>
+            <input id="destination" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="staging, production, or a target name"></p>
+        </div>
+        <h3>Current configuration</h3>
+        <p><input id="current-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="current-label" type="text" value="current.yaml" aria-label="Current configuration name" style="padding:8px"></p>
+        <textarea id="current-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you use now."></textarea>
+        <h3>Proposed configuration</h3>
+        <p><input id="candidate-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="candidate-label" type="text" value="candidate.yaml" aria-label="Proposed configuration name" style="padding:8px"></p>
+        <textarea id="candidate-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you want to move."></textarea>
+        <button class="button primary" id="compare-promotion" type="button">Compare this change</button>
+      </div>
     </section>
 
     <section aria-labelledby="promotion-boundary">

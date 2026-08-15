@@ -185,6 +185,8 @@
     byId("current-label").value = chart + (version ? "@" + version : "") + (base ? " " + base : "");
   }
 
+  let autoLoading = false;
+
   function loadRedisExample() {
     byId("change-type").value = "upgrade";
     byId("current-label").value = "bitnami/redis@25.5.3 reuse-existing-secret, replicas 2";
@@ -327,17 +329,25 @@
     byId("promotion-review-output").value = latestReviewJson;
     byId("ai-promotion-prompt").value = buildAiPrompt(latestReview);
     byId("promotion-result").hidden = false;
-    byId("promotion-result").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!autoLoading) byId("promotion-result").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   byId("load-redis-promotion").addEventListener("click", loadRedisExample);
   byId("use-own-yaml").addEventListener("click", () => byId("promotion-inputs").scrollIntoView({ behavior: "smooth", block: "start" }));
   byId("current-file").addEventListener("change", () => loadFile("current-file", "current-yaml", "current-label"));
   byId("candidate-file").addEventListener("change", () => loadFile("candidate-file", "candidate-yaml", "candidate-label"));
-  byId("compare-promotion").addEventListener("click", () => comparePromotion(false));
+  byId("compare-promotion").addEventListener("click", () => { byId("example-note").hidden = true; comparePromotion(false); });
   byId("download-promotion-review").addEventListener("click", () => latestReviewJson && download("promotion-review.json", latestReviewJson, "application/json"));
   byId("download-promotion-current").addEventListener("click", () => latestCurrent && download("current.yaml", latestCurrent, "application/yaml"));
   byId("download-promotion-candidate").addEventListener("click", () => latestCandidate && download("candidate.yaml", latestCandidate, "application/yaml"));
   byId("copy-ai-promotion").addEventListener("click", () => copyText(byId("ai-promotion-prompt").value, "ai-promotion-copy-status"));
   applyUrlContext();
+  // The proof is the first screen: with no chart context and nothing pasted,
+  // the Redis upgrade review renders itself so a visitor sees a finished
+  // answer before deciding whether to paste anything.
+  if (!new URLSearchParams(window.location.search).get("chart") && !byId("current-yaml").value && !byId("candidate-yaml").value) {
+    autoLoading = true;
+    loadRedisExample();
+    autoLoading = false;
+  }
 })();
