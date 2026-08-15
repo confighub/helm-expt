@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promotion Workshop test program · Config Workshop</title>
+  <meta name="description" content="Promotion Workshop test program: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/promotion-workshop-test-program.html">
+  <meta property="og:title" content="Promotion Workshop test program · Config Workshop">
+  <meta property="og:description" content="Promotion Workshop test program: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/promotion-workshop-test-program.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Promotion Workshop test program</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/promotion-workshop-test-program.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Date: 2026-08-15</p>
+<p>This plan tests one proposed Config Workshop job:</p>
+<blockquote><p>Given the configuration running now and a proposed change, show what the next environment would receive, what could break, and what must be tested before the change moves.</p></blockquote>
+<p>The first product is a promotion review, not an automatic production pipeline. For a known Catalog configuration, the review can use retained chart evidence. For an unknown configuration, it must mark unknowns and produce a provisional test plan. A precise refusal is a useful result.</p>
+<h2 id="what-must-be-true">What must be true</h2>
+<p>The review is useful only when it does all of the following.</p>
+<ol><li>Identifies the exact source, candidate, destination, and available digests.</li><li>Compares rendered Kubernetes objects, not only values files.</li><li>Separates changes produced by source inputs from edits made after rendering.</li><li>Shows destination settings that would be retained, changed, or lost.</li><li>Re-evaluates flattening safety for the exact chart version, base, and values.</li><li>Names lifecycle work such as hooks, CRDs, certificates, setup jobs, and pruning.</li><li>Ties test evidence to the exact candidate and target facts it covered.</li><li>States which checks ran, which did not run, and which require a cluster.</li><li>Makes zero desired-state changes when a blocker is found.</li><li>Keeps the free result useful as files, Git evidence, or OCI.</li></ol>
+<h2 id="result-vocabulary">Result vocabulary</h2>
+<table><thead><tr><th>Result</th><th>Meaning</th></tr></thead><tbody><tr><td><code>pass</code></td><td>The checks required for this bounded decision passed for the exact candidate.</td></tr>
+<tr><td><code>warn</code></td><td>The change is understood, but a named decision remains.</td></tr>
+<tr><td><code>blocked</code></td><td>A prerequisite, required check, policy, or destination fact is missing or failed.</td></tr>
+<tr><td><code>refused</code></td><td>The requested operation would contradict retained evidence, such as flattening an unsafe base.</td></tr>
+<tr><td><code>stale</code></td><td>The evidence or preview belongs to an older candidate, destination revision, or target fact set.</td></tr>
+<tr><td><code>partial</code></td><td>Some targets or runtime checks completed and others did not.</td></tr></tbody></table>
+<p><code>safe-to-flatten</code> is not a promotion result. It says that one audited base can be shipped as literal YAML without losing the Helm behavior covered by its verdict. It does not prove upgrade compatibility, storage safety, runtime health, application behavior, or rollback.</p>
+<h2 id="current-evidence-to-reuse">Current evidence to reuse</h2>
+<p>The repository already has 90 base-scoped flattening verdicts: 42 <code>safe-to-flatten</code>, 32 <code>flatten-with-routes</code>, and 16 <code>unsafe-to-flatten</code>.</p>
+<p>The following existing proofs form the positive baseline.</p>
+<table><thead><tr><th>Evidence</th><th>What it contributes</th></tr></thead><tbody><tr><td><code>data/redis-upgrade-app-proof/summary.md</code></td><td>Chart upgrade, retained object edit, development and staging promotion, OCI, two Argo CD clusters, smoke test, and desired-state rollback.</td></tr>
+<tr><td><code>data/byo-helm-values-promotion-proof/summary.md</code></td><td>AI-reviewed Helm values, a later object edit, and development-to-staging promotion.</td></tr>
+<tr><td><code>data/aicr-variant-promotion-proof/summary.md</code></td><td>Source-neutral ConfigHub variant and promotion mechanics for AICR objects.</td></tr>
+<tr><td><code>data/apply-policy-profiles/summary.md</code></td><td>Blocking schema, placeholder, lifecycle-route, Secret, and approval checks, plus advisory image and probe checks.</td></tr>
+<tr><td><code>data/lifecycle-boundary/summary.md</code></td><td>Chart-specific hook, CRD, webhook, certificate, cleanup, and ordering routes with bounded evidence.</td></tr>
+<tr><td><code>data/flattening-safety/summary.md</code></td><td>Per-version and per-base decisions about literal YAML, routes, and refusal.</td></tr></tbody></table>
+<h2 id="first-twelve-adversarial-scenarios">First twelve adversarial scenarios</h2>
+<p>These scenarios give the first implementation enough breadth without pretending to cover every chart.</p>
+<table><thead><tr><th>ID</th><th>Case</th><th>Deliberate change or failure</th><th>Expected result</th></tr></thead><tbody><tr><td>P01</td><td><code>metrics-server@3.13.1/default</code></td><td>Change an ordinary workload field and retain the audited default settings.</td><td><code>pass</code> after object, APIService, capability, and readiness checks.</td></tr>
+<tr><td>P02</td><td><code>metrics-server@3.13.1/default</code></td><td>Enable <code>tls.type: helm</code>, activating lookup and generated certificate behavior that is gated off in the audited base.</td><td><code>refused</code> for flat YAML until a separately audited route exists.</td></tr>
+<tr><td>P03</td><td><code>redis@27.0.0/default</code></td><td>Publish the generated-credential render as a public flat package.</td><td><code>refused</code>; recommend an existing-Secret configuration or render-late route.</td></tr>
+<tr><td>P04</td><td>Redis <code>25.5.3</code> to <code>27.0.0</code>, existing Secret</td><td>Retain a two-replica object edit through development, staging, OCI delivery, and rollback.</td><td><code>pass</code> for the bounded path already proved; external Secret and data rollback remain separate.</td></tr>
+<tr><td>P05</td><td><code>cert-manager@v1.21.0/default</code></td><td>Omit startup API check, CRD ordering, or prune protection from the promotion pack.</td><td><code>blocked</code>; name the missing companion route.</td></tr>
+<tr><td>P06</td><td><code>kube-prometheus-stack@87.19.2/default</code></td><td>Treat the rendered objects as a complete flat deployment and ignore hooks, lookup, webhook certificates, and CRDs.</td><td><code>refused</code>; use a chart-specific lifecycle route or keep the render-late path.</td></tr>
+<tr><td>P07</td><td>Kube Prometheus Stack version upgrade</td><td>Keep the CRD count unchanged while changing CRD schemas.</td><td><code>blocked</code> until schema compatibility and runtime behavior are tested.</td></tr>
+<tr><td>P08</td><td>BYO NGINX values</td><td>Add a plausible values key that changes no rendered object.</td><td><code>blocked</code> as a no-op; identify the correct path or state that the chart does not expose it.</td></tr>
+<tr><td>P09</td><td>Production destination</td><td>Promote a development change while accidentally removing the production external-Secret reference or storage setting.</td><td><code>blocked</code>; show the protected destination difference that would be lost.</td></tr>
+<tr><td>P10</td><td>Exact candidate evidence</td><td>Reuse a passing staging receipt after changing one candidate object or OCI digest.</td><td><code>stale</code>; require evidence for the new candidate.</td></tr>
+<tr><td>P11</td><td>Three production targets</td><td>Make one target fail after another has confirmed.</td><td><code>partial</code>; show every target separately and never report one overall success.</td></tr>
+<tr><td>P12</td><td>Rollback</td><td>Restore desired objects after a database migration or hook side effect.</td><td><code>warn</code> or <code>blocked</code>; state that object rollback cannot reverse the external effect.</td></tr></tbody></table>
+<h2 id="ai-written-configuration-scenarios">AI-written configuration scenarios</h2>
+<p>The user's AI may explain or propose a fix. It cannot override deterministic findings.</p>
+<table><thead><tr><th>Test</th><th>Deterministic expectation</th></tr></thead><tbody><tr><td>Plausible but nonexistent values path</td><td>Render with and without the key. Report no object change and block the claimed result.</td></tr>
+<tr><td>Inline API key or password</td><td>Block the literal credential and identify the Secret reference that should replace it.</td></tr>
+<tr><td>Existing-Secret mode removed during upgrade</td><td>Show the ownership change and block until credential handling is accepted and tested.</td></tr>
+<tr><td>Namespaced RBAC becomes wildcard cluster RBAC</td><td>Show the exact permission expansion and block pending explicit policy approval.</td></tr>
+<tr><td>Digest-pinned image becomes <code>latest</code></td><td>Warn under the current Catalog profile; permit a stricter production policy to block it.</td></tr>
+<tr><td>Same values, different image digest</td><td>Show the object change even though the values diff is empty.</td></tr>
+<tr><td>PVC shrink or StorageClass replacement</td><td>Block and require a data and migration decision.</td></tr>
+<tr><td>Immutable selector change</td><td>Block before apply and explain the replacement boundary.</td></tr>
+<tr><td>Hook declared automatic without a receipt</td><td>Block through the lifecycle-route policy.</td></tr>
+<tr><td>AI supplies a fabricated green receipt</td><td>Reject it when source, candidate, target, or digest identity does not match.</td></tr></tbody></table>
+<h2 id="config-as-data-failure-injection">Config-as-data failure injection</h2>
+<p>These tests need ConfigHub Server but not necessarily Kubernetes.</p>
+<table><thead><tr><th>Test</th><th>Required behavior</th></tr></thead><tbody><tr><td>Destination edited after preview</td><td>Fail on the stale destination revision or recompute visibly. Never overwrite the edit silently.</td></tr>
+<tr><td>Source changed after the ChangeSet was sealed</td><td>Promote the sealed ChangeSet or refuse. Never substitute the moving source head.</td></tr>
+<tr><td>One ChangeSet adds a Unit and changes another</td><td>Apply both as one governed operation or make no desired-state writes.</td></tr>
+<tr><td>Client times out after server acceptance</td><td>Retry with the same operation identity and produce one result.</td></tr>
+<tr><td>Multi-target operation is interrupted</td><td>Resume without duplicating completed target writes.</td></tr>
+<tr><td>One target conflicts during fan-out</td><td>Produce zero writes on the conflicted target and report the aggregate as partial or blocked.</td></tr>
+<tr><td>Production approval filter leaks into development</td><td>Fail the policy-scope test; development must keep common checks without the production-only approval.</td></tr>
+<tr><td>Target facts change after staging</td><td>Mark old evidence stale when Kubernetes APIs, Secret references, region, storage, or another relevant fact changes.</td></tr></tbody></table>
+<h2 id="cluster-and-controller-tests">Cluster and controller tests</h2>
+<p>The local review must label these <code>not run</code> until a cluster supplies evidence.</p>
+<ol><li>Apply CRDs first, wait for establishment, then apply dependent resources.</li><li>Interrupt a hook or setup route and retry it without duplicating harmful work.</li><li>Check webhook certificate creation and admission readiness.</li><li>Test external Secrets when absent, present, and changed.</li><li>Publish the reviewed OCI digest and verify that Argo CD or Flux reconciles that digest.</li><li>Run an application-specific smoke test, such as Redis write, read, restart, and <code>PONG</code>.</li><li>Change one target fact after rehearsal and prove production is rechecked.</li><li>Make one fleet target unhealthy and retain the per-target result.</li><li>Remove an object and verify whether the selected delivery route prunes, preserves, or blocks it.</li><li>Restore prior desired objects and report every external effect outside the rollback claim.</li></ol>
+<h2 id="metamorphic-and-fuzz-tests">Metamorphic and fuzz tests</h2>
+<p>These tests create many cheap variations while retaining deterministic assertions.</p>
+<ul><li>Reorder YAML documents without changing object identity or content.</li><li>Change formatting and comments without changing semantic objects.</li><li>Mutate one supplied values key at a time and identify keys with no rendered effect.</li><li>Change one protected destination field at a time and require preservation or a visible conflict.</li><li>Replay evidence across chart versions, bases, target profiles, and OCI digests; every replay must fail.</li><li>Remove one lifecycle companion artifact at a time from a route-dependent bundle.</li><li>Toggle values that change a base's flattening lane, such as Helm-managed TLS or generated credentials.</li><li>Replace one exact image digest with a mutable tag.</li><li>Change CRD schema while keeping the CRD count and names unchanged.</li><li>Rename an object so the result is represented as an add and a delete, not a harmless field edit.</li><li>Insert one unknown field under each Kubernetes object kind and separate schema rejection from server-side admission behavior.</li><li>Generate partial fan-out outcomes in every target order so overall status never depends on iteration order.</li></ul>
+<h2 id="new-user-simulations">New-user simulations</h2>
+<p>Run the page with at least these starting points:</p>
+<ol><li>A known Redis Catalog configuration.</li><li>A private chart not present in the Catalog.</li><li>Helm values written by Claude or Codex.</li><li>Two rendered YAML directories with no source information.</li><li>An OCI artifact whose role is not yet known.</li><li>An Argo CD Application.</li><li>A Flux HelmRelease or OCIRepository.</li><li>A production-only team with no staging environment.</li><li>An existing Helm release reconstructed from <code>helm get</code> output.</li><li>A hook- and CRD-heavy chart.</li><li>A three-region deployment with one failing region.</li><li>An existing Git to CI to OCI to GitOps pipeline that must remain in place.</li></ol>
+<p>For every run, record the question in the user's words, the minimum inputs they can provide, the first useful result, the first point of confusion, and whether the ConfigHub handoff feels earned.</p>
+<h2 id="promotion-review-pack">Promotion-review pack</h2>
+<p>The anonymous result should be useful on its own.</p>
+<pre><code>promotion-review/
+  current/              exact objects and source record
+  candidate/            exact objects and source record
+  destination/          preview and preserved differences
+  comparison/           object diff and values-versus-overrides explanation
+  checks/               deterministic results and explicitly not-run checks
+  chart/                render intent, lifecycle routes, and known risks
+  plan/                 promotion plan, test plan, and local AI prompt
+  oci/                  input/output digests and provenance when applicable
+  ci/                    repeatable verification command
+  review.json           summary, identities, result, limits, and next action</code></pre>
+<p>The first ConfigHub call to action appears after this pack exists:</p>
+<blockquote><p>Keep this exact reviewed result in ConfigHub when you need named environments, approvals, promotion history, or live comparisons.</p></blockquote>
+<h2 id="graduation-criteria">Graduation criteria</h2>
+<p>The first public page can provide a useful browser-local promotion review. It must not present that review as a complete promotion pipeline. A managed or automatic promotion path is ready for a stronger claim only when it meets these criteria.</p>
+<ol><li>A Catalog example produces a useful result in under five minutes without an account.</li><li>A user can state what changes, what remains different, and what blocks promotion.</li><li>The same candidate and digest appear in the local report, optional OCI, and ConfigHub handoff.</li><li>Every deterministic seeded failure above produces its expected result.</li><li>Unsafe and route-dependent charts are not shown as ordinary flat-YAML successes.</li><li>Cluster checks remain explicitly not run until evidence exists.</li><li>A stale candidate, target, or receipt causes zero desired-state writes.</li><li>A partial fleet result names every target and never collapses to a green total.</li><li>The free result works with Git, CI, Argo CD, or Flux without ConfigHub.</li><li>ConfigHub adds durable identity, variants, gates, promotion, and observation rather than unlocking a deliberately incomplete free report.</li></ol>
+<h2 id="checks-run-while-writing-this-plan">Checks run while writing this plan</h2>
+<p>The following committed evidence verified successfully on 2026-08-15.</p>
+<pre><code>npm run flattening-safety:verify
+npm run lifecycle:boundary:verify
+npm run redis-upgrade-app:verify
+npm run byo-helm-values:promotion-verify
+npm run aicr-variant-promotion:verify
+npm run config-catalog:policy:verify
+npm run config-catalog:self-test</code></pre>
+<p>Five low-cost agent reviews also simulated 12 new-user visits, 15 chart-specific promotion attacks, 20 config-as-data failure cases, 12 anonymous-path tests, and 15 AI-written configuration failures. Agent suggestions informed this plan; the deterministic repository checks above remain the evidence.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/promotion-workshop-test-program.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

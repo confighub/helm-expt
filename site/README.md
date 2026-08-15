@@ -11,6 +11,8 @@ Open `site/index.html` first for the public launch front door.
 Open `site/how-it-works.html` to choose where reviewed configuration lives and how it reaches Kubernetes.
 Open `site/deployment-reference.html` for the detailed source, render, route, variant, check, and delivery model.
 Open `site/try.html` for the short Redis example.
+Open `site/ask.html` to check a new configuration and keep its review record.
+Open `site/promote.html` to compare current and proposed objects before staging or production.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
 Open `site/kubara.html` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.
