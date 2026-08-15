@@ -2,6 +2,11 @@
 
 Date: 2026-08-15
 
+Status, updated 2026-08-15: the page shipped (#1562) and its front door now
+loads the worked Redis review before asking for input (#1565). This program has
+not yet run against real users, and the menu placement preceded it. Run the
+program, or accept the first outreach cohort as the run, before inviting anyone.
+
 This plan tests one proposed Config Workshop job:
 
 > Given the configuration running now and a proposed change, show what the next

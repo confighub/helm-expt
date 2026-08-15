@@ -540,6 +540,7 @@
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/bitnami-mongodb/19.0.7/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
+        <p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb@sha256:8f690ed44774fc97011c366cf2e54730d6a07dfb4e6823d1dff07101eb0da534</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir ./bitnami-mongodb-19-0-7-existing-secret-replicaset --non-interactive --namespace mongodb</code></p>

@@ -458,6 +458,9 @@
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0 --base existing-secret-replicaset --work-dir .tmp/demo/bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive</code></pre>
       <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0</code></p>
+      <p>The same pull, pinned so a republished tag cannot change what you get:</p>
+      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d --base existing-secret-replicaset --work-dir .tmp/demo/bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive</code></pre>
+      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>
     </section>
 
     <section aria-labelledby="retained-configurations">

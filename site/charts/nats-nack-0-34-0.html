@@ -540,6 +540,7 @@
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/nats-nack/0.34.0/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
+        <p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack@sha256:f9cbdf853618325eaa8c6d002372d71586f714d70ba1b835fe7cbfa881f43b06</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>First recorded command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0 --base default --work-dir ./nats-nack-0-34-0-default --non-interactive --namespace default</code></p>

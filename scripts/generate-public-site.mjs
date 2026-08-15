@@ -3543,7 +3543,7 @@ function tryHtml(catalog) {
   ${topNav(".")}
   <h1>Try a simple example: Redis</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-  <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
+  <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates: 13 from the chart, plus one Namespace cub adds.</p>
   <p>You do not need ConfigHub for this test. It runs on your machine and contacts neither ConfigHub Server nor Kubernetes. No account or registry login is required.</p>
   <p>ConfigHub becomes useful when you want to keep this result, change it with your team, or promote it between environments.</p>
 </header>
@@ -5573,6 +5573,13 @@ function hardQuestionsHtml(catalog) {
     {
       title: "4. Check delivery, upgrades, and live results",
       rows: [
+	        {
+	          status: "answered",
+	          question: "Can one change roll out across a whole fleet safely?",
+	          answer:
+	            "Yes, within recorded bounds. The fleet record predicts which objects a base change touches in each environment. Environments shielded by their own override are marked. A live receipt shows one reviewed edit fanned out to three environments, each behind its own approval. Beyond the recorded fleets, no claim is made.",
+	          links: [["Fleet blast radius", "../data/blast-radius-fleet/summary.md"], ["Bulk operations receipt", "../data/sveltos-bulk-ops/summary.md"]],
+	        },
         {
           status: "answered",
           question: "Can I trust a green GitOps sync?",
@@ -5717,6 +5724,13 @@ function hardQuestionsHtml(catalog) {
     {
       title: "7. Read current limitations",
       rows: [
+	        {
+	          status: "answered",
+	          question: "Can ConfigHub replace every production operator decision?",
+	          answer:
+	            "No. Some decisions stay with a person, and the records say which. Every production disposition names its decision and its owner. Charts that need a custom discussion are marked in the matrix rather than automated over.",
+	          links: [["Production dispositions", "../data/production-disposition/summary.md"], ["Master catalog matrix", "./matrix.html"]],
+	        },
 	        {
 	          status: "answered",
 	          question: "Do default bases generate fresh passwords?",
@@ -8835,6 +8849,9 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     ?? pushOutput.match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
     ?? "";
   const layerDigest = published ? `sha256:${row.published_digest}` : "";
+  const digestPinnedSetup = published && manifestDigest
+    ? escapeHtml(String(row.setup_command ?? "").replace(row.installer_oci_ref, row.installer_oci_ref.replace(/:[^:/]+$/u, `@${manifestDigest}`)))
+    : "";
   const componentVersions = retainedInstallerRows(catalog, row.chart);
   const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
   const evidenceVersionNote = evidenceEntry
@@ -8916,6 +8933,9 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
       <pre><code>${escapeHtml(row.inspect_command)}
 ${escapeHtml(row.setup_command)}</code></pre>
       <p>Exact OCI ref: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
+      ${digestPinnedSetup ? `<p>The same pull, pinned so a republished tag cannot change what you get:</p>
+      <pre><code>${digestPinnedSetup}</code></pre>
+      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>` : ""}
     </section>
 
     <section aria-labelledby="retained-configurations">
@@ -9059,6 +9079,15 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   const firstRunnableScriptDir = firstRunnableRow ? presetScriptDir(entry, firstRunnableRow) : null;
   const installerPackageOciRef = installerOciRefForEntry(entry);
   const installerPackageStatus = installerOciStatusText(entry);
+  const entryPublicationReceipt = entry.installer_oci_publication_receipt
+    ? readYaml(join(repoRoot, entry.installer_oci_publication_receipt))
+    : null;
+  const entryManifestDigest = entryPublicationReceipt?.spec?.outputs?.manifestDigest
+    ?? String(entryPublicationReceipt?.spec?.outputs?.push ?? "").match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
+    ?? "";
+  const entryDigestPinnedRef = entryManifestDigest
+    ? installerPackageOciRef.replace(/:[^:/]+$/u, `@${entryManifestDigest}`)
+    : "";
   const installerPublicationReceiptLink = entry.installer_oci_publication_receipt
     ? `<a href="../../${escapeHtml(entry.installer_oci_publication_receipt)}">open the exact publication receipt</a>`
     : "no publication receipt is committed";
@@ -9366,6 +9395,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       <div class="card">
         <h3>Package image</h3>
         <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)} · ${installerPublicationReceiptLink}</span></p>
+        ${entryDigestPinnedRef ? `<p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>${escapeHtml(entryDigestPinnedRef)}</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>` : ""}
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
         <p>${firstRunnableCommand}</p>

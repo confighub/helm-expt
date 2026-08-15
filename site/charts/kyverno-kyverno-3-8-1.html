@@ -540,6 +540,7 @@
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/kyverno-kyverno/3.8.1/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
+        <p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno@sha256:13f2502075632259f7471d7043a09303d2cbee19c82c11c0485561b487288768</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>First recorded command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1 --base default --work-dir ./kyverno-kyverno-3-8-1-default --non-interactive --namespace default</code></p>

@@ -411,6 +411,7 @@ ConfigHub primitives.
 | [enterprise-parity-contract.md](./reference/enterprise-parity-contract.md) | Customer-safe extension of the parity model for private Helm, values-only, and Argo ApplicationSet estates. |
 | [variant-promotion-worked-example.md](./reference/variant-promotion-worked-example.md) | Worked promotion examples for Redis and managed overlays. |
 | [variant-promotion-model.md](./reference/variant-promotion-model.md) | Consolidated model for ConfigHub server-side variant promotion: UX, AX, fleet flow, current top-20 evidence, and product gaps. |
+| [promotion-diff-classes.md](./reference/promotion-diff-classes.md) | The four classes every promotion diff entry falls into (inherited, overridden, upstream-added, no-op), the presentation each deserves, and the committed BYO NGINX promotion walked through them. |
 | [confighub-promotion-mapping.md](./reference/confighub-promotion-mapping.md) | Mapping between Helm-derived bases, ConfigHub variants, and promotion concepts. |
 | [kubara-customized-overlays.md](./corpus/kubara-customized-overlays.md) | Managed wrapper chart plus customer overlay test case. |
 

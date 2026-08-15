@@ -540,6 +540,7 @@
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/external-dns-external-dns/1.21.1/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
+        <p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>First recorded command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1 --base default --work-dir ./external-dns-external-dns-1-21-1-default --non-interactive --namespace default</code></p>

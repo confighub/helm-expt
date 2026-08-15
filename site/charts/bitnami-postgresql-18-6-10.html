@@ -458,6 +458,9 @@
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10 --base existing-secret --work-dir .tmp/demo/bitnami-postgresql-18-6-10-existing-secret --non-interactive</code></pre>
       <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10</code></p>
+      <p>The same pull, pinned so a republished tag cannot change what you get:</p>
+      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql@sha256:3c92cad513a3543d36e71e60da8207512911cbaf39c9149854b5e42637489b8d --base existing-secret --work-dir .tmp/demo/bitnami-postgresql-18-6-10-existing-secret --non-interactive</code></pre>
+      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>
     </section>
 
     <section aria-labelledby="retained-configurations">

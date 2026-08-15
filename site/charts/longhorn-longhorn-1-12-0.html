@@ -458,6 +458,9 @@
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0 --base default --work-dir .tmp/demo/longhorn-longhorn-1-12-0-default --non-interactive</code></pre>
       <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0</code></p>
+      <p>The same pull, pinned so a republished tag cannot change what you get:</p>
+      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn@sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912 --base default --work-dir .tmp/demo/longhorn-longhorn-1-12-0-default --non-interactive</code></pre>
+      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>
     </section>
 
     <section aria-labelledby="retained-configurations">

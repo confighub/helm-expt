@@ -540,6 +540,7 @@
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
+        <p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>First recorded command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base default --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system</code></p>

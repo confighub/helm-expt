@@ -458,6 +458,9 @@
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0 --base http-clusterip --work-dir .tmp/demo/bitnami-nginx-25-0-0-http-clusterip --non-interactive</code></pre>
       <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0</code></p>
+      <p>The same pull, pinned so a republished tag cannot change what you get:</p>
+      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx@sha256:9965016714ddf56dd47a3e8705c06d42a25defd1aa57474e5939c04fc600ece9 --base http-clusterip --work-dir .tmp/demo/bitnami-nginx-25-0-0-http-clusterip --non-interactive</code></pre>
+      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>
     </section>
 
     <section aria-labelledby="retained-configurations">

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>bitnami/postgresql 18.7.0 retained package · Config Workshop</title>
-  <meta name="description" content="bitnami/postgresql 18.7.0 retained package: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-7-0.html">
-  <meta property="og:title" content="bitnami/postgresql 18.7.0 retained package · Config Workshop">
-  <meta property="og:description" content="bitnami/postgresql 18.7.0 retained package: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.">
+  <title>What a promotion diff should show, class by class · Config Workshop</title>
+  <meta name="description" content="What a promotion diff should show, class by class: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/promotion-diff-classes.html">
+  <meta property="og:title" content="What a promotion diff should show, class by class · Config Workshop">
+  <meta property="og:description" content="What a promotion diff should show, class by class: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-7-0.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/promotion-diff-classes.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -426,187 +426,43 @@
       pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
 </head>
-<body data-retained-only-version="bitnami/postgresql@18.7.0">
-  <header>
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../guides.html">Guides</a><a href="../charts/index.html">Catalog</a><a href="../ask.html">Check my config</a><a href="../promote.html">Promote my config</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>bitnami/postgresql</h1>
-    <p class="lead">Inspect the retained package for bitnami/postgresql@18.7.0, its packaged configurations, and its exact publication receipt.</p>
-    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
-    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
-    <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart's own Chart.yaml license metadata, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
-    <div class="card" data-succession-note><p>The pinned upstream source download for this component returned HTTP 403 when measured on 2026-08-08. The retained packages and publications recorded here stay pullable from this catalog's registry. Recorded successors: <a href="./cloudnative-pg-cloudnative-pg-0-28-2.html">cloudnative-pg/cloudnative-pg</a> (operator; An operator, not a drop-in chart; the operating shape changes. Issue 1376 tracks the fuller successor entry.). These are recommendations to evaluate, not automatic replacements. Read the <a href="../d/data/bitnami-successors/successors.html">successor survey</a> and the <a href="../d/docs/user/image-registry-migration.html">registry migration guide</a>.</p></div>
-    <p><a class="button primary" href="../promote.html?chart=bitnami%2Fpostgresql&current=18.7.0&base=existing-secret">Plan an upgrade or promotion</a></p>
-    <p><a href="./index.html">Back to the Component Catalog</a> · component versions: <a href="./bitnami-postgresql-18-7-0.html"><strong>18.7.0</strong></a> · <a href="./bitnami-postgresql-18-6-10.html">18.6.10</a> · <a href="./bitnami-postgresql-18-6-7.html">18.6.7</a></p>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>What a promotion diff should show, class by class</h1>
+    <p class="lead"><code>runs/byo-helm-values-promotion-proof/receipt.yaml</code> records the bring-your-own NGINX review promoted from development into staging. <a href="../../../../docs/reference/promotion-diff-classes.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="retained-page-summary">
-      <h2 id="retained-page-summary">What this page gives you</h2>
-      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication receipt reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
-      <div id="setting-sources" class="card">
-        <h3>Where its settings and observations live</h3>
-        <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
-      </div>
-    </section>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> A promotion review lives or dies on how it presents differences. This page defines the four classes every entry in a variant diff falls into, states the presentation each class deserves, and walks one committed promotion through them. Issue #152 asked for this vocabulary; the promotion pages and any future product UI should use it rather than inventing another.</p>
+<h2 id="the-four-classes">The four classes</h2>
+<table><thead><tr><th>Class</th><th>Meaning</th><th>How to present it</th></tr></thead><tbody><tr><td>inherited</td><td>The value is identical in the variant and its base. Nothing departed and nothing arrived.</td><td>Keep it out of the way. Inherited content is the bulk of every diff, and a reviewer who scrolls past forty inherited objects stops reading before the entry that matters.</td></tr>
+<tr><td>overridden</td><td>The variant departs from the base on purpose, and the departure survives the promotion.</td><td>Show it as a kept difference with its origin: which environment set it and what it protects. Survival is not a change, and presenting it as one teaches reviewers to ignore the diff.</td></tr>
+<tr><td>upstream-added</td><td>The base moved and the variant has not yet absorbed the change. This is what a promotion actually moves.</td><td>Give it the headline. Name the object, the field path, and both values. This class carries the risk and deserves most of the screen.</td></tr>
+<tr><td>no-op</td><td>The text differs but the object does not: reordered keys, defaulted fields, formatting.</td><td>Suppress it by default behind a count and a toggle. Twelve visible no-ops bury the one real change.</td></tr></tbody></table>
+<h2 id="one-committed-promotion-walked">One committed promotion, walked</h2>
 
-    <section aria-labelledby="try-retained-chart">
-      <h2 id="try-retained-chart">Try This Chart</h2>
-      <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0 --base existing-secret --work-dir .tmp/demo/bitnami-postgresql-18-7-0-existing-secret --non-interactive</code></pre>
-      <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0</code></p>
-      <p>The same pull, pinned so a republished tag cannot change what you get:</p>
-      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql@sha256:92ef63e4264bad114e4a63c03d603b021246894b9bc4dc9c3465469bd8eb3f35 --base existing-secret --work-dir .tmp/demo/bitnami-postgresql-18-7-0-existing-secret --non-interactive</code></pre>
-      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>
-    </section>
-
-    <section aria-labelledby="retained-configurations">
-      <h2 id="retained-configurations">Available Configurations</h2>
-      <ul>
-        <li><code>static-passwords</code></li>
-        <li><code>existing-secret</code> - package default</li>
-      </ul>
-      <p>The section below says what these configurations expect you to provide.</p>
-    </section>
-
-    
-    <section aria-labelledby="flattening">
-      <h2 id="flattening">What This Chart Contains</h2>
-      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 65 files.</p>
-      <div class="card"><table>
-        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
-        <tbody><tr><td>Keep policy</td><td>1</td><td>A reconciler prunes what Helm promised to keep.</td></tr><tr><td>Cluster lookups</td><td>3</td><td>The chart reads the cluster while rendering, so a render without one is valid but wrong.</td></tr><tr><td>Capability branching</td><td>5</td><td>The chart chooses apiVersions from the cluster it renders against.</td></tr><tr><td>Generated credentials</td><td>10</td><td>Every render mints new values, and a shared artifact would freeze one draw.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
-      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
-    </section>
-
-    <section aria-labelledby="images-pulled">
-      <h2 id="images-pulled">Images This Chart Pulls</h2>
-      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
-      <div class="card"><table>
-        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
-        <tbody><tr><td>static-passwords</td><td><code>registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653</code></td></tr><tr><td>existing-secret</td><td><code>registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653</code></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-    <section aria-labelledby="retained-tests">
-      <h2 id="retained-tests">What Has Been Tested</h2>
-      <p>Choose the question you care about. <strong>Not checked</strong> means this catalog has no version-specific result; it is not a pass.</p>
-      <div class="card"><table class="coverage-table">
-        <thead><tr><th>Question</th><th>Status</th><th>Evidence</th></tr></thead>
-        <tbody><tr>
-          <td data-label="Question">Can I pull these exact package bytes again?</td>
-          <td data-label="Status">Checked</td>
-          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-postgresql/18.7.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
-        </tr><tr>
-          <td data-label="Question">What does this chart contain?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Does the recorded render match Helm?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Did the supplied values change the render?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Were hooks, CRDs, or setup steps checked?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Did this version run on a local Kubernetes cluster?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Did an OCI delivery through GitOps run?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Did Helm and ConfigHub reach the same live result?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Was the result compared on separate clusters?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Was a ConfigHub promotion tested?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr><tr>
-          <td data-label="Question">Did this version string point at changed upstream bytes?</td>
-          <td data-label="Status">Not checked</td>
-          <td data-label="Evidence">No linked result</td>
-        </tr></tbody>
-      </table></div>
-      <style>
-        @media (max-width: 640px) {
-          table.coverage-table { display: block; white-space: normal; overflow: visible; }
-          .coverage-table thead { display: none; }
-          .coverage-table tbody { display: block; }
-          .coverage-table tr {
-            display: grid;
-            grid-template-columns: minmax(7.5rem, .38fr) minmax(0, 1fr);
-            gap: 4px 10px;
-            padding: 11px 0;
-            border-bottom: 1px solid var(--line);
-          }
-          .coverage-table tr:last-child { border-bottom: 0; }
-          .coverage-table td { display: block; width: auto; padding: 0; border: 0; white-space: normal; }
-          .coverage-table td:first-child { grid-column: 1 / -1; color: var(--ink); font-weight: 650; }
-          .coverage-table td:nth-child(n + 2)::before {
-            content: attr(data-label) ": ";
-            color: var(--muted);
-            font-weight: 600;
-          }
-        }
-      </style>
-      <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92</code> and manifest <code>sha256:92ef63e4264bad114e4a63c03d603b021246894b9bc4dc9c3465469bd8eb3f35</code>, and records an inspect-result digest.</p>
-      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
-      <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./bitnami-postgresql-18-6-7.html">18.6.7 evidence page</a>.</p>
-    </section>
-
-    <section aria-labelledby="retained-requirements">
-      <h2 id="retained-requirements">What You Must Provide</h2>
-      <p>The installer metadata records 1 external-requirement reference across these configurations. Inspect the package before choosing a base.</p>
-      <p>Choose a namespace and target deliberately, supply any listed Secret, CRD, storage, API, or cloud prerequisite, and inspect the rendered YAML before delivery.</p>
-    </section>
-
-    <section aria-labelledby="retained-production">
-      <h2 id="retained-production">Before Production</h2>
-      <p>Run target-specific policy, lifecycle, upgrade, and workload checks. A successful package publication and inspect result does not establish production support or live convergence.</p>
-    </section>
-
-    <section aria-labelledby="retained-files">
-      <h2 id="retained-files">Source And Evidence Files</h2>
-      <div class="card"><table>
-        <thead><tr><th>Record</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.7.0">packages/bitnami/postgresql/18.7.0</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/bitnami/postgresql/18.7.0/installer.yaml">packages/bitnami/postgresql/18.7.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/bitnami-postgresql/18.7.0/installer-package-publication-receipt.yaml">runs/installer-oci/bitnami-postgresql/18.7.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0</code></td></tr><tr><td>Layer digest</td><td><code>sha256:6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:92ef63e4264bad114e4a63c03d603b021246894b9bc4dc9c3465469bd8eb3f35</code></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
+<p>Before the promote, staging's diff against its base held two kinds of entries. Its own deliberate departures were the overridden class, and they protect staging-only decisions. The reviewed replica change, <code>spec.replicas</code> moving from 3 to 4, sat on the base side as the upstream-added class: approved, tested in development, and not yet absorbed.</p>
+<p>The promote moved exactly the upstream-added entry. The receipt records <code>pendingUpstreamChanges: 0</code> afterwards, which is the machine form of &quot;nothing approved is still waiting&quot;. The overridden entries survived unchanged, and the rest of both object sets stayed inherited and identical.</p>
+<p>A reader of that promotion needed one headline (replicas 3 to 4), one kept-differences list (staging's departures, untouched), and silence about everything else. That is the whole presentation contract.</p>
+<h2 id="the-honest-limit">The honest limit</h2>
+<p>The same receipt notes that the live <code>cub variant promote --dry-run</code> printed no mutation preview. Until the product's preview fills in, this classification comes from comparing the exact object sets on both sides, not from a server-side plan. That is also the reason a promotion review must classify entries itself: a preview that can be empty cannot be the thing that tells a reviewer what moved.</p>
+    </article>
   </main>
-  <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/promotion-diff-classes.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

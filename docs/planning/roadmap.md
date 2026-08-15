@@ -5,7 +5,7 @@
 It explains the current product direction, the active workstreams, and which
 planning files are authoritative for each kind of question.
 
-Updated: 2026-07-27.
+Updated: 2026-08-15.
 
 ## How To Read The Roadmap
 
@@ -53,14 +53,31 @@ visitor has to understand.
 
 | Workstream | Current objective | Primary surfaces | Main trackers |
 | --- | --- | --- | --- |
-| Public website and guides | Make the site clear enough for a new Helm user, with short guide pages and deeper docs one click away. | `site/*.html`, [Dedicated Website Plan](./dedicated-website-plan.md), [persona UX audits](./persona-ux-audit-2026-06-22.md). | [#679](https://github.com/confighub/helm-expt/issues/679), [#753](https://github.com/confighub/helm-expt/issues/753). |
+| Question-first acquisition | Turn real public Helm questions into visits, answered checks, and retained results: the cohort test, the intake counter, and the Check and Promote pages. | `site/ask.html`, `site/promote.html`, [growth strategy](./config-workshop-ai-drift-growth-strategy.md), [promotion test program](./promotion-workshop-test-program.md). | [#1537](https://github.com/confighub/helm-expt/issues/1537), [#1538](https://github.com/confighub/helm-expt/issues/1538), [#1539](https://github.com/confighub/helm-expt/issues/1539), [#1540](https://github.com/confighub/helm-expt/issues/1540), [#1553](https://github.com/confighub/helm-expt/issues/1553). |
+| Public website and guides | Keep the site clear for a new Helm user, with short guide pages and deeper docs one click away. | `site/*.html`, [Dedicated Website Plan](./dedicated-website-plan.md), [persona UX audits](./persona-ux-audit-2026-06-22.md). | [#1406](https://github.com/confighub/helm-expt/issues/1406), [#679](https://github.com/confighub/helm-expt/issues/679). |
 | Chart catalog and matrix | Keep the top-100 chart catalog useful, honest, and navigable by chart/version/base/variant. | [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html), [Chart Use Guide](../../data/chart-use-guide/summary.md), [Top-100 Readiness](../user/top100-readiness.md). | [#106](https://github.com/confighub/helm-expt/issues/106), [#113](https://github.com/confighub/helm-expt/issues/113), [#114](https://github.com/confighub/helm-expt/issues/114). |
-| Live evidence and hard charts | Keep hard chart behavior receipted: CRDs, webhooks, hooks, target facts, generated facts, storage, runtime health, and GitOps sync. | [Current Proof Status](../user/current-proof-status.md), [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md), [Lifecycle Boundary](../../data/lifecycle-boundary/summary.md). | [#248](https://github.com/confighub/helm-expt/issues/248), [#714](https://github.com/confighub/helm-expt/issues/714), [#882](https://github.com/confighub/helm-expt/issues/882). |
-| Variants and promotion | Show base variants, derived ConfigHub variants, promotion, and app workflows as ordinary ConfigHub value. | [Creating Variants](../user/creating-variants.md), [Variant Promotion Model](../reference/variant-promotion-model.md), [Variant Promotion](../../data/variant-promotion/summary.md). | [#143](https://github.com/confighub/helm-expt/issues/143)-[#153](https://github.com/confighub/helm-expt/issues/153), [#948](https://github.com/confighub/helm-expt/issues/948). |
+| Live evidence and hard charts | Keep hard chart behavior receipted: CRDs, webhooks, hooks, target facts, generated facts, storage, runtime health, and GitOps sync. | [Current Proof Status](../user/current-proof-status.md), [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md), [Lifecycle Boundary](../../data/lifecycle-boundary/summary.md). | [#842](https://github.com/confighub/helm-expt/issues/842), [#861](https://github.com/confighub/helm-expt/issues/861), [#878](https://github.com/confighub/helm-expt/issues/878). |
+| Variants and promotion | Show base variants, derived ConfigHub variants, promotion, and app workflows as ordinary ConfigHub value, now including the public promotion review page. | [Creating Variants](../user/creating-variants.md), [Variant Promotion Model](../reference/variant-promotion-model.md), [Variant Promotion](../../data/variant-promotion/summary.md). | [#152](https://github.com/confighub/helm-expt/issues/152), [#151](https://github.com/confighub/helm-expt/issues/151). |
 | Render-input capture and renderer integration | Ensure one-shot Helm adoption records the inputs needed for repeatable render, upgrade, and rollback, and align with Argo CD / Flux renderer sources where those are already the source of truth. | [Choosing Commands](../user/choosing-commands.md), [Why This Exists](../user/why-this-exists.md), [ConfigHub Data Model](../user/confighub-data-model.md). | Upstream ConfigHub [#3393](https://github.com/confighubai/confighub/issues/3393), [#4369](https://github.com/confighubai/confighub/issues/4369), helm-expt [#76](https://github.com/confighub/helm-expt/issues/76). |
 | ConfigHub/cub product blockers | Keep product gaps exposed by the corpus linked to upstream implementation work without overstating what helm-expt itself owns. | [Issue Backlog](./issue-backlog.md), [Variant Promotion Closeout](../reference/variant-promotion-closeout.md). | [#682](https://github.com/confighub/helm-expt/issues/682), upstream ConfigHub issue [#4609](https://github.com/confighubai/confighub/issues/4609). |
 | Errors, omissions, and UX guards | Prevent false chart-page claims and placeholder leaks from returning. | [Chart Claim Integrity Audit](./chart-claim-integrity-audit-2026-06-22.md), [Test Map](../../tests/README.md). | PR [#1024](https://github.com/confighub/helm-expt/pull/1024), [#1025](https://github.com/confighub/helm-expt/issues/1025), [#1026](https://github.com/confighub/helm-expt/issues/1026), [#1027](https://github.com/confighub/helm-expt/issues/1027), PR [#1028](https://github.com/confighub/helm-expt/pull/1028). |
 | AI-assisted apps and operations | Turn the ConfigHub data model into a substrate for AI-assisted app changes, RBAC/task-specific tools, and safer operations. | [AI-Assisted Helm Changes](../user/ai-assisted-helm-changes.md), [Broken Chart Triage](../user/broken-chart-triage.md), future app examples. | [#949](https://github.com/confighub/helm-expt/issues/949) and future app/example issues. |
+
+## Component Ownership
+
+Which part of the wider system owns each kind of work. This is the split issue
+#949 asked the roadmap to state; it names owners, not delivery dates.
+
+| Component | Owns | Does not own |
+| --- | --- | --- |
+| helm-expt / Config Workshop | The public evidence catalog, the site, the verify chain, receipts, and honest refusals. | Executing changes against user clusters, or any governed store. |
+| ConfigHub Server | Variants, approvals, promotion, releases, revision history, and live comparison records. | Rendering charts; that stays with the tools that produced the objects. |
+| cub installer | Pulling a package, rendering exact objects locally, and publishing a rendered OCI. | Deciding what is safe to promote; it reports, the review decides. |
+| cub variant | Creating and promoting governed variants against ConfigHub. | Inventing merge semantics; conflicts surface for review. |
+| cub-scout | Observing live state and comparing it with desired configuration. | Writing desired state; observation stays read-only. |
+| Argo CD / Flux | Reconciling the published release OCI into clusters. They stay user-owned. | Being replaced; the catalog emits routes for them, not substitutes. |
+| Pilot | Parity-gated variant generation, prototype only. | Authority; it is author-not-authority by design. |
+| Remediation and lifecycle intelligence | helm-expt records routes and action packets, every one automatic: false. | Execution, which stays with the user or the product, never the catalog. |
 
 ## Release Guardrails
 
@@ -104,7 +121,6 @@ and decide whether it is canonical, lane-specific, or a snapshot.
 
 | Item | Why |
 | --- | --- |
-| Split the very long `npm run verify` script into named suites. | The current command is hard to inspect and easy to conflict on. Tracked in [#1029](https://github.com/confighub/helm-expt/issues/1029). |
 | Continue archiving old handoff snapshots. | The repo has many useful historical notes that should not look like current instructions. |
 | Keep website copy smaller than the docs behind it. | The site should explain the product path; detailed proof belongs in guides and generated data. |
 | Keep chart-page warnings visible but less scary. | Warnings are product honesty, not failure, when they tell users what remains to stage or decide. |
