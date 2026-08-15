@@ -121,12 +121,20 @@ async function checkDeploy() {
 // day behind" want different responses.
 async function comparePages(targets) {
   const stale = [];
+  const unavailable = new Map();
   for (const target of targets) {
     const committed = readFileSync(join(repoRoot, "site", target), "utf8");
-    const published = await fetchText(`${SITE_BASE_URL}${target}`);
-    if (sha256(committed) !== sha256(published)) stale.push(target);
+    try {
+      const published = await fetchText(`${SITE_BASE_URL}${target}`);
+      if (sha256(committed) !== sha256(published)) stale.push(target);
+    } catch (error) {
+      // A new navigation page returns 404 until the Pages deploy reaches it.
+      // Treat that as unpublished content so --wait-minutes can do its job.
+      stale.push(target);
+      unavailable.set(target, error.message);
+    }
   }
-  return stale;
+  return { stale, unavailable };
 }
 
 function headSha() {
@@ -143,18 +151,22 @@ if (!skipDeployCheck) {
   }
 }
 
-let stale = await comparePages(targets);
+let comparison = await comparePages(targets);
 const deadline = Date.now() + waitMinutes * 60_000;
-while (stale.length && Date.now() < deadline) {
-  console.log(`  ${stale.length} of ${targets.length} pages not published yet, waiting for the deploy to land`);
+while (comparison.stale.length && Date.now() < deadline) {
+  console.log(`  ${comparison.stale.length} of ${targets.length} pages not published yet, waiting for the deploy to land`);
   await new Promise((resolve) => setTimeout(resolve, 30_000));
-  stale = await comparePages(targets);
+  comparison = await comparePages(targets);
 }
-if (stale.length) {
+if (comparison.stale.length) {
+  const unavailable = [...comparison.unavailable.entries()]
+    .map(([target, message]) => `${target} (${message})`)
+    .join(", ");
   failures.push(
-    `${stale.length} of ${targets.length} published pages differ from the committed ones at ${headSha()}: ${stale.join(", ")}. ` +
+    `${comparison.stale.length} of ${targets.length} published pages are unavailable or differ from the committed ones at ${headSha()}: ${comparison.stale.join(", ")}. ` +
+      (unavailable ? `Unavailable: ${unavailable}. ` : "") +
       `Either the deploy has not landed, or it landed and served something else. ` +
-      `Compare with: curl -s ${SITE_BASE_URL}${stale[0]} | diff - site/${stale[0]}`,
+      `Compare with: curl -s ${SITE_BASE_URL}${comparison.stale[0]} | diff - site/${comparison.stale[0]}`,
   );
 }
 
