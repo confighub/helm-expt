@@ -657,7 +657,10 @@ if (!fs.existsSync(promotePath)) {
   const promote = fs.readFileSync(promotePath, "utf8");
   for (const phrase of [
     "Test a change before it moves",
-    "What are you changing?",
+    "1. The review",
+    "2. What are you changing?",
+    "loads automatically",
+    "immutable StatefulSet field fails at apply time",
     "What changes",
     "What stays the same",
     "What you should test",
