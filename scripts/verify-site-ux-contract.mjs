@@ -112,7 +112,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "What The Starting Configuration Records", "Try This Chart", "redis-existing-secret"],
+    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "pinned so a republished tag cannot change what you get", "What The Starting Configuration Records", "Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",

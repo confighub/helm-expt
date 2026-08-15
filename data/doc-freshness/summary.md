@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-15 (commit `0f1c3a7f1`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-15 (commit `f1aec37b4`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 279 |
+| Authored docs tracked | 280 |
 | Fresh (no linked source newer than the doc) | 43 |
 | **Review-due** | 78 |
-| No linked evidence sources (cannot auto-trigger) | 158 |
+| No linked evidence sources (cannot auto-trigger) | 159 |
 
 ## Review queue
 
@@ -236,6 +236,7 @@ into this freshness model.
 - [docs/reference/lane-test-doctrine.md](../../docs/reference/lane-test-doctrine.md)
 - [docs/reference/observation-freshness-slo.md](../../docs/reference/observation-freshness-slo.md)
 - [docs/reference/per-chart-recipes.md](../../docs/reference/per-chart-recipes.md)
+- [docs/reference/promotion-diff-classes.md](../../docs/reference/promotion-diff-classes.md)
 - [docs/reference/redis-worked-example.md](../../docs/reference/redis-worked-example.md)
 - [docs/reference/seven-stage-helm-lifecycle.md](../../docs/reference/seven-stage-helm-lifecycle.md)
 - [docs/reference/two-cluster-parity-harness.md](../../docs/reference/two-cluster-parity-harness.md)
