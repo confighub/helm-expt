@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-13 (commit `11497b95c`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-15 (commit `30343916c`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 278 |
-| Fresh (no linked source newer than the doc) | 44 |
-| **Review-due** | 77 |
-| No linked evidence sources (cannot auto-trigger) | 157 |
+| Authored docs tracked | 279 |
+| Fresh (no linked source newer than the doc) | 43 |
+| **Review-due** | 78 |
+| No linked evidence sources (cannot auto-trigger) | 158 |
 
 ## Review queue
 
@@ -105,8 +105,9 @@ most recently changed triggers.
 | [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 3 | `data/aicr-claim-integrity/summary.md (2026-08-11)`<br>`data/aicr-entry-naming/summary.md (2026-08-11)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 3 | `data/flattening-safety/summary.md (2026-08-09)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
+| [docs/planning/config-workshop-ai-drift-growth-strategy.md](../../docs/planning/config-workshop-ai-drift-growth-strategy.md) | planning | 2026-08-12 | 2 | `data/challenge-intake/summary.md (2026-08-14)` |
+| [docs/reference/question-intake-operation.md](../../docs/reference/question-intake-operation.md) | reference | 2026-08-13 | 2 | `data/challenge-intake/summary.md (2026-08-14)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
-| [docs/planning/config-workshop-ai-drift-growth-strategy.md](../../docs/planning/config-workshop-ai-drift-growth-strategy.md) | planning | 2026-08-12 | 1 | `data/challenge-intake/summary.md (2026-08-13)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 1 | `tests/doctrine.md (2026-08-09)`<br>`data/gated-artifacts/summary.md (2026-08-08)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
@@ -204,6 +205,7 @@ into this freshness model.
 - [docs/planning/onboarding-and-entry-paths.md](../../docs/planning/onboarding-and-entry-paths.md)
 - [docs/planning/per-chart-fact-sheet-spec.md](../../docs/planning/per-chart-fact-sheet-spec.md)
 - [docs/planning/persona-ux-audit-2026-06-22.md](../../docs/planning/persona-ux-audit-2026-06-22.md)
+- [docs/planning/promotion-workshop-test-program.md](../../docs/planning/promotion-workshop-test-program.md)
 - [docs/planning/remote-url-oci-probe.md](../../docs/planning/remote-url-oci-probe.md)
 - [docs/planning/review-prompts.md](../../docs/planning/review-prompts.md)
 - [docs/planning/server-account-pitch.md](../../docs/planning/server-account-pitch.md)
