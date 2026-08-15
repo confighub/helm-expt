@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-15 (commit `f1aec37b4`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-15 (commit `f1f3ef655`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 280 |
-| Fresh (no linked source newer than the doc) | 43 |
-| **Review-due** | 78 |
+| Fresh (no linked source newer than the doc) | 45 |
+| **Review-due** | 76 |
 | No linked evidence sources (cannot auto-trigger) | 159 |
 
 ## Review queue
@@ -52,7 +52,6 @@ most recently changed triggers.
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-16 | 57 | `data/outcome-coverage/summary.md (2026-08-12)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/variant-goldens/derived-expansion-wave/README.md (2026-06-30)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 57 | `data/image-digest-workdown/summary.md (2026-08-12)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
 | [docs/reference/master-catalog-matrix.md](../../docs/reference/master-catalog-matrix.md) | reference | 2026-06-18 | 56 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/master-catalog-matrix/matrix.csv (2026-08-12)`<br>`data/master-catalog-matrix/summary.md (2026-08-12)` |
-| [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 56 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/outcome-evidence-contract/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)` |
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 56 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/lifecycle-route-actions/summary.md (2026-08-10)`<br>`data/live-matrix-burndown/summary.md (2026-08-10)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 53 | `tests/persona-ux-strategy.md (2026-08-13)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 53 | `tests/persona-ux-strategy.md (2026-08-13)` |
@@ -76,7 +75,6 @@ most recently changed triggers.
 | [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md) | planning | 2026-07-05 | 24 | `tests/README.md (2026-07-28)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 18 | `tests/doctrine.md (2026-08-09)`<br>`tests/README.md (2026-07-28)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 17 | `data/app-readiness/summary.md (2026-08-12)` |
-| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-07-27 | 17 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`data/outcome-evidence-contract/summary.md (2026-08-12)`<br>`data/variant-promotion/summary.md (2026-08-10)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 17 | `data/secret-lifecycle/summary.md (2026-08-12)`<br>`data/chart-use-guide/summary.md (2026-08-10)`<br>`data/claims-register/summary.md (2026-07-29)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 15 | `data/anonymous-oci-ci-proof/summary.md (2026-08-10)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 15 | `data/master-catalog-matrix/matrix.html (2026-08-12)`<br>`CATALOG.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)` |

@@ -328,7 +328,16 @@ function buildReport(generatedAt) {
       // when one is uncovered, so this cannot become a quiet hole.
       const renderIntent = renderIntents.get(`${chartName}|${version}|${variant}`) ?? null;
       const hookCount = hook ? Number(hook.source_hook_count) : null;
-      const nextAction = normalizeTargetRunText(ready?.next_action ?? "");
+      // The chart-level next action from the readiness table is written about
+      // one named base: the production-disposition templates read "choose
+      // whether <base> is in production scope". Stamping that text on every
+      // base row made the redis reuse-existing-secret card tell readers to
+      // decide something about the default base (#1406). When the text names a
+      // base, only that base's row carries it; a next action that names no
+      // base is chart-level advice and stays on every row.
+      const chartNextAction = normalizeTargetRunText(ready?.next_action ?? "");
+      const nextActionNamedBase = chartNextAction.match(/choose whether ([A-Za-z0-9._-]+) is in production scope/)?.[1];
+      const nextAction = nextActionNamedBase && nextActionNamedBase !== variant ? "" : chartNextAction;
       // A chart whose source scan flags hooks but that has no disposition row
       // is UNROUTED - rendering it as "no hooks" would hide exactly the gap
       // the hook-disposition completeness gate exists to surface.
