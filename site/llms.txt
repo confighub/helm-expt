@@ -15,6 +15,8 @@
 - [Check my config](https://confighub.github.io/helm-expt/site/ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
 - [Promote my config](https://confighub.github.io/helm-expt/site/promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
 - [Configuration review schema](https://confighub.github.io/helm-expt/site/review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
+- [Promotion review schema](https://confighub.github.io/helm-expt/site/promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
+- [Base variant records](https://confighub.github.io/helm-expt/site/base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Why did Helm ignore my values?](https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Why do development and production differ?](https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.

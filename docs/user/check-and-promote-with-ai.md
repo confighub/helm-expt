@@ -1,0 +1,80 @@
+# Check and promote configuration with your own AI assistant
+
+Use **Check my config** when you have a new chart, values file, AICR recipe, OCI
+package, or Kubernetes YAML. Use **Promote my config** when you have an accepted
+configuration and a proposed next version or environment.
+
+Both pages run in the browser. They do not send your YAML to ConfigHub, an AI service,
+or Kubernetes. You may download the exact objects and review record, then give them to
+Claude, Codex, or another assistant you already use.
+
+## Check a new configuration
+
+1. Open [Check my config](https://confighub.github.io/helm-expt/site/ask.html).
+2. Choose the practical question you need answered.
+3. Add the rendered Kubernetes YAML. Add the current or trusted YAML when you want a
+   comparison.
+4. If the configuration came from the Catalog, add its `BaseVariantRecord`. This adds
+   the known source, prerequisites, hooks, CRDs, policy, and evidence status.
+5. Run the browser check and download `candidate.yaml` with
+   `workshop-review.json`.
+
+The browser parses the YAML as data. It inventories the objects, hides formatting-only
+changes, checks a small set of manifest risks, and lists what it did not test. It does
+not run the source tool, contact a cluster, execute hooks, or prove application health.
+
+The generated AI prompt asks your assistant to confirm the file hashes, keep private
+inputs local, separate computed findings from Catalog evidence, and write any proposed
+fix to a new file. The assistant does not get to turn an unrun check into a pass.
+
+## Review a promotion
+
+Open [Promote my config](https://confighub.github.io/helm-expt/site/promote.html)
+after Check my config, or load the current and proposed YAML directly.
+
+For a source-aware result, provide four files:
+
+| File | What it tells the review |
+| --- | --- |
+| Old source render | What the old chart or source produced before later edits |
+| Old accepted configuration | What you actually accepted and kept |
+| New source render | What the new chart, values, or source produces |
+| Proposed accepted configuration | What you intend to move |
+
+The result separates source changes from later object edits. It marks a field for
+review when the source and a later edit both affect it. It also carries Catalog
+prerequisites and lifecycle work into the test plan when a `BaseVariantRecord` is
+supplied.
+
+Add one result per staging or fleet target in this form:
+
+```text
+staging-eu | pass | rollout and smoke test passed | sha256:...
+prod-us | not-run | waiting for approval |
+```
+
+The digest must match the proposed configuration. A passing target does not make an
+untested target pass, so a mixed fleet remains partial.
+
+## Keep the accepted result in ConfigHub
+
+The free result remains useful as local files or OCI. Use ConfigHub when the accepted
+objects, source record, variants, approvals, release digest, and target results need to
+remain connected for a team.
+
+The promotion page generates current `cub` commands. It starts with
+`cub variant upload --dry-run` to preview a source refresh and
+`cub variant promote --dry-run -o mutations` to preview each downstream Space. Review
+those outputs before any write. After approval, record the source refresh, promote the
+same candidate, publish the release OCI, and add each target result to the review.
+
+ConfigHub records desired configuration. A successful upload or promotion does not by
+itself prove Kubernetes admission, hook execution, application health, data migration,
+or rollback of external effects.
+
+## Public records
+
+- [ConfigurationReview schema](https://confighub.github.io/helm-expt/site/review.schema.json)
+- [PromotionReview schema](https://confighub.github.io/helm-expt/site/promotion-review.schema.json)
+- [Catalog BaseVariantRecord index](https://confighub.github.io/helm-expt/site/base-variant-records.json)
+- [Promotion diff classes](../reference/promotion-diff-classes.md)

@@ -1,10 +1,13 @@
 (() => {
   "use strict";
 
+  // config-workshop-browser-static-v1
+
   const byId = (id) => document.getElementById(id);
   const questionData = byId("configuration-question-data");
   const settingsData = byId("configuration-check-settings");
-  if (!questionData || !settingsData) return;
+  const yamlTools = globalThis.ConfigWorkshopYaml;
+  if (!questionData || !settingsData || !yamlTools) return;
 
   const questions = JSON.parse(questionData.textContent);
   const settings = JSON.parse(settingsData.textContent);
@@ -170,9 +173,10 @@
         ? "6. Compare the candidate with Helm's recorded manifest and history. Check pending states, removed or renamed objects, immutable fields, storage, hooks, CRDs, release-record size, and the risk of reusing old values. Keep Helm's record separate from live cluster state."
         : "6. Do not claim upgrade, rollback, or live-state safety without an existing release capture.",
       "7. Fetch https://confighub.github.io/helm-expt/site/changes.schema.json and https://confighub.github.io/helm-expt/site/changes.json. Resolve the exact chart and version, including aliases. Missing or not_checked coverage means Config Workshop has not checked that claim.",
-      "8. Cite the chart page and relevant evidence URLs for every retained historical or live claim. Keep your computed findings separate from retained evidence.",
-      "9. Write the exact candidate objects to ./workshop-review/candidate.yaml. If a comparison ran, write its exact objects to ./workshop-review/comparison.yaml. Do not add secrets that were not already supplied.",
-      "10. Recommend one next action: correct a value, make a reviewed object change, provide a prerequisite, choose a lifecycle route, compare with a Catalog entry, retain local files or OCI, submit a public Catalog candidate with my approval, or save the reviewed result in ConfigHub.",
+      "8. If the Catalog has an exact base, fetch https://confighub.github.io/helm-expt/site/base-variant-records.json and retain the matching BaseVariantRecord. Read its prerequisites and routes; do not call a route executed unless its evidence covers this exact version and delivery path.",
+      "9. Cite the chart page and relevant evidence URLs for every retained historical or live claim. Keep your computed findings separate from retained evidence.",
+      "10. Write the exact candidate objects to ./workshop-review/candidate.yaml. If a comparison ran, write its exact objects to ./workshop-review/comparison.yaml. Write the exact BaseVariantRecord to ./workshop-review/source-and-intent.yaml when one exists. Do not add secrets that were not already supplied.",
+      "11. Recommend one next action: correct a value, make a reviewed object change, provide a prerequisite, choose a lifecycle route, compare with a Catalog entry, retain local files or OCI, submit a public Catalog candidate with my approval, or save the reviewed result in ConfigHub.",
       "",
       "Return this block at the end:",
       "WORKSHOP FINDING",
@@ -246,24 +250,16 @@
   }
 
   function parseObjectSet(text, name) {
-    const documents = splitDocuments(text);
-    const objects = documents.map((document, index) => {
-      const apiVersion = topLevelValue(document, "apiVersion") || "unknown-api";
-      const kind = topLevelValue(document, "kind") || "Unknown";
-      const objectName = metadataValue(document, "name") || "document-" + (index + 1);
-      const namespace = metadataValue(document, "namespace") || "_cluster";
-      return {
-        apiVersion,
-        kind,
-        name: objectName,
-        namespace,
-        hasRequiredIdentity: apiVersion !== "unknown-api" && kind !== "Unknown" && !objectName.startsWith("document-"),
-        ref: kind + "/" + namespace + "/" + objectName,
-        document,
-        normalized: normalizeDocument(document),
-      };
-    });
-    return { name, text, objects };
+    const parsed = yamlTools.parseObjectSet(text, name);
+    return {
+      ...parsed,
+      objects: parsed.objects.map((object) => ({
+        ...object,
+        hasRequiredIdentity: object.valid,
+        document: object.raw,
+        normalized: object.canonical,
+      })),
+    };
   }
 
   function addFinding(findings, seen, code, level, object, message) {
@@ -306,12 +302,7 @@
 
   function compareObjectSets(candidate, comparison) {
     if (!comparison) return { status: "not-supplied" };
-    const before = new Map(comparison.objects.map((object) => [object.ref, object]));
-    const after = new Map(candidate.objects.map((object) => [object.ref, object]));
-    const added = [...after.keys()].filter((ref) => !before.has(ref)).sort();
-    const removed = [...before.keys()].filter((ref) => !after.has(ref)).sort();
-    const changed = [...after.keys()].filter((ref) => before.has(ref) && after.get(ref).normalized !== before.get(ref).normalized).sort();
-    return { status: "compared", added, removed, changed };
+    return { status: "compared", ...yamlTools.compareObjectSets(comparison, candidate) };
   }
 
   async function sha256(text) {
@@ -333,6 +324,47 @@
     return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "reviewed-config";
   }
 
+  function parseSourceRecord() {
+    const text = byId("check-source-record").value.trim();
+    if (!text) return null;
+    const record = globalThis.jsyaml.load(text);
+    if (!record || record.kind !== "BaseVariantRecord") throw new Error("The Catalog source and intent file must be a BaseVariantRecord.");
+    return record;
+  }
+
+  function lifecycleLines(lifecycle) {
+    const lines = [];
+    for (const requirement of lifecycle.requirements) {
+      const category = requirement.category === "secret" ? "Secret" : requirement.category || "setup item";
+      const when = requirement.requiredBefore === "apply" ? "Before apply" : "Before " + (requirement.requiredBefore || "deployment");
+      lines.push(when + ", provide or check " + category + " " + (requirement.name || "unnamed") + ".");
+    }
+    for (const route of lifecycle.routes) {
+      const name = route.routeName || route.id || route.name || "unnamed";
+      const phase = route.lifecyclePhase ? route.lifecyclePhase + ": " : "";
+      const work = route.operatingDetails || route.whoRuns || "Read the recorded instructions before deployment.";
+      const disposition = route.disposition || route.status || "not stated";
+      const drift = route.sourceDrift ? " The route was recorded for a different source version, so recheck it." : "";
+      lines.push(phase + name + ". " + work + " Catalog status: " + disposition + "." + drift);
+    }
+    if (lifecycle.manifestSignals.crds.length) lines.push(lifecycle.manifestSignals.crds.length + " CRD object(s) appear in the candidate YAML.");
+    if (lifecycle.manifestSignals.hooks.length) lines.push(lifecycle.manifestSignals.hooks.length + " Helm hook object(s) appear in the candidate YAML.");
+    if (lifecycle.manifestSignals.jobs.length) lines.push(lifecycle.manifestSignals.jobs.length + " Job or CronJob object(s) need workload-versus-lifecycle review.");
+    if (!lines.length && lifecycle.record === "not supplied") lines.push("No Catalog source and intent record was supplied. Only hooks, CRDs, and Jobs visible in the YAML were checked.");
+    if (!lines.length) lines.push("The supplied Catalog record names no lifecycle route or target prerequisite for this configuration.");
+    return lines;
+  }
+
+  function renderList(id, values) {
+    const node = byId(id);
+    node.replaceChildren();
+    for (const value of values) {
+      const item = document.createElement("li");
+      item.textContent = value;
+      node.appendChild(item);
+    }
+  }
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
   }
@@ -344,13 +376,14 @@
 
   function comparisonSummary(comparison) {
     if (comparison.status !== "compared") return "<p>No comparison object set was supplied.</p>";
-    return "<p><strong>Added:</strong> " + comparison.added.length + " &middot; <strong>Removed:</strong> " + comparison.removed.length + " &middot; <strong>Changed:</strong> " + comparison.changed.length + "</p>" +
+    return "<p><strong>Added:</strong> " + comparison.added.length + " &middot; <strong>Removed:</strong> " + comparison.removed.length + " &middot; <strong>Changed:</strong> " + comparison.changed.length + " &middot; <strong>No-op:</strong> " + comparison.noOp.length + "</p>" +
       (comparison.added.length ? "<p>Added: <code>" + comparison.added.map(escapeHtml).join("</code>, <code>") + "</code></p>" : "") +
       (comparison.removed.length ? "<p>Removed: <code>" + comparison.removed.map(escapeHtml).join("</code>, <code>") + "</code></p>" : "") +
-      (comparison.changed.length ? "<p>Changed: <code>" + comparison.changed.map(escapeHtml).join("</code>, <code>") + "</code></p>" : "");
+      (comparison.changed.length ? "<p>Changed: <code>" + comparison.changed.map(escapeHtml).join("</code>, <code>") + "</code></p>" : "") +
+      (comparison.noOp.length ? "<p>Formatting or key-order only: <code>" + comparison.noOp.map(escapeHtml).join("</code>, <code>") + "</code></p>" : "");
   }
 
-  async function runBrowserCheck() {
+  async function runBrowserCheckUnsafe() {
     const candidateText = byId("candidate-yaml").value.trim();
     const comparisonText = byId("comparison-yaml").value.trim();
     if (!candidateText) {
@@ -365,6 +398,8 @@
     const comparisonSet = comparisonText ? parseObjectSet(comparisonText, byId("comparison-name").value.trim() || "comparison.yaml") : null;
     const comparison = compareObjectSets(candidate, comparisonSet);
     const findings = inspectObjects(candidate);
+    const sourceRecord = parseSourceRecord();
+    const lifecycle = yamlTools.lifecycleFromRecord(sourceRecord, candidate);
     const candidateDigest = await sha256(candidateText);
     const comparisonDigest = comparisonSet ? await sha256(comparisonText) : "";
     const code = byId("question-type").value;
@@ -398,11 +433,13 @@
               added: comparison.added,
               removed: comparison.removed,
               changed: comparison.changed,
+              unchanged: comparison.unchanged,
+              noOp: comparison.noOp,
             }
           : { status: "not-supplied" },
         checks: {
-          method: "config-workshop-browser-static-v1",
-          scope: "Object inventory, selected manifest checks, and exact document comparison in this browser.",
+          method: "config-workshop-browser-static-v2",
+          scope: "Parsed object inventory, selected manifest checks, semantic object comparison, and Catalog lifecycle indexing in this browser.",
           findings,
           notChecked: [
             "Helm template execution and values provenance",
@@ -414,6 +451,7 @@
         },
         finding: byId("assistant-finding").value.trim(),
         recommendation: item.recommendation,
+        lifecycle,
         catalog: { status: "not-looked-up", url: catalogUrl.href },
       },
     };
@@ -425,11 +463,28 @@
       comparisonSummary(comparison) +
       "<h3>Findings to review</h3>" + findingList(findings) +
       "<p><strong>Not checked:</strong> Helm rendering, schema and admission behavior, lifecycle execution, live health, and external effects.</p>";
+    renderList("check-lifecycle-work", lifecycleLines(lifecycle));
     byId("review-record-output").value = latestReviewJson;
     byId("handoff-candidate-digest").textContent = candidateDigest;
     byId("review-result").hidden = false;
+    try {
+      sessionStorage.setItem("config-workshop-reviewed-candidate", latestCandidate);
+      sessionStorage.setItem("config-workshop-configuration-review", latestReviewJson);
+      if (sourceRecord) sessionStorage.setItem("config-workshop-source-record", JSON.stringify(sourceRecord));
+      else sessionStorage.removeItem("config-workshop-source-record");
+    } catch {
+      // The downloads remain available when browser storage is disabled.
+    }
     buildHandoffCommands();
     byId("review-result").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function runBrowserCheck() {
+    try {
+      await runBrowserCheckUnsafe();
+    } catch (error) {
+      window.alert("Could not check these files: " + error.message);
+    }
   }
 
   function buildHandoffCommands() {
@@ -517,7 +572,7 @@
     const file = input.files && input.files[0];
     if (!file) return;
     byId(textarea).value = await file.text();
-    byId(nameField).value = file.name;
+    if (nameField) byId(nameField).value = file.name;
   }
 
   function openPublicIssue() {
@@ -565,12 +620,14 @@
   byId("copy-prompt").addEventListener("click", () => copyText(byId("prompt-output").value, "copy-status"));
   byId("candidate-file").addEventListener("change", () => loadFile(byId("candidate-file"), "candidate-yaml", "candidate-name"));
   byId("comparison-file").addEventListener("change", () => loadFile(byId("comparison-file"), "comparison-yaml", "comparison-name"));
+  byId("check-source-record-file").addEventListener("change", () => loadFile(byId("check-source-record-file"), "check-source-record", ""));
   byId("run-browser-check").addEventListener("click", runBrowserCheck);
   byId("component-slug").addEventListener("input", buildHandoffCommands);
   byId("download-review").addEventListener("click", () => latestReviewJson && download("workshop-review.json", latestReviewJson, "application/json"));
   byId("download-candidate").addEventListener("click", () => latestCandidate && download("candidate.yaml", latestCandidate, "application/yaml"));
   byId("copy-handoff").addEventListener("click", () => copyText(byId("handoff-command").value, "handoff-copy-status"));
   byId("copy-ai-handoff").addEventListener("click", () => copyText(byId("ai-handoff-prompt").value, "ai-handoff-copy-status"));
+  byId("continue-to-promotion").addEventListener("click", () => { window.location.href = "./promote.html?from=check"; });
   byId("file-public-question").addEventListener("click", openPublicIssue);
   window.addEventListener("hashchange", () => applyQuestionHash(true));
   const hasQuestionHash = applyQuestionHash(false);

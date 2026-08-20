@@ -833,6 +833,7 @@
     "site:generate": "node scripts/generate-public-site.mjs --generate",
     "site:verify": "node scripts/generate-public-site.mjs --verify",
     "site:ux:verify": "node scripts/verify-site-ux-contract.mjs",
+    "site:promotion:self-test": "node scripts/test-config-workshop-yaml.mjs",
     "verify:machine-contract": "node scripts/verify-config-workshop-machine-contract.mjs",
     "site:published:verify": "node scripts/verify-published-site.mjs",
     "site:persona:simulate": "node scripts/run-site-persona-simulations.mjs",

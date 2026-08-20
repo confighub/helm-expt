@@ -327,7 +327,7 @@ function buildHelmRecord(intent) {
         exactDelivery
           ? "The base was uploaded to a temporary ConfigHub Space, published as a Space release OCI, delivered three ways, and then cleaned up."
           : "This record does not claim that the base has been uploaded to a live ConfigHub Space.",
-        "The small typed install-time surface is not yet complete for every Helm base.",
+        "The inputs still required at installation are not yet fully recorded for every Helm configuration.",
         "A multi-preset installer package OCI is not the same as a single literal configuration OCI.",
       ],
     },

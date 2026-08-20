@@ -2,10 +2,14 @@
 
 Date: 2026-08-15
 
-Status, updated 2026-08-15: the page shipped (#1562) and its front door now
-loads the worked Redis review before asking for input (#1565). This program has
-not yet run against real users, and the menu placement preceded it. Run the
-program, or accept the first outreach cohort as the run, before inviting anyone.
+Status, updated 2026-08-20: the browser review now parses YAML as data, loads a
+worked Redis source refresh, accepts the four object sets needed for source-aware
+field attribution, carries Catalog prerequisites and lifecycle work into the result,
+records one result per target, and generates an AI review prompt plus current
+ConfigHub preview commands. A deterministic self-test covers source changes, retained
+post-render edits, same-field review, Secret redaction, semantic no-ops, partial
+fleets, digest mismatch, and lifecycle-versus-target-fact separation. The real-user
+program and a fresh live ConfigHub promotion receipt remain outstanding.
 
 This plan tests one proposed Config Workshop job:
 

@@ -13,6 +13,9 @@ Open `site/deployment-reference.html` for the detailed source, render, route, va
 Open `site/try.html` for the short Redis example.
 Open `site/ask.html` to check a new configuration and keep its review record.
 Open `site/promote.html` to compare current and proposed objects before staging or production.
+Open `site/base-variant-records.json` for the Catalog source-and-intent index used by
+the Check and Promote pages. Open `site/promotion-review.schema.json` for the
+browser promotion record.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
 Open `site/kubara.html` for the Kubara buyer story, six adoption steps, GUI path,
 evidence status, and full technical references.

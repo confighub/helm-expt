@@ -106,6 +106,7 @@ What the catalog promises, and the briefs behind those promises.
 | [config-catalog-demo-program.md](./planning/config-catalog-demo-program.md) | Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps. |
 | [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
 | [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Maintained doctrine for the anonymous-to-managed boundary, source-and-intent records, source-neutral base variants, four OCI package roles, fleet delivery, apply policy, AI use, and keeping the human and machine views aligned. |
+| [flattening-alignment.md](./reference/flattening-alignment.md) | Decision guide for flattening a chart, flattening with recorded setup, or keeping render-late delivery, aligned with the ConfigHub Golden Path model. |
 
 ### Working with charts
 
@@ -140,6 +141,7 @@ Getting a package, looking inside it, and shipping it.
 | [ci-render-check.md](./user/ci-render-check.md) | A copy-paste GitHub Actions workflow that renders a chart on every pull request and posts the object diff as a comment; no account, no server. |
 | [nim-coverage.md](./user/nim-coverage.md) | NIM on this catalog in one page: the retained KServe shapes with one readable example, the NGC licensing boundary, and a plain list of what is not covered. |
 | [approval-story.md](./user/approval-story.md) | The recorded dev-to-production cycle: preview, revision-bound approval, promotion, one-target rollback — with the approver-identity gap named honestly. |
+| [check-and-promote-with-ai.md](./user/check-and-promote-with-ai.md) | Browser-local Check and Promote flows, source-aware field attribution, Catalog lifecycle context, exact target results, AI prompts, and the optional ConfigHub handoff. |
 | [example-rendered-diff.md](./user/example-rendered-diff.md) | One real rendered diff, redis 25.5.3 to 27.0.0, computed from the two committed renders: same 14 objects, 85 changed lines, a dropped ACL block, and checksum rotations that restart pods. |
 | [day2-upgrade-story.md](./user/day2-upgrade-story.md) | The day-2 upgrade path for catalog configuration and flattened bundles: value-model diffs first, control points and immutable fields checked, verdicts re-read per version, bases recreated in the safe order. |
 | [inspect-oci-package.md](./user/inspect-oci-package.md) | One command for identifying an OCI package, resolving its digest, listing exact Kubernetes objects and lifecycle clues, and checking the permanent public NGINX example. |
