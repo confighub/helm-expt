@@ -1,0 +1,10 @@
+Browser dependency provenance
+
+js-yaml-4.1.0.min.js is the unmodified browser build from the published
+js-yaml@4.1.0 npm package. It is vendored so generated public pages can parse
+YAML without a CDN or network request.
+
+Upstream: https://github.com/nodeca/js-yaml
+Package: https://www.npmjs.com/package/js-yaml/v/4.1.0
+License: MIT, retained in js-yaml-4.1.0.LICENSE.txt
+SHA-256: 45dc3dd03dc07a06705a2c2989b8c7f709013f04bd5386e3279d4e447f07ebd7

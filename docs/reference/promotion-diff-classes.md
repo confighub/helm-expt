@@ -35,11 +35,33 @@ A reader of that promotion needed one headline (replicas 3 to 4), one kept-diffe
 list (staging's departures, untouched), and silence about everything else. That
 is the whole presentation contract.
 
-## The honest limit
+## Four object sets show where a field came from
 
-The same receipt notes that the live `cub variant promote --dry-run` printed no
-mutation preview. Until the product's preview fills in, this classification
-comes from comparing the exact object sets on both sides, not from a
-server-side plan. That is also the reason a promotion review must classify
-entries itself: a preview that can be empty cannot be the thing that tells a
-reviewer what moved.
+A source-aware review compares four exact object sets:
+
+1. the old source render;
+2. the old accepted configuration after later edits;
+3. the new source render;
+4. the proposed accepted configuration.
+
+The first pair shows existing post-render edits. The second pair shows the proposed
+ones. Comparing the two source renders identifies chart, values, AICR, or other
+source changes. This prevents a review from calling every changed field a Helm change
+or every retained field a ConfigHub change.
+
+When the new source and a later edit both affect the same field, the review marks an
+overlap. A retained override may still be correct, but it must be reviewed against the
+new source behavior before promotion. One field must not have two silent owners.
+
+Formatting, comments, and mapping key order remain no-ops because the comparison uses
+parsed YAML objects rather than raw text.
+
+## The server preview and the independent comparison
+
+The older receipt records that its `cub variant promote --dry-run` returned no
+mutation detail. The current CLI supports `cub variant promote --dry-run -o mutations`,
+but that historical receipt has not been rerun and cannot prove the newer output.
+
+The Workshop still compares the exact object sets itself. That gives a useful review
+before a ConfigHub Space exists and provides an independent check of the later server
+preview. The browser result is not evidence that ConfigHub performed a promotion.

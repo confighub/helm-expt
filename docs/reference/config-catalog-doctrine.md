@@ -205,6 +205,10 @@ The source and intent record and the literal objects stay connected. A rendered 
 file on its own is useful, but it cannot explain why a hook was replaced, who owns a
 CRD, or which target facts were required.
 
+The [flattening decision guide](./flattening-alignment.md) states when those objects
+can stand alone, when lifecycle work must travel beside them, and when the source must
+still render late.
+
 Every real base must also state whether those surrounding records are complete:
 
 - lifecycle work is either attached, explicitly unnecessary, or an actionable gap;
@@ -457,9 +461,11 @@ first continuous execution of the upgrade path. It starts from the public
 `bitnami/redis:25.5.3` installer package, records a two-replica change, reconciles
 `27.0.0` without losing that change, promotes through development and staging, and
 checks the same OCI digest on two Argo CD clusters. The mechanics pass. The App remains
-partial because the current promotion dry-run prints no mutation preview, the portable
-OCI used a temporary registry, and the workflow is still a guarded script rather than
-a finished App interface.
+partial because its historical receipt predates the current mutation-preview output,
+the portable OCI used a temporary registry, and the workflow is still a guarded script
+rather than a finished App interface. The current CLI exposes
+`cub variant promote --dry-run -o mutations`; rerun the exact proof before using that
+newer output to strengthen the App claim.
 
 The [AI Change Review proof](../../data/ai-change-review-live-proof/summary.md)
 sends an unsafe and a reviewed AICR training object through the live checks.

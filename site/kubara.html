@@ -522,6 +522,18 @@
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this Kubara buyer journey.</p>
+    <section aria-labelledby="kubara-starter">
+      <h2 id="kubara-starter">Start with one development platform</h2>
+      <p>Choose a name and Git repository. The starter writes Kubara's native <code>config.yaml</code> for one hub cluster with cert-manager, Metrics Server, and Traefik. It also writes a companion source-and-intent record that pins the exact component versions and links them to this Catalog.</p>
+      <pre><code>git clone https://github.com/confighub/kubara-confighub.git
+cd kubara-confighub
+npm run kubara-platform:start -- \
+  --name my-platform \
+  --repository https://github.com/acme/platform.git \
+  --output ../my-platform</code></pre>
+      <p>Review <code>config.yaml</code>, copy and complete <code>.env.example</code>, then run the Kubara command in the generated README. After generation, check the CRDs, hooks, setup Jobs, Secrets, and target requirements for the exact output before deployment.</p>
+      <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform"><strong>Open the generated starter</strong></a> · <a href="d/docs/reference/flattening-alignment.html">Decide what can be flattened</a> · <a href="d/docs/demo/kubara/adoption.html">Continue through Git, OCI, ConfigHub, and Argo CD</a></p>
+    </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
       <div class="card"><table>
@@ -601,7 +613,7 @@
       <p><strong>live receipt required</strong> means a deterministic contract exists but its current live acceptance chain is absent or stale.</p>
     </section>
     <section aria-labelledby="detail">
-      <h2 id="detail">Keep all the detail</h2>
+      <h3 id="detail">Keep all the detail</h3>
       <p>The concise buyer journey does not replace the engineering material. Use the <a href="d/docs/demo/kubara/single-platform.html">complete mini-IDP and maintainer runbook</a>, <a href="d/examples/kubara/git-import/README.html">importer contract</a>, <a href="d/docs/demo/kubara/platform-evidence.html">matrix and wiring evidence</a>, and <a href="d/docs/demo/kubara/reconciliation-performance.html">performance analysis</a>.</p>
       <p>The implementation graduates to a future <code>github.com/confighub/kubara-confighub</code> repository only after a clean-checkout import into a fresh user-selected organization passes twice. The orphan count must be zero, one application must be healthy, and every published screenshot must be receipt-bound.</p>
     </section>
