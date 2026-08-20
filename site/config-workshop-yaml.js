@@ -174,7 +174,7 @@
       };
     }
     if (sourceChanged || acceptedChanged) {
-      return { class: "upstream-added", mode: "accepted", needsReview: false };
+      return { class: "upstream-added", mode: "accepted", needsReview: false, sourceChanged };
     }
     return { class: "inherited", mode: "unchanged", needsReview: false };
   }

@@ -37,7 +37,10 @@ const newAccepted = tools.parseObjectSet(deployment(2, "app:v2"), "new-accepted"
 const classified = tools.classifySourceAware(oldSource, oldAccepted, newSource, newAccepted);
 check(classified.status === "compared", "four-way source classification did not run");
 check(classified.rows.some((row) => row.path === "/spec/replicas" && row.class === "overridden" && row.mode === "kept"), "kept post-render replica edit was not classified");
-check(classified.rows.some((row) => row.path.endsWith("/image") && row.class === "upstream-added"), "source image change was not classified");
+check(
+  classified.rows.some((row) => row.path.endsWith("/image") && row.class === "upstream-added" && row.sourceChanged === true),
+  "source image change was not classified as a source change",
+);
 check(classified.counts.overlaps === 0, "independent source and post-render changes were reported as an overlap");
 
 const overlap = tools.classifySourceAware(
