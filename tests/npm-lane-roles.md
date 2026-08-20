@@ -9,17 +9,15 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 22
-should join the chain:   1
+lanes outside the chain: 21
+should join the chain:   0
 deliberately outside:    21
 superseded:              0
 ```
 
 ## Cheap, offline, and belongs in the chain
 
-| lane | proves | requires | status |
-| --- | --- | --- | --- |
-| `site:promotion:self-test` | The browser YAML model parses multi-document Kubernetes YAML, ignores formatting-only changes, separates source changes from retained post-render edits, redacts sensitive field values, keeps lifecycle routes distinct from target facts, and refuses to turn a partial or digest-mismatched fleet result into a pass. | offline | passes: added with the source-aware Check my config and Promote my config browser paths |
+None.
 
 ## Deliberately outside, because it needs the world
 
