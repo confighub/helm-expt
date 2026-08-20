@@ -18,6 +18,12 @@
 //               keep-outside      needs external state or is too slow
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
+  "site:promotion:self-test": {
+    proves: "The browser YAML model parses multi-document Kubernetes YAML, ignores formatting-only changes, separates source changes from retained post-render edits, redacts sensitive field values, keeps lifecycle routes distinct from target facts, and refuses to turn a partial or digest-mismatched fleet result into a pass.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "passes: added with the source-aware Check my config and Promote my config browser paths",
+  },
   "verify:shard": {
     proves: "One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun.",
     requires: "offline",
