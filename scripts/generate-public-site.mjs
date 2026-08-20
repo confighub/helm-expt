@@ -7083,6 +7083,42 @@ npm run kubara-platform:start -- \\
 </html>`;
 }
 
+function inferenceFamilyTable(root) {
+  const href = (path) => `${root}/${path}`;
+  return markdownLikeTable([
+    ["Start here", "What it gives you", "What you need", "What we checked"],
+    [
+      `<a href="${href("d/examples/inference/vllm-cpu-starter/README.html")}"><strong>Run one small model on CPU</strong></a>`,
+      "A pinned vLLM server, a pinned public Qwen model, and one OpenAI-compatible request.",
+      "An ARM64 Kubernetes cluster with 4 CPUs and 10 GiB available. No GPU, cloud account, ConfigHub account, or model credential.",
+      `ConfigHub retained the two changed Units, published OCI, Argo CD pulled the same digest, the pod became ready, and the model answered. <a href="${href("d/data/vllm-cpu-starter-proof/summary.html")}">Read the proof</a>.`,
+    ],
+    [
+      `<a href="${href("d/docs/demo/aicr/cpu-starter.html")}"><strong>Learn the AICR platform shape</strong></a>`,
+      "Seven retained Argo CD Applications that show AICR composition, ordering, variants, and one reviewed storage change without accelerators.",
+      "No GPU, cloud account, or NGC key to read and verify it. The ConfigHub and kind walkthroughs use their named account and cluster steps.",
+      "The selection and digests are checked. One change reached staging, and one selected component synced on kind. This is a platform configuration proof, not model inference.",
+    ],
+    [
+      `<a href="${href("d/docs/demo/aicr/eks-h100-inference-nim.html")}"><strong>Plan NVIDIA NIM serving</strong></a>`,
+      `Choose the <a href="${href("d/docs/demo/aicr/eks-h100-inference-nim.html")}">AICR platform</a> or a <a href="${href("d/docs/demo/aicr/kserve-nim-inference.html")}">specific KServe model shape</a>.`,
+      "AWS or equivalent GPU capacity and NGC access to run the model images. Reading the retained configuration needs neither.",
+      "Sources, versions, model shapes, credentials boundary, ConfigHub changes, and config-plane delivery are checked. No NIM container or model ran.",
+    ],
+    [
+      `<a href="${href("d/data/certified-bundles/eks-inference-stack.html")}"><strong>Build the full EKS inference platform</strong></a>`,
+      "Eight ordered bundles for ACK, networking, EKS, Karpenter, the GPU runtime, and inference workloads.",
+      "A ConfigHub account for the configuration sandbox. AWS and GPU capacity for the real cloud path.",
+      `All eight source bundles, the ConfigHub sandbox, one promoted change, Argo CD delivery, and the separate CPU model request are checked. AWS and NVIDIA GPU execution remain open. <a href="https://github.com/confighub/eks-inference">Open the plugin</a>.`,
+    ],
+  ], {
+    rawFirstColumn: true,
+    rawSecondColumn: true,
+    rawThirdColumn: true,
+    rawFourthColumn: true,
+  });
+}
+
 function examplesHtml(catalog) {
   const pathways = new Map(catalog.demoProgram.spec.pathways.map((item) => [item.id, item]));
   const apps = new Map(catalog.demoProgram.spec.apps.map((item) => [item.id, item]));
@@ -7178,7 +7214,7 @@ Rendered 0 secret(s)</code></pre>
         ],
         [
           "An AICR recipe or inference stack",
-          `<strong>Get inference running.</strong> Choose the path that matches your work:<br><a href="./d/docs/demo/aicr/cpu-starter.html">Learn the AICR configuration path without a GPU.</a><br><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">Inspect a larger AICR and Helm platform.</a><br><a href="./d/docs/demo/aicr/eks-h100-inference-nim.html">Build an AICR NIM platform</a> or <a href="./d/docs/demo/aicr/kserve-nim-inference.html">choose a NIM model shape on KServe.</a><br><a href="./d/data/certified-bundles/eks-inference-stack.html">Read the checked eight-component EKS inference stack</a>, then <a href="https://github.com/confighub/eks-inference">run its ConfigHub sandbox or real EKS path.</a> The sandbox needs a ConfigHub account but no AWS account, cluster, or GPU. The real run also needs AWS and GPU capacity.<br>The AICR and NIM pages are public. Each says what it needs and what has actually been tested. <a href="./ask.html#check-files">Check rendered YAML in the browser</a>; <a href="./confighub.html">keep an accepted stack in ConfigHub</a> when you need variants, promotion, release OCI, or live comparison.<br><a href="./d/data/aicr-oci-roundtrip-proof/summary.html">AICR round-trip proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr">Workshop source</a> · <a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub example</a>`,
+          `<a href="#inference"><strong>Get inference running.</strong></a> Start with a real CPU model request, or choose AICR, NIM, or the full EKS stack. The next table states the hardware, account, and credential requirements before each path.`,
         ],
         [
           "An existing OCI package",
@@ -7189,6 +7225,10 @@ Rendered 0 secret(s)</code></pre>
           `<a href="./ask.html#check-files"><strong>Check or compare the YAML in the browser.</strong></a> Keep the review beside the files, then follow the <a href="./existing-apps.html">existing-app guide</a> to upload four ordinary Kubernetes objects and read them back unchanged.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true })}
+
+      <h3 id="inference">Get inference running</h3>
+      <p>Choose the row that answers your immediate question. The first path runs a model on ordinary ARM64 hardware. The later paths explain larger AI platforms without claiming that their GPU workloads have run here.</p>
+      ${inferenceFamilyTable(".")}
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
       <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults, the Catalog, and optionally production, then gives you a review record to keep.</p>
@@ -8062,16 +8102,18 @@ function aicrEntriesSection() {
     return `<tr><td><a href="${page}">${escapeHtml(entry.id)}</a></td><td class="mono">${escapeHtml(String(entry.retainedVersion))}</td><td>${names}</td></tr>`;
   }).join("\n            ");
   return `<section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
-      <h2 id="aicr-title">Other Supported Input: AICR</h2>
-      <p>Helm is the main Catalog path today. AICR entries are kept separately because they describe complete AI platforms rather than individual Helm charts.</p>
-      <p>Each entry records the exact AICR version, generated files, pinned digest, and evidence for its claims.</p>
+      <h2 id="aicr-title">AI infrastructure configurations</h2>
+      <p>Use this section when your starting point is a model runtime or a complete AI platform rather than one Helm chart. Start with the smallest path that answers your question.</p>
+      ${inferenceFamilyTable("..")}
+      <h3>Retained AICR entries</h3>
+      <p>Each AICR entry records the exact version, generated files, pinned digest, and evidence for its claims.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
         <tbody>
             ${rows}
         </tbody>
       </table></div>
-      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> runs without a GPU. The shorter Try AICR path is still being completed in <a href="https://github.com/confighub/helm-expt/issues/1502">issue #1502</a>.</p>
+      <p><a href="../d/docs/demo/aicr/index.html">Open the full AICR catalog index</a> for the retained recipes, versions, and proof details.</p>
     </section>`;
 }
 
@@ -8102,10 +8144,11 @@ function aicrEntriesSection() {
 <body>
   <header>
     ${topNav("..")}
-    <h1>Find a Tested Helm Configuration</h1>
+    <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">Choose a Helm chart version and a useful starting configuration that we have tested and documented.</p>
-    <p>Each page shows the Helm values, rendered Kubernetes objects, required setup, checks, and known limits. A new review adds a version instead of replacing the package you already used.</p>
+    <p class="lead">Choose a tested starting configuration for a Helm component or an AI infrastructure stack.</p>
+    <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
+    <p>A new review adds a version instead of replacing the package you already used.</p>
     <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
     <p>Already chose a configuration? <a href="../promote.html">Compare its next version or environment before it moves</a>.</p>
   </header>
