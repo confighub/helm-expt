@@ -39,7 +39,9 @@ cub eksinf sandbox up
 
 This path requires a ConfigHub account, but no AWS account, Docker, Kubernetes cluster, or GPU. It creates the component bases and sandbox variants, links their shared values, runs the ConfigHub checks, and publishes releases. No controller consumes those releases, so it proves the configuration path rather than a deployment.
 
-Config Workshop has verified the package bytes. It has not yet independently receipted the sandbox run. Until that receipt exists, the sandbox command above is the producer's documented path rather than a Workshop live claim.
+Config Workshop independently checked this sandbox on 2026-08-20T19:26:07.326Z. The live ConfigHub organization held all eight source digests, eight linked variants, 27 configured destination fields, two OCI sandbox targets, and seven published Releases. [Read the proof](../eks-inference-sandbox-proof/summary.md).
+
+That proof stops at published OCI. It does not claim that Argo CD or Flux pulled a Release, AWS resources were created, a GPU became ready, or a model answered a request.
 
 ## Exact packages
 

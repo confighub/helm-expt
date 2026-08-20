@@ -2050,6 +2050,10 @@ function summaryMd(rows) {
 }
 
 function eksInferenceStackGuide(receipts) {
+  const sandboxProofPath = join(repoRoot, "runs", "eks-inference-sandbox-proof", "receipt.yaml");
+  check(existsSync(sandboxProofPath), "EKS inference sandbox proof receipt is missing");
+  const sandboxProof = readYaml(sandboxProofPath);
+  check(sandboxProof.status?.result === "pass", "EKS inference sandbox proof did not pass");
   const entries = EKS_INFERENCE_COMPONENTS.map((component) => {
     const receipt = receipts.find(
       (candidate) => candidate.value.metadata.name === `eks-inference-${component.name}`,
@@ -2128,7 +2132,11 @@ function eksInferenceStackGuide(receipts) {
   );
   lines.push("");
   lines.push(
-    "Config Workshop has verified the package bytes. It has not yet independently receipted the sandbox run. Until that receipt exists, the sandbox command above is the producer's documented path rather than a Workshop live claim.",
+    `Config Workshop independently checked this sandbox on ${sandboxProof.spec.recordedAt}. The live ConfigHub organization held all eight source digests, eight linked variants, 27 configured destination fields, two OCI sandbox targets, and seven published Releases. [Read the proof](../eks-inference-sandbox-proof/summary.md).`,
+  );
+  lines.push("");
+  lines.push(
+    "That proof stops at published OCI. It does not claim that Argo CD or Flux pulled a Release, AWS resources were created, a GPU became ready, or a model answered a request.",
   );
   lines.push("");
   lines.push("## Exact packages");
