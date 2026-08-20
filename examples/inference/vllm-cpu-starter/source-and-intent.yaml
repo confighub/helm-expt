@@ -1,0 +1,73 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceAndIntentRecord
+metadata:
+  name: eks-inference-vllm-cpu-starter
+spec:
+  purpose: Run one real OpenAI-compatible model request without requiring a GPU or cloud account.
+  source:
+    type: existing-oci
+    reference: oci://ghcr.io/confighub/configs/eks-inference/inference-workloads
+    digest: sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2
+    producerCommit: f6a1689c2fe231d1bc2262d9916aa69a774882b4
+    receipt: data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml
+  selection:
+    includedUnits:
+      - 00-namespace
+      - chat
+      - vllm-qwen
+    retainedInactiveUnits:
+      - smoke-cpu
+      - smoke-gpu
+  changes:
+    - unit: vllm-qwen
+      reason: Replace the L4 and 7B AWQ runtime with a small CPU profile for an accessible functional test.
+      fields:
+        - spec.replicas
+        - spec.template.spec.nodeSelector
+        - spec.template.spec.tolerations
+        - spec.template.spec.containers[name=vllm].image
+        - spec.template.spec.containers[name=vllm].args
+        - spec.template.spec.containers[name=vllm].resources
+    - unit: chat
+      reason: Send one deterministic request to the model selected by the CPU profile.
+      fields:
+        - data.request
+        - spec.template.spec.containers[name=chat].env
+  runtime:
+    image:
+      reference: docker.io/vllm/vllm-openai-cpu
+      tag: v0.27.1-arm64
+      digest: sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde
+      architecture: arm64
+      device: cpu
+    model:
+      identity: Qwen/Qwen2.5-0.5B-Instruct
+      revision: 7ae557604adf67be50417f59c2c2f167def9a775
+      access: public
+      credentialsRequired: false
+    request:
+      api: OpenAI-compatible chat completions
+      prompt: What is two plus two? Reply with only the number.
+      success: The response names the selected model, has a non-empty answer, and finishes without an API error.
+    targetSettings:
+      memoryLimit: 10Gi
+      memoryReservationFraction: 0.2
+      reason: Keep vLLM's CPU cache reservation below the pod limit on a 32 GiB kind node.
+  lifecycle:
+    order:
+      - Create the inference namespace.
+      - Start vLLM and wait for its health endpoint.
+      - Start the in-cluster client.
+      - Run and record the model request.
+    retry: A failed model download or startup leaves the Deployment retryable; a request is attempted only after rollout readiness.
+    cleanup: Scale or delete the vLLM Deployment when the test is complete.
+  boundaries:
+    proves:
+      - A pinned vLLM CPU image starts on an ARM64 target.
+      - A pinned public model revision loads.
+      - One OpenAI-compatible model request returns a non-empty answer.
+    doesNotProve:
+      - NVIDIA GPU readiness
+      - Qwen 7B AWQ performance or correctness
+      - EKS or Karpenter provisioning
+      - production capacity, latency, or response quality

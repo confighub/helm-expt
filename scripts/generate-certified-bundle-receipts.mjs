@@ -2063,6 +2063,10 @@ function eksInferenceStackGuide(receipts) {
   check(existsSync(deliveryProofPath), "EKS inference promotion and delivery proof receipt is missing");
   const deliveryProof = readYaml(deliveryProofPath);
   check(deliveryProof.status?.result === "pass", "EKS inference promotion and delivery proof did not pass");
+  const runtimeProofPath = join(repoRoot, "runs", "vllm-cpu-starter-proof", "receipt.yaml");
+  check(existsSync(runtimeProofPath), "vLLM CPU starter proof receipt is missing");
+  const runtimeProof = readYaml(runtimeProofPath);
+  check(runtimeProof.status?.result === "pass", "vLLM CPU starter proof did not pass");
   const entries = EKS_INFERENCE_COMPONENTS.map((component) => {
     const receipt = receipts.find(
       (candidate) => candidate.value.metadata.name === `eks-inference-${component.name}`,
@@ -2156,6 +2160,16 @@ function eksInferenceStackGuide(receipts) {
   lines.push("");
   lines.push(
     "The GPU check and vLLM configuration remained at zero replicas. This proves one small configuration promotion and Argo delivery on a local cluster, not AWS provisioning, GPU readiness, or a model response.",
+  );
+  lines.push("");
+  lines.push("## Run one model without a GPU");
+  lines.push("");
+  lines.push(
+    `The accessible CPU example changed only \`${runtimeProof.spec.configuration.changedUnits.join("\` and \`")}\` in the checked workload package. ConfigHub published the result, Argo CD pulled Release manifest \`${runtimeProof.spec.release.manifestDigest}\`, and Kubernetes ran the digest-pinned vLLM image on ${runtimeProof.spec.runtime.architecture}. A real request to \`${runtimeProof.spec.inference.model}\` returned a non-empty answer. [Read the runtime proof](../vllm-cpu-starter-proof/summary.md) or [run the example](../../examples/inference/vllm-cpu-starter/README.md).`,
+  );
+  lines.push("");
+  lines.push(
+    "This is a functional check for a small public model on a local CPU target. The AWS, Karpenter, NVIDIA GPU, 7B AWQ, performance, and private-model paths remain separate work.",
   );
   lines.push("");
   lines.push("## Exact packages");

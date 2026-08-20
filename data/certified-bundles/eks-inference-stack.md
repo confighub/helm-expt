@@ -49,6 +49,12 @@ A separate live test changed only `apps/v1 Deployment inference/chat spec.replic
 
 The GPU check and vLLM configuration remained at zero replicas. This proves one small configuration promotion and Argo delivery on a local cluster, not AWS provisioning, GPU readiness, or a model response.
 
+## Run one model without a GPU
+
+The accessible CPU example changed only `chat` and `vllm-qwen` in the checked workload package. ConfigHub published the result, Argo CD pulled Release manifest `sha256:9833e6459ffee6317c7c47d3d26efdf02e9690c5c5c046f87c0c8188cda71c96`, and Kubernetes ran the digest-pinned vLLM image on arm64. A real request to `Qwen/Qwen2.5-0.5B-Instruct` returned a non-empty answer. [Read the runtime proof](../vllm-cpu-starter-proof/summary.md) or [run the example](../../examples/inference/vllm-cpu-starter/README.md).
+
+This is a functional check for a small public model on a local CPU target. The AWS, Karpenter, NVIDIA GPU, 7B AWQ, performance, and private-model paths remain separate work.
+
 ## Exact packages
 
 | Component | Exact OCI | Receipt and guide |

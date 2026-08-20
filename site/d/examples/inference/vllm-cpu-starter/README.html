@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Run one real model request without a GPU · Config Workshop</title>
+  <meta name="description" content="Run one real model request without a GPU: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/examples/inference/vllm-cpu-starter/README.html">
+  <meta property="og:title" content="Run one real model request without a GPU · Config Workshop">
+  <meta property="og:description" content="Run one real model request without a GPU: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/examples/inference/vllm-cpu-starter/README.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,66 +437,31 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../guides.html">Guides</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../guides.html">Guides</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../ask.html">Check my config</a><a href="../../../../promote.html">Promote my config</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Run one real model request without a GPU</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../../examples/inference/vllm-cpu-starter/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 921</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>483</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>417</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>21</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>405</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>catalog-data</code></td><td>70</td></tr>
-<tr><td><code>production-support</code></td><td>65</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>29</td></tr>
-<tr><td><code>repo-integrity</code></td><td>27</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>403</td></tr>
-<tr><td><code>generate-or-run</code></td><td>355</td></tr>
-<tr><td><code>run</code></td><td>102</td></tr>
-<tr><td><code>self-test</code></td><td>51</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>844</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+<p>This example runs a small public Qwen model through vLLM's OpenAI-compatible API. It is the inexpensive runtime check for the larger EKS inference configuration. The EKS configuration uses a quantized 7B model on an NVIDIA L4; this starter uses the same service and client shape with a 0.5B model on an ARM64 CPU.</p>
+<p>The choices are pinned:</p>
+<ul><li>vLLM CPU image: <code>vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde</code></li><li>model: <code>Qwen/Qwen2.5-0.5B-Instruct</code></li><li>model revision: <code>7ae557604adf67be50417f59c2c2f167def9a775</code></li><li>maximum context: 512 tokens</li><li>vLLM memory reservation: 20% of the node memory, which stays below this example's 10 GiB container limit</li></ul>
+<h2 id="run-it-on-kubernetes">Run it on Kubernetes</h2>
+<p>Use an ARM64 cluster with at least 4 CPU cores and 10 GiB available memory. The first run downloads the vLLM image and model.</p>
+<pre><code>kubectl apply -f namespace.yaml
+kubectl apply -f vllm-qwen.yaml
+kubectl apply -f chat.yaml
+kubectl rollout status -n inference deployment/vllm-qwen --timeout=10m
+./request.sh</code></pre>
+<p>The request asks the model what two plus two is. A successful result must include a non-empty answer from <code>Qwen/Qwen2.5-0.5B-Instruct</code>; Deployment readiness alone is not counted as inference.</p>
+<h2 id="keep-it-in-confighub">Keep it in ConfigHub</h2>
+<p>The live proof starts from the checked <code>inference-workloads</code> OCI base, creates a derived CPU variant, and replaces only the <code>chat</code> and <code>vllm-qwen</code> Units with the files here. ConfigHub publishes the result as release OCI, Argo CD pulls that exact manifest digest, and the proof runs the model request from the <code>chat</code> pod.</p>
+<p>Read <a href="../../../../../examples/inference/vllm-cpu-starter/source-and-intent.yaml">source-and-intent.yaml</a> for the exact source, selection, runtime choices, and proof boundary.</p>
+<h2 id="limits">Limits</h2>
+<p>This is a functional CPU test, not a performance test. It does not prove NVIDIA GPU readiness, the 7B AWQ model, EKS, Karpenter, production capacity, or response quality.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>examples/inference/vllm-cpu-starter/README.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
