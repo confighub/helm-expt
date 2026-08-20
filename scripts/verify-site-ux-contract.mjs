@@ -176,11 +176,11 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Choose a worked example", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "1. Start with a configuration", "What you have", "Start with this example", "After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "Get inference running", "certified-bundles/eks-inference-stack.html", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Choose a worked example", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "1. Start with a configuration", "What you have", "Start with this example", "After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "Get inference running", "certified-bundles/eks-inference-stack.html", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/kubara.html",
-    terms: ["Keep Kubara. Make the platform governable.", "ConfigHub simplifies Kubara without making it fundamentally different.", "Kubara composes; ConfigHub governs; Argo reconciles.", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "Start the six-step tutorial", "current deterministic", "live receipt required"],
+    terms: ["Build a Platform from Tested Components", "Choose the services you need", "Kubara composes; ConfigHub governs; Argo reconciles.", "1. Choose a small development platform", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
   {
     file: "site/entry-path-reference.html",
@@ -261,7 +261,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/kubara.html",
-    headerTerms: ["Keep Kubara. Make the platform governable.", "ConfigHub simplifies Kubara without making it fundamentally different.", "Kubara composes; ConfigHub governs; Argo reconciles.", "Start the six-step tutorial"],
+    headerTerms: ["Build a Platform from Tested Components", "Choose the services you need", "Kubara composes; ConfigHub governs; Argo reconciles.", "You can stop with Kubara's Git output and OCI packages"],
   },
   {
     file: "site/variants.html",

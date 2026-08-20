@@ -6975,32 +6975,57 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kubara with ConfigHub &middot; Config Workshop</title>
+  <title>Build a Platform with Kubara &middot; Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    ${audienceLabel("For platform teams already using Kubara")}
-    <h1>Keep Kubara. Make the platform governable.</h1>
-    <p class="lead"><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Keep choosing and wiring the platform in Kubara, keep Git as the portable hand-off, and keep Argo CD as the reconciler. Add a component-first Catalog, immutable releases, review history, promotion, rollback, fleet visibility, and explicit wiring.</p>
+    ${audienceLabel("For platform teams")}
+    <h1>Build a Platform from Tested Components</h1>
+    <p class="lead">Choose the services you need. The starter writes native Kubara configuration and records the exact component versions, Catalog evidence, and any custom runtime images. Kubara then generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>This project now lives in its own repository: <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>. The pages here remain as a mirror of the shipped journey.</p>
-    <p><a href="../docs/demo/kubara/adoption.md"><strong>Start the six-step tutorial</strong></a> · <a href="../docs/demo/kubara/gui-tour.md">See the GUI journey</a> · <a href="../docs/demo/kubara/checkpoints.md">Inspect the evidence</a></p>
+    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform needs shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
+    <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-starter">
-      <h2 id="kubara-starter">Start with one development platform</h2>
-      <p>Choose a name and Git repository. The starter writes Kubara's native <code>config.yaml</code> for one hub cluster with cert-manager, Metrics Server, and Traefik. It also writes a companion source-and-intent record that pins the exact component versions and links them to this Catalog.</p>
+      <h2 id="kubara-starter">1. Choose a small development platform</h2>
+      <p>This example uses four ordinary platform services and records one optional runtime image. Change the comma-separated service list to suit your platform.</p>
+      ${markdownLikeTable([
+        ["Job", "Selected component", "Catalog page"],
+        ["Certificates", "cert-manager", '<a href="./charts/jetstack-cert-manager-v1-21-0.html">jetstack/cert-manager 1.21.0</a>'],
+        ["Cluster metrics", "metrics-server", '<a href="./charts/metrics-server-metrics-server-3-13-1.html">metrics-server 3.13.1</a>'],
+        ["Ingress", "traefik", '<a href="./charts/traefik-traefik-41-0-2.html">Traefik 41.0.2</a>'],
+        ["Monitoring", "kube-prometheus-stack", '<a href="./charts/prometheus-community-kube-prometheus-stack-87-19-2.html">kube-prometheus-stack 87.19.2</a>'],
+      ], { rawThirdColumn: true })}
       <pre><code>git clone https://github.com/confighub/kubara-confighub.git
 cd kubara-confighub
 npm run kubara-platform:start -- \\
-  --name my-platform \\
+  --name inference-platform \\
   --repository https://github.com/acme/platform.git \\
+  --services cert-manager,metrics-server,traefik,kube-prometheus-stack \\
+  --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \\
   --output ../my-platform</code></pre>
-      <p>Review <code>config.yaml</code>, copy and complete <code>.env.example</code>, then run the Kubara command in the generated README. After generation, check the CRDs, hooks, setup Jobs, Secrets, and target requirements for the exact output before deployment.</p>
-      <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform"><strong>Open the generated starter</strong></a> · <a href="../docs/reference/flattening-alignment.md">Decide what can be flattened</a> · <a href="../docs/demo/kubara/adoption.md">Continue through Git, OCI, ConfigHub, and Argo CD</a></p>
+      <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
+      <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
+      <h3>2. Review what the starter wrote</h3>
+      ${markdownLikeTable([
+        ["File", "Why it exists"],
+        ["config.yaml", "The native Kubara selection: cluster, catalogs, enabled services, and ordinary settings."],
+        ["source-and-intent.yaml", "The Kubara source, exact component versions and packages, Catalog links, intended cluster, and checks still required."],
+        ["runtime-images.yaml", "The digest-pinned application or model-server images selected beside the platform. Kubara does not deploy this record, and an image is not a complete application."],
+        ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
+      ])}
+      <h3>3. Generate and inspect the platform</h3>
+      <p>Complete the private <code>.env</code> file, then run Kubara:</p>
+      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
+      <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
+      <h3>4. Choose where the reviewed result goes</h3>
+      <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
+      <p><a href="../docs/demo/kubara/adoption-4-oci.md"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="../docs/demo/kubara/adoption.md">Continue through ConfigHub and Argo CD</a> · <a href="../docs/reference/flattening-alignment.md">See what can be flattened</a></p>
+      <p><a href="../docs/demo/kubara/gui-tour.md">See the four-cluster result</a> · <a href="../docs/demo/kubara/checkpoints.md">Check the evidence</a> · <a href="../docs/demo/kubara/single-platform.md">Open the technical runbook</a></p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
@@ -7283,12 +7308,13 @@ cub helm install myapp &lt;chart-ref&gt; \\
     </section>
 
     <section aria-labelledby="platforms">
-      <h2 id="platforms">4. Roll out a platform or fleet</h2>
+      <h2 id="platforms">4. Build or roll out a platform</h2>
+      <p><a href="./kubara.html"><strong>Build a small Kubara platform from tested Catalog components.</strong></a> Choose services, record optional digest-pinned runtime images, and review the native Kubara config before generation. The advanced examples below continue into ConfigHub and a fleet.</p>
       <p>A platform team runs the same components on many clusters. Tools like Kubara and Sveltos build these platforms. Sveltos installs one component across a group of clusters. Kubara describes a whole platform at once and generates its files.</p>
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", `<strong>Project home:</strong> this work now lives at <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>; the pages below remain as a mirror. Kubara generates a platform's configuration; ConfigHub keeps it as governed data across the four retained clusters, with live receipts behind each claim. The architecture, version history, and proof boundaries live on the <a href="./kubara.html">Kubara page</a>.`, `<a href="./kubara.html"><strong>Why Kubara users add ConfigHub</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
+        ["Kubara", "Choose components and custom runtime images, generate the platform with Kubara, then keep reviewed versions and fleet operations in ConfigHub.", `<a href="./kubara.html"><strong>Build a platform</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
@@ -8237,6 +8263,7 @@ ${chartRowsHtml}
     <section aria-labelledby="after-catalog">
       <h2 id="after-catalog">After you choose</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
+      <p>Choosing several components for a platform? <a href="../kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, with optional digest-pinned runtime images recorded beside it.</p>
       <p><a href="../how-it-works.html">Choose how to deploy the reviewed configuration</a>.</p>
     </section>
   </main>
