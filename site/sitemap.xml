@@ -192,6 +192,15 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/variant-work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/eks-inference-stack.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/ack-controllers/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/aws-network/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/eks-cluster/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/gpu-runtime/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/inference-workloads/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/karpenter-aws/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/karpenter/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/platform-profile/space-guide.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/challenge-intake/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-claim-integrity-audit-2026-06-22/summary.html</loc></url>

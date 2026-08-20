@@ -6,7 +6,7 @@ spec:
   producer:
     name: "eks-inference"
     repository: "https://github.com/confighub/eks-inference"
-    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    commit: "f6a1689c2fe231d1bc2262d9916aa69a774882b4"
   source:
     kind: "helm-chart"
     evidence:

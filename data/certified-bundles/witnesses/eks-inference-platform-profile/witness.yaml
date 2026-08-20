@@ -3,7 +3,7 @@ kind: "OciBundleWitness"
 metadata:
   name: "eks-inference-platform-profile"
 spec:
-  observedAt: "2026-08-07T17:30:00Z"
+  observedAt: "2026-08-20T19:03:35Z"
   pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/platform-profile:latest"
   artifact:
     reference: "ghcr.io/confighub/configs/eks-inference/platform-profile:latest"
@@ -23,7 +23,7 @@ spec:
       bytes: 3121
   producer:
     repository: "https://github.com/confighub/eks-inference"
-    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    commit: "f6a1689c2fe231d1bc2262d9916aa69a774882b4"
     component: "platform-profile"
     plane: "hub"
     renderKind: "copy"

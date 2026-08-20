@@ -6,7 +6,7 @@ spec:
   producer:
     name: "eks-inference"
     repository: "https://github.com/confighub/eks-inference"
-    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    commit: "f6a1689c2fe231d1bc2262d9916aa69a774882b4"
   source:
     kind: "helm-chart"
     evidence:
@@ -17,14 +17,14 @@ spec:
   bundle:
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "ghcr.io/confighub/configs/eks-inference/ack-controllers:latest"
-    manifestDigest: "sha256:f11b3288824e26df73205664b159db7bfa14626b65eedbf9350057c80f6d17b8"
-    layerDigest: "sha256:c859a12e6021377850a7284b4952271af56be50d370d29dbff48b4b080a3fca7"
+    manifestDigest: "sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566"
+    layerDigest: "sha256:d4d32f11a09e37441ea70d11d6ca741d766c3c6cd897be283d3915f66f128841"
     reproducible: true
     contentsKind: "rendered-config"
     files:
       -
         path: "ec2-controller.yaml"
-        sha256: "c064b4b37aa3740c27afdc8eeeb86a0f593702a6d5df08693b3b2327c57f6650"
+        sha256: "9ceaaa0814d4dd6b6f7a7ddc41eb9a34f9cc2bdf56da87a0ca320c9d017982cd"
         bytes: 13973
       -
         path: "ec2-crds.yaml"
@@ -32,7 +32,7 @@ spec:
         bytes: 307879
       -
         path: "eks-controller.yaml"
-        sha256: "f74978ba85f6ec58b9f472c8d89a1729881a62e9e1c6f7a659ecc4bc7dee41b3"
+        sha256: "2eb5e14b8fba9b6248d308e94b5d2056a6202f46a6bea7b963e862a6ded130d4"
         bytes: 12480
       -
         path: "eks-crds.yaml"
@@ -40,7 +40,7 @@ spec:
         bytes: 148360
       -
         path: "iam-controller.yaml"
-        sha256: "83b879064bb8a3ed96e594e8bb58acc16fc573c5e439fec8e5b48a409a9f1524"
+        sha256: "15a1d7ed1d0fca9de6f918a5861ce8b85ecce615e4213e08908e0fe5f145ae49"
         bytes: 11783
       -
         path: "iam-crds.yaml"

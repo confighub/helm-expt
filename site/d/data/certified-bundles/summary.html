@@ -533,6 +533,7 @@
 <p>The OCI column states where the bundle is published, and says so plainly when it is not. A bundle without a published reference is still certified: the receipt describes committed bytes, and publication adds a digest to the same receipt shape rather than changing what it claims.</p>
 <p>A provisional verdict states what current evidence supports and names its open questions in the receipt. The flattening-safety audit certifies lanes; a lane moves when its receipt changes, never by hand.</p>
 <p>The eight eks-inference receipts certify artifacts this repository did not build. Each witness records the pulled manifest and layer digests, and every extracted file hashed identically to the producer's committed render at the recorded commit. Their five literal components are born flattened; the three chart-sourced ones carry the lane their charts' verdicts decided, and where a component wraps several charts the strictest lane governs.</p>
+<p>Read the <a href="eks-inference-stack.html">EKS inference stack guide</a> to see the eight components in deployment order, the two cluster planes, their routes, exact OCI digests, and the boundary between configuration proof and a real model run.</p>
 <p>The Kubara receipt reads the byte-faithful mirror under examples/kubara. Its canonicalHome block pins the maintained copy in kubara-confighub, so removing the mirror re-points the generator instead of breaking it silently.</p>
 <p>Regenerate with <code>npm run certified-bundles</code>. Verify with <code>npm run certified-bundles:verify</code>.</p>
     </article>
