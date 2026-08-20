@@ -2054,6 +2054,15 @@ function eksInferenceStackGuide(receipts) {
   check(existsSync(sandboxProofPath), "EKS inference sandbox proof receipt is missing");
   const sandboxProof = readYaml(sandboxProofPath);
   check(sandboxProof.status?.result === "pass", "EKS inference sandbox proof did not pass");
+  const deliveryProofPath = join(
+    repoRoot,
+    "runs",
+    "eks-inference-promotion-delivery-proof",
+    "receipt.yaml",
+  );
+  check(existsSync(deliveryProofPath), "EKS inference promotion and delivery proof receipt is missing");
+  const deliveryProof = readYaml(deliveryProofPath);
+  check(deliveryProof.status?.result === "pass", "EKS inference promotion and delivery proof did not pass");
   const entries = EKS_INFERENCE_COMPONENTS.map((component) => {
     const receipt = receipts.find(
       (candidate) => candidate.value.metadata.name === `eks-inference-${component.name}`,
@@ -2137,6 +2146,16 @@ function eksInferenceStackGuide(receipts) {
   lines.push("");
   lines.push(
     "That proof stops at published OCI. It does not claim that Argo CD or Flux pulled a Release, AWS resources were created, a GPU became ready, or a model answered a request.",
+  );
+  lines.push("");
+  lines.push("## Change, promote, and deliver one configuration");
+  lines.push("");
+  lines.push(
+    `A separate live test changed only \`${deliveryProof.spec.change.resource} ${deliveryProof.spec.change.path}\` from ${deliveryProof.spec.change.before} to ${deliveryProof.spec.change.after}. ConfigHub retained that change in dev, promoted the same five Unit hashes to staging, published the result as OCI, and Argo CD pulled the exact Release manifest digest. Kubernetes then reported ${deliveryProof.spec.kubernetes.chat.availableReplicas}/${deliveryProof.spec.kubernetes.chat.desiredReplicas} chat replicas available. [Read the promotion and delivery proof](../eks-inference-promotion-delivery-proof/summary.md).`,
+  );
+  lines.push("");
+  lines.push(
+    "The GPU check and vLLM configuration remained at zero replicas. This proves one small configuration promotion and Argo delivery on a local cluster, not AWS provisioning, GPU readiness, or a model response.",
   );
   lines.push("");
   lines.push("## Exact packages");

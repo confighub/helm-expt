@@ -43,6 +43,12 @@ Config Workshop independently checked this sandbox on 2026-08-20T19:26:07.326Z. 
 
 That proof stops at published OCI. It does not claim that Argo CD or Flux pulled a Release, AWS resources were created, a GPU became ready, or a model answered a request.
 
+## Change, promote, and deliver one configuration
+
+A separate live test changed only `apps/v1 Deployment inference/chat spec.replicas` from 1 to 2. ConfigHub retained that change in dev, promoted the same five Unit hashes to staging, published the result as OCI, and Argo CD pulled the exact Release manifest digest. Kubernetes then reported 2/2 chat replicas available. [Read the promotion and delivery proof](../eks-inference-promotion-delivery-proof/summary.md).
+
+The GPU check and vLLM configuration remained at zero replicas. This proves one small configuration promotion and Argo delivery on a local cluster, not AWS provisioning, GPU readiness, or a model response.
+
 ## Exact packages
 
 | Component | Exact OCI | Receipt and guide |
