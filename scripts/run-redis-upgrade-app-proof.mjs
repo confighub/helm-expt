@@ -201,7 +201,6 @@ function runProof() {
       },
       limits: [
         "The required Redis Secret was created separately on each throwaway cluster. The workload OCI does not contain the password.",
-        "cub variant promote --dry-run -o mutations returned no text in this run. The proof checked that the dry run changed no stored data, but it does not claim that the current CLI shows a useful mutation preview.",
         "The portable output OCI used a temporary local registry. Public registry publication is a separate receipt.",
         "The OCI keeps the reviewed ConfigHub objects. The cub-scout input removes only explicit null fields that the Kubernetes API omits before comparison.",
         "The rollback restored the desired Kubernetes objects and checked workload health. It did not restore database data or exercise an irreversible migration.",
@@ -288,7 +287,7 @@ function runProof() {
 
     clusterUp(clusterA);
     clustersUp.push(clusterA);
-    const firstTarget = `${clusterA}-cluster/oci`;
+    const firstTarget = `${clusterA}/target`;
 
     cub([
       "variant",
@@ -822,6 +821,21 @@ function restoreSpaceRevisions({
     ], { timeout: 300_000 });
   }
 
+  cub([
+    "unit",
+    "update",
+    "--patch",
+    "--space",
+    space,
+    "--unit",
+    changed.map((unit) => unit.slug).join(","),
+    "--changeset",
+    "-",
+    "--change-desc",
+    `Close ${changeSet} after restoring the reviewed revisions`,
+    "--quiet",
+  ], { timeout: 300_000 });
+
   const after = snapshotSpaceUnits(space);
   const afterBySlug = new Map(after.map((unit) => [unit.slug, unit]));
   for (const prior of baseline) {
@@ -846,12 +860,17 @@ function restoreSpaceRevisions({
     String(recordedChangeSet.ChangeSetID ?? recordedChangeSet.changeSetId ?? "") === changeSetId,
     "the rollback ChangeSet could not be read back",
   );
+  check(
+    String(recordedChangeSet.State ?? recordedChangeSet.state ?? "") === "Closed",
+    "the rollback ChangeSet was not closed before release",
+  );
 
   return {
     result: "pass",
     space,
     changeSet,
     changeSetId,
+    changeSetState: "Closed",
     restoredUnitCount: changed.length,
     unchangedUnitCount: baseline.length - changed.length,
     chartVersionBefore: candidateVersion,
@@ -1156,8 +1175,9 @@ function addApplication({
   namespace: destinationNamespace,
   workRoot,
 }) {
-  const clusterSpace = `${clusterName}-cluster`;
-  const target = `${clusterSpace}/oci`;
+  const clusterSpace = clusterName;
+  const appsSpace = `${clusterName}-argo-apps`;
+  const target = `${clusterSpace}/target`;
   const appPath = join(workRoot, `${clusterName}-${appName}.yaml`);
   writeFileSync(appPath, applicationYaml({
     appName,
@@ -1170,7 +1190,7 @@ function addApplication({
     "unit",
     "create",
     "--space",
-    clusterSpace,
+    appsSpace,
     unitName,
     appPath,
     "--target",
@@ -1178,11 +1198,11 @@ function addApplication({
     "--change-desc",
     `Create ${appName} from the reviewed Redis upgrade`,
   ], { timeout: 240_000 });
-  const rootRelease = publishRelease(clusterSpace);
+  const appsRelease = publishRelease(appsSpace);
   kubectl(clusterName, [
     "annotate",
     "application",
-    clusterSpace,
+    appsSpace,
     "-n",
     "argocd",
     "argocd.argoproj.io/refresh=hard",
@@ -1190,11 +1210,11 @@ function addApplication({
   ]);
   return {
     name: appName,
-    unit: `${clusterSpace}/${unitName}`,
+    unit: `${appsSpace}/${unitName}`,
     source: sourceReference,
     targetRevision,
     destinationNamespace,
-    clusterRootReleaseDigest: rootRelease.manifestDigest,
+    appsReleaseDigest: appsRelease.manifestDigest,
   };
 }
 
@@ -1207,7 +1227,7 @@ function updateApplication({
   namespace: destinationNamespace,
   workRoot,
 }) {
-  const clusterSpace = `${clusterName}-cluster`;
+  const appsSpace = `${clusterName}-argo-apps`;
   const appPath = join(workRoot, `${clusterName}-${appName}-${targetRevision}.yaml`);
   writeFileSync(appPath, applicationYaml({
     appName,
@@ -1219,17 +1239,17 @@ function updateApplication({
     "unit",
     "update",
     "--space",
-    clusterSpace,
+    appsSpace,
     unitName,
     appPath,
     "--change-desc",
     `Point ${appName} at the reviewed Redis rollback`,
   ], { timeout: 240_000 });
-  const rootRelease = publishRelease(clusterSpace);
+  const appsRelease = publishRelease(appsSpace);
   kubectl(clusterName, [
     "annotate",
     "application",
-    clusterSpace,
+    appsSpace,
     "-n",
     "argocd",
     "argocd.argoproj.io/refresh=hard",
@@ -1237,11 +1257,11 @@ function updateApplication({
   ]);
   return {
     name: appName,
-    unit: `${clusterSpace}/${unitName}`,
+    unit: `${appsSpace}/${unitName}`,
     source: sourceReference,
     targetRevision,
     destinationNamespace,
-    clusterRootReleaseDigest: rootRelease.manifestDigest,
+    appsReleaseDigest: appsRelease.manifestDigest,
   };
 }
 
@@ -1499,7 +1519,7 @@ function summarizeScoutReceipt(path, receipt, key) {
 function clusterUp(name) {
   const result = spawnSync(
     "cub",
-    ["cluster", "up", "--name", name, "--no-ports"],
+    ["cluster", "up", "--name", name, "--no-ports", "--no-argobot"],
     {
       cwd: repoRoot,
       env: cubEnv(),
@@ -1510,15 +1530,25 @@ function clusterUp(name) {
     },
   );
   check(
-    result.status === 0 || clusterPresent(name),
+    result.status === 0,
     `cub cluster up failed for ${name}: ${sanitizeError(result.stderr)}`,
+  );
+  check(clusterPresent(name), `cub cluster up did not create kind cluster ${name}`);
+  check(spacePresent(name), `cub cluster up did not create cluster Space ${name}`);
+  check(
+    spacePresent(`${name}-argo-apps`),
+    `cub cluster up did not create Argo apps Space ${name}-argo-apps`,
+  );
+  check(
+    cubTry(["target", "get", "target", "--space", name, "-o", "json"]).ok,
+    `cub cluster up did not create target ${name}/target`,
   );
 }
 
 function clusterDown(name) {
   const result = tryCommand(
     "cub",
-    ["cluster", "down", "--name", name, "--force"],
+    ["cluster", "down", "--name", name, "--delete-config", "--force"],
     { timeout: 600_000, env: cubEnv() },
   );
   if (!result.ok && clusterPresent(name)) {
@@ -1526,8 +1556,9 @@ function clusterDown(name) {
       timeout: 180_000,
     });
   }
-  if (spacePresent(`${name}-cluster`)) {
-    cubTry(["space", "delete", `${name}-cluster`, "--recursive-force"], {
+  for (const space of [`${name}-argo-apps`, `argobot-${name}`, `${name}-cluster`, name]) {
+    if (!spacePresent(space)) continue;
+    cubTry(["space", "delete", space, "--recursive-force"], {
       timeout: 300_000,
     });
   }
@@ -1540,7 +1571,8 @@ function clusterPresent(name) {
 
 function clusterAbsent(name) {
   return !clusterPresent(name)
-    && !spacePresent(`${name}-cluster`)
+    && [name, `${name}-argo-apps`, `argobot-${name}`, `${name}-cluster`]
+      .every((space) => !spacePresent(space))
     && !existsSync(clusterKubeconfig(name))
     && !existsSync(clusterEnv(name));
 }
@@ -1777,7 +1809,9 @@ function validateReceipt(receipt) {
       promotion?.result === "pass"
         && promotion.afterChartVersion === candidateVersion
         && promotion.recordedReplicasAfter === 2
-        && promotion.preview.storageUnchanged === true,
+        && promotion.preview.storageUnchanged === true
+        && promotion.preview.disposition === "pass"
+        && promotion.preview.outputBytes > 0,
       `${environment} promotion did not pass`,
     );
   }
@@ -1828,7 +1862,8 @@ function validateReceipt(receipt) {
       && receipt.spec.configHub.rollback.chartVersionAfter === oldVersion
       && receipt.spec.configHub.rollback.appVersionAfter === oldAppVersion
       && receipt.spec.configHub.rollback.recordedReplicasAfter === 2
-      && receipt.spec.configHub.rollback.changeSetId,
+      && receipt.spec.configHub.rollback.changeSetId
+      && receipt.spec.configHub.rollback.changeSetState === "Closed",
     "the ConfigHub rollback did not restore the recorded pre-upgrade revisions",
   );
   check(
@@ -1919,8 +1954,8 @@ claim to reverse database data or an irreversible migration.
 | Check the candidate plan | ${spec.configHub.candidatePlan.result} | ${spec.configHub.candidatePlan.add} add, ${spec.configHub.candidatePlan.change} change, ${spec.configHub.candidatePlan.delete} delete; no replica reset proposed. |
 | Reconcile the base | ${spec.configHub.reconcile.result} | Chart ${spec.configHub.reconcile.chartVersionBefore} became ${spec.configHub.reconcile.chartVersionAfter}; Redis ${spec.configHub.reconcile.appVersionBefore} became ${spec.configHub.reconcile.appVersionAfter}; replicas stayed ${spec.configHub.reconcile.recordedReplicasAfter}. |
 | Show downstream impact | ${spec.configHub.impact.result} | ${spec.configHub.impact.affectedSpaces} environment Spaces are in the path: development was pending first, and staging became pending after the development wave. |
-| Promote development | ${spec.configHub.promotions.development.result} | Chart ${spec.configHub.promotions.development.afterChartVersion}; replicas ${spec.configHub.promotions.development.recordedReplicasAfter}; dry run left stored data unchanged. |
-| Promote staging | ${spec.configHub.promotions.staging.result} | Chart ${spec.configHub.promotions.staging.afterChartVersion}; replicas ${spec.configHub.promotions.staging.recordedReplicasAfter}; dry run left stored data unchanged. |
+| Promote development | ${spec.configHub.promotions.development.result} | Chart ${spec.configHub.promotions.development.afterChartVersion}; replicas ${spec.configHub.promotions.development.recordedReplicasAfter}; dry run returned ${spec.configHub.promotions.development.preview.outputBytes} bytes of mutations and left stored data unchanged. |
+| Promote staging | ${spec.configHub.promotions.staging.result} | Chart ${spec.configHub.promotions.staging.afterChartVersion}; replicas ${spec.configHub.promotions.staging.recordedReplicasAfter}; dry run returned ${spec.configHub.promotions.staging.preview.outputBytes} bytes of mutations and left stored data unchanged. |
 | Publish the ConfigHub release | ${spec.delivery.configHubRelease.result} | \`${spec.delivery.configHubRelease.manifestDigest}\`. |
 | Build and pull the portable OCI | ${spec.delivery.portableOci.result} | ${spec.delivery.portableOci.objectCount} objects at \`${spec.delivery.portableOci.digest}\`; pulled files matched the reviewed staging files. |
 | Roll out to two clusters | ${spec.delivery.fleet.result} | Both Argo CD applications reported the same OCI digest and both Redis installations became ready. |
@@ -1948,12 +1983,11 @@ portable workload OCI do not contain that password. This test created a differen
 temporary Secret on each target through standard input. No credential bytes were
 written to the repository or receipt.
 
-## One current CLI gap
+## Review before promotion
 
-\`cub variant promote --dry-run -o mutations\` returned no text for both promotions.
-The command changed no stored data, and the real promotions completed, but the empty
-preview is not useful to a person reviewing the upgrade. This receipt records that as
-a known presentation gap rather than describing the preview as complete.
+\`cub variant promote --dry-run -o mutations\` returned a mutation preview for both
+environment promotions. Each dry run left the stored Units unchanged. The real
+promotion ran only after that check.
 
 ## What this proves
 

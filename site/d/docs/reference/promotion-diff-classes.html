@@ -466,8 +466,8 @@
 <p>When the new source and a later edit both affect the same field, the review marks an overlap. A retained override may still be correct, but it must be reviewed against the new source behavior before promotion. One field must not have two silent owners.</p>
 <p>Formatting, comments, and mapping key order remain no-ops because the comparison uses parsed YAML objects rather than raw text.</p>
 <h2 id="the-server-preview-and-the-independent-comparison">The server preview and the independent comparison</h2>
-<p>The older receipt records that its <code>cub variant promote --dry-run</code> returned no mutation detail. The current CLI supports <code>cub variant promote --dry-run -o mutations</code>, but that historical receipt has not been rerun and cannot prove the newer output.</p>
-<p>The Workshop still compares the exact object sets itself. That gives a useful review before a ConfigHub Space exists and provides an independent check of the later server preview. The browser result is not evidence that ConfigHub performed a promotion.</p>
+<p>The current Redis receipt records that <code>cub variant promote --dry-run -o mutations</code> returned mutation detail for both development and staging. It also checked that each dry run left stored data unchanged before the real promotion ran.</p>
+<p>The Workshop still compares the exact object sets itself. That gives a useful review before a ConfigHub Space exists and provides an independent check of the later server preview. The browser result is not evidence that ConfigHub performed a promotion; the live Redis receipt supplies that separate evidence.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/reference/promotion-diff-classes.md</code>. The source file is the authoritative version.</p></footer>

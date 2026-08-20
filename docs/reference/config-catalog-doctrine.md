@@ -461,11 +461,10 @@ first continuous execution of the upgrade path. It starts from the public
 `bitnami/redis:25.5.3` installer package, records a two-replica change, reconciles
 `27.0.0` without losing that change, promotes through development and staging, and
 checks the same OCI digest on two Argo CD clusters. The mechanics pass. The App remains
-partial because its historical receipt predates the current mutation-preview output,
-the portable OCI used a temporary registry, and the workflow is still a guarded script
-rather than a finished App interface. The current CLI exposes
-`cub variant promote --dry-run -o mutations`; rerun the exact proof before using that
-newer output to strengthen the App claim.
+partial because the portable OCI used a temporary registry and the workflow is still
+a guarded script rather than a finished App interface. The 2026-08-20 receipt records
+useful mutation previews for both environment promotions, a closed rollback ChangeSet,
+and passing forward and rollback results on both clusters.
 
 The [AI Change Review proof](../../data/ai-change-review-live-proof/summary.md)
 sends an unsafe and a reviewed AICR training object through the live checks.

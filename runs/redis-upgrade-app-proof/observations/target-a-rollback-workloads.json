@@ -27,10 +27,10 @@
       "tool": "cub-scout",
       "version": "dev"
     },
-    "verifiedAt": "2026-07-27T23:08:30Z",
+    "verifiedAt": "2026-08-20T15:57:41Z",
     "freshness": {
-      "observedAt": "2026-07-27T23:08:30Z",
-      "expiresAt": "2026-07-28T00:08:30Z",
+      "observedAt": "2026-08-20T15:57:41Z",
+      "expiresAt": "2026-08-20T16:57:41Z",
       "ttl": "1h0m0s"
     },
     "predicateName": "workloads-converged",
@@ -47,7 +47,7 @@
           "kind": "namespace",
           "namespace": "redis"
         },
-        "observedAt": "2026-07-27T23:08:30Z",
+        "observedAt": "2026-08-20T15:57:41Z",
         "desiredDigest": "2e43a4e07616d578432aec13c0c7ff2cc802d56afdd07b89032741e559923744",
         "liveDigest": "8f22f9b0736c95140b09fb6030598395e3d25159582041b135ca5be76658fd32",
         "summary": {
@@ -69,7 +69,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "All replicas scheduled as expected. Replicas: 1",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -81,7 +81,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "All replicas scheduled as expected. Replicas: 2",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -93,7 +93,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -105,7 +105,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "AllowedDisruptions has been computed.",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -117,7 +117,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "AllowedDisruptions has been computed.",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -129,7 +129,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is always ready",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -141,7 +141,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is always ready",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -153,7 +153,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is always ready",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -164,7 +164,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 397
+            "ageSeconds": 492
           },
           {
             "id": {
@@ -176,7 +176,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -188,7 +188,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -200,7 +200,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -212,7 +212,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 386
+            "ageSeconds": 481
           },
           {
             "id": {
@@ -224,7 +224,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 386
+            "ageSeconds": 481
           }
         ]
       }
@@ -245,6 +245,6 @@
         "nextSurface": "cub-scout"
       }
     ],
-    "fingerprint": "sha256:255113882ab279808f3d94f4e7b33d9d623b49b50fc8877e3f35cf47a0b8237c"
+    "fingerprint": "sha256:6597fc8bbcea6a52c8fa29124b71382e870ebfe93ea79dba008b783e8892e40f"
   }
 }

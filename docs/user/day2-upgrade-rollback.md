@@ -56,9 +56,9 @@ the target.
 The Redis candidate plan reported 13 changed objects, no additions, and no deletions.
 It did not propose a change to `spec.replicas`.
 
-The current `cub variant promote --dry-run -o mutations` command returned no text in
-this run. It changed no stored data, but an empty response is not a useful human
-preview. The receipt records that gap plainly.
+The `cub variant promote --dry-run -o mutations` command returned a mutation preview
+for both development and staging. Each dry run left the stored Units unchanged. The
+real promotion ran only after that check.
 
 ## Rollback
 
@@ -66,7 +66,8 @@ ConfigHub keeps a revision history for every Unit. Before promotion, the Redis t
 recorded the exact revision number and content digest for all 14 Kubernetes objects
 and the installer record. After the candidate was running, it created the
 `rollback-to-25-5-3` ChangeSet and restored only the Units whose content had changed.
-Unchanged Units were left alone.
+Unchanged Units were left alone. The test then closed the ChangeSet before publishing
+the rollback release.
 
 The restored objects matched the pre-upgrade records exactly. ConfigHub published
 them as a new OCI artifact, Argo CD reconciled both clusters to that digest, and the
