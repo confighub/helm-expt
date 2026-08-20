@@ -5,7 +5,7 @@
 It explains the current product direction, the active workstreams, and which
 planning files are authoritative for each kind of question.
 
-Updated: 2026-08-15.
+Updated: 2026-08-20.
 
 ## How To Read The Roadmap
 
@@ -27,13 +27,15 @@ Do not copy live counts into roadmap prose. Counts belong in generated data.
 ## Current Product Goal
 
 `helm-expt` should help a person turn configuration they already use into a
-reviewed, deployable OCI package, then show why ConfigHub is useful after that:
+reviewed, deployable OCI package. That result must remain useful without ConfigHub.
+When a team needs durable history and operations, the project should show how the
+same accepted configuration continues into ConfigHub:
 
 ```text
 Start with Helm first, then support AICR, cub installer packages, existing OCI, and Kubernetes YAML.
 Let people inspect, test, and produce public OCI without a ConfigHub account.
 Record source inputs, exact objects, prerequisites, hooks, CRDs, checks, and receipts.
-Let a team claim the reviewed result in ConfigHub when it needs shared history, variants, approvals, promotions, or fleet rollout.
+Offer an optional ConfigHub handoff when a team needs shared history, variants, approvals, promotions, or fleet rollout.
 Publish exact reviewed objects as OCI for Argo CD, Flux, or direct apply.
 Keep unsupported cases and missing evidence visible.
 ```
@@ -49,6 +51,16 @@ OCI -> ConfigHub -> reviewed variants and operations -> OCI -> delivery
 The proof machinery supports that story. It should not be the first thing a new
 visitor has to understand.
 
+The model keeps four records separate: source and intent, exact configuration,
+lifecycle work, and runtime result. Helm hooks, CRDs, cloud provisioning, runtime
+images, models, and configuration OCI have different lifecycle rules. OCI is the
+common transport between tools and systems; it is not a universal execution model.
+
+The homepage should keep a small number of starting jobs. A well-designed Catalog
+absorbs the breadth: users can browse by source format, task, lifecycle need,
+evidence stage, and version. More examples should make the Catalog more useful without
+turning every format or advanced workflow into another top-level entry point.
+
 ## Active Workstreams
 
 | Workstream | Current objective | Primary surfaces | Main trackers |
@@ -62,6 +74,208 @@ visitor has to understand.
 | ConfigHub/cub product blockers | Keep product gaps exposed by the corpus linked to upstream implementation work without overstating what helm-expt itself owns. | [Issue Backlog](./issue-backlog.md), [Variant Promotion Closeout](../reference/variant-promotion-closeout.md). | [#682](https://github.com/confighub/helm-expt/issues/682), upstream ConfigHub issue [#4609](https://github.com/confighubai/confighub/issues/4609). |
 | Errors, omissions, and UX guards | Prevent false chart-page claims and placeholder leaks from returning. | [Chart Claim Integrity Audit](./chart-claim-integrity-audit-2026-06-22.md), [Test Map](../../tests/README.md). | PR [#1024](https://github.com/confighub/helm-expt/pull/1024), [#1025](https://github.com/confighub/helm-expt/issues/1025), [#1026](https://github.com/confighub/helm-expt/issues/1026), [#1027](https://github.com/confighub/helm-expt/issues/1027), PR [#1028](https://github.com/confighub/helm-expt/pull/1028). |
 | AI-assisted apps and operations | Turn the ConfigHub data model into a substrate for AI-assisted app changes, RBAC/task-specific tools, and safer operations. | [AI-Assisted Helm Changes](../user/ai-assisted-helm-changes.md), [Broken Chart Triage](../user/broken-chart-triage.md), future app examples. | [#949](https://github.com/confighub/helm-expt/issues/949) and future app/example issues. |
+| AI infrastructure and tested platform stacks | Let a user start an inference service or compose a platform from tested components, keep custom runtime images explicit, and move the reviewed configuration through OCI, ConfigHub, GitOps, and Kubernetes. | [AICR Catalog Brief](./aicr-catalog-brief.md), [Kubara journey](../../site/kubara.html), [Worked Examples](../../site/testing.html), and the AI runtime plan below. | Existing AICR and Kubara issues, followed by dedicated c3agent and platform-builder issues. |
+
+## AI Infrastructure And Platform Track
+
+This track is informed by an August 2026 discussion with an AI infrastructure
+partner. The roadmap records the product requirements, not private meeting notes,
+contact details, or commercial commitments.
+
+The partner feedback makes the job concrete:
+
+- offer tested, versioned ways to run common AI and platform workloads;
+- keep a complete open-source reference path, while allowing users to replace
+  components and supply their own images;
+- help teams that have Kubernetes and GPUs but do not yet have mature cloud
+  operations;
+- let agents request infrastructure without letting a non-deterministic agent
+  rebuild the platform differently on every run; and
+- put testing, promotion, rollout, rollback, and measured optimization around the
+  selected configuration.
+
+### Two Public Starting Journeys
+
+| User question | First useful result | What follows |
+| --- | --- | --- |
+| How do I get an inference service running correctly? | One tested configuration with exact component versions, runtime image digests, required Secrets and controllers, generated Kubernetes objects, checks, and a local or OCI output. | Save the accepted base in ConfigHub, make environment variants, test a candidate, promote it, publish release OCI, and check the live result. |
+| How do I build a platform from known-good parts? | Pick tested Catalog components and versions, add custom applications or runtime images, and generate one Kubara platform plus its source-and-intent record and immutable package index. | Keep Git as the portable source, use ConfigHub for the retained platform variants and operations, and let Argo CD, Flux, or Sveltos reconcile the approved output. |
+
+The first journey begins with an inspection and configuration exercise that needs no
+GPU. A page may say that inference is running only after a real model request succeeds
+on a recorded target. GPU-specific claims require a real GPU target and measured
+workload evidence. The second journey should be presented as **Build a platform**, not
+as a Kubara expert reference page. The existing Kubara evidence remains behind that
+simpler front door.
+
+### Named Inference Starting Stacks
+
+"Get inference running" is a family of concrete examples, not one generic AI demo.
+The public site should first let a person inspect the configuration without specialist
+hardware, then identify the stack whose model workload they can actually run.
+
+| Starting stack | What it helps a user do | Evidence and boundary today |
+| --- | --- | --- |
+| [AICR plus Helm components](../demo/aicr/index.md) | Choose a tested AI platform recipe, inspect the Helm-backed components and their order, and keep the exact generated Argo CD configuration. The CPU starter is the accessible first run; the retained EKS, H100, Kubeflow, and NIM entries show the larger shapes. | The repository retains exact AICR versions, generated Applications, digest indexes, ConfigHub changes, promotions, and bounded kind delivery. These are configuration proofs; no catalog receipt claims that it ran a GPU workload. |
+| [NIM inference](../demo/aicr/eks-h100-inference-nim.md) | Choose between an [AICR-native NIM platform](../demo/aicr/eks-h100-inference-nim.md) and [NIM model shapes on KServe](../demo/aicr/kserve-nim-inference.md), then inspect the runtime references, model-to-GPU choices, prerequisites, and generated objects before using them. | The AICR platform shape and the retained NVIDIA KServe files are pinned and checked. The KServe path has ConfigHub import, promotion, and config-plane delivery evidence. NGC images, models, and keys remain user-supplied; no NIM model workload is claimed as run. |
+| [EKS inference](https://github.com/confighub/eks-inference) | Install shared component bases, create a free configuration sandbox, or build the real ACK, EKS, Karpenter, GPU-runtime, and vLLM stack through the public `cub eksinf` plugin. | Config Workshop has certified all eight published component bundles against the producer commit. Five are born-flattened; the three chart-sourced components carry their catalog flattening verdicts and required routes. The ConfigHub sandbox, cloud run, and model request have not yet been independently rerun here. |
+
+These entries must remain visibly different. AICR describes and composes a platform,
+Helm supplies many of its components, NIM supplies licensed model-serving runtimes,
+and `eks-inference` is an opinionated end-to-end stack. The Workshop gives them the
+same review path without pretending they are the same format.
+
+### Public Site And Customer Path
+
+This track should extend the current site rather than introduce another navigation
+model. Each named stack follows the same short sequence:
+
+1. Find the stack in the Catalog or Examples page and read what it contains, what it
+   needs, and what has actually been tested.
+2. Run the accessible example locally or use the site's no-account checks. Keep the
+   reviewed result as files or configuration OCI.
+3. Compare the result with another catalog version, an AI-produced candidate, or the
+   configuration the user already runs.
+4. Stop with the reviewed files or OCI, or use **Keep this reviewed result in
+   ConfigHub** when the result needs shared history, variants, approvals, promotion,
+   release OCI, GitOps delivery, or live comparison.
+
+The source identity and object-set digest must stay visible across step 4. The account
+is the way to retain and operate an accepted answer, not a prerequisite for learning
+what a stack will do. The website needs small additions to the existing Catalog,
+Examples, Check, Promote, and ConfigHub pages; it does not need a separate AI-inference
+site or another top-level product story.
+
+### OCI Is The Common Handoff
+
+The common delivery shape is:
+
+```text
+Git -> build -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes
+```
+
+OCI is the transport and immutable handoff for deployable configuration. It is not
+the only record in the system, and the site must not use the word OCI as if every
+artifact had the same job.
+
+| OCI role | What it contains | Example |
+| --- | --- | --- |
+| Source or package OCI | Reproducible source material, selections, and files needed to produce configuration. | A `cub installer` package or an AICR recipe bundle. |
+| Runtime image OCI | The application, model server, agent runtime, or sandbox image Kubernetes will run. | A digest-pinned inference server or c3agent image. |
+| Configuration or release OCI | The exact Kubernetes objects reviewed by the user and consumed by a reconciler. | A local rendered OCI or a ConfigHub Space release. |
+
+Every maintained path also needs a source-and-intent record. It explains the source,
+selections, exact output, custom images, remaining inputs, prerequisites, lifecycle
+work, checks, and receipts. Secrets travel as references or target requirements, not
+as credential material embedded in a portable OCI.
+
+The public no-account boundary remains useful at every starting point:
+
+```text
+work -> OCI
+OCI -> work
+OCI -> work -> OCI
+```
+
+Here, work means inspect, explain, render, compare, test, scan, or edit. A useful
+anonymous path can end with files or OCI. A user signs in when they choose to retain
+the result as shared ConfigHub data, promote or approve it, publish a ConfigHub
+release, or compare it with live systems.
+
+### Deterministic Tools Behind Agents
+
+The agent path should be:
+
+```text
+request in words
+-> agent chooses a deterministic tool and inputs
+-> exact candidate objects
+-> checks and workload measurements
+-> human or policy decision
+-> ConfigHub promotion and release OCI
+-> GitOps and Kubernetes
+```
+
+An agent may explain the result, select a tested pattern, propose inputs, or choose
+the next experiment. Deterministic tools render, transform, compare, test, publish,
+and promote it. The agent does not directly improvise a different cluster or platform
+on every run.
+
+This creates two related examples:
+
+| Example | Purpose | Current boundary |
+| --- | --- | --- |
+| c3agent fleet | Turn model, runtime image, concurrency, budget, storage, and credential references into exact Kubernetes resources with field provenance and policy checks. | `confighub/cub-gen` has local source-chain and connected ConfigHub evidence. The Config Workshop integration and standalone live runtime proof remain open. |
+| Configuration optimization sandbox | Try candidate settings against a defined workload, retain the input, output, target facts, and metrics, and promote the best accepted configuration. | The promotion and testing components exist separately. The repeated measured optimization loop is not yet a shipped example. |
+
+The first c3agent Workshop example should show one digest-pinned custom runtime image,
+one Secret reference, and one model or budget change moving from development to
+staging and production. It should produce a configuration OCI locally, retain the
+same object set as a ConfigHub base, publish a release OCI, and deliver it through
+Argo CD or Flux. The live proof must say whether it checked only Kubernetes readiness
+or exercised the agent workload itself.
+
+### Acceptance Ladder
+
+The track graduates one claim at a time.
+
+1. A new user can run the starting example locally without a ConfigHub account.
+2. The result names the source package, exact versions, runtime image digests, and
+   every generated Kubernetes object.
+3. Required Secrets, controllers, CRDs, hooks, setup work, and target facts are
+   visible before deployment.
+4. The user can keep the reviewed objects as files or a configuration OCI.
+5. Pulling that OCI back produces the same object-set hash.
+6. Uploading the result to ConfigHub retains the same object set and source digest.
+7. Development, staging, and production changes appear as exact variant diffs, with
+   overlapping source and post-render changes identified before promotion.
+8. Apply gates check schema, placeholders, Secret handling, approved models or
+   runtimes, image pinning, lifecycle routes, and production approval as applicable.
+9. A ConfigHub release OCI reaches Argo CD or Flux at the recorded digest, and the
+   target result is observed separately.
+10. An optimization example records each candidate, test workload, metric, decision,
+    and promoted winner. A failed or partial target never becomes an overall pass.
+
+### Current Boundaries
+
+| Capability | Status |
+| --- | --- |
+| Pull, inspect, render, compare, and create OCI locally without a ConfigHub account | Available for the current public starting paths. |
+| Hosted browser inspection of rendered YAML without signing in | Available, with no arbitrary chart rendering, OCI pull, cluster access, or live tests. |
+| Hosted anonymous arbitrary source or OCI work | Planned, not shipped. |
+| Helm package, rendered OCI, ConfigHub release OCI, and Argo CD or Flux delivery | Demonstrated in the existing evidence corpus. |
+| AICR recipe, digest-bound package set, ConfigHub variant, and promotion | Partly demonstrated; broader inference and GPU workload proof remains open. |
+| Public `confighub/eks-inference` plugin and eight OCI component bundles | The eight bundles are incorporated as certified external artifacts with file and digest witnesses. The configuration sandbox and EKS/vLLM runtime have not yet been independently rerun here. |
+| Kubara composition, retained versions, ConfigHub operations, and fleet evidence | Demonstrated for the retained platform; the simple Catalog-to-platform chooser is missing. |
+| c3agent source mapping and connected ConfigHub path | Demonstrated in `confighub/cub-gen`; not yet a Config Workshop journey. |
+| Standalone live c3agent workload and generic AI sandbox execution | Not yet demonstrated. |
+| Repeated metric-driven configuration optimization and promotion | Planned; individual testing and promotion parts exist. |
+
+### Next Build Order
+
+1. Publish the four-record lifecycle model and the Catalog browse model in the
+   canonical guides, then keep the public site summary short.
+2. Expose the eight existing `eks-inference` certified-bundle records as one readable
+   stack journey, including the component order, routes, and exact source commit.
+3. Independently run and receipt the `eks-inference` ConfigHub configuration sandbox.
+   Do not add a cloud or model-runtime claim to that receipt.
+4. Retain one candidate as a ConfigHub variant, promote it, publish release OCI, and
+   prove Argo CD or Flux consumed the recorded digest.
+5. Run one real vLLM model request on a recorded target. Keep cluster readiness,
+   workload readiness, and successful inference as separate results.
+6. Present the CPU starter, AICR plus Helm, NIM, and `eks-inference` as one ordered
+   Catalog family: begin without specialist hardware, then offer the GPU and cloud
+   paths with costs, credentials, prerequisites, and proof boundaries stated first.
+7. Build a Config Workshop c3agent example from local source through configuration
+   OCI, ConfigHub variants, promotion, release OCI, GitOps, and a bounded live check.
+8. Add a simple **Build a platform** journey: choose tested Catalog components,
+   versions, and custom images; generate Kubara configuration and its package index;
+   then continue locally or in ConfigHub.
+9. Join the test harness to promotion: generate candidates, run a fixed workload,
+   record metrics and target facts, select an accepted result, and promote that exact
+   configuration.
+10. Only after the bounded examples pass, generalize the pattern to more AI runtimes,
+    sandboxes, hardware classes, fleet tools, and reference stacks.
 
 ## Component Ownership
 

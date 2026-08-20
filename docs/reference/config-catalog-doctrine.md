@@ -57,6 +57,13 @@ anonymously with public packages before or after any OCI boundary. Claiming save
 objects and their history so a team can transform, approve, promote, and roll them
 out. It is not a required first step or a fixed position in every delivery flow.
 
+A successful anonymous journey may end with reviewed files or a verified OCI. That is
+a useful result, not an incomplete ConfigHub trial. If the user later needs a shared
+record, comparisons over time, approval, promotion, release, or live-state history,
+the ConfigHub handoff should retain the same source identity, object-set digest, and
+review result. The user should not have to repeat the investigation merely because
+the work moved from a local tool into ConfigHub.
+
 The [public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
 checks that boundary. It starts from a public NGINX installer OCI, runs
 `cub installer setup --output-oci` with no ConfigHub token, writes the six rendered
@@ -104,6 +111,29 @@ The immediate goal is to make Helm easier to inspect and operate. The longer-ter
 is a large, useful catalog of configuration in the formats teams already use. Each
 entry should help a person understand what the configuration does, try it, check the
 evidence, and use it as the start of their own application or fleet.
+
+## One Catalog, Several Ways To Find An Answer
+
+The homepage should offer a small number of clear jobs. The Catalog carries the
+range. Adding a source format or an advanced example should add another catalog path,
+not another equal homepage button.
+
+The same catalog records must be browsable by:
+
+| View | Examples |
+| --- | --- |
+| Starting source | Helm, AICR, Kubara, existing OCI, or Kubernetes YAML |
+| Job | Inspect, test, compare, change, promote, deploy, operate, or build an application or platform |
+| Lifecycle need | CRDs, hooks, setup Jobs, Secrets, cloud provisioning, models, or runtime images |
+| Evidence stage | Source checked, objects reproduced, package verified, ConfigHub retained, promoted, delivered, or observed live |
+| Version | Current recommendation, earlier versions, upgrade candidates, and recorded changes between them |
+
+Each entry should use one stable order: why it exists, the exact source and version,
+ready-to-use configurations, the produced objects, lifecycle and target requirements,
+the checks that passed, the checks that did not run, how to try it, and the available
+next steps. Examples and web pages must be generated from the same source, intent,
+object, route, and receipt records wherever possible. That lets the corpus grow
+without maintaining a second explanation by hand.
 
 ## Known answers and new investigations
 
@@ -204,6 +234,39 @@ target records. Missing facts remain an explicit gap.
 The source and intent record and the literal objects stay connected. A rendered YAML
 file on its own is useful, but it cannot explain why a hook was replaced, who owns a
 CRD, or which target facts were required.
+
+## Configuration, Lifecycle, Transport, And Runtime
+
+The model separates four records:
+
+1. The **source and intent record** explains the source and the choices that produced
+   the configuration.
+2. The **exact configuration** records the accepted Kubernetes objects and their
+   digest.
+3. The **lifecycle record** states the work required around apply, including order,
+   actor, retry behavior, target facts, and evidence.
+4. The **runtime result** records what the selected target and workload actually did.
+
+These records have different clocks and different proof. Helm hooks and setup Jobs
+may run once or on every upgrade. CRDs need ownership, apply ordering, and an
+establishment check. Cloud provisioning is asynchronous and needs a controller,
+credentials, status, and cleanup rules. Runtime images are executable artifacts that
+must be pinned and then observed as workloads. Models have their own identity,
+storage, access, compatibility, and inference checks. Configuration OCI carries
+configuration and companion records between systems; it does not perform any of
+that work.
+
+OCI is therefore the common transport, not a universal execution model. A package can
+carry exact objects plus routes and source records. The consumer still determines
+what runs: `cub installer` renders, ConfigHub stores and changes records, Argo CD or
+Flux reconciles Kubernetes objects, cloud controllers provision infrastructure, and
+model servers answer inference requests.
+
+The current `BundleRoute` schema covers chart-specific work needed by certified
+bundles. Cloud and model workflows may use source-specific lifecycle records until a
+shared schema has been proven by several working examples. They must still answer the
+same questions: what runs, who runs it, in what order, how interruption and retry are
+handled, and which receipt proves the result.
 
 The [flattening decision guide](./flattening-alignment.md) states when those objects
 can stand alone, when lifecycle work must travel beside them, and when the source must

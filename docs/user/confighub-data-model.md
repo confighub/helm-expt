@@ -33,6 +33,39 @@ chart + values + render context + lifecycle choices
   -> exact Kubernetes objects
 ```
 
+## Four Different Records
+
+A deployable configuration is not the whole operational story. Keep these four
+records separate so a package is not asked to prove something it cannot prove.
+
+| Record | The question it answers | Example |
+| --- | --- | --- |
+| Source and intent | Where did this come from, and which choices produced it? | Chart and version, values, release name, namespace, API capabilities, source lock, and selected preset configuration. |
+| Exact configuration | Which Kubernetes objects did we accept? | The captured render variant or literal YAML, with its object inventory and digest. |
+| Lifecycle work | What must happen around an ordinary apply, in which order, and who performs it? | Install CRDs before custom resources, run a setup Job, stage a Secret, or wait for a cloud controller. |
+| Runtime result | What happened on the selected target? | Controller convergence, ready workloads, a completed setup Job, a cloud resource becoming ready, or a successful model request. |
+
+The records stay linked, but they do not collapse into one result. Render parity does
+not prove that a workload became ready. A healthy Deployment does not prove that a
+model answered a request. A route describing a hook does not prove that a delivery
+controller ran it.
+
+### Different work has different lifecycle rules
+
+| Item | What must be recorded |
+| --- | --- |
+| Helm hooks and setup Jobs | When they run, their order, retry and interruption behavior, who runs them, and the receipt from the exact run. |
+| CRDs | Who owns them, whether they are included, the order in which definitions and custom resources are applied, and the wait for the CRDs to become established. |
+| Cloud provisioning | The controller or API that performs the work, required credentials and target facts, asynchronous status, failure and retry behavior, and cleanup or rollback responsibility. |
+| Runtime images | The exact image digest and where it is referenced. Image publication and workload readiness are separate results. |
+| Models | The model identity and version, access and storage requirements, runtime compatibility, and a real inference check when serving is claimed. |
+| Configuration OCI | The immutable configuration or source package, its digest, and its consumer. Moving the OCI does not execute hooks, create cloud resources, or prove a workload result. |
+
+OCI is the transport between tools and systems. It can carry exact configuration,
+source material, routes, and explanatory records. It is not a universal execution
+model. Argo CD, Flux, ConfigHub, a cloud controller, a setup Job, and a model server
+still perform different work and need separate evidence.
+
 ## Inside ConfigHub
 
 - **Unit** is a versioned, diffable piece of configuration. Rendered
@@ -67,6 +100,11 @@ chart + values + render context + lifecycle choices
   `oci://oci.hub.confighub.com:443/space/my-app`.
 - **Delivery consumer** is Argo CD, Flux, or a recorded direct path. It applies
   the Space release without rendering the original source package again.
+
+A source-and-intent record can point to lifecycle routes, and a configuration OCI
+can carry them beside the objects. The source record explains the choice; the route
+defines the work; the runtime receipt records what happened. Keeping those roles
+separate makes retries, upgrades, promotion, and rollback reviewable.
 
 ## How the pieces fit
 
