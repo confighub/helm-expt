@@ -166,3 +166,8 @@ consumer its receipt covers.
 
 The longer-term no-account design is recorded in the
 [serverless install plan](../planning/serverless-verified-install-plan.md).
+
+For rendered YAML that already exists, the
+[anonymous browser path](./anonymous-browser-workshop.md) can inventory, compare,
+and run static checks without signing in. It downloads one complete result for
+local AI or CI. Rendering, OCI pulls, and live checks still run on your machine.

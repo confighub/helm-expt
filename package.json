@@ -930,6 +930,10 @@
     "c3agent-config:proof:run": "node scripts/run-c3agent-configuration-proof.mjs --run",
     "c3agent-config:proof:generate": "node scripts/run-c3agent-configuration-proof.mjs --generate",
     "c3agent-config:proof:verify": "node scripts/run-c3agent-configuration-proof.mjs --verify",
-    "c3agent-config:proof:self-test": "node scripts/run-c3agent-configuration-proof.mjs --self-test"
+    "c3agent-config:proof:self-test": "node scripts/run-c3agent-configuration-proof.mjs --self-test",
+    "measured-promotion:generate": "node scripts/run-measured-promotion-proof.mjs --generate",
+    "measured-promotion:run": "node scripts/run-measured-promotion-proof.mjs --run",
+    "measured-promotion:verify": "node scripts/run-measured-promotion-proof.mjs --verify",
+    "measured-promotion:self-test": "node scripts/run-measured-promotion-proof.mjs --self-test"
   }
 }

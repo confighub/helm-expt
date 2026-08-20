@@ -63,6 +63,8 @@ function verify() {
 
   const schemaText = read("schemas/config-workshop-review.schema.json");
   const schema = JSON.parse(schemaText);
+  const resultSchemaText = read("schemas/config-workshop-result.schema.json");
+  const resultSchema = JSON.parse(resultSchemaText);
   check(schema.properties?.apiVersion?.const === "workshop.confighub.com/v1alpha1", "review schema has the wrong apiVersion");
   check(schema.properties?.kind?.const === "ConfigurationReview", "review schema has the wrong kind");
   for (const field of ["question", "source", "candidate", "comparison", "checks", "finding", "recommendation"]) {
@@ -70,6 +72,10 @@ function verify() {
   }
   for (const field of ["method", "scope", "findings", "notChecked"]) {
     check(schema.properties?.spec?.properties?.checks?.required?.includes(field), `review schema checks do not require ${field}`);
+  }
+  check(resultSchema.properties?.kind?.const === "WorkshopResult", "workshop result schema has the wrong kind");
+  for (const field of ["question", "source", "files", "checks", "next"]) {
+    check(resultSchema.properties?.spec?.required?.includes(field), `workshop result schema spec does not require ${field}`);
   }
 
   const browserScript = read("scripts/site/check-config-browser.js");
@@ -86,6 +92,9 @@ function verify() {
     "candidate.yaml",
     "buildAiHandoffPrompt",
     "latestCandidate = candidateText",
+    "kind: \"WorkshopResult\"",
+    "workshop-result.json",
+    "download-workshop-result",
     "URLSearchParams",
     "question-context",
     "You are checking ",
@@ -98,8 +107,10 @@ function verify() {
   }
   for (const term of [
     "chart configurations we have already tested and documented",
-    "See a 30-second example",
-    "Check and retain the rendered result",
+    "See the complete example",
+    "Check rendered objects in this browser",
+    "Download one complete result",
+    "WorkshopResult schema",
     "Download review record",
     "Keep this reviewed result in ConfigHub",
     "Candidate file hash",
@@ -117,6 +128,7 @@ function verify() {
   ]) check(askPage.includes(term), `ask page is missing ${term}`);
 
   check(read("site/review.schema.json") === schemaText, "generated review schema is stale");
+  check(read("site/workshop-result.schema.json") === resultSchemaText, "generated workshop result schema is stale");
   check(read("site/check-config.js") === browserScript, "generated browser review script is stale");
 
   const issueTemplate = read(".github/ISSUE_TEMPLATE/problem-chart.yml");

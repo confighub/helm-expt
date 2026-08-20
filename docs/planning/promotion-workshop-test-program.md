@@ -218,6 +218,26 @@ promotion path is ready for a stronger claim only when it meets these criteria.
 9. The free result works with Git, CI, Argo CD, or Flux without ConfigHub.
 10. ConfigHub adds durable identity, variants, gates, promotion, and observation rather than unlocking a deliberately incomplete free report.
 
+## First measured implementation
+
+The NGINX candidate test now implements one bounded version of this program. It
+tests one-, two-, and three-replica object sets against a fixed HTTP check and a
+destination requirement of two ready replicas. It selects the smallest candidate
+that passes both, then proves that ConfigHub promoted and Argo CD delivered that
+exact object-set hash.
+
+The example is intentionally simple. It proves the link from measurement to an
+exact promotion decision. It does not cover hooks, CRDs, Secrets, migrations,
+storage, cloud setup, production load, or fleet fan-out.
+
+~~~sh
+npm run measured-promotion:verify
+npm run measured-promotion:self-test
+~~~
+
+See [the worked guide](../user/test-candidates-before-promotion.md) and
+[the live summary](../../data/measured-promotion-proof/summary.md).
+
 ## Checks run while writing this plan
 
 The following committed evidence verified successfully on 2026-08-15.

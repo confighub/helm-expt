@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Test candidates before promotion · Config Workshop</title>
+  <meta name="description" content="Test candidates before promotion: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/test-candidates-before-promotion.html">
+  <meta property="og:title" content="Test candidates before promotion · Config Workshop">
+  <meta property="og:description" content="Test candidates before promotion: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/test-candidates-before-promotion.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,70 +433,44 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../guides.html">Guides</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Test candidates before promotion</h1>
+    <p class="lead">Promotion should move a configuration that passed a stated test. It should not turn an untested change into a trusted one. <a href="../../../../docs/user/test-candidates-before-promotion.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 932</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>488</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>417</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>27</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>416</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>catalog-data</code></td><td>70</td></tr>
-<tr><td><code>production-support</code></td><td>65</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>29</td></tr>
-<tr><td><code>repo-integrity</code></td><td>27</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>406</td></tr>
-<tr><td><code>generate-or-run</code></td><td>360</td></tr>
-<tr><td><code>run</code></td><td>102</td></tr>
-<tr><td><code>self-test</code></td><td>54</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>855</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+
+<p>This example asks a small question: <b>how many NGINX replicas should move to the next environment?</b> The destination requires at least two ready replicas. We test exact configurations with one, two, and three replicas on the same throwaway Kubernetes cluster.</p>
+<h2 id="the-decision">The decision</h2>
+<p>Every candidate must:</p>
+<ol><li>start successfully;</li><li>answer all 60 HTTP requests;</li><li>stay below a deliberately generous local response-time limit; and</li><li>have at least two ready replicas, because that is the stated destination requirement.</li></ol>
+<p>The one-replica candidate answers every request, but it fails the destination requirement. Two and three replicas pass. The selection rule chooses the fewest replicas among the passing candidates, so the two-replica configuration wins.</p>
+<p>This matters because &quot;the application responded&quot; and &quot;this configuration is right for the destination&quot; are different claims.</p>
+<h2 id="what-gets-promoted">What gets promoted</h2>
+<p>The test records the complete Kubernetes object set and its hash for each candidate. The live proof then:</p>
+<ol><li>uploads the current one-replica YAML as a ConfigHub base;</li><li>creates staging and production variants;</li><li>replaces the base with the selected two-replica YAML;</li><li>previews and runs the staging and production promotions;</li><li>checks that the base, staging, and production object hashes equal the selected candidate hash;</li><li>publishes the production ConfigHub release as OCI; and</li><li>checks that Argo CD reconciles that release digest and Kubernetes has two ready replicas.</li></ol>
+<p>The test result chooses an exact file. ConfigHub keeps that file connected to the environments and release that use it.</p>
+<h2 id="run-it">Run it</h2>
+<p>The fixture and its recorded result are checked without contacting ConfigHub or Kubernetes:</p>
+<pre><code>npm run measured-promotion:verify
+npm run measured-promotion:self-test</code></pre>
+<p>The live proof needs an authenticated scratch context for the <code>helm-catalog</code> organization. It creates temporary ConfigHub Spaces and a temporary <code>cub cluster up</code> cluster, then deletes them:</p>
+<pre><code>CUB_CONTEXT=&lt;context&gt; npm run measured-promotion:run</code></pre>
+<p>Read the <a href="../../data/measured-promotion-proof/summary.html">human summary</a>, the <a href="../../../../runs/measured-promotion-proof/receipt.yaml">machine receipt</a>, the <a href="../../../../examples/promotion/nginx-candidate-test/test-plan.yaml">test plan</a>, or the <a href="../../../../examples/promotion/nginx-candidate-test">candidate files</a>.</p>
+<h2 id="what-changes-for-a-real-chart">What changes for a real chart</h2>
+<p>This NGINX example has no hooks, CRDs, Secrets, migrations, storage, or cloud setup. A chart that has those parts needs more tests. The Catalog source and intent record tells the promotion review which prerequisites and lifecycle work are already known. A missing or untested requirement stays visible; it does not become a pass because the HTTP check succeeded.</p>
+<p>Response times from a laptop are not production capacity evidence. Replace the example policy with the workload, destination facts, and acceptance limits that matter for your system. Keep the same rule: record every candidate, select by a stated policy, and promote the exact configuration that passed.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/user/test-candidates-before-promotion.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

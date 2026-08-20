@@ -47,10 +47,12 @@ claimed or uploaded, the variants, promotions, releases, Apps, apply gates, and
 fleet examples use ConfigHub Server. They do not need a second local or anonymous
 version.
 
-The work may run as a local command or a CI job. We also intend to offer a public
-hosted path for open configuration: inspect, test, and serve a public package without
-signing in, then claim it later. That hosted path is not yet shipped. Anonymous use
-must not quietly create private history, saved edits, variants, or approvals.
+The work may run as a local command, a CI job, or the bounded public browser page.
+The browser page can inspect and compare rendered Kubernetes YAML, run static
+manifest checks, add a supplied Catalog source and intent record, and download one
+complete result without signing in. It does not render arbitrary sources, pull OCI,
+contact a cluster, or publish a hosted package. Anonymous use must not quietly create
+private history, saved edits, variants, or approvals.
 
 The optional handoff is **Claim this configuration in ConfigHub**. A user can work
 anonymously with public packages before or after any OCI boundary. Claiming saves the

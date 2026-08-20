@@ -461,9 +461,9 @@
 <h2 id="three-operating-choices-for-starting-examples">Three Operating Choices For Starting Examples</h2>
 <p>Show these choices when a person is trying a starting example. They make different promises.</p>
 <table><thead><tr><th>Choice</th><th>ConfigHub Server</th><th>ConfigHub account</th><th>Status</th></tr></thead><tbody><tr><td>Local</td><td>No</td><td>No</td><td>Available. Pull public packages. Write files or OCI. Test them locally or in CI.</td></tr>
-<tr><td>Hosted and anonymous</td><td>Yes</td><td>No</td><td>Planned. Inspect and test public configuration without signing in.</td></tr>
+<tr><td>Hosted and anonymous</td><td>Static website only</td><td>No</td><td>Available for rendered YAML: inspect, compare, run static checks, and download one complete result. It does not render arbitrary sources, pull OCI, or contact a cluster.</td></tr>
 <tr><td>ConfigHub</td><td>Yes</td><td>Yes</td><td>Available. Record changes, release them, add environments, and promote them through the official tutorial.</td></tr></tbody></table>
-<p>Public package and OCI pulls already work without registry login. They support the local path. The browser page can now inspect and compare rendered YAML, but these receipts do not prove hosted chart rendering, OCI pulls, or live checks.</p>
+<p>Public package and OCI pulls already work without registry login. They support the local path. The browser page inspects and compares rendered YAML and produces one downloadable <code>WorkshopResult</code>, but these receipts do not prove hosted chart rendering, OCI pulls, or live checks.</p>
 <p>Do not describe hosted chart rendering, OCI pulls, or live checking as released until a public endpoint and a recorded test exist.</p>
 <p>Do not repeat these three choices throughout later examples. After a person claims or uploads a configuration, the variants, promotions, releases, Apps, apply gates, and fleet examples use ConfigHub Server and require an account. The official ConfigHub tutorial owns that managed journey.</p>
 <p>Use the terms precisely:</p>

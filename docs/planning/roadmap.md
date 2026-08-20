@@ -206,7 +206,7 @@ This creates two related examples:
 | Example | Purpose | Current boundary |
 | --- | --- | --- |
 | c3agent fleet | Turn model, runtime image, concurrency, budget, storage, and credential references into exact Kubernetes resources with field provenance and policy checks. | The Workshop now proves deterministic objects, companion OCI records, ConfigHub variants and promotion, release OCI, Argo CD, and Kubernetes reconciliation with the workload disabled. Running the private runtime and an agent task remain open. |
-| Configuration optimization sandbox | Try candidate settings against a defined workload, retain the input, output, target facts, and metrics, and promote the best accepted configuration. | The promotion and testing components exist separately. The repeated measured optimization loop is not yet a shipped example. |
+| Configuration optimization sandbox | Try candidate settings against a defined workload, retain the input, output, target facts, and metrics, and promote the best accepted configuration. | A bounded NGINX example now tests three exact candidates, rejects one on a destination requirement, selects the smallest passing configuration, promotes that object set, and proves its release through Argo CD. Broader or repeated optimization remains future work. |
 
 The first c3agent Workshop example should show one digest-pinned custom runtime image,
 one Secret reference, and one model or budget change moving from development to
@@ -241,7 +241,7 @@ The track graduates one claim at a time.
 | Capability | Status |
 | --- | --- |
 | Pull, inspect, render, compare, and create OCI locally without a ConfigHub account | Available for the current public starting paths. |
-| Hosted browser inspection of rendered YAML without signing in | Available, with no arbitrary chart rendering, OCI pull, cluster access, or live tests. |
+| Hosted browser inspection of rendered YAML without signing in | Available as a bounded path: exact object inventory, comparison, static findings, optional Catalog lifecycle context, AI handoff, and one downloadable result. No arbitrary chart rendering, OCI pull, cluster access, or live tests. |
 | Hosted anonymous arbitrary source or OCI work | Planned, not shipped. |
 | Helm package, rendered OCI, ConfigHub release OCI, and Argo CD or Flux delivery | Demonstrated in the existing evidence corpus. |
 | AICR recipe, digest-bound package set, ConfigHub variant, and promotion | Partly demonstrated; broader inference and GPU workload proof remains open. |
@@ -249,7 +249,7 @@ The track graduates one claim at a time.
 | Kubara composition, retained versions, ConfigHub operations, and fleet evidence | Demonstrated for the retained platform, with a simple Catalog-to-platform chooser and a companion generator in `kubara-confighub`. |
 | c3agent source mapping and connected ConfigHub path | Demonstrated from compact source through exact objects, local OCI, ConfigHub variants and promotion, release OCI, Argo CD, and Kubernetes object reconciliation. The Deployments remain deliberately disabled. |
 | Standalone live c3agent workload and generic AI sandbox execution | Not yet demonstrated. |
-| Repeated metric-driven configuration optimization and promotion | Planned; individual testing and promotion parts exist. |
+| Measured configuration selection and promotion | Demonstrated for three NGINX candidates, one fixed local HTTP test, one destination requirement, ConfigHub promotion, release OCI, Argo CD, and Kubernetes. This is not a performance benchmark or a general optimizer. |
 
 ### Next Build Order
 
@@ -272,10 +272,12 @@ The track graduates one claim at a time.
 8. **Completed:** add a simple **Build a platform** journey: choose tested Catalog
    components, versions, and custom images; generate Kubara configuration and its
    package index; then continue locally or in ConfigHub.
-9. **Next:** join the test harness to promotion: generate candidates, run a fixed workload,
+9. **Completed:** join the test harness to promotion: generate candidates, run a fixed workload,
    record metrics and target facts, select an accepted result, and promote that exact
    configuration.
-10. **Then:** only after the bounded examples pass, generalize the pattern to more AI runtimes,
+10. **Completed:** complete the bounded hosted-anonymous path and its contract without
+    implying that the static site renders arbitrary charts, pulls arbitrary OCI, or contacts clusters.
+11. **Then:** only after the bounded examples pass, generalize the pattern to more AI runtimes,
    sandboxes, hardware classes, fleet tools, and reference stacks.
 
 ## Component Ownership

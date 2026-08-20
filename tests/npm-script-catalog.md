@@ -10,16 +10,16 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 928
+scripts: 932
 ```
 
 ## By Category
 
 | Chain role | Scripts |
 | --- | ---: |
-| `not-a-gate` | 486 |
+| `not-a-gate` | 488 |
 | `in-verify-chain` | 417 |
-| `gate-shaped-outside-chain` | 25 |
+| `gate-shaped-outside-chain` | 27 |
 
 A lane whose role is `gate-shaped-outside-chain` is named like a gate and is
 not run by `npm run verify`. Each one needs a recorded reason, which
@@ -27,7 +27,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | Category | Scripts |
 | --- | ---: |
-| `other` | 412 |
+| `other` | 416 |
 | `top20-chart-proof` | 123 |
 | `catalog-data` | 70 |
 | `production-support` | 65 |
@@ -53,10 +53,10 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 405 |
-| `generate-or-run` | 358 |
+| `verify` | 406 |
+| `generate-or-run` | 360 |
 | `run` | 102 |
-| `self-test` | 53 |
+| `self-test` | 54 |
 | `summary` | 9 |
 | `full-corpus-verify` | 1 |
 
@@ -64,7 +64,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 851 |
+| `none-for-verify` | 855 |
 | `confighub-or-live-cluster` | 33 |
 | `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |

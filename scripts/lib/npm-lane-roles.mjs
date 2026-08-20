@@ -42,6 +42,18 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; paired with c3agent-config:proof:verify",
   },
+  "measured-promotion:verify": {
+    proves: "The committed NGINX run tested three exact object sets against one fixed HTTP check and destination requirement, selected the smallest passing candidate, kept that object hash through ConfigHub staging and production, and delivered the recorded release digest through Argo CD.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, kind and kubectl",
+  },
+  "measured-promotion:self-test": {
+    proves: "The measured promotion verifier rejects a different selected candidate, a production object hash that differs from the winner, or an Argo revision that differs from the release digest.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; paired with measured-promotion:verify",
+  },
   "verify:shard": {
     proves: "One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun.",
     requires: "offline",

@@ -567,6 +567,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-setup-guidance/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/master-catalog-matrix/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/matrix-completion-audit/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/measured-promotion-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-completeness/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-gap-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-prereq-resolution/summary.html</loc></url>
@@ -898,6 +899,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/adopting-existing-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ai-assisted-helm-changes.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/anonymous-browser-workshop.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/app-to-live-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/approval-story.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/broken-chart-triage.html</loc></url>
@@ -964,6 +966,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites-before-rerun.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/test-candidates-before-promotion.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-readiness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-status.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/transform-oci-package.html</loc></url>

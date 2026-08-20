@@ -59,6 +59,8 @@ const changesSchemaPath = join(siteRoot, "changes.schema.json");
 const changesSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-changes.schema.json");
 const reviewSchemaPath = join(siteRoot, "review.schema.json");
 const reviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-review.schema.json");
+const workshopResultSchemaPath = join(siteRoot, "workshop-result.schema.json");
+const workshopResultSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-result.schema.json");
 const promotionReviewSchemaPath = join(siteRoot, "promotion-review.schema.json");
 const promotionReviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-promotion-review.schema.json");
 const checkConfigScriptPath = join(siteRoot, "check-config.js");
@@ -393,6 +395,7 @@ if (mode === "--generate") {
   write(changesJsonPath, site.changesJson);
   write(changesSchemaPath, site.changesSchemaJson);
   write(reviewSchemaPath, site.reviewSchemaJson);
+  write(workshopResultSchemaPath, site.workshopResultSchemaJson);
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
   write(promoteConfigScriptPath, site.promoteConfigScript);
@@ -447,6 +450,7 @@ if (mode === "--generate") {
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(changesJsonPath), "site/changes.json is missing; run npm run site:generate");
   check(existsSync(reviewSchemaPath), "site/review.schema.json is missing; run npm run site:generate");
+  check(existsSync(workshopResultSchemaPath), "site/workshop-result.schema.json is missing; run npm run site:generate");
   check(existsSync(promotionReviewSchemaPath), "site/promotion-review.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
   check(existsSync(promoteConfigScriptPath), "site/promote-config.js is missing; run npm run site:generate");
@@ -524,6 +528,7 @@ if (mode === "--generate") {
   check(existsSync(changesSchemaPath), "site/changes.schema.json is missing; run npm run site:generate");
   check(readFileSync(changesSchemaPath, "utf8") === site.changesSchemaJson, "site/changes.schema.json is stale");
   check(readFileSync(reviewSchemaPath, "utf8") === site.reviewSchemaJson, "site/review.schema.json is stale");
+  check(readFileSync(workshopResultSchemaPath, "utf8") === site.workshopResultSchemaJson, "site/workshop-result.schema.json is stale");
   check(readFileSync(promotionReviewSchemaPath, "utf8") === site.promotionReviewSchemaJson, "site/promotion-review.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
   check(readFileSync(promoteConfigScriptPath, "utf8") === site.promoteConfigScript, "site/promote-config.js is stale");
@@ -971,6 +976,7 @@ function buildSite(generatedAt) {
     changesJson: buildChangesFeed(catalog, changesEntries),
     changesSchemaJson: readFileSync(changesSchemaSourcePath, "utf8"),
     reviewSchemaJson: readFileSync(reviewSchemaSourcePath, "utf8"),
+    workshopResultSchemaJson: readFileSync(workshopResultSchemaSourcePath, "utf8"),
     promotionReviewSchemaJson: readFileSync(promotionReviewSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
     promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
@@ -1454,6 +1460,7 @@ function buildLlmsTxt() {
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
 - [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
 - [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
+- [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
 - [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
@@ -4128,6 +4135,7 @@ function docsReferenceHtml(catalog) {
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["When to flatten a Helm chart", "Choose literal YAML, literal YAML with recorded setup, or render-late delivery for an exact chart configuration.", "../docs/reference/flattening-alignment.md"],
     ["Check and promote with AI", "Use the browser-local Check and Promote records with your own assistant, source-aware field attribution, exact target results, and an optional ConfigHub handoff.", "../docs/user/check-and-promote-with-ai.md"],
+    ["Anonymous browser check", "Inspect rendered YAML, compare exact objects, run static checks, and download one complete result for your own AI or CI without signing in.", "../docs/user/anonymous-browser-workshop.md"],
     ["Anonymous OCI work in CI", "A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.", "../data/anonymous-oci-ci-proof/summary.md"],
     ["Anonymous OCI change", "Pull five public NGINX objects without credentials, change only the replica count, store the source and check records, and pull the new local OCI back for comparison.", "../data/anonymous-oci-transform-proof/summary.md"],
     ["Redis public walkthrough", "Pull Redis 25.5.3 and 27.0.0 anonymously, retain the selected existing-Secret base, keep Secrets out of both object sets, and verify both local OCI outputs by pulling them back.", "../data/redis-public-walkthrough-proof/summary.md"],
@@ -4513,9 +4521,9 @@ function askHtml() {
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
-    <p>Your AI assistant and Helm tools run on your machine. This page can compare rendered YAML in your browser. Your files are not uploaded.</p>
-    <p>You get the exact objects, a comparison, the checks that ran, and a review record you can keep.</p>
-    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <button class="button secondary" id="load-example" type="button">See a 30-second example</button> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
+    <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
+    <p><button class="button primary" id="load-example" type="button">See the complete example</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
   <main>
     <section aria-labelledby="build-prompt">
@@ -4578,7 +4586,7 @@ function askHtml() {
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
-      <h2 id="check-files-title">3. Check and retain the rendered result</h2>
+      <h2 id="check-files-title">3. Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
@@ -4621,9 +4629,18 @@ function askHtml() {
       <h3>Hooks, CRDs, and required setup</h3>
       <ul id="check-lifecycle-work"></ul>
       <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Compare with the Catalog</a></p>
-      <h3>Download the result</h3>
-      <p>The review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
+      <h3>Download one complete result</h3>
+      <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
+      <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
+      <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
+      <details>
+        <summary><strong>Open the complete result</strong></summary>
+        <textarea id="workshop-result-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      </details>
+      <p><a href="./workshop-result.schema.json">Read the WorkshopResult schema</a>.</p>
+      <h4>Download individual files</h4>
+      <p>The separate review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
       <textarea id="review-record-output" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><button class="button secondary" id="continue-to-promotion" type="button">Test this result for promotion</button></p>
@@ -4711,6 +4728,8 @@ function redisRenderWithReplicaOverride(path) {
 }
 
 function promoteHtml() {
+  const measuredPromotion = readYaml(join(repoRoot, "runs", "measured-promotion-proof", "receipt.yaml"));
+  const measuredRows = measuredPromotion.spec.tests.map((candidate) => `<tr><td><code>${escapeHtml(candidate.id)}</code></td><td>${candidate.successfulRequests}/${candidate.requests}</td><td>${candidate.readyReplicas}</td><td>${candidate.checks.destinationCapacity ? "Pass" : "Blocked"}</td><td>${candidate.id === measuredPromotion.spec.decision.selected ? "Selected" : candidate.result === "pass" ? "Passed, not selected" : "Not promoted"}</td></tr>`).join("");
   const exampleData = JSON.stringify({
     currentSourceYaml: readFileSync(REDIS_25_REUSE_RENDER_PATH, "utf8"),
     currentYaml: redisRenderWithReplicaOverride(REDIS_25_REUSE_RENDER_PATH),
@@ -4801,6 +4820,15 @@ function promoteHtml() {
       <textarea id="confighub-promotion-commands" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="copy-confighub-promotion" type="button">Copy the ConfigHub preview</button> <span id="confighub-promotion-copy-status" role="status" style="color:var(--muted)"></span> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
       <p><a href="./d/data/redis-upgrade-app-proof/summary.html">Open the Redis promotion, two-cluster rollout, and rollback evidence</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis 25.5.3</a> · <a href="./charts/bitnami-redis-27-0-0.html">Redis 27.0.0</a></p>
+
+      <h3>Test candidates, then promote the one that passed</h3>
+      <p>A configuration can answer a smoke test and still be wrong for its destination. This recorded NGINX run tested three exact object sets. The destination required two ready replicas, so the one-replica candidate was not promoted. Two and three replicas passed; the stated rule selected the smaller one.</p>
+      <div style="max-width:100%;overflow-x:auto"><table style="min-width:640px">
+        <thead><tr><th>Candidate</th><th>HTTP</th><th>Ready replicas</th><th>Destination</th><th>Decision</th></tr></thead>
+        <tbody>${measuredRows}</tbody>
+      </table></div>
+      <p>The selected object hash stayed the same in the ConfigHub base, staging, and production. Argo CD then used the ConfigHub release digest and Kubernetes reported two ready replicas.</p>
+      <p><a href="./d/docs/user/test-candidates-before-promotion.html"><strong>Read the worked example</strong></a> · <a href="./d/data/measured-promotion-proof/summary.html">Check the recorded result</a></p>
     </section>
 
     <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">

@@ -533,6 +533,12 @@
 <h2 id="graduation-criteria">Graduation criteria</h2>
 <p>The first public page can provide a useful browser-local promotion review. It must not present that review as a complete promotion pipeline. A managed or automatic promotion path is ready for a stronger claim only when it meets these criteria.</p>
 <ol><li>A Catalog example produces a useful result in under five minutes without an account.</li><li>A user can state what changes, what remains different, and what blocks promotion.</li><li>The same candidate and digest appear in the local report, optional OCI, and ConfigHub handoff.</li><li>Every deterministic seeded failure above produces its expected result.</li><li>Unsafe and route-dependent charts are not shown as ordinary flat-YAML successes.</li><li>Cluster checks remain explicitly not run until evidence exists.</li><li>A stale candidate, target, or receipt causes zero desired-state writes.</li><li>A partial fleet result names every target and never collapses to a green total.</li><li>The free result works with Git, CI, Argo CD, or Flux without ConfigHub.</li><li>ConfigHub adds durable identity, variants, gates, promotion, and observation rather than unlocking a deliberately incomplete free report.</li></ol>
+<h2 id="first-measured-implementation">First measured implementation</h2>
+<p>The NGINX candidate test now implements one bounded version of this program. It tests one-, two-, and three-replica object sets against a fixed HTTP check and a destination requirement of two ready replicas. It selects the smallest candidate that passes both, then proves that ConfigHub promoted and Argo CD delivered that exact object-set hash.</p>
+<p>The example is intentionally simple. It proves the link from measurement to an exact promotion decision. It does not cover hooks, CRDs, Secrets, migrations, storage, cloud setup, production load, or fleet fan-out.</p>
+<pre><code>npm run measured-promotion:verify
+npm run measured-promotion:self-test</code></pre>
+<p>See <a href="../user/test-candidates-before-promotion.html">the worked guide</a> and <a href="../../data/measured-promotion-proof/summary.html">the live summary</a>.</p>
 <h2 id="checks-run-while-writing-this-plan">Checks run while writing this plan</h2>
 <p>The following committed evidence verified successfully on 2026-08-15.</p>
 <pre><code>npm run flattening-safety:verify
