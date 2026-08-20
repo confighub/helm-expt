@@ -1,0 +1,54 @@
+{
+  "developmentToStaging": {
+    "paths": [
+      "spec.fleet.maxBudgetUsd",
+      "spec.fleet.maxConcurrentTasks"
+    ],
+    "changes": [
+      {
+        "path": "spec.fleet.maxBudgetUsd",
+        "before": 5,
+        "after": 8
+      },
+      {
+        "path": "spec.fleet.maxConcurrentTasks",
+        "before": 2,
+        "after": 3
+      }
+    ],
+    "changedObjects": [
+      "v1|ConfigMap|c3agent|coding-fleet-config"
+    ],
+    "beforeObjectSetSha256": "sha256:69ed070f05ae42962086e776d3637b760ade2a819f2b643ba18d39599df8cbef",
+    "afterObjectSetSha256": "sha256:b703dba1150502c32add4ac4def49ce9ad22f0e0821e996c8e9166cc7d13d286"
+  },
+  "stagingToProduction": {
+    "paths": [
+      "spec.fleet.maxBudgetUsd",
+      "spec.fleet.maxConcurrentTasks",
+      "spec.fleet.scheduleIntervalSeconds"
+    ],
+    "changes": [
+      {
+        "path": "spec.fleet.maxBudgetUsd",
+        "before": 8,
+        "after": 12.5
+      },
+      {
+        "path": "spec.fleet.maxConcurrentTasks",
+        "before": 3,
+        "after": 5
+      },
+      {
+        "path": "spec.fleet.scheduleIntervalSeconds",
+        "before": 5,
+        "after": 10
+      }
+    ],
+    "changedObjects": [
+      "v1|ConfigMap|c3agent|coding-fleet-config"
+    ],
+    "beforeObjectSetSha256": "sha256:b703dba1150502c32add4ac4def49ce9ad22f0e0821e996c8e9166cc7d13d286",
+    "afterObjectSetSha256": "sha256:1b86a2e394fd3d9ce20c6d01bc22a7a987e5e6d826bda35c23724074b40a60a2"
+  }
+}

@@ -1,0 +1,53 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceAndIntentRecord"
+metadata:
+  name: "coding-fleet-development"
+spec:
+  purpose: "Keep model, budget, concurrency, image, and Secret-reference changes reviewable across environments."
+  environment: "development"
+  source:
+    access: "private"
+    repository: "https://github.com/confighubai/c3agent"
+    revision: "3a66ed40cd7e04ce03efb074b090c824101bfa57"
+  inputFiles:
+    - "c3agent.yaml"
+  runtimeImages:
+    -
+      role: "agent"
+      reference: "ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d"
+    -
+      role: "controlplane"
+      reference: "ghcr.io/confighubai/c3agent/controlplane@sha256:1445e300634146b4529b9158e765b0ef2c90f65f502194280b169caf8ad27b27"
+    -
+      role: "gateway"
+      reference: "ghcr.io/confighubai/c3agent/gateway@sha256:5563a8ecc65c277a58dd3b5185429170375a5f2819571abdd98c269dd5a5b6ac"
+  secret:
+    name: "c3agent-runtime-secrets"
+    requiredKeys:
+      - "anthropic-api-key"
+      - "slack-bot-token"
+      - "slack-app-token"
+    optionalKeys:
+      - "gh-token"
+    valuesIncluded: false
+  activation:
+    controlplaneReplicas: 0
+    gatewayReplicas: 0
+    agentTaskExecuted: false
+  output:
+    objectCount: 10
+    objectSetSha256: "sha256:69ed070f05ae42962086e776d3637b760ade2a819f2b643ba18d39599df8cbef"
+    path: "rendered/development/release-objects.yaml"
+  ownership:
+    -
+      fields:
+        - "spec.fleet.model"
+        - "spec.fleet.maxConcurrentTasks"
+        - "spec.fleet.maxBudgetUsd"
+      owner: "application-team"
+    -
+      fields:
+        - "spec.images"
+        - "spec.credentials"
+        - "spec.activation"
+      owner: "platform-team"

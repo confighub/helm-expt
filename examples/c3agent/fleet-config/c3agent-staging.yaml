@@ -1,0 +1,4 @@
+spec:
+  fleet:
+    maxConcurrentTasks: 3
+    maxBudgetUsd: 8

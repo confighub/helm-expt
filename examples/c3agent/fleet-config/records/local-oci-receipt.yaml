@@ -1,0 +1,16 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "LocalConfigurationOciReceipt"
+metadata:
+  name: "c3agent-fleet-development"
+spec:
+  reference: "oci-layout:examples/c3agent/fleet-config/oci-layout:development"
+  digest: "sha256:7b95d59fd8a76f13235233244d387a3b30a191e30c2fb9e79bebe2611cc0e529"
+  artifactType: "application/vnd.confighub.kubernetes.config.v1"
+  objectCount: 10
+  objectSetSha256: "sha256:69ed070f05ae42962086e776d3637b760ade2a819f2b643ba18d39599df8cbef"
+  companionRecordCount: 2
+  runtimeImagesPublic: false
+  secretValuesIncluded: false
+status:
+  result: "pass"
+  pulledBackAndCompared: true

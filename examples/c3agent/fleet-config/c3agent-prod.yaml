@@ -1,0 +1,5 @@
+spec:
+  fleet:
+    maxConcurrentTasks: 5
+    maxBudgetUsd: 12.5
+    scheduleIntervalSeconds: 10

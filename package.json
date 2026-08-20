@@ -923,6 +923,13 @@
     "eks-inference-promotion-delivery:verify": "node scripts/run-eks-inference-promotion-delivery-proof.mjs --verify",
     "vllm-cpu-starter:run": "node scripts/run-vllm-cpu-starter-proof.mjs --run",
     "vllm-cpu-starter:generate": "node scripts/run-vllm-cpu-starter-proof.mjs --generate",
-    "vllm-cpu-starter:verify": "node scripts/run-vllm-cpu-starter-proof.mjs --verify"
+    "vllm-cpu-starter:verify": "node scripts/run-vllm-cpu-starter-proof.mjs --verify",
+    "c3agent-config:generate": "node scripts/generate-c3agent-configuration.mjs --generate",
+    "c3agent-config:verify": "node scripts/generate-c3agent-configuration.mjs --verify",
+    "c3agent-config:self-test": "node scripts/generate-c3agent-configuration.mjs --self-test",
+    "c3agent-config:proof:run": "node scripts/run-c3agent-configuration-proof.mjs --run",
+    "c3agent-config:proof:generate": "node scripts/run-c3agent-configuration-proof.mjs --generate",
+    "c3agent-config:proof:verify": "node scripts/run-c3agent-configuration-proof.mjs --verify",
+    "c3agent-config:proof:self-test": "node scripts/run-c3agent-configuration-proof.mjs --self-test"
   }
 }

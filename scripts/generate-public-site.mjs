@@ -6793,6 +6793,7 @@ function aiHtml(catalog) {
       <h2 id="agentic-apps">5. Give AI a purpose-built App</h2>
       <p>A small domain App can give an agent named operations while ConfigHub keeps the configuration. The App supplies the domain rules, dry runs, checks, and explicit commit step.</p>
       <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> follows this pattern. It supports RBAC inventory, access queries, findings, guarded edits, fleet edits, and promotion. The agent uses these operations instead of unrestricted YAML edits.</p>
+      <p>The <a href="./d/docs/demo/c3agent/fleet-config.html">c3agent configuration example</a> applies the same rule to an agent service. Model, image, budget, concurrency, and Secret references are reviewed and promoted before any agent process starts.</p>
       <p><a href="./journey.html">See five ConfigHub App examples</a>, including upgrades, hooks and CRDs, RBAC, fleet rollout, and AI change review.</p>
     </section>
 
@@ -7254,6 +7255,11 @@ Rendered 0 secret(s)</code></pre>
       <h3 id="inference">Get inference running</h3>
       <p>Choose the row that answers your immediate question. The first path runs a model on ordinary ARM64 hardware. The later paths explain larger AI platforms without claiming that their GPU workloads have run here.</p>
       ${inferenceFamilyTable(".")}
+
+      <h3 id="agent-fleet">Review an AI agent fleet before it runs</h3>
+      <p>An agent service has settings for its model, runtime images, budget, concurrency, credentials, storage, and access. The c3agent example turns those choices into ten exact Kubernetes objects without storing a credential or starting the service.</p>
+      <p>The recorded test kept one base configuration. It changed only the fleet settings for staging and production. The accepted result was promoted, published as OCI, and reconciled by Argo CD on Kubernetes. Both Deployments stayed at zero replicas. This proves the configuration and delivery path, not the private c3agent runtime or an agent task.</p>
+      <p><a href="./d/docs/demo/c3agent/fleet-config.html"><strong>Read the c3agent walkthrough</strong></a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/c3agent/fleet-config">Open the source files</a> · <a href="./d/data/c3agent-configuration-proof/summary.html">Check the live proof</a></p>
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
       <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults, the Catalog, and optionally production, then gives you a review record to keep.</p>

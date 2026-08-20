@@ -585,6 +585,11 @@ Rendered 0 secret(s)</code></pre>
         th { color: var(--muted); font-weight: 600; }
       </style>
 
+      <h3 id="agent-fleet">Review an AI agent fleet before it runs</h3>
+      <p>An agent service has settings for its model, runtime images, budget, concurrency, credentials, storage, and access. The c3agent example turns those choices into ten exact Kubernetes objects without storing a credential or starting the service.</p>
+      <p>The recorded test kept one base configuration. It changed only the fleet settings for staging and production. The accepted result was promoted, published as OCI, and reconciled by Argo CD on Kubernetes. Both Deployments stayed at zero replicas. This proves the configuration and delivery path, not the private c3agent runtime or an agent task.</p>
+      <p><a href="./d/docs/demo/c3agent/fleet-config.html"><strong>Read the c3agent walkthrough</strong></a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/c3agent/fleet-config">Open the source files</a> · <a href="./d/data/c3agent-configuration-proof/summary.html">Check the live proof</a></p>
+
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
       <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults, the Catalog, and optionally production, then gives you a review record to keep.</p>
       <p>Use <code>cub helm</code> for a chart that can render without live cluster lookups or target-specific Kubernetes capabilities. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>

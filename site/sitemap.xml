@@ -186,6 +186,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-review/public-and-confighub.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-staging-deploy-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/c3agent-configuration-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/capability-profile-witnesses/selectablefields/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-index/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-oci-delivery-proof/summary.html</loc></url>
@@ -706,6 +707,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/rbac-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/c3agent/fleet-config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/consul/confighub-proof-transcript.html</loc></url>

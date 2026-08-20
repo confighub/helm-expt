@@ -205,7 +205,7 @@ This creates two related examples:
 
 | Example | Purpose | Current boundary |
 | --- | --- | --- |
-| c3agent fleet | Turn model, runtime image, concurrency, budget, storage, and credential references into exact Kubernetes resources with field provenance and policy checks. | `confighub/cub-gen` has local source-chain and connected ConfigHub evidence. The Config Workshop integration and standalone live runtime proof remain open. |
+| c3agent fleet | Turn model, runtime image, concurrency, budget, storage, and credential references into exact Kubernetes resources with field provenance and policy checks. | The Workshop now proves deterministic objects, companion OCI records, ConfigHub variants and promotion, release OCI, Argo CD, and Kubernetes reconciliation with the workload disabled. Running the private runtime and an agent task remain open. |
 | Configuration optimization sandbox | Try candidate settings against a defined workload, retain the input, output, target facts, and metrics, and promote the best accepted configuration. | The promotion and testing components exist separately. The repeated measured optimization loop is not yet a shipped example. |
 
 The first c3agent Workshop example should show one digest-pinned custom runtime image,
@@ -246,8 +246,8 @@ The track graduates one claim at a time.
 | Helm package, rendered OCI, ConfigHub release OCI, and Argo CD or Flux delivery | Demonstrated in the existing evidence corpus. |
 | AICR recipe, digest-bound package set, ConfigHub variant, and promotion | Partly demonstrated; broader inference and GPU workload proof remains open. |
 | Public `confighub/eks-inference` plugin and eight OCI component bundles | The eight bundles are incorporated as certified external artifacts with file and digest witnesses. The configuration sandbox, one retained promotion, ConfigHub release OCI, Argo CD delivery, and one CPU vLLM request are independently proven. AWS and NVIDIA GPU execution remain open. |
-| Kubara composition, retained versions, ConfigHub operations, and fleet evidence | Demonstrated for the retained platform; the simple Catalog-to-platform chooser is missing. |
-| c3agent source mapping and connected ConfigHub path | Demonstrated in `confighub/cub-gen`; not yet a Config Workshop journey. |
+| Kubara composition, retained versions, ConfigHub operations, and fleet evidence | Demonstrated for the retained platform, with a simple Catalog-to-platform chooser and a companion generator in `kubara-confighub`. |
+| c3agent source mapping and connected ConfigHub path | Demonstrated from compact source through exact objects, local OCI, ConfigHub variants and promotion, release OCI, Argo CD, and Kubernetes object reconciliation. The Deployments remain deliberately disabled. |
 | Standalone live c3agent workload and generic AI sandbox execution | Not yet demonstrated. |
 | Repeated metric-driven configuration optimization and promotion | Planned; individual testing and promotion parts exist. |
 
@@ -266,16 +266,17 @@ The track graduates one claim at a time.
 6. Present the CPU starter, AICR plus Helm, NIM, and `eks-inference` as one ordered
    Catalog family: begin without specialist hardware, then offer the GPU and cloud
    paths with costs, credentials, prerequisites, and proof boundaries stated first.
-7. Build a Config Workshop c3agent example from local source through configuration
-   OCI, ConfigHub variants, promotion, release OCI, GitOps, and a bounded live check.
-8. Add a simple **Build a platform** journey: choose tested Catalog components,
-   versions, and custom images; generate Kubara configuration and its package index;
-   then continue locally or in ConfigHub.
-9. Join the test harness to promotion: generate candidates, run a fixed workload,
+7. **Completed:** build a Config Workshop c3agent example from local source through
+   configuration OCI, ConfigHub variants, promotion, release OCI, Argo CD, and a
+   bounded Kubernetes check.
+8. **Completed:** add a simple **Build a platform** journey: choose tested Catalog
+   components, versions, and custom images; generate Kubara configuration and its
+   package index; then continue locally or in ConfigHub.
+9. **Next:** join the test harness to promotion: generate candidates, run a fixed workload,
    record metrics and target facts, select an accepted result, and promote that exact
    configuration.
-10. Only after the bounded examples pass, generalize the pattern to more AI runtimes,
-    sandboxes, hardware classes, fleet tools, and reference stacks.
+10. **Then:** only after the bounded examples pass, generalize the pattern to more AI runtimes,
+   sandboxes, hardware classes, fleet tools, and reference stacks.
 
 ## Component Ownership
 
