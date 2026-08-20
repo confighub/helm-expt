@@ -470,7 +470,7 @@ spec:
       workedExample:
         status: working
         result: Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.
-        limit: The current CLI still lacks a useful human mutation preview for one promotion dry-run.
+        limit: These are working demonstrations, not an automatic promotion pipeline for every catalog chart.
       steps:
         - Create environment variants from one base.
         - Make or import a reviewed change.
@@ -491,7 +491,7 @@ spec:
       limits:
         - The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery.
         - The combined NGINX receipt proves base-to-development-to-staging promotion, a two-cluster Argo rollout, exact live-object agreement, and workload convergence. The observation receipts were recorded locally and were not submitted to ConfigHub observation storage.
-        - The Redis receipt proves a chart-version upgrade that keeps a post-render replica change, promotes in two waves, and reaches two Argo CD clusters. The current mutation-preview command returned no text, so the human preview remains a product gap.
+        - The Redis receipt proves a chart-version upgrade that keeps a post-render replica change, returns a 7,282-byte mutation preview before each promotion, promotes in two waves, and reaches two Argo CD clusters.
     - id: kubara
       name: Kubara platform configuration to a cluster fleet
       problem: A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
@@ -591,7 +591,7 @@ spec:
       limits:
         - One continuous Redis proof now imports chart 25.5.3, records a post-render replica change, reconciles chart 27.0.0 without losing that change, promotes through development and staging, and checks the same OCI digest on two Argo CD clusters.
         - The proof is a guarded script and receipt, not a finished ConfigHub App interface.
-        - cub variant promote --dry-run -o mutations returned no text. The dry runs changed no stored data, but the current CLI does not yet give a useful human mutation preview.
+        - Both promotion dry runs returned 7,282 bytes of mutations and left the stored configurations unchanged.
         - The portable OCI used a temporary local registry, and the live observations were recorded locally rather than submitted to ConfigHub observation storage.
     - id: hooks-crds-app
       name: Hooks and CRDs App

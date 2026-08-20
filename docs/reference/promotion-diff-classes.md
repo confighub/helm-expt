@@ -58,10 +58,12 @@ parsed YAML objects rather than raw text.
 
 ## The server preview and the independent comparison
 
-The older receipt records that its `cub variant promote --dry-run` returned no
-mutation detail. The current CLI supports `cub variant promote --dry-run -o mutations`,
-but that historical receipt has not been rerun and cannot prove the newer output.
+The current Redis receipt records that
+`cub variant promote --dry-run -o mutations` returned mutation detail for both
+development and staging. It also checked that each dry run left stored data unchanged
+before the real promotion ran.
 
 The Workshop still compares the exact object sets itself. That gives a useful review
 before a ConfigHub Space exists and provides an independent check of the later server
-preview. The browser result is not evidence that ConfigHub performed a promotion.
+preview. The browser result is not evidence that ConfigHub performed a promotion; the
+live Redis receipt supplies that separate evidence.

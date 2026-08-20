@@ -353,7 +353,7 @@ Current limit: The routed-hook receipt proves Argo CD and Flux delivery with one
 
 **Worked example: working.** Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.
 
-**Broader status: partial.** The current CLI still lacks a useful human mutation preview for one promotion dry-run.
+**Broader status: partial.** These are working demonstrations, not an automatic promotion pipeline for every catalog chart.
 
 Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.
 
@@ -369,7 +369,7 @@ Start with [docs/user/variants-after-upload.md](../../docs/user/variants-after-u
 
 Evidence: [data/variant-promotion/summary.md](../../data/variant-promotion/summary.md), [runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml](../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md), [runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml), [data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md).
 
-Current limit: The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery. The combined NGINX receipt proves base-to-development-to-staging promotion, a two-cluster Argo rollout, exact live-object agreement, and workload convergence. The observation receipts were recorded locally and were not submitted to ConfigHub observation storage. The Redis receipt proves a chart-version upgrade that keeps a post-render replica change, promotes in two waves, and reaches two Argo CD clusters. The current mutation-preview command returned no text, so the human preview remains a product gap.
+Current limit: The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery. The combined NGINX receipt proves base-to-development-to-staging promotion, a two-cluster Argo rollout, exact live-object agreement, and workload convergence. The observation receipts were recorded locally and were not submitted to ConfigHub observation storage. The Redis receipt proves a chart-version upgrade that keeps a post-render replica change, returns a 7,282-byte mutation preview before each promotion, promotes in two waves, and reaches two Argo CD clusters.
 
 ### Kubara platform configuration to a cluster fleet
 
@@ -438,7 +438,7 @@ Start with [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rol
 
 Evidence: [data/blast-radius-accuracy/summary.md](../../data/blast-radius-accuracy/summary.md), [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md), [runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml), [data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md).
 
-Current limit: One continuous Redis proof now imports chart 25.5.3, records a post-render replica change, reconciles chart 27.0.0 without losing that change, promotes through development and staging, and checks the same OCI digest on two Argo CD clusters. The proof is a guarded script and receipt, not a finished ConfigHub App interface. cub variant promote --dry-run -o mutations returned no text. The dry runs changed no stored data, but the current CLI does not yet give a useful human mutation preview. The portable OCI used a temporary local registry, and the live observations were recorded locally rather than submitted to ConfigHub observation storage.
+Current limit: One continuous Redis proof now imports chart 25.5.3, records a post-render replica change, reconciles chart 27.0.0 without losing that change, promotes through development and staging, and checks the same OCI digest on two Argo CD clusters. The proof is a guarded script and receipt, not a finished ConfigHub App interface. Both promotion dry runs returned 7,282 bytes of mutations and left the stored configurations unchanged. The portable OCI used a temporary local registry, and the live observations were recorded locally rather than submitted to ConfigHub observation storage.
 
 ### Hooks and CRDs App
 

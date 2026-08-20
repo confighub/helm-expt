@@ -6,10 +6,13 @@ Status, updated 2026-08-20: the browser review now parses YAML as data, loads a
 worked Redis source refresh, accepts the four object sets needed for source-aware
 field attribution, carries Catalog prerequisites and lifecycle work into the result,
 records one result per target, and generates an AI review prompt plus current
-ConfigHub preview commands. A deterministic self-test covers source changes, retained
+ConfigHub preview commands. A fresh ConfigHub run on 2026-08-20 retained a post-render
+edit through a Redis chart upgrade, returned mutation previews for development and
+staging, published one reviewed OCI to two Argo CD clusters, closed a rollback
+ChangeSet, and verified the rollback on both clusters. A deterministic self-test covers source changes, retained
 post-render edits, same-field review, Secret redaction, semantic no-ops, partial
 fleets, digest mismatch, and lifecycle-versus-target-fact separation. The real-user
-program and a fresh live ConfigHub promotion receipt remain outstanding.
+program remains outstanding.
 
 This plan tests one proposed Config Workshop job:
 
