@@ -440,8 +440,8 @@
     <p class="tagline">Catalog readiness: Ready to try.</p>
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart source repository's LICENSE, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
     
-    <p><a class="button primary" href="../promote.html?chart=longhorn%2Flonghorn&current=1.11.2&base=default">Plan an upgrade or promotion</a></p>
-    <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --base default --work-dir ./longhorn-longhorn-1-11-2-default --non-interactive --namespace longhorn-system</pre>
+    <p><a class="button primary" href="../ask.html?question_code=install-shape&amp;chart=longhorn%2Flonghorn&amp;version=1.11.2">Check this chart and version</a> <a class="button secondary" href="#run-this">Try the package</a> <a class="button secondary" href="../promote.html?chart=longhorn%2Flonghorn&amp;current=1.11.2&amp;base=default">Plan an upgrade or promotion</a></p>
+    <p>Already reviewed the result? <a href="../confighub.html">Keep it in ConfigHub</a> when you need history, variants, approvals, or delivery.</p>
   </header>
   <main>
     <section aria-labelledby="pillars-here">
@@ -544,7 +544,7 @@
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --base default --work-dir ./longhorn-longhorn-1-11-2-default --non-interactive --namespace longhorn-system</code></p>
-        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/longhorn-longhorn-1-11-2/default/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/longhorn-longhorn-1-11-2/default/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p>
+        <details title="Additional scripts: apply it or upload it"><summary><strong>Advanced: apply it or upload it</strong></summary><p>Run the whole sequence as one script, prerequisites included: <a href="../sh/longhorn-longhorn-1-11-2/default/try.sh">try.sh</a> renders and applies to Kubernetes without an account; <a href="../sh/longhorn-longhorn-1-11-2/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p></details>
         <h3>You should see something like this</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>

@@ -447,38 +447,38 @@
 <p>Site tested: https://confighub.github.io/helm-expt/site/</p>
 <p>This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after five clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.</p>
 <h2 id="results">Results</h2>
-<table><thead><tr><th>Persona</th><th>Runs</th><th>Success</th><th>Partial</th><th>Fail</th><th>Answered on starting page</th><th>Useful first click when navigation was needed</th><th>Median clicks</th></tr></thead><tbody><tr><td>Application developer using AI-written configuration</td><td>180</td><td>177</td><td>3</td><td>0</td><td>95/180</td><td>57/85</td><td>0</td></tr>
-<tr><td>GitOps operator responsible for delivery</td><td>180</td><td>167</td><td>13</td><td>0</td><td>76/180</td><td>70/104</td><td>1</td></tr>
-<tr><td>Platform engineer managing environments and fleets</td><td>180</td><td>173</td><td>7</td><td>0</td><td>77/180</td><td>67/103</td><td>1</td></tr>
-<tr><td>Security-minded release reviewer</td><td>180</td><td>175</td><td>5</td><td>0</td><td>64/180</td><td>94/116</td><td>1</td></tr></tbody></table>
+<table><thead><tr><th>Persona</th><th>Runs</th><th>Success</th><th>Partial</th><th>Fail</th><th>Answered on starting page</th><th>Useful first click when navigation was needed</th><th>Median clicks</th></tr></thead><tbody><tr><td>Application developer using AI-written configuration</td><td>180</td><td>169</td><td>11</td><td>0</td><td>101/180</td><td>50/79</td><td>0</td></tr>
+<tr><td>GitOps operator responsible for delivery</td><td>180</td><td>170</td><td>10</td><td>0</td><td>94/180</td><td>51/86</td><td>0</td></tr>
+<tr><td>Platform engineer managing environments and fleets</td><td>180</td><td>169</td><td>11</td><td>0</td><td>90/180</td><td>58/90</td><td>1</td></tr>
+<tr><td>Security-minded release reviewer</td><td>180</td><td>159</td><td>21</td><td>0</td><td>66/180</td><td>84/114</td><td>1</td></tr></tbody></table>
 <h2 id="by-category">By category</h2>
-<table><thead><tr><th>Category</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>comprehension</td><td>140</td><td>4</td><td>0</td></tr>
+<table><thead><tr><th>Category</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>comprehension</td><td>137</td><td>7</td><td>0</td></tr>
 <tr><td>navigation</td><td>144</td><td>0</td><td>0</td></tr>
-<tr><td>action</td><td>141</td><td>3</td><td>0</td></tr>
-<tr><td>recovery</td><td>130</td><td>14</td><td>0</td></tr>
-<tr><td>conversion</td><td>137</td><td>7</td><td>0</td></tr></tbody></table>
+<tr><td>action</td><td>140</td><td>4</td><td>0</td></tr>
+<tr><td>recovery</td><td>116</td><td>28</td><td>0</td></tr>
+<tr><td>conversion</td><td>130</td><td>14</td><td>0</td></tr></tbody></table>
 <h2 id="cross-format">Cross-format</h2>
-<table><thead><tr><th>Input format</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>Helm</td><td>568</td><td>26</td><td>0</td></tr>
+<table><thead><tr><th>Input format</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>Helm</td><td>543</td><td>51</td><td>0</td></tr>
 <tr><td>AICR</td><td>18</td><td>0</td><td>0</td></tr>
 <tr><td>OCI</td><td>52</td><td>2</td><td>0</td></tr>
 <tr><td>YAML</td><td>27</td><td>0</td><td>0</td></tr>
 <tr><td>mixed</td><td>27</td><td>0</td><td>0</td></tr></tbody></table>
 <h2 id="goals-that-still-need-work">Goals that still need work</h2>
-<table><thead><tr><th>Goal</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>find delivery limitations</td><td>2</td><td>7</td><td>0</td></tr>
-<tr><td>promote and publish a release</td><td>7</td><td>2</td><td>0</td></tr>
-<tr><td>roll back a promoted release</td><td>7</td><td>2</td><td>0</td></tr>
+<table><thead><tr><th>Goal</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>keep a private configuration private</td><td>0</td><td>9</td><td>0</td></tr>
+<tr><td>block placeholder credentials</td><td>1</td><td>8</td><td>0</td></tr>
+<tr><td>find delivery limitations</td><td>3</td><td>6</td><td>0</td></tr>
+<tr><td>audit an exact diff</td><td>3</td><td>6</td><td>0</td></tr>
+<tr><td>keep configuration history</td><td>4</td><td>5</td><td>0</td></tr>
+<tr><td>understand rollback proof</td><td>6</td><td>3</td><td>0</td></tr>
 <tr><td>understand checked versus not checked</td><td>7</td><td>2</td><td>0</td></tr>
+<tr><td>handle CRD ordering risk</td><td>7</td><td>2</td><td>0</td></tr>
 <tr><td>write reviewed objects as OCI</td><td>8</td><td>1</td><td>0</td></tr>
 <tr><td>save a reviewed result for my team</td><td>8</td><td>1</td><td>0</td></tr>
-<tr><td>promote a reviewed change</td><td>8</td><td>1</td><td>0</td></tr>
+<tr><td>render and inspect without applying</td><td>8</td><td>1</td><td>0</td></tr>
 <tr><td>deliver with kubectl</td><td>8</td><td>1</td><td>0</td></tr>
 <tr><td>understand OCI in and OCI out</td><td>8</td><td>1</td><td>0</td></tr>
-<tr><td>handle CRDs on first install</td><td>8</td><td>1</td><td>0</td></tr>
 <tr><td>compare desired and live state</td><td>8</td><td>1</td><td>0</td></tr>
-<tr><td>assign configuration to a fleet</td><td>8</td><td>1</td><td>0</td></tr>
-<tr><td>understand fleet rollout</td><td>8</td><td>1</td><td>0</td></tr>
-<tr><td>pause or inspect a rollout wave</td><td>8</td><td>1</td><td>0</td></tr>
-<tr><td>require approval for production</td><td>8</td><td>1</td><td>0</td></tr></tbody></table>
+<tr><td>assign configuration to a fleet</td><td>8</td><td>1</td><td>0</td></tr></tbody></table>
 <h2 id="navigation-language">Navigation language</h2>
 <p>These are synthetic forced-choice trials, not observed preferences.</p>
 <table><thead><tr><th>Preferred label</th><th>Count</th></tr></thead><tbody><tr><td>Check my config</td><td>38</td></tr>

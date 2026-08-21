@@ -8,6 +8,127 @@ owns the product onboarding journey. This catalog owns source-specific preparati
 public package testing, and evidence. See
 [Onboarding And Entry Paths](../planning/onboarding-and-entry-paths.md).
 
+## Business purpose and user journey
+
+This section is the canonical statement of the project's business purpose and user
+journey. Other documents and website pages may explain the part relevant to their
+reader, but they should link here instead of maintaining a competing full summary.
+
+The overall business purpose is to make ConfigHub the trusted place between
+configuration being created and software being delivered. The public site is a
+working front door, not only a product description. It gives people useful answers
+before they sign up or change their delivery system.
+
+### Problems we solve
+
+Configuration users often cannot answer basic questions confidently:
+
+- What will this chart or package actually install?
+- Which values affected the result?
+- What changed between two versions or environments?
+- What prerequisites, hooks, CRDs, Secrets, and setup Jobs are involved?
+- Is this upgrade or promotion safe?
+- Can I keep a necessary customization without maintaining a permanent fork?
+- Can I reproduce or roll back the exact result?
+
+AI makes these problems more urgent. It can produce charts, values, YAML, and
+application changes faster than people can inspect them. The output may look
+convincing while containing an ignored value, unsafe default, missing prerequisite,
+excessive permission, or large unintended rendered change.
+
+### Our promise
+
+> Bring the configuration that you or your AI created. We will show what it actually
+> does, compare it with what you trust, and give you a reviewed result that you can
+> keep and deliver.
+
+### The user journey
+
+| Step | Job |
+| --- | --- |
+| Catalog | Find a configuration we have already investigated, with known options, quirks, and evidence. |
+| Check my config | Compare a chart, values, YAML, or OCI with defaults, Catalog examples, or what the user runs today. |
+| Promote my config | Test a proposed change, including the destination and any staging work, before production. |
+| ConfigHub | Keep the accepted result, create environment variants, approve changes, publish OCI releases, and compare desired configuration with live systems. |
+
+This supports the delivery path:
+
+`Git or AI -> build -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes`
+
+People can keep Helm, AICR, GitOps, and their existing build systems. ConfigHub
+becomes valuable because it records and manages what happens between OCI input and
+OCI output.
+
+### Business model
+
+The anonymous tools solve an immediate problem without requiring trust, migration,
+or an account. A useful anonymous result is complete in its own right. The natural
+reason to adopt ConfigHub appears when the user wants to:
+
+- keep the reviewed result;
+- share it with a team;
+- compare the next change;
+- manage development, staging, and production;
+- require tests or approval;
+- promote an exact release;
+- roll it out across a fleet; or
+- connect it with live state.
+
+The public result must not stop at a warning or a score. It should produce exact
+objects, comparisons, checks, stated limits, and a result the user can retain as
+files or OCI. The contextual ConfigHub handoff is **Keep this reviewed result in
+ConfigHub**, not a generic request to create an account.
+
+AI may propose and explain a change. The exact rendered objects, source record, diff,
+checks, approval, release, and observation remain the records used to decide what
+ships. The site should also support people who already have Claude, Codex, or another
+assistant running by giving that assistant the exact local files, context, questions,
+and commands it needs.
+
+Every new question can also improve the Catalog. A public question starts as an
+investigation. When maintainers reproduce the result, lock the source, classify its
+prerequisites and lifecycle work, and publish the evidence, it can become a maintained
+Catalog answer. Each accepted answer makes the next user's investigation shorter.
+This creates a compounding public resource of known configurations, common variants,
+upgrade knowledge, lifecycle handling, checks, and evidence.
+
+The commercial strategy is: help people understand one configuration for free, then
+become the system they use to manage that configuration as it changes, becomes an
+application, and reaches production.
+
+The Catalog should become the **global OCI headquarters for configuration patterns
+and tools**: the place where a user can find versioned source, known configurations,
+portable packages, lifecycle handling, checks, receipts, and tools for comparing or
+changing them. This is an ambition, not a claim that the current catalog is complete.
+Helm is the first and deepest source today; AICR, OCI, YAML, platform generators, and
+other configuration sources use the same evidence and retention rules.
+
+### Practical question contract
+
+The following questions came from a review of 40 current public Helm discussions.
+They are a standing product and user-test set, not copy that can disappear during a
+website rewrite:
+
+1. What will this install, and what must already exist?
+2. How is this candidate different from production?
+3. I set a value. Why did the rendered object not change?
+4. The chart does not expose the field I need. Must I fork it?
+5. Can I upgrade this chart without breaking production?
+6. How should Argo CD or Flux handle this chart's hooks and CRDs?
+7. Where does this vulnerable image run, and how can I update it safely?
+8. Can I roll back to exactly what ran before?
+9. Do these version and digest records identify the same bytes?
+10. AI wrote these values. What did they actually change?
+
+The 40 discussions are research input, not evidence of demand or successful use. The
+project must test these questions with real users. A useful test starts from the
+user's exact source and version, lets them use the Workshop tools and their own AI,
+and checks whether they can reach a decision and retain the result locally, as OCI,
+or in ConfigHub. Promotion tests must continue through candidate comparison,
+destination and staging checks, a ConfigHub promotion when selected, and the recorded
+delivery result. Aggregate outcomes belong in the public challenge-intake record;
+personal details remain outside Git.
+
 The website, catalog, and public tools handle useful configuration work around OCI.
 They can prepare source before the first OCI is built, inspect an existing OCI, or
 produce a new OCI after checking or changing its contents. They help people work with
@@ -158,6 +279,70 @@ Maintainers must reproduce it, lock the source, classify its prerequisites and
 lifecycle work, run the applicable checks, and publish the decision and evidence for
 that exact version. The intake process is documented in
 [How public configuration questions are handled](question-intake-operation.md).
+
+## Configuration taxonomy
+
+Use one processing model for every input format:
+
+```text
+source + processing intent
+  -> materialize exact Kubernetes objects
+  -> decide whether to flatten
+  -> attach lifecycle routes and protected ownership
+  -> retain, compare, promote, and publish
+  -> reconcile on a target
+  -> observe the runtime result
+```
+
+A step may be a recorded no-op. Plain Kubernetes YAML is already materialized. A
+literal configuration OCI is already flat. Those inputs still need provenance,
+checks, lifecycle decisions, promotion history, delivery, and runtime evidence.
+
+These terms describe different decisions. Do not use them interchangeably.
+
+| Term | Meaning |
+| --- | --- |
+| Source package or source configuration | The chart, recipe, package, generator input, OCI, or YAML that the user starts with. |
+| Processing intent | The source identity and the choices needed to produce or select exact objects. It includes build or render inputs, target assumptions, and known lifecycle decisions. |
+| Materialize | Produce or read the exact Kubernetes objects that will be reviewed. Helm renders; AICR and Kubara generate or compose; a source OCI invokes its declared processor; literal YAML and literal configuration OCI need no source transformation. Materializing does not apply objects or prove runtime health. |
+| Exact configuration revision | The accepted Kubernetes objects, object inventory, and digest for one revision. This is the source-neutral equivalent of a captured output. |
+| Render | Helm's materialization step: run the chart with recorded values, release context, API capabilities, and permitted target facts. Do not use `render` as the generic name for every source format. |
+| Helm render intent | The Helm-specific source-and-intent record: chart, version, values, release context, source lock, prerequisites, and lifecycle choices. It does not contain the rendered objects. |
+| Helm render variant | The captured, pinned Kubernetes output for one Helm base and revision, linked to its Helm render intent and identified by an object inventory and digest. Do not invent a render variant for literal YAML or another source that did not render. |
+| Preset configuration or base variant | A maintained starting shape such as `default`, `no-crds`, `reuse-existing-secret`, or `ha`. It fixes the choices needed to produce and operate that reviewed base. |
+| Derived variant | A ConfigHub version for an environment, region, customer, or target. It changes accepted objects after the base render; Helm is not rendered again. |
+| Flatten | Keep the exact materialized objects as the configuration that later systems review and deliver instead of rerunning the source processor during delivery. For literal YAML or literal configuration OCI this is a recorded no-op. |
+| Safe to flatten | The exact version, preset, and target path has no required Helm behavior outside the retained objects. Source, object digest, checks, and evidence still travel with it. |
+| Flatten with routes | Retain the literal objects, but also carry named prerequisites or lifecycle routes for CRDs, hooks, certificates, Secrets, setup Jobs, ordering, or other work around apply. |
+| Process late (`render late` for Helm) | Keep the source and inputs authoritative at deployment time because live lookup, generated state, destructive lifecycle behavior, or another unresolved dependency makes the literal path unsafe for this use case. Record the reason instead of pretending the source was flattened. |
+| Lifecycle route | A record of work that ordinary apply does not perform safely by itself. It states what runs, who runs it, in what order, how it is checked or retried, and which receipt proves the result. A lifecycle route is not a render. |
+| No route required | An explicit reviewed result that this exact configuration needs no separate lifecycle work. A missing route record does not mean the same thing. |
+| Protected local field | A field intentionally owned by a downstream variant and preserved during promotion or source refresh. It is not the same as a Secret or a Kubernetes resource protected from pruning. |
+| Secret or protected input | Credential material stays outside portable configuration. The configuration records a Secret reference or target requirement, not the secret value. |
+| Prune-protected resource | A resource that a delivery path must not delete. This is delivery behavior and is separate from field ownership and Secret handling. |
+| Configuration OCI | Immutable transport for exact objects and companion records. Moving the OCI does not execute routes, create infrastructure, or prove runtime success. |
+
+### How each source uses the model
+
+| Source | How exact objects are materialized | Source-and-intent record | Flattening decision |
+| --- | --- | --- | --- |
+| Helm chart | Run Helm with recorded values and render context. | `HelmRenderIntent`; the captured output is its Helm render variant. | Keep the captured objects, keep them with routes, or render late. |
+| AICR, Kubara, or another generator | Run its declared generation or composition step, including any nested Helm work it declares. | Recipe or source revision, selected options, build receipts, required controllers, and output digest. | Keep the generated objects, keep them with routes, or process late. |
+| Installer or source OCI | Pull by digest, inspect its declared role, then invoke the processor it contains or references. | Input OCI reference and digest, package role, processor, selections, and receipts. | Decide from the produced objects and remaining lifecycle work. A source OCI is not automatically deployable. |
+| Literal configuration OCI | Pull by digest and read the contained Kubernetes objects. Materialization is a no-op apart from parsing and canonicalization. | Input OCI reference and digest, object inventory, provenance, checks, and any prior transformation. | Already flat; record whether routes or protected inputs must travel beside it. |
+| Plain Kubernetes YAML | Read, parse, and canonicalize the files. Materialization is a no-op. | Source path or revision, file checksums, object inventory, and checks. | Already flat; record any lifecycle work, ownership, and later packaging. |
+| ConfigHub Units or release OCI | Read the retained exact objects and revision history. Materialization is a no-op. | Space, Unit revisions, source link, approvals, release digest, and receipts. | Already retained as data; publish and reconcile the selected revision. |
+
+Do not call the combined record a "full rendering." The complete managed record is
+the source and intent, the exact configuration revision, lifecycle routes, and
+runtime receipts. Each part answers a different question and may change on a
+different schedule.
+
+The flattening verdict belongs to an exact source version, preset, and intended target
+path. A safe verdict for one case does not cover every values combination or future
+version. Read [When to flatten configuration](flattening-alignment.md) for the decision
+rules and [The ConfigHub data model](../user/confighub-data-model.md) for how the
+records connect before, inside, and after ConfigHub.
 
 ## The ways configuration enters
 

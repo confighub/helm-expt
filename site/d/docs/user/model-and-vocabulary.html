@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Model And Its Words · Config Workshop</title>
-  <meta name="description" content="The Model And Its Words: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The configuration processing model · Config Workshop</title>
+  <meta name="description" content="The configuration processing model: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/model-and-vocabulary.html">
-  <meta property="og:title" content="The Model And Its Words · Config Workshop">
-  <meta property="og:description" content="The Model And Its Words: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="The configuration processing model · Config Workshop">
+  <meta property="og:description" content="The configuration processing model: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/model-and-vocabulary.html">
   <style>
@@ -442,36 +442,51 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The Model And Its Words</h1>
-    <p class="lead">In one sentence: <b>a recipe renders into a base variant, a base variant becomes derived variants, and promotions carry reviewed changes between them.</b> <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
+    <h1>The configuration processing model</h1>
+    <p class="lead">Helm, AICR, Kubara, OCI, and YAML use the same stages. They do not use the same processor. A stage can also be a recorded no-op: literal YAML already contains exact objects, for example. <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page defines the five main terms in the catalog. It also explains the four stages from a Helm source to an operated ConfigHub variant.</p>
-<h2 id="the-five-words">The five words</h2>
-<table><thead><tr><th>Word</th><th>What it is</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Recipe</b></td><td>The source of a render: chart, version, values, named bases, and declared routing intent.</td><td>The repo (<code>recipes/</code>) and the installer package.</td></tr>
-<tr><td><b>Rendering</b></td><td>Running the recipe once to create exact Kubernetes objects.</td><td>A tool run such as <code>cub installer setup</code>, outside ConfigHub Server.</td></tr>
-<tr><td><b>Render record</b></td><td>The evidence for one render. It joins the render intent, rendered objects, checksums, and related receipts.</td><td>The repo (<code>data/helm-render-intents/</code> and revision files).</td></tr>
-<tr><td><b>Base variant</b></td><td>One named way to render a chart, such as <code>default</code>, <code>no-crds</code>, <code>existing-secret</code>, or <code>ha</code>. The <code>--base</code> option selects it.</td><td>The package (<code>bases/&lt;name&gt;</code>) and, after upload, a root ConfigHub Space.</td></tr>
-<tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page gives the short version of the model used by the Catalog. The <a href="../reference/config-catalog-doctrine.html">catalog doctrine</a> is the canonical definition.</p>
+<h2 id="one-path-for-every-source">One path for every source</h2>
+<pre><code>source + processing intent
+  -&gt; materialize exact Kubernetes objects
+  -&gt; flatten, flatten with routes, or process late
+  -&gt; retain and change the accepted configuration
+  -&gt; publish, reconcile, and observe it</code></pre>
 
-
+<h2 id="the-core-words">The core words</h2>
+<table><thead><tr><th>Word</th><th>What it is</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Source and intent</b></td><td>Where the configuration came from and which choices produced or selected it.</td><td>A source-specific record, linked to the exact configuration.</td></tr>
+<tr><td><b>Materialize</b></td><td>Produce or read the exact Kubernetes objects that will be reviewed.</td><td>In a local tool, build, or source adapter.</td></tr>
+<tr><td><b>Exact configuration revision</b></td><td>One accepted Kubernetes object set, inventory, and digest.</td><td>Local files or OCI before upload; ConfigHub Units after upload.</td></tr>
+<tr><td><b>Flatten</b></td><td>Retain the exact objects so delivery does not rerun the source processor.</td><td>A recorded decision for an exact source, configuration, and target path.</td></tr>
+<tr><td><b>Lifecycle route</b></td><td>Work that must happen around ordinary apply, with its owner, order, checks, and receipts.</td><td>Companion records and evidence beside the configuration.</td></tr>
+<tr><td><b>Base variant</b></td><td>One named, reviewed starting configuration.</td><td>A package and, after upload, a root ConfigHub Space.</td></tr>
+<tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table>
+<p>In one sentence: <b>materialize exact objects, keep the source and lifecycle context, then retain reviewed changes as variants that can be promoted and delivered.</b></p>
+<h2 id="helms-additional-words">Helm's additional words</h2>
+<table><thead><tr><th>Word</th><th>Helm meaning</th></tr></thead><tbody><tr><td><b>Recipe</b></td><td>The chart, version, values, named bases, and declared lifecycle choices used by the installer package.</td></tr>
+<tr><td><b>Render</b></td><td>Helm's materialization step. It produces exact Kubernetes objects but does not apply them.</td></tr>
+<tr><td><b>Helm render intent</b></td><td>The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render.</td></tr>
+<tr><td><b>Helm render variant</b></td><td>The captured object output for one base and revision, linked to its intent and digest.</td></tr></tbody></table>
+<p>Do not create a render variant for literal YAML or another source that did not render. Its source-and-intent record links directly to its exact configuration revision.</p>
 <h2 id="the-source-and-intent-record">The source and intent record</h2>
 <p>Every maintained base needs a record that explains where its objects came from and which choices produced them. We call this the <b>source and intent record</b>.</p>
-<p>This is a role, not one file format. For Helm, the record is a <code>HelmRenderIntent</code>. For AICR, it is the recipe and bundle receipts. Existing OCI and plain YAML use records that name their source digest or checksums, object inventory, remaining inputs, prerequisites, checks, and later transformations. Today, that information may live in a source Unit, Space metadata plus a committed receipt, or a generated base-variant record.</p>
+<p>This is a role, not one file format. For Helm, the record is a <code>HelmRenderIntent</code>. For AICR or Kubara, it is the recipe, selected options, and generation receipts. Source OCI records the processor it contains or references. Literal OCI and plain YAML name their source digest or checksums, object inventory, remaining inputs, prerequisites, checks, and later transformations. Today, that information may live in a source Unit, Space metadata plus a committed receipt, or a generated base-variant record.</p>
 <p>The record should let a new reader answer four questions:</p>
 <ol><li>What source produced these objects?</li><li>Which values or choices were used?</li><li>What must exist or run before delivery?</li><li>Which checks and receipts support the result?</li></ol>
 <p>All maintained examples should answer those questions. Chart-specific records for hooks, CRDs, Secrets, setup jobs, and target facts are added when the configuration needs them; they are not copied into examples where they do not apply.</p>
 <p>An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks can be attached automatically. A source adapter or review must supply the source details and any chart-specific lifecycle work; otherwise the missing information is recorded as a gap.</p>
 <h2 id="the-four-stages">The four stages</h2>
-<table><thead><tr><th>Stage</th><th>Name</th><th>What happens</th><th>The word</th></tr></thead><tbody><tr><td><b>F1 · source</b></td><td>Recipe</td><td>Record the chart, version, values, and routing intent.</td><td>recipe</td></tr>
-<tr><td><b>F2 · render</b></td><td>Base variant</td><td>Create the exact objects. The render record binds the inputs to that output.</td><td>base variant, render record</td></tr>
+<table><thead><tr><th>Stage</th><th>Name</th><th>What happens</th><th>The word</th></tr></thead><tbody><tr><td><b>F1 · source</b></td><td>Source and intent</td><td>Record the source, version, choices, and lifecycle decisions.</td><td>source and intent</td></tr>
+<tr><td><b>F2 · materialize</b></td><td>Exact configuration</td><td>Produce or read the exact objects. For Helm, the render intent binds the inputs to the captured render variant.</td><td>exact configuration, Helm render variant</td></tr>
 <tr><td><b>F3 · routes</b></td><td>Prerequisites and routes</td><td>Record hooks, CRDs, Secrets, target facts, and other work outside ordinary objects.</td><td>routing intent</td></tr>
 <tr><td><b>F4 · operate</b></td><td>Derived variants</td><td>Clone, edit, review, promote, deliver, and observe the configuration.</td><td>derived variant</td></tr></tbody></table>
-<p>Rendering is not deployment. F2 produces configuration files. F4 can deliver reviewed objects to live infrastructure. A base variant Space therefore has no Target until you choose to deliver it.</p>
+<p>Materializing is not deployment. F2 produces or reads configuration files. F4 can deliver reviewed objects to live infrastructure. A base variant Space therefore has no Target until you choose to deliver it.</p>
 <h2 id="how-this-guide-uses-action-words">How this guide uses action words</h2>
-<table><thead><tr><th>Word</th><th>Meaning here</th></tr></thead><tbody><tr><td><b>render</b></td><td>Create Kubernetes objects from a recorded source and its inputs.</td></tr>
+<table><thead><tr><th>Word</th><th>Meaning here</th></tr></thead><tbody><tr><td><b>materialize</b></td><td>Produce or read the exact Kubernetes objects from any supported source.</td></tr>
+<tr><td><b>render</b></td><td>Materialize objects with a templating source, especially Helm.</td></tr>
+<tr><td><b>flatten</b></td><td>Keep the materialized objects so the source processor does not run again during delivery.</td></tr>
 <tr><td><b>inspect</b></td><td>Read objects or evidence. Inspection alone does not prove a claim.</td></tr>
 <tr><td><b>test</b></td><td>Run a defined command or procedure.</td></tr>
 <tr><td><b>verify</b></td><td>Compare a result with a recorded expectation, digest, or object set.</td></tr>
@@ -486,10 +501,11 @@
 <h2 id="the-same-objects-three-other-ways-of-seeing-them">The same objects, three other ways of seeing them</h2>
 <p><b>If you think in plain Helm:</b> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version of those objects and keeps its changes through upgrades.</p>
 <p><b>If you think in Kustomize:</b> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The derived variant is a ConfigHub Space with revisions, gates, and an upstream link rather than a directory convention.</p>
-<p><b>If you think in source objects:</b> the chart source can be one small YAML record containing the repository, chart, version, and values. The catalog keeps that record in the repo today. Rendering it produces the base variant. ConfigHub manages the resulting objects without running Helm again.</p>
+<p><b>If you start with literal YAML or configuration OCI:</b> the objects are already materialized and flat. Record their source and digest, attach any required routes, then retain them as a base. Do not pretend they passed through Helm.</p>
+<p><b>If you start with AICR, Kubara, or another generator:</b> keep its native recipe and choices, run its declared processor, and link the resulting object digest to those inputs. Record any required controllers or setup separately.</p>
 <h2 id="where-each-thing-is-today">Where each thing is, today</h2>
-<ul><li>Recipes and render records live in this repo. Every chart page links to them.</li><li>Base variants live in installer packages. Use <code>--base</code> to select one. After upload, each becomes a root Space in ConfigHub.</li><li>Derived variants, promotions, delivery, and observations live in ConfigHub. Follow <a href="variants-after-upload.html">variants after upload</a> and the evidence links on each chart page.</li></ul>
-<p>When you browse a ConfigHub org, you see the rendered Units, derived Spaces, revisions, and links from F2 through F4. The recipe and render record remain in this repo and the package. Each uploaded Space has an <code>installer-record</code> Unit that identifies the package that produced it.</p>
+<ul><li>Helm recipes and render records live in this repo. Every chart page links to them.</li><li>Other source-and-intent records live beside their recipes, source receipts, or base records. They use their own format rather than a fake Helm record.</li><li>Base variants live in packages or exact object sets. After upload, each becomes a root Space in ConfigHub.</li><li>Derived variants, promotions, delivery, and observations live in ConfigHub. Follow <a href="variants-after-upload.html">variants after upload</a> and the evidence links on each chart page.</li></ul>
+<p>When you browse a ConfigHub org, you see the materialized Units, derived Spaces, revisions, and links from F2 through F4. The source-specific intent and processing records remain linked from the base. A package upload also has an <code>installer-record</code> Unit that identifies the package that produced it.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/model-and-vocabulary.md</code>. The source file is the authoritative version.</p></footer>

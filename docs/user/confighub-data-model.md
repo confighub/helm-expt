@@ -3,26 +3,62 @@
 **UNOFFICIAL/EXPERIMENTAL.** These are the terms used by the catalog and the
 technical guides.
 
-This guide explains how source packages, render records, ConfigHub Units,
-variants, releases, and targets fit together.
+This guide explains how source packages, processing records, exact Kubernetes
+objects, ConfigHub Units, variants, releases, and targets fit together.
 
 ## Before ConfigHub
 
-- **Source package** is the input you already use: a Helm chart, AICR recipe,
-  installer package, Kubara or Sveltos configuration, or ordinary Kubernetes
-  YAML.
-- **Preset configuration** is a maintained choice for that source. For Helm it
-  fixes a chart version, values, release name, namespace, capabilities, and
-  other render inputs.
-- **Render intent** records everything needed to reproduce one Helm render. It
-  also names prerequisites and lifecycle work such as CRDs, setup Jobs, and
-  hooks. It does not contain the rendered objects.
-- **Render variant** is the captured Kubernetes output for one base and one
-  revision. It points back to the render intent and includes the object
-  inventory and digest.
-- **Literal configuration OCI** contains rendered Kubernetes objects rather
-  than a chart that still needs to be rendered. `cub variant upload` can read
-  one directly.
+Every source follows the same processing sequence, even when one step does no work:
+
+```text
+source + processing intent
+  -> materialize exact Kubernetes objects
+  -> decide whether to flatten
+  -> attach lifecycle routes and protected ownership
+  -> retain, compare, promote, publish, reconcile, and observe
+```
+
+- **Source package or configuration** is the input you already use: a Helm
+  chart, AICR recipe, installer package, Kubara or Sveltos configuration, OCI,
+  or ordinary Kubernetes YAML.
+- **Processing intent** records the source identity and the choices needed to
+  produce or select exact objects. The concrete record must match the source.
+- **Materialize** means produce or read those exact objects. Helm renders. AICR
+  and Kubara generate or compose. Literal YAML and literal configuration OCI
+  are already materialized, so this step is a recorded no-op.
+- **Exact configuration revision** is the accepted object set, inventory, and
+  digest for one revision.
+- **Flatten** means retain the exact objects so delivery does not rerun the
+  source processor. The decision is `safe to flatten`, `flatten with routes`,
+  or `process late` (`render late` for Helm).
+- **Lifecycle route** records required work around ordinary apply, such as CRDs,
+  hooks, setup Jobs, certificates, cloud resources, or model preparation. An
+  explicit `no route required` decision is different from a missing record.
+- **Protected local field** records downstream field ownership. A protected
+  input keeps secret material outside portable configuration. Prune protection
+  is a separate delivery rule.
+
+| Source | Materialization step | Source-and-intent record |
+| --- | --- | --- |
+| Helm | Render with the recorded chart context. | `HelmRenderIntent`, linked to a captured Helm render variant. |
+| AICR, Kubara, or another generator | Run its declared generation or composition step. | Recipe or source revision, choices, controller requirements, receipts, and output digest. |
+| Installer or source OCI | Pull by digest and invoke its declared processor. | OCI role, digest, processor, selections, and receipts. |
+| Literal configuration OCI | Pull and read the objects; no source transformation is needed. | OCI digest, provenance, object inventory, checks, and transformations. |
+| Plain Kubernetes YAML | Parse and canonicalize the files; no source transformation is needed. | Source revision or path, checksums, object inventory, and checks. |
+| ConfigHub Units or release OCI | Read the retained revision; no source transformation is needed. | Space and Unit revisions, source link, approvals, release digest, and receipts. |
+
+A source OCI and a literal configuration OCI have different jobs. The first still
+needs its declared processor. The second contains the exact objects a delivery
+consumer can read. OCI is transport in both cases; it does not execute lifecycle
+routes.
+
+### Helm's two linked records
+
+For Helm, a **render intent** records everything needed to reproduce one render.
+It also names prerequisites and lifecycle work such as CRDs, setup Jobs, and hooks.
+It does not contain the rendered objects. A **render variant** is the captured
+Kubernetes output for one base and one revision. It points back to the render intent
+and includes the object inventory and digest.
 
 For Helm, the two layers are therefore:
 
@@ -32,6 +68,12 @@ chart + values + render context + lifecycle choices
   -> captured render variant
   -> exact Kubernetes objects
 ```
+
+Do not create a fake render variant for YAML, AICR, or literal OCI that did not use
+Helm rendering. Their source-and-intent record links directly to the exact
+configuration revision. Do not call the combined record a "full rendering." The
+complete managed result is source and intent, exact configuration, lifecycle routes,
+and runtime receipts.
 
 ## Four Different Records
 
@@ -109,9 +151,10 @@ separate makes retries, upgrades, promotion, and rollback reviewable.
 ## How the pieces fit
 
 ```text
-source package
-  -> render intent and captured render variant
-  -> exact objects uploaded as ConfigHub Units
+source package or configuration + processing intent
+  -> materialize exact Kubernetes objects
+  -> flatten, flatten with routes, or process late
+  -> exact objects and companion records uploaded as ConfigHub Units
   -> base and derived Spaces, diffs, checks, approvals, promotions
   -> cub release publish
   -> one Space release OCI

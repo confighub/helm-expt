@@ -443,19 +443,35 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>The ConfigHub data model</h1>
-    <p class="lead">This guide explains how source packages, render records, ConfigHub Units, variants, releases, and targets fit together. <a href="../../../../docs/user/confighub-data-model.md">View source markdown</a>.</p>
+    <p class="lead">This guide explains how source packages, processing records, exact Kubernetes objects, ConfigHub Units, variants, releases, and targets fit together. <a href="../../../../docs/user/confighub-data-model.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> These are the terms used by the catalog and the technical guides.</p>
 
 <h2 id="before-confighub">Before ConfigHub</h2>
-<ul><li><b>Source package</b> is the input you already use: a Helm chart, AICR recipe, installer package, Kubara or Sveltos configuration, or ordinary Kubernetes YAML.</li><li><b>Preset configuration</b> is a maintained choice for that source. For Helm it fixes a chart version, values, release name, namespace, capabilities, and other render inputs.</li><li><b>Render intent</b> records everything needed to reproduce one Helm render. It also names prerequisites and lifecycle work such as CRDs, setup Jobs, and hooks. It does not contain the rendered objects.</li><li><b>Render variant</b> is the captured Kubernetes output for one base and one revision. It points back to the render intent and includes the object inventory and digest.</li><li><b>Literal configuration OCI</b> contains rendered Kubernetes objects rather than a chart that still needs to be rendered. <code>cub variant upload</code> can read one directly.</li></ul>
+<p>Every source follows the same processing sequence, even when one step does no work:</p>
+<pre><code>source + processing intent
+  -&gt; materialize exact Kubernetes objects
+  -&gt; decide whether to flatten
+  -&gt; attach lifecycle routes and protected ownership
+  -&gt; retain, compare, promote, publish, reconcile, and observe</code></pre>
+<ul><li><b>Source package or configuration</b> is the input you already use: a Helm chart, AICR recipe, installer package, Kubara or Sveltos configuration, OCI, or ordinary Kubernetes YAML.</li><li><b>Processing intent</b> records the source identity and the choices needed to produce or select exact objects. The concrete record must match the source.</li><li><b>Materialize</b> means produce or read those exact objects. Helm renders. AICR and Kubara generate or compose. Literal YAML and literal configuration OCI are already materialized, so this step is a recorded no-op.</li><li><b>Exact configuration revision</b> is the accepted object set, inventory, and digest for one revision.</li><li><b>Flatten</b> means retain the exact objects so delivery does not rerun the source processor. The decision is <code>safe to flatten</code>, <code>flatten with routes</code>, or <code>process late</code> (<code>render late</code> for Helm).</li><li><b>Lifecycle route</b> records required work around ordinary apply, such as CRDs, hooks, setup Jobs, certificates, cloud resources, or model preparation. An explicit <code>no route required</code> decision is different from a missing record.</li><li><b>Protected local field</b> records downstream field ownership. A protected input keeps secret material outside portable configuration. Prune protection is a separate delivery rule.</li></ul>
+<table><thead><tr><th>Source</th><th>Materialization step</th><th>Source-and-intent record</th></tr></thead><tbody><tr><td>Helm</td><td>Render with the recorded chart context.</td><td><code>HelmRenderIntent</code>, linked to a captured Helm render variant.</td></tr>
+<tr><td>AICR, Kubara, or another generator</td><td>Run its declared generation or composition step.</td><td>Recipe or source revision, choices, controller requirements, receipts, and output digest.</td></tr>
+<tr><td>Installer or source OCI</td><td>Pull by digest and invoke its declared processor.</td><td>OCI role, digest, processor, selections, and receipts.</td></tr>
+<tr><td>Literal configuration OCI</td><td>Pull and read the objects; no source transformation is needed.</td><td>OCI digest, provenance, object inventory, checks, and transformations.</td></tr>
+<tr><td>Plain Kubernetes YAML</td><td>Parse and canonicalize the files; no source transformation is needed.</td><td>Source revision or path, checksums, object inventory, and checks.</td></tr>
+<tr><td>ConfigHub Units or release OCI</td><td>Read the retained revision; no source transformation is needed.</td><td>Space and Unit revisions, source link, approvals, release digest, and receipts.</td></tr></tbody></table>
+<p>A source OCI and a literal configuration OCI have different jobs. The first still needs its declared processor. The second contains the exact objects a delivery consumer can read. OCI is transport in both cases; it does not execute lifecycle routes.</p>
+<h3 id="helms-two-linked-records">Helm's two linked records</h3>
+<p>For Helm, a <b>render intent</b> records everything needed to reproduce one render. It also names prerequisites and lifecycle work such as CRDs, setup Jobs, and hooks. It does not contain the rendered objects. A <b>render variant</b> is the captured Kubernetes output for one base and one revision. It points back to the render intent and includes the object inventory and digest.</p>
 <p>For Helm, the two layers are therefore:</p>
 <pre><code>chart + values + render context + lifecycle choices
   -&gt; render intent
   -&gt; captured render variant
   -&gt; exact Kubernetes objects</code></pre>
+<p>Do not create a fake render variant for YAML, AICR, or literal OCI that did not use Helm rendering. Their source-and-intent record links directly to the exact configuration revision. Do not call the combined record a &quot;full rendering.&quot; The complete managed result is source and intent, exact configuration, lifecycle routes, and runtime receipts.</p>
 <h2 id="four-different-records">Four Different Records</h2>
 <p>A deployable configuration is not the whole operational story. Keep these four records separate so a package is not asked to prove something it cannot prove.</p>
 <table><thead><tr><th>Record</th><th>The question it answers</th><th>Example</th></tr></thead><tbody><tr><td>Source and intent</td><td>Where did this come from, and which choices produced it?</td><td>Chart and version, values, release name, namespace, API capabilities, source lock, and selected preset configuration.</td></tr>
@@ -478,9 +494,10 @@
 <p>A source-and-intent record can point to lifecycle routes, and a configuration OCI can carry them beside the objects. The source record explains the choice; the route defines the work; the runtime receipt records what happened. Keeping those roles separate makes retries, upgrades, promotion, and rollback reviewable.</p>
 <h2 id="how-the-pieces-fit">How the pieces fit</h2>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>source package
-  -&gt; render intent and captured render variant
-  -&gt; exact objects uploaded as ConfigHub Units
+  <pre><code>source package or configuration + processing intent
+  -&gt; materialize exact Kubernetes objects
+  -&gt; flatten, flatten with routes, or process late
+  -&gt; exact objects and companion records uploaded as ConfigHub Units
   -&gt; base and derived Spaces, diffs, checks, approvals, promotions
   -&gt; cub release publish
   -&gt; one Space release OCI

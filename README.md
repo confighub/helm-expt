@@ -5,6 +5,8 @@ and using Kubernetes configuration. It starts with Helm and also includes AICR,
 OCI packages, and plain Kubernetes YAML.
 
 The quickest route is the [Config Workshop website](https://confighub.github.io/helm-expt/site/).
+The canonical [business purpose and user journey](./docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey)
+are maintained together in the catalog doctrine.
 
 ## Start Here
 

@@ -516,7 +516,7 @@
     <h1>Delivery limitations and known gaps</h1>
     <p class="lead">Check this page before choosing a delivery path. Each row names a current limitation, explains how it could affect a deployment, and gives the safest next step.</p>
     <p>A <code>watch</code> result means the path needs a decision or more work. It is not a pass, and it does not mean every use of the chart fails.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="./proof.html">See current results</a> · <a href="./hard-questions.html">Read FAQ</a> · <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Report a problem chart</a></p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="./verification.html">Check one delivery result</a> · <a href="./proof.html">See current results</a> · <a href="./hard-questions.html">Read FAQ</a> · <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Report a problem chart</a></p>
   </header>
   <main>
     <section aria-labelledby="gaps">
@@ -536,6 +536,7 @@
     <section aria-labelledby="next">
       <h2 id="next">2. Check the exact chart and configuration</h2>
       <p>Open the chart page and find the configuration you plan to use. Follow any <code>watch</code> or <code>blocked</code> reason before you deploy it.</p>
+      <p>Prune protection means that a delivery path deliberately keeps an existing object when it disappears from the next configuration. It does not protect a field from being changed.</p>
       <p>Use <a href="./hard-questions.html">FAQ</a> for a short answer. Use <a href="d/docs/user/broken-chart-triage.html">Broken Chart Triage</a> when a render or install fails. Open the evidence link when you need the exact command and receipt.</p>
     </section>
   </main>
