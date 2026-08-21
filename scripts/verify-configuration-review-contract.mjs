@@ -107,12 +107,12 @@ function verify() {
   }
   for (const term of [
     "chart configurations we have already tested and documented",
-    "See the complete example",
+    "See an illustrative object review",
     "Check rendered objects in this browser",
     "Download one complete result",
     "WorkshopResult schema",
     "Download review record",
-    "Keep this reviewed result in ConfigHub",
+    "See how to keep this in ConfigHub",
     "Candidate file hash",
     "Copy commands to keep this result",
     "This page does not send your files to an AI service",

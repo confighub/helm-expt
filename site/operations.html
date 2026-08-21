@@ -618,6 +618,8 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
     <section aria-labelledby="fleet-record">
       <h2 id="fleet-record">3. Keep a fleet record</h2>
       <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
+      <p><strong>Use one visible sequence:</strong> choose the approved configuration, select targets by label, and preview the exact target list.</p>
+      <p>Publish to a small wave, then inspect every target before continuing. The <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos example</a> records two waves. Managed pause and resume controls are still planned.</p>
       <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. Only a small, restricted set of settings remains at install time, so an upgrade does not become another free-form Helm exercise.</p>
       <table>
         <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>

@@ -14,6 +14,11 @@ Application to another namespace. The extra edit looks valid as YAML, but it was
 not requested and is outside the selected control point, so no candidate file is
 written.
 
+| Decision | Field | Before | Proposed | Result |
+| --- | --- | --- | --- | --- |
+| Requested StorageClass change | `spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName` | `gp3` | `standard` | accepted |
+| Extra namespace edit | `spec.destination.namespace` | `monitoring` | `monitoring-review` | refused |
+
 | Request | Result | Object identities | Declared reach | Exact fields |
 | --- | --- | --- | --- | --- |
 | `cpu-starter-standard-storage` | **pass** | pass | pass | pass |

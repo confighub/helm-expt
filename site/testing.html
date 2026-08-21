@@ -545,7 +545,7 @@
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup \
-    --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
     --base reuse-existing-secret \
     --work-dir ./redis \
     --non-interactive \
@@ -591,7 +591,8 @@ Rendered 0 secret(s)</code></pre>
       <p><a href="./d/docs/demo/c3agent/fleet-config.html"><strong>Read the c3agent walkthrough</strong></a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/c3agent/fleet-config">Open the source files</a> · <a href="./d/data/c3agent-configuration-proof/summary.html">Check the live proof</a></p>
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
-      <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults, the Catalog, and optionally production, then gives you a review record to keep.</p>
+      <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults and, when you add the relevant records, with the Catalog or what you run today. It then gives you a review record to keep.</p>
+      <p><strong>This path uses the separate <code>cub-helm</code> plugin for an arbitrary chart.</strong> <code>cub installer</code> reads maintained Catalog packages; <code>cub helm</code> works from a chart and values you supply.</p>
       <p>Use <code>cub helm</code> for a chart that can render without live cluster lookups or target-specific Kubernetes capabilities. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
       <div class="terminal-card">
         <div class="terminal-title">your chart → exact Kubernetes files</div>

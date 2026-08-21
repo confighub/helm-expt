@@ -563,6 +563,21 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </div>
     </section>
 
+    <section aria-labelledby="after-render">
+      <h2 id="after-render">After You Render It</h2>
+      <p>The first command writes files and does not apply them. Read the objects and setup requirements, then choose the next job.</p>
+      <div class="card"><table>
+        <thead><tr><th>Job</th><th>Next step</th></tr></thead>
+        <tbody><tr><td>Render and inspect without applying</td><td><a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.</td></tr><tr><td>Apply the rendered manifests with kubectl, or publish reviewed objects as OCI</td><td><a href="../how-it-works.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.</td></tr><tr><td>Save the reviewed result for a team</td><td><a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.</td></tr><tr><td>Compare development and production, audit an exact diff, promote, or roll back</td><td><a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.</td></tr><tr><td>Assign the configuration to clusters and operate a small fleet</td><td><a href="../operations.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.</td></tr><tr><td>Check delivery limits</td><td><a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.</td></tr><tr><td>Handle CRDs on the first install</td><td><a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and route</a>.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
 
 
     <section aria-labelledby="matrix-options">
@@ -589,7 +604,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Reason</dt><dd>This is the chart source. Choose a configuration before checking deployment or promotion</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for (source)">
-          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/coredns/coredns/1.45.2/CATALOG.html">catalog</a> · <a href="https://coredns.github.io/helm" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
@@ -616,7 +631,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
-          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/coredns/coredns/1.45.2/CATALOG.html">catalog</a> · <a href="../../recipes/coredns/coredns/1.45.2/variants/default/variant.yaml">variant</a> · <a href="../../recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/coredns-coredns-1-45-2-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/coredns-coredns-1-45-2-default.yaml">base record</a> · <a href="../../packages/coredns/coredns/1.45.2/bases/default">package base</a> · <a href="../../runs/coredns-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://coredns.github.io/helm" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
@@ -638,7 +653,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Reason</dt><dd>This is a planned option. Promotion has not been tested for it.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for controller-default-reviewed">
-          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup route</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/coredns/coredns/1.45.2/CATALOG.html">catalog</a> · <a href="../../data/useful-base-realization-wave/wave2-selection.csv">receipt</a> · <a href="https://coredns.github.io/helm" rel="noopener">source repo</a></p>
       </article></div>

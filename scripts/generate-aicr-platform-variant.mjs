@@ -433,6 +433,12 @@ function verifyResult(result) {
 function renderSummary(results) {
   const accepted = results.find((result) => result.receipt.status.result === "pass");
   const refused = results.find((result) => result.receipt.status.result === "refused");
+  const acceptedChange = accepted.receipt.spec.proposal.changes[0];
+  const refusedExtra = refused.receipt.spec.proposal.changes.find(
+    (change) => change.field !== refused.receipt.spec.checks.fieldLevel.allowedField,
+  );
+  check(acceptedChange, "accepted AICR platform variant has no recorded change");
+  check(refusedExtra, "refused AICR platform variant has no extra field to explain");
   return `# AICR platform variant parity
 
 An AI can suggest a platform change. This gate decides whether the suggestion
@@ -448,6 +454,11 @@ The refused example asks for the same StorageClass change but also moves the
 Application to another namespace. The extra edit looks valid as YAML, but it was
 not requested and is outside the selected control point, so no candidate file is
 written.
+
+| Decision | Field | Before | Proposed | Result |
+| --- | --- | --- | --- | --- |
+| Requested StorageClass change | \`${acceptedChange.field}\` | \`${acceptedChange.before}\` | \`${acceptedChange.after}\` | accepted |
+| Extra namespace edit | \`${refusedExtra.field}\` | \`${refusedExtra.before}\` | \`${refusedExtra.after}\` | refused |
 
 | Request | Result | Object identities | Declared reach | Exact fields |
 | --- | --- | --- | --- | --- |

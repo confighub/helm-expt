@@ -41,7 +41,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Check your configuration", "Here is the chart and values my AI produced", "chart configurations we have already tested and documented", "Use this page for your own chart, values, new version, or unexpected result", "Your files stay in this browser", "Do not upload private files", "Keep secrets out of the form", "Download one complete result for your own AI or CI", "question-context", "See the complete example", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "1. Check a chart and values", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build my prompt", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Keep or share the reviewed result", "Compare with the Catalog", "Download complete result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "Keep this reviewed result in ConfigHub", "Candidate file hash", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Questions People Are Asking", "40 recent public Helm discussions", "not customer or site usage totals", "What Happens to a Public Question", "within two business days", "Within seven days", "What happens next", "The review finds a placeholder credential", "Find a configuration that uses an existing Secret", "blocking ConfigHub apply gate", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
+    terms: ["Check your configuration", "Here is the chart and values my AI produced", "chart configurations we have already tested and documented", "Use this page for your own chart, values, new version, or unexpected result", "Your files stay in this browser", "Do not upload private files", "Keep secrets out of the form", "Download one complete result for your own AI or CI", "question-context", "See an illustrative object review", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "1. Check a chart and values", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build instructions for my AI", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Keep or share the reviewed result", "Find matching Catalog records", "Download complete result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "See how to keep this in ConfigHub", "Candidate file hash", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Questions People Are Asking", "40 recent public Helm discussions", "not customer or site usage totals", "What Happens to a Public Question", "within two business days", "Within seven days", "What happens next", "The review finds a placeholder credential", "Find a configuration that uses an existing Secret", "blocking ConfigHub apply gate", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -57,7 +57,7 @@ const checks = [
   },
   {
     file: "site/does-cluster-match-approved-config.html",
-    terms: ["Does the cluster match what we approved?", "Needs a ConfigHub account and a Kubernetes cluster", "found the replica change", "missed the environment-variable change", "What each path can tell you", "Local files or OCI", "kubectl apply", "Argo CD or Flux", "ConfigHub plus Argo CD or Flux", "Ordinary kubectl apply does not delete", "pruning is enabled and tested", "Workload readiness", "live drift receipt", "Start this check"],
+    terms: ["Does the cluster match what we approved?", "Needs a ConfigHub account and a Kubernetes cluster", "found the replica change", "missed the environment-variable change", "What each path can tell you", "Local files or OCI", "kubectl apply", "Argo CD or Flux", "ConfigHub plus Argo CD or Flux", "Ordinary kubectl apply does not delete", "pruning is enabled and tested", "Workload readiness", "live drift receipt", "Read the current limitation"],
   },
   {
     file: "site/challenge.html",
@@ -250,7 +250,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/ask.html",
-    headerTerms: ["Check your configuration", "chart and values my AI produced", "Catalog", "tested and documented", "Use this page for your own chart", "starts with rendered Kubernetes YAML", "Render a chart or pull an OCI package on your machine", "Your files stay in this browser", "Download one complete result", "Keep it locally", "retain it in ConfigHub", "Start with my chart and values", "See the complete example", "I have rendered YAML"],
+    headerTerms: ["Check your configuration", "chart and values my AI produced", "Catalog", "tested and documented", "Use this page for your own chart", "starts with rendered Kubernetes YAML", "Render a chart or pull an OCI package on your machine", "Your files stay in this browser", "Download one complete result", "Keep it locally", "retain it in ConfigHub", "Start with my chart and values", "See an illustrative object review", "I have rendered YAML"],
   },
   {
     file: "site/try.html",
@@ -682,8 +682,8 @@ if (!fs.existsSync(promotePath)) {
 } else {
   const promote = fs.readFileSync(promotePath, "utf8");
   for (const phrase of [
-    "Test a change before it moves",
-    "1. The review",
+    "Review a change before it moves",
+    "1. Promotion review",
     "2. What are you changing?",
     "loads automatically",
     "immutable StatefulSet field fails at apply time",
@@ -695,6 +695,9 @@ if (!fs.existsSync(promotePath)) {
     "chart's 13 Kubernetes objects",
     "adds the explicit Namespace as the fourteenth deployable object",
     "Keep and run the promotion in ConfigHub",
+    "Build a promotion review",
+    "Roll back the selected release",
+    "For a fleet rollout",
   ]) {
     if (!promote.includes(phrase)) failures.push(`site/promote.html: missing user-facing promotion step ${JSON.stringify(phrase)}`);
   }
