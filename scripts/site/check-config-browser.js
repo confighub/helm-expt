@@ -67,6 +67,8 @@
   let latestReviewJson = "";
   let latestCandidate = "";
   let latestReviewDigest = "";
+  let latestWorkshopResultJson = "";
+  let latestWorkshopResultDigest = "";
 
   function selectedQuestion() {
     return questions[byId("question-type").value];
@@ -458,13 +460,57 @@
     latestReviewJson = JSON.stringify(latestReview, null, 2) + "\n";
     latestReviewDigest = await sha256(latestReviewJson);
     latestCandidate = candidateText;
+    const sourceRecordText = byId("check-source-record").value.trim();
+    const resultFiles = [
+      { path: "candidate.yaml", mediaType: "application/yaml", sha256: candidateDigest, content: candidateText },
+      { path: "workshop-review.json", mediaType: "application/json", sha256: latestReviewDigest, content: latestReviewJson },
+    ];
+    if (comparisonText) resultFiles.splice(1, 0, {
+      path: "comparison.yaml",
+      mediaType: "application/yaml",
+      sha256: comparisonDigest,
+      content: comparisonText,
+    });
+    if (sourceRecordText) resultFiles.splice(resultFiles.length - 1, 0, {
+      path: "source-and-intent.yaml",
+      mediaType: "application/yaml",
+      sha256: await sha256(sourceRecordText),
+      content: sourceRecordText,
+    });
+    const workshopResult = {
+      apiVersion: "workshop.confighub.com/v1alpha1",
+      kind: "WorkshopResult",
+      metadata: { id: "result-" + candidateDigest.slice(7, 19), createdAt: now },
+      spec: {
+        question: latestReview.spec.question,
+        source: latestReview.spec.source,
+        files: resultFiles,
+        checks: {
+          completed: [
+            "Kubernetes object inventory",
+            "selected static manifest checks",
+            ...(comparisonText ? ["semantic comparison with the supplied object set"] : []),
+            ...(sourceRecordText ? ["Catalog lifecycle indexing from the supplied source and intent record"] : []),
+          ],
+          notRun: latestReview.spec.checks.notChecked,
+        },
+        next: {
+          local: "Keep this file, extract its exact files for your own AI or CI, or publish the reviewed candidate as OCI with local tools.",
+          managed: "Retain candidate.yaml and workshop-review.json in ConfigHub when a team needs shared history, variants, promotion, release OCI, or live comparison.",
+        },
+      },
+    };
+    latestWorkshopResultJson = JSON.stringify(workshopResult, null, 2) + "\n";
+    latestWorkshopResultDigest = await sha256(latestWorkshopResultJson);
     byId("browser-check-summary").innerHTML =
-      "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; <code>" + escapeHtml(candidateDigest) + "</code></p>" +
+      "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; <code style=\"overflow-wrap:anywhere;word-break:break-all\">" + escapeHtml(candidateDigest) + "</code></p>" +
       comparisonSummary(comparison) +
       "<h3>Findings to review</h3>" + findingList(findings) +
       "<p><strong>Not checked:</strong> Helm rendering, schema and admission behavior, lifecycle execution, live health, and external effects.</p>";
     renderList("check-lifecycle-work", lifecycleLines(lifecycle));
     byId("review-record-output").value = latestReviewJson;
+    byId("workshop-result-output").value = latestWorkshopResultJson;
+    byId("workshop-result-digest").textContent = latestWorkshopResultDigest;
     byId("handoff-candidate-digest").textContent = candidateDigest;
     byId("review-result").hidden = false;
     try {
@@ -525,9 +571,10 @@
       "The current directory contains:",
       "- candidate.yaml: the exact Kubernetes objects I accepted",
       "- workshop-review.json: the browser review record",
+      "- workshop-result.json, when present: the complete browser-local bundle containing those files and their hashes",
       "",
       "Do this:",
-      "1. Read both files through the workspace you already have open. Treat them as private unless workshop-review.json explicitly says the source is public. Do not disclose them through another service or a public issue.",
+      "1. Read candidate.yaml and workshop-review.json through the workspace you already have open. If only workshop-result.json is present, extract those exact file contents from spec.files first and verify their recorded hashes. Treat them as private unless workshop-review.json explicitly says the source is public. Do not disclose them through another service or a public issue.",
       "2. Calculate the SHA-256 of candidate.yaml and confirm that it matches spec.candidate.sha256 in workshop-review.json. The expected SHA-256 of workshop-review.json is " + latestReviewDigest + ". Stop if either digest differs.",
       "3. Summarize the recorded findings and the checks listed under spec.checks.notChecked. Do not describe an omitted check as passed.",
       "4. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
@@ -623,6 +670,7 @@
   byId("check-source-record-file").addEventListener("change", () => loadFile(byId("check-source-record-file"), "check-source-record", ""));
   byId("run-browser-check").addEventListener("click", runBrowserCheck);
   byId("component-slug").addEventListener("input", buildHandoffCommands);
+  byId("download-workshop-result").addEventListener("click", () => latestWorkshopResultJson && download("workshop-result.json", latestWorkshopResultJson, "application/json"));
   byId("download-review").addEventListener("click", () => latestReviewJson && download("workshop-review.json", latestReviewJson, "application/json"));
   byId("download-candidate").addEventListener("click", () => latestCandidate && download("candidate.yaml", latestCandidate, "application/yaml"));
   byId("copy-handoff").addEventListener("click", () => copyText(byId("handoff-command").value, "handoff-copy-status"));

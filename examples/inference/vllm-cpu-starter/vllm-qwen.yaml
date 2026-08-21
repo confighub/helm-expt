@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-qwen
+  namespace: inference
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm-qwen
+  template:
+    metadata:
+      labels:
+        app: vllm-qwen
+    spec:
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde
+          args:
+            - Qwen/Qwen2.5-0.5B-Instruct
+            - --revision
+            - 7ae557604adf67be50417f59c2c2f167def9a775
+            - --dtype=float32
+            - --max-model-len=512
+            - --max-num-seqs=4
+            - --served-model-name=Qwen/Qwen2.5-0.5B-Instruct
+            - --enforce-eager
+            - --gpu-memory-utilization=0.2
+          ports:
+            - containerPort: 8000
+              name: http
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              memory: 10Gi
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+            failureThreshold: 120
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 30
+          volumeMounts:
+            - name: cache
+              mountPath: /root/.cache/huggingface
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: cache
+          emptyDir: {}
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-qwen
+  namespace: inference
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
+spec:
+  selector:
+    app: vllm-qwen
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http

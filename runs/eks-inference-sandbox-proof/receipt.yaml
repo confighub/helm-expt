@@ -1,0 +1,641 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "EksInferenceSandboxProofReceipt"
+metadata:
+  name: "eks-inference-workshop-proof"
+spec:
+  recordedAt: "2026-08-20T19:26:07.326Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  tools:
+    cubClient: "v0.2.15"
+    confighubServer: "v0.2.25"
+    eksInferencePlugin: "0.12.0"
+    eksInferenceCommit: "f6a1689c2fe231d1bc2262d9916aa69a774882b4"
+  sandbox:
+    name: "workshop-proof"
+    components:
+      -
+        component: "platform-profile"
+        plane: "confighub"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/platform-profile"
+          digest: "sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd"
+          receipt: "data/certified-bundles/receipts/eks-inference/platform-profile/receipt.yaml"
+        base:
+          space: "platform-profile-base"
+          spaceId: "547bf34a-1048-46b5-9982-7830cd69b0b3"
+          unitCount: 1
+          unitHashes:
+            -
+              slug: "profile"
+              dataHash: "32e9e48bb8f485039a06857c541b90d35fb8e5a29a733d9a56f342b537dd87aa"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "platform-profile-workshop-proof"
+          spaceId: "a6f79410-7c82-4a9b-b6ee-6efb97b904e0"
+          upstreamSpaceId: "547bf34a-1048-46b5-9982-7830cd69b0b3"
+          unitCount: 1
+          unitHashes:
+            -
+              slug: "profile"
+              dataHash: "32e9e48bb8f485039a06857c541b90d35fb8e5a29a733d9a56f342b537dd87aa"
+              headRevision: 2
+              upstreamUnitId: "1c9df551-dc84-4ad6-92d1-4debccc32a80"
+              upstreamRevision: 2
+          upgradeLinkCount: 1
+          upgradeLinksCurrent: true
+          profileLinkCount: 0
+          profilePathCount: 0
+          placeholderHits: 0
+        release: null
+      -
+        component: "ack-controllers"
+        plane: "management"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/ack-controllers"
+          digest: "sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566"
+          receipt: "data/certified-bundles/receipts/eks-inference/ack-controllers/receipt.yaml"
+        base:
+          space: "ack-controllers-base"
+          spaceId: "ce0ca370-21e1-4994-90c0-397ff2d2f57f"
+          unitCount: 7
+          unitHashes:
+            -
+              slug: "ec2-controller"
+              dataHash: "e7cd91a691ed8b23ac8c3a23758002bff8d66a1fb6259cb8a534cc9277e5ba47"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "ec2-crds"
+              dataHash: "29e0934318c7bd72be234fe8fad10edb1fa6457beb747aa67c258fe1ddd33fe5"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "eks-controller"
+              dataHash: "7c0df82226a0955cd8f6f560c7b8656ec7758eea2548f85583616b27a20089f1"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "eks-crds"
+              dataHash: "ba322be4c18c5f10dbb082e074944ac9887f6a98feafed7cd0e0d42575940a60"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "iam-controller"
+              dataHash: "fc09fc935fdd71bfacded3fb52c08674d61242cad2770f0a58a1a7b4f2d4ad1c"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "iam-crds"
+              dataHash: "5e405d49ea98b6a8601d8a4fd9d062a61e2f0354d7a5edf2fd0a812199605b6d"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "namespace"
+              dataHash: "591a357a664d210e1e20c6467347fe16d5e0ff4a37487f6f90381059f7f47451"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "ack-controllers-workshop-proof"
+          spaceId: "3f4aa8dd-a036-4f80-b1d3-387b51708c42"
+          upstreamSpaceId: "ce0ca370-21e1-4994-90c0-397ff2d2f57f"
+          unitCount: 7
+          unitHashes:
+            -
+              slug: "ec2-controller"
+              dataHash: "dff315c07b820d57711e5859f33e82ba472ff1222de92ddaf6cb222e6799a01d"
+              headRevision: 3
+              upstreamUnitId: "f22d769c-73d5-4f1e-97f4-fccfd76c2303"
+              upstreamRevision: 2
+            -
+              slug: "ec2-crds"
+              dataHash: "11b85d33617bc0e35ec27b9fe5434ef5eb041057408bb68748cecb65ad2861e0"
+              headRevision: 3
+              upstreamUnitId: "832a6672-9692-4b4e-ba15-01604710e124"
+              upstreamRevision: 2
+            -
+              slug: "eks-controller"
+              dataHash: "2ae9c86ae1ea15b1197defe63f783912204618cacd65667984dc46b1185baf2e"
+              headRevision: 3
+              upstreamUnitId: "6e371622-4b2f-4a7b-89bd-0e9fb9253509"
+              upstreamRevision: 2
+            -
+              slug: "eks-crds"
+              dataHash: "447e3807c4c0082ed0326b100b7c44667fcb11409c8035418b2a6e04759f12d4"
+              headRevision: 3
+              upstreamUnitId: "d7195c67-cfc4-434c-8378-6514afe8d8b8"
+              upstreamRevision: 2
+            -
+              slug: "iam-controller"
+              dataHash: "d10fa19c543ead70acf01273fd27a4c38746b60e95ab67a6ad7696f117c656d2"
+              headRevision: 3
+              upstreamUnitId: "138e39d3-22a1-418e-b74f-d3630b4587e5"
+              upstreamRevision: 2
+            -
+              slug: "iam-crds"
+              dataHash: "4e91d7925508e91be621bb0f5c2f21bc4e75f0fc74bfb28c0b88f6b5cb92a66b"
+              headRevision: 3
+              upstreamUnitId: "c394c6b4-990c-4c73-ae53-ddff6d0b645c"
+              upstreamRevision: 2
+            -
+              slug: "namespace"
+              dataHash: "591a357a664d210e1e20c6467347fe16d5e0ff4a37487f6f90381059f7f47451"
+              headRevision: 2
+              upstreamUnitId: "ba74f576-7a2e-445c-b21c-c52bad930313"
+              upstreamRevision: 2
+          upgradeLinkCount: 7
+          upgradeLinksCurrent: true
+          profileLinkCount: 3
+          profilePathCount: 3
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:c43344326e1e3e3cf0610470b98a4893826d502050bcaa428f1129aa4b8dbbf1"
+          manifestDigest: "sha256:4eb493c0f19645d152b948f3ae530fa934bfd6914080b96b0f5b7b033b1a3db4"
+          unitCount: 7
+          published: true
+          createdAt: "2026-08-20T19:13:50.821739Z"
+      -
+        component: "aws-network"
+        plane: "management"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/aws-network"
+          digest: "sha256:b71b990fe90bbe8fc32855d2eeae379711f826247851a6c1450cd32fbcc2f903"
+          receipt: "data/certified-bundles/receipts/eks-inference/aws-network/receipt.yaml"
+        base:
+          space: "aws-network-base"
+          spaceId: "246b88a3-6cda-4ad6-bac0-655abe56846a"
+          unitCount: 2
+          unitHashes:
+            -
+              slug: "00-namespace"
+              dataHash: "93180f0d77b7f74d561e6fd4a35ea2a8cead21d8d10e748ae5f8d473a3322c7b"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "network"
+              dataHash: "de106fc55e58daf00012fc28df8a88bee54c3460ea5a6ea6d66b51a4969a8294"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "aws-network-workshop-proof"
+          spaceId: "3c98f631-90e6-4292-9682-e3f62d265e4d"
+          upstreamSpaceId: "246b88a3-6cda-4ad6-bac0-655abe56846a"
+          unitCount: 2
+          unitHashes:
+            -
+              slug: "00-namespace"
+              dataHash: "93180f0d77b7f74d561e6fd4a35ea2a8cead21d8d10e748ae5f8d473a3322c7b"
+              headRevision: 2
+              upstreamUnitId: "e1ad16d7-2549-423f-8419-20e16845c6fb"
+              upstreamRevision: 2
+            -
+              slug: "network"
+              dataHash: "f1e33737aca170edf37f9673bcac904df380c0f739bfa0affb65d588e793f740"
+              headRevision: 4
+              upstreamUnitId: "3f83556e-72f7-4ce9-97ee-fc649eddc49a"
+              upstreamRevision: 2
+          upgradeLinkCount: 2
+          upgradeLinksCurrent: true
+          profileLinkCount: 1
+          profilePathCount: 14
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:1a493e58f886ebfb91b9e02c8196a0f629a2915bb7b277040449618d5678df9a"
+          manifestDigest: "sha256:98f993b08e5afd01c27d00aca4da9e7da91a148b44012000d183c48658ebb45b"
+          unitCount: 2
+          published: true
+          createdAt: "2026-08-20T19:13:51.757297Z"
+      -
+        component: "eks-cluster"
+        plane: "management"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/eks-cluster"
+          digest: "sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f"
+          receipt: "data/certified-bundles/receipts/eks-inference/eks-cluster/receipt.yaml"
+        base:
+          space: "eks-cluster-base"
+          spaceId: "b1338356-0d4e-4003-b2f7-10f80f3f9a33"
+          unitCount: 4
+          unitHashes:
+            -
+              slug: "addons"
+              dataHash: "771b9531739e8a9aed7bd363b9a0961e25db81eeb32a2b081090ddbb2b2f3f3e"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "cluster"
+              dataHash: "75027449c2d7892cef2d8563fcb6a9a7729695551a90960395b13bbe715d84f6"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "iam-roles"
+              dataHash: "37025425c3cff4f0932e89695a509cd09e020f2ba1feb5847527ba33aabbdc58"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "nodegroup"
+              dataHash: "092ac625810de400f096b93d73a41f7aa9987c3d71df07eab0ecbb79e3ff6dc3"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "eks-cluster-workshop-proof"
+          spaceId: "85f6e5d6-878d-4488-9463-c6c6119b949e"
+          upstreamSpaceId: "b1338356-0d4e-4003-b2f7-10f80f3f9a33"
+          unitCount: 4
+          unitHashes:
+            -
+              slug: "addons"
+              dataHash: "771b9531739e8a9aed7bd363b9a0961e25db81eeb32a2b081090ddbb2b2f3f3e"
+              headRevision: 2
+              upstreamUnitId: "0786c5b6-82ac-4095-9723-4c77935ab22e"
+              upstreamRevision: 2
+            -
+              slug: "cluster"
+              dataHash: "75027449c2d7892cef2d8563fcb6a9a7729695551a90960395b13bbe715d84f6"
+              headRevision: 2
+              upstreamUnitId: "8e79f992-9d13-4ea9-bac5-39e98ed7bfa2"
+              upstreamRevision: 2
+            -
+              slug: "iam-roles"
+              dataHash: "37025425c3cff4f0932e89695a509cd09e020f2ba1feb5847527ba33aabbdc58"
+              headRevision: 2
+              upstreamUnitId: "26b398b9-2408-49b0-b3e0-e0e240af83de"
+              upstreamRevision: 2
+            -
+              slug: "nodegroup"
+              dataHash: "092ac625810de400f096b93d73a41f7aa9987c3d71df07eab0ecbb79e3ff6dc3"
+              headRevision: 2
+              upstreamUnitId: "d9612dfd-3dc9-4671-bd02-472e93e59d7f"
+              upstreamRevision: 2
+          upgradeLinkCount: 4
+          upgradeLinksCurrent: true
+          profileLinkCount: 2
+          profilePathCount: 2
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:f78e8e9b6a80a8dcd3d8363d3509bd90450affe457ad2189dc24b5c1f7497750"
+          manifestDigest: "sha256:a2885eecfa89062dc81aa50e9abbcad9df4752ff1c7d9f4ee6f7b7e4280a259e"
+          unitCount: 4
+          published: true
+          createdAt: "2026-08-20T19:13:52.538444Z"
+      -
+        component: "karpenter-aws"
+        plane: "management"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/karpenter-aws"
+          digest: "sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194"
+          receipt: "data/certified-bundles/receipts/eks-inference/karpenter-aws/receipt.yaml"
+        base:
+          space: "karpenter-aws-base"
+          spaceId: "04fcea2e-59c6-40db-a4e1-40c05a8c651e"
+          unitCount: 1
+          unitHashes:
+            -
+              slug: "controller-identity"
+              dataHash: "28071cc814813f716c0b5dd0ad7e57a98214a0b6b7d5d85e6b2871de26662f29"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "karpenter-aws-workshop-proof"
+          spaceId: "ca7c4c26-abad-4151-bae3-c2fca05f67a8"
+          upstreamSpaceId: "04fcea2e-59c6-40db-a4e1-40c05a8c651e"
+          unitCount: 1
+          unitHashes:
+            -
+              slug: "controller-identity"
+              dataHash: "28071cc814813f716c0b5dd0ad7e57a98214a0b6b7d5d85e6b2871de26662f29"
+              headRevision: 2
+              upstreamUnitId: "8e1f519e-b13f-4287-969d-dcc177865e9f"
+              upstreamRevision: 2
+          upgradeLinkCount: 1
+          upgradeLinksCurrent: true
+          profileLinkCount: 0
+          profilePathCount: 0
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:e9eafcf0439a6d0f9c703fb19bbadcd97b3f9c7a345b8c590baa9ab05b10483d"
+          manifestDigest: "sha256:9b0935642dca7a733960da575c9c35ccb51b23043dc77ec2ac6707d2b3856faa"
+          unitCount: 1
+          published: true
+          createdAt: "2026-08-20T19:13:53.358474Z"
+      -
+        component: "karpenter"
+        plane: "workload"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/karpenter"
+          digest: "sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e"
+          receipt: "data/certified-bundles/receipts/eks-inference/karpenter/receipt.yaml"
+        base:
+          space: "karpenter-base"
+          spaceId: "5b0b0fbf-0a59-447a-8437-59de40620281"
+          unitCount: 4
+          unitHashes:
+            -
+              slug: "karpenter-controller"
+              dataHash: "70ce05a4bebc3d7975a91ad567b8d56085515b17d24ebc5579ecda85a4cec9be"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "karpenter-crds"
+              dataHash: "e7d778172ac7683bbb6501fcf98c0af5779d8ffe41d705a0600314c224ac0d68"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "nodeclasses"
+              dataHash: "372d818fa0ade84faafc32b4680a983738e83a8fec677d4e606f91998d07ed52"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "nodepools"
+              dataHash: "55acf9a66f3628bc3ded65daf1144f43886ea0afba4a65cdc85528b4ec196dd6"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "karpenter-workshop-proof"
+          spaceId: "e8da3cd5-1f57-464b-98ba-649d0dc698f5"
+          upstreamSpaceId: "5b0b0fbf-0a59-447a-8437-59de40620281"
+          unitCount: 4
+          unitHashes:
+            -
+              slug: "karpenter-controller"
+              dataHash: "adc9ec3dbc225b086f7ae9e831631fefe6894b9e4669f484aca496f5ba40d589"
+              headRevision: 3
+              upstreamUnitId: "ac6ab541-1910-45e9-8a37-01ecd3fd57c1"
+              upstreamRevision: 2
+            -
+              slug: "karpenter-crds"
+              dataHash: "e85a6b91c058d0ae9d37d36d1840058c1eea80f792fc8c2883cad5255279ea6b"
+              headRevision: 3
+              upstreamUnitId: "8bb2fd17-913a-44e9-ac41-177ae55f969a"
+              upstreamRevision: 2
+            -
+              slug: "nodeclasses"
+              dataHash: "372d818fa0ade84faafc32b4680a983738e83a8fec677d4e606f91998d07ed52"
+              headRevision: 2
+              upstreamUnitId: "ae099880-6cc6-4405-b872-fc9ab5a9c418"
+              upstreamRevision: 2
+            -
+              slug: "nodepools"
+              dataHash: "55acf9a66f3628bc3ded65daf1144f43886ea0afba4a65cdc85528b4ec196dd6"
+              headRevision: 2
+              upstreamUnitId: "3c10e085-a509-4cfa-8c84-eed76b9fca08"
+              upstreamRevision: 2
+          upgradeLinkCount: 4
+          upgradeLinksCurrent: true
+          profileLinkCount: 2
+          profilePathCount: 8
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:39618ae6d942c5ad596d118000cee44239168f82121ec09eeabd73bda1fa4f70"
+          manifestDigest: "sha256:dda652ea53c443d0c81137a1696e22429e145fa89e15610307263f16fea3c937"
+          unitCount: 4
+          published: true
+          createdAt: "2026-08-20T19:14:21.169961Z"
+      -
+        component: "gpu-runtime"
+        plane: "workload"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime"
+          digest: "sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16"
+          receipt: "data/certified-bundles/receipts/eks-inference/gpu-runtime/receipt.yaml"
+        base:
+          space: "gpu-runtime-base"
+          spaceId: "1514c422-c0c8-4b7a-9cfb-049649f4eb6c"
+          unitCount: 2
+          unitHashes:
+            -
+              slug: "00-namespace"
+              dataHash: "0ce8f4c430086767e0565ec4de7af2dec43ae4ebb9e91b167148b8a4a257eaa2"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "nvidia-device-plugin-controller"
+              dataHash: "eba5bdb79e0feb6e162ec7f935aa51c9c59d7eceabb69ee2c62df89698560404"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "gpu-runtime-workshop-proof"
+          spaceId: "b52b1cdb-06c7-4635-bcad-636790650ff1"
+          upstreamSpaceId: "1514c422-c0c8-4b7a-9cfb-049649f4eb6c"
+          unitCount: 2
+          unitHashes:
+            -
+              slug: "00-namespace"
+              dataHash: "0ce8f4c430086767e0565ec4de7af2dec43ae4ebb9e91b167148b8a4a257eaa2"
+              headRevision: 2
+              upstreamUnitId: "fa4415a7-3395-4b12-bd4c-4eae6efac1e2"
+              upstreamRevision: 2
+            -
+              slug: "nvidia-device-plugin-controller"
+              dataHash: "1dcd3f7f854f329c57d6af03634135c533cc2bd6ebb968ff32e934231c69e492"
+              headRevision: 3
+              upstreamUnitId: "2ace7da3-f50c-4cc4-bb33-5d1916ab903a"
+              upstreamRevision: 2
+          upgradeLinkCount: 2
+          upgradeLinksCurrent: true
+          profileLinkCount: 0
+          profilePathCount: 0
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:2d9ddc3dc4b78070fd5740a252909213ee42b1fd2c32dc9f93b6fccfc2d700c1"
+          manifestDigest: "sha256:6a9c19f28e890fddc3bb5bbe97e7b4df3131f9caa2bf8b705db60984d36fa2e1"
+          unitCount: 2
+          published: true
+          createdAt: "2026-08-20T19:14:22.002389Z"
+      -
+        component: "inference-workloads"
+        plane: "workload"
+        source:
+          ref: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads"
+          digest: "sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+          receipt: "data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml"
+        base:
+          space: "inference-workloads-base"
+          spaceId: "0b1d5560-486f-450d-bb25-1d8e97a380bf"
+          unitCount: 5
+          unitHashes:
+            -
+              slug: "00-namespace"
+              dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "chat"
+              dataHash: "0091afffea7c5d8b0947730248d1404b9cc68156e0954dbb1997226ae65c2b7e"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "smoke-cpu"
+              dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "smoke-gpu"
+              dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+            -
+              slug: "vllm-qwen"
+              dataHash: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+              headRevision: 2
+              upstreamUnitId: null
+              upstreamRevision: null
+        variant:
+          space: "inference-workloads-workshop-proof"
+          spaceId: "9d933d74-4791-42c2-8478-2aa49785821a"
+          upstreamSpaceId: "0b1d5560-486f-450d-bb25-1d8e97a380bf"
+          unitCount: 5
+          unitHashes:
+            -
+              slug: "00-namespace"
+              dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+              headRevision: 2
+              upstreamUnitId: "b665fce0-a2a0-43a1-b5a4-2095cdae6356"
+              upstreamRevision: 2
+            -
+              slug: "chat"
+              dataHash: "354ec4f376bb8a7e4e625a8cb4e8abcdc3429158c770ed65752234d846d99608"
+              headRevision: 3
+              upstreamUnitId: "d1c64c57-32cd-40c7-a6f3-71fb1134e768"
+              upstreamRevision: 2
+            -
+              slug: "smoke-cpu"
+              dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+              headRevision: 2
+              upstreamUnitId: "1f39439b-d0d2-4946-80cf-a1ef18bf8373"
+              upstreamRevision: 2
+            -
+              slug: "smoke-gpu"
+              dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+              headRevision: 2
+              upstreamUnitId: "18a2ef24-fb67-4901-b5f1-b46019665350"
+              upstreamRevision: 2
+            -
+              slug: "vllm-qwen"
+              dataHash: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+              headRevision: 2
+              upstreamUnitId: "c949c863-f55f-4858-8084-3ba3109354b8"
+              upstreamRevision: 2
+          upgradeLinkCount: 5
+          upgradeLinksCurrent: true
+          profileLinkCount: 0
+          profilePathCount: 0
+          placeholderHits: 0
+        release:
+          number: 1
+          digest: "sha256:c4949592439263837a6d40c7f97d0580f456e96675eb575b77a14b3a6ac7a3f4"
+          manifestDigest: "sha256:500af92a9dba6053ffa22f7c0ad3cfda03cfb1a46fba694ecdb0ac403c8d9a9b"
+          unitCount: 5
+          published: true
+          createdAt: "2026-08-20T19:14:22.74937Z"
+    targets:
+      -
+        plane: "management"
+        space: "workshop-proof-mgmt"
+        spaceId: "18d0528f-3625-4ff6-84d8-5f9c5e3f4ee6"
+        mode: "sandbox"
+        target:
+          slug: "target"
+          providerType: "OCI"
+          toolchainType: "Any"
+          triggerCount: 1
+        gate:
+          slug: "no-placeholders"
+          function: "vet-placeholders"
+          event: "Mutation"
+          validating: true
+          description: "Blocks publishing a Release that still contains an unfilled confighubplaceholder value."
+        argoAppsSpace: "workshop-proof-mgmt-argo-apps"
+        argoApplications:
+          - "ack-controllers-workshop-proof"
+          - "aws-network-workshop-proof"
+          - "eks-cluster-workshop-proof"
+          - "karpenter-aws-workshop-proof"
+      -
+        plane: "workload"
+        space: "workshop-proof-workload"
+        spaceId: "a10b1a7b-8fd2-4f71-b9b6-60b34c213d3c"
+        mode: "sandbox"
+        target:
+          slug: "target"
+          providerType: "OCI"
+          toolchainType: "Any"
+          triggerCount: 1
+        gate:
+          slug: "no-placeholders"
+          function: "vet-placeholders"
+          event: "Mutation"
+          validating: true
+          description: "Blocks publishing a Release that still contains an unfilled confighubplaceholder value."
+        argoAppsSpace: "workshop-proof-workload-argo-apps"
+        argoApplications:
+          - "gpu-runtime-workshop-proof"
+          - "inference-workloads-workshop-proof"
+          - "karpenter-workshop-proof"
+    totals:
+      baseSpaces: 8
+      derivedSpaces: 8
+      publishedReleases: 7
+      profileLinks: 8
+      linkedPaths: 27
+      targetSpaces: 2
+      argoApplicationRecords: 7
+      unresolvedPlaceholders: 0
+  dataBoundary:
+    recorded:
+      - "public Space and Unit identifiers"
+      - "public OCI references and digests"
+      - "Unit data hashes and revision numbers"
+      - "link counts and merged revision numbers"
+      - "target type, gate definition, and Release digests"
+    excluded:
+      - "authentication tokens"
+      - "worker credentials"
+      - "Unit contents"
+      - "cloud credentials"
+  limits:
+    - "This run created and inspected configuration records in ConfigHub; it did not create an AWS account, VPC, EKS cluster, Kubernetes workload, GPU node, or model endpoint."
+    - "The OCI targets published Releases for later consumption. No Argo CD or Flux controller pulled them in this proof."
+    - "The no-placeholders gate was attached and its configuration was inspected. This receipt does not claim a rejected mutation was exercised."
+status:
+  result: "pass"
+  sourceDigests: "pass"
+  derivedVariants: "pass"
+  profileLinks: "pass"
+  placeholderResolution: "pass"
+  releasePublication: "pass"
+  sandboxTargets: "pass"
+  claim: "ConfigHub retained eight exact EKS inference bundle sources, created eight linked sandbox variants, resolved all recorded placeholders, and published seven OCI Releases without creating cloud or Kubernetes infrastructure."

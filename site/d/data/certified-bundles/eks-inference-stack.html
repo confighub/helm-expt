@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EKS inference: eight checked configuration bundles · Config Workshop</title>
+  <meta name="description" content="EKS inference: eight checked configuration bundles: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/certified-bundles/eks-inference-stack.html">
+  <meta property="og:title" content="EKS inference: eight checked configuration bundles · Config Workshop">
+  <meta property="og:description" content="EKS inference: eight checked configuration bundles: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/certified-bundles/eks-inference-stack.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>EKS inference: eight checked configuration bundles</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/certified-bundles/eks-inference-stack.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This example shows how one inference platform is assembled from eight separate configuration bundles. Start here to understand the configuration without creating an EKS cluster or paying for a GPU.</p>
+<p>The packages below were read from GHCR on 2026-08-20T19:03:35Z. Every extracted file matched <a href="https://github.com/confighub/eks-inference/blob/f6a1689c2fe231d1bc2262d9916aa69a774882b4/components.yaml">the producer's committed configuration</a> at commit <a href="https://github.com/confighub/eks-inference/commit/f6a1689c2fe231d1bc2262d9916aa69a774882b4">f6a1689c2fe2</a>.</p>
+<h2 id="what-runs-where">What runs where</h2>
+<table><thead><tr><th>Plane</th><th>Order</th><th>Component</th><th>Purpose</th><th>Source</th><th>Extra handling</th></tr></thead><tbody><tr><td>ConfigHub only</td><td>0</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/platform-profile/receipt.yaml">platform-profile</a></td><td>Shared values used by the other components; stored in ConfigHub and never applied to a cluster.</td><td>Literal YAML</td><td>None recorded</td></tr>
+<tr><td>Management cluster</td><td>0</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/ack-controllers/receipt.yaml">ack-controllers</a></td><td>ACK EC2, IAM, and EKS controllers and their CRDs.</td><td>Helm render</td><td><a href="../../../../data/certified-bundles/routes/eks-inference/ack-controllers/crd-ordering.yaml">crd-ordering</a></td></tr>
+<tr><td>Management cluster</td><td>1</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/aws-network/receipt.yaml">aws-network</a></td><td>VPC, subnets, NAT, route tables, and security group.</td><td>Literal YAML</td><td>None recorded</td></tr>
+<tr><td>Management cluster</td><td>2</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/eks-cluster/receipt.yaml">eks-cluster</a></td><td>Cluster and node IAM roles, EKS control plane, addons, and system node group.</td><td>Literal YAML</td><td>None recorded</td></tr>
+<tr><td>Management cluster</td><td>3</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/karpenter-aws/receipt.yaml">karpenter-aws</a></td><td>Karpenter controller IAM role and EKS Pod Identity association.</td><td>Literal YAML</td><td>None recorded</td></tr>
+<tr><td>EKS workload cluster</td><td>0</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/karpenter/receipt.yaml">karpenter</a></td><td>Karpenter CRDs, controller, NodePools, and EC2NodeClasses.</td><td>Helm render</td><td><a href="../../../../data/certified-bundles/routes/eks-inference/karpenter/crd-ordering.yaml">crd-ordering</a></td></tr>
+<tr><td>EKS workload cluster</td><td>1</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/gpu-runtime/receipt.yaml">gpu-runtime</a></td><td>NVIDIA device plugin, so GPU nodes advertise their hardware.</td><td>Helm render</td><td>None recorded</td></tr>
+<tr><td>EKS workload cluster</td><td>2</td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml">inference-workloads</a></td><td>CPU and GPU checks, a chat client, and the sample vLLM deployment.</td><td>Literal YAML</td><td>None recorded</td></tr></tbody></table>
+<p>The <code>platform-profile</code> is shared data, not a deployable workload. The management cluster runs ACK and creates the AWS network, EKS cluster, and Karpenter identity. Only after EKS is active does the workload cluster run Karpenter, the GPU plugin, and the inference workloads. Ordering inside one bundle does not order these separate planes; the <code>cub eksinf</code> workflow waits between them.</p>
+<h2 id="inspect-the-configuration-first">Inspect the configuration first</h2>
+<p>The receipts, routes, and public OCI packages can be inspected without a ConfigHub account. For example:</p>
+<pre><code>oras pull ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2</code></pre>
+<h2 id="build-the-configuration-in-confighub">Build the configuration in ConfigHub</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>cub plugin install confighub/eks-inference
+cub eksinf install
+cub eksinf sandbox up</code></pre>
+<p>This path requires a ConfigHub account, but no AWS account, Docker, Kubernetes cluster, or GPU. It creates the component bases and sandbox variants, links their shared values, runs the ConfigHub checks, and publishes releases. No controller consumes those releases, so it proves the configuration path rather than a deployment.</p>
+<p>Config Workshop independently checked this sandbox on 2026-08-20T19:26:07.326Z. The live ConfigHub organization held all eight source digests, eight linked variants, 27 configured destination fields, two OCI sandbox targets, and seven published Releases. <a href="../eks-inference-sandbox-proof/summary.html">Read the proof</a>.</p>
+<p>That proof stops at published OCI. It does not claim that Argo CD or Flux pulled a Release, AWS resources were created, a GPU became ready, or a model answered a request.</p>
+<h2 id="change-promote-and-deliver-one-configuration">Change, promote, and deliver one configuration</h2>
+<p>A separate live test changed only <code>apps/v1 Deployment inference/chat spec.replicas</code> from 1 to 2. ConfigHub retained that change in dev, promoted the same five Unit hashes to staging, published the result as OCI, and Argo CD pulled the exact Release manifest digest. Kubernetes then reported 2/2 chat replicas available. <a href="../eks-inference-promotion-delivery-proof/summary.html">Read the promotion and delivery proof</a>.</p>
+<p>The GPU check and vLLM configuration remained at zero replicas. This proves one small configuration promotion and Argo delivery on a local cluster, not AWS provisioning, GPU readiness, or a model response.</p>
+<h2 id="run-one-model-without-a-gpu">Run one model without a GPU</h2>
+<p>The accessible CPU example changed only <code>chat</code> and <code>vllm-qwen</code> in the checked workload package. ConfigHub published the result, Argo CD pulled Release manifest <code>sha256:9833e6459ffee6317c7c47d3d26efdf02e9690c5c5c046f87c0c8188cda71c96</code>, and Kubernetes ran the digest-pinned vLLM image on arm64. A real request to <code>Qwen/Qwen2.5-0.5B-Instruct</code> returned a non-empty answer. <a href="../vllm-cpu-starter-proof/summary.html">Read the runtime proof</a> or <a href="../../examples/inference/vllm-cpu-starter/README.html">run the example</a>.</p>
+<p>This is a functional check for a small public model on a local CPU target. The AWS, Karpenter, NVIDIA GPU, 7B AWQ, performance, and private-model paths remain separate work.</p>
+<h2 id="exact-packages">Exact packages</h2>
+<table><thead><tr><th>Component</th><th>Exact OCI</th><th>Receipt and guide</th></tr></thead><tbody><tr><td>platform-profile</td><td><code>ghcr.io/confighub/configs/eks-inference/platform-profile@sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/platform-profile/receipt.yaml">receipt</a> · <a href="guides/eks-inference/platform-profile/space-guide.html">Space guide</a></td></tr>
+<tr><td>ack-controllers</td><td><code>ghcr.io/confighub/configs/eks-inference/ack-controllers@sha256:7f318e6448a35ac89cc465e476f9c73dcbde73dc213b7e13746ac01864a67566</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/ack-controllers/receipt.yaml">receipt</a> · <a href="guides/eks-inference/ack-controllers/space-guide.html">Space guide</a></td></tr>
+<tr><td>aws-network</td><td><code>ghcr.io/confighub/configs/eks-inference/aws-network@sha256:b71b990fe90bbe8fc32855d2eeae379711f826247851a6c1450cd32fbcc2f903</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/aws-network/receipt.yaml">receipt</a> · <a href="guides/eks-inference/aws-network/space-guide.html">Space guide</a></td></tr>
+<tr><td>eks-cluster</td><td><code>ghcr.io/confighub/configs/eks-inference/eks-cluster@sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/eks-cluster/receipt.yaml">receipt</a> · <a href="guides/eks-inference/eks-cluster/space-guide.html">Space guide</a></td></tr>
+<tr><td>karpenter-aws</td><td><code>ghcr.io/confighub/configs/eks-inference/karpenter-aws@sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/karpenter-aws/receipt.yaml">receipt</a> · <a href="guides/eks-inference/karpenter-aws/space-guide.html">Space guide</a></td></tr>
+<tr><td>karpenter</td><td><code>ghcr.io/confighub/configs/eks-inference/karpenter@sha256:d182fce8c942d0a40497b1d13ec067e4707c0c31027fc049d256afab01b1814e</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/karpenter/receipt.yaml">receipt</a> · <a href="guides/eks-inference/karpenter/space-guide.html">Space guide</a></td></tr>
+<tr><td>gpu-runtime</td><td><code>ghcr.io/confighub/configs/eks-inference/gpu-runtime@sha256:588aa8431fa26fe41e8bc3eaac1bc156e7be6749577ef484fffcf6e953215e16</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/gpu-runtime/receipt.yaml">receipt</a> · <a href="guides/eks-inference/gpu-runtime/space-guide.html">Space guide</a></td></tr>
+<tr><td>inference-workloads</td><td><code>ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2</code></td><td><a href="../../../../data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml">receipt</a> · <a href="guides/eks-inference/inference-workloads/space-guide.html">Space guide</a></td></tr></tbody></table>
+<h2 id="what-this-evidence-does-not-prove">What this evidence does not prove</h2>
+<p>Matching OCI bytes do not prove that ConfigHub created the sandbox, ACK provisioned AWS, EKS became ready, a GPU node started, or vLLM answered a request. Those are separate lifecycle and runtime results. They need separate receipts from the exact target.</p>
+<p><a href="https://github.com/confighub/eks-inference/tree/f6a1689c2fe231d1bc2262d9916aa69a774882b4">Follow the producer's current walkthrough</a> when you are ready for the real AWS and GPU path.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/certified-bundles/eks-inference-stack.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

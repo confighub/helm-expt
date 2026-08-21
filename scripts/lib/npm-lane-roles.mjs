@@ -18,6 +18,42 @@
 //               keep-outside      needs external state or is too slow
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
+  "c3agent-config:verify": {
+    proves: "The three compact c3agent environment inputs deterministically reproduce their exact Kubernetes objects, source-and-intent records, lifecycle record, environment diff, and portable local OCI; pulling the OCI back yields the recorded development object-set hash and two non-deployable companion records.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; requires the local oras CLI and is run with the focused c3agent example gate",
+  },
+  "c3agent-config:self-test": {
+    proves: "The c3agent generator refuses an unpinned image, an inline credential value, or activation of the public disabled fixture.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; paired with c3agent-config:verify",
+  },
+  "c3agent-config:proof:verify": {
+    proves: "The committed live receipt records a matching source OCI digest, ConfigHub base, development-to-staging-to-production promotion, release OCI, Argo CD sync at that digest, and Kubernetes object reconciliation while both Deployments and the agent task remain not-run.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, Docker, kind, kubectl and oras",
+  },
+  "c3agent-config:proof:self-test": {
+    proves: "The c3agent receipt verifier rejects a false agent-task pass, a false Secret-presence claim, or an Argo revision that differs from the published ConfigHub release digest.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; paired with c3agent-config:proof:verify",
+  },
+  "measured-promotion:verify": {
+    proves: "The committed NGINX run tested three exact object sets against one fixed HTTP check and destination requirement, selected the smallest passing candidate, kept that object hash through ConfigHub staging and production, and delivered the recorded release digest through Argo CD.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, kind and kubectl",
+  },
+  "measured-promotion:self-test": {
+    proves: "The measured promotion verifier rejects a different selected candidate, a production object hash that differs from the winner, or an Argo revision that differs from the release digest.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; paired with measured-promotion:verify",
+  },
   "verify:shard": {
     proves: "One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun.",
     requires: "offline",

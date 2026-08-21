@@ -12,6 +12,7 @@ const catalogPath = join(siteRoot, "catalog.json");
 const llmsPath = join(siteRoot, "llms.txt");
 const askPath = join(siteRoot, "ask.html");
 const checkScriptPath = join(siteRoot, "check-config.js");
+const workshopResultSchemaPath = join(siteRoot, "workshop-result.schema.json");
 const promotePath = join(siteRoot, "promote.html");
 const promoteScriptPath = join(siteRoot, "promote-config.js");
 const promotionSchemaPath = join(siteRoot, "promotion-review.schema.json");
@@ -110,6 +111,7 @@ check(
 const llms = readFileSync(llmsPath, "utf8");
 const ask = readFileSync(askPath, "utf8");
 const checkScript = readFileSync(checkScriptPath, "utf8");
+const workshopResultSchema = readJson(workshopResultSchemaPath);
 const promote = readFileSync(promotePath, "utf8");
 const promoteScript = readFileSync(promoteScriptPath, "utf8");
 const promotionSchema = readJson(promotionSchemaPath);
@@ -118,11 +120,15 @@ const issueTemplate = readFileSync(issueTemplatePath, "utf8");
 for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json", "retention object is computed", "Normal catalog refreshes are additive"]) {
   check(llms.includes(term), `site/llms.txt must explain the machine contract: ${term}`);
 }
-for (const term of ["promotion-review.schema.json", "base-variant-records.json"]) {
+for (const term of ["workshop-result.schema.json", "promotion-review.schema.json", "base-variant-records.json"]) {
   check(llms.includes(term), `site/llms.txt must link the source-aware promotion contract: ${term}`);
 }
-for (const term of ["Choose a question", "WORKSHOP FINDING", "Only completed checks count as evidence", "review.schema.json", "Propose this public case"]) {
+for (const term of ["Choose a question", "WORKSHOP FINDING", "Only completed checks count as evidence", "review.schema.json", "workshop-result.schema.json", "Propose this public case"]) {
   check(ask.includes(term), `site/ask.html must expose the question-first contract: ${term}`);
+}
+check(workshopResultSchema.properties?.kind?.const === "WorkshopResult", "workshop result schema must define WorkshopResult");
+for (const term of ["kind: \"WorkshopResult\"", "download-workshop-result", "workshop-result.json", "notRun"]) {
+  check(checkScript.includes(term), `site/check-config.js must expose the complete browser result: ${term}`);
 }
 for (const term of ["config-diff", "Comparison objects", "Source reference", "Optional comparison: add what you run today"]) {
   check(ask.includes(term), `site/ask.html must expose the local comparison path: ${term}`);

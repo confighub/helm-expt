@@ -1,0 +1,141 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "VllmCpuStarterProofReceipt"
+metadata:
+  name: "eks-inference-vllm-cpu-starter"
+spec:
+  recordedAt: "2026-08-20T20:29:44.099Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  tools:
+    cubClient: "v0.2.15"
+    confighubServer: "v0.2.25"
+    kubernetesContext: "kind-hx-vllm-proof"
+    gitopsController: "Argo CD"
+  source:
+    reference: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads"
+    digest: "sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+    receipt: "data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml"
+  configuration:
+    sourceSpace: "inference-workloads-workshop-proof"
+    variantSpace: "vllm-cpu-proof"
+    sourceSpaceId: "9d933d74-4791-42c2-8478-2aa49785821a"
+    variantSpaceId: "4c486f07-dce9-43f9-9f4d-878d26f2cdf4"
+    upstreamSpaceId: "9d933d74-4791-42c2-8478-2aa49785821a"
+    unitCount: 5
+    changedUnits:
+      - "chat"
+      - "vllm-qwen"
+    sourceUnitHashes:
+      -
+        slug: "00-namespace"
+        dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+      -
+        slug: "chat"
+        dataHash: "354ec4f376bb8a7e4e625a8cb4e8abcdc3429158c770ed65752234d846d99608"
+      -
+        slug: "smoke-cpu"
+        dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+      -
+        slug: "smoke-gpu"
+        dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+      -
+        slug: "vllm-qwen"
+        dataHash: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+    variantUnitHashes:
+      -
+        slug: "00-namespace"
+        dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+      -
+        slug: "chat"
+        dataHash: "d2c9b01d8d3c5aa22aa8144b20fa88f982313b6a9654f5ee7bb3b31e7e276855"
+      -
+        slug: "smoke-cpu"
+        dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+      -
+        slug: "smoke-gpu"
+        dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+      -
+        slug: "vllm-qwen"
+        dataHash: "c93bf4e3dbcd6df7e35d2acfcb2c9795fe75c4d0a0097103155abbe5d428bf7a"
+    checkedFiles:
+      - "examples/inference/vllm-cpu-starter/chat.yaml"
+      - "examples/inference/vllm-cpu-starter/vllm-qwen.yaml"
+      - "examples/inference/vllm-cpu-starter/source-and-intent.yaml"
+    checkedFilesMatchConfigHub: true
+  runtime:
+    image: "vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde"
+    imageDigest: "sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde"
+    observedImageId: "docker.io/vllm/vllm-openai-cpu@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde"
+    architecture: "arm64"
+    model: "Qwen/Qwen2.5-0.5B-Instruct"
+    modelRevision: "7ae557604adf67be50417f59c2c2f167def9a775"
+    device: "cpu"
+  release:
+    space: "vllm-cpu-proof"
+    number: 2
+    digest: "sha256:a6d780d5f7a7869dcadcc2f1d6c60855c07e9c8783f11e55df7aeaf14e1861d1"
+    manifestDigest: "sha256:9833e6459ffee6317c7c47d3d26efdf02e9690c5c5c046f87c0c8188cda71c96"
+    unitCount: 5
+    published: true
+    createdAt: "2026-08-20T20:21:34.399795Z"
+  target:
+    space: "hx-vllm-proof"
+    targetId: "65ac0f14-fb5f-4142-96e5-add3e3b3663b"
+    providerType: "OCI"
+    toolchainType: "Any"
+    argoAppsSpace: "hx-vllm-proof-argo-apps"
+    gate:
+      slug: "no-placeholders"
+      function: "vet-placeholders"
+      validating: true
+  argo:
+    application: "vllm-cpu-proof"
+    repository: "oci://oci.hub.confighub.com:443/space/vllm-cpu-proof"
+    targetRevision: "latest"
+    observedRevision: "sha256:9833e6459ffee6317c7c47d3d26efdf02e9690c5c5c046f87c0c8188cda71c96"
+    sync: "Synced"
+    health: "Healthy"
+    operation: "Succeeded"
+    releaseManifestDigestMatched: true
+  kubernetes:
+    cluster: "hx-vllm-proof"
+    namespace: "inference"
+    nodeCount: 1
+    readyNodeCount: 1
+    vllm:
+      desiredReplicas: 1
+      availableReplicas: 1
+      readyPods: 1
+    client:
+      desiredReplicas: 1
+      availableReplicas: 1
+      readyPods: 1
+  inference:
+    api: "OpenAI-compatible chat completions"
+    prompt: "What is two plus two? Reply with only the number."
+    model: "Qwen/Qwen2.5-0.5B-Instruct"
+    answer: "4"
+    finishReason: "stop"
+    promptTokens: 41
+    completionTokens: 2
+    totalTokens: 43
+  observation:
+    cubScoutBackend: "argocd"
+    cubScoutTransport: "oci"
+    applicationReady: true
+    lastAttemptedRevision: "sha256:9833e6459ffee6317c7c47d3d26efdf02e9690c5c5c046f87c0c8188cda71c96"
+    runtimeFindingCount: 0
+  limits:
+    - "This proof used one local ARM64 kind cluster and Argo CD. It does not prove EKS, Flux, or a multi-cluster rollout."
+    - "This is a functional CPU test of one small public model. It does not prove NVIDIA GPU readiness, the 7B AWQ model, production capacity, latency, response quality, or model accuracy."
+    - "The model and image were public and needed no credentials. This proof does not exercise private model access, Secret delivery, or credential rotation."
+status:
+  result: "pass"
+  configurationRetained: "pass"
+  releasePublished: "pass"
+  argoOciDelivery: "pass"
+  clusterReady: "pass"
+  workloadReady: "pass"
+  modelRequest: "pass"
+  claim: "ConfigHub retained a two-Unit CPU runtime change to the checked EKS inference source, published it as OCI, Argo CD pulled the same manifest digest, Kubernetes made the pinned vLLM image ready, and one request returned a non-empty response from the pinned model revision."

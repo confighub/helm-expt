@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 21
+lanes outside the chain: 27
 should join the chain:   0
-deliberately outside:    21
+deliberately outside:    27
 superseded:              0
 ```
 
@@ -44,6 +44,12 @@ None.
 | `verify:shard` | One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun. | offline | green: this is how CI runs the chain, in six parallel shards, rather than a gate of its own |
 | `verify:shard:offline` | A slice of the chain excluding the thirty-two steps that shell out to cub, oras or helm, carrying the gates declared in tests/verify-chain-known-red.yaml. Needs nothing installed beyond Node, git and a YAML reader. | offline | green: six of these run in parallel on every pull request |
 | `verify:shard:cli` | The thirty-two chain steps that re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm. None of that can be done by reading files, so they are separated and their tools installed once. | network | green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing |
+| `c3agent-config:verify` | The three compact c3agent environment inputs deterministically reproduce their exact Kubernetes objects, source-and-intent records, lifecycle record, environment diff, and portable local OCI; pulling the OCI back yields the recorded development object-set hash and two non-deployable companion records. | offline | passes; requires the local oras CLI and is run with the focused c3agent example gate |
+| `c3agent-config:self-test` | The c3agent generator refuses an unpinned image, an inline credential value, or activation of the public disabled fixture. | offline | passes; paired with c3agent-config:verify |
+| `c3agent-config:proof:verify` | The committed live receipt records a matching source OCI digest, ConfigHub base, development-to-staging-to-production promotion, release OCI, Argo CD sync at that digest, and Kubernetes object reconciliation while both Deployments and the agent task remain not-run. | offline | passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, Docker, kind, kubectl and oras |
+| `c3agent-config:proof:self-test` | The c3agent receipt verifier rejects a false agent-task pass, a false Secret-presence claim, or an Argo revision that differs from the published ConfigHub release digest. | offline | passes; paired with c3agent-config:proof:verify |
+| `measured-promotion:verify` | The committed NGINX run tested three exact object sets against one fixed HTTP check and destination requirement, selected the smallest passing candidate, kept that object hash through ConfigHub staging and production, and delivered the recorded release digest through Argo CD. | offline | passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, kind and kubectl |
+| `measured-promotion:self-test` | The measured promotion verifier rejects a different selected candidate, a production object hash that differs from the winner, or an Argo revision that differs from the release digest. | offline | passes; paired with measured-promotion:verify |
 
 ## Superseded
 

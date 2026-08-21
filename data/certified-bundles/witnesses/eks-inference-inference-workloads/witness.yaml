@@ -3,17 +3,17 @@ kind: "OciBundleWitness"
 metadata:
   name: "eks-inference-inference-workloads"
 spec:
-  observedAt: "2026-08-07T17:30:00Z"
+  observedAt: "2026-08-20T19:03:35Z"
   pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/inference-workloads:latest"
   artifact:
     reference: "ghcr.io/confighub/configs/eks-inference/inference-workloads:latest"
-    manifestDigest: "sha256:3caf5e71463a8b680dbe7f6bde47dceb3671099f452f9586d032289c45fd8cbf"
+    manifestDigest: "sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     createdAnnotation: "1970-01-01T00:00:00Z"
     layer:
       mediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
-      digest: "sha256:846fbc224eda8dcd0dc1bd4f6ae2607ac7ccb5001fabf0d396a27a6bf8d00a29"
-      bytes: 3333
+      digest: "sha256:4fa2011ee1d3752941c5c84ee764249b5433f37513d3c4ee7ba97b932128c8f4"
+      bytes: 4944
       title: "inference-workloads.tar.gz"
   extractedFiles:
     -
@@ -21,6 +21,11 @@ spec:
       bundlePath: "00-namespace.yaml"
       sha256: "55afb0ec3344145bb0d124ee88406c807655aea095a4bf3e90a1be0b1c988c50"
       bytes: 691
+    -
+      path: "files/chat.yaml"
+      bundlePath: "chat.yaml"
+      sha256: "dd372089d2593cadea977bc1b1d8f48b8896508f0d4441fa210fa0d3627b1976"
+      bytes: 4219
     -
       path: "files/smoke-cpu.yaml"
       bundlePath: "smoke-cpu.yaml"
@@ -38,7 +43,7 @@ spec:
       bytes: 3503
   producer:
     repository: "https://github.com/confighub/eks-inference"
-    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    commit: "f6a1689c2fe231d1bc2262d9916aa69a774882b4"
     component: "inference-workloads"
     plane: "workload"
     renderKind: "copy"

@@ -6,7 +6,7 @@ This Space holds one certified bundle, ingested one Unit per file. Its source is
 
 ## What produced it
 
-Producer: eks-inference. Contents: literal-config, 4 file(s).
+Producer: eks-inference. Contents: literal-config, 5 file(s).
 
 ## Whether it may ship as plain YAML
 

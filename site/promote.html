@@ -586,6 +586,15 @@
       <textarea id="confighub-promotion-commands" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="copy-confighub-promotion" type="button">Copy the ConfigHub preview</button> <span id="confighub-promotion-copy-status" role="status" style="color:var(--muted)"></span> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
       <p><a href="./d/data/redis-upgrade-app-proof/summary.html">Open the Redis promotion, two-cluster rollout, and rollback evidence</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis 25.5.3</a> · <a href="./charts/bitnami-redis-27-0-0.html">Redis 27.0.0</a></p>
+
+      <h3>Test candidates, then promote the one that passed</h3>
+      <p>A configuration can answer a smoke test and still be wrong for its destination. This recorded NGINX run tested three exact object sets. The destination required two ready replicas, so the one-replica candidate was not promoted. Two and three replicas passed; the stated rule selected the smaller one.</p>
+      <div style="max-width:100%;overflow-x:auto"><table style="min-width:640px">
+        <thead><tr><th>Candidate</th><th>HTTP</th><th>Ready replicas</th><th>Destination</th><th>Decision</th></tr></thead>
+        <tbody><tr><td><code>replicas-1</code></td><td>60/60</td><td>1</td><td>Blocked</td><td>Not promoted</td></tr><tr><td><code>replicas-2</code></td><td>60/60</td><td>2</td><td>Pass</td><td>Selected</td></tr><tr><td><code>replicas-3</code></td><td>60/60</td><td>3</td><td>Pass</td><td>Passed, not selected</td></tr></tbody>
+      </table></div>
+      <p>The selected object hash stayed the same in the ConfigHub base, staging, and production. Argo CD then used the ConfigHub release digest and Kubernetes reported two ready replicas.</p>
+      <p><a href="./d/docs/user/test-candidates-before-promotion.html"><strong>Read the worked example</strong></a> · <a href="./d/data/measured-promotion-proof/summary.html">Check the recorded result</a></p>
     </section>
 
     <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">

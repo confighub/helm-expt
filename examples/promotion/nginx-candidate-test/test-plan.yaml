@@ -1,0 +1,36 @@
+apiVersion: "workshop.confighub.com/v1alpha1"
+kind: "PromotionTestPlan"
+metadata:
+  name: "nginx-fixed-candidate-test"
+spec:
+  question: "Which exact NGINX configuration is the smallest one that passes our fixed test and destination requirement?"
+  source:
+    type: "KubernetesYAML"
+    current: "current.yaml"
+    candidates:
+      - "examples/promotion/nginx-candidate-test/candidates/replicas-1.yaml"
+      - "examples/promotion/nginx-candidate-test/candidates/replicas-2.yaml"
+      - "examples/promotion/nginx-candidate-test/candidates/replicas-3.yaml"
+  workload:
+    image: "docker.io/nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752"
+    requestPath: "/"
+    expectedText: "promotion candidate test passed"
+  checks:
+    requests: 60
+    requiredSuccessRate: 1
+    maximumP95Milliseconds: 1000
+  selection:
+    requiredReadyReplicas: 2
+    rule: "Choose the fewest replicas among candidates that pass every check. Use candidate id as the stable tie-breaker."
+  lifecycle:
+    hooks:
+      []
+    crds:
+      []
+    secrets:
+      []
+    migrations:
+      []
+    setupJobs:
+      []
+  next: "Upload current.yaml as a ConfigHub base, replace it with the selected exact candidate, preview staging and production, then publish the production release OCI."

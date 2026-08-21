@@ -59,6 +59,8 @@ const changesSchemaPath = join(siteRoot, "changes.schema.json");
 const changesSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-changes.schema.json");
 const reviewSchemaPath = join(siteRoot, "review.schema.json");
 const reviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-review.schema.json");
+const workshopResultSchemaPath = join(siteRoot, "workshop-result.schema.json");
+const workshopResultSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-result.schema.json");
 const promotionReviewSchemaPath = join(siteRoot, "promotion-review.schema.json");
 const promotionReviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-promotion-review.schema.json");
 const checkConfigScriptPath = join(siteRoot, "check-config.js");
@@ -393,6 +395,7 @@ if (mode === "--generate") {
   write(changesJsonPath, site.changesJson);
   write(changesSchemaPath, site.changesSchemaJson);
   write(reviewSchemaPath, site.reviewSchemaJson);
+  write(workshopResultSchemaPath, site.workshopResultSchemaJson);
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
   write(promoteConfigScriptPath, site.promoteConfigScript);
@@ -447,6 +450,7 @@ if (mode === "--generate") {
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(changesJsonPath), "site/changes.json is missing; run npm run site:generate");
   check(existsSync(reviewSchemaPath), "site/review.schema.json is missing; run npm run site:generate");
+  check(existsSync(workshopResultSchemaPath), "site/workshop-result.schema.json is missing; run npm run site:generate");
   check(existsSync(promotionReviewSchemaPath), "site/promotion-review.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
   check(existsSync(promoteConfigScriptPath), "site/promote-config.js is missing; run npm run site:generate");
@@ -524,6 +528,7 @@ if (mode === "--generate") {
   check(existsSync(changesSchemaPath), "site/changes.schema.json is missing; run npm run site:generate");
   check(readFileSync(changesSchemaPath, "utf8") === site.changesSchemaJson, "site/changes.schema.json is stale");
   check(readFileSync(reviewSchemaPath, "utf8") === site.reviewSchemaJson, "site/review.schema.json is stale");
+  check(readFileSync(workshopResultSchemaPath, "utf8") === site.workshopResultSchemaJson, "site/workshop-result.schema.json is stale");
   check(readFileSync(promotionReviewSchemaPath, "utf8") === site.promotionReviewSchemaJson, "site/promotion-review.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
   check(readFileSync(promoteConfigScriptPath, "utf8") === site.promoteConfigScript, "site/promote-config.js is stale");
@@ -971,6 +976,7 @@ function buildSite(generatedAt) {
     changesJson: buildChangesFeed(catalog, changesEntries),
     changesSchemaJson: readFileSync(changesSchemaSourcePath, "utf8"),
     reviewSchemaJson: readFileSync(reviewSchemaSourcePath, "utf8"),
+    workshopResultSchemaJson: readFileSync(workshopResultSchemaSourcePath, "utf8"),
     promotionReviewSchemaJson: readFileSync(promotionReviewSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
     promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
@@ -1454,6 +1460,7 @@ function buildLlmsTxt() {
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
 - [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
 - [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
+- [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
 - [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
@@ -4128,6 +4135,7 @@ function docsReferenceHtml(catalog) {
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["When to flatten a Helm chart", "Choose literal YAML, literal YAML with recorded setup, or render-late delivery for an exact chart configuration.", "../docs/reference/flattening-alignment.md"],
     ["Check and promote with AI", "Use the browser-local Check and Promote records with your own assistant, source-aware field attribution, exact target results, and an optional ConfigHub handoff.", "../docs/user/check-and-promote-with-ai.md"],
+    ["Anonymous browser check", "Inspect rendered YAML, compare exact objects, run static checks, and download one complete result for your own AI or CI without signing in.", "../docs/user/anonymous-browser-workshop.md"],
     ["Anonymous OCI work in CI", "A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.", "../data/anonymous-oci-ci-proof/summary.md"],
     ["Anonymous OCI change", "Pull five public NGINX objects without credentials, change only the replica count, store the source and check records, and pull the new local OCI back for comparison.", "../data/anonymous-oci-transform-proof/summary.md"],
     ["Redis public walkthrough", "Pull Redis 25.5.3 and 27.0.0 anonymously, retain the selected existing-Secret base, keep Secrets out of both object sets, and verify both local OCI outputs by pulling them back.", "../data/redis-public-walkthrough-proof/summary.md"],
@@ -4513,9 +4521,9 @@ function askHtml() {
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
-    <p>Your AI assistant and Helm tools run on your machine. This page can compare rendered YAML in your browser. Your files are not uploaded.</p>
-    <p>You get the exact objects, a comparison, the checks that ran, and a review record you can keep.</p>
-    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <button class="button secondary" id="load-example" type="button">See a 30-second example</button> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
+    <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
+    <p><button class="button primary" id="load-example" type="button">See the complete example</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
   <main>
     <section aria-labelledby="build-prompt">
@@ -4578,7 +4586,7 @@ function askHtml() {
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
-      <h2 id="check-files-title">3. Check and retain the rendered result</h2>
+      <h2 id="check-files-title">3. Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
@@ -4621,9 +4629,18 @@ function askHtml() {
       <h3>Hooks, CRDs, and required setup</h3>
       <ul id="check-lifecycle-work"></ul>
       <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Compare with the Catalog</a></p>
-      <h3>Download the result</h3>
-      <p>The review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
+      <h3>Download one complete result</h3>
+      <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
+      <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
+      <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
+      <details>
+        <summary><strong>Open the complete result</strong></summary>
+        <textarea id="workshop-result-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      </details>
+      <p><a href="./workshop-result.schema.json">Read the WorkshopResult schema</a>.</p>
+      <h4>Download individual files</h4>
+      <p>The separate review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
       <textarea id="review-record-output" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><button class="button secondary" id="continue-to-promotion" type="button">Test this result for promotion</button></p>
@@ -4711,6 +4728,8 @@ function redisRenderWithReplicaOverride(path) {
 }
 
 function promoteHtml() {
+  const measuredPromotion = readYaml(join(repoRoot, "runs", "measured-promotion-proof", "receipt.yaml"));
+  const measuredRows = measuredPromotion.spec.tests.map((candidate) => `<tr><td><code>${escapeHtml(candidate.id)}</code></td><td>${candidate.successfulRequests}/${candidate.requests}</td><td>${candidate.readyReplicas}</td><td>${candidate.checks.destinationCapacity ? "Pass" : "Blocked"}</td><td>${candidate.id === measuredPromotion.spec.decision.selected ? "Selected" : candidate.result === "pass" ? "Passed, not selected" : "Not promoted"}</td></tr>`).join("");
   const exampleData = JSON.stringify({
     currentSourceYaml: readFileSync(REDIS_25_REUSE_RENDER_PATH, "utf8"),
     currentYaml: redisRenderWithReplicaOverride(REDIS_25_REUSE_RENDER_PATH),
@@ -4801,6 +4820,15 @@ function promoteHtml() {
       <textarea id="confighub-promotion-commands" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="copy-confighub-promotion" type="button">Copy the ConfigHub preview</button> <span id="confighub-promotion-copy-status" role="status" style="color:var(--muted)"></span> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
       <p><a href="./d/data/redis-upgrade-app-proof/summary.html">Open the Redis promotion, two-cluster rollout, and rollback evidence</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis 25.5.3</a> · <a href="./charts/bitnami-redis-27-0-0.html">Redis 27.0.0</a></p>
+
+      <h3>Test candidates, then promote the one that passed</h3>
+      <p>A configuration can answer a smoke test and still be wrong for its destination. This recorded NGINX run tested three exact object sets. The destination required two ready replicas, so the one-replica candidate was not promoted. Two and three replicas passed; the stated rule selected the smaller one.</p>
+      <div style="max-width:100%;overflow-x:auto"><table style="min-width:640px">
+        <thead><tr><th>Candidate</th><th>HTTP</th><th>Ready replicas</th><th>Destination</th><th>Decision</th></tr></thead>
+        <tbody>${measuredRows}</tbody>
+      </table></div>
+      <p>The selected object hash stayed the same in the ConfigHub base, staging, and production. Argo CD then used the ConfigHub release digest and Kubernetes reported two ready replicas.</p>
+      <p><a href="./d/docs/user/test-candidates-before-promotion.html"><strong>Read the worked example</strong></a> · <a href="./d/data/measured-promotion-proof/summary.html">Check the recorded result</a></p>
     </section>
 
     <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">
@@ -6793,6 +6821,7 @@ function aiHtml(catalog) {
       <h2 id="agentic-apps">5. Give AI a purpose-built App</h2>
       <p>A small domain App can give an agent named operations while ConfigHub keeps the configuration. The App supplies the domain rules, dry runs, checks, and explicit commit step.</p>
       <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> follows this pattern. It supports RBAC inventory, access queries, findings, guarded edits, fleet edits, and promotion. The agent uses these operations instead of unrestricted YAML edits.</p>
+      <p>The <a href="./d/docs/demo/c3agent/fleet-config.html">c3agent configuration example</a> applies the same rule to an agent service. Model, image, budget, concurrency, and Secret references are reviewed and promoted before any agent process starts.</p>
       <p><a href="./journey.html">See five ConfigHub App examples</a>, including upgrades, hooks and CRDs, RBAC, fleet rollout, and AI change review.</p>
     </section>
 
@@ -6975,32 +7004,57 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kubara with ConfigHub &middot; Config Workshop</title>
+  <title>Build a Platform with Kubara &middot; Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    ${audienceLabel("For platform teams already using Kubara")}
-    <h1>Keep Kubara. Make the platform governable.</h1>
-    <p class="lead"><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Keep choosing and wiring the platform in Kubara, keep Git as the portable hand-off, and keep Argo CD as the reconciler. Add a component-first Catalog, immutable releases, review history, promotion, rollback, fleet visibility, and explicit wiring.</p>
+    ${audienceLabel("For platform teams")}
+    <h1>Build a Platform from Tested Components</h1>
+    <p class="lead">Choose the services you need. The starter writes native Kubara configuration and records the exact component versions, Catalog evidence, and any custom runtime images. Kubara then generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>This project now lives in its own repository: <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>. The pages here remain as a mirror of the shipped journey.</p>
-    <p><a href="../docs/demo/kubara/adoption.md"><strong>Start the six-step tutorial</strong></a> · <a href="../docs/demo/kubara/gui-tour.md">See the GUI journey</a> · <a href="../docs/demo/kubara/checkpoints.md">Inspect the evidence</a></p>
+    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform needs shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
+    <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-starter">
-      <h2 id="kubara-starter">Start with one development platform</h2>
-      <p>Choose a name and Git repository. The starter writes Kubara's native <code>config.yaml</code> for one hub cluster with cert-manager, Metrics Server, and Traefik. It also writes a companion source-and-intent record that pins the exact component versions and links them to this Catalog.</p>
+      <h2 id="kubara-starter">1. Choose a small development platform</h2>
+      <p>This example uses four ordinary platform services and records one optional runtime image. Change the comma-separated service list to suit your platform.</p>
+      ${markdownLikeTable([
+        ["Job", "Selected component", "Catalog page"],
+        ["Certificates", "cert-manager", '<a href="./charts/jetstack-cert-manager-v1-21-0.html">jetstack/cert-manager 1.21.0</a>'],
+        ["Cluster metrics", "metrics-server", '<a href="./charts/metrics-server-metrics-server-3-13-1.html">metrics-server 3.13.1</a>'],
+        ["Ingress", "traefik", '<a href="./charts/traefik-traefik-41-0-2.html">Traefik 41.0.2</a>'],
+        ["Monitoring", "kube-prometheus-stack", '<a href="./charts/prometheus-community-kube-prometheus-stack-87-19-2.html">kube-prometheus-stack 87.19.2</a>'],
+      ], { rawThirdColumn: true })}
       <pre><code>git clone https://github.com/confighub/kubara-confighub.git
 cd kubara-confighub
 npm run kubara-platform:start -- \\
-  --name my-platform \\
+  --name inference-platform \\
   --repository https://github.com/acme/platform.git \\
+  --services cert-manager,metrics-server,traefik,kube-prometheus-stack \\
+  --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \\
   --output ../my-platform</code></pre>
-      <p>Review <code>config.yaml</code>, copy and complete <code>.env.example</code>, then run the Kubara command in the generated README. After generation, check the CRDs, hooks, setup Jobs, Secrets, and target requirements for the exact output before deployment.</p>
-      <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform"><strong>Open the generated starter</strong></a> · <a href="../docs/reference/flattening-alignment.md">Decide what can be flattened</a> · <a href="../docs/demo/kubara/adoption.md">Continue through Git, OCI, ConfigHub, and Argo CD</a></p>
+      <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
+      <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
+      <h3>2. Review what the starter wrote</h3>
+      ${markdownLikeTable([
+        ["File", "Why it exists"],
+        ["config.yaml", "The native Kubara selection: cluster, catalogs, enabled services, and ordinary settings."],
+        ["source-and-intent.yaml", "The Kubara source, exact component versions and packages, Catalog links, intended cluster, and checks still required."],
+        ["runtime-images.yaml", "The digest-pinned application or model-server images selected beside the platform. Kubara does not deploy this record, and an image is not a complete application."],
+        ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
+      ])}
+      <h3>3. Generate and inspect the platform</h3>
+      <p>Complete the private <code>.env</code> file, then run Kubara:</p>
+      <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
+      <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
+      <h3>4. Choose where the reviewed result goes</h3>
+      <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
+      <p><a href="../docs/demo/kubara/adoption-4-oci.md"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="../docs/demo/kubara/adoption.md">Continue through ConfigHub and Argo CD</a> · <a href="../docs/reference/flattening-alignment.md">See what can be flattened</a></p>
+      <p><a href="../docs/demo/kubara/gui-tour.md">See the four-cluster result</a> · <a href="../docs/demo/kubara/checkpoints.md">Check the evidence</a> · <a href="../docs/demo/kubara/single-platform.md">Open the technical runbook</a></p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
@@ -7081,6 +7135,42 @@ npm run kubara-platform:start -- \\
   <footer>Every claim is scoped to the named Kubara source, version, catalogs, ConfigHub organization, delivery path, and receipt.</footer>
 </body>
 </html>`;
+}
+
+function inferenceFamilyTable(root) {
+  const href = (path) => `${root}/${path}`;
+  return markdownLikeTable([
+    ["Start here", "What it gives you", "What you need", "What we checked"],
+    [
+      `<a href="${href("d/examples/inference/vllm-cpu-starter/README.html")}"><strong>Run one small model on CPU</strong></a>`,
+      "A pinned vLLM server, a pinned public Qwen model, and one OpenAI-compatible request.",
+      "An ARM64 Kubernetes cluster with 4 CPUs and 10 GiB available. No GPU, cloud account, ConfigHub account, or model credential.",
+      `ConfigHub retained the two changed Units, published OCI, Argo CD pulled the same digest, the pod became ready, and the model answered. <a href="${href("d/data/vllm-cpu-starter-proof/summary.html")}">Read the proof</a>.`,
+    ],
+    [
+      `<a href="${href("d/docs/demo/aicr/cpu-starter.html")}"><strong>Learn the AICR platform shape</strong></a>`,
+      "Seven retained Argo CD Applications that show AICR composition, ordering, variants, and one reviewed storage change without accelerators.",
+      "No GPU, cloud account, or NGC key to read and verify it. The ConfigHub and kind walkthroughs use their named account and cluster steps.",
+      "The selection and digests are checked. One change reached staging, and one selected component synced on kind. This is a platform configuration proof, not model inference.",
+    ],
+    [
+      `<a href="${href("d/docs/demo/aicr/eks-h100-inference-nim.html")}"><strong>Plan NVIDIA NIM serving</strong></a>`,
+      `Choose the <a href="${href("d/docs/demo/aicr/eks-h100-inference-nim.html")}">AICR platform</a> or a <a href="${href("d/docs/demo/aicr/kserve-nim-inference.html")}">specific KServe model shape</a>.`,
+      "AWS or equivalent GPU capacity and NGC access to run the model images. Reading the retained configuration needs neither.",
+      "Sources, versions, model shapes, credentials boundary, ConfigHub changes, and config-plane delivery are checked. No NIM container or model ran.",
+    ],
+    [
+      `<a href="${href("d/data/certified-bundles/eks-inference-stack.html")}"><strong>Build the full EKS inference platform</strong></a>`,
+      "Eight ordered bundles for ACK, networking, EKS, Karpenter, the GPU runtime, and inference workloads.",
+      "A ConfigHub account for the configuration sandbox. AWS and GPU capacity for the real cloud path.",
+      `All eight source bundles, the ConfigHub sandbox, one promoted change, Argo CD delivery, and the separate CPU model request are checked. AWS and NVIDIA GPU execution remain open. <a href="https://github.com/confighub/eks-inference">Open the plugin</a>.`,
+    ],
+  ], {
+    rawFirstColumn: true,
+    rawSecondColumn: true,
+    rawThirdColumn: true,
+    rawFourthColumn: true,
+  });
 }
 
 function examplesHtml(catalog) {
@@ -7177,8 +7267,8 @@ Rendered 0 secret(s)</code></pre>
           `<a href="./ask.html#ai-values"><strong>Check the chart and values your AI produced.</strong></a> Render locally with <code>cub helm</code>, compare exact objects, and keep a review record. The worked NGINX case keeps the requested change and corrects six risky settings.<br><a href="#bring-your-own">Commands</a> · <a href="./d/data/byo-helm-values-review/summary.html">NGINX review</a> · <a href="./d/data/byo-helm-values-review/public-and-confighub.html">OCI publication</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub example</a>`,
         ],
         [
-          "An AICR recipe for AI infrastructure",
-          `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html"><strong>Start the AICR walkthrough.</strong></a> Inspect the 17 exact Argo CD Applications, <a href="./ask.html#check-files">check or compare those objects in the browser</a>, then change and promote one setting in ConfigHub.<br><a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">OCI publication</a> · <a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub example</a>`,
+          "An AICR recipe or inference stack",
+          `<a href="#inference"><strong>Get inference running.</strong></a> Start with a real CPU model request, or choose AICR, NIM, or the full EKS stack. The next table states the hardware, account, and credential requirements before each path.`,
         ],
         [
           "An existing OCI package",
@@ -7189,6 +7279,15 @@ Rendered 0 secret(s)</code></pre>
           `<a href="./ask.html#check-files"><strong>Check or compare the YAML in the browser.</strong></a> Keep the review beside the files, then follow the <a href="./existing-apps.html">existing-app guide</a> to upload four ordinary Kubernetes objects and read them back unchanged.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true })}
+
+      <h3 id="inference">Get inference running</h3>
+      <p>Choose the row that answers your immediate question. The first path runs a model on ordinary ARM64 hardware. The later paths explain larger AI platforms without claiming that their GPU workloads have run here.</p>
+      ${inferenceFamilyTable(".")}
+
+      <h3 id="agent-fleet">Review an AI agent fleet before it runs</h3>
+      <p>An agent service has settings for its model, runtime images, budget, concurrency, credentials, storage, and access. The c3agent example turns those choices into ten exact Kubernetes objects without storing a credential or starting the service.</p>
+      <p>The recorded test kept one base configuration. It changed only the fleet settings for staging and production. The accepted result was promoted, published as OCI, and reconciled by Argo CD on Kubernetes. Both Deployments stayed at zero replicas. This proves the configuration and delivery path, not the private c3agent runtime or an agent task.</p>
+      <p><a href="./d/docs/demo/c3agent/fleet-config.html"><strong>Read the c3agent walkthrough</strong></a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/c3agent/fleet-config">Open the source files</a> · <a href="./d/data/c3agent-configuration-proof/summary.html">Check the live proof</a></p>
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
       <p>Start with one question on <a href="./ask.html#ai-values">Check my config</a>. Its local prompt records the chart inputs and renders the exact objects. It compares them with defaults, the Catalog, and optionally production, then gives you a review record to keep.</p>
@@ -7243,12 +7342,13 @@ cub helm install myapp &lt;chart-ref&gt; \\
     </section>
 
     <section aria-labelledby="platforms">
-      <h2 id="platforms">4. Roll out a platform or fleet</h2>
+      <h2 id="platforms">4. Build or roll out a platform</h2>
+      <p><a href="./kubara.html"><strong>Build a small Kubara platform from tested Catalog components.</strong></a> Choose services, record optional digest-pinned runtime images, and review the native Kubara config before generation. The advanced examples below continue into ConfigHub and a fleet.</p>
       <p>A platform team runs the same components on many clusters. Tools like Kubara and Sveltos build these platforms. Sveltos installs one component across a group of clusters. Kubara describes a whole platform at once and generates its files.</p>
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", `<strong>Project home:</strong> this work now lives at <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>; the pages below remain as a mirror. Kubara generates a platform's configuration; ConfigHub keeps it as governed data across the four retained clusters, with live receipts behind each claim. The architecture, version history, and proof boundaries live on the <a href="./kubara.html">Kubara page</a>.`, `<a href="./kubara.html"><strong>Why Kubara users add ConfigHub</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
+        ["Kubara", "Choose components and custom runtime images, generate the platform with Kubara, then keep reviewed versions and fleet operations in ConfigHub.", `<a href="./kubara.html"><strong>Build a platform</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
@@ -8062,16 +8162,18 @@ function aicrEntriesSection() {
     return `<tr><td><a href="${page}">${escapeHtml(entry.id)}</a></td><td class="mono">${escapeHtml(String(entry.retainedVersion))}</td><td>${names}</td></tr>`;
   }).join("\n            ");
   return `<section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
-      <h2 id="aicr-title">Other Supported Input: AICR</h2>
-      <p>Helm is the main Catalog path today. AICR entries are kept separately because they describe complete AI platforms rather than individual Helm charts.</p>
-      <p>Each entry records the exact AICR version, generated files, pinned digest, and evidence for its claims.</p>
+      <h2 id="aicr-title">AI infrastructure configurations</h2>
+      <p>Use this section when your starting point is a model runtime or a complete AI platform rather than one Helm chart. Start with the smallest path that answers your question.</p>
+      ${inferenceFamilyTable("..")}
+      <h3>Retained AICR entries</h3>
+      <p>Each AICR entry records the exact version, generated files, pinned digest, and evidence for its claims.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
         <tbody>
             ${rows}
         </tbody>
       </table></div>
-      <p>Start at the <a href="../d/docs/demo/aicr/index.html">AICR catalog index</a>. The <a href="../d/docs/demo/aicr/cpu-starter.html">CPU starter</a> runs without a GPU. The shorter Try AICR path is still being completed in <a href="https://github.com/confighub/helm-expt/issues/1502">issue #1502</a>.</p>
+      <p><a href="../d/docs/demo/aicr/index.html">Open the full AICR catalog index</a> for the retained recipes, versions, and proof details.</p>
     </section>`;
 }
 
@@ -8102,10 +8204,11 @@ function aicrEntriesSection() {
 <body>
   <header>
     ${topNav("..")}
-    <h1>Find a Tested Helm Configuration</h1>
+    <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">Choose a Helm chart version and a useful starting configuration that we have tested and documented.</p>
-    <p>Each page shows the Helm values, rendered Kubernetes objects, required setup, checks, and known limits. A new review adds a version instead of replacing the package you already used.</p>
+    <p class="lead">Choose a tested starting configuration for a Helm component or an AI infrastructure stack.</p>
+    <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
+    <p>A new review adds a version instead of replacing the package you already used.</p>
     <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
     <p>Already chose a configuration? <a href="../promote.html">Compare its next version or environment before it moves</a>.</p>
   </header>
@@ -8194,6 +8297,7 @@ ${chartRowsHtml}
     <section aria-labelledby="after-catalog">
       <h2 id="after-catalog">After you choose</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
+      <p>Choosing several components for a platform? <a href="../kubara.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, with optional digest-pinned runtime images recorded beside it.</p>
       <p><a href="../how-it-works.html">Choose how to deploy the reviewed configuration</a>.</p>
     </section>
   </main>

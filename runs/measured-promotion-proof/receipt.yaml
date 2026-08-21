@@ -1,0 +1,154 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "MeasuredPromotionProofReceipt"
+metadata:
+  name: "nginx-fixed-candidate-test"
+spec:
+  recordedAt: "2026-08-20T22:02:40.163Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  tools:
+    cubClient: "v0.2.15"
+    configHubServer: "v0.2.25"
+    gitopsController: "Argo CD"
+    kubernetesContext: "kind-hx-measured-promotion-20260820t220-cluster"
+  input:
+    current:
+      id: "replicas-1"
+      path: "examples/promotion/nginx-candidate-test/current.yaml"
+      replicas: 1
+      objectSetSha256: "sha256:bfe0fd5b076f60a4bccb2e4af6d8d9e295f7c5fcab2497d81951f3157305959b"
+    candidates:
+      -
+        id: "replicas-1"
+        path: "examples/promotion/nginx-candidate-test/candidates/replicas-1.yaml"
+        replicas: 1
+        objectSetSha256: "sha256:bfe0fd5b076f60a4bccb2e4af6d8d9e295f7c5fcab2497d81951f3157305959b"
+      -
+        id: "replicas-2"
+        path: "examples/promotion/nginx-candidate-test/candidates/replicas-2.yaml"
+        replicas: 2
+        objectSetSha256: "sha256:0ce8c7ab639ac03bd5cf4aa137416cea52315b25681cd5ee345aea9697a4a99c"
+      -
+        id: "replicas-3"
+        path: "examples/promotion/nginx-candidate-test/candidates/replicas-3.yaml"
+        replicas: 3
+        objectSetSha256: "sha256:c091e23bd77817db911740fd0e32f2ce11ba234421cea708369c7a8368e73abb"
+    image: "docker.io/nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752"
+  policy:
+    requestCount: 60
+    requiredSuccessRate: 1
+    maximumP95Milliseconds: 1000
+    requiredReadyReplicas: 2
+    selection: "Choose the fewest replicas among candidates that pass every fixed check and destination requirement; use candidate id as the stable tie-breaker."
+  targetFacts:
+    kubernetesVersion: "v1.35.0"
+    architecture: "arm64"
+    operatingSystem: "linux"
+    requiredReadyReplicas: 2
+  tests:
+    -
+      id: "replicas-1"
+      path: "examples/promotion/nginx-candidate-test/candidates/replicas-1.yaml"
+      replicas: 1
+      objectSetSha256: "sha256:bfe0fd5b076f60a4bccb2e4af6d8d9e295f7c5fcab2497d81951f3157305959b"
+      readyReplicas: 1
+      requests: 60
+      successfulRequests: 60
+      successRate: 1
+      p95Milliseconds: 0.958
+      checks:
+        allRequestsSucceeded: true
+        p95WithinLimit: true
+        destinationCapacity: false
+      result: "blocked"
+    -
+      id: "replicas-2"
+      path: "examples/promotion/nginx-candidate-test/candidates/replicas-2.yaml"
+      replicas: 2
+      objectSetSha256: "sha256:0ce8c7ab639ac03bd5cf4aa137416cea52315b25681cd5ee345aea9697a4a99c"
+      readyReplicas: 2
+      requests: 60
+      successfulRequests: 60
+      successRate: 1
+      p95Milliseconds: 0.815
+      checks:
+        allRequestsSucceeded: true
+        p95WithinLimit: true
+        destinationCapacity: true
+      result: "pass"
+    -
+      id: "replicas-3"
+      path: "examples/promotion/nginx-candidate-test/candidates/replicas-3.yaml"
+      replicas: 3
+      objectSetSha256: "sha256:c091e23bd77817db911740fd0e32f2ce11ba234421cea708369c7a8368e73abb"
+      readyReplicas: 3
+      requests: 60
+      successfulRequests: 60
+      successRate: 1
+      p95Milliseconds: 0.737
+      checks:
+        allRequestsSucceeded: true
+        p95WithinLimit: true
+        destinationCapacity: true
+      result: "pass"
+  decision:
+    selected: "replicas-2"
+    replicas: 2
+    objectSetSha256: "sha256:0ce8c7ab639ac03bd5cf4aa137416cea52315b25681cd5ee345aea9697a4a99c"
+    reason: "One replica failed the destination capacity requirement. Two and three replicas passed, so the smallest passing configuration was two replicas."
+  configHub:
+    spaces:
+      base: "hx-measured-promotion-20260820t220-base"
+      staging: "hx-measured-promotion-20260820t220-staging"
+      production: "hx-measured-promotion-20260820t220-prod"
+    path: "hx-measured-promotion-20260820t220-base -> hx-measured-promotion-20260820t220-staging -> hx-measured-promotion-20260820t220-prod"
+    baselineObjectSetSha256: "sha256:bfe0fd5b076f60a4bccb2e4af6d8d9e295f7c5fcab2497d81951f3157305959b"
+    acceptedObjectSetSha256: "sha256:0ce8c7ab639ac03bd5cf4aa137416cea52315b25681cd5ee345aea9697a4a99c"
+    stagingObjectSetSha256: "sha256:0ce8c7ab639ac03bd5cf4aa137416cea52315b25681cd5ee345aea9697a4a99c"
+    productionObjectSetSha256: "sha256:0ce8c7ab639ac03bd5cf4aa137416cea52315b25681cd5ee345aea9697a4a99c"
+    changedObject: "apps/v1|Deployment|nginx-promotion|nginx-candidate"
+    stagingPreview:
+      changed: true
+      outputSha256: "sha256:d440c355dadf701745914b9bf9ed66edc080312097c54c7c71fde3ba01e924a7"
+      outputLines: 25
+    productionPreview:
+      changed: true
+      outputSha256: "sha256:d440c355dadf701745914b9bf9ed66edc080312097c54c7c71fde3ba01e924a7"
+      outputLines: 25
+  release:
+    manifestDigest: "sha256:5f16fa15700d0aecdd2b449077e6bbe1f66b8392a83076957270881fc57f248d"
+    bundleDigest: "sha256:7b1b223dca9f4050ec2e7735208df7ed072993018547be90ec85fde275558678"
+    target: "hx-measured-promotion-20260820t220-cluster/target"
+  argo:
+    application: "hx-measured-promotion-20260820t220-prod"
+    sync: "Synced"
+    health: "Healthy"
+    operation: "Succeeded"
+    revision: "sha256:5f16fa15700d0aecdd2b449077e6bbe1f66b8392a83076957270881fc57f248d"
+  kubernetes:
+    result: "pass"
+    namespace: "nginx-promotion"
+    replicas: 2
+    readyReplicas: 2
+    image: "docker.io/nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752"
+    successfulRequests: 60
+    requests: 60
+    p95Milliseconds: 0.815
+  cleanup:
+    scratchSpaces: "deleted after receipt capture"
+    cluster: "deleted after receipt capture"
+  limits:
+    - "This is one fixed HTTP and capacity test on one local kind target. It is not a performance benchmark or production capacity recommendation."
+    - "The example has no hooks, CRDs, Secrets, migrations, storage, or cloud prerequisites. Charts with those requirements need additional tests and explicit lifecycle work."
+    - "The target requirement was two ready replicas. A different destination or service-level objective can produce a different accepted configuration."
+    - "The test selected among three known candidates. It did not search every possible Kubernetes or Helm setting."
+status:
+  result: "pass"
+  candidateTest: "pass"
+  deterministicSelection: "pass"
+  exactConfigPromotion: "pass"
+  releaseOci: "pass"
+  argoDelivery: "pass"
+  kubernetesCheck: "pass"
+  claim: "A fixed local test rejected a one-replica NGINX candidate, selected the smallest passing candidate, promoted that exact object set through ConfigHub, and delivered its ConfigHub release digest through Argo CD to Kubernetes."

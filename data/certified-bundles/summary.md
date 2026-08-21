@@ -96,6 +96,8 @@ A provisional verdict states what current evidence supports and names its open q
 
 The eight eks-inference receipts certify artifacts this repository did not build. Each witness records the pulled manifest and layer digests, and every extracted file hashed identically to the producer's committed render at the recorded commit. Their five literal components are born flattened; the three chart-sourced ones carry the lane their charts' verdicts decided, and where a component wraps several charts the strictest lane governs.
 
+Read the [EKS inference stack guide](eks-inference-stack.md) to see the eight components in deployment order, the two cluster planes, their routes, exact OCI digests, and the boundary between configuration proof and a real model run.
+
 The Kubara receipt reads the byte-faithful mirror under examples/kubara. Its canonicalHome block pins the maintained copy in kubara-confighub, so removing the mirror re-points the generator instead of breaking it silently.
 
 Regenerate with `npm run certified-bundles`. Verify with `npm run certified-bundles:verify`.

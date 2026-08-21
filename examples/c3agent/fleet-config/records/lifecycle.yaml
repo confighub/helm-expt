@@ -1,0 +1,18 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "LifecycleWorkRecord"
+metadata:
+  name: "coding-fleet-runtime-boundary"
+spec:
+  automatic: false
+  beforeActivation:
+    - "Grant the target cluster access to the three private c3agent images."
+    - "Create Secret c3agent-runtime-secrets with the required keys through the team's secret manager."
+    - "Choose and configure the PostgreSQL and persistent-storage services used by the real deployment."
+    - "Review the Job RBAC against the repositories and namespaces the agents may change."
+  proofBoundary:
+    configurationGeneration: "tested"
+    localConfigurationOciRoundTrip: "tested"
+    configHubVariantsAndPromotion: "tested by the separate live receipt"
+    argoObjectReconciliation: "tested by the separate live receipt"
+    kubernetesWorkloadReadiness: "not-run"
+    agentTask: "not-run"

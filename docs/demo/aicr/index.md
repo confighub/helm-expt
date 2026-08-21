@@ -11,6 +11,11 @@ platform you want and AICR picks the components, orders the installs, and writes
 the files. It does not decide how your team reviews, approves, or promotes them.
 That is the part this catalog adds, the same way it adds it to Helm charts.
 
+If your immediate goal is to run a model rather than inspect a platform, start
+with the separate [vLLM CPU example](../../../examples/inference/vllm-cpu-starter/README.md).
+It runs one real request without a GPU or cloud account. It is not an AICR entry;
+it is the accessible runtime check beside this platform catalog.
+
 ## Which entry should I open?
 
 | Entry | What it builds | What you need | Retained version |

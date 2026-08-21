@@ -517,9 +517,9 @@
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
-    <p>Your AI assistant and Helm tools run on your machine. This page can compare rendered YAML in your browser. Your files are not uploaded.</p>
-    <p>You get the exact objects, a comparison, the checks that ran, and a review record you can keep.</p>
-    <p><a class="button primary" href="#build-prompt">Start with my chart and values</a> <button class="button secondary" id="load-example" type="button">See a 30-second example</button> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
+    <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
+    <p><button class="button primary" id="load-example" type="button">See the complete example</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -583,7 +583,7 @@
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
-      <h2 id="check-files-title">3. Check and retain the rendered result</h2>
+      <h2 id="check-files-title">3. Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
@@ -626,9 +626,18 @@
       <h3>Hooks, CRDs, and required setup</h3>
       <ul id="check-lifecycle-work"></ul>
       <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Compare with the Catalog</a></p>
-      <h3>Download the result</h3>
-      <p>The review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
+      <h3>Download one complete result</h3>
+      <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
+      <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
+      <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
+      <details>
+        <summary><strong>Open the complete result</strong></summary>
+        <textarea id="workshop-result-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      </details>
+      <p><a href="./workshop-result.schema.json">Read the WorkshopResult schema</a>.</p>
+      <h4>Download individual files</h4>
+      <p>The separate review record links the question, source identity, object hashes, comparison, findings, and checks that did not run. Keep it beside the reviewed YAML.</p>
       <textarea id="review-record-output" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><button class="button secondary" id="continue-to-promotion" type="button">Test this result for promotion</button></p>

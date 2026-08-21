@@ -41,12 +41,13 @@ different promises.
 | Choice | ConfigHub Server | ConfigHub account | Status |
 | --- | --- | --- | --- |
 | Local | No | No | Available. Pull public packages. Write files or OCI. Test them locally or in CI. |
-| Hosted and anonymous | Yes | No | Planned. Inspect and test public configuration without signing in. |
+| Hosted and anonymous | Static website only | No | Available for rendered YAML: inspect, compare, run static checks, and download one complete result. It does not render arbitrary sources, pull OCI, or contact a cluster. |
 | ConfigHub | Yes | Yes | Available. Record changes, release them, add environments, and promote them through the official tutorial. |
 
 Public package and OCI pulls already work without registry login. They support
-the local path. The browser page can now inspect and compare rendered YAML, but
-these receipts do not prove hosted chart rendering, OCI pulls, or live checks.
+the local path. The browser page inspects and compares rendered YAML and produces
+one downloadable `WorkshopResult`, but these receipts do not prove hosted chart
+rendering, OCI pulls, or live checks.
 
 Do not describe hosted chart rendering, OCI pulls, or live checking as released until a public
 endpoint and a recorded test exist.

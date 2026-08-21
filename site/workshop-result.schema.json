@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/workshop-result.schema.json",
+  "title": "Config Workshop downloadable result",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "const": "workshop.confighub.com/v1alpha1" },
+    "kind": { "const": "WorkshopResult" },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "createdAt"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["question", "source", "files", "checks", "next"],
+      "properties": {
+        "question": {
+          "type": "object",
+          "required": ["code", "text"],
+          "properties": {
+            "code": { "type": "string", "minLength": 1 },
+            "text": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "source": { "type": "object" },
+        "files": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["path", "mediaType", "sha256", "content"],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "mediaType": { "type": "string", "minLength": 1 },
+              "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+              "content": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "checks": {
+          "type": "object",
+          "required": ["completed", "notRun"],
+          "properties": {
+            "completed": { "type": "array", "items": { "type": "string" } },
+            "notRun": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        },
+        "next": {
+          "type": "object",
+          "required": ["local", "managed"],
+          "properties": {
+            "local": { "type": "string", "minLength": 1 },
+            "managed": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

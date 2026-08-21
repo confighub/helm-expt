@@ -8,6 +8,10 @@ Both pages run in the browser. They do not send your YAML to ConfigHub, an AI se
 or Kubernetes. You may download the exact objects and review record, then give them to
 Claude, Codex, or another assistant you already use.
 
+Check my config also downloads one `workshop-result.json`. It contains the exact
+candidate, optional comparison, optional Catalog source and intent record, review,
+and file hashes. See the [anonymous browser guide](./anonymous-browser-workshop.md).
+
 ## Check a new configuration
 
 1. Open [Check my config](https://confighub.github.io/helm-expt/site/ask.html).
@@ -72,9 +76,17 @@ ConfigHub records desired configuration. A successful upload or promotion does n
 itself prove Kubernetes admission, hook execution, application health, data migration,
 or rollback of external effects.
 
+For a complete measured example, see
+[Test candidates before promotion](./test-candidates-before-promotion.md). It runs
+three exact NGINX configurations on one target, rejects the candidate that does not
+meet the destination requirement, selects the smallest passing candidate, and checks
+that ConfigHub and Argo CD use that same object set.
+
 ## Public records
 
 - [ConfigurationReview schema](https://confighub.github.io/helm-expt/site/review.schema.json)
+- [WorkshopResult schema](https://confighub.github.io/helm-expt/site/workshop-result.schema.json)
 - [PromotionReview schema](https://confighub.github.io/helm-expt/site/promotion-review.schema.json)
 - [Catalog BaseVariantRecord index](https://confighub.github.io/helm-expt/site/base-variant-records.json)
 - [Promotion diff classes](../reference/promotion-diff-classes.md)
+- [Measured promotion proof](../../data/measured-promotion-proof/summary.md)

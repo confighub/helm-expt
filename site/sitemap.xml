@@ -186,12 +186,22 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-review/public-and-confighub.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-staging-deploy-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/c3agent-configuration-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/capability-profile-witnesses/selectablefields/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-index/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-oci-delivery-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/variant-work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/eks-inference-stack.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/ack-controllers/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/aws-network/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/eks-cluster/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/gpu-runtime/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/inference-workloads/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/karpenter-aws/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/karpenter/space-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/guides/eks-inference/platform-profile/space-guide.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/challenge-intake/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-claim-integrity-audit-2026-06-22/summary.html</loc></url>
@@ -412,6 +422,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/doc-freshness/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/drift-detection-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/edge-recovery/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/eks-inference-promotion-delivery-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/eks-inference-sandbox-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/environment-matrix/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/extension-slots/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/external-scan-lane/summary.html</loc></url>
@@ -555,6 +567,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-setup-guidance/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/master-catalog-matrix/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/matrix-completion-audit/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/measured-promotion-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-completeness/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-gap-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-prereq-resolution/summary.html</loc></url>
@@ -671,6 +684,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-promotion-proof-batches/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-promotion/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-revision-digests/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/vllm-cpu-starter-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/webhook-cert-lifecycle/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/README.html</loc></url>
@@ -694,6 +708,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/rbac-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/c3agent/fleet-config.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/consul/confighub-proof-transcript.html</loc></url>
@@ -884,6 +899,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/adopting-existing-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ai-assisted-helm-changes.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/anonymous-browser-workshop.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/app-to-live-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/approval-story.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/broken-chart-triage.html</loc></url>
@@ -950,6 +966,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites-before-rerun.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/test-candidates-before-promotion.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-readiness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-status.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/transform-oci-package.html</loc></url>
@@ -978,6 +995,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/upstream/kserve/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/inference/vllm-cpu-starter/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/current-platform/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/git-import/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/local-platform/README.html</loc></url>

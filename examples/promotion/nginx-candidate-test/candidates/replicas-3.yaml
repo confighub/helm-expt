@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx-promotion
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-page
+  namespace: nginx-promotion
+data:
+  index.html: |
+    promotion candidate test passed
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-candidate
+  namespace: nginx-promotion
+  labels:
+    app.kubernetes.io/name: nginx-candidate
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx-candidate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nginx-candidate
+    spec:
+      containers:
+        - name: nginx
+          image: docker.io/nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 1
+            periodSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 250m
+              memory: 64Mi
+          volumeMounts:
+            - name: page
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+      volumes:
+        - name: page
+          configMap:
+            name: nginx-page
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-candidate
+  namespace: nginx-promotion
+spec:
+  selector:
+    app.kubernetes.io/name: nginx-candidate
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

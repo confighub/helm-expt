@@ -1,0 +1,159 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "EksInferencePromotionDeliveryProofReceipt"
+metadata:
+  name: "inference-workloads-chat-two-replicas"
+spec:
+  recordedAt: "2026-08-20T19:50:18.774Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  tools:
+    cubClient: "v0.2.15"
+    confighubServer: "v0.2.25"
+    kubernetesContext: "kind-hx-eksinf-proof"
+    gitopsController: "Argo CD"
+  source:
+    reference: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads"
+    digest: "sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+    receipt: "data/certified-bundles/receipts/eks-inference/inference-workloads/receipt.yaml"
+  change:
+    unit: "chat"
+    resource: "apps/v1 Deployment inference/chat"
+    path: "spec.replicas"
+    before: 1
+    after: 2
+    changedUnitCount: 1
+    changedUnits:
+      - "chat"
+    devChangeDescription: "Run two chat clients in the workshop promotion proof| Functions: set-replicas"
+  promotion:
+    path: "inference-workloads-workshop-proof -> inference-workloads-workshop-dev -> inference-workloads-workshop-staging"
+    stagingChangeDescription: "Promote the reviewed two-client configuration to staging"
+    devUnitHashes:
+      -
+        slug: "00-namespace"
+        dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+      -
+        slug: "chat"
+        dataHash: "5b4fb39cb7215669c0d864e8dca22626e1ffbd4baca6bec0c345fa65d9fe9634"
+      -
+        slug: "smoke-cpu"
+        dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+      -
+        slug: "smoke-gpu"
+        dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+      -
+        slug: "vllm-qwen"
+        dataHash: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+    stagingUnitHashes:
+      -
+        slug: "00-namespace"
+        dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+      -
+        slug: "chat"
+        dataHash: "5b4fb39cb7215669c0d864e8dca22626e1ffbd4baca6bec0c345fa65d9fe9634"
+      -
+        slug: "smoke-cpu"
+        dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+      -
+        slug: "smoke-gpu"
+        dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+      -
+        slug: "vllm-qwen"
+        dataHash: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+    stagingMatchesDev: true
+    upstreamRevisionCurrent: true
+  release:
+    staging:
+      space: "inference-workloads-workshop-staging"
+      number: 1
+      digest: "sha256:2294966606e86ee8f63ceefe2c08ee74684b6f3b952b4e03ba3f9ee228309cfe"
+      manifestDigest: "sha256:9216e9a9a405e0a367f40488dcad3e76029d11defcfcc47ae567cbfc453a6490"
+      unitCount: 5
+      published: true
+      createdAt: "2026-08-20T19:42:26.409231Z"
+    delivery:
+      space: "inference-workloads-workshop-delivery"
+      number: 1
+      digest: "sha256:2dd7aeec74bbe663aad790143550899783cc1815bebcc45513220518333fb8ee"
+      manifestDigest: "sha256:117fd918c6293966a8fb2571414cfdc29f091d29d18ff46445f5c9eefc07a30b"
+      unitCount: 5
+      published: true
+      createdAt: "2026-08-20T19:44:07.678836Z"
+    deliveryUnitHashes:
+      -
+        slug: "00-namespace"
+        dataHash: "0bf89cb8e59b69306f65271b2a4937c157a60fcb8a4e98942d641b3bbc9dc67f"
+      -
+        slug: "chat"
+        dataHash: "5b4fb39cb7215669c0d864e8dca22626e1ffbd4baca6bec0c345fa65d9fe9634"
+      -
+        slug: "smoke-cpu"
+        dataHash: "e7ca59ee615b68c3c8adf1654b8c6dfe70053eb6ab6b94940fa7b3c6b040e724"
+      -
+        slug: "smoke-gpu"
+        dataHash: "ca5ebb42b1c9d3177a585ea715e603a29803d9e4594770d9044b04117f8b43da"
+      -
+        slug: "vllm-qwen"
+        dataHash: "a26e0fe37671088743a99f680104f05e0171dc4682deef235d4f708f23465a19"
+    deliveryMatchesStaging: true
+  target:
+    space: "hx-eksinf-proof"
+    spaceId: "901fa47e-9c11-4921-9600-178495a220aa"
+    targetId: "627de805-b6dd-4aad-8e0e-43812d05ea59"
+    providerType: "OCI"
+    toolchainType: "Any"
+    argoAppsSpace: "hx-eksinf-proof-argo-apps"
+    gate:
+      slug: "no-placeholders"
+      function: "vet-placeholders"
+      validating: true
+  argo:
+    application: "inference-workloads-workshop-delivery"
+    repository: "oci://oci.hub.confighub.com:443/space/inference-workloads-workshop-delivery"
+    targetRevision: "latest"
+    observedRevision: "sha256:117fd918c6293966a8fb2571414cfdc29f091d29d18ff46445f5c9eefc07a30b"
+    sync: "Synced"
+    health: "Healthy"
+    operation: "Succeeded"
+    releaseManifestDigestMatched: true
+  kubernetes:
+    cluster: "hx-eksinf-proof"
+    namespace: "inference"
+    chat:
+      desiredReplicas: 2
+      availableReplicas: 2
+      readyPods: 2
+      image: "alpine:3.20"
+    inactiveWorkloads:
+      -
+        name: "smoke-cpu"
+        desiredReplicas: 0
+        availableReplicas: 0
+      -
+        name: "smoke-gpu"
+        desiredReplicas: 0
+        availableReplicas: 0
+      -
+        name: "vllm-qwen"
+        desiredReplicas: 0
+        availableReplicas: 0
+  observation:
+    cubScoutBackend: "argocd"
+    cubScoutTransport: "oci"
+    applicationReady: true
+    lastAttemptedRevision: "sha256:117fd918c6293966a8fb2571414cfdc29f091d29d18ff46445f5c9eefc07a30b"
+    runtimeFindingCount: 0
+  limits:
+    - "This proof used one local kind cluster and Argo CD. It does not prove Flux delivery or a multi-cluster rollout."
+    - "The CPU check, GPU check, and vLLM deployments remained at zero replicas. This proof does not claim AWS provisioning, GPU readiness, model download, or an inference response."
+    - "The change was intentionally small: one replica field in one Unit. Larger promotions still need source-aware classification and lifecycle checks."
+status:
+  result: "pass"
+  oneFieldChange: "pass"
+  promotion: "pass"
+  exactDeliveryClone: "pass"
+  releasePublication: "pass"
+  argoOciDelivery: "pass"
+  kubernetesConvergence: "pass"
+  claim: "A one-field chat replica change was retained in dev, promoted to staging, cloned without data changes for delivery, published as ConfigHub OCI, pulled by Argo CD at the same manifest digest, and observed as two healthy Kubernetes replicas."

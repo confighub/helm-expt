@@ -18,6 +18,36 @@ This is an adoption path, not an AI-led rewrite. Catalog references and
 configuration may need ordinary reviewed updates, but the Kubara model and
 generated artifacts remain recognizable and portable.
 
+## Build one small platform first
+
+The public starter turns a service list into native Kubara `config.yaml`. It
+also writes a source-and-intent record with the exact component versions and
+links to their Config Workshop Catalog pages.
+
+~~~sh
+git clone https://github.com/confighub/kubara-confighub.git
+cd kubara-confighub
+npm run kubara-platform:start -- \
+  --name inference-platform \
+  --repository https://github.com/acme/platform.git \
+  --services cert-manager,metrics-server,traefik,kube-prometheus-stack \
+  --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \
+  --output ../my-platform
+~~~
+
+The optional runtime-image argument records a digest-pinned application or
+model-server image. It does not make Kubara deploy that image, and it does not
+replace the application configuration that must use it. Open the committed
+[inference platform starter](https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform)
+to see the exact files.
+
+This first step needs Node.js. It does not contact ConfigHub Server, a registry,
+or Kubernetes. Run Kubara after reviewing the generated `config.yaml`, then
+inspect the platform files and required lifecycle work. You can keep the result
+in Git or package it as OCI without a ConfigHub account. The later tutorial
+adds ConfigHub for variants, approvals, promotion, release OCI, rollback, and
+fleet status.
+
 ## Choose your path
 
 | If you want to... | Start here |

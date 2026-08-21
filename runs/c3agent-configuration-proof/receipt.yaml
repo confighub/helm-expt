@@ -1,0 +1,124 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "C3AgentConfigurationProofReceipt"
+metadata:
+  name: "c3agent-disabled-fleet-promotion"
+spec:
+  recordedAt: "2026-08-20T21:36:16.373Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  tools:
+    cubClient: "v0.2.15"
+    configHubServer: "v0.2.25"
+    gitopsController: "Argo CD"
+    kubernetesContext: "kind-hx-c3agent-20260820t213-cluster"
+  source:
+    localOci: "oci-layout:examples/c3agent/fleet-config/oci-layout:development"
+    digest: "sha256:7b95d59fd8a76f13235233244d387a3b30a191e30c2fb9e79bebe2611cc0e529"
+    objectSetSha256: "sha256:69ed070f05ae42962086e776d3637b760ade2a819f2b643ba18d39599df8cbef"
+    temporaryRegistryTransport: true
+    runtimeSourceRevision: "3a66ed40cd7e04ce03efb074b090c824101bfa57"
+    runtimeImages:
+      -
+        reference: "ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d"
+        role: "agent"
+      -
+        reference: "ghcr.io/confighubai/c3agent/controlplane@sha256:1445e300634146b4529b9158e765b0ef2c90f65f502194280b169caf8ad27b27"
+        role: "controlplane"
+      -
+        reference: "ghcr.io/confighubai/c3agent/gateway@sha256:5563a8ecc65c277a58dd3b5185429170375a5f2819571abdd98c269dd5a5b6ac"
+        role: "gateway"
+    runtimeImagesPublic: false
+  configHub:
+    spaces:
+      base: "hx-c3agent-20260820t213-base"
+      development: "hx-c3agent-20260820t213-dev"
+      staging: "hx-c3agent-20260820t213-staging"
+      production: "hx-c3agent-20260820t213-prod"
+    sourceDigestRecorded: "sha256:7b95d59fd8a76f13235233244d387a3b30a191e30c2fb9e79bebe2611cc0e529"
+    unitSlugs:
+      - "c3agent-fleet"
+      - "c3agent-fleet-configmaps"
+      - "c3agent-fleet-namespaces"
+    changedUnit: "c3agent-fleet-configmaps"
+    development:
+      AGENT_IMAGE: "ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d"
+      AGENT_MODEL: "claude-sonnet-4-20250514"
+      MAX_BUDGET_USD: "8"
+      MAX_CONCURRENT_TASKS: "3"
+      SCHEDULE_INTERVAL_SECONDS: "5"
+    staging:
+      AGENT_IMAGE: "ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d"
+      AGENT_MODEL: "claude-sonnet-4-20250514"
+      MAX_BUDGET_USD: "12.5"
+      MAX_CONCURRENT_TASKS: "5"
+      SCHEDULE_INTERVAL_SECONDS: "10"
+    production:
+      AGENT_IMAGE: "ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d"
+      AGENT_MODEL: "claude-sonnet-4-20250514"
+      MAX_BUDGET_USD: "12.5"
+      MAX_CONCURRENT_TASKS: "5"
+      SCHEDULE_INTERVAL_SECONDS: "10"
+  promotion:
+    stagingPreview:
+      changed: true
+      outputSha256: "sha256:e888530c7d5c6f9accbcd656d49ac9655803a5744d0d0b509469a3c09d310f82"
+      outputLines: 13
+    productionPreview:
+      changed: true
+      outputSha256: "sha256:cb737a7cb0b049bc9f833719780035f780411fdecaf0f5a1b19d68f495715c01"
+      outputLines: 17
+    productionMatchesStaging: true
+    path: "hx-c3agent-20260820t213-base -> hx-c3agent-20260820t213-dev -> hx-c3agent-20260820t213-staging -> hx-c3agent-20260820t213-prod"
+  release:
+    id: "b51146c7-53af-4194-8c53-6ea62b0199d3"
+    manifestDigest: "sha256:5cb37af571514dcfe0896de81e65fd6d1ea765dd6f9fdd6b8f8652b1da51ce8f"
+    bundleDigest: "sha256:b36a0be5f2712b7f4f9e2ec95764c02f439d349d4a31a332272ed5876705cae5"
+    target: "hx-c3agent-20260820t213-cluster/target"
+  argo:
+    application: "hx-c3agent-20260820t213-prod"
+    sync: "Synced"
+    health: "Healthy"
+    operation: "Succeeded"
+    revision: "sha256:5cb37af571514dcfe0896de81e65fd6d1ea765dd6f9fdd6b8f8652b1da51ce8f"
+  kubernetes:
+    result: "pass"
+    namespace: "c3agent"
+    objectCount: 13
+    config:
+      AGENT_IMAGE: "ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d"
+      AGENT_MODEL: "claude-sonnet-4-20250514"
+      MAX_BUDGET_USD: "12.5"
+      MAX_CONCURRENT_TASKS: "5"
+      SCHEDULE_INTERVAL_SECONDS: "10"
+    deploymentCount: 2
+    desiredReplicas: 0
+    podCount: 0
+    secretPresent: false
+  lifecycle:
+    secretReference: "c3agent/c3agent-runtime-secrets"
+    secretPresent: false
+    deploymentReplicas: 0
+    workloadReadiness: "not-run"
+    agentTask: "not-run"
+  cleanup:
+    scratchSpaces: "deleted after receipt capture"
+    cluster: "deleted after receipt capture"
+    temporaryRegistry: "deleted after receipt capture"
+  limits:
+    - "The c3agent source and runtime images are private. This is an advanced configuration example, not an anonymous starter package."
+    - "The two Deployments stayed at zero replicas. Argo and Kubernetes reconciled the exact objects, but no c3agent process became ready and no agent task ran."
+    - "The required Secret, PostgreSQL service, persistent storage, image pull credentials, and task-level RBAC review remain activation work."
+    - "This proof used one local kind cluster and Argo CD. It does not prove Flux or a fleet rollout."
+status:
+  result: "pass"
+  deterministicGeneration: "pass"
+  configurationOciRoundTrip: "pass"
+  configHubBase: "pass"
+  variantsAndPromotion: "pass"
+  releaseOci: "pass"
+  argoObjectReconciliation: "pass"
+  kubernetesObjectReconciliation: "pass"
+  kubernetesWorkloadReadiness: "not-run"
+  agentTask: "not-run"
+  claim: "A digest-pinned, Secret-referencing c3agent configuration moved from a local OCI into a ConfigHub base, through development, staging, and production variants, into a ConfigHub release OCI, and through Argo CD to Kubernetes. The workload remained disabled and no agent task ran."

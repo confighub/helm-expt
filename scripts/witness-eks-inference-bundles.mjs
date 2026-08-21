@@ -15,7 +15,7 @@
 // committed. Nothing in the verify chain re-pulls.
 //
 // Usage:
-//   node scripts/witness-eks-inference-bundles.mjs [--producer-repo <path>] [--only <component>]
+//   HELM_EXPT_OBSERVED_AT=<UTC timestamp> node scripts/witness-eks-inference-bundles.mjs [--producer-repo <path>] [--only <component>]
 
 import { execFile } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync } from "node:fs";
@@ -31,10 +31,14 @@ const producerRepo = args.includes("--producer-repo")
   ? args[args.indexOf("--producer-repo") + 1]
   : null;
 const only = args.includes("--only") ? args[args.indexOf("--only") + 1] : null;
+const observedAt = process.env.HELM_EXPT_OBSERVED_AT;
+
+if (!observedAt || Number.isNaN(Date.parse(observedAt))) {
+  throw new Error("set HELM_EXPT_OBSERVED_AT to the UTC time at which the registry was read");
+}
 
 const REGISTRY = "ghcr.io/confighub/configs/eks-inference";
 const PRODUCER = "https://github.com/confighub/eks-inference";
-const OBSERVED_AT = "2026-08-07T17:30:00Z";
 
 // The producer's component set, with what each one is made of. render "copy"
 // means the files are literal YAML in the producer's tree: nothing templates,
@@ -126,7 +130,7 @@ async function witnessOne(component, commit) {
     kind: "OciBundleWitness",
     metadata: { name: `eks-inference-${component.name}` },
     spec: {
-      observedAt: OBSERVED_AT,
+      observedAt,
       pullCommand: `oras pull ${reference}`,
       artifact: {
         reference,

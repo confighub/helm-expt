@@ -518,6 +518,7 @@ flux create kustomization reviewed-nginx \
 <h2 id="limits">Limits</h2>
 <ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li><code>--output-oci</code> excludes files under <code>out/secrets</code>, but a Secret rendered as an ordinary manifest would still be part of the object set. Prefer an existing Secret or another approved secret-delivery method for production. See <a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes the multi-preset installer package that users pull. <code>cub installer setup --output-oci</code> writes one selected preset's rendered objects for a controller or another OCI consumer.</li></ul>
 <p>The longer-term no-account design is recorded in the <a href="../planning/serverless-verified-install-plan.html">serverless install plan</a>.</p>
+<p>For rendered YAML that already exists, the <a href="anonymous-browser-workshop.html">anonymous browser path</a> can inventory, compare, and run static checks without signing in. It downloads one complete result for local AI or CI. Rendering, OCI pulls, and live checks still run on your machine.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/serverless-mode.md</code>. The source file is the authoritative version.</p></footer>

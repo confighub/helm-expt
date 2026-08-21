@@ -1,0 +1,30 @@
+apiVersion: workshop.confighub.com/v1alpha1
+kind: C3AgentFleetConfig
+metadata:
+  name: coding-fleet
+spec:
+  namespace: c3agent
+  source:
+    repository: https://github.com/confighubai/c3agent
+    revision: 3a66ed40cd7e04ce03efb074b090c824101bfa57
+    access: private
+  images:
+    agent: ghcr.io/confighubai/c3agent/agent@sha256:b4b997b1401ee2766186b0b0aaa8005a0beae4d7fe69e54175f8e7a01e51163d
+    controlplane: ghcr.io/confighubai/c3agent/controlplane@sha256:1445e300634146b4529b9158e765b0ef2c90f65f502194280b169caf8ad27b27
+    gateway: ghcr.io/confighubai/c3agent/gateway@sha256:5563a8ecc65c277a58dd3b5185429170375a5f2819571abdd98c269dd5a5b6ac
+  fleet:
+    model: claude-sonnet-4-20250514
+    maxConcurrentTasks: 2
+    maxBudgetUsd: 5
+    scheduleIntervalSeconds: 5
+  credentials:
+    secretName: c3agent-runtime-secrets
+    requiredKeys:
+      - anthropic-api-key
+      - slack-bot-token
+      - slack-app-token
+    optionalKeys:
+      - gh-token
+  activation:
+    controlplaneReplicas: 0
+    gatewayReplicas: 0
