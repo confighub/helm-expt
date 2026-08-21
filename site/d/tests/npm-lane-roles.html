@@ -447,9 +447,9 @@
     <article class="doc-body">
 <p>This page is generated. It lists every npm lane that is named like a gate and is not run by <code>npm run verify</code>, with what it proves and why it sits outside.</p>
 <p>Two such lanes went stale unnoticed before this page existed. <code>app-readiness</code> claimed to check every catalog chart while covering 95 of 120 rendered subjects, and <code>preview-readiness</code> was wrong in three fields of four. Nothing failed, because nothing ran them.</p>
-<pre><code>lanes outside the chain: 27
+<pre><code>lanes outside the chain: 28
 should join the chain:   0
-deliberately outside:    27
+deliberately outside:    28
 superseded:              0</code></pre>
 <h2 id="cheap-offline-and-belongs-in-the-chain">Cheap, offline, and belongs in the chain</h2>
 <p>None.</p>
@@ -480,7 +480,8 @@ superseded:              0</code></pre>
 <tr><td><code>c3agent-config:proof:verify</code></td><td>The committed live receipt records a matching source OCI digest, ConfigHub base, development-to-staging-to-production promotion, release OCI, Argo CD sync at that digest, and Kubernetes object reconciliation while both Deployments and the agent task remain not-run.</td><td>offline</td><td>passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, Docker, kind, kubectl and oras</td></tr>
 <tr><td><code>c3agent-config:proof:self-test</code></td><td>The c3agent receipt verifier rejects a false agent-task pass, a false Secret-presence claim, or an Argo revision that differs from the published ConfigHub release digest.</td><td>offline</td><td>passes; paired with c3agent-config:proof:verify</td></tr>
 <tr><td><code>measured-promotion:verify</code></td><td>The committed NGINX run tested three exact object sets against one fixed HTTP check and destination requirement, selected the smallest passing candidate, kept that object hash through ConfigHub staging and production, and delivered the recorded release digest through Argo CD.</td><td>offline</td><td>passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, kind and kubectl</td></tr>
-<tr><td><code>measured-promotion:self-test</code></td><td>The measured promotion verifier rejects a different selected candidate, a production object hash that differs from the winner, or an Argo revision that differs from the release digest.</td><td>offline</td><td>passes; paired with measured-promotion:verify</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td><code>measured-promotion:self-test</code></td><td>The measured promotion verifier rejects a different selected candidate, a production object hash that differs from the winner, or an Argo revision that differs from the release digest.</td><td>offline</td><td>passes; paired with measured-promotion:verify</td></tr>
+<tr><td><code>aicr-starter-public:verify</code></td><td>The anonymous Try AICR receipt still names the exact public source digest, seven reviewed Application files, source-and-intent record, public script, local OCI digest, and successful pull-back, without claiming ConfigHub or Kubernetes execution.</td><td>offline</td><td>passes; the public-site generator checks the same receipt and script contract, while this focused lane gives the AICR example a direct verifier</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="superseded">Superseded</h2>
 <p>None.</p>

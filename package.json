@@ -934,6 +934,8 @@
     "measured-promotion:generate": "node scripts/run-measured-promotion-proof.mjs --generate",
     "measured-promotion:run": "node scripts/run-measured-promotion-proof.mjs --run",
     "measured-promotion:verify": "node scripts/run-measured-promotion-proof.mjs --verify",
-    "measured-promotion:self-test": "node scripts/run-measured-promotion-proof.mjs --self-test"
+    "measured-promotion:self-test": "node scripts/run-measured-promotion-proof.mjs --self-test",
+    "aicr-starter-public:run": "node scripts/run-aicr-cpu-starter-public-proof.mjs --run",
+    "aicr-starter-public:verify": "node scripts/run-aicr-cpu-starter-public-proof.mjs --verify"
   }
 }

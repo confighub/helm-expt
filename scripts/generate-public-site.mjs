@@ -1,9 +1,17 @@
 import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { join, posix } from "node:path";
 
-import { check, listFiles, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
 import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
+import {
+  AICR_CPU_STARTER_LOCAL_OCI_DIGEST,
+  AICR_CPU_STARTER_SOURCE_DIGEST,
+  AICR_CPU_STARTER_SOURCE_OCI_REF,
+  aicrCpuStarterIntentSha256,
+  aicrCpuStarterRecords,
+  aicrCpuStarterTryScript,
+} from "./lib/aicr-cpu-starter-public.mjs";
 import {
   CONFIGURATION_QUESTIONS,
   CONFIGURATION_QUESTION_RESEARCH,
@@ -14,6 +22,13 @@ const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
+const tryAicrPath = join(siteRoot, "try-aicr.html");
+const aicrCpuStarterPublicReceiptPath = join(
+  repoRoot,
+  "runs",
+  "aicr-cpu-starter-public-proof",
+  "receipt.yaml",
+);
 const configHubPath = join(siteRoot, "confighub.html");
 const redisWalkthroughPath = join(siteRoot, "redis-walkthrough.html");
 const serverlessPath = join(siteRoot, "serverless.html");
@@ -232,6 +247,7 @@ const SITE_PAGE_RELPATHS = {
   indexHtml: "index.html",
   offeringHtml: "offering.html",
   tryHtml: "try.html",
+  tryAicrHtml: "try-aicr.html",
   configHubHtml: "confighub.html",
   redisWalkthroughHtml: "redis-walkthrough.html",
   serverlessHtml: "serverless.html",
@@ -287,6 +303,7 @@ const PAGE_DESCRIPTIONS = {
   "index.html": "Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
   "offering.html": "Choose local public tools, a free ConfigHub account, or the commercial product according to the configuration work you need to do.",
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
+  "try-aicr.html": "Pull one public AICR configuration, select and verify seven CPU-starter Applications, and write a local OCI without an account or cluster.",
   "confighub.html": "Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.",
   "redis-walkthrough.html": "Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.",
   "serverless.html": "Run a public catalog package with no account and no sign-in, and keep the rendered objects under your control.",
@@ -348,6 +365,7 @@ if (mode === "--generate") {
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(tryAicrPath, site.tryAicrHtml);
   write(configHubPath, site.configHubHtml);
   write(redisWalkthroughPath, site.redisWalkthroughHtml);
   write(serverlessPath, site.serverlessHtml);
@@ -419,6 +437,7 @@ if (mode === "--generate") {
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
+  check(existsSync(tryAicrPath), "site/try-aicr.html is missing; run npm run site:generate");
   check(existsSync(configHubPath), "site/confighub.html is missing; run npm run site:generate");
   check(existsSync(redisWalkthroughPath), "site/redis-walkthrough.html is missing; run npm run site:generate");
   check(existsSync(serverlessPath), "site/serverless.html is missing; run npm run site:generate");
@@ -463,6 +482,7 @@ if (mode === "--generate") {
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(readFileSync(tryAicrPath, "utf8") === site.tryAicrHtml, "site/try-aicr.html is stale");
   check(readFileSync(configHubPath, "utf8") === site.configHubHtml, "site/confighub.html is stale");
   check(readFileSync(redisWalkthroughPath, "utf8") === site.redisWalkthroughHtml, "site/redis-walkthrough.html is stale");
   check(readFileSync(serverlessPath, "utf8") === site.serverlessHtml, "site/serverless.html is stale");
@@ -587,6 +607,45 @@ if (mode === "--generate") {
 }
 
 function buildSite(generatedAt) {
+  check(
+    existsSync(aicrCpuStarterPublicReceiptPath),
+    "runs/aicr-cpu-starter-public-proof/receipt.yaml is missing; run npm run aicr-starter-public:run",
+  );
+  const aicrCpuStarterPublicReceipt = readYaml(aicrCpuStarterPublicReceiptPath);
+  check(aicrCpuStarterPublicReceipt.status?.result === "pass", "the anonymous AICR walkthrough is not pass");
+  check(
+    aicrCpuStarterPublicReceipt.spec?.execution?.configHubAccountUsed === false
+      && aicrCpuStarterPublicReceipt.spec?.execution?.configHubServerContacted === false
+      && aicrCpuStarterPublicReceipt.spec?.execution?.registryLoginUsed === false
+      && aicrCpuStarterPublicReceipt.spec?.execution?.kubernetesClusterUsed === false,
+    "the anonymous AICR walkthrough used an account, registry login, ConfigHub Server, or Kubernetes",
+  );
+  check(
+    aicrCpuStarterPublicReceipt.spec?.source?.reference === AICR_CPU_STARTER_SOURCE_OCI_REF,
+    "the anonymous AICR source reference changed",
+  );
+  check(
+    aicrCpuStarterPublicReceipt.spec?.source?.manifestDigest === AICR_CPU_STARTER_SOURCE_DIGEST,
+    "the anonymous AICR source digest changed",
+  );
+  check(aicrCpuStarterPublicReceipt.spec?.source?.objectCount === 17, "the anonymous AICR source count changed");
+  check(
+    aicrCpuStarterPublicReceipt.spec?.selection?.recordSha256 === aicrCpuStarterIntentSha256(),
+    "the anonymous AICR source-and-intent record changed",
+  );
+  check(
+    aicrCpuStarterPublicReceipt.spec?.selection?.objectCount === aicrCpuStarterRecords().length,
+    "the anonymous AICR selection count changed",
+  );
+  check(
+    aicrCpuStarterPublicReceipt.spec?.output?.manifestDigest === AICR_CPU_STARTER_LOCAL_OCI_DIGEST,
+    "the anonymous AICR output digest changed",
+  );
+  check(aicrCpuStarterPublicReceipt.spec?.output?.pullBack === "pass", "the anonymous AICR OCI pull-back did not pass");
+  check(
+    aicrCpuStarterPublicReceipt.spec?.script?.sha256 === sha256(aicrCpuStarterTryScript(SITE_BASE_URL)),
+    "the anonymous AICR receipt does not match the public script",
+  );
   const top100 = JSON.parse(readFileSync(top100Path, "utf8"));
   const top500 = JSON.parse(readFileSync(top500Path, "utf8"));
   const readiness = parseCsv(readFileSync(latestReadinessPath, "utf8"));
@@ -987,6 +1046,7 @@ function buildSite(generatedAt) {
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
+    tryAicrHtml: calmPage(tryAicrHtml()),
     configHubHtml: calmPage(configHubHtml()),
     redisWalkthroughHtml: calmPage(redisWalkthroughHtml(catalog)),
     serverlessHtml: calmPage(serverlessHtml(catalog)),
@@ -1455,6 +1515,7 @@ function buildLlmsTxt() {
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
@@ -3638,6 +3699,77 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
 `;
 }
 
+function tryAicrHtml() {
+  const rows = aicrCpuStarterRecords()
+    .map((record) => `<tr><td><code>${escapeHtml(record.name)}</code></td><td>${record.syncWave}</td></tr>`)
+    .join("\n        ");
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try AICR · Config Workshop</title>
+<style>${siteCss()}</style>
+</head>
+<body>
+<header class="hero human-hero">
+  ${topNav(".")}
+  <h1>Try AICR without a GPU</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
+  <p class="lead">Pull one retained NVIDIA AICR configuration, select seven platform Applications that do not need GPU hardware to inspect, verify every file, and write the result as a local OCI package.</p>
+  <p>You do not need ConfigHub, Kubernetes, a cloud account, a GPU, or a registry login. This exercise reads configuration; it does not install the components or run a model.</p>
+</header>
+<main>
+  <section aria-labelledby="install-oras">
+    <h2 id="install-oras">1. Install ORAS</h2>
+    <p>ORAS reads and writes OCI packages without running a container.</p>
+    <pre><code>oras version</code></pre>
+    <p>If that command fails, use the <a href="https://oras.land/docs/installation/">ORAS installation instructions</a>.</p>
+  </section>
+
+  <section aria-labelledby="run-aicr">
+    <h2 id="run-aicr">2. Pull and check the configuration</h2>
+    <p>Run one script. It uses an empty credential store for the public pull, checks the source digest, selects the seven reviewed files, and compares the local OCI with those files.</p>
+    <pre><code>bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/aicr-cpu-starter/try.sh)</code></pre>
+    <p>Source: <code style="overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(AICR_CPU_STARTER_SOURCE_OCI_REF)}</code></p>
+    <p>Recorded source digest: <code style="overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(AICR_CPU_STARTER_SOURCE_DIGEST)}</code></p>
+  </section>
+
+  <section aria-labelledby="inspect-aicr">
+    <h2 id="inspect-aicr">3. Read what you received</h2>
+    <p>The result contains seven Argo CD Application files, the source-and-intent record that explains the selection, and a local OCI containing the same seven files.</p>
+    <pre><code>find ./aicr-cpu-starter/config/templates -maxdepth 1 -type f -print
+cat ./aicr-cpu-starter/source-and-intent.yaml
+oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0</code></pre>
+    <table>
+      <thead><tr><th>Selected Application</th><th>Argo CD sync wave</th></tr></thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+    <p>Expected local OCI digest: <code style="overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(AICR_CPU_STARTER_LOCAL_OCI_DIGEST)}</code>.</p>
+  </section>
+
+  <section aria-labelledby="aicr-boundary">
+    <h2 id="aicr-boundary">What this example proves</h2>
+    <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
+    <p>The CPU starter is a Config Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
+    <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
+  </section>
+
+  <section aria-labelledby="aicr-next">
+    <h2 id="aicr-next">Choose what to do next</h2>
+    <p>Keep the files and OCI locally, or <a href="./confighub.html">keep the reviewed result in ConfigHub</a> when your team needs shared changes, environment variants, approvals, promotion, or release history.</p>
+    <p>For deployment, <a href="./how-it-works.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
+    <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
+  </section>
+</main>
+<footer><p>This exercise uses no ConfigHub Server, ConfigHub account, registry login, Kubernetes cluster, or GPU.</p></footer>
+</body>
+</html>
+`;
+}
+
 function howItWorksHtml() {
   return `<!doctype html>
 <html lang="en">
@@ -4134,6 +4266,7 @@ function docsReferenceHtml(catalog) {
   const startRows = [
     ["Learn ConfigHub", `<a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "docs-start")}">Official tutorial</a>`, "Set up a cluster. Install and release one component. Change it, add production, and promote the change."],
     ["Try Redis without an account", `<a href="./try.html">Try Redis</a>`, "Render one reviewed Redis configuration. Inspect the files and local OCI without ConfigHub Server."],
+    ["Try AICR without an account", `<a href="./try-aicr.html">Try AICR</a>`, "Pull one public AICR configuration, reproduce the seven-Application CPU starter, verify every file, and write a local OCI without a cluster or GPU."],
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
@@ -4163,6 +4296,7 @@ function docsReferenceHtml(catalog) {
     ["OCI import, promotion, and two-cluster rollout", "One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.", "../data/oci-deploy-stage-rollout-proof/summary.md"],
     ["Redis upgrade, promotion, and rollback", "A live chart upgrade keeps a post-render replica change, moves through development and staging, reaches two Argo CD clusters, then restores the exact pre-upgrade revisions and checks both clusters again.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform. Two public OCI artifacts carry the source package and 17 exact Argo CD Applications. ConfigHub stores the Applications as a base, changes one Grafana Secret reference in development, and promotes that result to staging.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
+    ["AICR anonymous CPU starter", "Pull the retained AICR configuration without credentials, select and hash-check seven Applications, then write and verify a local OCI without contacting ConfigHub or Kubernetes.", "../data/aicr-cpu-starter-public-proof/summary.md"],
     ["AICR OCI round trip", "A live OCI-to-ConfigHub-to-OCI test imports 17 AICR-generated Argo CD Applications, publishes a ConfigHub release, pulls it back, and compares every object without claiming a GPU rollout.", "../data/aicr-oci-roundtrip-proof/summary.md"],
     ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
@@ -4174,6 +4308,7 @@ function docsReferenceHtml(catalog) {
     ["Sveltos Kyverno fleet example", "A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
+    ["Try AICR", "Pull and verify one AICR-derived seven-Application configuration without a ConfigHub account, cluster, cloud account, or GPU.", "./try-aicr.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
     ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
@@ -5199,6 +5334,8 @@ function docsHtml() {
       <h2 id="start">Start with a configuration</h2>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
+      <h3><a href="./try-aicr.html">Can I try one AICR configuration without a GPU?</a></h3>
+      <p>Pull and verify the seven-Application CPU starter, then write it as a local OCI without ConfigHub or Kubernetes.</p>
       <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
       <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
@@ -7175,10 +7312,10 @@ function inferenceFamilyTable(root) {
       `ConfigHub retained the two changed Units, published OCI, Argo CD pulled the same digest, the pod became ready, and the model answered. <a href="${href("d/data/vllm-cpu-starter-proof/summary.html")}">Read the proof</a>.`,
     ],
     [
-      `<a href="${href("d/docs/demo/aicr/cpu-starter.html")}"><strong>Learn the AICR platform shape</strong></a>`,
-      "Seven retained Argo CD Applications that show AICR composition, ordering, variants, and one reviewed storage change without accelerators.",
-      "No GPU, cloud account, or NGC key to read and verify it. The ConfigHub and kind walkthroughs use their named account and cluster steps.",
-      "The selection and digests are checked. One change reached staging, and one selected component synced on kind. This is a platform configuration proof, not model inference.",
+      `<a href="${href("try-aicr.html")}"><strong>Learn the AICR platform shape</strong></a>`,
+      `An anonymous pull of the retained AICR platform, followed by a reviewed seven-Application CPU-starter selection and a checked local OCI. <a href="${href("d/docs/demo/aicr/cpu-starter.html")}">Read the detailed record</a>.`,
+      "ORAS and a laptop. No GPU, cloud account, NGC key, ConfigHub account, registry login, or Kubernetes cluster.",
+      `The source digest, seven selected file hashes, source-and-intent record, local OCI digest, and pull-back comparison are checked. <a href="${href("d/data/aicr-cpu-starter-public-proof/summary.html")}">Read the anonymous run</a>. This is configuration inspection, not model inference.`,
     ],
     [
       `<a href="${href("d/docs/demo/aicr/eks-h100-inference-nim.html")}"><strong>Plan NVIDIA NIM serving</strong></a>`,
@@ -7295,7 +7432,7 @@ Rendered 0 secret(s)</code></pre>
         ],
         [
           "An AICR recipe or inference stack",
-          `<a href="#inference"><strong>Get inference running.</strong></a> Start with a real CPU model request, or choose AICR, NIM, or the full EKS stack. The next table states the hardware, account, and credential requirements before each path.`,
+          `<a href="./try-aicr.html"><strong>Try one AICR configuration.</strong></a> Pull and verify the seven-Application CPU starter without an account, cluster, or GPU. Then compare the real CPU model request, NIM, and full EKS paths below.`,
         ],
         [
           "An existing OCI package",
@@ -8908,7 +9045,12 @@ function presetConfigHubScript(entry, row) {
 }
 
 function buildPresetScripts(catalog) {
-  const scripts = [];
+  const aicrScriptRelPath = "sh/aicr-cpu-starter/try.sh";
+  const scripts = [{
+    relPath: aicrScriptRelPath,
+    path: join(siteRoot, aicrScriptRelPath),
+    content: aicrCpuStarterTryScript(SITE_BASE_URL),
+  }];
   const seen = new Set();
   for (const entry of catalog.catalogEntries) {
     const rows = catalog.masterCatalogMatrix

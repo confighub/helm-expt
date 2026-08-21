@@ -56,7 +56,7 @@ Complete journeys someone has already run end to end.
 | Document | Purpose |
 | --- | --- |
 | [AI change review example](./demo/apps/ai-change-review.md) | A real AICR training object, an unsafe proposed change, the corrected candidate, and an honest receipt showing which checks and live steps did or did not run. |
-| [AICR CPU starter example](./demo/aicr/cpu-starter.md) | The derived starter entry: seven byte-identical components selected from the training entry by recorded rules, pinned end to end by digest, needing no GPU, cloud account, or NGC key. |
+| [AICR CPU starter example](./demo/aicr/cpu-starter.md) | Pull the public AICR configuration anonymously, reproduce and hash-check the seven-Application CPU starter, write a local OCI, then follow its ConfigHub and bounded kind proofs. No GPU, cloud account, or NGC key is needed for the first run. |
 | [AICR H100 training example](./demo/aicr/eks-h100-training-kubeflow.md) | The retained EKS + H100 + Kubeflow entry: committed bundles and receipts, the digest-bound platform index, OCI round trip, ConfigHub upload, and the development-to-staging promotion. |
 | [AICR KServe NIM inference example](./demo/aicr/kserve-nim-inference.md) | The retained NIM-on-KServe entry: the Apache-2.0 nim-deploy KServe subtree at an exact commit, the digest-bound index with licensing-boundary refusal rules, and the first model profile described as data. |
 | [AICR catalog overview](./demo/aicr/index.md) | The three AICR entry classes (training, inference, CPU starter), what exists against what is planned, the retained-versions discipline while upstream moves, and the config-plane-only boundary. |

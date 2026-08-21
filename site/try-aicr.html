@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try AICR · Config Workshop</title>
+  <meta name="description" content="Pull one public AICR configuration, select and verify seven CPU-starter Applications, and write a local OCI without an account or cluster.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try-aicr.html">
+  <meta property="og:title" content="Try AICR · Config Workshop">
+  <meta property="og:description" content="Pull one public AICR configuration, select and verify seven CPU-starter Applications, and write a local OCI without an account or cluster.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try-aicr.html">
+<style>
     :root {
       color-scheme: light dark;
       --ink: #131a20;
@@ -427,76 +427,148 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
+    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page main section { padding-top: 8px; }
+    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
+      gap: 22px;
+      align-items: start;
+    }
+    .calm-page .card,
+    .calm-page .metric,
+    .calm-page .lane,
+    .calm-page .faq-card,
+    .calm-page .door,
+    .calm-page .tier,
+    .calm-page .matrix-row-card,
+    .calm-page .move-card,
+    .calm-page .node,
+    .calm-page .consumer,
+    .calm-page .app-step,
+    .calm-page .op,
+    .calm-page .route div,
+    .calm-page .callout-section {
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 14px 0 0;
+    }
+    .calm-page .metric strong { font-size: 1.4rem; }
+    .calm-page .metric strong,
+    .calm-page .kicker,
+    .calm-page .eyebrow,
+    .calm-page .generated,
+    .calm-page .tier .stage,
+    .calm-page .chain a::before,
+    .calm-page .faq-status,
+    .calm-page .row-layer,
+    .calm-page .row-kind,
+    .calm-page .lane-pill b,
+    .calm-page .terminal-title {
+      font-family: inherit;
+    }
+    .calm-page p code,
+    .calm-page li code,
+    .calm-page td code,
+    .calm-page th code,
+    .calm-page dd code,
+    .calm-page .mono-line code {
+      font-family: inherit;
+      font-size: .92em;
+    }
+    .calm-page pre,
+    .calm-page pre code,
+    .calm-page .terminal-body,
+    .calm-page .terminal-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .calm-page .metric span,
+    .calm-page .card p,
+    .calm-page .lane p,
+    .calm-page .faq-card p,
+    .calm-page .op p {
+      max-width: none;
+    }
+    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
+    .calm-page .mini-visual,
+    .calm-page .proof-frame {
+      border-radius: 0;
+      background: transparent;
+      border-color: var(--line);
+    }
+    .calm-page .chain a,
+    .calm-page .button.secondary,
+    .calm-page .chips span {
+      border-radius: 6px;
+      background: transparent;
+    }
+    .calm-page .route,
+    .calm-page .app-flow,
+    .calm-page .move-spine {
+      gap: 22px;
+    }
   </style>
 </head>
-<body>
-  <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../guides.html">Guides</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
-  </header>
-  <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
-    <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 934</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>489</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>417</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>28</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>418</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>catalog-data</code></td><td>70</td></tr>
-<tr><td><code>production-support</code></td><td>65</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>29</td></tr>
-<tr><td><code>repo-integrity</code></td><td>27</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>407</td></tr>
-<tr><td><code>generate-or-run</code></td><td>361</td></tr>
-<tr><td><code>run</code></td><td>102</td></tr>
-<tr><td><code>self-test</code></td><td>54</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>857</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
-    </article>
-  </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+<body class="calm-page">
+<header class="hero human-hero">
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+  <h1>Try AICR without a GPU</h1>
+  <p class="boundary-chip">Runs on your laptop</p>
+  <p class="lead">Pull one retained NVIDIA AICR configuration, select seven platform Applications that do not need GPU hardware to inspect, verify every file, and write the result as a local OCI package.</p>
+  <p>You do not need ConfigHub, Kubernetes, a cloud account, a GPU, or a registry login. This exercise reads configuration; it does not install the components or run a model.</p>
+</header>
+<main>
+  <section aria-labelledby="install-oras">
+    <h2 id="install-oras">1. Install ORAS</h2>
+    <p>ORAS reads and writes OCI packages without running a container.</p>
+    <pre><code>oras version</code></pre>
+    <p>If that command fails, use the <a href="https://oras.land/docs/installation/">ORAS installation instructions</a>.</p>
+  </section>
+
+  <section aria-labelledby="run-aicr">
+    <h2 id="run-aicr">2. Pull and check the configuration</h2>
+    <p>Run one script. It uses an empty credential store for the public pull, checks the source digest, selects the seven reviewed files, and compares the local OCI with those files.</p>
+    <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aicr-cpu-starter/try.sh)</code></pre>
+    <p>Source: <code style="overflow-wrap:anywhere;word-break:break-word;">oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0</code></p>
+    <p>Recorded source digest: <code style="overflow-wrap:anywhere;word-break:break-word;">sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010</code></p>
+  </section>
+
+  <section aria-labelledby="inspect-aicr">
+    <h2 id="inspect-aicr">3. Read what you received</h2>
+    <p>The result contains seven Argo CD Application files, the source-and-intent record that explains the selection, and a local OCI containing the same seven files.</p>
+    <pre><code>find ./aicr-cpu-starter/config/templates -maxdepth 1 -type f -print
+cat ./aicr-cpu-starter/source-and-intent.yaml
+oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0</code></pre>
+    <table>
+      <thead><tr><th>Selected Application</th><th>Argo CD sync wave</th></tr></thead>
+      <tbody>
+        <tr><td><code>cert-manager</code></td><td>2</td></tr>
+        <tr><td><code>nfd</code></td><td>3</td></tr>
+        <tr><td><code>prometheus-operator-crds</code></td><td>6</td></tr>
+        <tr><td><code>kube-prometheus-stack</code></td><td>7</td></tr>
+        <tr><td><code>k8s-ephemeral-storage-metrics</code></td><td>9</td></tr>
+        <tr><td><code>kai-scheduler</code></td><td>10</td></tr>
+        <tr><td><code>prometheus-adapter</code></td><td>15</td></tr>
+      </tbody>
+    </table>
+    <p>Expected local OCI digest: <code style="overflow-wrap:anywhere;word-break:break-word;">sha256:62eaf39703ca0e5e968fcd4a667cbccbb5b3ff16403471c4b3441b3681b2b225</code>.</p>
+  </section>
+
+  <section aria-labelledby="aicr-boundary">
+    <h2 id="aicr-boundary">What this example proves</h2>
+    <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
+    <p>The CPU starter is a Config Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
+    <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
+  </section>
+
+  <section aria-labelledby="aicr-next">
+    <h2 id="aicr-next">Choose what to do next</h2>
+    <p>Keep the files and OCI locally, or <a href="./confighub.html">keep the reviewed result in ConfigHub</a> when your team needs shared changes, environment variants, approvals, promotion, or release history.</p>
+    <p>For deployment, <a href="./how-it-works.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
+    <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
+  </section>
+</main>
+<footer><p>This exercise uses no ConfigHub Server, ConfigHub account, registry login, Kubernetes cluster, or GPU.</p></footer>
 </body>
 </html>

@@ -5,6 +5,25 @@ UNOFFICIAL/EXPERIMENTAL. This entry belongs to
 platform spine without accelerators, for anyone who wants to exercise the
 catalog's config mechanics without a GPU, a cloud account, or an NGC key.
 
+## Try the public configuration first
+
+Install [ORAS](https://oras.land/docs/installation/), then run:
+
+```bash
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aicr-cpu-starter/try.sh)
+```
+
+The script anonymously pulls the retained 17-Application AICR configuration,
+selects the seven Applications recorded for this CPU starter, verifies every
+file hash, and writes those seven files as a local OCI. It pulls that OCI back
+and compares the files before it reports success. It does not contact
+ConfigHub Server or Kubernetes.
+
+The short [Try AICR page](../../../site/try-aicr.html) explains the output. The
+[anonymous run receipt](../../../data/aicr-cpu-starter-public-proof/summary.md)
+records the source and output digests. This is configuration inspection, not a
+claim that the components or a model ran.
+
 ## What upstream does and does not offer here
 
 AICR has no accelerator-free recipe. Its kind overlays exist, but they target

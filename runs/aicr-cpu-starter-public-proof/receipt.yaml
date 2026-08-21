@@ -1,0 +1,78 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrCpuStarterPublicProofReceipt"
+metadata:
+  name: "aicr-cpu-starter-v0-14-0"
+spec:
+  observedAt: "2026-08-21T14:25:37.667Z"
+  execution:
+    configHubAccountUsed: false
+    configHubServerContacted: false
+    registryLoginUsed: false
+    kubernetesClusterUsed: false
+    isolatedHome: true
+  source:
+    kind: "NVIDIA AICR generated Argo CD configuration"
+    version: "v0.14.0"
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+    manifestDigest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+    objectCount: 17
+    publicationReceipt: "examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml"
+  selection:
+    kind: "Config Workshop CPU-starter derivation"
+    record: "examples/aicr/cpu-starter/derivation-receipt.yaml"
+    recordSha256: "667ffcbbb3d763225897af54790f14e49581528f69e198ea555f65756056567c"
+    objectCount: 7
+    objects:
+      -
+        name: "cert-manager"
+        file: "cert-manager.yaml"
+        sha256: "9429064306e0efcca02e29edafa202330de0d3cbab8b8d47d52f69a2e56b6453"
+        syncWave: 2
+      -
+        name: "nfd"
+        file: "nfd.yaml"
+        sha256: "ef2cfedf5ff066f0255ed0d910daacec6f78225f117a3bf95f8c448d1e8b0df6"
+        syncWave: 3
+      -
+        name: "prometheus-operator-crds"
+        file: "prometheus-operator-crds.yaml"
+        sha256: "0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292"
+        syncWave: 6
+      -
+        name: "kube-prometheus-stack"
+        file: "kube-prometheus-stack.yaml"
+        sha256: "83f58c797a925802b31ea5874676ad7ee51b2c3439e9a86d06bbcf52a87a7656"
+        syncWave: 7
+      -
+        name: "k8s-ephemeral-storage-metrics"
+        file: "k8s-ephemeral-storage-metrics.yaml"
+        sha256: "069c54ea067bee6e041f6356b6f72e1a00ce41294217fb5edaed085bbaeb1b2f"
+        syncWave: 9
+      -
+        name: "kai-scheduler"
+        file: "kai-scheduler.yaml"
+        sha256: "740ea2245f37828f383b89ed876cbfbcd4ad30972447cdbf57c06922348e5fbc"
+        syncWave: 10
+      -
+        name: "prometheus-adapter"
+        file: "prometheus-adapter.yaml"
+        sha256: "1d6fab6e8f60c9b7eda6ed266d0b172159bada60a95396f44f63c22039afe509"
+        syncWave: 15
+  output:
+    role: "literal Kubernetes configuration"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+    destination: "temporary local OCI layout"
+    manifestDigest: "sha256:62eaf39703ca0e5e968fcd4a667cbccbb5b3ff16403471c4b3441b3681b2b225"
+    pullBack: "pass"
+  script:
+    path: "site/sh/aicr-cpu-starter/try.sh"
+    sha256: "edac6f051dd40dfe4907da495a4fcee164438c0e431c7c6200237d971a7898b0"
+  limits:
+    - "The source OCI contains 17 Argo CD Application objects generated from NVIDIA AICR v0.14.0. The CPU starter is a recorded Config Workshop selection of seven of those objects; it is not an upstream AICR recipe."
+    - "The walkthrough reads configuration and writes a local OCI. It does not contact ConfigHub Server or Kubernetes."
+    - "No Argo CD Application was reconciled, no component was installed, and no model workload ran."
+    - "The retained kube-prometheus-stack Application still names the gp3 storage class. Change that field before a live run on a cluster without gp3."
+status:
+  result: "pass"
+  claim: "With no ConfigHub account, registry login, or Kubernetes cluster, the public script anonymously pulled the retained 17-Application AICR configuration, selected and hash-verified the seven CPU-starter Applications, wrote them as a local OCI, pulled that OCI back, and compared every file."
+  error: ""
