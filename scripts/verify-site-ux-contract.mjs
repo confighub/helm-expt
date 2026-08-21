@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 import "./verify-configuration-review-contract.mjs";
+import "./verify-config-processing-model.mjs";
 
 const root = process.cwd();
 // The catalog grows, so these are floors against losing a component or a
@@ -40,7 +41,7 @@ const checks = [
   },
   {
     file: "site/ask.html",
-    terms: ["Check your configuration", "Here is the chart and values my AI produced", "chart configurations we have already tested and documented", "Use this page for your own chart, values, new version, or unexpected result", "Your files stay in this browser", "Download one complete result for your own AI or CI", "question-context", "See the complete example", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "1. Check a chart and values", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build my prompt", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Keep or share the reviewed result", "Compare with the Catalog", "Download complete result", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "Keep this reviewed result in ConfigHub", "Candidate file hash", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Questions People Are Asking", "40 recent public Helm discussions", "not customer or site usage totals", "What Happens to a Public Question", "within two business days", "Within seven days", "What happens next", "The review finds a placeholder credential", "blocking ConfigHub apply gate", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
+    terms: ["Check your configuration", "Here is the chart and values my AI produced", "chart configurations we have already tested and documented", "Use this page for your own chart, values, new version, or unexpected result", "Your files stay in this browser", "Do not upload private files", "Keep secrets out of the form", "Download one complete result for your own AI or CI", "question-context", "See the complete example", "AI wrote these values. What did they actually change?", "I set a value. Why did the rendered object not change?", "If Helm ignored a setting, check first for a misspelled or wrong values path", "Can I upgrade this chart without breaking production?", "The chart does not expose the field I need. Must I fork it?", "How should Argo CD or Flux handle this chart's hooks and CRDs?", "Can I roll back to exactly what ran before?", "How is this candidate different from production?", "Where does this vulnerable image run, and how can I update it safely?", "What will this install, and what must already exist?", "Do these version and digest records identify the same bytes?", "1. Check a chart and values", "Optional comparison: add what you run today", "No, keep this investigation private", "Installed Helm release", "Read the existing-release commands", "Build my prompt", "WORKSHOP FINDING", "Check rendered objects in this browser", "I have rendered YAML", "Check these objects", "This is a first check, not a Helm render", "The checks on this page run in your browser", "This page does not send your files to an AI service", "Do not add credentials or Secret values", "Keep or share the reviewed result", "Compare with the Catalog", "Download complete result", "Open the ConfigHub tutorial", "See what this check does not prove", "Read the upgrade and rollback walkthrough", "Download review record", "Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.", "WorkshopResult schema", "ConfigurationReview schema", "Keep this reviewed result in ConfigHub", "Candidate file hash", "Copy commands to keep this result", "Use your own AI assistant", "Copy handoff for my AI", "Optional: propose a public Catalog case", "A maintainer must reproduce and classify the case", "Questions People Are Asking", "40 recent public Helm discussions", "not customer or site usage totals", "What Happens to a Public Question", "within two business days", "Within seven days", "What happens next", "The review finds a placeholder credential", "Find a configuration that uses an existing Secret", "blocking ConfigHub apply gate", "The render is surprising", "publish the reviewed files as OCI", "Save the reviewed result in ConfigHub", "delivery limitations", "checks and publication receipts", "promotion and fleet examples"],
   },
   {
     file: "site/why-did-helm-ignore-my-values.html",
@@ -100,7 +101,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Track required setup", "source and intent record", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
+    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Record the source and required setup", "materialization", "Literal YAML and configuration OCI already contain the objects", "flatten", "source and intent record", "lifecycle routes", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "What each path can prove", "5. Next step", "the managed examples", "the platform examples"],
   },
   {
     file: "site/deployment-reference.html",
@@ -112,7 +113,11 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "pinned so a republished tag cannot change what you get", "What The Starting Configuration Records", "Try This Chart", "redis-existing-secret"],
+    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "Check this chart and version", "Try the package", "Plan an upgrade or promotion", "Keep it in ConfigHub", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "pinned so a republished tag cannot change what you get", "What The Starting Configuration Records", "Try This Chart", "Additional scripts: apply it or upload it", "redis-existing-secret"],
+  },
+  {
+    file: "site/d/docs/user/confighub-data-model.html",
+    terms: ["The ConfigHub data model", "source + processing intent", "materialize exact Kubernetes objects", "decide whether to flatten", "attach lifecycle routes and protected ownership", "Literal YAML and literal configuration OCI are already materialized", "no route required", "A source OCI and a literal configuration OCI have different jobs", "Helm's two linked records", "Do not create a fake render variant", "complete managed result is source and intent, exact configuration, lifecycle routes, and runtime receipts"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -124,7 +129,7 @@ const checks = [
   },
   {
     file: "site/known-gaps.html",
-    terms: ["Delivery limitations and known gaps", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
+    terms: ["Delivery limitations and known gaps", "Check one delivery result", "1. Read the current delivery limits", "2. Check the exact chart and configuration", "Fixed placeholder credentials", "SSA conflict ergonomics", "Do now:"],
   },
   {
     file: "site/docs.html",
@@ -136,7 +141,7 @@ const checks = [
   },
   {
     file: "site/verification.html",
-    terms: ["Check one claim", "1. Choose the question", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
+    terms: ["Check one claim", "A claim is checked only when the named command or receipt covers it", "not checked", "1. Choose the question", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
   },
   {
     file: "site/proof.html",

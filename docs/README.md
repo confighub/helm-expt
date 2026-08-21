@@ -106,8 +106,8 @@ What the catalog promises, and the briefs behind those promises.
 | [chart-successors-brief.md](./planning/chart-successors-brief.md) | Brief for replacing the six single-publisher chart sources: the measured breakage, the live-verified successor per component, the redis engine question, and the operator shape tax. |
 | [config-catalog-demo-program.md](./planning/config-catalog-demo-program.md) | Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps. |
 | [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
-| [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Maintained doctrine for the anonymous-to-managed boundary, source-and-intent records, source-neutral base variants, four OCI package roles, fleet delivery, apply policy, AI use, and keeping the human and machine views aligned. |
-| [flattening-alignment.md](./reference/flattening-alignment.md) | Decision guide for flattening a chart, flattening with recorded setup, or keeping render-late delivery, aligned with the ConfigHub Golden Path model. |
+| [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Canonical business purpose and user journey, plus the source-neutral model for materializing, flattening, routing, protecting, retaining, and delivering configuration across Helm, AICR, generators, OCI, YAML, and ConfigHub. |
+| [flattening-alignment.md](./reference/flattening-alignment.md) | Source-neutral decision guide for retaining exact objects, retaining them with recorded setup, or processing the source late. |
 
 ### Working with charts
 
@@ -179,7 +179,7 @@ Where a design is written down before it is built.
 | --- | --- |
 | [config-workshop-ai-drift-growth-strategy.md](./planning/config-workshop-ai-drift-growth-strategy.md) | Decision-ready positioning for the Workshop, its AI-assisted question path, the four drift stages, a thirty-day demand test, and the ranked growth backlog. |
 | [promotion-workshop-test-program.md](./planning/promotion-workshop-test-program.md) | Adversarial test program for a public promotion review: exact candidates, destination differences, flattening refusals, lifecycle routes, stale evidence, partial fan-out, and the ConfigHub handoff. |
-| [confighub-data-model.md](./user/confighub-data-model.md) | The vocabulary the model assumes — chart base, recipe, Unit, space, variant, target, worker, OCI bundle, target fact, route, receipt — and how they fit in one line. |
+| [confighub-data-model.md](./user/confighub-data-model.md) | How Helm, AICR, generators, OCI, YAML, and ConfigHub fit one processing model: materialize exact objects, decide whether to flatten, attach lifecycle routes, retain variants, publish, reconcile, and observe. |
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today. |
 | [model-and-vocabulary.md](./user/model-and-vocabulary.md) | One page for the source-and-intent role, the five main terms (recipe, rendering, render record, base variant, derived variant), the F1-F4 stages, and where each artifact lives today. |

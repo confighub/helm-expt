@@ -518,6 +518,7 @@
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
     <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
+    <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
     <p><button class="button primary" id="load-example" type="button">See the complete example</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
@@ -587,6 +588,7 @@
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
+      <p><strong>Do not add credentials or Secret values.</strong> Keep private source names and paths local. The optional public Catalog proposal is only for material you are allowed to publish.</p>
       <div class="card">
         <div class="grid">
           <p><label for="source-type"><strong>Starting format</strong></label><br>
@@ -631,6 +633,7 @@
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
       <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
       <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
+      <p><a class="button primary" href="./confighub.html">Keep this reviewed result in ConfigHub</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=ask-reviewed-result">Open the ConfigHub tutorial</a> <a class="button secondary" href="./known-gaps.html">See what this check does not prove</a></p>
       <details>
         <summary><strong>Open the complete result</strong></summary>
         <textarea id="workshop-result-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
@@ -641,6 +644,7 @@
       <textarea id="review-record-output" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><button class="button secondary" id="continue-to-promotion" type="button">Test this result for promotion</button></p>
+      <p>A saved object set can restore the configuration that was delivered. It cannot undo database migrations, cloud resources, or other external effects. Live comparison is a separate check after delivery. <a href="./redis-walkthrough.html">Read the upgrade and rollback walkthrough</a> before claiming that a rollback will restore the exact release.</p>
       <p><a href="./review.schema.json">Read the ConfigurationReview schema</a>.</p>
 
       <h3>Keep this reviewed result in ConfigHub</h3>
@@ -694,7 +698,7 @@
       <h2 id="next-jobs">What happens next</h2>
       <div class="card"><table>
         <thead><tr><th>Result</th><th>Next step</th></tr></thead>
-        <tbody><tr><td>The Catalog already covers the case</td><td>Use its retained package, useful configuration, setup instructions, and evidence.</td></tr><tr><td>The review finds a values problem</td><td>Correct the value and render again. Keep the new object hash with the review.</td></tr><tr><td>The review finds a placeholder credential</td><td>Fix it by replacing the placeholder or using an existing external Secret. <a href="./d/data/apply-policy-profiles/summary.html">See the blocking ConfigHub apply gate</a>, or <a href="./known-gaps.html">read the credential limitation</a>.</td></tr><tr><td>The render is surprising</td><td>Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again.</td></tr><tr><td>The chart does not expose the required field</td><td>Keep the chart when possible and record the smallest object change as a ConfigHub variant.</td></tr><tr><td>The configuration needs hooks, CRDs, Secrets, or setup work</td><td>Choose an explicit owner and order. Use only a delivery route whose evidence covers that work.</td></tr><tr><td>The result should remain portable</td><td>Keep the YAML and review record locally, or <a href="./how-it-works.html#now-deploy">publish the reviewed files as OCI</a>.</td></tr><tr><td>A team needs history, promotion, or rollout</td><td><a href="./confighub.html">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state.</td></tr></tbody>
+        <tbody><tr><td>The Catalog already covers the case</td><td>Use its retained package, useful configuration, setup instructions, and evidence.</td></tr><tr><td>The review finds a values problem</td><td>Correct the value and render again. Keep the new object hash with the review.</td></tr><tr><td>The review finds a placeholder credential</td><td>Fix it by replacing the placeholder or using an existing external Secret. <a href="./charts/index.html">Find a configuration that uses an existing Secret</a>, <a href="./d/data/apply-policy-profiles/summary.html">see the blocking ConfigHub apply gate</a>, or <a href="./known-gaps.html">read the credential limitation</a>.</td></tr><tr><td>The render is surprising</td><td>Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again.</td></tr><tr><td>The chart does not expose the required field</td><td>Keep the chart when possible and record the smallest object change as a ConfigHub variant.</td></tr><tr><td>The configuration needs hooks, CRDs, Secrets, or setup work</td><td>Choose an explicit owner and order. Use only a delivery route whose evidence covers that work.</td></tr><tr><td>The result should remain portable</td><td>Keep the YAML and review record locally, or <a href="./how-it-works.html#now-deploy">publish the reviewed files as OCI</a>.</td></tr><tr><td>A team needs history, promotion, or rollout</td><td><a href="./confighub.html">Save the reviewed result in ConfigHub</a>, then create variants, approve changes, publish releases, and compare desired with live state.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

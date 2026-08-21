@@ -483,6 +483,7 @@ Where did my Helm hook go?
 What output should I expect after each step?
 What is safe for AI to change?
 What do I do when a chart breaks?</code></pre>
+<p>The ten practical questions in the <a href="../docs/reference/config-catalog-doctrine.html#practical-question-contract">catalog doctrine</a> are a permanent regression set. Every substantial question, Catalog, Check, Promote, or ConfigHub journey change must test all ten. Do not replace them with generic feature questions. Synthetic runs test routing; the controlled outreach cohort tests whether real users can reach a decision with the site, local tools, their own AI, and the optional ConfigHub and promotion paths.</p>
 <h2 id="run-format">Run Format</h2>
 <p>For each persona, record:</p>
 <pre><code>persona
@@ -504,6 +505,12 @@ voice owner: marketing voice or technical voice</code></pre>
   --compare-with data/site-persona-simulations-2026-08-13/journeys.csv</code></pre>
 <p>The runner executes 200 simulations for each of the four personas: 180 live journeys from nine public entry pages and 20 synthetic label trials. A live journey follows only visible internal links, stops after five clicks, and succeeds only when it finds all required facts plus a relevant action.</p>
 <p>Treat these as routing diagnostics, not user research. Report first-click improvement separately from eventual success; a site that answers a question after five clicks can still have a poor front door. Keep language trials explicitly labeled as synthetic. Confirm consequential failures in a browser before changing the site.</p>
+<h2 id="source-neutral-processing-review">Source-neutral processing review</h2>
+<p>Run <code>npm run site:ux:verify</code> after changing the configuration model. It includes <code>scripts/verify-config-processing-model.mjs</code>, which checks six source formats, the flatten/route/process-late decisions, and the three protection classes.</p>
+<p>On 2026-08-21, four inexpensive persona agents each ran 25 read-only scenarios against the generated site. The 100 results were 62 clear, 30 partial, and 8 confusing. This was synthetic review, not user evidence. The repeated problems were:</p>
+<ul><li>source OCI versus literal configuration OCI;</li><li>flattening as a real transform versus a recorded no-op;</li><li>who runs process-late and lifecycle work;</li><li>protected local fields versus protected inputs and prune protection;</li><li>CRD ordering, apply gates, and the scope of each receipt; and</li><li>rollback of configuration versus external effects.</li></ul>
+<p>The corresponding public explanation now lives on Deployment. Check my config also states the private-data and rollback boundaries, Promote my config names its accepted input forms, and chart pages label apply/upload scripts as advanced.</p>
+<p>The same candidate passed 697 of the 720 deterministic live journeys, compared with 667 for the saved baseline. Partial results fell from 53 to 23, with no failures in either run. The strongest remaining candidates are a real hooks guide, per-chart actions for undecided flattening verdicts, and a delivery status line that joins route, pruning, and runtime evidence without implying that one proves another.</p>
 <h2 id="voice-split">Voice Split</h2>
 <p>Use <b>marketing voice</b> for intros, landing pages, user motivation, and marketing content. It should be plain, direct, optimistic, and human.</p>
 <p>Use <b>technical voice</b> for technical content. It should define scope, prerequisites, current status, evidence, limits, and next actions precisely.</p>

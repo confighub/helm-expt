@@ -43,6 +43,7 @@ When an agent-facing page changes:
 
 | Topic | Human source | Agent/operator source |
 | --- | --- | --- |
+| Business purpose and user journey | `docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey` | Link to the canonical section; do not mirror it in agent instructions. |
 | First-run story | `docs/user/try-now.md` and public Get Started page | `docs/agent/tasks.md` |
 | Command choice | `docs/user/choosing-commands.md` | `docs/agent/tasks.md` and `tests/npm-scripts.md` |
 | Verification model | `docs/user/verification.md` | `docs/agent/verification.md` |

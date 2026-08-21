@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>When to flatten a Helm chart · Config Workshop</title>
-  <meta name="description" content="When to flatten a Helm chart: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>When to flatten configuration · Config Workshop</title>
+  <meta name="description" content="When to flatten configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/flattening-alignment.html">
-  <meta property="og:title" content="When to flatten a Helm chart · Config Workshop">
-  <meta property="og:description" content="When to flatten a Helm chart: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="When to flatten configuration · Config Workshop">
+  <meta property="og:description" content="When to flatten configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/flattening-alignment.html">
   <style>
@@ -442,27 +442,31 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>When to flatten a Helm chart</h1>
-    <p class="lead">Flattening means rendering a Helm chart into literal Kubernetes objects and keeping those objects as the configuration that will be reviewed and delivered. Helm remains the package source. It does not run in the later delivery path. <a href="../../../../docs/reference/flattening-alignment.md">View source markdown</a>.</p>
+    <h1>When to flatten configuration</h1>
+    <p class="lead">Flattening means keeping exact Kubernetes objects as the configuration that later systems review and deliver. The source remains recorded, but its processor does not run again in the later delivery path. <a href="../../../../docs/reference/flattening-alignment.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
+<p>For Helm, materializing the objects means rendering a chart. For AICR, Kubara, or another generator, it means running the declared generation or composition step. Plain YAML and literal configuration OCI already contain exact objects, so materialization and flattening are recorded no-ops.</p>
 <p>This is useful because the generated objects can be read, compared, scanned, changed one field at a time, stored as OCI, or retained as ConfigHub Units. It is not safe to assume that every chart can be flattened without more work.</p>
 <h2 id="the-three-decisions">The three decisions</h2>
-<table><thead><tr><th>Decision</th><th>Use it when</th><th>What must travel with the YAML</th></tr></thead><tbody><tr><td>Flatten</td><td>The exact chart configuration has no required Helm runtime behavior outside the rendered objects.</td><td>Pinned source inputs, object inventory, digest, checks, and evidence.</td></tr>
+<table><thead><tr><th>Decision</th><th>Use it when</th><th>What must travel with the YAML</th></tr></thead><tbody><tr><td>Flatten</td><td>The exact source configuration has no required processor behavior outside the materialized objects.</td><td>Pinned source inputs, object inventory, digest, checks, and evidence.</td></tr>
 <tr><td>Flatten with recorded setup</td><td>The objects are usable after named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.</td><td>The same records, plus each prerequisite or lifecycle action, its owner, order, check, and receipt.</td></tr>
-<tr><td>Keep rendering late</td><td>The chart depends on live lookup, unsafe generated state, destructive lifecycle behavior, or another mechanism that has no adequate route for this use case.</td><td>The source and values remain authoritative. Record why the literal path was refused and what still needs checking at deployment time.</td></tr></tbody></table>
-<p>The decision belongs to an exact chart version, configuration, and target. A verdict for one preset does not automatically cover every values combination or later chart version.</p>
+<tr><td>Process late (<code>render late</code> for Helm)</td><td>The source depends on live lookup, unsafe generated state, destructive lifecycle behavior, or another mechanism that has no adequate route for this use case.</td><td>The source and inputs remain authoritative. Record why the literal path was refused and what still needs checking at deployment time.</td></tr></tbody></table>
+<p>The decision belongs to an exact source version, configuration, and target. A verdict for one preset does not automatically cover every input combination or later source version.</p>
 <h2 id="how-this-matches-the-golden-path-model">How this matches the Golden Path model</h2>
 <p>The ConfigHub Golden Path example makes the generated configuration independent of the tool that created it. The tool chooses useful defaults, then writes ordinary AWS or Kubernetes objects. A user can later change a field that the tool never exposed. The data remains after the tool is changed or replaced.</p>
 <p>The Config Workshop follows the same rules:</p>
-<ol><li>Keep the original source, version, values, capabilities, and checksums.</li><li>Keep the rendered objects in their native Kubernetes schema.</li><li>Count and hash the output so a missing document cannot pass unnoticed.</li><li>Record which later edits came from ConfigHub rather than the source render.</li><li>On source refresh, keep non-conflicting recorded edits and require review when both sources changed the same field.</li><li>Refuse unresolved placeholders before release.</li><li>Do not hide Helm behavior that is absent from ordinary rendered YAML.</li></ol>
-<p>That last rule is important. <code>helm template</code> does not execute hooks, preserve Helm's resource-policy semantics, or guarantee that <code>lookup()</code> saw the intended cluster. It can also render webhook configurations before their certificates exist. These are not minor annotations. They can decide whether the result works.</p>
+<ol><li>Keep the original source, version, values, capabilities, and checksums.</li><li>Keep the materialized objects in their native Kubernetes schema.</li><li>Count and hash the output so a missing document cannot pass unnoticed.</li><li>Record which later edits came from ConfigHub rather than the source processor.</li><li>On source refresh, keep non-conflicting recorded edits and require review when both sources changed the same field.</li><li>Refuse unresolved placeholders before release.</li><li>Do not hide source behavior that is absent from ordinary Kubernetes objects.</li></ol>
+<p>That last rule is important. For example, <code>helm template</code> does not execute hooks, preserve Helm's resource-policy semantics, or guarantee that <code>lookup()</code> saw the intended cluster. It can also render webhook configurations before their certificates exist. Other generators have their own controller and setup requirements. These are not minor annotations. They can decide whether the result works.</p>
+<h2 id="no-op-cases-still-need-records">No-op cases still need records</h2>
+<p>A literal YAML directory or configuration OCI does not need to be rendered. It may already be the exact configuration that a controller will consume. The processing record should say that materialization and flattening changed nothing, then continue with the questions that still matter:</p>
+<ul><li>Where did the objects come from, and which digest identifies them?</li><li>Are prerequisites or lifecycle routes required?</li><li>Which fields or inputs are protected?</li><li>Which checks ran, and which did not?</li><li>Which revision was promoted, published, reconciled, and observed?</li></ul>
 <h2 id="what-config-workshop-adds">What Config Workshop adds</h2>
 <p>The EKS inference example uses a strict guard: it accepts the ACK controller charts that are clean for its exact use, refuses hazards unless their handling is written down, pins Kubernetes capabilities, and checks that every rendered document survived.</p>
 <p>Config Workshop applies the same discipline across a larger catalog:</p>
-<ul><li><code>BaseVariantRecord</code> connects the source and intent record to the literal objects, OCI references, policy, lifecycle work, target facts, and current evidence.</li><li>Per-base flattening verdicts distinguish ordinary literal output, output that needs recorded routes, and output that should not be flattened for the stated path.</li><li>Catalog configurations make chart-specific decisions. They do not claim that one universal rewrite can replace Helm runtime behavior.</li><li>Argo CD, Flux, direct apply, and ConfigHub release OCI remain separate delivery claims. Evidence for one does not prove the others.</li></ul>
+<ul><li><code>BaseVariantRecord</code> connects the source and intent record to the literal objects, OCI references, policy, lifecycle work, target facts, and current evidence.</li><li>Per-base flattening verdicts distinguish ordinary literal output, output that needs recorded routes, and output that should still be processed late for the stated path.</li><li>Catalog configurations make chart-specific decisions. They do not claim that one universal rewrite can replace Helm runtime behavior.</li><li>Argo CD, Flux, direct apply, and ConfigHub release OCI remain separate delivery claims. Evidence for one does not prove the others.</li></ul>
 <h2 id="kubara-and-other-composers">Kubara and other composers</h2>
 <p>Kubara remains responsible for selecting components, combining catalogs, and writing its generated platform. ConfigHub does not reconstruct that platform from individual chart pages. Instead, the Kubara <code>config.yaml</code>, catalogs, generated files, and source lock stay together. The companion source-and-intent record links exact component versions to Config Workshop evidence and records the lifecycle checks needed for the generated platform.</p>
 <p>The same boundary applies to AICR and other source tools. Their native input model stays authoritative. Literal Kubernetes output becomes a ConfigHub base only when the source, intent, omitted runtime behavior, and evidence remain connected to it.</p>

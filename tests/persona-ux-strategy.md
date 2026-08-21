@@ -72,6 +72,14 @@ What is safe for AI to change?
 What do I do when a chart breaks?
 ```
 
+The ten practical questions in the
+[catalog doctrine](../docs/reference/config-catalog-doctrine.md#practical-question-contract)
+are a permanent regression set. Every substantial question, Catalog, Check, Promote,
+or ConfigHub journey change must test all ten. Do not replace them with generic
+feature questions. Synthetic runs test routing; the controlled outreach cohort tests
+whether real users can reach a decision with the site, local tools, their own AI, and
+the optional ConfigHub and promotion paths.
+
 ## Run Format
 
 For each persona, record:
@@ -117,6 +125,34 @@ improvement separately from eventual success; a site that answers a question
 after five clicks can still have a poor front door. Keep language trials
 explicitly labeled as synthetic. Confirm consequential failures in a browser
 before changing the site.
+
+## Source-neutral processing review
+
+Run `npm run site:ux:verify` after changing the configuration model. It includes
+`scripts/verify-config-processing-model.mjs`, which checks six source formats,
+the flatten/route/process-late decisions, and the three protection classes.
+
+On 2026-08-21, four inexpensive persona agents each ran 25 read-only scenarios
+against the generated site. The 100 results were 62 clear, 30 partial, and 8
+confusing. This was synthetic review, not user evidence. The repeated problems
+were:
+
+- source OCI versus literal configuration OCI;
+- flattening as a real transform versus a recorded no-op;
+- who runs process-late and lifecycle work;
+- protected local fields versus protected inputs and prune protection;
+- CRD ordering, apply gates, and the scope of each receipt; and
+- rollback of configuration versus external effects.
+
+The corresponding public explanation now lives on Deployment. Check my config
+also states the private-data and rollback boundaries, Promote my config names its
+accepted input forms, and chart pages label apply/upload scripts as advanced.
+
+The same candidate passed 697 of the 720 deterministic live journeys, compared
+with 667 for the saved baseline. Partial results fell from 53 to 23, with no
+failures in either run. The strongest remaining candidates are a real hooks guide,
+per-chart actions for undecided flattening verdicts, and a delivery status line that
+joins route, pruning, and runtime evidence without implying that one proves another.
 
 ## Voice Split
 

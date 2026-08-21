@@ -3669,11 +3669,22 @@ function howItWorksHtml() {
   </section>
 
   <section aria-labelledby="setup">
-    <h2 id="setup">2. Track required setup</h2>
-    <p>Keep a record of how the objects were produced: the source package or chart, version, values, namespace, and assumptions about the target cluster. We call this the source and intent record.</p>
-    <p>Track prerequisites and lifecycle work separately, even when they are represented by Kubernetes objects. Examples include Secrets, CRDs, certificates, hooks, setup jobs, and cluster capabilities.</p>
+    <h2 id="setup">2. Record the source and required setup</h2>
+    <p>Before deployment, every source must become exact Kubernetes objects. We call that step materialization. Helm renders a chart. AICR and Kubara generate or compose objects. Literal YAML and configuration OCI already contain the objects, so no transformation is needed.</p>
+    ${markdownLikeTable([
+      ["Source", "Materialization means"],
+      ["Helm", "Render the chart and recorded values."],
+      ["AICR, Kubara, or another generator", "Run its declared generation or composition step."],
+      ["Source OCI", "Pull it by digest, then run the processor it declares."],
+      ["Configuration OCI", "Read the exact objects it already contains."],
+      ["Plain YAML", "Parse and record the exact objects; no source transformation is needed."],
+      ["ConfigHub Units", "Read the retained revision; it is already materialized."],
+    ])}
+    <p>Then decide whether those objects can stand alone. Keep them as flat configuration when they can. Keep them with recorded setup when CRDs, hooks, certificates, Secrets, or jobs must run too. Process the source later when it still depends on live data or behavior that cannot yet be carried safely.</p>
+    <p>When processing must happen later, name the tool or controller that will run it and require a receipt from that exact run. For CRDs, the safe order is explicit: install the CRDs, wait until Kubernetes reports them established, then apply the objects that use them.</p>
+    <p>Keep a source and intent record beside the objects. It identifies the source, version, choices, target assumptions, object digest, and checks. Record lifecycle routes separately because producing objects and running setup are different jobs. A route says who acts, in what order, and which result proves it ran.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
-    <p><a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
+    <p><a href="./d/docs/user/confighub-data-model.html">Read the configuration processing model</a> · <a href="./d/docs/reference/flattening-alignment.html">Decide whether to flatten</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
   </section>
 
   <section aria-labelledby="setting-sources">
@@ -3687,6 +3698,13 @@ function howItWorksHtml() {
     <h3>Live cluster</h3>
     <p>Observe what is running and find drift. Record an intended correction before redeploying.</p>
     <p>Do not change the same field in both the source and ConfigHub. If both changed it, choose which value should be deployed.</p>
+    <h3>Protection means three different things</h3>
+    ${markdownLikeTable([
+      ["Protection", "What it means"],
+      ["Protected local field", "The environment variant owns this field. A source refresh does not overwrite it silently; overlapping changes require review."],
+      ["Protected input", "A credential or other sensitive value stays outside portable configuration. The objects contain a reference or requirement instead."],
+      ["Prune-protected resource", "The delivery path must not delete this object when it disappears from a later configuration. It does not protect individual fields."],
+    ])}
   </section>
 
   <section aria-labelledby="deliver">
@@ -3695,6 +3713,9 @@ function howItWorksHtml() {
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
+    <p><strong>Checks inspect a candidate. Apply gates decide whether ConfigHub may apply it.</strong> A warning is recorded without stopping delivery; a blocking gate stops the apply. Production approval is a separate gate from schema and placeholder checks.</p>
+    <pre><code>source receipt -> object receipt -> delivery receipt -> runtime receipt</code></pre>
+    <p>Each receipt proves one boundary. The runtime receipt reports what happened after delivery; it does not prove that the source or object set was correct.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./does-cluster-match-approved-config.html">What each path can prove</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
         ${nowDeployBlocksHtml()}
     </section>
@@ -4133,7 +4154,7 @@ function docsReferenceHtml(catalog) {
     ["Deployment", "Start with Helm, AICR, OCI, or YAML, then inspect, manage, promote, and deploy the reviewed result.", "./how-it-works.html"],
     ["Config catalog demonstrations", "The maintained paths for Helm, AICR, cub installer, public OCI work, Kubara, and Sveltos, followed by variants, promotions, policy, and five ConfigHub Apps.", "../docs/user/config-catalog-demonstrations.md"],
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
-    ["When to flatten a Helm chart", "Choose literal YAML, literal YAML with recorded setup, or render-late delivery for an exact chart configuration.", "../docs/reference/flattening-alignment.md"],
+    ["When to flatten configuration", "Choose exact objects, exact objects with recorded setup, or late source processing for one source, configuration, and target.", "../docs/reference/flattening-alignment.md"],
     ["Check and promote with AI", "Use the browser-local Check and Promote records with your own assistant, source-aware field attribution, exact target results, and an optional ConfigHub handoff.", "../docs/user/check-and-promote-with-ai.md"],
     ["Anonymous browser check", "Inspect rendered YAML, compare exact objects, run static checks, and download one complete result for your own AI or CI without signing in.", "../docs/user/anonymous-browser-workshop.md"],
     ["Anonymous OCI work in CI", "A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.", "../data/anonymous-oci-ci-proof/summary.md"],
@@ -4522,6 +4543,7 @@ function askHtml() {
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
     <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
+    <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
     <p><button class="button primary" id="load-example" type="button">See the complete example</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
   </header>
@@ -4590,6 +4612,7 @@ function askHtml() {
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
+      <p><strong>Do not add credentials or Secret values.</strong> Keep private source names and paths local. The optional public Catalog proposal is only for material you are allowed to publish.</p>
       <div class="card">
         <div class="grid">
           <p><label for="source-type"><strong>Starting format</strong></label><br>
@@ -4634,6 +4657,7 @@ function askHtml() {
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
       <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
       <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
+      <p><a class="button primary" href="./confighub.html">Keep this reviewed result in ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "ask-reviewed-result")}">Open the ConfigHub tutorial</a> <a class="button secondary" href="./known-gaps.html">See what this check does not prove</a></p>
       <details>
         <summary><strong>Open the complete result</strong></summary>
         <textarea id="workshop-result-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
@@ -4644,6 +4668,7 @@ function askHtml() {
       <textarea id="review-record-output" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button primary" id="download-review" type="button">Download review record</button> <button class="button secondary" id="download-candidate" type="button">Download candidate YAML</button></p>
       <p><button class="button secondary" id="continue-to-promotion" type="button">Test this result for promotion</button></p>
+      <p>A saved object set can restore the configuration that was delivered. It cannot undo database migrations, cloud resources, or other external effects. Live comparison is a separate check after delivery. <a href="./redis-walkthrough.html">Read the upgrade and rollback walkthrough</a> before claiming that a rollback will restore the exact release.</p>
       <p><a href="./review.schema.json">Read the ConfigurationReview schema</a>.</p>
 
       <h3>Keep this reviewed result in ConfigHub</h3>
@@ -4692,7 +4717,7 @@ function askHtml() {
         ["Result", "Next step"],
         ["The Catalog already covers the case", "Use its retained package, useful configuration, setup instructions, and evidence."],
         ["The review finds a values problem", "Correct the value and render again. Keep the new object hash with the review."],
-        ["The review finds a placeholder credential", "Fix it by replacing the placeholder or using an existing external Secret. <a href=\"./d/data/apply-policy-profiles/summary.html\">See the blocking ConfigHub apply gate</a>, or <a href=\"./known-gaps.html\">read the credential limitation</a>."],
+        ["The review finds a placeholder credential", "Fix it by replacing the placeholder or using an existing external Secret. <a href=\"./charts/index.html\">Find a configuration that uses an existing Secret</a>, <a href=\"./d/data/apply-policy-profiles/summary.html\">see the blocking ConfigHub apply gate</a>, or <a href=\"./known-gaps.html\">read the credential limitation</a>."],
         ["The render is surprising", "Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again."],
         ["The chart does not expose the required field", "Keep the chart when possible and record the smallest object change as a ConfigHub variant."],
         ["The configuration needs hooks, CRDs, Secrets, or setup work", "Choose an explicit owner and order. Use only a delivery route whose evidence covers that work."],
@@ -4833,7 +4858,7 @@ function promoteHtml() {
 
     <section id="promotion-inputs" aria-labelledby="promotion-inputs-title">
       <h2 id="promotion-inputs-title">2. What are you changing?</h2>
-      <p>Choose the job, then add the current and proposed Kubernetes YAML. Render Helm, AICR, or another source first so you compare the objects that will actually be delivered.</p>
+      <p>Choose the job, then add the current and proposed Kubernetes YAML. Use two Catalog configurations, two Helm or AICR outputs, two configuration OCI packages, or exported YAML from the current and proposed environments. Materialize each source first so you compare the objects that will actually be delivered.</p>
       <div class="card">
         <div class="grid">
           <p><label for="change-type"><strong>Change</strong></label><br>
@@ -5285,6 +5310,7 @@ function verificationHtml(catalog) {
     <h1>Check one claim</h1>
     <p class="lead">Choose the result you want to check, then run the matching command. These commands test this project's published results; they do not install your application.</p>
     <p>Some checks read evidence already committed to the repository. Others create clusters and produce a new live result. The table tells you which kind you are about to run.</p>
+    <p>A claim is checked only when the named command or receipt covers it. Everything else is <strong>not checked</strong>, even when a nearby test passed.</p>
     ${humanLinks([["Choose a command", "#start-question"], ["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
@@ -6018,7 +6044,7 @@ function knownGapsHtml(catalog) {
     <h1>Delivery limitations and known gaps</h1>
     <p class="lead">Check this page before choosing a delivery path. Each row names a current limitation, explains how it could affect a deployment, and gives the safest next step.</p>
     <p>A <code>watch</code> result means the path needs a decision or more work. It is not a pass, and it does not mean every use of the chart fails.</p>
-    ${humanLinks([["See current results", "./proof.html"], ["Read FAQ", "./hard-questions.html"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
+    ${humanLinks([["Check one delivery result", "./verification.html"], ["See current results", "./proof.html"], ["Read FAQ", "./hard-questions.html"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
   </header>
   <main>
     <section aria-labelledby="gaps">
@@ -6032,6 +6058,7 @@ function knownGapsHtml(catalog) {
     <section aria-labelledby="next">
       <h2 id="next">2. Check the exact chart and configuration</h2>
       <p>Open the chart page and find the configuration you plan to use. Follow any <code>watch</code> or <code>blocked</code> reason before you deploy it.</p>
+      <p>Prune protection means that a delivery path deliberately keeps an existing object when it disappears from the next configuration. It does not protect a field from being changed.</p>
       <p>Use <a href="./hard-questions.html">FAQ</a> for a short answer. Use <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> when a render or install fails. Open the evidence link when you need the exact command and receipt.</p>
     </section>
   </main>
@@ -9292,7 +9319,6 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     matrixRows.find((row) => row.row_kind === "base") ??
     matrixRows.find((row) => row.row_kind !== "source");
   const firstRunnableCommand = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry) : "No runnable row recorded yet.";
-  const firstRunnableCommandText = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry, { html: false }) : "No runnable row recorded yet.";
   const firstRunnableScriptDir = firstRunnableRow ? presetScriptDir(entry, firstRunnableRow) : null;
   const installerPackageOciRef = installerOciRefForEntry(entry);
   const installerPackageStatus = installerOciStatusText(entry);
@@ -9533,8 +9559,8 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
     ${chartLicenseLineHtml(catalog, entry.chart, entry.version)}
     ${successionCalloutHtml(catalog, entry.chart)}
-    <p><a class="button primary" href="../promote.html?chart=${encodeURIComponent(entry.chart)}&current=${encodeURIComponent(entry.version)}&base=${encodeURIComponent(entry.start_variant)}">Plan an upgrade or promotion</a></p>
-    <pre>${escapeHtml(firstRunnableCommandText)}</pre>
+    <p><a class="button primary" href="../ask.html?question_code=install-shape&amp;chart=${encodeURIComponent(entry.chart)}&amp;version=${encodeURIComponent(entry.version)}">Check this chart and version</a> <a class="button secondary" href="#run-this">Try the package</a> <a class="button secondary" href="../promote.html?chart=${encodeURIComponent(entry.chart)}&amp;current=${encodeURIComponent(entry.version)}&amp;base=${encodeURIComponent(entry.start_variant)}">Plan an upgrade or promotion</a></p>
+    <p>Already reviewed the result? <a href="../confighub.html">Keep it in ConfigHub</a> when you need history, variants, approvals, or delivery.</p>
   </header>
   <main>
     <section aria-labelledby="pillars-here">
@@ -9616,7 +9642,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
         <p>${firstRunnableCommand}</p>
-        ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p>` : ""}${firstHubReadmePath ? `
+        ${firstRunnableScriptDir ? `<details title="Additional scripts: apply it or upload it"><summary><strong>Advanced: apply it or upload it</strong></summary><p>Run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> renders and applies to Kubernetes without an account; <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p></details>` : ""}${firstHubReadmePath ? `
         <p>This preset is also shown in the live <code>helm-catalog</code> demo org. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the demo README</a> to see why that Space exists, what problem it demonstrates, and what to inspect first.</p>` : ""}
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
