@@ -444,7 +444,7 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Status: proposal, 2026-08-07. Written after the three AICR entries and their proof ladders landed, so it starts from what the receipts already show rather than from a blank page.</p>
+<p>Status: first platform variant gated, 2026-08-21. Written after the three AICR entries and their proof ladders landed, then updated when the first generated platform variant passed all three parity checks.</p>
 <h2 id="the-question-this-answers">The question this answers</h2>
 <p>The Pilot model generates variants on demand and lets parity decide whether they exist: an agent authors intent, a deterministic gate re-renders and compares, and a variant that fails the comparison is refused with a receipt rather than shipped. That model was prototyped on a single chart. AICR entries are platform shapes, so the question is what parity means when the unit of change is a whole platform rather than one chart, and whether the same anti-hallucination guarantee survives the move.</p>
 <h2 id="what-the-entries-already-prove-about-variance">What the entries already prove about variance</h2>
@@ -467,7 +467,13 @@
 <h2 id="first-increment-delivered-2026-08-07">First increment delivered 2026-08-07</h2>
 <p>Both entries now commit a control-point record, and <code>npm run aicr-blast-radius:verify</code> holds each record to the committed bytes and to the receipts of every reviewed change already made. Three control points are declared: the starter's Prometheus storage class over one document, the inference entry's shared model-cache claim over sixteen, and its telemetry setting over ten runtimes with no reviewed change yet, declared so the gap stays visible.</p>
 <p>The checker earned its keep immediately. The first inference record was hand-written and wrong: it guessed a serving-runtime name that upstream spells differently, and the checker refused it rather than recording a comfortable number. The declarations are now derived from the retained bytes.</p>
-<p>Two levels of the design remain. Document-set parity, which refuses a variant that adds or removes documents, and field-level parity, which the existing per-chart machinery already performs, are not yet wired into this checker. Blast radius was the level worth building first because it is the level nothing else covers.</p>
+<p>Blast radius was the level worth building first because nothing else covered it. The document-set and exact-field checks followed on 2026-08-21.</p>
+<h2 id="first-gated-platform-variant-delivered-2026-08-21">First gated platform variant delivered 2026-08-21</h2>
+<p>The CPU starter now has a complete, local example of the proposed workflow. An example request models an AI-proposed change to the Prometheus StorageClass from <code>gp3</code> to <code>standard</code>. The deterministic gate checks three facts before it writes a candidate:</p>
+<ol><li>The candidate still contains the same seven Argo CD Applications.</li><li>Only <code>kube-prometheus-stack</code>, the Application named by the control point, changed.</li><li>The only changed field is the declared StorageClass field inside that Application's Helm values.</li></ol>
+<p>The accepted request produces the full seven-Application candidate and a receipt. A second fixture proposes the same requested edit plus an unrequested namespace move. Its object identities and Application reach still look correct, but the exact-field check refuses it and no candidate is written.</p>
+<p>Run <code>npm run aicr-platform-variant:verify</code> to check the retained requests, candidate, and receipts. Run <code>npm run aicr-platform-variant:self-test</code> to prove that additions, removals, wrong Applications, and extra fields are refused. The generated <a href="../../data/aicr-platform-variant/summary.html">platform variant parity summary</a> links to both requests, the accepted candidate, and both receipts.</p>
+<p>Exact-field acceptance requires a structured <code>path</code> or <code>valuesPath</code> in the control-point record. A text token may still help locate a setting, but it is not precise enough to approve an AI-authored variant. Such a request remains refused until the control point has a structured path.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/planning/aicr-pilot-variants-brief.md</code>. The source file is the authoritative version.</p></footer>

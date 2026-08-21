@@ -1,0 +1,68 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrPlatformVariantParityReceipt"
+metadata:
+  name: "cpu-starter-overbroad-storage"
+  recordedAt: "2026-08-21"
+spec:
+  request: "examples/aicr/platform-variants/cpu-starter-overbroad-storage.yaml"
+  intent: "Use the CPU starter on a development cluster whose default StorageClass is named standard. The proposed change also moves the monitoring namespace, although that was not requested."
+  mappedBy: "deliberately over-broad example AI request"
+  source:
+    entry: "examples/aicr/cpu-starter"
+    controlPointRecord: "examples/aicr/control-points/cpu-starter.yaml"
+    controlPoint: "prometheus-storage-class"
+    documentCount: 7
+    objectSetDigest: "sha256:062ba1a09f5eaea01ec28e981bbe0ae151f4cacb8981dc3cff967cc5489bbc82"
+  proposal:
+    changes:
+      -
+        after: "standard"
+        before: "gp3"
+        document: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+        field: "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+      -
+        after: "monitoring-review"
+        before: "monitoring"
+        document: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+        field: "spec.destination.namespace"
+    candidateDocumentCount: 7
+    candidateObjectSetDigest: "sha256:b6ff0285c32a502b37bf3b37d9b04d14d8292baf0ecebf207c50169fd9951888"
+  checks:
+    documentSet:
+      result: "pass"
+      added:
+        []
+      removed:
+        []
+    blastRadius:
+      result: "pass"
+      declaredDocuments:
+        - "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+      changedDocuments:
+        - "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+    fieldLevel:
+      result: "refused"
+      allowedField: "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+      changedFields:
+        - "spec.destination.namespace"
+        - "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+      differences:
+        -
+          document: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+          field: "spec.destination.namespace"
+          before: "monitoring"
+          after: "monitoring-review"
+        -
+          document: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+          field: "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+          before: "gp3"
+          after: "standard"
+  boundary:
+    configPlaneOnly: true
+    contactedConfigHub: false
+    contactedKubernetes: false
+    gpuWorkloadProven: false
+status:
+  result: "refused"
+  reason: "The proposal changed a field outside the selected control point."
+  correctRouteForward: "Remove every edit except spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName, then run the gate again."

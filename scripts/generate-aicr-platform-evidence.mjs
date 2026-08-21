@@ -106,6 +106,11 @@ const entries = [
     sourceReceipt: "derivation-receipt.yaml",
     ladder: [
       {
+        rung: "local-platform-variant-parity",
+        receipt: "runs/aicr-platform-variant/accepted-receipt.yaml",
+        summary: "data/aicr-platform-variant/summary.md",
+      },
+      {
         rung: "confighub-variant-and-promotion",
         receipt: "runs/aicr-cpu-starter-variant/receipt.yaml",
         summary: "data/aicr-cpu-starter-variant/summary.md",

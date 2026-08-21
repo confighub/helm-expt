@@ -13,7 +13,7 @@ receipts of every reviewed change already made.
 
 | Entry | Control point | Locator | Documents governed | Reviewed changes checked |
 | --- | --- | --- | --- | --- |
-| `aicr-cpu-starter` | `prometheus-storage-class` (upstream-derived) | `token` | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
+| `aicr-cpu-starter` | `prometheus-storage-class` (upstream-derived) | `valuesPath` | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
 | `aicr-eks-h100-training-kubeflow-v0-18-0` | `prometheus-storage-class` (upstream-derived) | `valuesPath` | 1 | none yet |
 | `aicr-eks-h100-training-kubeflow-v0-18-0` | `bundle-source` | `path` | 3 | none yet |
 | `aicr-eks-h100-training-kubeflow` | `prometheus-storage-class` (upstream-derived) | `token` | 1 | none yet |

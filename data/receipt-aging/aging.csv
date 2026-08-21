@@ -1772,6 +1772,8 @@ runs/sveltos-fleet-rehearsal/receipt.yaml,sveltos-fleet-rehearsal,recordedAt,202
 runs/sveltos-bulk-ops-proof/receipt.yaml,sveltos-bulk-ops-proof,recordedAt,2026-08-12T08:40:16.959Z,9
 runs/sveltos-cve-patch-proof/receipt.yaml,sveltos-cve-patch-proof,recordedAt,2026-08-12T08:25:39.507Z,9
 runs/sveltos-env-rollout-proof/receipt.yaml,sveltos-env-rollout-proof,recordedAt,2026-08-12T07:03:58.395Z,9
+runs/aicr-platform-variant/accepted-receipt.yaml,aicr-platform-variant,recordedAt,2026-08-21,1
+runs/aicr-platform-variant/refused-receipt.yaml,aicr-platform-variant,recordedAt,2026-08-21,1
 runs/c3agent-configuration-proof/receipt.yaml,c3agent-configuration-proof,recordedAt,2026-08-20T21:36:16.373Z,1
 runs/eks-inference-promotion-delivery-proof/receipt.yaml,eks-inference-promotion-delivery-proof,recordedAt,2026-08-20T19:42:26.409231Z,1
 runs/eks-inference-sandbox-proof/receipt.yaml,eks-inference-sandbox-proof,recordedAt,2026-08-20T19:13:50.821739Z,1

@@ -1,0 +1,16 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: PlatformVariantRequest
+metadata:
+  name: cpu-starter-standard-storage
+spec:
+  intent: >-
+    Use the CPU starter on a development cluster whose default StorageClass is
+    named standard instead of the AWS gp3 class retained in the source package.
+  mappedBy: example AI request
+  controlPointRecord: examples/aicr/control-points/cpu-starter.yaml
+  controlPoint: prometheus-storage-class
+  changes:
+    - document: argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack
+      field: spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
+      before: gp3
+      after: standard

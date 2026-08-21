@@ -20,7 +20,8 @@ spec:
         a cluster without AWS storage does not provide, so this is the first
         override any operator makes.
       locator:
-        token: "storageClassName: gp3"
+        valuesPath: prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
+        equals: gp3
       upstreamDeclaration:
         registry: examples/aicr/upstream-reference/v0.14.0/registry.yaml
         component: kube-prometheus-stack
