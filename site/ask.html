@@ -515,18 +515,22 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Check your configuration</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
-    <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
+    <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
     <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
-    <p><button class="button primary" id="load-example" type="button">See the complete example</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
+    <details>
+      <summary><strong>Other common jobs</strong></summary>
+      <p><a href="./testing.html#bring-your-own">Render and inspect without applying</a> · <a href="./promote.html">Compare development and production</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">Handle hooks and CRD ordering</a> · <a href="./known-gaps.html">Read delivery limits</a></p>
+    </details>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <section aria-labelledby="build-prompt">
       <h2 id="build-prompt">1. Check a chart and values</h2>
-      <p>Choose one question. We build a prompt for your AI assistant. It runs Helm locally, records the inputs, and compares the exact objects.</p>
+      <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
           <select id="question-type" style="width:100%;padding:10px;margin-top:6px"><optgroup label="Common questions"><option value="install-shape">What will this install, and what must already exist?</option><option value="config-diff">How is this candidate different from production?</option><option value="ignored-values">I set a value. Why did the rendered object not change?</option><option value="custom-field">The chart does not expose the field I need. Must I fork it?</option><option value="upgrade-risk">Can I upgrade this chart without breaking production?</option><option value="lifecycle-work">How should Argo CD or Flux handle this chart's hooks and CRDs?</option><option value="fleet-image">Where does this vulnerable image run, and how can I update it safely?</option><option value="rollback-history">Can I roll back to exactly what ran before?</option><option value="ai-values">AI wrote these values. What did they actually change?</option></optgroup><optgroup label="More questions"><option value="supply-drift">Do these version and digest records identify the same bytes?</option></optgroup></select></p>
@@ -571,7 +575,7 @@
             <option value="public">Yes, it is a public chart</option>
             <option value="private">No, keep this investigation private</option>
           </select></p>
-        <button class="button primary" id="build-prompt-button" type="button">Build my prompt</button>
+        <button class="button primary" id="build-prompt-button" type="button">Build instructions for my AI</button>
       </div>
     </section>
 
@@ -627,13 +631,14 @@
       <div id="browser-check-summary" class="card"></div>
       <h3>Hooks, CRDs, and required setup</h3>
       <ul id="check-lifecycle-work"></ul>
-      <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Compare with the Catalog</a></p>
+      <p>This browser check does not search the Catalog automatically. Find a matching chart record, then add its source and intent record above when you want the result to include known prerequisites and lifecycle work.</p>
+      <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Find matching Catalog records</a></p>
       <h3>Download one complete result</h3>
       <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
       <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
       <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
-      <p><a class="button primary" href="./confighub.html">Keep this reviewed result in ConfigHub</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=ask-reviewed-result">Open the ConfigHub tutorial</a> <a class="button secondary" href="./known-gaps.html">See what this check does not prove</a></p>
+      <p><a class="button primary" href="./confighub.html">See how to keep this in ConfigHub</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=ask-reviewed-result">Open the ConfigHub tutorial</a> <a class="button secondary" href="./known-gaps.html">See what this check does not prove</a></p>
       <details>
         <summary><strong>Open the complete result</strong></summary>
         <textarea id="workshop-result-output" rows="18" readonly style="width:100%;padding:10px;margin-top:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>

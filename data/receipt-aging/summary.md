@@ -19,8 +19,8 @@ oldest receipt is from 2026-05-26, so the evidence spans 87 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 308 |
-| 31 to 90 days | 1474 |
+| 0 to 30 days | 309 |
+| 31 to 90 days | 1473 |
 | 91 to 180 days | 0 |
 | over 180 days | 0 |
 

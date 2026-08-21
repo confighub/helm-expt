@@ -1,9 +1,9 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "DefaultCredentialCheckReceipt"
 metadata:
-  name: "default-credential-check-20260630"
+  name: "default-credential-check-20260821"
 spec:
-  observedAt: "2026-06-30T20:43:09.224Z"
+  observedAt: "2026-08-21T19:20:12.563Z"
   packagesChecked: 12
   fixedCredentialCount: 0
   misleadingNameCount: 0

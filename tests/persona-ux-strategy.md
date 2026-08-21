@@ -148,11 +148,23 @@ The corresponding public explanation now lives on Deployment. Check my config
 also states the private-data and rollback boundaries, Promote my config names its
 accepted input forms, and chart pages label apply/upload scripts as advanced.
 
-The same candidate passed 697 of the 720 deterministic live journeys, compared
-with 667 for the saved baseline. Partial results fell from 53 to 23, with no
-failures in either run. The strongest remaining candidates are a real hooks guide,
-per-chart actions for undecided flattening verdicts, and a delivery status line that
-joins route, pruning, and runtime evidence without implying that one proves another.
+The public site was rerun on 2026-08-21 after the promotion, source-neutral model,
+Kubara, c3agent, and AICR variant updates. The first public run passed 702 of 720
+deterministic live journeys, compared with 692 for the saved candidate baseline.
+It exposed missing next steps for CRD first-install ordering, writing reviewed
+objects as OCI, delivery limits, fleet operations, rollback, and placeholder gates.
+
+A final rerun used the same personas, goals, starting pages, five-click limit, and
+scoring rules. It passed 720 of 720 journeys, up from 703 in the immediate pre-fix
+comparison run. Partial journeys fell from 17 to zero, starting-page answers rose
+from 366 to 372, and useful first clicks rose from 69.2% to 73.0%. The changes added
+plain next-step links to chart pages, made secondary Check actions explicit, and put
+the CRD first-install warning beside deployment choices. The runner was not weakened.
+
+This remains synthetic routing evidence. It shows that the required facts and an
+action are present and reachable; it does not show that a human understood them or
+completed the command. Keep the same assertions as a regression gate and validate
+the journeys with real users through the controlled outreach cohort.
 
 ## Voice Split
 
@@ -171,5 +183,8 @@ Recorded runs:
 
 - [800-run public-site simulation, 2026-08-13](../data/site-persona-simulations-2026-08-13/summary.md)
 - [Candidate rerun and baseline comparison, 2026-08-13](../data/site-persona-simulations-2026-08-13-after/summary.md)
+- [Current public-site rerun, 2026-08-21](../data/site-persona-simulations-2026-08-21/summary.md)
+- [Immediate pre-fix comparison run, 2026-08-21](../data/site-persona-simulations-2026-08-21-after/summary.md)
+- [Final 720-journey routing run, 2026-08-21](../data/site-persona-simulations-2026-08-21-final/summary.md)
 - [Persona UX rerun, 2026-06-22](../docs/planning/persona-ux-rerun-2026-06-22.md)
 - [Persona UX audit, 2026-06-22](../docs/planning/persona-ux-audit-2026-06-22.md)

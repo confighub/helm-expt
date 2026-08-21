@@ -537,7 +537,8 @@ kustomize version</code></pre>
   <section aria-labelledby="render-package">
     <h2 id="render-package">2. Render the Redis package</h2>
     <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
-    <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    <p><strong>Input:</strong> a Catalog installer OCI, pinned to the manifest digest in its publication receipt.<br><strong>Output:</strong> readable Kubernetes files plus a local configuration OCI at <code>./redis-25.oci</code>.</p>
+    <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
     --base reuse-existing-secret \
     --work-dir ./redis \
     --namespace redis \
@@ -545,6 +546,7 @@ kustomize version</code></pre>
     --output-oci ./redis-25.oci</code></pre>
     <p>The chart renders 13 objects. <code>cub installer</code> adds one explicit Namespace, so the output contains 14 manifest files and no Secret. It also writes a local OCI package.</p>
     <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
+    <p><strong>Before deployment:</strong> create the required <code>redis-existing-secret</code> Secret in the target namespace. The Catalog records this requirement; rendering the package does not create the credential.</p>
   </section>
 
   <section aria-labelledby="inspect-result">
@@ -554,6 +556,8 @@ kustomize version</code></pre>
 ls ./redis/out/manifests
 grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p>The catalog keeps the source inputs beside the result. It also records the required Secret and the checks for this configuration.</p>
+    <p>This Redis configuration has no CRD setup step. For a chart that lists CRDs, do not rely on one plain <code>kubectl apply</code>.</p>
+    <p>Run the package's prerequisite script, or use its tested Argo CD or Flux route. The CRDs must be established before dependent objects are applied.</p>
     <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
   </section>
 

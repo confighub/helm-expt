@@ -5,7 +5,7 @@
 It explains the current product direction, the active workstreams, and which
 planning files are authoritative for each kind of question.
 
-Updated: 2026-08-20.
+Updated: 2026-08-21.
 
 ## How To Read The Roadmap
 
@@ -244,7 +244,7 @@ The track graduates one claim at a time.
 | Hosted browser inspection of rendered YAML without signing in | Available as a bounded path: exact object inventory, comparison, static findings, optional Catalog lifecycle context, AI handoff, and one downloadable result. No arbitrary chart rendering, OCI pull, cluster access, or live tests. |
 | Hosted anonymous arbitrary source or OCI work | Planned, not shipped. |
 | Helm package, rendered OCI, ConfigHub release OCI, and Argo CD or Flux delivery | Demonstrated in the existing evidence corpus. |
-| AICR recipe, digest-bound package set, ConfigHub variant, and promotion | Partly demonstrated; broader inference and GPU workload proof remains open. |
+| AICR recipe, digest-bound package set, exact-field variant gate, ConfigHub variant, and promotion | Demonstrated for the retained CPU-starter and platform examples. Broader inference, Flux delivery for the promoted platform, and GPU workload proof remain open. |
 | Public `confighub/eks-inference` plugin and eight OCI component bundles | The eight bundles are incorporated as certified external artifacts with file and digest witnesses. The configuration sandbox, one retained promotion, ConfigHub release OCI, Argo CD delivery, and one CPU vLLM request are independently proven. AWS and NVIDIA GPU execution remain open. |
 | Kubara composition, retained versions, ConfigHub operations, and fleet evidence | Demonstrated for the retained platform, with a simple Catalog-to-platform chooser and a companion generator in `kubara-confighub`. |
 | c3agent source mapping and connected ConfigHub path | Demonstrated from compact source through exact objects, local OCI, ConfigHub variants and promotion, release OCI, Argo CD, and Kubernetes object reconciliation. The Deployments remain deliberately disabled. |
@@ -253,17 +253,17 @@ The track graduates one claim at a time.
 
 ### Next Build Order
 
-1. Publish the four-record lifecycle model and the Catalog browse model in the
+1. **Completed:** publish the four-record lifecycle model and the Catalog browse model in the
    canonical guides, then keep the public site summary short.
-2. Expose the eight existing `eks-inference` certified-bundle records as one readable
+2. **Completed:** expose the eight existing `eks-inference` certified-bundle records as one readable
    stack journey, including the component order, routes, and exact source commit.
-3. Independently run and receipt the `eks-inference` ConfigHub configuration sandbox.
+3. **Completed:** independently run and receipt the `eks-inference` ConfigHub configuration sandbox.
    Do not add a cloud or model-runtime claim to that receipt.
-4. Retain one candidate as a ConfigHub variant, promote it, publish release OCI, and
+4. **Completed:** retain one candidate as a ConfigHub variant, promote it, publish release OCI, and
    prove Argo CD or Flux consumed the recorded digest.
-5. Run one real vLLM model request on a recorded target. Keep cluster readiness,
+5. **Completed:** run one real vLLM model request on a recorded target. Keep cluster readiness,
    workload readiness, and successful inference as separate results.
-6. Present the CPU starter, AICR plus Helm, NIM, and `eks-inference` as one ordered
+6. **Completed:** present the CPU starter, AICR plus Helm, NIM, and `eks-inference` as one ordered
    Catalog family: begin without specialist hardware, then offer the GPU and cloud
    paths with costs, credentials, prerequisites, and proof boundaries stated first.
 7. **Completed:** build a Config Workshop c3agent example from local source through
@@ -277,7 +277,9 @@ The track graduates one claim at a time.
    configuration.
 10. **Completed:** complete the bounded hosted-anonymous path and its contract without
     implying that the static site renders arbitrary charts, pulls arbitrary OCI, or contacts clusters.
-11. **Then:** only after the bounded examples pass, generalize the pattern to more AI runtimes,
+11. **Completed:** gate one AI-proposed AICR platform change by exact object identities,
+    declared Application reach, and exact changed fields; refuse the overbroad request.
+12. **Then:** only after the bounded examples pass, generalize the pattern to more AI runtimes,
    sandboxes, hardware classes, fleet tools, and reference stacks.
 
 ## Component Ownership
