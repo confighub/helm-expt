@@ -426,7 +426,15 @@
       pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    body :not(pre) > code { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+    .matrix-row-card .row-layer { font-family: inherit; white-space: normal; }
+    .matrix-row-card .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .matrix-row-card .lane-pill b { font-family: inherit; line-height: 1.1; }
+    @media (max-width: 640px) {
+      .matrix-row-card .lane-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -437,7 +445,7 @@
     <p>The first recorded configuration is <strong>default</strong>. Read its status before use; it is not yet a polished public example. The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=rollout-operator&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
-    <p class="tagline">Catalog readiness: Checked; review before use.</p>
+    <p class="tagline">Catalog readiness: Review before use.</p>
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart source repository's LICENSE, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
     
     <p><a class="button primary" href="../ask.html?question_code=install-shape&amp;chart=grafana%2Frollout-operator&amp;version=0.49.0">Check this chart and version</a> <a class="button secondary" href="#run-this">Try the package</a> <a class="button secondary" href="../promote.html?chart=grafana%2Frollout-operator&amp;current=0.49.0&amp;base=default">Plan an upgrade or promotion</a></p>
@@ -466,7 +474,7 @@
       <p>The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>0.49.0</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>0.49.0</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -551,7 +559,7 @@
   <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Server side promotion receipt passed</p>
+        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Promotion was tested and recorded in ConfigHub.</p>
       </div>
     </section>
 
@@ -560,39 +568,39 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
-      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
+      <p class="small"><strong>Checks:</strong> Each card names what was checked and says whether it passed, needs review, was blocked, was not run, or was not needed.</p>
       <p class="mono" style="font-size:.9rem">3 matrix rows for grafana/rollout-operator@0.49.0 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F1</span>
+            <span class="row-layer">F1 · Source chart</span>
             <h3>(source)</h3>
           </div>
           <span class="row-kind">Source</span>
         </div>
-        <p class="row-purpose">Upstream chart source</p>
+        <p class="row-purpose">Pinned upstream chart and version</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
           <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
-          <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
-          <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
+          <dt>Next</dt><dd>Choose a chart configuration before rendering or deploying</dd>
+          <dt>Reason</dt><dd>This is the chart source. Choose a configuration before checking deployment or promotion</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for (source)">
-          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/grafana/rollout-operator/0.49.0/CATALOG.html">catalog</a> · <a href="https://grafana.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F2a</span>
+            <span class="row-layer">F2a · Chart default</span>
             <h3>default</h3>
           </div>
           <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">F2a honest default base</p>
+        <p class="row-purpose">Runnable base variant made from the chart defaults</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/grafana/rollout-operator/0.49.0/effective-values.yaml">effective-values.yaml</a></dd>
@@ -605,21 +613,21 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
-          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
+          <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/grafana/rollout-operator/0.49.0/CATALOG.html">catalog</a> · <a href="../../recipes/grafana/rollout-operator/0.49.0/variants/default/variant.yaml">variant</a> · <a href="../../recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/grafana-rollout-operator-0-49-0-default.yaml">base record</a> · <a href="../../packages/grafana/rollout-operator/0.49.0/bases/default">package base</a> · <a href="../../runs/rollout-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://grafana.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F2b</span>
+            <span class="row-layer">F2b · Helm-rendered base</span>
             <h3>no-crds</h3>
           </div>
           <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">Runnable base variant</p>
+        <p class="row-purpose">Runnable base variant made with different Helm values</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/grafana/rollout-operator/0.49.0/effective-values-no-crds.yaml">effective-values-no-crds.yaml</a></dd>
@@ -632,10 +640,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>2 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
-          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
+          <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for no-crds">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill no" title="Local: no"><b>L</b><em>no</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill no" title="Recorded value: no"><b>Local cluster</b><em>Blocked</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/grafana/rollout-operator/0.49.0/CATALOG.html">catalog</a> · <a href="../../recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml">variant</a> · <a href="../../recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml">render intent</a> · <a href="../../data/base-variant-records/records/grafana-rollout-operator-0-49-0-no-crds.yaml">base record</a> · <a href="../../packages/grafana/rollout-operator/0.49.0/bases/no-crds">package base</a> · <a href="../../runs/rollout-operator-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://grafana.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article></div>

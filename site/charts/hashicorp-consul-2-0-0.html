@@ -426,7 +426,15 @@
       pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    body :not(pre) > code { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+    .matrix-row-card .row-layer { font-family: inherit; white-space: normal; }
+    .matrix-row-card .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .matrix-row-card .lane-pill b { font-family: inherit; line-height: 1.1; }
+    @media (max-width: 640px) {
+      .matrix-row-card .lane-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -551,7 +559,7 @@
   <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Server side promotion receipt passed</p>
+        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Promotion was tested and recorded in ConfigHub.</p>
       </div>
     </section>
 
@@ -560,39 +568,39 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
-      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
+      <p class="small"><strong>Checks:</strong> Each card names what was checked and says whether it passed, needs review, was blocked, was not run, or was not needed.</p>
       <p class="mono" style="font-size:.9rem">3 matrix rows for hashicorp/consul@2.0.0 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F1</span>
+            <span class="row-layer">F1 · Source chart</span>
             <h3>(source)</h3>
           </div>
           <span class="row-kind">Source</span>
         </div>
-        <p class="row-purpose">Upstream chart source</p>
+        <p class="row-purpose">Pinned upstream chart and version</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
           <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
-          <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
-          <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
+          <dt>Next</dt><dd>Choose a chart configuration before rendering or deploying</dd>
+          <dt>Reason</dt><dd>This is the chart source. Choose a configuration before checking deployment or promotion</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for (source)">
-          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/hashicorp/consul/2.0.0/CATALOG.html">catalog</a> · <a href="https://helm.releases.hashicorp.com" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F2b</span>
+            <span class="row-layer">F2b · Helm-rendered base</span>
             <h3>default-control-plane</h3>
           </div>
           <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">Runnable base variant</p>
+        <p class="row-purpose">Runnable base variant made with different Helm values</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/hashicorp/consul/2.0.0/effective-values.yaml">effective-values.yaml</a></dd>
@@ -605,21 +613,21 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
           <dt>Next</dt><dd>Image policy decision recorded for a target scope; Create digest pinned bases or overrides for stricter scopes</dd>
-          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
+          <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default-control-plane">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Setup actions</b><em>Not run</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/hashicorp/consul/2.0.0/CATALOG.html">catalog</a> · <a href="../../recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml">variant</a> · <a href="../../recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml">render intent</a> · <a href="../../data/base-variant-records/records/hashicorp-consul-2-0-0-default-control-plane.yaml">base record</a> · <a href="../../packages/hashicorp/consul/2.0.0/bases/default-control-plane">package base</a> · <a href="../../runs/consul-default-control-plane-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://helm.releases.hashicorp.com" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F2b</span>
+            <span class="row-layer">F2b · Helm-rendered base</span>
             <h3>secure-mesh-existing-secrets</h3>
           </div>
           <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">Runnable base variant</p>
+        <p class="row-purpose">Runnable base variant made with different Helm values</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/hashicorp/consul/2.0.0/effective-values-secure-mesh-existing-secrets.yaml">effective-values-secure-mesh-existing-secrets.yaml</a></dd>
@@ -635,7 +643,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Reason</dt><dd>Gitops runtime: Argo health Progressing (parity passed)</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for secure-mesh-existing-secrets">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill no" title="Local: no"><b>L</b><em>no</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill no" title="GitOps: no"><b>G</b><em>no</em></span><span class="lane-pill watch" title="Live parity: watch"><b>P</b><em>watch</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill no" title="Recorded value: no"><b>Local cluster</b><em>Blocked</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Setup actions</b><em>Not run</em></span><span class="lane-pill no" title="Recorded value: no"><b>GitOps and OCI</b><em>Blocked</em></span><span class="lane-pill watch" title="Recorded value: watch"><b>Live Helm comparison</b><em>Review</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Two clusters</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/hashicorp/consul/2.0.0/CATALOG.html">catalog</a> · <a href="../../recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml">variant</a> · <a href="../../recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml">render intent</a> · <a href="../../data/base-variant-records/records/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml">base record</a> · <a href="../../packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets">package base</a> · <a href="../../runs/consul-secure-mesh-existing-secrets-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://helm.releases.hashicorp.com" rel="noopener">source repo</a></p>
       </article></div>

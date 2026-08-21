@@ -153,6 +153,19 @@ const runtimePathBoundariesPath = join(repoRoot, "config-catalog", "runtime-path
 const TOP100_EVIDENCE_COMPONENT_FLOOR = 100;
 const PUBLIC_CATALOG_COMPONENT_FLOOR = 112;
 const PUBLIC_CATALOG_VERSION_FLOOR = 139;
+// These categories help people browse the Catalog. They describe what a chart
+// is for, not how ready it is. A new retained component must be classified
+// deliberately so it cannot disappear into a silent "other" bucket.
+const CATALOG_COMPONENT_CATEGORIES = [
+  { id: "security-secrets", label: "Security and secrets", pattern: /^(aqua\/trivy-operator|dex\/dex|external-secrets\/|falcosecurity\/|gatekeeper\/|hashicorp\/vault|jetstack\/|kyverno\/|oauth2-proxy\/|policy-reporter\/|sealed-secrets\/|secrets-store-csi-driver\/)/ },
+  { id: "monitoring-logs", label: "Monitoring and logs", pattern: /^(elastic\/(filebeat|kibana|logstash|metricbeat)|fluent\/|grafana\/|jaegertracing\/|nats\/surveyor|open-telemetry\/|opencost\/|prometheus-community\/|vm\/)/ },
+  { id: "networking-ingress", label: "Networking and ingress", pattern: /^(bitnami\/contour|coredns\/|external-dns\/|haproxytech\/|hashicorp\/consul|ingress-nginx\/|istio\/|linkerd\/|metallb\/|projectcalico\/|traefik\/)/ },
+  { id: "storage-backup", label: "Storage and backup", pattern: /^(aws-ebs-csi-driver\/|longhorn\/|minio-operator\/|nfs-subdir-external-provisioner\/|rook-release\/|velero\/)/ },
+  { id: "databases-messaging", label: "Databases and messaging", pattern: /^(bitnami\/(elasticsearch|memcached|mongodb|mysql|opensearch|postgresql|rabbitmq|redis|zookeeper)|cloudnative-pg\/|cloudpirates\/(rabbitmq|redis)|elastic\/eck-operator|nats\/(nack|nats)|percona\/|runix\/pgadmin4|strimzi\/|valkey\/)/ },
+  { id: "delivery-automation", label: "Delivery and automation", pattern: /^(argo-cd\/|crossplane-stable\/|gitlab\/gitlab-runner|hashicorp\/terraform|stakater\/reloader)/ },
+  { id: "cluster-operations", label: "Cluster operations", pattern: /^(autoscaler\/|aws-controllers-k8s\/|descheduler\/|fairwinds-stable\/|karpenter\/|kedacore\/|metrics-server\/|nvidia\/)/ },
+  { id: "web-compute", label: "Web and compute", pattern: /^(bitnami\/(apache|nginx|phpmyadmin|spark)|cloudpirates\/nginx)/ },
+];
 const UNKNOWN_ACTION_LABELS = {
   "create-namespace": "choose and create the target namespace",
   "install-crds": "install the chart's CRDs first",
@@ -8146,20 +8159,45 @@ function firstPathCell(entry, row) {
   return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>`;
 }
 
-function catalogUseCell(entry, row) {
+function catalogReadiness(entry, row) {
   if (entry.proof_surface === "retained-publication-only") {
-    return `<strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span>`;
+    return {
+      id: "package-published-review-before-use",
+      label: "Package published; review before use",
+      detail: "This exact package is published. Its runtime checks are not complete.",
+    };
   }
   if (row?.row_kind === "candidate") {
-    return `<strong>Not ready yet</strong><br><span style="color:var(--muted);font-size:.9rem">This is a planned useful base, not a runnable package.</span>`;
+    return {
+      id: "not-ready-yet",
+      label: "Not ready yet",
+      detail: "This is a planned configuration, not a runnable package.",
+    };
   }
   if (entry.proof_surface === "top20-catalog-supported") {
-    return `<strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span>`;
+    return {
+      id: "ready-to-try",
+      label: "Ready to try",
+      detail: "This is one of the strongest public starting points.",
+    };
   }
   if (entry.proof_surface === "next80-proof-grade") {
-    return `<strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span>`;
+    return {
+      id: "review-before-use",
+      label: "Review before use",
+      detail: "Checks exist, but this chart still needs chart-specific review.",
+    };
   }
-  return `<strong>${escapeHtml(catalogLayerLabel(entry))}</strong><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for current status.</span>`;
+  return {
+    id: "not-ready-yet",
+    label: "Not ready yet",
+    detail: "Open the chart page to see what remains.",
+  };
+}
+
+function catalogUseCell(entry, row) {
+  const readiness = catalogReadiness(entry, row);
+  return `<strong>${escapeHtml(readiness.label)}</strong><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(readiness.detail)}</span>`;
 }
 
 function featurePlain(feature) {
@@ -8209,6 +8247,12 @@ function catalogBaseOptionsCell(rows) {
     : "Open the chart page.";
 }
 
+function catalogComponentCategory(chart) {
+  const matches = CATALOG_COMPONENT_CATEGORIES.filter((category) => category.pattern.test(chart));
+  check(matches.length === 1, `${chart}: expected exactly one public Catalog category, found ${matches.length}`);
+  return matches[0];
+}
+
 function renderedObjectsPathFromRevision(revisionPath) {
   if (!revisionPath) return "";
   return revisionPath.replace(/variant-revision\.yaml$/, "rendered/release-objects.yaml");
@@ -8221,13 +8265,15 @@ function chartIndexHtml(catalog) {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
       const firstRow = firstCatalogBaseRow(matrixRows, entry);
       const retainedRows = retainedInstallerRows(catalog, entry.chart);
-      const level = catalogLayerLabel(entry);
+      const category = catalogComponentCategory(entry.chart);
       const variants = entry.supported_variants || entry.candidate_variants || "";
       const status = entry.start_base_readiness || "see chart page";
+      const readiness = catalogReadiness(entry, firstRow);
       const featureText = [
         entry.chart,
         entry.version,
-        level,
+        readiness.label,
+        category.label,
         entry.start_variant,
         entry.supported_variants,
         entry.candidate_variants,
@@ -8261,8 +8307,8 @@ function chartIndexHtml(catalog) {
       } else if (successorRole) {
         successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
       }
-      return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
-        <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a>${successionNote}</td>
+      return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-readiness="${escapeHtml(readiness.id)}" data-category="${escapeHtml(category.id)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
+        <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a><br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
@@ -8384,12 +8430,13 @@ function aicrEntriesSection() {
         <label for="chart-filter"><strong>Search Helm charts</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
+          <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
+          <label>Workload category<br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.label)}</option>`).join("")}</select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
           <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
           <label>CRDs<br><select id="crd-filter"><option value="">All</option><option value="yes">Includes or needs CRDs</option><option value="no">No CRD signal recorded</option></select></label>
         </div>
-        <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
+        <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Review before use</strong> entries have checks but need more chart-specific review. <strong>Package published; review before use</strong> confirms the exact package is available but does not claim that its runtime checks are complete. <strong>Not ready yet</strong> marks a planned path that is not runnable.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
       </div>
@@ -8404,6 +8451,7 @@ ${chartRowsHtml}
           const rows = Array.from(document.querySelectorAll("[data-chart-row]"));
           const text = document.getElementById("chart-filter");
           const level = document.getElementById("level-filter");
+          const category = document.getElementById("category-filter");
           const status = document.getElementById("status-filter");
           const hooks = document.getElementById("hook-filter");
           const crds = document.getElementById("crd-filter");
@@ -8414,7 +8462,8 @@ ${chartRowsHtml}
             for (const row of rows) {
               const ok =
                 (!query || row.dataset.search.includes(query)) &&
-                (!level.value || row.dataset.level === level.value) &&
+                (!level.value || row.dataset.readiness === level.value) &&
+                (!category.value || row.dataset.category === category.value) &&
                 (!status.value || row.dataset.status === status.value) &&
                 (!hooks.value || row.dataset.hooks === hooks.value) &&
                 (!crds.value || row.dataset.crds === crds.value);
@@ -8425,7 +8474,7 @@ ${chartRowsHtml}
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
-          const controls = [["q", text], ["level", level], ["status", status], ["hooks", hooks], ["crds", crds]];
+          const controls = [["q", text], ["level", level], ["category", category], ["status", status], ["hooks", hooks], ["crds", crds]];
           const params = new URLSearchParams(window.location.search);
           for (const [name, node] of controls) {
             const value = params.get(name);
@@ -8441,7 +8490,7 @@ ${chartRowsHtml}
             const query = next.toString();
             history.replaceState(null, "", query ? "?" + query + window.location.hash : window.location.pathname + window.location.hash);
           };
-          [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
+          [text, level, category, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
         })();
       </script>
@@ -8478,9 +8527,7 @@ function catalogLayerLabel(entry) {
 }
 
 function catalogReadinessLabel(entry) {
-  if (entry.proof_surface === "top20-catalog-supported") return "Ready to try";
-  if (entry.proof_surface === "next80-proof-grade") return "Checked; review before use";
-  return humanizeReasonToken(entry.catalog_status || entry.proof_surface || "Status not recorded");
+  return catalogReadiness(entry).label;
 }
 
 function catalogStartStatusLabel(value) {
@@ -9687,7 +9734,15 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · Config Workshop</title>
-  <style>${siteCss()}</style>
+  <style>${siteCss()}
+    body :not(pre) > code { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+    .matrix-row-card .row-layer { font-family: inherit; white-space: normal; }
+    .matrix-row-card .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .matrix-row-card .lane-pill b { font-family: inherit; line-height: 1.1; }
+    @media (max-width: 640px) {
+      .matrix-row-card .lane-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -9799,7 +9854,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
-      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
+      <p class="small"><strong>Checks:</strong> Each card names what was checked and says whether it passed, needs review, was blocked, was not run, or was not needed.</p>
       <p class="mono" style="font-size:.9rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry, catalog)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
@@ -10042,15 +10097,32 @@ function matrixRowKindLabel(kind) {
   return labels[kind] || "Option";
 }
 
+function matrixLayerLabel(layer) {
+  const labels = {
+    F1: "F1 · Source chart",
+    F2a: "F2a · Chart default",
+    F2b: "F2b · Helm-rendered base",
+    F2c: "F2c · Planned base",
+    F3: "F3 · Required setup",
+    F4a: "F4a · ConfigHub variant",
+    F4b: "F4b · Targeted variant",
+  };
+  return labels[layer] || layer || "Unclassified option";
+}
+
 function matrixRowPurpose(row) {
-  if (row.custom_discussion === "yes") return "Needs human review before use";
-  if (row.row_kind === "source") return "Upstream chart source";
-  if (row.row_kind === "candidate") return "Candidate path, not ready yet";
-  if (row.row_kind === "derived") return "Derived ConfigHub variant";
-  if (row.catalog_layer === "F2b") return "Runnable base variant";
-  if (row.customization_layer) return humanizeReasonList(row.customization_layer);
-  if (row.adoption_bucket) return humanizeReasonList(row.adoption_bucket);
-  return "Catalog option";
+  const purposes = {
+    F1: "Pinned upstream chart and version",
+    F2a: "Runnable base variant made from the chart defaults",
+    F2b: "Runnable base variant made with different Helm values",
+    F2c: "Planned base variant; not runnable yet",
+    F3: "A prerequisite or target value needed before deployment",
+    F4a: "ConfigHub variant derived from a catalog base",
+    F4b: "ConfigHub variant with a recorded deployment target",
+  };
+  const purpose = purposes[row.catalog_layer]
+    || (row.customization_layer ? humanizeReasonList(row.customization_layer) : "Catalog option");
+  return row.custom_discussion === "yes" ? `${purpose}; review needed` : purpose;
 }
 
 function matrixRowStatusLabel(row) {
@@ -10209,7 +10281,7 @@ function currentPathReason(row, intent, reason) {
   if (resolvedPrerequisiteQueue(row, intent, reason)) {
     return "The required CRD setup is now recorded, and the end-to-end Helm and ConfigHub comparison passed. The older two-cluster test still needs to be repeated with that setup.";
   }
-  return humanizeReasonList(reason) || "No blocking reason recorded.";
+  return chartPageText(humanizeReasonList(reason)) || "No blocking reason recorded.";
 }
 
 function currentPathNextAction(row, intent, nextAction, reason) {
@@ -10237,19 +10309,19 @@ function matrixRowCard(row, entry, catalog) {
     ? ` <a href="../../${escapeHtml(renderIntent.intent_path)}">Open the full record.</a>`
     : "";
   const laneBadges = [
-    ["R", "Render", row.lane_render_parity],
-    ["C", "ConfigHub", row.lane_confighub_scan_ops],
-    ["L", "Local", row.lane_local_kind],
-    ["Y", "Lifecycle", row.lane_lifecycle_observed],
-    ["G", "GitOps", row.lane_gitops_oci_live],
-    ["P", "Live parity", row.lane_live_dual_parity],
-    ["K", "Kind parity", row.lane_two_cluster_kind],
-    ["V", "Promotion", row.variant_promotion],
+    ["Helm output", row.lane_render_parity],
+    ["Saved in ConfigHub", row.lane_confighub_scan_ops],
+    ["Local cluster", row.lane_local_kind],
+    ["Setup actions", row.lane_lifecycle_observed],
+    ["GitOps and OCI", row.lane_gitops_oci_live],
+    ["Live Helm comparison", row.lane_live_dual_parity],
+    ["Two clusters", row.lane_two_cluster_kind],
+    ["Promotion", row.variant_promotion],
   ];
   return `<article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">${escapeHtml(row.catalog_layer || "?")}</span>
+            <span class="row-layer">${escapeHtml(matrixLayerLabel(row.catalog_layer))}</span>
             <h3>${escapeHtml(title)}</h3>
           </div>
           <span class="row-kind">${escapeHtml(matrixRowKindLabel(row.row_kind))}</span>
@@ -10270,7 +10342,7 @@ function matrixRowCard(row, entry, catalog) {
           ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(chartPageText(humanReason))}</dd>` : ""}
         </dl>
         <div class="lane-strip" aria-label="Checks for ${escapeHtml(title)}">
-          ${laneBadges.map(([code, label, value]) => lanePill(code, label, value)).join("")}
+          ${laneBadges.map(([label, value]) => lanePill(label, value)).join("")}
         </div>
         ${rowLinks.length ? `<p class="row-links">${rowLinks.join(" · ")}</p>` : ""}
       </article>`;
@@ -10286,6 +10358,15 @@ function cleanPageActionText(value) {
 function chartPageText(value) {
   return String(value ?? "")
     .replaceAll("\u2014", "-")
+    .replace(/source rows are upstream chart inputs[;,]?\s*not server[- ]side promotion evidence/gi, "This is the chart source. Choose a configuration before checking deployment or promotion")
+    .replace(/server[- ]side promotion receipt passed\.?/gi, "Promotion was tested and recorded in ConfigHub.")
+    .replace(/choose whether ([^;]+) is in production scope;\s*close or document its render[- ]only live[- ]readiness issue first\.?/gi, (_match, configuration) => `Decide whether ${configuration} is suitable for production. Resolve or document its outstanding live deployment check first.`)
+    .replace(/candidate rows are planning rows;\s*not server[- ]side promotion evidence\.?/gi, "This is a planned option. Promotion has not been tested for it.")
+    .replace(/promotion depends on upstream and downstream ConfigHub Spaces;\s*the ConfigHub proof lane is missing\.?/gi, "Promotion needs source and destination ConfigHub Spaces. It has not been tested for this configuration.")
+    .replace(/server[- ]side promotion did not prove changed unit catch up and added unit cloning\.?/gi, "The promotion test did not prove that changed and newly added configuration reached the destination.")
+    .replace(/server[- ]side promotion mechanics passed;\s*but changeset[- ]bound promote failed and required the no[- ]changeset fallback\.?/gi, "Basic promotion worked, but promotion tied to a ConfigHub ChangeSet failed. The test used a fallback without a ChangeSet.")
+    .replace(/choose or create an F2 base before rendering or deploying/gi, "Choose a chart configuration before rendering or deploying")
+    .replace(/choose or create an F2 base before server[- ]side variant promotion applies/gi, "Choose a chart configuration before using ConfigHub promotion")
     .replace(/check the exact base and lane/gi, "check the exact configuration and its tests")
     .replace(/ha \(curated proof lane - bespoke teaching needed\)/gi, "A realistic high-availability configuration has not yet been tested for this chart")
     .replace(/ha \(curated tests - bespoke teaching needed\)/gi, "A realistic high-availability configuration has not yet been tested for this chart")
@@ -10475,9 +10556,9 @@ function matrixRowLinks(row, catalog) {
   return links;
 }
 
-function lanePill(code, label, value) {
+function lanePill(label, value) {
   const normalized = normalizeLaneValue(value);
-  return `<span class="lane-pill ${escapeHtml(normalized)}" title="${escapeHtml(label)}: ${escapeHtml(value || "blank")}"><b>${escapeHtml(code)}</b><em>${escapeHtml(laneShortValue(value))}</em></span>`;
+  return `<span class="lane-pill ${escapeHtml(normalized)}" title="Recorded value: ${escapeHtml(value || "blank")}"><b>${escapeHtml(label)}</b><em>${escapeHtml(laneStatusLabel(value))}</em></span>`;
 }
 
 function normalizeLaneValue(value) {
@@ -10491,12 +10572,17 @@ function normalizeLaneValue(value) {
   return "other";
 }
 
-function laneShortValue(value) {
-  const text = String(value ?? "").trim();
-  if (!text) return "blank";
-  if (text === "n/a") return "n/a";
-  if (text === "proven-with-watch") return "watch";
-  return text;
+function laneStatusLabel(value) {
+  const normalized = normalizeLaneValue(value);
+  const labels = {
+    yes: "Passed",
+    watch: "Review",
+    no: "Blocked",
+    todo: "Not run",
+    na: "Not needed",
+    blank: "No record",
+  };
+  return labels[normalized] || humanizeReasonToken(value || "No record");
 }
 
 function chartCard(entry) {

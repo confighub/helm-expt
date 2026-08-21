@@ -109,11 +109,11 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "Choose a tested starting configuration for a Helm component or an AI infrastructure stack", "Each chart page shows the values", "check your own configuration", "A useful public result can become a new Catalog configuration", "Search Helm Configurations", "Search Helm charts", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Run one small model on CPU", "Learn the AICR platform shape", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Find a Tested Configuration", "Choose a tested starting configuration for a Helm component or an AI infrastructure stack", "Each chart page shows the values", "check your own configuration", "A useful public result can become a new Catalog configuration", "Search Helm Configurations", "Search Helm charts", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Helm charts shown; 139 retained package versions remain available", "all 139 retained package versions", "112 components", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "AI infrastructure configurations", "Run one small model on CPU", "Learn the AICR platform shape", "Plan NVIDIA NIM serving", "Build the full EKS inference platform", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "Check this chart and version", "Try the package", "Plan an upgrade or promotion", "Keep it in ConfigHub", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "pinned so a republished tag cannot change what you get", "What The Starting Configuration Records", "Try This Chart", "Additional scripts: apply it or upload it", "redis-existing-secret"],
+    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "Check this chart and version", "Try the package", "Plan an upgrade or promotion", "Keep it in ConfigHub", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "pinned so a republished tag cannot change what you get", "What The Starting Configuration Records", "Try This Chart", "Available Configurations", "F2a · Chart default", "Helm output", "Saved in ConfigHub", "Additional scripts: apply it or upload it", "redis-existing-secret"],
   },
   {
     file: "site/d/docs/user/confighub-data-model.html",
@@ -364,6 +364,27 @@ for (const check of checks) {
   }
   if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(text)) {
     failures.push(`${check.file}: global generated timestamp appears on a human-facing page`);
+  }
+}
+
+// A chart page is a public explanation, not a dump of matrix column names.
+// Keep common internal phrases and the old one-letter check legend out of all
+// generated version pages, not only the Redis page used by the positive check.
+const chartPagesRoot = path.join(root, "site/charts");
+for (const name of fs.readdirSync(chartPagesRoot)) {
+  if (name === "index.html" || !name.endsWith(".html")) continue;
+  const file = `site/charts/${name}`;
+  const text = fs.readFileSync(path.join(root, file), "utf8");
+  for (const phrase of [
+    "Server side promotion receipt passed",
+    "Candidate rows are planning rows",
+    "The ConfigHub proof lane is missing",
+    "changeset bound promote",
+  ]) {
+    if (text.includes(phrase)) failures.push(`${file}: contains internal Catalog wording ${JSON.stringify(phrase)}`);
+  }
+  if (/<b>[RCLYGPKV]<\/b>/.test(text)) {
+    failures.push(`${file}: uses a one-letter check label instead of its full name`);
   }
 }
 

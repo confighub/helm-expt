@@ -426,7 +426,15 @@
       pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
-</style>
+
+    body :not(pre) > code { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+    .matrix-row-card .row-layer { font-family: inherit; white-space: normal; }
+    .matrix-row-card .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .matrix-row-card .lane-pill b { font-family: inherit; line-height: 1.1; }
+    @media (max-width: 640px) {
+      .matrix-row-card .lane-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -552,7 +560,7 @@
   <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Server side promotion receipt passed</p>
+        <p><strong>Current status:</strong> Available in the catalog · <strong>Reason:</strong> Promotion was tested and recorded in ConfigHub.</p>
       </div>
     </section>
 
@@ -583,39 +591,39 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
-      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
+      <p class="small"><strong>Checks:</strong> Each card names what was checked and says whether it passed, needs review, was blocked, was not run, or was not needed.</p>
       <p class="mono" style="font-size:.9rem">5 matrix rows for bitnami/redis@25.5.3 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F1</span>
+            <span class="row-layer">F1 · Source chart</span>
             <h3>(source)</h3>
           </div>
           <span class="row-kind">Source</span>
         </div>
-        <p class="row-purpose">Upstream chart source</p>
+        <p class="row-purpose">Pinned upstream chart and version</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
           <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
-          <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
-          <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
+          <dt>Next</dt><dd>Choose a chart configuration before rendering or deploying</dd>
+          <dt>Reason</dt><dd>This is the chart source. Choose a configuration before checking deployment or promotion</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for (source)">
-          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Saved in ConfigHub</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>GitOps and OCI</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/bitnami/redis/25.5.3/CATALOG.html">catalog</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F2a</span>
+            <span class="row-layer">F2a · Chart default</span>
             <h3>default</h3>
           </div>
           <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">F2a honest default base</p>
+        <p class="row-purpose">Runnable base variant made from the chart defaults</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/bitnami/redis/25.5.3/effective-values.yaml">effective-values.yaml</a></dd>
@@ -627,22 +635,22 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
-          <dt>Next</dt><dd>Choose whether default is in production scope; Close or document its render only live readiness issue first</dd>
-          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
+          <dt>Next</dt><dd>Decide whether default is suitable for production. Resolve or document its outstanding live deployment check first.</dd>
+          <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for default">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-default/README.html">Demo README</a> · <a href="../d/recipes/bitnami/redis/25.5.3/CATALOG.html">catalog</a> · <a href="../../recipes/bitnami/redis/25.5.3/variants/default/variant.yaml">variant</a> · <a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/bitnami-redis-25-5-3-default.yaml">base record</a> · <a href="../../packages/bitnami/redis/25.5.3/bases/default">package base</a> · <a href="../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F2b</span>
+            <span class="row-layer">F2b · Helm-rendered base</span>
             <h3>reuse-existing-secret</h3>
           </div>
           <span class="row-kind">Base</span>
         </div>
-        <p class="row-purpose">Runnable base variant</p>
+        <p class="row-purpose">Runnable base variant made with different Helm values</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/bitnami/redis/25.5.3/effective-values-reuse-existing-secret.yaml">effective-values-reuse-existing-secret.yaml</a></dd>
@@ -655,21 +663,21 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>1 prerequisite is declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
           <dt>Next</dt><dd>Refresh the receipt when the upstream base changes.</dd>
-          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
+          <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for reuse-existing-secret">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill todo" title="Kind parity: todo"><b>K</b><em>todo</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Recorded value: yes"><b>Helm output</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Local cluster</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>GitOps and OCI</b><em>Passed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Live Helm comparison</b><em>Passed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>Two clusters</b><em>Not run</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Promotion</b><em>Passed</em></span>
         </div>
         <p class="row-links"><a href="../d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">Demo README</a> · <a href="../d/recipes/bitnami/redis/25.5.3/CATALOG.html">catalog</a> · <a href="../../recipes/bitnami/redis/25.5.3/variants/reuse-existing-secret/variant.yaml">variant</a> · <a href="../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">render intent</a> · <a href="../../data/base-variant-records/records/bitnami-redis-25-5-3-reuse-existing-secret.yaml">base record</a> · <a href="../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret">package base</a> · <a href="../../runs/redis-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F4a</span>
+            <span class="row-layer">F4a · ConfigHub variant</span>
             <h3>prod-us-east</h3>
           </div>
           <span class="row-kind">Variant</span>
         </div>
-        <p class="row-purpose">Derived ConfigHub variant</p>
+        <p class="row-purpose">ConfigHub variant derived from a catalog base</p>
         <dl>
           <dt>Status</dt><dd>Needs more work before this is a ready path</dd>
           <dt>How to run</dt><dd>A ConfigHub variant based on default for Redis-prod-us-east. Upload the base first, then create or promote this variant in ConfigHub.</dd>
@@ -680,18 +688,18 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
           <dt>Reason</dt><dd>No target was attached; This is a ConfigHub intended state proof; Not a live cluster deployment.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for prod-us-east">
-          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill todo" title="GitOps: todo"><b>G</b><em>todo</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill todo" title="Recorded value: todo"><b>GitOps and OCI</b><em>Not run</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/bitnami/redis/25.5.3/CATALOG.html">catalog</a> · <a href="../../recipes/bitnami/redis/25.5.3/variants/default/variant.yaml">variant</a> · <a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../packages/bitnami/redis/25.5.3/bases/default">package base</a> · <a href="../../runs/derived-variant-execution/redis-prod-us-east/variant-create-receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
-            <span class="row-layer">F4b</span>
+            <span class="row-layer">F4b · Targeted variant</span>
             <h3>staging-eu-west</h3>
           </div>
           <span class="row-kind">Variant</span>
         </div>
-        <p class="row-purpose">Needs human review before use</p>
+        <p class="row-purpose">ConfigHub variant with a recorded deployment target; review needed</p>
         <dl>
           <dt>Status</dt><dd>Needs more work before this is a ready path; human review needed</dd>
           <dt>How to run</dt><dd>A ConfigHub variant based on default for Redis-staging-eu-west. Upload the base first, then create or promote this variant in ConfigHub.</dd>
@@ -702,7 +710,7 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
           <dt>Reason</dt><dd>Namespace changes are not modeled for this variant yet.; Redis Secret delivery is not modeled for this variant yet.</dd>
         </dl>
         <div class="lane-strip" aria-label="Checks for staging-eu-west">
-          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill no" title="GitOps: no"><b>G</b><em>no</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
+          <span class="lane-pill na" title="Recorded value: n/a"><b>Helm output</b><em>Not needed</em></span><span class="lane-pill yes" title="Recorded value: yes"><b>Saved in ConfigHub</b><em>Passed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Local cluster</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Setup actions</b><em>Not needed</em></span><span class="lane-pill no" title="Recorded value: no"><b>GitOps and OCI</b><em>Blocked</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Live Helm comparison</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Two clusters</b><em>Not needed</em></span><span class="lane-pill na" title="Recorded value: n/a"><b>Promotion</b><em>Not needed</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/bitnami/redis/25.5.3/CATALOG.html">catalog</a> · <a href="../../recipes/bitnami/redis/25.5.3/variants/default/variant.yaml">variant</a> · <a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../packages/bitnami/redis/25.5.3/bases/default">package base</a> · <a href="../../runs/derived-variant-target-bound/redis-staging-eu-west/receipt.yaml">receipt</a> · <a href="https://charts.bitnami.com/bitnami" rel="noopener">source repo</a></p>
       </article></div>
@@ -754,7 +762,7 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
       </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Ready to try</td></tr><tr><td>Can I use it?</td><td>Use the public catalog entry, then check the exact configuration and its tests.</td></tr><tr><td>First base</td><td>reuse-existing-secret</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</td></tr><tr><td>Tests completed</td><td>Catalog supported with live evidence (render parity 2/2; Local live 2/2; Live parity 2/2)</td></tr><tr><td>Coverage</td><td>Covered</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>choose whether default is in production scope; close or document its render-only live-readiness issue first</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Ready to try</td></tr><tr><td>Can I use it?</td><td>Use the public catalog entry, then check the exact configuration and its tests.</td></tr><tr><td>First base</td><td>reuse-existing-secret</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</td></tr><tr><td>Tests completed</td><td>Catalog supported with live evidence (render parity 2/2; Local live 2/2; Live parity 2/2)</td></tr><tr><td>Coverage</td><td>Covered</td></tr><tr><td>You must provide</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>Decide whether default is suitable for production. Resolve or document its outstanding live deployment check first.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
