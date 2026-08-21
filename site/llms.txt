@@ -10,6 +10,7 @@
 - [Generated at](https://confighub.github.io/helm-expt/site/generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](https://confighub.github.io/helm-expt/site/try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Try AICR](https://confighub.github.io/helm-expt/site/try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Versus what you already use](https://confighub.github.io/helm-expt/site/compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](https://confighub.github.io/helm-expt/site/whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](https://confighub.github.io/helm-expt/site/ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.

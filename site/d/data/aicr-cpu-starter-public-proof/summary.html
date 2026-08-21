@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What changed &middot; Config Workshop</title>
-  <meta name="description" content="The twenty newest receipts in the catalog, from the committed evidence-aging table.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/whats-new.html">
-  <meta property="og:title" content="What changed &amp;middot; Config Workshop">
-  <meta property="og:description" content="The twenty newest receipts in the catalog, from the committed evidence-aging table.">
+  <title>Try AICR: anonymous CPU-starter result · Config Workshop</title>
+  <meta name="description" content="Try AICR: anonymous CPU-starter result: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-public-proof/summary.html">
+  <meta property="og:title" content="Try AICR: anonymous CPU-starter result · Config Workshop">
+  <meta property="og:description" content="Try AICR: anonymous CPU-starter result: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/whats-new.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-public-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,127 +427,49 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>What changed recently</h1>
-    <p class="lead">The twenty newest receipts in the catalog, straight from the committed evidence-aging table. A returning visitor can tell in one look whether anything moved since last time.</p>
-    <p>For the machine-readable version, <a href="./changes.json">changes.json</a> lists every chart, version, and digest. The <a href="./d/data/receipt-aging/summary.html">full aging record</a> dates every receipt and names the oldest in each family, including ours.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Try AICR: anonymous CPU-starter result</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-cpu-starter-public-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="recent">
-      <h2 id="recent">Twenty newest receipts</h2>
-      <div class="card" style="overflow-x: auto;"><table>
-        <thead><tr><th>Recorded</th><th>Proof family</th><th>Receipt</th></tr></thead>
-        <tbody>
-        <tr><td class="mono">2026-08-21</td><td>aicr-cpu-starter-public-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-cpu-starter-public-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>c3agent-configuration-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/c3agent-configuration-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>eks-inference-promotion-delivery-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/eks-inference-promotion-delivery-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>eks-inference-sandbox-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/eks-inference-sandbox-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>measured-promotion-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/measured-promotion-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>redis-upgrade-app-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/redis-upgrade-app-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>vllm-cpu-starter-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/vllm-cpu-starter-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-12</td><td>sveltos-bulk-ops-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/sveltos-bulk-ops-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-12</td><td>sveltos-cve-patch-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/sveltos-cve-patch-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-12</td><td>sveltos-env-rollout-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/sveltos-env-rollout-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-10</td><td>hook-replacement-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/hook-replacement-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-10</td><td>sveltos-fleet-rehearsal</td><td class="mono" style="overflow-wrap: anywhere;">runs/sveltos-fleet-rehearsal/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>aicr-kserve-delivery</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-kserve-delivery/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>aicr-nim-operator-delivery</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-nim-operator-delivery/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>aicr-refusal-corpus</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-refusal-corpus/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>aicr-signature-verification</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-signature-verification/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>aicr-trust-root-review</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-trust-root-review/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>certified-bundles</td><td class="mono" style="overflow-wrap: anywhere;">runs/certified-bundles/catalog-argo-cd-argo-cd-9-5-15-default/publication-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>certified-bundles</td><td class="mono" style="overflow-wrap: anywhere;">runs/certified-bundles/catalog-argo-cd-argo-events-2-4-21-default/publication-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-08</td><td>certified-bundles</td><td class="mono" style="overflow-wrap: anywhere;">runs/certified-bundles/catalog-argo-cd-argo-rollouts-2-40-9-default/publication-receipt.yaml</td></tr>
-        </tbody>
-      </table></div>
-      <p>Charts added and versions retained appear here as their receipts land. Gaps closed appear as the lane that was red going green in the verify chain.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This test ran the same public script linked from the Config Workshop. It used an empty registry credential store and no ConfigHub account or Kubernetes cluster.</p>
+<h2 id="result">Result</h2>
+<p><b>pass.</b> With no ConfigHub account, registry login, or Kubernetes cluster, the public script anonymously pulled the retained 17-Application AICR configuration, selected and hash-verified the seven CPU-starter Applications, wrote them as a local OCI, pulled that OCI back, and compared every file.</p>
+<table><thead><tr><th>Step</th><th>Result</th></tr></thead><tbody><tr><td>Pull the public NVIDIA AICR configuration at <code>sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010</code></td><td>pass</td></tr>
+<tr><td>Confirm all 17 source Applications are present</td><td>pass</td></tr>
+<tr><td>Select the seven Applications named by the CPU-starter derivation record</td><td>pass</td></tr>
+<tr><td>Verify every selected file against its reviewed SHA-256</td><td>pass</td></tr>
+<tr><td>Write a local configuration OCI at <code>sha256:62eaf39703ca0e5e968fcd4a667cbccbb5b3ff16403471c4b3441b3681b2b225</code></td><td>pass</td></tr>
+<tr><td>Pull the local OCI back and compare all seven files</td><td>pass</td></tr>
+<tr><td>Contact ConfigHub Server</td><td>not run</td></tr>
+<tr><td>Apply to Kubernetes or run a model</td><td>not run</td></tr></tbody></table>
+<h2 id="selected-applications">Selected Applications</h2>
+<table><thead><tr><th>Application</th><th>Argo CD sync wave</th><th>File SHA-256</th></tr></thead><tbody><tr><td>cert-manager</td><td>2</td><td><code>9429064306e0efcca02e29edafa202330de0d3cbab8b8d47d52f69a2e56b6453</code></td></tr>
+<tr><td>nfd</td><td>3</td><td><code>ef2cfedf5ff066f0255ed0d910daacec6f78225f117a3bf95f8c448d1e8b0df6</code></td></tr>
+<tr><td>prometheus-operator-crds</td><td>6</td><td><code>0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292</code></td></tr>
+<tr><td>kube-prometheus-stack</td><td>7</td><td><code>83f58c797a925802b31ea5874676ad7ee51b2c3439e9a86d06bbcf52a87a7656</code></td></tr>
+<tr><td>k8s-ephemeral-storage-metrics</td><td>9</td><td><code>069c54ea067bee6e041f6356b6f72e1a00ce41294217fb5edaed085bbaeb1b2f</code></td></tr>
+<tr><td>kai-scheduler</td><td>10</td><td><code>740ea2245f37828f383b89ed876cbfbcd4ad30972447cdbf57c06922348e5fbc</code></td></tr>
+<tr><td>prometheus-adapter</td><td>15</td><td><code>1d6fab6e8f60c9b7eda6ed266d0b172159bada60a95396f44f63c22039afe509</code></td></tr></tbody></table>
+<h2 id="what-this-means">What This Means</h2>
+<p>The public AICR artifact is readable without a registry login. The seven-file CPU starter can be reproduced from it, checked byte for byte, and kept as a local OCI. The source-and-intent record explains why those seven Applications were selected and identifies the retained <code>gp3</code> storage-class setting.</p>
+<p>This is a configuration exercise. It does not install the seven components or run an inference workload. For the live CPU inference example, see <a href="../vllm-cpu-starter-proof/summary.html">the vLLM runtime proof</a>.</p>
+<h2 id="evidence">Evidence</h2>
+<ul><li>Script: <a href="../../../sh/aicr-cpu-starter/try.sh"><code>site/sh/aicr-cpu-starter/try.sh</code></a></li><li>Source publication: <a href="../../../../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">public OCI receipt</a></li><li>Selection: <a href="../../../../examples/aicr/cpu-starter/derivation-receipt.yaml">CPU-starter derivation receipt</a></li><li>Full receipt: <a href="../../../../runs/aicr-cpu-starter-public-proof/receipt.yaml"><code>runs/aicr-cpu-starter-public-proof/receipt.yaml</code></a></li></ul>
+    </article>
   </main>
-  <footer>Generated from data/receipt-aging/aging.csv. If this page looks stale, the aging table is what to regenerate.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-cpu-starter-public-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

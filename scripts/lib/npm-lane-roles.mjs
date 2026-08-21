@@ -18,6 +18,12 @@
 //               keep-outside      needs external state or is too slow
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
+  "aicr-starter-public:verify": {
+    proves: "The anonymous Try AICR receipt still names the exact public source digest, seven reviewed Application files, source-and-intent record, public script, local OCI digest, and successful pull-back, without claiming ConfigHub or Kubernetes execution.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the public-site generator checks the same receipt and script contract, while this focused lane gives the AICR example a direct verifier",
+  },
   "c3agent-config:verify": {
     proves: "The three compact c3agent environment inputs deterministically reproduce their exact Kubernetes objects, source-and-intent records, lifecycle record, environment diff, and portable local OCI; pulling the OCI back yields the recorded development object-set hash and two non-deployable companion records.",
     requires: "offline",
