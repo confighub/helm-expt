@@ -84,7 +84,32 @@ reference cloud resources, the index records the residue instead of editing
 it: today that is one reference to the `gp3` storage class inside the Kube
 Prometheus Stack values, which a cluster without AWS storage classes does not
 provide. Overriding it is exactly the variant mechanics this catalog already
-proves elsewhere, and the section below records that override with a receipt.
+proves elsewhere. The local gate below checks a proposed edit before the later
+ConfigHub and cluster proofs use the reviewed result.
+
+## An AI can propose the change, but the gate decides
+
+```bash
+npm run aicr-platform-variant:verify
+npm run aicr-platform-variant:self-test
+```
+
+The accepted request asks to change the Prometheus StorageClass from `gp3` to
+`standard`. Before it writes a candidate, the gate checks that all seven
+Application identities remain, only `kube-prometheus-stack` changes, and only
+the declared StorageClass field changes. The output is the complete readable
+seven-Application configuration, not a patch that must be interpreted later.
+
+The refused fixture proposes the same storage change plus an unrequested
+namespace move. That YAML is valid, but the extra field is outside the selected
+control point. The gate writes a refusal receipt and no candidate. Its
+self-tests also prove that adding, removing, renaming, or changing the wrong
+Application is refused.
+
+The [platform variant parity summary](../../../data/aicr-platform-variant/summary.md)
+links to the two requests, the accepted candidate, and both receipts. This
+local check contacts neither ConfigHub nor Kubernetes. The live proofs below
+remain the evidence for retention, promotion, and cluster acceptance.
 
 ## The residue override, proven live against ConfigHub
 

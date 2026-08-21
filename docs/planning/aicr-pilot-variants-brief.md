@@ -1,8 +1,8 @@
 # Brief: Pilot variants for AICR platform shapes
 
-Status: proposal, 2026-08-07. Written after the three AICR entries and their
-proof ladders landed, so it starts from what the receipts already show rather
-than from a blank page.
+Status: first platform variant gated, 2026-08-21. Written after the three AICR
+entries and their proof ladders landed, then updated when the first generated
+platform variant passed all three parity checks.
 
 ## The question this answers
 
@@ -113,8 +113,34 @@ hand-written and wrong: it guessed a serving-runtime name that upstream spells
 differently, and the checker refused it rather than recording a comfortable
 number. The declarations are now derived from the retained bytes.
 
-Two levels of the design remain. Document-set parity, which refuses a variant
-that adds or removes documents, and field-level parity, which the existing
-per-chart machinery already performs, are not yet wired into this checker.
-Blast radius was the level worth building first because it is the level
-nothing else covers.
+Blast radius was the level worth building first because nothing else covered
+it. The document-set and exact-field checks followed on 2026-08-21.
+
+## First gated platform variant delivered 2026-08-21
+
+The CPU starter now has a complete, local example of the proposed workflow.
+An example request models an AI-proposed change to the Prometheus StorageClass
+from `gp3` to `standard`. The deterministic gate checks three facts before it
+writes a candidate:
+
+1. The candidate still contains the same seven Argo CD Applications.
+2. Only `kube-prometheus-stack`, the Application named by the control point,
+   changed.
+3. The only changed field is the declared StorageClass field inside that
+   Application's Helm values.
+
+The accepted request produces the full seven-Application candidate and a
+receipt. A second fixture proposes the same requested edit plus an unrequested
+namespace move. Its object identities and Application reach still look
+correct, but the exact-field check refuses it and no candidate is written.
+
+Run `npm run aicr-platform-variant:verify` to check the retained requests,
+candidate, and receipts. Run `npm run aicr-platform-variant:self-test` to prove
+that additions, removals, wrong Applications, and extra fields are refused.
+The generated [platform variant parity summary](../../data/aicr-platform-variant/summary.md)
+links to both requests, the accepted candidate, and both receipts.
+
+Exact-field acceptance requires a structured `path` or `valuesPath` in the
+control-point record. A text token may still help locate a setting, but it is
+not precise enough to approve an AI-authored variant. Such a request remains
+refused until the control point has a structured path.

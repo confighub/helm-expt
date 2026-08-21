@@ -73,15 +73,18 @@ code.
 
 ## Theme 3: complete the parity model the Pilot brief describes
 
-14. **Build document-set parity.** Refuse a variant that adds or removes
-    documents relative to its base. S to M.
-15. **Wire field-level parity to platform shapes.** The per-chart machinery
-    exists; the join is the work. M.
-16. **Emit refusal receipts.** A refused variant should leave evidence, not
-    just an error. **Workshop-wide**, because refusal receipts are how the
-    anti-hallucination claim becomes checkable.
-17. **Generate one variant on demand and gate it.** This is the first actual
-    Pilot generation against a platform shape rather than a chart. L.
+14. **Done 2026-08-21: build document-set parity.** The platform-variant gate
+    refuses additions, removals, and identity changes relative to the base.
+15. **Done 2026-08-21 for structured control points: wire field-level parity
+    to platform shapes.** A `path` or `valuesPath` identifies the one field a
+    request may change. Text-token control points remain ineligible until they
+    are upgraded to a structured path.
+16. **Done 2026-08-21: emit refusal receipts.** The over-broad fixture leaves
+    a receipt naming its unrequested namespace edit, but no candidate file.
+17. **Done 2026-08-21: generate one variant on demand and gate it.** The CPU
+    starter request changes Prometheus storage from `gp3` to `standard`; the
+    gate writes the complete seven-Application candidate only after its
+    document set, blast radius, and exact field all pass.
 18. **Declare the remaining control points for the training entry.** Its four
     open choices are named in prose and not yet in a record. S.
 19. **Teach the blast-radius checker locator forms beyond a literal token.**
@@ -350,6 +353,14 @@ carry as an embedded YAML string, which is where most platform choices actually
 live. The v0.18.0 entry's record uses the precise forms and exists partly to
 prove them on real bytes. The checker also reads every record in its directory
 now instead of a list, so a new entry's record cannot be added and never read.
+
+Tasks 14 through 17 are done as a single platform-variant proof. The accepted
+CPU starter request changes one structured Helm-values field and emits a full
+candidate plus receipt. The over-broad fixture adds a valid-looking namespace
+edit and is refused at exact-field parity, while self-tests also refuse object
+identity changes and changes to the wrong Application. This is deliberately
+not a claim that every control point can be edited safely: a text-token locator
+must first become a structured path.
 
 Tasks 43 and 44 are done, and the answer to 43 is a number nobody had. The
 AICR track proved a provenance chain end to end, so the obvious question was

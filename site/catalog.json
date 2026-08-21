@@ -40300,6 +40300,12 @@
           "ladder": {
             "climbed": [
               {
+                "rung": "local-platform-variant-parity",
+                "receipt": "runs/aicr-platform-variant/accepted-receipt.yaml",
+                "summary": "data/aicr-platform-variant/summary.md",
+                "result": "pass"
+              },
+              {
                 "rung": "confighub-variant-and-promotion",
                 "receipt": "runs/aicr-cpu-starter-variant/receipt.yaml",
                 "summary": "data/aicr-cpu-starter-variant/summary.md",
@@ -40318,7 +40324,7 @@
                 "result": "pass"
               }
             ],
-            "climbedCount": 3
+            "climbedCount": 4
           },
           "boundary": {
             "configPlaneOnly": true,

@@ -1,0 +1,57 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrPlatformVariantParityReceipt"
+metadata:
+  name: "cpu-starter-standard-storage"
+  recordedAt: "2026-08-21"
+spec:
+  request: "examples/aicr/platform-variants/cpu-starter-standard-storage.yaml"
+  intent: "Use the CPU starter on a development cluster whose default StorageClass is named standard instead of the AWS gp3 class retained in the source package."
+  mappedBy: "example AI request"
+  source:
+    entry: "examples/aicr/cpu-starter"
+    controlPointRecord: "examples/aicr/control-points/cpu-starter.yaml"
+    controlPoint: "prometheus-storage-class"
+    documentCount: 7
+    objectSetDigest: "sha256:062ba1a09f5eaea01ec28e981bbe0ae151f4cacb8981dc3cff967cc5489bbc82"
+  proposal:
+    changes:
+      -
+        after: "standard"
+        before: "gp3"
+        document: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+        field: "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+    candidateDocumentCount: 7
+    candidateObjectSetDigest: "sha256:03d010c80262d5a100fa4848d21dfda24e84365b26696483621b795389db4879"
+  checks:
+    documentSet:
+      result: "pass"
+      added:
+        []
+      removed:
+        []
+    blastRadius:
+      result: "pass"
+      declaredDocuments:
+        - "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+      changedDocuments:
+        - "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+    fieldLevel:
+      result: "pass"
+      allowedField: "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+      changedFields:
+        - "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+      differences:
+        -
+          document: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+          field: "spec.source.helm.values::prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+          before: "gp3"
+          after: "standard"
+  boundary:
+    configPlaneOnly: true
+    contactedConfigHub: false
+    contactedKubernetes: false
+    gpuWorkloadProven: false
+status:
+  result: "pass"
+  reason: "The object identities, changed Applications, and exact changed field match the selected control point."
+  correctRouteForward: "The candidate may be retained as a reviewed ConfigHub variant or kept as local files or OCI. Deployment and workload checks remain separate."
