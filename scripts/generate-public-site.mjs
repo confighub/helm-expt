@@ -4723,7 +4723,7 @@ function askHtml() {
   </header>
   <main>
     <section aria-labelledby="build-prompt">
-      <h2 id="build-prompt">1. Check a chart and values</h2>
+      <h2 id="build-prompt">Start with a chart and values</h2>
       <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
       <div class="card">
         <p><label for="question-type"><strong>Choose a question</strong></label><br>
@@ -4774,7 +4774,7 @@ function askHtml() {
     </section>
 
     <section id="prompt-result" aria-labelledby="run-prompt" hidden>
-      <h2 id="run-prompt">2. Run the investigation on your machine</h2>
+      <h2 id="run-prompt">Run the investigation on your machine</h2>
       <p>Paste this into the assistant you already use. It runs Helm and ordinary shell tools locally, writes the candidate and comparison objects to files, and returns a short <code>WORKSHOP FINDING</code>. This site does not receive the prompt or answer.</p>
       <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
       <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
@@ -4782,7 +4782,7 @@ function askHtml() {
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
-      <h2 id="check-files-title">3. Check rendered objects in this browser</h2>
+      <h2 id="check-files-title">Or: Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
@@ -4821,7 +4821,7 @@ function askHtml() {
     </section>
 
     <section id="review-result" aria-labelledby="review-result-title" hidden>
-      <h2 id="review-result-title">4. Keep or share the reviewed result</h2>
+      <h2 id="review-result-title">Keep or share the reviewed result</h2>
       <div id="browser-check-summary" class="card"></div>
       <h3>Hooks, CRDs, and required setup</h3>
       <ul id="check-lifecycle-work"></ul>
