@@ -24,7 +24,7 @@ spec:
     - "--namespace"
     - "nvidia-dra-driver"
     - "--values"
-    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml"
     - "--include-crds"
   output:
     path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nvidia-dra-driver-gpu/objects.yaml"

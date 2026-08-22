@@ -18,11 +18,11 @@ spec:
     - "helm"
     - "template"
     - "nodewright-customizations"
-    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations"
     - "--namespace"
     - "skyhook"
     - "--values"
-    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
     - "--include-crds"
   output:
     path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nodewright-customizations/objects.yaml"

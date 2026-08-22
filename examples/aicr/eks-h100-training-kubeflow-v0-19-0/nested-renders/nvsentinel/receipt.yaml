@@ -24,7 +24,7 @@ spec:
     - "--namespace"
     - "nvsentinel"
     - "--values"
-    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/015-nvsentinel/values.yaml"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/015-nvsentinel/values.yaml"
     - "--include-crds"
   output:
     path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nvsentinel/objects.yaml"

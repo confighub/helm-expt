@@ -128,7 +128,7 @@ function renderApplication(application) {
         sha256: application.valuesSha256,
       },
       destinationNamespace: application.namespace,
-      command: ["helm", ...args],
+      command: ["helm", ...args.map(recordedArgument)],
       output: exitCode === 0
         ? {
             path: relativeRepo(objectsPath),
@@ -264,6 +264,10 @@ function conciseError(value) {
 function normalizeRenderOutput(value) {
   const withoutTrailingSpace = value.replace(/[ \t]+$/gm, "");
   return `${withoutTrailingSpace.replace(/\n+$/, "")}\n`;
+}
+
+function recordedArgument(value) {
+  return value.startsWith(`${repoRoot}/`) ? relativeRepo(value) : value;
 }
 
 function escapeRegExp(value) {
