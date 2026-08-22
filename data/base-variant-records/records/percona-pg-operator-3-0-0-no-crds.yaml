@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2"
+      record: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "percona/pg-operator@3.0.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=percona/pg-operator"
@@ -162,11 +184,60 @@ spec:
           packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
           packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "crunchybridgeclusters.upstream.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "CrunchyBridgeCluster CRD managed outside this no-crds preset"
+        -
+          id: "perconapgbackups.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaPGBackup CRD managed outside this no-crds preset"
+        -
+          id: "perconapgclusters.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaPGCluster CRD managed outside this no-crds preset"
+        -
+          id: "perconapgrestores.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaPGRestore CRD managed outside this no-crds preset"
+        -
+          id: "perconapgupgrades.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaPGUpgrade CRD managed outside this no-crds preset"
+        -
+          id: "pgadmins.upstream.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PGAdmin CRD managed outside this no-crds preset"
+        -
+          id: "pgupgrades.upstream.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PGUpgrade CRD managed outside this no-crds preset"
+        -
+          id: "postgresclusters.upstream.pgv2.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PostgresCluster CRD managed outside this no-crds preset"
+      records:
+        - "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -265,199 +336,42 @@ spec:
             suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
             packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
             packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "crunchybridgeclusters.upstream.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CrunchyBridgeCluster CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "perconapgbackups.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaPGBackup CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "perconapgclusters.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaPGCluster CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "perconapgrestores.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaPGRestore CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "perconapgupgrades.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaPGUpgrade CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "pgadmins.upstream.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PGAdmin CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "pgupgrades.upstream.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PGUpgrade CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "postgresclusters.upstream.pgv2.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PostgresCluster CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-            - "packages/percona/pg-operator/3.0.0/prerequisites/target-facts/no-crds-crds.yaml"
-      actions:
+      requirementRefs:
+        - "crunchybridgeclusters.upstream.pgv2.percona.com"
+        - "perconapgbackups.pgv2.percona.com"
+        - "perconapgclusters.pgv2.percona.com"
+        - "perconapgrestores.pgv2.percona.com"
+        - "perconapgupgrades.pgv2.percona.com"
+        - "pgadmins.upstream.pgv2.percona.com"
+        - "pgupgrades.upstream.pgv2.percona.com"
+        - "postgresclusters.upstream.pgv2.percona.com"
+      records:
+        - "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "8 target prerequisites declared by this base."
-        declarationSource: "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "crunchybridgeclusters.upstream.pgv2.percona.com"
+      - "perconapgbackups.pgv2.percona.com"
+      - "perconapgclusters.pgv2.percona.com"
+      - "perconapgrestores.pgv2.percona.com"
+      - "perconapgupgrades.pgv2.percona.com"
+      - "pgadmins.upstream.pgv2.percona.com"
+      - "pgupgrades.upstream.pgv2.percona.com"
+      - "postgresclusters.upstream.pgv2.percona.com"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

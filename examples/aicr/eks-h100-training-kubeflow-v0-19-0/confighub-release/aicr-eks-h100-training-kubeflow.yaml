@@ -1,0 +1,1083 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/aicr-stack.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "aicr-stack"
+  namespace: argocd
+  annotations:
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+spec:
+  project: default
+  source:
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd"
+    targetRevision: "0.19.0"
+    path: "."
+    helm:
+      valuesObject:
+        deployer:
+          destinationServer: https://kubernetes.default.svc
+          includeRootApp: true
+          namePrefix: ""
+          project: default
+        repoURL: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+        targetRevision: ""
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    # ServerSideApply: required for charts whose CRDs exceed kubectl's
+    # 262144-byte client-side annotation cap. See application.yaml.tmpl
+    # in the upstream argocd deployer for the full rationale.
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/aws-ebs-csi-driver.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'aws-ebs-csi-driver'
+  namespace: argocd
+spec:
+  destination:
+    namespace: kube-system
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: aws-ebs-csi-driver
+    helm:
+      values: |-
+        controller:
+          replicaCount: 2
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              cpu: 10m
+              memory: 40Mi
+          serviceAccount:
+            automountServiceAccountToken: true
+            create: true
+            name: ebs-csi-controller-sa
+          tolerations:
+          - operator: Exists
+        defaultStorageClass:
+          enabled: true
+        fullnameOverride: aws-ebs-csi-driver
+        helmTester:
+          enabled: false
+        image:
+          pullPolicy: IfNotPresent
+          repository: public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver
+        node:
+          enableLinux: true
+          enableWindows: false
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              cpu: 10m
+              memory: 40Mi
+          serviceAccount:
+            automountServiceAccountToken: true
+            create: true
+            name: ebs-csi-node-sa
+          tolerateAllTaints: true
+          tolerations:
+          - operator: Exists
+          updateStrategy:
+            rollingUpdate:
+              maxUnavailable: 10%
+            type: RollingUpdate
+        sidecars:
+          livenessProbe:
+            resources:
+              limits:
+                memory: 128Mi
+              requests:
+                cpu: 10m
+                memory: 40Mi
+          nodeDriverRegistrar:
+            resources:
+              limits:
+                memory: 128Mi
+              requests:
+                cpu: 10m
+                memory: 40Mi
+        storageClasses: []
+        volumeSnapshotClasses: []
+    repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+    targetRevision: 2.59.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/aws-efa.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'aws-efa'
+  namespace: argocd
+spec:
+  destination:
+    namespace: kube-system
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: aws-efa-k8s-device-plugin
+    helm:
+      values: |-
+        additionalPodAnnotations: {}
+        additionalPodLabels: {}
+        affinity:
+          nodeAffinity: {}
+        fullnameOverride: aws-efa-k8s-device-plugin
+        image:
+          repository: 602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efa-k8s-device-plugin
+          tag: v0.5.20
+        imagePullSecrets: []
+        nodeSelector:
+          nvidia.com/gpu.present: "true"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          runAsNonRoot: false
+          runAsUser: null
+        supportedInstanceLabels:
+          keys:
+          - nodeGroup
+          - nvidia.com/gpu.present
+          values:
+          - gpu
+          - "true"
+        tolerations:
+        - operator: Exists
+    repoURL: https://aws.github.io/eks-charts
+    targetRevision: 0.5.29
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/cert-manager.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'cert-manager'
+  namespace: argocd
+spec:
+  destination:
+    namespace: cert-manager
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: cert-manager
+    helm:
+      values: |-
+        cainjector:
+          resources:
+            limits:
+              cpu: 50m
+              memory: 320Mi
+            requests:
+              cpu: 50m
+              memory: 320Mi
+          tolerations:
+          - operator: Exists
+        crds:
+          enabled: true
+        fullnameOverride: cert-manager
+        prometheus:
+          servicemonitor:
+            enabled: false
+        resources:
+          limits:
+            cpu: 50m
+            memory: 90Mi
+          requests:
+            cpu: 50m
+            memory: 90Mi
+        startupapicheck:
+          enabled: true
+          tolerations:
+          - operator: Exists
+        tolerations:
+        - operator: Exists
+        webhook:
+          resources:
+            limits:
+              cpu: 50m
+              memory: 40Mi
+            requests:
+              cpu: 50m
+              memory: 40Mi
+          tolerations:
+          - operator: Exists
+    repoURL: https://charts.jetstack.io
+    targetRevision: 1.20.2
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/gpu-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "9"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'gpu-operator'
+  namespace: argocd
+spec:
+  destination:
+    namespace: gpu-operator
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: gpu-operator
+    helm:
+      values: |-
+        ccManager:
+          enabled: false
+        cdi:
+          default: false
+          enabled: true
+        daemonsets:
+          nodeSelector:
+            nvidia.com/gpu.present: "true"
+          tolerations:
+          - operator: Exists
+        dcgm:
+          enabled: true
+        dcgmExporter:
+          config:
+            create: true
+            data: |
+              # Clocks,,
+              DCGM_FI_DEV_SM_CLOCK,     gauge, SM clock frequency (in MHz).
+              DCGM_FI_DEV_MEM_CLOCK, gauge, Memory clock frequency (in MHz).
+
+              # Temperature,,
+              DCGM_FI_DEV_MEMORY_TEMP, gauge, Memory temperature (in C).
+              DCGM_FI_DEV_GPU_TEMP,    gauge, GPU temperature (in C).
+
+              # Power,,
+              DCGM_FI_DEV_POWER_USAGE,  gauge, Power draw (in W).
+              DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION, counter, Total energy consumption since boot (in mJ).
+
+              # PCIe,,
+              DCGM_FI_PROF_PCIE_TX_BYTES,  counter, Total number of bytes transmitted through PCIe TX (in KB) via NVML.
+              DCGM_FI_PROF_PCIE_RX_BYTES,  counter, Total number of bytes received through PCIe RX (in KB) via NVML.
+              DCGM_FI_DEV_PCIE_REPLAY_COUNTER, counter, Total number of PCIe retries.
+
+              # Utilization (the sample period varies depending on the product),,
+              DCGM_FI_DEV_GPU_UTIL,      gauge, GPU utilization (in %).
+              DCGM_FI_DEV_MEM_COPY_UTIL, gauge, Memory utilization (in %).
+              DCGM_FI_DEV_ENC_UTIL,      gauge, Encoder utilization (in %).
+              DCGM_FI_DEV_DEC_UTIL,      gauge, Decoder utilization (in %).
+
+              # Errors and violations,,
+              DCGM_FI_DEV_XID_ERRORS,            gauge, Value of the last XID error encountered.
+              DCGM_FI_DEV_POWER_VIOLATION,       counter, Throttling duration due to power constraints (in us).
+              DCGM_FI_DEV_THERMAL_VIOLATION,     counter, Throttling duration due to thermal constraints (in us).
+              DCGM_FI_DEV_SYNC_BOOST_VIOLATION,  counter, Throttling duration due to sync-boost constraints (in us).
+              DCGM_FI_DEV_BOARD_LIMIT_VIOLATION, counter, Throttling duration due to board limit constraints (in us).
+              DCGM_FI_DEV_LOW_UTIL_VIOLATION,    counter, Throttling duration due to low utilization (in us).
+              DCGM_FI_DEV_RELIABILITY_VIOLATION, counter, Throttling duration due to reliability constraints (in us).
+
+              # Memory usage,,
+              DCGM_FI_DEV_FB_FREE, gauge, Framebuffer memory free (in MiB).
+              DCGM_FI_DEV_FB_USED, gauge, Framebuffer memory used (in MiB).
+
+              # Retired pages,,
+              DCGM_FI_DEV_RETIRED_SBE,     counter, Total number of retired pages due to single-bit errors.
+              DCGM_FI_DEV_RETIRED_DBE,     counter, Total number of retired pages due to double-bit errors.
+              DCGM_FI_DEV_RETIRED_PENDING, counter, Total number of pages pending retirement.
+
+              # NVLink,,
+              DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL, counter, Total number of NVLink bandwidth counters for all lanes
+              DCGM_FI_PROF_NVLINK_TX_BYTES,       counter, The rate of data transmitted over NVLink not including protocol headers in bytes per second.
+              DCGM_FI_PROF_NVLINK_RX_BYTES,       counter, The rate of data received over NVLink not including protocol headers in bytes per second.
+
+              # Add DCP metrics,,
+              DCGM_FI_PROF_GR_ENGINE_ACTIVE,   gauge, Ratio of time the graphics engine is active (in %).
+              DCGM_FI_PROF_SM_ACTIVE,          gauge, The ratio of cycles an SM has at least 1 warp assigned (in %).
+              DCGM_FI_PROF_SM_OCCUPANCY,       gauge, The ratio of number of warps resident on an SM (in %).
+              DCGM_FI_PROF_PIPE_TENSOR_ACTIVE, gauge, Ratio of cycles the tensor (HMMA) pipe is active (in %).
+              DCGM_FI_PROF_DRAM_ACTIVE,        gauge, Ratio of cycles the device memory interface is active sending or receiving data (in %).
+              DCGM_FI_PROF_PCIE_TX_BYTES,      counter, The number of bytes of active pcie tx data including both header and payload.
+              DCGM_FI_PROF_PCIE_RX_BYTES,      counter, The number of bytes of active pcie rx data including both header and payload.
+
+              # BCP Additional metrics
+              DCGM_FI_DEV_GPU_NVLINK_ERRORS,      gauge, Identifies a GPU NVLink error type returned by DCGM_FI_DEV_GPU_NVLINK_ERRORS.
+
+              # Added RunAI Additional metrics https://docs.run.ai/latest/developer/metrics/metrics-api/#advanced-metrics
+              ## NVLink
+              DCGM_FI_DEV_NVLINK_BANDWIDTH_L0, counter, The number of bytes of active NVLink rx or tx data including both header and payload.
+              ## VGPU License status
+              DCGM_FI_DEV_VGPU_LICENSE_STATUS, gauge, vGPU License status
+              ## Remapped rows
+              DCGM_FI_DEV_UNCORRECTABLE_REMAPPED_ROWS, counter, Number of remapped rows for uncorrectable errors
+              DCGM_FI_DEV_CORRECTABLE_REMAPPED_ROWS, counter, Number of remapped rows for correctable errors
+              DCGM_FI_DEV_ROW_REMAP_FAILURE, gauge, Whether remapping of rows has failed
+              ## Static configuration information. These appear as labels on the other metrics
+              DCGM_FI_DRIVER_VERSION, label, Driver Version
+              ## Profiling metrics
+              DCGM_FI_PROF_PIPE_FP64_ACTIVE, gauge, Ratio of cycles the fp64 pipes are active (in %).
+              DCGM_FI_PROF_PIPE_FP32_ACTIVE, gauge, Ratio of cycles the fp32 pipes are active (in %).
+              DCGM_FI_PROF_PIPE_FP16_ACTIVE, gauge, Ratio of cycles the fp16 pipes are active (in %).
+            name: dcgm-exporter
+          serviceMonitor:
+            enabled: true
+            honorLabels: true
+            interval: 30s
+        devicePlugin:
+          enabled: true
+          env:
+          - name: DP_DISABLE_HEALTHCHECKS
+            value: "109"
+          - name: DEVICE_LIST_STRATEGY
+            value: cdi-cri,cdi-annotations,volume-mounts
+        driver:
+          enabled: true
+          maxParallelUpgrades: 5
+          rdma:
+            enabled: false
+          useOpenKernelModules: true
+          version: 580.173.02
+        fullnameOverride: gpu-operator
+        gdrcopy:
+          enabled: true
+        gfd:
+          enabled: true
+        hostPaths:
+          driverInstallDir: /run/nvidia/driver
+        kataSandboxDevicePlugin:
+          enabled: false
+        migManager:
+          enabled: true
+        nfd:
+          enabled: false
+        operator:
+          resources:
+            limits:
+              cpu: 500m
+              memory: 700Mi
+            requests:
+              cpu: 200m
+              memory: 300Mi
+          tolerations:
+          - operator: Exists
+          upgradeCRD: true
+        toolkit:
+          enabled: true
+        validator:
+          plugin:
+            env:
+            - name: WITH_WORKLOAD
+              value: "false"
+    repoURL: https://helm.ngc.nvidia.com/nvidia
+    targetRevision: 26.3.3
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/k8s-ephemeral-storage-metrics.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "9"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'k8s-ephemeral-storage-metrics'
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: k8s-ephemeral-storage-metrics
+    helm:
+      values: |-
+        deploy_type: Deployment
+        log_level: info
+        metrics:
+          adjusted_polling_rate: false
+          ephemeral_storage_container_limit_percentage: true
+          ephemeral_storage_container_volume_limit_percentage: true
+          ephemeral_storage_container_volume_usage: true
+          ephemeral_storage_node_available: true
+          ephemeral_storage_node_capacity: true
+          ephemeral_storage_node_percentage: true
+          ephemeral_storage_pod_usage: true
+        prometheus:
+          enable: true
+          release: kube-prometheus-stack
+        tolerations:
+        - operator: Exists
+    repoURL: https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart
+    targetRevision: 1.19.2
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/kai-scheduler.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'kai-scheduler'
+  namespace: argocd
+spec:
+  destination:
+    namespace: kai-scheduler
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: kai-scheduler
+    helm:
+      values: |-
+        admission:
+          gpuPodRuntimeClassName: ""
+        global:
+          tolerations:
+          - operator: Exists
+        postCleanup:
+          enabled: false
+    repoURL: oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler
+    targetRevision: v0.14.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/kube-prometheus-stack.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'kube-prometheus-stack'
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: kube-prometheus-stack
+    helm:
+      values: |-
+        alertmanager:
+          alertmanagerSpec:
+            resources:
+              limits:
+                cpu: 500m
+                memory: 512Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+            tolerations:
+            - operator: Exists
+          enabled: true
+        crds:
+          enabled: false
+        fullnameOverride: kube-prometheus
+        grafana:
+          admin:
+            existingSecret: aicr-grafana-admin
+            userKey: admin-user
+            passwordKey: admin-password
+          enabled: true
+          fullnameOverride: grafana
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          tolerations:
+          - operator: Exists
+        kube-state-metrics:
+          fullnameOverride: kube-state-metrics
+          tolerations:
+          - operator: Exists
+        nodeExporter:
+          enabled: true
+        prometheus:
+          prometheusSpec:
+            resources:
+              limits:
+                cpu: 2
+                memory: 2Gi
+              requests:
+                cpu: 500m
+                memory: 1Gi
+            retention: 15d
+            serviceMonitorNamespaceSelector: {}
+            serviceMonitorSelectorNilUsesHelmValues: false
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  accessModes:
+                  - ReadWriteOnce
+                  resources:
+                    requests:
+                      storage: 50Gi
+                  storageClassName: gp3
+            tolerations:
+            - operator: Exists
+        prometheus-node-exporter:
+          fullnameOverride: prometheus-node-exporter
+          tolerations:
+          - operator: Exists
+        prometheusOperator:
+          admissionWebhooks:
+            patch:
+              tolerations:
+              - operator: Exists
+          tolerations:
+          - operator: Exists
+        thanosRuler:
+          thanosRulerSpec:
+            tolerations:
+            - operator: Exists
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 84.4.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/kubeflow-trainer.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'kubeflow-trainer'
+  namespace: argocd
+spec:
+  destination:
+    namespace: kubeflow
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: kubeflow-trainer
+    helm:
+      values: |-
+        acceleratedNodeSelector:
+          nvidia.com/gpu.present: "true"
+        acceleratedTolerations:
+        - operator: Exists
+        crds:
+          install: true
+        fullnameOverride: kubeflow-trainer
+        jobset:
+          controller:
+            tolerations:
+            - operator: Exists
+          enabled: true
+        manager:
+          leaderElection:
+            enabled: true
+          logging:
+            verbosity: 0
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+          podSecurityContext:
+            runAsNonRoot: true
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          serviceAccount:
+            annotations: {}
+            create: true
+            name: ""
+          tolerations:
+          - operator: Exists
+        webhook:
+          enabled: true
+          port: 9443
+    repoURL: oci://ghcr.io/kubeflow/charts/kubeflow-trainer
+    targetRevision: 2.2.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/kubeflow-trainer-post.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "14"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'kubeflow-trainer-post'
+  namespace: argocd
+spec:
+  destination:
+    namespace: kubeflow
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    helm:
+      values: |-
+        {}
+    path: 013-kubeflow-trainer-post
+    repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd'
+    targetRevision: '0.19.0'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nfd.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'nfd'
+  namespace: argocd
+spec:
+  destination:
+    namespace: node-feature-discovery
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: node-feature-discovery
+    helm:
+      values: |-
+        gc:
+          enable: true
+          tolerations:
+          - operator: Exists
+        master:
+          enable: true
+          tolerations:
+          - operator: Exists
+        topologyUpdater:
+          createCRDs: true
+          enable: true
+          kubeletStateDir: ""
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          tolerations:
+          - operator: Exists
+        worker:
+          enable: true
+          tolerations:
+          - operator: Exists
+    repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+    targetRevision: 0.19.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nodewright-customizations.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'nodewright-customizations'
+  namespace: argocd
+spec:
+  destination:
+    namespace: skyhook
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    helm:
+      values: |-
+        {}
+    path: 006-nodewright-customizations
+    repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd'
+    targetRevision: '0.19.0'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nodewright-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'nodewright-operator'
+  namespace: argocd
+spec:
+  destination:
+    namespace: skyhook
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: nodewright
+    helm:
+      values: |-
+        controllerManager:
+          manager:
+            resources:
+              limits:
+                cpu: 1000m
+                memory: 4000Mi
+              requests:
+                cpu: 1000m
+                memory: 2000Mi
+          tolerations:
+          - operator: Exists
+        fullnameOverride: skyhook-operator
+        limitRange:
+          default:
+            cpu: "1"
+            memory: 1Gi
+          defaultRequest:
+            cpu: 500m
+            memory: 512Mi
+    repoURL: oci://ghcr.io/nvidia/nodewright/charts/nodewright
+    targetRevision: v0.17.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nvidia-dra-driver-gpu.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'nvidia-dra-driver-gpu'
+  namespace: argocd
+spec:
+  destination:
+    namespace: nvidia-dra-driver
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: dra-driver-nvidia-gpu
+    helm:
+      values: |-
+        controller:
+          affinity:
+            nodeAffinity: null
+          podAnnotations:
+            aicr.run/gpu-operator-chart-version: v26.3.3
+          priorityClassName: ""
+          tolerations:
+          - operator: Exists
+        fullnameOverride: nvidia-dra-driver-gpu
+        gpuResourcesEnabledOverride: false
+        kubeletPlugin:
+          nodeSelector:
+            nvidia.com/gpu.present: "true"
+          podAnnotations:
+            aicr.run/gpu-operator-chart-version: v26.3.3
+          priorityClassName: ""
+          tolerations:
+          - operator: Exists
+        nameOverride: nvidia-dra-driver-gpu
+        nvidiaDriverRoot: /run/nvidia/driver
+        resources:
+          computeDomains:
+            enabled: true
+          gpus:
+            enabled: false
+    repoURL: oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu
+    targetRevision: 0.4.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nvsentinel.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'nvsentinel'
+  namespace: argocd
+spec:
+  destination:
+    namespace: nvsentinel
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: nvsentinel
+    helm:
+      values: |-
+        fullnameOverride: nvsentinel
+        global:
+          systemNodeTolerations:
+          - operator: Exists
+          tolerations:
+          - operator: Exists
+        janitor-provider:
+          csp:
+            provider: generic
+        networkPolicy:
+          enabled: false
+        platformConnector:
+          maxUnavailable: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 512Mi
+          updateStrategy: RollingUpdate
+    repoURL: oci://ghcr.io/nvidia/nvsentinel
+    targetRevision: v1.9.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/prometheus-adapter.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "9"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'prometheus-adapter'
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: prometheus-adapter
+    helm:
+      values: |-
+        metricsRelistInterval: 30s
+        prometheus:
+          port: 9090
+          url: http://kube-prometheus-prometheus
+        replicas: 1
+        resources:
+          limits:
+            cpu: 250m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        rules:
+          custom:
+          - metricsQuery: last_over_time(<<.Series>>[1m])
+            name:
+              as: gpu_utilization
+              matches: DCGM_FI_DEV_GPU_UTIL
+            resources:
+              overrides:
+                namespace:
+                  resource: namespace
+                pod:
+                  resource: pod
+            seriesQuery: DCGM_FI_DEV_GPU_UTIL{namespace!="",pod!=""}
+          - metricsQuery: last_over_time(<<.Series>>[1m])
+            name:
+              as: gpu_memory_used
+              matches: DCGM_FI_DEV_FB_USED
+            resources:
+              overrides:
+                namespace:
+                  resource: namespace
+                pod:
+                  resource: pod
+            seriesQuery: DCGM_FI_DEV_FB_USED{namespace!="",pod!=""}
+          - metricsQuery: last_over_time(<<.Series>>[1m])
+            name:
+              as: gpu_power_usage
+              matches: DCGM_FI_DEV_POWER_USAGE
+            resources:
+              overrides:
+                namespace:
+                  resource: namespace
+                pod:
+                  resource: pod
+            seriesQuery: DCGM_FI_DEV_POWER_USAGE{namespace!="",pod!=""}
+          - metricsQuery: last_over_time(<<.Series>>{<<.LabelMatchers>>}[1m])
+            name:
+              as: workload_gpu_utilization
+              matches: DCGM_FI_DEV_GPU_UTIL
+            resources:
+              overrides:
+                exported_namespace:
+                  resource: namespace
+                exported_pod:
+                  resource: pod
+            seriesQuery: DCGM_FI_DEV_GPU_UTIL{exported_namespace!="",exported_pod!=""}
+          - metricsQuery: last_over_time(<<.Series>>{<<.LabelMatchers>>}[1m])
+            name:
+              as: workload_gpu_memory_used
+              matches: DCGM_FI_DEV_FB_USED
+            resources:
+              overrides:
+                exported_namespace:
+                  resource: namespace
+                exported_pod:
+                  resource: pod
+            seriesQuery: DCGM_FI_DEV_FB_USED{exported_namespace!="",exported_pod!=""}
+          default: false
+          external:
+          - metricsQuery: avg(avg_over_time(DCGM_FI_DEV_GPU_UTIL[2m]))
+            name:
+              as: dcgm_gpu_utilization
+              matches: DCGM_FI_DEV_GPU_UTIL
+            resources:
+              namespaced: false
+            seriesQuery: DCGM_FI_DEV_GPU_UTIL
+          - metricsQuery: avg(avg_over_time(DCGM_FI_DEV_FB_USED[2m]))
+            name:
+              as: dcgm_gpu_memory_used
+              matches: DCGM_FI_DEV_FB_USED
+            resources:
+              namespaced: false
+            seriesQuery: DCGM_FI_DEV_FB_USED
+          - metricsQuery: avg(avg_over_time(DCGM_FI_DEV_POWER_USAGE[2m]))
+            name:
+              as: dcgm_gpu_power_usage
+              matches: DCGM_FI_DEV_POWER_USAGE
+            resources:
+              namespaced: false
+            seriesQuery: DCGM_FI_DEV_POWER_USAGE
+        tolerations:
+        - operator: Exists
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 5.3.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/prometheus-operator-crds.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    confighub.com/origin: "{\"spaceId\":\"aea74e5a-26f9-4f7b-8251-16d568d9f304\",\"spaceSlug\":\"aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging\",\"unitId\":\"1abf38f1-f744-4d9e-bdf0-7f1b78552d2a\",\"unitSlug\":\"aicr-eks-h100-training-kubeflow\",\"revisionNum\":3}"
+  name: 'prometheus-operator-crds'
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: 'https://kubernetes.default.svc'
+  project: 'default'
+  source:
+    chart: prometheus-operator-crds
+    helm:
+      values: |-
+        enabled: true
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 28.0.1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true

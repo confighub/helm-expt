@@ -1,0 +1,52 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nvidia-dra-driver-gpu.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "13"
+    name: 'nvidia-dra-driver-gpu'
+    namespace: argocd
+spec:
+    destination:
+        namespace: nvidia-dra-driver
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: dra-driver-nvidia-gpu
+        helm:
+            values: |-
+                controller:
+                  affinity:
+                    nodeAffinity: null
+                  podAnnotations:
+                    aicr.run/gpu-operator-chart-version: v26.3.3
+                  priorityClassName: ""
+                  tolerations:
+                  - operator: Exists
+                fullnameOverride: nvidia-dra-driver-gpu
+                gpuResourcesEnabledOverride: false
+                kubeletPlugin:
+                  nodeSelector:
+                    nvidia.com/gpu.present: "true"
+                  podAnnotations:
+                    aicr.run/gpu-operator-chart-version: v26.3.3
+                  priorityClassName: ""
+                  tolerations:
+                  - operator: Exists
+                nameOverride: nvidia-dra-driver-gpu
+                nvidiaDriverRoot: /run/nvidia/driver
+                resources:
+                  computeDomains:
+                    enabled: true
+                  gpus:
+                    enabled: false
+        repoURL: oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu
+        targetRevision: 0.4.1
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

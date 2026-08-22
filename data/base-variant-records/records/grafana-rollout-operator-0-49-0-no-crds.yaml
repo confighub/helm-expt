@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403"
+      record: "recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "grafana/rollout-operator@0.49.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=grafana/rollout-operator"
@@ -66,11 +88,30 @@ spec:
           packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
           packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "replicatemplates.rollout-operator.grafana.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "ReplicaTemplate CRD managed outside this no-crds preset"
+        -
+          id: "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset"
+      records:
+        - "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -97,61 +138,30 @@ spec:
             suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
             packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
             packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "replicatemplates.rollout-operator.grafana.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "ReplicaTemplate CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
-            - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
-            - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
-      actions:
+      requirementRefs:
+        - "replicatemplates.rollout-operator.grafana.com"
+        - "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+      records:
+        - "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "replicatemplates.rollout-operator.grafana.com"
+      - "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

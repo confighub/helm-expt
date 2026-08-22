@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "e518dc96bc16b557b6786b5a2d5b453d2f8fd1c39f24993274518eb4651b9c9c"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 7
+    digest: "448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+      record: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
@@ -35,40 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
     targetFacts:
-      status: "observed-action-records"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
-        -
-          lane: "K"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "value nfs.server"
-          actionKind: "unknown-preflight"
-          ownerClass: "user-stage"
-          requiredInputs: "value nfs.server"
-          evidenceRequired: "the missing input(s) supplied and the re-render matching regular Helm; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
-      coverage:
-        state: "actionable-gap"
-        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
-    sourceRecord: "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+      records:
+        - "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

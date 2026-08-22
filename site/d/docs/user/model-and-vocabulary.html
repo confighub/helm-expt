@@ -443,50 +443,104 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../guides.html">Guides</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>The configuration processing model</h1>
-    <p class="lead">Helm, AICR, Kubara, OCI, and YAML use the same stages. They do not use the same processor. A stage can also be a recorded no-op: literal YAML already contains exact objects, for example. <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
+    <p class="lead">This is the working model used by the Catalog. The <a href="../reference/config-catalog-doctrine.html">catalog doctrine</a> defines the rules in full. <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page gives the short version of the model used by the Catalog. The <a href="../reference/config-catalog-doctrine.html">catalog doctrine</a> is the canonical definition.</p>
-<h2 id="one-path-for-every-source">One path for every source</h2>
-<pre><code>source + processing intent
-  -&gt; materialize exact Kubernetes objects
-  -&gt; flatten, flatten with routes, or process late
-  -&gt; retain and change the accepted configuration
-  -&gt; publish, reconcile, and observe it</code></pre>
 
+<h2 id="the-short-version">The short version</h2>
+<p>A Catalog entry should let you answer six questions without knowing which tool created the configuration:</p>
+<ol><li><b>What did I start with?</b> Record the source, version, and choices.</li><li><b>What are the exact Kubernetes objects?</b> Produce them, or read them when the source is already literal YAML.</li><li><b>Can I keep those objects as the deployable configuration?</b> Decide whether the source can be flattened, must be flattened with additional lifecycle work, or must be processed later.</li><li><b>What else must happen?</b> Record CRDs, hooks, setup Jobs, certificates, Secrets, cloud resources, controllers, models, ordering, and target requirements.</li><li><b>What changed for this environment?</b> Retain the base, derive a variant, compare it, and promote the reviewed result.</li><li><b>Did the selected destination receive and run it?</b> Resolve the lifecycle plan, publish an immutable release, deliver it, and record the observed result.</li></ol>
+<p>The first three questions describe the configuration. The next three describe how one exact variant is operated. A record can be complete through question three and still have no deployment proof. The Catalog must show that boundary.</p>
+<h2 id="where-oci-fits">Where OCI fits</h2>
+<p>OCI is the transport, not the processor and not the deployment proof. We use three different OCI roles:</p>
+<table><thead><tr><th>OCI role</th><th>What it carries</th><th>What happens next</th></tr></thead><tbody><tr><td><b>Source package OCI</b></td><td>A chart, installer package, AICR-generated chart, or another input that still needs a processor.</td><td>Run the named processor to produce exact objects.</td></tr>
+<tr><td><b>Literal configuration OCI</b></td><td>Exact Kubernetes objects that have already been materialized.</td><td>Inspect, retain, compare, or deliver those objects without rerunning the source processor.</td></tr>
+<tr><td><b>ConfigHub release OCI</b></td><td>One approved ConfigHub revision for delivery.</td><td>Argo CD, Flux, or another recorded runtime reconciles that exact release.</td></tr></tbody></table>
+<p>These artifacts can contain related objects but have different manifests and digests. A receipt binds stages by naming both identities and comparing the objects; it never calls unlike digests the same digest.</p>
+<h2 id="two-connected-tracks">Two connected tracks</h2>
+<p>The model tracks both the configuration and the work needed to use it.</p>
+<pre><code>configuration lineage
+  source and intent -&gt; exact base -&gt; derived variant -&gt; promoted release
+
+lifecycle handling
+  requirements -&gt; route intent -&gt; destination resolution -&gt; execution -&gt; receipt</code></pre>
+<p>The tracks meet more than once. Source processing reveals lifecycle requirements. A derived variant can add, remove, or change them. The final route is therefore resolved only after the exact variant, destination, and delivery runtime are known.</p>
+<p>The full operating sequence is:</p>
+<pre><code>source + processing intent
+  -&gt; select and lock the inputs
+  -&gt; materialize exact Kubernetes objects
+  -&gt; capture an exact configuration revision
+  -&gt; identify lifecycle requirements
+  -&gt; decide the flattening lane for the intended path
+  -&gt; retain a reviewed base
+  -&gt; derive or update a variant
+  -&gt; recheck affected requirements, ownership, and flattening assumptions
+  -&gt; resolve lifecycle routes for the variant, destination, and delivery runtime
+  -&gt; compare, test, approve, and promote
+  -&gt; publish an immutable release
+  -&gt; reconcile the objects and perform the lifecycle work
+  -&gt; observe the result and record receipts</code></pre>
+<p>Helm, AICR, Kubara, OCI, and YAML use the same decisions. They do not use the same processor. A step can be a recorded no-op: literal YAML already contains exact objects, for example. A source refresh, variant change, or new destination can send the process back to an earlier decision.</p>
+<h2 id="rules-that-keep-the-model-usable">Rules that keep the model usable</h2>
+<ul><li>Keep the source identity, exact-object digest, OCI digest, ConfigHub data hash, and release digest separate.</li><li>Decide flattening for one processing boundary. Flattening an AICR or Argo CD wrapper does not flatten the charts it still references.</li><li>Record missing lifecycle information as a gap. Do not translate silence into &quot;no route required.&quot;</li><li>Recheck lifecycle requirements and field ownership after a variant changes.</li><li>Resolve the route after the exact variant, destination, and delivery runtime are known. A base route intent is input to that decision, not its final answer.</li><li>Promotion compares objects, lifecycle changes, and protected fields. Delivery then performs the selected route, and a receipt records the result.</li></ul>
 <h2 id="the-core-words">The core words</h2>
 <table><thead><tr><th>Word</th><th>What it is</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Source and intent</b></td><td>Where the configuration came from and which choices produced or selected it.</td><td>A source-specific record, linked to the exact configuration.</td></tr>
 <tr><td><b>Materialize</b></td><td>Produce or read the exact Kubernetes objects that will be reviewed.</td><td>In a local tool, build, or source adapter.</td></tr>
 <tr><td><b>Exact configuration revision</b></td><td>One accepted Kubernetes object set, inventory, and digest.</td><td>Local files or OCI before upload; ConfigHub Units after upload.</td></tr>
 <tr><td><b>Flatten</b></td><td>Retain the exact objects so delivery does not rerun the source processor.</td><td>A recorded decision for an exact source, configuration, and target path.</td></tr>
-<tr><td><b>Lifecycle route</b></td><td>Work that must happen around ordinary apply, with its owner, order, checks, and receipts.</td><td>Companion records and evidence beside the configuration.</td></tr>
+<tr><td><b>Flattening verdict</b></td><td>The decision to flatten, flatten with routes, or process the source late. Literal sources can be born flattened.</td><td>A record scoped to an exact source, configuration, and intended delivery path.</td></tr>
+<tr><td><b>Lifecycle requirement</b></td><td>Something that must exist or happen around ordinary apply, such as a CRD, hook, setup Job, certificate, controller, model, cloud resource, or prerequisite Secret.</td><td>Discovered from the source, exact objects, variant, or destination.</td></tr>
+<tr><td><b>Route intent</b></td><td>A portable proposal for handling one or more lifecycle requirements.</td><td>Beside the base configuration or source record.</td></tr>
+<tr><td><b>Resolved lifecycle route</b></td><td>The selected actor, order, mechanism, checks, retry rule, and failure rule for an exact variant, destination, and delivery runtime.</td><td>A promotion or release record linked to the exact configuration digest and target.</td></tr>
+<tr><td><b>Field ownership</b></td><td>Which fields remain controlled by the source, a ConfigHub variant, or the destination.</td><td>Source policy, variant history, and promotion review.</td></tr>
+<tr><td><b>Receipt</b></td><td>The recorded result of a generation, check, route, promotion, delivery, or runtime test.</td><td>Committed evidence or ConfigHub history.</td></tr>
 <tr><td><b>Base variant</b></td><td>One named, reviewed starting configuration.</td><td>A package and, after upload, a root ConfigHub Space.</td></tr>
 <tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table>
 <p>In one sentence: <b>materialize exact objects, keep the source and lifecycle context, then retain reviewed changes as variants that can be promoted and delivered.</b></p>
-<h2 id="helms-additional-words">Helm's additional words</h2>
-<table><thead><tr><th>Word</th><th>Helm meaning</th></tr></thead><tbody><tr><td><b>Recipe</b></td><td>The chart, version, values, named bases, and declared lifecycle choices used by the installer package.</td></tr>
+<h2 id="source-specific-words">Source-specific words</h2>
+<table><thead><tr><th>Word</th><th>Meaning</th></tr></thead><tbody><tr><td><b>Helm recipe</b></td><td>The chart, version, values, named preset configurations, and declared lifecycle choices used by a Helm installer package.</td></tr>
+<tr><td><b>AICR recipe</b></td><td>AICR's native document containing resolved criteria, components, order, and checks.</td></tr>
 <tr><td><b>Render</b></td><td>Helm's materialization step. It produces exact Kubernetes objects but does not apply them.</td></tr>
 <tr><td><b>Helm render intent</b></td><td>The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render.</td></tr>
 <tr><td><b>Helm render variant</b></td><td>The captured object output for one base and revision, linked to its intent and digest.</td></tr></tbody></table>
+<p><b>Recipe is not the general name for a configuration.</b> Use it only when the source tool has a recipe. OCI and plain YAML use a source-and-intent record and an exact configuration revision instead.</p>
 <p>Do not create a render variant for literal YAML or another source that did not render. Its source-and-intent record links directly to its exact configuration revision.</p>
 <h2 id="the-source-and-intent-record">The source and intent record</h2>
 <p>Every maintained base needs a record that explains where its objects came from and which choices produced them. We call this the <b>source and intent record</b>.</p>
-<p>This is a role, not one file format. For Helm, the record is a <code>HelmRenderIntent</code>. For AICR or Kubara, it is the recipe, selected options, and generation receipts. Source OCI records the processor it contains or references. Literal OCI and plain YAML name their source digest or checksums, object inventory, remaining inputs, prerequisites, checks, and later transformations. Today, that information may live in a source Unit, Space metadata plus a committed receipt, or a generated base-variant record.</p>
-<p>The record should let a new reader answer four questions:</p>
-<ol><li>What source produced these objects?</li><li>Which values or choices were used?</li><li>What must exist or run before delivery?</li><li>Which checks and receipts support the result?</li></ol>
+<p>This is a role, not one file format. For Helm, the record is a <code>HelmRenderIntent</code>. For AICR, it includes the native recipe, selected options, and generation receipts. Kubara records its selected source and generation inputs. Source OCI records the processor it contains or references. Literal OCI and plain YAML name their source digest or checksums, object inventory, remaining inputs, prerequisites, checks, and later transformations. Today, that information may live in a source Unit, Space metadata plus a committed receipt, or a generated base-variant record.</p>
+<p>The record should let a new reader answer five questions:</p>
+<ol><li>What source produced these objects?</li><li>Which values or choices were used?</li><li>Which exact object digest did those choices produce?</li><li>What must exist or run before delivery?</li><li>Which checks and receipts support the result?</li></ol>
 <p>All maintained examples should answer those questions. Chart-specific records for hooks, CRDs, Secrets, setup jobs, and target facts are added when the configuration needs them; they are not copied into examples where they do not apply.</p>
 <p>An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks can be attached automatically. A source adapter or review must supply the source details and any chart-specific lifecycle work; otherwise the missing information is recorded as a gap.</p>
-<h2 id="the-four-stages">The four stages</h2>
-<table><thead><tr><th>Stage</th><th>Name</th><th>What happens</th><th>The word</th></tr></thead><tbody><tr><td><b>F1 · source</b></td><td>Source and intent</td><td>Record the source, version, choices, and lifecycle decisions.</td><td>source and intent</td></tr>
-<tr><td><b>F2 · materialize</b></td><td>Exact configuration</td><td>Produce or read the exact objects. For Helm, the render intent binds the inputs to the captured render variant.</td><td>exact configuration, Helm render variant</td></tr>
-<tr><td><b>F3 · routes</b></td><td>Prerequisites and routes</td><td>Record hooks, CRDs, Secrets, target facts, and other work outside ordinary objects.</td><td>routing intent</td></tr>
-<tr><td><b>F4 · operate</b></td><td>Derived variants</td><td>Clone, edit, review, promote, deliver, and observe the configuration.</td><td>derived variant</td></tr></tbody></table>
+<h2 id="the-four-record-layers">The four record layers</h2>
+<p>F1-F4 describe the records a reader can inspect. They are not four moments on a clock. F3 lifecycle information is discovered at the base and resolved again after a derived variant and destination are selected.</p>
+<table><thead><tr><th>Layer</th><th>Name</th><th>What it records</th><th>Main terms</th></tr></thead><tbody><tr><td><b>F1 · source</b></td><td>Source and intent</td><td>Source identity, version, choices, locks, and processing context.</td><td>source and intent, recipe where the source uses one</td></tr>
+<tr><td><b>F2 · exact base</b></td><td>Materialized configuration</td><td>Exact objects, inventory, digest, and flattening verdict for the reviewed base.</td><td>render, materialize, exact revision, render variant</td></tr>
+<tr><td><b>F3 · lifecycle</b></td><td>Work around apply</td><td>Requirements, portable route intents, destination-specific route resolutions, and route receipts.</td><td>lifecycle requirement, route intent, resolved route, receipt</td></tr>
+<tr><td><b>F4 · operate</b></td><td>Managed change and delivery</td><td>Field ownership, derived variants, comparisons, approvals, promotions, releases, delivery, and observations.</td><td>derived variant, promotion, release, observation</td></tr></tbody></table>
 <p>Materializing is not deployment. F2 produces or reads configuration files. F4 can deliver reviewed objects to live infrastructure. A base variant Space therefore has no Target until you choose to deliver it.</p>
+<h2 id="when-routes-are-decided">When routes are decided</h2>
+<table><thead><tr><th>Point</th><th>Decision</th><th>Example</th></tr></thead><tbody><tr><td>Source and base</td><td>Record the requirement and possible handling.</td><td>A chart contains a certificate hook and ten CRDs.</td></tr>
+<tr><td>Derived variant</td><td>Inherit, add, remove, or change the requirement.</td><td>Production uses an external Secret while development creates a temporary one.</td></tr>
+<tr><td>Destination</td><td>Resolve the actor and mechanism.</td><td>Argo CD uses sync waves; Flux uses dependent Kustomizations; direct apply uses ordered commands and waits.</td></tr>
+<tr><td>Promotion</td><td>Refuse or approve the destination-specific plan.</td><td>A production promotion stops because its required Secret is absent.</td></tr>
+<tr><td>Delivery</td><td>Perform the selected work.</td><td>Install the CRDs, wait for them to become Established, then apply dependent objects.</td></tr>
+<tr><td>Observation</td><td>Record what happened.</td><td>The controller used the requested digest and every required stage passed.</td></tr></tbody></table>
+<p>A route copied from the base is not automatically resolved. Changing only the target can change the route even when the Kubernetes objects stay identical.</p>
+<h2 id="digest-roles">Digest roles</h2>
+<p>Several records can identify one configuration journey. Their hashes do not identify the same bytes, so the role must always be stated.</p>
+<table><thead><tr><th>Identity</th><th>What it pins</th><th>Example</th></tr></thead><tbody><tr><td>Base-revision digest</td><td>The complete base record, including source inputs and processing context.</td><td>A Helm variant-revision digest or an AICR platform-index digest.</td></tr>
+<tr><td>Exact-object digest</td><td>The accepted Kubernetes object set or the inventory that pins every object file.</td><td><code>renderedObjectSetSHA256</code> for a Helm revision.</td></tr>
+<tr><td>OCI manifest digest</td><td>One transported artifact manifest. A source package OCI and a literal configuration OCI have different roles and digests.</td><td>The digest returned by the registry.</td></tr>
+<tr><td>ConfigHub data hash</td><td>One retained Unit revision.</td><td>The hash reported for a ConfigHub Unit.</td></tr>
+<tr><td>Release OCI digest</td><td>The immutable artifact published from one reviewed ConfigHub Space revision.</td><td>The digest consumed by Argo CD or Flux.</td></tr></tbody></table>
+<p>Do not describe these as &quot;the same digest.&quot; A receipt binds two stages by naming both identities and comparing the exact objects between them. The Catalog records <code>digestRole</code> and <code>digestRecord</code> beside every base and object-set digest.</p>
 <h2 id="how-this-guide-uses-action-words">How this guide uses action words</h2>
 <table><thead><tr><th>Word</th><th>Meaning here</th></tr></thead><tbody><tr><td><b>materialize</b></td><td>Produce or read the exact Kubernetes objects from any supported source.</td></tr>
 <tr><td><b>render</b></td><td>Materialize objects with a templating source, especially Helm.</td></tr>
 <tr><td><b>flatten</b></td><td>Keep the materialized objects so the source processor does not run again during delivery.</td></tr>
+<tr><td><b>resolve</b></td><td>Bind lifecycle requirements to one variant, destination, delivery runtime, and executable plan.</td></tr>
 <tr><td><b>inspect</b></td><td>Read objects or evidence. Inspection alone does not prove a claim.</td></tr>
 <tr><td><b>test</b></td><td>Run a defined command or procedure.</td></tr>
 <tr><td><b>verify</b></td><td>Compare a result with a recorded expectation, digest, or object set.</td></tr>
@@ -496,15 +550,25 @@
 <tr><td><b>deliver</b></td><td>Give reviewed objects to the controller or apply path that sends them to a cluster.</td></tr>
 <tr><td><b>observe</b></td><td>Read the live result after delivery.</td></tr>
 <tr><td><b>promote</b></td><td>Move a reviewed change to another environment while keeping its allowed local differences.</td></tr>
-<tr><td><b>route</b></td><td>Record who performs work outside ordinary Kubernetes objects, such as a hook or prerequisite.</td></tr></tbody></table>
+<tr><td><b>route</b></td><td>Record or resolve how lifecycle requirements will be handled. State whether the route is proposed, resolved, or executed.</td></tr></tbody></table>
 <p>The word <b>check</b> is broad. The guides use a more exact word when the difference matters.</p>
-<h2 id="the-same-objects-three-other-ways-of-seeing-them">The same objects, three other ways of seeing them</h2>
+<h2 id="how-common-sources-use-the-model">How common sources use the model</h2>
+<table><thead><tr><th>Source</th><th>Materialize</th><th>Possible flattening result</th><th>Later route resolution</th></tr></thead><tbody><tr><td>Helm</td><td>Render the pinned chart with recorded values and context.</td><td>Flatten, flatten with routes, or render late.</td><td>Recheck hooks, CRDs, generated state, target facts, and controller handling for the selected variant and destination.</td></tr>
+<tr><td>AICR</td><td>Resolve its recipe and compose or generate the declared output. Nested charts may still render later.</td><td>Flatten the generated layer, flatten it with routes, or process part of the composition late.</td><td>Bind component order, required controllers, GPU or cloud facts, and nested source work to the target.</td></tr>
+<tr><td>Kubara or another generator</td><td>Run the source-native generator with locked inputs.</td><td>Flatten the generated layer, keep routes beside it, or run the generator later.</td><td>Bind platform prerequisites, component ownership, and controller work to the chosen platform target.</td></tr>
+<tr><td>Installer or source OCI</td><td>Pull by digest and invoke the processor it declares.</td><td>Decide after the processor produces exact objects.</td><td>Use the resulting configuration and its requirements; the OCI transport performs no lifecycle work.</td></tr>
+<tr><td>Literal configuration OCI or YAML</td><td>Read and canonicalize the existing objects. Materialization and flattening are recorded no-ops.</td><td>Born flattened, with routes added if required.</td><td>Resolve any prerequisites, ownership, ordering, or setup for the destination.</td></tr>
+<tr><td>ConfigHub revision or release OCI</td><td>Read the retained exact revision.</td><td>Already retained as data.</td><td>Resolve the selected revision against its assigned target and delivery runtime.</td></tr></tbody></table>
+<p>Flattening is evaluated at each processing boundary. An AICR Application set can be flattened while the Helm charts referenced by those Applications remain render-late. An OCI artifact can carry source material, literal configuration, or a ConfigHub release; its media type and source record must say which role it has.</p>
+<p>The Catalog currently includes concrete records for Helm, AICR, cub installer source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML. The generic model is ahead for a non-installer source OCI and for ConfigHub-release re-entry as a new base. The <a href="../../data/base-variant-records/summary.html">generated alignment report</a> gives the current counts and gaps.</p>
+<h2 id="the-same-objects-in-familiar-terms">The same objects in familiar terms</h2>
 <p><b>If you think in plain Helm:</b> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version of those objects and keeps its changes through upgrades.</p>
 <p><b>If you think in Kustomize:</b> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The derived variant is a ConfigHub Space with revisions, gates, and an upstream link rather than a directory convention.</p>
 <p><b>If you start with literal YAML or configuration OCI:</b> the objects are already materialized and flat. Record their source and digest, attach any required routes, then retain them as a base. Do not pretend they passed through Helm.</p>
-<p><b>If you start with AICR, Kubara, or another generator:</b> keep its native recipe and choices, run its declared processor, and link the resulting object digest to those inputs. Record any required controllers or setup separately.</p>
+<p><b>If you start with AICR:</b> keep its native recipe and choices, run its declared processor, and link the resulting object digest to those inputs. Record required controllers and setup as lifecycle work.</p>
+<p><b>If you start with Kubara or another generator:</b> keep its native source and choices, run its declared processor, and link the resulting object digest to those inputs. Do not call that record a recipe unless the source tool does.</p>
 <h2 id="where-each-thing-is-today">Where each thing is, today</h2>
-<ul><li>Helm recipes and render records live in this repo. Every chart page links to them.</li><li>Other source-and-intent records live beside their recipes, source receipts, or base records. They use their own format rather than a fake Helm record.</li><li>Base variants live in packages or exact object sets. After upload, each becomes a root Space in ConfigHub.</li><li>Derived variants, promotions, delivery, and observations live in ConfigHub. Follow <a href="variants-after-upload.html">variants after upload</a> and the evidence links on each chart page.</li></ul>
+<ul><li>Helm recipes and render records live in this repo. Every chart page links to them.</li><li>AICR recipes remain AICR recipes. Other source-and-intent records live beside source receipts or base records. They use their own format rather than a fake Helm record or a generic &quot;recipe&quot; label.</li><li>Base variants live in packages or exact object sets. After upload, each becomes a root Space in ConfigHub.</li><li>Derived variants, promotions, delivery, and observations live in ConfigHub. Follow <a href="variants-after-upload.html">variants after upload</a> and the evidence links on each chart page.</li></ul>
 <p>When you browse a ConfigHub org, you see the materialized Units, derived Spaces, revisions, and links from F2 through F4. The source-specific intent and processing records remain linked from the base. A package upload also has an <code>installer-record</code> Unit that identifies the package that produced it.</p>
     </article>
   </main>

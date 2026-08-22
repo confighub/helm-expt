@@ -1,0 +1,58 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-aws-ebs-csi-driver"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/aws-ebs-csi-driver.yaml"
+  source:
+    repoURL: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+    chart: "aws-ebs-csi-driver"
+    path: ""
+    targetRevision: "2.59.0"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml"
+    sha256: "b92beb50587dc82462b09a0a25076e18f756b2617375ac4c25d652007d1a9fb2"
+  destinationNamespace: "kube-system"
+  command:
+    - "helm"
+    - "template"
+    - "aws-ebs-csi-driver"
+    - "aws-ebs-csi-driver"
+    - "--repo"
+    - "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+    - "--version"
+    - "2.59.0"
+    - "--namespace"
+    - "kube-system"
+    - "--values"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/aws-ebs-csi-driver/objects.yaml"
+    sha256: "3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8"
+    objectCount: 19
+    kinds:
+      ClusterRole: 5
+      ClusterRoleBinding: 5
+      CSIDriver: 1
+      DaemonSet: 1
+      Deployment: 1
+      PodDisruptionBudget: 1
+      Role: 1
+      RoleBinding: 1
+      ServiceAccount: 2
+      StorageClass: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

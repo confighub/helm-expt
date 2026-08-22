@@ -18,11 +18,33 @@ spec:
     name: "external-tls-ca"
     revision: "r001"
     digest: "25119409096b4e7c94b8101f0f14be839252f40bb455fe6fa1a38c9b808179d1"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
     inventory: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/object-inventory.yaml"
     objectCount: 9
+    digest: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
+      record: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "metrics-server/metrics-server@3.13.0/external-tls-ca; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=metrics-server/metrics-server"
@@ -57,11 +79,30 @@ spec:
           source: "metrics-server-tls-ca"
           stage: "pre-render"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "kube-system/metrics-server-tls"
+          origin: "base"
+          type: "target-fact"
+          detail: "metrics-server serving certificate"
+        -
+          id: "apiService.caBundle"
+          origin: "base"
+          type: "target-fact"
+          detail: "APIService CA bundle that validates kube-system/metrics-server-tls"
+      records:
+        - "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -80,49 +121,30 @@ spec:
             regularHelmFormat: "pem"
             source: "metrics-server-tls-ca"
             stage: "pre-render"
-      requirements:
-        -
-          category: "secret"
-          name: "kube-system/metrics-server-tls"
-          namespace: "kube-system"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "metrics-server serving certificate"
-          check: ""
-          declarationPath: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
-        -
-          category: "value"
-          name: "apiService.caBundle"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
-          check: ""
-          declarationPath: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
-      actions:
+      requirementRefs:
+        - "kube-system/metrics-server-tls"
+        - "apiService.caBundle"
+      records:
+        - "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "kube-system/metrics-server-tls"
+      - "apiService.caBundle"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

@@ -1,0 +1,307 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.com/helm-expt/schemas/lifecycle-route-resolution.schema.json",
+  "title": "Lifecycle Route Resolution",
+  "description": "Binds lifecycle requirements and portable route intents to one exact configuration revision, derived variant, destination, and delivery runtime. A resolution plans or records execution; the referenced receipts state what actually happened.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "evidence.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "LifecycleRouteResolution"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "configuration",
+        "destination",
+        "requirements",
+        "routes",
+        "protection"
+      ],
+      "properties": {
+        "configuration": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "baseVariantRecord",
+            "variant",
+            "revision",
+            "baseRevisionDigest",
+            "digest",
+            "digestRole",
+            "digestRecord"
+          ],
+          "properties": {
+            "baseVariantRecord": {
+              "type": "string",
+              "minLength": 1
+            },
+            "variant": {
+              "type": "string",
+              "minLength": 1
+            },
+            "revision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "baseRevisionDigest": {
+              "type": "string",
+              "pattern": "^(sha256:)?[a-f0-9]{64}$"
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^(sha256:)?[a-f0-9]{64}$"
+            },
+            "digestRole": {
+              "enum": [
+                "canonical-object-set",
+                "inventory-file",
+                "literal-yaml-file"
+              ]
+            },
+            "digestRecord": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "destination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "type",
+            "deliveryRuntime"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "type": "string",
+              "minLength": 1
+            },
+            "deliveryRuntime": {
+              "type": "string",
+              "minLength": 1
+            },
+            "runtimeVersion": {
+              "type": "string"
+            },
+            "factsDigest": {
+              "type": "string"
+            }
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "origin",
+              "disposition",
+              "state",
+              "detail"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "origin": {
+                "enum": [
+                  "source",
+                  "base",
+                  "variant",
+                  "destination"
+                ]
+              },
+              "disposition": {
+                "enum": [
+                  "inherited",
+                  "added",
+                  "changed",
+                  "removed"
+                ]
+              },
+              "state": {
+                "enum": [
+                  "required",
+                  "satisfied",
+                  "not-applicable",
+                  "blocked"
+                ]
+              },
+              "detail": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceRef": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "requirementRefs",
+              "actor",
+              "phase",
+              "order",
+              "mechanism",
+              "automatic",
+              "retry",
+              "onFailure",
+              "checks",
+              "evidence"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requirementRefs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "actor": {
+                "type": "string",
+                "minLength": 1
+              },
+              "phase": {
+                "enum": [
+                  "pre-render",
+                  "preflight",
+                  "pre-apply",
+                  "apply",
+                  "post-apply",
+                  "observe",
+                  "cleanup"
+                ]
+              },
+              "order": {
+                "type": "integer"
+              },
+              "mechanism": {
+                "type": "string",
+                "minLength": 1
+              },
+              "automatic": {
+                "type": "boolean"
+              },
+              "retry": {
+                "type": "string",
+                "minLength": 1
+              },
+              "onFailure": {
+                "type": "string",
+                "minLength": 1
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "protection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "records"
+          ],
+          "properties": {
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "evidence",
+        "unresolved",
+        "receipts"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "ready",
+            "blocked",
+            "not-required",
+            "partial"
+          ]
+        },
+        "evidence": {
+          "enum": [
+            "planned",
+            "partly-observed",
+            "observed"
+          ]
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "receipts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

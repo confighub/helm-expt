@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+
+import { readYaml } from "./lib/proof-common.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -11,94 +13,274 @@ const documents = {
   vocabulary: read("docs/user/model-and-vocabulary.md"),
   flattening: read("docs/reference/flattening-alignment.md"),
   deployment: read("site/how-it-works.html"),
+  deploymentReference: read("site/deployment-reference.html"),
+  catalog: read("site/charts/index.html"),
 };
-const corpus = Object.values(documents).join("\n");
 const failures = [];
 
+function requireCondition(condition, message) {
+  if (!condition) failures.push(message);
+}
+
 function requireText(scope, text, label) {
-  if (!scope.includes(text)) failures.push(`${label}: missing ${JSON.stringify(text)}`);
+  requireCondition(scope.includes(text), `${label}: missing ${JSON.stringify(text)}`);
 }
 
-for (const term of [
-  "source + processing intent",
-  "materialize exact Kubernetes objects",
-  "decide whether to flatten",
-  "attach lifecycle routes and protected ownership",
-  "retain, compare, promote, and publish",
-  "reconcile on a target",
-  "observe the runtime result",
+for (const [label, document] of Object.entries({
+  doctrine: documents.doctrine,
+  vocabulary: documents.vocabulary,
+})) {
+  for (const text of [
+    "configuration lineage",
+    "source and intent -> exact base -> derived variant -> promoted release",
+    "lifecycle handling",
+    "requirements -> route intent -> destination resolution -> execution -> receipt",
+  ]) {
+    requireText(document, text, `${label} two-track model`);
+  }
+}
+
+for (const text of [
+  "A derived variant can add, remove, or change",
+  "variant, destination, and delivery runtime",
+  "Route intent",
+  "Resolved lifecycle route",
+  "Recipe is not the general name for a configuration",
+  "Digest roles",
+  "Do not describe these as \"the same digest.\"",
 ]) {
-  requireText(documents.doctrine, term, "canonical pipeline");
+  requireText(documents.vocabulary, text, "vocabulary contract");
 }
 
-const sourceScenarios = [
-  ["Helm chart", "Run Helm with recorded values and render context", "Helm render variant"],
-  ["AICR, Kubara, or another generator", "generation or composition step", "process late"],
-  ["Installer or source OCI", "invoke the processor", "not automatically deployable"],
-  ["Literal configuration OCI", "Materialization is a no-op", "Already flat"],
-  ["Plain Kubernetes YAML", "Read, parse, and canonicalize", "Already flat"],
-  ["ConfigHub Units or release OCI", "Read the retained exact objects", "Already retained as data"],
-];
-for (const [source, materialization, outcome] of sourceScenarios) {
-  requireText(documents.doctrine, source, `${source} scenario`);
-  requireText(documents.doctrine, materialization, `${source} scenario`);
-  requireText(documents.doctrine, outcome, `${source} scenario`);
-}
-
-const decisionScenarios = [
-  ["safe-to-flatten", "Safe to flatten", "no required Helm behavior outside the retained objects"],
-  ["flatten-with-routes", "Flatten with routes", "Retain the literal objects"],
-  ["process-late", "Process late (`render late` for Helm)", "live lookup"],
-  ["explicit-no-route", "No route required", "different from a missing record"],
-];
-for (const [id, decision, boundary] of decisionScenarios) {
-  requireText(documents.doctrine, decision, `${id} scenario`);
-  requireText(corpus, boundary, `${id} scenario`);
-}
-
-const protectionScenarios = [
-  ["field ownership", "Protected local field", "downstream variant"],
-  ["secret input", "Secret or protected input", "Secret reference"],
-  ["prune behavior", "Prune-protected resource", "delivery behavior"],
-];
-for (const [id, term, boundary] of protectionScenarios) {
-  requireText(documents.doctrine, term, `${id} scenario`);
-  requireText(documents.doctrine, boundary, `${id} scenario`);
-}
-
-for (const term of [
-  "materialization",
-  "Helm renders a chart",
-  "Literal YAML and configuration OCI already contain the objects",
-  "Keep them with recorded setup",
-  "Process the source later",
-  "Record lifecycle routes separately",
-  "Source OCI",
-  "Plain YAML",
-  "ConfigHub Units",
-  "Protection means three different things",
-  "Protected local field",
-  "Protected input",
-  "Prune-protected resource",
-  "Apply gates decide whether ConfigHub may apply it",
-  "source receipt -> object receipt -> delivery receipt -> runtime receipt",
+for (const text of [
+  "born-flattened",
+  "safe-to-flatten",
+  "flatten-with-routes",
+  "unsafe-to-flatten",
+  "Recheck the decision after the base",
 ]) {
-  requireText(documents.deployment, term, "public deployment explanation");
+  requireText(documents.flattening, text, "flattening contract");
 }
 
-requireText(documents.dataModel, "Do not create a fake render variant", "source-specific records");
-requireText(documents.dataModel, "complete managed result is source and intent, exact configuration, lifecycle routes,\nand runtime receipts", "complete record");
-requireText(documents.flattening, "No-op cases still need records", "no-op processing");
+for (const text of [
+  "base-revision digest",
+  "exact-object digest",
+  "OCI manifest digest",
+  "ConfigHub Unit data hash",
+  "release OCI digest",
+]) {
+  requireText(documents.doctrine, text, "identity contract");
+}
 
+for (const text of [
+  "Produce or read the exact objects",
+  "Keep the identities separate",
+  "Plan the work around ordinary apply",
+  "Change, promote, and deliver a reviewed variant",
+]) {
+  requireText(documents.deploymentReference, text, "public model explanation");
+}
+requireText(
+  documents.deployment,
+  "deployment-reference.html",
+  "simple deployment page technical-reference link",
+);
+requireText(documents.catalog, "configuration processing model", "Catalog model link");
+requireText(documents.catalog, "alignment report", "Catalog alignment link");
+
+for (const path of [
+  "schemas/base-variant-record.schema.json",
+  "schemas/flattening-safety-verdict.schema.json",
+  "schemas/lifecycle-route-resolution.schema.json",
+]) {
+  try {
+    JSON.parse(read(path));
+  } catch (error) {
+    failures.push(`${path}: invalid JSON: ${error.message}`);
+  }
+}
+
+const recordsDocument = JSON.parse(read("data/base-variant-records/records.json"));
+const records = recordsDocument.records ?? [];
+requireCondition(records.length > 0, "Catalog has no base-variant records");
+const sourceCounts = new Map();
+let flatteningDecided = 0;
+let routesResolved = 0;
+let ownershipDeclared = 0;
+
+const allowedBaseDigestRoles = new Set([
+  "helm-variant-revision",
+  "aicr-platform-index",
+  "source-output-inventory",
+  "literal-configuration-oci-manifest",
+  "source-package-oci-manifest",
+  "source-file-set",
+  "confighub-space-revision",
+  "source-file",
+  "source-output-record",
+]);
+const allowedObjectDigestRoles = new Set([
+  "canonical-object-set",
+  "inventory-file",
+  "literal-yaml-file",
+]);
+const allowedRouteStatuses = new Set([
+  "recorded",
+  "requires-destination-resolution",
+  "blocked",
+]);
+
+for (const record of records) {
+  const name = record.metadata?.name ?? "unnamed-record";
+  const spec = record.spec ?? {};
+  const sourceType = spec.source?.type ?? "missing";
+  sourceCounts.set(sourceType, (sourceCounts.get(sourceType) ?? 0) + 1);
+  requireCondition(!Object.hasOwn(spec, "routing"), `${name}: legacy spec.routing is present`);
+  requireCondition(spec.processing && spec.lifecycle && spec.ownership, `${name}: model envelopes are incomplete`);
+  requireCondition(
+    allowedBaseDigestRoles.has(spec.baseVariant?.digestRole),
+    `${name}: invalid base digest role ${spec.baseVariant?.digestRole ?? "missing"}`,
+  );
+  requireCondition(
+    allowedObjectDigestRoles.has(spec.configuration?.digestRole),
+    `${name}: invalid object digest role ${spec.configuration?.digestRole ?? "missing"}`,
+  );
+  requireCondition(
+    /^(sha256:)?[a-f0-9]{64}$/.test(spec.configuration?.digest ?? ""),
+    `${name}: exact-object digest is missing or malformed`,
+  );
+  requireCondition(
+    spec.processing?.materialization?.outputDigest === spec.configuration?.digest,
+    `${name}: materialization output does not use the exact-object digest`,
+  );
+  requireCondition(
+    Boolean(spec.baseVariant?.digestRecord) && existsSync(join(root, spec.baseVariant.digestRecord)),
+    `${name}: base digest record is missing`,
+  );
+  requireCondition(
+    Boolean(spec.configuration?.digestRecord)
+      && existsSync(join(root, spec.configuration.digestRecord)),
+    `${name}: object digest record is missing`,
+  );
+
+  const requirements = spec.lifecycle?.requirements?.items ?? [];
+  const requirementIds = requirements.map((item) => item.id);
+  requireCondition(
+    requirementIds.length === new Set(requirementIds).size,
+    `${name}: lifecycle requirement ids are not unique`,
+  );
+  for (const requirement of requirements) {
+    requireCondition(
+      requirement.id && requirement.origin && requirement.type && requirement.detail,
+      `${name}: lifecycle requirement is incomplete`,
+    );
+  }
+
+  const routeIntents = spec.lifecycle?.routeIntent?.routes ?? [];
+  const routeIds = routeIntents.map((route) => route.id);
+  requireCondition(routeIds.length === new Set(routeIds).size, `${name}: route-intent ids are not unique`);
+  for (const route of routeIntents) {
+    requireCondition(allowedRouteStatuses.has(route.status), `${name}/${route.id}: invalid route status`);
+    requireCondition(
+      Array.isArray(route.requirementRefs)
+        && route.requirementRefs.length > 0
+        && route.requirementRefs.every((id) => requirementIds.includes(id)),
+      `${name}/${route.id}: route points at an unknown requirement`,
+    );
+    requireCondition(
+      typeof route.automatic === "boolean" && route.proposedActor && route.proposedMechanism,
+      `${name}/${route.id}: route intent is incomplete`,
+    );
+  }
+
+  const targetFacts = spec.lifecycle?.targetFacts;
+  requireCondition(
+    targetFacts
+      && ["recorded", "not-required", "gap"].includes(targetFacts.status)
+      && Array.isArray(targetFacts.requirementRefs)
+      && targetFacts.requirementRefs.every((id) => requirementIds.includes(id)),
+    `${name}: target-fact envelope is incomplete`,
+  );
+  requireCondition(
+    !Object.hasOwn(targetFacts ?? {}, "targetFacts"),
+    `${name}: target facts are nested inside the target-fact envelope`,
+  );
+  for (const route of routeIntents) {
+    requireCondition(
+      !/^(recorded|not[- ]run|requires|unknown|gap|partial)$/i.test(route.proposedActor),
+      `${name}/${route.id}: route actor is a status rather than an actor`,
+    );
+  }
+  const resolution = spec.lifecycle?.resolution;
+  requireCondition(
+    resolution
+      && [
+        "awaits-variant-and-target",
+        "resolved-for-recorded-targets",
+        "not-required",
+        "blocked",
+        "gap",
+      ].includes(resolution.status),
+    `${name}: route resolution status is invalid`,
+  );
+  if (resolution?.status === "resolved-for-recorded-targets") {
+    routesResolved += 1;
+    requireCondition(resolution.records.length > 0, `${name}: resolved route has no evidence record`);
+  }
+  if (spec.processing?.flattening?.status === "decided") flatteningDecided += 1;
+  if (spec.ownership?.status === "declared") ownershipDeclared += 1;
+}
+
+const resolutionRoot = join(root, "data/lifecycle-route-resolutions");
+const resolutionFiles = readdirSync(resolutionRoot)
+  .filter((name) => name.endsWith(".yaml"))
+  .sort();
+requireCondition(resolutionFiles.length >= 3, "fewer than three lifecycle route resolutions are recorded");
+for (const file of resolutionFiles) {
+  const resolution = readYaml(join(resolutionRoot, file));
+  requireCondition(
+    resolution.kind === "LifecycleRouteResolution"
+      && resolution.spec?.configuration?.digest
+      && resolution.spec?.configuration?.digestRole
+      && resolution.spec?.configuration?.baseRevisionDigest
+      && resolution.spec?.destination?.deliveryRuntime
+      && Array.isArray(resolution.spec?.routes)
+      && resolution.status?.decision,
+    `${file}: lifecycle route resolution is incomplete`,
+  );
+}
+
+const summary = read("data/base-variant-records/summary.md");
+requireText(summary, `All **${records.length}/${records.length} records**`, "generated alignment summary");
+requireText(summary, "The model is ahead", "generated evidence-gap summary");
+requireCondition(
+  !read("scripts/site/config-workshop-yaml.js").includes("spec?.routing"),
+  "browser processor still reads legacy spec.routing",
+);
+
+const corpus = Object.values(documents).join("\n");
+for (const [name, document] of Object.entries(documents)) {
+  if (/recipe\s*(?:→|->)\s*render\s*(?:→|->)\s*record\s*(?:→|->)\s*route/i.test(document)) {
+    failures.push(`${name}: presents a Helm recipe as the source-neutral model`);
+  }
+}
 for (const match of corpus.matchAll(/full rendering/gi)) {
   const context = corpus.slice(Math.max(0, match.index - 80), match.index + 80);
-  if (!/do not call/i.test(context)) failures.push(`unsupported "full rendering" usage: ${context.replaceAll("\n", " ")}`);
+  if (!/do not call/i.test(context)) {
+    failures.push(`unsupported "full rendering" usage: ${context.replaceAll("\n", " ")}`);
+  }
 }
 
 if (failures.length) {
-  console.error("configuration processing model failed:");
+  console.error(`configuration processing model failed with ${failures.length} issue(s):`);
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("verified source-neutral configuration processing model: 6 sources, 4 processing decisions, and 3 protection classes");
+const sourceSummary = [...sourceCounts.entries()]
+  .sort(([left], [right]) => left.localeCompare(right))
+  .map(([source, count]) => `${source}=${count}`)
+  .join(", ");
+console.log(
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}`,
+);

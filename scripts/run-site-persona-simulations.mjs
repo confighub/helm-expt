@@ -50,7 +50,7 @@ const personas = [
       g("comprehension", "D-C4", "understand what ConfigHub adds", ["confighub", "shared", "diff"], [["confighub"], ["shared", "keep", "store"], ["diff", "promote", "release"]], ["account", "tutorial", "confighub"], "mixed"),
       g("navigation", "D-N1", "find a checked Redis configuration", ["redis", "checked", "catalog"], [["redis"], ["configuration", "package", "preset"]], ["render", "try", "script", "catalog"]),
       g("navigation", "D-N2", "find help for AI-written Helm values", ["ai", "values", "helm"], [["ai", "agent"], ["values"], ["review", "check", "render"]], ["ask", "prompt", "example"]),
-      g("navigation", "D-N3", "find the AICR starting example", ["aicr", "ai infrastructure"], [["aicr"], ["example", "walkthrough", "recipe"]], ["start", "walkthrough", "example"], "AICR"),
+      g("navigation", "D-N3", "find the AICR v0.19 record and its remaining hardware test", ["aicr", "0.19", "h100"], [["aicr"], ["v0.19.0", "0.19.0"], ["16", "nested source"], ["h100"], ["not run", "remains"]], ["evidence", "receipt", "guide", "record"], "AICR"),
       g("navigation", "D-N4", "find an existing OCI package example", ["existing", "oci", "inspect"], [["oci"], ["inspect", "transform", "package"]], ["inspect", "transform", "walkthrough"], "OCI"),
       g("action", "D-A1", "render Redis locally without an account", ["redis", "local", "no account"], [["redis"], ["no account"], ["cub installer", "render"]], ["setup", "install", "copy"]),
       g("action", "D-A2", "build a question for my own values", ["own values", "question", "prompt"], [["question"], ["values", "chart"], ["prompt", "assistant"]], ["build", "copy prompt", "ask"]),
@@ -73,8 +73,8 @@ const personas = [
     goals: [
       g("comprehension", "O-C1", "confirm this does not replace Helm", ["keep helm", "not replace"], [["helm"], ["keep", "not instead", "does not replace"]], ["compare", "deployment"]),
       g("comprehension", "O-C2", "confirm Argo CD or Flux still delivers", ["argo", "flux", "delivery"], [["argo cd", "flux"], ["deliver", "controller", "gitops"]], ["guide", "deployment", "oci"]),
-      g("comprehension", "O-C3", "understand OCI in and OCI out", ["oci", "input", "output"], [["oci"], ["input", "pull", "source"], ["output", "publish", "release"]], ["inspect", "transform", "publish"], "OCI"),
-      g("comprehension", "O-C4", "understand hooks and CRDs", ["hooks", "crds", "lifecycle"], [["hook"], ["crd"], ["lifecycle", "order", "route"]], ["guide", "review", "include-hooks"]),
+      g("comprehension", "O-C3", "distinguish source, rendered, and ConfigHub release OCI", ["oci", "source", "rendered", "release"], [["catalog installer oci", "source oci"], ["rendered oci", "configuration oci"], ["confighub release oci", "release oci"]], ["inspect", "publish", "reference", "deployment"], "OCI"),
+      g("comprehension", "O-C4", "understand who handles hooks and CRDs and in what order", ["hooks", "crds", "who", "order"], [["hook"], ["crd"], ["route"], ["who", "actor"], ["order", "before"]], ["guide", "review", "example", "reference"]),
       g("navigation", "O-N1", "find the hook handling guide", ["hook", "guide"], [["hook"], ["guide", "lifecycle", "route"]], ["open", "guide", "walkthrough"]),
       g("navigation", "O-N2", "find CRD ownership and ordering", ["crd", "ownership", "ordering"], [["crd"], ["owner", "ordering", "install first"]], ["guide", "known gaps", "no-crds"]),
       g("navigation", "O-N3", "find an Argo CD OCI example", ["argo cd", "oci", "example"], [["argo cd"], ["oci"], ["example", "application", "source"]], ["guide", "walkthrough", "proof"]),
@@ -98,7 +98,7 @@ const personas = [
     label: "Platform engineer managing environments and fleets",
     routeBoosts: ["variants", "promotion", "fleet", "apps", "confighub", "testing"],
     goals: [
-      g("comprehension", "P-C1", "understand base and derived variants", ["base", "derived", "variant"], [["base"], ["derived"], ["variant"]], ["variants", "guide"]),
+      g("comprehension", "P-C1", "understand when to change a base or a derived variant", ["base", "derived", "source", "environment"], [["base"], ["derived", "variant"], ["source", "render"], ["environment", "region", "customer"]], ["guide", "reference", "promotion"]),
       g("comprehension", "P-C2", "understand environment promotion", ["development", "staging", "production", "promote"], [["development", "dev"], ["production", "prod"], ["promote", "promotion"]], ["tutorial", "walkthrough"]),
       g("comprehension", "P-C3", "understand fleet rollout", ["fleet", "rollout", "clusters"], [["fleet"], ["rollout", "wave"], ["cluster", "target"]], ["example", "walkthrough", "proof"]),
       g("comprehension", "P-C4", "understand account and cluster boundaries", ["account", "cluster", "local"], [["account"], ["cluster"], ["local", "laptop"]], ["try", "account", "tutorial"]),
@@ -126,7 +126,7 @@ const personas = [
     routeBoosts: ["verification", "proof", "known gaps", "credentials", "digest", "ask"],
     goals: [
       g("comprehension", "S-C1", "understand checked versus not checked", ["checked", "not checked", "claim"], [["checked"], ["not checked"], ["claim", "evidence"]], ["verification", "proof"]),
-      g("comprehension", "S-C2", "understand package provenance", ["package", "digest", "provenance"], [["package", "oci"], ["digest"], ["receipt", "provenance", "source"]], ["receipt", "proof", "inspect"], "OCI"),
+      g("comprehension", "S-C2", "distinguish object, OCI manifest, and release identities", ["object", "oci", "manifest", "release", "digest"], [["object digest", "exact-object digest", "object set"], ["oci manifest digest", "manifest digest"], ["release oci digest", "release digest"], ["different", "separate", "not the same"]], ["deployment", "receipt", "reference", "verification", "model"], "OCI"),
       g("comprehension", "S-C3", "understand apply gates", ["apply", "gate", "approval"], [["apply"], ["gate", "check"], ["approval", "block", "warn"]], ["proof", "policy"]),
       g("comprehension", "S-C4", "understand rollback proof", ["rollback", "exact", "proof"], [["rollback"], ["exact", "recorded"], ["proof", "receipt", "checked"]], ["walkthrough", "verification"]),
       g("navigation", "S-N1", "find credential warnings", ["credential", "secret", "warning"], [["credential", "password", "secret"], ["warning", "blocks production", "placeholder"]], ["known gaps", "chart"]),

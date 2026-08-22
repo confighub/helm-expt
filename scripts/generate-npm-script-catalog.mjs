@@ -12,7 +12,11 @@ const scripts = packageJson.scripts ?? {};
 // The chain itself can delegate. An element like `npm run foo:self-test` runs
 // whatever foo:self-test runs, so expand those before deciding what is covered,
 // or a lane the chain genuinely runs still reads as a gap.
-const verifyChain = expandChain(String(scripts.verify ?? ""));
+// `npm run verify` executes the npm lifecycle hook `preverify` first. Include
+// both commands so the inventory describes what npm actually runs.
+const verifyChain = expandChain(
+  [scripts.preverify, scripts.verify].filter(Boolean).join(" && "),
+);
 
 function expandChain(command, seen = new Set()) {
   const leaves = new Set();

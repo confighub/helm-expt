@@ -1,5 +1,22 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "retained": [
+    {
+      "entry": "eks-h100-training-kubeflow",
+      "version": "v0.14.0",
+      "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c"
+    },
+    {
+      "entry": "eks-h100-training-kubeflow-v0-18-0",
+      "version": "v0.18.0",
+      "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
+    },
+    {
+      "entry": "eks-h100-training-kubeflow-v0-19-0",
+      "version": "v0.19.0",
+      "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
+    }
+  ],
   "from": {
     "entry": "eks-h100-training-kubeflow",
     "version": "v0.14.0",
@@ -9,6 +26,18 @@
     "entry": "eks-h100-training-kubeflow-v0-18-0",
     "version": "v0.18.0",
     "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
+  },
+  "recipe": {
+    "apiVersionBefore": "aicr.nvidia.com/v1alpha1",
+    "apiVersionAfter": "aicr.run/v1alpha2",
+    "sha256Before": "a914ec2d1a4ed1a7be7dd50e6f382a2816fb6664bef2fd06ab62d5b6a0bf0c4d",
+    "sha256After": "33b4eafc73359ff36424bb90b526a7736dbdbfaa8be3f771db8a5c2bf4ff213b",
+    "healthCheckComponentsBefore": 0,
+    "healthCheckComponentsAfter": 15,
+    "healthCheckBytesBefore": 0,
+    "healthCheckBytesAfter": 72539,
+    "selectedProfileBefore": null,
+    "selectedProfileAfter": null
   },
   "shape": {
     "componentsBefore": 15,
@@ -219,5 +248,96 @@
     "unchanged": [
       "k8s-ephemeral-storage-metrics"
     ]
+  },
+  "latest": {
+    "from": {
+      "entry": "eks-h100-training-kubeflow-v0-18-0",
+      "version": "v0.18.0",
+      "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
+    },
+    "to": {
+      "entry": "eks-h100-training-kubeflow-v0-19-0",
+      "version": "v0.19.0",
+      "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
+    },
+    "recipe": {
+      "apiVersionBefore": "aicr.run/v1alpha2",
+      "apiVersionAfter": "aicr.run/v1alpha2",
+      "sha256Before": "33b4eafc73359ff36424bb90b526a7736dbdbfaa8be3f771db8a5c2bf4ff213b",
+      "sha256After": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f",
+      "healthCheckComponentsBefore": 15,
+      "healthCheckComponentsAfter": 15,
+      "healthCheckBytesBefore": 72539,
+      "healthCheckBytesAfter": 74308,
+      "selectedProfileBefore": null,
+      "selectedProfileAfter": null
+    },
+    "shape": {
+      "componentsBefore": 15,
+      "componentsAfter": 15,
+      "componentSetIdentical": true,
+      "applicationsBefore": 17,
+      "applicationsAfter": 17,
+      "deploymentOrderIdentical": true,
+      "distinctWavesBefore": 5,
+      "distinctWavesAfter": 5
+    },
+    "components": {
+      "compared": 17,
+      "changed": [
+        {
+          "component": "aicr-stack",
+          "change": "version",
+          "from": {
+            "targetRevision": "0.18.0",
+            "wave": null
+          },
+          "to": {
+            "targetRevision": "0.19.0",
+            "wave": null
+          }
+        },
+        {
+          "component": "kubeflow-trainer-post",
+          "change": "version",
+          "from": {
+            "targetRevision": "0.18.0",
+            "wave": 14
+          },
+          "to": {
+            "targetRevision": "0.19.0",
+            "wave": 14
+          }
+        },
+        {
+          "component": "nodewright-customizations",
+          "change": "version",
+          "from": {
+            "targetRevision": "0.18.0",
+            "wave": 5
+          },
+          "to": {
+            "targetRevision": "0.19.0",
+            "wave": 5
+          }
+        }
+      ],
+      "unchanged": [
+        "aws-ebs-csi-driver",
+        "aws-efa",
+        "cert-manager",
+        "gpu-operator",
+        "k8s-ephemeral-storage-metrics",
+        "kai-scheduler",
+        "kube-prometheus-stack",
+        "kubeflow-trainer",
+        "nfd",
+        "nodewright-operator",
+        "nvidia-dra-driver-gpu",
+        "nvsentinel",
+        "prometheus-adapter",
+        "prometheus-operator-crds"
+      ]
+    }
   }
 }

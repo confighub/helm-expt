@@ -1,0 +1,58 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-gpu-operator"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/gpu-operator.yaml"
+  source:
+    repoURL: "https://helm.ngc.nvidia.com/nvidia"
+    chart: "gpu-operator"
+    path: ""
+    targetRevision: "26.3.3"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/009-gpu-operator/values.yaml"
+    sha256: "ec31908273f428f5f0df92edd012a9ccb0e97eeb267d881ca0185ce7319518f7"
+  destinationNamespace: "gpu-operator"
+  command:
+    - "helm"
+    - "template"
+    - "gpu-operator"
+    - "gpu-operator"
+    - "--repo"
+    - "https://helm.ngc.nvidia.com/nvidia"
+    - "--version"
+    - "26.3.3"
+    - "--namespace"
+    - "gpu-operator"
+    - "--values"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/009-gpu-operator/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/gpu-operator/objects.yaml"
+    sha256: "2c5088278089a6b97ac7f601663f74c797d1fa7af61573222ebf1af2bb115c91"
+    objectCount: 14
+    kinds:
+      ClusterPolicy: 1
+      ClusterRole: 2
+      ClusterRoleBinding: 2
+      ConfigMap: 1
+      CustomResourceDefinition: 2
+      Deployment: 1
+      Job: 1
+      Role: 1
+      RoleBinding: 1
+      ServiceAccount: 2
+    crdCount: 2
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

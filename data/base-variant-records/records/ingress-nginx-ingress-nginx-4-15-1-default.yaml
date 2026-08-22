@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "fcb4d06cd9078d87226aad3c100f9e80ced6398e0a358f54334b5bd45a4f26d8"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 11
+    digest: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+      record: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
+      scope: "ingress-nginx/ingress-nginx@4.15.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=ingress-nginx/ingress-nginx"
@@ -48,11 +70,25 @@ spec:
           namespace: "ingress-nginx"
           purpose: "admission webhook certificate normally created by Helm hook jobs"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "ingress-nginx/ingress-nginx-admission"
+          origin: "base"
+          type: "target-fact"
+          detail: "admission webhook certificate normally created by Helm hook jobs"
+      records:
+        - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -65,32 +101,28 @@ spec:
             name: "ingress-nginx-admission"
             namespace: "ingress-nginx"
             purpose: "admission webhook certificate normally created by Helm hook jobs"
-      requirements:
-        -
-          category: "secret"
-          name: "ingress-nginx/ingress-nginx-admission"
-          namespace: "ingress-nginx"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "admission webhook certificate normally created by Helm hook jobs"
-          check: ""
-          declarationPath: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "cubInstallerApply"
-          evidence:
-            - "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
-      actions:
+      requirementRefs:
+        - "ingress-nginx/ingress-nginx-admission"
+      records:
+        - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "1 target prerequisite declared by this base."
-        declarationSource: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "ingress-nginx/ingress-nginx-admission"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

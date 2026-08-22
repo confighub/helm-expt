@@ -1,0 +1,307 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  labels:
+    sourceType: "aicr"
+    component: "aicr-eks-h100-training-kubeflow"
+    sourceVersion: "v0.19.0"
+    base: "argocd"
+spec:
+  source:
+    type: "aicr"
+    name: "eks-h100-training-kubeflow"
+    version: "v0.19.0"
+    record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
+  baseVariant:
+    name: "argocd"
+    revision: "generated-v0.19.0"
+    digest: "6dd6fd925a36d217eb08f1563e921bb8e89a83f1cbbfad31f88a6bcc1b0e44f2"
+    digestRole: "aicr-platform-index"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/platform-index.json"
+  configuration:
+    format: "argocd-application-yaml"
+    objects: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered"
+    inventory: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/checksums.txt"
+    objectCount: 17
+    digest: "0825f8ba4888da84810184289cb1b0e0313b11f8f7414a4e91bae37fff5b7b94"
+    digestRole: "inventory-file"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/checksums.txt"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+    materialization:
+      method: "aicr-compose-then-helm-render"
+      status: "captured"
+      outputDigest: "0825f8ba4888da84810184289cb1b0e0313b11f8f7414a4e91bae37fff5b7b94"
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/checksums.txt"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "eks-h100-training-kubeflow@v0.19.0/argocd; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/flattening-safety-verdict.yaml"
+    boundaries:
+      - "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects."
+      - "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
+  inputs:
+    fixedAtBuildTime:
+      - "accelerator=h100"
+      - "intent=training"
+      - "os=ubuntu"
+      - "platform=kubeflow"
+      - "service=eks"
+      - "acceleratedNodeSelector=nvidia.com/gpu.present=true"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      - "storageClass=gp3"
+      - "workloadSelector=app.kubernetes.io/part-of=training"
+      - "deployer=argocd-helm"
+    installTime:
+      -
+        category: "target-fact"
+        name: "aicr-target-fact-1"
+        purpose: "Argo CD and its Application CRD must exist before these objects can be applied."
+      -
+        category: "target-fact"
+        name: "aicr-target-fact-2"
+        purpose: "The target must be an EKS cluster with H100 nodes running Ubuntu."
+      -
+        category: "target-fact"
+        name: "aicr-target-fact-3"
+        purpose: "A gp3 StorageClass must be available for the selected storage input."
+      -
+        category: "target-fact"
+        name: "aicr-target-fact-4"
+        purpose: "GPU nodes must carry nvidia.com/gpu.present=true for the selected node placement."
+    installTimeStatus: "destination-facts-recorded-not-run"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "argocd-prerequisite"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "make the Argo CD Application API and controller available"
+        -
+          id: "component-order"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "reconcile component Applications in AICR dependency order"
+        -
+          id: "downstream-chart-lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "handle hooks, CRDs, certificates, and setup Jobs in each referenced chart"
+        -
+          id: "aicr-health-checks"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "run the deployment and conformance checks carried by the AICR recipe"
+        -
+          id: "aicr-target-fact-1"
+          origin: "base"
+          type: "target-fact"
+          detail: "Argo CD and its Application CRD must exist before these objects can be applied."
+        -
+          id: "aicr-target-fact-2"
+          origin: "base"
+          type: "target-fact"
+          detail: "The target must be an EKS cluster with H100 nodes running Ubuntu."
+        -
+          id: "aicr-target-fact-3"
+          origin: "base"
+          type: "target-fact"
+          detail: "A gp3 StorageClass must be available for the selected storage input."
+        -
+          id: "aicr-target-fact-4"
+          origin: "base"
+          type: "target-fact"
+          detail: "GPU nodes must carry nvidia.com/gpu.present=true for the selected node placement."
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "argocd-prerequisite"
+          requirementRefs:
+            - "argocd-prerequisite"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "make the Argo CD Application API and controller available"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run-for-v0.19.0"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "Argo CD CRD discovery and controller readiness"
+          evidence:
+            - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+          orderHint: "before any retained Application object"
+        -
+          id: "component-order"
+          requirementRefs:
+            - "component-order"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "reconcile component Applications in AICR dependency order"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run-for-v0.19.0"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "observed sync operations and component health, not annotation survival alone"
+          evidence:
+            - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+          orderHint: "sync-wave annotations generated from recipe.deploymentOrder"
+        -
+          id: "downstream-chart-lifecycle"
+          requirementRefs:
+            - "downstream-chart-lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "handle hooks, CRDs, certificates, and setup Jobs in each referenced chart"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "nested-sources-rendered-routes-not-resolved"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            - "chart-level flattening decisions, routes, and live receipts for the exact referenced versions"
+          evidence:
+            - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+          orderHint: "chart-specific"
+        -
+          id: "aicr-health-checks"
+          requirementRefs:
+            - "aicr-health-checks"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "run the deployment and conformance checks carried by the AICR recipe"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "validator output from the target cluster"
+          evidence:
+            - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+          orderHint: "after the relevant component is available"
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        platform: "EKS"
+        accelerator: "H100"
+        operatingSystem: "Ubuntu"
+      requirementRefs:
+        - "aicr-target-fact-1"
+        - "aicr-target-fact-2"
+        - "aicr-target-fact-3"
+        - "aicr-target-fact-4"
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+    resolution:
+      status: "blocked"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        - "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+  ownership:
+    status: "declared"
+    sourceControlled:
+      - "Fields classified as source-owned by the AICR v0.19 field-policy assessment"
+    variantControlled:
+      - "Fields classified as safe reviewed ConfigHub changes by the AICR v0.19 field-policy assessment"
+    targetSupplied:
+      - "aicr-target-fact-1"
+      - "aicr-target-fact-2"
+      - "aicr-target-fact-3"
+      - "aicr-target-fact-4"
+    deliveryProtected:
+      []
+    records:
+      - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    sourcePackageOci:
+      status: "public-anonymous-pull-proved"
+      localDigest: "sha256:00318b2196a914057ee3c1c7679be17f8500f65b2c2f96a791e404c1ba47c161"
+      plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
+      ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/oci-layouts/argocd-source"
+      receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml"
+    literalConfigOci:
+      status: "public-anonymous-pull-proved"
+      localDigest: "sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635"
+      plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0"
+      ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/oci-layouts/argocd-config"
+      receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml"
+    configHubUpload:
+      status: "pass"
+      sourceRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0"
+      sourceOciDigest: "sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635"
+      configHubDataHash: "127138237fb994791dfa5e7e6958e8d6083fb779660dc346c879f09b3025560a"
+      objectIdentitiesMatched: true
+      bindingMethod: "external-source-annotation-plus-exact-object-comparison"
+      receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-upload-receipt.yaml"
+    configHubReleaseOci:
+      status: "published-and-pulled-by-digest"
+      reference: "oci://oci.hub.confighub.com:443/space/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging@sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1"
+      manifestDigest: "sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1"
+      bundleDigest: "sha256:295883db781f9f6a6acd6402d994b24cf1bd6874247f17ca66eb1bbc732e7a5f"
+      promotedConfigurationMatched: true
+      receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"
+    argoCd: "applications-retained-not-reconciled"
+    flux: "not-run-for-argo-application-wrapper"
+  promotion:
+    status: "pass"
+    receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"
+    path: "base -> development -> staging"
+    sourceDigest: "sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635"
+    changedApplications:
+      - "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+    devDryRun: "pass"
+    stagingDryRun: "pass"
+    stagingMatchesReviewedDev: true
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+    normalSet: "approvalRequired"
+    approvalReason: "system-configuration"
+  evidence:
+    sourceGenerationReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+    sourceProvenance: "runs/aicr-provenance-v0-19-0/receipt.yaml"
+    digestIndex: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/platform-index.json"
+    flatteningVerdict: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/flattening-safety-verdict.yaml"
+    routeIntent: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+    fieldPolicy: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"
+    publicOciReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml"
+    configHubUploadReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-upload-receipt.yaml"
+    applyPolicyReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/apply-policy-receipt.yaml"
+    variantPromotionReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"
+    configHubReleaseOciReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"
+    nestedSourceRenders: "data/aicr-v0-19-0-nested-sources/summary.md"
+    stagingRouteResolution: "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"
+  operations:
+    resourceClass: "system-configuration"
+    ownerClass: "platform-team"
+    changeCadence: "planned-platform-release"
+status:
+  level: "partial"
+  claim: "AICR v0.19.0 produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change to staging, and published the approved staging result as a release OCI that was pulled and compared by digest."
+  limits:
+    - "Both OCI artifacts were anonymously pulled at their recorded digests."
+    - "ConfigHub recorded the literal OCI digest and its separate Unit data hash 127138237fb994791dfa5e7e6958e8d6083fb779660dc346c879f09b3025560a; the upload receipt binds them by exact-object comparison."
+    - "The persistent development and staging variants contain the one reviewed Grafana Secret-reference change."
+    - "The required-approval gate refused to publish an unapproved ConfigHub release."
+    - "After approval, ConfigHub published the staging release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set."
+    - "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence."
+    - "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version."

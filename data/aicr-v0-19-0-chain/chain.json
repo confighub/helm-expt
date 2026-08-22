@@ -1,0 +1,101 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "ConfigurationProcessingChain",
+  "metadata": {
+    "name": "aicr-eks-h100-training-kubeflow-v0-19-0"
+  },
+  "spec": {
+    "sourceAndIntent": {
+      "type": "AICR recipe",
+      "version": "v0.19.0",
+      "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c",
+      "criteria": {
+        "accelerator": "h100",
+        "intent": "training",
+        "os": "ubuntu",
+        "platform": "kubeflow",
+        "service": "eks"
+      },
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+    },
+    "materialize": {
+      "result": "17 exact Argo CD Application objects",
+      "objectCount": 17,
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+    },
+    "flatten": {
+      "verdict": "flatten-with-routes",
+      "exactBoundary": "The 17 Argo CD Application wrapper objects are retained as literal configuration.",
+      "lateBoundary": "Sixteen nested component sources remain separate processing boundaries and are processed later by Argo CD.",
+      "record": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/flattening-safety-verdict.yaml",
+      "nestedSourceResult": "All 16 nested sources rendered locally; eight outputs contain CRDs.",
+      "nestedSourceRecord": "data/aicr-v0-19-0-nested-sources/summary.md"
+    },
+    "lifecycle": {
+      "result": "staging-resolution-blocked",
+      "explanation": "The staging resolution binds the promoted object digest to EKS, H100, and Argo CD. It remains blocked until the destination facts, nested chart routes, and runtime checks have receipts.",
+      "routeIntent": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml",
+      "stagingResolution": "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"
+    },
+    "protection": {
+      "result": "source ownership assessed",
+      "fieldPolicy": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"
+    },
+    "publicOci": {
+      "sourcePackage": {
+        "anonymousPull": "pass",
+        "authenticatedPush": "pass",
+        "digest": "sha256:00318b2196a914057ee3c1c7679be17f8500f65b2c2f96a791e404c1ba47c161",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
+      },
+      "literalConfiguration": {
+        "anonymousPull": "pass",
+        "authenticatedPush": "pass",
+        "digest": "sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0"
+      },
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml"
+    },
+    "configHub": {
+      "base": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+      "baseId": "1137bcc8-722f-48c0-af6b-18c928de75ca",
+      "sourceOciDigest": "sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635",
+      "dataHash": "127138237fb994791dfa5e7e6958e8d6083fb779660dc346c879f09b3025560a",
+      "objectIdentitiesMatched": true,
+      "provenanceBinding": "external-source-annotation-plus-exact-object-comparison",
+      "approvalGate": "platform/require-approval/vet-approvedby",
+      "policyResult": "unapproved release publication refused",
+      "uploadReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-upload-receipt.yaml",
+      "policyReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/apply-policy-receipt.yaml"
+    },
+    "variants": {
+      "development": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development",
+      "staging": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging",
+      "change": {
+        "resource": "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
+        "from": "grafana.adminPassword",
+        "to": "grafana.admin.existingSecret"
+      },
+      "result": "The reviewed development change was promoted to staging.",
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"
+    },
+    "releaseOci": {
+      "reference": "oci://oci.hub.confighub.com:443/space/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging@sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1",
+      "manifestDigest": "sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1",
+      "bundleDigest": "sha256:295883db781f9f6a6acd6402d994b24cf1bd6874247f17ca66eb1bbc732e7a5f",
+      "objectCount": 17,
+      "promotedConfigurationMatched": true,
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"
+    },
+    "notRun": [
+      "Argo CD reconciliation for this v0.19.0 configuration",
+      "Flux delivery for this v0.19.0 configuration",
+      "EKS or H100 execution",
+      "A training workload or model request",
+      "An exact runtime rollback"
+    ]
+  },
+  "status": {
+    "result": "pass"
+  }
+}

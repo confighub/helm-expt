@@ -1,0 +1,60 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-nodewright-operator"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nodewright-operator.yaml"
+  source:
+    repoURL: "oci://ghcr.io/nvidia/nodewright/charts/nodewright"
+    chart: "nodewright"
+    path: ""
+    targetRevision: "v0.17.1"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/005-nodewright-operator/values.yaml"
+    sha256: "b27df1bdeb16b7087e9a3349bd7c54a6acad58534dcd9ec34cf5d430f52bbd9f"
+  destinationNamespace: "skyhook"
+  command:
+    - "helm"
+    - "template"
+    - "nodewright-operator"
+    - "oci://ghcr.io/nvidia/nodewright/charts/nodewright"
+    - "--version"
+    - "v0.17.1"
+    - "--namespace"
+    - "skyhook"
+    - "--values"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/005-nodewright-operator/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nodewright-operator/objects.yaml"
+    sha256: "d2f73724e73bbb8b40bcef34159393e3cb89618be3b8e451b5d936e75010544f"
+    objectCount: 24
+    kinds:
+      ClusterRole: 3
+      ClusterRoleBinding: 2
+      CustomResourceDefinition: 2
+      Deployment: 1
+      Job: 3
+      LimitRange: 1
+      MutatingWebhookConfiguration: 1
+      NetworkPolicy: 1
+      PodDisruptionBudget: 1
+      Role: 2
+      RoleBinding: 2
+      Service: 2
+      ServiceAccount: 2
+      ValidatingWebhookConfiguration: 1
+    crdCount: 2
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

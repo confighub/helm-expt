@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "7a0afff1b91c5f0be50f51448c412666791343ae14237ff12fdee8b5dc3e3724"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 6
+    digest: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+      record: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "fluent/fluent-bit@0.57.6/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/fluent/fluent-bit/0.57.6/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=fluent/fluent-bit"
@@ -35,106 +57,99 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      -
-        routeName: "preserve-cleanup-policy"
-        quirkClass: "hook-delete-policy"
-        lifecyclePhase: "observe"
-        actionKind: "accept-target-policy"
-        executionMode: "target-owned"
-        automatic: false
-        whoRuns: "Your cluster — at uninstall, automatically"
-        operatingDetails: ""
-        command: ""
-        disposition: "observed"
-        delta: "kept"
-        reason: ""
-        routeSourceVersion: "0.57.6"
-        evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
-          - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
-        gitOps:
-          emitsControllerStep: false
-          argoCd: "none — your cluster handles it"
-          flux: "none — your cluster handles it"
-          argoCdSnippet: ""
-        runners:
-          direct:
-            implementation: "Your cluster — at uninstall, automatically"
-            status: "not-run"
-            evidence:
-              []
-          argoCd:
-            implementation: "none — your cluster handles it"
-            status: "mapping-only"
-            evidence:
-              []
-          flux:
-            implementation: "none — your cluster handles it"
-            status: "mapping-only"
-            evidence:
-              []
-      -
-        routeName: "explicit-test-check"
-        quirkClass: "hook-test"
-        lifecyclePhase: "observe"
-        actionKind: "run-test"
-        executionMode: "user-executes"
-        automatic: false
-        whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
-        operatingDetails: "Connectivity tests are checks against the installed target, not render-time behavior."
-        command: "# run the chart's test/check (helm test equivalent)"
-        disposition: "observed"
-        delta: "kept"
-        reason: ""
-        routeSourceVersion: "0.57.6"
-        evidence:
-          - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
-          - "data/hook-lifecycle/top100-hooks.csv"
-          - "recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
-          - "runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
-        gitOps:
-          emitsControllerStep: true
-          argoCd: "PostSync test Job (Argo has no native helm test)"
-          flux: "HelmRelease .spec.test.enable=true"
-          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
-        runners:
-          direct:
-            implementation: "# run the chart's test/check (helm test equivalent)"
-            status: "evidence-linked"
-            evidence:
-              - "runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
-          argoCd:
-            implementation: "PostSync test Job (Argo has no native helm test)"
-            status: "mapping-only"
-            evidence:
-              []
-          flux:
-            implementation: "HelmRelease .spec.test.enable=true"
-            status: "mapping-only"
-            evidence:
-              []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        -
+          id: "preserve-cleanup-policy"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "hook-delete-policy"
+        -
+          id: "explicit-test-check"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Connectivity tests are checks against the installed target, not render-time behavior."
+      records:
+        - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "gap"
+      routes:
+        -
+          id: "preserve-cleanup-policy"
+          requirementRefs:
+            - "preserve-cleanup-policy"
+          phase: "observe"
+          proposedActor: "Kubernetes"
+          proposedMechanism: "Your cluster — at uninstall, automatically"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
+        -
+          id: "explicit-test-check"
+          requirementRefs:
+            - "explicit-test-check"
+          phase: "observe"
+          proposedActor: "CI or operator"
+          proposedMechanism: "Connectivity tests are checks against the installed target, not render-time behavior."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
+            - "data/hook-lifecycle/top100-hooks.csv"
+            - "recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
+            - "runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
+      records:
+        - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      - "preserve-cleanup-policy"
+    records:
+      - "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

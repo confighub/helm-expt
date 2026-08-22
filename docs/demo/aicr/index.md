@@ -2,7 +2,7 @@
 
 UNOFFICIAL/EXPERIMENTAL. Teams assembling GPU platforms copy YAML from blog
 posts, and an H100 misconfiguration has a dollar sign attached. This page lists
-five AI platform entries you can read before you run anything, and says what
+six AI platform entries you can read before you run anything, and says what
 each one needs.
 
 AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms
@@ -23,6 +23,7 @@ it is the accessible runtime check beside this platform catalog.
 | [CPU starter](./cpu-starter.md) | The platform spine without accelerators. Start here to see the mechanics. | Nothing. No GPU, no cloud account, no NGC key. | Derived from AICR v0.14.0 |
 | [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | A training platform: EKS, H100 nodes, Kubeflow, a training job. | AWS and GPU capacity to run it. Reading it costs nothing. | AICR v0.14.0 |
 | [The same platform, four minor versions later](./eks-h100-training-kubeflow-v0-18-0.md) | The same training platform regenerated, so you can see what upstream changed. | As above. | AICR v0.18.0 |
+| [AICR v0.19.0 with source, objects, variants, and release OCI](./eks-h100-training-kubeflow-v0-19-0.md) | The same training choice retained again, including source signatures, 17 exact Applications, all 16 nested-source renders, public input OCI, ConfigHub variants, an approved release OCI, and the blocked EKS/H100 route. | Reading and local verification need no cloud account or GPU. Running it still needs EKS and H100 capacity. | AICR v0.19.0 |
 | [The AICR-native NIM platform](./eks-h100-inference-nim.md) | A cluster that can serve NIM models. | AWS, GPU capacity, and NGC access to run the models. | AICR v0.14.0, `platform: nim` |
 | [NIM on KServe](./kserve-nim-inference.md) | The exact shape one model runs in, at model level rather than cluster level. | As above. | Upstream commit 3ef33472 |
 
@@ -75,20 +76,18 @@ its own receipts next to the old one; it never overwrites the proven shape. This
 is the same retained-versions discipline the chart catalog and the Kubara
 component catalog follow.
 
-That is no longer a policy statement. The catalog now retains
-[v0.18.0 as a second entry](./eks-h100-training-kubeflow-v0-18-0.md), generated
-from the same criteria, so the two versions sit side by side and the difference
-between them is computed rather than described. The
-[version diff](../../../data/aicr-version-diff/summary.md) reads both entries'
-committed bytes on every run. The platform did not change and the parts did:
-the same fifteen components in the same declared order, with nine of them
-pulling a different chart version.
+That is no longer only a policy statement. The catalog retains
+[v0.18.0](./eks-h100-training-kubeflow-v0-18-0.md) and
+[v0.19.0](./eks-h100-training-kubeflow-v0-19-0.md) beside the original entry.
+The [version comparison](../../../data/aicr-version-diff/summary.md) is rebuilt
+from their committed files. It shows which source versions, ordering rules,
+checks, and exact objects changed at each step.
 
-The second version also proves something the first cannot. Its generating
-binary ships the signature bundle this repository verified offline, and it
-reports the same build commit that signature names, so the entry's provenance
-runs from an upstream signer to the bytes on disk rather than from a checksum
-alone.
+The v0.19.0 entry also verifies NVIDIA's signed CLI binary and recipe catalog
+against the exact release-workflow identity. It keeps the AICR recipe, generated
+source chart, literal Application OCI, all sixteen nested renders, route intent,
+field-policy record, promoted staging variant, and approved ConfigHub release
+OCI connected instead of treating one rendered directory as the whole answer.
 
 ## How do I know these are the files AICR wrote?
 

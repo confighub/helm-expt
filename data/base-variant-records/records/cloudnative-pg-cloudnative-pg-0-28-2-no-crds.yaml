@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+      record: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "cloudnative-pg/cloudnative-pg@0.28.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=cloudnative-pg/cloudnative-pg"
@@ -199,11 +221,75 @@ spec:
           namespace: "default"
           purpose: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "backups.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "clusterimagecatalogs.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "clusters.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "databases.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "failoverquorums.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "imagecatalogs.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "poolers.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "publications.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "scheduledbackups.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "subscriptions.postgresql.cnpg.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "default/cnpg-webhook-cert"
+          origin: "base"
+          type: "target-fact"
+          detail: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
+      records:
+        - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -328,264 +414,48 @@ spec:
             name: "cnpg-webhook-cert"
             namespace: "default"
             purpose: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
-      requirements:
-        -
-          category: "crd"
-          name: "backups.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clusterimagecatalogs.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clusters.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "databases.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "failoverquorums.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "imagecatalogs.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "poolers.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "publications.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "scheduledbackups.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "subscriptions.postgresql.cnpg.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "secret"
-          name: "default/cnpg-webhook-cert"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
-          check: ""
-          declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-      actions:
+      requirementRefs:
+        - "backups.postgresql.cnpg.io"
+        - "clusterimagecatalogs.postgresql.cnpg.io"
+        - "clusters.postgresql.cnpg.io"
+        - "databases.postgresql.cnpg.io"
+        - "failoverquorums.postgresql.cnpg.io"
+        - "imagecatalogs.postgresql.cnpg.io"
+        - "poolers.postgresql.cnpg.io"
+        - "publications.postgresql.cnpg.io"
+        - "scheduledbackups.postgresql.cnpg.io"
+        - "subscriptions.postgresql.cnpg.io"
+        - "default/cnpg-webhook-cert"
+      records:
+        - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "11 target prerequisites declared by this base."
-        declarationSource: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "backups.postgresql.cnpg.io"
+      - "clusterimagecatalogs.postgresql.cnpg.io"
+      - "clusters.postgresql.cnpg.io"
+      - "databases.postgresql.cnpg.io"
+      - "failoverquorums.postgresql.cnpg.io"
+      - "imagecatalogs.postgresql.cnpg.io"
+      - "poolers.postgresql.cnpg.io"
+      - "publications.postgresql.cnpg.io"
+      - "scheduledbackups.postgresql.cnpg.io"
+      - "subscriptions.postgresql.cnpg.io"
+      - "default/cnpg-webhook-cert"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

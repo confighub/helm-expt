@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+      record: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "jetstack/trust-manager@v0.22.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=jetstack/trust-manager"
@@ -109,11 +131,45 @@ spec:
           namespace: "default"
           purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "bundles.trust.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "trust-manager CRD managed outside this no-crds base"
+        -
+          id: "certificates.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+        -
+          id: "issuers.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+        -
+          id: "cert-manager"
+          origin: "base"
+          type: "target-fact"
+          detail: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for the no-crds base"
+        -
+          id: "default/trust-manager-tls"
+          origin: "base"
+          type: "target-fact"
+          detail: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+      records:
+        - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -173,124 +229,36 @@ spec:
             name: "trust-manager-tls"
             namespace: "default"
             purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
-      requirements:
-        -
-          category: "crd"
-          name: "bundles.trust.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "trust-manager CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-            - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "certificates.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
-          sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-            - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "issuers.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
-          sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-            - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "namespace"
-          name: "cert-manager"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for the no-crds base"
-          check: ""
-          declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-        -
-          category: "secret"
-          name: "default/trust-manager-tls"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
-          check: ""
-          declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-      actions:
+      requirementRefs:
+        - "bundles.trust.cert-manager.io"
+        - "certificates.cert-manager.io"
+        - "issuers.cert-manager.io"
+        - "cert-manager"
+        - "default/trust-manager-tls"
+      records:
+        - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "5 target prerequisites declared by this base."
-        declarationSource: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "bundles.trust.cert-manager.io"
+      - "certificates.cert-manager.io"
+      - "issuers.cert-manager.io"
+      - "cert-manager"
+      - "default/trust-manager-tls"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

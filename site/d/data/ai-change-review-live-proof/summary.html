@@ -442,7 +442,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/ai-change-review-live-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This example sends two versions of the same AICR PyTorch <code>ClusterTrainingRuntime</code> through ConfigHub. The first version asks for eight H100 nodes, changes a digest-pinned image to <code>latest</code>, and puts a placeholder API key directly in the object. ConfigHub reports the mutable AICR image and blocks the inline API key. It does not run Deployment image or probe checks against this custom resource.</p>
 <p>The reviewed version uses four nodes, restores the pinned image, and refers to an existing Secret. Its AICR image and API-key checks are clear. The four-node capacity limit is checked separately against the recorded target facts because the current ConfigHub policy cannot read that target-specific value.</p>

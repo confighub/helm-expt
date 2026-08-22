@@ -18,11 +18,33 @@ spec:
     name: "cluster-metrics-readonly"
     revision: "r001"
     digest: "8d0a34ec191af63663ea2ff2609f86a917340b0fdf7d4a5640a9fab7a1f6809f"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
     inventory: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
     objectCount: 4
+    digest: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+      record: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "prometheus-community/prometheus-node-exporter@4.55.0/cluster-metrics-readonly; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=prometheus-community/prometheus-node-exporter"
@@ -50,11 +72,25 @@ spec:
           packageSource: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
           packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "servicemonitors.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -69,38 +105,28 @@ spec:
             sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
             packageSource: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
             packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "servicemonitors.monitoring.coreos.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
-          check: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
-          packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
-          declarationPath: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
-          sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
-          sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
-            - "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
-      actions:
+      requirementRefs:
+        - "servicemonitors.monitoring.coreos.com"
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "1 target prerequisite declared by this base."
-        declarationSource: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "servicemonitors.monitoring.coreos.com"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

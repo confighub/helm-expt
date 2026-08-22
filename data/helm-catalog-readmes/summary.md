@@ -14,12 +14,12 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | --- | ---: |
 | org | 2 |
 | preset | 21 |
-| environment | 11 |
-| source | 5 |
+| environment | 13 |
+| source | 6 |
 | fleet | 5 |
 | pilot | 1 |
 | route | 2 |
-| total | 47 |
+| total | 50 |
 
 ## Files
 
@@ -56,6 +56,8 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | `prometheus-community-prometheus-29-8-0-server-only-ephemeral` | preset | [README](spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md) | [readme.yaml](units/prometheus-community-prometheus-29-8-0-server-only-ephemeral/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/readme.yaml) |
 | `bitnami-redis-base` | environment | [README](spaces/bitnami-redis-base/README.md) | [readme.yaml](units/bitnami-redis-base/readme.yaml) |
 | `bitnami-redis-prod` | environment | [README](spaces/bitnami-redis-prod/README.md) | [readme.yaml](units/bitnami-redis-prod/readme.yaml) |
 | `bitnami-redis-staging` | environment | [README](spaces/bitnami-redis-staging/README.md) | [readme.yaml](units/bitnami-redis-staging/readme.yaml) |
@@ -66,6 +68,7 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | `hashicorp-vault-env-prod` | environment | [README](spaces/hashicorp-vault-env-prod/README.md) | [readme.yaml](units/hashicorp-vault-env-prod/readme.yaml) |
 | `hashicorp-vault-env-staging` | environment | [README](spaces/hashicorp-vault-env-staging/README.md) | [readme.yaml](units/hashicorp-vault-env-staging/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-19-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/readme.yaml) |
 | `byo-nginx-ai-values-24-0-2-reviewed` | source | [README](spaces/byo-nginx-ai-values-24-0-2-reviewed/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml) |
 | `existing-oci-nginx-replicas-4` | source | [README](spaces/existing-oci-nginx-replicas-4/README.md) | [readme.yaml](units/existing-oci-nginx-replicas-4/readme.yaml) |
 | `kubara-local-platform-v0-12-0` | source | [README](spaces/kubara-local-platform-v0-12-0/README.md) | [readme.yaml](units/kubara-local-platform-v0-12-0/readme.yaml) |

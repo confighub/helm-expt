@@ -442,27 +442,28 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-upstream-watch/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> The snapshot is taken by <code>npm run aicr-upstream-watch:run</code>, which is the only step that reaches the network. The summary is rendered by <code>npm run aicr-upstream-watch:generate</code> and checked offline by <code>npm run aicr-upstream-watch:verify</code>.</p>
 <p>Retaining an exact version is a deliberate choice, and a deliberate choice needs a number next to it. This measures the gap instead of leaving it to be discovered when someone happens to look at a release page.</p>
-<p>Everything below is measured against the snapshot's own timestamp, <b>2026-08-08T15:49:54.745Z</b>, rather than against the clock. The record stays stable until someone takes a new snapshot on purpose, and a stale snapshot is visible as a date rather than hidden behind a moving number.</p>
+<p>Everything below is measured against the snapshot's own timestamp, <b>2026-08-22T10:27:33.441Z</b>, rather than against the clock. The record stays stable until someone takes a new snapshot on purpose, and a stale snapshot is visible as a date rather than hidden behind a moving number.</p>
 <h2 id="the-gap-today">The gap today</h2>
 <p>The catalog's newest retained version is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.</p>
-<table><thead><tr><th>Entry</th><th>Provenance</th><th>AICR version</th><th>Released</th><th>Releases published since</th></tr></thead><tbody><tr><td><code>eks-h100-training-kubeflow</code></td><td>retained-upstream</td><td>v0.14.0</td><td>2026-06-01</td><td>4</td></tr>
-<tr><td><code>eks-h100-training-kubeflow-v0-18-0</code></td><td>retained-upstream</td><td>v0.18.0</td><td>2026-07-23</td><td>0</td></tr>
-<tr><td><code>eks-h100-inference-nim</code></td><td>retained-upstream</td><td>v0.14.0</td><td>2026-06-01</td><td>4</td></tr>
-<tr><td><code>cpu-starter</code></td><td>derived</td><td>v0.14.0</td><td>2026-06-01</td><td>4</td></tr></tbody></table>
+<table><thead><tr><th>Entry</th><th>Provenance</th><th>AICR version</th><th>Released</th><th>Releases published since</th></tr></thead><tbody><tr><td><code>eks-h100-training-kubeflow</code></td><td>retained-upstream</td><td>v0.14.0</td><td>2026-06-01</td><td>5</td></tr>
+<tr><td><code>eks-h100-training-kubeflow-v0-18-0</code></td><td>retained-upstream</td><td>v0.18.0</td><td>2026-07-23</td><td>1</td></tr>
+<tr><td><code>eks-h100-training-kubeflow-v0-19-0</code></td><td>retained-upstream</td><td>v0.19.0</td><td>2026-08-10</td><td>0</td></tr>
+<tr><td><code>eks-h100-inference-nim</code></td><td>retained-upstream</td><td>v0.14.0</td><td>2026-06-01</td><td>5</td></tr>
+<tr><td><code>cpu-starter</code></td><td>derived</td><td>v0.14.0</td><td>2026-06-01</td><td>5</td></tr></tbody></table>
 <p>A derived entry carries the version of the entry it came from, so it moves when that entry moves rather than on its own. Listing it here keeps the row count equal to the number of entries whose freshness depends on an AICR release.</p>
 <h2 id="recent-upstream-releases">Recent upstream releases</h2>
-<table><thead><tr><th>Release</th><th>Published</th><th>In the catalog</th></tr></thead><tbody><tr><td>v0.18.0</td><td>2026-07-23</td><td>retained</td></tr>
+<table><thead><tr><th>Release</th><th>Published</th><th>In the catalog</th></tr></thead><tbody><tr><td>v0.19.0</td><td>2026-08-10</td><td>retained</td></tr>
+<tr><td>v0.18.0</td><td>2026-07-23</td><td>retained</td></tr>
 <tr><td>v0.17.0</td><td>2026-07-14</td><td>not retained</td></tr>
 <tr><td>v0.16.0</td><td>2026-06-30</td><td>not retained</td></tr>
 <tr><td>v0.15.0</td><td>2026-06-15</td><td>not retained</td></tr>
-<tr><td>v0.14.0</td><td>2026-06-01</td><td>retained</td></tr>
-<tr><td>v0.13.0</td><td>2026-05-16</td><td>not retained</td></tr></tbody></table>
+<tr><td>v0.14.0</td><td>2026-06-01</td><td>retained</td></tr></tbody></table>
 <h2 id="the-cadence-is-computed-now">The cadence is computed now</h2>
-<p>The median gap between minor releases is <b>14 days</b>, over 9 intervals across 10 minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which the measurement supports. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.</p>
+<p>The median gap between minor releases is <b>14 days</b>, over 10 intervals across 11 minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which the measurement supports. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.</p>
 <p>The measurement covers minor releases only. This project publishes several tags on one day, so a median across every tag would be a day and would say nothing about how fast the platform moves. What a retained version cares about is when the next minor lands.</p>
 <p>That number is what makes retention a decision rather than neglect. A version retained today falls a release behind within about 14 days whatever anyone intends, and the catalog's answer is to retain deliberately and record the distance rather than chase the tag.</p>
 <h2 id="what-this-does-not-do">What this does not do</h2>

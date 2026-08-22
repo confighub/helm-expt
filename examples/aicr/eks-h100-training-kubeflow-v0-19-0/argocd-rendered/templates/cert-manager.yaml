@@ -1,0 +1,66 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/cert-manager.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: 'cert-manager'
+    namespace: argocd
+spec:
+    destination:
+        namespace: cert-manager
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: cert-manager
+        helm:
+            values: |-
+                cainjector:
+                  resources:
+                    limits:
+                      cpu: 50m
+                      memory: 320Mi
+                    requests:
+                      cpu: 50m
+                      memory: 320Mi
+                  tolerations:
+                  - operator: Exists
+                crds:
+                  enabled: true
+                fullnameOverride: cert-manager
+                prometheus:
+                  servicemonitor:
+                    enabled: false
+                resources:
+                  limits:
+                    cpu: 50m
+                    memory: 90Mi
+                  requests:
+                    cpu: 50m
+                    memory: 90Mi
+                startupapicheck:
+                  enabled: true
+                  tolerations:
+                  - operator: Exists
+                tolerations:
+                - operator: Exists
+                webhook:
+                  resources:
+                    limits:
+                      cpu: 50m
+                      memory: 40Mi
+                    requests:
+                      cpu: 50m
+                      memory: 40Mi
+                  tolerations:
+                  - operator: Exists
+        repoURL: https://charts.jetstack.io
+        targetRevision: 1.20.2
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

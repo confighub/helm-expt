@@ -129,6 +129,9 @@ destination and staging checks, a ConfigHub promotion when selected, and the rec
 delivery result. Aggregate outcomes belong in the public challenge-intake record;
 personal details remain outside Git.
 
+The [simulation findings](../planning/config-workshop-simulation-findings.md) record
+the automated navigation checks, their limits, and the human tests still required.
+
 The website, catalog, and public tools handle useful configuration work around OCI.
 They can prepare source before the first OCI is built, inspect an existing OCI, or
 produce a new OCI after checking or changing its contents. They help people work with
@@ -282,27 +285,72 @@ that exact version. The intake process is documented in
 
 ## Configuration taxonomy
 
-Use one processing model for every input format:
+Use one model for every input format. It has two connected tracks:
+
+```text
+configuration lineage
+  source and intent -> exact base -> derived variant -> promoted release
+
+lifecycle handling
+  requirements -> route intent -> destination resolution -> execution -> receipt
+```
+
+The full operating sequence is:
 
 ```text
 source + processing intent
+  -> select and lock inputs
   -> materialize exact Kubernetes objects
-  -> decide whether to flatten
-  -> attach lifecycle routes and protected ownership
-  -> retain, compare, promote, and publish
-  -> reconcile on a target
-  -> observe the runtime result
+  -> capture an exact configuration revision
+  -> identify lifecycle requirements
+  -> decide the flattening lane for the intended path
+  -> retain a reviewed base
+  -> derive or update a variant
+  -> recheck affected requirements, ownership, and flattening assumptions
+  -> resolve lifecycle routes for the variant, destination, and delivery runtime
+  -> compare, test, approve, and promote
+  -> publish an immutable release
+  -> reconcile the objects and perform the lifecycle work
+  -> observe the result and record receipts
 ```
+
+This sequence has loops. A source upgrade returns to materialization. A variant can
+add or remove a prerequisite. A new destination or delivery runtime can require a
+different route even when the object digest is unchanged.
+
+Every identity must name its role. An OCI manifest digest identifies an OCI manifest; it is
+not the digest of the Kubernetes object set inside it. A base-revision digest,
+exact-object digest, ConfigHub Unit data hash, and release OCI digest also identify
+different records. A receipt may bind them through an exact-object comparison; it must
+not call unlike hashes the same digest. For Helm, the base-revision digest covers the
+complete variant revision, including its inputs and object-set identity.
 
 A step may be a recorded no-op. Plain Kubernetes YAML is already materialized. A
 literal configuration OCI is already flat. Those inputs still need provenance,
 checks, lifecycle decisions, promotion history, delivery, and runtime evidence.
 
+The following rules apply at every source boundary:
+
+1. Record the source identity and choices before claiming that an object set is
+   reproducible.
+2. Give the exact object set its own digest. Do not substitute a source-package,
+   OCI-manifest, or ConfigHub Unit hash for it.
+3. Decide flattening for one exact processing boundary. A flat wrapper does not make
+   its nested sources flat.
+4. Treat a missing lifecycle record as a gap. It is not evidence that no route is
+   required.
+5. Recheck requirements and field ownership after a derived variant changes.
+6. Resolve routes only when the exact variant, destination, and delivery runtime are
+   known. Promotion reviews that resolution; delivery performs it.
+7. Call lifecycle work executed only when the required receipt exists.
+8. Name the role of every OCI artifact and digest. OCI transports records; it does
+   not perform hooks, provision infrastructure, or prove runtime health.
+
 These terms describe different decisions. Do not use them interchangeably.
 
 | Term | Meaning |
 | --- | --- |
-| Source package or source configuration | The chart, recipe, package, generator input, OCI, or YAML that the user starts with. |
+| Source package or source configuration | The chart, source-native recipe, package, generator input, OCI, or YAML that the user starts with. Recipe is not a general name for every configuration. |
 | Processing intent | The source identity and the choices needed to produce or select exact objects. It includes build or render inputs, target assumptions, and known lifecycle decisions. |
 | Materialize | Produce or read the exact Kubernetes objects that will be reviewed. Helm renders; AICR and Kubara generate or compose; a source OCI invokes its declared processor; literal YAML and literal configuration OCI need no source transformation. Materializing does not apply objects or prove runtime health. |
 | Exact configuration revision | The accepted Kubernetes objects, object inventory, and digest for one revision. This is the source-neutral equivalent of a captured output. |
@@ -312,10 +360,14 @@ These terms describe different decisions. Do not use them interchangeably.
 | Preset configuration or base variant | A maintained starting shape such as `default`, `no-crds`, `reuse-existing-secret`, or `ha`. It fixes the choices needed to produce and operate that reviewed base. |
 | Derived variant | A ConfigHub version for an environment, region, customer, or target. It changes accepted objects after the base render; Helm is not rendered again. |
 | Flatten | Keep the exact materialized objects as the configuration that later systems review and deliver instead of rerunning the source processor during delivery. For literal YAML or literal configuration OCI this is a recorded no-op. |
-| Safe to flatten | The exact version, preset, and target path has no required Helm behavior outside the retained objects. Source, object digest, checks, and evidence still travel with it. |
-| Flatten with routes | Retain the literal objects, but also carry named prerequisites or lifecycle routes for CRDs, hooks, certificates, Secrets, setup Jobs, ordering, or other work around apply. |
-| Process late (`render late` for Helm) | Keep the source and inputs authoritative at deployment time because live lookup, generated state, destructive lifecycle behavior, or another unresolved dependency makes the literal path unsafe for this use case. Record the reason instead of pretending the source was flattened. |
-| Lifecycle route | A record of work that ordinary apply does not perform safely by itself. It states what runs, who runs it, in what order, how it is checked or retried, and which receipt proves the result. A lifecycle route is not a render. |
+| `born-flattened` | Literal YAML or configuration OCI already contains exact objects. Materialization and flattening are recorded no-ops, while provenance, requirements, ownership, checks, and delivery still need records. |
+| `safe-to-flatten` | The exact source, configuration, and intended path has no required processor behavior outside the retained objects. Source, object digest, checks, and evidence still travel with it. |
+| `flatten-with-routes` | Retain the literal objects, but also carry named lifecycle requirements and route intents for CRDs, hooks, certificates, Secrets, setup Jobs, ordering, or other work around apply. |
+| `unsafe-to-flatten` | Keep the source and inputs authoritative because live lookup, generated state, destructive lifecycle behavior, or another unresolved dependency has no adequate route for this use case. The operating response is process late (`render late` for Helm). |
+| Lifecycle requirement | Something that must exist or happen around ordinary object apply, such as a CRD, hook, setup Job, certificate, controller, model, cloud resource, or prerequisite Secret. It can originate in the source, exact objects, variant, or destination. |
+| Route intent | A portable proposal for handling one or more lifecycle requirements. It may name supported runtimes and constraints, but it is not yet bound to a particular variant and destination. |
+| Resolved lifecycle route | The selected actor, order, mechanism, checks, retry rule, and failure rule for an exact configuration digest, variant, destination, and delivery runtime. |
+| Receipt | The recorded result of generation, a check, lifecycle work, promotion, delivery, or a runtime test. A route without its required receipt remains planned work. |
 | No route required | An explicit reviewed result that this exact configuration needs no separate lifecycle work. A missing route record does not mean the same thing. |
 | Protected local field | A field intentionally owned by a downstream variant and preserved during promotion or source refresh. It is not the same as a Secret or a Kubernetes resource protected from pruning. |
 | Secret or protected input | Credential material stays outside portable configuration. The configuration records a Secret reference or target requirement, not the secret value. |
@@ -324,19 +376,26 @@ These terms describe different decisions. Do not use them interchangeably.
 
 ### How each source uses the model
 
-| Source | How exact objects are materialized | Source-and-intent record | Flattening decision |
-| --- | --- | --- | --- |
-| Helm chart | Run Helm with recorded values and render context. | `HelmRenderIntent`; the captured output is its Helm render variant. | Keep the captured objects, keep them with routes, or render late. |
-| AICR, Kubara, or another generator | Run its declared generation or composition step, including any nested Helm work it declares. | Recipe or source revision, selected options, build receipts, required controllers, and output digest. | Keep the generated objects, keep them with routes, or process late. |
-| Installer or source OCI | Pull by digest, inspect its declared role, then invoke the processor it contains or references. | Input OCI reference and digest, package role, processor, selections, and receipts. | Decide from the produced objects and remaining lifecycle work. A source OCI is not automatically deployable. |
-| Literal configuration OCI | Pull by digest and read the contained Kubernetes objects. Materialization is a no-op apart from parsing and canonicalization. | Input OCI reference and digest, object inventory, provenance, checks, and any prior transformation. | Already flat; record whether routes or protected inputs must travel beside it. |
-| Plain Kubernetes YAML | Read, parse, and canonicalize the files. Materialization is a no-op. | Source path or revision, file checksums, object inventory, and checks. | Already flat; record any lifecycle work, ownership, and later packaging. |
-| ConfigHub Units or release OCI | Read the retained exact objects and revision history. Materialization is a no-op. | Space, Unit revisions, source link, approvals, release digest, and receipts. | Already retained as data; publish and reconcile the selected revision. |
+| Source | Materialize | Source-and-intent record | Flattening result | Later route resolution |
+| --- | --- | --- | --- | --- |
+| Helm chart | Run Helm with recorded values and render context. | `HelmRenderIntent`; the captured output is its Helm render variant. | `safe-to-flatten`, `flatten-with-routes`, or `unsafe-to-flatten`. | Recheck hooks, CRDs, generated state, target facts, and controller handling for the selected variant and destination. |
+| AICR | Run its declared composition step, including nested Helm work it declares. | Native AICR recipe, selected options, build receipts, required controllers, and output digest. | Flatten the generated layer, flatten it with routes, or process part of the composition late. | Bind component order, required controllers, GPU or cloud facts, and nested source work to the target. |
+| Kubara or another generator | Run its declared generation step, including nested source processing it declares. | Source revision, selected options, build receipts, required controllers, and output digest. Do not call it a recipe unless the source tool does. | Flatten the generated layer, keep routes beside it, or process the source late. | Bind platform prerequisites, component ownership, and controller work to the chosen platform target. |
+| Installer or source OCI | Pull by digest, inspect its declared role, then invoke the processor it contains or references. | Input OCI reference and digest, package role, processor, selections, and receipts. | Decide from the produced objects and remaining lifecycle work. A source OCI is not automatically deployable. | Resolve the resulting requirements; OCI transport does not perform them. |
+| Literal configuration OCI | Pull by digest and read the contained Kubernetes objects. Materialization is a no-op apart from parsing and canonicalization. | Input OCI reference and digest, object inventory, provenance, checks, and any prior transformation. | `born-flattened`; record whether route intents or protected inputs travel beside it. | Resolve prerequisites, ordering, ownership, and setup for the destination. |
+| Plain Kubernetes YAML | Read, parse, and canonicalize the files. Materialization is a no-op. | Source path or revision, file checksums, object inventory, and checks. | `born-flattened`; record lifecycle requirements, ownership, and later packaging. | Resolve any required work for the destination and runtime. |
+| ConfigHub Units or release OCI | Read the retained exact objects and revision history. Materialization is a no-op. | Space, Unit revisions, source link, approvals, release digest, and receipts. | Already retained as data. | Resolve the selected revision against its assigned target and delivery runtime. |
+
+Flattening is evaluated at each processing boundary. An AICR Application set can be
+flattened while the Helm charts referenced by those Applications remain render-late.
+An OCI artifact can contain source material, literal configuration, or a ConfigHub
+release. Its role and consumer must be recorded rather than inferred from the word
+OCI.
 
 Do not call the combined record a "full rendering." The complete managed record is
-the source and intent, the exact configuration revision, lifecycle routes, and
-runtime receipts. Each part answers a different question and may change on a
-different schedule.
+the source and intent, exact configuration revision, flattening verdict, lifecycle
+requirements, route resolutions, field ownership, release, and scoped receipts. Each
+part answers a different question and may change on a different schedule.
 
 The flattening verdict belongs to an exact source version, preset, and intended target
 path. A safe verdict for one case does not cover every values combination or future
@@ -344,22 +403,53 @@ version. Read [When to flatten configuration](flattening-alignment.md) for the d
 rules and [The ConfigHub data model](../user/confighub-data-model.md) for how the
 records connect before, inside, and after ConfigHub.
 
+### What each stage must leave behind
+
+| Stage | Required result | Recheck when |
+| --- | --- | --- |
+| Select and lock | Source identity, version, digest or checksum, and chosen inputs | The source or any source-owned choice changes |
+| Materialize | Exact Kubernetes objects, inventory, object digest, and processor receipt or recorded no-op | The source, processor, render context, or relevant target fact changes |
+| Decide flattening | One scoped verdict for this processing boundary | The source, lifecycle-sensitive variant, destination, or runtime changes |
+| Retain a base | Exact objects linked to source, requirements, route intents, ownership, and evidence | The accepted base changes |
+| Derive a variant | Exact variant revision plus inherited, added, changed, and removed requirements | Any variant field changes |
+| Resolve lifecycle work | Actor, order, mechanism, checks, retry, and failure rule for the exact variant and destination | The variant, destination, or delivery runtime changes |
+| Review and promote | Object diff, lifecycle diff, ownership result, checks, decision, and destination plan | The candidate or destination changes |
+| Publish and deliver | Immutable release digest, selected consumer, and execution receipts | A new release is published or delivery is retried |
+| Observe | Target identity, observed object or workload result, time, and freshness | The release or live target changes, or the observation expires |
+
 ## The ways configuration enters
 
-There are three current entry paths.
+The Catalog currently has records for seven concrete entry forms:
 
-1. A Helm user chooses a preset configuration from the Configuration Catalog. `cub
-   installer` pulls the chart package, renders the chosen preset locally, and keeps the
-   chart, values, source lock, and known Helm lifecycle work together.
-2. An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle,
-   its checksums, OCI digest, and any controller requirements can be uploaded and
-   recorded as a ConfigHub base variant.
-3. A team with existing Kubernetes YAML can package the literal files as OCI, or point
-   `cub variant upload` at files directly. This is also the path `cub installer` can use
-   after it has rendered a selected preset.
+1. **Helm:** keep the chart and values, record the render context, and capture one
+   exact render variant.
+2. **AICR:** keep the native recipe and selected options, then record each generated
+   processing boundary and its controller requirements.
+3. **cub installer source OCI:** pull a public multi-preset package by digest, select
+   one preset, and record the exact objects it produces.
+4. **Kubara or another generator:** keep its native source and generation inputs,
+   then record the generated platform configuration and nested sources.
+5. **Sveltos:** retain the literal fleet configuration while keeping the referenced
+   Helm source as a later processing boundary.
+6. **Literal configuration OCI:** pull exact Kubernetes objects by digest and import
+   them without rerendering.
+7. **Plain Kubernetes YAML:** read and retain the supplied objects without a render
+   step.
 
-These paths do not require a replacement chart language. Teams keep their Helm charts,
-AICR recipes, and existing files.
+A ConfigHub revision or release OCI can also re-enter the model as an exact retained
+revision. The current Catalog demonstrates that later boundary in delivery evidence,
+but it does not yet have a separate ConfigHub-re-entry base record. A generic source
+OCI that uses a processor other than cub installer is also defined by the model but
+does not yet have its own Catalog example.
+
+These paths do not require a replacement chart language. Teams keep their Helm
+charts, AICR recipes, generators, OCI packages, and existing files.
+
+The generated base records use these precise source types. The live apply-policy
+selector uses a smaller operational label set: plain YAML, literal configuration OCI,
+and ConfigHub revisions are grouped as `rendered-config`; a processor-specific source
+OCI uses the processor's label. That grouping chooses checks. It does not replace the
+source-and-intent record or its more precise provenance.
 
 ## What a base variant records
 
@@ -370,8 +460,13 @@ A ConfigHub base variant needs more than a directory of YAML.
 - The source and intent record that explains where the configuration came from, which
   choices produced these objects, and what remains to be supplied or performed.
 - The choices fixed at build time and the small set still allowed at install time.
-- Prerequisites and lifecycle work such as CRDs, hooks, webhook certificates, setup
-  jobs, Secrets, storage, namespaces, and target capabilities.
+- The flattening verdict for this exact source and base, or an explicit
+  `not-assessed` state.
+- Lifecycle requirements and portable route intents for CRDs, hooks, webhook
+  certificates, setup jobs, Secrets, storage, namespaces, target capabilities, and
+  other work known before a destination is selected.
+- The ownership assessment for source-controlled fields, variant-controlled fields,
+  protected inputs, and prune behavior, or an explicit gap.
 - Provenance, checksums, tests, policy results, approvals, and delivery receipts.
 - The operational class: user workload, system service, or system configuration, plus
   the owner and expected change cadence.
@@ -400,8 +495,12 @@ The source format determines the concrete record:
 | --- | --- |
 | Helm | `HelmRenderIntent`, including the chart, version, values profile, release context, source lock, output, prerequisites, and lifecycle routes |
 | AICR | The AICR recipe plus its generation and bundle receipts, including fixed choices, remaining inputs, controller requirements, and OCI digests |
-| Existing OCI | An OCI source record containing the input reference and digest, package role, object inventory, checks, and any recorded transformation |
+| cub installer or another source OCI | An OCI source record containing the input reference and digest, package role, processor, selected preset or options, output inventory, and receipts |
+| Kubara or another generator | The source revision, generation inputs, nested source boundaries, output inventory, controller requirements, and receipts |
+| Sveltos | The exact ClusterProfile or related fleet objects, selectors, referenced sources, management-cluster requirements, and receipts |
+| Literal configuration OCI | The input reference and digest, object inventory, checks, prerequisites, and any recorded transformation |
 | Plain Kubernetes YAML | A source record containing the source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision |
+| ConfigHub revision or release OCI | Space and Unit revisions, upstream links, approvals, release digest, and prior delivery receipts |
 
 The role may be represented by a source Unit, Space metadata plus a committed
 receipt, or a generated base-variant record. ConfigHub does not yet have one
@@ -422,17 +521,44 @@ The source and intent record and the literal objects stay connected. A rendered 
 file on its own is useful, but it cannot explain why a hook was replaced, who owns a
 CRD, or which target facts were required.
 
+### Route resolution after the base
+
+A base records lifecycle requirements and portable route intents. It cannot normally
+claim one final route because no derived variant, destination, or delivery runtime has
+been selected yet.
+
+| Point | Required record |
+| --- | --- |
+| Base creation | Requirements discovered from the source and exact objects, possible route handling, and any known target facts. |
+| Variant creation or change | Requirements inherited, added, changed, or removed by the variant, plus fields that the variant owns. |
+| Destination assignment | Target facts and the selected delivery runtime. |
+| Promotion review | One route resolution bound to the exact candidate digest, destination, runtime, actor, order, checks, retry rule, and failure rule. |
+| Delivery | Receipts for the release digest, controller reconciliation, executed lifecycle work, and runtime result. |
+
+The route resolution must be recalculated when a relevant input changes. This
+includes a new source version, a variant that changes generated or lifecycle-sensitive
+fields, a different destination, or a switch between Argo CD, Flux, and direct apply.
+An unchanged object digest does not make two destination routes equivalent.
+
 ## Configuration, Lifecycle, Transport, And Runtime
 
-The model separates four records:
+The model keeps these record roles separate:
 
 1. The **source and intent record** explains the source and the choices that produced
    the configuration.
 2. The **exact configuration** records the accepted Kubernetes objects and their
    digest.
-3. The **lifecycle record** states the work required around apply, including order,
-   actor, retry behavior, target facts, and evidence.
-4. The **runtime result** records what the selected target and workload actually did.
+3. The **flattening verdict** states whether that exact object set can travel alone,
+   needs route companions, or must leave source processing until later.
+4. The **lifecycle requirements and route intents** record work known before a
+   destination is selected.
+5. The **field-ownership record** separates source-owned, variant-owned,
+   target-supplied, and delivery-owned choices.
+6. The **variant revision** records the exact accepted changes after the base.
+7. The **route resolution** binds the exact variant to a destination, delivery
+   runtime, actor, order, checks, retry rule, and failure rule.
+8. The **release, delivery, lifecycle, and runtime receipts** record what was
+   published, reconciled, performed, and observed.
 
 These records have different clocks and different proof. Helm hooks and setup Jobs
 may run once or on every upgrade. CRDs need ownership, apply ordering, and an
@@ -449,19 +575,28 @@ what runs: `cub installer` renders, ConfigHub stores and changes records, Argo C
 Flux reconciles Kubernetes objects, cloud controllers provision infrastructure, and
 model servers answer inference requests.
 
-The current `BundleRoute` schema covers chart-specific work needed by certified
-bundles. Cloud and model workflows may use source-specific lifecycle records until a
-shared schema has been proven by several working examples. They must still answer the
-same questions: what runs, who runs it, in what order, how interruption and retry are
-handled, and which receipt proves the result.
+The current `BundleRoute` schema covers portable chart-specific route intents needed
+by certified bundles. The `LifecycleRouteResolution` schema binds requirements and
+route intents to an exact variant, destination, and delivery runtime. The first three
+resolution records cover the same kube-prometheus-stack base through direct apply,
+Argo CD, and Flux. Cloud and model workflows may keep source-specific lifecycle
+records until several working examples justify a shared extension. In every format,
+the final route resolution must answer the same questions: what runs, who runs it, in
+what order, on which destination, through which runtime, how interruption and retry
+are handled, and which receipt proves the result.
 
 The [flattening decision guide](./flattening-alignment.md) states when those objects
 can stand alone, when lifecycle work must travel beside them, and when the source must
 still render late.
 
-Every real base must also state whether those surrounding records are complete:
+Every real base must also state whether its surrounding records are complete:
 
-- lifecycle work is either attached, explicitly unnecessary, or an actionable gap;
+- a flattening verdict is decided or explicitly `not-assessed`;
+- lifecycle requirements are attached, explicitly unnecessary, or an actionable gap;
+- route intent is attached, explicitly unnecessary, or an actionable gap;
+- destination resolution is marked as waiting until a variant and target are selected,
+  or points to an exact resolution record;
+- field ownership is declared, partly declared, or not assessed;
 - target prerequisites are either declared, explicitly unnecessary, or an actionable
   gap;
 - a route copied from another chart version remains a gap until the exact version has
@@ -471,8 +606,9 @@ Every real base must also state whether those surrounding records are complete:
 - prerequisite checks expire at the next render or apply unless a stricter recorded
   rule says otherwise.
 
-These states belong in the generated render intent, the master matrix, and the chart
-page. Missing information must not be presented as “nothing required.”
+These states belong in the generated source record, base-variant record, master
+matrix, and Catalog page. Missing information must not be presented as "nothing
+required."
 
 ## The OCI packages are not all the same
 
@@ -526,6 +662,13 @@ and shows the exact mutations before they are accepted.
 When a change alters what Helm must render, it belongs in a new Helm base variant.
 When it changes the operating context or an object field after render, it belongs in a
 derived variant.
+
+Derived does not mean lifecycle-free. A variant can add a target-owned Secret,
+remove bundled CRDs, change a storage class, select a cloud identity, or introduce an
+object that needs ordered handling. Promotion must therefore compare the objects,
+preserve protected destination fields, and resolve lifecycle requirements for the
+destination. The base route intent is inherited input to that decision, not the final
+answer.
 
 ## Fleet delivery
 

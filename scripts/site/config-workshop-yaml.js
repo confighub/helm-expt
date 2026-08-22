@@ -236,13 +236,22 @@
   }
 
   function lifecycleFromRecord(record, candidateSet) {
-    const routes = Array.isArray(record?.spec?.routing?.routes) ? record.spec.routing.routes : [];
-    const targetFacts = record?.spec?.routing?.targetFacts || {};
-    const requirements = Array.isArray(targetFacts.requirements) ? targetFacts.requirements : [];
+    const lifecycle = record?.spec?.lifecycle || {};
+    const routes = Array.isArray(lifecycle?.routeIntent?.routes)
+      ? lifecycle.routeIntent.routes
+      : [];
+    const targetFacts = lifecycle?.targetFacts || {};
+    const requirements = Array.isArray(lifecycle?.requirements?.items)
+      ? lifecycle.requirements.items.map((item) => ({
+          ...item,
+          name: item.name || item.id || "",
+          category: item.category || item.type || "setup-item",
+        }))
+      : [];
     const objects = candidateSet?.objects || [];
     const routeDispositions = {};
     for (const route of routes) {
-      const disposition = String(route.disposition || route.status || "not-stated");
+      const disposition = String(route.sourceStatus || route.status || "not-stated");
       routeDispositions[disposition] = (routeDispositions[disposition] || 0) + 1;
     }
     return {
@@ -256,11 +265,22 @@
       },
       coverage: {
         routes: {
-          state: record ? (routes.length ? "recorded" : "none-recorded") : "record-not-supplied",
+          state: record ? (routes.length ? "attached" : "none-recorded") : "record-not-supplied",
+          intentStatus: lifecycle?.routeIntent?.status || (record ? "not-declared" : "record-not-supplied"),
           dispositions: routeDispositions,
         },
-        targetFacts: targetFacts?.coverage || {
+        targetFacts: targetFacts?.status ? {
+          state: Object.keys(targetFacts.declared || {}).length || (targetFacts.requirementRefs || []).length
+            ? "attached"
+            : "none-recorded",
+          recordStatus: targetFacts.status,
+          requirementRefs: targetFacts.requirementRefs || [],
+        } : {
           state: record ? "not-declared" : "record-not-supplied",
+        },
+        resolution: lifecycle?.resolution || {
+          status: record ? "not-recorded" : "record-not-supplied",
+          records: [],
         },
       },
     };

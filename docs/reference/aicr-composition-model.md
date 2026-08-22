@@ -1,19 +1,21 @@
 # How AICR composes a platform, and where it overlaps this catalog
 
-Maintained reference, first written 2026-08-07 from AICR v0.14.0, the version
-this catalog retains. Everything below was read from the upstream repository at
-that tag or produced by running the pinned binary, whose checksums match the
-[training entry's generation receipt](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml)
-exactly.
+Maintained reference, first written from AICR v0.14.0 and updated with the
+retained [v0.19.0 entry](../demo/aicr/eks-h100-training-kubeflow-v0-19-0.md).
+The catalog keeps v0.14.0, v0.18.0, and v0.19.0 side by side. Version-specific
+statements link to the corresponding receipt instead of being silently moved to
+the newest release.
 
-This page exists because the catalog built three AICR entries before reading
-how AICR actually works. The entries stand, but several decisions were made
-without knowing the alternatives, and several catalog concepts turn out to have
-upstream equivalents. Both are recorded here.
+This page explains what AICR produces and how those outputs fit the ConfigHub
+processing model. AICR owns source composition and its native recipe format.
+ConfigHub retains, compares, changes, approves, promotes, and delivers the exact
+configuration produced from that source.
 
 ## The composition model
 
-A recipe is a declarative document, not a script. Overlays inherit from each
+AICR calls its resolved source document a **recipe**. That is AICR's native
+term, not the general name for every configuration in this catalog. An AICR
+recipe is a declarative document, not a script. Overlays inherit from each
 other, mixins add capability groups, and the resolved result names its
 components, its ordering, and its checks.
 
@@ -66,6 +68,37 @@ on evidence bundles produced by `aicr validate --emit-attestation`, described
 upstream as letting maintainers and CI verify a contribution without re-running
 validators against hardware they may not have. That is this project's own
 receipts thesis, arrived at independently by the upstream project.
+
+## What v0.19.0 adds to the field-ownership model
+
+AICR v0.19.0 introduces named `gpuStack` profiles for its AKS and GKE source
+families. A selected profile owns a related group of fields. Bundle generation
+refuses a conflicting value and refuses to expose a profile-owned path as an
+install-time parameter.
+
+That maps directly to ConfigHub's protected-field decision:
+
+1. Keep the selected AICR profile in the source-and-intent record.
+2. Regenerate the base when a change belongs to that profile.
+3. Use a derived ConfigHub variant only for a field the selected source leaves
+   open to later change.
+4. Review an overlap before promotion when a refreshed source and a retained
+   variant both touch the same field.
+
+The retained EKS H100 training recipe is unprofiled. Selecting the AKS
+`gpuStack` profile for it is refused. We therefore record GPU-driver ownership
+as unresolved target-specific work for this EKS entry rather than applying the
+AKS rule to a different source family. The exact commands and results are in
+the [field-policy assessment](../../examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml).
+
+This gives each record one job:
+
+- the AICR recipe records the selected platform source;
+- the generated Helm chart records the source package Argo CD can process;
+- the exact Application revision records what ConfigHub can retain now;
+- the route intent records lifecycle work around apply; and
+- receipts record which generation, check, promotion, delivery, or runtime step
+  actually ran.
 
 ## What the study settled about our entries
 

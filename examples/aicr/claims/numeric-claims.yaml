@@ -63,6 +63,12 @@ spec:
     - id: training-v0180-components
       description: The components the retained v0.18.0 recipe declares an order for.
       compute: { kind: listLength, file: examples/aicr/eks-h100-training-kubeflow-v0-18-0/recipe.yaml, path: deploymentOrder }
+    - id: training-v0190-applications
+      description: The Argo CD Applications the v0.19.0 training entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates, suffix: .yaml }
+    - id: training-v0190-components
+      description: The components the retained v0.19.0 AICR recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-h100-training-kubeflow-v0-19-0/recipe.yaml, path: deploymentOrder }
     - id: version-diff-version-only-moves
       description: >-
         Components whose chart version moved between the two retained AICR
@@ -258,11 +264,11 @@ spec:
       page: eks-h100-training-kubeflow-v0-18-0.md
       phrases: ["Nine components"]
 
-    - id: index-cites-the-v0180-components
-      quantity: training-v0180-components
-      page: index.md
-      phrases: ["fifteen components"]
-    - id: index-cites-the-version-moves
-      quantity: version-diff-version-moves
-      page: index.md
-      phrases: ["nine of them"]
+    - id: v0190-page-renders-seventeen
+      quantity: training-v0190-applications
+      page: eks-h100-training-kubeflow-v0-19-0.md
+      phrases: ["17 Applications"]
+    - id: v0190-page-declares-fifteen-components
+      quantity: training-v0190-components
+      page: eks-h100-training-kubeflow-v0-19-0.md
+      phrases: ["15 components"]

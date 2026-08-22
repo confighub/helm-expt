@@ -18,11 +18,33 @@ spec:
     name: "s3-query-observability"
     revision: "r001"
     digest: "7b0f4953c927613a0fe94df67ae5ec22b62672da793f0dd65f123536e7a24ed6"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
     inventory: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
     objectCount: 8
+    digest: "4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed"
+      record: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "grafana/tempo@1.24.4/s3-query-observability; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=grafana/tempo"
@@ -110,11 +132,50 @@ spec:
           purpose: "Object-store region used with the selected endpoint and bucket"
           stage: "pre-render"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "servicemonitors.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+        -
+          id: "tempo-object-store"
+          origin: "base"
+          type: "target-fact"
+          detail: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+        -
+          id: "tempo/tempo-s3-credentials"
+          origin: "base"
+          type: "target-fact"
+          detail: "S3 access credentials referenced by Tempo environment variables"
+        -
+          id: "tempo.storage.trace.s3.endpoint"
+          origin: "base"
+          type: "target-fact"
+          detail: "S3-compatible endpoint that Tempo will write traces to"
+        -
+          id: "tempo.storage.trace.s3.bucket"
+          origin: "base"
+          type: "target-fact"
+          detail: "Existing bucket for Tempo trace blocks"
+        -
+          id: "tempo.storage.trace.s3.region"
+          origin: "base"
+          type: "target-fact"
+          detail: "Object-store region used with the selected endpoint and bucket"
+      records:
+        - "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -172,124 +233,38 @@ spec:
             path: "tempo.storage.trace.s3.region"
             purpose: "Object-store region used with the selected endpoint and bucket"
             stage: "pre-render"
-      requirements:
-        -
-          category: "crd"
-          name: "servicemonitors.monitoring.coreos.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
-          check: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
-          packagePath: "packages/grafana/tempo/1.24.4/prerequisites/target-facts/s3-query-observability-crds.yaml"
-          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-          sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
-          sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-            - "packages/grafana/tempo/1.24.4/prerequisites/target-facts/s3-query-observability-crds.yaml"
-        -
-          category: "object-store"
-          name: "tempo-object-store"
-          namespace: "tempo"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
-          check: ""
-          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-          evidence:
-            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-        -
-          category: "secret"
-          name: "tempo/tempo-s3-credentials"
-          namespace: "tempo"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "S3 access credentials referenced by Tempo environment variables"
-          check: ""
-          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-        -
-          category: "value"
-          name: "tempo.storage.trace.s3.endpoint"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "S3-compatible endpoint that Tempo will write traces to"
-          check: ""
-          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "recipe"
-          evidence:
-            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-        -
-          category: "value"
-          name: "tempo.storage.trace.s3.bucket"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "Existing bucket for Tempo trace blocks"
-          check: ""
-          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "recipe"
-          evidence:
-            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-        -
-          category: "value"
-          name: "tempo.storage.trace.s3.region"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "Object-store region used with the selected endpoint and bucket"
-          check: ""
-          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "recipe"
-          evidence:
-            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-      actions:
+      requirementRefs:
+        - "servicemonitors.monitoring.coreos.com"
+        - "tempo-object-store"
+        - "tempo/tempo-s3-credentials"
+        - "tempo.storage.trace.s3.endpoint"
+        - "tempo.storage.trace.s3.bucket"
+        - "tempo.storage.trace.s3.region"
+      records:
+        - "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "6 target prerequisites declared by this base."
-        declarationSource: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "servicemonitors.monitoring.coreos.com"
+      - "tempo-object-store"
+      - "tempo/tempo-s3-credentials"
+      - "tempo.storage.trace.s3.endpoint"
+      - "tempo.storage.trace.s3.bucket"
+      - "tempo.storage.trace.s3.region"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

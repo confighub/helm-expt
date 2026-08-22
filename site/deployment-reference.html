@@ -612,7 +612,7 @@ em{font-style:italic;color:var(--ink);}
   <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
 
   <h2>3 · See what ConfigHub keeps</h2>
-  <p>For Helm, the source and intent record is the <code>HelmRenderIntent</code>. A chart then has two layers. <strong>Helm renders it</strong>: recipe → base variant → render intent → rendered output. <strong>ConfigHub operates it</strong> afterward by managing variants. The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>Every retained configuration has a source and intent record. For Helm, that record is the <code>HelmRenderIntent</code>: chart, version, values, release context, source lock, and lifecycle choices. AICR keeps its native recipe and generation receipts. OCI and plain YAML keep equivalent source records without being mislabeled as recipes. ConfigHub retains the exact objects as a base variant and manages later variants from that base.</p>
   <p>After upload, use <code>cub k8s</code> to read the Kubernetes objects stored in ConfigHub:</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Commands that read ConfigHub Server data require you to sign in.</p>
   <pre><code>cub k8s types --space &lt;variant-space&gt;
@@ -633,39 +633,39 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   </table>
 
   <div class="fstage">
-    <span class="ftag">RECIPE</span><span class="codetag">F1 · source</span>
-    <h3>The recipe: the recorded inputs</h3>
-    <p>A recipe records the chart and version, the values you chose, the base you picked, and the source locks. It is kept in git. Nothing has been rendered yet.</p>
+    <span class="ftag">SOURCE</span><span class="codetag">F1 · source</span>
+    <h3>Record the source and choices</h3>
+    <p>Record the source version, choices, and locks before producing Kubernetes objects. Helm and AICR call some of these source documents recipes. OCI and plain YAML use source records suited to those formats.</p>
   </div>
 
   <div class="fstage star">
-    <span class="ftag">RENDER</span><span class="codetag">F2 · base → rendered output</span>
-    <h3>Render: inputs first, then the frozen objects</h3>
+    <span class="ftag">MATERIALIZE</span><span class="codetag">F2 · exact base</span>
+    <h3>Produce or read the exact objects</h3>
     <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the chart version, values profile, namespace, capabilities, and source lock.</p>
-    <p>Rendering those inputs produces the <strong>rendered output</strong>: exact Kubernetes objects with a checksum. This is what you read before installation, what we compare with plain Helm, and what a controller can pull unchanged.</p>
+    <p>Helm renders those inputs. AICR and Kubara generate or compose. Literal YAML and configuration OCI already contain objects, so this step only reads and checks them. The result is an exact Kubernetes object set with an inventory and digest.</p>
     <p>Make a new base variant when the source inputs should produce a different object set. Use a derived ConfigHub variant when one environment needs an exact field changed after render.</p>
     <p><strong>Redis example:</strong> the <code>default</code> base has a public package, <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
     <p>The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums. The <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repository source for the base variant. Redis has no hook route; charts with hooks or CRDs record them in lifecycle routes and target facts. <a href="d/data/helm-render-intents/summary.html">Open more render-intent examples</a>.</p>
   </div>
 
   <div class="fstage">
-    <span class="ftag">RECORD</span><span class="codetag">the proof bundle</span>
-    <h3>Record: the evidence, kept with the render</h3>
-    <p>We keep the evidence with each render. It includes checksums, Helm-equivalence evidence, a security scan, an install gate, diffs, and live observations where they exist. A later reviewer or agent can inspect the exact render and repeat the same test. The render intent is the compact, machine-readable index for this evidence.</p>
+    <span class="ftag">IDENTIFY</span><span class="codetag">each digest has one role</span>
+    <h3>Keep the identities separate</h3>
+    <p>The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI have different hashes. A receipt names both sides of a handoff and compares the objects. The Catalog does not treat unlike hashes as the same digest.</p>
   </div>
 
   <div class="fstage">
-    <span class="ftag">ROUTE</span><span class="codetag">F3 · prerequisites &amp; routes</span>
-    <h3>Route: the work Helm leaves at the edges</h3>
+    <span class="ftag">LIFECYCLE</span><span class="codetag">F3 · requirements &amp; routes</span>
+    <h3>Plan the work around ordinary apply</h3>
     <p>Helm can do more than produce ordinary YAML. A chart may install CRDs, run setup jobs, or generate Secrets. It can also require cloud identity, storage, or another existing cluster resource.</p>
     <p>We record the chosen approach for each chart with its inputs, output, tests, and receipts. A base can include its CRDs or leave them to the cluster. It can require a tested setup step or an existing target resource.</p>
-    <p>The catalog blocks a path when no safe default exists. A route records the required work and the evidence for it. We call a route automatic only when the product runs it and a receipt proves the result.</p>
-    <p>The render intent separates requirements declared by the base from follow-up actions learned in live tests. For a recorded lifecycle route, it also says what Argo CD does and what Flux does for that exact chart version and base.</p>
+    <p>The base records each requirement and a portable <strong>route intent</strong>. After a variant and destination are chosen, the route is resolved for direct apply, Argo CD, Flux, or another recorded runtime. A variant can change the requirements, so promotion checks them again.</p>
+    <p>The delivery receipt records what ran. We call a route automatic only when the product ran it and the receipt proves the result.</p>
   </div>
 
   <div class="fstage star">
-    <span class="ftag">CHANGE</span><span class="codetag">F4 · derived variant</span>
-    <h3>Change: derive from a base, and ConfigHub manages it</h3>
+    <span class="ftag">OPERATE</span><span class="codetag">F4 · variants &amp; delivery</span>
+    <h3>Change, promote, and deliver a reviewed variant</h3>
     <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit an exact object field. Create one per environment from a single base.</p>
     <p>ConfigHub reviews, promotes, approves, and delivers the change. On upgrade, it keeps recorded changes that do not overlap changes in the new base. When both sides change the same field, the overlap must be reviewed before promotion.</p>
   </div>
@@ -673,15 +673,16 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <h3>Variants and related records</h3>
   <table class="gtable">
     <tr><th>Word</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
-    <tr><td><strong>Recipe</strong></td><td>The source of renders: chart, version, values, declared bases, declared routing intent.</td><td>It is what gets rendered</td><td>the repo and the package</td></tr>
-    <tr><td><strong>Base variant</strong></td><td>A recipe rendered one named way (default, no-crds, ha…). Changing what gets installed means a new base variant.</td><td>Yes, once, and it's checked against Helm</td><td>the package; a root Space after upload</td></tr>
-    <tr><td><strong>Rendered output</strong></td><td>The <em>frozen, checksummed objects</em> a rendering produced; with its render intent it forms the render record.</td><td>No, it's already rendered</td><td>the recipe's revisions</td></tr>
+    <tr><td><strong>Source and intent</strong></td><td>The source version, choices, locks, and known lifecycle work. It may include a Helm or AICR recipe, but recipe is not the general term.</td><td>It tells the source tool what to produce</td><td>the repo and the package</td></tr>
+    <tr><td><strong>Base variant</strong></td><td>One named, reviewed starting configuration such as default, no-crds, or ha. Changing the source choices means a new base variant.</td><td>Helm bases render once and are checked against Helm</td><td>the package; a root Space after upload</td></tr>
+    <tr><td><strong>Exact configuration</strong></td><td>The frozen, checksummed Kubernetes objects produced or supplied for one revision.</td><td>No; the objects already exist</td><td>the retained revision and configuration OCI</td></tr>
     <tr><td><strong>Derived variant</strong></td><td>A change derived from a base: per-environment context or later edits, upstream link recorded.</td><td>No</td><td>ConfigHub</td></tr>
+    <tr><td><strong>Resolved lifecycle route</strong></td><td>The actor, order, mechanism, checks, and failure rule for one exact variant, destination, and delivery runtime.</td><td>No</td><td>the promotion or release record, followed by delivery receipts</td></tr>
   </table>
-  <p class="quiet-line">A recipe renders into a base variant. A base variant can have derived variants. ConfigHub can compare, promote, approve, deliver, and observe either kind.</p>
+  <p class="quiet-line">A source produces or supplies an exact base variant. ConfigHub can then compare, promote, approve, deliver, and observe that base and its derived variants.</p>
 
-  <h3>Where the recipe lives, today and next</h3>
-  <p>Inside a ConfigHub org, you see Units, clones, revisions, and links. The source recipe lives in this repository and in the package. Every catalog Space also carries a plain data Unit named <code>recipe</code>. It sits beside the objects that recipe produced. The table compares the three forms.</p>
+  <h3>Where Helm source records live today</h3>
+  <p>Inside a ConfigHub org, you see Units, clones, revisions, and links. The authoritative Helm recipe lives in this repository and in the installer package. Existing Helm catalog Spaces also carry a plain data Unit named <code>recipe</code> beside the objects it produced. That Unit preserves the current demo contract; it is not the general name for every source format.</p>
   <table class="gtable">
     <tr><th></th><th>The recipe in this repo</th><th>The <code>recipe</code> unit in an org</th><th>A first-class source object (where this is heading)</th></tr>
     <tr><td><strong>What it is</strong></td><td>The authoritative source: chart pin, source lock, per-base values, revisions.</td><td>A generated record of one render's inputs, placed as data beside the output.</td><td>An executable source object: repository, chart, version, values, in one unit.</td></tr>
@@ -690,12 +691,12 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><strong>Connected to its outputs?</strong></td><td>Through the repo's evidence chain.</td><td>Sits in the same Space, no link.</td><td>Linked to the units it rendered.</td></tr>
     <tr><td><strong>Authority</strong></td><td>Authoritative.</td><td>A copy; it can lag the repo.</td><td>Would become authoritative.</td></tr>
   </table>
-  <p class="quiet-line">The current <code>recipe</code> Unit records where the render came from, but it does not execute or re-render anything. A future source object would need to carry the values itself and link directly to the Units it produces.</p>
+  <p class="quiet-line">The current Helm <code>recipe</code> Unit records where the render came from, but it does not execute or re-render anything. A future source object would need to carry the values itself and link directly to the Units it produces.</p>
 
   <h2>4 · Understand why the records are separate</h2>
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
-    <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So the desired config shows exactly what should run. You can change an exact field after install; ConfigHub keeps non-conflicting recorded changes on upgrade and shows same-field overlaps for review.</td></tr>
+    <tr><td>Keep <strong>exact objects</strong> when the flattening verdict allows it</td><td>The desired configuration shows what should run. When source processing must happen later, the record says so and names the boundary.</td></tr>
     <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers, with no re-render drift between review and runtime.</td></tr>
     <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
@@ -742,7 +743,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
     <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
   </table>
-  <p>The model has four steps: <strong>recipe → render → record → route</strong>. Lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Each live test reports its own result instead of contributing to one blanket success mark:</p>
+  <p>For a Helm catalog entry, the checked path is <strong>source → render → record → route</strong>. Record the chart, version, values, and target assumptions. Render the objects and keep the checks with them. Then record lifecycle work such as hooks or CRD ordering. Other source formats follow the same stages, but they do not need a Helm recipe. Each live test reports its own result instead of contributing to one blanket success mark:</p>
   <div class="counts">
     <div class="count pass"><b>961</b><span>pass</span></div>
     <div class="count watch"><b>116</b><span>watch</span></div>
@@ -762,9 +763,9 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <p>Some catalog steps are pure computations that you can reproduce offline. Other steps touch a live cluster and cannot produce byte-identical results. The table states which type each step belongs to.</p>
   <table class="gtable">
     <tr><th>Stage</th><th>Idempotent?</th><th>Reproducible from source, no cluster?</th><th>Why</th></tr>
-    <tr><td><strong>Render</strong> (recipe → objects)</td><td class="yes">yes</td><td class="yes">yes, byte-identical</td><td>kustomize over the frozen upstream with pinned inputs; same inputs always give the same objects.</td></tr>
+    <tr><td><strong>Render</strong> (Helm source → objects)</td><td class="yes">yes</td><td class="yes">yes, byte-identical</td><td>kustomize over the frozen upstream with pinned inputs; same inputs always give the same objects.</td></tr>
     <tr><td><strong>Record</strong> (receipts, checksums)</td><td class="yes">yes</td><td class="yes">yes</td><td>Just hashing and writing committed content, no live state.</td></tr>
-    <tr><td><strong>Catalog / matrix / site views</strong></td><td class="yes">yes</td><td class="yes">yes</td><td>Re-derived from the committed recipes; stable joins, stable order.</td></tr>
+    <tr><td><strong>Catalog / matrix / site views</strong></td><td class="yes">yes</td><td class="yes">yes</td><td>Re-derived from the committed source and intent records; stable joins, stable order.</td></tr>
     <tr><td><strong>Route</strong> (hooks / CRDs / prereqs)</td><td class="part">plan: yes</td><td class="part">plan: yes · run: no</td><td>Naming and classifying is pure; <em>running</em> a route touches a cluster and may have side effects.</td></tr>
     <tr><td><strong>Apply</strong> (kubectl)</td><td class="part">for listed objects</td><td class="no">no</td><td>Plain apply creates or updates the objects in the files. It does not remove an object merely because that object disappeared from the files.</td></tr>
     <tr><td><strong>Reconcile</strong> (Argo CD / Flux)</td><td class="part">when pruning is enabled</td><td class="no">no</td><td>A controller can converge additions, changes, and removals, but only with the appropriate prune setting enabled and tested.</td></tr>

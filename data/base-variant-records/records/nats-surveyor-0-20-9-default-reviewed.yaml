@@ -18,11 +18,33 @@ spec:
     name: "default-reviewed"
     revision: "r001"
     digest: "c6bacf768440e4207e99fa4f30c12fb48e1ecbcb265cac9d4577290f991852dd"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
     inventory: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
     objectCount: 3
+    digest: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+      record: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "nats/surveyor@0.20.9/default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=nats/surveyor"
@@ -35,60 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
     targetFacts:
-      status: "observed-action-records"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
-        -
-          lane: "G/P"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "operator-review"
-          ownerClass: "operator-review"
-          requiredInputs: "operator review of the runtime residue"
-          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
-          sourceReceipt: "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
-          rerunCommand: "npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
-            - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
-        -
-          lane: "K"
-          prerequisiteKind: "external-api"
-          prerequisiteName: "unknown"
-          actionKind: "provide-external-service"
-          ownerClass: "operator-review"
-          requiredInputs: "the upstream service/endpoint the workload connects to"
-          evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
-          sourceReceipt: "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default-reviewed"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
-            - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
-      coverage:
-        state: "actionable-gap"
-        reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
-    sourceRecord: "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
+      records:
+        - "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

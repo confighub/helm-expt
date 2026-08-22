@@ -1,0 +1,54 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-k8s-ephemeral-storage-metrics"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/k8s-ephemeral-storage-metrics.yaml"
+  source:
+    repoURL: "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+    chart: "k8s-ephemeral-storage-metrics"
+    path: ""
+    targetRevision: "1.19.2"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/010-k8s-ephemeral-storage-metrics/values.yaml"
+    sha256: "e6aa66c3d2bd222465b7bbe0cc28e870045264179e773b33304ee5f1966a04d8"
+  destinationNamespace: "monitoring"
+  command:
+    - "helm"
+    - "template"
+    - "k8s-ephemeral-storage-metrics"
+    - "k8s-ephemeral-storage-metrics"
+    - "--repo"
+    - "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+    - "--version"
+    - "1.19.2"
+    - "--namespace"
+    - "monitoring"
+    - "--values"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/010-k8s-ephemeral-storage-metrics/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/k8s-ephemeral-storage-metrics/objects.yaml"
+    sha256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+    objectCount: 6
+    kinds:
+      ClusterRole: 1
+      ClusterRoleBinding: 1
+      Deployment: 1
+      Service: 1
+      ServiceAccount: 1
+      ServiceMonitor: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

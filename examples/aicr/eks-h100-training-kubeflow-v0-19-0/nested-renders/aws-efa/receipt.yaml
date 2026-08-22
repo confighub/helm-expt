@@ -1,0 +1,49 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-aws-efa"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/aws-efa.yaml"
+  source:
+    repoURL: "https://aws.github.io/eks-charts"
+    chart: "aws-efa-k8s-device-plugin"
+    path: ""
+    targetRevision: "0.5.29"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/002-aws-efa/values.yaml"
+    sha256: "76ba7b20836783744b06c08d238ff7d64d17d0994e176ff0c68256ee62dd90f9"
+  destinationNamespace: "kube-system"
+  command:
+    - "helm"
+    - "template"
+    - "aws-efa"
+    - "aws-efa-k8s-device-plugin"
+    - "--repo"
+    - "https://aws.github.io/eks-charts"
+    - "--version"
+    - "0.5.29"
+    - "--namespace"
+    - "kube-system"
+    - "--values"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/002-aws-efa/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/aws-efa/objects.yaml"
+    sha256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+    objectCount: 1
+    kinds:
+      DaemonSet: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

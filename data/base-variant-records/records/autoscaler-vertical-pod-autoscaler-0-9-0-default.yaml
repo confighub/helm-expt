@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "18615de8df98ce553dea90bb4d7b5c5bd7b3ffbf9c9c51a7e85293d14b1ccf51"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 39
+    digest: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+      record: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "autoscaler/vertical-pod-autoscaler@0.9.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=autoscaler/vertical-pod-autoscaler"
@@ -52,11 +74,25 @@ spec:
           purpose: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
           suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "default/vpa-tls-certs"
+          origin: "base"
+          type: "target-fact"
+          detail: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
+      records:
+        - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -73,35 +109,28 @@ spec:
             namespace: "default"
             purpose: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
             suggestedSource: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
-      requirements:
-        -
-          category: "secret"
-          name: "default/vpa-tls-certs"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
-          check: "Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller"
-          declarationPath: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
-      actions:
+      requirementRefs:
+        - "default/vpa-tls-certs"
+      records:
+        - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "1 target prerequisite declared by this base."
-        declarationSource: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "default/vpa-tls-certs"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

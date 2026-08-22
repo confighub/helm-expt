@@ -442,7 +442,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This repository builds an experimental public site for understanding, testing, and using Kubernetes configuration. It starts with Helm and also includes AICR, OCI packages, and plain Kubernetes YAML.</p>
 <p>The quickest route is the <a href="https://confighub.github.io/helm-expt/site/">Config Workshop website</a>. The canonical <a href="docs/reference/config-catalog-doctrine.html#business-purpose-and-user-journey">business purpose and user journey</a> are maintained together in the catalog doctrine.</p>
@@ -458,6 +458,7 @@
 <p>For Helm, the catalog keeps the original chart and records the values and render context used for each ready-made configuration. It also names work that a flat manifest cannot explain by itself, such as CRDs, hooks, Secrets, and setup jobs. The project checks that the rendered objects match Helm and links the evidence from each chart page.</p>
 <p>You can also bring your own chart and values, an AICR package, an existing OCI artifact, or Kubernetes YAML. The result can stay as files, become OCI for Argo CD or Flux, or enter ConfigHub.</p>
 <p>ConfigHub is where a reviewed result becomes a shared record. Teams can change the real Kubernetes objects, keep those changes through upgrades, create test and production variants, apply policy, approve releases, and track delivery to clusters.</p>
+<p>Every retained configuration also has a <b>source and intent record</b>. It names the source, version, choices, required setup, and checks that produced or selected the exact objects. A Helm recipe or AICR recipe can be part of that record because those tools use recipes. OCI and plain YAML keep equivalent source records; they are not relabeled as recipes. The full terminology is in <a href="docs/user/model-and-vocabulary.html">The configuration processing model</a>.</p>
 <h2 id="free-and-managed-paths">Free And Managed Paths</h2>
 <p>The starting examples support local use with no ConfigHub Server and public package use without a ConfigHub account. A hosted no-sign-in service is planned for public configuration checks. You need an account when you want ConfigHub to save, share, change, approve, promote, or roll out the result.</p>
 <p>This is not a replacement chart language. Helm users keep their charts. The workshop makes the output easier to inspect, test, package, and operate.</p>

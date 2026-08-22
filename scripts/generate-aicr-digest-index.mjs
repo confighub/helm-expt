@@ -192,7 +192,7 @@ function compile(root) {
   check(/^[0-9a-f]{40}$/.test(source.commit ?? ""), "generation receipt pins no exact upstream commit");
   check(/^[0-9a-f]{64}$/.test(source.releaseAsset?.sha256 ?? ""), "generation receipt pins no release asset checksum");
   const bundleVersion = source.version.slice(1);
-  const criteria = generationReceipt.spec?.criteria ?? {};
+  const criteria = generationReceipt.spec?.sourceAndIntent?.criteria ?? generationReceipt.spec?.criteria ?? {};
   check(Object.keys(criteria).length > 0, "generation receipt records no recipe criteria");
 
   // A published entry proves its transports with receipts. An unpublished one
@@ -238,9 +238,13 @@ function compile(root) {
       refName: bundleVersion,
       publicTarget: sourcePackage.publicTarget,
     }),
-    manifestTransport(root, "flux-bundle-oci", "flux-bundle", "local-oci-manifest.json", {
-      versionAnnotation: bundleVersion,
-    }),
+    ...(existsSync(join(root, "local-oci-manifest.json"))
+      ? [
+          manifestTransport(root, "flux-bundle-oci", "flux-bundle", "local-oci-manifest.json", {
+            versionAnnotation: bundleVersion,
+          }),
+        ]
+      : []),
   ];
 
   const checksums = readRenderedChecksums(root);
@@ -383,6 +387,12 @@ function renderReadme(compiled) {
   const { index } = compiled;
   const components = index.spec.members.filter((member) => member.role === "component-application");
   const root = index.spec.members.find((member) => member.role === "platform-root");
+  const transportSentence = index.spec.boundary.published
+    ? `the ${index.spec.transports.length} committed OCI transport manifests`
+    : "the planned OCI member references";
+  const publicationSentence = index.spec.boundary.published
+    ? "The OCI receipts next to this directory record the publication that was observed."
+    : "This retained version has no OCI publication receipt, so every OCI reference remains a plan.";
   return `# One digest pins the whole training shape
 
 UNOFFICIAL/EXPERIMENTAL. This directory is compiled by
@@ -396,16 +406,15 @@ ${index.spec.platformDigest}
 \`\`\`
 
 That one value pins the exact upstream source (${index.spec.source.name} ${index.spec.source.version},
-commit \`${index.spec.source.commit}\`), the recipe criteria, the three committed OCI
-transport manifests, and one immutable payload per rendered Argo CD Application:
+commit \`${index.spec.source.commit}\`), the recipe criteria, ${transportSentence},
+and one immutable payload per rendered Argo CD Application:
 ${components.length} waved components plus the \`${root.component}\` root. Change any rendered byte
 anywhere in the shape and the digest changes.
 
 [platform-index.json](./platform-index.json) holds the full index. Each member row
 names its payload file under [payloads/](./payloads/) and the OCI reference the
-payload would publish to. Those references are plans. Nothing in this directory
-claims a registry push; the committed OCI receipts next to this directory carry
-the transport evidence that exists today.
+payload uses or would use. Nothing in this directory claims a registry push by
+itself. ${publicationSentence}
 
 This follows the pattern the Kubara importer proved: per-component immutable
 payloads plus one digest-bound index, compiled offline from committed bytes.

@@ -18,11 +18,33 @@ spec:
     name: "existing-tls-ingress"
     revision: "r001"
     digest: "0d48591ebe834d65713a6fd9a4377ab6c583148cd4ee41fe938d76d9809c4413"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml"
     objectCount: 6
+    digest: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+      record: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "bitnami/nginx@24.0.4/existing-tls-ingress; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=bitnami/nginx"
@@ -57,11 +79,30 @@ spec:
           namespace: "nginx"
           purpose: "TLS certificate material referenced by the Ingress"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "nginx/nginx-backend-tls"
+          origin: "base"
+          type: "target-fact"
+          detail: "TLS certificate material mounted by the NGINX pod"
+        -
+          id: "nginx/nginx-ingress-tls"
+          origin: "base"
+          type: "target-fact"
+          detail: "TLS certificate material referenced by the Ingress"
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -79,49 +120,30 @@ spec:
             name: "nginx-ingress-tls"
             namespace: "nginx"
             purpose: "TLS certificate material referenced by the Ingress"
-      requirements:
-        -
-          category: "secret"
-          name: "nginx/nginx-backend-tls"
-          namespace: "nginx"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "TLS certificate material mounted by the NGINX pod"
-          check: ""
-          declarationPath: "recipes/bitnami/nginx/24.0.4/variants/existing-tls-ingress/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/bitnami/nginx/24.0.4/variants/existing-tls-ingress/variant.yaml"
-        -
-          category: "secret"
-          name: "nginx/nginx-ingress-tls"
-          namespace: "nginx"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "TLS certificate material referenced by the Ingress"
-          check: ""
-          declarationPath: "recipes/bitnami/nginx/24.0.4/variants/existing-tls-ingress/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/bitnami/nginx/24.0.4/variants/existing-tls-ingress/variant.yaml"
-      actions:
+      requirementRefs:
+        - "nginx/nginx-backend-tls"
+        - "nginx/nginx-ingress-tls"
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/bitnami/nginx/24.0.4/variants/existing-tls-ingress/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "nginx/nginx-backend-tls"
+      - "nginx/nginx-ingress-tls"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

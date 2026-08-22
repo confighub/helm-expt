@@ -18,11 +18,33 @@ spec:
     name: "server-only-ephemeral"
     revision: "r001"
     digest: "5c943a249ba70681b117981dd109e59b8be537df7148c3e5d37b6e5c9711bddc"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
     inventory: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/object-inventory.yaml"
     objectCount: 6
+    digest: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812"
+      record: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "prometheus-community/prometheus@29.8.0/server-only-ephemeral; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=prometheus-community/prometheus"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

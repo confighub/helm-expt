@@ -562,6 +562,121 @@ const DEMO_SPACES = [
     ],
   },
   {
+    space: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+    title: "AICR v0.19.0 GPU training platform",
+    kind: "source",
+    summary: "AICR selected an EKS H100 training platform. ConfigHub keeps the 17 exact Argo CD Applications, the source choices, and the work still required on the target.",
+    shows: [
+      "The AICR v0.19.0 recipe selected 15 versioned components for EKS, H100 accelerators, Ubuntu, Kubeflow, and training.",
+      "The generated top-level configuration contains one parent Application and 16 component Applications. Their recorded sync waves preserve AICR's dependency order.",
+      "The source Helm chart and the 17 exact Applications have separate OCI artifacts and digests.",
+      "All 16 nested component sources and retained values render locally. Eight outputs contain CRDs, which still need destination-specific ordering and runtime checks.",
+      "ConfigHub stores the 17 Applications without rerunning AICR. Required approval and the other catalog checks run before ConfigHub can publish the release OCI.",
+    ],
+    open: [
+      "This README.",
+      "The `aicr-eks-h100-training-kubeflow` Unit to inspect the 17 Applications and their sync waves.",
+      "The Space annotations to see the exact configuration OCI reference and digest.",
+      "The route intent to see what Argo CD and the downstream charts must still do.",
+      "The nested-source report to see which exact component sources render and which contain CRDs.",
+    ],
+    why: [
+      "AICR chooses and orders a large AI platform, but the generated result still needs to be reviewed, retained, changed for each environment, and promoted without losing its source history.",
+      "This example connects the AICR recipe, exact source version, generated Helm chart, retained Applications, target requirements, and later ConfigHub changes. It also shows the boundary: the top-level Applications are exact, while their downstream Helm charts still render later in Argo CD.",
+    ],
+    evidence: [
+      ["AICR v0.19.0 guide", "docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md"],
+      ["Source generation receipt", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"],
+      ["Source signature verification", "data/aicr-provenance-v0-19-0/summary.md"],
+      ["Route intent", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"],
+      ["Field ownership assessment", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"],
+      ["Public OCI receipt", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml"],
+      ["ConfigHub upload receipt", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-upload-receipt.yaml"],
+      ["Development and staging promotion", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"],
+      ["Nested source processing", "data/aicr-v0-19-0-nested-sources/summary.md"],
+      ["Staging route resolution", "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"],
+      ["Approved ConfigHub release OCI", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"],
+    ],
+    settingSources: {
+      startingPoint: "The AICR v0.19.0 recipe records EKS, H100, Ubuntu, Kubeflow, and training, plus the 15 selected components and their order.",
+      configHub: "The base has no ConfigHub object changes. Its development and staging variants record one later Grafana Secret-reference change separately.",
+      installWork: "The route intent records Argo CD as a prerequisite, the Application order, and the Helm, CRD, hook, and health work that remains inside downstream components.",
+      liveCluster: "The staging route names the EKS, H100, storage, Secret, and Argo CD requirements. No EKS or H100 target was contacted, so runtime state remains untested.",
+    },
+    limits: [
+      "The 17 Argo CD Applications are exact. All 16 nested sources render locally, but their flattening and lifecycle decisions are not complete, so this is not a fully approved workload object set.",
+      "The target must provide Argo CD, the `argocd` Namespace, the default AppProject, EKS, storage, and H100-capable nodes.",
+      "This example records configuration, policy, and promotion. It does not claim Argo CD reconciliation, an H100 workload, or a successful training run.",
+    ],
+  },
+  {
+    space: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development",
+    title: "Review an AICR v0.19.0 platform change",
+    kind: "environment",
+    summary: "Development starts from the retained v0.19.0 Applications and changes one Grafana setting to use a target-owned Secret.",
+    shows: [
+      "The v0.19.0 base remains unchanged.",
+      "Development replaces the literal Grafana administrator password with a reference to `aicr-grafana-admin`.",
+      "The preview names the one changed Application before the change is saved.",
+      "Required approval and the other system-configuration checks remain attached.",
+    ],
+    open: [
+      "This README.",
+      "The `aicr-eks-h100-training-kubeflow` Unit to inspect all 17 Applications.",
+      "The Unit revision history to see the one-Application change.",
+      "The v0.19.0 base Space for the unchanged OCI input.",
+    ],
+    why: [
+      "Generated platform configuration still needs target-specific settings. A Grafana password should come from a Secret on the target rather than remain in the generated Application.",
+      "This variant records that decision without editing the AICR recipe or changing the other Applications.",
+    ],
+    evidence: [
+      ["AICR v0.19.0 guide", "docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md"],
+      ["Development and staging promotion", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"],
+      ["Required-approval check", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/apply-policy-receipt.yaml"],
+      ["Nested source processing", "data/aicr-v0-19-0-nested-sources/summary.md"],
+    ],
+    limits: [
+      "The target must provide `monitoring/aicr-grafana-admin` with the expected user and password keys.",
+      "This configuration has not been reconciled on an EKS GPU cluster.",
+    ],
+  },
+  {
+    space: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging",
+    title: "Promote the reviewed AICR v0.19.0 change",
+    kind: "environment",
+    summary: "Staging receives the reviewed Grafana Secret-reference change from development while the other 16 Applications remain unchanged.",
+    shows: [
+      "Staging starts from the same v0.19.0 base as development.",
+      "The promotion preview identifies the configuration Unit that will change and does not change stored data.",
+      "The completed promotion makes staging match the reviewed development configuration.",
+      "ConfigHub refused an unapproved release. After both current Units were approved, it published the reviewed configuration as a release OCI.",
+      "An authenticated pull resolved the exact release manifest digest and matched all 17 promoted Applications.",
+    ],
+    open: [
+      "This README.",
+      "The `aicr-eks-h100-training-kubeflow` Unit to inspect the promoted result.",
+      "The Unit revision history to see the promotion.",
+      "The development Space for the upstream review.",
+      "The staging route resolution to see what is required before this can run on EKS and H100.",
+    ],
+    why: [
+      "Copying a large generated platform bundle into staging would hide the one intended change.",
+      "The linked variants show where the change began and which exact revision staging accepted.",
+    ],
+    evidence: [
+      ["AICR v0.19.0 guide", "docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md"],
+      ["Development and staging promotion", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"],
+      ["Required-approval check", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/apply-policy-receipt.yaml"],
+      ["Approved ConfigHub release OCI", "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml"],
+      ["Staging route resolution", "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"],
+    ],
+    limits: [
+      "The target must provide `monitoring/aicr-grafana-admin` before delivery.",
+      "The promotion and release OCI are complete. Argo CD reconciliation, EKS/H100 execution, workload health, observation, and rollback are not.",
+    ],
+  },
+  {
     space: "kubara-local-platform-v0-12-0",
     title: "Kubara platform configuration",
     kind: "source",
@@ -740,7 +855,7 @@ function buildReport() {
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 47, `expected 47 helm-catalog README files, got ${readmes.length}`);
+  check(readmes.length === 50, `expected 50 helm-catalog README files, got ${readmes.length}`);
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {

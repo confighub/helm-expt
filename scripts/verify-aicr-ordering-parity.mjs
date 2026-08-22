@@ -33,7 +33,12 @@ import {
 } from "./lib/proof-common.mjs";
 
 const SYNC_WAVE_ANNOTATION = "argocd.argoproj.io/sync-wave";
-const entries = ["eks-h100-training-kubeflow", "eks-h100-training-kubeflow-v0-18-0", "eks-h100-inference-nim"];
+const entries = [
+  "eks-h100-training-kubeflow",
+  "eks-h100-training-kubeflow-v0-18-0",
+  "eks-h100-training-kubeflow-v0-19-0",
+  "eks-h100-inference-nim",
+];
 const summaryPath = join(repoRoot, "data", "aicr-ordering-parity", "summary.md");
 
 const mode = process.argv[2] ?? "--verify";

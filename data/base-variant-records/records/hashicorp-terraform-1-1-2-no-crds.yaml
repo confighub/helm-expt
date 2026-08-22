@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+      record: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "hashicorp/terraform@1.1.2/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=hashicorp/terraform"
@@ -91,11 +113,35 @@ spec:
           sourcePath: "../../target-prerequisite-plan.yaml"
           suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "workspaces.app.terraform.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Terraform Workspace CRD managed outside this no-crds preset"
+        -
+          id: "default/terraformrc"
+          origin: "base"
+          type: "target-fact"
+          detail: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+        -
+          id: "default/workspacesecrets"
+          origin: "base"
+          type: "target-fact"
+          detail: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+      records:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -144,120 +190,32 @@ spec:
             purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
             sourcePath: "../../target-prerequisite-plan.yaml"
             suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
-      requirements:
-        -
-          category: "crd"
-          name: "workspaces.app.terraform.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Terraform Workspace CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/hashicorp/terraform/1.1.2/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-            - "packages/hashicorp/terraform/1.1.2/prerequisites/target-facts/no-crds-crds.yaml"
-            - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
-        -
-          category: "secret"
-          name: "default/terraformrc"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
-          check: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
-          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-            - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
-            - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
-        -
-          category: "secret"
-          name: "default/workspacesecrets"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
-          check: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
-          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-            - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
-            - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
-      actions:
-        -
-          lane: "G/P"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "operator-review"
-          ownerClass: "operator-review"
-          requiredInputs: "operator review of the runtime residue"
-          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
-          sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
-          rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
-            - "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
-        -
-          lane: "K"
-          prerequisiteKind: "secret"
-          prerequisiteName: "Secret workspacesecrets; Secret terraformrc"
-          actionKind: "stage-secret"
-          ownerClass: "user-stage"
-          requiredInputs: "Secret workspacesecrets; Secret terraformrc"
-          evidenceRequired: "the named Secret(s) present in the target namespace before apply; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
-          sourceReceipt: "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base no-crds"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
-            - "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
-      coverage:
-        state: "attached-with-observed-actions"
-        reason: "3 prerequisite declarations and 2 follow-up action records are attached."
-        declarationSource: "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-no-crds.yaml"
+      requirementRefs:
+        - "workspaces.app.terraform.io"
+        - "default/terraformrc"
+        - "default/workspacesecrets"
+      records:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "workspaces.app.terraform.io"
+      - "default/terraformrc"
+      - "default/workspacesecrets"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

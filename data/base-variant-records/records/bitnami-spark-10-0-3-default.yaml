@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "f38b69257036d8bd6d2d255d7cf1685b6ec1d23fea1325550c832be705640bdd"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 10
+    digest: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-spark-10-0-3-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+      record: "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "bitnami/spark@10.0.3/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=bitnami/spark"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-spark-10-0-3-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-spark-10-0-3-default.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/bitnami-spark-10-0-3-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/bitnami-spark-10-0-3-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-spark-10-0-3-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

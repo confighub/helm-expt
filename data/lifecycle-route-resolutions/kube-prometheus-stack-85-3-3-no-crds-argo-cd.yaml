@@ -1,0 +1,171 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "LifecycleRouteResolution"
+metadata:
+  name: "kube-prometheus-stack-85-3-3-no-crds-argo-cd"
+spec:
+  configuration:
+    baseVariantRecord: "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+    variant: "no-crds"
+    revision: "r001"
+    baseRevisionDigest: "6566541a9f0bf6dfee41fafac9aef3099a6d6cfe2a2fe4e218ef08d2d754bec0"
+    digest: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml"
+  destination:
+    name: "hx-kps-argo-20260729-1zvp"
+    type: "kind"
+    deliveryRuntime: "Argo CD"
+  requirements:
+    -
+      id: "target-owned-secrets"
+      origin: "destination"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The destination must supply the two separated Secrets before the staged configuration runs."
+    -
+      id: "crds"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "Ten monitoring CRDs must be established before dependent objects are applied."
+    -
+      id: "admission-certificate"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The admission-create Job must create the webhook certificate Secret."
+    -
+      id: "workloads"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The ordinary workload objects run after the CRDs and certificate setup."
+    -
+      id: "admission-webhook-patch"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The admission-patch Job updates the webhook CA bundles after webhook objects exist."
+    -
+      id: "temporary-hook-resources"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "Completed hook Jobs and their temporary RBAC objects must be removed before replacement."
+  routes:
+    -
+      id: "target-secrets"
+      requirementRefs:
+        - "target-owned-secrets"
+      actor: "destination owner"
+      phase: "preflight"
+      order: 5
+      mechanism: "Create the separated Secrets before controller reconciliation."
+      automatic: false
+      retry: "Fix the missing input, then rerun preflight."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "crds-first"
+      requirementRefs:
+        - "crds"
+      actor: "Argo CD"
+      phase: "pre-apply"
+      order: 10
+      mechanism: "Argo CD syncs the CRD stage first and waits for health."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "certificate-setup"
+      requirementRefs:
+        - "admission-certificate"
+      actor: "Argo CD"
+      phase: "pre-apply"
+      order: 20
+      mechanism: "Argo CD syncs the prepare stage after CRDs."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "ordinary-objects"
+      requirementRefs:
+        - "workloads"
+      actor: "Argo CD"
+      phase: "apply"
+      order: 30
+      mechanism: "Argo CD syncs the workload stage after prepare."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "webhook-patch"
+      requirementRefs:
+        - "admission-webhook-patch"
+      actor: "Argo CD"
+      phase: "post-apply"
+      order: 40
+      mechanism: "Argo CD syncs the finish stage after workloads."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "runtime-checks"
+      requirementRefs:
+        - "admission-webhook-patch"
+        - "workloads"
+      actor: "Argo CD"
+      phase: "observe"
+      order: 50
+      mechanism: "Check the requested OCI digest, CA bundles, operator endpoint, workloads, and server-side dry run."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "hook-replacement"
+      requirementRefs:
+        - "temporary-hook-resources"
+      actor: "Argo CD"
+      phase: "cleanup"
+      order: 60
+      mechanism: "Remove completed hook Jobs before the upgrade stages run them again."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+  protection:
+    records:
+      - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+status:
+  decision: "ready"
+  evidence: "observed"
+  unresolved:
+    []
+  receipts:
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"

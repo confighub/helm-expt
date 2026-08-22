@@ -48,8 +48,24 @@ if (!allowedModes.has(mode)) {
   process.exit(1);
 }
 
-const root = join(repoRoot, "examples", "aicr", "eks-h100-training-kubeflow");
-const sourceReceiptPath = join(root, "argocd-oci-receipt.yaml");
+const version = process.env.AICR_ARGOCD_VERSION?.trim() || "0.14.0";
+check(
+  ["0.14.0", "0.19.0"].includes(version),
+  `unsupported AICR Argo CD example version ${version}`,
+);
+const modernEntry = version === "0.19.0";
+const versionSlug = `v${version.replaceAll(".", "-")}`;
+const exampleName = modernEntry
+  ? "eks-h100-training-kubeflow-v0-19-0"
+  : "eks-h100-training-kubeflow";
+const componentSlug = "aicr-eks-h100-training-kubeflow";
+const baseVariantSlug = `${versionSlug}-argocd`;
+const root = join(repoRoot, "examples", "aicr", exampleName);
+const sourceReceiptPath = join(
+  root,
+  modernEntry ? "generation-receipt.yaml" : "argocd-oci-receipt.yaml",
+);
+const ociReceiptPath = join(root, "argocd-oci-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
@@ -62,25 +78,49 @@ const readmeUnitPath = join(
   "data",
   "helm-catalog-readmes",
   "units",
-  "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+  `${componentSlug}-${versionSlug}-argocd`,
   "readme.yaml",
 );
 const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 
 const sourceReceipt = readYaml(sourceReceiptPath);
-const sourceArtifact = sourceReceipt.spec.artifacts.sourcePackage;
-const configArtifact = sourceReceipt.spec.artifacts.literalConfiguration;
-const publicSourceRef = sourceArtifact.publicTarget;
-const publicConfigRef = configArtifact.publicTarget;
+const registryBase =
+  "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
+const publicSourceRef = `${registryBase}/${componentSlug}-argocd:${version}`;
+const publicConfigRef = `${registryBase}/${componentSlug}-argocd-config:${version}`;
+const sourceArtifact = modernEntry
+  ? {
+      role: "source-package",
+      format: "helm-chart-oci",
+      ociLayout: relative(repoRoot, sourceLayoutRoot).replaceAll("\\", "/"),
+      portableDigest: sourceReceipt.spec.processing.transport.sourcePackage.digest,
+      publicTarget: publicSourceRef,
+    }
+  : sourceReceipt.spec.artifacts.sourcePackage;
+const configArtifact = modernEntry
+  ? {
+      role: "literal-configuration",
+      format: "individual-yaml-layers",
+      ociLayout: relative(repoRoot, configLayoutRoot).replaceAll("\\", "/"),
+      digest: sourceReceipt.spec.processing.transport.literalConfiguration.digest,
+      objectCount: sourceReceipt.spec.processing.transport.literalConfiguration.objectCount,
+      publicTarget: publicConfigRef,
+    }
+  : sourceReceipt.spec.artifacts.literalConfiguration;
+if (!modernEntry) {
+  check(sourceArtifact.publicTarget === publicSourceRef, "AICR source public reference changed");
+  check(configArtifact.publicTarget === publicConfigRef, "AICR configuration public reference changed");
+}
 const configRef = process.env.AICR_CONFIG_OCI_REF || publicConfigRef;
 const expectedOrg = "helm-catalog";
-const spaceSlug = "aicr-eks-h100-training-kubeflow-v0-14-0-argocd";
+const spaceSlug = `${componentSlug}-${versionSlug}-argocd`;
 const developmentSpaceSlug = `${spaceSlug}-development`;
 const stagingSpaceSlug = `${spaceSlug}-staging`;
-const unitSlug = "aicr-eks-h100-training-kubeflow";
+const unitSlug = componentSlug;
 const readmeSlug = "readme";
 const approvalRequiredFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
+const releaseTargetRef = "platform/catalog-release-oci";
 const cubContext = process.env.CUB_CONTEXT ?? "";
 const oldGrafanaValue = "  adminPassword: admin";
 const newGrafanaValue = [
@@ -121,6 +161,7 @@ if (mode === "--hub-sync") {
   writeYaml(uploadReceiptPath, receipt);
   verifyUploadReceipt(receipt);
   verifyLiveAgainstReceipt(receipt);
+  updateGenerationStatus({ configHubUpload: "pass" });
   console.log(
     `synchronized live AICR base variant (${spaceSlug}/${unitSlug}, ${receipt.spec.unit.uploadedObjectCount} Argo CD Applications)`,
   );
@@ -129,7 +170,7 @@ if (mode === "--hub-sync") {
 if (mode === "--hub-record") {
   assertOrg();
   const liveSpace = cubJson(["space", "get", spaceSlug, "-o", "json"]).Space;
-  const receipt = collectLiveReceipt(liveSpace.Annotations?.ExternalSource);
+  const receipt = collectLiveReceipt(externalSourceRecords(liveSpace)[0].ref);
   writeYaml(uploadReceiptPath, receipt);
   verifyUploadReceipt(receipt);
   verifyLiveAgainstReceipt(receipt);
@@ -169,6 +210,7 @@ if (mode === "--hub-promotion-sync") {
   writeYaml(promotionReceiptPath, receipt);
   verifyPersistentPromotionReceipt(receipt, uploadReceipt);
   verifyPersistentPromotionLive(receipt);
+  updateGenerationStatus({ promotion: "pass" });
   console.log(
     `synchronized ${spaceSlug} -> ${developmentSpaceSlug} -> ${stagingSpaceSlug}`,
   );
@@ -193,9 +235,12 @@ verifyApplyPolicyReceipt(readYaml(policyReceiptPath), committedUploadReceipt);
 console.log("verified AICR ConfigHub upload and apply-policy receipts");
 
 function runLocalVerification() {
+  const verifier = modernEntry
+    ? "verify-aicr-v019-artifacts.mjs"
+    : "verify-aicr-argocd-example.mjs";
   execFileSync(
     process.execPath,
-    [join(repoRoot, "scripts", "verify-aicr-argocd-example.mjs")],
+    [join(repoRoot, "scripts", verifier)],
     {
       cwd: repoRoot,
       stdio: "inherit",
@@ -217,6 +262,13 @@ function runLocalVerification() {
       },
     },
   );
+  if (modernEntry) {
+    execFileSync(
+      process.execPath,
+      [join(repoRoot, "scripts", "run-aicr-v019-provenance.mjs"), "--verify"],
+      { cwd: repoRoot, stdio: "inherit" },
+    );
+  }
   check(existsSync(readmeUnitPath), "generated AICR README Unit is missing; run npm run helm-catalog-readmes");
 }
 
@@ -237,7 +289,7 @@ function publishArtifacts() {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "PublicOciReceipt",
     metadata: {
-      name: "aicr-eks-h100-training-kubeflow-v0-14-0",
+      name: `${componentSlug}-${versionSlug}`,
     },
     spec: {
       verifiedAt: new Date().toISOString(),
@@ -261,26 +313,111 @@ function publishArtifacts() {
     },
   };
   writeYaml(publicReceiptPath, receipt);
-  const updatedSourceReceipt = structuredClone(sourceReceipt);
-  updatedSourceReceipt.status.publicSourcePush = "pass";
-  updatedSourceReceipt.status.publicSourcePull = "pass";
-  updatedSourceReceipt.status.publicRenderedPush = "pass";
-  updatedSourceReceipt.status.publicRenderedPull = "pass";
-  updatedSourceReceipt.status.claim = "AICR v0.14.0 generated a portable Argo CD Helm chart and 17 exact Argo CD Application objects. Both OCI artifacts are publicly pullable at their recorded digests. ConfigHub imported the 17 Applications as one base variant. Argo CD reconciliation and GPU-cluster health have not run.";
-  writeYaml(sourceReceiptPath, updatedSourceReceipt);
-  execFileSync(
-    process.execPath,
-    [join(repoRoot, "scripts", "verify-aicr-argocd-example.mjs")],
-    { cwd: repoRoot, stdio: "inherit" },
-  );
+  if (modernEntry) {
+    materializeLayoutManifest(
+      sourceLayoutRoot,
+      join(root, "local-argocd-source-oci-manifest.json"),
+    );
+    materializeLayoutManifest(
+      configLayoutRoot,
+      join(root, "local-argocd-config-oci-manifest.json"),
+    );
+    writeYaml(ociReceiptPath, modernOciReceipt());
+    const updatedGenerationReceipt = structuredClone(sourceReceipt);
+    updatedGenerationReceipt.spec.processing.transport.publicStatus = "pass";
+    updatedGenerationReceipt.status.published = true;
+    updatedGenerationReceipt.status.publicOciPublication = "pass";
+    writeYaml(sourceReceiptPath, updatedGenerationReceipt);
+    rmSync(join(root, "index-config.yaml"), { force: true });
+    execFileSync(
+      process.execPath,
+      [
+        join(repoRoot, "scripts", "generate-aicr-digest-index.mjs"),
+        "--generate",
+        "--example",
+        exampleName,
+      ],
+      { cwd: repoRoot, stdio: "inherit" },
+    );
+  } else {
+    const updatedSourceReceipt = structuredClone(sourceReceipt);
+    updatedSourceReceipt.status.publicSourcePush = "pass";
+    updatedSourceReceipt.status.publicSourcePull = "pass";
+    updatedSourceReceipt.status.publicRenderedPush = "pass";
+    updatedSourceReceipt.status.publicRenderedPull = "pass";
+    updatedSourceReceipt.status.claim = `AICR v${version} generated a portable Argo CD Helm chart and 17 exact Argo CD Application objects. Both OCI artifacts are publicly pullable at their recorded digests. ConfigHub imported the 17 Applications as one base variant. Argo CD reconciliation and GPU-cluster health have not run.`;
+    writeYaml(sourceReceiptPath, updatedSourceReceipt);
+  }
+  runLocalVerification();
   console.log("published and anonymously verified both AICR OCI artifacts");
+}
+
+function updateGenerationStatus(changes) {
+  if (!modernEntry) return;
+  const receipt = readYaml(sourceReceiptPath);
+  receipt.status = { ...receipt.status, ...changes };
+  writeYaml(sourceReceiptPath, receipt);
+}
+
+function modernOciReceipt() {
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "OciArtifactReceipt",
+    metadata: { name: `${componentSlug}-${versionSlug}-argocd` },
+    spec: {
+      source: {
+        name: sourceReceipt.spec.source.name,
+        version: sourceReceipt.spec.source.version,
+        commit: sourceReceipt.spec.source.commit,
+        generationReceipt: relative(repoRoot, sourceReceiptPath).replaceAll("\\", "/"),
+        recipe: relative(repoRoot, join(root, "recipe.yaml")).replaceAll("\\", "/"),
+      },
+      deployer: "argocd-helm",
+      artifacts: {
+        sourcePackage: {
+          ...sourceArtifact,
+          localReference: `oci-layout://${relative(repoRoot, sourceLayoutRoot).replaceAll("\\", "/")}@${sourceArtifact.portableDigest}`,
+        },
+        literalConfiguration: {
+          ...configArtifact,
+          localReference: `oci-layout://${relative(repoRoot, configLayoutRoot).replaceAll("\\", "/")}@${configArtifact.digest}`,
+        },
+      },
+      outputs: {
+        sourceBundle: relative(repoRoot, join(root, "argocd-helm-bundle")).replaceAll("\\", "/"),
+        renderedApplications: relative(repoRoot, renderedRoot).replaceAll("\\", "/"),
+        sourceManifest: relative(repoRoot, join(root, "local-argocd-source-oci-manifest.json")).replaceAll("\\", "/"),
+        renderedManifest: relative(repoRoot, join(root, "local-argocd-config-oci-manifest.json")).replaceAll("\\", "/"),
+      },
+    },
+    status: {
+      result: "pass",
+      publicSourcePush: "pass",
+      publicSourcePull: "pass",
+      publicRenderedPush: "pass",
+      publicRenderedPull: "pass",
+      liveArgoReconciliation: "not-run",
+      liveGpuReconciliation: "not-run",
+      claim: `The AICR v${version} source chart and its 17 exact Argo CD Applications are publicly pullable at their recorded digests.`,
+    },
+  };
+}
+
+function materializeLayoutManifest(layoutRoot, outputPath) {
+  const index = JSON.parse(readFileSync(join(layoutRoot, "index.json"), "utf8"));
+  check(index.manifests?.length === 1, `${layoutRoot} must contain one manifest`);
+  const digest = index.manifests[0].digest;
+  check(/^sha256:[0-9a-f]{64}$/.test(digest), `${layoutRoot} manifest digest changed`);
+  const bytes = readFileSync(join(layoutRoot, "blobs", "sha256", digest.slice(7)));
+  check(`sha256:${hash(bytes)}` === digest, `${layoutRoot} manifest blob digest changed`);
+  writeFileSync(outputPath, bytes);
 }
 
 function copyLayout(layoutRoot, target) {
   run("oras", [
     "cp",
     "--from-oci-layout",
-    `${layoutRoot}:0.14.0`,
+    `${layoutRoot}:${version}`,
     stripOci(target),
   ], { inherit: true });
 }
@@ -323,7 +460,7 @@ function verifyPublicArtifact({ reference, expectedDigest, expectedLayout }) {
       registryConfig,
       "--to-oci-layout",
       stripOci(reference),
-      `${pulledLayout}:0.14.0`,
+      `${pulledLayout}:${version}`,
     ]);
     const pulledDigest = layoutDigest(pulledLayout);
     check(pulledDigest === expectedDigest, `anonymous pull digest differs for ${reference}`);
@@ -374,13 +511,14 @@ function syncBaseVariant() {
     "upload",
     "--allow-exists",
     "--component",
-    "aicr-eks-h100-training-kubeflow",
+    componentSlug,
     "--variant",
-    "v0-14-0-argocd",
+    baseVariantSlug,
     "--space",
     spaceSlug,
     "--granularity",
     "minimal",
+    ...(modernEntry ? ["--target", releaseTargetRef] : []),
     "--label",
     "SourceType=aicr",
     "--label",
@@ -390,10 +528,22 @@ function syncBaseVariant() {
     "--owner",
     "Platform",
     "--change-desc",
-    "Upload AICR v0.14.0 Argo application bundle",
+    `Upload AICR v${version} Argo application bundle`,
     configRef,
   ];
   cub(args, { inherit: true });
+  if (modernEntry) {
+    cub([
+      "unit",
+      "set-target",
+      "--space",
+      spaceSlug,
+      unitSlug,
+      releaseTargetRef,
+      "--wait",
+      "--quiet",
+    ]);
+  }
 }
 
 function syncPolicy() {
@@ -409,6 +559,7 @@ function syncPolicy() {
     "ResourceClass=system-configuration",
     "--trigger-filter",
     approvalRequiredFilterRef,
+    ...(modernEntry ? ["--release-target", releaseTargetRef] : []),
     "--where-trigger",
     "-",
     "--quiet",
@@ -439,11 +590,15 @@ function collectLiveReceipt(sourceReference) {
   const policy = readYaml(policyPath);
   const publicReceipt = existsSync(publicReceiptPath) ? verifyPublicReceipt({ fetch: false }) : null;
   const publicPassed = publicReceipt?.status?.result === "pass";
+  const externalSource = live.externalSources.find(
+    (item) => item.ref === sourceReference && item.digest === configArtifact.digest,
+  );
+  check(externalSource, "live AICR Space does not record the uploaded OCI source and digest");
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "ConfigHubUploadReceipt",
     metadata: {
-      name: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+      name: spaceSlug,
     },
     spec: {
       organization: expectedOrg,
@@ -453,13 +608,15 @@ function collectLiveReceipt(sourceReference) {
         "variant",
         "upload",
         "--component",
-        "aicr-eks-h100-training-kubeflow",
+        componentSlug,
         "--variant",
-        "v0-14-0-argocd",
+        baseVariantSlug,
         "--space",
         spaceSlug,
         "--granularity",
         "minimal",
+        "--target",
+        releaseTargetRef,
         sourceReference,
       ],
       source: {
@@ -481,8 +638,12 @@ function collectLiveReceipt(sourceReference) {
         slug: spaceSlug,
         id: live.space.SpaceID,
         labels: live.space.Labels,
-        externalSource: live.space.Annotations?.ExternalSource,
-        externalSourceDigest: live.space.Annotations?.ExternalSourceDigest,
+        externalSource: {
+          annotation: "confighub.com/external-source",
+          reference: externalSource.ref,
+          manifestDigest: externalSource.digest,
+          granularity: externalSource.granularity,
+        },
       },
       unit: {
         slug: unitSlug,
@@ -493,6 +654,13 @@ function collectLiveReceipt(sourceReference) {
         uploadedObjectCount: live.applicationCount,
         sourceObjectsMatched: true,
         syncWaves: live.syncWaves,
+      },
+      provenanceBinding: {
+        method: "external-source-annotation-plus-exact-object-comparison",
+        ociManifestDigest: externalSource.digest,
+        configHubDataHash: live.unit.DataHash,
+        objectIdentitiesMatched: true,
+        note: "The OCI manifest digest and ConfigHub data hash identify different records; the exact-object comparison binds them.",
       },
       readme: {
         slug: readmeSlug,
@@ -554,12 +722,13 @@ function inspectLive() {
     .map((doc) => Number(doc.metadata?.annotations?.["argocd.argoproj.io/sync-wave"]))
     .sort((left, right) => left - right);
   check(
-    JSON.stringify(waves) === JSON.stringify(Array.from({ length: 16 }, (_, index) => index)),
-    "AICR sync waves must remain 0 through 15",
+    JSON.stringify(waves) === JSON.stringify(expectedSyncWaves()),
+    "AICR sync waves differ from the retained Applications",
   );
   check(sourceDocs.every((doc) => doc.kind === "Application"), "AICR upload contains a non-Application object");
   return {
     space,
+    externalSources: externalSourceRecords(space),
     unit,
     readme,
     applicationCount: sourceDocs.length,
@@ -567,11 +736,35 @@ function inspectLive() {
   };
 }
 
+function externalSourceRecords(space) {
+  const raw = space.Annotations?.["confighub.com/external-source"];
+  check(raw, `${space.Slug} has no confighub.com/external-source annotation`);
+  const records = JSON.parse(raw);
+  check(
+    Array.isArray(records)
+      && records.length > 0
+      && records.every((item) =>
+        typeof item.ref === "string"
+        && /^sha256:[0-9a-f]{64}$/.test(item.digest)
+        && typeof item.granularity === "string"
+      ),
+    `${space.Slug} has an invalid confighub.com/external-source annotation`,
+  );
+  return records;
+}
+
 function sourceApplicationDocs() {
   return listFiles(renderedRoot)
     .filter((path) => path.endsWith(".yaml"))
     .sort()
     .flatMap((path) => parseDocs(readFileSync(path, "utf8")));
+}
+
+function expectedSyncWaves() {
+  return sourceApplicationDocs()
+    .filter((doc) => doc.metadata?.name !== "aicr-stack")
+    .map((doc) => Number(doc.metadata?.annotations?.["argocd.argoproj.io/sync-wave"]))
+    .sort((left, right) => left - right);
 }
 
 function canonicalDocs(docs) {
@@ -603,25 +796,61 @@ function verifyUploadReceipt(receipt) {
   check(receipt.spec?.source?.digest === configArtifact.digest, "AICR upload source digest changed");
   check(receipt.spec?.source?.renderedObjectCount === 17, "AICR upload object count changed");
   check(receipt.spec?.space?.slug === spaceSlug, "AICR upload Space changed");
-  check(receipt.spec?.space?.externalSourceDigest === configArtifact.digest, "AICR Space source digest changed");
+  if (modernEntry) {
+    check(
+      receipt.spec?.space?.externalSource?.annotation === "confighub.com/external-source",
+      "AICR Space source annotation changed",
+    );
+    check(receipt.spec?.space?.externalSource?.reference === receipt.spec.source.reference, "AICR Space source reference changed");
+    check(receipt.spec?.space?.externalSource?.manifestDigest === configArtifact.digest, "AICR Space source digest changed");
+    check(receipt.spec?.space?.externalSource?.granularity === "minimal", "AICR Space source granularity changed");
+  } else {
+    check(receipt.spec?.space?.externalSource === receipt.spec.source.reference, "AICR Space source reference changed");
+    check(receipt.spec?.space?.externalSourceDigest === configArtifact.digest, "AICR Space source digest changed");
+  }
   check(receipt.spec?.unit?.slug === unitSlug, "AICR upload Unit changed");
+  check(/^[0-9a-f]{64}$/.test(receipt.spec?.unit?.dataHash), "AICR ConfigHub data hash changed shape");
   check(receipt.spec?.unit?.uploadedObjectCount === 17, "AICR uploaded Application count changed");
   check(receipt.spec?.unit?.sourceObjectsMatched === true, "AICR source-object comparison must pass");
   check(
-    JSON.stringify(receipt.spec?.unit?.syncWaves) === JSON.stringify(Array.from({ length: 16 }, (_, index) => index)),
+    JSON.stringify(receipt.spec?.unit?.syncWaves) === JSON.stringify(expectedSyncWaves()),
     "AICR upload receipt sync waves changed",
   );
   check(receipt.spec?.policy?.profile === "catalog-standard", "AICR upload policy profile changed");
   check(receipt.spec?.space?.labels?.ResourceClass === "system-configuration", "AICR Space resource class changed");
   check(receipt.spec?.policy?.filter === approvalRequiredFilterRef, "AICR approval-required filter changed");
   check(receipt.spec?.policy?.reason === "system-configuration", "AICR approval reason changed");
-  check(receipt.spec?.policy?.checks?.length === 6, "AICR upload must record five common checks plus approval");
+  const expectedPolicyCount = modernEntry
+    ? readYaml(policyPath).spec.approvalRequired.checks.length
+    : 6;
+  check(
+    receipt.spec?.policy?.checks?.length === expectedPolicyCount,
+    `AICR upload must record ${expectedPolicyCount - 1} common checks plus approval`,
+  );
   check(
     receipt.spec.policy.checks.includes("platform/require-approval"),
     "AICR upload policy must require approval",
   );
   check(receipt.status?.configHubBaseVariantUpload === "pass", "AICR base variant upload is not pass");
   check(receipt.status?.objectIdentitiesMatched === "pass", "AICR object comparison is not pass");
+  if (modernEntry) {
+    check(
+      receipt.spec?.provenanceBinding?.method === "external-source-annotation-plus-exact-object-comparison",
+      "AICR provenance binding method changed",
+    );
+    check(
+      receipt.spec?.provenanceBinding?.ociManifestDigest === configArtifact.digest,
+      "AICR provenance binding OCI digest changed",
+    );
+    check(
+      receipt.spec?.provenanceBinding?.configHubDataHash === receipt.spec.unit.dataHash,
+      "AICR provenance binding ConfigHub data hash changed",
+    );
+    check(
+      receipt.spec?.provenanceBinding?.objectIdentitiesMatched === true,
+      "AICR provenance binding object comparison must pass",
+    );
+  }
   check(
     receipt.status?.approvalRequiredPolicyAssigned === "pass",
     "AICR approval-required policy assignment is not pass",
@@ -634,11 +863,20 @@ function verifyUploadReceipt(receipt) {
 function verifyLiveAgainstReceipt(receipt) {
   const live = inspectLive();
   check(live.space.SpaceID === receipt.spec.space.id, "live AICR Space ID changed");
-  check(live.space.Annotations?.ExternalSource === receipt.spec.space.externalSource, "live AICR external source changed");
-  check(
-    live.space.Annotations?.ExternalSourceDigest === receipt.spec.space.externalSourceDigest,
-    "live AICR external source digest changed",
+  const receiptSource = modernEntry
+    ? receipt.spec.space.externalSource
+    : {
+        reference: receipt.spec.space.externalSource,
+        manifestDigest: receipt.spec.space.externalSourceDigest,
+        granularity: "minimal",
+      };
+  const externalSource = live.externalSources.find(
+    (item) =>
+      item.ref === receiptSource.reference
+      && item.digest === receiptSource.manifestDigest
+      && item.granularity === receiptSource.granularity,
   );
+  check(externalSource, "live AICR external source annotation changed");
   check(live.space.TriggerFilterID === receipt.spec.policy.filterId, "live AICR policy filter changed");
   check(live.unit.UnitID === receipt.spec.unit.id, "live AICR Unit ID changed");
   check(live.unit.DataHash === receipt.spec.unit.dataHash, "live AICR Unit data hash changed");
@@ -653,23 +891,26 @@ function runLiveApplyPolicyCheck(uploadReceipt) {
     `live AICR Unit is not blocked by ${approvalGate}`,
   );
 
-  const command = [
-    "unit",
-    "apply",
-    "--space",
-    spaceSlug,
-    "--unit",
-    unitSlug,
-    "--dry-run",
-    "-o",
-    "mutations",
-  ];
+  const command = modernEntry
+    ? ["release", "publish", spaceSlug, "-o", "json"]
+    : [
+        "unit",
+        "apply",
+        "--space",
+        spaceSlug,
+        "--unit",
+        unitSlug,
+        "--dry-run",
+        "-o",
+        "mutations",
+      ];
+  const attemptedAction = modernEntry ? "release publish" : "dry-run apply";
   const result = cubResult(command, { allowFailure: true });
   const response = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
-  check(result.status !== 0, "unapproved AICR dry-run apply unexpectedly succeeded");
+  check(result.status !== 0, `unapproved AICR ${attemptedAction} unexpectedly succeeded`);
   check(
     response.includes("outstanding ApplyGates"),
-    "unapproved AICR dry-run did not report outstanding ApplyGates",
+    `unapproved AICR ${attemptedAction} did not report outstanding ApplyGates`,
   );
 
   const after = cubJson(["unit", "get", "--space", spaceSlug, unitSlug, "-o", "json"]).Unit;
@@ -677,14 +918,21 @@ function runLiveApplyPolicyCheck(uploadReceipt) {
   const afterState = unitPolicyState(after);
   check(
     JSON.stringify(afterState) === JSON.stringify(beforeState),
-    "AICR Unit state changed during the rejected dry-run",
+    `AICR Unit state changed during the rejected ${attemptedAction}`,
   );
+
+  const attempt = {
+    exitCode: result.status,
+    response: "outstanding ApplyGates",
+    before: beforeState,
+    after: afterState,
+  };
 
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "ConfigHubApplyPolicyReceipt",
     metadata: {
-      name: "aicr-eks-h100-training-kubeflow-v0-14-0-required-approval",
+      name: `${componentSlug}-${versionSlug}-required-approval`,
     },
     spec: {
       organization: expectedOrg,
@@ -709,20 +957,21 @@ function runLiveApplyPolicyCheck(uploadReceipt) {
         reason: uploadReceipt.spec.policy.reason,
       },
       command: ["cub", ...command],
-      dryRun: {
-        exitCode: result.status,
-        response: "outstanding ApplyGates",
-        before: beforeState,
-        after: afterState,
-      },
+      ...(modernEntry ? { releasePublish: attempt } : { dryRun: attempt }),
     },
     status: {
       result: "pass",
-      requiredApprovalBlockedDryRun: "pass",
+      ...(modernEntry
+        ? { requiredApprovalBlockedReleasePublish: "pass" }
+        : { requiredApprovalBlockedDryRun: "pass" }),
       configurationApplied: "not-run",
-      claim: "ConfigHub refused a dry-run apply of the exact AICR base variant because the required approval was missing.",
+      claim: modernEntry
+        ? "ConfigHub refused to publish a release of the exact AICR base variant because the required approval was missing."
+        : "ConfigHub refused a dry-run apply of the exact AICR base variant because the required approval was missing.",
       limits: [
-        "The Unit had no target attached, and no configuration was sent to Kubernetes.",
+        modernEntry
+          ? "No release was published and no configuration was sent to Kubernetes."
+          : "The Unit had no target attached, and no configuration was sent to Kubernetes.",
         "This proves the required-approval behavior for this recorded AICR Unit and revision. It does not prove Argo CD reconciliation or GPU workload health.",
       ],
     },
@@ -781,30 +1030,37 @@ function verifyApplyPolicyReceipt(receipt, uploadReceipt) {
     receipt.spec?.policy?.reason === "system-configuration",
     "AICR policy receipt reason changed",
   );
+  const attempt = modernEntry ? receipt.spec?.releasePublish : receipt.spec?.dryRun;
+  const attemptedAction = modernEntry ? "release publish" : "dry-run apply";
   check(
-    Number.isInteger(receipt.spec?.dryRun?.exitCode)
-      && receipt.spec.dryRun.exitCode > 0,
-    "AICR policy dry run must remain rejected",
+    Number.isInteger(attempt?.exitCode) && attempt.exitCode > 0,
+    `AICR policy ${attemptedAction} must remain rejected`,
   );
   check(
-    receipt.spec?.dryRun?.response === "outstanding ApplyGates",
-    "AICR policy dry-run response changed",
+    attempt?.response === "outstanding ApplyGates",
+    `AICR policy ${attemptedAction} response changed`,
   );
   check(
-    JSON.stringify(receipt.spec?.dryRun?.before) === JSON.stringify(receipt.spec?.dryRun?.after),
-    "AICR policy dry run changed Unit state",
+    JSON.stringify(attempt?.before) === JSON.stringify(attempt?.after),
+    `AICR policy ${attemptedAction} changed Unit state`,
   );
   check(
-    receipt.spec?.dryRun?.before?.applyGates?.includes(approvalGate),
+    attempt?.before?.applyGates?.includes(approvalGate),
     "AICR policy receipt does not record the approval gate",
   );
-  check(
-    receipt.spec?.dryRun?.before?.targetId === null,
-    "AICR policy proof must not attach a target",
-  );
+  if (modernEntry) {
+    check(
+      typeof attempt?.before?.targetId === "string",
+      "AICR policy proof must record the OCI release target",
+    );
+  } else {
+    check(attempt?.before?.targetId === null, "AICR policy proof must not attach a target");
+  }
   check(receipt.status?.result === "pass", "AICR policy receipt is not pass");
   check(
-    receipt.status?.requiredApprovalBlockedDryRun === "pass",
+    (modernEntry
+      ? receipt.status?.requiredApprovalBlockedReleasePublish
+      : receipt.status?.requiredApprovalBlockedDryRun) === "pass",
     "AICR required-approval behavior is not pass",
   );
   check(
@@ -818,15 +1074,16 @@ function syncPersistentPromotion(uploadReceipt) {
   const changedDocs = withGrafanaSecret(baseDocs);
   let base = inspectPersistentVariant(spaceSlug);
   verifyPersistentVariant(base, {
-    variant: "v0-14-0-argocd",
+    variant: baseVariantSlug,
     environment: "",
     upstreamSpaceId: "",
     fromLinks: 0,
     expectedDocs: baseDocs,
   });
   check(
-    base.space.Annotations?.ExternalSource === publicConfigRef
-      && base.space.Annotations?.ExternalSourceDigest === configArtifact.digest,
+    externalSourceRecords(base.space).some(
+      (item) => item.ref === publicConfigRef && item.digest === configArtifact.digest,
+    ),
     "persistent AICR base does not record the public literal configuration OCI",
   );
 
@@ -989,7 +1246,7 @@ function syncPersistentPromotion(uploadReceipt) {
   development = inspectPersistentVariant(developmentSpaceSlug);
   staging = inspectPersistentVariant(stagingSpaceSlug);
   verifyPersistentVariant(base, {
-    variant: "v0-14-0-argocd",
+    variant: baseVariantSlug,
     environment: "",
     upstreamSpaceId: "",
     fromLinks: 0,
@@ -1038,7 +1295,7 @@ function syncPersistentPromotion(uploadReceipt) {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "VariantReadinessReceipt",
     metadata: {
-      name: "aicr-eks-h100-training-kubeflow-v0-14-0-staging",
+      name: `${componentSlug}-${versionSlug}-staging`,
     },
     spec: {
       checkedAt: new Date().toISOString(),
@@ -1099,7 +1356,7 @@ function syncPersistentPromotion(uploadReceipt) {
       limits: [
         "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys.",
         "This receipt proves stored configuration, policy assignment, one development change, and one promotion. It does not prove Argo CD reconciliation or GPU workload health.",
-        "This changes one AICR v0.14.0 bundle. It does not prove an AICR package-version upgrade.",
+        `This changes one AICR v${version} bundle. It does not prove an AICR package-version upgrade.`,
       ],
     },
     status: {
@@ -1189,7 +1446,7 @@ function verifyPersistentVariant(record, expected) {
   );
   check(
     sameStringSet(record.checkSlugs, expectedPersistentCheckSlugs()),
-    `${record.slug} does not select the six system-configuration checks`,
+    `${record.slug} does not select the expected system-configuration checks`,
   );
   check(
     record.configuration.applyGates.includes(approvalGate),
@@ -1281,7 +1538,7 @@ function verifyPersistentPromotionLive(receipt) {
   const baseDocs = sourceApplicationDocs();
   const changedDocs = withGrafanaSecret(baseDocs);
   verifyPersistentVariant(records.base, {
-    variant: "v0-14-0-argocd",
+    variant: baseVariantSlug,
     environment: "",
     upstreamSpaceId: "",
     fromLinks: 0,

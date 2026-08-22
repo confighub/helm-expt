@@ -1,0 +1,1625 @@
+---
+# Source: nvsentinel/charts/labeler/templates/serviceaccount.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: labeler
+  labels:
+    helm.sh/chart: labeler-0.1.0
+    app.kubernetes.io/name: labeler
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: nvsentinel/charts/metadata-collector/templates/serviceaccount.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: metadata-collector
+  labels:
+    helm.sh/chart: metadata-collector-0.1.0
+    app.kubernetes.io/name: metadata-collector
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: nvsentinel/templates/serviceaccount.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: platform-connectors
+  labels:
+    helm.sh/chart: nvsentinel-v1.9.0
+    app.kubernetes.io/name: nvsentinel
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "v1.9.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: nvsentinel/charts/gpu-health-monitor/templates/configmap.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gpu-health-monitor
+  labels:
+    helm.sh/chart: gpu-health-monitor-0.1.0
+    app.kubernetes.io/name: gpu-health-monitor
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.ini: |
+    [logging]
+    LogFormat = %%(asctime)s,%%(msecs)03d %%(levelname)-8s [%%(filename)s:%%(lineno)d] %%(message)s
+    DateTimeFormat = %%Y-%%m-%%d:%%H:%%M:%%S
+
+    [dcgm]
+    PollIntervalSeconds = 15
+
+    [eventprocessors.kubernetes]
+    ConflictRetryCount = 10
+
+    [eventprocessors.platformconnector]
+    SocketPath = /var/run/nvsentinel.sock
+
+    [cli]
+    EnabledEventProcessors = PlatformConnectorEventProcessor
+
+  dcgmerrorsmapping.csv: |-
+    DCGM_FR_UNKNOWN,CONTACT_SUPPORT
+    DCGM_FR_UNRECOGNIZED,CONTACT_SUPPORT
+    DCGM_FR_PCI_REPLAY_RATE,CONTACT_SUPPORT
+    DCGM_FR_VOLATILE_DBE_DETECTED,COMPONENT_RESET
+    DCGM_FR_VOLATILE_SBE_DETECTED,NONE
+    DCGM_FR_PENDING_PAGE_RETIREMENTS,NONE
+    DCGM_FR_RETIRED_PAGES_LIMIT,CONTACT_SUPPORT
+    DCGM_FR_RETIRED_PAGES_DBE_LIMIT,CONTACT_SUPPORT
+    DCGM_FR_CORRUPT_INFOROM,COMPONENT_RESET
+    DCGM_FR_CLOCKS_EVENT_THERMAL,CONTACT_SUPPORT
+    DCGM_FR_CLOCK_THROTTLE_THERMAL,NONE
+    DCGM_FR_POWER_UNREADABLE,RESTART_VM
+    DCGM_FR_CLOCKS_EVENT_POWER,NONE
+    DCGM_FR_CLOCK_THROTTLE_POWER,NONE
+    DCGM_FR_NVLINK_ERROR_THRESHOLD,NONE
+    DCGM_FR_NVLINK_DOWN,RESTART_VM
+    DCGM_FR_NVSWITCH_FATAL_ERROR,CONTACT_SUPPORT
+    DCGM_FR_NVSWITCH_NON_FATAL_ERROR,NONE
+    DCGM_FR_NVSWITCH_DOWN,COMPONENT_RESET
+    DCGM_FR_NO_ACCESS_TO_FILE,CONTACT_SUPPORT
+    DCGM_FR_NVML_API,CONTACT_SUPPORT
+    DCGM_FR_DEVICE_COUNT_MISMATCH,CONTACT_SUPPORT
+    DCGM_FR_BAD_PARAMETER,CONTACT_SUPPORT
+    DCGM_FR_CANNOT_OPEN_LIB,CONTACT_SUPPORT
+    DCGM_FR_DENYLISTED_DRIVER,CONTACT_SUPPORT
+    DCGM_FR_NVML_LIB_BAD,CONTACT_SUPPORT
+    DCGM_FR_GRAPHICS_PROCESSES,CONTACT_SUPPORT
+    DCGM_FR_HOSTENGINE_CONN,CONTACT_SUPPORT
+    DCGM_FR_FIELD_QUERY,RESTART_VM
+    DCGM_FR_BAD_CUDA_ENV,CONTACT_SUPPORT
+    DCGM_FR_PERSISTENCE_MODE,CONTACT_SUPPORT
+    DCGM_FR_LOW_BANDWIDTH,CONTACT_SUPPORT
+    DCGM_FR_HIGH_LATENCY,CONTACT_SUPPORT
+    DCGM_FR_CANNOT_GET_FIELD_TAG,CONTACT_SUPPORT
+    DCGM_FR_FIELD_VIOLATION,RESTART_VM
+    DCGM_FR_FIELD_THRESHOLD,RESTART_VM
+    DCGM_FR_FIELD_VIOLATION_DBL,RESTART_VM
+    DCGM_FR_FIELD_THRESHOLD_DBL,RESTART_VM
+    DCGM_FR_UNSUPPORTED_FIELD_TYPE,RESTART_VM
+    DCGM_FR_FIELD_THRESHOLD_TS,RESTART_VM
+    DCGM_FR_FIELD_THRESHOLD_TS_DBL,RESTART_VM
+    DCGM_FR_THERMAL_VIOLATIONS,CONTACT_SUPPORT
+    DCGM_FR_THERMAL_VIOLATIONS_TS,CONTACT_SUPPORT
+    DCGM_FR_TEMP_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_CLOCKS_EVENT_VIOLATION,RESTART_VM
+    DCGM_FR_THROTTLING_VIOLATION,RESTART_VM
+    DCGM_FR_INTERNAL,CONTACT_SUPPORT
+    DCGM_FR_PCIE_GENERATION,CONTACT_SUPPORT
+    DCGM_FR_PCIE_WIDTH,CONTACT_SUPPORT
+    DCGM_FR_ABORTED,NONE
+    DCGM_FR_TEST_DISABLED,NONE
+    DCGM_FR_CANNOT_GET_STAT,CONTACT_SUPPORT
+    DCGM_FR_STRESS_LEVEL,RESTART_VM
+    DCGM_FR_CUDA_API,CONTACT_SUPPORT
+    DCGM_FR_FAULTY_MEMORY,CONTACT_SUPPORT
+    DCGM_FR_CANNOT_SET_WATCHES,RESTART_VM
+    DCGM_FR_CUDA_UNBOUND,RESTART_VM
+    DCGM_FR_ECC_DISABLED,CONTACT_SUPPORT
+    DCGM_FR_MEMORY_ALLOC,RESTART_VM
+    DCGM_FR_CUDA_DBE,CONTACT_SUPPORT
+    DCGM_FR_MEMORY_MISMATCH,CONTACT_SUPPORT
+    DCGM_FR_CUDA_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_ECC_UNSUPPORTED,CONTACT_SUPPORT
+    DCGM_FR_ECC_PENDING,RESTART_VM
+    DCGM_FR_MEMORY_BANDWIDTH,RESTART_VM
+    DCGM_FR_TARGET_POWER,NONE
+    DCGM_FR_API_FAIL,RESTART_VM
+    DCGM_FR_API_FAIL_GPU,RESTART_VM
+    DCGM_FR_CUDA_CONTEXT,CONTACT_SUPPORT
+    DCGM_FR_DCGM_API,CONTACT_SUPPORT
+    DCGM_FR_CONCURRENT_GPUS,CONTACT_SUPPORT
+    DCGM_FR_TOO_MANY_ERRORS,CONTACT_SUPPORT
+    DCGM_FR_NVLINK_CRC_ERROR_THRESHOLD,CONTACT_SUPPORT
+    DCGM_FR_NVLINK_ERROR_CRITICAL,CONTACT_SUPPORT
+    DCGM_FR_ENFORCED_POWER_LIMIT,CONTACT_SUPPORT
+    DCGM_FR_MEMORY_ALLOC_HOST,RESTART_VM
+    DCGM_FR_GPU_OP_MODE,CONTACT_SUPPORT
+    DCGM_FR_NO_MEMORY_CLOCKS,CONTACT_SUPPORT
+    DCGM_FR_NO_GRAPHICS_CLOCKS,NONE
+    DCGM_FR_HAD_TO_RESTORE_STATE,RESTART_VM
+    DCGM_FR_L1TAG_UNSUPPORTED,CONTACT_SUPPORT
+    DCGM_FR_L1TAG_MISCOMPARE,CONTACT_SUPPORT
+    DCGM_FR_ROW_REMAP_FAILURE,CONTACT_SUPPORT
+    DCGM_FR_UNCONTAINED_ERROR,RESTART_VM
+    DCGM_FR_EMPTY_GPU_LIST,CONTACT_SUPPORT
+    DCGM_FR_DBE_PENDING_PAGE_RETIREMENTS,RESTART_VM
+    DCGM_FR_UNCORRECTABLE_ROW_REMAP,NONE
+    DCGM_FR_PENDING_ROW_REMAP,COMPONENT_RESET
+    DCGM_FR_BROKEN_P2P_MEMORY_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_BROKEN_P2P_WRITER_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_NVSWITCH_NVLINK_DOWN,CONTACT_SUPPORT
+    DCGM_FR_EUD_BINARY_PERMISSIONS,CONTACT_SUPPORT
+    DCGM_FR_EUD_NON_ROOT_USER,CONTACT_SUPPORT
+    DCGM_FR_EUD_SPAWN_FAILURE,CONTACT_SUPPORT
+    DCGM_FR_EUD_TIMEOUT,CONTACT_SUPPORT
+    DCGM_FR_EUD_ZOMBIE,CONTACT_SUPPORT
+    DCGM_FR_EUD_NON_ZERO_EXIT_CODE,CONTACT_SUPPORT
+    DCGM_FR_EUD_TEST_FAILED,CONTACT_SUPPORT
+    DCGM_FR_FILE_CREATE_PERMISSIONS,CONTACT_SUPPORT
+    DCGM_FR_PAUSE_RESUME_FAILED,CONTACT_SUPPORT
+    DCGM_FR_PCIE_H_REPLAY_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_GPU_EXPECTED_NVLINKS_UP,CONTACT_SUPPORT
+    DCGM_FR_NVSWITCH_EXPECTED_NVLINKS_UP,CONTACT_SUPPORT
+    DCGM_FR_XID_ERROR,NONE
+    DCGM_FR_SBE_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_DBE_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_PCIE_REPLAY_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_SBE_THRESHOLD_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_DBE_THRESHOLD_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_PCIE_REPLAY_THRESHOLD_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_CUDA_FM_NOT_INITIALIZED,CONTACT_SUPPORT
+    DCGM_FR_SXID_ERROR,RESTART_VM
+    DCGM_FR_GFLOPS_THRESHOLD_VIOLATION,CONTACT_SUPPORT
+    DCGM_FR_NAN_VALUE,CONTACT_SUPPORT
+    DCGM_FR_FABRIC_MANAGER_TRAINING_ERROR,CONTACT_SUPPORT
+    DCGM_FR_BROKEN_P2P_PCIE_MEMORY_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_BROKEN_P2P_PCIE_WRITER_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_BROKEN_P2P_NVLINK_MEMORY_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_BROKEN_P2P_NVLINK_WRITER_DEVICE,CONTACT_SUPPORT
+    DCGM_FR_TEST_SKIPPED,NONE
+    DCGM_FR_SRAM_THRESHOLD,CONTACT_SUPPORT
+    DCGM_FR_NVLINK_EFFECTIVE_BER_THRESHOLD,CONTACT_SUPPORT
+    DCGM_FR_FALLEN_OFF_BUS,RESTART_BM
+    DCGM_FR_NVLINK_SYMBOL_BER_THRESHOLD,CONTACT_SUPPORT
+    DCGM_FR_IMEX_UNHEALTHY,CONTACT_SUPPORT
+    DCGM_FR_FABRIC_PROBE_STATE,CONTACT_SUPPORT
+    DCGM_FR_BINARY_PERMISSIONS,CONTACT_SUPPORT
+    DCGM_FR_GPU_RECOVERY_RESET,COMPONENT_RESET
+    DCGM_FR_GPU_RECOVERY_REBOOT,RESTART_BM
+    DCGM_FR_GPU_RECOVERY_DRAIN_P2P,CONTACT_SUPPORT
+    DCGM_FR_GPU_RECOVERY_DRAIN_RESET,COMPONENT_RESET
+    DCGM_FR_NCCL_ERROR,COMPONENT_RESET
+    DCGM_FR_ERROR_SENTINEL,NONE
+---
+# Source: nvsentinel/charts/syslog-health-monitor/templates/configmap.yaml
+# Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Single ConfigMap holding every file configuration owned by the
+# syslog-health-monitor pod. Each data key becomes a file under the mount
+# directory (/etc/syslog-health-monitor/) and is referenced by the matching
+# CLI flag in the DaemonSet args.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'syslog-health-monitor-config'
+  labels:
+    helm.sh/chart: syslog-health-monitor-0.1.0
+    app.kubernetes.io/name: syslog-health-monitor
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  nic-driver.toml: |
+
+    [[nicDriverDetection.patterns]]
+    name = "cmd_exec_timeout"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "health_poll_failed"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "unrecoverable_err"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "netdev_watchdog"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "pci_power_insufficient"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "port_module_high_temp"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "access_reg_failed"
+    enabled = false
+
+
+    [[nicDriverDetection.patterns]]
+    name = "module_unplugged"
+    enabled = false
+
+  cancellations.toml: |
+
+    [[checks]]
+      name    = "SysLogsXIDError"
+      enabled = true
+
+      [[checks.cancellations]]
+        onErrorCode      = "162"
+        cancelErrorCodes = ["163"]
+---
+# Source: nvsentinel/templates/configmap.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-connectors
+  labels:
+    helm.sh/chart: nvsentinel-v1.9.0
+    app.kubernetes.io/name: nvsentinel
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "v1.9.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.json: |
+    {
+      "enableK8sPlatformConnector": "true",
+      "K8sConnectorQps": 5.00,
+      "K8sConnectorBurst": 10,
+      "MaxNodeConditionMessageLength": 1024,
+      "CompactedHealthEventMsgLen": 72,
+      "StoreConnectorMaxRetries": 3,
+      "enableMongoDBStorePlatformConnector": "",
+      "enablePostgresDBStorePlatformConnector": "false"
+      ,"enableGRPCSinkConnector": "false"
+      ,"GRPCSinkTarget": ""
+      ,"GRPCSinkConnectorMaxRetries": 3
+      ,"GRPCSinkTokenPath": ""
+      ,"pipeline": [{"config":"/etc/config/metadata.toml","enabled":false,"name":"MetadataAugmentor"},{"config":"/etc/config/overrides.toml","enabled":false,"name":"OverrideTransformer"}]
+    }
+  metadata.toml: |
+    cacheSize = 50
+    cacheTTL = "3600s"
+    allowedLabels = ["topology.kubernetes.io/zone","topology.kubernetes.io/region","node.kubernetes.io/instance-type","nvidia.com/cuda.driver-version.major","nvidia.com/cuda.driver-version.minor","nvidia.com/cuda.driver-version.revision","nvidia.com/cuda.driver-version.full","nvidia.com/cuda.runtime-version.major","nvidia.com/cuda.runtime-version.minor","nvidia.com/cuda.runtime-version.full","topology.k8s.aws/capacity-block-id","topology.k8s.aws/network-node-layer-1","topology.k8s.aws/network-node-layer-2","topology.k8s.aws/network-node-layer-3","oci.oraclecloud.com/host.id","oci.oraclecloud.com/host.network_block_id","oci.oraclecloud.com/host.rack_id","oci.oraclecloud.com/host.serial_number","cloud.google.com/gce-topology-block","cloud.google.com/gce-topology-host","cloud.google.com/gce-topology-subblock","network.topology.nvidia.com/accelerator","network.topology.nvidia.com/leaf","network.topology.nvidia.com/spine","network.topology.nvidia.com/core"]
+  overrides.toml: |
+    enabled = false
+---
+# Source: nvsentinel/charts/labeler/templates/clusterrole.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: labeler
+  labels:
+    helm.sh/chart: labeler-0.1.0
+    app.kubernetes.io/name: labeler
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+      - patch
+      - update
+---
+# Source: nvsentinel/charts/metadata-collector/templates/clusterrole.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: metadata-collector
+  labels:
+    helm.sh/chart: metadata-collector-0.1.0
+    app.kubernetes.io/name: metadata-collector
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/proxy
+    verbs:
+      - get
+---
+# Source: nvsentinel/templates/clusterrole.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: platform-connectors
+  labels:
+    helm.sh/chart: nvsentinel-v1.9.0
+    app.kubernetes.io/name: nvsentinel
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "v1.9.0"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - nodes/status
+  verbs:
+  - get
+  - patch
+  - update
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - update
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - pods/eviction
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+---
+# Source: nvsentinel/charts/labeler/templates/clusterrolebinding.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: labeler
+  labels:
+    helm.sh/chart: labeler-0.1.0
+    app.kubernetes.io/name: labeler
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: labeler
+    namespace: nvsentinel
+roleRef:
+  kind: ClusterRole
+  name: labeler
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: nvsentinel/charts/metadata-collector/templates/clusterrolebinding.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: metadata-collector
+  labels:
+    helm.sh/chart: metadata-collector-0.1.0
+    app.kubernetes.io/name: metadata-collector
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: metadata-collector
+subjects:
+  - kind: ServiceAccount
+    name: metadata-collector
+    namespace: nvsentinel
+---
+# Source: nvsentinel/templates/clusterrolebinding.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: platform-connectors
+  labels:
+    helm.sh/chart: nvsentinel-v1.9.0
+    app.kubernetes.io/name: nvsentinel
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "v1.9.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: platform-connectors
+subjects:
+  - kind: ServiceAccount
+    name: platform-connectors
+    namespace: nvsentinel
+---
+# Source: nvsentinel/charts/gpu-health-monitor/templates/daemonset-dcgm-3.x.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: gpu-health-monitor-dcgm-3.x
+  labels:
+    helm.sh/chart: gpu-health-monitor-0.1.0
+    app.kubernetes.io/name: gpu-health-monitor
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gpu-health-monitor
+      app.kubernetes.io/instance: nvsentinel
+  template:
+    metadata:
+      annotations:
+        checksum/config: 4c0ffba1f8b9a376165a661598a494587555926b1a0c07ad4215cad8cd215b6c
+      labels:
+        app.kubernetes.io/name: gpu-health-monitor
+        app.kubernetes.io/instance: nvsentinel
+    spec:
+      containers:
+        - name: gpu-health-monitor
+          command: ["gpu_health_monitor"]
+          args:
+            - --config-file
+            - "/etc/dcgmhealth/config.ini"
+            - --dcgm-error-mapping-config-file
+            - "/etc/dcgmhealth/dcgmerrorsmapping.csv"
+            - --dcgm-addr
+            - "nvidia-dcgm.gpu-operator.svc:5555"
+            - --port
+            - "2112"
+            - --verbose
+            - "False"
+            - --state-file
+            - "/var/run/statefile"
+            - --dcgm-k8s-service-enabled
+            - "true"
+            - --metadata-path
+            - "/var/lib/nvsentinel/gpu_metadata.json"
+            - --processing-strategy
+            - "EXECUTE_REMEDIATION"
+          securityContext:
+            runAsUser: 0
+          image: "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-3.x"
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - name: metrics
+              containerPort: 2112
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: config-vol
+              mountPath: /etc/dcgmhealth
+            - name: var-run-vol
+              mountPath: /var/run/
+            - name: gpu-metadata
+              mountPath: /var/lib/nvsentinel
+              readOnly: true
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+      volumes:
+        - name: config-vol
+          configMap:
+            name: gpu-health-monitor
+            defaultMode: 0777
+        - name: var-run-vol
+          hostPath:
+            path: /var/run/nvsentinel
+            type: Directory
+        - name: gpu-metadata
+          hostPath:
+            path: /var/lib/nvsentinel
+            type: DirectoryOrCreate
+      nodeSelector:
+        nvsentinel.dgxc.nvidia.com/dcgm.version: "3.x"
+      tolerations:
+        - operator: Exists
+---
+# Source: nvsentinel/charts/gpu-health-monitor/templates/daemonset-dcgm-4.x.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: gpu-health-monitor-dcgm-4.x
+  labels:
+    helm.sh/chart: gpu-health-monitor-0.1.0
+    app.kubernetes.io/name: gpu-health-monitor
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gpu-health-monitor
+      app.kubernetes.io/instance: nvsentinel
+  template:
+    metadata:
+      annotations:
+        checksum/config: 4c0ffba1f8b9a376165a661598a494587555926b1a0c07ad4215cad8cd215b6c
+      labels:
+        app.kubernetes.io/name: gpu-health-monitor
+        app.kubernetes.io/instance: nvsentinel
+    spec:
+      containers:
+        - name: gpu-health-monitor
+          command: ["gpu_health_monitor"]
+          args:
+            - --config-file
+            - "/etc/dcgmhealth/config.ini"
+            - --dcgm-error-mapping-config-file
+            - "/etc/dcgmhealth/dcgmerrorsmapping.csv"
+            - --dcgm-addr
+            - "nvidia-dcgm.gpu-operator.svc:5555"
+            - --port
+            - "2112"
+            - --verbose
+            - "False"
+            - --state-file
+            - "/var/run/statefile"
+            - --dcgm-k8s-service-enabled
+            - "true"
+            - --metadata-path
+            - "/var/lib/nvsentinel/gpu_metadata.json"
+            - --processing-strategy
+            - "EXECUTE_REMEDIATION"
+          securityContext:
+            runAsUser: 0
+          image: "ghcr.io/nvidia/nvsentinel/gpu-health-monitor:v1.9.0-dcgm-4.x"
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - name: metrics
+              containerPort: 2112
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: config-vol
+              mountPath: /etc/dcgmhealth
+            - name: var-run-vol
+              mountPath: /var/run/
+            - name: gpu-metadata
+              mountPath: /var/lib/nvsentinel
+              readOnly: true
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+      volumes:
+        - name: config-vol
+          configMap:
+            name: gpu-health-monitor
+            defaultMode: 0777
+        - name: var-run-vol
+          hostPath:
+            path: /var/run/nvsentinel
+            type: Directory
+        - name: gpu-metadata
+          hostPath:
+            path: /var/lib/nvsentinel
+            type: DirectoryOrCreate
+      nodeSelector:
+        nvsentinel.dgxc.nvidia.com/dcgm.version: "4.x"
+      tolerations:
+        - operator: Exists
+---
+# Source: nvsentinel/charts/metadata-collector/templates/daemonset.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: metadata-collector
+  labels:
+    helm.sh/chart: metadata-collector-0.1.0
+    app.kubernetes.io/name: metadata-collector
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: metadata-collector
+      app.kubernetes.io/instance: nvsentinel
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: metadata-collector
+        app.kubernetes.io/instance: nvsentinel
+    spec:
+      serviceAccountName: metadata-collector
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: metadata-collector
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            privileged: true
+          image: "ghcr.io/nvidia/nvsentinel/metadata-collector:v1.9.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - --output-path=/var/lib/nvsentinel/gpu_metadata.json
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: KUBELET_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: output
+              mountPath: /var/lib/nvsentinel
+            - name: sys
+              mountPath: /sys
+              readOnly: true
+            - mountPath: /var/lib/kubelet/pod-resources
+              name: pod-gpu-resources
+              readOnly: true
+      volumes:
+        - name: output
+          hostPath:
+            path: /var/lib/nvsentinel
+            type: DirectoryOrCreate
+        - name: sys
+          hostPath:
+            path: /sys
+            type: Directory
+        - name: pod-gpu-resources
+          hostPath:
+            path: /var/lib/kubelet/pod-resources
+            type: Directory
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+        nvsentinel.dgxc.nvidia.com/driver.installed: "true"
+      tolerations:
+        - operator: Exists
+      runtimeClassName: nvidia
+---
+# Source: nvsentinel/charts/syslog-health-monitor/templates/daemonset-kata.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: syslog-health-monitor-kata
+  labels:
+    helm.sh/chart: syslog-health-monitor-0.1.0
+    app.kubernetes.io/name: syslog-health-monitor
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: syslog-health-monitor
+      app.kubernetes.io/instance: nvsentinel
+      nvsentinel.dgxc.nvidia.com/kata: "true"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: syslog-health-monitor
+        app.kubernetes.io/instance: nvsentinel
+        nvsentinel.dgxc.nvidia.com/kata: "true"
+    spec:
+      containers:
+        - name: syslog-health-monitor
+          securityContext:
+            runAsUser: 0
+            capabilities:
+              add: ["SYSLOG", "SYS_ADMIN"]
+          image: "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.9.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--polling-interval"
+            - "15s"
+            - "--metrics-port"
+            - "2112"
+            - "--kata-enabled"
+            - "true"
+            - "--checks"
+            - "SysLogsXIDError,SysLogsSXIDError,SysLogsGPUFallenOff"
+            - "--metadata-path"
+            - "/var/lib/nvsentinel/gpu_metadata.json"
+            - "--processing-strategy"
+            - "EXECUTE_REMEDIATION"
+            - "--nic-driver-config"
+            - "/etc/syslog-health-monitor/nic-driver.toml"
+            - "--sysfs-root"
+            - "/nvsentinel/sys"
+            - "--cancellations-config"
+            - "/etc/syslog-health-monitor/cancellations.toml"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - name: metrics
+              containerPort: 2112
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: LOG_LEVEL
+              value: "info"
+          volumeMounts:
+            - name: var-run-vol
+              mountPath: /var/run/
+            - name: syslog-state-vol
+              mountPath: /var/run/syslog_health_monitor
+            - name: metadata-vol
+              mountPath: /var/lib/nvsentinel
+              readOnly: true
+            # Kata mode: Mount systemd journal for accessing host logs
+            - name: host-journal
+              mountPath: /nvsentinel/var/log/journal
+              readOnly: true
+            - name: host-systemd
+              mountPath: /run/systemd/journal
+              readOnly: true
+            - name: host-machine-id
+              mountPath: /etc/machine-id
+              readOnly: true
+            - name: proc-vol
+              mountPath: /nvsentinel/proc
+              readOnly: true
+            - name: sys-vol
+              mountPath: /nvsentinel/sys
+              readOnly: true
+            - name: syslog-health-monitor-config
+              mountPath: /etc/syslog-health-monitor
+              readOnly: true
+      volumes:
+        - name: var-run-vol
+          hostPath:
+            path: /var/run/nvsentinel
+            type: DirectoryOrCreate
+        - name: syslog-state-vol
+          hostPath:
+            path: /var/run/syslog_health_monitor
+            type: DirectoryOrCreate
+        - name: metadata-vol
+          hostPath:
+            path: /var/lib/nvsentinel
+            type: DirectoryOrCreate
+        # Kata mode: Systemd journal volumes for host log access
+        - name: host-journal
+          hostPath:
+            path: /var/log/journal
+            type: Directory
+        - name: host-systemd
+          hostPath:
+            path: /run/systemd/journal
+            type: Directory
+        - name: host-machine-id
+          hostPath:
+            path: /etc/machine-id
+            type: File
+        - name: sys-vol
+          hostPath:
+            path: /sys
+            type: Directory
+        - name: syslog-health-monitor-config
+          configMap:
+            name: syslog-health-monitor-config
+        - name: proc-vol
+          hostPath:
+            path: /proc
+            type: Directory
+      nodeSelector:
+        nvsentinel.dgxc.nvidia.com/driver.installed: "true"
+        nvsentinel.dgxc.nvidia.com/kata.enabled: "true"
+      tolerations:
+        - operator: Exists
+---
+# Source: nvsentinel/charts/syslog-health-monitor/templates/daemonset-regular.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: syslog-health-monitor-regular
+  labels:
+    helm.sh/chart: syslog-health-monitor-0.1.0
+    app.kubernetes.io/name: syslog-health-monitor
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: syslog-health-monitor
+      app.kubernetes.io/instance: nvsentinel
+      nvsentinel.dgxc.nvidia.com/kata: "false"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: syslog-health-monitor
+        app.kubernetes.io/instance: nvsentinel
+        nvsentinel.dgxc.nvidia.com/kata: "false"
+    spec:
+      containers:
+        - name: syslog-health-monitor
+          securityContext:
+            runAsUser: 0
+            capabilities:
+              add: ["SYSLOG", "SYS_ADMIN"]
+          image: "ghcr.io/nvidia/nvsentinel/syslog-health-monitor:v1.9.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--polling-interval"
+            - "15s"
+            - "--metrics-port"
+            - "2112"
+            - "--kata-enabled"
+            - "false"
+            - "--checks"
+            - "SysLogsXIDError,SysLogsSXIDError,SysLogsGPUFallenOff"
+            - "--metadata-path"
+            - "/var/lib/nvsentinel/gpu_metadata.json"
+            - "--processing-strategy"
+            - "EXECUTE_REMEDIATION"
+            - "--nic-driver-config"
+            - "/etc/syslog-health-monitor/nic-driver.toml"
+            - "--sysfs-root"
+            - "/nvsentinel/sys"
+            - "--cancellations-config"
+            - "/etc/syslog-health-monitor/cancellations.toml"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - name: metrics
+              containerPort: 2112
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 2112
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: LOG_LEVEL
+              value: "info"
+          volumeMounts:
+            - name: var-run-vol
+              mountPath: /var/run/
+            - name: syslog-state-vol
+              mountPath: /var/run/syslog_health_monitor
+            - name: metadata-vol
+              mountPath: /var/lib/nvsentinel
+              readOnly: true
+            # Regular mode: Mount journal from user-defined host path
+            - name: var-log-vol
+              mountPath: /nvsentinel/var/log
+              readOnly: true
+            - name: proc-vol
+              mountPath: /nvsentinel/proc
+              readOnly: true
+            - name: sys-vol
+              mountPath: /nvsentinel/sys
+              readOnly: true
+            - name: syslog-health-monitor-config
+              mountPath: /etc/syslog-health-monitor
+              readOnly: true
+      volumes:
+        - name: var-run-vol
+          hostPath:
+            path: /var/run/nvsentinel
+            type: DirectoryOrCreate
+        - name: syslog-state-vol
+          hostPath:
+            path: /var/run/syslog_health_monitor
+            type: DirectoryOrCreate
+        - name: metadata-vol
+          hostPath:
+            path: /var/lib/nvsentinel
+            type: DirectoryOrCreate
+        # Regular mode: Mount journal from user-defined host path
+        - name: var-log-vol
+          hostPath:
+            path: /var/log
+            type: Directory
+        - name: sys-vol
+          hostPath:
+            path: /sys
+            type: Directory
+        - name: syslog-health-monitor-config
+          configMap:
+            name: syslog-health-monitor-config
+        - name: proc-vol
+          hostPath:
+            path: /proc
+            type: Directory
+      nodeSelector:
+        nvsentinel.dgxc.nvidia.com/driver.installed: "true"
+        nvsentinel.dgxc.nvidia.com/kata.enabled: "false"
+      tolerations:
+        - operator: Exists
+---
+# Source: nvsentinel/templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: platform-connectors
+  labels:
+    helm.sh/chart: nvsentinel-v1.9.0
+    app.kubernetes.io/name: nvsentinel
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "v1.9.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 5%
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nvsentinel
+      app.kubernetes.io/instance: nvsentinel
+  template:
+    metadata:
+      annotations:
+        checksum/config: f7f3986ae45378eea88679ad99ea0bc4a0c6377c97c7d5fdbef38e04131b4656
+      labels:
+        app.kubernetes.io/name: nvsentinel
+        app.kubernetes.io/instance: nvsentinel
+    spec:
+      serviceAccountName: platform-connectors
+      containers:
+        - name: platform-connector
+          image: "ghcr.io/nvidia/nvsentinel/platform-connectors:v1.9.0"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 0
+            capabilities:
+              drop:
+              - ALL
+          ports:
+            - name: metrics
+              containerPort: 2112
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          args:
+          - "--config=/etc/config/config.json"
+          - "--metrics-port=2112"
+          - "--mongo-client-cert-mount-path=/etc/ssl/mongo-client"
+          - "--socket=/var/run/nvsentinel.sock"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 512Mi
+          volumeMounts:
+            - name: var-run-vol
+              mountPath: /var/run
+            - name: platform-connector-configmap
+              mountPath: /etc/config/
+            - name: mongo-app-client-cert
+              mountPath: /etc/ssl/mongo-client
+              readOnly: true
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: LOG_LEVEL
+              value: "info"
+            # App name for connection identification in logs and currentOp
+            - name: APP_NAME
+              value: "platform-connector"
+            - name: MONGODB_CLIENT_CERT_MOUNT_PATH
+              value: /etc/ssl/mongo-client
+          envFrom:
+            - configMapRef:
+                name: mongodb-config
+                optional: true
+
+      volumes:
+        - name: var-run-vol
+          hostPath:
+            path: /var/run/nvsentinel
+            type: DirectoryOrCreate
+        - name: platform-connector-configmap
+          configMap:
+            name: platform-connectors
+        - name: mongo-app-client-cert
+          secret:
+            secretName: mongo-app-client-cert-secret
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+              - key: ca.crt
+                path: ca.crt
+            optional: true
+      tolerations:
+        - operator: Exists
+---
+# Source: nvsentinel/charts/labeler/templates/deployment.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labeler
+  labels:
+    helm.sh/chart: labeler-0.1.0
+    app.kubernetes.io/name: labeler
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: labeler
+      app.kubernetes.io/instance: nvsentinel
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: labeler-0.1.0
+        app.kubernetes.io/name: labeler
+        app.kubernetes.io/instance: nvsentinel
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: labeler
+      containers:
+        - name: labeler
+          image: "ghcr.io/nvidia/nvsentinel/labeler:v1.9.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--metrics-port"
+            - "2112"
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - name: metrics
+              containerPort: 2112
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: LOG_LEVEL
+              value: "info"
+      tolerations:
+        - operator: Exists
+---
+# Source: nvsentinel/templates/certmanager-postgresql.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: nvsentinel/templates/daemonset.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: nvsentinel/templates/networkpolicy.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: nvsentinel/templates/node-condition-cleanup-hook.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: nvsentinel/templates/podMonitor.yaml
+# Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: nvsentinel
+  labels:
+    helm.sh/chart: nvsentinel-v1.9.0
+    app.kubernetes.io/name: nvsentinel
+    app.kubernetes.io/instance: nvsentinel
+    app.kubernetes.io/version: "v1.9.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchExpressions:
+      - { key: "app.kubernetes.io/instance", operator: In, values: ["nvsentinel"] }
+  namespaceSelector:
+    matchNames:
+      - nvsentinel
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+    - port: cleanup-metrics
+      path: /metrics
+      interval: 30s

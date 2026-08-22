@@ -1,0 +1,139 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "configuration-oci-nginx-replicas-4"
+  labels:
+    sourceType: "configuration-oci"
+    component: "existing-oci-nginx"
+    sourceVersion: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    base: "replicas-4"
+spec:
+  source:
+    type: "configuration-oci"
+    name: "nginx-replicas-4"
+    version: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    record: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+  baseVariant:
+    name: "replicas-4"
+    revision: "reviewed-r001"
+    digest: "aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    digestRole: "literal-configuration-oci-manifest"
+    digestRecord: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml"
+    inventory: "runs/existing-oci-upload-proof/receipt.yaml"
+    objectCount: 5
+    digest: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+    digestRole: "canonical-object-set"
+    digestRecord: "runs/existing-oci-upload-proof/receipt.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    materialization:
+      method: "read-literal-configuration"
+      status: "recorded-no-op"
+      outputDigest: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+      record: "runs/existing-oci-upload-proof/receipt.yaml"
+    flattening:
+      status: "decided"
+      verdict: "born-flattened"
+      action: "retain-exact-objects"
+      scope: "nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518/replicas-4; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    boundaries:
+      - "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning."
+  inputs:
+    fixedAtBuildTime:
+      - "source=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+      - "artifactType=application/vnd.confighub.kubernetes.config.v1"
+      - "change=Deployment/nginx spec.replicas 3 -> 4"
+    installTime:
+      -
+        category: "secret"
+        name: "nginx/ai-provider-credentials"
+        purpose: "The Deployment references this Secret; the credential is not stored in the public OCI."
+    installTimeStatus: "one target-owned Secret recorded"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "nginx/ai-provider-credentials"
+          origin: "base"
+          type: "target-fact"
+          detail: "Supply the referenced AI provider credentials before the Deployment starts."
+      records:
+        - "runs/anonymous-oci-transform-proof/receipt.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "runs/anonymous-oci-transform-proof/receipt.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredSecrets:
+          -
+            namespace: "nginx"
+            name: "ai-provider-credentials"
+      requirementRefs:
+        - "nginx/ai-provider-credentials"
+      records:
+        - "runs/anonymous-oci-transform-proof/receipt.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      - "nginx/ai-provider-credentials"
+    deliveryProtected:
+      []
+    records:
+      - "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "public-anonymous-pull-proved"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+      digest: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+      receipt: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    configHubUpload:
+      status: "pass"
+      space: "existing-oci-nginx-replicas-4"
+      objectSetSha256: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+      receipt: "runs/existing-oci-upload-proof/receipt.yaml"
+    configHubReleaseOci:
+      status: "not-run-for-this-base"
+    argoCd: "not-run-for-this-base"
+    flux: "not-run-for-this-base"
+    direct: "not-run-for-this-base"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+    normalSet: "baseline"
+  evidence:
+    publicOci: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    transformation: "runs/anonymous-oci-transform-proof/receipt.yaml"
+    configHubUpload: "runs/existing-oci-upload-proof/receipt.yaml"
+  operations:
+    resourceClass: "user-workload"
+    ownerClass: "application-team"
+    changeCadence: "application-release"
+status:
+  level: "available"
+  claim: "The public literal configuration OCI contains five exact Kubernetes objects, pulls without registry credentials, and imports into ConfigHub without rerendering Helm."
+  limits:
+    - "The target must supply nginx/ai-provider-credentials."
+    - "This record proves publication, anonymous pull, checks, and ConfigHub import. It does not claim delivery or workload health."

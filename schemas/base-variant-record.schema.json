@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://confighub.com/helm-expt/schemas/base-variant-record.schema.json",
   "title": "Config Catalog Base Variant Record",
-  "description": "A source-neutral record of the configuration, inputs, routing decisions, evidence, and OCI handoffs associated with a ConfigHub base variant.",
+  "description": "A source-neutral index connecting one reviewed base to its source and intent, exact objects, materialization and flattening decisions, lifecycle requirements, route status, field ownership, evidence, and OCI handoffs.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -46,8 +46,10 @@
         "source",
         "baseVariant",
         "configuration",
+        "processing",
         "inputs",
-        "routing",
+        "lifecycle",
+        "ownership",
         "delivery",
         "policy",
         "evidence",
@@ -71,6 +73,10 @@
                 "cub-installer",
                 "kubara",
                 "sveltos",
+                "source-oci",
+                "configuration-oci",
+                "kubernetes-yaml",
+                "confighub",
                 "rendered-config"
               ]
             },
@@ -94,7 +100,9 @@
           "required": [
             "name",
             "revision",
-            "digest"
+            "digest",
+            "digestRole",
+            "digestRecord"
           ],
           "properties": {
             "name": {
@@ -105,6 +113,23 @@
             },
             "digest": {
               "type": "string"
+            },
+            "digestRole": {
+              "enum": [
+                "helm-variant-revision",
+              "aicr-platform-index",
+              "source-output-inventory",
+              "literal-configuration-oci-manifest",
+              "source-package-oci-manifest",
+              "source-file-set",
+              "confighub-space-revision",
+              "source-file",
+                "source-output-record"
+              ]
+            },
+            "digestRecord": {
+              "type": "string",
+              "minLength": 1
             }
           }
         },
@@ -115,7 +140,10 @@
             "format",
             "objects",
             "inventory",
-            "objectCount"
+            "objectCount",
+            "digest",
+            "digestRole",
+            "digestRecord"
           ],
           "properties": {
             "format": {
@@ -130,6 +158,140 @@
             "objectCount": {
               "type": "integer",
               "minimum": 0
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^(sha256:)?[a-f0-9]{64}$"
+            },
+            "digestRole": {
+              "enum": [
+                "canonical-object-set",
+                "inventory-file",
+                "literal-yaml-file"
+              ]
+            },
+            "digestRecord": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "processing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceIntent",
+            "materialization",
+            "flattening",
+            "boundaries"
+          ],
+          "properties": {
+            "sourceIntent": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "record"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recorded",
+                    "partial",
+                    "gap"
+                  ]
+                },
+                "record": {
+                  "type": "string"
+                }
+              }
+            },
+            "materialization": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "method",
+                "status",
+                "outputDigest",
+                "record"
+              ],
+              "properties": {
+                "method": {
+                  "enum": [
+                    "helm-render",
+                    "aicr-compose",
+                    "aicr-compose-then-helm-render",
+                    "generator",
+                    "source-oci-processor",
+                    "read-literal-configuration",
+                    "read-confighub-revision"
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "captured",
+                    "recorded-no-op",
+                    "not-run",
+                    "gap"
+                  ]
+                },
+                "outputDigest": {
+                  "type": "string"
+                },
+                "record": {
+                  "type": "string"
+                }
+              }
+            },
+            "flattening": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "verdict",
+                "action",
+                "scope",
+                "record"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "decided",
+                    "not-assessed"
+                  ]
+                },
+                "verdict": {
+                  "enum": [
+                    "born-flattened",
+                    "safe-to-flatten",
+                    "flatten-with-routes",
+                    "unsafe-to-flatten",
+                    "not-assessed"
+                  ]
+                },
+                "action": {
+                  "enum": [
+                    "retain-exact-objects",
+                    "retain-exact-objects-with-routes",
+                    "process-source-late",
+                    "assessment-required"
+                  ]
+                },
+                "scope": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "record": {
+                  "type": "string"
+                }
+              }
+            },
+            "boundaries": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
             }
           }
         },
@@ -155,34 +317,324 @@
               }
             },
             "installTimeStatus": {
-              "enum": [
-                "declared",
-                "partly-declared",
-                "not-yet-declared"
-              ]
+              "type": "string",
+              "minLength": 1
             }
           }
         },
-        "routing": {
+        "lifecycle": {
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "routes",
+            "requirements",
+            "routeIntent",
             "targetFacts",
-            "sourceRecord"
+            "resolution"
           ],
           "properties": {
-            "routes": {
-              "type": "array",
-              "items": {
-                "type": "object"
+            "requirements": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "items",
+                "records"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recorded",
+                    "not-required",
+                    "gap"
+                  ]
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "origin",
+                      "type",
+                      "detail"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "origin": {
+                        "enum": [
+                          "source",
+                          "base",
+                          "variant",
+                          "destination"
+                        ]
+                      },
+                      "type": {
+                        "enum": [
+                          "lifecycle-action",
+                          "target-fact",
+                          "target-facts"
+                        ]
+                      },
+                      "detail": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                },
+                "records": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "routeIntent": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "routes",
+                "records"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recorded",
+                    "required-at-destination",
+                    "not-required",
+                    "gap"
+                  ]
+                },
+                "routes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "requirementRefs",
+                      "phase",
+                      "proposedActor",
+                      "proposedMechanism",
+                      "automatic",
+                      "status",
+                      "sourceStatus",
+                      "supportedRuntimes",
+                      "checks",
+                      "evidence"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "requirementRefs": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "phase": {
+                        "enum": [
+                          "pre-render",
+                          "preflight",
+                          "pre-apply",
+                          "apply",
+                          "post-apply",
+                          "observe",
+                          "cleanup",
+                          "destination-resolution"
+                        ]
+                      },
+                      "proposedActor": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "proposedMechanism": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "automatic": {
+                        "type": "boolean"
+                      },
+                      "status": {
+                        "enum": [
+                          "recorded",
+                          "requires-destination-resolution",
+                          "blocked"
+                        ]
+                      },
+                      "sourceStatus": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "supportedRuntimes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "checks": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "evidence": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "orderHint": {
+                        "oneOf": [
+                          {
+                            "type": "integer"
+                          },
+                          {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "records": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
               }
             },
             "targetFacts": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "declared",
+                "requirementRefs",
+                "records"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recorded",
+                    "not-required",
+                    "gap"
+                  ]
+                },
+                "declared": {
+                  "type": "object"
+                },
+                "requirementRefs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "records": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             },
-            "sourceRecord": {
-              "type": "string"
+            "resolution": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status",
+                "rule",
+                "records"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "awaits-variant-and-target",
+                    "resolved-for-recorded-targets",
+                    "not-required",
+                    "blocked",
+                    "gap"
+                  ]
+                },
+                "rule": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "records": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ownership": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "sourceControlled",
+            "variantControlled",
+            "targetSupplied",
+            "deliveryProtected",
+            "records",
+            "rule"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "declared",
+                "partly-declared",
+                "not-assessed"
+              ]
+            },
+            "sourceControlled": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "variantControlled": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "targetSupplied": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deliveryProtected": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rule": {
+              "type": "string",
+              "minLength": 1
             }
           }
         },
@@ -196,7 +648,13 @@
             "flux"
           ],
           "properties": {
+            "sourcePackageOci": {
+              "type": "object"
+            },
             "literalConfigOci": {
+              "type": "object"
+            },
+            "configHubUpload": {
               "type": "object"
             },
             "configHubReleaseOci": {
@@ -207,8 +665,20 @@
             },
             "flux": {
               "type": "string"
+            },
+            "direct": {
+              "type": "string"
+            },
+            "historicalGitopsOciStatus": {
+              "type": "string"
+            },
+            "receipt": {
+              "type": "string"
             }
           }
+        },
+        "promotion": {
+          "type": "object"
         },
         "policy": {
           "type": "object",

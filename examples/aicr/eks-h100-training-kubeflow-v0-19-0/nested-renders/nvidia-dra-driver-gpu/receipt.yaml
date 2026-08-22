@@ -1,0 +1,57 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-nvidia-dra-driver-gpu"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nvidia-dra-driver-gpu.yaml"
+  source:
+    repoURL: "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu"
+    chart: "dra-driver-nvidia-gpu"
+    path: ""
+    targetRevision: "0.4.1"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml"
+    sha256: "69377bd4d16edd23cfb2595d28951b5f2c11622e026ed7aa2410ef09db7e55cb"
+  destinationNamespace: "nvidia-dra-driver"
+  command:
+    - "helm"
+    - "template"
+    - "nvidia-dra-driver-gpu"
+    - "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu"
+    - "--version"
+    - "0.4.1"
+    - "--namespace"
+    - "nvidia-dra-driver"
+    - "--values"
+    - "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nvidia-dra-driver-gpu/objects.yaml"
+    sha256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+    objectCount: 21
+    kinds:
+      ClusterRole: 3
+      ClusterRoleBinding: 3
+      CustomResourceDefinition: 2
+      DaemonSet: 1
+      Deployment: 1
+      DeviceClass: 2
+      Role: 2
+      RoleBinding: 2
+      ServiceAccount: 3
+      ValidatingAdmissionPolicy: 1
+      ValidatingAdmissionPolicyBinding: 1
+    crdCount: 2
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

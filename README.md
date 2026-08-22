@@ -39,6 +39,13 @@ the real Kubernetes objects, keep those changes through upgrades, create test
 and production variants, apply policy, approve releases, and track delivery to
 clusters.
 
+Every retained configuration also has a **source and intent record**. It names
+the source, version, choices, required setup, and checks that produced or
+selected the exact objects. A Helm recipe or AICR recipe can be part of that
+record because those tools use recipes. OCI and plain YAML keep equivalent
+source records; they are not relabeled as recipes. The full terminology is in
+[The configuration processing model](./docs/user/model-and-vocabulary.md).
+
 ## Free And Managed Paths
 
 The starting examples support local use with no ConfigHub Server and public

@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "46502e4f01a49d8134758eb5d3764cea2d4fc1bc5b97e8400a28a438965fcbc8"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/metallb/metallb/0.16.1/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 42
+    digest: "430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/metallb/metallb/0.16.1/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e"
+      record: "recipes/metallb/metallb/0.16.1/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "metallb/metallb@0.16.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=metallb/metallb"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

@@ -15,6 +15,7 @@ disagrees with the graph it came from is worth catching too.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `eks-h100-training-kubeflow` | total order | 16 | 17 | 15 | 17 | `kubeflow-trainer-post` | `aicr-stack` |
 | `eks-h100-training-kubeflow-v0-18-0` | parallel groups | 5 | 17 | 15 | 17 | `kubeflow-trainer-post` | `aicr-stack` |
+| `eks-h100-training-kubeflow-v0-19-0` | parallel groups | 5 | 17 | 15 | 17 | `kubeflow-trainer-post` | `aicr-stack` |
 | `eks-h100-inference-nim` | total order | 19 | 18 | 17 | 20 | `agentgateway-crds-post`, `agentgateway-post` | `aicr-stack` |
 
 The order model column is the interesting one. AICR v0.14.0 gave every
