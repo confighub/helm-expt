@@ -1,0 +1,51 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: PlatformRouteIntent
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-19-0
+spec:
+  source:
+    type: aicr
+    record: examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml
+  materializedObjects: examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered
+  boundary:
+    exactObjects: >-
+      The retained files are 17 Argo CD Application objects. Their bytes and
+      order can be reviewed before delivery.
+    downstreamRendering: >-
+      Sixteen component Applications still reference Helm charts or local
+      chart paths. Argo CD renders those sources later. This entry does not
+      claim to contain the final workload objects.
+  targetFacts:
+    - Argo CD and its Application CRD must exist before these objects can be applied.
+    - The target must be an EKS cluster with H100 nodes running Ubuntu.
+    - A gp3 StorageClass must be available for the selected storage input.
+    - GPU nodes must carry nvidia.com/gpu.present=true for the selected node placement.
+  routes:
+    - id: argocd-prerequisite
+      lifecycleWork: make the Argo CD Application API and controller available
+      owner: platform operator
+      order: before any retained Application object
+      evidenceRequired: Argo CD CRD discovery and controller readiness
+      status: recorded-not-run-for-v0.19.0
+    - id: component-order
+      lifecycleWork: reconcile component Applications in AICR dependency order
+      owner: Argo CD
+      order: sync-wave annotations generated from recipe.deploymentOrder
+      evidenceRequired: observed sync operations and component health, not annotation survival alone
+      status: recorded-not-run-for-v0.19.0
+    - id: downstream-chart-lifecycle
+      lifecycleWork: handle hooks, CRDs, certificates, and setup Jobs in each referenced chart
+      owner: Argo CD and the referenced Helm chart
+      order: chart-specific
+      evidenceRequired: chart-level flattening decisions, routes, and live receipts for the exact referenced versions
+      status: nested-sources-rendered-routes-not-resolved
+    - id: aicr-health-checks
+      lifecycleWork: run the deployment and conformance checks carried by the AICR recipe
+      owner: AICR validator or the operator's test runner
+      order: after the relevant component is available
+      evidenceRequired: validator output from the target cluster
+      status: not-run
+status:
+  configurationGenerated: true
+  routesExecuted: false
+  runtimeProven: false

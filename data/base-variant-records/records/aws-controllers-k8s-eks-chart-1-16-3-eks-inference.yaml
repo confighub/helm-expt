@@ -18,11 +18,33 @@ spec:
     name: "eks-inference"
     revision: "r001"
     digest: "47d680387e443f1ae21c72e02c14662247894d4c9eaec538048b3931032150ac"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
     inventory: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
     objectCount: 20
+    digest: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+      record: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "aws-controllers-k8s/eks-chart@1.16.3/eks-inference; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=aws-controllers-k8s/eks-chart"
@@ -53,11 +75,30 @@ spec:
           purpose: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
           stage: "setup"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "ack-system/aws-creds"
+          origin: "base"
+          type: "target-fact"
+          detail: "AWS shared credentials file mounted read-only at /var/run/secrets/aws"
+        -
+          id: "aws.region"
+          origin: "base"
+          type: "target-fact"
+          detail: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
+      records:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -72,49 +113,30 @@ spec:
             path: "aws.region"
             purpose: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
             stage: "setup"
-      requirements:
-        -
-          category: "secret"
-          name: "ack-system/aws-creds"
-          namespace: "ack-system"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "AWS shared credentials file mounted read-only at /var/run/secrets/aws"
-          check: ""
-          declarationPath: "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
-        -
-          category: "value"
-          name: "aws.region"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
-          check: ""
-          declarationPath: "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
-      actions:
+      requirementRefs:
+        - "ack-system/aws-creds"
+        - "aws.region"
+      records:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "ack-system/aws-creds"
+      - "aws.region"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

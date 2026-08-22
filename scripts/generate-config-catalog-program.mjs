@@ -82,8 +82,24 @@ const supportedSourceTypes = [
   "cub-installer",
   "kubara",
   "sveltos",
+  "source-oci",
+  "configuration-oci",
+  "kubernetes-yaml",
+  "confighub",
   "rendered-config",
 ];
+const policySourceTypeByRecordSource = {
+  helm: "helm",
+  aicr: "aicr",
+  "cub-installer": "cub-installer",
+  kubara: "kubara",
+  sveltos: "sveltos",
+  "source-oci": "cub-installer",
+  "configuration-oci": "rendered-config",
+  "kubernetes-yaml": "rendered-config",
+  confighub: "rendered-config",
+  "rendered-config": "rendered-config",
+};
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -182,13 +198,20 @@ function buildReport() {
     { cwd: repoRoot, stdio: ["ignore", "ignore", "inherit"] },
   );
 
+  const intentByName = new Map(intents.map((intent) => [intent.metadata.name, intent]));
   const records = [
     ...intents.map(buildHelmRecord),
     buildAicrRecord(),
     buildAicrArgoCdRecord(),
+    buildAicrV019ArgoCdRecord(),
     buildKubaraRecord(),
     buildSveltosRecord(),
-  ].sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
+    buildCubInstallerRecord(),
+    buildConfigurationOciRecord(),
+    buildPlainYamlRecord(),
+  ]
+    .map((record) => alignRecordWithProcessingModel(record, intentByName.get(record.metadata.name)))
+    .sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
   applyOperationalClassExamples(records, operationalClassExamples, policy);
   validateRecords(records);
@@ -626,6 +649,258 @@ function buildAicrArgoCdRecord() {
   };
 }
 
+function buildAicrV019ArgoCdRecord() {
+  const root = "examples/aicr/eks-h100-training-kubeflow-v0-19-0";
+  const generationPath = `${root}/generation-receipt.yaml`;
+  const routePath = `${root}/route-intent.yaml`;
+  const fieldPolicyPath = `${root}/field-policy-assessment.yaml`;
+  const verdictPath = `${root}/flattening-safety-verdict.yaml`;
+  const indexPath = `${root}/digest-index/platform-index.json`;
+  const publicReceiptPath = `${root}/public-oci-receipt.yaml`;
+  const uploadReceiptPath = `${root}/confighub-upload-receipt.yaml`;
+  const policyReceiptPath = `${root}/apply-policy-receipt.yaml`;
+  const promotionReceiptPath = `${root}/promotion-readiness-receipt.yaml`;
+  const releaseOciReceiptPath = `${root}/confighub-release-oci-receipt.yaml`;
+  const nestedSourcesPath = "data/aicr-v0-19-0-nested-sources/summary.md";
+  const routeResolutionPath =
+    "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml";
+  const generation = readYaml(join(repoRoot, generationPath));
+  const routeIntent = readYaml(join(repoRoot, routePath));
+  const platformIndex = JSON.parse(readFileSync(join(repoRoot, indexPath), "utf8"));
+  const publicReceipt = existsRepo(publicReceiptPath)
+    ? readYaml(join(repoRoot, publicReceiptPath))
+    : null;
+  const uploadReceipt = existsRepo(uploadReceiptPath)
+    ? readYaml(join(repoRoot, uploadReceiptPath))
+    : null;
+  const policyReceipt = existsRepo(policyReceiptPath)
+    ? readYaml(join(repoRoot, policyReceiptPath))
+    : null;
+  const promotionReceipt = existsRepo(promotionReceiptPath)
+    ? readYaml(join(repoRoot, promotionReceiptPath))
+    : null;
+  const releaseOciReceipt = existsRepo(releaseOciReceiptPath)
+    ? readYaml(join(repoRoot, releaseOciReceiptPath))
+    : null;
+  const publicPassed = publicReceipt?.status?.result === "pass"
+    && publicReceipt?.status?.anonymousPull === "pass";
+  const uploadPassed = uploadReceipt?.status?.configHubBaseVariantUpload === "pass";
+  const promotionPassed = promotionReceipt?.status?.result === "pass";
+  const policyPassed = policyReceipt?.status?.requiredApprovalBlockedReleasePublish === "pass";
+  const releaseOciPassed = releaseOciReceipt?.status?.result === "pass"
+    && releaseOciReceipt?.status?.registryPull === "pass"
+    && releaseOciReceipt?.status?.promotedConfigurationMatched === "pass";
+  const sourcePackage = generation.spec.processing.transport.sourcePackage;
+  const literalConfiguration = generation.spec.processing.transport.literalConfiguration;
+  const applicationsRoot = `${root}/argocd-rendered`;
+  const inventoryPath = `${root}/argocd-rendered/checksums.txt`;
+  const objects = objectsInDirectory(join(repoRoot, applicationsRoot), { includeTemplates: true });
+  check(objects.length === 17, `expected 17 AICR v0.19.0 Applications, found ${objects.length}`);
+  check(
+    platformIndex.spec?.platformDigest,
+    "AICR v0.19.0 platform digest is missing",
+  );
+
+  const targetRequirements = routeIntent.spec.targetFacts.map((detail, index) => ({
+    category: "target-fact",
+    name: `aicr-target-fact-${index + 1}`,
+    purpose: detail,
+  }));
+  const routeRows = routeIntent.spec.routes.map((route) => ({
+    routeName: route.id,
+    lifecyclePhase: "destination-resolution",
+    actionKind: "resolve-lifecycle-work",
+    executionMode: "destination-specific",
+    automatic: false,
+    whoRuns: route.owner,
+    operatingDetails: route.lifecycleWork,
+    disposition: route.status,
+    evidenceRequired: route.evidenceRequired,
+    order: route.order,
+    evidence: [routePath],
+  }));
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+      labels: {
+        sourceType: "aicr",
+        component: "aicr-eks-h100-training-kubeflow",
+        sourceVersion: "v0.19.0",
+        base: "argocd",
+      },
+    },
+    spec: {
+      source: {
+        type: "aicr",
+        name: "eks-h100-training-kubeflow",
+        version: "v0.19.0",
+        record: generationPath,
+        packageOciRef: publicPassed
+          ? "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
+          : "",
+      },
+      baseVariant: {
+        name: "argocd",
+        revision: "generated-v0.19.0",
+        digest: String(platformIndex.spec.platformDigest).replace(/^sha256:/, ""),
+      },
+      configuration: {
+        format: "argocd-application-yaml",
+        objects: applicationsRoot,
+        inventory: inventoryPath,
+        objectCount: objects.length,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          ...Object.entries(generation.spec.sourceAndIntent.criteria)
+            .map(([key, value]) => `${key}=${value}`),
+          ...Object.entries(generation.spec.sourceAndIntent.generationInputs)
+            .map(([key, value]) => `${key}=${value}`),
+          "deployer=argocd-helm",
+        ],
+        installTime: targetRequirements,
+        installTimeStatus: "destination-facts-recorded-not-run",
+      },
+      routing: {
+        routes: routeRows,
+        targetFacts: {
+          platform: "EKS",
+          accelerator: "H100",
+          operatingSystem: "Ubuntu",
+          requirements: targetRequirements,
+        },
+        sourceRecord: routePath,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: publicPassed ? "public-anonymous-pull-proved" : "local-layout-verified",
+          localDigest: sourcePackage.digest,
+          plannedRef:
+            "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0",
+          ociLayout: sourcePackage.ociLayout,
+          ...(publicPassed ? { receipt: publicReceiptPath } : {}),
+        },
+        literalConfigOci: {
+          status: publicPassed ? "public-anonymous-pull-proved" : "local-layout-verified",
+          localDigest: literalConfiguration.digest,
+          plannedRef:
+            "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0",
+          ociLayout: literalConfiguration.ociLayout,
+          ...(publicPassed ? { receipt: publicReceiptPath } : {}),
+        },
+        configHubUpload: {
+          status: uploadPassed ? "pass" : "not-run",
+          ...(uploadPassed
+            ? {
+                sourceRef: uploadReceipt.spec.source.reference,
+                sourceOciDigest: uploadReceipt.spec.source.digest,
+                configHubDataHash: uploadReceipt.spec.unit.dataHash,
+                objectIdentitiesMatched:
+                  uploadReceipt.spec.provenanceBinding.objectIdentitiesMatched,
+                bindingMethod: uploadReceipt.spec.provenanceBinding.method,
+                receipt: uploadReceiptPath,
+              }
+            : {}),
+        },
+        configHubReleaseOci: {
+          status: releaseOciPassed
+            ? "published-and-pulled-by-digest"
+            : policyPassed
+              ? "not-published-approval-required"
+              : "not-run",
+          ...(releaseOciPassed
+            ? {
+                reference: releaseOciReceipt.spec.release.reference,
+                manifestDigest: releaseOciReceipt.spec.release.manifestDigest,
+                bundleDigest: releaseOciReceipt.spec.release.bundleDigest,
+                promotedConfigurationMatched: true,
+                receipt: releaseOciReceiptPath,
+              }
+            : policyPassed
+            ? {
+                policyReceipt: policyReceiptPath,
+                reason: "The required approval was absent, so ConfigHub refused release publication.",
+              }
+            : {}),
+        },
+        argoCd: "applications-retained-not-reconciled",
+        flux: "not-run-for-argo-application-wrapper",
+      },
+      ...(promotionPassed
+        ? {
+            promotion: {
+              status: "pass",
+              receipt: promotionReceiptPath,
+              path: promotionReceipt.spec.promotion.path,
+              sourceDigest: promotionReceipt.spec.source.literalConfiguration.digest,
+              changedApplications: [promotionReceipt.spec.change.resource],
+              devDryRun: promotionReceipt.spec.change.preview.result,
+              stagingDryRun: promotionReceipt.spec.promotion.preview.result,
+              stagingMatchesReviewedDev:
+                promotionReceipt.spec.promotion.stagingMatchesDevelopment,
+            },
+          }
+        : {}),
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+        normalSet: "approvalRequired",
+        approvalReason: "system-configuration",
+      },
+      evidence: {
+        sourceGenerationReceipt: generationPath,
+        sourceProvenance: "runs/aicr-provenance-v0-19-0/receipt.yaml",
+        digestIndex: indexPath,
+        flatteningVerdict: verdictPath,
+        routeIntent: routePath,
+        fieldPolicy: fieldPolicyPath,
+        ...(publicPassed ? { publicOciReceipt: publicReceiptPath } : {}),
+        ...(uploadPassed ? { configHubUploadReceipt: uploadReceiptPath } : {}),
+        ...(policyPassed ? { applyPolicyReceipt: policyReceiptPath } : {}),
+        ...(promotionPassed ? { variantPromotionReceipt: promotionReceiptPath } : {}),
+        ...(releaseOciPassed ? { configHubReleaseOciReceipt: releaseOciReceiptPath } : {}),
+        ...(existsRepo(nestedSourcesPath) ? { nestedSourceRenders: nestedSourcesPath } : {}),
+        ...(existsRepo(routeResolutionPath) ? { stagingRouteResolution: routeResolutionPath } : {}),
+      },
+      operations: {
+        resourceClass: "system-configuration",
+        ownerClass: "platform-team",
+        changeCadence: "planned-platform-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: publicPassed && uploadPassed && promotionPassed && releaseOciPassed
+        ? "AICR v0.19.0 produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change to staging, and published the approved staging result as a release OCI that was pulled and compared by digest."
+        : "AICR v0.19.0 produced 17 exact Argo CD Applications with signed source provenance, a scoped flattening verdict, lifecycle route intent, field ownership assessment, and two verified local OCI layouts.",
+      limits: [
+        publicPassed
+          ? "Both OCI artifacts were anonymously pulled at their recorded digests."
+          : "The two OCI layouts are verified locally but have not yet been published at their public references.",
+        uploadPassed
+          ? `ConfigHub recorded the literal OCI digest and its separate Unit data hash ${uploadReceipt.spec.unit.dataHash}; the upload receipt binds them by exact-object comparison.`
+          : "This v0.19.0 base has not yet been uploaded to ConfigHub.",
+        promotionPassed
+          ? "The persistent development and staging variants contain the one reviewed Grafana Secret-reference change."
+          : "No v0.19.0 derived-variant promotion has run.",
+        policyPassed
+          ? "The required-approval gate refused to publish an unapproved ConfigHub release."
+          : "The ConfigHub apply policy has not been tested for this v0.19.0 base.",
+        releaseOciPassed
+          ? "After approval, ConfigHub published the staging release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set."
+          : "No approved ConfigHub release OCI has been pulled and compared for this version.",
+        existsRepo(nestedSourcesPath)
+          ? "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence."
+          : "The 16 nested component sources have not been materialized and recorded separately.",
+        "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version.",
+      ],
+    },
+  };
+}
+
 function buildKubaraRecord() {
   const root = "examples/kubara/local-platform";
   const receiptPath = `${root}/generation-receipt.yaml`;
@@ -893,6 +1168,349 @@ function buildSveltosRecord() {
   };
 }
 
+function buildCubInstallerRecord() {
+  const publicationPath =
+    "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml";
+  const publication = readYaml(join(repoRoot, publicationPath));
+  const intentPath = "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml";
+  const intent = readYaml(join(repoRoot, intentPath));
+  const revisionPath = intent.spec.renderOutput.revision;
+  const revision = readYaml(join(repoRoot, revisionPath));
+  const manifestDigest = String(publication.spec.outputs.push)
+    .match(/manifest:\s+(sha256:[a-f0-9]{64})/)?.[1];
+  check(manifestDigest, "the NGINX installer publication receipt has no manifest digest");
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "cub-installer-bitnami-nginx-24-0-2-http-clusterip",
+      labels: {
+        sourceType: "cub-installer",
+        component: "bitnami/nginx",
+        sourceVersion: "24.0.2",
+        base: "http-clusterip",
+      },
+    },
+    spec: {
+      source: {
+        type: "cub-installer",
+        name: "bitnami/nginx",
+        version: "24.0.2",
+        record: publicationPath,
+        packageOciRef: publication.spec.ref,
+      },
+      baseVariant: {
+        name: "http-clusterip",
+        revision: "r001",
+        digest: manifestDigest.replace(/^sha256:/, ""),
+        digestRole: "source-package-oci-manifest",
+        digestRecord: publicationPath,
+      },
+      configuration: {
+        format: "kubernetes-yaml",
+        objects: intent.spec.renderOutput.renderedObjects,
+        inventory: intent.spec.renderOutput.objectInventory,
+        objectCount: Number(revision.spec.rendered.objectCount),
+        digest: revision.spec.digestInputs.renderedObjectSetSHA256,
+        digestRole: "canonical-object-set",
+        digestRecord: revisionPath,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          `sourcePackage=${publication.spec.ref}@${manifestDigest}`,
+          "preset=http-clusterip",
+          "releaseName=nginx",
+          "namespace=nginx",
+          "kubeVersion=1.30.0",
+        ],
+        installTime: [],
+        installTimeStatus: "target facts require review before delivery",
+      },
+      routing: {
+        routes: intent.spec.lifecycle.variantRoutes ?? [],
+        targetFacts: intent.spec.targetFacts,
+        sourceRecord: intentPath,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: "public",
+          reference: publication.spec.ref,
+          digest: manifestDigest,
+          receipt: publicationPath,
+        },
+        literalConfigOci: {
+          status: "not-published-for-this-five-object-base",
+        },
+        configHubReleaseOci: {
+          status: "separately-proved-with-an-added-Namespace",
+        },
+        argoCd: "separately-proved-with-an-added-Namespace",
+        flux: "separately-proved-with-an-added-Namespace",
+        direct: "separately-proved-with-an-added-Namespace",
+        receipt: "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+        normalSet: "baseline",
+      },
+      evidence: {
+        packagePublication: publicationPath,
+        packageDefinition: "packages/bitnami/nginx/24.0.2/installer.yaml",
+        selectedIntent: intentPath,
+        selectedRevision: revisionPath,
+        deliveryReceipt:
+          "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml",
+      },
+      operations: {
+        resourceClass: "user-workload",
+        ownerClass: "application-team",
+        changeCadence: "application-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: "The public cub installer package selects the http-clusterip preset and reproduces its five recorded Kubernetes objects without ConfigHub Server.",
+      limits: [
+        "The three-consumer delivery receipt adds the requested Namespace, so its six-object digest is separate from this five-object base digest.",
+        "The source package is public. A separate literal configuration OCI for this exact five-object result is not recorded.",
+        "Target facts remain an explicit Catalog gap for this preset.",
+      ],
+    },
+  };
+}
+
+function buildConfigurationOciRecord() {
+  const publicReceiptPath = "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml";
+  const uploadReceiptPath = "runs/existing-oci-upload-proof/receipt.yaml";
+  const transformReceiptPath = "runs/anonymous-oci-transform-proof/receipt.yaml";
+  const publicReceipt = readYaml(join(repoRoot, publicReceiptPath));
+  const uploadReceipt = readYaml(join(repoRoot, uploadReceiptPath));
+  const transformReceipt = readYaml(join(repoRoot, transformReceiptPath));
+  const artifact = publicReceipt.spec.artifact;
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "configuration-oci-nginx-replicas-4",
+      labels: {
+        sourceType: "configuration-oci",
+        component: "existing-oci-nginx",
+        sourceVersion: artifact.digest,
+        base: "replicas-4",
+      },
+    },
+    spec: {
+      source: {
+        type: "configuration-oci",
+        name: "nginx-replicas-4",
+        version: artifact.digest,
+        record: publicReceiptPath,
+        packageOciRef: artifact.immutableReference,
+      },
+      baseVariant: {
+        name: "replicas-4",
+        revision: "reviewed-r001",
+        digest: artifact.digest.replace(/^sha256:/, ""),
+        digestRole: "literal-configuration-oci-manifest",
+        digestRecord: publicReceiptPath,
+      },
+      configuration: {
+        format: "kubernetes-yaml",
+        objects: "examples/anonymous-oci-transform/reviewed-output/manifests/release-objects.yaml",
+        inventory: uploadReceiptPath,
+        objectCount: Number(artifact.objectCount),
+        digest: artifact.objectSetSha256,
+        digestRole: "canonical-object-set",
+        digestRecord: uploadReceiptPath,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          `source=${artifact.immutableReference}`,
+          `artifactType=${artifact.artifactType}`,
+          "change=Deployment/nginx spec.replicas 3 -> 4",
+        ],
+        installTime: [
+          {
+            category: "secret",
+            name: "nginx/ai-provider-credentials",
+            purpose: "The Deployment references this Secret; the credential is not stored in the public OCI.",
+          },
+        ],
+        installTimeStatus: "one target-owned Secret recorded",
+      },
+      routing: {
+        routes: [],
+        targetFacts: {
+          declared: {
+            requiredSecrets: [
+              {
+                namespace: "nginx",
+                name: "ai-provider-credentials",
+              },
+            ],
+          },
+          requirements: [
+            {
+              category: "secret",
+              name: "nginx/ai-provider-credentials",
+              requiredBefore: "apply",
+              purpose: "Supply the referenced AI provider credentials before the Deployment starts.",
+            },
+          ],
+        },
+        sourceRecord: transformReceiptPath,
+      },
+      delivery: {
+        literalConfigOci: {
+          status: "public-anonymous-pull-proved",
+          reference: artifact.immutableReference,
+          digest: artifact.digest,
+          receipt: publicReceiptPath,
+        },
+        configHubUpload: {
+          status: "pass",
+          space: uploadReceipt.spec.space.slug,
+          objectSetSha256: uploadReceipt.spec.storedObjectSetSha256,
+          receipt: uploadReceiptPath,
+        },
+        configHubReleaseOci: {
+          status: "not-run-for-this-base",
+        },
+        argoCd: "not-run-for-this-base",
+        flux: "not-run-for-this-base",
+        direct: "not-run-for-this-base",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+        normalSet: "baseline",
+      },
+      evidence: {
+        publicOci: publicReceiptPath,
+        transformation: transformReceiptPath,
+        configHubUpload: uploadReceiptPath,
+      },
+      operations: {
+        resourceClass: "user-workload",
+        ownerClass: "application-team",
+        changeCadence: "application-release",
+      },
+    },
+    status: {
+      level: "available",
+      claim: "The public literal configuration OCI contains five exact Kubernetes objects, pulls without registry credentials, and imports into ConfigHub without rerendering Helm.",
+      limits: [
+        "The target must supply nginx/ai-provider-credentials.",
+        "This record proves publication, anonymous pull, checks, and ConfigHub import. It does not claim delivery or workload health.",
+      ],
+    },
+  };
+}
+
+function buildPlainYamlRecord() {
+  const receiptPath = "runs/literal-yaml-upload-proof/receipt.yaml";
+  const receipt = readYaml(join(repoRoot, receiptPath));
+  const objectDigest = receipt.spec.source.objectSetSha256;
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "kubernetes-yaml-acme-web-base",
+      labels: {
+        sourceType: "kubernetes-yaml",
+        component: "plain-yaml-acme-web",
+        sourceVersion: "source-r001",
+        base: "base",
+      },
+    },
+    spec: {
+      source: {
+        type: "kubernetes-yaml",
+        name: "plain-yaml-acme-web",
+        version: "source-r001",
+        record: receiptPath,
+        packageOciRef: "",
+      },
+      baseVariant: {
+        name: "base",
+        revision: "source-r001",
+        digest: objectDigest,
+        digestRole: "source-file-set",
+        digestRecord: receiptPath,
+      },
+      configuration: {
+        format: "kubernetes-yaml-directory",
+        objects: "examples/plain-yaml/acme-web",
+        inventory: receiptPath,
+        objectCount: Number(receipt.spec.source.objectCount),
+        digest: objectDigest,
+        digestRole: "canonical-object-set",
+        digestRecord: receiptPath,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          "source=examples/plain-yaml/acme-web",
+          `objectSetSha256=${objectDigest}`,
+        ],
+        installTime: [],
+        installTimeStatus: "no target facts assessed",
+      },
+      routing: {
+        routes: [],
+        targetFacts: {},
+        coverage: {
+          state: "actionable-gap",
+        },
+        sourceRecord: receiptPath,
+      },
+      delivery: {
+        literalConfigOci: {
+          status: "not-published-for-this-base",
+        },
+        configHubUpload: {
+          status: "pass",
+          space: receipt.spec.space.slug,
+          objectSetSha256: receipt.spec.storedObjectSetSha256,
+          receipt: receiptPath,
+        },
+        configHubReleaseOci: {
+          status: "not-run",
+        },
+        argoCd: "not-run",
+        flux: "not-run",
+        direct: "not-run",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+        normalSet: "baseline",
+      },
+      evidence: {
+        source: "examples/plain-yaml/acme-web",
+        configHubUpload: receiptPath,
+        guide: "data/literal-config-examples/summary.md",
+      },
+      operations: {
+        resourceClass: "user-workload",
+        ownerClass: "application-team",
+        changeCadence: "application-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: "ConfigHub stored the four supplied Kubernetes objects unchanged, with no render step.",
+      limits: [
+        "The upload receipt does not assess lifecycle requirements or target facts, so the Catalog records that work as a gap.",
+        "OCI publication, deployment, promotion, and live observation have not run for this base.",
+      ],
+    },
+  };
+}
+
 function applyOperationalClassExamples(records, source, policy) {
   const recordsByName = new Map(
     records.map((record) => [record.metadata.name, record]),
@@ -1063,6 +1681,118 @@ function validateRecords(records) {
     check(["available", "partial", "planned"].includes(record.status?.level), `${record.metadata.name} has an invalid status`);
     check(Number.isInteger(record.spec?.configuration?.objectCount), `${record.metadata.name} has an invalid object count`);
     check(record.spec?.policy?.profile === "catalog-standard", `${record.metadata.name} is not bound to catalog-standard`);
+    check(
+      [
+        "helm-variant-revision",
+        "aicr-platform-index",
+        "source-output-inventory",
+        "literal-configuration-oci-manifest",
+        "source-package-oci-manifest",
+        "source-file-set",
+        "confighub-space-revision",
+        "source-file",
+        "source-output-record",
+      ].includes(record.spec?.baseVariant?.digestRole),
+      `${record.metadata.name} has no base-revision digest role`,
+    );
+    check(
+      ["canonical-object-set", "inventory-file", "literal-yaml-file"]
+        .includes(record.spec?.configuration?.digestRole),
+      `${record.metadata.name} has no exact-object digest role`,
+    );
+    check(
+      /^(sha256:)?[a-f0-9]{64}$/.test(record.spec?.configuration?.digest ?? ""),
+      `${record.metadata.name} has an invalid exact-object digest`,
+    );
+    check(
+      record.spec.processing?.materialization?.outputDigest
+        === record.spec.configuration.digest,
+      `${record.metadata.name} materialization does not name the exact-object digest`,
+    );
+    check(
+      ["recorded", "partial", "gap"].includes(record.spec?.processing?.sourceIntent?.status),
+      `${record.metadata.name} has no source-and-intent status`,
+    );
+    check(
+      ["captured", "recorded-no-op", "not-run", "gap"].includes(
+        record.spec?.processing?.materialization?.status,
+      ),
+      `${record.metadata.name} has no materialization status`,
+    );
+    check(
+      [
+        "born-flattened",
+        "safe-to-flatten",
+        "flatten-with-routes",
+        "unsafe-to-flatten",
+        "not-assessed",
+      ].includes(record.spec?.processing?.flattening?.verdict),
+      `${record.metadata.name} has no flattening verdict`,
+    );
+    check(
+      ["recorded", "not-required", "gap"].includes(
+        record.spec?.lifecycle?.requirements?.status,
+      ),
+      `${record.metadata.name} has no lifecycle-requirement status`,
+    );
+    check(
+      ["recorded", "required-at-destination", "not-required", "gap"].includes(
+        record.spec?.lifecycle?.routeIntent?.status,
+      ),
+      `${record.metadata.name} has no route-intent status`,
+    );
+    check(
+      [
+        "awaits-variant-and-target",
+        "resolved-for-recorded-targets",
+        "not-required",
+        "blocked",
+        "gap",
+      ].includes(record.spec?.lifecycle?.resolution?.status),
+      `${record.metadata.name} has no route-resolution status`,
+    );
+    check(
+      ["declared", "partly-declared", "not-assessed"].includes(record.spec?.ownership?.status),
+      `${record.metadata.name} has no field-ownership status`,
+    );
+    const requirementIds = record.spec.lifecycle.requirements.items.map((item) => item.id);
+    check(unique(requirementIds), `${record.metadata.name} has duplicate lifecycle requirement ids`);
+    const routeIds = record.spec.lifecycle.routeIntent.routes.map((route) => route.id);
+    check(unique(routeIds), `${record.metadata.name} has duplicate route-intent ids`);
+    for (const route of record.spec.lifecycle.routeIntent.routes) {
+      check(
+        route.requirementRefs.length > 0
+          && route.requirementRefs.every((id) => requirementIds.includes(id)),
+        `${record.metadata.name}/${route.id} points at an unknown lifecycle requirement`,
+      );
+      check(
+        ["recorded", "requires-destination-resolution", "blocked"].includes(route.status),
+        `${record.metadata.name}/${route.id} has an invalid route-intent status`,
+      );
+      check(
+        typeof route.automatic === "boolean"
+          && route.proposedActor
+          && route.proposedMechanism,
+        `${record.metadata.name}/${route.id} has an incomplete route intent`,
+      );
+    }
+    check(
+      record.spec.lifecycle.targetFacts.requirementRefs
+        .every((id) => requirementIds.includes(id)),
+      `${record.metadata.name} target facts point at an unknown lifecycle requirement`,
+    );
+    if (record.spec.lifecycle.routeIntent.status === "not-required") {
+      check(
+        record.spec.lifecycle.routeIntent.routes.length === 0,
+        `${record.metadata.name} says no route is required but contains route intents`,
+      );
+    }
+    if (record.spec.lifecycle.resolution.status === "resolved-for-recorded-targets") {
+      check(
+        record.spec.lifecycle.resolution.records.length > 0,
+        `${record.metadata.name} claims a resolved route without a resolution record`,
+      );
+    }
     if (record.spec?.operations?.resourceClass === "system-configuration") {
       check(
         record.spec.policy.normalSet === "approvalRequired",
@@ -1077,7 +1807,15 @@ function validateRecords(records) {
       record.spec.source.record,
       record.spec.configuration.objects,
       record.spec.configuration.inventory,
-      record.spec.routing.sourceRecord,
+      record.spec.baseVariant.digestRecord,
+      record.spec.configuration.digestRecord,
+      record.spec.processing.sourceIntent.record,
+      record.spec.processing.materialization.record,
+      record.spec.processing.flattening.record,
+      ...record.spec.lifecycle.requirements.records,
+      ...record.spec.lifecycle.routeIntent.records,
+      ...record.spec.lifecycle.resolution.records,
+      ...record.spec.ownership.records,
     ].filter(Boolean)) {
       check(existsRepo(path), `${record.metadata.name} points at missing ${path}`);
     }
@@ -1132,6 +1870,26 @@ function validateRecords(records) {
     readYaml(aicrPersistentPromotionReceiptPath),
   );
   validateAicrVariantPromotionReceipt(readYaml(aicrPromotionReceiptPath));
+  const aicrV019 = records.find(
+    (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+  );
+  check(aicrV019, "AICR v0.19.0 Argo CD base record is missing");
+  check(
+    aicrV019.spec.processing.flattening.verdict === "flatten-with-routes"
+      && aicrV019.spec.processing.flattening.record
+        === "examples/aicr/eks-h100-training-kubeflow-v0-19-0/flattening-safety-verdict.yaml"
+      && aicrV019.spec.lifecycle.routeIntent.status === "recorded"
+      && aicrV019.spec.lifecycle.resolution.status === "blocked"
+      && aicrV019.spec.lifecycle.resolution.records.includes(
+        "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml",
+      )
+      && aicrV019.spec.ownership.status === "declared"
+      && aicrV019.spec.delivery.configHubUpload.objectIdentitiesMatched === true
+      && aicrV019.spec.delivery.configHubReleaseOci.status
+        === "published-and-pulled-by-digest"
+      && aicrV019.spec.delivery.configHubReleaseOci.promotedConfigurationMatched === true,
+    "AICR v0.19.0 does not expose its processing, lifecycle, and ownership records",
+  );
 }
 
 function validatePolicy(policy) {
@@ -1150,8 +1908,12 @@ function validatePolicy(policy) {
   );
   check(unique(policy.spec?.sourceTypes ?? []), "policy source types must be unique");
   check(
-    sameSet(policy.spec?.sourceTypes ?? [], supportedSourceTypes),
-    "policy must cover every supported configuration source type",
+    sameSet(
+      policy.spec?.sourceTypes ?? [],
+      [...new Set(Object.values(policySourceTypeByRecordSource))],
+    )
+      && supportedSourceTypes.every((sourceType) => policySourceTypeByRecordSource[sourceType]),
+    "policy must map every Catalog source type to one maintained live policy source label",
   );
   const definitions = policy.spec?.triggerDefinitions ?? [];
   const baseline = policy.spec?.baseline?.checks ?? [];
@@ -2383,6 +3145,568 @@ function expectFailure(fn, message) {
   check(failed, message);
 }
 
+function alignRecordWithProcessingModel(record, intent) {
+  const legacyRouting = record.spec.routing ?? {
+    routes: [],
+    targetFacts: {},
+    sourceRecord: record.spec.source.record,
+  };
+  const identity = identityRecord(record, intent);
+  const processing = processingRecord(record, intent, identity);
+  const lifecycle = lifecycleRecord(record, intent, legacyRouting);
+  const ownership = ownershipRecord(record, intent, legacyRouting);
+  const {
+    source,
+    baseVariant,
+    configuration,
+    inputs,
+    delivery,
+    promotion,
+    policy,
+    evidence,
+    operations,
+  } = record.spec;
+  record.spec = {
+    source,
+    baseVariant: {
+      ...baseVariant,
+      digestRole: identity.baseRevision.digestRole,
+      digestRecord: identity.baseRevision.digestRecord,
+    },
+    configuration: {
+      ...configuration,
+      digest: identity.objectSet.digest,
+      digestRole: identity.objectSet.digestRole,
+      digestRecord: identity.objectSet.digestRecord,
+    },
+    processing,
+    inputs,
+    lifecycle,
+    ownership,
+    delivery,
+    ...(promotion ? { promotion } : {}),
+    policy,
+    evidence,
+    operations,
+  };
+  return record;
+}
+
+function identityRecord(record, intent) {
+  const source = record.spec.source;
+  const configuration = record.spec.configuration;
+  let baseDigestRole = record.spec.baseVariant.digestRole ?? "source-output-record";
+  let baseDigestRecord = record.spec.baseVariant.digestRecord ?? source.record;
+  let objectDigest = configuration.digest ?? "";
+  let objectDigestRole = configuration.digestRole ?? "inventory-file";
+  let objectDigestRecord = configuration.digestRecord ?? configuration.inventory;
+
+  if (source.type === "helm" && intent) {
+    const revisionPath = intent.spec.renderOutput.revision;
+    const revision = readYaml(join(repoRoot, revisionPath));
+    baseDigestRole = "helm-variant-revision";
+    baseDigestRecord = revisionPath;
+    objectDigest = String(revision.spec?.digestInputs?.renderedObjectSetSHA256 ?? "");
+    objectDigestRole = "canonical-object-set";
+    objectDigestRecord = revisionPath;
+  } else if (source.type === "aicr" && source.version === "v0.19.0") {
+    baseDigestRole = "aicr-platform-index";
+    baseDigestRecord = record.spec.evidence.digestIndex;
+  } else if (source.type === "aicr") {
+    baseDigestRole = "source-output-inventory";
+    baseDigestRecord = configuration.inventory;
+  } else if (source.type === "kubara") {
+    baseDigestRole = "literal-configuration-oci-manifest";
+    baseDigestRecord = source.record;
+  } else if (source.type === "sveltos") {
+    baseDigestRole = "source-file";
+    baseDigestRecord = configuration.objects;
+  }
+
+  if (!objectDigest && configuration.inventory && existsRepo(configuration.inventory)) {
+    objectDigest = sha256File(join(repoRoot, configuration.inventory));
+    objectDigestRole = "inventory-file";
+    objectDigestRecord = configuration.inventory;
+  }
+  if (!objectDigest && configuration.objects && existsRepo(configuration.objects)) {
+    const objectPath = join(repoRoot, configuration.objects);
+    check(statSync(objectPath).isFile(), `${record.metadata.name} needs an inventory for a directory object set`);
+    objectDigest = sha256File(objectPath);
+    objectDigestRole = "literal-yaml-file";
+    objectDigestRecord = configuration.objects;
+  }
+  check(objectDigest, `${record.metadata.name} has no exact-object identity`);
+
+  return {
+    baseRevision: {
+      digestRole: baseDigestRole,
+      digestRecord: baseDigestRecord,
+    },
+    objectSet: {
+      digest: objectDigest,
+      digestRole: objectDigestRole,
+      digestRecord: objectDigestRecord,
+    },
+  };
+}
+
+function processingRecord(record, intent, identity) {
+  const source = record.spec.source;
+  const sourceRecord = source.record;
+  let method = "generator";
+  let materializationStatus = "captured";
+  let boundaries = [
+    `The ${source.type} processor produced the exact object set recorded by this base.`,
+  ];
+
+  if (source.type === "helm") {
+    method = "helm-render";
+    boundaries = [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base.",
+    ];
+  } else if (source.type === "aicr" && record.spec.configuration.format === "argocd-application-yaml") {
+    method = "aicr-compose-then-helm-render";
+    boundaries = [
+      "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects.",
+      "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD.",
+    ];
+  } else if (source.type === "aicr") {
+    method = "aicr-compose";
+    boundaries = [
+      "AICR composed the selected platform into the exact configuration retained by this base.",
+      "Any nested source named by the generated configuration keeps its own processing boundary.",
+    ];
+  } else if (source.type === "kubara") {
+    method = "generator";
+    boundaries = [
+      "Kubara generated the exact platform bootstrap objects retained by this base.",
+      "Referenced component sources keep their own processing and lifecycle decisions.",
+    ];
+  } else if (source.type === "sveltos") {
+    method = "read-literal-configuration";
+    materializationStatus = "recorded-no-op";
+    boundaries = [
+      "The Sveltos ClusterProfile is already a literal Kubernetes object.",
+      "The Helm chart referenced by the ClusterProfile remains a nested source that Sveltos processes on selected clusters.",
+    ];
+  } else if (["configuration-oci", "kubernetes-yaml", "rendered-config"].includes(source.type)) {
+    method = "read-literal-configuration";
+    materializationStatus = "recorded-no-op";
+    boundaries = [
+      "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning.",
+    ];
+  } else if (source.type === "source-oci" || source.type === "cub-installer") {
+    method = "source-oci-processor";
+    boundaries = [
+      "The source OCI is an input package. Its declared processor produces the exact objects retained by this base.",
+    ];
+  } else if (source.type === "confighub") {
+    method = "read-confighub-revision";
+    materializationStatus = "recorded-no-op";
+    boundaries = [
+      "The ConfigHub revision already contains the exact retained objects.",
+    ];
+  }
+
+  return {
+    sourceIntent: {
+      status: sourceRecord && existsRepo(sourceRecord) ? "recorded" : "gap",
+      record: sourceRecord ?? "",
+    },
+    materialization: {
+      method,
+      status: materializationStatus,
+      outputDigest: identity.objectSet.digest,
+      record: identity.objectSet.digestRecord,
+    },
+    flattening: flatteningRecord(record, intent),
+    boundaries,
+  };
+}
+
+function flatteningRecord(record, intent) {
+  const source = record.spec.source;
+  let verdictPath = "";
+  let verdict = "not-assessed";
+
+  if (source.type === "helm" && intent) {
+    const publication = join(repoRoot, intent.spec.renderInputs.recipe, "publication");
+    if (existsSync(publication)) {
+      for (const name of readdirSync(publication).filter(
+        (candidate) => candidate.startsWith("flattening-safety-verdict") && candidate.endsWith(".yaml"),
+      )) {
+        const candidatePath = join(publication, name);
+        const candidate = readYaml(candidatePath);
+        if (candidate.spec?.auditedBase === record.spec.baseVariant.name) {
+          verdictPath = relativeRepo(candidatePath);
+          verdict = candidate.spec?.verdict?.lane ?? "not-assessed";
+          break;
+        }
+      }
+    }
+  } else if (
+    source.type === "aicr"
+    && record.spec.configuration.format === "argocd-application-yaml"
+  ) {
+    const candidates = [
+      join(
+        repoRoot,
+        "examples",
+        "aicr",
+        `eks-h100-training-kubeflow-${String(source.version).replace(/^v/, "v").replaceAll(".", "-")}`,
+        "flattening-safety-verdict.yaml",
+      ),
+      join(
+        repoRoot,
+        "data",
+        "aicr-flattening-verdicts",
+        "aicr-eks-h100-training-kubeflow",
+        "flattening-safety-verdict.yaml",
+      ),
+    ];
+    for (const candidatePath of candidates) {
+      if (!existsSync(candidatePath)) continue;
+      const candidate = readYaml(candidatePath);
+      const candidateVersion = candidate.spec?.subject?.upstreamVersion;
+      if (candidateVersion && candidateVersion !== source.version) continue;
+      verdictPath = relativeRepo(candidatePath);
+      verdict = candidate.spec?.verdict?.lane ?? "not-assessed";
+      break;
+    }
+  } else if (["configuration-oci", "kubernetes-yaml", "rendered-config", "sveltos"].includes(source.type)) {
+    verdict = "born-flattened";
+    verdictPath = source.record;
+  }
+
+  const action = {
+    "born-flattened": "retain-exact-objects",
+    "safe-to-flatten": "retain-exact-objects",
+    "flatten-with-routes": "retain-exact-objects-with-routes",
+    "unsafe-to-flatten": "process-source-late",
+    "not-assessed": "assessment-required",
+  }[verdict] ?? "assessment-required";
+  return {
+    status: verdict === "not-assessed" ? "not-assessed" : "decided",
+    verdict,
+    action,
+    scope: `${source.name}@${source.version}/${record.spec.baseVariant.name}; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes`,
+    record: verdictPath,
+  };
+}
+
+function lifecycleRecord(record, intent, legacyRouting) {
+  const routes = Array.isArray(legacyRouting.routes) ? legacyRouting.routes : [];
+  const targetFactEnvelope = legacyRouting.targetFacts ?? {};
+  const targetFacts = targetFactEnvelope.declared
+    && typeof targetFactEnvelope.declared === "object"
+    ? targetFactEnvelope.declared
+    : Object.fromEntries(
+      Object.entries(targetFactEnvelope).filter(
+        ([key]) => !["status", "requirements", "coverage"].includes(key),
+      ),
+    );
+  const targetRequirements = Array.isArray(targetFactEnvelope.requirements)
+    ? targetFactEnvelope.requirements
+    : [];
+  const requirements = [
+    ...routes.map((route, index) => ({
+      id: String(route.routeName ?? route.id ?? `route-${index + 1}`),
+      origin: "base",
+      type: "lifecycle-action",
+      detail: firstNonEmptyString(
+        route.operatingDetails,
+        route.note,
+        route.reason,
+        route.quirkClass,
+        route.routeName,
+        route.id,
+        "Recorded lifecycle action",
+      ),
+    })),
+    ...targetRequirements.map((requirement, index) => ({
+      id: String(requirement.name ?? `${requirement.category ?? "target-fact"}-${index + 1}`),
+      origin: "base",
+      type: "target-fact",
+      detail: targetRequirementDetail(requirement),
+    })),
+  ];
+  if (requirements.length === 0 && record.spec.source.type !== "helm" && Object.keys(targetFacts).length > 0) {
+    requirements.push({
+      id: "source-target-facts",
+      origin: "base",
+      type: "target-facts",
+      detail: "The source record declares destination facts that must be checked when a target is selected.",
+    });
+  }
+
+  const lifecycleCoverage = intent?.spec?.lifecycle?.coverage?.state ?? "";
+  const targetCoverage = intent?.spec?.targetFacts?.coverage?.state ?? "";
+  const recordCoverage = legacyRouting.coverage?.state ?? "";
+  const targetFactRecordCoverage = targetFactEnvelope.coverage?.state ?? "";
+  const hasGap = [
+    lifecycleCoverage,
+    targetCoverage,
+    recordCoverage,
+    targetFactRecordCoverage,
+  ]
+    .includes("actionable-gap");
+  const requirementsStatus = hasGap
+    ? "gap"
+    : requirements.length > 0
+      ? "recorded"
+      : "not-required";
+  const routeIntentStatus = hasGap
+    ? "gap"
+    : routes.length > 0
+      ? "recorded"
+      : targetRequirements.length > 0 || (record.spec.source.type !== "helm" && requirements.length > 0)
+        ? "required-at-destination"
+        : "not-required";
+  const records = uniqueExistingPaths([
+    legacyRouting.sourceRecord,
+    intent?.spec?.lifecycle?.contractPath,
+    intent?.spec?.lifecycle?.jsonPath,
+  ]);
+  const normalizedRoutes = routes.map((route, index) => normalizeRouteIntent(route, index));
+  const targetRequirementRefs = requirements
+    .filter((requirement) => requirement.type === "target-fact" || requirement.type === "target-facts")
+    .map((requirement) => requirement.id);
+  const externalResolutionRecords = record.metadata.name
+    === "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
+    ? [
+        "data/lifecycle-route-resolutions/kube-prometheus-stack-85-3-3-no-crds-direct.yaml",
+        "data/lifecycle-route-resolutions/kube-prometheus-stack-85-3-3-no-crds-argo-cd.yaml",
+        "data/lifecycle-route-resolutions/kube-prometheus-stack-85-3-3-no-crds-flux.yaml",
+      ]
+    : record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+      ? [
+          "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml",
+        ]
+      : [];
+  const externalResolutions = externalResolutionRecords
+    .filter(existsRepo)
+    .map((path) => readYaml(join(repoRoot, path)));
+  const hasBlockedResolution = externalResolutions.some(
+    (resolution) => resolution.status?.decision === "blocked",
+  );
+  const hasRouteRuntimeResolution = routes.some(routeHasResolvedRuntime);
+  const resolvedForRecordedTargets = externalResolutionRecords.length > 0
+    || hasRouteRuntimeResolution;
+  const resolvedRecords = resolvedForRecordedTargets || hasBlockedResolution
+    ? uniqueExistingPaths([
+      ...externalResolutionRecords,
+      ...collectPathStrings(routes),
+      ...(hasRouteRuntimeResolution ? collectPathStrings(record.spec.evidence) : []),
+    ])
+    : [];
+  const resolutionStatus = hasGap
+    ? "gap"
+    : requirementsStatus === "not-required" && routeIntentStatus === "not-required"
+      ? "not-required"
+      : hasBlockedResolution
+        ? "blocked"
+      : resolvedForRecordedTargets
+        ? "resolved-for-recorded-targets"
+        : "awaits-variant-and-target";
+
+  return {
+    requirements: {
+      status: requirementsStatus,
+      items: requirements,
+      records,
+    },
+    routeIntent: {
+      status: routeIntentStatus,
+      routes: normalizedRoutes,
+      records,
+    },
+    targetFacts: {
+      status: hasGap
+        ? "gap"
+        : Object.keys(targetFacts).length > 0
+          ? "recorded"
+          : "not-required",
+      declared: targetFacts,
+      requirementRefs: targetRequirementRefs,
+      records,
+    },
+    resolution: {
+      status: resolutionStatus,
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+      records: resolvedRecords,
+    },
+  };
+}
+
+function normalizeRouteIntent(route, index) {
+  const id = String(route.routeName ?? route.id ?? `route-${index + 1}`);
+  const sourceStatus = String(route.disposition ?? route.status ?? "recorded");
+  const routeText = [
+    route.whoRuns,
+    route.owner,
+    route.operatingDetails,
+    route.note,
+    route.action,
+    route.reason,
+  ].filter(Boolean).join(" ");
+  const supportedRuntimes = new Set(
+    Object.keys(route.runners ?? {}).map(canonicalRuntimeName),
+  );
+  if (/argo\s*cd/i.test(routeText)) supportedRuntimes.add("Argo CD");
+  if (/flux/i.test(routeText)) supportedRuntimes.add("Flux");
+  if (/cub installer/i.test(routeText)) supportedRuntimes.add("cub installer");
+  if (/direct|kubectl/i.test(routeText)) supportedRuntimes.add("direct apply");
+  const status = /blocked|gap|refused/i.test(sourceStatus)
+    ? "blocked"
+    : /not[- ]run|not[- ]live|not[- ]evaluated|generated/i.test(sourceStatus)
+      ? "requires-destination-resolution"
+      : "recorded";
+  return {
+    id,
+    requirementRefs: [id],
+    phase: String(route.lifecyclePhase ?? "destination-resolution"),
+    proposedActor: routeIntentActor(route),
+    proposedMechanism: firstNonEmptyString(
+      route.operatingDetails,
+      route.note,
+      route.action,
+      route.reason,
+      route.runners?.direct?.implementation,
+      route.whoRuns,
+      route.quirkClass,
+      "Resolve this requirement for the selected destination.",
+    ),
+    automatic: route.automatic === true,
+    status,
+    sourceStatus,
+    supportedRuntimes: [...supportedRuntimes].sort(),
+    checks: [route.evidenceRequired, route.nextAction].filter(Boolean).map(String),
+    evidence: uniqueExistingPaths(collectPathStrings(route)),
+    ...(String(route.order ?? "").trim()
+      ? { orderHint: Number.isInteger(route.order) ? route.order : String(route.order).trim() }
+      : {}),
+  };
+}
+
+function targetRequirementDetail(requirement) {
+  if (String(requirement.purpose ?? "").trim()) return String(requirement.purpose).trim();
+  const category = String(requirement.category ?? "target fact").trim();
+  const name = String(requirement.name ?? "").trim();
+  const timing = String(requirement.requiredBefore ?? "apply").trim();
+  if (name) return `${category.toUpperCase() === "CRD" ? "CRD" : category} ${name} must exist before ${timing}.`;
+  return `The destination must provide the recorded ${category}.`;
+}
+
+function canonicalRuntimeName(value) {
+  return {
+    argoCd: "Argo CD",
+    flux: "Flux",
+    direct: "direct apply",
+    cubInstallerApply: "cub installer direct runner",
+  }[value] ?? value;
+}
+
+function routeIntentActor(route) {
+  if (String(route.owner ?? "").trim()) return String(route.owner).trim();
+  const whoRuns = String(route.whoRuns ?? "").trim();
+  if (/generated package script/i.test(whoRuns)) return "cub installer package script";
+  if (/your delivery/i.test(whoRuns)) return "delivery workflow";
+  if (/your applier/i.test(whoRuns)) return "selected applier";
+  if (/your cluster/i.test(whoRuns)) return "Kubernetes";
+  if (/\bCI\b|on demand/i.test(whoRuns)) return "CI or operator";
+  if (/controller-created|operator-supplied/i.test(whoRuns)) {
+    return "destination controller or operator";
+  }
+  if (/^prerequisite/i.test(whoRuns)) return "operator";
+  if (/not tested|not selected/i.test(whoRuns)) return "not selected";
+  return {
+    "user-executes": "delivery workflow",
+    "target-owned": "destination or delivery controller",
+    "not-yet-executable": "not selected",
+    "destination-specific": "selected destination actor",
+  }[route.executionMode] ?? firstNonEmptyString(whoRuns, "not selected");
+}
+
+function firstNonEmptyString(...values) {
+  const value = values.find((candidate) => String(candidate ?? "").trim());
+  return String(value ?? "").trim();
+}
+
+function ownershipRecord(record, intent, legacyRouting) {
+  const source = record.spec.source;
+  const fieldPolicy = source.version === "v0.19.0"
+    ? "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"
+    : "";
+  const targetSupplied = (legacyRouting.targetFacts?.requirements ?? []).map(
+    (requirement) => String(requirement.name ?? requirement.category ?? "target input"),
+  );
+  const deliveryProtected = (legacyRouting.routes ?? [])
+    .filter((route) => /prune|resource-policy|cleanup/i.test(JSON.stringify(route)))
+    .map((route, index) => String(route.routeName ?? route.id ?? `delivery-rule-${index + 1}`));
+  let status = "not-assessed";
+  let sourceControlled = [];
+  let variantControlled = [];
+  let records = [];
+
+  if (source.type === "helm" && intent) {
+    status = "partly-declared";
+    sourceControlled = ["Fields produced from the recorded chart values and render context"];
+    variantControlled = ["Post-render object fields recorded in ConfigHub after upload"];
+    records = [source.record];
+  } else if (fieldPolicy && existsRepo(fieldPolicy)) {
+    status = "declared";
+    sourceControlled = ["Fields classified as source-owned by the AICR v0.19 field-policy assessment"];
+    variantControlled = ["Fields classified as safe reviewed ConfigHub changes by the AICR v0.19 field-policy assessment"];
+    records = [fieldPolicy];
+  } else if ([
+    "aicr",
+    "cub-installer",
+    "kubara",
+    "sveltos",
+    "source-oci",
+    "configuration-oci",
+    "kubernetes-yaml",
+    "confighub",
+    "rendered-config",
+  ].includes(source.type)) {
+    status = "partly-declared";
+    sourceControlled = ["Choices fixed by the recorded source configuration"];
+    variantControlled = ["Exact object changes retained after the base"];
+    records = uniqueExistingPaths([
+      source.record,
+      record.spec.promotion?.receipt,
+    ]);
+  }
+
+  return {
+    status,
+    sourceControlled,
+    variantControlled,
+    targetSupplied,
+    deliveryProtected,
+    records: uniqueExistingPaths(records),
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review.",
+  };
+}
+
+function routeHasResolvedRuntime(route) {
+  if (route?.status === "live-pass") return true;
+  return Object.values(route?.runners ?? {}).some((runner) => runner?.status === "pass");
+}
+
+function collectPathStrings(value) {
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value)) return value.flatMap(collectPathStrings);
+  if (value && typeof value === "object") return Object.values(value).flatMap(collectPathStrings);
+  return [];
+}
+
+function uniqueExistingPaths(values) {
+  return [...new Set((values ?? []).filter(
+    (value) => typeof value === "string" && value.includes("/") && existsRepo(value),
+  ))].sort();
+}
+
 function targetFactInputs(declared) {
   const result = [];
   for (const [kind, values] of Object.entries(declared ?? {})) {
@@ -2423,8 +3747,18 @@ function renderRecordsCsv(records) {
     "base",
     "status",
     "object_count",
+    "base_digest_role",
+    "object_digest",
+    "object_digest_role",
     "source_record",
     "objects",
+    "source_intent_status",
+    "materialization_status",
+    "flattening_verdict",
+    "lifecycle_requirements_status",
+    "route_intent_status",
+    "route_resolution_status",
+    "field_ownership_status",
     "package_oci_ref",
     "literal_config_oci_status",
     "release_oci_status",
@@ -2444,8 +3778,18 @@ function renderRecordsCsv(records) {
       base: record.spec.baseVariant.name,
       status: record.status.level,
       object_count: String(record.spec.configuration.objectCount),
+      base_digest_role: record.spec.baseVariant.digestRole,
+      object_digest: record.spec.configuration.digest,
+      object_digest_role: record.spec.configuration.digestRole,
       source_record: record.spec.source.record,
       objects: record.spec.configuration.objects,
+      source_intent_status: record.spec.processing.sourceIntent.status,
+      materialization_status: record.spec.processing.materialization.status,
+      flattening_verdict: record.spec.processing.flattening.verdict,
+      lifecycle_requirements_status: record.spec.lifecycle.requirements.status,
+      route_intent_status: record.spec.lifecycle.routeIntent.status,
+      route_resolution_status: record.spec.lifecycle.resolution.status,
+      field_ownership_status: record.spec.ownership.status,
       package_oci_ref: record.spec.source.packageOciRef,
       literal_config_oci_status: record.spec.delivery.literalConfigOci.status,
       release_oci_status: record.spec.delivery.configHubReleaseOci.status,
@@ -2464,6 +3808,32 @@ function renderRecordsCsv(records) {
 function renderBaseSummary(records) {
   const sourceCounts = countBy(records, (record) => record.spec.source.type);
   const statusCounts = countBy(records, (record) => record.status.level);
+  const flatteningCounts = countBy(
+    records,
+    (record) => record.spec.processing.flattening.verdict,
+  );
+  const requirementCounts = countBy(
+    records,
+    (record) => record.spec.lifecycle.requirements.status,
+  );
+  const routeIntentCounts = countBy(
+    records,
+    (record) => record.spec.lifecycle.routeIntent.status,
+  );
+  const routeResolutionCounts = countBy(
+    records,
+    (record) => record.spec.lifecycle.resolution.status,
+  );
+  const ownershipCounts = countBy(records, (record) => record.spec.ownership.status);
+  const resolvedRouteCount = records.filter(
+    (record) => record.spec.lifecycle.resolution.status === "resolved-for-recorded-targets",
+  ).length;
+  const assessedFlatteningCount = records.filter(
+    (record) => record.spec.processing.flattening.status === "decided",
+  ).length;
+  const declaredOwnershipCount = records.filter(
+    (record) => record.spec.ownership.status === "declared",
+  ).length;
   const classifiedRecords = records.filter(
     (record) => record.spec.operations.classificationSource,
   );
@@ -2480,13 +3850,42 @@ function renderBaseSummary(records) {
   );
   const kubara = records.find((record) => record.spec.source.type === "kubara");
   const sveltos = records.find((record) => record.spec.source.type === "sveltos");
+  const cubInstaller = records.find((record) => record.spec.source.type === "cub-installer");
+  const configurationOci = records.find(
+    (record) => record.spec.source.type === "configuration-oci",
+  );
+  const plainYaml = records.find((record) => record.spec.source.type === "kubernetes-yaml");
   return `# Base variant records
 
 Generated by \`scripts/generate-config-catalog-program.mjs\`. Do not edit the generated records by hand.
 
 There are **${records.length} records**: ${formatCounts(sourceCounts)}. Their current statuses are ${formatCounts(statusCounts)}.
 
-A base-variant record connects the literal configuration to the source that produced it, the choices fixed before install, the remaining target inputs, hooks and CRDs, proof results, policy, and OCI handoffs. It does not imply that every record is present in a live ConfigHub org.
+A base-variant record connects one exact configuration to its source and intent. It records how the objects were materialized, whether they can be retained as literal configuration, what lifecycle work may surround apply, which fields each layer controls, and which OCI and delivery results exist. It does not imply that every record is present in a live ConfigHub org.
+
+The processing coverage is explicit rather than inferred:
+
+- Flattening verdicts: ${formatCounts(flatteningCounts)}.
+- Lifecycle requirements: ${formatCounts(requirementCounts)}.
+- Portable route intents: ${formatCounts(routeIntentCounts)}.
+- Variant-and-destination route resolution: ${formatCounts(routeResolutionCounts)}.
+- Field ownership: ${formatCounts(ownershipCounts)}.
+
+## Model and Catalog alignment
+
+All **${records.length}/${records.length} records** use the same source-neutral structure. Every row identifies its source record, base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits.
+
+The evidence is not complete for every row:
+
+| Area | Current Catalog coverage | Which is ahead? |
+| --- | ---: | --- |
+| Exact source and object records | ${records.length}/${records.length} | Catalog and model are aligned. |
+| Concrete entry formats | 7 | The Catalog has Helm, AICR, cub installer source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML examples. The model is ahead for a generic non-installer source OCI and ConfigHub-release re-entry. |
+| Flattening verdicts | ${assessedFlatteningCount}/${records.length} | The model is ahead of the unassessed rows. |
+| Destination-specific route resolutions | ${resolvedRouteCount}/${records.length} | The model is ahead. The resolved records cover one Helm configuration through direct apply, Argo CD, and Flux. |
+| Fully declared field ownership | ${declaredOwnershipCount}/${records.length} | The model is ahead. Most Helm rows currently separate source values from post-render changes without field-by-field ownership. |
+
+The record structure is aligned across every row. The evidence is not. The Catalog is ahead in one area: its Helm source and render evidence is much broader than the non-Helm corpus. The model is ahead where it defines generic source-OCI entry, ConfigHub-release re-entry, variant-time ownership, and destination-specific lifecycle handling that still need more examples or evidence. A row marked \`awaits-variant-and-target\`, \`not-assessed\`, or \`gap\` identifies that missing work.
 
 ${classifiedRecords.length} canonical records also name who owns the configuration, where it should run, which checks apply, and how it should roll out. The [operational class examples](../operational-class-examples/summary.md) explain those choices. The other records remain \`not-yet-classified\`; the generator does not guess from a chart name.
 
@@ -2496,8 +3895,10 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 | --- | --- |
 | Where did this configuration come from? | \`spec.source\` |
 | Which exact configuration is managed? | \`spec.configuration\` |
+| How were the objects produced, and may they be flattened? | \`spec.processing\` |
 | What was fixed and what remains to set? | \`spec.inputs\` |
-| What must happen around ordinary apply? | \`spec.routing\` |
+| What must happen around ordinary apply, and has it been resolved for a target? | \`spec.lifecycle\` |
+| Which layer controls each field? | \`spec.ownership\` |
 | Which OCI artifact is this? | \`spec.delivery\` |
 | Which checks run before apply? | \`spec.policy\` |
 | Who owns it, where does it run, and how should it roll out? | \`spec.operations\` when classified |
@@ -2510,6 +3911,9 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
+- [cub installer source package](${cubInstaller ? `records/${cubInstaller.metadata.name}.yaml` : ""}) separates the public multi-preset package digest from the exact five-object output of one selected preset.
+- [Literal configuration OCI](${configurationOci ? `records/${configurationOci.metadata.name}.yaml` : ""}) records a public five-object OCI, its separate object-set digest, its required Secret, and an unchanged ConfigHub import.
+- [Plain Kubernetes YAML](${plainYaml ? `records/${plainYaml.metadata.name}.yaml` : ""}) records an unchanged four-object upload and leaves lifecycle assessment as a visible gap.
 - [Kubara local platform](${kubara ? `records/${kubara.metadata.name}.yaml` : ""}) connects Kubara's generated platform source, 77 rendered bootstrap objects, and the recorded CRD, hook, Secret, and External Secrets work.
 - [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records a two-wave result: ConfigHub approved a pilot and one selector expansion at different OCI digests, then Sveltos installed Kyverno and repaired drift on both staging clusters.
 

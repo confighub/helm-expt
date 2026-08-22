@@ -18,11 +18,33 @@ spec:
     name: "eks-inference"
     revision: "r001"
     digest: "99ccb716b96b430ddccd3829d9dbd9b78028fca4fac0958951517f74d6710c70"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
     inventory: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
     objectCount: 5
+    digest: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+      record: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "nvidia/nvidia-device-plugin@0.19.3/eks-inference; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=nvidia/nvidia-device-plugin"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-eks-inference.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

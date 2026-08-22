@@ -18,11 +18,33 @@ spec:
     name: "eks-inference"
     revision: "r001"
     digest: "cfb019239b2a3c17d763b54da9071c8e84767d2c851356beaea43fbce2ecbd84"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
     inventory: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
     objectCount: 19
+    digest: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+      record: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "aws-controllers-k8s/iam-chart@1.7.3/eks-inference; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=aws-controllers-k8s/iam-chart"
@@ -54,11 +76,30 @@ spec:
           source: "platform-profile"
           stage: "pre-apply"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "ack-system/aws-creds"
+          origin: "base"
+          type: "target-fact"
+          detail: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
+        -
+          id: "aws.region"
+          origin: "base"
+          type: "target-fact"
+          detail: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+      records:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -74,49 +115,30 @@ spec:
             purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
             source: "platform-profile"
             stage: "pre-apply"
-      requirements:
-        -
-          category: "secret"
-          name: "ack-system/aws-creds"
-          namespace: "ack-system"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
-          check: ""
-          declarationPath: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
-        -
-          category: "value"
-          name: "aws.region"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
-          check: ""
-          declarationPath: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
-      actions:
+      requirementRefs:
+        - "ack-system/aws-creds"
+        - "aws.region"
+      records:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "ack-system/aws-creds"
+      - "aws.region"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

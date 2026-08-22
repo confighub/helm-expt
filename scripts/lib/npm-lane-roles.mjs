@@ -18,6 +18,18 @@
 //               keep-outside      needs external state or is too slow
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
+  "config-catalog:verify": {
+    proves: "The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command",
+  },
+  "lifecycle:route-resolutions:verify": {
+    proves: "Each destination-specific lifecycle record still binds one exact configuration revision and object digest to a destination, runtime, ordered requirements, routes, and scoped receipts, including the blocked AICR v0.19.0 EKS/H100 staging plan.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias gives lifecycle work a focused gate",
+  },
   "aicr-starter-public:verify": {
     proves: "The anonymous Try AICR receipt still names the exact public source digest, seven reviewed Application files, source-and-intent record, public script, local OCI digest, and successful pull-back, without claiming ConfigHub or Kubernetes execution.",
     requires: "offline",

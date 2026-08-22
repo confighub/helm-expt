@@ -1,0 +1,134 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceGenerationReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-19-0"
+spec:
+  boundary:
+    clusterRequired: false
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    note: "Recipe generation, bundle generation, and Helm rendering ran locally. No cluster, cloud account, or GPU was contacted. Upstream EKS GB200 UAT is NVIDIA evidence for its own release; it is not evidence that this retained H100 configuration ran through ConfigHub."
+  commands:
+    bundle:
+      - "aicr"
+      - "bundle"
+      - "--recipe"
+      - "recipe.yaml"
+      - "--deployer"
+      - "argocd-helm"
+      - "--output"
+      - "./argocd-helm-bundle"
+      - "--storage-class"
+      - "gp3"
+      - "--accelerated-node-selector"
+      - "nvidia.com/gpu.present=true"
+      - "--workload-selector"
+      - "app.kubernetes.io/part-of=training"
+    recipe:
+      - "aicr"
+      - "recipe"
+      - "--criteria-strict"
+      - "--service"
+      - "eks"
+      - "--accelerator"
+      - "h100"
+      - "--os"
+      - "ubuntu"
+      - "--intent"
+      - "training"
+      - "--platform"
+      - "kubeflow"
+      - "--output"
+      - "recipe.yaml"
+    render:
+      - "helm"
+      - "template"
+      - "aicr-argocd"
+      - "./argocd-helm-bundle"
+      - "--namespace"
+      - "argocd"
+      - "--set"
+      - "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      - "--output-dir"
+      - "rendered"
+  normalization:
+    textFormatting:
+      change: "Trailing spaces were removed."
+      files:
+        - "argocd-rendered/templates/gpu-operator.yaml"
+      reason: "The generated metrics block contains blank lines carrying spaces. Removing those spaces changes no YAML data and lets the repository whitespace gate inspect the retained output."
+  processing:
+    flatten: "The 17 Application objects are retained as exact files. The 16 component Applications still point at Helm sources, so downstream workload charts remain render-late rather than flattened here."
+    materialize: "AICR generates an Argo CD app-of-apps Helm chart. Helm then renders that chart into 17 exact Application objects."
+    protect: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"
+    retain: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index"
+    route: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml"
+    select: "AICR resolves the five criteria through eight overlays into one pinned recipe containing 15 ordered components."
+    transport:
+      literalConfiguration:
+        digest: "sha256:60330c80709c8bddb0c9bf52b4be35f803c302931dfa52f1d1b2b4637eb90635"
+        objectCount: 17
+        ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/oci-layouts/argocd-config"
+        role: "literal-configuration"
+      publicStatus: "pass"
+      publicTarget: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0"
+      sourcePackage:
+        digest: "sha256:00318b2196a914057ee3c1c7679be17f8500f65b2c2f96a791e404c1ba47c161"
+        ociLayout: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/oci-layouts/argocd-source"
+        role: "source-package"
+  provenance:
+    archiveChecksum: "The downloaded archive matches the v0.19.0 release checksum list."
+    binaryAttestation: "The binary's Sigstore SLSA attestation verifies against the exact v0.19.0 NVIDIA release-workflow identity and names the retained binary SHA-256 as its subject."
+    limit: "The signed recipe-catalog subject covers the component registry and validator catalog. It does not sign every overlay or generated bundle. The binary attestation covers the binary, not this generated output; checksums below bind the output retained here."
+    recipeCatalogSignature: "The recipe-catalog signature verifies against the same exact release identity. Recomputing AICR's catalog digest over the retained registry and validator catalog reproduces the signed subject."
+  purpose: "Retain AICR v0.19.0 beside the v0.14.0 and v0.18.0 entries. All three use the same EKS, H100, Ubuntu, training, and Kubeflow criteria so their exact recipes and Argo CD Application outputs can be compared without replacing history."
+  result:
+    componentCount: 15
+    overlaysResolved: 8
+    renderedApplications: 17
+    selectedProfile: null
+    strictResolverAccepted: true
+  source:
+    binary:
+      attestation: "examples/aicr/upstream-signatures/v0.19.0/aicr-attestation.sigstore.json"
+      sha256: "03cd1800f5a9743162043e17fbe0244a86f2392cbbe8937057becf070e2bd9f6"
+    commit: "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
+    name: "NVIDIA AICR"
+    recipeCatalogSignature: "examples/aicr/upstream-signatures/v0.19.0/recipe-catalog.sigstore.json"
+    releaseAsset:
+      name: "aicr_0.19.0_darwin_arm64.tar.gz"
+      sha256: "5e32e6200c6e7e7668bcae9fc765765634db126956627b1153d737d36fbdfd17"
+    releaseChecksums:
+      name: "aicr_checksums.txt"
+      sha256: "bcdb9de2aa54a309a0a5b8d1cefc3fbcac7514557347dfc89bc91a03b18ebff8"
+    repository: "https://github.com/NVIDIA/aicr"
+    version: "v0.19.0"
+  sourceAndIntent:
+    criteria:
+      accelerator: "h100"
+      intent: "training"
+      os: "ubuntu"
+      platform: "kubeflow"
+      service: "eks"
+    generationInputs:
+      acceleratedNodeSelector: "nvidia.com/gpu.present=true"
+      repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt"
+      storageClass: "gp3"
+      workloadSelector: "app.kubernetes.io/part-of=training"
+    profileNote: "AICR v0.19.0 exposes gpuStack profiles for AKS and GKE, not this EKS composition. The failed profile selection and the adjacent AKS control are recorded in field-policy-assessment.yaml."
+    selectedProfile: null
+    sourceType: "aicr-recipe"
+status:
+  binaryAttestationVerified: true
+  checksumsVerified: true
+  configHubReleaseOci: "pass"
+  configHubUpload: "pass"
+  deliveryProof: "not-run"
+  generated: true
+  localOciLayoutsVerified: true
+  ociBundleGenerated: true
+  promotion: "pass"
+  publicOciPublication: "pass"
+  published: true
+  sourceBundleGenerated: true
+  upstreamSignatureVerified: true

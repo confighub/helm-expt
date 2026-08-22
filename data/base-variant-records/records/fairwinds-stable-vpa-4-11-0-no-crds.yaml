@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+      record: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "fairwinds-stable/vpa@4.11.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=fairwinds-stable/vpa"
@@ -80,11 +102,35 @@ spec:
           namespace: "default"
           purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA CRD managed outside this no-crds base"
+        -
+          id: "verticalpodautoscalers.autoscaling.k8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA CRD managed outside this no-crds base"
+        -
+          id: "default/vpa-tls-secret"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -122,80 +168,32 @@ spec:
             name: "vpa-tls-secret"
             namespace: "default"
             purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
-      requirements:
-        -
-          category: "crd"
-          name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "VPA CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-            - "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "verticalpodautoscalers.autoscaling.k8s.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "VPA CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-            - "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "secret"
-          name: "default/vpa-tls-secret"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
-          check: ""
-          declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-      actions:
+      requirementRefs:
+        - "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+        - "verticalpodautoscalers.autoscaling.k8s.io"
+        - "default/vpa-tls-secret"
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "3 target prerequisites declared by this base."
-        declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+      - "verticalpodautoscalers.autoscaling.k8s.io"
+      - "default/vpa-tls-secret"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

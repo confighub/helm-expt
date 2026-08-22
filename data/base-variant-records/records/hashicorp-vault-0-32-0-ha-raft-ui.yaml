@@ -18,11 +18,33 @@ spec:
     name: "ha-raft-ui"
     revision: "r001"
     digest: "8961fc7dfc008815d652289b9591f2c4ec407ff9f9869d6a91f835d72476c6be"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
     inventory: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml"
     objectCount: 18
+    digest: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+      record: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "hashicorp/vault@0.32.0/ha-raft-ui; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=hashicorp/vault"
@@ -41,59 +63,51 @@ spec:
           minimumSchedulableNodes: 3
           purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "target topology"
+          origin: "base"
+          type: "target-fact"
+          detail: "schedule the three Vault server replicas rendered by the HA Raft base"
+      records:
+        - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "recorded"
       declared:
         requiredTopology:
           minimumSchedulableNodes: 3
           purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
-      requirements:
-        -
-          category: "topology"
-          name: "target topology"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
-          check: ""
-          declarationPath: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
-      actions:
-        -
-          lane: "G/P"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "operator-review"
-          ownerClass: "operator-review"
-          requiredInputs: "operator review of the runtime residue"
-          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
-          sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
-          rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
-            - "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
-      coverage:
-        state: "attached-with-observed-actions"
-        reason: "1 prerequisite declaration and 1 follow-up action record are attached."
-        declarationSource: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+      requirementRefs:
+        - "target topology"
+      records:
+        - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "target topology"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

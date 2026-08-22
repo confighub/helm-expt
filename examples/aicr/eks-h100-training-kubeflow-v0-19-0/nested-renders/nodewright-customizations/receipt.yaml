@@ -1,0 +1,45 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-nodewright-customizations"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nodewright-customizations.yaml"
+  source:
+    repoURL: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd"
+    chart: ""
+    path: "006-nodewright-customizations"
+    targetRevision: "0.19.0"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
+    sha256: "89ffd9460a7c3c90f529a441018d864afeb768b0368bd262107c04bfdda09007"
+  destinationNamespace: "skyhook"
+  command:
+    - "helm"
+    - "template"
+    - "nodewright-customizations"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations"
+    - "--namespace"
+    - "skyhook"
+    - "--values"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nodewright-customizations/objects.yaml"
+    sha256: "0a6982e3e280588603fc0be83eed3b34fb1180315a3a604dd56c93e480d4760b"
+    objectCount: 1
+    kinds:
+      Skyhook: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

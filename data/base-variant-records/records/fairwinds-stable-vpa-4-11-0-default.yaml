@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "b50a13250baea58dab9c39e8399f938139565c13e076f0aa85b91b7b9bda6b44"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 28
+    digest: "9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b"
+      record: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "fairwinds-stable/vpa@4.11.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=fairwinds-stable/vpa"
@@ -50,11 +72,25 @@ spec:
           namespace: "default"
           purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "default/vpa-tls-secret"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -69,34 +105,28 @@ spec:
             name: "vpa-tls-secret"
             namespace: "default"
             purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
-      requirements:
-        -
-          category: "secret"
-          name: "default/vpa-tls-secret"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
-          check: ""
-          declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
-      actions:
+      requirementRefs:
+        - "default/vpa-tls-secret"
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "1 target prerequisite declared by this base."
-        declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "default/vpa-tls-secret"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

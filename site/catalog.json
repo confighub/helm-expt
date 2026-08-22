@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-08-08T00:00:00Z",
+  "generatedAt": "2026-08-22T19:08:54.939Z",
   "installerAvailability": "cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
@@ -40204,6 +40204,34 @@
           }
         },
         {
+          "id": "eks-h100-training-kubeflow-v0-19-0",
+          "title": "EKS H100 Kubeflow training, AICR v0.19.0",
+          "provenance": "retained-upstream",
+          "platformDigest": "sha256:26d1e0674308cf01be7f73c9653f93580909d2989d98abe98b7b1fabf3e782ed",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.19.0",
+            "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/eks-h100-training-kubeflow-v0-19-0",
+            "page": "docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md",
+            "digestIndex": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [],
+            "climbedCount": 0
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": false
+          }
+        },
+        {
           "id": "eks-h100-inference-nim",
           "title": "EKS H100 NIM inference, AICR-native",
           "provenance": "retained-upstream",
@@ -40338,6 +40366,11 @@
           "id": "upstream-signature-verification",
           "receipt": "runs/aicr-signature-verification/receipt.yaml",
           "summary": "data/aicr-signature-verification/summary.md"
+        },
+        {
+          "id": "upstream-provenance-v0-19-0",
+          "receipt": "runs/aicr-provenance-v0-19-0/receipt.yaml",
+          "summary": "data/aicr-provenance-v0-19-0/summary.md"
         },
         {
           "id": "blast-radius-parity",
@@ -40556,6 +40589,22 @@
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/readme.yaml"
     },
     {
+      "space": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development",
+      "kind": "environment",
+      "title": "Review an AICR v0.19.0 platform change",
+      "summary": "Development starts from the retained v0.19.0 Applications and changes one Grafana setting to use a target-owned Secret.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/readme.yaml"
+    },
+    {
+      "space": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging",
+      "kind": "environment",
+      "title": "Promote the reviewed AICR v0.19.0 change",
+      "summary": "Staging receives the reviewed Grafana Secret-reference change from development while the other 16 Applications remain unchanged.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/readme.yaml"
+    },
+    {
       "space": "bitnami-redis-base",
       "kind": "environment",
       "title": "Redis base application",
@@ -40634,6 +40683,14 @@
       "summary": "AICR selected and ordered a GPU training platform. ConfigHub stores the 17 exact Argo CD Applications produced from that recipe as one base variant.",
       "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml"
+    },
+    {
+      "space": "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+      "kind": "source",
+      "title": "AICR v0.19.0 GPU training platform",
+      "summary": "AICR selected an EKS H100 training platform. ConfigHub keeps the 17 exact Argo CD Applications, the source choices, and the work still required on the target.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/readme.yaml"
     },
     {
       "space": "byo-nginx-ai-values-24-0-2-reviewed",

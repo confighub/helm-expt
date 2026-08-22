@@ -13,17 +13,36 @@ This is useful because the generated objects can be read, compared, scanned, cha
 one field at a time, stored as OCI, or retained as ConfigHub Units. It is not safe to
 assume that every chart can be flattened without more work.
 
-## The three decisions
+## The four verdicts
 
-| Decision | Use it when | What must travel with the YAML |
+| Verdict | Use it when | What must travel with the YAML |
 | --- | --- | --- |
-| Flatten | The exact source configuration has no required processor behavior outside the materialized objects. | Pinned source inputs, object inventory, digest, checks, and evidence. |
-| Flatten with recorded setup | The objects are usable after named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately. | The same records, plus each prerequisite or lifecycle action, its owner, order, check, and receipt. |
-| Process late (`render late` for Helm) | The source depends on live lookup, unsafe generated state, destructive lifecycle behavior, or another mechanism that has no adequate route for this use case. | The source and inputs remain authoritative. Record why the literal path was refused and what still needs checking at deployment time. |
+| `born-flattened` | Literal YAML or configuration OCI already contains the exact objects. | Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements. |
+| `safe-to-flatten` | The exact source configuration has no required processor behavior outside the materialized objects. | Pinned source inputs, object inventory, digest, checks, and evidence. |
+| `flatten-with-routes` | The objects are usable after named CRDs, hooks, certificates, Secrets, setup Jobs, ordering steps, or other lifecycle requirements are handled deliberately. | The same records, plus route intents for each requirement. The final route is resolved after the variant and destination are known. |
+| `unsafe-to-flatten` | The source depends on live lookup, generated state, destructive lifecycle behavior, or another mechanism that has no adequate route for this use case. | The source and inputs remain authoritative. Process the source late (`render late` for Helm), and record what must still be checked at deployment time. |
 
 The decision belongs to an exact source version, configuration, and target. A verdict
 for one preset does not automatically cover every input combination or later source
 version.
+
+## Recheck the decision after the base
+
+A flattening verdict is not permanent permission for every descendant. Recheck it
+when a change affects source processing, lifecycle work, or the intended delivery
+path.
+
+| Change | Required response |
+| --- | --- |
+| New chart, recipe, generator, or source version | Materialize again and produce a new verdict for the new source and base. |
+| Values or source choice changes which objects or hooks are produced | Materialize again and re-evaluate the verdict. |
+| A derived variant edits only retained object fields | Keep the base verdict, record the variant diff, and check whether the edit adds a lifecycle requirement. |
+| The destination supplies different CRDs, Secrets, controllers, storage, cloud facts, or model access | Resolve the lifecycle route again for that destination. |
+| The delivery runtime changes between Argo CD, Flux, or direct apply | Keep the object verdict when its scope still holds, but resolve a new runtime-specific route. |
+
+The base carries lifecycle requirements and portable route intents. A promotion or
+release carries the route resolution for its exact variant, destination, and delivery
+runtime. The delivery receipt records whether that resolution actually ran.
 
 ## How this matches the Golden Path model
 

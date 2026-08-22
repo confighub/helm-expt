@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+      record: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "percona/pxc-operator@1.19.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=percona/pxc-operator"
@@ -82,11 +104,35 @@ spec:
           packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
           packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "perconaxtradbclusterbackups.pxc.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
+        -
+          id: "perconaxtradbclusterrestores.pxc.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
+        -
+          id: "perconaxtradbclusters.pxc.percona.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
+      records:
+        - "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -125,84 +171,32 @@ spec:
             suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
             packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
             packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "perconaxtradbclusterbackups.pxc.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-            - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "perconaxtradbclusterrestores.pxc.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-            - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "perconaxtradbclusters.pxc.percona.com"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-            - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
-      actions:
+      requirementRefs:
+        - "perconaxtradbclusterbackups.pxc.percona.com"
+        - "perconaxtradbclusterrestores.pxc.percona.com"
+        - "perconaxtradbclusters.pxc.percona.com"
+      records:
+        - "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "3 target prerequisites declared by this base."
-        declarationSource: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "perconaxtradbclusterbackups.pxc.percona.com"
+      - "perconaxtradbclusterrestores.pxc.percona.com"
+      - "perconaxtradbclusters.pxc.percona.com"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

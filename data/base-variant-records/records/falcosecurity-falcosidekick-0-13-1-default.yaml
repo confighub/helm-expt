@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "6953bde8326fa3418454da01f94d4433ff0f4ba9a2ff5e99d444fbd638537d5e"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 6
+    digest: "7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "7a657f26e36fdc7b72d0ec1ba0831010739e3f84677af99e7397a500a414d0b4"
+      record: "recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "falcosecurity/falcosidekick@0.13.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=falcosecurity/falcosidekick"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

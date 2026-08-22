@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://confighub.com/helm-expt/schemas/bundle-route.schema.json",
-  "title": "Bundle Route",
-  "description": "A companion artifact that travels inside a certified bundle and discharges one quirk class the flattening-safety verdict named. Routes are the reason the flatten-with-routes lane exists: the bundle carries the configuration, and the route carries the knowledge of how to apply it, so neither depends on whoever happened to flatten the chart. A route is declarative. It states what must hold, not how a particular tool achieves it, so any delivery runtime can execute it and a reader can check it without running anything. Generated at flatten time and named in the receipt beside the quirk it discharges.",
+  "title": "Portable Bundle Route Intent",
+  "description": "A companion artifact that travels inside a certified bundle and proposes handling for one quirk class named by the flattening-safety verdict. It records portable lifecycle knowledge at the base boundary. It is not the final destination route: a promotion or release must still bind the intent to an exact variant, destination, delivery runtime, checks, retry rule, failure rule, and receipt.",
   "type": "object",
   "required": [
     "apiVersion",
@@ -136,7 +136,7 @@
           }
         },
         "executedBy": {
-          "description": "Which runtimes can execute this route, and how each expresses it. A route that no runtime can execute is a refusal, not a route.",
+          "description": "Which runtimes could express this route intent, how each expresses it, and whether an exact run has been observed. The selected runtime is recorded later in a LifecycleRouteResolution.",
           "type": "object",
           "required": [
             "runtimes"
@@ -191,7 +191,7 @@
               }
             },
             "automatic": {
-              "description": "Whether a delivery runtime may execute this route without a human deciding. Defaults to false and is earned by observation, never assumed.",
+              "description": "Whether this portable intent permits automatic execution after a destination-specific resolution selects a runtime and satisfies its checks. This flag is not execution proof; runtime.proven and a receipt record observed execution.",
               "type": "boolean"
             }
           }

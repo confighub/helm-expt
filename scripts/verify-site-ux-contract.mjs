@@ -105,7 +105,7 @@ const checks = [
   },
   {
     file: "site/deployment-reference.html",
-    terms: ["Technical deployment reference", "1 · Three ConfigHub terms", "Where a setting belongs", "The recipe: the recorded inputs", "Variants and related records", "What a direct local apply still has to handle"],
+    terms: ["Technical deployment reference", "1 · Three ConfigHub terms", "Where a setting belongs", "Record the source and choices", "Variants and related records", "What a direct local apply still has to handle"],
   },
   {
     file: "site/charts/index.html",
@@ -117,7 +117,7 @@ const checks = [
   },
   {
     file: "site/d/docs/user/confighub-data-model.html",
-    terms: ["The ConfigHub data model", "source + processing intent", "materialize exact Kubernetes objects", "decide whether to flatten", "attach lifecycle routes and protected ownership", "Literal YAML and literal configuration OCI are already materialized", "no route required", "A source OCI and a literal configuration OCI have different jobs", "Helm's two linked records", "Do not create a fake render variant", "complete managed result is source and intent, exact configuration, lifecycle routes, and runtime receipts"],
+    terms: ["The ConfigHub data model", "source + processing intent", "materialize exact Kubernetes objects", "decide the flattening lane for the intended path", "resolve lifecycle routes for the exact variant, destination, and runtime", "Protected local field", "Literal YAML and literal configuration OCI are already materialized", "no route required", "A source OCI and a literal configuration OCI have different jobs", "Helm's two linked records", "Do not create a fake render variant", "complete managed result is source and intent, exact configuration, lifecycle requirements, route resolutions, and runtime receipts"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",

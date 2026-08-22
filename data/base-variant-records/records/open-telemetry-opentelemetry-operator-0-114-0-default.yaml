@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "797b4cd079028aee9f5f62340506590fe0c656f24188170da684b5b1d936baca"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 17
+    digest: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+      record: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "open-telemetry/opentelemetry-operator@0.114.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=open-telemetry/opentelemetry-operator"
@@ -85,11 +107,35 @@ spec:
           purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
           suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "certificates.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+        -
+          id: "issuers.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+        -
+          id: "default/opentelemetry-operator-controller-manager-service-cert"
+          origin: "base"
+          type: "target-fact"
+          detail: "Webhook serving certificate Secret mounted by the operator Deployment"
+      records:
+        - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -132,81 +178,32 @@ spec:
             namespace: "default"
             purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
             suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
-      requirements:
-        -
-          category: "crd"
-          name: "certificates.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
-          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "issuers.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
-          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "secret"
-          name: "default/opentelemetry-operator-controller-manager-service-cert"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
-          check: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
-          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-      actions:
+      requirementRefs:
+        - "certificates.cert-manager.io"
+        - "issuers.cert-manager.io"
+        - "default/opentelemetry-operator-controller-manager-service-cert"
+      records:
+        - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "3 target prerequisites declared by this base."
-        declarationSource: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "certificates.cert-manager.io"
+      - "issuers.cert-manager.io"
+      - "default/opentelemetry-operator-controller-manager-service-cert"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

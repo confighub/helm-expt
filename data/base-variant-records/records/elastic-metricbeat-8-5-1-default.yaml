@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "ace18fc8d71b8f719d7cb3374613766f39a6ed935d3b7cd4fcdf67a917d8424a"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 14
+    digest: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939"
+      record: "recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "elastic/metricbeat@8.5.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/elastic/metricbeat/8.5.1/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=elastic/metricbeat"
@@ -73,11 +95,30 @@ spec:
           sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
           suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "default/elasticsearch-master-certs"
+          origin: "base"
+          type: "target-fact"
+          detail: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
+        -
+          id: "default/elasticsearch-master-credentials"
+          origin: "base"
+          type: "target-fact"
+          detail: "Elasticsearch username and password read by the Metricbeat workloads"
+      records:
+        - "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -111,94 +152,30 @@ spec:
             purpose: "Elasticsearch username and password read by the Metricbeat workloads"
             sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
-      requirements:
-        -
-          category: "secret"
-          name: "default/elasticsearch-master-certs"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
-          check: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
-          declarationPath: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
-            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
-            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
-        -
-          category: "secret"
-          name: "default/elasticsearch-master-credentials"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Elasticsearch username and password read by the Metricbeat workloads"
-          check: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
-          declarationPath: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
-            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
-            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
-      actions:
-        -
-          lane: "G/P"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "operator-review"
-          ownerClass: "operator-review"
-          requiredInputs: "operator review of the runtime residue"
-          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
-          rerunCommand: "npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
-        -
-          lane: "K"
-          prerequisiteKind: "secret"
-          prerequisiteName: "Secret elasticsearch-master-certs"
-          actionKind: "stage-secret"
-          ownerClass: "user-stage"
-          requiredInputs: "Secret elasticsearch-master-certs"
-          evidenceRequired: "the named Secret(s) present in the target namespace before apply; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart elastic/metricbeat --version 8.5.1 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
-      coverage:
-        state: "attached-with-observed-actions"
-        reason: "2 prerequisite declarations and 2 follow-up action records are attached."
-        declarationSource: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
+      requirementRefs:
+        - "default/elasticsearch-master-certs"
+        - "default/elasticsearch-master-credentials"
+      records:
+        - "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "default/elasticsearch-master-certs"
+      - "default/elasticsearch-master-credentials"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

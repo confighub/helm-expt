@@ -18,11 +18,33 @@ spec:
     name: "no-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+      record: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "aqua/trivy-operator@0.32.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=aqua/trivy-operator"
@@ -178,11 +200,80 @@ spec:
           packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
           packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "clustercompliancereports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "clusterconfigauditreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "clusterinfraassessmentreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "clusterrbacassessmentreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "clustersbomreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "clustervulnerabilityreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "configauditreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "exposedsecretreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "infraassessmentreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "rbacassessmentreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "sbomreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+        -
+          id: "vulnerabilityreports.aquasecurity.github.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Trivy Operator CRD managed outside this no-crds base"
+      records:
+        - "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -281,255 +372,50 @@ spec:
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
             packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
             packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "clustercompliancereports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clusterconfigauditreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clusterinfraassessmentreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clusterrbacassessmentreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clustersbomreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "clustervulnerabilityreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "configauditreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "exposedsecretreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "infraassessmentreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "rbacassessmentreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "sbomreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-        -
-          category: "crd"
-          name: "vulnerabilityreports.aquasecurity.github.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
-          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-          declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-          sourceVariant: "default"
-          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
-      actions:
+      requirementRefs:
+        - "clustercompliancereports.aquasecurity.github.io"
+        - "clusterconfigauditreports.aquasecurity.github.io"
+        - "clusterinfraassessmentreports.aquasecurity.github.io"
+        - "clusterrbacassessmentreports.aquasecurity.github.io"
+        - "clustersbomreports.aquasecurity.github.io"
+        - "clustervulnerabilityreports.aquasecurity.github.io"
+        - "configauditreports.aquasecurity.github.io"
+        - "exposedsecretreports.aquasecurity.github.io"
+        - "infraassessmentreports.aquasecurity.github.io"
+        - "rbacassessmentreports.aquasecurity.github.io"
+        - "sbomreports.aquasecurity.github.io"
+        - "vulnerabilityreports.aquasecurity.github.io"
+      records:
+        - "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "12 target prerequisites declared by this base."
-        declarationSource: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "clustercompliancereports.aquasecurity.github.io"
+      - "clusterconfigauditreports.aquasecurity.github.io"
+      - "clusterinfraassessmentreports.aquasecurity.github.io"
+      - "clusterrbacassessmentreports.aquasecurity.github.io"
+      - "clustersbomreports.aquasecurity.github.io"
+      - "clustervulnerabilityreports.aquasecurity.github.io"
+      - "configauditreports.aquasecurity.github.io"
+      - "exposedsecretreports.aquasecurity.github.io"
+      - "infraassessmentreports.aquasecurity.github.io"
+      - "rbacassessmentreports.aquasecurity.github.io"
+      - "sbomreports.aquasecurity.github.io"
+      - "vulnerabilityreports.aquasecurity.github.io"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

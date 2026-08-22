@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "13837b92c4feda268fdeeb08dfd92c1adf95a7656211f963d8ae76de3a2f94b0"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 8
+    digest: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+      record: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "linkerd/linkerd-crds@1.8.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=linkerd/linkerd-crds"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

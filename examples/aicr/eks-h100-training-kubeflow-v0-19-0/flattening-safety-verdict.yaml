@@ -1,0 +1,101 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: FlatteningSafetyVerdict
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-19-0-argocd
+spec:
+  subject:
+    kind: aicr-generated-argocd-application-set
+    entry: examples/aicr/eks-h100-training-kubeflow-v0-19-0
+    upstreamVersion: v0.19.0
+    platformDigest: sha256:6dd6fd925a36d217eb08f1563e921bb8e89a83f1cbbfad31f88a6bcc1b0e44f2
+    note: >-
+      This verdict covers the 17 Argo CD Application objects generated from
+      the AICR composition. It does not decide how the 16 nested component
+      sources should be processed.
+  dispositions:
+    - class: wrapper-helm-hooks
+      finding: absent
+      detail: The retained Application objects contain no Helm hook annotations.
+      disposition: No wrapper hook route is required.
+    - class: wrapper-secrets
+      finding: absent
+      detail: The retained Application set contains no Kubernetes Secret object.
+      disposition: No Secret value is carried by this flattened layer.
+    - class: component-ordering
+      finding: present
+      detail: >-
+        Sixteen component Applications carry AICR deployment order as five
+        distinct Argo CD sync-wave values.
+      disposition: >-
+        Retain the sync-wave values and resolve their execution for the exact
+        Argo CD destination before promotion or delivery.
+      companionRequired: examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml
+      evidence:
+        - data/aicr-ordering-parity/summary.md
+        - examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml
+    - class: nested-component-sources
+      finding: present
+      detail: >-
+        Sixteen Applications still point at Helm or local component sources
+        that Argo CD processes later. All sixteen exact sources and retained
+        values now render locally; eight outputs contain CRDs. A local render
+        does not by itself decide whether any nested source is safe to flatten.
+      disposition: >-
+        Give every nested source its own source record, flattening verdict,
+        lifecycle requirements, and destination-specific route resolution.
+      evidence:
+        - data/aicr-v0-19-0-nested-sources/summary.md
+    - class: destination-facts
+      finding: present
+      detail: >-
+        The composition selects EKS, H100, Ubuntu, Kubeflow training and
+        assumes Argo CD, cloud services, GPU nodes, storage, and component
+        prerequisites that were not contacted by the local generation run.
+      disposition: >-
+        Resolve these requirements against the selected destination. Do not
+        treat the local render as EKS or GPU runtime evidence.
+  componentScope:
+    mode: render-late-by-argo
+    referencedCharts:
+      - aws-ebs-csi-driver
+      - aws-efa
+      - cert-manager
+      - gpu-operator
+      - k8s-ephemeral-storage-metrics
+      - kai-scheduler
+      - kube-prometheus-stack
+      - kubeflow-trainer
+      - kubeflow-trainer-post
+      - nfd
+      - nodewright-customizations
+      - nodewright-operator
+      - nvidia-dra-driver-gpu
+      - nvsentinel
+      - prometheus-adapter
+      - prometheus-operator-crds
+    statement: >-
+      The wrapper is flattened. Its nested sources remain render-late and keep
+      their own processing and lifecycle boundaries.
+  verdict:
+    lane: flatten-with-routes
+    rationale: >-
+      The exact Application objects can be retained without regenerating the
+      AICR wrapper during delivery. Their ordering still has to be resolved
+      and executed by Argo CD, and the nested sources remain render-late.
+    routes:
+      - AICR component order through Argo CD sync waves
+      - Destination checks for EKS, GPU, storage, controllers, and component prerequisites
+  boundedness:
+    - This verdict covers the v0.19.0 wrapper at the recorded platform digest.
+    - It does not flatten or approve any nested component chart.
+    - It records configuration-plane work only; no cloud, cluster, GPU, training workload, or model request ran.
+    - A source refresh, lifecycle-sensitive variant, new destination, or different delivery runtime requires another decision.
+  provenance:
+    emittedBy: scripts/verify-aicr-v019-artifacts.mjs
+    generatedFrom:
+      - examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml
+      - examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/platform-index.json
+      - examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates
+      - examples/aicr/eks-h100-training-kubeflow-v0-19-0/route-intent.yaml
+      - data/aicr-ordering-parity/summary.md
+      - data/aicr-v0-19-0-nested-sources/summary.md

@@ -7,6 +7,9 @@ import { join } from "node:path";
 import { check, readYamlText, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--check";
+const spaceArgIndex = process.argv.indexOf("--space");
+const requestedSpace = spaceArgIndex === -1 ? "" : process.argv[spaceArgIndex + 1];
+check(spaceArgIndex === -1 || requestedSpace, "--space requires a generated Space slug");
 const unitsRoot = join(repoRoot, "data", "helm-catalog-readmes", "units");
 const changeDesc = "Refresh helm-catalog demo README";
 const cubContext = process.env.CUB_CONTEXT ?? "";
@@ -57,16 +60,19 @@ if (mode === "--upload") {
   verifyLive(sourceSpaces());
 } else {
   console.log(`Usage:
-  node scripts/upload-helm-catalog-readmes.mjs --upload
-  node scripts/upload-helm-catalog-readmes.mjs --check`);
+  node scripts/upload-helm-catalog-readmes.mjs --upload [--space <slug>]
+  node scripts/upload-helm-catalog-readmes.mjs --check [--space <slug>]`);
 }
 
 function sourceSpaces() {
   check(existsSync(unitsRoot), `${relativeRepo(unitsRoot)} is missing; run npm run helm-catalog-readmes`);
-  return readdirSync(unitsRoot, { withFileTypes: true })
+  const spaces = readdirSync(unitsRoot, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort();
+  if (!requestedSpace) return spaces;
+  check(spaces.includes(requestedSpace), `${requestedSpace} has no generated README source`);
+  return [requestedSpace];
 }
 
 function verifyLive(spaces) {

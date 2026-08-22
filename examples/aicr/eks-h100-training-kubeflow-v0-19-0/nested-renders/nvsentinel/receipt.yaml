@@ -1,0 +1,53 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-nvsentinel"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nvsentinel.yaml"
+  source:
+    repoURL: "oci://ghcr.io/nvidia/nvsentinel"
+    chart: "nvsentinel"
+    path: ""
+    targetRevision: "v1.9.0"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/015-nvsentinel/values.yaml"
+    sha256: "7f4742e4c15d723361629bb11f58dbd9d10254ecc5f9eb80ef58e75a6892c2b9"
+  destinationNamespace: "nvsentinel"
+  command:
+    - "helm"
+    - "template"
+    - "nvsentinel"
+    - "oci://ghcr.io/nvidia/nvsentinel"
+    - "--version"
+    - "v1.9.0"
+    - "--namespace"
+    - "nvsentinel"
+    - "--values"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/015-nvsentinel/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nvsentinel/objects.yaml"
+    sha256: "108838b8b474bf4a3e5bf541af136ef74fcacfdf74cb16ed18f7d999a44f365d"
+    objectCount: 20
+    kinds:
+      ClusterRole: 3
+      ClusterRoleBinding: 3
+      ConfigMap: 3
+      DaemonSet: 6
+      Deployment: 1
+      PodMonitor: 1
+      ServiceAccount: 3
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

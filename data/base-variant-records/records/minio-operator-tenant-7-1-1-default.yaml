@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "9357bee0a8525bd7869a7027d5fb94d37af03d0d3fdeb1996af9a92b5715fcca"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 2
+    digest: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+      record: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
+      scope: "minio-operator/tenant@7.1.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=minio-operator/tenant"
@@ -50,11 +72,25 @@ spec:
           packageSource: "package://prerequisites/target-facts/default-crds.yaml"
           packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "tenants.minio.min.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "MinIO Tenant CRD required before tenant custom resources can be applied"
+      records:
+        - "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -69,38 +105,28 @@ spec:
             sourceVariant: "minio-operator/operator@7.1.1/default"
             packageSource: "package://prerequisites/target-facts/default-crds.yaml"
             packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "tenants.minio.min.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
-          sourceVariant: "minio-operator/operator@7.1.1/default"
-          sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
-            - "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
-      actions:
+      requirementRefs:
+        - "tenants.minio.min.io"
+      records:
+        - "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "1 target prerequisite declared by this base."
-        declarationSource: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "tenants.minio.min.io"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

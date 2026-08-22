@@ -1,0 +1,68 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubReleaseOciReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-19-0-staging"
+spec:
+  checkedAt: "2026-08-22T19:26:30.289Z"
+  organization: "helm-catalog"
+  space:
+    slug: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging"
+    id: "aea74e5a-26f9-4f7b-8251-16d568d9f304"
+  approval:
+    requiredGate: "platform/require-approval/vet-approvedby"
+    configuration:
+      unit: "aicr-eks-h100-training-kubeflow"
+      id: "1abf38f1-f744-4d9e-bdf0-7f1b78552d2a"
+      revision: 3
+      outstandingApplyGates: 0
+    readme:
+      unit: "readme"
+      id: "fe4b718a-ea10-45cf-9de8-70ab893a1dd0"
+      revision: 9
+      outstandingApplyGates: 0
+  release:
+    id: "104f4b01-0339-4483-b40c-1d95898bd417"
+    number: 3
+    tag: "release-3"
+    reference: "oci://oci.hub.confighub.com:443/space/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging@sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1"
+    manifestDigest: "sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1"
+    bundleDigest: "sha256:295883db781f9f6a6acd6402d994b24cf1bd6874247f17ca66eb1bbc732e7a5f"
+    unitCount: 2
+    published: true
+    resolvedManifestDigest: "sha256:c2408fe664240a06620bc718698318953bec08c642a1c5a43996e868048cd0a1"
+  content:
+    files:
+      -
+        path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release/aicr-eks-h100-training-kubeflow.yaml"
+        sha256: "0a815e48fa4e4adafdc556083f0665778ca6d7dd9bf1dd31eb83b272998460fd"
+      -
+        path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release/readme.yaml"
+        sha256: "d8905f609ce113f9d0caf9c73bbdc88ab4a0026dc918b66f2ee8865138d61496"
+    configuration:
+      objectCount: 17
+      canonicalDataSha256: "56722c32f94b04c91f135e1f2b4616f9bdc9a839a2ce85831aefa90310de000a"
+      expectedStagingDataSha256: "56722c32f94b04c91f135e1f2b4616f9bdc9a839a2ce85831aefa90310de000a"
+      originAnnotationCount: 17
+    readme:
+      kind: "HelmCatalogDemoReadme"
+      title: "Promote the reviewed AICR v0.19.0 change"
+      originRevision: 9
+  evidence:
+    promotionReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml"
+    configuration: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release/aicr-eks-h100-training-kubeflow.yaml"
+    readme: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release/readme.yaml"
+  limits:
+    - "This proves approval, ConfigHub release publication, an authenticated pull by exact manifest digest, and the contents of that release."
+    - "It does not prove Argo CD reconciliation, EKS or H100 readiness, a training or NIM request, Flux delivery, fleet rollout, observation, or rollback."
+status:
+  result: "pass"
+  approval: "pass"
+  releasePublish: "pass"
+  registryPull: "pass"
+  manifestDigestMatched: "pass"
+  promotedConfigurationMatched: "pass"
+  argoCdReconciliation: "not-run"
+  eksH100Runtime: "not-run"
+  fluxDelivery: "not-run"
+  fleetRollout: "not-run"
+  rollback: "not-run"

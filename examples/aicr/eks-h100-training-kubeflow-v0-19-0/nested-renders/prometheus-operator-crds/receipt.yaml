@@ -1,0 +1,49 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-prometheus-operator-crds"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/prometheus-operator-crds.yaml"
+  source:
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    chart: "prometheus-operator-crds"
+    path: ""
+    targetRevision: "28.0.1"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/007-prometheus-operator-crds/values.yaml"
+    sha256: "f6ded79ccc11132cec0b9dbbf1248ba5862248b9e4daea35c21e60e28c078b12"
+  destinationNamespace: "monitoring"
+  command:
+    - "helm"
+    - "template"
+    - "prometheus-operator-crds"
+    - "prometheus-operator-crds"
+    - "--repo"
+    - "https://prometheus-community.github.io/helm-charts"
+    - "--version"
+    - "28.0.1"
+    - "--namespace"
+    - "monitoring"
+    - "--values"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/007-prometheus-operator-crds/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/prometheus-operator-crds/objects.yaml"
+    sha256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+    objectCount: 10
+    kinds:
+      CustomResourceDefinition: 10
+    crdCount: 10
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

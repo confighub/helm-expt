@@ -1,0 +1,58 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-nfd"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/nfd.yaml"
+  source:
+    repoURL: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+    chart: "node-feature-discovery"
+    path: ""
+    targetRevision: "0.19.0"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/004-nfd/values.yaml"
+    sha256: "2da5c78a5cff5e7348237ce22af0bf7c9b71a3cd1134bd17c38c94823a8e64d0"
+  destinationNamespace: "node-feature-discovery"
+  command:
+    - "helm"
+    - "template"
+    - "nfd"
+    - "node-feature-discovery"
+    - "--repo"
+    - "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+    - "--version"
+    - "0.19.0"
+    - "--namespace"
+    - "node-feature-discovery"
+    - "--values"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/004-nfd/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/nfd/objects.yaml"
+    sha256: "b647162b461d3239971217754bcbd89fbaca8a806cd3ccf453a63b15e897a201"
+    objectCount: 27
+    kinds:
+      ClusterRole: 4
+      ClusterRoleBinding: 4
+      ConfigMap: 3
+      CustomResourceDefinition: 4
+      DaemonSet: 2
+      Deployment: 2
+      Job: 1
+      Role: 1
+      RoleBinding: 1
+      ServiceAccount: 5
+    crdCount: 4
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

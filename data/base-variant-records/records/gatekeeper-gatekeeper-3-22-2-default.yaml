@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "57649ce2ff654a2900d594b5aac09186f35e6349fd72d333922229b7d2c6e49a"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 30
+    digest: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+      record: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "gatekeeper/gatekeeper@3.22.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=gatekeeper/gatekeeper"
@@ -35,108 +57,101 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      -
-        routeName: "preflight-or-presync"
-        quirkClass: "hook-phase"
-        lifecyclePhase: "preflight"
-        actionKind: "run-preflight"
-        executionMode: "user-executes"
-        automatic: false
-        whoRuns: "Your delivery — a preflight step before apply (receipted)"
-        operatingDetails: "CRD and admission-webhook prerequisites must be checked before apply."
-        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
-        disposition: "observed"
-        delta: "kept"
-        reason: ""
-        routeSourceVersion: "3.22.2"
-        evidence:
-          - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
-          - "data/hook-lifecycle/top100-hooks.csv"
-          - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
-          - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
-        gitOps:
-          emitsControllerStep: true
-          argoCd: "PreSync · sync-wave -1"
-          flux: "apply before the release (Kustomization dependsOn)"
-          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
-        runners:
-          direct:
-            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "evidence-linked"
-            evidence:
-              - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
-          argoCd:
-            implementation: "PreSync · sync-wave -1"
-            status: "mapping-only"
-            evidence:
-              []
-          flux:
-            implementation: "apply before the release (Kustomization dependsOn)"
-            status: "mapping-only"
-            evidence:
-              []
-      -
-        routeName: "upgrade-action-with-receipt"
-        quirkClass: "hook-phase"
-        lifecyclePhase: "pre-apply"
-        actionKind: "run-job"
-        executionMode: "user-executes"
-        automatic: false
-        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
-        operatingDetails: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
-        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-        disposition: "observed"
-        delta: "kept"
-        reason: ""
-        routeSourceVersion: "3.22.2"
-        evidence:
-          - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
-          - "data/hook-lifecycle/top100-hooks.csv"
-          - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
-          - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
-        gitOps:
-          emitsControllerStep: true
-          argoCd: "PreSync"
-          flux: "apply before the release (Kustomization dependsOn)"
-          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
-        runners:
-          direct:
-            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "evidence-linked"
-            evidence:
-              - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
-          argoCd:
-            implementation: "PreSync"
-            status: "mapping-only"
-            evidence:
-              []
-          flux:
-            implementation: "apply before the release (Kustomization dependsOn)"
-            status: "mapping-only"
-            evidence:
-              []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        -
+          id: "preflight-or-presync"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD and admission-webhook prerequisites must be checked before apply."
+        -
+          id: "upgrade-action-with-receipt"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+      records:
+        - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "gap"
+      routes:
+        -
+          id: "preflight-or-presync"
+          requirementRefs:
+            - "preflight-or-presync"
+          phase: "preflight"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "CRD and admission-webhook prerequisites must be checked before apply."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+            - "data/hook-lifecycle/top100-hooks.csv"
+            - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+            - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+        -
+          id: "upgrade-action-with-receipt"
+          requirementRefs:
+            - "upgrade-action-with-receipt"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+            - "data/hook-lifecycle/top100-hooks.csv"
+            - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+            - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+      records:
+        - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

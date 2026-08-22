@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "40c409175a95558a0683036dc80b3b7877540cfc68ea6eceeae017c731fd5b95"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 5
+    digest: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+      record: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "hashicorp/terraform@1.1.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=hashicorp/terraform"
@@ -72,11 +94,30 @@ spec:
           sourcePath: "../../target-prerequisite-plan.yaml"
           suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "default/terraformrc"
+          origin: "base"
+          type: "target-fact"
+          detail: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+        -
+          id: "default/workspacesecrets"
+          origin: "base"
+          type: "target-fact"
+          detail: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+      records:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -109,77 +150,30 @@ spec:
             purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
             sourcePath: "../../target-prerequisite-plan.yaml"
             suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
-      requirements:
-        -
-          category: "secret"
-          name: "default/terraformrc"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
-          check: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
-          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
-            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
-            - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
-        -
-          category: "secret"
-          name: "default/workspacesecrets"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
-          check: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
-          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
-            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
-            - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
-      actions:
-        -
-          lane: "G/P"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "operator-review"
-          ownerClass: "operator-review"
-          requiredInputs: "operator review of the runtime residue"
-          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
-          sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
-          rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
-            - "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
-      coverage:
-        state: "attached-with-observed-actions"
-        reason: "2 prerequisite declarations and 1 follow-up action record are attached."
-        declarationSource: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+      requirementRefs:
+        - "default/terraformrc"
+        - "default/workspacesecrets"
+      records:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "default/terraformrc"
+      - "default/workspacesecrets"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "005e78a190f1d4c7be268fe4e5fb9181fd0271b08e0f469962c478f7dfe6dcc0"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 7
+    digest: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
+      record: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "autoscaler/cluster-autoscaler@9.57.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/autoscaler/cluster-autoscaler/9.57.0/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=autoscaler/cluster-autoscaler"
@@ -35,40 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
     targetFacts:
-      status: "observed-action-records"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
-        -
-          lane: "K"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "unknown-preflight"
-          ownerClass: "user-stage"
-          requiredInputs: "the missing Helm input value(s)"
-          evidenceRequired: "the missing input(s) supplied and the re-render matching regular Helm; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/autoscaler-cluster-autoscaler-default/receipt.yaml"
-      coverage:
-        state: "actionable-gap"
-        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
-    sourceRecord: "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
+      records:
+        - "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

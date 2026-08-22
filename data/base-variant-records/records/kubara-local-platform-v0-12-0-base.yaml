@@ -18,11 +18,34 @@ spec:
     name: "base"
     revision: "generated-v0.12.0"
     digest: "sha256:b5cc98615a93c708870ecc80d92af488e7a7e517c8da8c8af0bc3b6ae5bfdf54"
+    digestRole: "literal-configuration-oci-manifest"
+    digestRecord: "examples/kubara/local-platform/generation-receipt.yaml"
   configuration:
     format: "kubara-argocd-bootstrap-yaml"
     objects: "examples/kubara/local-platform/rendered/release-objects.yaml"
     inventory: "examples/kubara/local-platform/rendered/object-inventory.json"
     objectCount: 77
+    digest: "d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8"
+    digestRole: "inventory-file"
+    digestRecord: "examples/kubara/local-platform/rendered/object-inventory.json"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/kubara/local-platform/generation-receipt.yaml"
+    materialization:
+      method: "generator"
+      status: "captured"
+      outputDigest: "d8061dd05c290ac90542560bcb29bd49c655b03183362da0894585275ef4a5d8"
+      record: "examples/kubara/local-platform/rendered/object-inventory.json"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "local-platform@v0.12.0/base; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Kubara generated the exact platform bootstrap objects retained by this base."
+      - "Referenced component sources keep their own processing and lifecycle decisions."
   inputs:
     fixedAtBuildTime:
       - "cluster=test-cluster"
@@ -39,54 +62,132 @@ spec:
       - "remote image-pull key when private images are used"
       - "approved handling for argocd-secret and cluster-kubernetes.default.svc"
     installTimeStatus: "declared-not-live-checked"
-  routing:
-    routes:
-      -
-        action: "apply the CRDs first and wait for Established before applying Argo CD custom resources"
-        id: "argocd-crds-first"
-        objects:
-          - "customresourcedefinitions.apiextensions.k8s.io/applications.argoproj.io"
-          - "customresourcedefinitions.apiextensions.k8s.io/applicationsets.argoproj.io"
-          - "customresourcedefinitions.apiextensions.k8s.io/appprojects.argoproj.io"
-        reason: "Argo CD custom resources cannot be applied until their three CRDs exist and report Established."
-        status: "recorded-not-live"
-      -
-        action: "apply the hook RBAC and Job, wait for the Job to complete, record the result, then continue"
-        id: "argocd-redis-secret-init"
-        objects:
-          - "serviceaccounts/kubara-platform-argocd-redis-secret-init"
-          - "roles.rbac.authorization.k8s.io/kubara-platform-argocd-redis-secret-init"
-          - "rolebindings.rbac.authorization.k8s.io/kubara-platform-argocd-redis-secret-init"
-          - "jobs.batch/kubara-platform-argocd-redis-secret-init"
-        reason: "The upstream Argo CD chart marks four resources as a Helm pre-install and pre-upgrade hook so a Job can create the Redis Secret before Argo CD starts."
-        status: "recorded-not-live"
-      -
-        action: "check the CRD and Secret-store facts before applying the ClusterExternalSecret"
-        id: "external-secrets-crd"
-        objects:
-          - "clusterexternalsecrets.external-secrets.io/image-pull-secret-ces"
-        reason: "The render contains a ClusterExternalSecret, so the External Secrets CRD must exist before that object can be applied."
-        status: "recorded-not-live"
-        targetFacts:
-          - "external-secrets.io/v1 ClusterExternalSecret is served"
-          - "ClusterSecretStore test-cluster-local exists"
-          - "remote key test-cluster/local/cluster_secrets/docker_config exists when a private image pull Secret is required"
-      -
-        action: "create or bind these two Secrets through the approved Secret path before applying the remaining objects"
-        id: "rendered-secrets"
-        objects:
-          - "secrets/argocd-secret"
-          - "secrets/cluster-kubernetes.default.svc"
-        reason: "cub variant upload does not upload rendered Secret objects, including Secrets whose current data is not sensitive."
-        status: "recorded-not-live"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "argocd-crds-first"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Argo CD custom resources cannot be applied until their three CRDs exist and report Established."
+        -
+          id: "argocd-redis-secret-init"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The upstream Argo CD chart marks four resources as a Helm pre-install and pre-upgrade hook so a Job can create the Redis Secret before Argo CD starts."
+        -
+          id: "external-secrets-crd"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The render contains a ClusterExternalSecret, so the External Secrets CRD must exist before that object can be applied."
+        -
+          id: "rendered-secrets"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "cub variant upload does not upload rendered Secret objects, including Secrets whose current data is not sensitive."
+      records:
+        - "examples/kubara/local-platform/route-intent.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "argocd-crds-first"
+          requirementRefs:
+            - "argocd-crds-first"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "apply the CRDs first and wait for Established before applying Argo CD custom resources"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-live"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "argocd-redis-secret-init"
+          requirementRefs:
+            - "argocd-redis-secret-init"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "apply the hook RBAC and Job, wait for the Job to complete, record the result, then continue"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-live"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "external-secrets-crd"
+          requirementRefs:
+            - "external-secrets-crd"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "check the CRD and Secret-store facts before applying the ClusterExternalSecret"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-live"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "rendered-secrets"
+          requirementRefs:
+            - "rendered-secrets"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "create or bind these two Secrets through the approved Secret path before applying the remaining objects"
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-live"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+      records:
+        - "examples/kubara/local-platform/route-intent.yaml"
     targetFacts:
-      clusterName: "test-cluster"
-      clusterType: "hub"
-      requiredApis:
-        - "apiextensions.k8s.io/v1"
-        - "external-secrets.io/v1"
-      requiredSecretStore: "test-cluster-local"
-    sourceRecord: "examples/kubara/local-platform/route-intent.yaml"
+      status: "recorded"
+      declared:
+        clusterName: "test-cluster"
+        clusterType: "hub"
+        requiredApis:
+          - "apiextensions.k8s.io/v1"
+          - "external-secrets.io/v1"
+        requiredSecretStore: "test-cluster-local"
+      requirementRefs:
+        []
+      records:
+        - "examples/kubara/local-platform/route-intent.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "examples/kubara/local-platform/generation-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "local-only"

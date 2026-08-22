@@ -165,9 +165,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-ordering-parity/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-platform-evidence/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-platform-variant/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-provenance-v0-19-0/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-refusal-corpus/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-trust-root-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-upstream-watch/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-v0-19-0-nested-sources/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-variant-promotion-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-version-diff/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-ci-proof/summary.html</loc></url>
@@ -447,6 +449,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.html</loc></url>
@@ -644,6 +649,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-21-after/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-21-final/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-21/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-22-model-final/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-22-model-v2/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/ssa-conflict-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/status-dashboard/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/successor-track/summary.html</loc></url>
@@ -706,6 +713,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/cpu-starter.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/refusal-corpus.html</loc></url>
@@ -801,6 +809,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-successors-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-catalog-demo-program.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-workshop-ai-drift-growth-strategy.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-workshop-simulation-findings.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/corpus-rationalization-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html</loc></url>
@@ -996,6 +1005,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/cpu-starter/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-inference-nim/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/digest-index/README.html</loc></url>

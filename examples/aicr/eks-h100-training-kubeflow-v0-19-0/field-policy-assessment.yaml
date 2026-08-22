@@ -1,0 +1,78 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceFieldPolicyAssessment
+metadata:
+  name: aicr-v0-19-0-gpu-stack-profile
+spec:
+  purpose: >-
+    Show which GPU-stack choices AICR v0.19.0 protects at its source boundary,
+    and avoid attributing an AKS or GKE feature to the retained EKS recipe.
+  retainedEntry:
+    service: eks
+    recipe: examples/aicr/eks-h100-training-kubeflow-v0-19-0/recipe.yaml
+    selectedProfile: null
+    result: >-
+      The EKS composition declares no gpuStack profile. Supplying
+      --profile gpuStack=operator-managed is refused before a recipe is
+      written. Driver ownership is therefore a target decision for this EKS
+      entry, not a protected AICR profile field.
+  adjacentUpstreamExample:
+    service: aks
+    criteria: service=aks, accelerator=h100, os=ubuntu, intent=training, platform=kubeflow
+    profile: gpuStack
+    values:
+      - azure-managed
+      - operator-managed
+    ownedPaths:
+      gpu-operator:
+        - driver.enabled
+        - enabled
+        - operator.runtimeClass
+        - toolkit.enabled
+      nvidia-dra-driver-gpu:
+        - enabled
+        - nvidiaDriverRoot
+  controls:
+    - change: gpu-operator.driver.enabled=false on gpuStack=operator-managed
+      result: refused
+      reason: the value conflicts with the selected profile
+    - change: export gpu-operator.driver.enabled as an install-time field
+      result: refused
+      reason: an owned path cannot become mutable at install time
+    - change: gpu-operator.driver.version=570.133.20
+      result: accepted
+      reason: the version path is not owned by the selected profile
+  meaningForConfigHub: >-
+    Source-owned fields must be changed by selecting or regenerating the
+    source configuration. Other fields may become reviewed ConfigHub changes.
+    The classification belongs to the exact source version and profile; it is
+    not inferred from OCI transport or copied to unrelated platforms.
+  evidence:
+    binaryVersion: 0.19.0
+    binaryCommit: f1f63463f7fae6dea608c89f92975b0dbc27c59c
+    observedAt: "2026-08-22"
+    commands:
+      - aicr recipe --criteria-strict --service eks --accelerator h100 --os ubuntu --intent training --platform kubeflow --profile gpuStack=operator-managed
+      - aicr recipe --criteria-strict --service aks --accelerator h100 --os ubuntu --intent training --platform kubeflow --profile gpuStack=operator-managed
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-conflict --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+        --set gpuoperator:driver.enabled=false
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-dynamic --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --workload-selector app.kubernetes.io/part-of=training
+        --dynamic gpuoperator:driver.enabled
+      - >-
+        aicr bundle --recipe aks-operator.yaml --deployer argocd-helm
+        --output ./aks-accepted --storage-class managed-csi
+        --accelerated-node-selector nvidia.com/gpu.present=true
+        --accelerated-node-toleration nvidia.com/gpu:NoSchedule
+        --workload-selector app.kubernetes.io/part-of=training
+        --set gpuoperator:driver.version=570.133.20
+status:
+  configPlaneOnly: true
+  targetContacted: false
+  gpuWorkloadRun: false

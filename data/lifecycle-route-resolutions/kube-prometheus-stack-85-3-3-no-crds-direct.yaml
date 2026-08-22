@@ -1,0 +1,150 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "LifecycleRouteResolution"
+metadata:
+  name: "kube-prometheus-stack-85-3-3-no-crds-direct"
+spec:
+  configuration:
+    baseVariantRecord: "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+    variant: "no-crds"
+    revision: "r001"
+    baseRevisionDigest: "6566541a9f0bf6dfee41fafac9aef3099a6d6cfe2a2fe4e218ef08d2d754bec0"
+    digest: "3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml"
+  destination:
+    name: "hx-kps-route-20260729104751"
+    type: "kind"
+    deliveryRuntime: "cub installer direct runner"
+  requirements:
+    -
+      id: "crds"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "Ten monitoring CRDs must be established before dependent objects are applied."
+    -
+      id: "admission-certificate"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The admission-create Job must create the webhook certificate Secret."
+    -
+      id: "workloads"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The ordinary workload objects run after the CRDs and certificate setup."
+    -
+      id: "admission-webhook-patch"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The admission-patch Job updates the webhook CA bundles after webhook objects exist."
+    -
+      id: "temporary-hook-resources"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "Completed hook Jobs and their temporary RBAC objects must be removed before replacement."
+  routes:
+    -
+      id: "crds-first"
+      requirementRefs:
+        - "crds"
+      actor: "cub installer lifecycle runner"
+      phase: "pre-apply"
+      order: 10
+      mechanism: "Apply CRDs and wait for Established."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    -
+      id: "certificate-setup"
+      requirementRefs:
+        - "admission-certificate"
+      actor: "cub installer lifecycle runner"
+      phase: "pre-apply"
+      order: 20
+      mechanism: "Run the admission-create Job and wait for its Secret."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    -
+      id: "ordinary-objects"
+      requirementRefs:
+        - "workloads"
+      actor: "cub installer lifecycle runner"
+      phase: "apply"
+      order: 30
+      mechanism: "Apply the retained workload objects."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    -
+      id: "webhook-patch"
+      requirementRefs:
+        - "admission-webhook-patch"
+      actor: "cub installer lifecycle runner"
+      phase: "post-apply"
+      order: 40
+      mechanism: "Run the admission-patch Job after webhook objects exist."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    -
+      id: "webhook-readiness"
+      requirementRefs:
+        - "admission-webhook-patch"
+        - "workloads"
+      actor: "cub installer lifecycle runner"
+      phase: "observe"
+      order: 50
+      mechanism: "Check CA bundles, the operator endpoint, workloads, and a server-side dry run."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    -
+      id: "hook-cleanup"
+      requirementRefs:
+        - "temporary-hook-resources"
+      actor: "cub installer lifecycle runner"
+      phase: "cleanup"
+      order: 60
+      mechanism: "Remove completed hook Jobs and temporary support objects."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+  protection:
+    records:
+      - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+status:
+  decision: "ready"
+  evidence: "observed"
+  unresolved:
+    - "This receipt covers a fresh installation, not the upgrade route."
+  receipts:
+    - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"

@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "5ce1cb8433b22f562e69e090ce4733a2e32c78c54675f8113a4c789bdca2436f"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 20
+    digest: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+      record: "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
+      scope: "bitnami/contour@21.1.4/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=bitnami/contour"
@@ -66,11 +88,30 @@ spec:
           purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
           suggestedSource: "package://prerequisites/contour-certgen/run.sh"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "default/contourcert"
+          origin: "base"
+          type: "target-fact"
+          detail: "Contour serving certificate created by the chart's pre-install certgen hook"
+        -
+          id: "default/envoycert"
+          origin: "base"
+          type: "target-fact"
+          detail: "Envoy client certificate created by the chart's pre-install certgen hook"
+      records:
+        - "data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredSecrets:
           -
@@ -97,49 +138,30 @@ spec:
             provisioningMode: "lifecycle-action"
             purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
             suggestedSource: "package://prerequisites/contour-certgen/run.sh"
-      requirements:
-        -
-          category: "secret"
-          name: "default/contourcert"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
-          check: "package://prerequisites/contour-certgen/run.sh"
-          declarationPath: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "cubInstallerApply"
-          evidence:
-            - "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
-        -
-          category: "secret"
-          name: "default/envoycert"
-          namespace: "default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
-          check: "package://prerequisites/contour-certgen/run.sh"
-          declarationPath: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "cubInstallerApply"
-          evidence:
-            - "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
-      actions:
+      requirementRefs:
+        - "default/contourcert"
+        - "default/envoycert"
+      records:
+        - "data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "default/contourcert"
+      - "default/envoycert"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

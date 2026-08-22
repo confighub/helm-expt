@@ -18,11 +18,33 @@ spec:
     name: "ha"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+      record: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "elastic/logstash@8.5.1/ha; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=elastic/logstash"
@@ -45,11 +67,25 @@ spec:
           minimumSchedulableNodes: 3
           purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "target topology"
+          origin: "base"
+          type: "target-fact"
+          detail: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+      records:
+        - "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredTopology:
           deliveryLanes:
@@ -58,34 +94,28 @@ spec:
             - "configHubOciArgo"
           minimumSchedulableNodes: 3
           purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
-      requirements:
-        -
-          category: "topology"
-          name: "target topology"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
-          check: ""
-          declarationPath: "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
-      actions:
+      requirementRefs:
+        - "target topology"
+      records:
+        - "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "1 target prerequisite declared by this base."
-        declarationSource: "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "target topology"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

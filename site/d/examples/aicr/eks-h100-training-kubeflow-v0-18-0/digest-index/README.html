@@ -442,13 +442,13 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>UNOFFICIAL/EXPERIMENTAL. This directory is compiled by <code>npm run aicr-digest-index:generate</code> and checked byte-for-byte by <code>npm run aicr-digest-index:verify</code>. Do not edit it by hand.</p>
 <p>The platform digest is:</p>
 <pre><code>sha256:b9e5af994a0e1aeb2a055d43ccf88399c3d4faab880e1ae7ae03b06c14571575</code></pre>
-<p>That one value pins the exact upstream source (NVIDIA AICR v0.18.0, commit <code>1439f2fc5db27e6bb9ef3d73e8f8afca45a32126</code>), the recipe criteria, the three committed OCI transport manifests, and one immutable payload per rendered Argo CD Application: 16 waved components plus the <code>aicr-stack</code> root. Change any rendered byte anywhere in the shape and the digest changes.</p>
-<p><a href="../../../../../../examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/platform-index.json">platform-index.json</a> holds the full index. Each member row names its payload file under <a href="../../../../../../examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/payloads">payloads/</a> and the OCI reference the payload would publish to. Those references are plans. Nothing in this directory claims a registry push; the committed OCI receipts next to this directory carry the transport evidence that exists today.</p>
+<p>That one value pins the exact upstream source (NVIDIA AICR v0.18.0, commit <code>1439f2fc5db27e6bb9ef3d73e8f8afca45a32126</code>), the recipe criteria, the planned OCI member references, and one immutable payload per rendered Argo CD Application: 16 waved components plus the <code>aicr-stack</code> root. Change any rendered byte anywhere in the shape and the digest changes.</p>
+<p><a href="../../../../../../examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/platform-index.json">platform-index.json</a> holds the full index. Each member row names its payload file under <a href="../../../../../../examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/payloads">payloads/</a> and the OCI reference the payload uses or would use. Nothing in this directory claims a registry push by itself. This retained version has no OCI publication receipt, so every OCI reference remains a plan.</p>
 <p>This follows the pattern the Kubara importer proved: per-component immutable payloads plus one digest-bound index, compiled offline from committed bytes.</p>
 <p>The boundary, stated plainly: this index proves config-plane mechanics only. No GPU workload ran to produce or verify it. Workload-plane claims stay absent rather than implied.</p>
     </article>

@@ -66,6 +66,25 @@ const entries = [
     ladder: [],
   },
   {
+    id: "eks-h100-training-kubeflow-v0-19-0",
+    title: "EKS H100 Kubeflow training, AICR v0.19.0",
+    provenance: "retained-upstream",
+    page: "docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md",
+    sourceReceipt: "generation-receipt.yaml",
+    ladder: [
+      {
+        rung: "public-source-and-literal-configuration-oci",
+        receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml",
+        summary: "data/aicr-v0-19-0-chain/summary.md",
+      },
+      {
+        rung: "confighub-base-policy-and-promotion",
+        receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml",
+        summary: "data/aicr-v0-19-0-chain/summary.md",
+      },
+    ],
+  },
+  {
     id: "eks-h100-inference-nim",
     title: "EKS H100 NIM inference, AICR-native",
     provenance: "retained-upstream",
@@ -134,6 +153,11 @@ const crossEntryEvidence = [
     id: "upstream-signature-verification",
     receipt: "runs/aicr-signature-verification/receipt.yaml",
     summary: "data/aicr-signature-verification/summary.md",
+  },
+  {
+    id: "upstream-provenance-v0-19-0",
+    receipt: "runs/aicr-provenance-v0-19-0/receipt.yaml",
+    summary: "data/aicr-provenance-v0-19-0/summary.md",
   },
   { id: "blast-radius-parity", summary: "data/aicr-blast-radius/summary.md" },
   { id: "ordering-parity", summary: "data/aicr-ordering-parity/summary.md" },

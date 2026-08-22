@@ -18,11 +18,34 @@ spec:
     name: "argocd"
     revision: "generated-v0.14.0"
     digest: "fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801"
+    digestRole: "source-output-inventory"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
   configuration:
     format: "argocd-application-yaml"
     objects: "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"
     inventory: "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
     objectCount: 17
+    digest: "fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801"
+    digestRole: "inventory-file"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+    materialization:
+      method: "aicr-compose-then-helm-render"
+      status: "captured"
+      outputDigest: "fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801"
+      record: "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "eks-h100-training-kubeflow@v0.14.0/argocd; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "data/aicr-flattening-verdicts/aicr-eks-h100-training-kubeflow/flattening-safety-verdict.yaml"
+    boundaries:
+      - "AICR composed the platform and generated an Argo CD app-of-apps chart; Helm rendered that wrapper into exact Application objects."
+      - "The component Applications still reference their own sources, so those nested sources are processed later by Argo CD."
   inputs:
     fixedAtBuildTime:
       - "accelerator=h100"
@@ -39,25 +62,92 @@ spec:
     installTime:
       []
     installTimeStatus: "none-declared-for-the-rendered-applications"
-  routing:
-    routes:
-      -
-        id: "argocd-sync-waves"
-        status: "generated-not-live"
-        note: "AICR assigned the 16 component Applications to sync waves 0 through 15."
-      -
-        id: "argocd-source-package"
-        status: "published"
-        note: "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest."
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "argocd-sync-waves"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "AICR assigned the 16 component Applications to sync waves 0 through 15."
+        -
+          id: "argocd-source-package"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest."
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "argocd-sync-waves"
+          requirementRefs:
+            - "argocd-sync-waves"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "AICR assigned the 16 component Applications to sync waves 0 through 15."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "argocd-source-package"
+          requirementRefs:
+            - "argocd-source-package"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "published"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
     targetFacts:
-      platform: "EKS"
-      accelerator: "H100"
-      operatingSystem: "Ubuntu"
-      argoCd:
-        required: true
-        applicationNamespace: "argocd"
-        ociHelmSourceRequired: true
-    sourceRecord: "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+      status: "recorded"
+      declared:
+        platform: "EKS"
+        accelerator: "H100"
+        operatingSystem: "Ubuntu"
+        argoCd:
+          required: true
+          applicationNamespace: "argocd"
+          ociHelmSourceRequired: true
+      requirementRefs:
+        []
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+      - "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     sourcePackageOci:
       status: "public-anonymous-pull-proved"

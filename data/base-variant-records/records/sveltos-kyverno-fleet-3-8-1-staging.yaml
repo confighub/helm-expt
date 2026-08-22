@@ -18,11 +18,34 @@ spec:
     name: "staging"
     revision: "live-r001"
     digest: "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
+    digestRole: "source-file"
+    digestRecord: "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
   configuration:
     format: "sveltos-clusterprofile-yaml"
     objects: "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
     inventory: ""
     objectCount: 1
+    digest: "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
+    digestRole: "literal-yaml-file"
+    digestRecord: "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/sveltos/kyverno-fleet/source-lock.yaml"
+    materialization:
+      method: "read-literal-configuration"
+      status: "recorded-no-op"
+      outputDigest: "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
+      record: "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+    flattening:
+      status: "decided"
+      verdict: "born-flattened"
+      action: "retain-exact-objects"
+      scope: "kyverno-fleet@v1.12.0/staging; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "examples/sveltos/kyverno-fleet/source-lock.yaml"
+    boundaries:
+      - "The Sveltos ClusterProfile is already a literal Kubernetes object."
+      - "The Helm chart referenced by the ClusterProfile remains a nested source that Sveltos processes on selected clusters."
   inputs:
     fixedAtBuildTime:
       - "sveltos=v1.12.0"
@@ -41,31 +64,137 @@ spec:
         value: "SveltosCluster labeled environment=staging"
         status: "live-pass"
     installTimeStatus: "declared"
-  routing:
-    routes:
-      -
-        id: "confighub-to-management-cluster"
-        status: "live-pass"
-        note: "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster."
-      -
-        id: "sveltos-cluster-selection"
-        status: "live-pass"
-        note: "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters."
-      -
-        id: "sveltos-helm-reconciliation"
-        status: "live-pass"
-        note: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets."
-      -
-        id: "sveltos-drift-recovery"
-        status: "live-pass"
-        note: "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three."
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "confighub-to-management-cluster"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster."
+        -
+          id: "sveltos-cluster-selection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters."
+        -
+          id: "sveltos-helm-reconciliation"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets."
+        -
+          id: "sveltos-drift-recovery"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three."
+      records:
+        - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "confighub-to-management-cluster"
+          requirementRefs:
+            - "confighub-to-management-cluster"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "live-pass"
+          supportedRuntimes:
+            - "Argo CD"
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "sveltos-cluster-selection"
+          requirementRefs:
+            - "sveltos-cluster-selection"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "live-pass"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "sveltos-helm-reconciliation"
+          requirementRefs:
+            - "sveltos-helm-reconciliation"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "live-pass"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "sveltos-drift-recovery"
+          requirementRefs:
+            - "sveltos-drift-recovery"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "live-pass"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            []
+      records:
+        - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
     targetFacts:
-      managementClusterRequiresSveltos: true
-      managementKubernetesVersion: "v1.35.0"
-      sveltosVersion: "v1.12.0"
-      selectedClusterLabel: "environment=staging"
-      workloadKubernetesVersion: "v1.35.0"
-    sourceRecord: "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+      status: "recorded"
+      declared:
+        managementClusterRequiresSveltos: true
+        managementKubernetesVersion: "v1.35.0"
+        sveltosVersion: "v1.12.0"
+        selectedClusterLabel: "environment=staging"
+        workloadKubernetesVersion: "v1.35.0"
+      requirementRefs:
+        []
+      records:
+        - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+    resolution:
+      status: "resolved-for-recorded-targets"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        - "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
+        - "data/sveltos-oci-delivery-proof/summary.md"
+        - "examples/sveltos/kyverno-fleet/README.md"
+        - "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+        - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+        - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+        - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "temporary-pass"

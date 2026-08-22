@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "1271579e77bf408c1e8dbdc549a04cb876c2dd6e4855640472f2a43ae6bf2d7f"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 27
+    digest: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+      record: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "rook-release/rook-ceph-cluster@v1.19.5/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=rook-release/rook-ceph-cluster"
@@ -131,11 +153,50 @@ spec:
           sourcePath: "../../target-prerequisite-plan.yaml"
           suggestedSource: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "cephblockpools.ceph.rook.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Rook Ceph cluster base creates CephBlockPool resources"
+        -
+          id: "cephclusters.ceph.rook.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Rook Ceph cluster base creates CephCluster resources"
+        -
+          id: "cephfilesystems.ceph.rook.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Rook Ceph cluster base creates CephFilesystem resources"
+        -
+          id: "cephfilesystemsubvolumegroups.ceph.rook.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
+        -
+          id: "cephobjectstores.ceph.rook.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Rook Ceph cluster base creates CephObjectStore resources"
+        -
+          id: "rook-ceph"
+          origin: "base"
+          type: "target-fact"
+          detail: "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent."
+      records:
+        - "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -212,189 +273,38 @@ spec:
             purpose: "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent."
             sourcePath: "../../target-prerequisite-plan.yaml"
             suggestedSource: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
-      requirements:
-        -
-          category: "crd"
-          name: "cephblockpools.ceph.rook.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Rook Ceph cluster base creates CephBlockPool resources"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
-          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "cephclusters.ceph.rook.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Rook Ceph cluster base creates CephCluster resources"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
-          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "cephfilesystems.ceph.rook.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Rook Ceph cluster base creates CephFilesystem resources"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
-          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "cephfilesystemsubvolumegroups.ceph.rook.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
-          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "cephobjectstores.ceph.rook.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "Rook Ceph cluster base creates CephObjectStore resources"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
-          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "namespace"
-          name: "rook-ceph"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent."
-          check: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
-          declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
-          deliveryLanes:
-            - "regularHelm"
-            - "cubInstallerApply"
-            - "configHubKubectlApply"
-            - "configHubOciArgo"
-          evidence:
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-            - "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
-            - "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
-      actions:
-        -
-          lane: "G/P"
-          prerequisiteKind: "namespace"
-          prerequisiteName: "Namespace rook-ceph"
-          actionKind: "create-namespace"
-          ownerClass: "user-stage"
-          requiredInputs: "Namespace rook-ceph"
-          evidenceRequired: "the named Namespace exists on the target before apply; then a fresh G/P parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
-          sourceReceipt: "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
-          rerunCommand: "npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
-        -
-          lane: "K"
-          prerequisiteKind: "namespace"
-          prerequisiteName: "Namespace rook-ceph"
-          actionKind: "create-namespace"
-          ownerClass: "user-stage"
-          requiredInputs: "Namespace rook-ceph"
-          evidenceRequired: "the named Namespace exists on the target before apply; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
-          sourceReceipt: "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart rook-release/rook-ceph-cluster --version v1.19.5 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
-            - "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
-      coverage:
-        state: "attached-with-observed-actions"
-        reason: "6 prerequisite declarations and 2 follow-up action records are attached."
-        declarationSource: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+      requirementRefs:
+        - "cephblockpools.ceph.rook.io"
+        - "cephclusters.ceph.rook.io"
+        - "cephfilesystems.ceph.rook.io"
+        - "cephfilesystemsubvolumegroups.ceph.rook.io"
+        - "cephobjectstores.ceph.rook.io"
+        - "rook-ceph"
+      records:
+        - "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "cephblockpools.ceph.rook.io"
+      - "cephclusters.ceph.rook.io"
+      - "cephfilesystems.ceph.rook.io"
+      - "cephfilesystemsubvolumegroups.ceph.rook.io"
+      - "cephobjectstores.ceph.rook.io"
+      - "rook-ceph"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

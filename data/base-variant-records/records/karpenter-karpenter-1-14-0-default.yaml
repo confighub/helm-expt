@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "ecb946809732af8bbe4f7fc3c03d19f6b1d81fd92ebd6c8a4af65c56bd41f14b"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 18
+    digest: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+      record: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "karpenter/karpenter@1.14.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-default.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=karpenter/karpenter"
@@ -51,11 +73,30 @@ spec:
           source: "platform-profile"
           stage: "pre-render"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "target topology"
+          origin: "base"
+          type: "target-fact"
+          detail: "replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes"
+        -
+          id: "settings.clusterName"
+          origin: "base"
+          type: "target-fact"
+          detail: "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
+      records:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredTopology:
           minimumSchedulableNodes: 2
@@ -67,49 +108,30 @@ spec:
             purpose: "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
             source: "platform-profile"
             stage: "pre-render"
-      requirements:
-        -
-          category: "topology"
-          name: "target topology"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes"
-          check: ""
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
-        -
-          category: "value"
-          name: "settings.clusterName"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
-          check: ""
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
-      actions:
+      requirementRefs:
+        - "target topology"
+        - "settings.clusterName"
+      records:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "2 target prerequisites declared by this base."
-        declarationSource: "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "target topology"
+      - "settings.clusterName"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

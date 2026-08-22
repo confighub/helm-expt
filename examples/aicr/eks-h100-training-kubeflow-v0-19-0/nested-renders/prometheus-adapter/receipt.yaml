@@ -1,0 +1,56 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-prometheus-adapter"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/prometheus-adapter.yaml"
+  source:
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    chart: "prometheus-adapter"
+    path: ""
+    targetRevision: "5.3.0"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/016-prometheus-adapter/values.yaml"
+    sha256: "1d25ed7ce17337985eed95fb39f386450cf66cc1a6c9ecb802d1e7273c32aab8"
+  destinationNamespace: "monitoring"
+  command:
+    - "helm"
+    - "template"
+    - "prometheus-adapter"
+    - "prometheus-adapter"
+    - "--repo"
+    - "https://prometheus-community.github.io/helm-charts"
+    - "--version"
+    - "5.3.0"
+    - "--namespace"
+    - "monitoring"
+    - "--values"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/016-prometheus-adapter/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/prometheus-adapter/objects.yaml"
+    sha256: "d1cf6a5dd8d9c773690c1fa4cd2be6323fa552c1daf9c489549a0c5207d245a7"
+    objectCount: 14
+    kinds:
+      APIService: 2
+      ClusterRole: 3
+      ClusterRoleBinding: 4
+      ConfigMap: 1
+      Deployment: 1
+      RoleBinding: 1
+      Service: 1
+      ServiceAccount: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

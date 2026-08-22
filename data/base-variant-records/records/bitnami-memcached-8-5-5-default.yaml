@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "f2585d5ddb8397b359357847a9d806e940d5e58d33fbc4f6888162dac7969926"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 5
+    digest: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+      record: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "bitnami/memcached@8.5.5/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=bitnami/memcached"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-memcached-8-5-5-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

@@ -18,11 +18,33 @@ spec:
     name: "controller-default-reviewed"
     revision: "r001"
     digest: "dd5515670b808b776594418e711ad3230bab02d2db853461dcc12fd3d8f11281"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
     inventory: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
     objectCount: 6
+    digest: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+      record: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "stakater/reloader@2.2.12/controller-default-reviewed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=stakater/reloader"
@@ -35,23 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/stakater-reloader-2-2-12-controller-default-reviewed.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

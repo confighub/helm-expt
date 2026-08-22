@@ -18,11 +18,34 @@ spec:
     name: "base"
     revision: "generated-v0.14.0"
     digest: "6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104"
+    digestRole: "source-output-inventory"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
   configuration:
     format: "flux-kubernetes-yaml"
     objects: "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle"
     inventory: "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
     objectCount: 29
+    digest: "6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104"
+    digestRole: "inventory-file"
+    digestRecord: "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+    materialization:
+      method: "aicr-compose"
+      status: "captured"
+      outputDigest: "6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104"
+      record: "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "eks-h100-training-kubeflow@v0.14.0/base; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "AICR composed the selected platform into the exact configuration retained by this base."
+      - "Any nested source named by the generated configuration keeps its own processing boundary."
   inputs:
     fixedAtBuildTime:
       - "accelerator=h100"
@@ -36,36 +59,119 @@ spec:
     installTime:
       []
     installTimeStatus: "none-declared-for-this-generated-artifact"
-  routing:
-    routes:
-      -
-        id: "flux-dependency-order"
-        status: "generated-not-live"
-        note: "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target."
-      -
-        id: "flux-external-artifact"
-        status: "generated-not-live"
-        note: "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller."
-      -
-        id: "flux-oci-source"
-        status: "not-run"
-        note: "The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact."
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "flux-dependency-order"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target."
+        -
+          id: "flux-external-artifact"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller."
+        -
+          id: "flux-oci-source"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact."
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "flux-dependency-order"
+          requirementRefs:
+            - "flux-dependency-order"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            - "Flux"
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "flux-external-artifact"
+          requirementRefs:
+            - "flux-external-artifact"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "generated-not-live"
+          supportedRuntimes:
+            - "Flux"
+          checks:
+            []
+          evidence:
+            []
+        -
+          id: "flux-oci-source"
+          requirementRefs:
+            - "flux-oci-source"
+          phase: "destination-resolution"
+          proposedActor: "not selected"
+          proposedMechanism: "The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "not-run"
+          supportedRuntimes:
+            - "Flux"
+          checks:
+            []
+          evidence:
+            []
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
     targetFacts:
-      platform: "EKS"
-      accelerator: "H100"
-      operatingSystem: "Ubuntu"
-      flux:
-        minimumVersion: "v2.7.0"
-        controllers:
-          - "source-watcher"
-        featureGates:
-          - "ExternalArtifact=true on helm-controller"
-        source:
-          apiVersion: "source.toolkit.fluxcd.io/v1"
-          kind: "OCIRepository"
-          name: "aicr-bundle"
-          namespace: "flux-system"
-    sourceRecord: "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+      status: "recorded"
+      declared:
+        platform: "EKS"
+        accelerator: "H100"
+        operatingSystem: "Ubuntu"
+        flux:
+          minimumVersion: "v2.7.0"
+          controllers:
+            - "source-watcher"
+          featureGates:
+            - "ExternalArtifact=true on helm-controller"
+          source:
+            apiVersion: "source.toolkit.fluxcd.io/v1"
+            kind: "OCIRepository"
+            name: "aicr-bundle"
+            namespace: "flux-system"
+      requirementRefs:
+        []
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "local-only"

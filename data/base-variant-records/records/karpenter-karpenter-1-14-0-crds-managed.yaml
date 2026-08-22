@@ -18,11 +18,33 @@ spec:
     name: "crds-managed"
     revision: "r001"
     digest: "ec3a3490afa349cacdcbccf74070272e115920148f2ac39e5e23d849af2ee4c5"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
     inventory: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml"
     objectCount: 13
+    digest: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+      record: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "karpenter/karpenter@1.14.0/crds-managed; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=karpenter/karpenter"
@@ -96,11 +118,55 @@ spec:
           source: "platform-profile"
           stage: "pre-render"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "capacitybuffers.autoscaling.x-k8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD capacitybuffers.autoscaling.x-k8s.io must exist before apply."
+        -
+          id: "ec2nodeclasses.karpenter.k8s.aws"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD ec2nodeclasses.karpenter.k8s.aws must exist before apply."
+        -
+          id: "nodeclaims.karpenter.sh"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD nodeclaims.karpenter.sh must exist before apply."
+        -
+          id: "nodeoverlays.karpenter.sh"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD nodeoverlays.karpenter.sh must exist before apply."
+        -
+          id: "nodepools.karpenter.sh"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD nodepools.karpenter.sh must exist before apply."
+        -
+          id: "target topology"
+          origin: "base"
+          type: "target-fact"
+          detail: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+        -
+          id: "controller.env[AWS_REGION]"
+          origin: "base"
+          type: "target-fact"
+          detail: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+      records:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -138,149 +204,40 @@ spec:
             purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
             source: "platform-profile"
             stage: "pre-render"
-      requirements:
-        -
-          category: "crd"
-          name: "capacitybuffers.autoscaling.x-k8s.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: ""
-          check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-            - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-        -
-          category: "crd"
-          name: "ec2nodeclasses.karpenter.k8s.aws"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: ""
-          check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-            - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-        -
-          category: "crd"
-          name: "nodeclaims.karpenter.sh"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: ""
-          check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-            - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-        -
-          category: "crd"
-          name: "nodeoverlays.karpenter.sh"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: ""
-          check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-            - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-        -
-          category: "crd"
-          name: "nodepools.karpenter.sh"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: ""
-          check: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/crds-managed-crds.yaml"
-          packagePath: "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-            - "packages/karpenter/karpenter/1.14.0/prerequisites/target-facts/crds-managed-crds.yaml"
-        -
-          category: "topology"
-          name: "target topology"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
-          check: ""
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-        -
-          category: "value"
-          name: "controller.env[AWS_REGION]"
-          namespace: ""
-          requiredBefore: "render"
-          freshness:
-            policy: "recheck-before-render"
-            maxAge: "one-render"
-          purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
-          check: ""
-          declarationPath: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-          sourceVariant: ""
-          sourcePath: ""
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-      actions:
+      requirementRefs:
+        - "capacitybuffers.autoscaling.x-k8s.io"
+        - "ec2nodeclasses.karpenter.k8s.aws"
+        - "nodeclaims.karpenter.sh"
+        - "nodeoverlays.karpenter.sh"
+        - "nodepools.karpenter.sh"
+        - "target topology"
+        - "controller.env[AWS_REGION]"
+      records:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "7 target prerequisites declared by this base."
-        declarationSource: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "capacitybuffers.autoscaling.x-k8s.io"
+      - "ec2nodeclasses.karpenter.k8s.aws"
+      - "nodeclaims.karpenter.sh"
+      - "nodeoverlays.karpenter.sh"
+      - "nodepools.karpenter.sh"
+      - "target topology"
+      - "controller.env[AWS_REGION]"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-crds-managed.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

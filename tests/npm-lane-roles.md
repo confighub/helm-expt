@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 28
+lanes outside the chain: 30
 should join the chain:   0
-deliberately outside:    28
+deliberately outside:    30
 superseded:              0
 ```
 
@@ -27,6 +27,8 @@ None.
 | `helm-org:policy:verify` | That the live helm-catalog ConfigHub organization's apply-policy topology — the Trigger definition Space, Trigger filters, and per-Space WhereTrigger assignments — still matches both config-catalog/policies/catalog-standard.yaml and the committed receipt data/apply-policy-profiles/live-helm-catalog.yaml, field by field. | confighub | not run here, needs confighub |
 | `helm-org:fleet:verify` | That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one. | confighub | not run here, needs confighub |
 | `prometheus-adapter:apiservice-base:verify` | The prometheus-community/prometheus-adapter 5.3.0 `apiservice-v1-capability` base is intact end to end: the recipe and installer package both declare it, the variant records the APIService v1 capability profile and capability-profile-rerender strategy, the package base upstream.yaml byte-equals the rendered release-objects.yaml, the inventory digest and the APIService object identity match, the revision receipts are consistent, and a fresh `cub installer setup --pull` of the package reproduces the Helm object set semantically with the counts recorded in the package receipt. | confighub | not run here, needs confighub |
+| `lifecycle:route-resolutions:verify` | Each destination-specific lifecycle record still binds one exact configuration revision and object digest to a destination, runtime, ordered requirements, routes, and scoped receipts, including the blocked AICR v0.19.0 EKS/H100 staging plan. | offline | passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias gives lifecycle work a focused gate |
+| `config-catalog:verify` | The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output. | offline | passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command |
 | `kubara-current-catalog-candidates:verify` | All seven exact Kubara v0.13.0 public artifacts still verify as candidates — each recipe and package exists, its proof artifacts and installer package re-verify (including a byte-identical double `cub installer package` bundle and a semantic Helm-vs-`cub installer setup` object comparison per variant), source-lock version/URL/SHA match the recorded exact artifact — and data/kubara-catalog-refresh/current-candidates/{candidate-set.yaml,candidate-status.csv,README.md} are not stale relative to that inspection. | confighub | not run here, needs confighub |
 | `kubara-catalog-promotion:stage:verify` | That the disposable staging tree .tmp/kubara-catalog-root-promotion holds root-ready proof and package trees for all seven historical Kubara components — each with a source-lock pinned to the promoted version and exact artifact URL — and that promoting them would not disturb the 120-root immutable baseline. | network | not run here, needs network |
 | `kubara-catalog-promotion:verify` | Re-verifies the additive historical Kubara root promotion: the release scope manifest, the byte-locked baseline catalog roots, the required additions, each component's proof and installer-package receipts (including the packaged kube-prometheus-stack lifecycle files), the 13-lane live-qualification set receipt, and that data/kubara-catalog-refresh/root-promotion/receipt.yaml matches the receipt the script recomputes. | confighub | not run here, needs confighub |

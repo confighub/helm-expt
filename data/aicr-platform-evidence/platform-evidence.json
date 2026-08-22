@@ -82,6 +82,34 @@
         }
       },
       {
+        "id": "eks-h100-training-kubeflow-v0-19-0",
+        "title": "EKS H100 Kubeflow training, AICR v0.19.0",
+        "provenance": "retained-upstream",
+        "platformDigest": "sha256:26d1e0674308cf01be7f73c9653f93580909d2989d98abe98b7b1fabf3e782ed",
+        "upstream": {
+          "name": "NVIDIA AICR",
+          "version": "v0.19.0",
+          "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c",
+          "repository": "https://github.com/NVIDIA/aicr"
+        },
+        "paths": {
+          "entry": "examples/aicr/eks-h100-training-kubeflow-v0-19-0",
+          "page": "docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md",
+          "digestIndex": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/platform-index.json",
+          "digestIndexReadme": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/README.md",
+          "sourceReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+        },
+        "ladder": {
+          "climbed": [],
+          "climbedCount": 0
+        },
+        "boundary": {
+          "configPlaneOnly": true,
+          "gpuWorkloadsProven": false,
+          "published": false
+        }
+      },
+      {
         "id": "eks-h100-inference-nim",
         "title": "EKS H100 NIM inference, AICR-native",
         "provenance": "retained-upstream",
@@ -216,6 +244,11 @@
         "id": "upstream-signature-verification",
         "receipt": "runs/aicr-signature-verification/receipt.yaml",
         "summary": "data/aicr-signature-verification/summary.md"
+      },
+      {
+        "id": "upstream-provenance-v0-19-0",
+        "receipt": "runs/aicr-provenance-v0-19-0/receipt.yaml",
+        "summary": "data/aicr-provenance-v0-19-0/summary.md"
       },
       {
         "id": "blast-radius-parity",

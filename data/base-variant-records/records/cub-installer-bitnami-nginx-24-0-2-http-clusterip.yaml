@@ -1,0 +1,132 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "cub-installer-bitnami-nginx-24-0-2-http-clusterip"
+  labels:
+    sourceType: "cub-installer"
+    component: "bitnami/nginx"
+    sourceVersion: "24.0.2"
+    base: "http-clusterip"
+spec:
+  source:
+    type: "cub-installer"
+    name: "bitnami/nginx"
+    version: "24.0.2"
+    record: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
+  baseVariant:
+    name: "http-clusterip"
+    revision: "r001"
+    digest: "08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+    digestRole: "source-package-oci-manifest"
+    digestRecord: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
+    objectCount: 5
+    digest: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+    materialization:
+      method: "source-oci-processor"
+      status: "captured"
+      outputDigest: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+      record: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "bitnami/nginx@24.0.2/http-clusterip; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "The source OCI is an input package. Its declared processor produces the exact objects retained by this base."
+  inputs:
+    fixedAtBuildTime:
+      - "sourcePackage=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+      - "preset=http-clusterip"
+      - "releaseName=nginx"
+      - "namespace=nginx"
+      - "kubeVersion=1.30.0"
+    installTime:
+      []
+    installTimeStatus: "target facts require review before delivery"
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    targetFacts:
+      status: "gap"
+      declared:
+        {}
+      requirementRefs:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    sourcePackageOci:
+      status: "public"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
+      digest: "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+      receipt: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+    literalConfigOci:
+      status: "not-published-for-this-five-object-base"
+    configHubReleaseOci:
+      status: "separately-proved-with-an-added-Namespace"
+    argoCd: "separately-proved-with-an-added-Namespace"
+    flux: "separately-proved-with-an-added-Namespace"
+    direct: "separately-proved-with-an-added-Namespace"
+    receipt: "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+    normalSet: "baseline"
+  evidence:
+    packagePublication: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+    packageDefinition: "packages/bitnami/nginx/24.0.2/installer.yaml"
+    selectedIntent: "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    selectedRevision: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+    deliveryReceipt: "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+  operations:
+    resourceClass: "user-workload"
+    ownerClass: "application-team"
+    changeCadence: "application-release"
+status:
+  level: "partial"
+  claim: "The public cub installer package selects the http-clusterip preset and reproduces its five recorded Kubernetes objects without ConfigHub Server."
+  limits:
+    - "The three-consumer delivery receipt adds the requested Namespace, so its six-object digest is separate from this five-object base digest."
+    - "The source package is public. A separate literal configuration OCI for this exact five-object result is not recorded."
+    - "Target facts remain an explicit Catalog gap for this preset."

@@ -18,11 +18,33 @@ spec:
     name: "minimal-crds"
     revision: "r001"
     digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/object-inventory.yaml"
     objectCount: 0
+    digest: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+      record: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "argo-cd/argo-workflows@1.0.14/minimal-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=argo-cd/argo-workflows"
@@ -35,72 +57,79 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      -
-        routeName: "self-contained-crd-base"
-        quirkClass: "crd-install"
-        lifecyclePhase: "pre-apply"
-        actionKind: "preserve-ordering"
-        executionMode: "target-owned"
-        automatic: false
-        whoRuns: "Your applier — must apply CRDs before dependent objects"
-        operatingDetails: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
-        command: ""
-        disposition: "observed"
-        delta: "resolved"
-        reason: "this base installs the required CRDs (observed live)"
-        routeSourceVersion: "1.0.14"
-        evidence:
-          - "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml"
-          - "data/hook-route-candidates/argo-cd-argo-workflows.yaml"
-          - "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
-          - "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
-          - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
-          - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
-          - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
-          - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
-        gitOps:
-          emitsControllerStep: false
-          argoCd: "no extra hook — keep CRDs before dependent objects"
-          flux: "no extra hook — make sure CRDs are applied before workloads"
-          argoCdSnippet: ""
-        runners:
-          direct:
-            implementation: "Your applier — must apply CRDs before dependent objects"
-            status: "evidence-linked"
-            evidence:
-              - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
-              - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
-              - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
-              - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
-          argoCd:
-            implementation: "no extra hook — keep CRDs before dependent objects"
-            status: "mapping-only"
-            evidence:
-              []
-          flux:
-            implementation: "no extra hook — make sure CRDs are applied before workloads"
-            status: "mapping-only"
-            evidence:
-              []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        -
+          id: "self-contained-crd-base"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+      records:
+        - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "gap"
+      routes:
+        -
+          id: "self-contained-crd-base"
+          requirementRefs:
+            - "self-contained-crd-base"
+          phase: "pre-apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-route-candidates/argo-cd-argo-workflows.yaml"
+            - "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml"
+            - "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+            - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
+            - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+            - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+            - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+      records:
+        - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
     targetFacts:
-      status: "none-declared-or-observed"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
+      records:
+        - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "actionable-gap"
-        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-        declarationSource: ""
-        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
-    sourceRecord: "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

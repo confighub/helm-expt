@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "2e21719fdf3b6ea902bbe41c6800cf2d62bedcc4c1ff0e1f37fcb576c0512e85"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 11
+    digest: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+      record: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "safe-to-flatten"
+      action: "retain-exact-objects"
+      scope: "prometheus-community/prometheus-adapter@5.3.0/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=prometheus-community/prometheus-adapter"
@@ -35,40 +57,45 @@ spec:
     installTime:
       []
     installTimeStatus: "not-yet-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
     targetFacts:
-      status: "observed-action-records"
+      status: "gap"
       declared:
         {}
-      requirements:
+      requirementRefs:
         []
-      actions:
-        -
-          lane: "K"
-          prerequisiteKind: "crd"
-          prerequisiteName: "unknown"
-          actionKind: "install-crds"
-          ownerClass: "user-stage"
-          requiredInputs: "the chart's CRDs"
-          evidenceRequired: "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml"
-      coverage:
-        state: "actionable-gap"
-        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
-    sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"

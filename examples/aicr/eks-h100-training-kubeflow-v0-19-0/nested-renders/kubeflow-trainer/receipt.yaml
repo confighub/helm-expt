@@ -1,0 +1,58 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-19-0-kubeflow-trainer"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-rendered/templates/kubeflow-trainer.yaml"
+  source:
+    repoURL: "oci://ghcr.io/kubeflow/charts/kubeflow-trainer"
+    chart: "kubeflow-trainer"
+    path: ""
+    targetRevision: "2.2.0"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml"
+    sha256: "8ca778d597cd568991bb464f6aa08c0e16206a9c942f48b8af94077b82a837e4"
+  destinationNamespace: "kubeflow"
+  command:
+    - "helm"
+    - "template"
+    - "kubeflow-trainer"
+    - "oci://ghcr.io/kubeflow/charts/kubeflow-trainer"
+    - "--version"
+    - "2.2.0"
+    - "--namespace"
+    - "kubeflow"
+    - "--values"
+    - "/Users/alexis/code/helm-expt/examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml"
+    - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/nested-renders/kubeflow-trainer/objects.yaml"
+    sha256: "9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc"
+    objectCount: 28
+    kinds:
+      ClusterRole: 2
+      ClusterRoleBinding: 2
+      ConfigMap: 3
+      CustomResourceDefinition: 4
+      Deployment: 2
+      MutatingWebhookConfiguration: 2
+      Role: 2
+      RoleBinding: 2
+      Secret: 2
+      Service: 3
+      ServiceAccount: 2
+      ValidatingWebhookConfiguration: 2
+    crdCount: 4
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

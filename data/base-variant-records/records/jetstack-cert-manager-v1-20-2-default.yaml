@@ -18,11 +18,33 @@ spec:
     name: "default"
     revision: "r001"
     digest: "e747dfea1ea7cbe63b36e863857beb23c20f2cce59285b6f2d1e0d1c48579ed2"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml"
   configuration:
     format: "kubernetes-yaml"
     objects: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
     inventory: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/object-inventory.yaml"
     objectCount: 42
+    digest: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+      record: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "jetstack/cert-manager@v1.20.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
   inputs:
     fixedAtBuildTime:
       - "chart=jetstack/cert-manager"
@@ -106,11 +128,50 @@ spec:
           packageSource: "package://prerequisites/target-facts/default-crds.yaml"
           packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
     installTimeStatus: "partly-declared"
-  routing:
-    routes:
-      []
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "challenges.acme.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager CRD managed outside this default base"
+        -
+          id: "orders.acme.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager CRD managed outside this default base"
+        -
+          id: "certificaterequests.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager CRD managed outside this default base"
+        -
+          id: "certificates.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager CRD managed outside this default base"
+        -
+          id: "clusterissuers.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager CRD managed outside this default base"
+        -
+          id: "issuers.cert-manager.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "cert-manager CRD managed outside this default base"
+      records:
+        - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
     targetFacts:
-      status: "declared-target-facts"
+      status: "recorded"
       declared:
         requiredCRDs:
           -
@@ -161,135 +222,38 @@ spec:
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
             packageSource: "package://prerequisites/target-facts/default-crds.yaml"
             packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-      requirements:
-        -
-          category: "crd"
-          name: "challenges.acme.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager CRD managed outside this default base"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-          sourceVariant: "crds-enabled"
-          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "orders.acme.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager CRD managed outside this default base"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-          sourceVariant: "crds-enabled"
-          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "certificaterequests.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager CRD managed outside this default base"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-          sourceVariant: "crds-enabled"
-          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "certificates.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager CRD managed outside this default base"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-          sourceVariant: "crds-enabled"
-          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "clusterissuers.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager CRD managed outside this default base"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-          sourceVariant: "crds-enabled"
-          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-        -
-          category: "crd"
-          name: "issuers.cert-manager.io"
-          namespace: ""
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          purpose: "cert-manager CRD managed outside this default base"
-          check: "package://prerequisites/target-facts/default-crds.yaml"
-          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
-          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-          sourceVariant: "crds-enabled"
-          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
-          deliveryLanes:
-            []
-          evidence:
-            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
-      actions:
+      requirementRefs:
+        - "challenges.acme.cert-manager.io"
+        - "orders.acme.cert-manager.io"
+        - "certificaterequests.cert-manager.io"
+        - "certificates.cert-manager.io"
+        - "clusterissuers.cert-manager.io"
+        - "issuers.cert-manager.io"
+      records:
+        - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
         []
-      coverage:
-        state: "attached"
-        reason: "6 target prerequisites declared by this base."
-        declarationSource: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
-        nextAction: ""
-    sourceRecord: "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "challenges.acme.cert-manager.io"
+      - "orders.acme.cert-manager.io"
+      - "certificaterequests.cert-manager.io"
+      - "certificates.cert-manager.io"
+      - "clusterissuers.cert-manager.io"
+      - "issuers.cert-manager.io"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
       status: "not-published-in-this-record"
