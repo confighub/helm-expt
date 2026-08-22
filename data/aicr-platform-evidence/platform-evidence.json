@@ -85,7 +85,7 @@
         "id": "eks-h100-training-kubeflow-v0-19-0",
         "title": "EKS H100 Kubeflow training, AICR v0.19.0",
         "provenance": "retained-upstream",
-        "platformDigest": "sha256:26d1e0674308cf01be7f73c9653f93580909d2989d98abe98b7b1fabf3e782ed",
+        "platformDigest": "sha256:6dd6fd925a36d217eb08f1563e921bb8e89a83f1cbbfad31f88a6bcc1b0e44f2",
         "upstream": {
           "name": "NVIDIA AICR",
           "version": "v0.19.0",
@@ -100,13 +100,26 @@
           "sourceReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
         },
         "ladder": {
-          "climbed": [],
-          "climbedCount": 0
+          "climbed": [
+            {
+              "rung": "public-source-and-literal-configuration-oci",
+              "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/public-oci-receipt.yaml",
+              "summary": "data/aicr-v0-19-0-chain/summary.md",
+              "result": "pass"
+            },
+            {
+              "rung": "confighub-base-policy-and-promotion",
+              "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml",
+              "summary": "data/aicr-v0-19-0-chain/summary.md",
+              "result": "pass"
+            }
+          ],
+          "climbedCount": 2
         },
         "boundary": {
           "configPlaneOnly": true,
           "gpuWorkloadsProven": false,
-          "published": false
+          "published": true
         }
       },
       {
