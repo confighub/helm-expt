@@ -18,10 +18,10 @@
 // records what the new artifact's page says. A date-based cadence would go
 // stale quietly; this one cannot.
 //
-// Most entries carry no named terms, and the register says why: the catalog
-// pages that hold them are served behind bot detection, and reading them
-// automatically would mean working around that. The gap is measured and
-// published rather than filled with a guess.
+// Most entries carry no named terms. An overview page is not a complete review
+// of one exact tagged artifact, and some terms pages reject automated access.
+// The register records that gap instead of treating overview text as legal
+// advice or working around access controls.
 //
 // Everything runs offline against committed bytes.
 

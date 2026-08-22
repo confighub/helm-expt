@@ -44,12 +44,11 @@ spec:
   # Why most entries below carry no named terms, stated rather than left as an
   # absence a reader has to notice.
   termsReadingLimit: >-
-    The NGC catalog pages that carry per-artifact terms are served behind bot
-    detection. Reading them automatically would mean working around that, which
-    this catalog will not do. So one artifact has named terms, read by hand on
-    the date recorded, and the rest are enumerated with their pages linked for a
-    person to read. The gap is measured and published rather than filled with a
-    guess.
+    An NGC overview page is not a complete review of the terms for one exact
+    tagged artifact, and some terms pages reject automated access. This catalog
+    does not work around those controls or treat overview text as legal advice.
+    One artifact has named terms read by hand on the recorded date. The others
+    are listed with a page for a person to review before use.
 
   scope:
     roots: ["examples/aicr"]
@@ -133,3 +132,21 @@ spec:
       note: >-
         A reranking runtime. Enumerated and referenced, with its per-artifact
         terms unread.
+
+    - reference: nvcr.io/nvidia/gpu-operator:v26.3.3
+      kind: gpu-operator-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nvidia/-/containers/gpu-operator/-
+      termsReadAt: null
+      note: >-
+        The AICR v0.19.0 GPU Operator source renders this exact reference. It is
+        enumerated here, but this catalog did not pull it or run it on a GPU
+        cluster, and its exact tagged-artifact terms have not been reviewed.
+
+    - reference: nvcr.io/nvidia/cloud-native/k8s-driver-manager:v0.11.0
+      kind: driver-manager-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nvidia/teams/cloud-native/containers/k8s-driver-manager
+      termsReadAt: null
+      note: >-
+        The AICR v0.19.0 GPU Operator source names this driver-upgrade helper.
+        It is enumerated here, but this catalog did not pull it or run it on a
+        GPU cluster, and its exact tagged-artifact terms have not been reviewed.

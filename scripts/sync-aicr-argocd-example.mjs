@@ -518,8 +518,7 @@ function syncBaseVariant() {
     spaceSlug,
     "--granularity",
     "minimal",
-    "--target",
-    releaseTargetRef,
+    ...(modernEntry ? ["--target", releaseTargetRef] : []),
     "--label",
     "SourceType=aicr",
     "--label",
@@ -533,16 +532,18 @@ function syncBaseVariant() {
     configRef,
   ];
   cub(args, { inherit: true });
-  cub([
-    "unit",
-    "set-target",
-    "--space",
-    spaceSlug,
-    unitSlug,
-    releaseTargetRef,
-    "--wait",
-    "--quiet",
-  ]);
+  if (modernEntry) {
+    cub([
+      "unit",
+      "set-target",
+      "--space",
+      spaceSlug,
+      unitSlug,
+      releaseTargetRef,
+      "--wait",
+      "--quiet",
+    ]);
+  }
 }
 
 function syncPolicy() {
@@ -558,8 +559,7 @@ function syncPolicy() {
     "ResourceClass=system-configuration",
     "--trigger-filter",
     approvalRequiredFilterRef,
-    "--release-target",
-    releaseTargetRef,
+    ...(modernEntry ? ["--release-target", releaseTargetRef] : []),
     "--where-trigger",
     "-",
     "--quiet",
@@ -796,13 +796,18 @@ function verifyUploadReceipt(receipt) {
   check(receipt.spec?.source?.digest === configArtifact.digest, "AICR upload source digest changed");
   check(receipt.spec?.source?.renderedObjectCount === 17, "AICR upload object count changed");
   check(receipt.spec?.space?.slug === spaceSlug, "AICR upload Space changed");
-  check(
-    receipt.spec?.space?.externalSource?.annotation === "confighub.com/external-source",
-    "AICR Space source annotation changed",
-  );
-  check(receipt.spec?.space?.externalSource?.reference === receipt.spec.source.reference, "AICR Space source reference changed");
-  check(receipt.spec?.space?.externalSource?.manifestDigest === configArtifact.digest, "AICR Space source digest changed");
-  check(receipt.spec?.space?.externalSource?.granularity === "minimal", "AICR Space source granularity changed");
+  if (modernEntry) {
+    check(
+      receipt.spec?.space?.externalSource?.annotation === "confighub.com/external-source",
+      "AICR Space source annotation changed",
+    );
+    check(receipt.spec?.space?.externalSource?.reference === receipt.spec.source.reference, "AICR Space source reference changed");
+    check(receipt.spec?.space?.externalSource?.manifestDigest === configArtifact.digest, "AICR Space source digest changed");
+    check(receipt.spec?.space?.externalSource?.granularity === "minimal", "AICR Space source granularity changed");
+  } else {
+    check(receipt.spec?.space?.externalSource === receipt.spec.source.reference, "AICR Space source reference changed");
+    check(receipt.spec?.space?.externalSourceDigest === configArtifact.digest, "AICR Space source digest changed");
+  }
   check(receipt.spec?.unit?.slug === unitSlug, "AICR upload Unit changed");
   check(/^[0-9a-f]{64}$/.test(receipt.spec?.unit?.dataHash), "AICR ConfigHub data hash changed shape");
   check(receipt.spec?.unit?.uploadedObjectCount === 17, "AICR uploaded Application count changed");
@@ -828,22 +833,24 @@ function verifyUploadReceipt(receipt) {
   );
   check(receipt.status?.configHubBaseVariantUpload === "pass", "AICR base variant upload is not pass");
   check(receipt.status?.objectIdentitiesMatched === "pass", "AICR object comparison is not pass");
-  check(
-    receipt.spec?.provenanceBinding?.method === "external-source-annotation-plus-exact-object-comparison",
-    "AICR provenance binding method changed",
-  );
-  check(
-    receipt.spec?.provenanceBinding?.ociManifestDigest === configArtifact.digest,
-    "AICR provenance binding OCI digest changed",
-  );
-  check(
-    receipt.spec?.provenanceBinding?.configHubDataHash === receipt.spec.unit.dataHash,
-    "AICR provenance binding ConfigHub data hash changed",
-  );
-  check(
-    receipt.spec?.provenanceBinding?.objectIdentitiesMatched === true,
-    "AICR provenance binding object comparison must pass",
-  );
+  if (modernEntry) {
+    check(
+      receipt.spec?.provenanceBinding?.method === "external-source-annotation-plus-exact-object-comparison",
+      "AICR provenance binding method changed",
+    );
+    check(
+      receipt.spec?.provenanceBinding?.ociManifestDigest === configArtifact.digest,
+      "AICR provenance binding OCI digest changed",
+    );
+    check(
+      receipt.spec?.provenanceBinding?.configHubDataHash === receipt.spec.unit.dataHash,
+      "AICR provenance binding ConfigHub data hash changed",
+    );
+    check(
+      receipt.spec?.provenanceBinding?.objectIdentitiesMatched === true,
+      "AICR provenance binding object comparison must pass",
+    );
+  }
   check(
     receipt.status?.approvalRequiredPolicyAssigned === "pass",
     "AICR approval-required policy assignment is not pass",
@@ -856,11 +863,18 @@ function verifyUploadReceipt(receipt) {
 function verifyLiveAgainstReceipt(receipt) {
   const live = inspectLive();
   check(live.space.SpaceID === receipt.spec.space.id, "live AICR Space ID changed");
+  const receiptSource = modernEntry
+    ? receipt.spec.space.externalSource
+    : {
+        reference: receipt.spec.space.externalSource,
+        manifestDigest: receipt.spec.space.externalSourceDigest,
+        granularity: "minimal",
+      };
   const externalSource = live.externalSources.find(
     (item) =>
-      item.ref === receipt.spec.space.externalSource.reference
-      && item.digest === receipt.spec.space.externalSource.manifestDigest
-      && item.granularity === receipt.spec.space.externalSource.granularity,
+      item.ref === receiptSource.reference
+      && item.digest === receiptSource.manifestDigest
+      && item.granularity === receiptSource.granularity,
   );
   check(externalSource, "live AICR external source annotation changed");
   check(live.space.TriggerFilterID === receipt.spec.policy.filterId, "live AICR policy filter changed");
@@ -877,13 +891,26 @@ function runLiveApplyPolicyCheck(uploadReceipt) {
     `live AICR Unit is not blocked by ${approvalGate}`,
   );
 
-  const command = ["release", "publish", spaceSlug, "-o", "json"];
+  const command = modernEntry
+    ? ["release", "publish", spaceSlug, "-o", "json"]
+    : [
+        "unit",
+        "apply",
+        "--space",
+        spaceSlug,
+        "--unit",
+        unitSlug,
+        "--dry-run",
+        "-o",
+        "mutations",
+      ];
+  const attemptedAction = modernEntry ? "release publish" : "dry-run apply";
   const result = cubResult(command, { allowFailure: true });
   const response = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
-  check(result.status !== 0, "unapproved AICR release publish unexpectedly succeeded");
+  check(result.status !== 0, `unapproved AICR ${attemptedAction} unexpectedly succeeded`);
   check(
     response.includes("outstanding ApplyGates"),
-    "unapproved AICR release publish did not report outstanding ApplyGates",
+    `unapproved AICR ${attemptedAction} did not report outstanding ApplyGates`,
   );
 
   const after = cubJson(["unit", "get", "--space", spaceSlug, unitSlug, "-o", "json"]).Unit;
@@ -891,8 +918,15 @@ function runLiveApplyPolicyCheck(uploadReceipt) {
   const afterState = unitPolicyState(after);
   check(
     JSON.stringify(afterState) === JSON.stringify(beforeState),
-    "AICR Unit state changed during the rejected release publish",
+    `AICR Unit state changed during the rejected ${attemptedAction}`,
   );
+
+  const attempt = {
+    exitCode: result.status,
+    response: "outstanding ApplyGates",
+    before: beforeState,
+    after: afterState,
+  };
 
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -923,20 +957,21 @@ function runLiveApplyPolicyCheck(uploadReceipt) {
         reason: uploadReceipt.spec.policy.reason,
       },
       command: ["cub", ...command],
-      releasePublish: {
-        exitCode: result.status,
-        response: "outstanding ApplyGates",
-        before: beforeState,
-        after: afterState,
-      },
+      ...(modernEntry ? { releasePublish: attempt } : { dryRun: attempt }),
     },
     status: {
       result: "pass",
-      requiredApprovalBlockedReleasePublish: "pass",
+      ...(modernEntry
+        ? { requiredApprovalBlockedReleasePublish: "pass" }
+        : { requiredApprovalBlockedDryRun: "pass" }),
       configurationApplied: "not-run",
-      claim: "ConfigHub refused to publish a release of the exact AICR base variant because the required approval was missing.",
+      claim: modernEntry
+        ? "ConfigHub refused to publish a release of the exact AICR base variant because the required approval was missing."
+        : "ConfigHub refused a dry-run apply of the exact AICR base variant because the required approval was missing.",
       limits: [
-        "No release was published and no configuration was sent to Kubernetes.",
+        modernEntry
+          ? "No release was published and no configuration was sent to Kubernetes."
+          : "The Unit had no target attached, and no configuration was sent to Kubernetes.",
         "This proves the required-approval behavior for this recorded AICR Unit and revision. It does not prove Argo CD reconciliation or GPU workload health.",
       ],
     },
@@ -995,31 +1030,37 @@ function verifyApplyPolicyReceipt(receipt, uploadReceipt) {
     receipt.spec?.policy?.reason === "system-configuration",
     "AICR policy receipt reason changed",
   );
+  const attempt = modernEntry ? receipt.spec?.releasePublish : receipt.spec?.dryRun;
+  const attemptedAction = modernEntry ? "release publish" : "dry-run apply";
   check(
-    Number.isInteger(receipt.spec?.releasePublish?.exitCode)
-      && receipt.spec.releasePublish.exitCode > 0,
-    "AICR policy release publish must remain rejected",
+    Number.isInteger(attempt?.exitCode) && attempt.exitCode > 0,
+    `AICR policy ${attemptedAction} must remain rejected`,
   );
   check(
-    receipt.spec?.releasePublish?.response === "outstanding ApplyGates",
-    "AICR policy release-publish response changed",
+    attempt?.response === "outstanding ApplyGates",
+    `AICR policy ${attemptedAction} response changed`,
   );
   check(
-    JSON.stringify(receipt.spec?.releasePublish?.before)
-      === JSON.stringify(receipt.spec?.releasePublish?.after),
-    "AICR policy release publish changed Unit state",
+    JSON.stringify(attempt?.before) === JSON.stringify(attempt?.after),
+    `AICR policy ${attemptedAction} changed Unit state`,
   );
   check(
-    receipt.spec?.releasePublish?.before?.applyGates?.includes(approvalGate),
+    attempt?.before?.applyGates?.includes(approvalGate),
     "AICR policy receipt does not record the approval gate",
   );
-  check(
-    typeof receipt.spec?.releasePublish?.before?.targetId === "string",
-    "AICR policy proof must record the OCI release target",
-  );
+  if (modernEntry) {
+    check(
+      typeof attempt?.before?.targetId === "string",
+      "AICR policy proof must record the OCI release target",
+    );
+  } else {
+    check(attempt?.before?.targetId === null, "AICR policy proof must not attach a target");
+  }
   check(receipt.status?.result === "pass", "AICR policy receipt is not pass");
   check(
-    receipt.status?.requiredApprovalBlockedReleasePublish === "pass",
+    (modernEntry
+      ? receipt.status?.requiredApprovalBlockedReleasePublish
+      : receipt.status?.requiredApprovalBlockedDryRun) === "pass",
     "AICR required-approval behavior is not pass",
   );
   check(

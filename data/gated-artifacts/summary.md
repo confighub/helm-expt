@@ -19,7 +19,7 @@ moment an entry retains a document that mentions it.
 
 ## Every reference in the retained configuration
 
-10 gated references appear across 28 committed files, not counting this
+12 gated references appear across 29 committed files, not counting this
 register, which names them all by definition. The lane
 refuses a reference that is not listed here, and refuses a listing that no
 committed document names, so this table cannot drift in either direction.
@@ -36,13 +36,15 @@ committed document names, so this table cannot drift in either direction.
 | `nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0` | 3 | not read |
 | `nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0` | 3 | not read |
 | `nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0` | 3 | not read |
+| `nvcr.io/nvidia/gpu-operator:v26.3.3` | 1 | not read |
+| `nvcr.io/nvidia/cloud-native/k8s-driver-manager:v0.11.0` | 1 | not read |
 
 ## What has actually been read
 
 - `nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0`, read on 2026-08-07, naming **NVIDIA Software License Agreement**, **Product-Specific Terms for AI Products**, **NVIDIA Open Model Agreement**, **Llama 3.1 Community License Agreement**. Carried as data in [examples/aicr/kserve-nim-inference/profile/model-profile.yaml](../../examples/aicr/kserve-nim-inference/profile/model-profile.yaml).
 
-9 of the 10 references have no per-artifact terms recorded, and the
-reason is worth stating rather than leaving as an absence. The NGC catalog pages that carry per-artifact terms are served behind bot detection. Reading them automatically would mean working around that, which this catalog will not do. So one artifact has named terms, read by hand on the date recorded, and the rest are enumerated with their pages linked for a person to read. The gap is measured and published rather than filled with a guess.
+11 of the 12 references have no per-artifact terms recorded, and the
+reason is worth stating rather than leaving as an absence. An NGC overview page is not a complete review of the terms for one exact tagged artifact, and some terms pages reject automated access. This catalog does not work around those controls or treat overview text as legal advice. One artifact has named terms read by hand on the recorded date. The others are listed with a page for a person to review before use.
 
 ## Re-reading is tied to the reference, not to a calendar
 
