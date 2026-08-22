@@ -242,7 +242,11 @@
       : [];
     const targetFacts = lifecycle?.targetFacts || {};
     const requirements = Array.isArray(lifecycle?.requirements?.items)
-      ? lifecycle.requirements.items
+      ? lifecycle.requirements.items.map((item) => ({
+          ...item,
+          name: item.name || item.id || "",
+          category: item.category || item.type || "setup-item",
+        }))
       : [];
     const objects = candidateSet?.objects || [];
     const routeDispositions = {};
@@ -261,13 +265,15 @@
       },
       coverage: {
         routes: {
-          state: record
-            ? (lifecycle?.routeIntent?.status || (routes.length ? "recorded" : "none-recorded"))
-            : "record-not-supplied",
+          state: record ? (routes.length ? "attached" : "none-recorded") : "record-not-supplied",
+          intentStatus: lifecycle?.routeIntent?.status || (record ? "not-declared" : "record-not-supplied"),
           dispositions: routeDispositions,
         },
         targetFacts: targetFacts?.status ? {
-          state: targetFacts.status,
+          state: Object.keys(targetFacts.declared || {}).length || (targetFacts.requirementRefs || []).length
+            ? "attached"
+            : "none-recorded",
+          recordStatus: targetFacts.status,
           requirementRefs: targetFacts.requirementRefs || [],
         } : {
           state: record ? "not-declared" : "record-not-supplied",
