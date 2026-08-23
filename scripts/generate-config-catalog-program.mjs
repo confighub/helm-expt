@@ -79,6 +79,7 @@ const generatedGuidePath = join(repoRoot, "docs", "user", "config-catalog-demons
 const supportedSourceTypes = [
   "helm",
   "aicr",
+  "timoni",
   "cub-installer",
   "kubara",
   "sveltos",
@@ -91,6 +92,7 @@ const supportedSourceTypes = [
 const policySourceTypeByRecordSource = {
   helm: "helm",
   aicr: "aicr",
+  timoni: "rendered-config",
   "cub-installer": "cub-installer",
   kubara: "kubara",
   sveltos: "sveltos",
@@ -204,6 +206,7 @@ function buildReport() {
     buildAicrRecord(),
     buildAicrArgoCdRecord(),
     buildAicrV019ArgoCdRecord(),
+    buildTimoniRecord(),
     buildKubaraRecord(),
     buildSveltosRecord(),
     buildCubInstallerRecord(),
@@ -896,6 +899,136 @@ function buildAicrV019ArgoCdRecord() {
           ? "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence."
           : "The 16 nested component sources have not been materialized and recorded separately.",
         "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version.",
+      ],
+    },
+  };
+}
+
+function buildTimoniRecord() {
+  const root = "examples/timoni/redis-8-10-1";
+  const sourcePath = `${root}/source-lock.yaml`;
+  const receiptPath = `${root}/generation-receipt.yaml`;
+  const lifecyclePath = `${root}/lifecycle-route-intent.yaml`;
+  const flatteningPath = `${root}/flattening-safety-verdict.yaml`;
+  const source = readYaml(join(repoRoot, sourcePath));
+  const receipt = readYaml(join(repoRoot, receiptPath));
+  const lifecycle = readYaml(join(repoRoot, lifecyclePath));
+  const sourceSpec = source.spec.source;
+  const output = receipt.spec.output;
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "timoni-redis-8-10-1-default",
+      labels: {
+        sourceType: "timoni",
+        component: "redis",
+        sourceVersion: sourceSpec.version,
+        base: "default",
+      },
+    },
+    spec: {
+      source: {
+        type: "timoni",
+        name: "redis",
+        version: sourceSpec.version,
+        record: sourcePath,
+        packageOciRef: `${sourceSpec.module}@${sourceSpec.manifestDigest}`,
+      },
+      baseVariant: {
+        name: "default",
+        revision: "materialized-r001",
+        digest: sourceSpec.manifestDigest.replace(/^sha256:/, ""),
+        digestRole: "source-module-oci-manifest",
+        digestRecord: sourcePath,
+      },
+      configuration: {
+        format: "kubernetes-yaml",
+        objects: `${root}/rendered/release-objects.yaml`,
+        inventory: `${root}/rendered/object-inventory.json`,
+        objectCount: Number(output.objectCount),
+        digest: output.objectSetSha256,
+        digestRole: "canonical-object-set",
+        digestRecord: receiptPath,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          `module=${sourceSpec.module}@${sourceSpec.manifestDigest}`,
+          `moduleVersion=${sourceSpec.version}`,
+          "instance=redis",
+          "namespace=redis",
+          `values=${root}/selected-values.cue`,
+          `schema=${root}/config-schema.cue`,
+        ],
+        installTime: [
+          {
+            name: "redis namespace",
+            value: "redis",
+            status: "required-not-live-checked",
+          },
+          {
+            name: "Kubernetes version",
+            value: "1.20.0 or newer",
+            status: "required-not-live-checked",
+          },
+          {
+            name: "StorageClass",
+            value: "standard",
+            status: "required-not-live-checked",
+          },
+        ],
+        installTimeStatus: "three destination facts recorded; no destination selected",
+      },
+      routing: {
+        routes: lifecycle.spec.routes,
+        targetFacts: lifecycle.spec.targetFacts,
+        sourceRecord: lifecyclePath,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: "immutable-public-source",
+          reference: sourceSpec.module,
+          digest: sourceSpec.manifestDigest,
+        },
+        literalConfigOci: {
+          status: "not-published",
+        },
+        configHubReleaseOci: {
+          status: "not-run",
+        },
+        argoCd: "not-run",
+        flux: "not-run",
+        direct: "not-run",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+        normalSet: "baseline",
+      },
+      evidence: {
+        sourceLock: sourcePath,
+        selectedValues: `${root}/selected-values.cue`,
+        configSchema: `${root}/config-schema.cue`,
+        renderedObjects: `${root}/rendered/release-objects.yaml`,
+        objectInventory: `${root}/rendered/object-inventory.json`,
+        materializationReceipt: receiptPath,
+        lifecycleRouteIntent: lifecyclePath,
+        flatteningVerdict: flatteningPath,
+        readme: `${root}/README.md`,
+      },
+      operations: {
+        resourceClass: "user-workload",
+        ownerClass: "application-team",
+        changeCadence: "application-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects in a local, cluster-free build. Its typed options, selected defaults, object digest, master-first lifecycle, and destination requirements are retained together.",
+      limits: [
+        "Kubernetes schema validation, admission, apply, workload health, upgrade, and rollback have not been run for this entry.",
+        "No literal configuration OCI, ConfigHub revision, release OCI, Argo CD result, or Flux result is recorded.",
+        "The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock's version and immutable digest remain the source identity.",
       ],
     },
   };
@@ -1688,6 +1821,7 @@ function validateRecords(records) {
         "source-output-inventory",
         "literal-configuration-oci-manifest",
         "source-package-oci-manifest",
+        "source-module-oci-manifest",
         "source-file-set",
         "confighub-space-revision",
         "source-file",
@@ -3276,6 +3410,12 @@ function processingRecord(record, intent, identity) {
       "AICR composed the selected platform into the exact configuration retained by this base.",
       "Any nested source named by the generated configuration keeps its own processing boundary.",
     ];
+  } else if (source.type === "timoni") {
+    method = "timoni-build";
+    boundaries = [
+      "Timoni built the immutable module and selected values into the exact objects retained by this base.",
+      "The module's ordered apply and optional test remain lifecycle work beside the literal objects.",
+    ];
   } else if (source.type === "kubara") {
     method = "generator";
     boundaries = [
@@ -3372,6 +3512,19 @@ function flatteningRecord(record, intent) {
       verdictPath = relativeRepo(candidatePath);
       verdict = candidate.spec?.verdict?.lane ?? "not-assessed";
       break;
+    }
+  } else if (source.type === "timoni") {
+    const candidatePath = join(
+      repoRoot,
+      "examples",
+      "timoni",
+      "redis-8-10-1",
+      "flattening-safety-verdict.yaml",
+    );
+    if (existsSync(candidatePath)) {
+      const candidate = readYaml(candidatePath);
+      verdictPath = relativeRepo(candidatePath);
+      verdict = candidate.spec?.verdict?.lane ?? "not-assessed";
     }
   } else if (["configuration-oci", "kubernetes-yaml", "rendered-config", "sveltos"].includes(source.type)) {
     verdict = "born-flattened";
@@ -3660,6 +3813,7 @@ function ownershipRecord(record, intent, legacyRouting) {
     records = [fieldPolicy];
   } else if ([
     "aicr",
+    "timoni",
     "cub-installer",
     "kubara",
     "sveltos",
@@ -3851,6 +4005,7 @@ function renderBaseSummary(records) {
   const kubara = records.find((record) => record.spec.source.type === "kubara");
   const sveltos = records.find((record) => record.spec.source.type === "sveltos");
   const cubInstaller = records.find((record) => record.spec.source.type === "cub-installer");
+  const timoni = records.find((record) => record.spec.source.type === "timoni");
   const configurationOci = records.find(
     (record) => record.spec.source.type === "configuration-oci",
   );
@@ -3880,7 +4035,7 @@ The evidence is not complete for every row:
 | Area | Current Catalog coverage | Which is ahead? |
 | --- | ---: | --- |
 | Exact source and object records | ${records.length}/${records.length} | Catalog and model are aligned. |
-| Concrete entry formats | 7 | The Catalog has Helm, AICR, cub installer source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML examples. The model is ahead for a generic non-installer source OCI and ConfigHub-release re-entry. |
+| Concrete entry formats | ${Object.keys(sourceCounts).length} | The Catalog has Helm, AICR, Timoni, cub installer source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML examples. The model is ahead for a generic non-installer source OCI and ConfigHub-release re-entry. |
 | Flattening verdicts | ${assessedFlatteningCount}/${records.length} | The model is ahead of the unassessed rows. |
 | Destination-specific route resolutions | ${resolvedRouteCount}/${records.length} | The model is ahead. The resolved records cover one Helm configuration through direct apply, Argo CD, and Flux. |
 | Fully declared field ownership | ${declaredOwnershipCount}/${records.length} | The model is ahead. Most Helm rows currently separate source values from post-render changes without field-by-field ownership. |
@@ -3911,6 +4066,7 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
+- [Timoni Redis default](${timoni ? `records/${timoni.metadata.name}.yaml` : ""}) records one immutable module, its typed configuration, seven exact objects, and the master-first lifecycle work that plain YAML does not carry.
 - [cub installer source package](${cubInstaller ? `records/${cubInstaller.metadata.name}.yaml` : ""}) separates the public multi-preset package digest from the exact five-object output of one selected preset.
 - [Literal configuration OCI](${configurationOci ? `records/${configurationOci.metadata.name}.yaml` : ""}) records a public five-object OCI, its separate object-set digest, its required Secret, and an unchanged ConfigHub import.
 - [Plain Kubernetes YAML](${plainYaml ? `records/${plainYaml.metadata.name}.yaml` : ""}) records an unchanged four-object upload and leaves lifecycle assessment as a visible gap.

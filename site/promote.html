@@ -515,7 +515,7 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Review a change before it moves</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
     <p class="lead">Upgrading a chart, or moving a change toward production? Build a review of what changes, what stays the same, and which tests still have to run.</p>
@@ -569,6 +569,7 @@
 
       <h3>Use your own AI assistant</h3>
       <p>Download both YAML files and the review record. Then give this prompt to Claude, Codex, or the assistant you already use. It asks the assistant to work locally, explain the object changes, and keep untested claims visible.</p>
+      <p><a href="./ai.html">Install the Config Workshop agent skill</a> when you want these checks and reporting rules available for repeated reviews.</p>
       <textarea id="ai-promotion-prompt" rows="16" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button secondary" id="copy-ai-promotion" type="button">Copy the AI review prompt</button> <span id="ai-promotion-copy-status" role="status" style="color:var(--muted)"></span></p>
 

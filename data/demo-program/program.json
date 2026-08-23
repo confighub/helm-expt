@@ -602,6 +602,42 @@
       },
       {
         "entrypoints": [
+          "examples/timoni/redis-8-10-1/README.md",
+          "data/base-variant-records/records/timoni-redis-8-10-1-default.yaml"
+        ],
+        "evidence": [
+          "examples/timoni/redis-8-10-1/source-lock.yaml",
+          "examples/timoni/redis-8-10-1/config-schema.cue",
+          "examples/timoni/redis-8-10-1/rendered/object-inventory.json",
+          "examples/timoni/redis-8-10-1/generation-receipt.yaml",
+          "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml",
+          "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+        ],
+        "id": "timoni",
+        "limits": [
+          "The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock version and immutable digest remain the source identity.",
+          "The Catalog has not yet published a literal configuration OCI or imported this base into ConfigHub.",
+          "No destination-specific route resolution or live runtime receipt exists for this entry."
+        ],
+        "name": "Timoni module to exact configuration",
+        "problem": "A typed module can produce clear Kubernetes objects while still carrying ordered apply, waits, tests, and destination requirements that plain YAML does not execute.",
+        "result": "Pin the module OCI by version and digest, retain its typed options and selected values, build the exact objects, and keep the lifecycle route beside them before deciding whether to deliver the source or the flattened configuration.",
+        "status": "partial",
+        "steps": [
+          "Pin the module version and immutable OCI manifest digest.",
+          "Record the typed configuration and selected values.",
+          "Build and inventory the exact Kubernetes objects locally.",
+          "Decide whether literal objects can travel alone, need lifecycle routes, or require the source processor later.",
+          "Resolve the master-first wait, optional test, namespace, Kubernetes version, and StorageClass requirements for the selected destination before delivery."
+        ],
+        "workedExample": {
+          "limit": "The source workflow, Kubernetes apply, workload health, upgrade, rollback, ConfigHub upload, and GitOps delivery have not run.",
+          "result": "The Redis 8.10.1 pilot pins one immutable module, records its typed options and defaults, and produces seven exact Kubernetes objects without ConfigHub Server or Kubernetes.",
+          "status": "working"
+        }
+      },
+      {
+        "entrypoints": [
           "docs/user/installer-oci-packages.md",
           "docs/user/try-now.md"
         ],

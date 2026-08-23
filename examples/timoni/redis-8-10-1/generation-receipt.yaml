@@ -1,0 +1,53 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceMaterializationReceipt"
+metadata:
+  name: "timoni-redis-8-10-1-default"
+spec:
+  source:
+    manifestDigest: "sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+    module: "oci://ghcr.io/stefanprodan/modules/redis"
+    type: "timoni"
+    version: "8.10.1"
+  processor:
+    name: "timoni"
+    version: "0.33.0"
+  selection:
+    instance: "redis"
+    maskSecrets: true
+    namespace: "redis"
+    values: "examples/timoni/redis-8-10-1/selected-values.cue"
+  command: "timoni -n redis build redis <module> -v 8.10.1 -d <manifest-digest> -f selected-values.cue --mask-secrets"
+  sourceSchema:
+    path: "examples/timoni/redis-8-10-1/config-schema.cue"
+    sha256: "d29cd9857b78f3e593d16228bb45fdd9a6d41433efdc518528fc93f89fa5d4dc"
+  output:
+    objects: "examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
+    inventory: "examples/timoni/redis-8-10-1/rendered/object-inventory.json"
+    objectCount: 7
+    objectSetSha256: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+    kinds:
+      ConfigMap: 1
+      Deployment: 2
+      PersistentVolumeClaim: 1
+      Service: 2
+      ServiceAccount: 1
+    images:
+      - "docker.io/redis:8.10.1-alpine@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576"
+  lifecycle:
+    routeIntent: "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+    routeCount: 3
+  flattening:
+    verdict: "flatten-with-routes"
+    record: "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+  observations:
+    - "The default build contains no Kubernetes Secret and leaves the optional ping test disabled."
+    - "The rendered labels report app.kubernetes.io/version=0.0.0-devel even though the immutable module source is version 8.10.1; consumers should use the recorded source version and digest as identity."
+  renderedVersionLabels:
+    - "0.0.0-devel"
+status:
+  sourceDigestBoundBuild: "pass"
+  localMaterialization: "pass"
+  kubernetesSchemaValidation: "not-run"
+  lifecycleExecution: "not-run"
+  kubernetesApply: "not-run"
+  workloadHealth: "not-run"

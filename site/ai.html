@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI with review and evidence · Config Workshop</title>
-  <meta name="description" content="AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.">
+  <meta name="description" content="Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/ai.html">
   <meta property="og:title" content="AI with review and evidence · Config Workshop">
-  <meta property="og:description" content="AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.">
+  <meta property="og:description" content="Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/ai.html">
   <style>
@@ -512,49 +512,25 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./guides.html">Guides</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Use AI without hiding the result</h1>
-    <p class="lead">AI helps us read charts, propose useful configurations, write checks, and explain results. It does not decide whether a configuration is ready.</p>
-    <p>This page shows two uses: agents help maintain the public Catalog, and users bring values or patches made by AI. In both cases, exact Kubernetes objects and recorded checks decide what can proceed.</p>
-    <p>We do not claim every Helm values combination. AI helps maintain chart-specific starting configurations across versions. Verification decides which ones appear in the Catalog.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Use Config Workshop with your AI agent</h1>
+    <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The Config Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
+    <p>The agent may propose commands or changes. You still see the source, Kubernetes objects, diff, checks, and limits before anything is applied or uploaded.</p>
   </header>
   <main>
-    <section aria-labelledby="catalog">
-      <h2 id="catalog">1. Use AI to maintain the Catalog</h2>
-      <p>The main AI use today is not autonomous production change. It is catalog work: finding what a chart does, proposing safe starting points, generating checks, and turning evidence into language people can read.</p>
-      <div class="card"><table>
-        <thead><tr><th>AI helps with</th><th>How we keep it honest</th></tr></thead>
-        <tbody><tr><td>Read chart behavior</td><td>AI helps inspect chart docs, values, templates, hooks, CRDs, defaults, and prerequisites so the catalog starts from the right questions.</td></tr><tr><td>Draft base variants</td><td>AI can suggest useful chart-specific base variants, such as default, existing Secret, no-CRDs, server-only, HA, or production-like choices. The generator and receipts decide what is accepted.</td></tr><tr><td>Generate checks</td><td>AI helps draft tests, summaries, and verifier commands. A page is not treated as true until committed data and verification commands back it.</td></tr><tr><td>Triage failures</td><td>AI helps sort a failure into render input, target prerequisite, lifecycle route, runtime health, or unsupported chart behavior.</td></tr><tr><td>Explain evidence</td><td>AI helps turn receipts, diffs, and generated data into plain English for chart pages and docs.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="./how-it-works.html">Read how render, record, and route work</a> · <a href="./verification.html">Check the verification commands</a></p>
-    </section>
-
-    <section aria-labelledby="user-agents">
-      <h2 id="user-agents">2. Review configuration made by AI</h2>
-      <p>When an agent writes Helm values or a patch, render the result. ConfigHub can store the exact objects and show the diff, checks, and approvals before release.</p>
-      <p>If the suggestion changes Helm values, update the recorded Helm source and rebuild the base. If it changes one environment after render, record it in that ConfigHub variant.</p>
-      <p>The agent proposes. The reviewed objects are what get released.</p>
-    </section>
-
-    <section aria-labelledby="live-review">
-      <h2 id="live-review">3. See a checked ConfigHub example</h2>
-      <p>The example starts with a proposed AICR training change that asks for eight H100 nodes even though the recorded target limit is four. It also replaces a pinned image with <code>latest</code> and leaves an API key placeholder. The reviewed file fixes all three problems.</p>
-      <p>In the live run, ConfigHub read the nested AICR fields. It reported the mutable image and blocked the inline API key. The reviewed version cleared both checks. Ordinary Deployment image and probe checks did not run against either custom resource.</p>
-      <p>ConfigHub stored the reviewed Kubernetes object. It blocked a dry run until the exact head revision was approved. After approval, the same dry run to an OCI target was allowed. Nothing was applied to Kubernetes. The four-node limit remains a separate target-specific check because the ConfigHub policy cannot yet read that recorded target fact.</p>
-      <p><a href="d/data/ai-change-review-live-proof/summary.html">Read the result and its limits</a>.</p>
+    <section aria-labelledby="install-skill">
+      <h2 id="install-skill">1. Install the Config Workshop skill</h2>
+      <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
+      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It does not grant credentials or apply configuration. It keeps private files local and redacts Secret values. It pins versions and digests, reports skipped checks, and previews changes before mutation.</p>
     </section>
 
     <section aria-labelledby="tasks">
-      <h2 id="tasks">4. Choose a suitable AI task</h2>
+      <h2 id="tasks">2. Ask for one result</h2>
+      <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
       <div class="card"><table>
-        <thead><tr><th>Task</th><th>Fit</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Explain a diff</td><td>Good fit</td><td>AI can summarize which objects changed. Keep the actual diff visible as the record.</td></tr><tr><td>Create a variant</td><td>Good fit with review</td><td>AI can draft labels, targets, and transforms. A person or policy gate approves the exact result.</td></tr><tr><td>Patch a fleet</td><td>Good fit with scope</td><td>AI can draft the patch; ConfigHub shows which apps, variants, and objects it touches before rollout.</td></tr><tr><td>Triage a broken chart</td><td>Good fit</td><td>AI can help decide whether the problem is values, cluster prerequisites, lifecycle steps, image pulls, or runtime health.</td></tr><tr><td>Use a domain app</td><td>Good fit</td><td>Give the agent purpose-built commands, such as Kubernetes RBAC analysis, instead of raw YAML editing.</td></tr><tr><td>Change production live state directly</td><td>Not the default path</td><td>The safer path is propose, diff, approve, deliver, observe. Direct writes need clear authority, scope, and rollback.</td></tr></tbody>
+        <thead><tr><th>Task</th><th>Example request</th><th>What the agent should return</th></tr></thead>
+        <tbody><tr><td>Find a known answer</td><td>What will bitnami/redis 25.5.3 install, and what must exist first?</td><td>The exact Catalog version, objects, lifecycle work, checks, and limits.</td></tr><tr><td>Check my configuration</td><td>Here is the chart and values my AI produced. Compare them with the defaults and tell me what matters.</td><td>A local render, normalized comparison, findings, and a reviewed result you can keep.</td></tr><tr><td>Review a promotion</td><td>Can I move this staging configuration to production?</td><td>Current and candidate digests, destination differences, lifecycle work, and tests still required.</td></tr><tr><td>Inspect another source</td><td>Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.</td><td>The module digest, typed options, seven exact objects, ordered lifecycle, and current limits.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -562,29 +538,71 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+      <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
     </section>
 
-    <section aria-labelledby="agentic-apps">
-      <h2 id="agentic-apps">5. Give AI a purpose-built App</h2>
-      <p>A small domain App can give an agent named operations while ConfigHub keeps the configuration. The App supplies the domain rules, dry runs, checks, and explicit commit step.</p>
-      <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> follows this pattern. It supports RBAC inventory, access queries, findings, guarded edits, fleet edits, and promotion. The agent uses these operations instead of unrestricted YAML edits.</p>
-      <p>The <a href="./d/docs/demo/c3agent/fleet-config.html">c3agent configuration example</a> applies the same rule to an agent service. Model, image, budget, concurrency, and Secret references are reviewed and promoted before any agent process starts.</p>
-      <p><a href="./journey.html">See five ConfigHub App examples</a>, including upgrades, hooks and CRDs, RBAC, fleet rollout, and AI change review.</p>
+    <section aria-labelledby="records">
+      <h2 id="records">3. Keep the answer tied to records</h2>
+      <p>The skill uses the same public files as the site. It does not treat page copy or an agent's explanation as proof.</p>
+      <div class="card"><table>
+        <thead><tr><th>Record</th><th>What it answers</th></tr></thead>
+        <tbody><tr><td>changes.json</td><td>Which exact Helm package version and digest did you ask about, and which areas have evidence?</td></tr><tr><td>base-variant-records.json</td><td>Where did the configuration come from, which exact objects were produced, and what lifecycle, ownership, OCI, and delivery records exist?</td></tr><tr><td>review and promotion records</td><td>Which files were compared, which checks ran, and what remains before the result moves?</td></tr><tr><td>linked receipts</td><td>What command or live run produced a claim, for which object digest and target?</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Missing coverage means the claim has not been checked. A successful render does not prove cluster admission, controller convergence, workload health, upgrade, or rollback.</p>
     </section>
 
-    <section aria-labelledby="guides">
-      <h2 id="guides">6. Open guides and evidence</h2>
-      <div class="grid">
-        <div class="card"><h3>Deployment</h3><p>See where each configuration tool fits and how a reviewed result reaches a cluster.</p><p><a href="./how-it-works.html">Open page</a></p></div>
-        <div class="card"><h3>Check one claim</h3><p>Project commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
-        <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="d/docs/user/ai-assisted-helm-changes.html">Open guide</a></p></div>
-        <div class="card"><h3>Live change review</h3><p>A reviewed AICR object is stored in ConfigHub, blocked until approval, and dry-run again after approval.</p><p><a href="d/data/ai-change-review-live-proof/summary.html">Open result</a></p></div>
-        <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="d/docs/user/broken-chart-triage.html">Open guide</a></p></div>
-        <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern built from a CLI plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
-        <div class="card"><h3>Blast radius</h3><p>How value-source maps and scored receipts show which objects a change is expected to affect.</p><p><a href="d/data/blast-radius-accuracy/summary.html">Open evidence</a></p></div>
-      </div>
+    <section aria-labelledby="sources">
+      <h2 id="sources">4. Use the same steps across source formats</h2>
+      <p>Helm renders a chart. Timoni builds a module or bundle. AICR and Kubara compose or generate configuration. Literal YAML and configuration OCI already contain exact objects. Config Workshop records which operation happened instead of calling every source a Helm recipe.</p>
+      <div class="card"><table>
+        <thead><tr><th>Step</th><th>Question</th></tr></thead>
+        <tbody><tr><td>Source and intent</td><td>Which source, version, digest, values or typed choices, and target assumptions were selected?</td></tr><tr><td>Materialize</td><td>Which exact Kubernetes objects did that source produce?</td></tr><tr><td>Flatten</td><td>Can those objects be kept literally without losing behavior?</td></tr><tr><td>Lifecycle and route</td><td>Who handles hooks, CRDs, tests, waits, setup Jobs, Secrets, and destination requirements, and in what order?</td></tr><tr><td>Retain and deliver</td><td>Will the reviewed result stay as files, become OCI, or be kept as ConfigHub data and released through Argo CD or Flux?</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a> · <a href="./deployment-reference.html">Read the human deployment reference</a></p>
+    </section>
+
+    <section aria-labelledby="timoni-example">
+      <h2 id="timoni-example">5. Compare one non-Helm source</h2>
+      <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. It records the typed options, selected defaults, seven exact Kubernetes objects, the master-first apply order, the optional test Job, and the destination requirements.</p>
+      <p>The current record proves a local, cluster-free build. It does not claim a live apply, health check, upgrade, rollback, ConfigHub upload, or GitOps delivery.</p>
+      <p><a href="d/examples/timoni/redis-8-10-1/README.html">Open the Timoni Redis record</a> · <a href="./charts/index.html">Compare it with Helm Redis configurations</a></p>
+    </section>
+
+    <section aria-labelledby="confighub-review">
+      <h2 id="confighub-review">6. Keep a reviewed result in ConfigHub</h2>
+      <p>Use ConfigHub when the accepted objects need team history, variants, approval, promotion, release OCI, delivery, or comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
+      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
+      <p><a href="d/data/ai-change-review-live-proof/summary.html">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
+    </section>
+
+    <section aria-labelledby="catalog-maintenance">
+      <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
+      <p>Agents help read source behavior, propose useful starting configurations, generate checks, investigate failures, and explain receipts. Generated text is reviewed against committed data before it appears as a Catalog claim.</p>
+      <div class="card"><table>
+        <thead><tr><th>Agent task</th><th>Required record</th></tr></thead>
+        <tbody><tr><td>Read source behavior</td><td>Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions.</td></tr><tr><td>Propose useful configurations</td><td>Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog.</td></tr><tr><td>Investigate failures</td><td>Separate input errors, missing target setup, lifecycle work, controller results, and workload health.</td></tr><tr><td>Maintain explanations</td><td>Turn exact records and receipts into short instructions while keeping links to the underlying evidence.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="d/data/agent-skill-evaluations/summary.html">Read the fresh-agent evaluation</a> · <a href="./verification.html">Run the verification commands</a> · <a href="./guides.html">Open technical guides</a></p>
     </section>
   </main>
-  <footer>AI must make Helm operations easier to understand, not less accountable.</footer>
+  <footer>Use AI to investigate and propose. Keep the reviewed configuration as the release record.</footer>
 </body>
 </html>

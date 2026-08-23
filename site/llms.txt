@@ -1,7 +1,9 @@
 # Config Workshop (helm-expt)
 
-> A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
+> A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
+- [Config Workshop agent skill](https://confighub.github.io/helm-expt/site/.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
+- [Use Config Workshop with an AI agent](https://confighub.github.io/helm-expt/site/ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
 - [Catalog JSON](https://confighub.github.io/helm-expt/site/catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](https://confighub.github.io/helm-expt/site/changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
 - [Change feed schema](https://confighub.github.io/helm-expt/site/changes.schema.json): the versioned JSON Schema for changes.json.
@@ -11,6 +13,7 @@
 - [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](https://confighub.github.io/helm-expt/site/try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Try AICR](https://confighub.github.io/helm-expt/site/try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
+- [Timoni Redis source entry](https://confighub.github.io/helm-expt/site/d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
 - [Versus what you already use](https://confighub.github.io/helm-expt/site/compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](https://confighub.github.io/helm-expt/site/whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](https://confighub.github.io/helm-expt/site/ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.

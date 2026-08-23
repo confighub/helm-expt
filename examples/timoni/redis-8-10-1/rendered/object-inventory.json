@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1",
+  "source": "examples/timoni/redis-8-10-1/source-lock.yaml",
+  "objectCount": 7,
+  "fileSha256": "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b",
+  "kindCounts": {
+    "ConfigMap": 1,
+    "Deployment": 2,
+    "PersistentVolumeClaim": 1,
+    "Service": 2,
+    "ServiceAccount": 1
+  },
+  "images": [
+    "docker.io/redis:8.10.1-alpine@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576"
+  ],
+  "identities": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "namespace": "redis",
+      "name": "redis-dafa22b4"
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "namespace": "redis",
+      "name": "redis-master"
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "namespace": "redis",
+      "name": "redis-replica"
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "PersistentVolumeClaim",
+      "namespace": "redis",
+      "name": "redis-master"
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "namespace": "redis",
+      "name": "redis"
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "namespace": "redis",
+      "name": "redis-readonly"
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ServiceAccount",
+      "namespace": "redis",
+      "name": "redis"
+    }
+  ]
+}

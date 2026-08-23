@@ -76,8 +76,9 @@ source + processing intent
   -> observe the result and record receipts
 ```
 
-Helm, AICR, Kubara, OCI, and YAML use the same decisions. They do not use the
-same processor. A step can be a recorded no-op: literal YAML already contains exact
+Helm, Timoni, AICR, Kubara, OCI, and YAML use the same decisions. They do not use
+the same processor. Helm renders, Timoni builds, and AICR or Kubara compose or
+generate. A step can be a recorded no-op: literal YAML already contains exact
 objects, for example. A source refresh, variant change, or new destination can send
 the process back to an earlier decision.
 
@@ -121,6 +122,7 @@ then retain reviewed changes as variants that can be promoted and delivered.**
 | --- | --- |
 | **Helm recipe** | The chart, version, values, named preset configurations, and declared lifecycle choices used by a Helm installer package. |
 | **AICR recipe** | AICR's native document containing resolved criteria, components, order, and checks. |
+| **Timoni module or bundle** | A typed source package selected by OCI version and digest, built with recorded values. It is not a Helm recipe. |
 | **Render** | Helm's materialization step. It produces exact Kubernetes objects but does not apply them. |
 | **Helm render intent** | The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render. |
 | **Helm render variant** | The captured object output for one base and revision, linked to its intent and digest. |
@@ -138,9 +140,11 @@ Every maintained base needs a record that explains where its objects came from a
 which choices produced them. We call this the **source and intent record**.
 
 This is a role, not one file format. For Helm, the record is a
-`HelmRenderIntent`. For AICR, it includes the native recipe, selected options,
-and generation receipts. Kubara records its selected source and generation
-inputs. Source OCI records the processor it contains or references.
+`HelmRenderIntent`. Timoni records the module or bundle OCI version and digest,
+typed schema, selected values, build receipt, and declared workflow. For AICR,
+it includes the native recipe, selected options, and generation receipts. Kubara
+records its selected source and generation inputs. Source OCI records the
+processor it contains or references.
 Literal OCI and plain YAML name their source digest or checksums, object inventory,
 remaining inputs, prerequisites, checks, and later transformations.
 Today, that information may live in a source Unit, Space metadata plus a
@@ -238,6 +242,7 @@ difference matters.
 | Source | Materialize | Possible flattening result | Later route resolution |
 | --- | --- | --- | --- |
 | Helm | Render the pinned chart with recorded values and context. | Flatten, flatten with routes, or render late. | Recheck hooks, CRDs, generated state, target facts, and controller handling for the selected variant and destination. |
+| Timoni | Build the pinned module or bundle with its typed values. | Flatten the built objects, keep routes beside them, or run the source workflow later. | Bind ordered apply sets, waits, tests, health checks, prune behavior, runtime lookups, and target requirements to the selected variant and destination. |
 | AICR | Resolve its recipe and compose or generate the declared output. Nested charts may still render later. | Flatten the generated layer, flatten it with routes, or process part of the composition late. | Bind component order, required controllers, GPU or cloud facts, and nested source work to the target. |
 | Kubara or another generator | Run the source-native generator with locked inputs. | Flatten the generated layer, keep routes beside it, or run the generator later. | Bind platform prerequisites, component ownership, and controller work to the chosen platform target. |
 | Installer or source OCI | Pull by digest and invoke the processor it declares. | Decide after the processor produces exact objects. | Use the resulting configuration and its requirements; the OCI transport performs no lifecycle work. |
@@ -249,9 +254,9 @@ flattened while the Helm charts referenced by those Applications remain render-l
 An OCI artifact can carry source material, literal configuration, or a ConfigHub
 release; its media type and source record must say which role it has.
 
-The Catalog currently includes concrete records for Helm, AICR, cub installer source
-OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML. The generic model is
-ahead for a non-installer source OCI and for ConfigHub-release re-entry as a new base.
+The Catalog currently includes concrete records for Helm, Timoni, AICR, cub installer
+source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML. The generic
+model is ahead for a non-installer source OCI and for ConfigHub-release re-entry as a new base.
 The [generated alignment report](../../data/base-variant-records/summary.md) gives the
 current counts and gaps.
 
@@ -279,9 +284,16 @@ controllers and setup as lifecycle work.
 choices, run its declared processor, and link the resulting object digest to those
 inputs. Do not call that record a recipe unless the source tool does.
 
+**If you start with Timoni:** pin the module or bundle OCI, keep its typed schema and
+selected values, build the exact objects, and record any ordered apply sets, waits,
+tests, or target lookups that must still run. The built objects are an exact
+configuration revision, not a Helm render variant.
+
 ## Where each thing is, today
 
 - Helm recipes and render records live in this repo. Every chart page links to them.
+- The first Timoni source-and-intent record and exact object set live under
+  `examples/timoni/`; the Catalog links to the retained evidence.
 - AICR recipes remain AICR recipes. Other source-and-intent records live beside
   source receipts or base records. They use their own format rather than a fake
   Helm record or a generic "recipe" label.

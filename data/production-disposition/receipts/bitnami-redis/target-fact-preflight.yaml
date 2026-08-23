@@ -21,8 +21,8 @@ spec:
       claim: User-install verification checks the target Secret and forbids the chart-owned redis/redis Secret for this variant.
     - path: runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml
       claim: The local kind receipt records the target Secret as applied by the test and verifies Redis PING with that Secret.
-    - path: runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
-      claim: Two-cluster live parity stages the required Secret for both the regular Helm and cub installer legs and passes semantic parity.
+    - path: runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/receipt.yaml
+      claim: Live parity for 25.5.3 stages the required Secret for the regular Helm and cub installer-produced ConfigHub legs and passes semantic parity.
   affectedVariants:
     - reuse-existing-secret
   remainingProductionBlockers: []

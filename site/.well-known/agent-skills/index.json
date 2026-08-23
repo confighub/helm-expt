@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "config-workshop",
+      "description": "Inspect, compare, promote, and retain Kubernetes configuration with exact source records, objects, lifecycle work, checks, and limits.",
+      "type": "skill-md",
+      "url": "https://confighub.github.io/helm-expt/site/.well-known/agent-skills/config-workshop/SKILL.md"
+    }
+  ]
+}

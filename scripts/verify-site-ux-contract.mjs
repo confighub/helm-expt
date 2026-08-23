@@ -137,7 +137,7 @@ const checks = [
   },
   {
     file: "site/docs-reference.html",
-    terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Where Example Materials Live", "Public OCI registry", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Understand an existing app", "Review security before release", "Current and planned work", "Per-chart cub adoption caveats"],
+    terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Where Example Materials Live", "Public OCI registry", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI agents", "Understand an existing app", "Review security before release", "Current and planned work", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -161,7 +161,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use AI without hiding the result", "It does not decide whether a configuration is ready", "1. Use AI to maintain the Catalog", "2. Review configuration made by AI", "The agent proposes. The reviewed objects are what get released.", "3. See a checked ConfigHub example", "4. Choose a suitable AI task", "5. Give AI a purpose-built App", "6. Open guides and evidence", "RBAC Manager for Agents"],
+    terms: ["Use Config Workshop with your AI agent", "1. Install the Config Workshop skill", "2. Ask for one result", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "6. Keep a reviewed result in ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim has not been checked"],
   },
   {
     file: "site/demo-org.html",
@@ -286,7 +286,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/ai.html",
-    headerTerms: ["Use AI without hiding the result", "It does not decide whether a configuration is ready", "exact Kubernetes objects and recorded checks decide what can proceed"],
+    headerTerms: ["Use Config Workshop with your AI agent", "one configuration question", "source, Kubernetes objects, diff, checks, and limits"],
   },
   {
     file: "site/verification.html",
@@ -297,7 +297,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["Guides", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"];
+const expectedNavLabels = ["AI agents", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
@@ -442,7 +442,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Guides", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "AI agents", "Catalog", "Check my config", "Promote my config", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -905,8 +905,8 @@ const purposePageRules = [
   },
   {
     file: "site/ai.html",
-    maxH2: 6,
-    requiredLinks: ["./journey.html", "d/data/ai-change-review-live-proof/summary.html"],
+    maxH2: 7,
+    requiredLinks: ["./.well-known/agent-skills/config-workshop/SKILL.md", "./ask.html", "./promote.html", "./confighub.html"],
   },
   {
     file: "site/journey.html",
