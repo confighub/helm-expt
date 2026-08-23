@@ -1,0 +1,175 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "TimoniRedisConfigHubReceipt"
+metadata:
+  name: "timoni-redis-8-10-1"
+spec:
+  verifiedAt: "2026-08-23T14:26:49.113Z"
+  organization: "helm-catalog"
+  source:
+    immutableReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+    objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+  base:
+    slug: "timoni-redis-8-10-1-base"
+    id: "f59f90db-c499-4fa8-9465-0f44a900eec6"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "timoni-redis-8-10-1"
+      InputFormat: "LiteralOCI"
+      Layer: "Application"
+      Owner: "Application"
+      ResourceClass: "user-workload"
+      SourceType: "timoni"
+      Variant: "base"
+    objectCount: 7
+    objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+    units:
+      -
+        slug: "redis-configmap-redis-dafa22b4"
+        id: "de0ee2b9-2121-4bf3-9807-47e5e50e78b0"
+        dataHash: "642ee837bca456090f39b6499073ca77ce01857297a9a1b2db007e4becefd276"
+        upstreamUnitId: ""
+      -
+        slug: "redis-deployment-redis-master"
+        id: "c60a0f18-2599-4d71-9a0d-46111a82984b"
+        dataHash: "b4d29c1b0040fc2c5f44d544e4d1d44e306a37756933dbde16998a013a0a4395"
+        upstreamUnitId: ""
+      -
+        slug: "redis-deployment-redis-replica"
+        id: "d6d0d08c-1bed-4e9c-a280-412e941a98ce"
+        dataHash: "2594e94549565f16c991d13390964cc78a666acfa35bfac9cd613f519cfd3b94"
+        upstreamUnitId: ""
+      -
+        slug: "redis-persistentvolumeclaim-redis-master"
+        id: "35e4dd05-e62c-45db-935c-1997332959f4"
+        dataHash: "f57ebdd5f7a5612583646cc229740f96e28bd547dff7a21b1bd57d826fcfb61d"
+        upstreamUnitId: ""
+      -
+        slug: "redis-serviceaccount-redis"
+        id: "a5896e4a-54c6-4ee0-adff-5a266f29d05c"
+        dataHash: "7bff6a73ed34101c8725606d2b69fc98f9b2f5e88dbc5a09a78cf05a780732dd"
+        upstreamUnitId: ""
+      -
+        slug: "redis-service-redis"
+        id: "0485c5ef-ee95-40c5-b3a8-2913e246064d"
+        dataHash: "e877416062f38bb34a439beb116cf14ee93eac7fc9dbb02d3c42b6421153b148"
+        upstreamUnitId: ""
+      -
+        slug: "redis-service-redis-readonly"
+        id: "79c34692-62a4-478c-ba8b-0d184af66438"
+        dataHash: "fbf36daac0eb801a8d967ad5f5436df3c40dca811bf42b411f18af81effb00cd"
+        upstreamUnitId: ""
+    companionUnits:
+      -
+        slug: "basevariantrecord-timoni-redis-8-10-1-default"
+        id: "3e3417f9-dfff-4bbb-9662-d4f7e8023cb3"
+        dataHash: "ccceadd9d727e007c9586323d209df58a3319d222ae2db50df76ea2e0aa0013b"
+      -
+        slug: "flatteningsafetyverdict-timoni-redis-8-10-1-default"
+        id: "7412f602-8a23-40dc-abc3-4762e2196ecd"
+        dataHash: "bd2c929855030261ce99eb1f2d97da642132fcc5ec5d6b5ba4a38f7d6ef61d57"
+      -
+        slug: "lifecyclerouteintent-timoni-redis-8-10-1-default"
+        id: "18e3af44-d878-4112-ab8d-e8b8e5e1ec2d"
+        dataHash: "764b9f7d226d0371f477cc37cacb9ad84c0f8e19054ecd6ab0e02a6789f8b6af"
+      -
+        slug: "literalconfigartifactindex-timoni-redis-8-10-1-default"
+        id: "961bf077-77a5-49ff-aa5b-976687d6ef39"
+        dataHash: "375cf5b91940e2f6b73f7af9bbd50fdea7fdb336acf263bb24de24781bb9987e"
+      -
+        slug: "sourceandintent-timoni-redis-8-10-1-default"
+        id: "1a64c39f-3e60-4f3d-9d3c-d131685caa42"
+        dataHash: "3d5d80fa20c53ee499b14c72dc163f067bb3555776c08a1b16ddcb62d4a07c72"
+      -
+        slug: "sourcematerializationreceipt-timoni-redis-8-10-1-default"
+        id: "bc30aff8-1119-40ec-8567-00b6020daaf1"
+        dataHash: "904b17d0b96a6b92954e37fb87aa44108bc8f9b55620c18051774510d2d18f72"
+    readme:
+      id: "8a0620c9-0c1d-4fb4-aca9-5cadecd9143e"
+      dataHash: "0f709c7ba6ce3cada9a011bb6238ddd5cf035868b585ed5b51b6eba636a9a7f8"
+  development:
+    slug: "timoni-redis-8-10-1-dev"
+    id: "0407ede7-15ba-4c3f-a434-5a3c6f962375"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "timoni-redis-8-10-1"
+      Environment: "Development"
+      InputFormat: "LiteralOCI"
+      Layer: "Application"
+      Owner: "Application"
+      ResourceClass: "user-workload"
+      SourceType: "timoni"
+      Variant: "dev"
+    objectCount: 7
+    objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+    units:
+      -
+        slug: "redis-configmap-redis-dafa22b4"
+        id: "04607fd4-d46d-4be9-b84d-cf7d0920df97"
+        dataHash: "642ee837bca456090f39b6499073ca77ce01857297a9a1b2db007e4becefd276"
+        upstreamUnitId: "de0ee2b9-2121-4bf3-9807-47e5e50e78b0"
+      -
+        slug: "redis-deployment-redis-master"
+        id: "9e97cdcd-5ece-4f98-b75c-f24e9cae7e41"
+        dataHash: "b4d29c1b0040fc2c5f44d544e4d1d44e306a37756933dbde16998a013a0a4395"
+        upstreamUnitId: "c60a0f18-2599-4d71-9a0d-46111a82984b"
+      -
+        slug: "redis-deployment-redis-replica"
+        id: "ed518e88-3569-4176-8f19-c4e9fc3a1089"
+        dataHash: "2594e94549565f16c991d13390964cc78a666acfa35bfac9cd613f519cfd3b94"
+        upstreamUnitId: "d6d0d08c-1bed-4e9c-a280-412e941a98ce"
+      -
+        slug: "redis-persistentvolumeclaim-redis-master"
+        id: "86066033-41e4-439d-bca0-e36b12119374"
+        dataHash: "f57ebdd5f7a5612583646cc229740f96e28bd547dff7a21b1bd57d826fcfb61d"
+        upstreamUnitId: "35e4dd05-e62c-45db-935c-1997332959f4"
+      -
+        slug: "redis-serviceaccount-redis"
+        id: "d85968aa-4d22-44e3-87fd-74ce90877dc0"
+        dataHash: "7bff6a73ed34101c8725606d2b69fc98f9b2f5e88dbc5a09a78cf05a780732dd"
+        upstreamUnitId: "a5896e4a-54c6-4ee0-adff-5a266f29d05c"
+      -
+        slug: "redis-service-redis"
+        id: "586f9e48-b5ff-4ce1-80af-5d14cec3c735"
+        dataHash: "e877416062f38bb34a439beb116cf14ee93eac7fc9dbb02d3c42b6421153b148"
+        upstreamUnitId: "0485c5ef-ee95-40c5-b3a8-2913e246064d"
+      -
+        slug: "redis-service-redis-readonly"
+        id: "d2d5a8f0-d0f3-4cce-b182-d07814319fb8"
+        dataHash: "fbf36daac0eb801a8d967ad5f5436df3c40dca811bf42b411f18af81effb00cd"
+        upstreamUnitId: "79c34692-62a4-478c-ba8b-0d184af66438"
+    companionUnits:
+      []
+    readme:
+      id: "bf651937-fec8-460a-af3e-5e7b20d71b47"
+      dataHash: "cceb0119fdea8b9ce244262222b8ffb57e8ed118e1f5629b1e386b03c1ef270b"
+  variantRelationship:
+    upstreamSpaceId: "f59f90db-c499-4fa8-9465-0f44a900eec6"
+    downstreamSpaceId: "0407ede7-15ba-4c3f-a434-5a3c6f962375"
+    linkedUnits: 7
+    objectChange: "none"
+    environmentLabel: "Development"
+  policy:
+    profile: "catalog-standard"
+    checks:
+      - "aicr-training-images-pinned"
+      - "aicr-training-secret-refs"
+      - "digest-pinned-images"
+      - "lifecycle-route-evidence"
+      - "probes-declared"
+      - "vet-placeholders"
+      - "vet-schemas"
+  lifecycle:
+    routeIntent: "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+    resolution: "not-run-no-destination-selected"
+status:
+  result: "pass"
+  import: "pass"
+  derivedVariant: "pass"
+  routeExecution: "not-run"
+  kubernetesApply: "not-run"
+  argoCd: "not-run"
+  flux: "not-run"
+  claim: "ConfigHub retained the seven exact objects from the public Timoni Redis OCI and created a linked development variant with the same object set."
+  limits:
+    - "No destination is selected, so the master-first wait, replica ordering, and optional PING test are not resolved or executed."
+    - "The development variant currently changes environment metadata only; its Kubernetes objects intentionally match the base."

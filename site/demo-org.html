@@ -526,7 +526,7 @@
         <p>You can read the same material without signing in through the <a href="d/data/helm-catalog-readmes/summary.html">demo org README index</a>.</p>
       <div class="card"><table>
         <thead><tr><th>README kind</th><th>Spaces</th></tr></thead>
-        <tbody><tr><td>preset</td><td>21</td></tr><tr><td>environment</td><td>13</td></tr><tr><td>fleet</td><td>5</td></tr><tr><td>pilot</td><td>1</td></tr><tr><td>route</td><td>2</td></tr><tr><td>org</td><td>2</td></tr><tr><td>total</td><td>50</td></tr></tbody>
+        <tbody><tr><td>preset</td><td>21</td></tr><tr><td>environment</td><td>22</td></tr><tr><td>fleet</td><td>5</td></tr><tr><td>pilot</td><td>1</td></tr><tr><td>route</td><td>2</td></tr><tr><td>org</td><td>2</td></tr><tr><td>total</td><td>68</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -666,7 +666,7 @@ cub k8s get crd --space "*"</code></pre>
       </style>
         <p>The lifecycle check validates a route that is present. It does not guess that a missing route means no lifecycle work exists. The source and intent record and chart review must first identify any hooks, CRDs, setup jobs, or target prerequisites.</p>
         <p>The same policy can cover Helm, AICR, Kubara, Sveltos, or ordinary YAML after ConfigHub stores the objects.</p>
-        <p>The live org has 33 Spaces on common tests and 9 on the approval policy. The approval set contains 4 production Spaces and 5 system-configuration Spaces. These Spaces include AICR 3, cub installer 30, Helm 3, Kubara 1, rendered Kubernetes config 4, Sveltos 1. Each records its policy profile and starting format.</p>
+        <p>The live org has 35 Spaces on common tests and 13 on the approval policy. The approval set contains 5 production Spaces and 8 system-configuration Spaces. These Spaces include AICR 6, cub installer 31, Helm 3, Kubara 1, rendered Kubernetes config 4, Sveltos 1, timoni 2. Each records its policy profile and starting format.</p>
         <p><code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with committed catalog and policy receipts.</p>
         <p class="quiet-line">The builder and receipts live under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>. The org is named <code>helm-catalog</code> and is member-visible today. Other readers can use the committed receipts, these pages, and the walkthroughs.</p>
     </section>

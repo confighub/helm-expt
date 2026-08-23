@@ -3,6 +3,7 @@
   "source": "examples/timoni/redis-8-10-1/source-lock.yaml",
   "objectCount": 7,
   "fileSha256": "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b",
+  "canonicalObjectSetSha256": "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2",
   "kindCounts": {
     "ConfigMap": 1,
     "Deployment": 2,

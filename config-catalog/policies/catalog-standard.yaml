@@ -13,6 +13,7 @@ spec:
     - cub-installer
     - kubara
     - sveltos
+    - timoni
     - rendered-config
   definitionSpace:
     ref: platform
@@ -307,7 +308,7 @@ spec:
     - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
     - The platform Space stores the Trigger definitions but does not apply them to its own administrative Units.
 status:
-  lastRecorded: "2026-07-30"
+  lastRecorded: "2026-08-23"
   liveReverified: true
   evidence:
     - data/helm-org/summary.md

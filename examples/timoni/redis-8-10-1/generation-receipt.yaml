@@ -24,7 +24,8 @@ spec:
     objects: "examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
     inventory: "examples/timoni/redis-8-10-1/rendered/object-inventory.json"
     objectCount: 7
-    objectSetSha256: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+    fileSha256: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+    objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
     kinds:
       ConfigMap: 1
       Deployment: 2

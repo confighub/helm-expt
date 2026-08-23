@@ -20,6 +20,7 @@ const starts = [
   "index.html",
   "guides.html",
   "ask.html",
+  "promote.html",
   "charts/index.html",
   "try.html",
   "testing.html",
@@ -64,6 +65,7 @@ const personas = [
       g("conversion", "D-X2", "compare development and production", ["development", "production", "diff"], [["development", "dev"], ["production", "prod"], ["diff", "variant", "compare"]], ["variant", "promote", "tutorial"]),
       g("conversion", "D-X3", "promote a reviewed change", ["promote", "reviewed", "change"], [["promote", "promotion"], ["reviewed", "approval"]], ["tutorial", "variant", "promote"]),
       g("conversion", "D-X4", "continue into ConfigHub", ["confighub", "account", "tutorial"], [["confighub"], ["account"], ["tutorial", "create"]], ["create an account", "open the tutorial"]),
+      g("action", "D-A5", "check whether my exact change can move safely", ["exact change", "move", "safe"], [["exact configuration"], ["next stage"], ["what blocks it"], ["current result"]], ["compare my rendered yaml", "build a promotion review"]),
     ],
   },
   {
@@ -91,6 +93,7 @@ const personas = [
       g("conversion", "O-X2", "promote and publish a release", ["promote", "publish", "release"], [["promote"], ["release"], ["publish", "oci"]], ["tutorial", "promotion", "release"]),
       g("conversion", "O-X3", "compare desired and live state", ["desired", "live", "compare"], [["desired"], ["live"], ["compare", "observation"]], ["connect", "observe", "guide"]),
       g("conversion", "O-X4", "keep GitOps while adding ConfigHub", ["keep", "gitops", "confighub"], [["configHub"], ["argo cd", "flux", "gitops"], ["keep", "remain"]], ["guide", "account", "tutorial"]),
+      g("action", "O-A5", "check lifecycle work before the next environment", ["lifecycle", "next environment", "test"], [["hooks", "crds"], ["next stage", "destination"], ["test", "block"]], ["build a promotion review", "source and intent"]),
     ],
   },
   {
@@ -118,6 +121,7 @@ const personas = [
       g("conversion", "P-X2", "keep configuration history", ["history", "configuration", "diff"], [["history", "record"], ["configuration"], ["diff", "change"]], ["account", "tutorial"]),
       g("conversion", "P-X3", "connect Git OCI and live targets", ["git", "oci", "live", "target"], [["git"], ["oci"], ["live", "target", "observation"]], ["guide", "connect", "publish"]),
       g("conversion", "P-X4", "operate a small fleet", ["fleet", "operate", "rollout"], [["fleet"], ["rollout", "cluster"], ["configHub"]], ["example", "walkthrough", "account"]),
+      g("action", "P-A5", "review ordered stages and a partial fleet", ["ordered", "stage", "partial fleet"], [["pilot"], ["staging"], ["production"], ["partial", "not run"]], ["promotion review", "target results", "what has run"]),
     ],
   },
   {
@@ -145,6 +149,7 @@ const personas = [
       g("conversion", "S-X2", "relate source release and live state", ["source", "release", "live"], [["source", "git", "oci"], ["release"], ["live", "observation"]], ["connect", "guide", "account"]),
       g("conversion", "S-X3", "audit an exact diff", ["audit", "exact", "diff"], [["diff"], ["exact", "field"], ["audit", "record", "review"]], ["account", "tutorial"]),
       g("conversion", "S-X4", "see why ConfigHub is more than a scanner", ["confighub", "change", "promote"], [["configHub"], ["change", "variant"], ["promote", "release", "approve"]], ["create an account", "tutorial"]),
+      g("action", "S-A5", "check current evidence before approving a move", ["current", "evidence", "approve"], [["current result"], ["proved", "partial"], ["approval", "gate"]], ["review", "evidence", "receipt"]),
     ],
   },
 ];
@@ -414,6 +419,18 @@ function aggregate(rows) {
   };
 }
 
+function journeyShape(rows) {
+  return [...new Set(rows.map((row) => {
+    let startPath = row.start_url;
+    try {
+      startPath = new URL(row.start_url).pathname;
+    } catch {
+      // Older result files may contain a relative start URL.
+    }
+    return `${row.persona}|${row.goal_code}|${startPath}`;
+  }))].sort();
+}
+
 function markdown(journeys, language, baselineJourneys = []) {
   const lines = [
     "# Public-site persona simulations",
@@ -463,6 +480,20 @@ function markdown(journeys, language, baselineJourneys = []) {
   const currentPreferred = language.filter((row) => row.preferred_label === currentLabel).length;
   lines.push("", `The current label \`${currentLabel}\` was preferred in ${currentPreferred} of ${language.length} synthetic trials. The page itself must explain that it builds a prompt for the visitor's own AI assistant; the navigation label does not have to carry that whole explanation.`, "");
   if (baselineJourneys.length) {
+    const baselineShape = journeyShape(baselineJourneys);
+    const candidateShape = journeyShape(journeys);
+    const comparable = baselineJourneys.length === journeys.length
+      && baselineShape.length === candidateShape.length
+      && baselineShape.every((value, index) => value === candidateShape[index]);
+    if (!comparable) {
+      lines.push(
+        "## Baseline comparison",
+        "",
+        `No direct comparison was made. The baseline has ${baselineJourneys.length} journeys and the candidate has ${journeys.length}; their goals or starting pages differ.`,
+        "",
+      );
+      return `${lines.join("\n").trimEnd()}\n`;
+    }
     const before = aggregate(baselineJourneys);
     const after = aggregate(journeys);
     const percent = (value, total) => total ? `${(value * 100 / total).toFixed(1)}%` : "n/a";

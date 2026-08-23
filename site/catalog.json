@@ -40622,6 +40622,14 @@
       "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-prometheus-29-8-0-server-only-ephemeral/readme.yaml"
     },
     {
+      "space": "ack-controllers-workshop-proof",
+      "kind": "environment",
+      "title": "ACK controllers: workshop configuration",
+      "summary": "This Space starts from `ack-controllers-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/ack-controllers-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/ack-controllers-workshop-proof/readme.yaml"
+    },
+    {
       "space": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development",
       "kind": "environment",
       "title": "Review an AICR platform change in development",
@@ -40652,6 +40660,14 @@
       "summary": "Staging receives the reviewed Grafana Secret-reference change from development while the other 16 Applications remain unchanged.",
       "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/readme.yaml"
+    },
+    {
+      "space": "aws-network-workshop-proof",
+      "kind": "environment",
+      "title": "AWS network: workshop configuration",
+      "summary": "This Space starts from `aws-network-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/aws-network-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aws-network-workshop-proof/readme.yaml"
     },
     {
       "space": "bitnami-redis-base",
@@ -40694,6 +40710,22 @@
       "unit_source_path": "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-staging/readme.yaml"
     },
     {
+      "space": "eks-cluster-workshop-proof",
+      "kind": "environment",
+      "title": "EKS cluster: workshop configuration",
+      "summary": "This Space starts from `eks-cluster-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/eks-cluster-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/eks-cluster-workshop-proof/readme.yaml"
+    },
+    {
+      "space": "gpu-runtime-workshop-proof",
+      "kind": "environment",
+      "title": "GPU runtime: workshop configuration",
+      "summary": "This Space starts from `gpu-runtime-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/gpu-runtime-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/gpu-runtime-workshop-proof/readme.yaml"
+    },
+    {
       "space": "hashicorp-vault-demo-base",
       "kind": "environment",
       "title": "Vault base application",
@@ -40726,6 +40758,54 @@
       "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-env-staging/readme.yaml"
     },
     {
+      "space": "inference-workloads-workshop-proof",
+      "kind": "environment",
+      "title": "Inference workloads: workshop configuration",
+      "summary": "This Space starts from `inference-workloads-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/inference-workloads-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/inference-workloads-workshop-proof/readme.yaml"
+    },
+    {
+      "space": "karpenter-aws-workshop-proof",
+      "kind": "environment",
+      "title": "Karpenter AWS identity: workshop configuration",
+      "summary": "This Space starts from `karpenter-aws-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/karpenter-aws-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/karpenter-aws-workshop-proof/readme.yaml"
+    },
+    {
+      "space": "karpenter-workshop-proof",
+      "kind": "environment",
+      "title": "Karpenter: workshop configuration",
+      "summary": "This Space starts from `karpenter-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/karpenter-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/karpenter-workshop-proof/readme.yaml"
+    },
+    {
+      "space": "platform-profile-workshop-proof",
+      "kind": "environment",
+      "title": "Platform profile: workshop configuration",
+      "summary": "This Space starts from `platform-profile-base` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.",
+      "source_path": "data/helm-catalog-readmes/spaces/platform-profile-workshop-proof/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/platform-profile-workshop-proof/readme.yaml"
+    },
+    {
+      "space": "timoni-redis-8-10-1-dev",
+      "kind": "environment",
+      "title": "Timoni Redis development variant",
+      "summary": "A linked development variant of the retained Timoni Redis base, ready for a destination-specific change and lifecycle test.",
+      "source_path": "data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/timoni-redis-8-10-1-dev/readme.yaml"
+    },
+    {
+      "space": "ack-controllers-base",
+      "kind": "source",
+      "title": "ACK controllers: checked source configuration",
+      "summary": "This Space keeps the checked ack controllers configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/ack-controllers-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/ack-controllers-base/readme.yaml"
+    },
+    {
       "space": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
       "kind": "source",
       "title": "AICR GPU platform configuration",
@@ -40742,6 +40822,14 @@
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/readme.yaml"
     },
     {
+      "space": "aws-network-base",
+      "kind": "source",
+      "title": "AWS network: checked source configuration",
+      "summary": "This Space keeps the checked aws network configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/aws-network-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aws-network-base/readme.yaml"
+    },
+    {
       "space": "byo-nginx-ai-values-24-0-2-reviewed",
       "kind": "source",
       "title": "Bring your own Helm values",
@@ -40750,12 +40838,52 @@
       "unit_source_path": "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml"
     },
     {
+      "space": "eks-cluster-base",
+      "kind": "source",
+      "title": "EKS cluster: checked source configuration",
+      "summary": "This Space keeps the checked eks cluster configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/eks-cluster-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/eks-cluster-base/readme.yaml"
+    },
+    {
       "space": "existing-oci-nginx-replicas-4",
       "kind": "source",
       "title": "Import an existing OCI",
       "summary": "A public OCI containing five reviewed NGINX objects becomes a ConfigHub base without rerendering Helm.",
       "source_path": "data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/existing-oci-nginx-replicas-4/readme.yaml"
+    },
+    {
+      "space": "gpu-runtime-base",
+      "kind": "source",
+      "title": "GPU runtime: checked source configuration",
+      "summary": "This Space keeps the checked gpu runtime configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/gpu-runtime-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/gpu-runtime-base/readme.yaml"
+    },
+    {
+      "space": "inference-workloads-base",
+      "kind": "source",
+      "title": "Inference workloads: checked source configuration",
+      "summary": "This Space keeps the checked inference workloads configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/inference-workloads-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/inference-workloads-base/readme.yaml"
+    },
+    {
+      "space": "karpenter-aws-base",
+      "kind": "source",
+      "title": "Karpenter AWS identity: checked source configuration",
+      "summary": "This Space keeps the checked karpenter aws identity configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/karpenter-aws-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/karpenter-aws-base/readme.yaml"
+    },
+    {
+      "space": "karpenter-base",
+      "kind": "source",
+      "title": "Karpenter: checked source configuration",
+      "summary": "This Space keeps the checked karpenter configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/karpenter-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/karpenter-base/readme.yaml"
     },
     {
       "space": "kubara-local-platform-v0-12-0",
@@ -40772,6 +40900,22 @@
       "summary": "Four ordinary Kubernetes YAML files become four ConfigHub Units without a chart or render step.",
       "source_path": "data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/plain-yaml-acme-web-base/readme.yaml"
+    },
+    {
+      "space": "platform-profile-base",
+      "kind": "source",
+      "title": "Platform profile: checked source configuration",
+      "summary": "This Space keeps the checked platform profile configuration used by the EKS inference example. It is the unchanged starting point for later environments.",
+      "source_path": "data/helm-catalog-readmes/spaces/platform-profile-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/platform-profile-base/readme.yaml"
+    },
+    {
+      "space": "timoni-redis-8-10-1-base",
+      "kind": "source",
+      "title": "Timoni Redis base",
+      "summary": "Seven Kubernetes objects built from an immutable Timoni module, with its master-first apply order kept beside the objects.",
+      "source_path": "data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/timoni-redis-8-10-1-base/readme.yaml"
     },
     {
       "space": "bitnami-nginx-fleet-dev",

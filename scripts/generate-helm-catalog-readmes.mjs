@@ -11,6 +11,12 @@ const spacesRoot = join(root, "spaces");
 const unitsRoot = join(root, "units");
 const wave1Path = join(repoRoot, "data", "helm-org", "wave1.csv");
 const guideCsvPath = join(repoRoot, "data", "confighub-example-guides", "guides.csv");
+const eksInferenceSandboxReceiptPath = join(
+  repoRoot,
+  "runs",
+  "eks-inference-sandbox-proof",
+  "receipt.yaml",
+);
 const outputPaths = {
   summary: join(root, "summary.md"),
   csv: join(root, "readmes.csv"),
@@ -31,6 +37,65 @@ const FORBIDDEN_HUMAN_PHRASES = [
   "same-map departure",
   "curated proof lane",
   "bespoke teaching needed",
+];
+
+const EKS_INFERENCE_COMPONENTS = [
+  {
+    name: "platform-profile",
+    title: "Platform profile",
+    plane: "ConfigHub",
+    order: 0,
+    purpose: "This Space records the shared AWS, cluster, network, and workload settings used by the other components. It is input to ConfigHub, not a Kubernetes workload.",
+  },
+  {
+    name: "ack-controllers",
+    title: "ACK controllers",
+    plane: "management cluster",
+    order: 0,
+    purpose: "This component installs the AWS controllers and CRDs that let Kubernetes objects create EC2, IAM, and EKS resources.",
+  },
+  {
+    name: "aws-network",
+    title: "AWS network",
+    plane: "management cluster",
+    order: 1,
+    purpose: "This component defines the VPC, subnets, routes, NAT gateway, and security group required by the EKS cluster.",
+  },
+  {
+    name: "eks-cluster",
+    title: "EKS cluster",
+    plane: "management cluster",
+    order: 2,
+    purpose: "This component defines the EKS control plane, IAM roles, add-ons, and first system node group.",
+  },
+  {
+    name: "karpenter-aws",
+    title: "Karpenter AWS identity",
+    plane: "management cluster",
+    order: 3,
+    purpose: "This component defines the AWS IAM role and EKS Pod Identity association used by Karpenter.",
+  },
+  {
+    name: "karpenter",
+    title: "Karpenter",
+    plane: "EKS workload cluster",
+    order: 0,
+    purpose: "This component installs Karpenter's controller, CRDs, NodePools, and EC2NodeClasses for creating workload and GPU nodes.",
+  },
+  {
+    name: "gpu-runtime",
+    title: "GPU runtime",
+    plane: "EKS workload cluster",
+    order: 1,
+    purpose: "This component installs the NVIDIA device plugin that makes installed GPUs visible to Kubernetes workloads.",
+  },
+  {
+    name: "inference-workloads",
+    title: "Inference workloads",
+    plane: "EKS workload cluster",
+    order: 2,
+    purpose: "This component contains the CPU and GPU checks, chat client, and sample vLLM workload used by the inference example.",
+  },
 ];
 
 const DEMO_SPACES = [
@@ -335,6 +400,81 @@ const DEMO_SPACES = [
       "The artifact is public and digest-pinned, but this example does not claim a provenance signature.",
       "Direct import of an OCI with companion JSON records is supported in cub v0.2.6 and later. Run cub upgrade before using this path with an older client.",
       "The ConfigHub receipt proves import only. Deployment, promotion, rollback, and workload health are separate examples.",
+    ],
+  },
+  {
+    space: "timoni-redis-8-10-1-base",
+    title: "Timoni Redis base",
+    kind: "source",
+    summary: "Seven Kubernetes objects built from an immutable Timoni module, with its master-first apply order kept beside the objects.",
+    shows: [
+      "The Timoni module version, module digest, typed configuration, and selected values are recorded before materialization.",
+      "The seven exact Kubernetes objects are available in a separate public configuration OCI.",
+      "ConfigHub stores the same seven objects and records the configuration OCI digest on the Space.",
+      "The master-first wait, replica ordering, optional PING test, namespace, Kubernetes version, and StorageClass remain explicit lifecycle work.",
+    ],
+    open: [
+      "This README.",
+      "The seven Kubernetes Units to inspect the exact objects.",
+      "The Space annotations to see the immutable configuration OCI source.",
+    ],
+    why: [
+      "A typed module produces Kubernetes objects, but the objects alone do not explain the source choice or the order in which the module normally applies them.",
+      "This example keeps the source, exact objects, and lifecycle work together without treating the Timoni module OCI and the configuration OCI as the same artifact.",
+    ],
+    evidence: [
+      ["Timoni example guide", "examples/timoni/redis-8-10-1/README.md"],
+      ["Source and intent", "examples/timoni/redis-8-10-1/source-lock.yaml"],
+      ["Lifecycle route intent", "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"],
+      ["Public configuration OCI receipt", "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml"],
+      ["ConfigHub receipt", "runs/timoni-redis-catalog-proof/confighub-receipt.yaml"],
+      ["Combined proof summary", "data/timoni-redis-catalog-proof/summary.md"],
+    ],
+    settingSources: {
+      startingPoint: "The source record pins Timoni Redis 8.10.1 by module digest and records the selected default values and typed schema.",
+      configHub: "The base imports the seven materialized objects without changing a field. Later ConfigHub revisions must remain distinct from the Timoni source selection.",
+      installWork: "Create the `redis` namespace, provide Kubernetes 1.20 or newer and the `standard` StorageClass, apply the master objects first, wait for the master, then apply the read-only replica. The PING test remains optional and disabled by default.",
+      liveCluster: "No destination is selected for this base, so the lifecycle work, admission, readiness, PING, upgrade, and rollback have not run.",
+    },
+    limits: [
+      "Publication and ConfigHub import are proved. Kubernetes apply, Argo CD, Flux, workload health, upgrade, and rollback are not run.",
+      "The public artifact is digest-pinned but is not claimed to have a provenance signature.",
+    ],
+  },
+  {
+    space: "timoni-redis-8-10-1-dev",
+    title: "Timoni Redis development variant",
+    kind: "environment",
+    summary: "A linked development variant of the retained Timoni Redis base, ready for a destination-specific change and lifecycle test.",
+    shows: [
+      "All seven workload Units link back to the retained base.",
+      "The development variant currently changes environment metadata only, so its Kubernetes object-set hash matches the base.",
+      "A later object change can be reviewed separately from the original Timoni values and module digest.",
+      "Lifecycle work must be resolved again when a destination or lifecycle-sensitive change is selected.",
+    ],
+    open: [
+      "This README.",
+      "The linked workload Units and their upstream base Units.",
+      "The base Space for the source OCI, typed inputs, and lifecycle record.",
+    ],
+    why: [
+      "An environment variant should not silently change the source identity or discard the module's operating requirements.",
+      "This empty development branch establishes the relationship first. A later test can add one deliberate change and bind the route to a real destination.",
+    ],
+    evidence: [
+      ["Timoni example guide", "examples/timoni/redis-8-10-1/README.md"],
+      ["Lifecycle route intent", "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"],
+      ["ConfigHub receipt", "runs/timoni-redis-catalog-proof/confighub-receipt.yaml"],
+      ["Combined proof summary", "data/timoni-redis-catalog-proof/summary.md"],
+    ],
+    settingSources: {
+      startingPoint: "The upstream base records the immutable Timoni module, typed values, exact seven-object output, and public configuration OCI.",
+      configHub: "This variant adds the Development environment label. It deliberately makes no Kubernetes field change yet.",
+      installWork: "The master-first wait, replica ordering, optional PING test, namespace, Kubernetes version, and StorageClass requirements are inherited from the base and still need a selected executor.",
+      liveCluster: "No target or cluster is attached, so there is no admission, readiness, PING, delivery, or rollback result.",
+    },
+    limits: [
+      "This proves the linked variant structure and matching object sets, not a deployed development environment.",
     ],
   },
   {
@@ -851,11 +991,16 @@ function buildReport() {
   }
 
   for (const model of DEMO_SPACES) readmes.push(buildDemoReadme(model));
+  for (const model of buildEksInferenceDemoSpaces()) readmes.push(buildDemoReadme(model));
 
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 50, `expected 50 helm-catalog README files, got ${readmes.length}`);
+  const expectedReadmes = waveRows.length + DEMO_SPACES.length + (EKS_INFERENCE_COMPONENTS.length * 2);
+  check(
+    readmes.length === expectedReadmes,
+    `expected ${expectedReadmes} helm-catalog README files, got ${readmes.length}`,
+  );
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {
@@ -863,6 +1008,128 @@ function buildReport() {
     summary: summaryMd(readmes),
     csv: csvMd(readmes),
   };
+}
+
+function buildEksInferenceDemoSpaces() {
+  check(
+    existsSync(eksInferenceSandboxReceiptPath),
+    "runs/eks-inference-sandbox-proof/receipt.yaml is missing",
+  );
+  const sandbox = readYaml(eksInferenceSandboxReceiptPath);
+  const retained = sandbox.spec?.sandbox?.components ?? [];
+  const retainedByName = new Map(retained.map((component) => [component.component, component]));
+
+  return EKS_INFERENCE_COMPONENTS.flatMap((definition) => {
+    const component = retainedByName.get(definition.name);
+    check(component, `EKS inference sandbox receipt is missing ${definition.name}`);
+    const sourceReceiptPath = component.source?.receipt;
+    check(sourceReceiptPath, `EKS inference sandbox receipt has no source receipt for ${definition.name}`);
+    const sourceReceipt = readYaml(join(repoRoot, sourceReceiptPath));
+    const routeRoles = (sourceReceipt.spec?.bundle?.files ?? [])
+      .map((file) => file.role ?? "")
+      .filter((role) => role.startsWith("route:"))
+      .map((role) => role.replace(/^route:\s*/, ""));
+    const sourceKind = sourceReceipt.spec?.source?.kind ?? "recorded configuration";
+    const sourceKindLabel = {
+      "helm-chart": "a Helm chart",
+      "literal-yaml": "literal Kubernetes YAML",
+    }[sourceKind] ?? sourceKind.replaceAll("-", " ");
+    const routeRoleLabels = routeRoles.map((role) => {
+      const labels = {
+        "crd-ordering": "installing CRDs before the objects that use them",
+        "hook-routing": "running setup and cleanup Jobs in the required order",
+        prerequisites: "checking target prerequisites",
+      };
+      return labels[role] ?? role.replaceAll("-", " ");
+    });
+    const sourceRef = `${component.source.ref}@${component.source.digest}`;
+    const release = component.release;
+    const routeSummary = routeRoleLabels.length
+      ? `Delivery must also handle ${routeRoleLabels.join(", ")}.`
+      : "No separate lifecycle route is recorded for this component.";
+    const sourceSummary = sourceKind === "literal-yaml"
+      ? "The source already contains literal Kubernetes YAML, so no renderer runs for this component."
+      : `The source is ${sourceKindLabel}. Its output is retained as exact Kubernetes objects.`;
+    const commonEvidence = [
+      ["Exact source and package receipt", sourceReceiptPath],
+      ["Eight-component EKS inference guide", "data/certified-bundles/eks-inference-stack.md"],
+      ["ConfigHub sandbox result", "data/eks-inference-sandbox-proof/summary.md"],
+    ];
+
+    const baseModel = {
+      space: component.base.space,
+      title: `${definition.title}: checked source configuration`,
+      kind: "source",
+      summary: `This Space keeps the checked ${definition.title.toLowerCase()} configuration used by the EKS inference example. It is the unchanged starting point for later environments.`,
+      why: [
+        definition.purpose,
+        "The source stays separate from environment settings, so a reviewer can see exactly what ConfigHub changes later.",
+      ],
+      shows: [
+        `The exact public source is \`${sourceRef}\`.`,
+        `${component.base.unitCount} ConfigHub ${component.base.unitCount === 1 ? "Unit holds" : "Units hold"} the Kubernetes configuration for this component.`,
+        `${sourceSummary} ${routeSummary}`,
+        `This component belongs in the ${definition.plane}. It is step ${definition.order + 1} for that part of the installation.`,
+      ],
+      open: [
+        "This README.",
+        "The Kubernetes Units to inspect the exact source configuration.",
+        `\`${component.variant.space}\` to see the linked workshop configuration.`,
+      ],
+      evidence: commonEvidence,
+      settingSources: {
+        startingPoint: `The base was uploaded from \`${sourceRef}\`. The source digest is recorded on the Space.`,
+        configHub: "This base has no environment-specific edit. ConfigHub variants start from these Units and record later changes separately.",
+        installWork: routeSummary,
+        liveCluster: "This base was inspected in ConfigHub. The sandbox did not create AWS resources, a Kubernetes cluster, a GPU node, or a model endpoint.",
+      },
+      limits: [
+        "This Space proves the retained configuration and source identity. It does not prove that the component ran on AWS or Kubernetes.",
+      ],
+    };
+
+    const profileChange = component.variant.profilePathCount
+      ? `${component.variant.profilePathCount} destination ${component.variant.profilePathCount === 1 ? "field is" : "fields are"} filled through ${component.variant.profileLinkCount} ${component.variant.profileLinkCount === 1 ? "link" : "links"} from the shared platform profile.`
+      : "This component does not need a linked destination field in the workshop sandbox.";
+    const releaseSummary = release
+      ? `ConfigHub published release OCI #${release.number} with manifest digest \`${release.manifestDigest}\`.`
+      : "This shared profile is ConfigHub input data, so it does not publish a deployable release OCI.";
+    const variantModel = {
+      space: component.variant.space,
+      title: `${definition.title}: workshop configuration`,
+      kind: "environment",
+      summary: `This Space starts from \`${component.base.space}\` and records the settings used by the EKS inference workshop. The workshop runs in ConfigHub without creating AWS or Kubernetes resources.`,
+      why: [
+        "A reusable source still needs the AWS, cluster, network, and workload settings for its destination.",
+        "This Space records those settings separately from the public base. A reviewer can inspect the changes without rebuilding the source.",
+      ],
+      shows: [
+        component.variant.unitCount === 1
+          ? `The Unit retains an upstream link to \`${component.base.space}\`.`
+          : `All ${component.variant.unitCount} Units retain an upstream link to \`${component.base.space}\`.`,
+        profileChange,
+        `The placeholder check found ${component.variant.placeholderHits} unfinished ${component.variant.placeholderHits === 1 ? "value" : "values"}.`,
+        releaseSummary,
+      ],
+      open: [
+        "This README.",
+        "Unit revision history to see the fields supplied for the workshop.",
+        `\`${component.base.space}\` to inspect the unchanged public starting configuration.`,
+      ],
+      evidence: commonEvidence,
+      settingSources: {
+        startingPoint: `This Space is derived from \`${component.base.space}\`, which is pinned to \`${sourceRef}\`.`,
+        configHub: profileChange,
+        installWork: routeSummary,
+        liveCluster: "The workshop checked ConfigHub records and OCI publication only. It did not create AWS, EKS, GPU, or model-serving resources.",
+      },
+      limits: [
+        "A published OCI is a configuration result, not proof that Argo CD, Flux, Kubernetes, a GPU, or a model consumed it.",
+      ],
+    };
+
+    return [baseModel, variantModel];
+  });
 }
 
 function buildPresetReadme(row, guide) {
@@ -1147,6 +1414,7 @@ ${[...byKind.entries()].sort((a, b) => sortKind(a[0]).localeCompare(sortKind(b[0
 - README text: \`data/helm-catalog-readmes/spaces/<space>/README.md\`
 - Upload YAML: \`data/helm-catalog-readmes/units/<space>/readme.yaml\`
 - Inventory: [readmes.csv](./readmes.csv)
+- Live-Space classification: [config-catalog/live-space-readme-policy.yaml](../../config-catalog/live-space-readme-policy.yaml)
 
 ## Spaces
 

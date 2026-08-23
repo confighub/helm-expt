@@ -4,13 +4,14 @@ import { spawnSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, readYamlText, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
+import { check, readYaml, readYamlText, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--check";
 const spaceArgIndex = process.argv.indexOf("--space");
 const requestedSpace = spaceArgIndex === -1 ? "" : process.argv[spaceArgIndex + 1];
 check(spaceArgIndex === -1 || requestedSpace, "--space requires a generated Space slug");
 const unitsRoot = join(repoRoot, "data", "helm-catalog-readmes", "units");
+const policyPath = join(repoRoot, "config-catalog", "live-space-readme-policy.yaml");
 const changeDesc = "Refresh helm-catalog demo README";
 const cubContext = process.env.CUB_CONTEXT ?? "";
 
@@ -57,11 +58,60 @@ if (mode === "--upload") {
   }
   verifyLive(spaces);
 } else if (mode === "--check") {
-  verifyLive(sourceSpaces());
+  const spaces = sourceSpaces();
+  verifyLive(spaces);
+  if (!requestedSpace) auditCoverage(spaces);
 } else {
   console.log(`Usage:
   node scripts/upload-helm-catalog-readmes.mjs --upload [--space <slug>]
   node scripts/upload-helm-catalog-readmes.mjs --check [--space <slug>]`);
+}
+
+function auditCoverage(durableSpaces) {
+  check(existsSync(policyPath), `${relativeRepo(policyPath)} is missing`);
+  const policy = readYaml(policyPath).spec ?? {};
+  const supporting = new Map(
+    (policy.supporting ?? []).map((entry) => [entry.space, entry.reason]),
+  );
+  const temporaryPatterns = (policy.temporaryPatterns ?? []).map((entry) => ({
+    ...entry,
+    regex: new RegExp(entry.pattern),
+  }));
+  const durable = new Set(durableSpaces);
+  const live = listSpaces();
+  const unclassified = [];
+  let supportingCount = 0;
+  let temporaryCount = 0;
+
+  for (const space of live) {
+    if (durable.has(space)) continue;
+    if (supporting.has(space)) {
+      supportingCount += 1;
+      continue;
+    }
+    if (temporaryPatterns.some((entry) => entry.regex.test(space))) {
+      temporaryCount += 1;
+      continue;
+    }
+    unclassified.push(space);
+  }
+
+  const missingDurable = durableSpaces.filter((space) => !live.includes(space));
+  check(
+    missingDurable.length === 0,
+    `durable README Space(s) missing live: ${missingDurable.join(", ")}`,
+  );
+  check(
+    unclassified.length === 0,
+    `live Space(s) have no README classification: ${unclassified.join(", ")}`,
+  );
+  for (const space of supporting.keys()) {
+    check(live.includes(space), `supporting Space ${space} is not live`);
+    check(!durable.has(space), `Space ${space} is both durable and supporting`);
+  }
+  console.log(
+    `classified ${live.length} live helm-catalog Space(s): ${durableSpaces.length} durable, ${supportingCount} supporting, ${temporaryCount} temporary`,
+  );
 }
 
 function sourceSpaces() {
@@ -121,6 +171,19 @@ function listUnits(space) {
   });
   check(result.status === 0, `cub unit list failed for ${space}: ${result.stderr || result.stdout}`);
   return JSON.parse(result.stdout || "[]");
+}
+
+function listSpaces() {
+  const result = spawnSync("cub", [...contextArgs(), "space", "list", "--quiet", "-o", "json"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024 * 100,
+  });
+  check(result.status === 0, `cub space list failed: ${result.stderr || result.stdout}`);
+  return JSON.parse(result.stdout || "[]")
+    .map((item) => item.Space?.Slug)
+    .filter(Boolean)
+    .sort();
 }
 
 function runCub(args) {

@@ -85,6 +85,105 @@ check(partial.overall === "partial" && partial.counts.pass === 1 && partial.coun
 const mismatch = tools.parseTargetResults("staging | pass | healthy | sha256:" + "b".repeat(64), [], digest);
 check(mismatch.overall === "blocked" && !mismatch.targets[0].digestMatches, "mismatched target digest was not blocked");
 
+const passingWorkflow = (reconciliation = "argo-cd") => ({
+  candidateDigest: digest,
+  initiatedBy: "ci",
+  responsibilities: {
+    changeManagement: "ConfigHub",
+    reconciliation,
+    runtimeRollout: "Sveltos",
+  },
+  stages: [
+    {
+      name: "pilot",
+      targets: [{ name: "pilot-a", status: "pass", digest, observedAt: "2026-08-23T10:00:00Z" }],
+      gates: [{ type: "policy", status: "pass", candidateDigest: digest }],
+    },
+    {
+      name: "staging",
+      targets: [{ name: "staging-a", status: "pass", digest, observedAt: "2026-08-23T10:10:00Z" }],
+      gates: [
+        { type: "compatibility", status: "pass", candidateDigest: digest },
+        { type: "approval", status: "pass", candidateDigest: digest },
+        { type: "soak", status: "pass", candidateDigest: digest },
+      ],
+    },
+    {
+      name: "production",
+      parallel: true,
+      targets: [
+        { name: "prod-a", status: "pass", digest, observedAt: "2026-08-23T10:20:00Z" },
+        { name: "prod-b", status: "pass", digest, observedAt: "2026-08-23T10:20:00Z" },
+      ],
+      gates: [{ type: "approval", status: "pass", candidateDigest: digest }],
+    },
+  ],
+  events: [{ type: "write", operationId: "publish-production" }],
+});
+
+const orderedWorkflow = tools.evaluateChangeWorkflow(passingWorkflow());
+check(orderedWorkflow.overall === "pass", "ordered pilot, staging, and production workflow did not pass");
+check(orderedWorkflow.initiatedBy === "ci", "CI initiation was not retained");
+check(orderedWorkflow.stages[2].parallel && orderedWorkflow.stages[2].counts.pass === 2, "parallel production targets were not retained");
+check(orderedWorkflow.responsibilities.separated, "ConfigHub, Argo CD, and runtime rollout responsibilities were not separated");
+
+const staleWorkflow = passingWorkflow();
+staleWorkflow.stages[1].gates[0].candidateDigest = `sha256:${"b".repeat(64)}`;
+staleWorkflow.stages[1].targets[0].digest = `sha256:${"b".repeat(64)}`;
+const staleResult = tools.evaluateChangeWorkflow(staleWorkflow);
+check(staleResult.stages[1].decision === "blocked", "stale gate and target evidence did not block the stage");
+check(staleResult.stages[2].blockers.includes("The previous stage has not passed."), "a later stage ignored a failed prior stage");
+
+const partialFleetWorkflow = passingWorkflow();
+partialFleetWorkflow.stages[2].targets[1].status = "blocked";
+const partialFleetResult = tools.evaluateChangeWorkflow(partialFleetWorkflow);
+check(partialFleetResult.stages[2].outcome === "partial", "one unhealthy target did not produce a partial fleet result");
+check(partialFleetResult.stages[2].decision === "blocked", "a partial fleet was allowed to continue");
+
+const gatedWorkflow = passingWorkflow();
+gatedWorkflow.stages[0].targets[0].status = "blocked";
+for (const gate of gatedWorkflow.stages[1].gates) gate.status = "blocked";
+const gatedResult = tools.evaluateChangeWorkflow(gatedWorkflow);
+check(gatedResult.stages[1].blockers.some((value) => value.includes("previous stage")), "prior-stage success was not enforced");
+for (const gate of ["compatibility", "approval", "soak"]) {
+  check(gatedResult.stages[1].blockers.some((value) => value.startsWith(gate)), `${gate} gate was not enforced`);
+}
+
+const exceptionWorkflow = passingWorkflow();
+exceptionWorkflow.stages[0].gates[0] = { type: "policy", status: "blocked", candidateDigest: digest, exceptionId: "exception-1" };
+exceptionWorkflow.events.unshift({
+  type: "exception-open",
+  id: "exception-1",
+  reason: "Emergency repair",
+  approvedBy: "on-call-reviewer",
+  expiresAt: "2099-01-01T00:00:00Z",
+});
+const exceptionActive = tools.evaluateChangeWorkflow(exceptionWorkflow);
+check(exceptionActive.stages[0].decision === "pass" && exceptionActive.activeExceptions.includes("exception-1"), "active emergency exception was not recorded or applied");
+exceptionWorkflow.events.push({ type: "exception-resolved", id: "exception-1" });
+const exceptionResolved = tools.evaluateChangeWorkflow(exceptionWorkflow);
+check(exceptionResolved.stages[0].decision === "blocked" && exceptionResolved.resolvedExceptions.includes("exception-1"), "resolved emergency exception still bypassed the gate");
+
+const resumedWorkflow = passingWorkflow();
+resumedWorkflow.events.push({ type: "pause", stage: "staging" }, { type: "resume", stage: "staging" });
+const resumedResult = tools.evaluateChangeWorkflow(resumedWorkflow);
+check(resumedResult.stages[1].decision === "pass" && resumedResult.duplicateWrites.length === 0, "pause and resume changed or duplicated a write");
+resumedWorkflow.events.push({ type: "write", operationId: "publish-production" });
+check(tools.evaluateChangeWorkflow(resumedWorkflow).duplicateWrites.length === 1, "duplicate write operation was not detected");
+
+const currentHealthWorkflow = passingWorkflow();
+currentHealthWorkflow.stages[2].targets.push({
+  name: "prod-a",
+  status: "blocked",
+  digest,
+  observedAt: "2026-08-23T10:30:00Z",
+});
+const currentHealth = tools.evaluateChangeWorkflow(currentHealthWorkflow);
+check(currentHealth.stages[2].outcome === "partial", "current unhealthy target did not replace an earlier green result");
+
+const fluxWorkflow = tools.evaluateChangeWorkflow(passingWorkflow("flux"));
+check(fluxWorkflow.responsibilities.separated && fluxWorkflow.responsibilities.reconciliation === "flux", "Flux responsibility boundary was not retained");
+
 const recordIndex = JSON.parse(readFileSync(join(repoRoot, "data/base-variant-records/records.json"), "utf8"));
 const redisRecord = recordIndex.records.find((record) => record.metadata?.name === "bitnami-redis-25-5-3-reuse-existing-secret");
 check(redisRecord, "Redis BaseVariantRecord fixture is missing");

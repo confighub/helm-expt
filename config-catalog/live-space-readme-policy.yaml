@@ -1,0 +1,27 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: DemoSpaceReadmePolicy
+metadata:
+  name: helm-catalog
+spec:
+  rule: >-
+    Every durable example Space has exactly one generated readme Unit. Supporting
+    platform records and temporary test runs are classified here and do not receive
+    an example README.
+  supporting:
+    - space: argobot-base
+      reason: Shared live-state reporter configuration used by delivery examples.
+    - space: bitnami-redis-prod-test
+      reason: Supporting validation Space for the Redis production example.
+    - space: workshop-proof-mgmt
+      reason: Management-cluster support record for the local inference runtime proof.
+    - space: workshop-proof-mgmt-argo-apps
+      reason: Argo CD support record for the local inference management cluster.
+    - space: workshop-proof-workload
+      reason: Workload-cluster support record for the local inference runtime proof.
+    - space: workshop-proof-workload-argo-apps
+      reason: Argo CD support record for the local inference workload cluster.
+  temporaryPatterns:
+    - pattern: ^hx-sveltos-
+      reason: >-
+        Timestamped Sveltos rehearsal state. Committed receipts and the stable
+        Catalog entry retain the result.
