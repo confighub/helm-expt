@@ -17,6 +17,8 @@ const promotePath = join(siteRoot, "promote.html");
 const promoteScriptPath = join(siteRoot, "promote-config.js");
 const promotionSchemaPath = join(siteRoot, "promotion-review.schema.json");
 const baseVariantRecordsPath = join(siteRoot, "base-variant-records.json");
+const agentSkillPath = join(siteRoot, ".well-known", "agent-skills", "config-workshop", "SKILL.md");
+const agentSkillIndexPath = join(siteRoot, ".well-known", "agent-skills", "index.json");
 const issueTemplatePath = join(repoRoot, ".github", "ISSUE_TEMPLATE", "problem-chart.yml");
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -116,6 +118,8 @@ const promote = readFileSync(promotePath, "utf8");
 const promoteScript = readFileSync(promoteScriptPath, "utf8");
 const promotionSchema = readJson(promotionSchemaPath);
 const baseVariantRecords = readJson(baseVariantRecordsPath);
+const agentSkill = readFileSync(agentSkillPath, "utf8");
+const agentSkillIndex = readJson(agentSkillIndexPath);
 const issueTemplate = readFileSync(issueTemplatePath, "utf8");
 for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json", "retention object is computed", "Normal catalog refreshes are additive"]) {
   check(llms.includes(term), `site/llms.txt must explain the machine contract: ${term}`);
@@ -123,6 +127,12 @@ for (const term of ["## Machine contract", "Missing coverage means we have not c
 for (const term of ["workshop-result.schema.json", "promotion-review.schema.json", "base-variant-records.json"]) {
   check(llms.includes(term), `site/llms.txt must link the source-aware promotion contract: ${term}`);
 }
+for (const term of ["Config Workshop agent skill", ".well-known/agent-skills/config-workshop/SKILL.md"]) {
+  check(llms.includes(term), `site/llms.txt must expose the agent contract: ${term}`);
+}
+check(agentSkill.includes("Promote my config"), "published agent skill must include the promotion task");
+check(agentSkill.includes("Never print Secret values"), "published agent skill must include the Secret boundary");
+check(agentSkillIndex.skills?.some((item) => item.name === "config-workshop"), "agent discovery index must list config-workshop");
 for (const term of ["Choose a question", "WORKSHOP FINDING", "Only completed checks count as evidence", "review.schema.json", "workshop-result.schema.json", "Propose this public case"]) {
   check(ask.includes(term), `site/ask.html must expose the question-first contract: ${term}`);
 }
@@ -149,6 +159,7 @@ for (const term of ["challenge-intake", "id: question_code", "id: question", "co
 }
 check(promotionSchema.properties?.kind?.const === "PromotionReview", "promotion schema must define PromotionReview");
 check(Array.isArray(baseVariantRecords.records) && baseVariantRecords.records.length > 0, "base variant record index must contain records");
+check(baseVariantRecords.records.some((record) => record.spec?.source?.type === "timoni"), "base variant records must include the Timoni source pilot");
 for (const term of ["Where the changes came from", "Hooks, CRDs, and required setup", "Target results", "promotion-review.schema.json"]) {
   check(promote.includes(term), `site/promote.html must expose source-aware promotion results: ${term}`);
 }

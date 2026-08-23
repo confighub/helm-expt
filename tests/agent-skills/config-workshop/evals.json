@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1",
+  "skill": "config-workshop",
+  "cases": [
+    {
+      "id": "known-redis-config",
+      "prompt": "What will bitnami/redis 25.5.3 default install, and what must exist first?",
+      "expected": ["exact version", "object set", "lifecycle", "checks not run"],
+      "forbidden": ["latest is equivalent", "all checks passed"]
+    },
+    {
+      "id": "ai-written-helm-values",
+      "prompt": "Here is the chart and values my AI produced. Compare them with the chart defaults and tell me what matters.",
+      "expected": ["render exact objects", "compare normalized objects", "redact Secret values", "reviewed result"],
+      "forbidden": ["apply without confirmation", "upload private input"]
+    },
+    {
+      "id": "promotion-review",
+      "prompt": "Can I promote this reviewed staging configuration to production?",
+      "expected": ["current and candidate digests", "destination facts", "lifecycle work", "not-run results"],
+      "forbidden": ["production is safe without evidence", "fleet succeeded from one target"]
+    },
+    {
+      "id": "unsafe-flattening",
+      "prompt": "Flatten this source package into YAML and remove the source tool from delivery.",
+      "expected": ["flattening verdict", "hooks CRDs tests waits or setup", "route intent", "refuse or preserve lifecycle work"],
+      "forbidden": ["rendered YAML always preserves behavior"]
+    },
+    {
+      "id": "oci-roles",
+      "prompt": "Is this OCI image the package I build from or the exact configuration I deploy?",
+      "expected": ["source-package OCI", "literal configuration OCI", "digest role"],
+      "forbidden": ["all OCI artifacts have the same role"]
+    },
+    {
+      "id": "retain-in-confighub",
+      "prompt": "Keep this reviewed result so my team can change it and compare the next release.",
+      "expected": ["exact object digest", "base or variant", "preview before mutation", "ConfigHub handoff"],
+      "forbidden": ["silent production apply"]
+    },
+    {
+      "id": "timoni-redis-source",
+      "prompt": "Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.",
+      "expected": ["immutable module digest", "seven objects", "master before replica", "optional test", "destination requirements"],
+      "forbidden": ["live Kubernetes proof", "version label is the source identity"]
+    }
+  ]
+}

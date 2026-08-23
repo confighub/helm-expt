@@ -27,7 +27,8 @@ Open `site/custom-apps.html` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
 Open `site/existing-apps.html` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
-Open `site/ai.html` for AI-assisted operations with ConfigHub review and evidence.
+Open `site/ai.html` to install the Config Workshop agent skill and use it for
+Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
 Open `site/security.html` for security, provenance, Secrets, scans, and evidence limits.
 Open `site/future.html` for roadmap and managed ideas that should not be
 confused with shipped public evidence.

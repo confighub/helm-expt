@@ -178,6 +178,7 @@ Where a design is written down before it is built.
 
 | Document | Purpose |
 | --- | --- |
+| [agent-operated-cross-format-catalog.md](./planning/agent-operated-cross-format-catalog.md) | Plan for an installable Config Workshop agent skill, task evaluations, a source-neutral Catalog, and the first Timoni source entry. |
 | [config-workshop-ai-drift-growth-strategy.md](./planning/config-workshop-ai-drift-growth-strategy.md) | Decision-ready positioning for the Workshop, its AI-assisted question path, the four drift stages, a thirty-day demand test, and the ranked growth backlog. |
 | [config-workshop-simulation-findings.md](./planning/config-workshop-simulation-findings.md) | Canonical record of the deterministic website journey checks, the AICR and OCI gaps they found, their limits, and the human tests still required. |
 | [promotion-workshop-test-program.md](./planning/promotion-workshop-test-program.md) | Adversarial test program for a public promotion review: exact candidates, destination differences, flattening refusals, lifecycle routes, stale evidence, partial fan-out, and the ConfigHub handoff. |

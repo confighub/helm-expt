@@ -1,0 +1,232 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "timoni-redis-8-10-1-default"
+  labels:
+    sourceType: "timoni"
+    component: "redis"
+    sourceVersion: "8.10.1"
+    base: "default"
+spec:
+  source:
+    type: "timoni"
+    name: "redis"
+    version: "8.10.1"
+    record: "examples/timoni/redis-8-10-1/source-lock.yaml"
+    packageOciRef: "oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+  baseVariant:
+    name: "default"
+    revision: "materialized-r001"
+    digest: "7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+    digestRole: "source-module-oci-manifest"
+    digestRecord: "examples/timoni/redis-8-10-1/source-lock.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
+    inventory: "examples/timoni/redis-8-10-1/rendered/object-inventory.json"
+    objectCount: 7
+    digest: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+    digestRole: "canonical-object-set"
+    digestRecord: "examples/timoni/redis-8-10-1/generation-receipt.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "examples/timoni/redis-8-10-1/source-lock.yaml"
+    materialization:
+      method: "timoni-build"
+      status: "captured"
+      outputDigest: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+      record: "examples/timoni/redis-8-10-1/generation-receipt.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "redis@8.10.1/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Timoni built the immutable module and selected values into the exact objects retained by this base."
+      - "The module's ordered apply and optional test remain lifecycle work beside the literal objects."
+  inputs:
+    fixedAtBuildTime:
+      - "module=oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+      - "moduleVersion=8.10.1"
+      - "instance=redis"
+      - "namespace=redis"
+      - "values=examples/timoni/redis-8-10-1/selected-values.cue"
+      - "schema=examples/timoni/redis-8-10-1/config-schema.cue"
+    installTime:
+      -
+        name: "redis namespace"
+        value: "redis"
+        status: "required-not-live-checked"
+      -
+        name: "Kubernetes version"
+        value: "1.20.0 or newer"
+        status: "required-not-live-checked"
+      -
+        name: "StorageClass"
+        value: "standard"
+        status: "required-not-live-checked"
+    installTimeStatus: "three destination facts recorded; no destination selected"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "apply-master-first"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing."
+        -
+          id: "apply-readonly-replica-second"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Apply the read-only replica Deployment and Service after the master is ready."
+        -
+          id: "optional-ping-test"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled."
+        -
+          id: "redis"
+          origin: "base"
+          type: "target-fact"
+          detail: "The rendered objects use the redis namespace but do not create it."
+        -
+          id: "standard"
+          origin: "base"
+          type: "target-fact"
+          detail: "The default persistent volume claim requests the standard StorageClass."
+        -
+          id: "1.20.0-or-newer"
+          origin: "base"
+          type: "target-fact"
+          detail: "The module schema requires Kubernetes 1.20.0 or newer."
+      records:
+        - "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "apply-master-first"
+          requirementRefs:
+            - "apply-master-first"
+          phase: "apply"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "recorded-source-behavior"
+          supportedRuntimes:
+            []
+          checks:
+            - "Record the selected destination, Timoni apply result, and master readiness before claiming this route ran."
+          evidence:
+            []
+          orderHint: 10
+        -
+          id: "apply-readonly-replica-second"
+          requirementRefs:
+            - "apply-readonly-replica-second"
+          phase: "apply"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Apply the read-only replica Deployment and Service after the master is ready."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "recorded-source-behavior"
+          supportedRuntimes:
+            []
+          checks:
+            - "Record replica readiness for the selected destination before claiming this route ran."
+          evidence:
+            []
+          orderHint: 20
+        -
+          id: "optional-ping-test"
+          requirementRefs:
+            - "optional-ping-test"
+          phase: "post-apply"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "disabled-by-default"
+          supportedRuntimes:
+            []
+          checks:
+            - "Record the Job result when the test is enabled; do not infer it from the seven-object default build."
+          evidence:
+            []
+          orderHint: 30
+      records:
+        - "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        minimumKubernetesVersion: "1.20.0"
+        namespace: "redis"
+        storageClass: "standard"
+      requirementRefs:
+        - "redis"
+        - "standard"
+        - "1.20.0-or-newer"
+      records:
+        - "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      - "redis"
+      - "standard"
+      - "1.20.0-or-newer"
+    deliveryProtected:
+      []
+    records:
+      - "examples/timoni/redis-8-10-1/source-lock.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    sourcePackageOci:
+      status: "immutable-public-source"
+      reference: "oci://ghcr.io/stefanprodan/modules/redis"
+      digest: "sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+    literalConfigOci:
+      status: "not-published"
+    configHubReleaseOci:
+      status: "not-run"
+    argoCd: "not-run"
+    flux: "not-run"
+    direct: "not-run"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+    normalSet: "baseline"
+  evidence:
+    sourceLock: "examples/timoni/redis-8-10-1/source-lock.yaml"
+    selectedValues: "examples/timoni/redis-8-10-1/selected-values.cue"
+    configSchema: "examples/timoni/redis-8-10-1/config-schema.cue"
+    renderedObjects: "examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
+    objectInventory: "examples/timoni/redis-8-10-1/rendered/object-inventory.json"
+    materializationReceipt: "examples/timoni/redis-8-10-1/generation-receipt.yaml"
+    lifecycleRouteIntent: "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+    flatteningVerdict: "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
+    readme: "examples/timoni/redis-8-10-1/README.md"
+  operations:
+    resourceClass: "user-workload"
+    ownerClass: "application-team"
+    changeCadence: "application-release"
+status:
+  level: "partial"
+  claim: "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects in a local, cluster-free build. Its typed options, selected defaults, object digest, master-first lifecycle, and destination requirements are retained together."
+  limits:
+    - "Kubernetes schema validation, admission, apply, workload health, upgrade, and rollback have not been run for this entry."
+    - "No literal configuration OCI, ConfigHub revision, release OCI, Argo CD result, or Flux result is recorded."
+    - "The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock's version and immutable digest remain the source identity."

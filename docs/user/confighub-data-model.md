@@ -38,13 +38,13 @@ variant can introduce a new prerequisite. A destination can select a different r
 without changing the Kubernetes objects.
 
 - **Source package or configuration** is the input you already use: a Helm
-  chart, AICR recipe, installer package, Kubara or Sveltos configuration, OCI,
-  or ordinary Kubernetes YAML.
+  chart, typed Timoni module, AICR recipe, installer package, Kubara or Sveltos
+  configuration, OCI, or ordinary Kubernetes YAML.
 - **Processing intent** records the source identity and the choices needed to
   produce or select exact objects. The concrete record must match the source.
-- **Materialize** means produce or read those exact objects. Helm renders. AICR
-  and Kubara generate or compose. Literal YAML and literal configuration OCI
-  are already materialized, so this step is a recorded no-op.
+- **Materialize** means produce or read those exact objects. Helm renders.
+  Timoni builds. AICR and Kubara generate or compose. Literal YAML and literal
+  configuration OCI are already materialized, so this step is a recorded no-op.
 - **Exact configuration revision** is the accepted object set, inventory, and
   digest for one revision.
 - **Flatten** means retain the exact objects so delivery does not rerun the
@@ -65,6 +65,7 @@ without changing the Kubernetes objects.
 | Source | Materialization step | Source-and-intent record |
 | --- | --- | --- |
 | Helm | Render with the recorded chart context. | `HelmRenderIntent`, linked to a captured Helm render variant. |
+| Timoni | Build the pinned module or bundle with its typed values. | Module OCI version and digest, typed schema, selected values, build receipt, and lifecycle workflow. |
 | AICR | Run its declared composition step. | Native AICR recipe, choices, controller requirements, receipts, and output digest. |
 | Kubara or another generator | Run its declared generation step. | Source revision, choices, controller requirements, receipts, and output digest. |
 | Installer or source OCI | Pull by digest and invoke its declared processor. | OCI role, digest, processor, selections, and receipts. |
@@ -99,8 +100,8 @@ chart + values + render context + lifecycle choices
   -> exact Kubernetes objects
 ```
 
-Do not create a fake render variant for YAML, AICR, or literal OCI that did not use
-Helm rendering. Their source-and-intent record links directly to the exact
+Do not create a fake render variant for Timoni, YAML, AICR, or literal OCI that did
+not use Helm rendering. Their source-and-intent record links directly to the exact
 configuration revision. Do not call the combined record a "full rendering." The
 complete managed result is source and intent, exact configuration, lifecycle
 requirements, route resolutions, and runtime receipts.

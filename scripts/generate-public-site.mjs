@@ -252,6 +252,14 @@ const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const sitemapPath = join(siteRoot, "sitemap.xml");
 const robotsPath = join(siteRoot, "robots.txt");
 const llmsPath = join(siteRoot, "llms.txt");
+const agentSkillSourceRoot = join(repoRoot, "skills", "config-workshop");
+const agentSkillPublishedRoot = join(siteRoot, ".well-known", "agent-skills", "config-workshop");
+const agentSkillIndexPath = join(siteRoot, ".well-known", "agent-skills", "index.json");
+const agentSkillFiles = [
+  "SKILL.md",
+  "references/processing-model.md",
+  "references/task-playbook.md",
+];
 const docPagesRoot = join(siteRoot, "d");
 const demoOrgPath = join(siteRoot, "demo-org.html");
 
@@ -337,7 +345,7 @@ const PAGE_DESCRIPTIONS = {
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
-  "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
+  "ai.html": "Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
   "testing.html": "Choose a worked example that starts with Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
   "kubara.html": "Adopt Kubara with ConfigHub in six familiar steps, preserving Kubara catalogs, generated topology, Git hand-off, and Argo reconciliation while adding governed releases and fleet visibility.",
@@ -450,6 +458,13 @@ if (mode === "--generate") {
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
   write(llmsPath, site.llmsTxt);
+  for (const relative of agentSkillFiles) {
+    write(
+      join(agentSkillPublishedRoot, relative),
+      readFileSync(join(agentSkillSourceRoot, relative), "utf8"),
+    );
+  }
+  write(agentSkillIndexPath, `${JSON.stringify(agentSkillDiscoveryIndex(), null, 2)}\n`);
   write(generatedAtPath, `${generatedAt}\n`);
   if (site.missingMdTargets.length) {
     console.log(`markdown targets linked but not found in the repo (left as raw links): ${site.missingMdTargets.length}`);
@@ -588,6 +603,17 @@ if (mode === "--generate") {
   check(readFileSync(robotsPath, "utf8") === site.robotsTxt, "site/robots.txt is stale");
   check(existsSync(llmsPath), "site/llms.txt is missing; run npm run site:generate");
   check(readFileSync(llmsPath, "utf8") === site.llmsTxt, "site/llms.txt is stale");
+  for (const relative of agentSkillFiles) {
+    const source = join(agentSkillSourceRoot, relative);
+    const published = join(agentSkillPublishedRoot, relative);
+    check(existsSync(published), `site agent skill is missing ${relative}; run npm run site:generate`);
+    check(readFileSync(published, "utf8") === readFileSync(source, "utf8"), `site agent skill is stale: ${relative}`);
+  }
+  check(existsSync(agentSkillIndexPath), "site agent skill discovery index is missing; run npm run site:generate");
+  check(
+    readFileSync(agentSkillIndexPath, "utf8") === `${JSON.stringify(agentSkillDiscoveryIndex(), null, 2)}\n`,
+    "site agent skill discovery index is stale",
+  );
   const expectedDocPages = new Map(site.docPages.map((page) => [page.relPath, page]));
   const actualDocPages = [];
   const walkDocPages = (dir, prefix) => {
@@ -1527,11 +1553,27 @@ function buildRobotsTxt() {
   return `User-agent: *\nAllow: /\n\nSitemap: ${SITE_BASE_URL}sitemap.xml\n`;
 }
 
+function agentSkillDiscoveryIndex() {
+  return {
+    $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+    skills: [
+      {
+        name: "config-workshop",
+        description: "Inspect, compare, promote, and retain Kubernetes configuration with exact source records, objects, lifecycle work, checks, and limits.",
+        type: "skill-md",
+        url: `${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md`,
+      },
+    ],
+  };
+}
+
 function buildLlmsTxt() {
   return `# Config Workshop (helm-expt)
 
-> A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
+> A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
+- [Config Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
+- [Use Config Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](${SITE_BASE_URL}changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
 - [Change feed schema](${SITE_BASE_URL}changes.schema.json): the versioned JSON Schema for changes.json.
@@ -1541,6 +1583,7 @@ function buildLlmsTxt() {
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
+- [Timoni Redis source entry](${SITE_BASE_URL}d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
@@ -2103,7 +2146,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("guides.html")}">Guides</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("ask.html")}">Check my config</a><a href="${link("promote.html")}">Promote my config</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("ai.html")}">AI agents</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("ask.html")}">Check my config</a><a href="${link("promote.html")}">Promote my config</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -2366,7 +2409,7 @@ function configTestCentreHome(catalog) {
         <nav class="bar">
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
-            <a href="./guides.html">Guides</a>
+            <a href="./ai.html">AI agents</a>
             <a href="./charts/index.html">Catalog</a>
             <a href="./ask.html">Check my config</a>
             <a href="./promote.html">Promote my config</a>
@@ -2383,7 +2426,7 @@ function configTestCentreHome(catalog) {
           <div>
             <p class="lead">See the exact Kubernetes objects before you deploy. Compare them with a tested Catalog configuration, the chart defaults, or what is running now.</p>
             <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
-            <p class="lead">If AI wrote the values, Check my config builds a local prompt for the assistant you already use. Your files stay on your machine.</p>
+            <p class="lead">If AI wrote the values, <a href="./ask.html">Check my config</a> builds local instructions for the assistant you already use. Install the <a href="./ai.html">Config Workshop agent skill</a> when you want the same evidence rules for repeated work. Your files stay on your machine.</p>
             <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
@@ -4307,6 +4350,7 @@ function docsReferenceHtml(catalog) {
     ["Try AICR without an account", `<a href="./try-aicr.html">Try AICR</a>`, "Pull one public AICR configuration, reproduce the seven-Application CPU starter, verify every file, and write a local OCI without a cluster or GPU."],
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
+    ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the Config Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Start or adopt a Kubara platform", `<a href="./kubara.html">Kubara with ConfigHub</a>`, "Generate one small native Kubara development platform, or bring an existing platform through Git and OCI. Keep Kubara as composer and Argo CD as reconciler."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
@@ -4349,7 +4393,7 @@ function docsReferenceHtml(catalog) {
     ["Try AICR", "Pull and verify one AICR-derived seven-Application configuration without a ConfigHub account, cluster, cloud account, or GPU.", "./try-aicr.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
     ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./verification.html"],
-    ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
+    ["AI agents", "Install the Config Workshop skill for known Catalog questions, your own configuration, promotion review, and cross-format source inspection.", "./ai.html"],
     ["Choose a component", "Browse component pages, retained versions, packaged configurations, known risks, and first-use advice.", "./charts/index.html"],
     ["Live ConfigHub example guides", "README pages for live demo Spaces. Each guide says why the Space exists and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
@@ -4718,6 +4762,7 @@ function askHtml() {
     <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
+    <p>Doing this regularly? <a href="./ai.html">Install the Config Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
     <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
       <summary><strong>Other common jobs</strong></summary>
@@ -5006,6 +5051,7 @@ function promoteHtml() {
 
       <h3>Use your own AI assistant</h3>
       <p>Download both YAML files and the review record. Then give this prompt to Claude, Codex, or the assistant you already use. It asks the assistant to work locally, explain the object changes, and keep untested claims visible.</p>
+      <p><a href="./ai.html">Install the Config Workshop agent skill</a> when you want these checks and reporting rules available for repeated reviews.</p>
       <textarea id="ai-promotion-prompt" rows="16" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
       <p><button class="button secondary" id="copy-ai-promotion" type="button">Copy the AI review prompt</button> <span id="ai-promotion-copy-status" role="status" style="color:var(--muted)"></span></p>
 
@@ -6966,20 +7012,17 @@ function existingAppsHtml(catalog) {
 }
 
 function aiHtml(catalog) {
-  const catalogRows = [
-    ["Read chart behavior", "AI helps inspect chart docs, values, templates, hooks, CRDs, defaults, and prerequisites so the catalog starts from the right questions."],
-    ["Draft base variants", "AI can suggest useful chart-specific base variants, such as default, existing Secret, no-CRDs, server-only, HA, or production-like choices. The generator and receipts decide what is accepted."],
-    ["Generate checks", "AI helps draft tests, summaries, and verifier commands. A page is not treated as true until committed data and verification commands back it."],
-    ["Triage failures", "AI helps sort a failure into render input, target prerequisite, lifecycle route, runtime health, or unsupported chart behavior."],
-    ["Explain evidence", "AI helps turn receipts, diffs, and generated data into plain English for chart pages and docs."],
-  ];
   const taskRows = [
-    ["Explain a diff", "Good fit", "AI can summarize which objects changed. Keep the actual diff visible as the record."],
-    ["Create a variant", "Good fit with review", "AI can draft labels, targets, and transforms. A person or policy gate approves the exact result."],
-    ["Patch a fleet", "Good fit with scope", "AI can draft the patch; ConfigHub shows which apps, variants, and objects it touches before rollout."],
-    ["Triage a broken chart", "Good fit", "AI can help decide whether the problem is values, cluster prerequisites, lifecycle steps, image pulls, or runtime health."],
-    ["Use a domain app", "Good fit", "Give the agent purpose-built commands, such as Kubernetes RBAC analysis, instead of raw YAML editing."],
-    ["Change production live state directly", "Not the default path", "The safer path is propose, diff, approve, deliver, observe. Direct writes need clear authority, scope, and rollback."],
+    ["Find a known answer", "What will bitnami/redis 25.5.3 install, and what must exist first?", "The exact Catalog version, objects, lifecycle work, checks, and limits."],
+    ["Check my configuration", "Here is the chart and values my AI produced. Compare them with the defaults and tell me what matters.", "A local render, normalized comparison, findings, and a reviewed result you can keep."],
+    ["Review a promotion", "Can I move this staging configuration to production?", "Current and candidate digests, destination differences, lifecycle work, and tests still required."],
+    ["Inspect another source", "Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.", "The module digest, typed options, seven exact objects, ordered lifecycle, and current limits."],
+  ];
+  const catalogRows = [
+    ["Read source behavior", "Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions."],
+    ["Propose useful configurations", "Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog."],
+    ["Investigate failures", "Separate input errors, missing target setup, lifecycle work, controller results, and workload health."],
+    ["Maintain explanations", "Turn exact records and receipts into short instructions while keeping links to the underlying evidence."],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -6992,67 +7035,80 @@ function aiHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Use AI without hiding the result</h1>
-    <p class="lead">AI helps us read charts, propose useful configurations, write checks, and explain results. It does not decide whether a configuration is ready.</p>
-    <p>This page shows two uses: agents help maintain the public Catalog, and users bring values or patches made by AI. In both cases, exact Kubernetes objects and recorded checks decide what can proceed.</p>
-    <p>We do not claim every Helm values combination. AI helps maintain chart-specific starting configurations across versions. Verification decides which ones appear in the Catalog.</p>
+    <h1>Use Config Workshop with your AI agent</h1>
+    <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The Config Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
+    <p>The agent may propose commands or changes. You still see the source, Kubernetes objects, diff, checks, and limits before anything is applied or uploaded.</p>
   </header>
   <main>
-    <section aria-labelledby="catalog">
-      <h2 id="catalog">1. Use AI to maintain the Catalog</h2>
-      <p>The main AI use today is not autonomous production change. It is catalog work: finding what a chart does, proposing safe starting points, generating checks, and turning evidence into language people can read.</p>
-      ${markdownLikeTable([
-        ["AI helps with", "How we keep it honest"],
-        ...catalogRows,
-      ])}
-      <p><a href="./how-it-works.html">Read how render, record, and route work</a> · <a href="./verification.html">Check the verification commands</a></p>
-    </section>
-
-    <section aria-labelledby="user-agents">
-      <h2 id="user-agents">2. Review configuration made by AI</h2>
-      <p>When an agent writes Helm values or a patch, render the result. ConfigHub can store the exact objects and show the diff, checks, and approvals before release.</p>
-      <p>If the suggestion changes Helm values, update the recorded Helm source and rebuild the base. If it changes one environment after render, record it in that ConfigHub variant.</p>
-      <p>The agent proposes. The reviewed objects are what get released.</p>
-    </section>
-
-    <section aria-labelledby="live-review">
-      <h2 id="live-review">3. See a checked ConfigHub example</h2>
-      <p>The example starts with a proposed AICR training change that asks for eight H100 nodes even though the recorded target limit is four. It also replaces a pinned image with <code>latest</code> and leaves an API key placeholder. The reviewed file fixes all three problems.</p>
-      <p>In the live run, ConfigHub read the nested AICR fields. It reported the mutable image and blocked the inline API key. The reviewed version cleared both checks. Ordinary Deployment image and probe checks did not run against either custom resource.</p>
-      <p>ConfigHub stored the reviewed Kubernetes object. It blocked a dry run until the exact head revision was approved. After approval, the same dry run to an OCI target was allowed. Nothing was applied to Kubernetes. The four-node limit remains a separate target-specific check because the ConfigHub policy cannot yet read that recorded target fact.</p>
-      <p><a href="../data/ai-change-review-live-proof/summary.md">Read the result and its limits</a>.</p>
+    <section aria-labelledby="install-skill">
+      <h2 id="install-skill">1. Install the Config Workshop skill</h2>
+      <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
+      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
+      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It does not grant credentials or apply configuration. It keeps private files local and redacts Secret values. It pins versions and digests, reports skipped checks, and previews changes before mutation.</p>
     </section>
 
     <section aria-labelledby="tasks">
-      <h2 id="tasks">4. Choose a suitable AI task</h2>
+      <h2 id="tasks">2. Ask for one result</h2>
+      <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
       ${markdownLikeTable([
-        ["Task", "Fit", "Boundary"],
+        ["Task", "Example request", "What the agent should return"],
         ...taskRows,
       ])}
+      <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
     </section>
 
-    <section aria-labelledby="agentic-apps">
-      <h2 id="agentic-apps">5. Give AI a purpose-built App</h2>
-      <p>A small domain App can give an agent named operations while ConfigHub keeps the configuration. The App supplies the domain rules, dry runs, checks, and explicit commit step.</p>
-      <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> follows this pattern. It supports RBAC inventory, access queries, findings, guarded edits, fleet edits, and promotion. The agent uses these operations instead of unrestricted YAML edits.</p>
-      <p>The <a href="./d/docs/demo/c3agent/fleet-config.html">c3agent configuration example</a> applies the same rule to an agent service. Model, image, budget, concurrency, and Secret references are reviewed and promoted before any agent process starts.</p>
-      <p><a href="./journey.html">See five ConfigHub App examples</a>, including upgrades, hooks and CRDs, RBAC, fleet rollout, and AI change review.</p>
+    <section aria-labelledby="records">
+      <h2 id="records">3. Keep the answer tied to records</h2>
+      <p>The skill uses the same public files as the site. It does not treat page copy or an agent's explanation as proof.</p>
+      ${markdownLikeTable([
+        ["Record", "What it answers"],
+        ["changes.json", "Which exact Helm package version and digest did you ask about, and which areas have evidence?"],
+        ["base-variant-records.json", "Where did the configuration come from, which exact objects were produced, and what lifecycle, ownership, OCI, and delivery records exist?"],
+        ["review and promotion records", "Which files were compared, which checks ran, and what remains before the result moves?"],
+        ["linked receipts", "What command or live run produced a claim, for which object digest and target?"],
+      ])}
+      <p>Missing coverage means the claim has not been checked. A successful render does not prove cluster admission, controller convergence, workload health, upgrade, or rollback.</p>
     </section>
 
-    <section aria-labelledby="guides">
-      <h2 id="guides">6. Open guides and evidence</h2>
-      <div class="grid">
-        <div class="card"><h3>Deployment</h3><p>See where each configuration tool fits and how a reviewed result reaches a cluster.</p><p><a href="./how-it-works.html">Open page</a></p></div>
-        <div class="card"><h3>Check one claim</h3><p>Project commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
-        <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
-        <div class="card"><h3>Live change review</h3><p>A reviewed AICR object is stored in ConfigHub, blocked until approval, and dry-run again after approval.</p><p><a href="../data/ai-change-review-live-proof/summary.md">Open result</a></p></div>
-        <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
-        <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern built from a CLI plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
-        <div class="card"><h3>Blast radius</h3><p>How value-source maps and scored receipts show which objects a change is expected to affect.</p><p><a href="../data/blast-radius-accuracy/summary.md">Open evidence</a></p></div>
-      </div>
+    <section aria-labelledby="sources">
+      <h2 id="sources">4. Use the same steps across source formats</h2>
+      <p>Helm renders a chart. Timoni builds a module or bundle. AICR and Kubara compose or generate configuration. Literal YAML and configuration OCI already contain exact objects. Config Workshop records which operation happened instead of calling every source a Helm recipe.</p>
+      ${markdownLikeTable([
+        ["Step", "Question"],
+        ["Source and intent", "Which source, version, digest, values or typed choices, and target assumptions were selected?"],
+        ["Materialize", "Which exact Kubernetes objects did that source produce?"],
+        ["Flatten", "Can those objects be kept literally without losing behavior?"],
+        ["Lifecycle and route", "Who handles hooks, CRDs, tests, waits, setup Jobs, Secrets, and destination requirements, and in what order?"],
+        ["Retain and deliver", "Will the reviewed result stay as files, become OCI, or be kept as ConfigHub data and released through Argo CD or Flux?"],
+      ])}
+      <p><a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a> · <a href="./deployment-reference.html">Read the human deployment reference</a></p>
+    </section>
+
+    <section aria-labelledby="timoni-example">
+      <h2 id="timoni-example">5. Compare one non-Helm source</h2>
+      <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. It records the typed options, selected defaults, seven exact Kubernetes objects, the master-first apply order, the optional test Job, and the destination requirements.</p>
+      <p>The current record proves a local, cluster-free build. It does not claim a live apply, health check, upgrade, rollback, ConfigHub upload, or GitOps delivery.</p>
+      <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="./charts/index.html">Compare it with Helm Redis configurations</a></p>
+    </section>
+
+    <section aria-labelledby="confighub-review">
+      <h2 id="confighub-review">6. Keep a reviewed result in ConfigHub</h2>
+      <p>Use ConfigHub when the accepted objects need team history, variants, approval, promotion, release OCI, delivery, or comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
+      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
+      <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
+    </section>
+
+    <section aria-labelledby="catalog-maintenance">
+      <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
+      <p>Agents help read source behavior, propose useful starting configurations, generate checks, investigate failures, and explain receipts. Generated text is reviewed against committed data before it appears as a Catalog claim.</p>
+      ${markdownLikeTable([
+        ["Agent task", "Required record"],
+        ...catalogRows,
+      ])}
+      <p><a href="../data/agent-skill-evaluations/summary.md">Read the fresh-agent evaluation</a> · <a href="./verification.html">Run the verification commands</a> · <a href="./guides.html">Open technical guides</a></p>
     </section>
   </main>
-  <footer>AI must make Helm operations easier to understand, not less accountable.</footer>
+  <footer>Use AI to investigate and propose. Keep the reviewed configuration as the release record.</footer>
 </body>
 </html>
 `;
@@ -8427,6 +8483,18 @@ function aicrEntriesSection() {
     </section>`;
 }
 
+function timoniEntrySection() {
+  return `<section id="timoni" aria-labelledby="timoni-title">
+      <h3 id="timoni-title">A typed module, checked the same way</h3>
+      <p>The first Timoni entry uses Redis so you can compare it with the Helm Redis configurations above. The inputs are different, but the Catalog asks the same questions: which immutable source was selected, which objects did it produce, what lifecycle work sits around those objects, and what has actually been tested?</p>
+      ${markdownLikeTable([
+        ["Entry", "What is retained", "Current result"],
+        ["Redis 8.10.1 default", "Immutable module digest, typed options, selected defaults, seven exact objects, master-first apply order, optional test, and destination requirements.", "Local cluster-free build passed. Kubernetes apply, health, upgrade, rollback, ConfigHub, and GitOps have not run."],
+      ])}
+      <p><a href="../../examples/timoni/redis-8-10-1/README.md">Read the Timoni Redis entry</a> · <a href="../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml">Open its source-neutral Catalog record</a> · <a href="./index.html?q=redis#charts">Compare Helm Redis entries</a></p>
+    </section>`;
+}
+
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What stays available</h2>
       <p>The catalog retains ${retention.retained_package_versions} exact package versions across ${retention.retained_components} components. ${retention.published_package_versions} have a dated registry receipt; the oldest current receipt is from ${retention.oldest_publication_receipt_at.slice(0, 10)}. A new review adds a version. It does not silently replace an older package.</p>
@@ -8540,6 +8608,8 @@ ${chartRowsHtml}
     ${catalogContextHtml}
 
     ${aicrEntriesSection()}
+
+    ${timoniEntrySection()}
 
     <section aria-labelledby="actions">
       <h2 id="actions">How the catalog handles required setup</h2>
@@ -11929,7 +11999,8 @@ Open \`site/custom-apps.html\` for deeper application examples with custom apps,
 multi-chart stacks, and overlays.
 Open \`site/existing-apps.html\` for adopting existing Helm, Argo, Flux,
 rendered YAML, or live-cluster state without taking over too early.
-Open \`site/ai.html\` for AI-assisted operations with ConfigHub review and evidence.
+Open \`site/ai.html\` to install the Config Workshop agent skill and use it for
+Catalog questions, local configuration checks, promotion reviews, and source-format inspection.
 Open \`site/security.html\` for security, provenance, Secrets, scans, and evidence limits.
 Open \`site/future.html\` for roadmap and managed ideas that should not be
 confused with shipped public evidence.

@@ -1,0 +1,52 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: LifecycleRouteIntent
+metadata:
+  name: timoni-redis-8-10-1-default
+spec:
+  sourceRecord: examples/timoni/redis-8-10-1/source-lock.yaml
+  routes:
+    - routeName: apply-master-first
+      lifecyclePhase: apply
+      order: 10
+      executionMode: destination-specific
+      automatic: false
+      disposition: recorded-source-behavior
+      whoRuns: Timoni when the source module is applied
+      operatingDetails: Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing.
+      evidenceRequired: Record the selected destination, Timoni apply result, and master readiness before claiming this route ran.
+    - routeName: apply-readonly-replica-second
+      lifecyclePhase: apply
+      order: 20
+      executionMode: destination-specific
+      automatic: false
+      disposition: recorded-source-behavior
+      whoRuns: Timoni when the source module is applied
+      operatingDetails: Apply the read-only replica Deployment and Service after the master is ready.
+      evidenceRequired: Record replica readiness for the selected destination before claiming this route ran.
+    - routeName: optional-ping-test
+      lifecyclePhase: post-apply
+      order: 30
+      executionMode: destination-specific
+      automatic: false
+      disposition: disabled-by-default
+      whoRuns: Timoni when test.enabled is selected
+      operatingDetails: Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled.
+      evidenceRequired: Record the Job result when the test is enabled; do not infer it from the seven-object default build.
+  targetFacts:
+    declared:
+      minimumKubernetesVersion: 1.20.0
+      namespace: redis
+      storageClass: standard
+    requirements:
+      - category: namespace
+        name: redis
+        requiredBefore: apply
+        purpose: The rendered objects use the redis namespace but do not create it.
+      - category: storage-class
+        name: standard
+        requiredBefore: apply
+        purpose: The default persistent volume claim requests the standard StorageClass.
+      - category: kubernetes-version
+        name: 1.20.0-or-newer
+        requiredBefore: materialization
+        purpose: The module schema requires Kubernetes 1.20.0 or newer.

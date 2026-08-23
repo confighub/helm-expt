@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 30
+lanes outside the chain: 32
 should join the chain:   0
-deliberately outside:    30
+deliberately outside:    32
 superseded:              0
 ```
 
@@ -43,6 +43,8 @@ None.
 | `kubara-release:verify-static` | That the offline half of the Kubara + ConfigHub release acceptance holds: data/kubara-release-acceptance/contract.yaml and the adoption-screenshot contract re-derive exactly, the named package.json scripts are verbatim, the recorded release scope still contains its immutable 120-root and baseline catalogs unchanged, the current shape / mini-IDP plan / site consumption agree, and twenty-two further offline sub-lanes pass. | confighub | not run here, needs confighub |
 | `kubara-release:verify` | Runs the whole Kubara release front door: the offline static contract (data/kubara-release-acceptance/contract.yaml plus catalog counts, tree SHAs and required evidence paths), then the final-state gates — current site live-evidence, adoption screenshots, public site pages, the 130-root final catalog and the installer-OCI catalog — and then executes ten downstream acceptance commands in order. | confighub | not run here, needs confighub |
 | `site:published:verify` | That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. `site:verify` proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466). | network | green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API |
+| `skills:verify` | The six internal helm-expt operating guides and the public Config Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks. | offline | passes; this focused lane checks all repository skills together |
+| `agent-skill:verify` | The Config Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully. | offline | passes; this focused lane checks the public agent contract and its published copy directly |
 | `verify:shard` | One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun. | offline | green: this is how CI runs the chain, in six parallel shards, rather than a gate of its own |
 | `verify:shard:offline` | A slice of the chain excluding the thirty-two steps that shell out to cub, oras or helm, carrying the gates declared in tests/verify-chain-known-red.yaml. Needs nothing installed beyond Node, git and a YAML reader. | offline | green: six of these run in parallel on every pull request |
 | `verify:shard:cli` | The thirty-two chain steps that re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm. None of that can be done by reading files, so they are separated and their tools installed once. | network | green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing |

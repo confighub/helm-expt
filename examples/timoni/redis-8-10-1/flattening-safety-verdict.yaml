@@ -1,0 +1,21 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: FlatteningSafetyVerdict
+metadata:
+  name: timoni-redis-8-10-1-default
+spec:
+  subject:
+    sourceType: timoni
+    source: oci://ghcr.io/stefanprodan/modules/redis
+    version: 8.10.1
+    base: default
+  verdict:
+    lane: flatten-with-routes
+    reason: The seven Kubernetes objects can be retained literally, but an ordinary unordered apply would omit the module's master-first readiness wait and its optional post-apply test.
+  retained:
+    objects: examples/timoni/redis-8-10-1/rendered/release-objects.yaml
+    routeIntent: examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml
+  recheckWhen:
+    - the module version changes
+    - selected values enable the test Job or change persistence
+    - a derived variant changes lifecycle-sensitive fields
+    - the destination or delivery runtime changes

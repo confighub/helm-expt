@@ -248,7 +248,7 @@ The same catalog records must be browsable by:
 
 | View | Examples |
 | --- | --- |
-| Starting source | Helm, AICR, Kubara, existing OCI, or Kubernetes YAML |
+| Starting source | Helm, Timoni, AICR, Kubara, existing OCI, or Kubernetes YAML |
 | Job | Inspect, test, compare, change, promote, deploy, operate, or build an application or platform |
 | Lifecycle need | CRDs, hooks, setup Jobs, Secrets, cloud provisioning, models, or runtime images |
 | Evidence stage | Source checked, objects reproduced, package verified, ConfigHub retained, promoted, delivered, or observed live |
@@ -352,7 +352,7 @@ These terms describe different decisions. Do not use them interchangeably.
 | --- | --- |
 | Source package or source configuration | The chart, source-native recipe, package, generator input, OCI, or YAML that the user starts with. Recipe is not a general name for every configuration. |
 | Processing intent | The source identity and the choices needed to produce or select exact objects. It includes build or render inputs, target assumptions, and known lifecycle decisions. |
-| Materialize | Produce or read the exact Kubernetes objects that will be reviewed. Helm renders; AICR and Kubara generate or compose; a source OCI invokes its declared processor; literal YAML and literal configuration OCI need no source transformation. Materializing does not apply objects or prove runtime health. |
+| Materialize | Produce or read the exact Kubernetes objects that will be reviewed. Helm renders; Timoni builds; AICR and Kubara generate or compose; a source OCI invokes its declared processor; literal YAML and literal configuration OCI need no source transformation. Materializing does not apply objects or prove runtime health. |
 | Exact configuration revision | The accepted Kubernetes objects, object inventory, and digest for one revision. This is the source-neutral equivalent of a captured output. |
 | Render | Helm's materialization step: run the chart with recorded values, release context, API capabilities, and permitted target facts. Do not use `render` as the generic name for every source format. |
 | Helm render intent | The Helm-specific source-and-intent record: chart, version, values, release context, source lock, prerequisites, and lifecycle choices. It does not contain the rendered objects. |
@@ -379,6 +379,7 @@ These terms describe different decisions. Do not use them interchangeably.
 | Source | Materialize | Source-and-intent record | Flattening result | Later route resolution |
 | --- | --- | --- | --- | --- |
 | Helm chart | Run Helm with recorded values and render context. | `HelmRenderIntent`; the captured output is its Helm render variant. | `safe-to-flatten`, `flatten-with-routes`, or `unsafe-to-flatten`. | Recheck hooks, CRDs, generated state, target facts, and controller handling for the selected variant and destination. |
+| Timoni module or bundle | Build the pinned OCI source with its typed values. | Module or bundle version and digest, typed schema, selected values, build receipt, and declared lifecycle workflow. | Flatten the built objects, keep lifecycle routes beside them, or run the source workflow later when target-dependent behavior remains. | Bind ordered apply sets, waits, tests, health checks, prune behavior, runtime lookups, and target requirements to the selected variant and destination. |
 | AICR | Run its declared composition step, including nested Helm work it declares. | Native AICR recipe, selected options, build receipts, required controllers, and output digest. | Flatten the generated layer, flatten it with routes, or process part of the composition late. | Bind component order, required controllers, GPU or cloud facts, and nested source work to the target. |
 | Kubara or another generator | Run its declared generation step, including nested source processing it declares. | Source revision, selected options, build receipts, required controllers, and output digest. Do not call it a recipe unless the source tool does. | Flatten the generated layer, keep routes beside it, or process the source late. | Bind platform prerequisites, component ownership, and controller work to the chosen platform target. |
 | Installer or source OCI | Pull by digest, inspect its declared role, then invoke the processor it contains or references. | Input OCI reference and digest, package role, processor, selections, and receipts. | Decide from the produced objects and remaining lifecycle work. A source OCI is not automatically deployable. | Resolve the resulting requirements; OCI transport does not perform them. |
@@ -745,8 +746,8 @@ every catalog row.
 
 ## Apply policy
 
-The standard policy profile applies the same basic checks to Helm, AICR, `cub
-installer`, Kubara, Sveltos, and existing YAML after they become ConfigHub data.
+The standard policy profile applies the same basic checks to Helm, Timoni, AICR,
+`cub installer`, Kubara, Sveltos, and existing YAML after they become ConfigHub data.
 The source determines how the configuration is produced; it does not change the
 minimum checks applied to the resulting Kubernetes data.
 
@@ -778,7 +779,7 @@ The policy uses three operational resource classes:
 | `system-configuration` | Cluster-wide networking, GPU, admission, or platform configuration | Common checks plus approval in every environment |
 
 The class describes what the configuration controls. It does not matter whether the
-source was Helm, AICR, `cub installer`, Kubara, Sveltos, or ordinary YAML. Individual
+source was Helm, Timoni, AICR, `cub installer`, Kubara, Sveltos, or ordinary YAML. Individual
 checks still need to understand the object they inspect. A Deployment check must not
 guess where a custom resource stores its containers.
 

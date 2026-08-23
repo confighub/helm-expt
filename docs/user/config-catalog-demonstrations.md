@@ -261,6 +261,28 @@ Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../
 
 Current limit: The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable. The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry. The Argo CD source package and the 17-object literal configuration OCI are public in Google Artifact Registry and passed anonymous pull checks at their recorded digests. ConfigHub imported the 17 exact Application objects from the public literal configuration OCI as one policy-covered base variant. The persistent helm-catalog organization has a base, development, and staging chain. Development changes only the kube-prometheus-stack Application to use a target-owned Grafana Secret; staging received that exact reviewed change. A dry-run left development unchanged, a second dry-run left staging unchanged, and required approval remains attached to all three Spaces. A separate live round trip proved that ConfigHub can publish those 17 Applications as a release OCI and that the pulled release keeps every Kubernetes field, with only the ConfigHub origin annotation added. A separate scratch run remains as supplementary evidence for the same base-to-development-to-staging behavior. Argo CD delivery and live GPU-cluster reconciliation have not run.
 
+### Timoni module to exact configuration
+
+**Worked example: working.** The Redis 8.10.1 pilot pins one immutable module, records its typed options and defaults, and produces seven exact Kubernetes objects without ConfigHub Server or Kubernetes.
+
+**Broader status: partial.** The source workflow, Kubernetes apply, workload health, upgrade, rollback, ConfigHub upload, and GitOps delivery have not run.
+
+A typed module can produce clear Kubernetes objects while still carrying ordered apply, waits, tests, and destination requirements that plain YAML does not execute.
+
+Pin the module OCI by version and digest, retain its typed options and selected values, build the exact objects, and keep the lifecycle route beside them before deciding whether to deliver the source or the flattened configuration.
+
+1. Pin the module version and immutable OCI manifest digest.
+2. Record the typed configuration and selected values.
+3. Build and inventory the exact Kubernetes objects locally.
+4. Decide whether literal objects can travel alone, need lifecycle routes, or require the source processor later.
+5. Resolve the master-first wait, optional test, namespace, Kubernetes version, and StorageClass requirements for the selected destination before delivery.
+
+Start with [examples/timoni/redis-8-10-1/README.md](../../examples/timoni/redis-8-10-1/README.md) or [data/base-variant-records/records/timoni-redis-8-10-1-default.yaml](../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml).
+
+Evidence: [examples/timoni/redis-8-10-1/source-lock.yaml](../../examples/timoni/redis-8-10-1/source-lock.yaml), [examples/timoni/redis-8-10-1/config-schema.cue](../../examples/timoni/redis-8-10-1/config-schema.cue), [examples/timoni/redis-8-10-1/rendered/object-inventory.json](../../examples/timoni/redis-8-10-1/rendered/object-inventory.json), [examples/timoni/redis-8-10-1/generation-receipt.yaml](../../examples/timoni/redis-8-10-1/generation-receipt.yaml), [examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml](../../examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml), [examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml](../../examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml).
+
+Current limit: The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock version and immutable digest remain the source identity. The Catalog has not yet published a literal configuration OCI or imported this base into ConfigHub. No destination-specific route resolution or live runtime receipt exists for this entry.
+
 ### cub installer package to managed configuration
 
 **Worked example: working.** Public catalog packages pull without a registry login, render locally, write one selected configuration as OCI, and verify the output by reading it back.

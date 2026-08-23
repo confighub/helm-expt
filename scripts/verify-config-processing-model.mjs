@@ -114,6 +114,7 @@ const allowedBaseDigestRoles = new Set([
   "source-output-inventory",
   "literal-configuration-oci-manifest",
   "source-package-oci-manifest",
+  "source-module-oci-manifest",
   "source-file-set",
   "confighub-space-revision",
   "source-file",
