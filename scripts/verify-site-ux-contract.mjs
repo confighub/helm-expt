@@ -682,11 +682,15 @@ if (!fs.existsSync(promotePath)) {
 } else {
   const promote = fs.readFileSync(promotePath, "utf8");
   for (const phrase of [
-    "Review a change before it moves",
+    "Can I move this exact change safely?",
     "1. Promotion review",
     "2. What are you changing?",
     "loads automatically",
-    "immutable StatefulSet field fails at apply time",
+    "changes an immutable StatefulSet field",
+    "Exact configuration",
+    "Next stage",
+    "What blocks it",
+    "Current result",
     "What changes",
     "What stays the same",
     "What you should test",
@@ -698,6 +702,8 @@ if (!fs.existsSync(promotePath)) {
     "Build a promotion review",
     "Roll back the selected release",
     "For a fleet rollout",
+    "4. What has run",
+    "Ordered stages and parallel targets",
   ]) {
     if (!promote.includes(phrase)) failures.push(`site/promote.html: missing user-facing promotion step ${JSON.stringify(phrase)}`);
   }

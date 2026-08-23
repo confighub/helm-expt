@@ -135,6 +135,7 @@ const permanentLiteralOciReceiptPath = join(
 );
 const applyPolicyProfilePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 const applyPolicyLiveReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
+const changeWorkflowEvidencePath = join(repoRoot, "config-catalog", "change-workflow-evidence.yaml");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const gitopsRouteEmissionJsonPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
@@ -4978,6 +4979,18 @@ function redisRenderWithReplicaOverride(path) {
 function promoteHtml() {
   const measuredPromotion = readYaml(join(repoRoot, "runs", "measured-promotion-proof", "receipt.yaml"));
   const measuredRows = measuredPromotion.spec.tests.map((candidate) => `<tr><td><code>${escapeHtml(candidate.id)}</code></td><td>${candidate.successfulRequests}/${candidate.requests}</td><td>${candidate.readyReplicas}</td><td>${candidate.checks.destinationCapacity ? "Pass" : "Blocked"}</td><td>${candidate.id === measuredPromotion.spec.decision.selected ? "Selected" : candidate.result === "pass" ? "Passed, not selected" : "Not promoted"}</td></tr>`).join("");
+  const changeWorkflowEvidence = readYaml(changeWorkflowEvidencePath);
+  const changeWorkflowRows = (changeWorkflowEvidence.spec?.rows ?? []).map((row) => {
+    const links = (row.evidence ?? [])
+      .map((item) => `<a href="./d/${escapeHtml(item.path.replace(/\.md$/, ".html"))}">${escapeHtml(item.label)}</a>`)
+      .join(" · ");
+    return [
+      `<strong>${escapeHtml(row.need)}</strong>`,
+      `<strong>${escapeHtml(row.status)}</strong>`,
+      `${escapeHtml(row.result)}<br>${links}<br><span style="color:var(--muted)">${escapeHtml(row.limit)}</span>`,
+    ];
+  });
+  check(changeWorkflowRows.length === 8, "change workflow evidence must contain eight requirements");
   const exampleData = JSON.stringify({
     currentSourceYaml: readFileSync(REDIS_25_REUSE_RENDER_PATH, "utf8"),
     currentYaml: redisRenderWithReplicaOverride(REDIS_25_REUSE_RENDER_PATH),
@@ -4999,10 +5012,10 @@ function promoteHtml() {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Review a change before it moves</h1>
+    <h1>Can I move this exact change safely?</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
-    <p class="lead">Upgrading a chart, or moving a change toward production? Build a review of what changes, what stays the same, and which tests still have to run.</p>
-    <p>Some upgrades cannot apply at all: an immutable StatefulSet field fails at apply time, in production. Comparing the exact objects first is how you catch that on your laptop.</p>
+    <p class="lead">Compare what you run now with the exact configuration you want to move. See what the next environment would receive, what still needs testing, and whether any target has a current result.</p>
+    <p>An upgrade can fail because it changes an immutable StatefulSet field, removes an object, or needs setup that has not run. Compare the Kubernetes objects before production receives them.</p>
     <p id="promotion-intro-detail">The comparison runs in your browser. Your files are not uploaded, and you do not need an account. It does not run Helm, contact a cluster, execute a test, or promote anything. A finished Redis review loads automatically so you can see the result before adding your own files.</p>
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
@@ -5010,6 +5023,14 @@ function promoteHtml() {
     <section id="promotion-result" aria-labelledby="promotion-result-title" hidden>
       <h2 id="promotion-result-title">1. Promotion review</h2>
       <p class="stat-strip"><strong id="promotion-status"></strong> &middot; <span id="promotion-counts"></span></p>
+      <div style="max-width:100%;overflow-x:auto"><table style="min-width:640px">
+        <tbody>
+          <tr><th>Exact configuration</th><td id="promotion-exact-answer"></td></tr>
+          <tr><th>Next stage</th><td id="promotion-stage-answer"></td></tr>
+          <tr><th>What blocks it</th><td id="promotion-blocker-answer"></td></tr>
+          <tr><th>Current result</th><td id="promotion-current-answer"></td></tr>
+        </tbody>
+      </table></div>
       <p id="example-note" hidden><strong>Redis example:</strong> both inputs use the catalog's <code>reuse-existing-secret</code> configuration. The default configuration is not used because it can generate or reuse a password during rendering. Both inputs also contain the recorded change from three replicas to two. This comparison contains the chart's 13 Kubernetes objects; <code>cub installer</code> adds the explicit Namespace as the fourteenth deployable object.</p>
       <h3>What changes</h3>
       <ul id="what-changes"></ul>
@@ -5134,6 +5155,16 @@ function promoteHtml() {
       <h3>For a fleet rollout</h3>
       <p>The intended sequence is: choose targets by label, preview the exact target list, publish to a small wave, inspect every result, then continue or stop. The browser can record target results, but it does not select clusters, pause a live wave, or resume one. Use the <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos fleet example</a> for the current two-wave proof; managed pause and resume controls remain planned.</p>
       <p><a href="./docs.html#promotion">Promotion instructions</a> · <a href="./hard-questions.html">FAQ and limitations</a> · <a href="./known-gaps.html">Known gaps</a></p>
+    </section>
+
+    <section aria-labelledby="change-workflow-evidence">
+      <h2 id="change-workflow-evidence">4. What has run</h2>
+      <p>These results show what the current examples prove. A partial result means that some parts have run, but the complete workflow has not.</p>
+      ${markdownLikeTable([
+        ["Need", "Status", "Result and limit"],
+        ...changeWorkflowRows,
+      ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true, firstColumnWidthCh: 22 })}
+      <p><a href="./confighub.html"><strong>Keep a reviewed result in ConfigHub</strong></a> when you need ordered stages, approvals, release OCI, promotion history, and current observations to remain connected.</p>
     </section>
   </main>
   <script id="promotion-example-data" type="application/json">${exampleData}</script>

@@ -14,18 +14,19 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | --- | ---: |
 | org | 2 |
 | preset | 21 |
-| environment | 13 |
-| source | 6 |
+| environment | 22 |
+| source | 15 |
 | fleet | 5 |
 | pilot | 1 |
 | route | 2 |
-| total | 50 |
+| total | 68 |
 
 ## Files
 
 - README text: `data/helm-catalog-readmes/spaces/<space>/README.md`
 - Upload YAML: `data/helm-catalog-readmes/units/<space>/readme.yaml`
 - Inventory: [readmes.csv](./readmes.csv)
+- Live-Space classification: [config-catalog/live-space-readme-policy.yaml](../../config-catalog/live-space-readme-policy.yaml)
 
 ## Spaces
 
@@ -54,25 +55,43 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | `prometheus-community-kube-prometheus-stack-85-3-3-no-crds` | preset | [README](spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md) | [readme.yaml](units/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/readme.yaml) |
 | `prometheus-community-prometheus-29-8-0-default` | preset | [README](spaces/prometheus-community-prometheus-29-8-0-default/README.md) | [readme.yaml](units/prometheus-community-prometheus-29-8-0-default/readme.yaml) |
 | `prometheus-community-prometheus-29-8-0-server-only-ephemeral` | preset | [README](spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md) | [readme.yaml](units/prometheus-community-prometheus-29-8-0-server-only-ephemeral/readme.yaml) |
+| `ack-controllers-workshop-proof` | environment | [README](spaces/ack-controllers-workshop-proof/README.md) | [readme.yaml](units/ack-controllers-workshop-proof/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/readme.yaml) |
+| `aws-network-workshop-proof` | environment | [README](spaces/aws-network-workshop-proof/README.md) | [readme.yaml](units/aws-network-workshop-proof/readme.yaml) |
 | `bitnami-redis-base` | environment | [README](spaces/bitnami-redis-base/README.md) | [readme.yaml](units/bitnami-redis-base/readme.yaml) |
 | `bitnami-redis-prod` | environment | [README](spaces/bitnami-redis-prod/README.md) | [readme.yaml](units/bitnami-redis-prod/readme.yaml) |
 | `bitnami-redis-staging` | environment | [README](spaces/bitnami-redis-staging/README.md) | [readme.yaml](units/bitnami-redis-staging/readme.yaml) |
 | `byo-nginx-ai-values-24-0-2-development` | environment | [README](spaces/byo-nginx-ai-values-24-0-2-development/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-development/readme.yaml) |
 | `byo-nginx-ai-values-24-0-2-staging` | environment | [README](spaces/byo-nginx-ai-values-24-0-2-staging/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-staging/readme.yaml) |
+| `eks-cluster-workshop-proof` | environment | [README](spaces/eks-cluster-workshop-proof/README.md) | [readme.yaml](units/eks-cluster-workshop-proof/readme.yaml) |
+| `gpu-runtime-workshop-proof` | environment | [README](spaces/gpu-runtime-workshop-proof/README.md) | [readme.yaml](units/gpu-runtime-workshop-proof/readme.yaml) |
 | `hashicorp-vault-demo-base` | environment | [README](spaces/hashicorp-vault-demo-base/README.md) | [readme.yaml](units/hashicorp-vault-demo-base/readme.yaml) |
 | `hashicorp-vault-env-dev` | environment | [README](spaces/hashicorp-vault-env-dev/README.md) | [readme.yaml](units/hashicorp-vault-env-dev/readme.yaml) |
 | `hashicorp-vault-env-prod` | environment | [README](spaces/hashicorp-vault-env-prod/README.md) | [readme.yaml](units/hashicorp-vault-env-prod/readme.yaml) |
 | `hashicorp-vault-env-staging` | environment | [README](spaces/hashicorp-vault-env-staging/README.md) | [readme.yaml](units/hashicorp-vault-env-staging/readme.yaml) |
+| `inference-workloads-workshop-proof` | environment | [README](spaces/inference-workloads-workshop-proof/README.md) | [readme.yaml](units/inference-workloads-workshop-proof/readme.yaml) |
+| `karpenter-aws-workshop-proof` | environment | [README](spaces/karpenter-aws-workshop-proof/README.md) | [readme.yaml](units/karpenter-aws-workshop-proof/readme.yaml) |
+| `karpenter-workshop-proof` | environment | [README](spaces/karpenter-workshop-proof/README.md) | [readme.yaml](units/karpenter-workshop-proof/readme.yaml) |
+| `platform-profile-workshop-proof` | environment | [README](spaces/platform-profile-workshop-proof/README.md) | [readme.yaml](units/platform-profile-workshop-proof/readme.yaml) |
+| `timoni-redis-8-10-1-dev` | environment | [README](spaces/timoni-redis-8-10-1-dev/README.md) | [readme.yaml](units/timoni-redis-8-10-1-dev/readme.yaml) |
+| `ack-controllers-base` | source | [README](spaces/ack-controllers-base/README.md) | [readme.yaml](units/ack-controllers-base/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/readme.yaml) |
+| `aws-network-base` | source | [README](spaces/aws-network-base/README.md) | [readme.yaml](units/aws-network-base/readme.yaml) |
 | `byo-nginx-ai-values-24-0-2-reviewed` | source | [README](spaces/byo-nginx-ai-values-24-0-2-reviewed/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml) |
+| `eks-cluster-base` | source | [README](spaces/eks-cluster-base/README.md) | [readme.yaml](units/eks-cluster-base/readme.yaml) |
 | `existing-oci-nginx-replicas-4` | source | [README](spaces/existing-oci-nginx-replicas-4/README.md) | [readme.yaml](units/existing-oci-nginx-replicas-4/readme.yaml) |
+| `gpu-runtime-base` | source | [README](spaces/gpu-runtime-base/README.md) | [readme.yaml](units/gpu-runtime-base/readme.yaml) |
+| `inference-workloads-base` | source | [README](spaces/inference-workloads-base/README.md) | [readme.yaml](units/inference-workloads-base/readme.yaml) |
+| `karpenter-aws-base` | source | [README](spaces/karpenter-aws-base/README.md) | [readme.yaml](units/karpenter-aws-base/readme.yaml) |
+| `karpenter-base` | source | [README](spaces/karpenter-base/README.md) | [readme.yaml](units/karpenter-base/readme.yaml) |
 | `kubara-local-platform-v0-12-0` | source | [README](spaces/kubara-local-platform-v0-12-0/README.md) | [readme.yaml](units/kubara-local-platform-v0-12-0/readme.yaml) |
 | `plain-yaml-acme-web-base` | source | [README](spaces/plain-yaml-acme-web-base/README.md) | [readme.yaml](units/plain-yaml-acme-web-base/readme.yaml) |
+| `platform-profile-base` | source | [README](spaces/platform-profile-base/README.md) | [readme.yaml](units/platform-profile-base/readme.yaml) |
+| `timoni-redis-8-10-1-base` | source | [README](spaces/timoni-redis-8-10-1-base/README.md) | [readme.yaml](units/timoni-redis-8-10-1-base/readme.yaml) |
 | `bitnami-nginx-fleet-dev` | fleet | [README](spaces/bitnami-nginx-fleet-dev/README.md) | [readme.yaml](units/bitnami-nginx-fleet-dev/readme.yaml) |
 | `bitnami-nginx-fleet-prod-eu` | fleet | [README](spaces/bitnami-nginx-fleet-prod-eu/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-eu/readme.yaml) |
 | `bitnami-nginx-fleet-prod-us` | fleet | [README](spaces/bitnami-nginx-fleet-prod-us/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-us/readme.yaml) |

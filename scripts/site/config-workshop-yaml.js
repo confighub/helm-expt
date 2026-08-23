@@ -311,6 +311,112 @@
     return { overall, counts, targets: rows };
   }
 
+  function evaluateChangeWorkflow(workflow) {
+    const candidateDigest = String(workflow?.candidateDigest || "");
+    const events = Array.isArray(workflow?.events) ? workflow.events : [];
+    const activeExceptions = new Map();
+    const resolvedExceptions = new Set();
+    const stagePaused = new Map();
+    const writeCounts = new Map();
+    for (const event of events) {
+      if (event.type === "exception-open" && event.id) activeExceptions.set(event.id, event);
+      if (event.type === "exception-resolved" && event.id) {
+        activeExceptions.delete(event.id);
+        resolvedExceptions.add(event.id);
+      }
+      if (event.type === "pause" && event.stage) stagePaused.set(event.stage, true);
+      if (event.type === "resume" && event.stage) stagePaused.set(event.stage, false);
+      if (event.type === "write" && event.operationId) {
+        writeCounts.set(event.operationId, (writeCounts.get(event.operationId) || 0) + 1);
+      }
+    }
+    const duplicateWrites = [...writeCounts.entries()]
+      .filter(([, count]) => count > 1)
+      .map(([operationId]) => operationId)
+      .sort();
+    const validException = (id) => {
+      const exception = activeExceptions.get(id);
+      return Boolean(
+        exception?.reason
+        && exception?.approvedBy
+        && exception?.expiresAt
+        && Date.parse(exception.expiresAt) > Date.now(),
+      );
+    };
+    const stageResults = [];
+    let priorPassed = true;
+    for (const stage of Array.isArray(workflow?.stages) ? workflow.stages : []) {
+      const latestTargets = new Map();
+      for (const [index, target] of (stage.targets || []).entries()) {
+        const previous = latestTargets.get(target.name);
+        const time = Date.parse(target.observedAt || "") || index;
+        if (!previous || time >= previous.time) latestTargets.set(target.name, { ...target, time });
+      }
+      const targets = [...latestTargets.values()].map((target) => ({
+        ...target,
+        status: target.digest && target.digest !== candidateDigest ? "blocked" : target.status,
+        digestMatches: !target.digest || target.digest === candidateDigest,
+      }));
+      const counts = Object.fromEntries(["pass", "watch", "blocked", "not-run"].map((status) => [
+        status,
+        targets.filter((target) => target.status === status).length,
+      ]));
+      const targetOutcome = !targets.length
+        ? "not-run"
+        : counts.pass === targets.length
+          ? "pass"
+          : counts.pass > 0
+            ? "partial"
+            : counts.blocked > 0
+              ? "blocked"
+              : "partial";
+      const blockers = [];
+      if (!priorPassed) blockers.push("The previous stage has not passed.");
+      if (stagePaused.get(stage.name) || stage.paused) blockers.push("This stage is paused.");
+      for (const gate of stage.gates || []) {
+        if (gate.candidateDigest && gate.candidateDigest !== candidateDigest) {
+          blockers.push(`${gate.type || "Gate"} evidence belongs to a different candidate.`);
+          continue;
+        }
+        if (gate.status !== "pass" && !validException(gate.exceptionId)) {
+          blockers.push(`${gate.type || "Gate"} has not passed.`);
+        }
+      }
+      if (targetOutcome !== "pass") blockers.push("Every current target result must pass for this candidate.");
+      if (duplicateWrites.length) blockers.push("A write operation was recorded more than once.");
+      const decision = blockers.length ? "blocked" : "pass";
+      stageResults.push({
+        name: stage.name,
+        parallel: Boolean(stage.parallel),
+        targets,
+        counts,
+        outcome: targetOutcome,
+        decision,
+        blockers,
+      });
+      priorPassed = decision === "pass";
+    }
+    const responsibilities = workflow?.responsibilities || {};
+    const responsibilitiesSeparated = Boolean(
+      responsibilities.changeManagement
+      && ["argo-cd", "flux"].includes(responsibilities.reconciliation)
+      && responsibilities.changeManagement !== responsibilities.reconciliation,
+    );
+    return {
+      candidateDigest,
+      initiatedBy: workflow?.initiatedBy || "not-recorded",
+      stages: stageResults,
+      overall: stageResults.length && stageResults.every((stage) => stage.decision === "pass") ? "pass" : "blocked",
+      activeExceptions: [...activeExceptions.keys()].sort(),
+      resolvedExceptions: [...resolvedExceptions].sort(),
+      duplicateWrites,
+      responsibilities: {
+        ...responsibilities,
+        separated: responsibilitiesSeparated,
+      },
+    };
+  }
+
   globalThis.ConfigWorkshopYaml = {
     canonicalFileText,
     parseObjectSet,
@@ -318,5 +424,6 @@
     classifySourceAware,
     lifecycleFromRecord,
     parseTargetResults,
+    evaluateChangeWorkflow,
   };
 })();

@@ -139,6 +139,7 @@ spec:
     - "cub-installer"
     - "kubara"
     - "sveltos"
+    - "timoni"
     - "rendered-config"
   triggerDefinitions:
     -
@@ -241,7 +242,7 @@ status:
     - "runs/config-catalog-policy-functional-proof/receipt.yaml"
     - "scripts/sync-helm-org.mjs"
     - "scripts/run-config-catalog-policy-proof.mjs"
-  lastRecorded: "2026-07-30"
+  lastRecorded: "2026-08-23"
   limits:
     - "The live topology receipt proves Trigger definitions, filter definitions, and assigned Spaces. The functional receipt uses exact temporary fixtures to prove three blocking checks and two warning-only checks at the dry-run apply boundary."
     - "The AI change review receipt proves the two AICR checks against one ClusterTrainingRuntime shape. A target-specific node limit remains a repository check because this profile does not yet read a target-capacity fact."

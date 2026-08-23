@@ -447,6 +447,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/prometheus-community-kube-prometheus-stack.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-proof-gaps/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ack-controllers-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ack-controllers-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html</loc></url>
@@ -455,6 +457,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aws-network-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aws-network-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-static-passwords/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.html</loc></url>
@@ -475,7 +479,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/eks-cluster-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/eks-cluster-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/gpu-runtime-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/gpu-runtime-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-static-passwords/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-default/README.html</loc></url>
@@ -486,17 +494,27 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-env-prod/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-env-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hook-probe-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/inference-workloads-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/inference-workloads-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/karpenter-aws-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/karpenter-aws-workshop-proof/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/karpenter-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/karpenter-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/kubara-local-platform-v0-12-0/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/platform-profile-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/platform-profile-workshop-proof/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/platform/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-habit-friction/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-org/summary.html</loc></url>
@@ -652,6 +670,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-21/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-22-model-final/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-22-model-v2/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-23-change-workflow/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/ssa-conflict-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/status-dashboard/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/successor-track/summary.html</loc></url>

@@ -1,0 +1,75 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ChangeWorkflowEvidence
+metadata:
+  name: config-workshop
+spec:
+  question: Can I move this exact change to the next environment safely?
+  rows:
+    - need: Ordered stages and parallel targets
+      status: proved
+      result: A four-cluster test moved one change through pilot, staging, and two production targets in that order.
+      evidence:
+        - label: Sveltos environment rollout
+          path: data/sveltos-env-rollout/summary.md
+      limit: This was one local four-cluster run. It did not test a failed target or a large fleet.
+    - need: The exact reviewed configuration moves
+      status: proved
+      result: Redis and NGINX tests kept the reviewed object hash through ConfigHub, release OCI, and Argo CD.
+      evidence:
+        - label: Redis upgrade and rollback
+          path: data/redis-upgrade-app-proof/summary.md
+        - label: Tested NGINX candidates
+          path: data/measured-promotion-proof/summary.md
+      limit: These results cover the recorded examples, not every chart or application.
+    - need: Tests, policy, compatibility, and approval gates
+      status: partial
+      result: Candidate tests, destination requirements, schema checks, placeholder checks, policy warnings, and approval gates have run in separate examples.
+      evidence:
+        - label: Tested NGINX candidates
+          path: data/measured-promotion-proof/summary.md
+        - label: Apply-gate results
+          path: data/apply-policy-functional-proof/summary.md
+      limit: Prior-stage success, compatibility, approval, and application tests have not all been exercised in one workflow.
+    - need: Current sync and application health
+      status: partial
+      result: Argo CD sync, health, exact objects, ready replicas, and application checks were recorded after bounded Redis, NGINX, and inference changes.
+      evidence:
+        - label: Redis upgrade and rollback
+          path: data/redis-upgrade-app-proof/summary.md
+        - label: EKS inference promotion
+          path: data/eks-inference-promotion-delivery-proof/summary.md
+      limit: ConfigHub does not yet hold a fresh observation for every target, so an old green result must not be treated as current.
+    - need: Approvals, workflow history, and emergency exceptions
+      status: partial
+      result: Exact revisions, approvals, promotions, releases, and rollback records are queryable in the recorded examples.
+      evidence:
+        - label: Apply-policy assignments
+          path: data/apply-policy-profiles/summary.md
+        - label: Redis promotion history
+          path: data/redis-upgrade-app-proof/summary.md
+      limit: A time-bounded emergency exception and its later resolution have not been run end to end.
+    - need: Windows, target selection, soak, pause, and resume
+      status: partial
+      result: The Sveltos test selected pilot, staging, and production targets and moved the change in waves.
+      evidence:
+        - label: Sveltos environment rollout
+          path: data/sveltos-env-rollout/summary.md
+      limit: Scheduled windows, risk tiers, long soak, failed-target pause, and safe resume have not been proved.
+    - need: Release or CI automation with optional approval
+      status: partial
+      result: Approved ConfigHub revisions have been published as OCI and pulled by delivery controllers.
+      evidence:
+        - label: OCI deploy, stage, and rollout
+          path: data/oci-deploy-stage-rollout-proof/summary.md
+        - label: Apply-gate results
+          path: data/apply-policy-functional-proof/summary.md
+      limit: A Git or CI event starting the complete ordered workflow has not been run.
+    - need: Separate change, reconciliation, and rollout responsibilities
+      status: proved
+      result: ConfigHub retained and published the reviewed configuration, Argo CD reconciled its digest, and Sveltos selected and updated workload clusters.
+      evidence:
+        - label: Sveltos OCI delivery
+          path: data/sveltos-oci-delivery-proof/summary.md
+        - label: Redis upgrade and rollback
+          path: data/redis-upgrade-app-proof/summary.md
+      limit: The separation is proved for these controllers and examples. Other delivery and rollout controllers need their own results.

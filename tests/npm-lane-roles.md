@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 32
+lanes outside the chain: 36
 should join the chain:   0
-deliberately outside:    32
+deliberately outside:    36
 superseded:              0
 ```
 
@@ -55,6 +55,10 @@ None.
 | `measured-promotion:verify` | The committed NGINX run tested three exact object sets against one fixed HTTP check and destination requirement, selected the smallest passing candidate, kept that object hash through ConfigHub staging and production, and delivered the recorded release digest through Argo CD. | offline | passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, kind and kubectl |
 | `measured-promotion:self-test` | The measured promotion verifier rejects a different selected candidate, a production object hash that differs from the winner, or an Argo revision that differs from the release digest. | offline | passes; paired with measured-promotion:verify |
 | `aicr-starter-public:verify` | The anonymous Try AICR receipt still names the exact public source digest, seven reviewed Application files, source-and-intent record, public script, local OCI digest, and successful pull-back, without claiming ConfigHub or Kubernetes execution. | offline | passes; the public-site generator checks the same receipt and script contract, while this focused lane gives the AICR example a direct verifier |
+| `timoni-redis:oci:verify` | A credential-free pull of the immutable public Timoni Redis configuration OCI reproduces the recorded seven-object set and all six publication-time companion-record hashes. | network | passes; a fresh run needs Artifact Registry and oras, while timoni-redis:verify checks the committed receipt offline |
+| `timoni-redis:hub:verify` | The live helm-catalog base and development Spaces still match the committed Timoni receipt by Space ID, Unit ID, data hash, upstream link, README, companion-record placement, and policy assignment. | confighub | passes with a valid helm-catalog login; the offline receipt remains covered by timoni-redis:verify |
+| `timoni-redis:self-test` | The Timoni Redis publication payload contains the seven recorded Kubernetes objects and six internally consistent source, lifecycle, materialization, base, and index records without contacting a registry or ConfigHub. | offline | passes; this focused lane checks the publication payload before any external write |
+| `timoni-redis:verify` | The committed public-OCI and ConfigHub receipts retain the Timoni source identity, canonical seven-object set, six base-only companion records, seven linked development Units, policy checks, and explicit not-run delivery limits. | offline | passes; the cross-format Catalog gate checks the same base record while this lane checks both external receipts together |
 
 ## Superseded
 

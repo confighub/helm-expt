@@ -1,0 +1,40 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "PublicOciReceipt"
+metadata:
+  name: "timoni-redis-8-10-1-default"
+spec:
+  verifiedAt: "2026-08-23T14:18:01.208Z"
+  role: "literal Kubernetes configuration produced from a Timoni module"
+  artifact:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config:8.10.1-default"
+    immutableReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+    digest: "sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+    objectCount: 7
+    objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+    companionRecords:
+      source-and-intent.json: "dbb48b6d602525a7a36697af07f9bd83e6055d8a8732948fa50a967a83284849"
+      lifecycle-route-intent.json: "973e27e1b15a4f2a628dabbb4412265b00286db856b058f6c2010eed1fd0cc27"
+      flattening-verdict.json: "3e0811bbc6f57e3b153355800e2b3c0bd472ca399567d18abc7ea50ff8e463aa"
+      materialization-receipt.json: "af1ed86c04820414c744e74a028fadacf3a63f08c1575f44bb29df8573238d19"
+      base-variant-record.json: "5499c5ffc9a7e9a2eb04cc85709732dbd881e632a70102b49ae02e8472a38600"
+      catalog-index.json: "aec469925e9b8081f16052743f3a4d71417bb23d91d8f22ff097a8cfc2455fdc"
+    authenticatedPush: "pass"
+    anonymousPull: "pass"
+  source:
+    module: "oci://ghcr.io/stefanprodan/modules/redis@sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
+    moduleVersion: "8.10.1"
+    sourceRecord: "examples/timoni/redis-8-10-1/source-lock.yaml"
+    materializationReceipt: "examples/timoni/redis-8-10-1/generation-receipt.yaml"
+    routeIntent: "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
+  pullBack:
+    objectCount: 7
+    objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+    companionRecordCount: 6
+status:
+  result: "pass"
+  claim: "The seven exact Timoni Redis objects and their source, lifecycle, flattening, and materialization records are available in one public OCI at the recorded digest."
+  limits:
+    - "This proves publication and anonymous pull-back. It does not prove Kubernetes admission, lifecycle execution, workload health, controller delivery, upgrade, or rollback."
+    - "The source-module OCI and literal-configuration OCI have different roles and different digests."
+    - "The base-variant-record companion is a publication-time snapshot. The current Catalog record can add this OCI digest and later ConfigHub receipts without changing the published artifact."

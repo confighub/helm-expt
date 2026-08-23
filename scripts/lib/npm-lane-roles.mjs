@@ -78,6 +78,30 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; paired with measured-promotion:verify",
   },
+  "timoni-redis:self-test": {
+    proves: "The Timoni Redis publication payload contains the seven recorded Kubernetes objects and six internally consistent source, lifecycle, materialization, base, and index records without contacting a registry or ConfigHub.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused lane checks the publication payload before any external write",
+  },
+  "timoni-redis:verify": {
+    proves: "The committed public-OCI and ConfigHub receipts retain the Timoni source identity, canonical seven-object set, six base-only companion records, seven linked development Units, policy checks, and explicit not-run delivery limits.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the cross-format Catalog gate checks the same base record while this lane checks both external receipts together",
+  },
+  "timoni-redis:oci:verify": {
+    proves: "A credential-free pull of the immutable public Timoni Redis configuration OCI reproduces the recorded seven-object set and all six publication-time companion-record hashes.",
+    requires: "network",
+    disposition: "keep-outside",
+    status: "passes; a fresh run needs Artifact Registry and oras, while timoni-redis:verify checks the committed receipt offline",
+  },
+  "timoni-redis:hub:verify": {
+    proves: "The live helm-catalog base and development Spaces still match the committed Timoni receipt by Space ID, Unit ID, data hash, upstream link, README, companion-record placement, and policy assignment.",
+    requires: "confighub",
+    disposition: "keep-outside",
+    status: "passes with a valid helm-catalog login; the offline receipt remains covered by timoni-redis:verify",
+  },
   "verify:shard": {
     proves: "One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun.",
     requires: "offline",

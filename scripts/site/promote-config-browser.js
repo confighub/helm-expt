@@ -368,6 +368,21 @@
 
       byId("promotion-status").textContent = status;
       byId("promotion-counts").textContent = `${comparison.added.length} added · ${comparison.removed.length} removed · ${comparison.changed.length} changed · ${comparison.unchanged.length} unchanged · ${comparison.noOp.length} no-op`;
+      byId("promotion-exact-answer").textContent = `${candidate.name}: ${candidate.objects.length} Kubernetes objects at ${candidateDigest}.`;
+      byId("promotion-stage-answer").textContent = destinations.length
+        ? destinations.join(" → ")
+        : "No destination named. Test the candidate in a non-production environment first.";
+      const requiredTestCount = latestReview.spec.testsRequired.length;
+      byId("promotion-blocker-answer").textContent = invalid
+        ? "Fix invalid or duplicate Kubernetes objects before testing the change."
+        : targetResults.overall === "blocked"
+          ? `At least one target is blocked. ${requiredTestCount} checks or tests remain in the review.`
+          : `${requiredTestCount} checks or tests remain in the review. The browser comparison is not permission to deploy.`;
+      byId("promotion-current-answer").textContent = targetResults.counts.pass === 0
+        && targetResults.counts.watch === 0
+        && targetResults.counts.blocked === 0
+        ? `No target result has been supplied for ${candidateDigest}.`
+        : `${targetResults.overall}: ${targetResults.counts.pass} pass, ${targetResults.counts.watch} watch, ${targetResults.counts.blocked} blocked, ${targetResults.counts["not-run"]} not run.`;
       byId("current-digest").textContent = currentDigest;
       byId("candidate-digest").textContent = candidateDigest;
       addList("what-changes", whatChanges, "No object changes were found.");
@@ -470,7 +485,7 @@
 
   let autoLoading = false;
 
-  function loadRedisExample() {
+  async function loadRedisExample() {
     byId("change-type").value = "upgrade";
     byId("current-label").value = "bitnami/redis@25.5.3 reuse-existing-secret, replicas 2";
     byId("candidate-label").value = "bitnami/redis@27.0.0 reuse-existing-secret, replicas 2";
@@ -485,7 +500,7 @@
     byId("confighub-base-space").value = "redis-base";
     byId("confighub-destination-spaces").value = "redis-development, redis-staging";
     byId("example-note").hidden = false;
-    comparePromotion(true);
+    await comparePromotion(true);
   }
 
   byId("load-redis-promotion").addEventListener("click", loadRedisExample);
@@ -507,10 +522,10 @@
     });
   }
 
-  applyUrlContext().then(() => {
+  applyUrlContext().then(async () => {
     if (!new URLSearchParams(window.location.search).get("chart") && !byId("current-yaml").value && !byId("candidate-yaml").value) {
       autoLoading = true;
-      loadRedisExample();
+      await loadRedisExample();
       autoLoading = false;
     }
   });

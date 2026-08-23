@@ -15,6 +15,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { objectSetSha256 } from "./transform-config-oci.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const root = join(repoRoot, "examples", "timoni", "redis-8-10-1");
@@ -110,6 +111,7 @@ function buildInventory(items, text) {
     source: "examples/timoni/redis-8-10-1/source-lock.yaml",
     objectCount: items.length,
     fileSha256: sha256(text),
+    canonicalObjectSetSha256: objectSetSha256(items),
     kindCounts,
     images,
     identities,
@@ -137,7 +139,8 @@ function buildReceipt(lock, lifecycleRecord, flatteningRecord, inventoryRecord, 
         objects: lock.spec.output.objects,
         inventory: lock.spec.output.inventory,
         objectCount: inventoryRecord.objectCount,
-        objectSetSha256: inventoryRecord.fileSha256,
+        fileSha256: inventoryRecord.fileSha256,
+        objectSetSha256: inventoryRecord.canonicalObjectSetSha256,
         kinds: inventoryRecord.kindCounts,
         images: inventoryRecord.images,
       },
@@ -171,7 +174,7 @@ function buildReadme(lock, inventoryRecord, receipt) {
   const kinds = Object.entries(inventoryRecord.kindCounts)
     .map(([kind, count]) => `${kind} x${count}`)
     .join(", ");
-  return `# Timoni Redis 8.10.1\n\nThis is the first Timoni source retained in the Config Workshop Catalog. It exists so a user can compare a typed Timoni module with the Helm Redis configurations already in the Catalog without pretending that the two sources have the same inputs or lifecycle.\n\n## What was selected\n\n- Module version: \`${source.version}\`\n- Immutable module digest: \`${source.manifestDigest}\`\n- Instance and namespace: \`redis\`\n- Values: the module defaults, recorded in [selected-values.cue](./selected-values.cue)\n- Typed options and defaults: [config-schema.cue](./config-schema.cue)\n\n## What it produced\n\nThe local, cluster-free build produced **${inventoryRecord.objectCount} Kubernetes objects**: ${kinds}. The Redis image is pinned by digest. The default includes an 8 Gi persistent volume claim using the \`standard\` StorageClass, one read-only replica, health probes, and hardened pod and container security settings.\n\nRead the [exact YAML](./rendered/release-objects.yaml), [object inventory](./rendered/object-inventory.json), and [generation receipt](./generation-receipt.yaml).\n\n## What plain YAML would miss\n\nThe source workflow applies the master objects first, waits for the master, and then applies the read-only replica. It can also run a Redis PING Job when tests are enabled. Those steps are not represented by the seven default Kubernetes objects alone. The [lifecycle route intent](./lifecycle-route-intent.yaml) keeps that work beside the objects, and the [flattening verdict](./flattening-safety-verdict.yaml) requires those routes if the objects are retained as literal configuration.\n\nThe selected destination must provide the \`redis\` namespace, Kubernetes 1.20 or newer, and a \`standard\` StorageClass. Route resolution and live execution have not been run for this entry.\n\n## Current limit\n\nThis entry proves immutable source selection and local materialization. It does not prove Kubernetes admission, lifecycle execution, workload health, upgrade, rollback, ConfigHub upload, or GitOps delivery. The output labels say \`0.0.0-devel\`; use the recorded source version and digest above as the source identity.\n`;
+  return `# Timoni Redis 8.10.1\n\nThis is the first Timoni source retained in the Config Workshop Catalog. It exists so a user can compare a typed Timoni module with the Helm Redis configurations already in the Catalog without pretending that the two sources have the same inputs or lifecycle.\n\n## What was selected\n\n- Module version: \`${source.version}\`\n- Immutable module digest: \`${source.manifestDigest}\`\n- Instance and namespace: \`redis\`\n- Values: the module defaults, recorded in [selected-values.cue](./selected-values.cue)\n- Typed options and defaults: [config-schema.cue](./config-schema.cue)\n\n## What it produced\n\nThe local, cluster-free build produced **${inventoryRecord.objectCount} Kubernetes objects**: ${kinds}. The Redis image is pinned by digest. The default includes an 8 Gi persistent volume claim using the \`standard\` StorageClass, one read-only replica, health probes, and hardened pod and container security settings.\n\nRead the [exact YAML](./rendered/release-objects.yaml), [object inventory](./rendered/object-inventory.json), and [generation receipt](./generation-receipt.yaml).\n\nThe same seven objects are also available in a [public configuration OCI](../../../runs/timoni-redis-catalog-proof/public-oci-receipt.yaml). An anonymous pull reproduced the exact object set. ConfigHub retains those objects in \`timoni-redis-8-10-1-base\` and links them into \`timoni-redis-8-10-1-dev\` without changing a Kubernetes field. The source and helper records remain on the base instead of being copied into every environment.\n\n## What plain YAML would miss\n\nThe source workflow applies the master objects first, waits for the master, and then applies the read-only replica. It can also run a Redis PING Job when tests are enabled. Those steps are not represented by the seven default Kubernetes objects alone. The [lifecycle route intent](./lifecycle-route-intent.yaml) keeps that work beside the objects, and the [flattening verdict](./flattening-safety-verdict.yaml) requires those routes if the objects are retained as literal configuration.\n\nThe selected destination must provide the \`redis\` namespace, Kubernetes 1.20 or newer, and a \`standard\` StorageClass. Route resolution and live execution have not been run for this entry.\n\n## Current status\n\nThis entry proves immutable source selection, local materialization, public OCI publication and anonymous pull, and exact ConfigHub retention as a base and linked development variant. It does not prove Kubernetes admission, lifecycle execution, workload health, upgrade, rollback, or GitOps delivery. The output labels say \`0.0.0-devel\`; use the recorded source version and digest above as the source identity.\n`;
 }
 
 function findImages(value) {

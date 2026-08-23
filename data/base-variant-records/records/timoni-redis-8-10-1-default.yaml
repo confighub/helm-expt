@@ -25,7 +25,7 @@ spec:
     objects: "examples/timoni/redis-8-10-1/rendered/release-objects.yaml"
     inventory: "examples/timoni/redis-8-10-1/rendered/object-inventory.json"
     objectCount: 7
-    digest: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+    digest: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
     digestRole: "canonical-object-set"
     digestRecord: "examples/timoni/redis-8-10-1/generation-receipt.yaml"
   processing:
@@ -35,7 +35,7 @@ spec:
     materialization:
       method: "timoni-build"
       status: "captured"
-      outputDigest: "91059402bdbb37011f40c711297fd3d665f7ffa8eb05fe35487fde252163476b"
+      outputDigest: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
       record: "examples/timoni/redis-8-10-1/generation-receipt.yaml"
     flattening:
       status: "decided"
@@ -198,7 +198,20 @@ spec:
       reference: "oci://ghcr.io/stefanprodan/modules/redis"
       digest: "sha256:7f24e8f7e49132c90789464dcf5b82eb137e378c97735eec36efbe0d1caeb872"
     literalConfigOci:
-      status: "not-published"
+      status: "public-anonymous-pull-proved"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+      manifestDigest: "sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+      objectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+      receipt: "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml"
+    configHubUpload:
+      status: "base-and-development-variant-retained"
+      sourceRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+      sourceObjectSetSha256: "10f21f387715146838bc531cba4ce921e8eca127b0ab69a065e4f66a2a146fc2"
+      baseSpace: "timoni-redis-8-10-1-base"
+      developmentSpace: "timoni-redis-8-10-1-dev"
+      linkedUnits: 7
+      objectChange: "none"
+      receipt: "runs/timoni-redis-catalog-proof/confighub-receipt.yaml"
     configHubReleaseOci:
       status: "not-run"
     argoCd: "not-run"
@@ -219,14 +232,18 @@ spec:
     lifecycleRouteIntent: "examples/timoni/redis-8-10-1/lifecycle-route-intent.yaml"
     flatteningVerdict: "examples/timoni/redis-8-10-1/flattening-safety-verdict.yaml"
     readme: "examples/timoni/redis-8-10-1/README.md"
+    publicOciReceipt: "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml"
+    configHubReceipt: "runs/timoni-redis-catalog-proof/confighub-receipt.yaml"
   operations:
     resourceClass: "user-workload"
     ownerClass: "application-team"
     changeCadence: "application-release"
 status:
   level: "partial"
-  claim: "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects in a local, cluster-free build. Its typed options, selected defaults, object digest, master-first lifecycle, and destination requirements are retained together."
+  claim: "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects. The objects and their companion records are publicly pullable in one OCI. ConfigHub retained the same object set as a base and a linked development variant."
   limits:
     - "Kubernetes schema validation, admission, apply, workload health, upgrade, and rollback have not been run for this entry."
-    - "No literal configuration OCI, ConfigHub revision, release OCI, Argo CD result, or Flux result is recorded."
+    - "The literal configuration OCI was anonymously pulled and compared with the recorded object set."
+    - "ConfigHub retained a linked development variant with no Kubernetes field change; no destination was selected."
+    - "No ConfigHub release OCI, Argo CD result, or Flux result is recorded."
     - "The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock's version and immutable digest remain the source identity."

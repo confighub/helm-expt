@@ -92,7 +92,7 @@ const supportedSourceTypes = [
 const policySourceTypeByRecordSource = {
   helm: "helm",
   aicr: "aicr",
-  timoni: "rendered-config",
+  timoni: "timoni",
   "cub-installer": "cub-installer",
   kubara: "kubara",
   sveltos: "sveltos",
@@ -910,9 +910,24 @@ function buildTimoniRecord() {
   const receiptPath = `${root}/generation-receipt.yaml`;
   const lifecyclePath = `${root}/lifecycle-route-intent.yaml`;
   const flatteningPath = `${root}/flattening-safety-verdict.yaml`;
+  const publicOciReceiptPath =
+    "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml";
+  const configHubReceiptPath =
+    "runs/timoni-redis-catalog-proof/confighub-receipt.yaml";
   const source = readYaml(join(repoRoot, sourcePath));
   const receipt = readYaml(join(repoRoot, receiptPath));
   const lifecycle = readYaml(join(repoRoot, lifecyclePath));
+  const publicOciReceipt = existsRepo(publicOciReceiptPath)
+    ? readYaml(join(repoRoot, publicOciReceiptPath))
+    : null;
+  const configHubReceipt = existsRepo(configHubReceiptPath)
+    ? readYaml(join(repoRoot, configHubReceiptPath))
+    : null;
+  const publicOciPassed = publicOciReceipt?.status?.result === "pass"
+    && publicOciReceipt?.spec?.artifact?.anonymousPull === "pass";
+  const configHubPassed = configHubReceipt?.status?.result === "pass"
+    && configHubReceipt?.status?.import === "pass"
+    && configHubReceipt?.status?.derivedVariant === "pass";
   const sourceSpec = source.spec.source;
   const output = receipt.spec.output;
   return {
@@ -991,7 +1006,36 @@ function buildTimoniRecord() {
           digest: sourceSpec.manifestDigest,
         },
         literalConfigOci: {
-          status: "not-published",
+          status: publicOciPassed
+            ? "public-anonymous-pull-proved"
+            : "not-published",
+          ...(publicOciPassed
+            ? {
+                reference: publicOciReceipt.spec.artifact.immutableReference,
+                manifestDigest: publicOciReceipt.spec.artifact.digest,
+                objectSetSha256: publicOciReceipt.spec.artifact.objectSetSha256,
+                receipt: publicOciReceiptPath,
+              }
+            : {}),
+        },
+        configHubUpload: {
+          status: configHubPassed
+            ? "base-and-development-variant-retained"
+            : "not-run",
+          ...(configHubPassed
+            ? {
+                sourceRef: configHubReceipt.spec.source.immutableReference,
+                sourceObjectSetSha256:
+                  configHubReceipt.spec.source.objectSetSha256,
+                baseSpace: configHubReceipt.spec.base.slug,
+                developmentSpace: configHubReceipt.spec.development.slug,
+                linkedUnits:
+                  configHubReceipt.spec.variantRelationship.linkedUnits,
+                objectChange:
+                  configHubReceipt.spec.variantRelationship.objectChange,
+                receipt: configHubReceiptPath,
+              }
+            : {}),
         },
         configHubReleaseOci: {
           status: "not-run",
@@ -1015,6 +1059,8 @@ function buildTimoniRecord() {
         lifecycleRouteIntent: lifecyclePath,
         flatteningVerdict: flatteningPath,
         readme: `${root}/README.md`,
+        ...(publicOciPassed ? { publicOciReceipt: publicOciReceiptPath } : {}),
+        ...(configHubPassed ? { configHubReceipt: configHubReceiptPath } : {}),
       },
       operations: {
         resourceClass: "user-workload",
@@ -1024,10 +1070,18 @@ function buildTimoniRecord() {
     },
     status: {
       level: "partial",
-      claim: "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects in a local, cluster-free build. Its typed options, selected defaults, object digest, master-first lifecycle, and destination requirements are retained together.",
+      claim: publicOciPassed && configHubPassed
+        ? "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects. The objects and their companion records are publicly pullable in one OCI. ConfigHub retained the same object set as a base and a linked development variant."
+        : "The immutable Timoni Redis 8.10.1 module produced seven exact Kubernetes objects in a local, cluster-free build. Its typed options, selected defaults, object digest, master-first lifecycle, and destination requirements are retained together.",
       limits: [
         "Kubernetes schema validation, admission, apply, workload health, upgrade, and rollback have not been run for this entry.",
-        "No literal configuration OCI, ConfigHub revision, release OCI, Argo CD result, or Flux result is recorded.",
+        publicOciPassed
+          ? "The literal configuration OCI was anonymously pulled and compared with the recorded object set."
+          : "No literal configuration OCI is recorded.",
+        configHubPassed
+          ? "ConfigHub retained a linked development variant with no Kubernetes field change; no destination was selected."
+          : "No ConfigHub revision is recorded.",
+        "No ConfigHub release OCI, Argo CD result, or Flux result is recorded.",
         "The output labels report app.kubernetes.io/version=0.0.0-devel; the source lock's version and immutable digest remain the source identity.",
       ],
     },
@@ -2024,6 +2078,39 @@ function validateRecords(records) {
       && aicrV019.spec.delivery.configHubReleaseOci.promotedConfigurationMatched === true,
     "AICR v0.19.0 does not expose its processing, lifecycle, and ownership records",
   );
+  const timoni = records.find(
+    (record) => record.metadata.name === "timoni-redis-8-10-1-default",
+  );
+  check(timoni, "Timoni Redis base record is missing");
+  check(
+    timoni.spec.baseVariant.digestRole === "source-module-oci-manifest"
+      && timoni.spec.configuration.digestRole === "canonical-object-set"
+      && timoni.spec.processing.materialization.method === "timoni-build"
+      && timoni.spec.processing.flattening.verdict === "flatten-with-routes"
+      && timoni.spec.lifecycle.routeIntent.status === "recorded",
+    "Timoni Redis does not expose its source, object, processing, and lifecycle identities",
+  );
+  if (existsRepo("runs/timoni-redis-catalog-proof/public-oci-receipt.yaml")) {
+    check(
+      timoni.spec.delivery.literalConfigOci.status
+        === "public-anonymous-pull-proved"
+        && timoni.spec.delivery.literalConfigOci.objectSetSha256
+          === timoni.spec.configuration.digest,
+      "Timoni Redis public OCI receipt is not attached to its Catalog record",
+    );
+  }
+  if (existsRepo("runs/timoni-redis-catalog-proof/confighub-receipt.yaml")) {
+    check(
+      timoni.spec.delivery.configHubUpload.status
+        === "base-and-development-variant-retained"
+        && timoni.spec.delivery.configHubUpload.linkedUnits === 7
+        && timoni.spec.delivery.configHubUpload.objectChange === "none"
+        && timoni.spec.delivery.configHubReleaseOci.status === "not-run"
+        && timoni.spec.delivery.argoCd === "not-run"
+        && timoni.spec.delivery.flux === "not-run",
+      "Timoni Redis ConfigHub receipt is missing or overclaims delivery",
+    );
+  }
 }
 
 function validatePolicy(policy) {

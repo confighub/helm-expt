@@ -963,6 +963,12 @@
     "aicr-starter-public:verify": "node scripts/run-aicr-cpu-starter-public-proof.mjs --verify",
     "aicr-platform-variant:generate": "node scripts/generate-aicr-platform-variant.mjs --generate",
     "aicr-platform-variant:verify": "node scripts/generate-aicr-platform-variant.mjs --verify",
-    "aicr-platform-variant:self-test": "node scripts/generate-aicr-platform-variant.mjs --self-test"
+    "aicr-platform-variant:self-test": "node scripts/generate-aicr-platform-variant.mjs --self-test",
+    "timoni-redis:oci:publish": "HELM_EXPT_ALLOW_TIMONI_OCI_PUBLISH=1 node scripts/run-timoni-redis-catalog-proof.mjs --publish",
+    "timoni-redis:oci:verify": "node scripts/run-timoni-redis-catalog-proof.mjs --public-verify",
+    "timoni-redis:hub:sync": "HELM_EXPT_ALLOW_TIMONI_HUB_SYNC=1 node scripts/run-timoni-redis-catalog-proof.mjs --hub-sync",
+    "timoni-redis:hub:verify": "node scripts/run-timoni-redis-catalog-proof.mjs --hub-verify",
+    "timoni-redis:self-test": "node scripts/run-timoni-redis-catalog-proof.mjs --self-test",
+    "timoni-redis:verify": "node scripts/run-timoni-redis-catalog-proof.mjs --verify"
   }
 }
