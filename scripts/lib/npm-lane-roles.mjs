@@ -18,6 +18,12 @@
 //               keep-outside      needs external state or is too slow
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
+  "agent-skill:verify": {
+    proves: "The Config Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused lane checks the public agent contract and its published copy directly",
+  },
   "config-catalog:verify": {
     proves: "The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.",
     requires: "offline",
@@ -95,6 +101,12 @@ export const NPM_LANE_ROLES = Object.freeze({
     requires: "network",
     disposition: "keep-outside",
     status: "green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API",
+  },
+  "skills:verify": {
+    proves: "The six internal helm-expt operating guides and the public Config Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused lane checks all repository skills together",
   },
   "helm-org:fleet:verify": {
     proves: "That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one.",
