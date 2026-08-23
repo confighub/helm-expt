@@ -436,7 +436,7 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../ai.html">AI agents</a><a href="../charts/index.html">Catalog</a><a href="../ask.html">Check my config</a><a href="../promote.html">Promote my config</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">Choose a tested starting configuration for a Helm component or an AI infrastructure stack.</p>
+    <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
     <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
     <p>A new review adds a version instead of replacing the package you already used.</p>
     <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
@@ -1497,7 +1497,11 @@
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " Helm charts shown; 139 retained package versions remain available";
+            if (visible === 0) {
+              count.innerHTML = 'No Helm chart matches these filters. <a href="../ask.html">Check your chart and values locally</a>, then tell us if the result should become a Catalog entry.';
+            } else {
+              count.textContent = visible + " of " + rows.length + " Helm charts shown; 139 retained package versions remain available";
+            }
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.
@@ -1568,11 +1572,11 @@
     </section>
 
     <section id="timoni" aria-labelledby="timoni-title">
-      <h3 id="timoni-title">A typed module, checked the same way</h3>
+      <h3 id="timoni-title">Timoni Redis</h3>
       <p>The first Timoni entry uses Redis so you can compare it with the Helm Redis configurations above. The inputs are different, but the Catalog asks the same questions: which immutable source was selected, which objects did it produce, what lifecycle work sits around those objects, and what has actually been tested?</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>What is retained</th><th>Current result</th></tr></thead>
-        <tbody><tr><td>Redis 8.10.1 default</td><td>Immutable module digest, typed options, selected defaults, seven exact objects, master-first apply order, optional test, and destination requirements.</td><td>Local cluster-free build passed. Kubernetes apply, health, upgrade, rollback, ConfigHub, and GitOps have not run.</td></tr></tbody>
+        <tbody><tr><td>Redis 8.10.1 default</td><td>Immutable module digest, typed options, selected defaults, seven exact objects, master-first apply order, optional test, and destination requirements.</td><td>Cluster-free build and anonymous OCI pull passed. A ConfigHub base and linked development variant exist. Kubernetes apply, health, upgrade, rollback, and GitOps have not run.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -1580,7 +1584,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../d/examples/timoni/redis-8-10-1/README.html">Read the Timoni Redis entry</a> · <a href="../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml">Open its source-neutral Catalog record</a> · <a href="./index.html?q=redis#charts">Compare Helm Redis entries</a></p>
+      <p><a href="../d/examples/timoni/redis-8-10-1/README.html">Read the Timoni Redis entry</a> · <a href="../d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.html">Read the ConfigHub base guide</a> · <a href="../d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.html">Read the development variant</a> · <a href="../d/data/timoni-redis-catalog-proof/summary.html">Check the proof and limits</a> · <a href="../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml">Open its source-neutral Catalog record</a> · <a href="./index.html?q=redis#charts">Compare Helm Redis entries</a></p>
     </section>
 
     <section aria-labelledby="actions">

@@ -94,6 +94,12 @@
   function updateQuestionContext() {
     const chart = byId("chart").value.trim();
     const version = byId("version").value.trim();
+    const catalogSearch = byId("catalog-search-from-form");
+    const catalogQuery = [chart, version].filter(Boolean).join(" ");
+    catalogSearch.href = "./charts/index.html" + (catalogQuery ? "?q=" + encodeURIComponent(catalogQuery) : "");
+    catalogSearch.textContent = chart
+      ? "Search the Catalog for " + chart + (version ? " " + version : "")
+      : "Search the Catalog for this chart and version";
     const context = byId("question-context");
     if (!chart) {
       context.hidden = true;

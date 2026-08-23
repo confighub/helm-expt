@@ -98,6 +98,8 @@ function verify() {
     "URLSearchParams",
     "question-context",
     "You are checking ",
+    "catalog-search-from-form",
+    "Search the Catalog for ",
   ]) check(browserScript.includes(term), `browser review script is missing ${term}`);
 
   const askPage = read("site/ask.html");
@@ -109,6 +111,8 @@ function verify() {
     "chart configurations we have already tested and documented",
     "See an illustrative object review",
     "Check rendered objects in this browser",
+    "Search the Catalog for this chart and version",
+    "Timoni module or bundle",
     "Download one complete result",
     "WorkshopResult schema",
     "Download review record",

@@ -347,6 +347,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
 | `secret-lifecycle` | [secret-lifecycle/summary.md](./secret-lifecycle/summary.md) | front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state |
 | `serious-chart-reviews` | - | supporting generated evidence |
+| `site-agent-reviews-2026-08-23-three-click` | [site-agent-reviews-2026-08-23-three-click/summary.md](./site-agent-reviews-2026-08-23-three-click/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-13` | [site-persona-simulations-2026-08-13/summary.md](./site-persona-simulations-2026-08-13/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-13-after` | [site-persona-simulations-2026-08-13-after/summary.md](./site-persona-simulations-2026-08-13-after/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-13-question-journeys` | [site-persona-simulations-2026-08-13-question-journeys/summary.md](./site-persona-simulations-2026-08-13-question-journeys/summary.md) | supporting generated evidence |
@@ -356,6 +357,8 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `site-persona-simulations-2026-08-22-model-final` | [site-persona-simulations-2026-08-22-model-final/summary.md](./site-persona-simulations-2026-08-22-model-final/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-22-model-v2` | [site-persona-simulations-2026-08-22-model-v2/summary.md](./site-persona-simulations-2026-08-22-model-v2/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-change-workflow` | [site-persona-simulations-2026-08-23-change-workflow/summary.md](./site-persona-simulations-2026-08-23-change-workflow/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-08-23-three-click` | [site-persona-simulations-2026-08-23-three-click/summary.md](./site-persona-simulations-2026-08-23-three-click/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-08-23-three-click-after` | [site-persona-simulations-2026-08-23-three-click-after/summary.md](./site-persona-simulations-2026-08-23-three-click-after/summary.md) | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `successor-track` | [successor-track/summary.md](./successor-track/summary.md) | supporting generated evidence |
 | `sveltos-bulk-ops` | [sveltos-bulk-ops/summary.md](./sveltos-bulk-ops/summary.md) | supporting generated evidence |
@@ -393,7 +396,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 210 CSV files. Each row records the path, audience,
+It includes 215 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
