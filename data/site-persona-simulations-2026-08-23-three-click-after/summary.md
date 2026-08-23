@@ -1,6 +1,6 @@
 # Public-site persona simulations
 
-Site tested: http://127.0.0.1:8766/site/
+Site tested: https://confighub.github.io/helm-expt/site/
 
 This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after 3 clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.
 
@@ -8,7 +8,7 @@ This is synthetic usability testing, not human-subject research. Four determinis
 
 | Persona | Runs | Success | Partial | Fail | Answered on starting page | Useful first click when navigation was needed | Median clicks |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Application developer using AI-written configuration | 253 | 244 | 7 | 2 | 125/253 | 79/128 | 1 |
+| Application developer using AI-written configuration | 253 | 244 | 7 | 2 | 125/253 | 83/128 | 1 |
 | GitOps operator responsible for delivery | 253 | 217 | 36 | 0 | 108/253 | 86/145 | 1 |
 | Platform engineer managing environments and fleets | 253 | 234 | 19 | 0 | 128/253 | 84/125 | 0 |
 | Security-minded release reviewer | 253 | 215 | 37 | 1 | 89/253 | 113/164 | 1 |
@@ -77,4 +77,4 @@ The baseline and candidate use the same personas, goals, starting pages, click l
 | Partial journeys | 117/1012 | 99/1012 | -18 |
 | Failed journeys | 3/1012 | 3/1012 | 0 |
 | Answered on starting page | 430/1012 | 450/1012 | +20 |
-| Useful first click when needed | 379/582 (65.1%) | 362/562 (64.4%) | -0.7 points |
+| Useful first click when needed | 379/582 (65.1%) | 366/562 (65.1%) | 0.0 points |
