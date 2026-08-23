@@ -2420,7 +2420,7 @@ function configTestCentreHome(catalog) {
           </span>
         </nav>
         <div class="hero-head">
-          <span class="eyebrow">Helm first &middot; AICR, OCI and YAML also supported</span>
+          <span class="eyebrow">Helm first &middot; AICR, Timoni, OCI and YAML examples</span>
           <h1>See What Your Configuration Will Do</h1>
         </div>
         <div class="hero">
@@ -2469,7 +2469,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
             <a class="route-card" href="./confighub.html"><h3>4. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. Run each promotion with its approval, release, and cluster result.</p><span class="go">Keep the reviewed result &rarr;</span></a>
           </div>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
-          <p class="intro"><a href="./testing.html">Browse Helm, AICR, OCI, and YAML examples</a>, including promotions and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
+          <p class="intro"><a href="./testing.html">Browse Helm, AICR, Timoni, OCI, and YAML examples</a>, including promotions and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
         </section>
 
         <section class="section">
@@ -4785,6 +4785,7 @@ function askHtml() {
           <p><label for="version"><strong>Version or version pair</strong></label><br>
             <input id="version" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="25.5.3 or 25.5.3 -> 27.0.0"></p>
         </div>
+        <p><a id="catalog-search-from-form" href="./charts/index.html">Search the Catalog for this chart and version</a>. Use a tested record when one exists; keep investigating locally when it does not.</p>
         <p><label for="values-summary"><strong>Values, flags, or symptoms</strong> <span style="color:var(--muted)">(optional, remove secrets)</span></label><br>
           <textarea id="values-summary" rows="5" style="width:100%;padding:10px;margin-top:6px" placeholder="Namespace, release name, values keys, error text, or the change you expected"></textarea></p>
         <details style="margin:18px 0">
@@ -4833,6 +4834,7 @@ function askHtml() {
     <section id="check-files" aria-labelledby="check-files-title">
       <h2 id="check-files-title">Or: Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
+      <p>Helm, AICR, and Timoni must produce their Kubernetes objects locally first. This browser checks those objects; it does not run the source tool.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
       <p><strong>Do not add credentials or Secret values.</strong> Keep private source names and paths local. The optional public Catalog proposal is only for material you are allowed to publish.</p>
@@ -4842,6 +4844,7 @@ function askHtml() {
             <select id="source-type" style="width:100%;padding:10px;margin-top:6px">
               <option value="helm">Helm chart and values</option>
               <option value="aicr">AICR recipe</option>
+              <option value="timoni">Timoni module or bundle</option>
               <option value="oci">OCI package</option>
               <option value="kubernetes-yaml">Kubernetes YAML</option>
               <option value="existing-release">Existing release or deployment</option>
@@ -5154,7 +5157,7 @@ function promoteHtml() {
       <p>It does not run Helm, contact Kubernetes, execute hooks, establish CRDs, test an application, or prove a rollback. Target results count only when you add the result for the same proposed digest. ConfigHub is where the accepted configuration, downstream variants, approvals, release OCI, and live results can remain connected.</p>
       <h3>For a fleet rollout</h3>
       <p>The intended sequence is: choose targets by label, preview the exact target list, publish to a small wave, inspect every result, then continue or stop. The browser can record target results, but it does not select clusters, pause a live wave, or resume one. Use the <a href="./d/docs/demo/sveltos/kyverno-fleet.html">Sveltos fleet example</a> for the current two-wave proof; managed pause and resume controls remain planned.</p>
-      <p><a href="./docs.html#promotion">Promotion instructions</a> · <a href="./hard-questions.html">FAQ and limitations</a> · <a href="./known-gaps.html">Known gaps</a></p>
+      <p><a href="./d/docs/user/chart-hooks-what-happens.html">Check hooks, CRDs, and setup order</a> · <a href="./verification.html">Check current evidence</a> · <a href="./docs.html#promotion">Promotion instructions</a> · <a href="./known-gaps.html">Known gaps</a></p>
     </section>
 
     <section aria-labelledby="change-workflow-evidence">
@@ -7118,8 +7121,8 @@ function aiHtml(catalog) {
     <section aria-labelledby="timoni-example">
       <h2 id="timoni-example">5. Compare one non-Helm source</h2>
       <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. It records the typed options, selected defaults, seven exact Kubernetes objects, the master-first apply order, the optional test Job, and the destination requirements.</p>
-      <p>The current record proves a local, cluster-free build. It does not claim a live apply, health check, upgrade, rollback, ConfigHub upload, or GitOps delivery.</p>
-      <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="./charts/index.html">Compare it with Helm Redis configurations</a></p>
+      <p>The current record proves a local, cluster-free build, an anonymous pull of the immutable public OCI, and a ConfigHub base with a linked development variant. It does not claim a Kubernetes apply, health check, upgrade, rollback, or GitOps delivery.</p>
+      <p><a href="../examples/timoni/redis-8-10-1/README.md">Open the Timoni Redis record</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="../data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#charts">Compare it with Helm Redis configurations</a></p>
     </section>
 
     <section aria-labelledby="confighub-review">
@@ -7570,6 +7573,10 @@ Rendered 0 secret(s)</code></pre>
         [
           "An AICR recipe or inference stack",
           `<a href="./try-aicr.html"><strong>Try one AICR configuration.</strong></a> Pull and verify the seven-Application CPU starter without an account, cluster, or GPU. Then compare the real CPU model request, NIM, and full EKS paths below.<br><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">AICR v0.19 H100 training record</a>`,
+        ],
+        [
+          "A Timoni module",
+          `<a href="./ai.html#timoni-example"><strong>Inspect the Timoni Redis example.</strong></a> Compare its immutable module source, typed options, seven exact objects, lifecycle order, public OCI, and ConfigHub base and development variant.<br><a href="./d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.html">Base guide</a> · <a href="./d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.html">Development variant</a> · <a href="./d/data/timoni-redis-catalog-proof/summary.html">Proof and limits</a>`,
         ],
         [
           "An existing OCI package",
@@ -8516,13 +8523,13 @@ function aicrEntriesSection() {
 
 function timoniEntrySection() {
   return `<section id="timoni" aria-labelledby="timoni-title">
-      <h3 id="timoni-title">A typed module, checked the same way</h3>
+      <h3 id="timoni-title">Timoni Redis</h3>
       <p>The first Timoni entry uses Redis so you can compare it with the Helm Redis configurations above. The inputs are different, but the Catalog asks the same questions: which immutable source was selected, which objects did it produce, what lifecycle work sits around those objects, and what has actually been tested?</p>
       ${markdownLikeTable([
         ["Entry", "What is retained", "Current result"],
-        ["Redis 8.10.1 default", "Immutable module digest, typed options, selected defaults, seven exact objects, master-first apply order, optional test, and destination requirements.", "Local cluster-free build passed. Kubernetes apply, health, upgrade, rollback, ConfigHub, and GitOps have not run."],
+        ["Redis 8.10.1 default", "Immutable module digest, typed options, selected defaults, seven exact objects, master-first apply order, optional test, and destination requirements.", "Cluster-free build and anonymous OCI pull passed. A ConfigHub base and linked development variant exist. Kubernetes apply, health, upgrade, rollback, and GitOps have not run."],
       ])}
-      <p><a href="../../examples/timoni/redis-8-10-1/README.md">Read the Timoni Redis entry</a> · <a href="../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml">Open its source-neutral Catalog record</a> · <a href="./index.html?q=redis#charts">Compare Helm Redis entries</a></p>
+      <p><a href="../../examples/timoni/redis-8-10-1/README.md">Read the Timoni Redis entry</a> · <a href="../../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.md">Read the ConfigHub base guide</a> · <a href="../../data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.md">Read the development variant</a> · <a href="../../data/timoni-redis-catalog-proof/summary.md">Check the proof and limits</a> · <a href="../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml">Open its source-neutral Catalog record</a> · <a href="./index.html?q=redis#charts">Compare Helm Redis entries</a></p>
     </section>`;
 }
 
@@ -8556,7 +8563,7 @@ function timoniEntrySection() {
     ${topNav("..")}
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">Choose a tested starting configuration for a Helm component or an AI infrastructure stack.</p>
+    <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
     <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
     <p>A new review adds a version instead of replacing the package you already used.</p>
     <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
@@ -8610,7 +8617,11 @@ ${chartRowsHtml}
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " Helm charts shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
+            if (visible === 0) {
+              count.innerHTML = 'No Helm chart matches these filters. <a href="../ask.html">Check your chart and values locally</a>, then tell us if the result should become a Catalog entry.';
+            } else {
+              count.textContent = visible + " of " + rows.length + " Helm charts shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
+            }
           };
           // A filtered view is worth sharing, so the query lives in the URL:
           // charts/index.html?q=eks-inference lands on those rows directly.

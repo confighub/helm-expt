@@ -19,6 +19,7 @@ const compareWith = valueAfter("--compare-with", "");
 const starts = [
   "index.html",
   "guides.html",
+  "ai.html",
   "ask.html",
   "promote.html",
   "charts/index.html",
@@ -66,6 +67,8 @@ const personas = [
       g("conversion", "D-X3", "promote a reviewed change", ["promote", "reviewed", "change"], [["promote", "promotion"], ["reviewed", "approval"]], ["tutorial", "variant", "promote"]),
       g("conversion", "D-X4", "continue into ConfigHub", ["confighub", "account", "tutorial"], [["confighub"], ["account"], ["tutorial", "create"]], ["create an account", "open the tutorial"]),
       g("action", "D-A5", "check whether my exact change can move safely", ["exact change", "move", "safe"], [["exact configuration"], ["next stage"], ["what blocks it"], ["current result"]], ["compare my rendered yaml", "build a promotion review"]),
+      g("navigation", "D-N5", "find a reviewed Timoni Redis configuration", ["timoni", "redis", "reviewed"], [["timoni"], ["redis"], ["source", "provenance", "intent"], ["object", "configuration"]], ["read", "inspect", "oci", "guide"], "Timoni"),
+      g("conversion", "D-X5", "keep reviewed AI-written YAML as a shared base", ["reviewed", "yaml", "base"], [["reviewed result"], ["yaml", "objects"], ["base", "configHub"]], ["upload", "keep", "create", "commands"], "YAML"),
     ],
   },
   {
@@ -94,6 +97,8 @@ const personas = [
       g("conversion", "O-X3", "compare desired and live state", ["desired", "live", "compare"], [["desired"], ["live"], ["compare", "observation"]], ["connect", "observe", "guide"]),
       g("conversion", "O-X4", "keep GitOps while adding ConfigHub", ["keep", "gitops", "confighub"], [["configHub"], ["argo cd", "flux", "gitops"], ["keep", "remain"]], ["guide", "account", "tutorial"]),
       g("action", "O-A5", "check lifecycle work before the next environment", ["lifecycle", "next environment", "test"], [["hooks", "crds"], ["next stage", "destination"], ["test", "block"]], ["build a promotion review", "source and intent"]),
+      g("comprehension", "O-C5", "understand lifecycle work after an environment variant changes", ["lifecycle", "variant", "destination"], [["lifecycle work", "route intent"], ["variant", "environment"], ["destination", "target"], ["actor", "order", "before"]], ["source and intent", "promotion review", "guide"]),
+      g("navigation", "O-N5", "find a Timoni configuration carried through OCI", ["timoni", "oci", "objects"], [["timoni"], ["oci"], ["object", "configuration"], ["digest", "receipt"]], ["read", "inspect", "pull", "guide"], "Timoni"),
     ],
   },
   {
@@ -122,6 +127,8 @@ const personas = [
       g("conversion", "P-X3", "connect Git OCI and live targets", ["git", "oci", "live", "target"], [["git"], ["oci"], ["live", "target", "observation"]], ["guide", "connect", "publish"]),
       g("conversion", "P-X4", "operate a small fleet", ["fleet", "operate", "rollout"], [["fleet"], ["rollout", "cluster"], ["configHub"]], ["example", "walkthrough", "account"]),
       g("action", "P-A5", "review ordered stages and a partial fleet", ["ordered", "stage", "partial fleet"], [["pilot"], ["staging"], ["production"], ["partial", "not run"]], ["promotion review", "target results", "what has run"]),
+      g("comprehension", "P-C5", "understand the anonymous path and the ConfigHub handoff", ["anonymous", "local", "confighub"], [["no account", "without an account", "local"], ["reviewed result"], ["configHub"], ["variant", "promote", "history"]], ["keep", "upload", "tutorial", "account"], "mixed"),
+      g("navigation", "P-N5", "find the Timoni Redis base and development variant", ["timoni", "redis", "base", "dev"], [["timoni"], ["redis"], ["base"], ["dev", "development", "variant"]], ["read", "guide", "configHub"], "Timoni"),
     ],
   },
   {
@@ -150,6 +157,8 @@ const personas = [
       g("conversion", "S-X3", "audit an exact diff", ["audit", "exact", "diff"], [["diff"], ["exact", "field"], ["audit", "record", "review"]], ["account", "tutorial"]),
       g("conversion", "S-X4", "see why ConfigHub is more than a scanner", ["confighub", "change", "promote"], [["configHub"], ["change", "variant"], ["promote", "release", "approve"]], ["create an account", "tutorial"]),
       g("action", "S-A5", "check current evidence before approving a move", ["current", "evidence", "approve"], [["current result"], ["proved", "partial"], ["approval", "gate"]], ["review", "evidence", "receipt"]),
+      g("comprehension", "S-C5", "distinguish source and intent records from deployable objects", ["source", "intent", "deployable"], [["source and intent", "source record", "provenance"], ["workload", "kubernetes object"], ["not deploy", "helper", "companion"]], ["guide", "model", "inspect"], "mixed"),
+      g("action", "S-A6", "inspect the Timoni publication receipt", ["timoni", "publication", "receipt"], [["timoni"], ["receipt"], ["digest", "sha256"], ["publication", "published"]], ["view", "source", "inspect"], "Timoni"),
     ],
   },
 ];
@@ -314,6 +323,7 @@ async function simulateJourney(persona, task, start, runIndex) {
   return {
     persona: persona.id,
     run_id: `${persona.id}-${String(runIndex).padStart(3, "0")}`,
+    max_clicks: maxClicks,
     category: task.category,
     format: task.format,
     goal_code: task.code,
@@ -427,7 +437,9 @@ function journeyShape(rows) {
     } catch {
       // Older result files may contain a relative start URL.
     }
-    return `${row.persona}|${row.goal_code}|${startPath}`;
+    const siteRoot = startPath.indexOf("/site/");
+    if (siteRoot >= 0) startPath = startPath.slice(siteRoot);
+    return `${row.persona}|${row.goal_code}|${startPath}|${row.max_clicks ?? "unknown"}`;
   }))].sort();
 }
 
@@ -437,7 +449,7 @@ function markdown(journeys, language, baselineJourneys = []) {
     "",
     `Site tested: ${baseUrl.href}`,
     "",
-    "This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after five clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.",
+    `This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after ${maxClicks} clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.`,
     "",
     "## Results",
     "",
@@ -459,7 +471,7 @@ function markdown(journeys, language, baselineJourneys = []) {
     lines.push(`| ${category} | ${outcomes.success ?? 0} | ${outcomes.partial ?? 0} | ${outcomes.fail ?? 0} |`);
   }
   lines.push("", "## Cross-format", "", "| Input format | Success | Partial | Fail |", "| --- | ---: | ---: | ---: |");
-  for (const format of ["Helm", "AICR", "OCI", "YAML", "mixed"]) {
+  for (const format of [...new Set(journeys.map((row) => row.format))].sort()) {
     const outcomes = Object.fromEntries(countBy(journeys.filter((row) => row.format === format), "outcome"));
     lines.push(`| ${format} | ${outcomes.success ?? 0} | ${outcomes.partial ?? 0} | ${outcomes.fail ?? 0} |`);
   }

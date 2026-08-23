@@ -543,6 +543,7 @@
           <p><label for="version"><strong>Version or version pair</strong></label><br>
             <input id="version" type="text" style="width:100%;padding:10px;margin-top:6px" placeholder="25.5.3 or 25.5.3 -> 27.0.0"></p>
         </div>
+        <p><a id="catalog-search-from-form" href="./charts/index.html">Search the Catalog for this chart and version</a>. Use a tested record when one exists; keep investigating locally when it does not.</p>
         <p><label for="values-summary"><strong>Values, flags, or symptoms</strong> <span style="color:var(--muted)">(optional, remove secrets)</span></label><br>
           <textarea id="values-summary" rows="5" style="width:100%;padding:10px;margin-top:6px" placeholder="Namespace, release name, values keys, error text, or the change you expected"></textarea></p>
         <details style="margin:18px 0">
@@ -591,6 +592,7 @@
     <section id="check-files" aria-labelledby="check-files-title">
       <h2 id="check-files-title">Or: Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>
+      <p>Helm, AICR, and Timoni must produce their Kubernetes objects locally first. This browser checks those objects; it does not run the source tool.</p>
       <p>The browser records object identities and hashes, reports added, removed, and changed objects, and checks a short list of common manifest risks. This is a first check, not a Helm render, Kubernetes schema check, admission test, hook run, or live health test.</p>
       <p><strong>The checks on this page run in your browser.</strong> This page does not send your files to an AI service. You may use your own Claude, Codex, or other AI assistant to investigate findings or propose fixes. Check its proposed commands, objects, and evidence before accepting them.</p>
       <p><strong>Do not add credentials or Secret values.</strong> Keep private source names and paths local. The optional public Catalog proposal is only for material you are allowed to publish.</p>
@@ -600,6 +602,7 @@
             <select id="source-type" style="width:100%;padding:10px;margin-top:6px">
               <option value="helm">Helm chart and values</option>
               <option value="aicr">AICR recipe</option>
+              <option value="timoni">Timoni module or bundle</option>
               <option value="oci">OCI package</option>
               <option value="kubernetes-yaml">Kubernetes YAML</option>
               <option value="existing-release">Existing release or deployment</option>

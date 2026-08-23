@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI with review and evidence · Config Workshop</title>
-  <meta name="description" content="Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/ai.html">
-  <meta property="og:title" content="AI with review and evidence · Config Workshop">
-  <meta property="og:description" content="Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.">
+  <title>Public-site persona simulations · Config Workshop</title>
+  <meta name="description" content="Public-site persona simulations: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-23-three-click-after/summary.html">
+  <meta property="og:title" content="Public-site persona simulations · Config Workshop">
+  <meta property="og:description" content="Public-site persona simulations: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/ai.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/site-persona-simulations-2026-08-23-three-click-after/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,182 +427,75 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Use Config Workshop with your AI agent</h1>
-    <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The Config Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
-    <p>The agent may propose commands or changes. You still see the source, Kubernetes objects, diff, checks, and limits before anything is applied or uploaded.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Public-site persona simulations</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/site-persona-simulations-2026-08-23-three-click-after/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="install-skill">
-      <h2 id="install-skill">1. Install the Config Workshop skill</h2>
-      <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
-      <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
-      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It does not grant credentials or apply configuration. It keeps private files local and redacts Secret values. It pins versions and digests, reports skipped checks, and previews changes before mutation.</p>
-    </section>
-
-    <section aria-labelledby="tasks">
-      <h2 id="tasks">2. Ask for one result</h2>
-      <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
-      <div class="card"><table>
-        <thead><tr><th>Task</th><th>Example request</th><th>What the agent should return</th></tr></thead>
-        <tbody><tr><td>Find a known answer</td><td>What will bitnami/redis 25.5.3 install, and what must exist first?</td><td>The exact Catalog version, objects, lifecycle work, checks, and limits.</td></tr><tr><td>Check my configuration</td><td>Here is the chart and values my AI produced. Compare them with the defaults and tell me what matters.</td><td>A local render, normalized comparison, findings, and a reviewed result you can keep.</td></tr><tr><td>Review a promotion</td><td>Can I move this staging configuration to production?</td><td>Current and candidate digests, destination differences, lifecycle work, and tests still required.</td></tr><tr><td>Inspect another source</td><td>Build the retained Timoni Redis 8.10.1 source and tell me what plain YAML leaves out.</td><td>The module digest, typed options, seven exact objects, ordered lifecycle, and current limits.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
-    </section>
-
-    <section aria-labelledby="records">
-      <h2 id="records">3. Keep the answer tied to records</h2>
-      <p>The skill uses the same public files as the site. It does not treat page copy or an agent's explanation as proof.</p>
-      <div class="card"><table>
-        <thead><tr><th>Record</th><th>What it answers</th></tr></thead>
-        <tbody><tr><td>changes.json</td><td>Which exact Helm package version and digest did you ask about, and which areas have evidence?</td></tr><tr><td>base-variant-records.json</td><td>Where did the configuration come from, which exact objects were produced, and what lifecycle, ownership, OCI, and delivery records exist?</td></tr><tr><td>review and promotion records</td><td>Which files were compared, which checks ran, and what remains before the result moves?</td></tr><tr><td>linked receipts</td><td>What command or live run produced a claim, for which object digest and target?</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Missing coverage means the claim has not been checked. A successful render does not prove cluster admission, controller convergence, workload health, upgrade, or rollback.</p>
-    </section>
-
-    <section aria-labelledby="sources">
-      <h2 id="sources">4. Use the same steps across source formats</h2>
-      <p>Helm renders a chart. Timoni builds a module or bundle. AICR and Kubara compose or generate configuration. Literal YAML and configuration OCI already contain exact objects. Config Workshop records which operation happened instead of calling every source a Helm recipe.</p>
-      <div class="card"><table>
-        <thead><tr><th>Step</th><th>Question</th></tr></thead>
-        <tbody><tr><td>Source and intent</td><td>Which source, version, digest, values or typed choices, and target assumptions were selected?</td></tr><tr><td>Materialize</td><td>Which exact Kubernetes objects did that source produce?</td></tr><tr><td>Flatten</td><td>Can those objects be kept literally without losing behavior?</td></tr><tr><td>Lifecycle and route</td><td>Who handles hooks, CRDs, tests, waits, setup Jobs, Secrets, and destination requirements, and in what order?</td></tr><tr><td>Retain and deliver</td><td>Will the reviewed result stay as files, become OCI, or be kept as ConfigHub data and released through Argo CD or Flux?</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="./.well-known/agent-skills/config-workshop/references/processing-model.md">Read the agent processing model</a> · <a href="./deployment-reference.html">Read the human deployment reference</a></p>
-    </section>
-
-    <section aria-labelledby="timoni-example">
-      <h2 id="timoni-example">5. Compare one non-Helm source</h2>
-      <p>The first Timoni entry retains Redis 8.10.1 at an immutable module digest. It records the typed options, selected defaults, seven exact Kubernetes objects, the master-first apply order, the optional test Job, and the destination requirements.</p>
-      <p>The current record proves a local, cluster-free build, an anonymous pull of the immutable public OCI, and a ConfigHub base with a linked development variant. It does not claim a Kubernetes apply, health check, upgrade, rollback, or GitOps delivery.</p>
-      <p><a href="d/examples/timoni/redis-8-10-1/README.html">Open the Timoni Redis record</a> · <a href="d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.html">Read the ConfigHub base guide</a> · <a href="d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.html">Read the development variant</a> · <a href="d/data/timoni-redis-catalog-proof/summary.html">Check the proof and limits</a> · <a href="./charts/index.html?q=redis#charts">Compare it with Helm Redis configurations</a></p>
-    </section>
-
-    <section aria-labelledby="confighub-review">
-      <h2 id="confighub-review">6. Keep a reviewed result in ConfigHub</h2>
-      <p>Use ConfigHub when the accepted objects need team history, variants, approval, promotion, release OCI, delivery, or comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
-      <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
-      <p><a href="d/data/ai-change-review-live-proof/summary.html">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
-    </section>
-
-    <section aria-labelledby="catalog-maintenance">
-      <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
-      <p>Agents help read source behavior, propose useful starting configurations, generate checks, investigate failures, and explain receipts. Generated text is reviewed against committed data before it appears as a Catalog claim.</p>
-      <div class="card"><table>
-        <thead><tr><th>Agent task</th><th>Required record</th></tr></thead>
-        <tbody><tr><td>Read source behavior</td><td>Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions.</td></tr><tr><td>Propose useful configurations</td><td>Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog.</td></tr><tr><td>Investigate failures</td><td>Separate input errors, missing target setup, lifecycle work, controller results, and workload health.</td></tr><tr><td>Maintain explanations</td><td>Turn exact records and receipts into short instructions while keeping links to the underlying evidence.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="d/data/agent-skill-evaluations/summary.html">Read the fresh-agent evaluation</a> · <a href="./verification.html">Run the verification commands</a> · <a href="./guides.html">Open technical guides</a></p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Site tested: http://127.0.0.1:8766/site/</p>
+<p>This is synthetic usability testing, not human-subject research. Four deterministic walkers represent ordinary technical users. Each walker follows only visible internal links, stops after 3 clicks, and succeeds only when a live page contains the required facts plus a relevant action. Language trials are simulated preferences and are reported separately.</p>
+<h2 id="results">Results</h2>
+<table><thead><tr><th>Persona</th><th>Runs</th><th>Success</th><th>Partial</th><th>Fail</th><th>Answered on starting page</th><th>Useful first click when navigation was needed</th><th>Median clicks</th></tr></thead><tbody><tr><td>Application developer using AI-written configuration</td><td>253</td><td>244</td><td>7</td><td>2</td><td>125/253</td><td>79/128</td><td>1</td></tr>
+<tr><td>GitOps operator responsible for delivery</td><td>253</td><td>217</td><td>36</td><td>0</td><td>108/253</td><td>86/145</td><td>1</td></tr>
+<tr><td>Platform engineer managing environments and fleets</td><td>253</td><td>234</td><td>19</td><td>0</td><td>128/253</td><td>84/125</td><td>0</td></tr>
+<tr><td>Security-minded release reviewer</td><td>253</td><td>215</td><td>37</td><td>1</td><td>89/253</td><td>113/164</td><td>1</td></tr></tbody></table>
+<h2 id="by-category">By category</h2>
+<table><thead><tr><th>Category</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>comprehension</td><td>195</td><td>13</td><td>1</td></tr>
+<tr><td>navigation</td><td>197</td><td>12</td><td>0</td></tr>
+<tr><td>action</td><td>196</td><td>33</td><td>2</td></tr>
+<tr><td>recovery</td><td>150</td><td>26</td><td>0</td></tr>
+<tr><td>conversion</td><td>172</td><td>15</td><td>0</td></tr></tbody></table>
+<h2 id="cross-format">Cross-format</h2>
+<table><thead><tr><th>Input format</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>AICR</td><td>22</td><td>0</td><td>0</td></tr>
+<tr><td>Helm</td><td>703</td><td>76</td><td>2</td></tr>
+<tr><td>OCI</td><td>57</td><td>8</td><td>1</td></tr>
+<tr><td>Timoni</td><td>34</td><td>10</td><td>0</td></tr>
+<tr><td>YAML</td><td>41</td><td>3</td><td>0</td></tr>
+<tr><td>mixed</td><td>53</td><td>2</td><td>0</td></tr></tbody></table>
+<h2 id="goals-that-still-need-work">Goals that still need work</h2>
+<table><thead><tr><th>Goal</th><th>Success</th><th>Partial</th><th>Fail</th></tr></thead><tbody><tr><td>check lifecycle work before the next environment</td><td>1</td><td>10</td><td>0</td></tr>
+<tr><td>check current evidence before approving a move</td><td>1</td><td>10</td><td>0</td></tr>
+<tr><td>compare desired and live state</td><td>2</td><td>9</td><td>0</td></tr>
+<tr><td>review ordered stages and a partial fleet</td><td>2</td><td>9</td><td>0</td></tr>
+<tr><td>handle CRD ordering risk</td><td>2</td><td>9</td><td>0</td></tr>
+<tr><td>understand partial drift coverage</td><td>3</td><td>8</td><td>0</td></tr>
+<tr><td>distinguish object, OCI manifest, and release identities</td><td>5</td><td>5</td><td>1</td></tr>
+<tr><td>find a reviewed Timoni Redis configuration</td><td>6</td><td>5</td><td>0</td></tr>
+<tr><td>find live drift</td><td>6</td><td>5</td><td>0</td></tr>
+<tr><td>distinguish source, rendered, and ConfigHub release OCI</td><td>8</td><td>3</td><td>0</td></tr>
+<tr><td>find a Timoni configuration carried through OCI</td><td>8</td><td>3</td><td>0</td></tr>
+<tr><td>store the reviewed configuration</td><td>8</td><td>3</td><td>0</td></tr>
+<tr><td>find existing YAML app adoption</td><td>8</td><td>3</td><td>0</td></tr>
+<tr><td>check whether my exact change can move safely</td><td>9</td><td>0</td><td>2</td></tr>
+<tr><td>deliver with kubectl</td><td>9</td><td>2</td><td>0</td></tr></tbody></table>
+<h2 id="navigation-language">Navigation language</h2>
+<p>These are synthetic forced-choice trials, not observed preferences.</p>
+<table><thead><tr><th>Preferred label</th><th>Count</th></tr></thead><tbody><tr><td>Check my config</td><td>39</td></tr>
+<tr><td>Investigate</td><td>21</td></tr>
+<tr><td>Compare</td><td>16</td></tr>
+<tr><td>Help with a chart</td><td>4</td></tr></tbody></table>
+<p>The current label <code>Check my config</code> was preferred in 39 of 80 synthetic trials. The page itself must explain that it builds a prompt for the visitor's own AI assistant; the navigation label does not have to carry that whole explanation.</p>
+<h2 id="change-from-baseline">Change from baseline</h2>
+<p>The baseline and candidate use the same personas, goals, starting pages, click limit, and scoring rules.</p>
+<table><thead><tr><th>Measure</th><th>Baseline</th><th>Candidate</th><th>Change</th></tr></thead><tbody><tr><td>Successful journeys</td><td>892/1012</td><td>910/1012</td><td>+18</td></tr>
+<tr><td>Partial journeys</td><td>117/1012</td><td>99/1012</td><td>-18</td></tr>
+<tr><td>Failed journeys</td><td>3/1012</td><td>3/1012</td><td>0</td></tr>
+<tr><td>Answered on starting page</td><td>430/1012</td><td>450/1012</td><td>+20</td></tr>
+<tr><td>Useful first click when needed</td><td>379/582 (65.1%)</td><td>362/562 (64.4%)</td><td>-0.7 points</td></tr></tbody></table>
+    </article>
   </main>
-  <footer>Use AI to investigate and propose. Keep the reviewed configuration as the release record.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/site-persona-simulations-2026-08-23-three-click-after/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
