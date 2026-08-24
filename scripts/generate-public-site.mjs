@@ -2463,7 +2463,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Without an account:</strong> find, render, inspect, compare, and keep files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, make variants, approve a change, promote it, and compare it with live systems.</p>
           <div class="routes">
-            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Retained versions stay pullable from the Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
+            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, important differences, findings, and checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
           </div>
@@ -7346,6 +7346,7 @@ npm run kubara-platform:start -- \\
   --services cert-manager,metrics-server,traefik,kube-prometheus-stack \\
   --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \\
   --output ../my-platform</code></pre>
+      <p>Replace <code>https://github.com/acme/platform.git</code> with the HTTPS Git repository where you will keep the generated platform.</p>
       <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
       <p><strong>Website to command line:</strong> choose and inspect components here, then run the command with those exact component names. Give the generated files to your AI assistant when you want help with a change; review its file diff before running Kubara again.</p>
       <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
@@ -7358,13 +7359,14 @@ npm run kubara-platform:start -- \\
         ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
       ])}
       <h3>3. Generate and inspect the platform</h3>
-      <p>Complete the private <code>.env</code> file, then run Kubara:</p>
+      <p>Review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
       <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
       <h3>4. Choose where the reviewed result goes</h3>
       <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
       <p><a href="../docs/demo/kubara/adoption-4-oci.md"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="../docs/demo/kubara/adoption.md">Continue through ConfigHub and Argo CD</a> · <a href="../docs/reference/flattening-alignment.md">See what can be flattened</a></p>
       <p><a href="../docs/demo/kubara/gui-tour.md">See the four-cluster result</a> · <a href="../docs/demo/kubara/checkpoints.md">Check the evidence</a> · <a href="../docs/demo/kubara/single-platform.md">Open the technical runbook</a></p>
+      <p><a href="../docs/demo/kubara/adoption-6-apps.md"><strong>See two applications added, promoted, released, and checked on the platform</strong></a>.</p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>

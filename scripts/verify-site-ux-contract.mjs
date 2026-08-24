@@ -185,7 +185,7 @@ const checks = [
   },
   {
     file: "site/kubara.html",
-    terms: ["Build an Internal Developer Platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "ConfigHub retains and promotes each of them", "1. Choose services for your developers", "Website to command line", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
+    terms: ["Build an Internal Developer Platform", "services your developers need", "AI can help with the selection and settings", "Kubara composes; ConfigHub governs; Argo reconciles.", "ConfigHub retains and promotes each of them", "1. Choose services for your developers", "Website to command line", "Replace <code>https://github.com/acme/platform.git</code>", "env.example", "runtime-images.yaml", "Kubara does not deploy this record", "Package the reviewed Git revision as OCI", "See two applications added, promoted, released, and checked on the platform", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "current deterministic", "live receipt required"],
   },
   {
     file: "site/entry-path-reference.html",
@@ -668,7 +668,7 @@ if (fs.existsSync(homePath)) {
   if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./hard-questions.html"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
   }
-  if (!home.includes("Retained versions stay pullable")) failures.push("site/index.html: the front page must state that retained versions stay pullable from this catalog's registry");
+  if (!home.includes("Every published version remains available from the public Catalog registry")) failures.push("site/index.html: the front page must state that published versions remain available from this catalog's registry");
 }
 
 const faqPath = path.join(root, "site/hard-questions.html");

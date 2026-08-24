@@ -544,6 +544,7 @@ npm run kubara-platform:start -- \
   --services cert-manager,metrics-server,traefik,kube-prometheus-stack \
   --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \
   --output ../my-platform</code></pre>
+      <p>Replace <code>https://github.com/acme/platform.git</code> with the HTTPS Git repository where you will keep the generated platform.</p>
       <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
       <p><strong>Website to command line:</strong> choose and inspect components here, then run the command with those exact component names. Give the generated files to your AI assistant when you want help with a change; review its file diff before running Kubara again.</p>
       <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
@@ -559,13 +560,14 @@ npm run kubara-platform:start -- \
         th { color: var(--muted); font-weight: 600; }
       </style>
       <h3>3. Generate and inspect the platform</h3>
-      <p>Complete the private <code>.env</code> file, then run Kubara:</p>
+      <p>Review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
       <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
       <h3>4. Choose where the reviewed result goes</h3>
       <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
       <p><a href="d/docs/demo/kubara/adoption-4-oci.html"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="d/docs/demo/kubara/adoption.html">Continue through ConfigHub and Argo CD</a> · <a href="d/docs/reference/flattening-alignment.html">See what can be flattened</a></p>
       <p><a href="d/docs/demo/kubara/gui-tour.html">See the four-cluster result</a> · <a href="d/docs/demo/kubara/checkpoints.html">Check the evidence</a> · <a href="d/docs/demo/kubara/single-platform.html">Open the technical runbook</a></p>
+      <p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>See two applications added, promoted, released, and checked on the platform</strong></a>.</p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
