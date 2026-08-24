@@ -140,12 +140,14 @@ An organization-wide Link list is individually expensive, but one list is still
 preferable to repeating it for every Space.
 
 Read-only verification now brackets organization-wide Space, Unit, Link,
-published-release, and Target snapshots. The Unit list selects `Data`,
-`DataHash`, `ContentHash`, revision, endpoint, label, annotation, and gate
-fields, so one bounded bulk observation supplies both metadata and the exact
-canonical Unit body. A second five-resource snapshot closes the verification
-barrier. No `cub unit data` or `cub unit get` command remains in the accepted
-path, and a foreign Target slug or unexpected Space fails the final allowlist.
+published-release, and Target snapshots. The Unit list selects `DataHash`,
+revision, endpoint, label, annotation, and gate fields, so one bounded bulk
+observation supplies the metadata. The configuration is no longer a Unit field,
+so the exact canonical Unit body is read from each Unit's data endpoint with
+`cub unit data` and hashed against the listed `DataHash` at ingress. A second
+five-resource snapshot closes the verification barrier. No `cub unit get`
+command remains in the accepted path, and a foreign Target slug or unexpected
+Space fails the final allowlist.
 
 The apply path uses the same bulk Unit data for content comparisons and refreshes
 the organization snapshot only at explicit mutation or phase boundaries.

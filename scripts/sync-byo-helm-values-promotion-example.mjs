@@ -474,7 +474,7 @@ function inspectSpace(spaceSlug) {
       headRevision: Number(configuration.HeadRevisionNum ?? 0),
       upstreamRevision: Number(configuration.UpstreamRevisionNum ?? 0),
       fromLinkIds: configuration.FromLinkID ?? [],
-      mutationSources: configuration.MutationSources ?? [],
+      mutationSources: unitMutationSources(spaceSlug, configurationUnit),
     },
     readme: {
       id: readme.UnitID,
@@ -847,9 +847,13 @@ function selectedTriggerSlugs(space) {
     .sort();
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
 function storedData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no data`);
+  return text;
 }
 
 function assertContext() {
@@ -860,6 +864,36 @@ function assertContext() {
     current.metadata?.organizationName === expectedOrg,
     `refusing to run in ${current.metadata?.organizationName ?? "unknown"}; expected ${expectedOrg}`,
   );
+}
+
+// MutationSources is not a Unit field any more: it is served by the Unit's own
+// mutation-sources endpoint. The CLI's only structured surface for that endpoint is
+// the JSON block `cub unit get --verbose` prints under the "Mutation Sources:" heading.
+function unitMutationSources(spaceSlug, unitSlug) {
+  const output = cub(["unit", "get", "--space", spaceSlug, unitSlug, "--verbose"]);
+  const heading = output.indexOf("Mutation Sources:");
+  if (heading === -1) return [];
+  const start = output.indexOf("[", heading);
+  if (start === -1) return [];
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let index = start; index < output.length; index += 1) {
+    const character = output[index];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (character === "\\") escaped = true;
+      else if (character === '"') inString = false;
+      continue;
+    }
+    if (character === '"') inString = true;
+    else if (character === "[") depth += 1;
+    else if (character === "]") {
+      depth -= 1;
+      if (depth === 0) return JSON.parse(output.slice(start, index + 1));
+    }
+  }
+  return [];
 }
 
 function spacePresent(space) {
