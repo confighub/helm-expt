@@ -43,8 +43,12 @@ The first complete case and the Catalog-wide local evidence are now in place:
   deliberately marks partial overlap and rules that require source, lifecycle,
   target, or live evidence.
 
-General approved exceptions and a single ConfigHub product view that joins the
-local result to managed validation remain open in issue #1592.
+A source-neutral configuration-decision schema and one complete NGINX case now
+record every accepted fix, one narrow approved exception, the separate local
+and managed checks, the exact retained ConfigHub revision, promotion, and Argo
+CD delivery. The decision is also stored as an approved, non-deployable Unit in
+the live demo organization. A general ConfigHub product view that creates and
+shows these decisions for arbitrary configurations remains open in issue #1592.
 
 ## User Promise
 
@@ -278,10 +282,12 @@ The Catalog-wide mapping and digest-bound shared results now live in
 released scanner result and adds the exact committed YAML-file digest. Chart
 pages show both the shared result and the separate Catalog review.
 
-The remaining integration work must carry approved exceptions into ConfigHub,
-show local and managed results together without merging their authority, and
-rerun the relevant controls against each retained revision. A local result does
-not become authoritative merely because it was uploaded.
+The NGINX example now carries one approved exception into ConfigHub as a
+separate, non-deployable decision Unit. Its public record shows the local and
+managed results together without merging their authority. The remaining work is
+to make this a general product path for arbitrary configurations and to rerun
+the relevant controls against every retained revision. A local result does not
+become authoritative merely because it was uploaded.
 
 Static checks do not prove hook execution, CRD readiness, admission behavior,
 workload health, rollback of external effects, or convergence. Promotion and
@@ -379,13 +385,15 @@ and other advanced work.
    maintained Helm base without changing historical receipt identity.
 4. **Complete:** add a plain finding summary, exact input, date, scanner and
    bundle identity, local action, and full result link to chart pages.
-5. **Partial:** the browser review includes the object digest, scanner version,
-   bundle identity, findings, and limits. A maintained decision record for
-   accepted fixes and approved exceptions remains.
+5. **Complete for one NGINX case:** a source-neutral decision record binds every
+   finding to an accepted fix or narrow approved exception, the exact object
+   digest, evidence, scope, and review date. The browser does not yet create
+   this record for arbitrary results.
 6. **Complete for one NGINX case:** retain the same objects in ConfigHub and
    rerun authoritative controls against that revision.
-7. **Remaining:** show local evidence and ConfigHub validation together but
-   separately in the product, including approved exceptions.
+7. **Complete in the public NGINX example; remaining in the general product:**
+   show local evidence and ConfigHub validation together but separately,
+   including approved exceptions.
 8. **Complete for one NGINX case:** demonstrate:
 
 ```text
@@ -396,6 +404,11 @@ unsafe candidate
   -> enforced validation
   -> promotion result
 ```
+
+9. **Next:** add the decision record to the ordinary ConfigHub review flow so a
+   user can decide findings, set a scope and review date, approve the exact
+   decision revision, and reopen it automatically when the configuration,
+   destination, or review date changes.
 
 ### Phase 2: Make Promotion The Main Managed Payoff
 

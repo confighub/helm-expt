@@ -78,6 +78,8 @@ const workshopResultSchemaPath = join(siteRoot, "workshop-result.schema.json");
 const workshopResultSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-result.schema.json");
 const promotionReviewSchemaPath = join(siteRoot, "promotion-review.schema.json");
 const promotionReviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-promotion-review.schema.json");
+const configurationDecisionSchemaPath = join(siteRoot, "configuration-decision.schema.json");
+const configurationDecisionSchemaSourcePath = join(repoRoot, "schemas", "configuration-decision.schema.json");
 const checkConfigScriptPath = join(siteRoot, "check-config.js");
 const checkConfigScriptSourcePath = join(repoRoot, "scripts", "site", "check-config-browser.js");
 const promoteConfigScriptPath = join(siteRoot, "promote-config.js");
@@ -454,6 +456,7 @@ if (mode === "--generate") {
   write(reviewSchemaPath, site.reviewSchemaJson);
   write(workshopResultSchemaPath, site.workshopResultSchemaJson);
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
+  write(configurationDecisionSchemaPath, site.configurationDecisionSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
   write(promoteConfigScriptPath, site.promoteConfigScript);
   write(workshopYamlScriptPath, site.workshopYamlScript);
@@ -517,6 +520,7 @@ if (mode === "--generate") {
   check(existsSync(reviewSchemaPath), "site/review.schema.json is missing; run npm run site:generate");
   check(existsSync(workshopResultSchemaPath), "site/workshop-result.schema.json is missing; run npm run site:generate");
   check(existsSync(promotionReviewSchemaPath), "site/promotion-review.schema.json is missing; run npm run site:generate");
+  check(existsSync(configurationDecisionSchemaPath), "site/configuration-decision.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
   check(existsSync(promoteConfigScriptPath), "site/promote-config.js is missing; run npm run site:generate");
   check(existsSync(workshopYamlScriptPath), "site/config-workshop-yaml.js is missing; run npm run site:generate");
@@ -596,6 +600,7 @@ if (mode === "--generate") {
   check(readFileSync(reviewSchemaPath, "utf8") === site.reviewSchemaJson, "site/review.schema.json is stale");
   check(readFileSync(workshopResultSchemaPath, "utf8") === site.workshopResultSchemaJson, "site/workshop-result.schema.json is stale");
   check(readFileSync(promotionReviewSchemaPath, "utf8") === site.promotionReviewSchemaJson, "site/promotion-review.schema.json is stale");
+  check(readFileSync(configurationDecisionSchemaPath, "utf8") === site.configurationDecisionSchemaJson, "site/configuration-decision.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
   check(readFileSync(promoteConfigScriptPath, "utf8") === site.promoteConfigScript, "site/promote-config.js is stale");
   check(readFileSync(workshopYamlScriptPath, "utf8") === site.workshopYamlScript, "site/config-workshop-yaml.js is stale");
@@ -1100,6 +1105,7 @@ function buildSite(generatedAt) {
     reviewSchemaJson: readFileSync(reviewSchemaSourcePath, "utf8"),
     workshopResultSchemaJson: readFileSync(workshopResultSchemaSourcePath, "utf8"),
     promotionReviewSchemaJson: readFileSync(promotionReviewSchemaSourcePath, "utf8"),
+    configurationDecisionSchemaJson: readFileSync(configurationDecisionSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
     promoteConfigScript: readFileSync(promoteConfigScriptSourcePath, "utf8"),
     workshopYamlScript: readFileSync(workshopYamlScriptSourcePath, "utf8"),
@@ -1604,6 +1610,8 @@ function buildLlmsTxt() {
 - [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
 - [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
 - [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
+- [Configuration decision schema](${SITE_BASE_URL}configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
+- [Completed NGINX decision chain](${SITE_BASE_URL}d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
@@ -3964,6 +3972,7 @@ function configHubHtml() {
   const localReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/receipt.yaml"));
   const publicReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/public-oci-receipt.yaml"));
   const uploadReceipt = readYaml(join(repoRoot, "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"));
+  const decisionReceipt = readYaml(join(repoRoot, "runs/config-review-decision-chain/receipt.yaml"));
   const objectCount = localReceipt?.spec?.baseline?.objectCount;
   const objectSetDigest = localReceipt?.spec?.reviewed?.objectSetSha256;
   const ociReference = publicReceipt?.spec?.artifact?.reference;
@@ -3974,6 +3983,9 @@ function configHubHtml() {
   check(objectSetDigest === uploadReceipt?.spec?.objectSetSha256, "ConfigHub upload changed the reviewed object set");
   check(ociDigest === uploadReceipt?.spec?.source?.digest, "ConfigHub upload did not record the public OCI digest");
   check(ociDigest === uploadReceipt?.spec?.space?.externalSourceDigest, "saved ConfigHub base did not retain the public OCI digest");
+  check(decisionReceipt?.status?.result === "pass", "ConfigHub decision example must have a passing live receipt");
+  check(decisionReceipt?.spec?.decisionUnit?.includedInDeploymentRelease === false, "decision Unit must stay out of deployment releases");
+  check(decisionReceipt?.spec?.decisionUnit?.recordedApprovals >= 1, "decision Unit must record approval of its exact revision");
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -4011,8 +4023,10 @@ function configHubHtml() {
       <li><strong>Review locally.</strong> The ${escapeHtml(String(objectCount))} objects have object-set hash <code>${escapeHtml(objectSetDigest)}</code>.</li>
       <li><strong>Publish the OCI.</strong> Pulling <code>${escapeHtml(ociReference)}</code> back produces the same object-set hash. The OCI digest is <code>${escapeHtml(ociDigest)}</code>.</li>
       <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same ${escapeHtml(String(objectCount))} objects with the same object-set hash, and records the same OCI digest as their source.</li>
+      <li><strong>Record the decision.</strong> A separate, non-deployable Unit says how each finding was handled. Six fixes were accepted. One remaining emptyDir finding is accepted only for the exact development and staging demonstration, excludes production, and has a review date. ConfigHub records approval of that exact decision revision.</li>
     </ol>
-    <p>The matching hashes show that the handoff preserves the reviewed objects. Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
+    <p>The matching hashes show that the handoff preserves the reviewed objects. The decision record answers a different question: what did we fix, what did we accept for now, and where may this result run? Read the <a href="./d/data/config-review-decision-chain/summary.html">complete decision, promotion, and delivery chain</a>.</p>
+    <p>Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English handoff record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
     <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
     <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
@@ -4851,6 +4865,13 @@ function askHtml() {
       <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
 ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
+    </section>
+
+    <section aria-labelledby="completed-decision">
+      <h2 id="completed-decision">See what a completed review looks like</h2>
+      <p>In the worked NGINX case, the proposed values produced six local findings and an unwanted public LoadBalancer. The reviewed result fixes six problems and keeps one emptyDir finding visible under a narrow, dated exception for development and staging only.</p>
+      <p>The same record then follows the accepted objects into ConfigHub, through a development-to-staging promotion, and into two Argo CD test deployments. Each step says what it proves and what it does not prove.</p>
+      <p><a class="button secondary" href="./d/data/config-review-decision-chain/summary.html">Open the completed review</a></p>
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
@@ -9521,6 +9542,17 @@ function sharedLocalChecksSectionHtml(catalog, entry) {
     </section>`;
 }
 
+function configurationDecisionExampleHtml(entry) {
+  if (entry.chart !== "bitnami/nginx" || entry.version !== "24.0.2") return "";
+  return `
+    <section aria-labelledby="configuration-decision-example">
+      <h2 id="configuration-decision-example">From a finding to a retained decision</h2>
+      <p>A worked configuration for this chart starts with AI-written values. It records what each local finding meant, the fixes that were accepted, and one remaining emptyDir finding that is allowed only for an exact development and staging test.</p>
+      <p>The reviewed objects, decision, ConfigHub validation, approval, promotion, and Argo CD results remain separate records. That makes it clear which checks were local advice, which controls ConfigHub evaluated, and which targets actually ran.</p>
+      <p><a href="../d/data/config-review-decision-chain/summary.html">Read the complete worked decision</a> · <a href="../configuration-decision.schema.json">Open the decision schema</a></p>
+    </section>`;
+}
+
 function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const identity = `${row.chart}@${row.version}`;
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
@@ -10134,7 +10166,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry, catalog)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
 
-    ${sharedLocalChecksSectionHtml(catalog, entry)}
+    ${sharedLocalChecksSectionHtml(catalog, entry)}${configurationDecisionExampleHtml(entry)}
     ${(() => {
       const imageRows = matrixRows
         .filter((row) => row.row_kind === "base")
@@ -12131,6 +12163,11 @@ Open \`site/deployment-reference.html\` for the detailed source, render, route, 
 Open \`site/try.html\` for the short Redis example.
 Open \`site/ask.html\` to check a new configuration and keep its review record.
 Open \`site/promote.html\` to compare current and proposed objects before staging or production.
+Open \`site/configuration-decision.schema.json\` for the source-neutral record that
+connects findings to accepted fixes, rejected findings, or narrow exceptions and
+keeps local checks separate from ConfigHub validation, approval, promotion, and delivery.
+Open \`site/d/data/config-review-decision-chain/summary.html\` for one complete
+NGINX example from AI-written values through a retained decision, promotion, and Argo CD tests.
 Open \`site/base-variant-records.json\` for the Catalog source-and-intent index used by
 the Check and Promote pages. Open \`site/promotion-review.schema.json\` for the
 browser promotion record.

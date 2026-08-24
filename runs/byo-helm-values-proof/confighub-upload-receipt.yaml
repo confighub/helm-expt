@@ -4,7 +4,7 @@ metadata:
   name: "byo-nginx-ai-values-24-0-2-reviewed"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-08-24T15:04:43.759Z"
+  verifiedAt: "2026-08-24T17:26:24.126Z"
   command:
     - "cub"
     - "variant"
@@ -51,11 +51,19 @@ spec:
         - "v1|Service|nginx|nginx"
         - "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
         - "policy/v1|PodDisruptionBudget|nginx|nginx"
+  reviewEvidenceUnits:
+    -
+      slug: "review-decision"
+      id: "3ccf9ba6-0c11-4eb1-8ae4-dcd2a264316a"
+      dataHash: "278933f2108c0143167cecfe427ecaee5f4bc34d5a69d0ebf139bad2d53f60a9"
+      headRevision: 3
+      provider: "None"
+      includedInDeploymentRelease: false
   readme:
     slug: "readme"
     id: "6e2fbb86-779c-48f1-865c-2e85dc5d60b8"
-    dataHash: "5af3e48e58c74b5d5b8e8ed0c2f516010abf6ea06fee17787617d4206143ebdb"
-    headRevision: 22
+    dataHash: "cbcc4db0df7e595675bbc9902f838849da0346f2be47483dca95ee14d6e1bd2e"
+    headRevision: 26
     source: "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml"
   objectCount: 5
   objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"

@@ -746,6 +746,12 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
       <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
     </section>
+    <section aria-labelledby="configuration-decision-example">
+      <h2 id="configuration-decision-example">From a finding to a retained decision</h2>
+      <p>A worked configuration for this chart starts with AI-written values. It records what each local finding meant, the fixes that were accepted, and one remaining emptyDir finding that is allowed only for an exact development and staging test.</p>
+      <p>The reviewed objects, decision, ConfigHub validation, approval, promotion, and Argo CD results remain separate records. That makes it clear which checks were local advice, which controls ConfigHub evaluated, and which targets actually ran.</p>
+      <p><a href="../d/data/config-review-decision-chain/summary.html">Read the complete worked decision</a> · <a href="../configuration-decision.schema.json">Open the decision schema</a></p>
+    </section>
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>

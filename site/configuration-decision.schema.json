@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://confighub.github.io/helm-expt/site/configuration-decision.schema.json",
+  "title": "Config Workshop configuration decision",
+  "description": "A decision about findings on one exact configuration. It records fixes, scoped exceptions, and the separate evidence for local checks, ConfigHub validation, promotion, and delivery.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "const": "workshop.confighub.com/v1alpha1" },
+    "kind": { "const": "ConfigurationDecision" },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "decidedAt", "reviewBy"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" },
+        "decidedAt": { "type": "string", "format": "date-time" },
+        "reviewBy": { "type": "string", "format": "date-time" }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "source", "proposal", "acceptedCandidate", "checks", "outcomes", "scope", "records", "authorityBoundaries"],
+      "properties": {
+        "question": { "type": "string", "minLength": 1 },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "identity", "version", "sourceRecord"],
+          "properties": {
+            "type": { "enum": ["helm", "aicr", "timoni", "kubara", "sveltos", "oci", "kubernetes-yaml", "mixed"] },
+            "identity": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "sourceRecord": { "type": "string", "minLength": 1 }
+          }
+        },
+        "proposal": { "$ref": "#/$defs/candidate" },
+        "acceptedCandidate": { "$ref": "#/$defs/candidate" },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["local", "managed"],
+          "properties": {
+            "local": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["authority", "tool", "version", "proposalReceipt", "acceptedReceipt", "proposalFindingIds", "acceptedFindingIds"],
+              "properties": {
+                "authority": { "const": "local-advisory" },
+                "tool": { "type": "string", "minLength": 1 },
+                "version": { "type": "string", "minLength": 1 },
+                "proposalReceipt": { "type": "string", "minLength": 1 },
+                "acceptedReceipt": { "type": "string", "minLength": 1 },
+                "proposalFindingIds": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true },
+                "acceptedFindingIds": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+              }
+            },
+            "managed": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["authority", "system", "receipt", "candidateResult", "controls"],
+              "properties": {
+                "authority": { "const": "revision-bound" },
+                "system": { "const": "ConfigHub" },
+                "receipt": { "type": "string", "minLength": 1 },
+                "candidateResult": { "enum": ["blocked", "eligible", "not-run"] },
+                "controls": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["findingId", "control", "result"],
+                    "properties": {
+                      "findingId": { "type": "string", "minLength": 1 },
+                      "control": { "type": "string", "minLength": 1 },
+                      "result": { "enum": ["blocked", "clear", "warning", "not-covered"] }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "outcomes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["findingId", "source", "decision", "rationale", "evidence"],
+            "properties": {
+              "findingId": { "type": "string", "minLength": 1 },
+              "source": { "enum": ["local-advisory", "catalog-review", "managed-validation", "destination-check", "live-observation"] },
+              "decision": { "enum": ["accepted-fix", "approved-exception", "rejected"] },
+              "rationale": { "type": "string", "minLength": 1 },
+              "changedPaths": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+              "exception": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["approvedByRole", "appliesTo", "excludes", "conditions", "reviewBy"],
+                "properties": {
+                  "approvedByRole": { "type": "string", "minLength": 1 },
+                  "appliesTo": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+                  "excludes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+                  "conditions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+                  "reviewBy": { "type": "string", "format": "date-time" }
+                }
+              },
+              "evidence": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true }
+            }
+          }
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["environments", "targetClasses", "excludedEnvironments"],
+          "properties": {
+            "environments": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+            "targetClasses": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+            "excludedEnvironments": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 }
+          }
+        },
+        "records": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["retained", "decisionApproval", "promotion", "delivery"],
+          "properties": {
+            "retained": { "$ref": "#/$defs/evidenceRecord" },
+            "decisionApproval": { "$ref": "#/$defs/evidenceRecord" },
+            "promotion": { "$ref": "#/$defs/evidenceRecord" },
+            "delivery": { "$ref": "#/$defs/evidenceRecord" }
+          }
+        },
+        "authorityBoundaries": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 3, "uniqueItems": true }
+      }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objects", "objectCount", "canonicalObjectSetSha256", "scannerObjectSetSha256"],
+      "properties": {
+        "objects": { "type": "string", "minLength": 1 },
+        "objectCount": { "type": "integer", "minimum": 1 },
+        "canonicalObjectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "scannerObjectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "ociReference": { "type": "string", "minLength": 1 },
+        "ociDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "evidenceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "summary", "evidence"],
+      "properties": {
+        "status": { "enum": ["pass", "blocked", "not-run", "not-required"] },
+        "summary": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true }
+      }
+    }
+  }
+}

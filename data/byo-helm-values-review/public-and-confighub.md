@@ -16,6 +16,12 @@ Kubernetes objects, a separate README Unit explains the example, and the shared
 catalog checks are attached. The source OCI reference and digest are recorded
 on the Space.
 
+A third, non-deployable `review-decision` Unit records how every finding was
+handled. It keeps six accepted fixes and one scoped emptyDir exception beside
+the configuration without adding the decision record to a deployment release.
+Read the [complete decision chain](../config-review-decision-chain/summary.md)
+for its scope, review date, approval, promotion, and Argo CD results.
+
 ## One exact handoff
 
 The three checks below use the same five Kubernetes objects. The object-set

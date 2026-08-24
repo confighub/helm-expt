@@ -26,6 +26,12 @@ spec:
       url: "https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml"
     - label: "ConfigHub import receipt"
       url: "https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+    - label: "Configuration decision chain"
+      url: "https://github.com/confighub/helm-expt/blob/main/data/config-review-decision-chain/summary.md"
+    - label: "Configuration decision"
+      url: "https://github.com/confighub/helm-expt/blob/main/config-catalog/review-decisions/byo-nginx-ai-values-24-0-2-reviewed.yaml"
+    - label: "Decision Unit receipt"
+      url: "https://github.com/confighub/helm-expt/blob/main/runs/config-review-decision-chain/receipt.yaml"
     - label: "First deployment result"
       url: "https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-deploy-proof/summary.md"
     - label: "Development-to-staging promotion"
@@ -54,6 +60,7 @@ spec:
     - The proposed values asked for three replicas but also embedded an old API key, exposed a LoadBalancer, removed the image digest, and weakened three container security settings.
     - The reviewed values keep the three replicas, restore the checked defaults, and refer to an existing Secret instead of storing the key in the Deployment.
     - The five reviewed Kubernetes objects are published as one literal configuration OCI and imported into this Space without rerendering the chart.
+    - The review-decision Unit records how every finding was handled: six fixes were accepted, and one emptyDir finding has a narrow, dated exception for the exact development and staging demonstration.
     - The Space uses the common catalog checks. Schema, placeholder, lifecycle-route, and literal-credential checks can block an apply. Image-digest and workload-probe checks report warnings; the AICR-specific checks do nothing to this ordinary Deployment.
     - A live test supplied the required Secret separately, published the configuration from ConfigHub, and brought all three NGINX replicas up through Argo CD.
 
@@ -62,7 +69,7 @@ spec:
     | Place | What this Space records |
     | --- | --- |
     | Starting configuration | The reviewed Helm values request three replicas and safe object settings. The linked proposed and reviewed values files show exactly what changed before import. |
-    | ConfigHub changes | This base contains the five reviewed objects imported from OCI. It has no later environment edit; development and staging changes live in their own Spaces. |
+    | ConfigHub changes | This base contains the five reviewed objects imported from OCI. The separate review-decision Unit records the six fixes and the scoped exception without placing that evidence in a deployment release. Development and staging changes live in their own Spaces. |
     | Install work | The `nginx/ai-provider-credentials` Secret must be supplied separately. Its value is not stored in the public package or this Space. |
     | Live cluster | A throwaway Argo CD run observed three ready replicas. That observation checks the reviewed base; it does not set the replica count. |
 
@@ -72,6 +79,7 @@ spec:
 
     - This README.
     - The configuration Unit to see all five reviewed Kubernetes objects together.
+    - The review-decision Unit to see each accepted fix, the remaining exception, its scope, and its review date.
     - The Space annotations to see the public OCI source and digest.
 
     ## Evidence and source
@@ -83,6 +91,9 @@ spec:
     - [Local OCI round-trip receipt](https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/receipt.yaml)
     - [Public OCI receipt](https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml)
     - [ConfigHub import receipt](https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml)
+    - [Configuration decision chain](https://github.com/confighub/helm-expt/blob/main/data/config-review-decision-chain/summary.md)
+    - [Configuration decision](https://github.com/confighub/helm-expt/blob/main/config-catalog/review-decisions/byo-nginx-ai-values-24-0-2-reviewed.yaml)
+    - [Decision Unit receipt](https://github.com/confighub/helm-expt/blob/main/runs/config-review-decision-chain/receipt.yaml)
     - [First deployment result](https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-deploy-proof/summary.md)
     - [Development-to-staging promotion](https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-promotion-proof/summary.md)
     - [Promoted staging deployment](https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-staging-deploy-proof/summary.md)
@@ -92,4 +103,5 @@ spec:
 
     - The API key in the proposed values is deliberately fake.
     - The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. The Secret was supplied separately for the live test and its value was not recorded.
+    - The emptyDir exception applies only to this exact object digest in the development and staging demonstrations. It excludes production and must be reviewed by 2026-11-30.
     - The reviewed and promoted staging configurations each ran on one throwaway kind cluster with Argo CD. Flux, rollback, chart upgrade, and a fleet rollout have not run for this configuration.
