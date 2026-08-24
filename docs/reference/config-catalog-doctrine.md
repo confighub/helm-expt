@@ -162,9 +162,10 @@ as proof that the configuration will run correctly on every target.
 
 The current scanner paths have different authority:
 
-- `cub-scan` is the standalone local scanner. It can inspect YAML, rendered Helm
-  output, snapshots, live-cluster output, and imported findings without a ConfigHub
-  account. Its result is advisory. `cub scan` is not the current command name.
+- `cub check` is the primary local command for shared advisory checks over
+  materialized Kubernetes objects. `cub scan` is an alias, and `cub-scan`
+  remains the standalone binary. All three use the same engine and pinned
+  pattern bundle without requiring a ConfigHub account.
 - ConfigHub `scan-unit` and `scan-space` produce detailed advisory findings over
   retained data.
 - ConfigHub `validate-unit` and `validate-space` produce revision-bound pass or fail
@@ -175,7 +176,7 @@ The current scanner paths have different authority:
 
 The Catalog already records scan receipts for rendered variant revisions, but those
 receipts currently use the helm-expt rendered-object scanner. They are not automatically
-`cub-scan` results and do not yet use the complete shared pattern bundle. Every chart
+`cub check` results and do not yet use the complete shared pattern bundle. Every chart
 page and receipt must continue to name the scanner, policy or bundle identity, object
 digest, result, and date rather than using the generic word "scanned."
 

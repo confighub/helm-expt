@@ -216,6 +216,10 @@ const CONFIGHUB_TARGET_DOC_URL =
 const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
 const INSTALLER_PLUGIN_INSTALL_COMMAND =
   "cub plugin install confighub/installer";
+const CHECK_PLUGIN_INSTALL_COMMAND =
+  "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.0 --name scan";
+const CHECK_RENDERED_FILES_COMMAND =
+  "cub check --format json --output cub-check.json ./rendered";
 const KUSTOMIZE_INSTALL_URL =
   "https://kubectl.docs.kubernetes.io/installation/kustomize/";
 const CATALOG_OCI_DELIVERY_RECEIPT =
@@ -1588,6 +1592,7 @@ function buildLlmsTxt() {
 - [Versus what you already use](${SITE_BASE_URL}compare.html): what this answers versus helm template, kubectl diff, and Kustomize, with the disqualifier stated.
 - [What changed](${SITE_BASE_URL}whats-new.html): the twenty newest receipts, from the committed aging table.
 - [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
+- [Run shared local checks](${SITE_BASE_URL}ask.html#check-command): after a source tool has written Kubernetes YAML, install the released plugin and run \`cub check --format json --output cub-check.json ./rendered\`. It is local and advisory; it does not upload, apply, or prove target behavior.
 - [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
 - [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
 - [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
@@ -4762,7 +4767,7 @@ function askHtml() {
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
     <p><strong>In the website:</strong> build local instructions for the AI assistant you already use, or compare rendered Kubernetes YAML in this browser. Download the exact objects, findings, file hashes, and checks that did not run.</p>
-    <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
+    <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p>Doing this regularly? <a href="./ai.html">Install the Config Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
@@ -4831,6 +4836,14 @@ function askHtml() {
       <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
       <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
       <p>When the assistant finishes, return with <code>candidate.yaml</code>, the optional comparison file, and its final <code>WORKSHOP FINDING</code> block.</p>
+    </section>
+
+    <section id="check-command" aria-labelledby="check-command-title">
+      <h2 id="check-command-title">Run the shared checks on your machine</h2>
+      <p>Use this after Helm, AICR, OCI, or another source tool has written Kubernetes YAML. The command checks the exact files on your machine. It does not upload them, contact ConfigHub, or apply them to a cluster.</p>
+      <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
+${CHECK_RENDERED_FILES_COMMAND}</code></pre>
+      <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
@@ -5515,6 +5528,8 @@ function docsHtml() {
 
     <section aria-labelledby="check">
       <h2 id="check">Check a result or solve a problem</h2>
+      <h3><a href="./ask.html#check-command">How do I run the shared checks on rendered files?</a></h3>
+      <p>Install the released check plugin, run <code>cub check</code> locally, and keep its JSON result with the exact files and digest. No ConfigHub account or server is required.</p>
       <h3><a href="./verification.html">How do I check a result?</a></h3>
       <p>Find the command that checks generated Kubernetes files, a saved test record, or a live cluster.</p>
       <h3><a href="./does-cluster-match-approved-config.html">How complete is the live drift check?</a></h3>
@@ -5541,6 +5556,7 @@ function docsHtml() {
 
 function verificationHtml(catalog) {
   const commandRows = [
+    ["What known configuration risks appear in these rendered objects?", `<code>${CHECK_PLUGIN_INSTALL_COMMAND}</code><br><code>cub check --format json --output cub-check.json ./rendered</code>`, "No", "A local advisory result with stable finding IDs and the pinned pattern bundle. It is not a cluster or runtime test."],
     ["Are the generated pages, docs, and data current?", "<code>npm run site:verify</code><br><code>npm run docs:verify</code><br><code>npm run data:index:verify</code>", "No", "Generated files match the committed source and data."],
     ["Does the Redis tutorial produce the expected files?", "<code>npm run redis:verify-install:render -- ...</code>", "No", "A user's local render matches the recorded chart, configuration, and package."],
     ["Does the complete repository agree with itself?", "<code>npm run verify</code>", "No cluster by default", "The committed catalog, generated files, receipts, and docs are consistent."],
@@ -7094,6 +7110,10 @@ function aiHtml(catalog) {
         ...taskRows,
       ])}
       <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
+      <p>After the source tool writes Kubernetes YAML, the agent can run the same released local checker a person uses:</p>
+      <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
+${CHECK_RENDERED_FILES_COMMAND}</code></pre>
+      <p><code>cub check</code> is advisory and does not apply configuration. The agent must keep its result with the exact object digest and list target or live checks that did not run.</p>
     </section>
 
     <section aria-labelledby="records">
@@ -9540,6 +9560,10 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
       <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
       <pre><code>${escapeHtml(row.inspect_command)}
 ${escapeHtml(row.setup_command)}</code></pre>
+      <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
+      <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
+cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
+      <p>The check is advisory and does not apply anything.</p>
       <p>Exact OCI ref: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
       ${digestPinnedSetup ? `<p>The same pull, pinned so a republished tag cannot change what you get:</p>
       <pre><code>${digestPinnedSetup}</code></pre>
@@ -10034,6 +10058,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       ${markdownLikeTable([
         ["Job", "Next step"],
         ["Render and inspect without applying", `<a href="#run-this">Run the recommended <code>cub installer setup</code> command above</a>.`],
+        ["Run shared local configuration checks", `<code>${CHECK_PLUGIN_INSTALL_COMMAND}</code><br><code>cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code>. The check is advisory and does not apply anything.`],
         ["Apply the rendered manifests with kubectl, or publish reviewed objects as OCI", `<a href="../how-it-works.html#now-deploy">Publish reviewed objects as OCI or apply the manifests with kubectl</a>.`],
         ["Save the reviewed result for a team", `<a href="../confighub.html">Save and upload the reviewed result to ConfigHub</a> for shared history, exact diffs, and approvals.`],
         ["Compare development and production, audit an exact diff, promote, or roll back", `<a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.`],

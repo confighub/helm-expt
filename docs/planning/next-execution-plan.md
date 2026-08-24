@@ -102,7 +102,7 @@ digest, findings, limits, and next step must remain the same.
 | User question | Website path | CLI path | Shared result |
 | --- | --- | --- | --- |
 | I need a configuration. | Describe the need or choose a maintained starting configuration. | Discover or receive the same source reference, then process it through the applicable source plugin or package engine. | Source, version, selected configuration, requirements, and evidence links. |
-| I have a configuration. Is it right? | Upload or paste rendered YAML, compare it, run bounded checks, and download the result. | Use the applicable source command and local scanner; the leading common entry proposal is `cub check`. | Exact objects, object-set digest, comparison, findings, checks not run, and files or OCI. |
+| I have a configuration. Is it right? | Upload or paste rendered YAML, compare it, run bounded checks, and download the result. | Use the applicable source command, then run the released `cub check` plugin over the materialized objects. | Exact objects, object-set digest, comparison, findings, checks not run, and files or OCI. |
 | I have an accepted configuration. Can I promote it? | Compare the candidate with its destination, inspect checks, and continue into ConfigHub when a managed promotion is selected. | Use `cub variant create` and `cub variant promote`, followed by release and observation commands. | Candidate revision, destination, exact diff, validations, approvals, promotion result, and release identity. |
 
 The cross-surface rules are:
@@ -249,8 +249,9 @@ The current evidence systems must remain correctly named:
 
 - Existing helm-expt scan receipts were produced by the helm-expt rendered-object
   scanner. They must not be relabelled as `cub-scan` results.
-- `cub-scan` is the current standalone scanner for local and CI use. Its result
-  is advisory.
+- `cub check` is the primary local command. `cub scan` is an alias, and
+  `cub-scan` remains the standalone binary for local and CI use. All three
+  produce advisory results from the same engine and pinned pattern bundle.
 - ConfigHub `scan-unit` and `scan-space` provide detailed advisory findings over
   retained data.
 - ConfigHub `validate-unit` and `validate-space` provide revision-bound results
@@ -274,19 +275,20 @@ The user-facing command structure should describe jobs:
 
 | Job | Current or proposed path |
 | --- | --- |
-| Check configuration made by the user or AI | Leading proposal: `cub check` |
+| Check configuration made by the user or AI | Released `cub check` plugin command |
 | Process an arbitrary Helm chart | `cub helm` |
 | Process AICR or another source format | The relevant source plugin, such as `cub aicr` |
 | Process a maintained Config Workshop package | `cub installer` as the package engine; the first public command may later be wrapped by the check flow |
-| Run shared configuration controls | Current `cub-scan`; proposed `cub scan` plugin while retaining the standalone binary |
+| Run shared configuration controls | `cub check`; `cub scan` alias; standalone `cub-scan` retained |
 | Retain literal objects | `cub variant upload` or the applicable source upload command |
 | Create and promote variants | `cub variant create` and `cub variant promote` |
 | Publish a release | `cub release publish` |
 | Read desired and live state | `cub k8s` and `cub scout` |
 
-`cub check` is the leading name because it describes the user's problem rather
-than the Catalog that helps answer it. Before it becomes a public command, its
-scope and result contract need product agreement. Every report must separate:
+`cub check` describes the user's problem rather than the Catalog that helps
+answer it. Its local scanner result is now released. The wider WorkshopResult
+composition and ConfigHub handoff still need product agreement. Every report
+must separate:
 
 ```text
 checked
@@ -350,8 +352,9 @@ and other advanced work.
 1. Implement [issue #1592](https://github.com/confighub/helm-expt/issues/1592).
 2. Map Catalog warnings to stable pattern and control IDs where a maintained
    mapping exists.
-3. Generate new `cub-scan` receipts for exact rendered variants without changing
-   the identity of historical receipts.
+3. Generate new `cub check` receipts for exact rendered variants without
+   changing the identity of historical receipts. Record the scanner version,
+   pattern-bundle identity, and object digest in each receipt.
 4. Add a plain finding summary and local action to chart pages.
 5. Include object digest, scanner version, bundle identity, findings, accepted
    fixes, exceptions, and limits in the downloadable review.
@@ -392,8 +395,10 @@ unsafe candidate
 3. Add **Keep this checked result in ConfigHub** only where the user's exact
    result can continue.
 4. Preserve the source and reviewed digest across the handoff.
-5. Decide the `cub check` contract with the ConfigHub and plugin maintainers.
-6. Decide whether the existing scanner should ship as a `cub scan` plugin.
+5. Compose the released `cub check` result into WorkshopResult without losing
+   its scanner version, pattern-bundle identity, finding IDs, or object digest.
+6. Preserve the distinction between local advisory findings and ConfigHub's
+   revision-bound validation and approval results.
 7. Keep `cub installer` visible in technical package documentation, but describe
    the customer action rather than leading with the engine name.
 8. Remove references to the retired top-level install alias and delete local

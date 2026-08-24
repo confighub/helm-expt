@@ -518,6 +518,7 @@
     <p>Use these guides for commands and detailed instructions for Helm, AICR, OCI, YAML, and ConfigHub.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
@@ -568,6 +569,8 @@
 
     <section aria-labelledby="check">
       <h2 id="check">Check a result or solve a problem</h2>
+      <h3><a href="./ask.html#check-command">How do I run the shared checks on rendered files?</a></h3>
+      <p>Install the released check plugin, run <code>cub check</code> locally, and keep its JSON result with the exact files and digest. No ConfigHub account or server is required.</p>
       <h3><a href="./verification.html">How do I check a result?</a></h3>
       <p>Find the command that checks generated Kubernetes files, a saved test record, or a live cluster.</p>
       <h3><a href="./does-cluster-match-approved-config.html">How complete is the live drift check?</a></h3>
