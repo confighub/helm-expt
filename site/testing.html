@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Worked Examples · Config Workshop</title>
-  <meta name="description" content="Choose a worked example that starts with Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.">
+  <meta name="description" content="Find a tested starting configuration for a component, AI-infrastructure stack, or internal developer platform, then inspect the exact result before using it.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/testing.html">
   <meta property="og:title" content="Worked Examples · Config Workshop">
-  <meta property="og:description" content="Choose a worked example that starts with Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.">
+  <meta property="og:description" content="Find a tested starting configuration for a component, AI-infrastructure stack, or internal developer platform, then inspect the exact result before using it.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/testing.html">
   <style>
@@ -526,18 +526,32 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Choose a worked example</h1>
+    <h1>Find a starting configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="tagline">Choose the kind of configuration you have, then follow one worked example to exact Kubernetes objects and a checked result.</p>
-    <p>After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs.</p>
-    <p>In a hurry with your own chart? One command, no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then check the chart&#39;s catalog page for the hazards a render alone cannot show.</p>
+    <p class="tagline">Start with the job you need done. Choose a tested component or platform example, then inspect the exact configuration before you use it.</p>
+    <p>The Config Workshop Catalog keeps exact versions, useful configurations, known requirements, and the evidence behind each result. It exists so you do not have to repeat the same investigation for every chart or package.</p>
+    <p>If you already have a chart, values, YAML, or OCI, use <a href="./ask.html">Check my config</a>. The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
     <span id="catalog-next-jobs"></span>
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
-      <h2 id="start">1. Start with a configuration</h2>
+      <h2 id="start">1. What do you need?</h2>
+      <p>Choose the closest job. Each link opens a tested starting point or the shortest current path to one.</p>
+      <div class="card"><table>
+        <thead><tr><th>I need</th><th>Start here</th></tr></thead>
+        <tbody><tr><td>A database or cache</td><td><a href="./try.html"><strong>Try the Redis configuration.</strong></a> Render it locally, read the 14 objects, and check the recorded Helm match and install requirements.</td></tr><tr><td>Cluster monitoring</td><td><a href="./charts/index.html?q=kube-prometheus-stack"><strong>Find Kube Prometheus Stack.</strong></a> Compare exact versions, CRD choices, hooks, prerequisites, and delivery evidence.</td></tr><tr><td>Ingress and certificates</td><td><a href="./charts/index.html?q=ingress-nginx"><strong>Start with ingress-nginx</strong></a>, then <a href="./charts/index.html?q=cert-manager">add cert-manager</a>. The Catalog records the setup work that rendered YAML does not explain.</td></tr><tr><td>AI inference</td><td><a href="./try-aicr.html"><strong>Try the AICR CPU starter.</strong></a> Inspect the exact Applications and OCI without an account, cluster, or GPU, then continue to the NIM and EKS examples below.</td></tr><tr><td>An internal developer platform</td><td><a href="./kubara.html"><strong>Build a small platform with Catalog components, Kubara, and AI.</strong></a> Review native Kubara configuration, generate Git and OCI outputs, then retain and promote platform components, developer tools, and applications separately in ConfigHub.</td></tr><tr><td>A chart or configuration I already have</td><td><a href="./ask.html"><strong>Check my config.</strong></a> Bring the values, YAML, OCI, or work made by AI. Compare it with defaults, Catalog records, or what you run now.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Missing the component or use case you need? <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Tell us what you are trying to run</a>.</p>
+
+      <h2 id="simple-example">2. Try a simple example: Redis</h2>
       <h3 id="see-first">See what Redis installs, before you install it</h3>
       <p>Turn the published Redis package into the exact Kubernetes files it produces. You need no account, no login, and no cluster.</p>
       <div class="terminal-card">
@@ -621,7 +635,7 @@ cub helm install myapp &lt;chart-ref&gt; \
     </section>
 
     <section aria-labelledby="start-modes">
-      <h2 id="start-modes">2. Choose how to run a starting example</h2>
+      <h2 id="start-modes">3. Choose how to run a starting example</h2>
       <h3>Local or CI — available now</h3>
       <p>Use public tools and packages without ConfigHub Server or an account. Public catalog packages also need no Google registry login.</p>
       <h3>Hosted without sign-in — available for rendered YAML</h3>
@@ -632,7 +646,7 @@ cub helm install myapp &lt;chart-ref&gt; \
     </section>
 
     <section aria-labelledby="managed">
-      <h2 id="managed">3. Continue in ConfigHub</h2>
+      <h2 id="managed">4. Continue in ConfigHub</h2>
       <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
       <div class="card"><table>
         <thead><tr><th>Job</th><th>Working example</th><th>Where to go</th></tr></thead>
@@ -647,7 +661,7 @@ cub helm install myapp &lt;chart-ref&gt; \
     </section>
 
     <section aria-labelledby="platforms">
-      <h2 id="platforms">4. Build or roll out a platform</h2>
+      <h2 id="platforms">5. Build or roll out a platform</h2>
       <p><a href="./kubara.html"><strong>Build a small Kubara platform from tested Catalog components.</strong></a> Choose services, record optional digest-pinned runtime images, and review the native Kubara config before generation. The advanced examples below continue into ConfigHub and a fleet.</p>
       <p>A platform team runs the same components on many clusters. Tools like Kubara and Sveltos build these platforms. Sveltos installs one component across a group of clusters. Kubara describes a whole platform at once and generates its files.</p>
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
@@ -668,7 +682,7 @@ cub helm install myapp &lt;chart-ref&gt; \
     </section>
 
     <section aria-labelledby="apps">
-      <h2 id="apps">5. Use saved configuration for a repeated job</h2>
+      <h3 id="apps">6. Use saved configuration for a repeated job</h3>
       <p>Each row has a working example. The final column says what is still needed before the same result can be offered more generally.</p>
       <div class="card"><table>
         <thead><tr><th>App</th><th>Working example</th><th>Open</th><th>Still to build</th></tr></thead>

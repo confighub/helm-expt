@@ -516,10 +516,12 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Can I move this exact change safely?</h1>
+    <h1>Can I promote this configuration?</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
     <p class="lead">Compare what you run now with the exact configuration you want to move. See what the next environment would receive, what still needs testing, and whether any target has a current result.</p>
     <p>An upgrade can fail because it changes an immutable StatefulSet field, removes an object, or needs setup that has not run. Compare the Kubernetes objects before production receives them.</p>
+    <p><strong>In the website:</strong> compare the current and proposed object sets. Add staging results and download a review bound to both file hashes.</p>
+    <p><strong>On the command line:</strong> create those object sets with Helm, AICR, OCI, or another source tool. Then use the generated <code>cub variant</code> commands to preview and run the managed promotion.</p>
     <p id="promotion-intro-detail">The comparison runs in your browser. Your files are not uploaded, and you do not need an account. It does not run Helm, contact a cluster, execute a test, or promote anything. A finished Redis review loads automatically so you can see the result before adding your own files.</p>
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
