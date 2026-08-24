@@ -217,7 +217,7 @@ const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/instal
 const INSTALLER_PLUGIN_INSTALL_COMMAND =
   "cub plugin install confighub/installer";
 const CHECK_PLUGIN_INSTALL_COMMAND =
-  "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.1 --name scan";
+  "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan";
 const CHECK_RENDERED_FILES_COMMAND =
   "cub check --format json --output cub-check.json ./rendered";
 const KUSTOMIZE_INSTALL_URL =
@@ -4966,7 +4966,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         ["Result", "Next step"],
         ["The Catalog already covers the case", "Use its retained package, useful configuration, setup instructions, and evidence."],
         ["The review finds a values problem", "Correct the value and render again. Keep the new object hash with the review."],
-        ["The review finds a placeholder credential", "Fix it by replacing the placeholder or using an existing external Secret. <a href=\"./charts/index.html\">Find a configuration that uses an existing Secret</a>, <a href=\"./d/data/apply-policy-profiles/summary.html\">see the blocking ConfigHub apply gate</a>, or <a href=\"./known-gaps.html\">read the credential limitation</a>."],
+        ["The review finds a credential surprise", "Do not deploy it. Replace the literal or placeholder with an existing Secret, then check the reviewed objects again. <a href=\"./d/data/apply-policy-functional-proof/summary.html\">See one NGINX configuration go from local finding to ConfigHub gate to promotion</a>, <a href=\"./charts/index.html\">find configurations that use existing Secrets</a>, or <a href=\"./known-gaps.html\">read the credential limitation</a>."],
         ["The render is surprising", "Do not deploy it yet. Compare it with the defaults and the configuration you run now, correct the cause, then render and check it again."],
         ["The chart does not expose the required field", "Keep the chart when possible and record the smallest object change as a ConfigHub variant."],
         ["The configuration needs hooks, CRDs, Secrets, or setup work", "Choose an explicit owner and order. Use only a delivery route whose evidence covers that work."],
@@ -10232,6 +10232,7 @@ function chartTeachingHtml(entry) {
         ["Question", "Answer in this example"],
         ["What do I start with?", `<a href="../../examples/byo-helm-values/ai-values.yaml">The supplied values file</a> and the locked NGINX 24.0.2 chart.`],
         ["What changed?", `<a href="../../data/byo-helm-values-review/summary.md">The plain-English review</a> and <a href="../../data/byo-helm-values-review/review.yaml">structured findings</a>.`],
+        ["Did the checks catch the surprise?", `<a href="../../data/apply-policy-functional-proof/summary.md">Yes. Local <code>cub check</code> found the literal API key, ConfigHub recorded a blocking gate on those same five objects, and the Secret-backed result cleared that check</a>.`],
         ["What would Kubernetes receive?", `<a href="../../data/byo-helm-values-review/reviewed-render.yaml">Five reviewed objects</a>.`],
         ["Can I use OCI?", `<a href="../../data/byo-helm-values-review/public-and-confighub.md">The public digest, anonymous pull, and ConfigHub import record</a>.`],
         ["Did the reviewed result run?", `<a href="../../data/byo-helm-values-deploy-proof/summary.md">Yes. Argo CD synced it and NGINX reached 3/3 ready replicas</a>.`],

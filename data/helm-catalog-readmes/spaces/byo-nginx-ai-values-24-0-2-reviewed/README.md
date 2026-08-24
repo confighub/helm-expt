@@ -17,7 +17,7 @@ This example renders first, compares the result with the checked catalog configu
 - The proposed values asked for three replicas but also embedded an old API key, exposed a LoadBalancer, removed the image digest, and weakened three container security settings.
 - The reviewed values keep the three replicas, restore the checked defaults, and refer to an existing Secret instead of storing the key in the Deployment.
 - The five reviewed Kubernetes objects are published as one literal configuration OCI and imported into this Space without rerendering the chart.
-- The Space uses the five catalog checks: schema, placeholder, and lifecycle-route checks can block an apply; image-digest and workload-probe checks report warnings.
+- The Space uses the common catalog checks. Schema, placeholder, lifecycle-route, and literal-credential checks can block an apply. Image-digest and workload-probe checks report warnings; the AICR-specific checks do nothing to this ordinary Deployment.
 - A live test supplied the required Secret separately, published the configuration from ConfigHub, and brought all three NGINX replicas up through Argo CD.
 
 ## Where each setting comes from

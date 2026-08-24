@@ -5,13 +5,13 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-08-23T14:38:47.808Z"
+  verifiedAt: "2026-08-24T15:00:41.431Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
       displayName: "Catalog checks before apply"
       id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
-      where: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'"
       triggers:
         -
           ref: "platform/aicr-training-images-pinned"
@@ -86,11 +86,22 @@ spec:
           description: "This catalog apply gate checks the exact Kubernetes objects stored in ConfigHub and blocks apply when data fails its declared schema. Correct the reported field or type, then try the apply again."
           effect: "block"
           validating: true
+        -
+          ref: "platform/workload-sensitive-env-secret-refs"
+          displayName: "Block apply - credential values must use Secrets"
+          functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.kind) || !(r.kind in [\"Pod\", \"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\", \"CronJob\"]) || (r.kind == \"Pod\" && has(r.spec) && (!has(r.spec.containers) || r.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.initContainers) || r.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.ephemeralContainers) || r.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\")))) || (r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\"] && has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && (!has(r.spec.template.spec.containers) || r.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.template.spec.initContainers) || r.spec.template.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.template.spec.ephemeralContainers) || r.spec.template.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\")))) || (r.kind == \"CronJob\" && has(r.spec) && has(r.spec.jobTemplate) && has(r.spec.jobTemplate.spec) && has(r.spec.jobTemplate.spec.template) && has(r.spec.jobTemplate.spec.template.spec) && (!has(r.spec.jobTemplate.spec.template.spec.containers) || r.spec.jobTemplate.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.jobTemplate.spec.template.spec.initContainers) || r.spec.jobTemplate.spec.template.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.jobTemplate.spec.template.spec.ephemeralContainers) || r.spec.jobTemplate.spec.template.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))))"
+          description: "This catalog apply gate blocks supported Kubernetes workloads that put a non-empty password, token, API key, or secret key directly in a container environment variable. Remove the literal value and refer to a Kubernetes Secret instead. The gate covers Pods, Deployments, StatefulSets, DaemonSets, ReplicaSets, Jobs, and CronJobs, including init and ephemeral containers."
+          effect: "block"
+          validating: true
     approvalRequired:
       ref: "platform/helm-catalog-prod-gates"
       displayName: "Catalog checks and approval before apply"
       id: "8784a447-0e4d-4471-b924-eae5377778a2"
-      where: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'"
       triggers:
         -
           ref: "platform/aicr-training-images-pinned"
@@ -174,6 +185,17 @@ spec:
           arguments:
             []
           description: "This catalog apply gate checks the exact Kubernetes objects stored in ConfigHub and blocks apply when data fails its declared schema. Correct the reported field or type, then try the apply again."
+          effect: "block"
+          validating: true
+        -
+          ref: "platform/workload-sensitive-env-secret-refs"
+          displayName: "Block apply - credential values must use Secrets"
+          functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.kind) || !(r.kind in [\"Pod\", \"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\", \"CronJob\"]) || (r.kind == \"Pod\" && has(r.spec) && (!has(r.spec.containers) || r.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.initContainers) || r.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.ephemeralContainers) || r.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\")))) || (r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\"] && has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && (!has(r.spec.template.spec.containers) || r.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.template.spec.initContainers) || r.spec.template.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.template.spec.ephemeralContainers) || r.spec.template.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\")))) || (r.kind == \"CronJob\" && has(r.spec) && has(r.spec.jobTemplate) && has(r.spec.jobTemplate.spec) && has(r.spec.jobTemplate.spec.template) && has(r.spec.jobTemplate.spec.template.spec) && (!has(r.spec.jobTemplate.spec.template.spec.containers) || r.spec.jobTemplate.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.jobTemplate.spec.template.spec.initContainers) || r.spec.jobTemplate.spec.template.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.jobTemplate.spec.template.spec.ephemeralContainers) || r.spec.jobTemplate.spec.template.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))))"
+          description: "This catalog apply gate blocks supported Kubernetes workloads that put a non-empty password, token, API key, or secret key directly in a container environment variable. Remove the literal value and refer to a Kubernetes Secret instead. The gate covers Pods, Deployments, StatefulSets, DaemonSets, ReplicaSets, Jobs, and CronJobs, including init and ephemeral containers."
           effect: "block"
           validating: true
   definitionSpace:

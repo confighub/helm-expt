@@ -2298,6 +2298,7 @@ function validatePolicy(policy) {
     "aicr-training-images-pinned",
     "images-pinned-by-digest",
     "workload-probes-declared",
+    "workload-sensitive-env-secret-refs",
   ];
   const expectedFilterWhere = (policySet) => {
     const [space] = policySet.filter.split("/");
@@ -2310,7 +2311,7 @@ function validatePolicy(policy) {
   check(unique(approvalRequiredIds), "approval-required policy check ids must be unique");
   check(
     sameSet(baselineIds, requiredBaseline),
-    "baseline policy must contain exactly the seven standard checks",
+    "baseline policy must contain exactly the eight standard checks",
   );
   check(!baseline.some(isApprovalCheck), "baseline policy must exclude the approval trigger");
   check(
@@ -2340,7 +2341,7 @@ function validatePolicy(policy) {
   );
   check(
     policy.spec.baseline.filterWhere === expectedFilterWhere(policy.spec.baseline),
-    "baseline filter must name exactly its seven Triggers",
+    "baseline filter must name exactly its eight Triggers",
   );
   check(
     policy.spec.approvalRequired.filterWhere
@@ -4296,7 +4297,7 @@ ${policy.status.liveReverified
   ? `The live \`helm-catalog\` filters and their assigned Spaces were checked on **${policy.status.lastRecorded}**. Read the [live receipt](./live-helm-catalog.yaml).`
   : `The last committed live-org result is dated **${policy.status.lastRecorded}**. It has not been rechecked against the current org.`}
 
-The [functional proof](../apply-policy-functional-proof/summary.md) uses temporary Units to show what happens at the apply boundary. Placeholder values, invalid Kubernetes data, and unapproved system configuration are blocked. After the test approves the exact head revision, the same system-configuration dry run is allowed. An unpinned image and missing probes are reported as warnings without blocking a dry run. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked.
+The [functional proof](../apply-policy-functional-proof/summary.md) uses temporary Units to show what happens at the delivery boundary. Placeholder values, invalid Kubernetes data, a literal credential, and unapproved system configuration receive blocking ApplyGates. After the test approves the exact head revision, the approval gate clears. An unpinned image and missing probes are reported as warnings without adding an ApplyGate. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked. No fixture was delivered to Kubernetes.
 
 Run:
 
@@ -4424,7 +4425,7 @@ Every pathway uses [the catalog-standard apply policy](../../config-catalog/poli
 
 This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts} The receipt includes every maintained starting format: ${sourceCoverage}.
 
-The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) records which checks are connected to which Spaces. The [functional proof](../../data/apply-policy-functional-proof/summary.md) tests the behavior with temporary records: placeholders, invalid Kubernetes data, and missing approval are blocked; the same system configuration is allowed after its exact head revision is approved; and an unpinned image and missing probes are reported without blocking a dry run. No fixture configuration was applied to Kubernetes. Rerun \`npm run helm-org:policy:verify\` while logged into the org to compare the current topology with its receipt.
+The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) records which checks are connected to which Spaces. The [functional proof](../../data/apply-policy-functional-proof/summary.md) tests the behavior with temporary records: placeholders, invalid Kubernetes data, literal credential environment values, and missing approval are blocked; a Secret-backed value and the same system configuration after approval are allowed; and an unpinned image and missing probes are reported without blocking a dry run. No fixture configuration was applied to Kubernetes. Rerun \`npm run helm-org:policy:verify\` while logged into the org to compare the current topology with its receipt.
 `;
 }
 

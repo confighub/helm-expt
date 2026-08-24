@@ -1,7 +1,13 @@
 .DS_Store
 .helm/
 .tmp/
-runs/
+!runs/
+runs/*
+!runs/config-catalog-policy-functional-proof/
+runs/config-catalog-policy-functional-proof/*
+!runs/config-catalog-policy-functional-proof/receipt.yaml
+!runs/config-catalog-policy-functional-proof/proposed-cub-check.json
+!runs/config-catalog-policy-functional-proof/reviewed-cub-check.json
 node_modules
 node_modules/
 .workbook-build/node_modules

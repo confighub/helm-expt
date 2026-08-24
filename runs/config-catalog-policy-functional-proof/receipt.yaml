@@ -3,21 +3,22 @@ kind: "ConfigCatalogApplyPolicyFunctionalProofReceipt"
 metadata:
   name: "catalog-standard-live-functional"
 spec:
-  recordedAt: "2026-07-27T19:46:07.092Z"
+  recordedAt: "2026-08-24T15:04:23.185Z"
   context:
     name: "river-bear"
     organization: "helm-catalog"
     purpose: "temporary live policy fixtures"
   target:
-    ref: "hx-policy-proof-cluster-20260727/oci"
-    id: "f6864c9f-d57f-4da8-93eb-45bcf4c806b5"
+    ref: "platform/catalog-release-oci"
+    id: "73bb8a8f-5ffb-45d3-9e81-5b372e7b01bb"
     provider: "OCI"
-    dryRunOnly: true
+    applicationAttempted: false
+    validationMode: "authoritative Unit gate state"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
       id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
-      hash: "b42dcf124959da754d5b5bac08bce74bd450d6c6d52983af134f5fc7c8434554"
+      hash: "1b6e056f122d39395eed13fd3832f26652302905f95d3cdd20128e8b9fe971c9"
       triggerRefs:
         - "platform/aicr-training-images-pinned"
         - "platform/aicr-training-secret-refs"
@@ -26,6 +27,7 @@ spec:
         - "platform/probes-declared"
         - "platform/vet-placeholders"
         - "platform/vet-schemas"
+        - "platform/workload-sensitive-env-secret-refs"
       triggerIds:
         - "04746183-327b-484e-b061-91d2c7753a76"
         - "1823a4c6-9743-467a-8e9a-5e1893e31d17"
@@ -34,10 +36,11 @@ spec:
         - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
         - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
         - "894ba8a0-eb84-4105-9557-4854f3739cf2"
+        - "bc7e0c83-41f6-4597-b77c-f272ef7c9289"
     approvalRequired:
       ref: "platform/helm-catalog-prod-gates"
       id: "8784a447-0e4d-4471-b924-eae5377778a2"
-      hash: "31133ade3ebd259030d3d2ef559e6aec14a62590779fbce9c0d13b188f717dc1"
+      hash: "536ee75f4b2e9b2bcd992918374a1cd3de6af9aee85b53774cd08c04f26ef9ec"
       triggerRefs:
         - "platform/aicr-training-images-pinned"
         - "platform/aicr-training-secret-refs"
@@ -47,6 +50,7 @@ spec:
         - "platform/require-approval"
         - "platform/vet-placeholders"
         - "platform/vet-schemas"
+        - "platform/workload-sensitive-env-secret-refs"
       triggerIds:
         - "04746183-327b-484e-b061-91d2c7753a76"
         - "1823a4c6-9743-467a-8e9a-5e1893e31d17"
@@ -56,39 +60,83 @@ spec:
         - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
         - "894ba8a0-eb84-4105-9557-4854f3739cf2"
         - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+        - "bc7e0c83-41f6-4597-b77c-f272ef7c9289"
   checks:
     placeholder:
       effect: "block"
       finding: "unresolved ConfigHub placeholder"
       gate: "platform/vet-placeholders/vet-placeholders"
-      space: "hx-policy-baseline-20260727194541"
+      space: "hx-policy-baseline-20260824150401"
       unit: "placeholder-fixture"
-      unitId: "a597e2cc-a281-4acc-8570-a708cdfbc425"
+      unitId: "e8246447-57a6-449a-9fd0-6055cf342eb5"
       validationKeys:
         - "platform/vet-placeholders/vet-placeholders"
       applyGates:
         - "platform/vet-placeholders/vet-placeholders"
-      dryRunApply:
+      gateObservation:
         result: "blocked"
-        exitCode: 1
         gate: "platform/vet-placeholders/vet-placeholders"
-        dryRun: true
+        source: "Unit.ApplyGates"
+        gatePresent: true
+        applicationAttempted: false
     schema:
       effect: "block"
       finding: "invalid Kubernetes field type"
       gate: "platform/vet-schemas/vet-schemas"
-      space: "hx-policy-baseline-20260727194541"
+      space: "hx-policy-baseline-20260824150401"
       unit: "schema-fixture"
-      unitId: "f1bc8daa-7114-4e29-9032-c523e534c5d3"
+      unitId: "29a539cb-af53-4296-aae1-e5454f0b995b"
       validationKeys:
         - "platform/vet-schemas/vet-schemas"
       applyGates:
         - "platform/vet-schemas/vet-schemas"
-      dryRunApply:
+      gateObservation:
         result: "blocked"
-        exitCode: 1
         gate: "platform/vet-schemas/vet-schemas"
-        dryRun: true
+        source: "Unit.ApplyGates"
+        gatePresent: true
+        applicationAttempted: false
+    sensitiveEnvironmentValue:
+      effect: "block"
+      finding: "literal AI_API_KEY in a Deployment"
+      gate: "platform/workload-sensitive-env-secret-refs/vet-cel"
+      space: "hx-policy-baseline-20260824150401"
+      unit: "sensitive-env-fixture"
+      unitId: "4894f44e-c69c-4f27-b8e7-bf82b89291a1"
+      validationKeys:
+        - "platform/digest-pinned-images/vet-cel"
+        - "platform/workload-sensitive-env-secret-refs/vet-cel"
+      applyGates:
+        - "platform/workload-sensitive-env-secret-refs/vet-cel"
+      gateObservation:
+        result: "blocked"
+        gate: "platform/workload-sensitive-env-secret-refs/vet-cel"
+        source: "Unit.ApplyGates"
+        gatePresent: true
+        applicationAttempted: false
+      localFindingId: "CCVE-2025-5019"
+      localReceipt: "runs/config-catalog-policy-functional-proof/proposed-cub-check.json"
+      objectCount: 5
+      objectSetSha256: "sha256:9a0d28228065d3cab5a8c38acfce5800e71116c69696b3795d00fce1d3774c35"
+    secretBackedEnvironmentValue:
+      effect: "allow"
+      finding: "AI_API_KEY uses valueFrom.secretKeyRef"
+      gate: "platform/workload-sensitive-env-secret-refs/vet-cel"
+      space: "hx-policy-baseline-20260824150401"
+      unit: "secret-backed-env-fixture"
+      unitId: "dc6f509f-4c0a-4cca-8785-225454b850fe"
+      gatePresent: false
+      gateObservation:
+        result: "eligible"
+        source: "Unit.ApplyGates"
+        gatePresent: false
+        applyGates:
+          []
+        applicationAttempted: false
+      localReceipt: "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+      localFindingAbsent: true
+      objectCount: 5
+      objectSetSha256: "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
     warnings:
       effect: "warn"
       findings:
@@ -97,47 +145,50 @@ spec:
       triggers:
         - "platform/digest-pinned-images/vet-cel"
         - "platform/probes-declared/vet-cel"
-      space: "hx-policy-baseline-20260727194541"
+      space: "hx-policy-baseline-20260824150401"
       unit: "warning-fixture"
-      unitId: "759164fb-0fe9-45e2-b8ee-83a81c44b5b6"
+      unitId: "89b5ff0c-a157-4bfa-bb00-e3e8cf802465"
       validationKeys:
         - "platform/digest-pinned-images/vet-cel"
         - "platform/probes-declared/vet-cel"
       applyGates:
         []
-      dryRunApply:
-        result: "allowed"
-        exitCode: 0
-        dryRun: true
-        queuedOperationId: "31faddd2-e5dd-4fcf-bbea-550eac1a9a46"
+      gateObservation:
+        result: "eligible"
+        source: "Unit.ApplyGates"
+        gatePresent: false
+        applyGates:
+          []
+        applicationAttempted: false
     approval:
       effect: "block"
       finding: "system configuration has no recorded approval"
       gate: "platform/require-approval/vet-approvedby"
-      space: "hx-policy-approval-20260727194541"
+      space: "hx-policy-approval-20260824150401"
       unit: "approval-fixture"
-      unitId: "f449e001-b76c-4647-8166-69646d433440"
+      unitId: "1604dcd3-1026-4528-b0d3-1011bf56f584"
       validationKeys:
         - "platform/require-approval/vet-approvedby"
       applyGates:
         - "platform/require-approval/vet-approvedby"
-      dryRunApply:
+      gateObservation:
         result: "blocked"
-        exitCode: 1
         gate: "platform/require-approval/vet-approvedby"
-        dryRun: true
+        source: "Unit.ApplyGates"
+        gatePresent: true
+        applicationAttempted: false
       afterApproval:
-        result: "allowed"
+        result: "eligible"
         revisionSelector: "HeadRevisionNum"
-        headRevisionBefore: 1
-        headRevisionAfter: 1
+        headRevisionBefore: 2
+        headRevisionAfter: 2
         recordedApprovals: 1
         gateCleared: true
-        dryRunApply:
-          result: "allowed"
-          exitCode: 0
-          dryRun: true
-          queuedOperationId: "570a5436-735d-46c0-9921-209d690ee8ff"
+        gateObservation:
+          result: "eligible"
+          source: "Unit.ApplyGates"
+          gatePresent: false
+          applicationAttempted: false
     lifecycleRoute:
       effect: "block"
       finding: "automatic lifecycle route has no observed evidence"
@@ -145,15 +196,64 @@ spec:
       result: "blocked"
       receipt: "data/hooks-crds-app/live-receipt.yaml"
       testedAt: "2026-07-27T06:39:52.630Z"
+  localScanner:
+    tool: "cub check"
+    surface: "cub-scan"
+    version: "v0.7.3"
+    patternBundle:
+      schema_version: "bundle-manifest-v1"
+      version: "v0.7.3"
+      source_repo: "confighubai/confighub-scan"
+      manifest_sha256: "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8"
+      catalog_sha256: "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    proposedReceipt: "runs/config-catalog-policy-functional-proof/proposed-cub-check.json"
+    reviewedReceipt: "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+    proposedFindingIds:
+      - "CCVE-2025-3731"
+      - "CCVE-2025-3733"
+      - "CCVE-2025-3734"
+      - "CCVE-2025-3735"
+      - "CCVE-2025-3745"
+      - "CCVE-2025-5019"
+    reviewedFindingIds:
+      - "CCVE-2025-3745"
+    advisoryOnly: true
+  retainedResult:
+    space: "byo-nginx-ai-values-24-0-2-reviewed"
+    spaceId: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+    unit: "byo-nginx-ai-values"
+    unitId: "63f66d73-7c57-4316-b8ef-2d79dedbf4cf"
+    headRevision: 1
+    objectCount: 5
+    objectSetSha256: "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+    sourceOci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    sourceDigest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    policy:
+      filter: "platform/helm-catalog-checks"
+      control: "workload-sensitive-env-secret-refs"
+      trigger: "platform/workload-sensitive-env-secret-refs"
+      triggerAttached: true
+      gatePresent: false
+    receipt: "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+  promotion:
+    receipt: "runs/byo-helm-values-promotion-proof/receipt.yaml"
+    result: "pass"
+    baseSpace: "byo-nginx-ai-values-24-0-2-reviewed"
+    developmentSpace: "byo-nginx-ai-values-24-0-2-development"
+    stagingSpace: "byo-nginx-ai-values-24-0-2-staging"
+    field: "spec.replicas"
+    from: 3
+    to: 4
   cleanup:
     baselineSpace: "pass"
     approvalSpace: "pass"
   limits:
-    - "Every apply command used --dry-run. No fixture configuration was applied to Kubernetes."
-    - "The target was used only to exercise ConfigHub's apply boundary; this run does not test workload health or controller convergence."
+    - "No apply command was run. Current cub exposes managed ApplyGate state on each Unit but does not expose the former unit apply --dry-run command."
+    - "The target assignment caused ConfigHub to evaluate the managed checks; this run does not test workload health or controller convergence."
     - "The fixtures prove the recorded checks for these exact inputs. They do not prove that every possible invalid configuration is detected."
+    - "The sensitive-environment control maps to local finding CCVE-2025-5019, but the local scan and ConfigHub validation remain separate executions."
     - "The lifecycle-route result comes from the separately recorded Hooks and CRDs App fixture."
     - "The AICR image and Secret checks are exercised by the separate live AI change review proof."
 status:
   result: "pass"
-  claim: "The live catalog policy blocked a placeholder, invalid Kubernetes data, and unapproved system configuration; allowed the same system configuration after its exact revision was approved; reported two advisory workload findings without blocking a dry run; and separately blocked an unsupported automatic lifecycle route."
+  claim: "The live catalog policy recorded blocking ApplyGates for a placeholder, invalid Kubernetes data, a literal credential environment value, and unapproved system configuration; left a Secret-backed environment value eligible, cleared the approval gate after the exact revision was approved, reported two advisory workload findings without adding an ApplyGate, and separately blocked an unsupported automatic lifecycle route."

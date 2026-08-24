@@ -653,7 +653,7 @@ cub k8s get crd --space "*"</code></pre>
 
       <section aria-labelledby="checks">
         <h2 id="checks">8. See which checks can stop an apply</h2>
-        <p>Every policy-covered Space has 7 common tests. Schema, placeholder, and lifecycle tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
+        <p>Every policy-covered Space has 8 common tests. Schema, placeholder, and lifecycle tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
       <div class="card"><table>
         <thead><tr><th>Where</th><th>Can block apply</th><th>Warns without blocking</th></tr></thead>
         <tbody><tr><td>Every policy-covered Space</td><td>Invalid schema; unresolved placeholder; an attached lifecycle route that lacks its required scope or evidence</td><td>An ordinary workload image without a digest; a long-running workload without declared readiness and liveness probes</td></tr><tr><td>AICR training configuration</td><td>An AI API key written directly instead of referring to a named Secret</td><td>A training image without a digest</td></tr><tr><td>Production and system configuration</td><td>All applicable checks above, plus one recorded approval</td><td>All applicable warnings above</td></tr></tbody>
