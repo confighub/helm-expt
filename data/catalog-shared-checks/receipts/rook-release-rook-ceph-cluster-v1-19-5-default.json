@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "rook-release-rook-ceph-cluster-v1-19-5-default",
+    "chart": "rook-release/rook-ceph-cluster",
+    "version": "v1.19.5",
+    "base": "default",
+    "renderPath": "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010"
+  },
+  "catalogReview": {
+    "path": "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 2,
+    "findings": [
+      {
+        "id": "CCVE-2025-2432",
+        "name": "RoleBinding to non-existent ClusterRole creates security risk",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "RoleBinding",
+          "name": "rook-ceph-cluster-mgmt",
+          "namespace": "default"
+        },
+        "message": "RoleBinding references missing ClusterRole \"rook-ceph-cluster-mgmt\"",
+        "remedy_type": "delete_resource",
+        "remedy_safety": "unsafe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all RoleBindings for missing ClusterRoles",
+            "Delete dangling RoleBindings",
+            "Use admission webhook to validate bindings",
+            "Regular security audits for RBAC configuration"
+          ],
+          "commands": [
+            "kubectl get rolebindings -A -o json | jq '.items[] | select(.roleRef.kind==\"ClusterRole\") | .roleRef.name' | sort -u",
+            "kubectl get clusterroles",
+            "kubectl delete rolebinding <name> -n <namespace>"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "update_config",
+          "description": "Audit all RoleBindings for missing ClusterRoles",
+          "command": "kubectl get rolebindings -A -o json | jq '.items[] | select(.roleRef.kind==\"ClusterRole\") | .roleRef.name' | sort -u",
+          "doc_ref": "cub-scan --explain CCVE-2025-2432"
+        }
+      },
+      {
+        "id": "CCVE-2025-2432",
+        "name": "RoleBinding to non-existent ClusterRole creates security risk",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "RoleBinding",
+          "name": "rook-ceph-mgr-system-default",
+          "namespace": "rook-ceph"
+        },
+        "message": "RoleBinding references missing ClusterRole \"rook-ceph-mgr-system\"",
+        "remedy_type": "delete_resource",
+        "remedy_safety": "unsafe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all RoleBindings for missing ClusterRoles",
+            "Delete dangling RoleBindings",
+            "Use admission webhook to validate bindings",
+            "Regular security audits for RBAC configuration"
+          ],
+          "commands": [
+            "kubectl get rolebindings -A -o json | jq '.items[] | select(.roleRef.kind==\"ClusterRole\") | .roleRef.name' | sort -u",
+            "kubectl get clusterroles",
+            "kubectl delete rolebinding <name> -n <namespace>"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "update_config",
+          "description": "Audit all RoleBindings for missing ClusterRoles",
+          "command": "kubectl get rolebindings -A -o json | jq '.items[] | select(.roleRef.kind==\"ClusterRole\") | .roleRef.name' | sort -u",
+          "doc_ref": "cub-scan --explain CCVE-2025-2432"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:50Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 27,
+      "object_set_sha256": "sha256:b60a067cee3b6ace25d45c75c317cc2ed76c20d8dd839792223fe08158b0dcab"
+    }
+  }
+}

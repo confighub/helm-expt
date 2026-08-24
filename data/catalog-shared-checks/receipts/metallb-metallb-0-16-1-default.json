@@ -1,0 +1,708 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "metallb-metallb-0-16-1-default",
+    "chart": "metallb/metallb",
+    "version": "0.16.1",
+    "base": "default",
+    "renderPath": "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e"
+  },
+  "catalogReview": {
+    "path": "recipes/metallb/metallb/0.16.1/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 18,
+    "findings": [
+      {
+        "id": "CCVE-2025-3725",
+        "name": "Deployment omits spec.replicas and relies on implicit single replica",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-controller",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment omits spec.replicas; Kubernetes defaults to a single replica",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set spec.replicas explicitly in the workload manifest",
+            "Use at least two replicas for workloads requiring basic availability",
+            "If HPA manages scale, document that intent and set safe minReplicas"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+            "kubectl patch deployment <name> -n <namespace> --type=merge -p '{\"spec\":{\"replicas\":2}}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set spec.replicas explicitly in the workload manifest",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3725"
+        }
+      },
+      {
+        "id": "CCVE-2025-3725",
+        "name": "Deployment omits spec.replicas and relies on implicit single replica",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-frr-k8s-statuscleaner",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment omits spec.replicas; Kubernetes defaults to a single replica",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set spec.replicas explicitly in the workload manifest",
+            "Use at least two replicas for workloads requiring basic availability",
+            "If HPA manages scale, document that intent and set safe minReplicas"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+            "kubectl patch deployment <name> -n <namespace> --type=merge -p '{\"spec\":{\"replicas\":2}}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set spec.replicas explicitly in the workload manifest",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3725"
+        }
+      },
+      {
+        "id": "CCVE-2025-3728",
+        "name": "Deployment containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-controller",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add resources.limits for memory and CPU to each container",
+            "Add resources.requests to enable proper scheduling",
+            "Consider LimitRange defaults at the namespace level"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+            "kubectl set resources deployment <name> -n <namespace> --limits=cpu=500m,memory=256Mi --requests=cpu=100m,memory=128Mi"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add resources.limits for memory and CPU to each container",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+          "doc_ref": "cub-scan --explain CCVE-2025-3728"
+        }
+      },
+      {
+        "id": "CCVE-2025-3728",
+        "name": "Deployment containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-frr-k8s-statuscleaner",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add resources.limits for memory and CPU to each container",
+            "Add resources.requests to enable proper scheduling",
+            "Consider LimitRange defaults at the namespace level"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+            "kubectl set resources deployment <name> -n <namespace> --limits=cpu=500m,memory=256Mi --requests=cpu=100m,memory=128Mi"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add resources.limits for memory and CPU to each container",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+          "doc_ref": "cub-scan --explain CCVE-2025-3728"
+        }
+      },
+      {
+        "id": "CCVE-2025-3729",
+        "name": "Deployment uses host namespaces",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-frr-k8s-statuscleaner",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment uses host namespaces: hostNetwork",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove hostNetwork, hostPID, and hostIPC from pod spec",
+            "Use Services and NetworkPolicy for network access instead of hostNetwork",
+            "If host access is truly required, document the exception and restrict with RBAC"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -E 'hostNetwork|hostPID|hostIPC'",
+            "kubectl patch deployment <name> -n <namespace> --type=merge -p '{\"spec\":{\"template\":{\"spec\":{\"hostNetwork\":false,\"hostPID\":false,\"hostIPC\":false}}}}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove hostNetwork, hostPID, and hostIPC from pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -E 'hostNetwork|hostPID|hostIPC'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3729"
+        }
+      },
+      {
+        "id": "CCVE-2025-3732",
+        "name": "Deployment containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-controller",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage",
+            "Ensure requests are set when using HPA"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3732"
+        }
+      },
+      {
+        "id": "CCVE-2025-3732",
+        "name": "Deployment containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-frr-k8s-statuscleaner",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage",
+            "Ensure requests are set when using HPA"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3732"
+        }
+      },
+      {
+        "id": "CCVE-2025-3733",
+        "name": "Container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-frr-k8s-statuscleaner",
+          "namespace": "metallb-system"
+        },
+        "message": "Container frr-k8s-statuscleaner does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID",
+            "Ensure container images do not require root"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3733"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-controller",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metallb-frr-k8s-statuscleaner",
+          "namespace": "metallb-system"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-3755",
+        "name": "DaemonSet container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-frr-k8s",
+          "namespace": "metallb-system"
+        },
+        "message": "Container controller does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3755"
+        }
+      },
+      {
+        "id": "CCVE-2025-3755",
+        "name": "DaemonSet container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-speaker",
+          "namespace": "metallb-system"
+        },
+        "message": "Container speaker does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3755"
+        }
+      },
+      {
+        "id": "CCVE-2025-3756",
+        "name": "DaemonSet containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-frr-k8s",
+          "namespace": "metallb-system"
+        },
+        "message": "DaemonSet containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.limits.cpu and resources.limits.memory on every container",
+            "Size limits based on observed steady-state usage with headroom"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.limits.cpu and resources.limits.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3756"
+        }
+      },
+      {
+        "id": "CCVE-2025-3756",
+        "name": "DaemonSet containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-speaker",
+          "namespace": "metallb-system"
+        },
+        "message": "DaemonSet containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.limits.cpu and resources.limits.memory on every container",
+            "Size limits based on observed steady-state usage with headroom"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.limits.cpu and resources.limits.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3756"
+        }
+      },
+      {
+        "id": "CCVE-2025-3757",
+        "name": "DaemonSet containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-frr-k8s",
+          "namespace": "metallb-system"
+        },
+        "message": "DaemonSet containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3757"
+        }
+      },
+      {
+        "id": "CCVE-2025-3757",
+        "name": "DaemonSet containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-speaker",
+          "namespace": "metallb-system"
+        },
+        "message": "DaemonSet containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3757"
+        }
+      },
+      {
+        "id": "CCVE-2025-3758",
+        "name": "DaemonSet does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-frr-k8s",
+          "namespace": "metallb-system"
+        },
+        "message": "DaemonSet does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable for DaemonSets that genuinely need Kubernetes API access"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3758"
+        }
+      },
+      {
+        "id": "CCVE-2025-3758",
+        "name": "DaemonSet does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "metallb-speaker",
+          "namespace": "metallb-system"
+        },
+        "message": "DaemonSet does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable for DaemonSets that genuinely need Kubernetes API access"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3758"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:40Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 42,
+      "object_set_sha256": "sha256:1ed75413a9e4f765c0e03471bb9517074f5785e415d0d5d951c6e1790d0e578c"
+    }
+  }
+}

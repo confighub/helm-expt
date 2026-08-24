@@ -664,6 +664,26 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </article></div>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>1 advisory finding</strong><br>1 warning<br>StatefulSet does not disable automountServiceAccountToken</td><td>3 objects<br><code>sha256:fedb78dd88e514cb2b729feb778bca3d0f3a9e079938914b6aa341c50eb4cc0b</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/elastic-logstash-8-5-1-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/elastic/logstash/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>ha</code></td><td><strong>1 advisory finding</strong><br>1 warning<br>StatefulSet does not disable automountServiceAccountToken</td><td>3 objects<br><code>sha256:2650d5570827927cd3e96fb3fdf266b8b564d9139dd911837f18b2b1cc94cdb2</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/elastic-logstash-8-5-1-ha.json">Full <code>cub check</code> result</a><br><a href="../../recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/elastic/logstash/8.5.1/revisions/ha/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>

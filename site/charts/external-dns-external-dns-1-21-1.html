@@ -735,6 +735,26 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </article></div>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>5 advisory findings</strong><br>4 warning, 1 info<br>Deployment containers omit resource limits<br>Deployment containers omit resource requests<br>Deployment uses Recreate strategy</td><td>6 objects<br><code>sha256:b044706e5567c957f8f4a1313508c6cd84cbf85deb4fea1fa250f53fbd5cbd23</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/external-dns-external-dns-1-21-1-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/external-dns/external-dns/1.21.1/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>dry-run-txt-registry</code></td><td><strong>5 advisory findings</strong><br>4 warning, 1 info<br>Deployment containers omit resource limits<br>Deployment containers omit resource requests<br>Deployment uses Recreate strategy</td><td>4 objects<br><code>sha256:a91138c898cf89843428dc75e98c0de450bb5146b8d46efcf3e1676a8ba73ce1</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/external-dns-external-dns-1-21-1-dry-run-txt-registry.json">Full <code>cub check</code> result</a><br><a href="../../recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>no-crds</code></td><td><strong>5 advisory findings</strong><br>4 warning, 1 info<br>Deployment containers omit resource limits<br>Deployment containers omit resource requests<br>Deployment uses Recreate strategy</td><td>5 objects<br><code>sha256:28f1c99a8d80cf9061cb35525eba6ab68faf49716366b5b0de0189033bc8fead</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/external-dns-external-dns-1-21-1-no-crds.json">Full <code>cub check</code> result</a><br><a href="../../recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>

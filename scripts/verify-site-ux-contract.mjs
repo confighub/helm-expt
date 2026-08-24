@@ -855,6 +855,22 @@ if (fs.existsSync(chartPagesDir)) {
     ]) {
       if (!html.includes(phrase)) failures.push(`${file}: missing shared local check guidance ${JSON.stringify(phrase)}`);
     }
+    for (const phrase of [
+      "Local Configuration Checks",
+      "We ran <code>cub check v0.7.3</code> against the exact rendered objects",
+      "The result is advisory",
+      "Exact input",
+      "Full <code>cub check</code> result",
+      "Exact YAML",
+      "Separate Catalog review",
+      "What this does not check:",
+      "ConfigHub validation and approval are separate managed controls.",
+    ]) {
+      if (!html.includes(phrase)) failures.push(`${file}: missing shared check evidence ${JSON.stringify(phrase)}`);
+    }
+    if (!/sha256:[a-f0-9]{64}/.test(html)) failures.push(`${file}: shared check evidence does not expose an exact object digest`);
+    if (!/data\/catalog-shared-checks\/receipts\/[^"#?]+\.json/.test(html)) failures.push(`${file}: shared check evidence does not link its full receipt`);
+    if (!html.includes('../d/data/catalog-shared-checks/summary.html')) failures.push(`${file}: shared check evidence does not link the rendered human summary`);
     for (const question of coverageQuestions) {
       if (!html.includes(question)) failures.push(`${file}: does not state version-specific coverage for ${JSON.stringify(question)}`);
     }

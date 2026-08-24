@@ -31,6 +31,21 @@ simulation findings and misconfiguration doctrine. [Issue #1592](https://github.
 tracks the work needed to join Catalog findings, local checks, and ConfigHub
 validation into one visible journey.
 
+The first complete case and the Catalog-wide local evidence are now in place:
+
+- one NGINX change runs from an unsafe local result through a correction,
+  retained ConfigHub revision, blocking validation, and promotion;
+- every maintained Helm base has a separate released `cub check` result bound
+  to the exact YAML bytes and canonical scanner object set;
+- generated chart pages show the human summary and link the complete shared
+  result, exact YAML, and separate chart-specific Catalog review;
+- the mapping from Catalog rules to stable shared controls is complete and
+  deliberately marks partial overlap and rules that require source, lifecycle,
+  target, or live evidence.
+
+General approved exceptions and a single ConfigHub product view that joins the
+local result to managed validation remain open in issue #1592.
+
 ## User Promise
 
 People should be able to bring configuration made by themselves or by AI and
@@ -257,10 +272,16 @@ The current evidence systems must remain correctly named:
 - ConfigHub `validate-unit` and `validate-space` provide revision-bound results
   that can participate in managed gates.
 
-The integration work must map Catalog findings to stable pattern and control
-IDs, generate new digest-bound shared-scan receipts, carry the accepted result
-into ConfigHub, and rerun the relevant controls there. A local result does not
-become authoritative merely because it was uploaded.
+The Catalog-wide mapping and digest-bound shared results now live in
+`config-catalog/shared-control-mappings.yaml` and
+`data/catalog-shared-checks/`. Each shared receipt preserves the complete
+released scanner result and adds the exact committed YAML-file digest. Chart
+pages show both the shared result and the separate Catalog review.
+
+The remaining integration work must carry approved exceptions into ConfigHub,
+show local and managed results together without merging their authority, and
+rerun the relevant controls against each retained revision. A local result does
+not become authoritative merely because it was uploaded.
 
 Static checks do not prove hook execution, CRD readiness, admission behavior,
 workload health, rollback of external effects, or convergence. Promotion and
@@ -351,19 +372,21 @@ and other advanced work.
 
 ### Phase 1: Prove Check To ConfigHub
 
-1. Implement [issue #1592](https://github.com/confighub/helm-expt/issues/1592).
-2. Map Catalog warnings to stable pattern and control IDs where a maintained
-   mapping exists.
-3. Generate new `cub check` receipts for exact rendered variants without
-   changing the identity of historical receipts. Record the scanner version,
-   pattern-bundle identity, and object digest in each receipt.
-4. Add a plain finding summary and local action to chart pages.
-5. Include object digest, scanner version, bundle identity, findings, accepted
-   fixes, exceptions, and limits in the downloadable review.
-6. Retain the same objects in ConfigHub and rerun authoritative controls against
-   that revision.
-7. Show local evidence and ConfigHub validation separately in the product.
-8. Demonstrate one complete case:
+1. Continue [issue #1592](https://github.com/confighub/helm-expt/issues/1592).
+2. **Complete:** map every current Catalog rule to partial shared controls or a
+   clear reason why static object checking cannot replace it.
+3. **Complete:** generate separate `cub check` receipts for every exact
+   maintained Helm base without changing historical receipt identity.
+4. **Complete:** add a plain finding summary, exact input, date, scanner and
+   bundle identity, local action, and full result link to chart pages.
+5. **Partial:** the browser review includes the object digest, scanner version,
+   bundle identity, findings, and limits. A maintained decision record for
+   accepted fixes and approved exceptions remains.
+6. **Complete for one NGINX case:** retain the same objects in ConfigHub and
+   rerun authoritative controls against that revision.
+7. **Remaining:** show local evidence and ConfigHub validation together but
+   separately in the product, including approved exceptions.
+8. **Complete for one NGINX case:** demonstrate:
 
 ```text
 unsafe candidate

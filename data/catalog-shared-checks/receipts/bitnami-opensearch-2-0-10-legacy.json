@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "bitnami-opensearch-2-0-10-legacy",
+    "chart": "bitnami/opensearch",
+    "version": "2.0.10",
+    "base": "legacy",
+    "renderPath": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc"
+  },
+  "catalogReview": {
+    "path": "recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 2,
+    "findings": [
+      {
+        "id": "CCVE-2025-5013",
+        "name": "Helm-managed StatefulSet may orphan PVCs on release lifecycle operations",
+        "category": "ORPHAN",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "medium",
+        "tool": "helm",
+        "resource": {
+          "kind": "StatefulSet",
+          "name": "opensearch-data",
+          "namespace": "default"
+        },
+        "message": "Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations",
+        "remedy_type": "config_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+            "Document explicit PVC retention and cleanup procedures when Retain is intentional",
+            "Add release cleanup automation for orphaned PVCs if data retention is not required"
+          ],
+          "commands": [
+            "kubectl get sts -n <namespace> <name> -o yaml",
+            "kubectl get pvc -n <namespace> -l app.kubernetes.io/instance=<release>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+          "command": "kubectl get sts -n <namespace> <name> -o yaml",
+          "doc_ref": "cub-scan --explain CCVE-2025-5013"
+        }
+      },
+      {
+        "id": "CCVE-2025-5013",
+        "name": "Helm-managed StatefulSet may orphan PVCs on release lifecycle operations",
+        "category": "ORPHAN",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "medium",
+        "tool": "helm",
+        "resource": {
+          "kind": "StatefulSet",
+          "name": "opensearch-master",
+          "namespace": "default"
+        },
+        "message": "Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations",
+        "remedy_type": "config_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+            "Document explicit PVC retention and cleanup procedures when Retain is intentional",
+            "Add release cleanup automation for orphaned PVCs if data retention is not required"
+          ],
+          "commands": [
+            "kubectl get sts -n <namespace> <name> -o yaml",
+            "kubectl get pvc -n <namespace> -l app.kubernetes.io/instance=<release>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+          "command": "kubectl get sts -n <namespace> <name> -o yaml",
+          "doc_ref": "cub-scan --explain CCVE-2025-5013"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:23Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 18,
+      "object_set_sha256": "sha256:921cc203614bec4590bb685cabdc0df2d63e28d05ec1c17f5342a7b77550a5b7"
+    }
+  }
+}

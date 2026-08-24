@@ -1,0 +1,1285 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "crossplane-stable-crossplane-2-3-1-default",
+    "chart": "crossplane-stable/crossplane",
+    "version": "2.3.1",
+    "base": "default",
+    "renderPath": "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+  },
+  "catalogReview": {
+    "path": "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 32,
+    "findings": [
+      {
+        "id": "CCVE-2025-3733",
+        "name": "Container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane",
+          "namespace": "default"
+        },
+        "message": "Container crossplane does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID",
+            "Ensure container images do not require root"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3733"
+        }
+      },
+      {
+        "id": "CCVE-2025-3733",
+        "name": "Container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane-rbac-manager",
+          "namespace": "default"
+        },
+        "message": "Container crossplane does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID",
+            "Ensure container images do not require root"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3733"
+        }
+      },
+      {
+        "id": "CCVE-2025-3736",
+        "name": "Container does not drop ALL capabilities",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane",
+          "namespace": "default"
+        },
+        "message": "Container crossplane does not drop ALL capabilities",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+            "Add back only specifically needed capabilities via capabilities.add"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext.capabilities}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext.capabilities}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3736"
+        }
+      },
+      {
+        "id": "CCVE-2025-3736",
+        "name": "Container does not drop ALL capabilities",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane-rbac-manager",
+          "namespace": "default"
+        },
+        "message": "Container crossplane does not drop ALL capabilities",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+            "Add back only specifically needed capabilities via capabilities.add"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext.capabilities}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext.capabilities}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3736"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane",
+          "namespace": "default"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane-rbac-manager",
+          "namespace": "default"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "crossplane-rbac-manager",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-4075",
+        "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-admin",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants nodes/proxy access, enabling full Kubelet API (exec/run/attach) on all nodes",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all ClusterRoles for nodes/proxy permissions",
+            "Remove nodes/proxy from ClusterRole rules unless strictly required",
+            "Implement network policies restricting pod access to port 10250",
+            "Deploy node-level runtime detection (Falco, Tetragon) for Kubelet connections",
+            "Consider deploying Kyverno policy restrict-clusterrole-nodesproxy as admission guard",
+            "Kyverno equivalents: KPOL-0279 and KPOL-0367",
+            "Monitor KEP-2862 progress for fine-grained Kubelet authorization (K8s 1.36+)"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+            "kubectl get clusterrolebindings -o json | jq '.items[] | select(.roleRef.name == \"<ROLE_NAME>\") | {name: .metadata.name, subjects: .subjects}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Audit all ClusterRoles for nodes/proxy permissions",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4075"
+        }
+      },
+      {
+        "id": "CCVE-2025-4075",
+        "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-browse",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants nodes/proxy access, enabling full Kubelet API (exec/run/attach) on all nodes",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all ClusterRoles for nodes/proxy permissions",
+            "Remove nodes/proxy from ClusterRole rules unless strictly required",
+            "Implement network policies restricting pod access to port 10250",
+            "Deploy node-level runtime detection (Falco, Tetragon) for Kubelet connections",
+            "Consider deploying Kyverno policy restrict-clusterrole-nodesproxy as admission guard",
+            "Kyverno equivalents: KPOL-0279 and KPOL-0367",
+            "Monitor KEP-2862 progress for fine-grained Kubelet authorization (K8s 1.36+)"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+            "kubectl get clusterrolebindings -o json | jq '.items[] | select(.roleRef.name == \"<ROLE_NAME>\") | {name: .metadata.name, subjects: .subjects}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Audit all ClusterRoles for nodes/proxy permissions",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4075"
+        }
+      },
+      {
+        "id": "CCVE-2025-4075",
+        "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-edit",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants nodes/proxy access, enabling full Kubelet API (exec/run/attach) on all nodes",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all ClusterRoles for nodes/proxy permissions",
+            "Remove nodes/proxy from ClusterRole rules unless strictly required",
+            "Implement network policies restricting pod access to port 10250",
+            "Deploy node-level runtime detection (Falco, Tetragon) for Kubelet connections",
+            "Consider deploying Kyverno policy restrict-clusterrole-nodesproxy as admission guard",
+            "Kyverno equivalents: KPOL-0279 and KPOL-0367",
+            "Monitor KEP-2862 progress for fine-grained Kubelet authorization (K8s 1.36+)"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+            "kubectl get clusterrolebindings -o json | jq '.items[] | select(.roleRef.name == \"<ROLE_NAME>\") | {name: .metadata.name, subjects: .subjects}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Audit all ClusterRoles for nodes/proxy permissions",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4075"
+        }
+      },
+      {
+        "id": "CCVE-2025-4075",
+        "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-view",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants nodes/proxy access, enabling full Kubelet API (exec/run/attach) on all nodes",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all ClusterRoles for nodes/proxy permissions",
+            "Remove nodes/proxy from ClusterRole rules unless strictly required",
+            "Implement network policies restricting pod access to port 10250",
+            "Deploy node-level runtime detection (Falco, Tetragon) for Kubelet connections",
+            "Consider deploying Kyverno policy restrict-clusterrole-nodesproxy as admission guard",
+            "Kyverno equivalents: KPOL-0279 and KPOL-0367",
+            "Monitor KEP-2862 progress for fine-grained Kubelet authorization (K8s 1.36+)"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+            "kubectl get clusterrolebindings -o json | jq '.items[] | select(.roleRef.name == \"<ROLE_NAME>\") | {name: .metadata.name, subjects: .subjects}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Audit all ClusterRoles for nodes/proxy permissions",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4075"
+        }
+      },
+      {
+        "id": "CCVE-2025-4075",
+        "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:system:aggregate-to-crossplane",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants nodes/proxy access, enabling full Kubelet API (exec/run/attach) on all nodes",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Audit all ClusterRoles for nodes/proxy permissions",
+            "Remove nodes/proxy from ClusterRole rules unless strictly required",
+            "Implement network policies restricting pod access to port 10250",
+            "Deploy node-level runtime detection (Falco, Tetragon) for Kubelet connections",
+            "Consider deploying Kyverno policy restrict-clusterrole-nodesproxy as admission guard",
+            "Kyverno equivalents: KPOL-0279 and KPOL-0367",
+            "Monitor KEP-2862 progress for fine-grained Kubelet authorization (K8s 1.36+)"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+            "kubectl get clusterrolebindings -o json | jq '.items[] | select(.roleRef.name == \"<ROLE_NAME>\") | {name: .metadata.name, subjects: .subjects}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Audit all ClusterRoles for nodes/proxy permissions",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(.rules[]?.resources[]? == \"nodes/proxy\") | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4075"
+        }
+      },
+      {
+        "id": "CCVE-2025-4077",
+        "name": "ClusterRole grants pods/exec create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-admin",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants pods/exec create, enabling direct command execution in running pods",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+            "Restrict role bindings to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4077"
+        }
+      },
+      {
+        "id": "CCVE-2025-4077",
+        "name": "ClusterRole grants pods/exec create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-edit",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants pods/exec create, enabling direct command execution in running pods",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+            "Restrict role bindings to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4077"
+        }
+      },
+      {
+        "id": "CCVE-2025-4077",
+        "name": "ClusterRole grants pods/exec create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:system:aggregate-to-crossplane",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants pods/exec create, enabling direct command execution in running pods",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+            "Restrict role bindings to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4077"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-admin",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-browse",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-edit",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-view",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:system:aggregate-to-crossplane",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      },
+      {
+        "id": "CCVE-2025-4079",
+        "name": "ClusterRole grants serviceaccounts/token create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-admin",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants serviceaccounts/token create, allowing token minting for privilege escalation",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove serviceaccounts/token create permission from non-admin ClusterRoles",
+            "Audit role bindings to identities that can mint tokens"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"serviceaccounts/token\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove serviceaccounts/token create permission from non-admin ClusterRoles",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"serviceaccounts/token\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4079"
+        }
+      },
+      {
+        "id": "CCVE-2025-4079",
+        "name": "ClusterRole grants serviceaccounts/token create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-edit",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants serviceaccounts/token create, allowing token minting for privilege escalation",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove serviceaccounts/token create permission from non-admin ClusterRoles",
+            "Audit role bindings to identities that can mint tokens"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"serviceaccounts/token\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove serviceaccounts/token create permission from non-admin ClusterRoles",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"serviceaccounts/token\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4079"
+        }
+      },
+      {
+        "id": "CCVE-2025-4079",
+        "name": "ClusterRole grants serviceaccounts/token create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:system:aggregate-to-crossplane",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants serviceaccounts/token create, allowing token minting for privilege escalation",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove serviceaccounts/token create permission from non-admin ClusterRoles",
+            "Audit role bindings to identities that can mint tokens"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"serviceaccounts/token\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove serviceaccounts/token create permission from non-admin ClusterRoles",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"serviceaccounts/token\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4079"
+        }
+      },
+      {
+        "id": "CCVE-2025-4080",
+        "name": "ClusterRole grants CSR approval update permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-admin",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants certificatesigningrequests/approval update/patch, enabling certificate approval abuse",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove certificatesigningrequests/approval update and patch permissions from non-controller ClusterRoles",
+            "Restrict CSR approval to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"certificatesigningrequests/approval\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove certificatesigningrequests/approval update and patch permissions from non-controller ClusterRoles",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"certificatesigningrequests/approval\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4080"
+        }
+      },
+      {
+        "id": "CCVE-2025-4080",
+        "name": "ClusterRole grants CSR approval update permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-edit",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants certificatesigningrequests/approval update/patch, enabling certificate approval abuse",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove certificatesigningrequests/approval update and patch permissions from non-controller ClusterRoles",
+            "Restrict CSR approval to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"certificatesigningrequests/approval\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove certificatesigningrequests/approval update and patch permissions from non-controller ClusterRoles",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"certificatesigningrequests/approval\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4080"
+        }
+      },
+      {
+        "id": "CCVE-2025-4080",
+        "name": "ClusterRole grants CSR approval update permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:system:aggregate-to-crossplane",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants certificatesigningrequests/approval update/patch, enabling certificate approval abuse",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove certificatesigningrequests/approval update and patch permissions from non-controller ClusterRoles",
+            "Restrict CSR approval to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"certificatesigningrequests/approval\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove certificatesigningrequests/approval update and patch permissions from non-controller ClusterRoles",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"certificatesigningrequests/approval\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4080"
+        }
+      },
+      {
+        "id": "CCVE-2025-4081",
+        "name": "ClusterRole uses wildcard resources with broad verbs",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-admin",
+          "namespace": "default"
+        },
+        "message": "ClusterRole uses wildcard resources with broad verbs, indicating overprivileged admin access",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Replace wildcard resources with explicit resource lists",
+            "Remove unnecessary broad verbs and keep least-privilege verbs only"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Replace wildcard resources with explicit resource lists",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4081"
+        }
+      },
+      {
+        "id": "CCVE-2025-4081",
+        "name": "ClusterRole uses wildcard resources with broad verbs",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-browse",
+          "namespace": "default"
+        },
+        "message": "ClusterRole uses wildcard resources with broad verbs, indicating overprivileged admin access",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Replace wildcard resources with explicit resource lists",
+            "Remove unnecessary broad verbs and keep least-privilege verbs only"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Replace wildcard resources with explicit resource lists",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4081"
+        }
+      },
+      {
+        "id": "CCVE-2025-4081",
+        "name": "ClusterRole uses wildcard resources with broad verbs",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-edit",
+          "namespace": "default"
+        },
+        "message": "ClusterRole uses wildcard resources with broad verbs, indicating overprivileged admin access",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Replace wildcard resources with explicit resource lists",
+            "Remove unnecessary broad verbs and keep least-privilege verbs only"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Replace wildcard resources with explicit resource lists",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4081"
+        }
+      },
+      {
+        "id": "CCVE-2025-4081",
+        "name": "ClusterRole uses wildcard resources with broad verbs",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:aggregate-to-view",
+          "namespace": "default"
+        },
+        "message": "ClusterRole uses wildcard resources with broad verbs, indicating overprivileged admin access",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Replace wildcard resources with explicit resource lists",
+            "Remove unnecessary broad verbs and keep least-privilege verbs only"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Replace wildcard resources with explicit resource lists",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4081"
+        }
+      },
+      {
+        "id": "CCVE-2025-4081",
+        "name": "ClusterRole uses wildcard resources with broad verbs",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "crossplane:system:aggregate-to-crossplane",
+          "namespace": "default"
+        },
+        "message": "ClusterRole uses wildcard resources with broad verbs, indicating overprivileged admin access",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Replace wildcard resources with explicit resource lists",
+            "Remove unnecessary broad verbs and keep least-privilege verbs only"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Replace wildcard resources with explicit resource lists",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"*\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4081"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:27Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 23,
+      "object_set_sha256": "sha256:4f37bd54a517fbc0ac366a65139e5f3bcd569ed2d638feeb5dd7200dec36141f"
+    }
+  }
+}

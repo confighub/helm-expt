@@ -1,0 +1,452 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "velero-velero-12-0-1-default",
+    "chart": "velero/velero",
+    "version": "12.0.1",
+    "base": "default",
+    "renderPath": "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+  },
+  "catalogReview": {
+    "path": "recipes/velero/velero/12.0.1/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 11,
+    "findings": [
+      {
+        "id": "CCVE-2025-3726",
+        "name": "Deployment omits pod and container securityContext baseline",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Deployment omits pod and container securityContext settings",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add pod-level securityContext defaults where appropriate",
+            "Add container-level securityContext for least-privilege execution",
+            "Validate runAsNonRoot and privilege escalation policy before deploy"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A20 securityContext",
+            "kubectl patch deployment <name> -n <namespace> --type=merge -p '{\"spec\":{\"template\":{\"spec\":{\"securityContext\":{\"runAsNonRoot\":true}}}}}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add pod-level securityContext defaults where appropriate",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A20 securityContext",
+          "doc_ref": "cub-scan --explain CCVE-2025-3726"
+        }
+      },
+      {
+        "id": "CCVE-2025-3728",
+        "name": "Deployment containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Deployment containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add resources.limits for memory and CPU to each container",
+            "Add resources.requests to enable proper scheduling",
+            "Consider LimitRange defaults at the namespace level"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+            "kubectl set resources deployment <name> -n <namespace> --limits=cpu=500m,memory=256Mi --requests=cpu=100m,memory=128Mi"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add resources.limits for memory and CPU to each container",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+          "doc_ref": "cub-scan --explain CCVE-2025-3728"
+        }
+      },
+      {
+        "id": "CCVE-2025-3732",
+        "name": "Deployment containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage",
+            "Ensure requests are set when using HPA"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3732"
+        }
+      },
+      {
+        "id": "CCVE-2025-3733",
+        "name": "Container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Container velero does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID",
+            "Ensure container images do not require root"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3733"
+        }
+      },
+      {
+        "id": "CCVE-2025-3734",
+        "name": "Container does not disable allowPrivilegeEscalation",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Container velero does not set allowPrivilegeEscalation: false",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.allowPrivilegeEscalation to false on every container",
+            "Ensure no setuid binaries are needed in the container image"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.allowPrivilegeEscalation to false on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3734"
+        }
+      },
+      {
+        "id": "CCVE-2025-3735",
+        "name": "Container does not enforce readOnlyRootFilesystem",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Container velero does not set readOnlyRootFilesystem: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.readOnlyRootFilesystem to true on every container",
+            "Use emptyDir or tmpfs mounts for directories that need write access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.readOnlyRootFilesystem to true on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3735"
+        }
+      },
+      {
+        "id": "CCVE-2025-3736",
+        "name": "Container does not drop ALL capabilities",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Container velero does not drop ALL capabilities",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+            "Add back only specifically needed capabilities via capabilities.add"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext.capabilities}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].securityContext.capabilities}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3736"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3743",
+        "name": "Deployment uses Recreate strategy",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Deployment uses Recreate strategy; causes downtime during rollout",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Switch to RollingUpdate strategy (the default)",
+            "Configure maxUnavailable and maxSurge for controlled rollouts",
+            "Recreate is only appropriate when old and new versions cannot coexist"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.strategy}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Switch to RollingUpdate strategy (the default)",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.strategy}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3743"
+        }
+      },
+      {
+        "id": "CCVE-2025-3745",
+        "name": "emptyDir volume has no sizeLimit",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Volume plugins uses emptyDir without sizeLimit; may exhaust node disk",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set sizeLimit on all emptyDir volumes",
+            "Size the limit based on expected usage with headroom",
+            "{'Consider using memory-backed emptyDir (medium': 'Memory) for small caches'}"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set sizeLimit on all emptyDir volumes",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3745"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "velero",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:52Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 23,
+      "object_set_sha256": "sha256:89548d49ee382fd2e18fd089cdcad9925c453e3e914009e57b25d2af31aca959"
+    }
+  }
+}

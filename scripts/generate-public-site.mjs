@@ -116,6 +116,7 @@ const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan",
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const productionSupportDecisionsPath = join(repoRoot, "data", "production-support-decisions", "decisions.csv");
 const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", "workdown.csv");
+const catalogSharedChecksPath = join(repoRoot, "data", "catalog-shared-checks", "index.json");
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
 const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
@@ -729,6 +730,10 @@ function buildSite(generatedAt) {
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
   const productionSupportDecisions = parseCsv(readFileSync(productionSupportDecisionsPath, "utf8"));
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
+  check(existsSync(catalogSharedChecksPath), "data/catalog-shared-checks/index.json is missing; run npm run catalog-shared-checks:generate");
+  const catalogSharedChecks = JSON.parse(readFileSync(catalogSharedChecksPath, "utf8"));
+  check(catalogSharedChecks.schemaVersion === "catalog-shared-check-index-v1", "the Catalog shared-check index schema changed");
+  check(Array.isArray(catalogSharedChecks.entries) && catalogSharedChecks.entries.length > 0, "the Catalog shared-check index has no exact configuration results");
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   const lifecycleRouteActions = existsSync(lifecycleRouteActionsJsonPath) ? JSON.parse(readFileSync(lifecycleRouteActionsJsonPath, "utf8")).actions : [];
@@ -958,6 +963,7 @@ function buildSite(generatedAt) {
       productionSupportDecisions: "data/production-support-decisions/decisions.csv",
       hardChartProductionPackets: "data/hard-chart-production-packets/summary.md",
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
+      catalogSharedChecks: "data/catalog-shared-checks/index.json",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
       lifecycleRouteActions: "data/lifecycle-route-actions/actions.json",
@@ -1042,6 +1048,7 @@ function buildSite(generatedAt) {
     productionDisposition,
     productionSupportDecisions,
     scanDisposition,
+    catalogSharedChecks,
     highFanout,
     lifecycleRoutes,
     lifecycleRouteActionSummary,
@@ -9474,6 +9481,46 @@ function successionCalloutHtml(catalog, chart) {
   return `<div class="card" data-succession-note><p>${sentences.join(" ")}</p></div>`;
 }
 
+function sharedLocalChecksSectionHtml(catalog, entry) {
+  const checks = (catalog.catalogSharedChecks?.entries ?? [])
+    .filter((check) => check.chart === entry.chart && check.version === entry.version)
+    .sort((left, right) => left.base.localeCompare(right.base));
+  if (!checks.length) return "";
+  const scanner = catalog.catalogSharedChecks.scanner;
+  const rows = checks.map((check) => {
+    const severities = [
+      check.severityCounts.critical ? `${check.severityCounts.critical} critical` : "",
+      check.severityCounts.warning ? `${check.severityCounts.warning} warning` : "",
+      check.severityCounts.info ? `${check.severityCounts.info} info` : "",
+    ].filter(Boolean).join(", ");
+    const findingNames = check.findings.slice(0, 3).map((finding) => escapeHtml(finding.name));
+    const result = check.findingCount === 0
+      ? "<strong>No finding from this ruleset</strong>"
+      : `<strong>${escapeHtml(String(check.findingCount))} advisory finding${check.findingCount === 1 ? "" : "s"}</strong><br>${escapeHtml(severities)}${findingNames.length ? `<br>${findingNames.join("<br>")}` : ""}`;
+    return [
+      `<code>${escapeHtml(check.base)}</code>`,
+      result,
+      `${escapeHtml(String(check.objectCount))} objects<br><code>${escapeHtml(check.objectSetSHA256)}</code>`,
+      escapeHtml(check.scanTime.slice(0, 10)),
+      `<a href="../../${escapeHtml(check.sharedReceiptPath)}">Full <code>cub check</code> result</a><br><a href="../../${escapeHtml(check.renderPath)}">Exact YAML</a><br><a href="../../${escapeHtml(check.catalogReceiptPath)}">Separate Catalog review</a>`,
+    ];
+  });
+  return `<section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>${escapeHtml(scanner.command)} ${escapeHtml(scanner.version)}</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>${escapeHtml(scanner.bundleVersion)}</code><br>Bundle manifest: <code>sha256:${escapeHtml(scanner.bundleManifestSHA256)}</code><br>Risk catalog: <code>sha256:${escapeHtml(scanner.catalogSHA256)}</code></p>
+      </details>
+      ${markdownLikeTable([
+        ["Configuration", "Advisory result", "Exact input", "Checked", "Evidence"],
+        ...rows,
+      ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true, rawFifthColumn: true })}
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>`;
+}
+
 function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const identity = `${row.chart}@${row.version}`;
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
@@ -9585,6 +9632,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>The section below says what these configurations expect you to provide.</p>
     </section>
 
+    ${sharedLocalChecksSectionHtml(catalog, row)}
     ${flatteningSectionHtml(catalog, row)}
     ${packagedImagesSection}
     <section aria-labelledby="retained-tests">
@@ -10086,6 +10134,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry, catalog)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
 
+    ${sharedLocalChecksSectionHtml(catalog, entry)}
     ${(() => {
       const imageRows = matrixRows
         .filter((row) => row.row_kind === "base")

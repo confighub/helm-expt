@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "kyverno-kyverno-policies-3-8-0-default",
+    "chart": "kyverno/kyverno-policies",
+    "version": "3.8.0",
+    "base": "default",
+    "renderPath": "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9"
+  },
+  "catalogReview": {
+    "path": "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 0,
+    "findings": [],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:39Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 11,
+      "object_set_sha256": "sha256:037b220431c0c0907b755e349f2651b5c07f3ca8f4e0d499c6b71ced4947ac8b"
+    }
+  }
+}

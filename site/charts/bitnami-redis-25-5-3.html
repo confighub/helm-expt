@@ -731,6 +731,26 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
       </article></div>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>4 advisory findings</strong><br>2 critical, 2 warning<br>Workload stores a sensitive environment value directly<br>Helm-managed StatefulSet may orphan PVCs on release lifecycle operations</td><td>14 objects<br><code>sha256:f8906a2445c10fe36febf82663ebb2226b5b9a0bb79c72d3d882c1bb85499751</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-redis-25-5-3-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>reuse-existing-secret</code></td><td><strong>4 advisory findings</strong><br>2 critical, 2 warning<br>Workload stores a sensitive environment value directly<br>Helm-managed StatefulSet may orphan PVCs on release lifecycle operations</td><td>13 objects<br><code>sha256:815817e7aa3e110a81158d38ca2f38864c39d2b57927e5f625e630ad74b59cae</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-redis-25-5-3-reuse-existing-secret.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>

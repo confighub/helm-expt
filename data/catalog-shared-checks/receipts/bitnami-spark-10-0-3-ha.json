@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "bitnami-spark-10-0-3-ha",
+    "chart": "bitnami/spark",
+    "version": "10.0.3",
+    "base": "ha",
+    "renderPath": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+  },
+  "catalogReview": {
+    "path": "recipes/bitnami/spark/10.0.3/revisions/ha/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 0,
+    "findings": [],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:25Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 10,
+      "object_set_sha256": "sha256:5b1fe8ef77087e8690767c1ed95c8bd11f0400d38662edd0697d3444b4aecd02"
+    }
+  }
+}

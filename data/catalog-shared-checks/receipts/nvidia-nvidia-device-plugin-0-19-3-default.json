@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "nvidia-nvidia-device-plugin-0-19-3-default",
+    "chart": "nvidia/nvidia-device-plugin",
+    "version": "0.19.3",
+    "base": "default",
+    "renderPath": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+  },
+  "catalogReview": {
+    "path": "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 8,
+    "findings": [
+      {
+        "id": "CCVE-2025-3755",
+        "name": "DaemonSet container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin",
+          "namespace": "gpu-operator"
+        },
+        "message": "Container nvidia-device-plugin-ctr does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3755"
+        }
+      },
+      {
+        "id": "CCVE-2025-3755",
+        "name": "DaemonSet container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin-mps-control-daemon",
+          "namespace": "gpu-operator"
+        },
+        "message": "Container mps-control-daemon-ctr does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3755"
+        }
+      },
+      {
+        "id": "CCVE-2025-3756",
+        "name": "DaemonSet containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin",
+          "namespace": "gpu-operator"
+        },
+        "message": "DaemonSet containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.limits.cpu and resources.limits.memory on every container",
+            "Size limits based on observed steady-state usage with headroom"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.limits.cpu and resources.limits.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3756"
+        }
+      },
+      {
+        "id": "CCVE-2025-3756",
+        "name": "DaemonSet containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin-mps-control-daemon",
+          "namespace": "gpu-operator"
+        },
+        "message": "DaemonSet containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.limits.cpu and resources.limits.memory on every container",
+            "Size limits based on observed steady-state usage with headroom"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.limits.cpu and resources.limits.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3756"
+        }
+      },
+      {
+        "id": "CCVE-2025-3757",
+        "name": "DaemonSet containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin",
+          "namespace": "gpu-operator"
+        },
+        "message": "DaemonSet containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3757"
+        }
+      },
+      {
+        "id": "CCVE-2025-3757",
+        "name": "DaemonSet containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin-mps-control-daemon",
+          "namespace": "gpu-operator"
+        },
+        "message": "DaemonSet containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3757"
+        }
+      },
+      {
+        "id": "CCVE-2025-3758",
+        "name": "DaemonSet does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin",
+          "namespace": "gpu-operator"
+        },
+        "message": "DaemonSet does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable for DaemonSets that genuinely need Kubernetes API access"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3758"
+        }
+      },
+      {
+        "id": "CCVE-2025-3758",
+        "name": "DaemonSet does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "nvidia-device-plugin-mps-control-daemon",
+          "namespace": "gpu-operator"
+        },
+        "message": "DaemonSet does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable for DaemonSets that genuinely need Kubernetes API access"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3758"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:42Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 5,
+      "object_set_sha256": "sha256:b563a171851d864002a57f79e9f432f47da1b3a4b7ecc94d670c65d4d661ec00"
+    }
+  }
+}

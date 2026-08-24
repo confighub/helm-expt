@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "istio-gateway-1-30-0-controller-default-reviewed",
+    "chart": "istio/gateway",
+    "version": "1.30.0",
+    "base": "controller-default-reviewed",
+    "renderPath": "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+  },
+  "catalogReview": {
+    "path": "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 3,
+    "findings": [
+      {
+        "id": "CCVE-2025-3725",
+        "name": "Deployment omits spec.replicas and relies on implicit single replica",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "gateway",
+          "namespace": "default"
+        },
+        "message": "Deployment omits spec.replicas; Kubernetes defaults to a single replica",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set spec.replicas explicitly in the workload manifest",
+            "Use at least two replicas for workloads requiring basic availability",
+            "If HPA manages scale, document that intent and set safe minReplicas"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+            "kubectl patch deployment <name> -n <namespace> --type=merge -p '{\"spec\":{\"replicas\":2}}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set spec.replicas explicitly in the workload manifest",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3725"
+        }
+      },
+      {
+        "id": "CCVE-2025-3731",
+        "name": "Container image uses latest tag or has no tag",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "gateway",
+          "namespace": "default"
+        },
+        "message": "Container istio-proxy uses untagged image auto",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Pin container images to an explicit version tag or digest",
+            "Use immutable tags or SHA256 digests for production workloads",
+            "Set imagePullPolicy to IfNotPresent for tagged images"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].image}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Pin container images to an explicit version tag or digest",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].image}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3731"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "gateway",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:36Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 6,
+      "object_set_sha256": "sha256:9e809ad76d91cf0c2f7604e309ab1891ca41be14fd79fd9c0c9eb501bfa9f42b"
+    }
+  }
+}

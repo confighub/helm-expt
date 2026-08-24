@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "bitnami-nginx-25-0-0-existing-tls-ingress",
+    "chart": "bitnami/nginx",
+    "version": "25.0.0",
+    "base": "existing-tls-ingress",
+    "renderPath": "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:6cbd96e9b63ddeab378f378b86e1b7821d850144539d1a6e367eb639f2b2166e"
+  },
+  "catalogReview": {
+    "path": "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 3,
+    "findings": [
+      {
+        "id": "CCVE-2025-3201",
+        "name": "IngressClass not found when Ingress specifies ingressClassName",
+        "category": "DEPEND",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "ingress-nginx",
+        "resource": {
+          "kind": "Ingress",
+          "name": "nginx",
+          "namespace": "nginx"
+        },
+        "message": "Ingress references missing IngressClass \"nginx\"",
+        "remedy_type": "diagnose_then_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Identify which ingressClassName the Ingress resources are using",
+            "Check if the corresponding IngressClass exists",
+            "Create the missing IngressClass resource",
+            "Verify the controller's spec.controller matches the IngressClass",
+            "Restart the ingress controller if needed"
+          ],
+          "commands": [
+            "kubectl get ingress -A -o jsonpath='{range .items[*]}{.spec.ingressClassName}{\"\\n\"}{end}' | sort -u",
+            "kubectl get ingressclass",
+            "cat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: IngressClass\nmetadata:\n  name: nginx\n  annotations:\n    ingressclass.kubernetes.io/is-default-class: \"true\"\nspec:\n  controller: k8s.io/ingress-nginx\nEOF"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-NET-0002"
+        ],
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Identify which ingressClassName the Ingress resources are using",
+          "command": "kubectl get ingress -A -o jsonpath='{range .items[*]}{.spec.ingressClassName}{\"\\n\"}{end}' | sort -u",
+          "doc_ref": "cub-scan --explain CCVE-2025-3201"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "nginx",
+          "namespace": "nginx"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3745",
+        "name": "emptyDir volume has no sizeLimit",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "nginx",
+          "namespace": "nginx"
+        },
+        "message": "Volume empty-dir uses emptyDir without sizeLimit; may exhaust node disk",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set sizeLimit on all emptyDir volumes",
+            "Size the limit based on expected usage with headroom",
+            "{'Consider using memory-backed emptyDir (medium': 'Memory) for small caches'}"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set sizeLimit on all emptyDir volumes",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3745"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:22Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 6,
+      "object_set_sha256": "sha256:f38cbf4831e60eead4efedf085db9363a6078d7c875f77f828eb322592d71b0a"
+    }
+  }
+}

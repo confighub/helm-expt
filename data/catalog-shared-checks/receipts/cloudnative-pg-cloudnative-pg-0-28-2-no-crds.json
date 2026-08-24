@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds",
+    "chart": "cloudnative-pg/cloudnative-pg",
+    "version": "0.28.2",
+    "base": "no-crds",
+    "renderPath": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+  },
+  "catalogReview": {
+    "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 8,
+    "findings": [
+      {
+        "id": "CCVE-2025-3728",
+        "name": "Deployment containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "Deployment containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add resources.limits for memory and CPU to each container",
+            "Add resources.requests to enable proper scheduling",
+            "Consider LimitRange defaults at the namespace level"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+            "kubectl set resources deployment <name> -n <namespace> --limits=cpu=500m,memory=256Mi --requests=cpu=100m,memory=128Mi"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add resources.limits for memory and CPU to each container",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+          "doc_ref": "cub-scan --explain CCVE-2025-3728"
+        }
+      },
+      {
+        "id": "CCVE-2025-3732",
+        "name": "Deployment containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage",
+            "Ensure requests are set when using HPA"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3732"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3745",
+        "name": "emptyDir volume has no sizeLimit",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "Volume scratch-data uses emptyDir without sizeLimit; may exhaust node disk",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set sizeLimit on all emptyDir volumes",
+            "Size the limit based on expected usage with headroom",
+            "{'Consider using memory-backed emptyDir (medium': 'Memory) for small caches'}"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set sizeLimit on all emptyDir volumes",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3745"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-4005",
+        "name": "CCVE-2025-4005",
+        "category": "CONFIGURATION",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "unknown",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "Volume webhook-certificates references Secret default/cnpg-webhook-cert which is not present in scanned documents",
+        "remedy_type": "manual_only",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Verify the ConfigMap or Secret name in the volume reference matches an existing resource",
+            "Create the missing ConfigMap/Secret or correct the volume reference"
+          ],
+          "commands": [
+            "kubectl get configmap -n <namespace>",
+            "kubectl get secret -n <namespace>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Verify the ConfigMap or Secret name in the volume reference matches an existing resource",
+          "command": "kubectl get configmap -n <namespace>",
+          "doc_ref": "cub-scan --explain CCVE-2025-4005"
+        }
+      },
+      {
+        "id": "CCVE-2025-4077",
+        "name": "ClusterRole grants pods/exec create",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants pods/exec create, enabling direct command execution in running pods",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+            "Restrict role bindings to narrowly scoped operational identities"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove pods/exec from ClusterRole rules where interactive container access is not strictly required",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"pods/exec\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4077"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "cloudnative-pg",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:26Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 11,
+      "object_set_sha256": "sha256:c6ce1dfd840444d5700281ebf21b03b10b65b9a489da46670d784ffadfe3593b"
+    }
+  }
+}

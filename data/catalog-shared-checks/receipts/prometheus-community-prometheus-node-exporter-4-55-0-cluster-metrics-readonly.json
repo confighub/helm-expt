@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly",
+    "chart": "prometheus-community/prometheus-node-exporter",
+    "version": "4.55.0",
+    "base": "cluster-metrics-readonly",
+    "renderPath": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:76ee8c58c2b4022743468fcbc8ccd9414853d85b951edb720268e5466638ef0d"
+  },
+  "catalogReview": {
+    "path": "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 2,
+    "findings": [
+      {
+        "id": "CCVE-2025-3756",
+        "name": "DaemonSet containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "prometheus-node-exporter",
+          "namespace": "default"
+        },
+        "message": "DaemonSet containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.limits.cpu and resources.limits.memory on every container",
+            "Size limits based on observed steady-state usage with headroom"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.limits.cpu and resources.limits.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3756"
+        }
+      },
+      {
+        "id": "CCVE-2025-3757",
+        "name": "DaemonSet containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "DaemonSet",
+          "name": "prometheus-node-exporter",
+          "namespace": "default"
+        },
+        "message": "DaemonSet containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage"
+          ],
+          "commands": [
+            "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get daemonset <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3757"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:49Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 4,
+      "object_set_sha256": "sha256:61defcd4bef0db5a0ad23bce886ad3a86eb5e1fc3dc25196950acfe2cfae2bb7"
+    }
+  }
+}

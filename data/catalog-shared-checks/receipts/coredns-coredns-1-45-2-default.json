@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "coredns-coredns-1-45-2-default",
+    "chart": "coredns/coredns",
+    "version": "1.45.2",
+    "base": "default",
+    "renderPath": "recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+  },
+  "catalogReview": {
+    "path": "recipes/coredns/coredns/1.45.2/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 4,
+    "findings": [
+      {
+        "id": "CCVE-2025-3733",
+        "name": "Container does not set runAsNonRoot",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "coredns",
+          "namespace": "default"
+        },
+        "message": "Container coredns does not set runAsNonRoot: true",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set securityContext.runAsNonRoot to true at pod or container level",
+            "Set runAsUser to a non-zero UID",
+            "Ensure container images do not require root"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set securityContext.runAsNonRoot to true at pod or container level",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.securityContext}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3733"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "coredns",
+          "namespace": "default"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "coredns",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-4005",
+        "name": "CCVE-2025-4005",
+        "category": "CONFIGURATION",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "unknown",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRoleBinding",
+          "name": "coredns",
+          "namespace": "default"
+        },
+        "message": "ClusterRoleBinding subject ServiceAccount default/default is not present in scanned documents",
+        "remedy_type": "manual_only",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Verify the ConfigMap or Secret name in the volume reference matches an existing resource",
+            "Create the missing ConfigMap/Secret or correct the volume reference"
+          ],
+          "commands": [
+            "kubectl get configmap -n <namespace>",
+            "kubectl get secret -n <namespace>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Verify the ConfigMap or Secret name in the volume reference matches an existing resource",
+          "command": "kubectl get configmap -n <namespace>",
+          "doc_ref": "cub-scan --explain CCVE-2025-4005"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:27Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 5,
+      "object_set_sha256": "sha256:d9a6fc30f71d2f059e77ad553da21c4548cd4c3638c9e3d2b59c1fa21d27b0cf"
+    }
+  }
+}
