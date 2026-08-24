@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "kube-prometheus-stack-86-1-0-no-crds-argo-cd-upgrade"
+  labels:
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "no-crds"
+    lifecyclePhase: "upgrade"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "86.1.0"
+  base: "no-crds"
+  routeName: "upgrade-through-argocd-sync-waves"
+  executionMode: "user-executes"
+  automatic: false
+  disposition: "observed"
+  source:
+    version: "85.3.3"
+    oci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds@sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
+    objectSetSha256: "6d671d75ca4ca17a5fcf76b1f276b18378afd3111f06d5c10fb79576911b7030"
+  candidate:
+    version: "86.1.0"
+    oci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:86.1.0-no-crds@sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+    objectSetSha256: "8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+  destination:
+    runtime: "Argo CD"
+    type: "kind proof cluster"
+  work:
+    - "Supply the target-owned Alertmanager and Grafana Secrets."
+    - "Preserve the chart's monitoring and kube-system namespaces; do not apply one namespace override to every object."
+    - "Apply and establish ten CRDs before dependent custom resources."
+    - "Use server-side apply because six Prometheus CRDs exceed the client-side apply annotation limit."
+    - "Remove the two completed setup Jobs and their temporary support objects before replacement."
+    - "Let Argo CD apply sync waves -3, -2, -1, 0, and 1."
+    - "Check both Jobs, webhook certificates, six workloads, the operator endpoint, and a server-side dry run."
+  whoRuns: "The destination owner supplies Secrets and removes completed setup Jobs; Argo CD applies the ordered objects; the proof runner records the checks."
+  evidence:
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+    - "data/lifecycle-route-resolutions/kube-prometheus-stack-86-1-0-no-crds-argo-cd.yaml"

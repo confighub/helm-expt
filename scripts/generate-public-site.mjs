@@ -5092,6 +5092,8 @@ function promoteHtml() {
       <ul id="what-changes"></ul>
       <h3>What stays the same</h3>
       <ul id="what-stays"></ul>
+      <h3>Before this reaches the destination</h3>
+      <ul id="destination-preflight"></ul>
       <div id="source-aware-result" hidden>
         <h3>Where the changes came from</h3>
         <p id="source-aware-summary"></p>
@@ -5155,6 +5157,22 @@ function promoteHtml() {
       </table></div>
       <p>The selected object hash stayed the same in the ConfigHub base, staging, and production. Argo CD then used the ConfigHub release digest and Kubernetes reported two ready replicas.</p>
       <p><a href="./d/docs/user/test-candidates-before-promotion.html"><strong>Read the worked example</strong></a> · <a href="./d/data/measured-promotion-proof/summary.html">Check the recorded result</a></p>
+
+      <h3>A difficult upgrade: Kube Prometheus Stack</h3>
+      <p><strong>Question:</strong> can the <code>no-crds</code> configuration move from 85.3.3 to 86.1.0 without breaking CRD ordering, webhook setup, or namespaces?</p>
+      <p>The checked candidate keeps 130 Kubernetes objects. The upgrade changes 111 of them. ConfigHub retains the current objects as a base and the candidate as a staging variant. Approval is required. ConfigHub publishes an exact release OCI for each version.</p>
+      <div style="max-width:100%;overflow-x:auto"><table style="min-width:640px">
+        <thead><tr><th>Destination check</th><th>Recorded result</th></tr></thead>
+        <tbody>
+          <tr><td>Namespaces</td><td>Pass: five Services remain in <code>kube-system</code>; monitoring objects remain in <code>monitoring</code>.</td></tr>
+          <tr><td>Prerequisites</td><td>Pass: two target-owned Secrets and ten established CRDs.</td></tr>
+          <tr><td>Setup work</td><td>Pass: both completed setup Jobs were replaced and the webhook certificate handoff was checked.</td></tr>
+          <tr><td>Delivery</td><td>Pass: Argo CD reconciled both exact ConfigHub release digests using server-side apply for the large CRDs.</td></tr>
+          <tr><td>Runtime</td><td>Pass: six workloads, the operator endpoint, and Kubernetes admission checks.</td></tr>
+        </tbody>
+      </table></div>
+      <p>This proves one chart, version pair, Argo CD path, and test target. It does not prove rollback, a long soak, automatic route selection, or an untested cluster.</p>
+      <p><a href="./d/data/kps-confighub-lifecycle-promotion/summary.html"><strong>Read the result</strong></a> · <a href="${GITHUB_BLOB_BASE_URL}examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/promotion-review.yaml">Open the promotion review</a> · <a href="${GITHUB_BLOB_BASE_URL}examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml">Open the destination route</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">85.3.3 chart page</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-86-1-0.html">86.1.0 chart page</a></p>
 
       <h3 id="rollback-release">Roll back the selected release</h3>
       <p>Keep the previous approved object set and release digest. Rehearse the reverse comparison in staging, then publish that recorded object set again if the rollback is approved. The Redis proof restores one bounded desired-object release on two test clusters. It does not reverse database migrations, cloud resources, or other external effects.</p>
@@ -7145,6 +7163,7 @@ function aiHtml(catalog) {
         ...taskRows,
       ])}
       <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
+      <p><strong>For an upgrade or environment move:</strong> open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt keeps the destination checks and tests that have not run in the answer.</p>
       <p>After the source tool writes Kubernetes YAML, the agent can run the same released local checker a person uses:</p>
       <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
 ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
@@ -9555,6 +9574,7 @@ function configurationDecisionExampleHtml(entry) {
 
 function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const identity = `${row.chart}@${row.version}`;
+  const kpsManagedPromotion = identity === "prometheus-community/kube-prometheus-stack@86.1.0";
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
   const published = row.publication_status === "published-receipt";
   const receipt = published ? readYaml(join(repoRoot, row.publication_receipt)) : null;
@@ -9617,15 +9637,17 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
   <title>${escapeHtml(row.chart)} ${escapeHtml(row.version)} retained package · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
-<body data-retained-only-version="${escapeHtml(identity)}">
+<body data-retained-only-version="${escapeHtml(identity)}"${kpsManagedPromotion ? ' data-bounded-runtime-proof="managed-promotion"' : ""}>
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(row.chart)}</h1>
     <p class="lead">Inspect the retained package for ${escapeHtml(identity)}, its packaged configurations, and ${published ? "its exact publication receipt" : "its reserved public reference"}.</p>
     <p>${published
-      ? "This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result."
+      ? kpsManagedPromotion
+        ? "The publication receipt proves that the named package was published and inspected at the recorded digests. A separate managed promotion proof covers this package as the 86.1.0 candidate from 85.3.3 through ConfigHub and Argo CD on one test target; it is not a general production-readiness claim."
+        : "This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result."
       : "This version is retained and packaged, and its public reference is reserved, but it has not been published yet, so there is no publication receipt to show. This page claims nothing about publication, Argo CD sync, Kubernetes health, or production readiness."}</p>
-    <p class="tagline">${published ? "Publication proof: recorded" : "Publication proof: not yet earned"} · runtime proof: not inherited.</p>
+    <p class="tagline">${published ? "Publication proof: recorded" : "Publication proof: not yet earned"} · ${kpsManagedPromotion ? "managed upgrade proof: recorded for 85.3.3 to 86.1.0" : "runtime proof: not inherited"}.</p>
     ${licenseLine}
     ${successionCalloutHtml(catalog, row.chart)}
     <p><a class="button primary" href="../promote.html?chart=${encodeURIComponent(row.chart)}&current=${encodeURIComponent(row.version)}&base=${encodeURIComponent(row.default_base)}">Plan an upgrade or promotion</a></p>
@@ -9677,7 +9699,9 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       ${published
         ? `<p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>`
         : ""}
-      <p><strong>No version-specific runtime result is claimed here.</strong> ${evidenceVersionNote}</p>
+      ${kpsManagedPromotion
+        ? `<p><strong>Bounded version-specific result:</strong> ConfigHub retained 85.3.3 as the base and this 86.1.0 package as the staging candidate, required approval, published exact release OCI digests, and delivered both through Argo CD. The destination checks covered source namespaces, two target-owned Secrets, ten CRDs, two replacement setup Jobs, server-side apply, six workloads, the operator endpoint, and Kubernetes admission. <a href="../d/data/kps-confighub-lifecycle-promotion/summary.html">Read the complete result and its limits</a>.</p><p>This does not prove rollback, long soak, automatic route selection, or a standalone fresh install of 86.1.0.</p>`
+        : `<p><strong>No version-specific runtime result is claimed here.</strong> ${evidenceVersionNote}</p>`}
     </section>
 
     <section aria-labelledby="retained-requirements">
@@ -9919,6 +9943,11 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       && ["85.3.3", "86.1.0"].includes(entry.version)
       ? "data/kps-gitops-lifecycle-proof/summary.md"
       : "";
+  const kpsConfigHubPromotionPath =
+    entry.chart === "prometheus-community/kube-prometheus-stack"
+      && ["85.3.3", "86.1.0"].includes(entry.version)
+      ? "data/kps-confighub-lifecycle-promotion/summary.md"
+      : "";
   const argoWorkflowsGuidePath =
     entry.chart === "argo-cd/argo-workflows"
       && entry.version === "1.0.14"
@@ -9963,6 +9992,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (default)" : "", kpsLifecycleProofPath],
     [kpsNoCrdsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (no-crds)" : "", kpsNoCrdsLifecycleProofPath],
     [kpsGitOpsLifecycleProofPath ? "Argo CD and Flux lifecycle proof (no-crds)" : "", kpsGitOpsLifecycleProofPath],
+    [kpsConfigHubPromotionPath ? "ConfigHub lifecycle promotion proof (no-crds)" : "", kpsConfigHubPromotionPath],
     [argoWorkflowsGuidePath ? "Argo Workflows CRD guide" : "", argoWorkflowsGuidePath],
     [
       entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
@@ -10235,7 +10265,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ...basePrerequisiteRows,
       ], { rawThirdColumn: true, rawFourthColumn: true })}` : ""}
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
-${kpsLifecycleProofPath ? `      <p><strong>Public package lifecycle:</strong> both 85.3.3 catalog bases passed fresh installs on separate, new kind clusters. The default base matched 124 checked chart objects; the no-crds base matched 114. Each run applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked six workloads, and cleaned up. Argo CD and Flux then installed the 85.3.3 no-crds staged OCI and upgraded it to the 86.1.0 staged digest on separate clusters. Both replaced the completed setup Jobs and passed the runtime checks after upgrade. Open the <a href="../../${kpsLifecycleProofPath}">default direct receipt</a>${kpsNoCrdsLifecycleProofPath ? `, the <a href="../../${kpsNoCrdsLifecycleProofPath}">no-crds direct receipt</a>` : ""}${kpsPublicPackageProofPath ? `, the <a href="../../${kpsPublicPackageProofPath}">anonymous pull proof</a>` : ""}${kpsGitOpsLifecycleProofPath ? `, or the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>` : ""}. The controller receipt is limited to this version pair and does not prove rollback, long soak, or automatic ConfigHub route selection.</p>` : kpsGitOpsLifecycleProofPath ? `      <p><strong>Tested upgrade target:</strong> the 86.1.0 package carries its own checked CRDs and admission setup files. Argo CD and Flux each upgraded the 85.3.3 no-crds staged OCI to the 86.1.0 staged digest, replaced both completed setup Jobs, and passed the runtime checks. This is a bounded upgrade result, not a standalone 86.1.0 fresh-install claim. Open the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>.</p>` : ""}
+${kpsLifecycleProofPath ? `      <p><strong>Public package lifecycle:</strong> both 85.3.3 catalog bases passed fresh installs on separate, new kind clusters. The default base matched 124 checked chart objects; the no-crds base matched 114. Each run applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked six workloads, and cleaned up. Argo CD and Flux then installed the 85.3.3 no-crds staged OCI and upgraded it to the 86.1.0 staged digest on separate clusters. Both replaced the completed setup Jobs and passed the runtime checks after upgrade. Open the <a href="../../${kpsLifecycleProofPath}">default direct receipt</a>${kpsNoCrdsLifecycleProofPath ? `, the <a href="../../${kpsNoCrdsLifecycleProofPath}">no-crds direct receipt</a>` : ""}${kpsPublicPackageProofPath ? `, the <a href="../../${kpsPublicPackageProofPath}">anonymous pull proof</a>` : ""}${kpsGitOpsLifecycleProofPath ? `, or the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>` : ""}. The controller receipt is limited to this version pair and does not prove rollback, long soak, or automatic ConfigHub route selection.</p>` : kpsGitOpsLifecycleProofPath ? `      <p><strong>Tested upgrade target:</strong> the 86.1.0 package carries its own checked CRDs and admission setup files. Argo CD and Flux each upgraded the 85.3.3 no-crds staged OCI to the 86.1.0 staged digest, replaced both completed setup Jobs, and passed the runtime checks. This is a bounded upgrade result, not a standalone 86.1.0 fresh-install claim. Open the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>.</p>` : ""}${kpsConfigHubPromotionPath ? `      <p><strong>Managed promotion:</strong> ConfigHub retained 85.3.3 as the base and 86.1.0 as the staging variant, required approval, published an exact release OCI for each, and delivered both through Argo CD. The destination check preserved the chart's <code>monitoring</code> and <code>kube-system</code> namespaces, supplied the two recorded Secrets, established ten CRDs, replaced two setup Jobs, and used server-side apply for the large CRDs. <a href="../../${kpsConfigHubPromotionPath}">Read the ConfigHub promotion result</a>. It covers this exact version pair and test target; rollback and automatic route selection have not run.</p>` : ""}
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry, gitopsRouteEmissionEntry)
         : lifecycleRows.length

@@ -44,7 +44,7 @@ const personas = [
   {
     id: "developer",
     label: "Application developer using AI-written configuration",
-    routeBoosts: ["ask", "catalog", "try", "values", "example", "confighub"],
+    routeBoosts: ["ask", "catalog", "try", "values", "example", "promote", "confighub"],
     goals: [
       g("comprehension", "D-C1", "understand what this site does", ["understand", "test", "configuration"], [["catalog", "configuration"], ["test", "inspect", "check"]], ["search", "try", "ask"], "mixed"),
       g("comprehension", "D-C2", "understand Catalog versus my own case", ["catalog", "own", "case"], [["catalog"], ["own values", "new version", "unexpected"]], ["ask", "search"], "mixed"),
@@ -69,6 +69,7 @@ const personas = [
       g("action", "D-A5", "check whether my exact change can move safely", ["exact change", "move", "safe"], [["exact configuration"], ["next stage"], ["what blocks it"], ["current result"]], ["compare my rendered yaml", "build a promotion review"]),
       g("navigation", "D-N5", "find a reviewed Timoni Redis configuration", ["timoni", "redis", "reviewed"], [["timoni"], ["redis"], ["source", "provenance", "intent"], ["object", "configuration"]], ["read", "inspect", "oci", "guide"], "Timoni"),
       g("conversion", "D-X5", "keep reviewed AI-written YAML as a shared base", ["reviewed", "yaml", "base"], [["reviewed result"], ["yaml", "objects"], ["base", "configHub"]], ["upload", "keep", "create", "commands"], "YAML"),
+      g("action", "D-A6", "ask my AI to review a destination-specific promotion", ["ai", "destination", "promote", "promotion"], [["use your own ai assistant", "claude", "codex"], ["destination check", "before this reaches the destination"], ["promotion review", "review a promotion"]], ["copy the ai review prompt", "download the review", "promote my config"]),
     ],
   },
   {
@@ -99,6 +100,7 @@ const personas = [
       g("action", "O-A5", "check lifecycle work before the next environment", ["lifecycle", "next environment", "test"], [["hooks", "crds"], ["next stage", "destination"], ["test", "block"]], ["build a promotion review", "source and intent"]),
       g("comprehension", "O-C5", "understand lifecycle work after an environment variant changes", ["lifecycle", "variant", "destination"], [["lifecycle work", "route intent"], ["variant", "environment"], ["destination", "target"], ["actor", "order", "before"]], ["source and intent", "promotion review", "guide"]),
       g("navigation", "O-N5", "find a Timoni configuration carried through OCI", ["timoni", "oci", "objects"], [["timoni"], ["oci"], ["object", "configuration"], ["digest", "receipt"]], ["read", "inspect", "pull", "guide"], "Timoni"),
+      g("action", "O-A6", "check a lifecycle-heavy upgrade against its destination", ["kube prometheus stack", "destination", "upgrade"], [["kube prometheus stack"], ["85.3.3"], ["86.1.0"], ["namespaces"], ["crds"], ["server-side apply"]], ["read the result", "open the destination route", "plan an upgrade or promotion"]),
     ],
   },
   {
@@ -129,6 +131,7 @@ const personas = [
       g("action", "P-A5", "review ordered stages and a partial fleet", ["ordered", "stage", "partial fleet"], [["pilot"], ["staging"], ["production"], ["partial", "not run"]], ["promotion review", "target results", "what has run"]),
       g("comprehension", "P-C5", "understand the anonymous path and the ConfigHub handoff", ["anonymous", "local", "confighub"], [["no account", "without an account", "local"], ["reviewed result"], ["configHub"], ["variant", "promote", "history"]], ["keep", "upload", "tutorial", "account"], "mixed"),
       g("navigation", "P-N5", "find the Timoni Redis base and development variant", ["timoni", "redis", "base", "dev"], [["timoni"], ["redis"], ["base"], ["dev", "development", "variant"]], ["read", "guide", "configHub"], "Timoni"),
+      g("action", "P-A6", "follow a retained base through staging approval release and delivery", ["base", "staging", "approval", "release"], [["base"], ["staging variant"], ["approval"], ["release oci"], ["argo cd"]], ["read the result", "promotion review", "configHub"]),
     ],
   },
   {
@@ -159,6 +162,7 @@ const personas = [
       g("action", "S-A5", "check current evidence before approving a move", ["current", "evidence", "approve"], [["current result"], ["proved", "partial"], ["approval", "gate"]], ["review", "evidence", "receipt"]),
       g("comprehension", "S-C5", "distinguish source and intent records from deployable objects", ["source", "intent", "deployable"], [["source and intent", "source record", "provenance"], ["workload", "kubernetes object"], ["not deploy", "helper", "companion"]], ["guide", "model", "inspect"], "mixed"),
       g("action", "S-A6", "inspect the Timoni publication receipt", ["timoni", "publication", "receipt"], [["timoni"], ["receipt"], ["digest", "sha256"], ["publication", "published"]], ["view", "source", "inspect"], "Timoni"),
+      g("action", "S-A7", "check which destination claims have live evidence", ["destination", "evidence", "lifecycle"], [["destination check"], ["prerequisites"], ["setup work", "lifecycle route"], ["runtime"], ["does not prove rollback", "rollback"]], ["read the result", "open the promotion review", "receipt"]),
     ],
   },
 ];

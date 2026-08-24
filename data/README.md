@@ -359,6 +359,8 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `site-persona-simulations-2026-08-23-change-workflow` | [site-persona-simulations-2026-08-23-change-workflow/summary.md](./site-persona-simulations-2026-08-23-change-workflow/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-three-click` | [site-persona-simulations-2026-08-23-three-click/summary.md](./site-persona-simulations-2026-08-23-three-click/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-three-click-after` | [site-persona-simulations-2026-08-23-three-click-after/summary.md](./site-persona-simulations-2026-08-23-three-click-after/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-08-24-managed-promotion` | [site-persona-simulations-2026-08-24-managed-promotion/summary.md](./site-persona-simulations-2026-08-24-managed-promotion/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-08-24-managed-promotion-final` | [site-persona-simulations-2026-08-24-managed-promotion-final/summary.md](./site-persona-simulations-2026-08-24-managed-promotion-final/summary.md) | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `successor-track` | [successor-track/summary.md](./successor-track/summary.md) | supporting generated evidence |
 | `sveltos-bulk-ops` | [sveltos-bulk-ops/summary.md](./sveltos-bulk-ops/summary.md) | supporting generated evidence |
@@ -396,7 +398,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 215 CSV files. Each row records the path, audience,
+It includes 219 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

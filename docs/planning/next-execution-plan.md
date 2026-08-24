@@ -50,6 +50,14 @@ CD delivery. The decision is also stored as an approved, non-deployable Unit in
 the live demo organization. A general ConfigHub product view that creates and
 shows these decisions for arbitrary configurations remains open in issue #1592.
 
+The first lifecycle-heavy managed promotion is also complete for one exact path.
+Kube Prometheus Stack `no-crds` moves from 85.3.3 to 86.1.0 through a retained
+ConfigHub base and staging variant, approval gates, exact release OCI, and Argo
+CD. The proof preserves source namespaces, checks target-owned Secrets, resolves
+CRD and setup-Job work after the final variant exists, selects server-side apply
+for large CRDs, and checks the resulting workloads and admission behavior. This
+is one chart and destination proof, not a general automatic promotion product.
+
 ## User Promise
 
 People should be able to bring configuration made by themselves or by AI and
@@ -426,6 +434,13 @@ unsafe candidate
 9. Record desired-versus-live results and rollback limits.
 10. Repeat the proof on a second chart with meaningful lifecycle or upgrade work.
 
+All ten steps now have one lifecycle-heavy proof in
+`runs/kps-confighub-lifecycle-promotion/receipt.yaml`, following the simpler
+NGINX candidate-selection proof. The remaining work is to make these checks an
+ordinary reusable product flow: route selection is still manual, rollback and
+soak are not proved for Kube Prometheus Stack, and other charts and destinations
+must earn their own evidence.
+
 ### Phase 3: Join The Public And SaaS Experiences
 
 1. Tighten the short ConfigHub browser tour and its end-to-end test.
@@ -462,6 +477,10 @@ unsafe candidate
    - an exact release delivered through Argo CD or Flux and compared with live
      state;
    - a useful public investigation retained as a Catalog answer.
+   The [managed journey coverage](../../data/managed-journey-coverage/summary.md)
+   now records a technical pass for all six and an outside-user pass for none.
+   The next acceptance step is to run the same tasks with people using their own
+   input and normal AI assistant.
 3. Run the internal developer platform test: use AI and Catalog records to
    produce native Kubara input, generate and check the exact platform, retain it
    in ConfigHub, promote one platform change, then add and promote one small

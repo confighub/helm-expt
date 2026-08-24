@@ -396,6 +396,75 @@
     };
   }
 
+  function destinationPreflight(candidateSet, lifecycle, destinations = []) {
+    const namespaces = [...new Set((candidateSet?.objects || [])
+      .map((object) => object.namespace)
+      .filter((namespace) => namespace && namespace !== "_cluster"))].sort();
+    const requirements = Array.isArray(lifecycle?.requirements) ? lifecycle.requirements : [];
+    const routes = Array.isArray(lifecycle?.routes) ? lifecycle.routes : [];
+    const resolution = lifecycle?.coverage?.resolution || { status: "not-recorded", records: [] };
+    const namespaceHandling = namespaces.length > 1
+      ? "preserve-source-namespaces"
+      : namespaces.length === 1
+        ? "single-namespace"
+        : "cluster-scoped-only";
+    const requirementNames = requirements
+      .map((item) => item.name || item.id || item.category || "unnamed prerequisite")
+      .sort();
+    const destinationList = [...new Set(destinations.filter(Boolean))];
+
+    return {
+      destinations: destinationList,
+      namespaces,
+      namespaceHandling,
+      prerequisites: {
+        recorded: requirements.length,
+        names: requirementNames,
+      },
+      lifecycleResolution: {
+        status: resolution.status || "not-recorded",
+        records: Array.isArray(resolution.records) ? resolution.records : [],
+        routeCount: routes.length,
+      },
+      delivery: {
+        runtime: "not selected",
+        status: "not-run",
+      },
+      checks: [
+        {
+          id: "source-namespaces",
+          status: namespaces.length > 1 ? "watch" : "pass",
+          note: namespaces.length > 1
+            ? `Preserve the ${namespaces.length} namespaces already present in the proposed objects.`
+            : namespaces.length === 1
+              ? `Keep the proposed objects in ${namespaces[0]}.`
+              : "The proposed set contains only cluster-scoped objects.",
+        },
+        {
+          id: "target-prerequisites",
+          status: requirements.length ? "not-run" : "not-applicable",
+          note: requirements.length
+            ? `Check ${requirements.length} recorded prerequisite(s) on the selected destination.`
+            : "No prerequisite is recorded. Add a source and intent record if the source has setup outside the objects.",
+        },
+        {
+          id: "lifecycle-route",
+          status: routes.length ? "not-run" : "not-applicable",
+          note: routes.length
+            ? `Resolve ${routes.length} lifecycle route(s) for the final candidate and delivery runtime.`
+            : "No lifecycle route is recorded for this object set.",
+        },
+        {
+          id: "delivery-mechanics",
+          status: "not-run",
+          note: destinationList.length
+            ? `Choose and test the apply method for ${destinationList.join(", ")}.`
+            : "Name a destination, then choose and test its apply method.",
+        },
+      ],
+    };
+  }
+
   function parseTargetResults(text, fallbackNames, candidateDigest) {
     const rows = [];
     for (const rawLine of canonicalFileText(text).split("\n")) {
@@ -535,6 +604,7 @@
     validateCubCheckReceipt,
     classifySourceAware,
     lifecycleFromRecord,
+    destinationPreflight,
     parseTargetResults,
     evaluateChangeWorkflow,
   };

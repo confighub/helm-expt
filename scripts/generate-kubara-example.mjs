@@ -49,6 +49,7 @@ const routePath = join(root, "route-intent.yaml");
 const receiptPath = join(root, "generation-receipt.yaml");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const expectedPolicyOrg = "helm-catalog";
 const readmeUnitPath = join(
   repoRoot,
   "data",
@@ -390,6 +391,13 @@ function verify() {
     uploadReceipt.spec.policy.checks.includes("platform/require-approval"),
     "Kubara upload policy must require approval",
   );
+  check(
+    uploadReceipt.spec.policy.filterWhere === policy.spec.approvalRequired.filterWhere
+      && String(uploadReceipt.spec.policy.filterHash ?? "").length > 0
+      && (uploadReceipt.spec.policy.triggerIds ?? []).length === expectedPolicyChecks.length
+      && !Number.isNaN(Date.parse(uploadReceipt.spec.policy.observedAt ?? "")),
+    "Kubara upload policy observation is incomplete",
+  );
   for (const field of [
     "publicOciPush",
     "publicOciPull",
@@ -621,7 +629,16 @@ function verifyCatalogAlignment() {
 function verifyLive() {
   const receipt = readYaml(uploadReceiptPath);
   const { space, unit, liveObjects } = inspectLive(receipt);
-  check(space.TriggerFilterID === receipt.spec.policy.filterId, "live Kubara apply-policy filter changed");
+  const policy = readYaml(policyPath);
+  const livePolicy = inspectLivePolicy(space, policy);
+  check(
+    livePolicy.filterId === receipt.spec.policy.filterId
+      && livePolicy.filterHash === receipt.spec.policy.filterHash
+      && livePolicy.filterWhere === receipt.spec.policy.filterWhere
+      && JSON.stringify(livePolicy.checks) === JSON.stringify([...receipt.spec.policy.checks].sort())
+      && JSON.stringify(livePolicy.triggerIds) === JSON.stringify([...receipt.spec.policy.triggerIds].sort()),
+    "live Kubara apply-policy record changed",
+  );
   for (const [key, value] of Object.entries(receipt.spec.space.labels)) {
     check(space.Labels?.[key] === value, `live Kubara Space label changed: ${key}`);
   }
@@ -634,6 +651,13 @@ function verifyLive() {
 function recordLive() {
   const receipt = readYaml(uploadReceiptPath);
   const policy = readYaml(policyPath);
+  const context = process.env.CUB_CONTEXT?.trim() ?? "";
+  check(context, "set CUB_CONTEXT to an authenticated helm-catalog context");
+  const contextInfo = JSON.parse(run("cub", ["context", "get", context, "-o", "json"]));
+  check(
+    contextInfo.metadata?.organizationName === expectedPolicyOrg,
+    `refusing to record policy evidence outside ${expectedPolicyOrg}`,
+  );
   const { space, unit, readme } = inspectLive(receipt, { allowReceiptRefresh: true });
   check(
     space.Labels?.ResourceClass === "system-configuration",
@@ -656,17 +680,50 @@ function recordLive() {
     headRevision: readme.HeadRevisionNum,
     source: relative(repoRoot, readmeUnitPath).replaceAll("\\", "/"),
   };
+  const livePolicy = inspectLivePolicy(space, policy);
   receipt.spec.policy = {
     profile: policy.metadata.name,
     filter: policy.spec.approvalRequired.filter,
-    filterId: space.TriggerFilterID,
+    ...livePolicy,
     reason: "system-configuration",
-    checks: policy.spec.approvalRequired.checks.map((item) => item.trigger),
     liveReceipt: "data/apply-policy-profiles/live-helm-catalog.yaml",
   };
   delete receipt.status.baselinePolicyAssigned;
   receipt.status.approvalRequiredPolicyAssigned = "pass";
   writeFileSync(uploadReceiptPath, `${toYaml(receipt)}\n`);
+}
+
+function inspectLivePolicy(space, policy) {
+  const [filterSpace, filterSlug] = policy.spec.approvalRequired.filter.split("/");
+  const filter = JSON.parse(
+    run("cub", ["filter", "get", "--space", filterSpace, filterSlug, "-o", "json"]),
+  ).Filter;
+  check(space.TriggerFilterID === filter.FilterID, "live Kubara apply-policy filter changed");
+  check(
+    filter.Where === policy.spec.approvalRequired.filterWhere,
+    "live Kubara apply-policy selector changed",
+  );
+  const checks = policy.spec.approvalRequired.checks
+    .map((item) => item.trigger)
+    .sort();
+  const triggerIds = checks.map((ref) => {
+    const [, slug] = ref.split("/");
+    return JSON.parse(
+      run("cub", ["trigger", "get", "--space", filterSpace, slug, "-o", "json"]),
+    ).Trigger.TriggerID;
+  }).sort();
+  check(
+    JSON.stringify([...(space.TriggerIDs ?? [])].sort()) === JSON.stringify(triggerIds),
+    "live Kubara Space does not have the current approval-required checks",
+  );
+  return {
+    filterId: filter.FilterID,
+    filterHash: String(filter.Hash ?? "").trim(),
+    filterWhere: filter.Where,
+    checks,
+    triggerIds,
+    observedAt: new Date().toISOString(),
+  };
 }
 
 function inspectLive(receipt, { allowReceiptRefresh = false } = {}) {

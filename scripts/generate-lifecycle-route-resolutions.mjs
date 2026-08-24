@@ -18,10 +18,20 @@ check(["--generate", "--verify"].includes(mode), "use --generate or --verify");
 
 const directReceiptPath = "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml";
 const gitopsReceiptPath = "runs/kps-gitops-lifecycle-proof/receipt.yaml";
-const revisionPath =
-  "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml";
-const baseRecordPath =
-  "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml";
+const kpsVersions = {
+  "85.3.3": {
+    revisionPath:
+      "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml",
+    baseRecordPath:
+      "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml",
+  },
+  "86.1.0": {
+    revisionPath:
+      "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml",
+    baseRecordPath:
+      "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.yaml",
+  },
+};
 const aicrBaseRecordPath =
   "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-19-0-argocd.yaml";
 const aicrPromotionReceiptPath =
@@ -37,15 +47,25 @@ const outputRoot = join(repoRoot, "data", "lifecycle-route-resolutions");
 
 const directReceipt = readYaml(join(repoRoot, directReceiptPath));
 const gitopsReceipt = readYaml(join(repoRoot, gitopsReceiptPath));
-const revision = readYaml(join(repoRoot, revisionPath));
+const kpsRecords = Object.fromEntries(
+  Object.entries(kpsVersions).map(([version, paths]) => [
+    version,
+    {
+      ...paths,
+      revision: readYaml(join(repoRoot, paths.revisionPath)),
+    },
+  ]),
+);
 const aicrBaseRecord = readYaml(join(repoRoot, aicrBaseRecordPath));
 const aicrPromotionReceipt = readYaml(join(repoRoot, aicrPromotionReceiptPath));
 
 validateInputs();
 const records = [
   buildDirectRecord(),
-  buildGitOpsRecord("argo", "Argo CD"),
-  buildGitOpsRecord("flux", "Flux"),
+  buildGitOpsRecord("argo", "Argo CD", "85.3.3"),
+  buildGitOpsRecord("flux", "Flux", "85.3.3"),
+  buildGitOpsRecord("argo", "Argo CD", "86.1.0"),
+  buildGitOpsRecord("flux", "Flux", "86.1.0"),
   buildAicrStagingRecord(),
 ];
 for (const record of records) validateRecord(record);
@@ -80,11 +100,13 @@ function validateInputs() {
       && gitopsReceipt.spec?.base === "no-crds",
     "GitOps lifecycle receipt is for a different base",
   );
-  check(
-    /^r[0-9]+$/.test(revision.spec?.revision ?? "")
-      && /^[0-9a-f]{64}$/.test(revision.spec?.digest ?? ""),
-    "variant revision is incomplete",
-  );
+  for (const [version, record] of Object.entries(kpsRecords)) {
+    check(
+      /^r[0-9]+$/.test(record.revision.spec?.revision ?? "")
+        && /^[0-9a-f]{64}$/.test(record.revision.spec?.digest ?? ""),
+      `${version} variant revision is incomplete`,
+    );
+  }
   for (const controller of ["argo", "flux"]) {
     check(
       gitopsReceipt.spec?.controllers?.[controller]?.result === "pass",
@@ -103,20 +125,28 @@ function validateInputs() {
   );
 }
 
-function configuration() {
+function configuration(version = "85.3.3") {
+  const record = kpsRecords[version];
+  check(record, `unsupported kube-prometheus-stack version ${version}`);
+  const { revision } = record;
   return {
-    baseVariantRecord: baseRecordPath,
+    baseVariantRecord: record.baseRecordPath,
     variant: "no-crds",
     revision: revision.spec.revision,
     baseRevisionDigest: revision.spec.digest,
     digest: revision.spec.digestInputs.renderedObjectSetSHA256,
     digestRole: "canonical-object-set",
-    digestRecord: revisionPath,
+    digestRecord: record.revisionPath,
   };
 }
 
 function commonRequirements({ targetOwnedSecrets }) {
   const requirements = [
+    requirement(
+      "source-namespaces",
+      "base",
+      "The objects intentionally span monitoring and kube-system. A destination must preserve those namespaces instead of applying one namespace to every object.",
+    ),
     requirement("crds", "base", "Ten monitoring CRDs must be established before dependent objects are applied."),
     requirement("admission-certificate", "base", "The admission-create Job must create the webhook certificate Secret."),
     requirement("workloads", "base", "The ordinary workload objects run after the CRDs and certificate setup."),
@@ -162,6 +192,7 @@ function buildDirectRecord() {
       },
       requirements: commonRequirements({ targetOwnedSecrets: false }),
       routes: [
+        route("preserve-source-namespaces", ["source-namespaces"], "cub installer lifecycle runner", "preflight", 7, "Keep each object's rendered namespace, including the five kube-system Services."),
         route("crds-first", ["crds"], "cub installer lifecycle runner", "pre-apply", 10, "Apply CRDs and wait for Established."),
         route("certificate-setup", ["admission-certificate"], "cub installer lifecycle runner", "pre-apply", 20, "Run the admission-create Job and wait for its Secret."),
         route("ordinary-objects", ["workloads"], "cub installer lifecycle runner", "apply", 30, "Apply the retained workload objects."),
@@ -184,8 +215,9 @@ function buildDirectRecord() {
   };
 }
 
-function buildGitOpsRecord(controllerKey, displayName) {
+function buildGitOpsRecord(controllerKey, displayName, version) {
   const controller = gitopsReceipt.spec.controllers[controllerKey];
+  const isCandidate = version === "86.1.0";
   const mechanisms = controllerKey === "argo"
     ? {
         target: "Argo CD Application staged OCI source",
@@ -205,10 +237,10 @@ function buildGitOpsRecord(controllerKey, displayName) {
     apiVersion: "evidence.confighub.com/v1alpha1",
     kind: "LifecycleRouteResolution",
     metadata: {
-      name: `kube-prometheus-stack-85-3-3-no-crds-${controllerKey === "argo" ? "argo-cd" : "flux"}`,
+      name: `kube-prometheus-stack-${version.replaceAll(".", "-")}-no-crds-${controllerKey === "argo" ? "argo-cd" : "flux"}`,
     },
     spec: {
-      configuration: configuration(),
+      configuration: configuration(version),
       destination: {
         name: controller.cluster,
         type: controller.clusterType,
@@ -217,6 +249,7 @@ function buildGitOpsRecord(controllerKey, displayName) {
       requirements: commonRequirements({ targetOwnedSecrets: true }),
       routes: [
         route("target-secrets", ["target-owned-secrets"], "destination owner", "preflight", 5, "Create the separated Secrets before controller reconciliation."),
+        route("preserve-source-namespaces", ["source-namespaces"], displayName, "preflight", 7, "Keep each object's rendered namespace, including the five kube-system Services."),
         route("crds-first", ["crds"], displayName, "pre-apply", 10, mechanisms.crds),
         route("certificate-setup", ["admission-certificate"], displayName, "pre-apply", 20, mechanisms.prepare),
         route("ordinary-objects", ["workloads"], displayName, "apply", 30, mechanisms.workload),
@@ -234,7 +267,9 @@ function buildGitOpsRecord(controllerKey, displayName) {
     status: {
       decision: "ready",
       evidence: "observed",
-      unresolved: [],
+      unresolved: isCandidate
+        ? ["This route is proven as the 85.3.3 to 86.1.0 upgrade destination, not as a separate 86.1.0 fresh installation."]
+        : [],
       receipts: [gitopsReceiptPath],
     },
   };
@@ -357,6 +392,12 @@ function validateRecord(record) {
       `${record.metadata.name}: AICR staging identity changed`,
     );
   } else {
+    const versionMatch = record.metadata.name.match(/kube-prometheus-stack-([0-9]+)-([0-9]+)-([0-9]+)-/);
+    const version = versionMatch
+      ? `${versionMatch[1]}.${versionMatch[2]}.${versionMatch[3]}`
+      : "85.3.3";
+    const revision = kpsRecords[version]?.revision;
+    check(revision, `${record.metadata.name}: unknown Kube Prometheus Stack version`);
     check(
       record.spec.configuration.baseRevisionDigest === revision.spec.digest,
       `${record.metadata.name}: base revision digest changed`,
@@ -399,8 +440,10 @@ Its status separates a plan from work that has actually run.
 | --- | --- | --- | ---: | --- | --- |
 ${rows}
 
-The three kube-prometheus-stack records have runtime receipts. The AICR v0.19.0
-staging record binds a real promoted variant to its intended EKS/H100/Argo CD
+The five kube-prometheus-stack records have runtime receipts. The 85.3.3 records
+cover the direct and controller-specific starting state. The 86.1.0 records bind
+the candidate object set to the Argo CD and Flux destinations where the upgrade
+ran. The AICR v0.19.0 staging record binds a real promoted variant to its intended EKS/H100/Argo CD
 destination, but stays blocked until the target facts, nested chart routes, and
 runtime checks have been recorded. A new source version, lifecycle-sensitive
 variant, destination, or delivery runtime requires another resolution.

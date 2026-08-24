@@ -428,13 +428,13 @@
     }
 </style>
 </head>
-<body data-retained-only-version="prometheus-community/kube-prometheus-stack@86.1.0">
+<body data-retained-only-version="prometheus-community/kube-prometheus-stack@86.1.0" data-bounded-runtime-proof="managed-promotion">
   <header>
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../ai.html">AI agents</a><a href="../charts/index.html">Catalog</a><a href="../ask.html">Check my config</a><a href="../promote.html">Promote my config</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
     <h1>prometheus-community/kube-prometheus-stack</h1>
     <p class="lead">Inspect the retained package for prometheus-community/kube-prometheus-stack@86.1.0, its packaged configurations, and its exact publication receipt.</p>
-    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
-    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
+    <p>The publication receipt proves that the named package was published and inspected at the recorded digests. A separate managed promotion proof covers this package as the 86.1.0 candidate from 85.3.3 through ConfigHub and Argo CD on one test target; it is not a general production-readiness claim.</p>
+    <p class="tagline">Publication proof: recorded · managed upgrade proof: recorded for 85.3.3 to 86.1.0.</p>
     <p>Licenses: chart <strong>Apache-2.0</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">the chart's own Chart.yaml license metadata, read 2026-08-08</a>). This describes the chart templates, not the packaged application images.</p>
     
     <p><a class="button primary" href="../promote.html?chart=prometheus-community%2Fkube-prometheus-stack&current=86.1.0&base=default">Plan an upgrade or promotion</a></p>
@@ -603,7 +603,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       </style>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:e4d8f1daec87a415662c629478c11280e242cbdf92bd796d85cab880b1c036b5</code> and manifest <code>sha256:9810de65b598e14ab7eb8fe1d6fc12602c3f81bd991f21b8dfe0d6e15063881f</code>, and records an inspect-result digest.</p>
       <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
-      <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./prometheus-community-kube-prometheus-stack-85-3-3.html">85.3.3 evidence page</a>.</p>
+      <p><strong>Bounded version-specific result:</strong> ConfigHub retained 85.3.3 as the base and this 86.1.0 package as the staging candidate, required approval, published exact release OCI digests, and delivered both through Argo CD. The destination checks covered source namespaces, two target-owned Secrets, ten CRDs, two replacement setup Jobs, server-side apply, six workloads, the operator endpoint, and Kubernetes admission. <a href="../d/data/kps-confighub-lifecycle-promotion/summary.html">Read the complete result and its limits</a>.</p><p>This does not prove rollback, long soak, automatic route selection, or a standalone fresh install of 86.1.0.</p>
     </section>
 
     <section aria-labelledby="retained-requirements">

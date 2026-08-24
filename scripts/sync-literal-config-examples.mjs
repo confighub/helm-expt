@@ -30,6 +30,7 @@ const mode = process.argv[2] ?? "--verify";
 const allowedModes = new Set([
   "--publish-oci",
   "--public-verify",
+  "--hub-record",
   "--hub-sync",
   "--hub-verify",
   "--generate",
@@ -39,6 +40,7 @@ if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/sync-literal-config-examples.mjs --publish-oci
   node scripts/sync-literal-config-examples.mjs --public-verify
+  node scripts/sync-literal-config-examples.mjs --hub-record
   node scripts/sync-literal-config-examples.mjs --hub-sync
   node scripts/sync-literal-config-examples.mjs --hub-verify
   node scripts/sync-literal-config-examples.mjs --generate
@@ -180,6 +182,23 @@ if (mode === "--publish-oci") {
   const receipt = verifyPublicReceipt(readYaml(publicOciReceiptPath));
   verifyAnonymousPull(receipt.spec.artifact.immutableReference);
   console.log("verified the permanent public OCI by anonymous pull");
+} else if (mode === "--hub-record") {
+  assertOrg();
+  verifyPublicReceipt(readYaml(publicOciReceiptPath));
+  const previousContext = currentContextName();
+  try {
+    if (previousContext !== cubContext) useContext(cubContext);
+    for (const definition of definitions) {
+      const receipt = collectHubReceipt(definition);
+      writeYaml(definition.receiptPath, receipt);
+      verifyHubReceipt(definition, receipt);
+      verifyLiveAgainstReceipt(definition, receipt);
+      console.log(`recorded live example ${definition.space}`);
+    }
+    writeSummary();
+  } finally {
+    if (previousContext !== cubContext) useContext(previousContext);
+  }
 } else if (mode === "--hub-sync") {
   check(
     process.env.HELM_EXPT_ALLOW_LITERAL_CONFIG_HUB_SYNC === "1",

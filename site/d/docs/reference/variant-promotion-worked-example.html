@@ -443,7 +443,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Variant Promotion Worked Example</h1>
-    <p class="lead">This document gives two worked examples for promoting ConfigHub variants from Helm-derived bases. Each example should be expressible three ways: <a href="../../../../docs/reference/variant-promotion-worked-example.md">View source markdown</a>.</p>
+    <p class="lead">This document gives three worked examples for promoting ConfigHub variants from Helm-derived bases. Each example should be expressible three ways: <a href="../../../../docs/reference/variant-promotion-worked-example.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -457,7 +457,8 @@ FX: function-based creation</code></pre>
 <p>For the canonical mapping into ConfigHub's component/space/unit/promotion model, see <a href="confighub-promotion-mapping.html">ConfigHub Promotion Mapping Doctrine</a>. For the Kubara-style overlay analysis behind the ExternalDNS example, see <a href="../corpus/kubara-customized-overlays.html">Kubara Customized Overlay Analysis</a>. For the current refresh work orders that turn these examples into executable proof work, see <code>data/latest-top20-refresh/variant-work-orders.yaml</code>.</p>
 <p>Generated goldens now exist for both examples:</p>
 <table><thead><tr><th>Example</th><th>Generated golden</th></tr></thead><tbody><tr><td>Redis production region</td><td><code>data/variant-goldens/redis-prod-us-east/</code></td></tr>
-<tr><td>ExternalDNS managed overlay</td><td><code>data/managed-overlay-goldens/external-dns-customer-acme-prod/</code></td></tr></tbody></table>
+<tr><td>ExternalDNS managed overlay</td><td><code>data/managed-overlay-goldens/external-dns-customer-acme-prod/</code></td></tr>
+<tr><td>Kube Prometheus Stack lifecycle upgrade</td><td><code>examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/</code></td></tr></tbody></table>
 <p>They are verified with:</p>
 <pre><code>npm run variant-goldens:verify</code></pre>
 <h2 id="example-1---redis-production-region">Example 1 - Redis Production Region</h2>
@@ -602,6 +603,15 @@ requiredChecks:
   - cluster-rbac-reviewed
   - unit-diff-reviewed</code></pre>
 <p>If the user changes provider, domain filters, TXT ownership behavior, sources, or credential wiring in a way that changes rendered Deployment args/env, the Creator should stop and route back to a maintained <code>cub installer</code> recipe/base render.</p>
+<h2 id="example-3---kube-prometheus-stack-upgrade">Example 3 - Kube Prometheus Stack Upgrade</h2>
+<p>This example promotes <code>prometheus-community/kube-prometheus-stack</code> from 85.3.3 to 86.1.0 using the <code>no-crds</code> configuration. It is deliberately harder than the Redis and ExternalDNS examples: 111 of 130 objects change, ten CRDs must be established, two setup Jobs must run again, webhook certificates must be checked, and five Services must remain in <code>kube-system</code> while the monitoring objects remain in <code>monitoring</code>.</p>
+<p>The proof retains the current release as a ConfigHub base and the candidate as a staging variant. It resolves lifecycle work after the staging candidate exists, requires approval on the deployable Units, publishes exact current and candidate release OCI digests, and lets Argo CD reconcile each one on a clean target.</p>
+<p>One failed attempt showed why destination checks belong in the model: applying a single namespace override moved the five <code>kube-system</code> Services into <code>monitoring</code>. The accepted candidate preserves the namespaces in the source objects and verifies the target-bound object digest before release. Argo CD also uses server-side apply because six of the CRDs are too large for client-side apply annotations.</p>
+<p>Open the <a href="../../data/kps-confighub-lifecycle-promotion/summary.html">plain result</a>, the <a href="../../../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/promotion-review.yaml">promotion review</a>, the <a href="../../../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml">destination route</a>, or the <a href="../../../../runs/kps-confighub-lifecycle-promotion/receipt.yaml">live receipt</a>.</p>
+<p>Verify the retained records and committed evidence with:</p>
+<pre><code>npm run kps:confighub-lifecycle-promotion:verify
+CUB_CONTEXT=river-bear npm run kps:confighub-lifecycle-promotion:hub-verify</code></pre>
+<p>This proves one exact chart, version pair, destination type, and controller path. It does not prove rollback, a long soak, automatic route selection, or the same result on an untested cluster.</p>
 <h2 id="promotion-rules">Promotion Rules</h2>
 <p>Use the Variant Creator contract when the change is post-render:</p>
 <pre><code>target

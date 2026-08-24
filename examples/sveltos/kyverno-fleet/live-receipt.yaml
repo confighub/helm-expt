@@ -15,10 +15,12 @@ spec:
         - "platform/vet-placeholders"
         - "platform/lifecycle-route-evidence"
         - "platform/aicr-training-secret-refs"
+        - "platform/workload-sensitive-env-secret-refs"
         - "platform/aicr-training-images-pinned"
         - "platform/digest-pinned-images"
         - "platform/probes-declared"
         - "platform/require-approval"
+      observedAt: "2026-08-24T20:30:52.288Z"
     readme:
       slug: "readme"
       id: "e95a1f66-dca3-44d7-a9a7-74454a5cec03"

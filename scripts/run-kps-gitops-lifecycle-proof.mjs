@@ -1111,6 +1111,23 @@ function observeRuntime({ kubeconfig, controller }) {
     return { name, established: true };
   });
   for (const [kind, name] of workloads) {
+    waitFor(
+      `${kind}/${name} to appear`,
+      600_000,
+      () => {
+        const result = tryCommand("kubectl", [
+          "--kubeconfig",
+          kubeconfig,
+          "-n",
+          namespace,
+          "get",
+          `${kind}/${name}`,
+          "-o",
+          "name",
+        ]);
+        return result.ok && result.output.trim() ? true : null;
+      },
+    );
     kubectl(kubeconfig, [
       "-n",
       namespace,

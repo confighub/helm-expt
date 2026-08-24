@@ -43,7 +43,7 @@ spec:
     filter:
       ref: "platform/helm-catalog-prod-gates"
       id: "8784a447-0e4d-4471-b924-eae5377778a2"
-      hash: "31133ade3ebd259030d3d2ef559e6aec14a62590779fbce9c0d13b188f717dc1"
+      hash: "536ee75f4b2e9b2bcd992918374a1cd3de6af9aee85b53774cd08c04f26ef9ec"
       triggerRefs:
         - "platform/aicr-training-images-pinned"
         - "platform/aicr-training-secret-refs"
@@ -53,6 +53,7 @@ spec:
         - "platform/require-approval"
         - "platform/vet-placeholders"
         - "platform/vet-schemas"
+        - "platform/workload-sensitive-env-secret-refs"
       triggerIds:
         - "04746183-327b-484e-b061-91d2c7753a76"
         - "1823a4c6-9743-467a-8e9a-5e1893e31d17"
@@ -62,6 +63,8 @@ spec:
         - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
         - "894ba8a0-eb84-4105-9557-4854f3739cf2"
         - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+        - "bc7e0c83-41f6-4597-b77c-f272ef7c9289"
+      observedAt: "2026-08-24T20:50:21.981Z"
     approvalGate: "platform/require-approval/vet-approvedby"
     target:
       ref: "bitnami-redis-27-0-0-default-pilot-live-20260705/oci-target"

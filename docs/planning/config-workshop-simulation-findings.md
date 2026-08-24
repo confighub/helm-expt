@@ -1,6 +1,6 @@
 # Config Workshop simulation findings
 
-Updated: 2026-08-23
+Updated: 2026-08-24
 
 This is the canonical record for the automated website journey checks. It does
 not replace the [business purpose and user journey](../reference/config-catalog-doctrine.md#business-purpose-and-user-journey),
@@ -32,6 +32,8 @@ rows and language trials. The important checkpoints are:
 | 2026-08-23 qualitative three-click review | 423 concrete, 122 partial, 55 failed or blocked out of 600 | Showed where impatient first-time readers lost the thread even when a maintained answer existed. The four agents used different task mixes, so this is a coverage count rather than a persona ranking. |
 | 2026-08-23 deterministic three-click baseline | 892 success, 117 partial, 3 fail out of 1,012 | Tightened the first-use limit from five clicks to three and expanded the cross-format and managed-operation questions. |
 | 2026-08-23 deterministic three-click rerun | 910 success, 99 partial, 3 fail out of 1,012 | Confirmed that targeted recovery, lifecycle, Catalog handoff, and Timoni changes converted 18 partial journeys to success. |
+| 2026-08-24 managed-promotion baseline | 921 success, 121 partial, 14 fail out of 1,056 | Added exact questions about destination checks, approval, release OCI, and lifecycle-heavy promotion. |
+| 2026-08-24 managed-promotion rerun | 931 success, 121 partial, 4 fail out of 1,056 | Confirmed that the worked Kube Prometheus Stack proof and clearer links removed ten failed journeys. |
 
 Only runs that use the same goals and scoring rules should be compared directly.
 The individual summary files state when such a comparison is valid.
@@ -58,8 +60,8 @@ putting every answer on every page.
 
 ## What the latest numbers mean
 
-The deterministic three-click test found that 910 of 1,012 tasks reached the
-required answer and a relevant action. This is strong evidence that maintained
+The latest deterministic three-click test found that 931 of 1,056 tasks reached
+the required answer and a relevant action. This is strong evidence that maintained
 answers are reachable. It is a navigation and content regression test, not proof
 that a person understands the answer, trusts it, needs it, or will adopt ConfigHub.
 
@@ -68,10 +70,11 @@ and 55 failed or blocked results. The lower result is useful. Impatient first-ti
 readers were more likely to lose the thread around lifecycle work, current evidence,
 and live operations than the deterministic walker was.
 
-The deterministic before-and-after runs used the same 1,012 journeys. Successful
-journeys rose from 892 to 910, and answers available on the starting page rose from
-430 to 450. The useful-first-click rate remained 65.1%. A high final success total
-therefore does not remove the need to improve the first choice.
+The latest before-and-after runs used the same 1,056 journeys. Successful journeys
+rose from 921 to 931, failed journeys fell from 14 to 4, and answers available on
+the starting page rose from 463 to 465. The useful-first-click rate rose from 65.1%
+to 66.2%. A high final success total therefore does not remove the need to improve
+the first choice or turn partial answers into completed actions.
 
 The remaining weak goals are close to ConfigHub's managed value:
 
@@ -111,6 +114,18 @@ general navigation sweep:
 5. Promote an exact release, deliver it through Argo CD or Flux, and compare it
    with live state.
 6. Turn a useful public investigation into a retained Catalog answer.
+
+The [managed journey coverage](../../data/managed-journey-coverage/summary.md)
+records these six tasks separately. All six have a committed technical proof and
+verifier. None has passed an outside-user trial. Keeping those results separate
+prevents a working test harness from being mistaken for a usable product journey.
+
+One automated Kube Prometheus Stack run now covers the technical core of tasks 3,
+4, and 5 for a lifecycle-heavy chart: retained base, staging candidate, destination
+preflight, approval, exact release OCI, Argo CD reconciliation, and live checks. It
+also caught an invalid namespace rewrite before the accepted release. This is
+machine evidence for one exact path. It is not evidence that an ordinary user can
+discover or complete the path without help, and it does not cover rollback.
 
 The website reflects the intended sequence. The next proof must come from people
 completing it and finding that the retained result saves work when the configuration

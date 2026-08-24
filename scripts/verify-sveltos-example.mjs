@@ -57,14 +57,22 @@ if (mode === "--self-test") {
     surfaces = loadSurfaces(paths);
   }
   verifyExample(surfaces);
-  if (["--hub-record", "--hub-verify"].includes(mode)) {
+  if (mode === "--hub-record") {
+    verifyHubPolicy(surfaces, liveHub);
+  } else if (mode === "--hub-verify") {
     verifyHub(surfaces, liveHub);
   }
-  console.log(
-    ["--hub-record", "--hub-verify"].includes(mode)
-      ? "verified live ConfigHub Sveltos Space, source object, README, and system-configuration approval policy"
-      : "verified Sveltos v1.12.0 Kyverno fleet receipt and source lock",
-  );
+  if (mode === "--hub-record") {
+    console.log(
+      "recorded and verified the current ConfigHub policy; preserved the historical Sveltos workload receipt",
+    );
+  } else if (mode === "--hub-verify") {
+    console.log(
+      "verified live ConfigHub Sveltos Space, source object, README, and system-configuration approval policy",
+    );
+  } else {
+    console.log("verified Sveltos v1.12.0 Kyverno fleet receipt and source lock");
+  }
 }
 
 function surfacePaths(root) {
@@ -175,6 +183,10 @@ function verifyExample(surfaces) {
   check(
     JSON.stringify(recordedPolicyChecks) === JSON.stringify(expectedPolicyChecks),
     "Sveltos policy no longer matches the current approval-required checks",
+  );
+  check(
+    !Number.isNaN(Date.parse(receipt.spec?.configHub?.policy?.observedAt ?? "")),
+    "Sveltos current policy observation time is missing",
   );
   check(
     receipt.spec.configHub.policy.checks.includes("platform/require-approval"),
@@ -320,6 +332,43 @@ function verifyHub(surfaces, hub) {
   );
 }
 
+function verifyHubPolicy(surfaces, hub) {
+  const { policy, receipt } = surfaces;
+  const spaceSlug = receipt.spec.configHub.space.slug;
+  const space = JSON.parse(hub(["space", "get", spaceSlug, "-o", "json"])).Space;
+  const [filterSpace, filterSlug] = policy.spec.approvalRequired.filter.split("/");
+  const filter = JSON.parse(
+    hub(["filter", "get", "--space", filterSpace, filterSlug, "-o", "json"]),
+  ).Filter;
+  check(space.TriggerFilterID === filter.FilterID, "live Sveltos policy filter changed");
+  check(
+    filter.Where === policy.spec.approvalRequired.filterWhere,
+    "live Sveltos policy filter selector changed",
+  );
+  const triggerRows = JSON.parse(
+    hub(["trigger", "list", "--space", filterSpace, "-o", "json"]),
+  );
+  const triggerList = triggerRows.Triggers ?? triggerRows.triggers ?? triggerRows;
+  const selected = new Set(space.TriggerIDs ?? []);
+  const actualChecks = triggerList
+    .map((item) => item.Trigger ?? item)
+    .filter((item) => selected.has(item.TriggerID))
+    .map((item) => `${filterSpace}/${item.Slug}`)
+    .sort();
+  const expectedChecks = policy.spec.approvalRequired.checks
+    .map((item) => item.trigger)
+    .sort();
+  check(
+    JSON.stringify(actualChecks) === JSON.stringify(expectedChecks),
+    "live Sveltos policy checks changed",
+  );
+  check(
+    JSON.stringify([...(receipt.spec.configHub.policy.checks ?? [])].sort())
+      === JSON.stringify(expectedChecks),
+    "recorded Sveltos policy checks differ from live ConfigHub",
+  );
+}
+
 function recordHubPolicy(surfaces, hub) {
   const { paths, policy, receipt } = surfaces;
   const spaceSlug = receipt.spec.configHub.space.slug;
@@ -333,30 +382,23 @@ function recordHubPolicy(surfaces, hub) {
     space.Labels?.SourceType === "sveltos",
     "refusing to record Sveltos without SourceType=sveltos",
   );
-  const readme = JSON.parse(
-    hub(["unit", "get", "readme", "--space", spaceSlug, "-o", "json"]),
-  ).Unit;
-  const next = structuredClone(receipt);
-  next.spec.verifiedAt = new Date().toISOString();
-  next.spec.configHub.space.labels = space.Labels;
-  next.spec.configHub.readme = {
-    slug: "readme",
-    id: readme.UnitID,
-    dataHash: readme.DataHash,
-    headRevision: readme.HeadRevisionNum,
-    source: "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
-  };
-  next.spec.configHub.policy = {
+  const nextPolicy = {
     profile: policy.metadata.name,
     filter: policy.spec.approvalRequired.filter,
     filterId: space.TriggerFilterID,
     reason: "system-configuration",
     checks: policy.spec.approvalRequired.checks.map((item) => item.trigger),
+    observedAt: new Date().toISOString(),
   };
-  delete next.status.baselinePolicyAssigned;
-  next.status.approvalRequiredPolicyAssigned = "pass";
-  writeFileSync(paths.receipt, `${toYaml(next)}\n`);
-  return next;
+  const original = readFileSync(paths.receipt, "utf8");
+  const replacement = `    policy:\n${toYaml(nextPolicy, 6)}\n`;
+  const next = original.replace(
+    /    policy:\n[\s\S]*?(?=    readme:)/,
+    replacement,
+  );
+  check(next !== original, "Sveltos policy block was not found in the receipt");
+  writeFileSync(paths.receipt, next);
+  return readYaml(paths.receipt);
 }
 
 function liveHub(args) {
