@@ -598,6 +598,13 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
     </section>
 
+    <section aria-labelledby="completed-decision">
+      <h2 id="completed-decision">See what a completed review looks like</h2>
+      <p>In the worked NGINX case, the proposed values produced six local findings and an unwanted public LoadBalancer. The reviewed result fixes six problems and keeps one emptyDir finding visible under a narrow, dated exception for development and staging only.</p>
+      <p>The same record then follows the accepted objects into ConfigHub, through a development-to-staging promotion, and into two Argo CD test deployments. Each step says what it proves and what it does not prove.</p>
+      <p><a class="button secondary" href="./d/data/config-review-decision-chain/summary.html">Open the completed review</a></p>
+    </section>
+
     <section id="check-files" aria-labelledby="check-files-title">
       <h2 id="check-files-title">Or: Check rendered objects in this browser</h2>
       <p>Add the exact rendered candidate. Add a second object set when you want to compare it with defaults, an older version, production, OCI, Git, or exported live objects.</p>

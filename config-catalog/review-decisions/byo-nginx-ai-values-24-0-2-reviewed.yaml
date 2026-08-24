@@ -1,0 +1,162 @@
+apiVersion: "workshop.confighub.com/v1alpha1"
+kind: "ConfigurationDecision"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-reviewed"
+  decidedAt: "2026-08-24T17:00:00Z"
+  reviewBy: "2026-11-30T23:59:59Z"
+spec:
+  question: "Are the NGINX values proposed by my AI safe enough to retain and promote?"
+  source:
+    type: "helm"
+    identity: "bitnami/nginx"
+    version: "24.0.2"
+    sourceRecord: "data/byo-helm-values-review/review.yaml"
+  proposal:
+    objects: "data/byo-helm-values-review/proposed-render.yaml"
+    objectCount: 5
+    canonicalObjectSetSha256: "sha256:3fb02d7935c9cdc271e84ea85628a36adce6ca10f0acc8d0e1164ea5c4f41562"
+    scannerObjectSetSha256: "sha256:9a0d28228065d3cab5a8c38acfce5800e71116c69696b3795d00fce1d3774c35"
+  acceptedCandidate:
+    objects: "data/byo-helm-values-review/reviewed-render.yaml"
+    objectCount: 5
+    canonicalObjectSetSha256: "sha256:ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    scannerObjectSetSha256: "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+    ociReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    ociDigest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+  checks:
+    local:
+      authority: "local-advisory"
+      tool: "cub check"
+      version: "v0.7.3"
+      proposalReceipt: "runs/config-catalog-policy-functional-proof/proposed-cub-check.json"
+      acceptedReceipt: "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+      proposalFindingIds:
+        - "CCVE-2025-3731"
+        - "CCVE-2025-3733"
+        - "CCVE-2025-3734"
+        - "CCVE-2025-3735"
+        - "CCVE-2025-3745"
+        - "CCVE-2025-5019"
+      acceptedFindingIds:
+        - "CCVE-2025-3745"
+    managed:
+      authority: "revision-bound"
+      system: "ConfigHub"
+      receipt: "runs/config-catalog-policy-functional-proof/receipt.yaml"
+      candidateResult: "eligible"
+      controls:
+        - findingId: "CCVE-2025-5019"
+          control: "platform/workload-sensitive-env-secret-refs"
+          result: "clear"
+        - findingId: "CCVE-2025-3745"
+          control: "no-managed-equivalent"
+          result: "not-covered"
+  outcomes:
+    - findingId: "CCVE-2025-3731"
+      source: "local-advisory"
+      decision: "accepted-fix"
+      rationale: "The reviewed Deployment restores the image digest from the checked Catalog configuration."
+      changedPaths:
+        - "apps/v1 Deployment/nginx spec.template.spec.containers[name=nginx].image"
+      evidence:
+        - "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+    - findingId: "CCVE-2025-3733"
+      source: "local-advisory"
+      decision: "accepted-fix"
+      rationale: "The reviewed Deployment requires the NGINX container to run as a non-root user."
+      changedPaths:
+        - "apps/v1 Deployment/nginx spec.template.spec.containers[name=nginx].securityContext.runAsNonRoot"
+      evidence:
+        - "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+    - findingId: "CCVE-2025-3734"
+      source: "local-advisory"
+      decision: "accepted-fix"
+      rationale: "The reviewed Deployment disables privilege escalation."
+      changedPaths:
+        - "apps/v1 Deployment/nginx spec.template.spec.containers[name=nginx].securityContext.allowPrivilegeEscalation"
+      evidence:
+        - "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+    - findingId: "CCVE-2025-3735"
+      source: "local-advisory"
+      decision: "accepted-fix"
+      rationale: "The reviewed Deployment restores a read-only root filesystem."
+      changedPaths:
+        - "apps/v1 Deployment/nginx spec.template.spec.containers[name=nginx].securityContext.readOnlyRootFilesystem"
+      evidence:
+        - "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+    - findingId: "CCVE-2025-5019"
+      source: "local-advisory"
+      decision: "accepted-fix"
+      rationale: "The literal AI API key was removed. The Deployment now refers to the existing ai-provider-credentials Secret."
+      changedPaths:
+        - "apps/v1 Deployment/nginx spec.template.spec.containers[name=nginx].env"
+        - "apps/v1 Deployment/nginx spec.template.spec.containers[name=nginx].envFrom"
+      evidence:
+        - "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+        - "runs/config-catalog-policy-functional-proof/receipt.yaml"
+    - findingId: "catalog-review/public-load-balancer"
+      source: "catalog-review"
+      decision: "accepted-fix"
+      rationale: "The reviewed Service is ClusterIP because this example does not require public exposure."
+      changedPaths:
+        - "v1 Service/nginx spec.type"
+      evidence:
+        - "data/byo-helm-values-review/review.yaml"
+    - findingId: "CCVE-2025-3745"
+      source: "local-advisory"
+      decision: "approved-exception"
+      rationale: "The chart uses one emptyDir for temporary NGINX files. The bounded development and staging demonstrations ran on throwaway kind clusters; this exception does not authorize a production target."
+      exception:
+        approvedByRole: "catalog-maintainer"
+        appliesTo:
+          - "the exact accepted candidate digest"
+          - "development and staging demonstrations on throwaway kind clusters"
+        excludes:
+          - "production"
+          - "customer clusters"
+          - "any later object-set digest"
+        conditions:
+          - "Rerun cub check when the object set changes."
+          - "Set an emptyDir sizeLimit or make a new target-specific decision before production."
+          - "Review the exception by 2026-11-30."
+        reviewBy: "2026-11-30T23:59:59Z"
+      evidence:
+        - "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+        - "runs/byo-helm-values-deploy-proof/receipt.yaml"
+        - "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+        - "runs/config-review-decision-chain/receipt.yaml"
+  scope:
+    environments:
+      - "development"
+      - "staging"
+    targetClasses:
+      - "throwaway cub-managed kind cluster with Argo CD"
+    excludedEnvironments:
+      - "production"
+  records:
+    retained:
+      status: "pass"
+      summary: "ConfigHub retained the same five reviewed objects and their public OCI digest as the base variant."
+      evidence:
+        - "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+    decisionApproval:
+      status: "pass"
+      summary: "The review-decision Unit stores this record outside deployment releases and its exact revision is approved."
+      evidence:
+        - "runs/config-review-decision-chain/receipt.yaml"
+    promotion:
+      status: "pass"
+      summary: "ConfigHub promoted the accepted replica change from development to staging without removing the reviewed settings."
+      evidence:
+        - "runs/byo-helm-values-promotion-proof/receipt.yaml"
+    delivery:
+      status: "pass"
+      summary: "Argo CD delivered the accepted base and promoted staging result on separate throwaway kind clusters."
+      evidence:
+        - "runs/byo-helm-values-deploy-proof/receipt.yaml"
+        - "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+  authorityBoundaries:
+    - "cub check is local advice. Its finding remains visible after an exception is approved."
+    - "ConfigHub evaluates managed controls against a stored revision. It does not inherit a local pass or exception automatically."
+    - "Approving this decision Unit records the scoped exception; it does not approve the workload revision for production."
+    - "The Argo CD receipts prove two throwaway kind deployments, not a general production result."

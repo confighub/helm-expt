@@ -13,6 +13,11 @@ Open `site/deployment-reference.html` for the detailed source, render, route, va
 Open `site/try.html` for the short Redis example.
 Open `site/ask.html` to check a new configuration and keep its review record.
 Open `site/promote.html` to compare current and proposed objects before staging or production.
+Open `site/configuration-decision.schema.json` for the source-neutral record that
+connects findings to accepted fixes, rejected findings, or narrow exceptions and
+keeps local checks separate from ConfigHub validation, approval, promotion, and delivery.
+Open `site/d/data/config-review-decision-chain/summary.html` for one complete
+NGINX example from AI-written values through a retained decision, promotion, and Argo CD tests.
 Open `site/base-variant-records.json` for the Catalog source-and-intent index used by
 the Check and Promote pages. Open `site/promotion-review.schema.json` for the
 browser promotion record.

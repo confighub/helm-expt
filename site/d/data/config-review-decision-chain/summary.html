@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Use ConfigHub · Config Workshop</title>
-  <meta name="description" content="Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/confighub.html">
-  <meta property="og:title" content="Use ConfigHub · Config Workshop">
-  <meta property="og:description" content="Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From an AI-written values file to an approved staging result · Config Workshop</title>
+  <meta name="description" content="From an AI-written values file to an approved staging result: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/config-review-decision-chain/summary.html">
+  <meta property="og:title" content="From an AI-written values file to an approved staging result · Config Workshop">
+  <meta property="og:description" content="From an AI-written values file to an approved staging result: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/confighub.html">
-<style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/config-review-decision-chain/summary.html">
+  <style>
     :root {
       color-scheme: light dark;
       --ink: #131a20;
@@ -427,146 +427,45 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-  .handoff-proof { max-width: 880px; padding-left: 1.3rem; }
-  .handoff-proof li { margin: 12px 0; }
-  .handoff-proof code { overflow-wrap: anywhere; word-break: break-all; }
-
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
-<header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-  <h1>Keep This Reviewed Configuration in ConfigHub</h1>
-  <p class="boundary-chip">Needs a ConfigHub account</p>
-  <p class="lead">Save the exact Kubernetes configuration you approved. ConfigHub keeps it with its source, checks, and later changes.</p>
-  <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
-  <p>ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
-  <p><a class="button primary" href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Keep a reviewed result in ConfigHub</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Open the tutorial</a></p>
-</header>
-<main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <section aria-labelledby="managed-result">
-    <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>Upload reviewed files or OCI. ConfigHub stores each Kubernetes object and keeps the source and review record beside it.</p>
-    <p>Create a version for each environment. ConfigHub shows the exact diff, records the approval, and keeps the promotion history.</p>
-    <p>Publish a release for Argo CD or Flux. Add live observations when you need to compare the approved configuration with a cluster.</p>
-  </section>
-  <section aria-labelledby="exact-handoff">
-    <h2 id="exact-handoff">2. See one exact handoff</h2>
-    <p>A worked NGINX example starts with AI-written Helm values. The review keeps the requested three replicas, removes six risky settings, and produces 5 Kubernetes objects.</p>
-    <p>We calculate one hash from those objects at each step. Matching hashes mean the objects did not change.</p>
-    <ol class="handoff-proof">
-      <li><strong>Review locally.</strong> The 5 objects have object-set hash <code>ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345</code>.</li>
-      <li><strong>Publish the OCI.</strong> Pulling <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001</code> back produces the same object-set hash. The OCI digest is <code>sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683</code>.</li>
-      <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same 5 objects with the same object-set hash, and records the same OCI digest as their source.</li>
-      <li><strong>Record the decision.</strong> A separate, non-deployable Unit says how each finding was handled. Six fixes were accepted. One remaining emptyDir finding is accepted only for the exact development and staging demonstration, excludes production, and has a review date. ConfigHub records approval of that exact decision revision.</li>
-    </ol>
-    <p>The matching hashes show that the handoff preserves the reviewed objects. The decision record answers a different question: what did we fix, what did we accept for now, and where may this result run? Read the <a href="./d/data/config-review-decision-chain/summary.html">complete decision, promotion, and delivery chain</a>.</p>
-    <p>Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English handoff record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
-    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
-    <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
-  </section>
-  <section id="promotion" aria-labelledby="continue-work">
-    <h2 id="continue-work">3. Continue from the retained answer</h2>
-    <p>Start with the public <a href="./promote.html">Promote my config</a> comparison. ConfigHub is the next step when the same proposed object hash must move through named environments with approvals, release digests, and target results.</p>
-    <div class="card"><table>
-        <thead><tr><th>Job</th><th>What ConfigHub keeps</th><th>Start here</th></tr></thead>
-        <tbody><tr><td>Compare development and production</td><td>Both variants, their source relationship, and exact object diff.</td><td><a href="./why-do-dev-and-prod-differ.html">Compare environments</a></td></tr><tr><td>Promote and publish</td><td>The reviewed change, approval, promotion result, and immutable release OCI.</td><td><a href="./testing.html#managed">Promotion and OCI examples</a></td></tr><tr><td>Roll back</td><td>The prior object revision or release digest. External effects remain outside the rollback claim.</td><td><a href="./redis-walkthrough.html">Redis promotion and rollback</a></td></tr><tr><td>Compare desired with live</td><td>The approved desired objects and a separately dated live observation.</td><td><a href="./does-cluster-match-approved-config.html">Desired and live comparison</a></td></tr><tr><td>Roll out to a fleet</td><td>The selected targets, waves, approvals, and result for every target.</td><td><a href="./testing.html#platforms">Fleet examples</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-  </section>
-  <section aria-labelledby="review-tutorial">
-    <h2 id="review-tutorial">4. Continue with the official tutorial</h2>
-    <p><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Create a ConfigHub account</a> when you are ready to save a reviewed configuration. Then continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">official tutorial</a> to create a development deployment, make a change, add production, and promote the reviewed result.</p>
-    <p><a href="https://confighub.com/blog/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
-    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
-  </section>
-</main>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>From an AI-written values file to an approved staging result</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/config-review-decision-chain/summary.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This example answers one practical question: <b>what happened to every problem we found?</b> It starts with a supplied NGINX values file, keeps the requested scale, fixes unsafe settings, records one narrow exception, and follows the same result through ConfigHub and Argo CD.</p>
+<h2 id="the-result-in-one-table">The result in one table</h2>
+<table><thead><tr><th>Step</th><th>What happened</th><th>Record</th></tr></thead><tbody><tr><td>Check the proposal</td><td><code>cub check</code> reported 6 findings against 5 objects. The separate chart review also rejected the public LoadBalancer.</td><td><a href="../../../../runs/config-catalog-policy-functional-proof/proposed-cub-check.json">Local result</a> and <a href="../../../../data/byo-helm-values-review/review.yaml">chart review</a></td></tr>
+<tr><td>Correct the configuration</td><td>6 findings have an accepted fix. The image is pinned, container security is restored, the API key uses an existing Secret, and the Service is ClusterIP.</td><td><a href="../../../../data/byo-helm-values-review/reviewed-render.yaml">Reviewed objects</a></td></tr>
+<tr><td>Decide the remaining finding</td><td><code>CCVE-2025-3745</code> remains visible. Its exception applies only to the exact development and staging demonstration on throwaway kind clusters. Production is excluded. Review it by 2026-11-30.</td><td><a href="../../../../config-catalog/review-decisions/byo-nginx-ai-values-24-0-2-reviewed.yaml">ConfigurationDecision</a></td></tr>
+<tr><td>Validate the stored revision</td><td>ConfigHub independently checks the retained revision. The literal API-key control is clear. The local emptyDir finding has no managed equivalent and is not presented as a ConfigHub pass.</td><td><a href="../apply-policy-functional-proof/summary.html">Managed validation</a></td></tr>
+<tr><td>Keep the decision</td><td>ConfigHub stores the decision as the non-deployable <code>review-decision</code> Unit beside the configuration. Revision 3 has 1 recorded approval.</td><td><a href="../../../../runs/config-review-decision-chain/receipt.yaml">Live receipt</a></td></tr>
+<tr><td>Promote the accepted change</td><td>ConfigHub promotes <code>spec.replicas</code> from three in the reviewed base to four in staging while keeping the other reviewed settings.</td><td><a href="../../../../runs/byo-helm-values-promotion-proof/receipt.yaml">Promotion receipt</a></td></tr>
+<tr><td>Deliver it</td><td>Argo CD delivered the reviewed base and the promoted staging result on separate throwaway kind clusters.</td><td><a href="../byo-helm-values-deploy-proof/summary.html">Base delivery</a> and <a href="../byo-helm-values-staging-deploy-proof/summary.html">staging delivery</a></td></tr></tbody></table>
+<h2 id="why-the-records-stay-separate">Why the records stay separate</h2>
+<ul><li><b>Local check:</b> useful before signup; advisory only.</li><li><b>Configuration decision:</b> says which findings were fixed, rejected, or accepted for a narrow scope.</li><li><b>ConfigHub validation:</b> evaluates managed controls against a stored revision.</li><li><b>Approval:</b> binds the exception decision to one exact decision revision.</li><li><b>Promotion and delivery:</b> show what moved and what actually ran.</li></ul>
+<p>Approving the decision does not hide the scanner finding, approve a production workload, or turn the local check into a ConfigHub control. A later object digest, target, or production environment needs a new decision.</p>
+<h2 id="exact-identities">Exact identities</h2>
+<table><thead><tr><th>Item</th><th>Identity</th></tr></thead><tbody><tr><td>Accepted Kubernetes object set</td><td><code>sha256:ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345</code></td></tr>
+<tr><td>Scanner's normalized object set</td><td><code>sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397</code></td></tr>
+<tr><td>Public OCI</td><td><code>sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683</code></td></tr>
+<tr><td>ConfigHub configuration Unit</td><td><code>63f66d73-7c57-4316-b8ef-2d79dedbf4cf</code>, revision <code>1</code></td></tr>
+<tr><td>ConfigHub decision Unit</td><td><code>3ccf9ba6-0c11-4eb1-8ae4-dcd2a264316a</code>, revision <code>3</code></td></tr></tbody></table>
+<p>The two object-set hashes use different canonicalization rules and are named separately. Neither is an OCI manifest digest or a ConfigHub data hash.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/config-review-decision-chain/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

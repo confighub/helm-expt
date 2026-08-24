@@ -19,6 +19,7 @@ import {
   identityFor,
   parseDocs,
   readYaml,
+  readYamlText,
   relativeRepo,
   repoRoot,
   sha256,
@@ -377,6 +378,17 @@ function upsertReadme() {
     "-o",
     "json",
   ]);
+  if (existing.ok) {
+    const unit = JSON.parse(existing.output).Unit;
+    const desired = readYaml(readmeUnitPath);
+    const current = readYamlText(storedData(unit));
+    const labels = unit.Labels ?? {};
+    if (
+      JSON.stringify(current) === JSON.stringify(desired)
+      && labels["helm-expt.confighub.com/readme"] === "true"
+      && labels["helm-expt.confighub.com/source-space"] === spaceSlug
+    ) return;
+  }
   const action = existing.ok ? "update" : "create";
   cub([
     "unit",
@@ -443,6 +455,14 @@ function collectHubReceipt() {
         headRevision: unit.HeadRevisionNum,
         objectIdentities: parseDocs(storedData(unit)).map(identityFor),
       })),
+      reviewEvidenceUnits: live.reviewEvidenceUnits.map((unit) => ({
+        slug: unit.Slug,
+        id: unit.UnitID,
+        dataHash: unit.DataHash,
+        headRevision: unit.HeadRevisionNum,
+        provider: unit.ProviderType,
+        includedInDeploymentRelease: false,
+      })),
       readme: {
         slug: live.readme.Slug,
         id: live.readme.UnitID,
@@ -501,7 +521,7 @@ function inspectLive() {
   ]);
   const list = listed.Units ?? listed.units ?? listed;
   check(Array.isArray(list), "cub unit list returned an unexpected shape");
-  const units = list
+  const allNonReadmeUnits = list
     .map((item) => item.Unit ?? item)
     .filter((item) => item.Slug !== readmeSlug)
     .map((item) => cubJson([
@@ -514,6 +534,12 @@ function inspectLive() {
       "json",
     ]).Unit)
     .sort((left, right) => left.Slug.localeCompare(right.Slug));
+  const reviewEvidenceUnits = allNonReadmeUnits.filter(
+    (unit) => unit.Labels?.["config-workshop.confighub.com/review-decision"] === "true",
+  );
+  const units = allNonReadmeUnits.filter(
+    (unit) => unit.Labels?.["config-workshop.confighub.com/review-decision"] !== "true",
+  );
   const readme = cubJson([
     "unit",
     "get",
@@ -562,6 +588,7 @@ function inspectLive() {
     space,
     filter,
     units,
+    reviewEvidenceUnits,
     docs,
     readme,
     triggerSlugs,
@@ -584,6 +611,10 @@ function verifyHubReceipt(receipt) {
       && receipt.spec?.objectSetSha256 === objectSetSha256(expectedDocs)
       && receipt.spec?.sourceObjectsMatched === true
       && receipt.spec?.units?.length === 1
+      && receipt.spec?.reviewEvidenceUnits?.length === 1
+      && receipt.spec.reviewEvidenceUnits[0]?.slug === "review-decision"
+      && receipt.spec.reviewEvidenceUnits[0]?.provider === "None"
+      && receipt.spec.reviewEvidenceUnits[0]?.includedInDeploymentRelease === false
       && receipt.spec?.policy?.filter === triggerFilterRef
       && receipt.spec?.policy?.filterId
       && receipt.spec?.policy?.filterHash
@@ -628,6 +659,18 @@ function verifyLiveAgainstReceipt(receipt) {
           && recorded.dataHash === unit.DataHash;
       }),
     "live ConfigHub Units drifted from the receipt",
+  );
+  check(
+    live.reviewEvidenceUnits.length === receipt.spec.reviewEvidenceUnits.length
+      && live.reviewEvidenceUnits.every((unit) => {
+        const recorded = receipt.spec.reviewEvidenceUnits.find((item) => item.slug === unit.Slug);
+        return recorded
+          && recorded.id === unit.UnitID
+          && recorded.dataHash === unit.DataHash
+          && recorded.provider === unit.ProviderType
+          && recorded.includedInDeploymentRelease === false;
+      }),
+    "live non-deployable review evidence drifted from the receipt",
   );
   check(
     live.readme.UnitID === receipt.spec.readme.id
@@ -736,6 +779,12 @@ ConfigHub imported that OCI into the \`${spaceSlug}\` Space in the
 Kubernetes objects, a separate README Unit explains the example, and the shared
 catalog checks are attached. The source OCI reference and digest are recorded
 on the Space.
+
+A third, non-deployable \`review-decision\` Unit records how every finding was
+handled. It keeps six accepted fixes and one scoped emptyDir exception beside
+the configuration without adding the decision record to a deployment release.
+Read the [complete decision chain](../config-review-decision-chain/summary.md)
+for its scope, review date, approval, promotion, and Argo CD results.
 
 ## One exact handoff
 

@@ -1,0 +1,49 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigurationDecisionLiveReceipt"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-reviewed"
+spec:
+  capturedAt: "2026-08-24T17:26:33.905Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  source:
+    path: "config-catalog/review-decisions/byo-nginx-ai-values-24-0-2-reviewed.yaml"
+    sha256: "sha256:4689f859fd85e52beb7c9ca34dadf88e7621ac11ac5f98757603f1cd7e640b2a"
+    schema: "schemas/configuration-decision.schema.json"
+  space:
+    slug: "byo-nginx-ai-values-24-0-2-reviewed"
+    id: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+  decisionUnit:
+    slug: "review-decision"
+    id: "3ccf9ba6-0c11-4eb1-8ae4-dcd2a264316a"
+    headRevision: 3
+    dataHash: "278933f2108c0143167cecfe427ecaee5f4bc34d5a69d0ebf139bad2d53f60a9"
+    contentHash: -470606801
+    provider: "None"
+    targetAssigned: false
+    includedInDeploymentRelease: false
+    sourceMatched: true
+    recordedApprovals: 1
+  configurationUnit:
+    slug: "byo-nginx-ai-values"
+    id: "63f66d73-7c57-4316-b8ef-2d79dedbf4cf"
+    headRevision: 1
+    dataHash: "3f424da50c106d818ebba3f8d70d56140dcc45671bff8f548de15eafb55eccc1"
+    objectCount: 5
+    canonicalObjectSetSha256: "sha256:ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+  evidence:
+    localProposal: "runs/config-catalog-policy-functional-proof/proposed-cub-check.json"
+    localAccepted: "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+    managedValidation: "runs/config-catalog-policy-functional-proof/receipt.yaml"
+    retainedBase: "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+    promotion: "runs/byo-helm-values-promotion-proof/receipt.yaml"
+    baseDelivery: "runs/byo-helm-values-deploy-proof/receipt.yaml"
+    stagingDelivery: "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+status:
+  result: "pass"
+  claim: "ConfigHub stores the exact configuration decision beside the retained NGINX base, keeps it out of deployment releases, and records approval of its exact revision."
+  limits:
+    - "The approval applies to the decision record, not to a production workload revision."
+    - "The emptyDir finding remains visible in cub check and the exception is limited to the named development and staging demonstrations."
+    - "ConfigHub does not currently consume this exception record to suppress or replace a managed control result."
