@@ -686,6 +686,7 @@ if (!fs.existsSync(promotePath)) {
   const promote = fs.readFileSync(promotePath, "utf8");
   for (const phrase of [
     "Can I promote this configuration?",
+    "platform component, a developer tool, or an application",
     "1. Promotion review",
     "2. What are you changing?",
     "loads automatically",
