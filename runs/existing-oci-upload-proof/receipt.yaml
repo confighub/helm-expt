@@ -4,7 +4,7 @@ metadata:
   name: "existing-oci-nginx-replicas-4"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-07-30T11:06:37.906Z"
+  verifiedAt: "2026-08-24T20:28:45.563Z"
   command:
     - "cub"
     - "variant"
@@ -84,8 +84,8 @@ spec:
   readme:
     slug: "readme"
     id: "7cd93942-8960-416d-a801-6aa4a3564ed0"
-    dataHash: "ab0abf29907e3e97fc4a305d30f2e88398954645081600e5e92499472159eb1b"
-    headRevision: 4
+    dataHash: "1443cd8d869e961bbb3bee0d3d1748b20d7e120196de61162df8e076886d6010"
+    headRevision: 8
     source: "data/helm-catalog-readmes/units/existing-oci-nginx-replicas-4/readme.yaml"
   storedObjectCount: 5
   storedObjectSetSha256: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
@@ -95,8 +95,8 @@ spec:
     profile: "catalog-standard"
     filter: "platform/helm-catalog-checks"
     filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
-    filterHash: "b42dcf124959da754d5b5bac08bce74bd450d6c6d52983af134f5fc7c8434554"
-    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+    filterHash: "1b6e056f122d39395eed13fd3832f26652302905f95d3cdd20128e8b9fe971c9"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'"
     checks:
       - "aicr-training-images-pinned"
       - "aicr-training-secret-refs"
@@ -105,6 +105,7 @@ spec:
       - "probes-declared"
       - "vet-placeholders"
       - "vet-schemas"
+      - "workload-sensitive-env-secret-refs"
 status:
   result: "pass"
   claim: "ConfigHub stored the five exact Kubernetes objects pulled from the public OCI, recorded its immutable source digest, and did not rerender Helm."

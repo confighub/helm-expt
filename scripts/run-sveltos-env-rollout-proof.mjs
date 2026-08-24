@@ -24,10 +24,11 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--run", "--generate", "--verify", "--self-test", "--probe-gate"]);
+const allowedModes = new Set(["--run", "--policy-record", "--generate", "--verify", "--self-test", "--probe-gate"]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-sveltos-env-rollout-proof.mjs --run
+  node scripts/run-sveltos-env-rollout-proof.mjs --policy-record
   node scripts/run-sveltos-env-rollout-proof.mjs --generate
   node scripts/run-sveltos-env-rollout-proof.mjs --verify
   node scripts/run-sveltos-env-rollout-proof.mjs --self-test
@@ -92,6 +93,8 @@ let timeSource = () => Date.now();
 
 if (mode === "--run") {
   run();
+} else if (mode === "--policy-record") {
+  recordCurrentPolicy();
 } else if (mode === "--probe-gate") {
   probeGate();
 } else if (mode === "--self-test") {
@@ -1116,7 +1119,8 @@ function verifyReceipt(receipt) {
     receipt.spec?.policy?.organization === expectedPolicyOrg
       && receipt.spec.policy.profile === "catalog-standard"
       && receipt.spec.policy.approvalGate === approvalGate
-      && sameSet(recordedTriggers, expectedTriggers),
+      && sameSet(recordedTriggers, expectedTriggers)
+      && !Number.isNaN(Date.parse(receipt.spec.policy.filter.observedAt ?? "")),
     "Sveltos env rollout policy record changed",
   );
   const sveltos = loadSveltosPin();
@@ -1424,6 +1428,10 @@ function createPolicySpace(context, space) {
 
 function readApprovalTopology(context) {
   const filter = getByRef(context, "filter", approvalFilterRef).Filter;
+  check(
+    filter.Where === readYaml(policyPath).spec.approvalRequired.filterWhere,
+    "live approval-required filter selector changed",
+  );
   const triggers = expectedTriggers.map(
     (ref) => getByRef(context, "trigger", ref).Trigger,
   );
@@ -1433,7 +1441,30 @@ function readApprovalTopology(context) {
     hash: String(filter.Hash ?? "").trim(),
     triggerRefs: expectedTriggers,
     triggerIds: triggers.map((trigger) => trigger.TriggerID).sort(),
+    observedAt: new Date().toISOString(),
   };
+}
+
+function recordCurrentPolicy() {
+  const context = process.env.CUB_CONTEXT?.trim() ?? "";
+  check(context, "set CUB_CONTEXT to an authenticated helm-catalog context");
+  const contextInfo = cubJson(context, ["context", "get", context, "-o", "json"]);
+  check(
+    contextInfo.metadata?.organizationName === expectedPolicyOrg,
+    `refusing to record policy evidence outside ${expectedPolicyOrg}`,
+  );
+  const original = readFileSync(receiptPath, "utf8");
+  const replacement = `    filter:\n${toYaml(readApprovalTopology(context), 6)}\n`;
+  const next = original.replace(
+    /    filter:\n[\s\S]*?(?=    approvalGate:)/,
+    replacement,
+  );
+  check(next !== original, "Sveltos environment rollout policy filter block was not found");
+  writeFileSync(receiptPath, next);
+  const recorded = readYaml(receiptPath);
+  verifyReceipt(recorded);
+  write(summaryPath, renderSummary(recorded));
+  console.log("recorded the current live policy on the existing Sveltos environment rollout proof");
 }
 
 function assertPolicySpace(context, space, expectedTriggerIds, expectedReleaseTargetId) {
@@ -3035,7 +3066,13 @@ function createFakeConfigHub() {
       return ok(`self-test-gateway-token-${"a".repeat(48)}`);
     }
     if (entity === "filter" && verb === "get") {
-      return ok(JSON.stringify({ Filter: { FilterID: filterId, Hash: "self-test-filter-hash" } }));
+      return ok(JSON.stringify({
+        Filter: {
+          FilterID: filterId,
+          Hash: "self-test-filter-hash",
+          Where: readYaml(policyPath).spec.approvalRequired.filterWhere,
+        },
+      }));
     }
     if (entity === "trigger" && verb === "get") {
       return ok(JSON.stringify({ Trigger: { TriggerID: `self-test-trigger-${rest[0]}` } }));

@@ -33,7 +33,7 @@ receipt, and the full table is in the CSV for the rest.
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
 | `live-helm-confighub-compare` | 219 | 71 | 80 | none |
-| `live-kind-parity` | 179 | 70 | 79 | none |
+| `live-kind-parity` | 179 | 70 | 80 | none |
 | `next80-local-kind` | 176 | 74 | 74 | none |
 | `installer-oci` | 139 | 16 | 16 | none |
 | `certified-bundles` | 74 | 16 | 16 | none |

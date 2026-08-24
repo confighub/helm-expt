@@ -27,22 +27,36 @@ spec:
     profile: "catalog-standard"
     filter: "platform/helm-catalog-prod-gates"
     filterId: "8784a447-0e4d-4471-b924-eae5377778a2"
-    reason: "system-configuration"
+    filterHash: "536ee75f4b2e9b2bcd992918374a1cd3de6af9aee85b53774cd08c04f26ef9ec"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'"
     checks:
-      - "platform/vet-schemas"
-      - "platform/vet-placeholders"
-      - "platform/lifecycle-route-evidence"
-      - "platform/aicr-training-secret-refs"
       - "platform/aicr-training-images-pinned"
+      - "platform/aicr-training-secret-refs"
       - "platform/digest-pinned-images"
+      - "platform/lifecycle-route-evidence"
       - "platform/probes-declared"
       - "platform/require-approval"
+      - "platform/vet-placeholders"
+      - "platform/vet-schemas"
+      - "platform/workload-sensitive-env-secret-refs"
+    triggerIds:
+      - "04746183-327b-484e-b061-91d2c7753a76"
+      - "1823a4c6-9743-467a-8e9a-5e1893e31d17"
+      - "2651b7cc-31a2-4833-adde-11e018656dee"
+      - "3f5dd412-1cf2-4583-a73a-12817f899c87"
+      - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
+      - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
+      - "894ba8a0-eb84-4105-9557-4854f3739cf2"
+      - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+      - "bc7e0c83-41f6-4597-b77c-f272ef7c9289"
+    observedAt: "2026-08-24T20:50:28.421Z"
+    reason: "system-configuration"
     liveReceipt: "data/apply-policy-profiles/live-helm-catalog.yaml"
   readme:
     slug: "readme"
     id: "172817a9-f139-4d2f-9a22-19ccd51b348a"
-    dataHash: "8b850ce7161ff3006c22f6afe94723c513f58b1f91060c17f47961cccdf58f8b"
-    headRevision: 8
+    dataHash: "c26cc9adfe036ce7352f0579b4c64e31ba38e0121ee7f697d1de12745ddbea0c"
+    headRevision: 14
     source: "data/helm-catalog-readmes/units/kubara-local-platform-v0-12-0/readme.yaml"
   secretsNotUploaded:
     - "argocd/argocd-secret"
@@ -57,9 +71,12 @@ spec:
     id: "df6baeda-0e26-40ad-af6a-4cfba2056913"
     labels:
       ApplyPolicyProfile: "catalog-standard"
+      ChangeCadence: "planned-platform-release"
       Component: "kubara-local-platform"
       Layer: "Platform"
+      OperationalClassExample: "kubara-system-configuration"
       Owner: "Platform"
+      OwnerClass: "platform-team"
       ResourceClass: "system-configuration"
       SourceType: "kubara"
       Variant: "v0-12-0-local"
@@ -73,7 +90,7 @@ spec:
     slug: "release-objects"
     sourceIdentitiesMatched: true
     uploadedObjectCount: 75
-  verifiedAt: "2026-07-27T20:59:56.411Z"
+  verifiedAt: "2026-08-24T20:50:23.163Z"
 status:
   apply: "not-run"
   approvalRequiredPolicyAssigned: "pass"
