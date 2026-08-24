@@ -3,7 +3,7 @@ kind: "BringYourOwnHelmValuesPromotionReceipt"
 metadata:
   name: "byo-nginx-ai-values-24-0-2-development-to-staging"
 spec:
-  observedAt: "2026-07-27T14:23:14.069Z"
+  observedAt: "2026-08-24T15:05:30.074Z"
   organization: "helm-catalog"
   source:
     chart: "bitnami/nginx"
@@ -40,17 +40,20 @@ spec:
       readmeUnit:
         slug: "readme"
         id: "6e2fbb86-779c-48f1-865c-2e85dc5d60b8"
-        dataHash: "0f0991ebdf1e8f719993f8e0288c1dcb94f4e566a1f34b4c8103da9e1f935684"
+        dataHash: "5af3e48e58c74b5d5b8e8ed0c2f516010abf6ea06fee17787617d4206143ebdb"
         fromLinkIds:
           []
       policy:
         triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
         checks:
+          - "aicr-training-images-pinned"
+          - "aicr-training-secret-refs"
           - "digest-pinned-images"
           - "lifecycle-route-evidence"
           - "probes-declared"
           - "vet-placeholders"
           - "vet-schemas"
+          - "workload-sensitive-env-secret-refs"
       pendingUpstreamChanges: 0
     development:
       space: "byo-nginx-ai-values-24-0-2-development"
@@ -79,17 +82,20 @@ spec:
       readmeUnit:
         slug: "readme"
         id: "4b9fdd81-b9df-44ca-9122-a64ad559ce5d"
-        dataHash: "6ad27c953c68d99db567d6b5dec6d165b1d95858e832cb770f72c5be5ef34dda"
+        dataHash: "5d69e7a8696d9b18ceb893abe45c8caf8c0e66a69dc3869b991a3cfe7cb7389e"
         fromLinkIds:
           []
       policy:
         triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
         checks:
+          - "aicr-training-images-pinned"
+          - "aicr-training-secret-refs"
           - "digest-pinned-images"
           - "lifecycle-route-evidence"
           - "probes-declared"
           - "vet-placeholders"
           - "vet-schemas"
+          - "workload-sensitive-env-secret-refs"
       pendingUpstreamChanges: 0
     staging:
       space: "byo-nginx-ai-values-24-0-2-staging"
@@ -118,17 +124,20 @@ spec:
       readmeUnit:
         slug: "readme"
         id: "9b33dcca-abf2-40e1-820b-4aa569dd8dac"
-        dataHash: "76ef976dd20bc97c191ed2a04fd2d7a6a03ee8c7388bcc75dc71d69884956f43"
+        dataHash: "c0470621d3d080af4c0abf2f03e5fa6b9b6d362e50e3fcd2235dff30ee7e9193"
         fromLinkIds:
           []
       policy:
         triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
         checks:
+          - "aicr-training-images-pinned"
+          - "aicr-training-secret-refs"
           - "digest-pinned-images"
           - "lifecycle-route-evidence"
           - "probes-declared"
           - "vet-placeholders"
           - "vet-schemas"
+          - "workload-sensitive-env-secret-refs"
       pendingUpstreamChanges: 0
   change:
     resource: "apps/v1 Deployment/nginx"

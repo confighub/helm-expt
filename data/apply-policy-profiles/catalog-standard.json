@@ -32,6 +32,12 @@
           "trigger": "platform/aicr-training-secret-refs"
         },
         {
+          "effect": "block",
+          "id": "workload-sensitive-env-secret-refs",
+          "reason": "Do not apply a supported Kubernetes workload that puts a password, token, API key, or secret key directly in an environment variable.",
+          "trigger": "platform/workload-sensitive-env-secret-refs"
+        },
+        {
           "effect": "warn",
           "id": "aicr-training-images-pinned",
           "reason": "Report AICR training images that can change without a configuration revision.",
@@ -58,7 +64,7 @@
       ],
       "displayName": "Catalog checks and approval before apply",
       "filter": "platform/helm-catalog-prod-gates",
-      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'",
+      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'",
       "spaceSelector": {
         "anyOf": [
           {
@@ -103,6 +109,12 @@
           "trigger": "platform/aicr-training-secret-refs"
         },
         {
+          "effect": "block",
+          "id": "workload-sensitive-env-secret-refs",
+          "reason": "Do not apply a supported Kubernetes workload that puts a password, token, API key, or secret key directly in an environment variable.",
+          "trigger": "platform/workload-sensitive-env-secret-refs"
+        },
+        {
           "effect": "warn",
           "id": "aicr-training-images-pinned",
           "reason": "Report AICR training images that can change without a configuration revision.",
@@ -123,7 +135,7 @@
       ],
       "displayName": "Catalog checks before apply",
       "filter": "platform/helm-catalog-checks",
-      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'",
+      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas|workload-sensitive-env-secret-refs)$'",
       "spaceSelector": {
         "labels": {
           "ApplyPolicyProfile": "catalog-standard"
@@ -160,11 +172,11 @@
       "Every supported configuration source type is named by this profile.",
       "Every live policy-covered Space records its SourceType, and the live receipt includes at least one Space for each maintained source type.",
       "Every Trigger is defined here with a human name, function, arguments, effect, and repair-oriented description.",
-      "The baseline filter selects exactly the seven baseline triggers and never selects require-approval.",
-      "The approval-required filter selects the same seven baseline triggers plus require-approval.",
+      "The baseline filter selects exactly the eight baseline triggers and never selects require-approval.",
+      "The approval-required filter selects the same eight baseline triggers plus require-approval.",
       "Production and system-configuration Spaces receive the approval-required filter.",
       "Other non-production Spaces remain on the baseline filter.",
-      "A Space must not lose the seven baseline checks when approval is added.",
+      "A Space must not lose the eight baseline checks when approval is added.",
       "The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.",
       "The platform Space stores the Trigger definitions but does not apply them to its own administrative Units."
     ],
@@ -242,6 +254,21 @@
         "arguments": [
           {
             "name": "expression",
+            "value": "!has(r.kind) || !(r.kind in [\"Pod\", \"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\", \"CronJob\"]) || (r.kind == \"Pod\" && has(r.spec) && (!has(r.spec.containers) || r.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.initContainers) || r.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.ephemeralContainers) || r.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\")))) || (r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\"] && has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && (!has(r.spec.template.spec.containers) || r.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.template.spec.initContainers) || r.spec.template.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.template.spec.ephemeralContainers) || r.spec.template.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\")))) || (r.kind == \"CronJob\" && has(r.spec) && has(r.spec.jobTemplate) && has(r.spec.jobTemplate.spec) && has(r.spec.jobTemplate.spec.template) && has(r.spec.jobTemplate.spec.template.spec) && (!has(r.spec.jobTemplate.spec.template.spec.containers) || r.spec.jobTemplate.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.jobTemplate.spec.template.spec.initContainers) || r.spec.jobTemplate.spec.template.spec.initContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))) && (!has(r.spec.jobTemplate.spec.template.spec.ephemeralContainers) || r.spec.jobTemplate.spec.template.spec.ephemeralContainers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || !e.name.matches(\"(?i)^(PASSWORD|TOKEN|API_KEY|SECRET_KEY|.+_(PASSWORD|TOKEN|API_KEY|SECRET_KEY))$\") || !has(e.value) || e.value == \"\"))))"
+          }
+        ],
+        "description": "This catalog apply gate blocks supported Kubernetes workloads that put a non-empty password, token, API key, or secret key directly in a container environment variable. Remove the literal value and refer to a Kubernetes Secret instead. The gate covers Pods, Deployments, StatefulSets, DaemonSets, ReplicaSets, Jobs, and CronJobs, including init and ephemeral containers.",
+        "displayName": "Block apply - credential values must use Secrets",
+        "effect": "block",
+        "event": "Mutation",
+        "functionName": "vet-cel",
+        "ref": "platform/workload-sensitive-env-secret-refs",
+        "toolchain": "Kubernetes/YAML"
+      },
+      {
+        "arguments": [
+          {
+            "name": "expression",
             "value": "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe)))"
           }
         ],
@@ -299,9 +326,9 @@
       "scripts/sync-helm-org.mjs",
       "scripts/run-config-catalog-policy-proof.mjs"
     ],
-    "lastRecorded": "2026-08-23",
+    "lastRecorded": "2026-08-24",
     "limits": [
-      "The live topology receipt proves Trigger definitions, filter definitions, and assigned Spaces. The functional receipt uses exact temporary fixtures to prove three blocking checks and two warning-only checks at the dry-run apply boundary.",
+      "The live topology receipt proves Trigger definitions, filter definitions, and assigned Spaces. The functional receipt uses exact temporary fixtures to prove four blocking checks and two warning-only checks through authoritative Unit gate state.",
       "The AI change review receipt proves the two AICR checks against one ClusterTrainingRuntime shape. A target-specific node limit remains a repository check because this profile does not yet read a target-capacity fact.",
       "The Hooks and CRDs App receipt separately proves that an unsupported automatic lifecycle route is blocked.",
       "The builder rewires production and system-configuration Spaces explicitly because cub variant create copies the template TriggerFilterID."

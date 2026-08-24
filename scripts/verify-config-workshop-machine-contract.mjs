@@ -133,7 +133,7 @@ for (const term of ["Config Workshop agent skill", ".well-known/agent-skills/con
 check(agentSkill.includes("Promote my config"), "published agent skill must include the promotion task");
 check(agentSkill.includes("Never print Secret values"), "published agent skill must include the Secret boundary");
 check(agentSkillIndex.skills?.some((item) => item.name === "config-workshop"), "agent discovery index must list config-workshop");
-for (const term of ["Choose a question", "WORKSHOP FINDING", "Only completed checks count as evidence", "review.schema.json", "workshop-result.schema.json", "Propose this public case", "Run the shared checks on your machine", "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.1 --name scan", "cub check --format json --output cub-check.json ./rendered", "stable finding IDs", "Add the result from <code>cub check</code>", "accepts it only when its object count and object-set hash match", "Local findings remain advisory"]) {
+for (const term of ["Choose a question", "WORKSHOP FINDING", "Only completed checks count as evidence", "review.schema.json", "workshop-result.schema.json", "Propose this public case", "Run the shared checks on your machine", "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan", "cub check --format json --output cub-check.json ./rendered", "stable finding IDs", "Add the result from <code>cub check</code>", "accepts it only when its object count and object-set hash match", "Local findings remain advisory"]) {
   check(ask.includes(term), `site/ask.html must expose the question-first contract: ${term}`);
 }
 for (const term of ["Run shared local checks", "cub check --format json --output cub-check.json ./rendered", "local and advisory"]) {

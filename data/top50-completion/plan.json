@@ -390,7 +390,7 @@
         "id": "T22",
         "name": "Block unsafe configuration and require approval at high-risk boundaries",
         "next": "Add resource-aware field checks for more custom-resource APIs without weakening the common policy or making ordinary warnings blocking.",
-        "outcome": "Every policy-covered Space receives the seven common checks. Production releases and system configuration also require approval, while ordinary development and staging workloads do not.",
+        "outcome": "Every policy-covered Space receives the eight common checks. Production releases and system configuration also require approval, while ordinary development and staging workloads do not.",
         "status": "available",
         "verify": [
           "npm run config-catalog:policy:verify",

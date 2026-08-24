@@ -556,7 +556,7 @@ function inspectLive() {
     .sort();
   check(
     sameSet(triggerSlugs, expectedCheckSlugs),
-    "live Space does not select the five catalog-standard checks",
+    "live Space does not select the catalog-standard checks",
   );
   return {
     space,

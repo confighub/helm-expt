@@ -30,13 +30,13 @@ const cubCheckDocument = {
   findings: [{ id: "CCVE-TEST-1" }, { id: "CCVE-TEST-2" }],
   provenance: {
     source: "cub-scan",
-    source_version: "v0.7.1",
+    source_version: "v0.7.3",
     scan_time: "2026-08-24T13:00:00Z",
     catalog_version: "risk-catalog-v1.json@7d47e57df947",
   },
   pattern_bundle: {
     schema_version: "bundle-manifest-v1",
-    version: "v0.7.1",
+    version: "v0.7.3",
     source_repo: "confighubai/confighub-scan",
     manifest_sha256: "a".repeat(64),
     catalog_sha256: "b".repeat(64),

@@ -98,7 +98,7 @@ For shared local misconfiguration checks, install the released check plugin and
 run it against the materialized files:
 
 ```sh
-cub plugin install confighub/homebrew-tap@cub-scan-v0.7.1 --name scan
+cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json ./rendered
 ```
 

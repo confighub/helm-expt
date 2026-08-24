@@ -885,7 +885,7 @@ The maintained profile is
 The live `helm-catalog` filters and Space assignments were checked on 30 July 2026.
 The result is recorded in
 [data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
-33 Spaces use the seven common checks and nine Spaces use those checks plus approval:
+33 Spaces use the eight common checks and nine Spaces use those checks plus approval:
 four production Spaces and five system-configuration Spaces. Run
 `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
@@ -899,11 +899,12 @@ source type has no live example.
 The topology receipt says which checks are connected. The
 [functional policy proof](../../data/apply-policy-functional-proof/summary.md)
 shows what they did with temporary records. ConfigHub blocked an unresolved
-placeholder, invalid Kubernetes data, and unapproved system configuration. It
-reported an unpinned image and missing health probes as warnings and still allowed
-the dry-run apply. The system-configuration fixture was then approved at its exact
-head revision, the approval gate cleared, and the same dry run was allowed. No
-fixture configuration was applied to Kubernetes.
+placeholder, invalid Kubernetes data, a literal credential environment value,
+and unapproved system configuration. The Secret-backed environment variable had
+no credential gate. ConfigHub reported an unpinned image and missing health probes
+as warnings without adding an ApplyGate. The system-configuration fixture was then
+approved at its exact head revision and its approval gate cleared. No fixture
+configuration was delivered to Kubernetes.
 
 ## ConfigHub Apps
 
