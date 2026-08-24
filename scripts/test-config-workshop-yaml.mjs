@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import vm from "node:vm";
 
 import { check, repoRoot } from "./lib/proof-common.mjs";
@@ -12,6 +13,65 @@ vm.runInContext(readFileSync(join(repoRoot, "scripts/site/config-workshop-yaml.j
 
 const tools = context.ConfigWorkshopYaml;
 check(tools, "browser YAML tools did not load");
+
+const scannerCandidateText = readFileSync(join(repoRoot, "testdata/config-workshop/cub-check-candidate.yaml"), "utf8");
+const scannerCandidate = tools.parseObjectSet(scannerCandidateText, "cub-check-candidate.yaml");
+const scannerIdentityPayload = tools.scannerObjectSetPayload(scannerCandidate);
+const scannerObjectSetSha256 = "sha256:" + createHash("sha256").update(scannerIdentityPayload.payload).digest("hex");
+check(scannerIdentityPayload.objectCount === 2, "scanner-compatible object count changed");
+check(
+  scannerObjectSetSha256 === "sha256:85539e2681fc7cf865b6f50663daf84a19f28202df0ee6c2aa2c78927df448be",
+  "browser object-set digest differs from the released scanner",
+);
+const cubCheckDocument = {
+  schema_version: "risk-scan-findings-v1",
+  surface: "cub-scan",
+  finding_count: 2,
+  findings: [{ id: "CCVE-TEST-1" }, { id: "CCVE-TEST-2" }],
+  provenance: {
+    source: "cub-scan",
+    source_version: "v0.7.1",
+    scan_time: "2026-08-24T13:00:00Z",
+    catalog_version: "risk-catalog-v1.json@7d47e57df947",
+  },
+  pattern_bundle: {
+    schema_version: "bundle-manifest-v1",
+    version: "v0.7.1",
+    source_repo: "confighubai/confighub-scan",
+    manifest_sha256: "a".repeat(64),
+    catalog_sha256: "b".repeat(64),
+  },
+  input: {
+    object_count: scannerIdentityPayload.objectCount,
+    object_set_sha256: scannerObjectSetSha256,
+  },
+};
+const cubCheckReceipt = tools.validateCubCheckReceipt(cubCheckDocument, {
+  objectCount: scannerIdentityPayload.objectCount,
+  objectSetSha256: scannerObjectSetSha256,
+});
+check(cubCheckReceipt.authority === "local-advisory", "local scanner result gained managed authority");
+check(cubCheckReceipt.findingIds.join(",") === "CCVE-TEST-1,CCVE-TEST-2", "stable scanner finding IDs were not retained");
+const changedScannerCandidate = tools.parseObjectSet(scannerCandidateText.replace("replicas: 2", "replicas: 3"), "cub-check-candidate.yaml");
+const changedPayload = tools.scannerObjectSetPayload(changedScannerCandidate);
+const changedSha256 = "sha256:" + createHash("sha256").update(changedPayload.payload).digest("hex");
+let mismatchRejected = false;
+try {
+  tools.validateCubCheckReceipt(cubCheckDocument, { objectCount: changedPayload.objectCount, objectSetSha256: changedSha256 });
+} catch (error) {
+  mismatchRejected = String(error.message).includes("does not describe the candidate objects");
+}
+check(mismatchRejected, "a cub check result for different objects was accepted");
+let missingBundleRejected = false;
+try {
+  tools.validateCubCheckReceipt({ ...cubCheckDocument, pattern_bundle: undefined }, {
+    objectCount: scannerIdentityPayload.objectCount,
+    objectSetSha256: scannerObjectSetSha256,
+  });
+} catch (error) {
+  missingBundleRejected = String(error.message).includes("pattern bundle identity");
+}
+check(missingBundleRejected, "a cub check result without pinned pattern identity was accepted");
 
 const deployment = (replicas, image, secret = "") => `apiVersion: apps/v1
 kind: Deployment

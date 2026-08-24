@@ -450,11 +450,11 @@
     <article class="doc-body">
 
 <p>Open <a href="https://confighub.github.io/helm-expt/site/ask.html">Check my config</a> and choose one of two starts:</p>
-<ol><li>Select <b>See the complete example</b>. The page loads a small AI-written NGINX candidate and a safer comparison, runs the browser checks, and shows the finished result.</li><li>Add your own rendered Kubernetes YAML. You may also add a comparison and a Catalog source and intent record.</li></ol>
+<ol><li>Select <b>See the complete example</b>. The page loads a small AI-written NGINX candidate and a safer comparison, runs the browser checks, and shows the finished result.</li><li>Add your own rendered Kubernetes YAML. You may also add a comparison and a Catalog source and intent record. If you ran <code>cub check</code>, add its JSON result too.</li></ol>
 <h2 id="what-the-browser-does">What the browser does</h2>
 <p>The page:</p>
-<ul><li>parses the Kubernetes YAML;</li><li>lists the exact object identities;</li><li>compares object contents without treating formatting changes as real changes;</li><li>checks a short list of manifest risks;</li><li>adds known hooks, CRDs, and prerequisites when you supplied a Catalog record;</li><li>records every check that did not run; and</li><li>creates <code>workshop-result.json</code>.</li></ul>
-<p>The complete result contains the candidate YAML, optional comparison, optional source and intent record, browser review, and SHA-256 hash for every file. You can keep it locally or give it to Claude, Codex, another AI assistant, or CI. The separate YAML and review downloads remain available when a tool expects ordinary files.</p>
+<ul><li>parses the Kubernetes YAML;</li><li>lists the exact object identities;</li><li>compares object contents without treating formatting changes as real changes;</li><li>checks a short list of manifest risks;</li><li>adds known hooks, CRDs, and prerequisites when you supplied a Catalog record;</li><li>accepts <code>cub-check.json</code> only when its object count and canonical object-set hash match the candidate;</li><li>records every check that did not run; and</li><li>creates <code>workshop-result.json</code>.</li></ul>
+<p>The complete result contains the candidate YAML, optional comparison, optional source and intent record, browser review, matching local check result, and SHA-256 hash for every file. You can keep it locally or give it to Claude, Codex, another AI assistant, or CI. The separate YAML and review downloads remain available when a tool expects ordinary files.</p>
 <h2 id="what-stays-on-your-machine">What stays on your machine</h2>
 <p>The static website does not:</p>
 <ul><li>render an arbitrary Helm chart or AICR recipe;</li><li>pull an arbitrary OCI package;</li><li>contact Git, ConfigHub, or Kubernetes;</li><li>run schema or admission checks;</li><li>execute hooks or establish CRDs; or</li><li>test workload health, migrations, or external services.</li></ul>
@@ -463,6 +463,7 @@
 <p>The browser result is useful without ConfigHub.</p>
 <ol><li>Keep <code>workshop-result.json</code> with your change.</li><li>Publish the reviewed Kubernetes objects as OCI for Argo CD, Flux, or another consumer.</li><li>Retain the candidate and review in ConfigHub when a team needs shared history, variants, approval, promotion, release OCI, or live comparison.</li></ol>
 <p>The page generates the ConfigHub commands and a prompt for the AI assistant you already use. Signing in is an optional operating choice, not a requirement for the browser check.</p>
+<p>The generated commands keep a matching <code>cub check</code> result as a non-deployable evidence Unit beside the reviewed objects. That local result remains advisory. ConfigHub validation and apply gates are separate checks against the retained revision.</p>
 <p>The result format is defined by the <a href="../../../../schemas/config-workshop-result.schema.json">WorkshopResult schema</a>. The individual review inside it follows the <a href="../../../../schemas/config-workshop-review.schema.json">ConfigurationReview schema</a>.</p>
     </article>
   </main>

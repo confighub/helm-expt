@@ -286,8 +286,10 @@ The user-facing command structure should describe jobs:
 | Read desired and live state | `cub k8s` and `cub scout` |
 
 `cub check` describes the user's problem rather than the Catalog that helps
-answer it. Its local scanner result is now released. The wider WorkshopResult
-composition and ConfigHub handoff still need product agreement. Every report
+answer it. Its local scanner result is released. The browser now accepts the
+result only for the exact matching object set, keeps its version, pattern-bundle
+identity, and stable finding IDs in `WorkshopResult`, and carries it into the
+ConfigHub handoff as non-deployable advisory evidence. Every report
 must separate:
 
 ```text
@@ -395,10 +397,10 @@ unsafe candidate
 3. Add **Keep this checked result in ConfigHub** only where the user's exact
    result can continue.
 4. Preserve the source and reviewed digest across the handoff.
-5. Compose the released `cub check` result into WorkshopResult without losing
-   its scanner version, pattern-bundle identity, finding IDs, or object digest.
-6. Preserve the distinction between local advisory findings and ConfigHub's
-   revision-bound validation and approval results.
+5. Keep the completed `cub check` to WorkshopResult composition covered by the
+   browser self-test and public schemas.
+6. Keep local advisory findings visibly separate from ConfigHub's revision-bound
+   validation and approval results.
 7. Keep `cub installer` visible in technical package documentation, but describe
    the customer action rather than leading with the engine name.
 8. Remove references to the retired top-level install alias and delete local

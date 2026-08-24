@@ -11,7 +11,8 @@ choose one of two starts:
    NGINX candidate and a safer comparison, runs the browser checks, and shows
    the finished result.
 2. Add your own rendered Kubernetes YAML. You may also add a comparison and a
-   Catalog source and intent record.
+   Catalog source and intent record. If you ran `cub check`, add its JSON result
+   too.
 
 ## What the browser does
 
@@ -22,12 +23,15 @@ The page:
 - compares object contents without treating formatting changes as real changes;
 - checks a short list of manifest risks;
 - adds known hooks, CRDs, and prerequisites when you supplied a Catalog record;
+- accepts `cub-check.json` only when its object count and canonical object-set
+  hash match the candidate;
 - records every check that did not run; and
 - creates `workshop-result.json`.
 
 The complete result contains the candidate YAML, optional comparison, optional
-source and intent record, browser review, and SHA-256 hash for every file. You
-can keep it locally or give it to Claude, Codex, another AI assistant, or CI.
+source and intent record, browser review, matching local check result, and
+SHA-256 hash for every file. You can keep it locally or give it to Claude,
+Codex, another AI assistant, or CI.
 The separate YAML and review downloads remain available when a tool expects
 ordinary files.
 
@@ -59,6 +63,11 @@ The browser result is useful without ConfigHub.
 The page generates the ConfigHub commands and a prompt for the AI assistant you
 already use. Signing in is an optional operating choice, not a requirement for
 the browser check.
+
+The generated commands keep a matching `cub check` result as a non-deployable
+evidence Unit beside the reviewed objects. That local result remains advisory.
+ConfigHub validation and apply gates are separate checks against the retained
+revision.
 
 The result format is defined by the
 [WorkshopResult schema](../../schemas/config-workshop-result.schema.json).

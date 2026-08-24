@@ -58,7 +58,7 @@ Compare with:
 After a source has produced Kubernetes YAML, run the shared checker locally:
 
 ```sh
-cub plugin install confighub/homebrew-tap@cub-scan-v0.7.0 --name scan
+cub plugin install confighub/homebrew-tap@cub-scan-v0.7.1 --name scan
 cub check --format json --output cub-check.json ./rendered
 ```
 

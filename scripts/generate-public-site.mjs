@@ -217,7 +217,7 @@ const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/instal
 const INSTALLER_PLUGIN_INSTALL_COMMAND =
   "cub plugin install confighub/installer";
 const CHECK_PLUGIN_INSTALL_COMMAND =
-  "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.0 --name scan";
+  "cub plugin install confighub/homebrew-tap@cub-scan-v0.7.1 --name scan";
 const CHECK_RENDERED_FILES_COMMAND =
   "cub check --format json --output cub-check.json ./rendered";
 const KUSTOMIZE_INSTALL_URL =
@@ -4881,6 +4881,13 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
           <p><input id="check-source-record-file" type="file" accept=".json,.yaml,.yml,application/json,text/yaml"></p>
           <textarea id="check-source-record" rows="8" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste a Catalog BaseVariantRecord as JSON or YAML."></textarea>
         </details>
+        <details style="margin:18px 0">
+          <summary><strong>Add the result from <code>cub check</code></strong> <span style="color:var(--muted);font-weight:400">(optional)</span></summary>
+          <p>Run the shared checks on the same candidate files, then add <code>cub-check.json</code>. The page accepts it only when its object count and object-set hash match these exact objects. The result remains local advisory evidence; ConfigHub validation is a separate managed check.</p>
+          <p><input id="cub-check-file" type="file" accept=".json,application/json"></p>
+          <textarea id="cub-check-result" rows="8" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste cub-check.json here."></textarea>
+          <p id="cub-check-status" role="status" style="color:var(--muted)">You can add a local check result for this candidate.</p>
+        </details>
         <p><label for="assistant-finding"><strong>Assistant's WORKSHOP FINDING</strong> <span style="color:var(--muted)">(optional)</span></label><br>
           <textarea id="assistant-finding" rows="10" style="width:100%;padding:10px;margin-top:6px" placeholder="Paste the final WORKSHOP FINDING block here."></textarea></p>
         <button class="button primary" id="run-browser-check" type="button">Check these objects</button>
@@ -4895,7 +4902,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p>This browser check does not search the Catalog automatically. Find a matching chart record, then add its source and intent record above when you want the result to include known prerequisites and lifecycle work.</p>
       <p><a class="button secondary" id="catalog-lookup" href="./charts/index.html">Find matching Catalog records</a></p>
       <h3>Download one complete result</h3>
-      <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
+      <p><code>workshop-result.json</code> contains the exact candidate YAML, optional comparison and Catalog record, the browser review, any matching <code>cub check</code> result, and every file hash. Keep it locally or give it to the AI and CI tools you already use.</p>
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
       <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
       <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
@@ -4914,7 +4921,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p><a href="./review.schema.json">Read the ConfigurationReview schema</a>.</p>
 
       <h3>Keep this reviewed result in ConfigHub</h3>
-      <p>ConfigHub stores the exact Kubernetes objects you approved. It keeps the review record beside them without adding that record to a deployment release.</p>
+      <p>ConfigHub stores the exact Kubernetes objects you approved. It keeps the review record and any matching local check result beside them without adding those evidence files to a deployment release. Local findings remain advisory; ConfigHub records its own validation against the stored revision.</p>
       <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code>. The upload records this hash and the review hash on the saved configuration.</p>
       <p>If the candidate contains a Kubernetes Secret, stage that Secret separately. <code>cub variant upload</code> deliberately does not upload rendered Secret data.</p>
       <p><label for="component-slug"><strong>Component name</strong></label><br>

@@ -180,6 +180,13 @@ receipts currently use the helm-expt rendered-object scanner. They are not autom
 page and receipt must continue to name the scanner, policy or bundle identity, object
 digest, result, and date rather than using the generic word "scanned."
 
+The browser Workshop now accepts a released `cub check` result only when its
+canonical object-set digest matches the candidate. It retains the scanner version,
+pattern-bundle identity, stable finding IDs, raw result, and file hash in the
+`WorkshopResult`. The ConfigHub handoff stores that result as non-deployable evidence
+beside the accepted revision. It does not rename the local result as managed
+validation.
+
 The next integration should preserve the same user journey:
 
 1. Map existing Catalog warnings and checks to stable pattern and control IDs.

@@ -69,6 +69,8 @@
   let latestReviewDigest = "";
   let latestWorkshopResultJson = "";
   let latestWorkshopResultDigest = "";
+  let latestCubCheckJson = "";
+  let latestCubCheckDigest = "";
 
   function selectedQuestion() {
     return questions[byId("question-type").value];
@@ -319,6 +321,27 @@
     return "sha256:" + [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
   }
 
+  async function matchedCubCheck(candidate) {
+    const text = byId("cub-check-result").value.trim();
+    if (!text) return null;
+    let document;
+    try {
+      document = JSON.parse(text);
+    } catch {
+      throw new Error("cub-check.json is not valid JSON.");
+    }
+    const identity = yamlTools.scannerObjectSetPayload(candidate);
+    const expectedInput = {
+      objectCount: identity.objectCount,
+      objectSetSha256: await sha256(identity.payload),
+    };
+    return {
+      text,
+      digest: await sha256(text),
+      receipt: yamlTools.validateCubCheckReceipt(document, expectedInput),
+    };
+  }
+
   function objectSetRecord(objectSet, digest) {
     return {
       name: objectSet.name,
@@ -408,6 +431,7 @@
     const findings = inspectObjects(candidate);
     const sourceRecord = parseSourceRecord();
     const lifecycle = yamlTools.lifecycleFromRecord(sourceRecord, candidate);
+    const cubCheck = await matchedCubCheck(candidate);
     const candidateDigest = await sha256(candidateText);
     const comparisonDigest = comparisonSet ? await sha256(comparisonText) : "";
     const code = byId("question-type").value;
@@ -449,6 +473,7 @@
           method: "config-workshop-browser-static-v2",
           scope: "Parsed object inventory, selected manifest checks, semantic object comparison, and Catalog lifecycle indexing in this browser.",
           findings,
+          advisoryReceipts: cubCheck ? [cubCheck.receipt] : [],
           notChecked: [
             "Helm template execution and values provenance",
             "Kubernetes schema and admission behavior",
@@ -466,6 +491,8 @@
     latestReviewJson = JSON.stringify(latestReview, null, 2) + "\n";
     latestReviewDigest = await sha256(latestReviewJson);
     latestCandidate = candidateText;
+    latestCubCheckJson = cubCheck?.text || "";
+    latestCubCheckDigest = cubCheck?.digest || "";
     const sourceRecordText = byId("check-source-record").value.trim();
     const resultFiles = [
       { path: "candidate.yaml", mediaType: "application/yaml", sha256: candidateDigest, content: candidateText },
@@ -483,6 +510,12 @@
       sha256: await sha256(sourceRecordText),
       content: sourceRecordText,
     });
+    if (cubCheck) resultFiles.splice(resultFiles.length - 1, 0, {
+      path: "cub-check.json",
+      mediaType: "application/json",
+      sha256: cubCheck.digest,
+      content: cubCheck.text,
+    });
     const workshopResult = {
       apiVersion: "workshop.confighub.com/v1alpha1",
       kind: "WorkshopResult",
@@ -497,8 +530,10 @@
             "selected static manifest checks",
             ...(comparisonText ? ["semantic comparison with the supplied object set"] : []),
             ...(sourceRecordText ? ["Catalog lifecycle indexing from the supplied source and intent record"] : []),
+            ...(cubCheck ? ["shared local configuration checks from a matching cub check receipt"] : []),
           ],
           notRun: latestReview.spec.checks.notChecked,
+          advisoryReceipts: cubCheck ? [cubCheck.receipt] : [],
         },
         next: {
           local: "Keep this file, extract its exact files for your own AI or CI, or publish the reviewed candidate as OCI with local tools.",
@@ -512,7 +547,13 @@
       "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; <code style=\"overflow-wrap:anywhere;word-break:break-all\">" + escapeHtml(candidateDigest) + "</code></p>" +
       comparisonSummary(comparison) +
       "<h3>Findings to review</h3>" + findingList(findings) +
+      (cubCheck
+        ? "<p><strong>Matched local check:</strong> <code>cub check " + escapeHtml(cubCheck.receipt.version) + "</code> recorded " + cubCheck.receipt.findingCount + " finding(s) for this exact " + cubCheck.receipt.input.objectCount + "-object set. This is local advisory evidence, not ConfigHub validation.</p>"
+        : "<p><strong>Shared local checks:</strong> no <code>cub-check.json</code> was supplied.</p>") +
       "<p><strong>Not checked:</strong> Helm rendering, schema and admission behavior, lifecycle execution, live health, and external effects.</p>";
+    byId("cub-check-status").textContent = cubCheck
+      ? "Matched " + cubCheck.receipt.tool + " " + cubCheck.receipt.version + " to these exact objects."
+      : "You can add a local check result for this candidate.";
     renderList("check-lifecycle-work", lifecycleLines(lifecycle));
     byId("review-record-output").value = latestReviewJson;
     byId("workshop-result-output").value = latestWorkshopResultJson;
@@ -535,6 +576,7 @@
     try {
       await runBrowserCheckUnsafe();
     } catch (error) {
+      byId("cub-check-status").textContent = error.message;
       window.alert("Could not check these files: " + error.message);
     }
   }
@@ -544,6 +586,7 @@
     const component = safeSlug(byId("component-slug").value || latestReview.spec.source.identity);
     const space = component + "-reviewed";
     const reviewUnit = "review-" + latestReviewDigest.slice(7, 19);
+    const scanUnit = latestCubCheckDigest ? "local-check-" + latestCubCheckDigest.slice(7, 19) : "";
     const command = [
       "# Keep the reviewed objects and review record together in ConfigHub.",
       "cub auth login",
@@ -555,12 +598,24 @@
       "  --change-desc \"Config Workshop " + latestReview.metadata.id + "\" \\",
       "  --annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
       "  --annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
+      ...(latestReview.spec.checks.advisoryReceipts.length
+        ? ["  --annotation workshop.confighub.com/local-check-object-set-sha256=" + latestReview.spec.checks.advisoryReceipts[0].input.objectSetSha256 + " \\"]
+        : []),
       "  ./candidate.yaml",
       "",
       "# Provider None keeps this evidence Unit out of deployment releases.",
       "cub unit create --space " + space + " --allow-exists \\",
       "  --provider None --toolchain AppConfig/YAML \\",
       "  " + reviewUnit + " ./workshop-review.json",
+      ...(scanUnit
+        ? [
+            "",
+            "# This preserves the matching local advisory receipt; ConfigHub validation remains separate.",
+            "cub unit create --space " + space + " --allow-exists \\",
+            "  --provider None --toolchain AppConfig/YAML \\",
+            "  " + scanUnit + " ./cub-check.json",
+          ]
+        : []),
     ].join("\n");
     byId("handoff-command").value = command;
     buildAiHandoffPrompt();
@@ -577,12 +632,13 @@
       "The current directory contains:",
       "- candidate.yaml: the exact Kubernetes objects I accepted",
       "- workshop-review.json: the browser review record",
+      ...(latestCubCheckJson ? ["- cub-check.json: the matching local advisory result from cub check"] : []),
       "- workshop-result.json, when present: the complete browser-local bundle containing those files and their hashes",
       "",
       "Do this:",
       "1. Read candidate.yaml and workshop-review.json through the workspace you already have open. If only workshop-result.json is present, extract those exact file contents from spec.files first and verify their recorded hashes. Treat them as private unless workshop-review.json explicitly says the source is public. Do not disclose them through another service or a public issue.",
       "2. Calculate the SHA-256 of candidate.yaml and confirm that it matches spec.candidate.sha256 in workshop-review.json. The expected SHA-256 of workshop-review.json is " + latestReviewDigest + ". Stop if either digest differs.",
-      "3. Summarize the recorded findings and the checks listed under spec.checks.notChecked. Do not describe an omitted check as passed.",
+      "3. Summarize the recorded findings, any spec.checks.advisoryReceipts, and the checks listed under spec.checks.notChecked. A cub check receipt is local advisory evidence; do not call it ConfigHub validation or describe an omitted check as passed.",
       "4. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
       "5. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
       "6. Show me the exact ConfigHub commands below and ask for approval before running them.",
@@ -674,6 +730,7 @@
   byId("candidate-file").addEventListener("change", () => loadFile(byId("candidate-file"), "candidate-yaml", "candidate-name"));
   byId("comparison-file").addEventListener("change", () => loadFile(byId("comparison-file"), "comparison-yaml", "comparison-name"));
   byId("check-source-record-file").addEventListener("change", () => loadFile(byId("check-source-record-file"), "check-source-record", ""));
+  byId("cub-check-file").addEventListener("change", () => loadFile(byId("cub-check-file"), "cub-check-result", ""));
   byId("run-browser-check").addEventListener("click", runBrowserCheck);
   byId("component-slug").addEventListener("input", buildHandoffCommands);
   byId("download-workshop-result").addEventListener("click", () => latestWorkshopResultJson && download("workshop-result.json", latestWorkshopResultJson, "application/json"));
