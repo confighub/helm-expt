@@ -53,6 +53,20 @@ Compare with:
 - the user's current environment, when supplied;
 - the proposed destination, when supplied.
 
+## Shared local checks
+
+After a source has produced Kubernetes YAML, run the shared checker locally:
+
+```sh
+cub plugin install confighub/homebrew-tap@cub-scan-v0.7.0 --name scan
+cub check --format json --output cub-check.json ./rendered
+```
+
+The plugin uses the same scanner engine and pinned pattern bundle as the
+standalone `cub-scan` command. Keep the JSON result with the exact object-set
+digest. It is advisory and does not apply files, authorize a ConfigHub change,
+or prove target-specific behavior.
+
 ## Promotion review
 
 Require both current and proposed object sets. Report:

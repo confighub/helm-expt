@@ -94,6 +94,18 @@ as pass, warning, failure, or not run, with its scope. A clean static scan does
 not prove cluster admission, controller convergence, workload health, upgrade,
 or rollback.
 
+For shared local misconfiguration checks, install the released check plugin and
+run it against the materialized files:
+
+```sh
+cub plugin install confighub/homebrew-tap@cub-scan-v0.7.0 --name scan
+cub check --format json --output cub-check.json ./rendered
+```
+
+Keep `cub-check.json` with the object-set digest. This is advisory evidence. It
+does not authorize an apply or replace destination, admission, lifecycle,
+runtime, upgrade, rollback, or live-state checks.
+
 ## Produce A Reviewed Result
 
 Return:

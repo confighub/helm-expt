@@ -457,6 +457,10 @@
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0 --base http-clusterip --work-dir .tmp/demo/bitnami-nginx-25-0-0-http-clusterip --non-interactive</code></pre>
+      <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
+      <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.0 --name scan
+cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
+      <p>The check is advisory and does not apply anything.</p>
       <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0</code></p>
       <p>The same pull, pinned so a republished tag cannot change what you get:</p>
       <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx@sha256:9965016714ddf56dd47a3e8705c06d42a25defd1aa57474e5939c04fc600ece9 --base http-clusterip --work-dir .tmp/demo/bitnami-nginx-25-0-0-http-clusterip --non-interactive</code></pre>
