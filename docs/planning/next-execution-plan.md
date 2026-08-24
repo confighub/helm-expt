@@ -92,6 +92,114 @@ The public call to action must depend on context:
 - **Keep this checked result in ConfigHub** retains the user's real objects and
   digest. It must not replace them with the tutorial sample.
 
+## Website And CLI Are One Workflow
+
+The website and `cub` must expose the same substantive jobs. A user may start in
+the browser and continue in a terminal, or start with an AI using the CLI and
+open the corresponding human explanation. The source identity, exact objects,
+digest, findings, limits, and next step must remain the same.
+
+| User question | Website path | CLI path | Shared result |
+| --- | --- | --- | --- |
+| I need a configuration. | Describe the need or choose a maintained starting configuration. | Discover or receive the same source reference, then process it through the applicable source plugin or package engine. | Source, version, selected configuration, requirements, and evidence links. |
+| I have a configuration. Is it right? | Upload or paste rendered YAML, compare it, run bounded checks, and download the result. | Use the applicable source command and local scanner; the leading common entry proposal is `cub check`. | Exact objects, object-set digest, comparison, findings, checks not run, and files or OCI. |
+| I have an accepted configuration. Can I promote it? | Compare the candidate with its destination, inspect checks, and continue into ConfigHub when a managed promotion is selected. | Use `cub variant create` and `cub variant promote`, followed by release and observation commands. | Candidate revision, destination, exact diff, validations, approvals, promotion result, and release identity. |
+
+The cross-surface rules are:
+
+1. Every substantive website action provides a copyable command, API action, or
+   downloadable record that continues the same job.
+2. Every public CLI workflow links to a short website page that explains why it
+   exists, what it changes, what it returns, and what it does not prove.
+3. Browser and CLI results use the same schemas, pattern and control IDs, object
+   digest rules, and checked-versus-not-checked language.
+4. A user can move a browser result to the CLI and a CLI result to ConfigHub
+   without repeating source selection or losing the accepted digest.
+5. Generated website commands are verified against released CLI help. Proposed
+   commands remain labelled as proposed until released.
+6. AI agents use the CLI and machine output; people may use either surface. They
+   are working with the same configuration record.
+
+## Key Scenario: Build An Internal Developer Platform
+
+One complete user request is:
+
+> "I want to use the Catalog, Kubara, and AI to create an internal developer
+> platform for building and running the tools and applications my team creates
+> with AI."
+
+This scenario uses all three main journeys rather than adding another front
+door.
+
+### I need a configuration
+
+The user describes the platform they need: cluster type, environments, GitOps
+tool, ingress, certificates, Secrets, observability, databases, policy, AI
+runtime, custom images, and expected application types.
+
+The Catalog supplies maintained components, exact versions, known
+configurations, requirements, and evidence. AI can help narrow the choices and
+write the native Kubara selection and wiring. Kubara remains the platform
+composer and generates its normal platform tree.
+
+The result includes:
+
+- native Kubara `config.yaml` and reviewed overlays;
+- exact component and image versions;
+- source-and-intent records;
+- generated platform and application-delivery objects;
+- component dependencies and provided services;
+- lifecycle requirements such as CRDs, hooks, certificates, and setup Jobs;
+- a portable Git handoff and target-neutral OCI packages plus platform index.
+
+### I have a configuration. Is it right?
+
+The user reviews the exact generated platform before selecting a ConfigHub
+organization or target. Local tools check source locks, generated paths,
+object inventories, lifecycle work, placeholders, image identities, and the
+provides-and-needs wiring. AI can explain findings and propose a smaller change,
+but the rerun output and digest show what was accepted.
+
+The website must offer the same platform selection as a downloadable native
+Kubara input and a copyable CLI path. The CLI must return the same component
+versions, source record, object inventory, findings, and platform digest that
+the website displays.
+
+### I have an accepted configuration. Can I promote it?
+
+ConfigHub retains the component definitions, effective configurations,
+relationships, target instances, and immutable release identities. Platform
+changes move through development, staging, and production as exact revisions.
+Checks, approvals, lifecycle requirements, rollout results, and rollback limits
+remain attached to those revisions.
+
+Applications remain separate from the platform import. Each application built
+by the team has its own source image and configuration, consumes services the
+platform provides, and follows the same check, retain, variant, promotion,
+release, and observation path. A platform change and an application change can
+therefore be reviewed and promoted independently while their compatibility is
+checked at the destination.
+
+The operating split is:
+
+```text
+Catalog supplies maintained components and evidence.
+AI helps choose, explain, and propose changes.
+Kubara composes and generates the platform.
+ConfigHub retains, compares, validates, and promotes exact revisions.
+Argo CD or Flux reconciles selected release OCI.
+Kubernetes runs the platform and applications.
+```
+
+The current public starter and importer live in
+[`confighub/kubara-confighub`](https://github.com/confighub/kubara-confighub).
+They currently expose native Kubara and `npm`-driven preparation and import
+paths. A simple `cub` entry for this journey is a product gap, not a shipped
+command. The likely direction is a source-specific Kubara plugin that produces
+the common review record and hands retained work to `cub variant` and
+`cub release`. Its exact command names require agreement with the Kubara and
+`cub` maintainers.
+
 ## AI Throughout The Journey
 
 AI is part of each job, not a separate final feature.
@@ -290,6 +398,13 @@ unsafe candidate
    the customer action rather than leading with the engine name.
 8. Remove references to the retired top-level install alias and delete local
    plugin residue that still exposes it.
+9. Add one generated website-to-CLI map for the three main journeys and verify
+   every published command against the released command surface.
+10. Add links from CLI results to the corresponding human explanation and from
+    website results to the exact continuation command.
+11. Agree and implement the smallest `cub` entry for the existing
+    `kubara-confighub` platform starter and importer without replacing Kubara's
+    native configuration model.
 
 ### Phase 4: Test With Users And Agents
 
@@ -304,10 +419,14 @@ unsafe candidate
    - an exact release delivered through Argo CD or Flux and compared with live
      state;
    - a useful public investigation retained as a Catalog answer.
-3. Test both a human driving AI and an AI agent driving `cub` commands.
-4. Measure whether users reach an answer, understand what was not checked, retain
+3. Run the internal developer platform test: use AI and Catalog records to
+   produce native Kubara input, generate and check the exact platform, retain it
+   in ConfigHub, promote one platform change, then add and promote one small
+   application that consumes a declared platform service.
+4. Test both a human driving AI and an AI agent driving `cub` commands.
+5. Measure whether users reach an answer, understand what was not checked, retain
    the result, and complete a promotion without losing the object identity.
-5. Turn repeated failures into product or content changes, not additional prose
+6. Turn repeated failures into product or content changes, not additional prose
    on the same page.
 
 ### Phase 5: Strengthen The Common Foundation
@@ -349,6 +468,11 @@ The next release is successful when a new user can:
 7. See lifecycle and destination requirements before promotion.
 8. Promote and release the exact accepted revision.
 9. See what reached the destination and what remains unknown.
+10. Complete the same job through the website or CLI and move between them
+    without changing the source, selected configuration, or accepted digest.
+11. Build one small internal developer platform from Catalog components and
+    native Kubara input, then promote one platform revision and one application
+    revision independently through ConfigHub.
 
 The short browser tour is successful when a new user can create, inspect, change,
 and compare one sample component without a CLI or cluster and without being sent
