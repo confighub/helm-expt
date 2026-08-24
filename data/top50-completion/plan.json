@@ -91,6 +91,7 @@
         "evidence": [
           "data/lifecycle-routes/summary.md",
           "data/hook-lifecycle/summary.md",
+          "data/kps-confighub-lifecycle-promotion/summary.md",
           "docs/user/target-prerequisites.md"
         ],
         "id": "T05",
@@ -100,7 +101,8 @@
         "status": "partial",
         "verify": [
           "npm run lifecycle:routes:verify",
-          "npm run hooks:lifecycle:verify"
+          "npm run hooks:lifecycle:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -365,16 +367,19 @@
         "area": "ConfigHub records",
         "evidence": [
           "data/byo-helm-values-promotion-proof/summary.md",
-          "runs/aicr-variant-promotion-proof/receipt.yaml"
+          "runs/aicr-variant-promotion-proof/receipt.yaml",
+          "data/measured-promotion-proof/summary.md",
+          "data/kps-confighub-lifecycle-promotion/summary.md"
         ],
         "id": "T21",
         "name": "Promote through development staging and production",
-        "next": "Add production delivery, rollback, and readable dry-run output to the representative promotion paths.",
+        "next": "Add the ordinary product interface and repeat destination preflight, rollback, and live comparison across more chart and target classes.",
         "outcome": "A reviewed revision can move through named environments in order with exact diffs and environment-specific policy.",
         "status": "partial",
         "verify": [
           "npm run byo-helm-values:promotion-verify",
-          "npm run aicr-variant-promotion:verify"
+          "npm run aicr-variant-promotion:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -457,7 +462,8 @@
         "area": "Delivery",
         "evidence": [
           "data/runtime-gitops/summary.md",
-          "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+          "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
+          "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
         ],
         "id": "T26",
         "name": "Deliver reviewed OCI through Argo CD",
@@ -466,7 +472,8 @@
         "status": "available",
         "verify": [
           "npm run runtime-gitops:wave:verify",
-          "npm run oci-deploy-stage-rollout:verify"
+          "npm run oci-deploy-stage-rollout:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -505,6 +512,7 @@
         "area": "Delivery",
         "evidence": [
           "data/live-e2e/summary.md",
+          "runs/kps-confighub-lifecycle-promotion/receipt.yaml",
           "docs/reference/observation-freshness-slo.md"
         ],
         "id": "T29",
@@ -514,7 +522,8 @@
         "status": "partial",
         "verify": [
           "npm run top20:verify-local-e2e",
-          "npm run live-parity:verify"
+          "npm run live-parity:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -617,15 +626,18 @@
         "area": "ConfigHub Apps",
         "evidence": [
           "data/redis-upgrade-app-proof/summary.md",
-          "runs/redis-upgrade-app-proof/receipt.yaml"
+          "runs/redis-upgrade-app-proof/receipt.yaml",
+          "data/kps-confighub-lifecycle-promotion/summary.md",
+          "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
         ],
         "id": "T36",
         "name": "Complete the Upgrade App",
-        "next": "Add the product App interface, readable promotion preview, persistent registry, and stored live observations.",
+        "next": "Add the product App interface, automatic route selection, persistent history, and a lifecycle-aware rollback path.",
         "outcome": "The App previews impact, tests a candidate, preserves approved edits, promotes it, and checks the rollout.",
         "status": "partial",
         "verify": [
-          "npm run redis-upgrade-app:verify"
+          "npm run redis-upgrade-app:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -634,7 +646,9 @@
           "docs/demo/hooks-crds/kube-prometheus-stack.md",
           "data/hooks-crds-app/summary.md",
           "data/kps-gitops-lifecycle-proof/summary.md",
-          "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+          "runs/kps-gitops-lifecycle-proof/receipt.yaml",
+          "data/kps-confighub-lifecycle-promotion/summary.md",
+          "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
         ],
         "id": "T37",
         "name": "Complete the Hooks and CRDs App",
@@ -644,7 +658,8 @@
         "verify": [
           "npm run hooks-crds-app:verify",
           "npm run kps:lifecycle-route:verify",
-          "npm run kps:gitops-lifecycle:verify"
+          "npm run kps:gitops-lifecycle:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -810,16 +825,18 @@
         "evidence": [
           "docs/user/chart-hooks-what-happens.md",
           "data/hook-route-candidates/work-orders.md",
-          "data/lifecycle-routes/summary.md"
+          "data/lifecycle-routes/summary.md",
+          "data/kps-confighub-lifecycle-promotion/summary.md"
         ],
         "id": "T48",
         "name": "Make hooks CRDs and setup work manageable per chart",
-        "next": "Execute the highest-value route work orders under Argo CD, Flux, and direct apply where each route applies.",
+        "next": "Repeat destination-bound lifecycle promotion for more high-value route work orders and keep untested controller paths named.",
         "outcome": "Most real chart lifecycle cases use maintained chart-specific presets and routes, with tests and receipts rather than a universal replacement claim.",
         "status": "partial",
         "verify": [
           "npm run hooks:route-work-orders:verify",
-          "npm run lifecycle:routes:verify"
+          "npm run lifecycle:routes:verify",
+          "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
       {
@@ -841,16 +858,18 @@
         "area": "Adoption",
         "evidence": [
           "docs/planning/outside-user-test.md",
-          "docs/planning/persona-ux-audit-2026-06-22.md"
+          "docs/planning/persona-ux-audit-2026-06-22.md",
+          "data/managed-journey-coverage/summary.md"
         ],
         "id": "T50",
-        "issue": "https://github.com/confighub/helm-expt/issues/1060",
+        "issue": "https://github.com/confighub/helm-expt/issues/1553",
         "name": "Measure whether new users understand and complete the journey",
-        "next": "Run fresh outside-user tests, choose the analytics boundary in issue 1060, and turn observed failures into tracked fixes.",
+        "next": "Run the six technically proved journeys with outside users and turn observed failures into tracked product, CLI, or content fixes.",
         "outcome": "Outside users can find a starting point, inspect or bring configuration, produce one deployable result, and understand why they would claim it in ConfigHub.",
         "status": "planned",
         "verify": [
-          "npm run docs:verify"
+          "npm run docs:verify",
+          "npm run managed-journeys:verify"
         ]
       }
     ]

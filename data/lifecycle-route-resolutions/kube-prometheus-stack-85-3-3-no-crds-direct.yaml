@@ -17,6 +17,12 @@ spec:
     deliveryRuntime: "cub installer direct runner"
   requirements:
     -
+      id: "source-namespaces"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The objects intentionally span monitoring and kube-system. A destination must preserve those namespaces instead of applying one namespace to every object."
+    -
       id: "crds"
       origin: "base"
       disposition: "inherited"
@@ -47,6 +53,21 @@ spec:
       state: "satisfied"
       detail: "Completed hook Jobs and their temporary RBAC objects must be removed before replacement."
   routes:
+    -
+      id: "preserve-source-namespaces"
+      requirementRefs:
+        - "source-namespaces"
+      actor: "cub installer lifecycle runner"
+      phase: "preflight"
+      order: 7
+      mechanism: "Keep each object's rendered namespace, including the five kube-system Services."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
     -
       id: "crds-first"
       requirementRefs:

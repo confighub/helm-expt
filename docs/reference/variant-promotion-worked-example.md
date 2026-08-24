@@ -1,6 +1,6 @@
 # Variant Promotion Worked Example
 
-This document gives two worked examples for promoting ConfigHub variants from
+This document gives three worked examples for promoting ConfigHub variants from
 Helm-derived bases. Each example should be expressible three ways:
 
 ```text
@@ -33,6 +33,7 @@ Generated goldens now exist for both examples:
 | --- | --- |
 | Redis production region | `data/variant-goldens/redis-prod-us-east/` |
 | ExternalDNS managed overlay | `data/managed-overlay-goldens/external-dns-customer-acme-prod/` |
+| Kube Prometheus Stack lifecycle upgrade | `examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/` |
 
 They are verified with:
 
@@ -282,6 +283,43 @@ If the user changes provider, domain filters, TXT ownership behavior, sources,
 or credential wiring in a way that changes rendered Deployment args/env, the
 Creator should stop and route back to a maintained `cub installer` recipe/base
 render.
+
+## Example 3 - Kube Prometheus Stack Upgrade
+
+This example promotes `prometheus-community/kube-prometheus-stack` from
+85.3.3 to 86.1.0 using the `no-crds` configuration. It is deliberately harder
+than the Redis and ExternalDNS examples: 111 of 130 objects change, ten CRDs
+must be established, two setup Jobs must run again, webhook certificates must
+be checked, and five Services must remain in `kube-system` while the monitoring
+objects remain in `monitoring`.
+
+The proof retains the current release as a ConfigHub base and the candidate as a
+staging variant. It resolves lifecycle work after the staging candidate exists,
+requires approval on the deployable Units, publishes exact current and candidate
+release OCI digests, and lets Argo CD reconcile each one on a clean target.
+
+One failed attempt showed why destination checks belong in the model: applying a
+single namespace override moved the five `kube-system` Services into
+`monitoring`. The accepted candidate preserves the namespaces in the source
+objects and verifies the target-bound object digest before release. Argo CD also
+uses server-side apply because six of the CRDs are too large for client-side
+apply annotations.
+
+Open the [plain result](../../data/kps-confighub-lifecycle-promotion/summary.md),
+the [promotion review](../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/promotion-review.yaml),
+the [destination route](../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml),
+or the [live receipt](../../runs/kps-confighub-lifecycle-promotion/receipt.yaml).
+
+Verify the retained records and committed evidence with:
+
+```sh
+npm run kps:confighub-lifecycle-promotion:verify
+CUB_CONTEXT=river-bear npm run kps:confighub-lifecycle-promotion:hub-verify
+```
+
+This proves one exact chart, version pair, destination type, and controller
+path. It does not prove rollback, a long soak, automatic route selection, or
+the same result on an untested cluster.
 
 ## Promotion Rules
 

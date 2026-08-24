@@ -562,6 +562,16 @@ policy gates
 approval state
 observation requirements</code></pre>
 <p>If a requested Variant Creator choice would require a different rendered object set, the request must route back to the recipe/package path. It should not hide a Helm rerender inside a post-render promotion.</p>
+<h2 id="check-the-final-candidate-against-its-destination">Check the final candidate against its destination</h2>
+<p>Creating a variant does not finish a promotion. The destination check runs after the final candidate exists, because the variant itself may change namespaces, Secret references, target requirements, or lifecycle work.</p>
+<p>The promotion review must record:</p>
+<table><thead><tr><th>Check</th><th>Question</th></tr></thead><tbody><tr><td>Object identity</td><td>Is this the exact candidate digest that was reviewed?</td></tr>
+<tr><td>Namespaces</td><td>Will delivery preserve every namespace already present in the objects?</td></tr>
+<tr><td>Prerequisites</td><td>Are the required Secrets, CRDs, certificates, and target facts present?</td></tr>
+<tr><td>Lifecycle route</td><td>Who performs the setup work, in what order, for this destination?</td></tr>
+<tr><td>Delivery mechanics</td><td>Does this controller need sync waves, dependencies, server-side apply, or another explicit option?</td></tr>
+<tr><td>Runtime result</td><td>Did this exact release reconcile and reach the checked state?</td></tr></tbody></table>
+<p>The public <code>PromotionReview</code> stores these results under <code>destinationPreflight</code>. An unrun check stays <code>not-run</code>; the existence of a route record is not proof that the route executed.</p>
 <h2 id="current-confighub-fit">Current ConfigHub Fit</h2>
 <p>Current ConfigHub already has the main substrate, and the current local <code>cub</code> now exposes <code>cub variant create</code> for the basic clone/link operation:</p>
 <pre><code>create downstream Space

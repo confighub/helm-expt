@@ -1,0 +1,192 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "LifecycleRouteResolution"
+metadata:
+  name: "kube-prometheus-stack-86-1-0-no-crds-flux"
+spec:
+  configuration:
+    baseVariantRecord: "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.yaml"
+    variant: "no-crds"
+    revision: "r001"
+    baseRevisionDigest: "f2b1270f1f1841b72f8f905cb9e986e5af44c31f0ec7e05e74424c464873f026"
+    digest: "671c6f820a2cc2b381d056f112ad1750b36d08b01e9e1ff5bc503cfa81a56e87"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml"
+  destination:
+    name: "hx-kps-flux-20260729-1zvp"
+    type: "kind"
+    deliveryRuntime: "Flux"
+  requirements:
+    -
+      id: "target-owned-secrets"
+      origin: "destination"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The destination must supply the two separated Secrets before the staged configuration runs."
+    -
+      id: "source-namespaces"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The objects intentionally span monitoring and kube-system. A destination must preserve those namespaces instead of applying one namespace to every object."
+    -
+      id: "crds"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "Ten monitoring CRDs must be established before dependent objects are applied."
+    -
+      id: "admission-certificate"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The admission-create Job must create the webhook certificate Secret."
+    -
+      id: "workloads"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The ordinary workload objects run after the CRDs and certificate setup."
+    -
+      id: "admission-webhook-patch"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The admission-patch Job updates the webhook CA bundles after webhook objects exist."
+    -
+      id: "temporary-hook-resources"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "Completed hook Jobs and their temporary RBAC objects must be removed before replacement."
+  routes:
+    -
+      id: "target-secrets"
+      requirementRefs:
+        - "target-owned-secrets"
+      actor: "destination owner"
+      phase: "preflight"
+      order: 5
+      mechanism: "Create the separated Secrets before controller reconciliation."
+      automatic: false
+      retry: "Fix the missing input, then rerun preflight."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "preserve-source-namespaces"
+      requirementRefs:
+        - "source-namespaces"
+      actor: "Flux"
+      phase: "preflight"
+      order: 7
+      mechanism: "Keep each object's rendered namespace, including the five kube-system Services."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "crds-first"
+      requirementRefs:
+        - "crds"
+      actor: "Flux"
+      phase: "pre-apply"
+      order: 10
+      mechanism: "Flux reconciles the CRD Kustomization first."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "certificate-setup"
+      requirementRefs:
+        - "admission-certificate"
+      actor: "Flux"
+      phase: "pre-apply"
+      order: 20
+      mechanism: "Flux dependsOn advances from CRDs to the prepare Kustomization."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "ordinary-objects"
+      requirementRefs:
+        - "workloads"
+      actor: "Flux"
+      phase: "apply"
+      order: 30
+      mechanism: "Flux dependsOn advances from prepare to the workload Kustomization."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "webhook-patch"
+      requirementRefs:
+        - "admission-webhook-patch"
+      actor: "Flux"
+      phase: "post-apply"
+      order: 40
+      mechanism: "Flux dependsOn advances from workloads to the finish Kustomization."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "runtime-checks"
+      requirementRefs:
+        - "admission-webhook-patch"
+        - "workloads"
+      actor: "Flux"
+      phase: "observe"
+      order: 50
+      mechanism: "Check the requested OCI digest, CA bundles, operator endpoint, workloads, and server-side dry run."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "hook-replacement"
+      requirementRefs:
+        - "temporary-hook-resources"
+      actor: "Flux"
+      phase: "cleanup"
+      order: 60
+      mechanism: "Remove completed hook Jobs before the upgrade stages run them again."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+  protection:
+    records:
+      - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+status:
+  decision: "ready"
+  evidence: "observed"
+  unresolved:
+    - "This route is proven as the 85.3.3 to 86.1.0 upgrade destination, not as a separate 86.1.0 fresh installation."
+  receipts:
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"

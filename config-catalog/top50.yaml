@@ -83,10 +83,12 @@ spec:
       evidence:
         - data/lifecycle-routes/summary.md
         - data/hook-lifecycle/summary.md
+        - data/kps-confighub-lifecycle-promotion/summary.md
         - docs/user/target-prerequisites.md
       verify:
         - npm run lifecycle:routes:verify
         - npm run hooks:lifecycle:verify
+        - npm run kps:confighub-lifecycle-promotion:verify
       next: Turn more candidate routes into chart-specific receipts and keep unsupported routes as named blockers.
 
     - id: T06
@@ -310,10 +312,13 @@ spec:
       evidence:
         - data/byo-helm-values-promotion-proof/summary.md
         - runs/aicr-variant-promotion-proof/receipt.yaml
+        - data/measured-promotion-proof/summary.md
+        - data/kps-confighub-lifecycle-promotion/summary.md
       verify:
         - npm run byo-helm-values:promotion-verify
         - npm run aicr-variant-promotion:verify
-      next: Add production delivery, rollback, and readable dry-run output to the representative promotion paths.
+        - npm run kps:confighub-lifecycle-promotion:verify
+      next: Add the ordinary product interface and repeat destination preflight, rollback, and live comparison across more chart and target classes.
 
     - id: T22
       area: Policy and approval
@@ -387,9 +392,11 @@ spec:
       evidence:
         - data/runtime-gitops/summary.md
         - runs/oci-deploy-stage-rollout-proof/receipt.yaml
+        - runs/kps-confighub-lifecycle-promotion/receipt.yaml
       verify:
         - npm run runtime-gitops:wave:verify
         - npm run oci-deploy-stage-rollout:verify
+        - npm run kps:confighub-lifecycle-promotion:verify
       next: Maintain fresh controller and workload receipts for every path that claims Argo CD delivery.
 
     - id: T27
@@ -425,10 +432,12 @@ spec:
       outcome: Delivery claims include controller status, object equality, workload health, observer identity, and observation time.
       evidence:
         - data/live-e2e/summary.md
+        - runs/kps-confighub-lifecycle-promotion/receipt.yaml
         - docs/reference/observation-freshness-slo.md
       verify:
         - npm run top20:verify-local-e2e
         - npm run live-parity:verify
+        - npm run kps:confighub-lifecycle-promotion:verify
       next: Store more live observations in ConfigHub and refresh receipts when target state or packages change.
 
     - id: T30
@@ -517,9 +526,12 @@ spec:
       evidence:
         - data/redis-upgrade-app-proof/summary.md
         - runs/redis-upgrade-app-proof/receipt.yaml
+        - data/kps-confighub-lifecycle-promotion/summary.md
+        - runs/kps-confighub-lifecycle-promotion/receipt.yaml
       verify:
         - npm run redis-upgrade-app:verify
-      next: Add the product App interface, readable promotion preview, persistent registry, and stored live observations.
+        - npm run kps:confighub-lifecycle-promotion:verify
+      next: Add the product App interface, automatic route selection, persistent history, and a lifecycle-aware rollback path.
 
     - id: T37
       area: ConfigHub Apps
@@ -531,10 +543,13 @@ spec:
         - data/hooks-crds-app/summary.md
         - data/kps-gitops-lifecycle-proof/summary.md
         - runs/kps-gitops-lifecycle-proof/receipt.yaml
+        - data/kps-confighub-lifecycle-promotion/summary.md
+        - runs/kps-confighub-lifecycle-promotion/receipt.yaml
       verify:
         - npm run hooks-crds-app:verify
         - npm run kps:lifecycle-route:verify
         - npm run kps:gitops-lifecycle:verify
+        - npm run kps:confighub-lifecycle-promotion:verify
       next: Add the product App interface and automatic route selection, then test rollback and post-success cleanup before widening the claim.
 
     - id: T38
@@ -674,10 +689,12 @@ spec:
         - docs/user/chart-hooks-what-happens.md
         - data/hook-route-candidates/work-orders.md
         - data/lifecycle-routes/summary.md
+        - data/kps-confighub-lifecycle-promotion/summary.md
       verify:
         - npm run hooks:route-work-orders:verify
         - npm run lifecycle:routes:verify
-      next: Execute the highest-value route work orders under Argo CD, Flux, and direct apply where each route applies.
+        - npm run kps:confighub-lifecycle-promotion:verify
+      next: Repeat destination-bound lifecycle promotion for more high-value route work orders and keep untested controller paths named.
 
     - id: T49
       area: Release quality
@@ -699,7 +716,9 @@ spec:
       evidence:
         - docs/planning/outside-user-test.md
         - docs/planning/persona-ux-audit-2026-06-22.md
+        - data/managed-journey-coverage/summary.md
       verify:
         - npm run docs:verify
-      next: Run fresh outside-user tests, choose the analytics boundary in issue 1060, and turn observed failures into tracked fixes.
-      issue: https://github.com/confighub/helm-expt/issues/1060
+        - npm run managed-journeys:verify
+      next: Run the six technically proved journeys with outside users and turn observed failures into tracked product, CLI, or content fixes.
+      issue: https://github.com/confighub/helm-expt/issues/1553

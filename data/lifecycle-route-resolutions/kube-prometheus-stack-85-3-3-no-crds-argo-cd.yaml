@@ -23,6 +23,12 @@ spec:
       state: "satisfied"
       detail: "The destination must supply the two separated Secrets before the staged configuration runs."
     -
+      id: "source-namespaces"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "The objects intentionally span monitoring and kube-system. A destination must preserve those namespaces instead of applying one namespace to every object."
+    -
       id: "crds"
       origin: "base"
       disposition: "inherited"
@@ -63,6 +69,21 @@ spec:
       mechanism: "Create the separated Secrets before controller reconciliation."
       automatic: false
       retry: "Fix the missing input, then rerun preflight."
+      onFailure: "Stop before later stages and report the failed requirement."
+      checks:
+        - "The stage reports pass before the next ordered stage starts."
+      evidence:
+        - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    -
+      id: "preserve-source-namespaces"
+      requirementRefs:
+        - "source-namespaces"
+      actor: "Argo CD"
+      phase: "preflight"
+      order: 7
+      mechanism: "Keep each object's rendered namespace, including the five kube-system Services."
+      automatic: true
+      retry: "Retry the stage only after the failed check is resolved."
       onFailure: "Stop before later stages and report the failed requirement."
       checks:
         - "The stage reports pass before the next ordered stage starts."

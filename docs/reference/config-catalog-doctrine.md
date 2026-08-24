@@ -683,6 +683,36 @@ The [flattening decision guide](./flattening-alignment.md) states when those obj
 can stand alone, when lifecycle work must travel beside them, and when the source must
 still render late.
 
+## Destination checks happen after the final variant
+
+A source record can name known requirements, but it cannot decide how an unknown
+destination will satisfy them. The final variant may also add a namespace change,
+Secret reference, controller option, or other field that changes the work required
+at delivery time. For that reason, promotion has a separate destination preflight
+after the candidate variant exists.
+
+Every destination preflight answers five questions:
+
+1. Which namespaces are already present in the accepted objects, and must they be
+   preserved?
+2. Which Secrets, CRDs, certificates, target facts, or other prerequisites must the
+   destination supply?
+3. Which lifecycle routes apply to this exact variant and destination?
+4. Which delivery behavior is required, such as Argo CD sync waves, Flux
+   dependencies, or server-side apply?
+5. Which checks ran against this exact object digest, and which still have to run?
+
+The result belongs in `PromotionReview.spec.destinationPreflight`. A browser review
+can identify work that remains, but it cannot mark a cluster check as passed. A live
+receipt can mark a check as passed only when it names the exact candidate, target,
+delivery runtime, and evidence.
+
+The Kube Prometheus Stack promotion is the first complete example. It preserved
+objects in both `monitoring` and `kube-system`, supplied two target-owned Secrets,
+established ten CRDs, replaced two completed setup Jobs, selected server-side apply
+for large CRDs, and checked the exact ConfigHub release through Argo CD. The same
+record structure is used by the public browser when those checks have not yet run.
+
 Every real base must also state whether its surrounding records are complete:
 
 - a flattening verdict is decided or explicitly `not-assessed`;

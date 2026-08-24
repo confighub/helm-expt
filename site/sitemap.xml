@@ -535,6 +535,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/image-digest-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/installer-oci-packages/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kind-parity-decisions/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/kps-confighub-lifecycle-promotion/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kps-gitops-lifecycle-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kps-lifecycle-route-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kps-public-package-proof/summary.html</loc></url>
@@ -591,6 +592,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-parity-rerun-plan/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-run-blocks/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/local-live-triage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-journey-coverage/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-overlay-goldens/external-dns-customer-acme-prod/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-setup-guidance/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/master-catalog-matrix/summary.html</loc></url>

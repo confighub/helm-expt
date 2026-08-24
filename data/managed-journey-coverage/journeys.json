@@ -1,0 +1,106 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "ManagedJourneyCoverage",
+  "metadata": {
+    "name": "config-workshop-managed-journeys"
+  },
+  "spec": {
+    "purpose": "Track the six journeys that connect the public configuration review to ConfigHub promotion and delivery. Technical proof and ordinary-user proof are recorded separately.",
+    "counts": {
+      "technicalPass": 6,
+      "userTrialPass": 0,
+      "userTrialNotRun": 6
+    },
+    "journeys": [
+      {
+        "evidence": [
+          "data/byo-helm-values-review/summary.md",
+          "runs/byo-helm-values-proof/public-oci-receipt.yaml"
+        ],
+        "id": "ai-values-to-reviewed-oci",
+        "limit": "One public NGINX chart and values example. Private dependency authentication and an outside-user trial remain open.",
+        "question": "Can I turn Helm values written by AI into exact reviewed objects and OCI?",
+        "technicalResult": "pass",
+        "userTrial": "not-run",
+        "verify": [
+          "npm run byo-helm-values:verify",
+          "npm run byo-helm-values:public-verify"
+        ]
+      },
+      {
+        "evidence": [
+          "data/byo-helm-values-review/public-and-confighub.md",
+          "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+        ],
+        "id": "reviewed-oci-to-confighub-base",
+        "limit": "The digest-preserving handoff is proved for one literal Kubernetes object set. The public browser does not perform the authenticated upload.",
+        "question": "Can I retain the same reviewed OCI as a ConfigHub base without changing its objects?",
+        "technicalResult": "pass",
+        "userTrial": "not-run",
+        "verify": [
+          "npm run byo-helm-values:verify",
+          "npm run byo-helm-values:live-verify"
+        ]
+      },
+      {
+        "evidence": [
+          "data/measured-promotion-proof/summary.md",
+          "runs/measured-promotion-proof/receipt.yaml"
+        ],
+        "id": "staging-candidate-versus-production",
+        "limit": "One NGINX capacity rule on one throwaway target. It is not a production sizing recommendation or a general promotion UI test.",
+        "question": "Can I test exact candidates, compare the accepted result with production, and promote the selected revision?",
+        "technicalResult": "pass",
+        "userTrial": "not-run",
+        "verify": [
+          "npm run measured-promotion:verify"
+        ]
+      },
+      {
+        "evidence": [
+          "data/kps-confighub-lifecycle-promotion/summary.md",
+          "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/promotion-review.yaml",
+          "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml"
+        ],
+        "id": "lifecycle-and-destination-preflight",
+        "limit": "One chart, version pair, Argo CD path, and kind target. Automatic route selection and rollback have not run.",
+        "question": "Can I check hooks, CRDs, prerequisites, namespaces, and delivery mechanics after the final candidate exists?",
+        "technicalResult": "pass",
+        "userTrial": "not-run",
+        "verify": [
+          "npm run kps:confighub-lifecycle-promotion:verify"
+        ]
+      },
+      {
+        "evidence": [
+          "runs/kps-confighub-lifecycle-promotion/receipt.yaml",
+          "data/kps-confighub-lifecycle-promotion/summary.md"
+        ],
+        "id": "exact-release-to-live-state",
+        "limit": "Argo CD is proved for this lifecycle-heavy path. Flux has a separate source-OCI proof, not this ConfigHub release, and no long soak was run.",
+        "question": "Can I promote an exact ConfigHub release, deliver it through GitOps, and check the resulting live state?",
+        "technicalResult": "pass",
+        "userTrial": "not-run",
+        "verify": [
+          "npm run kps:confighub-lifecycle-promotion:verify"
+        ]
+      },
+      {
+        "evidence": [
+          "data/config-review-decision-chain/summary.md",
+          "runs/config-review-decision-chain/receipt.yaml",
+          "site/charts/bitnami-nginx-24-0-2.html"
+        ],
+        "id": "public-investigation-to-catalog-answer",
+        "limit": "The NGINX answer is retained and public. No outside user has yet completed the response process from question submission to accepted Catalog answer.",
+        "question": "Can a useful public investigation become a retained Catalog answer with its decision and limits visible?",
+        "technicalResult": "pass",
+        "userTrial": "not-run",
+        "verify": [
+          "npm run config-review-decision:verify",
+          "npm run site:verify"
+        ]
+      }
+    ]
+  }
+}

@@ -20,7 +20,7 @@
     "spec": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["change", "current", "candidate", "comparison", "sourceAware", "lifecycle", "targets", "browserChecks", "testsRequired", "nextAction"],
+      "required": ["change", "current", "candidate", "comparison", "sourceAware", "lifecycle", "destinationPreflight", "targets", "browserChecks", "testsRequired", "nextAction"],
       "properties": {
         "change": { "type": "object" },
         "current": { "$ref": "#/definitions/objectSet" },
@@ -28,6 +28,7 @@
         "comparison": { "type": "object" },
         "sourceAware": { "type": "object" },
         "lifecycle": { "type": "object" },
+        "destinationPreflight": { "$ref": "#/definitions/destinationPreflight" },
         "targets": { "type": "object" },
         "browserChecks": { "type": "object" },
         "testsRequired": {
@@ -51,6 +52,44 @@
         "objects": {
           "type": "array",
           "items": { "type": "string" }
+        }
+      }
+    },
+    "destinationPreflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["destinations", "namespaces", "namespaceHandling", "prerequisites", "lifecycleResolution", "delivery", "checks"],
+      "properties": {
+        "destinations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "namespaces": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "namespaceHandling": {
+          "enum": ["preserve-source-namespaces", "single-namespace", "cluster-scoped-only", "not-assessed"]
+        },
+        "prerequisites": { "type": "object" },
+        "lifecycleResolution": { "type": "object" },
+        "delivery": { "type": "object" },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "status", "note"],
+            "properties": {
+              "id": { "type": "string" },
+              "status": { "enum": ["pass", "watch", "blocked", "not-run", "not-applicable"] },
+              "note": { "type": "string" },
+              "evidence": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
         }
       }
     }

@@ -288,6 +288,7 @@
       const candidateDigest = await sha256(candidateText);
       const lifecycle = yamlTools.lifecycleFromRecord(sourceRecord, candidate);
       const destinations = destinationNames();
+      const destinationPreflight = yamlTools.destinationPreflight(candidate, lifecycle, destinations);
       const targetResults = yamlTools.parseTargetResults(byId("target-results").value, destinations.length ? destinations : ["staging"], candidateDigest);
       const sameIdentities = comparison.added.length === 0 && comparison.removed.length === 0;
       const whatChanges = [`${comparison.added.length} object(s) added, ${comparison.removed.length} removed, and ${comparison.changed.length} changed.`];
@@ -344,6 +345,7 @@
             ...(candidateSource ? { candidateSource: objectSetRecord(candidateSource, await sha256(candidateSourceText)) } : {}),
           },
           lifecycle,
+          destinationPreflight,
           targets: targetResults,
           browserChecks: {
             method: "config-workshop-promotion-browser-v2",
@@ -387,6 +389,11 @@
       byId("candidate-digest").textContent = candidateDigest;
       addList("what-changes", whatChanges, "No object changes were found.");
       addList("what-stays", whatStays, "No unchanged object was found.");
+      addList(
+        "destination-preflight",
+        destinationPreflight.checks.map((check) => `${check.status}: ${check.note}`),
+        "No destination preflight result is available.",
+      );
       renderSourceAware(sourceAware, comparison.noOp);
       addList("lifecycle-work", lifecycleLines(lifecycle), "No lifecycle work was found.");
       addList("tests-required", [...new Set(testsRequired)], "Run a staging deployment and application health check.");

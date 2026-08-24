@@ -1,0 +1,109 @@
+apiVersion: "workshop.confighub.com/v1alpha2"
+kind: "PromotionReview"
+metadata:
+  createdAt: "2026-08-24T19:07:03.669Z"
+spec:
+  change:
+    source: "prometheus-community/kube-prometheus-stack"
+    base: "no-crds"
+    fromVersion: "85.3.3"
+    toVersion: "86.1.0"
+    decision: "promoted"
+  current:
+    name: "prometheus-community/kube-prometheus-stack@85.3.3/no-crds"
+    sha256: "sha256:6d671d75ca4ca17a5fcf76b1f276b18378afd3111f06d5c10fb79576911b7030"
+    objectCount: 130
+    objects:
+      []
+  candidate:
+    name: "prometheus-community/kube-prometheus-stack@86.1.0/no-crds"
+    sha256: "sha256:8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+    objectCount: 130
+    objects:
+      []
+  comparison:
+    added: 0
+    removed: 0
+    changed: 111
+    unchanged: 19
+  sourceAware:
+    class: "upstream-version-change"
+    currentOci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds@sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
+    candidateOci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:86.1.0-no-crds@sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+    localOverride: "none in this proof"
+  lifecycle:
+    route: "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml"
+    crds: 10
+    setupJobs: 2
+    targetOwnedSecrets: 2
+    namespaceHandling: "preserve-source-namespaces"
+    automatic: false
+  destinationPreflight:
+    destinations:
+      - "kind proof cluster"
+    namespaces:
+      - "kube-system"
+      - "monitoring"
+    namespaceHandling: "preserve-source-namespaces"
+    prerequisites:
+      recorded: 12
+      names:
+        - "10 Prometheus CRDs"
+        - "Alertmanager Secret"
+        - "Grafana Secret"
+    lifecycleResolution:
+      status: "observed"
+      records:
+        - "data/lifecycle-route-resolutions/kube-prometheus-stack-86-1-0-no-crds-argo-cd.yaml"
+        - "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml"
+      routeCount: 1
+    delivery:
+      runtime: "Argo CD"
+      status: "pass"
+      options:
+        - "ServerSideApply=true"
+    checks:
+      -
+        id: "source-namespaces"
+        status: "pass"
+        note: "The exact target-bound object digest preserved five Services in kube-system and the remaining namespaced objects in monitoring."
+        evidence:
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+      -
+        id: "target-prerequisites"
+        status: "pass"
+        note: "The target supplied the two Secrets from the checked render and established all ten CRDs."
+        evidence:
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+      -
+        id: "lifecycle-route"
+        status: "pass"
+        note: "The destination-specific route replaced completed setup Jobs and checked webhook certificate handoff after the final staging variant existed."
+        evidence:
+          - "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml"
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+      -
+        id: "delivery-mechanics"
+        status: "pass"
+        note: "Argo CD used server-side apply for the large CRDs and reconciled the exact current and candidate release digests."
+        evidence:
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+  targets:
+    controller: "Argo CD"
+    testedTargets: 1
+    current: "pass"
+    candidate: "pass"
+  browserChecks:
+    run: false
+    reason: "This record comes from the live ConfigHub and Argo CD proof, not the browser comparison."
+  testsRequired:
+    - "Keep the five kube-system Services in kube-system instead of applying one namespace to every object."
+    - "Establish all ten CRDs before dependent custom resources."
+    - "Replace both completed setup Jobs before the candidate sync."
+    - "Check webhook certificate handoff, six workloads, the operator endpoint, and server admission."
+  nextAction: "Keep the staging variant and route record; rerun the destination checks before another chart, target, or controller version is promoted."
+  configHubPlan:
+    chain: "kps-no-crds-upgrade-base -> kps-no-crds-upgrade-staging -> hx-kps-confighub-20260824-zxz-delivery"
+    currentRelease: "sha256:dd92541c2bc583359ba5c8d7f38937fe78bd16bbc0f07b38af0f0f35b61785f0"
+    candidateRelease: "sha256:b676a4ac138c0c932336a128883332c797fd8715c4b76c7aae269e5f08f0208e"
+    approvalRequired: true

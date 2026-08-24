@@ -194,6 +194,27 @@ If a requested Variant Creator choice would require a different rendered object
 set, the request must route back to the recipe/package path. It should not
 hide a Helm rerender inside a post-render promotion.
 
+## Check the final candidate against its destination
+
+Creating a variant does not finish a promotion. The destination check runs after
+the final candidate exists, because the variant itself may change namespaces,
+Secret references, target requirements, or lifecycle work.
+
+The promotion review must record:
+
+| Check | Question |
+| --- | --- |
+| Object identity | Is this the exact candidate digest that was reviewed? |
+| Namespaces | Will delivery preserve every namespace already present in the objects? |
+| Prerequisites | Are the required Secrets, CRDs, certificates, and target facts present? |
+| Lifecycle route | Who performs the setup work, in what order, for this destination? |
+| Delivery mechanics | Does this controller need sync waves, dependencies, server-side apply, or another explicit option? |
+| Runtime result | Did this exact release reconcile and reach the checked state? |
+
+The public `PromotionReview` stores these results under `destinationPreflight`.
+An unrun check stays `not-run`; the existence of a route record is not proof that
+the route executed.
+
 ## Current ConfigHub Fit
 
 Current ConfigHub already has the main substrate, and the current local `cub`

@@ -70,6 +70,15 @@ Jobs, and passed the runtime checks again.
 [Read the Argo CD and Flux result](../../data/kps-gitops-lifecycle-proof/summary.md)
 or [open its receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml).
 
+A second proof retains the 85.3.3 object set as a ConfigHub base, creates the
+86.1.0 staging variant, records and approves the destination route, publishes
+both exact release OCI digests, and reconciles both through Argo CD. It catches
+two destination-specific requirements before release: five Services must stay
+in `kube-system`, and the large CRDs require server-side apply.
+
+[Read the ConfigHub promotion result](../../data/kps-confighub-lifecycle-promotion/summary.md)
+or [open its receipt](../../runs/kps-confighub-lifecycle-promotion/receipt.yaml).
+
 The current lifecycle evidence also shows the productive path forward: when
 compatible CRDs and the admission webhook certificate Secret are staged
 explicitly, the config-only path can converge in the tested local targets. That
@@ -169,6 +178,7 @@ Check the direct and controller lifecycle receipts:
 ```sh
 npm run kps:lifecycle-route:verify
 npm run kps:gitops-lifecycle:verify
+npm run kps:confighub-lifecycle-promotion:verify
 ```
 
 Check the live parity receipts that already exist in the repo:

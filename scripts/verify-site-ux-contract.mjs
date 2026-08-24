@@ -825,7 +825,16 @@ if (fs.existsSync(chartPagesDir)) {
     if (html.includes("data-retained-only-version=")) {
       retainedOnlyPages += 1;
       const published = html.includes("Publication proof: recorded");
-      const boundaryPhrases = published
+      const boundedRuntimeProof = html.includes('data-bounded-runtime-proof="managed-promotion"');
+      const boundaryPhrases = published && boundedRuntimeProof
+        ? [
+            "Publication proof: recorded · managed upgrade proof: recorded for 85.3.3 to 86.1.0.",
+            "A separate managed promotion proof covers this package as the 86.1.0 candidate",
+            "Bounded version-specific result:",
+            "This does not prove rollback, long soak, automatic route selection, or a standalone fresh install of 86.1.0.",
+            "You can check a pull yourself",
+          ]
+        : published
         ? [
             "Publication proof: recorded · runtime proof: not inherited.",
             "It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.",

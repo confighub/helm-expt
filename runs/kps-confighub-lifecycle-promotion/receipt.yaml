@@ -1,0 +1,476 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "KubePrometheusStackConfigHubLifecyclePromotionReceipt"
+metadata:
+  name: "kube-prometheus-stack-85-3-3-to-86-1-0-no-crds"
+spec:
+  observedAt: "2026-08-24T19:07:03.669Z"
+  source:
+    chart: "prometheus-community/kube-prometheus-stack"
+    base: "no-crds"
+    current:
+      version: "85.3.3"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
+      digest: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
+      anonymousPull: "pass"
+      containsSecrets: false
+      stagedObjects: 130
+      stages:
+        -
+          name: "crds"
+          objectCount: 11
+        -
+          name: "prepare"
+          objectCount: 6
+        -
+          name: "workload"
+          objectCount: 112
+        -
+          name: "finish"
+          objectCount: 1
+      materializedObjectCount: 130
+      materializedObjectSetSha256: "6d671d75ca4ca17a5fcf76b1f276b18378afd3111f06d5c10fb79576911b7030"
+      crdCount: 10
+      setupJobCount: 2
+      routeRecord: ".confighub/route.yaml"
+    candidate:
+      version: "86.1.0"
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:86.1.0-no-crds"
+      digest: "sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+      anonymousPull: "pass"
+      containsSecrets: false
+      stagedObjects: 130
+      stages:
+        -
+          name: "crds"
+          objectCount: 11
+        -
+          name: "prepare"
+          objectCount: 6
+        -
+          name: "workload"
+          objectCount: 112
+        -
+          name: "finish"
+          objectCount: 1
+      materializedObjectCount: 130
+      materializedObjectSetSha256: "8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+      crdCount: 10
+      setupJobCount: 2
+      routeRecord: ".confighub/route.yaml"
+  comparison:
+    result: "pass"
+    currentObjects: 130
+    candidateObjects: 130
+    added: 0
+    removed: 0
+    changed: 111
+    unchanged: 19
+    addedObjects:
+      []
+    removedObjects:
+      []
+  configHub:
+    organization: "helm-catalog"
+    base:
+      result: "pass"
+      id: "4efb368a-1a23-43e6-9702-8728221ab91e"
+      slug: "kps-no-crds-upgrade-base"
+      unitCount: 5
+      configUnitCount: 4
+      configUnits:
+        - "kube-prometheus-stack"
+        - "kube-prometheus-stack-configmaps"
+        - "kube-prometheus-stack-crds"
+        - "kube-prometheus-stack-namespaces"
+      objectCount: 130
+      version: "86.1.0"
+      previousVersion: "85.3.3"
+      objectSetSha256: "8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+      dryRunSha256: "0d75c71406dc5e9eaba1cceeb599702265f60a5dd9eaa6c209787f6bb43e2c7e"
+    staging:
+      result: "pass"
+      id: "e5ec3bab-5188-451b-a419-1a7c36ea6360"
+      slug: "kps-no-crds-upgrade-staging"
+      unitCount: 5
+      configUnitCount: 4
+      configUnits:
+        - "kube-prometheus-stack"
+        - "kube-prometheus-stack-configmaps"
+        - "kube-prometheus-stack-crds"
+        - "kube-prometheus-stack-namespaces"
+      objectCount: 130
+      upstreamSpace: "kps-no-crds-upgrade-base"
+      version: "86.1.0"
+      objectSetSha256: "8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+    delivery:
+      result: "pass"
+      id: "6e8e8ae7-a157-4628-890e-5c7e389b03f2"
+      slug: "hx-kps-confighub-20260824-zxz-delivery"
+      unitCount: 6
+      configUnitCount: 4
+      configUnits:
+        - "kube-prometheus-stack"
+        - "kube-prometheus-stack-configmaps"
+        - "kube-prometheus-stack-crds"
+        - "kube-prometheus-stack-namespaces"
+      objectCount: 130
+      upstreamSpace: "kps-no-crds-upgrade-staging"
+      target: "hx-kps-confighub-20260824-zxz/target"
+      version: "86.1.0"
+      objectSetSha256: "8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+      application:
+        unit: "hx-kps-confighub-20260824-zxz-argo-apps/hx-kps-confighub-20260824-zxz-delivery"
+        serverSideApply: true
+        createNamespace: true
+        appsReleaseDigest: "sha256:81b81d82b95b048372e463ba6a903a866ac6add7a43cbe7190ec409168596eb4"
+        reason: "Six Prometheus CRDs exceed the client-side apply annotation limit."
+        namespaceHandling:
+          mode: "preserve-source-namespaces"
+          result: "pass"
+          checkedNamespace: "kube-system"
+          checkedObjects:
+            - "Service/kube-prometheus-stack-coredns"
+            - "Service/kube-prometheus-stack-kube-controller-manager"
+            - "Service/kube-prometheus-stack-kube-etcd"
+            - "Service/kube-prometheus-stack-kube-proxy"
+            - "Service/kube-prometheus-stack-kube-scheduler"
+    promotion:
+      result: "pass"
+      chain: "kps-no-crds-upgrade-base -> kps-no-crds-upgrade-staging -> hx-kps-confighub-20260824-zxz-delivery"
+      stagingPreviewSha256: "21e4c48edfcc64db0d212b0f0298d64be666c01a84a95bc86fb37f9832961a76"
+      deliveryPreviewSha256: "6f03c53fbf3bb3a5e995a35e7aa1decbc18bb898600ae28f02414d3dbb06552b"
+      currentObjectSetSha256: "6d671d75ca4ca17a5fcf76b1f276b18378afd3111f06d5c10fb79576911b7030"
+      candidateObjectSetSha256: "8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+      candidateAdded: 0
+      candidateRemoved: 0
+      candidateChanged: 111
+    route:
+      result: "pass"
+      record: "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml"
+      resolution: "data/lifecycle-route-resolutions/kube-prometheus-stack-86-1-0-no-crds-argo-cd.yaml"
+      executionMode: "user-executes"
+      automatic: false
+      disposition: "observed"
+      stagingUnit:
+        space: "kps-no-crds-upgrade-staging"
+        unit: "candidate-route"
+        revision: 3
+        dataHash: "3cbd66331d5ec00f9023e19cece73c7caff3ad3145730c5aa86f2dc5b1a3b125"
+        approved: true
+      deliveryUnit:
+        space: "hx-kps-confighub-20260824-zxz-delivery"
+        unit: "candidate-route"
+        revision: 2
+        dataHash: "3cbd66331d5ec00f9023e19cece73c7caff3ad3145730c5aa86f2dc5b1a3b125"
+        approved: true
+      completedHookJobsReplaced:
+        - "kube-prometheus-stack-admission-create"
+        - "kube-prometheus-stack-admission-patch"
+    approvals:
+      result: "pass"
+      current:
+        -
+          unit: "kube-prometheus-stack"
+          revision: 2
+          approvalGateCleared: true
+        -
+          unit: "kube-prometheus-stack-configmaps"
+          revision: 2
+          approvalGateCleared: true
+        -
+          unit: "kube-prometheus-stack-crds"
+          revision: 2
+          approvalGateCleared: true
+        -
+          unit: "kube-prometheus-stack-namespaces"
+          revision: 2
+          approvalGateCleared: true
+      candidate:
+        -
+          unit: "kube-prometheus-stack"
+          revision: 3
+          dataHash: "00b0a266d9b9196ba917cfa9a96d26e81599bf68a9c6c545e3aa7f7e62ed2d31"
+          approvalGateCleared: true
+          description: "Approve the exact 86.1.0 candidate after route review"
+        -
+          unit: "kube-prometheus-stack-configmaps"
+          revision: 3
+          dataHash: "656b8e0d7446fd8b7aeac22a07222f9c8edce9b2bb1dfe20e9411a68c01a8d25"
+          approvalGateCleared: true
+          description: "Approve the exact 86.1.0 candidate after route review"
+        -
+          unit: "kube-prometheus-stack-crds"
+          revision: 3
+          dataHash: "88732ffd00db8794efc1b1cf0639d613463da05c5102e61711be584f5a502df6"
+          approvalGateCleared: true
+          description: "Approve the exact 86.1.0 candidate after route review"
+        -
+          unit: "kube-prometheus-stack-namespaces"
+          revision: 3
+          dataHash: "0e4a3c3cfe7f6bbdbf72734be86d9139189ff222bb11b2a56f9b827a0da10c46"
+          approvalGateCleared: true
+          description: "Approve the exact 86.1.0 candidate after route review"
+      route:
+        -
+          space: "kps-no-crds-upgrade-staging"
+          unit: "candidate-route"
+          revision: 3
+          dataHash: "3cbd66331d5ec00f9023e19cece73c7caff3ad3145730c5aa86f2dc5b1a3b125"
+          approved: true
+        -
+          space: "hx-kps-confighub-20260824-zxz-delivery"
+          unit: "candidate-route"
+          revision: 2
+          dataHash: "3cbd66331d5ec00f9023e19cece73c7caff3ad3145730c5aa86f2dc5b1a3b125"
+          approved: true
+    releases:
+      result: "pass"
+      current:
+        reference: "oci://oci.hub.confighub.com:443/space/hx-kps-confighub-20260824-zxz-delivery:latest"
+        manifestDigest: "sha256:dd92541c2bc583359ba5c8d7f38937fe78bd16bbc0f07b38af0f0f35b61785f0"
+        releaseId: "91f895f7-8625-441a-bbad-87ee40538aa3"
+      candidate:
+        reference: "oci://oci.hub.confighub.com:443/space/hx-kps-confighub-20260824-zxz-delivery:latest"
+        manifestDigest: "sha256:b676a4ac138c0c932336a128883332c797fd8715c4b76c7aae269e5f08f0208e"
+        releaseId: "94c70c81-1bae-4735-8c62-0b71a4c84db2"
+  delivery:
+    controller: "Argo CD"
+    cluster: "hx-kps-confighub-20260824-zxz"
+    application: "hx-kps-confighub-20260824-zxz-delivery"
+    current:
+      result: "pass"
+      release:
+        reference: "oci://oci.hub.confighub.com:443/space/hx-kps-confighub-20260824-zxz-delivery:latest"
+        manifestDigest: "sha256:dd92541c2bc583359ba5c8d7f38937fe78bd16bbc0f07b38af0f0f35b61785f0"
+        releaseId: "91f895f7-8625-441a-bbad-87ee40538aa3"
+      runtime:
+        sync: "Synced"
+        health: "Healthy"
+        revision: "sha256:dd92541c2bc583359ba5c8d7f38937fe78bd16bbc0f07b38af0f0f35b61785f0"
+        phase: "Succeeded"
+        crds:
+          -
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "alertmanagers.monitoring.coreos.com"
+            established: true
+          -
+            name: "podmonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "probes.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusagents.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheuses.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusrules.monitoring.coreos.com"
+            established: true
+          -
+            name: "scrapeconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "servicemonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "thanosrulers.monitoring.coreos.com"
+            established: true
+        jobs:
+          -
+            name: "kube-prometheus-stack-admission-create"
+            uid: "49e14e9f-6f26-4639-aca5-ce5cfae0a811"
+            succeeded: true
+            retained: true
+            evidence: "completed Job"
+          -
+            name: "kube-prometheus-stack-admission-patch"
+            uid: "c3a0815e-8da4-4f16-acd9-a90446bc386c"
+            succeeded: true
+            retained: true
+            evidence: "completed Job"
+        workloads:
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-grafana"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-kube-state-metrics"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-operator"
+            ready: true
+          -
+            kind: "daemonset"
+            name: "kube-prometheus-stack-prometheus-node-exporter"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "alertmanager-kube-prometheus-stack-alertmanager"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "prometheus-kube-prometheus-stack-prometheus"
+            ready: true
+        admissionSecretKeys:
+          - "ca"
+          - "cert"
+          - "key"
+        matchingWebhookCABundles: 3
+        operatorEndpointAddresses: 1
+        serverDryRun: "pass"
+        approvals:
+          -
+            unit: "kube-prometheus-stack"
+            revision: 2
+            approvalGateCleared: true
+          -
+            unit: "kube-prometheus-stack-configmaps"
+            revision: 2
+            approvalGateCleared: true
+          -
+            unit: "kube-prometheus-stack-crds"
+            revision: 2
+            approvalGateCleared: true
+          -
+            unit: "kube-prometheus-stack-namespaces"
+            revision: 2
+            approvalGateCleared: true
+    candidate:
+      result: "pass"
+      release:
+        reference: "oci://oci.hub.confighub.com:443/space/hx-kps-confighub-20260824-zxz-delivery:latest"
+        manifestDigest: "sha256:b676a4ac138c0c932336a128883332c797fd8715c4b76c7aae269e5f08f0208e"
+        releaseId: "94c70c81-1bae-4735-8c62-0b71a4c84db2"
+      hookReplacement:
+        result: "pass"
+        action: "removed completed setup Jobs and their temporary support objects before candidate publication"
+        before:
+          -
+            name: "kube-prometheus-stack-admission-create"
+            uid: "49e14e9f-6f26-4639-aca5-ce5cfae0a811"
+            succeeded: true
+            retained: true
+            evidence: "completed Job"
+          -
+            name: "kube-prometheus-stack-admission-patch"
+            uid: "c3a0815e-8da4-4f16-acd9-a90446bc386c"
+            succeeded: true
+            retained: true
+            evidence: "completed Job"
+      runtime:
+        sync: "Synced"
+        health: "Healthy"
+        revision: "sha256:b676a4ac138c0c932336a128883332c797fd8715c4b76c7aae269e5f08f0208e"
+        phase: "Succeeded"
+        crds:
+          -
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "alertmanagers.monitoring.coreos.com"
+            established: true
+          -
+            name: "podmonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "probes.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusagents.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheuses.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusrules.monitoring.coreos.com"
+            established: true
+          -
+            name: "scrapeconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "servicemonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "thanosrulers.monitoring.coreos.com"
+            established: true
+        jobs:
+          -
+            name: "kube-prometheus-stack-admission-create"
+            uid: "6d23bbcb-997f-4a32-951f-f68999771fad"
+            succeeded: true
+            retained: true
+            evidence: "completed Job"
+          -
+            name: "kube-prometheus-stack-admission-patch"
+            uid: "0402b86e-e6d8-43d3-b83b-187190ffe6b1"
+            succeeded: true
+            retained: true
+            evidence: "completed Job"
+        workloads:
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-grafana"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-kube-state-metrics"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-operator"
+            ready: true
+          -
+            kind: "daemonset"
+            name: "kube-prometheus-stack-prometheus-node-exporter"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "alertmanager-kube-prometheus-stack-alertmanager"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "prometheus-kube-prometheus-stack-prometheus"
+            ready: true
+        admissionSecretKeys:
+          - "ca"
+          - "cert"
+          - "key"
+        matchingWebhookCABundles: 3
+        operatorEndpointAddresses: 1
+        serverDryRun: "pass"
+        approvals:
+          -
+            unit: "kube-prometheus-stack"
+            revision: 3
+            approvalGateCleared: true
+          -
+            unit: "kube-prometheus-stack-configmaps"
+            revision: 3
+            approvalGateCleared: true
+          -
+            unit: "kube-prometheus-stack-crds"
+            revision: 3
+            approvalGateCleared: true
+          -
+            unit: "kube-prometheus-stack-namespaces"
+            revision: 3
+            approvalGateCleared: true
+  cleanup:
+    cluster: "pass"
+    deliverySpace: "pass"
+    localFiles: "pass"
+  limits:
+    - "This proves one 85.3.3 to 86.1.0 no-crds promotion through ConfigHub, one Argo CD destination, and one throwaway kind cluster."
+    - "The target supplied the Alertmanager and Grafana Secrets separately. Their values are not present in OCI or this receipt."
+    - "The operator removed the two completed setup Jobs before publishing the candidate. ConfigHub records and checks that route, but does not yet choose and run it automatically."
+    - "The separate staged-OCI proof covers Flux for this version pair. This ConfigHub release proof covers Argo CD only."
+    - "Rollback, long-running soak, and a production cluster were not tested in this run."
+status:
+  result: "pass"
+  claim: "ConfigHub retained the exact 85.3.3 no-crds objects, promoted the checked 86.1.0 candidate through staging and a target-bound variant, recorded and approved the destination route, published a new immutable OCI release, and Argo CD reran the ordered setup work before all checked runtime tests passed."

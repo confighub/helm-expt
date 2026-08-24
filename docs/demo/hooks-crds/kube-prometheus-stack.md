@@ -59,6 +59,24 @@ These are sensible alternatives to Helm's built-in hook runner. They preserve th
 
 ## What ConfigHub stores
 
+The maintained ConfigHub example now retains `kps-no-crds-upgrade-base` and
+`kps-no-crds-upgrade-staging`. The base contains the checked 85.3.3 objects.
+The staging variant contains the checked 86.1.0 objects plus one README and one
+non-deployable lifecycle route record. Approval gates protect the deployable
+Units.
+
+The live promotion proof published an exact release OCI for each version and
+let Argo CD reconcile both releases. Before publication it checked that the
+candidate still contained the intended `monitoring` and `kube-system`
+namespaces, that the target-owned Secrets came from the checked chart render,
+and that server-side apply was selected for the large CRDs. It then checked the
+ten CRDs, two replacement setup Jobs, webhook certificate handoff, six
+workloads, the operator endpoint, and Kubernetes admission.
+
+Read the [ConfigHub promotion result](../../../data/kps-confighub-lifecycle-promotion/summary.md),
+the [promotion review](../../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/promotion-review.yaml),
+or the [destination route](../../../examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml).
+
 The repository generates eight route records for each Kube Prometheus Stack base. Seven fresh-install steps have live direct receipts. The `no-crds` route also records the 85.3.3 to 86.1.0 upgrade through Argo CD and Flux. Direct apply has not run that upgrade.
 
 Each Unit records:
@@ -92,6 +110,7 @@ This check does not decide what a chart needs. The chart-specific preset and rou
 - Both Kube Prometheus Stack catalog bases completed the CRD, certificate, webhook patch, workload, and cleanup sequence through direct apply.
 - The Kube Prometheus Stack `no-crds` base completed the CRD, certificate, workload, webhook patch, and runtime sequence through Argo CD and Flux from the same OCI digest.
 - Argo CD and Flux upgraded `no-crds` from 85.3.3 to 86.1.0, replaced both completed setup Jobs, and passed the same runtime checks after the upgrade.
+- ConfigHub retained the 85.3.3 base and 86.1.0 staging variant, approved the deployable Units, published both exact release OCI digests, and delivered both through Argo CD while preserving the source namespaces.
 - The receipt does not claim rollback, long-running soak, automatic ConfigHub route selection, or automatic post-success removal of every temporary hook resource.
 
 The evidence is in:
@@ -102,13 +121,14 @@ The evidence is in:
 - [Kube Prometheus Stack direct lifecycle route receipt](../../../runs/kps-lifecycle-route-proof/receipt.yaml)
 - [Kube Prometheus Stack no-crds lifecycle route receipt](../../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml)
 - [Kube Prometheus Stack Argo CD and Flux lifecycle receipt](../../../runs/kps-gitops-lifecycle-proof/receipt.yaml)
+- [Kube Prometheus Stack ConfigHub promotion receipt](../../../runs/kps-confighub-lifecycle-promotion/receipt.yaml)
 - [Anonymous public package proof](../../../data/kps-public-package-proof/summary.md)
 - [Kube Prometheus Stack lifecycle receipt](../../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml)
 - [Generated route records](../../../data/hooks-crds-app/summary.md)
 
 ## What is still manual
 
-ConfigHub does not yet select the Kube Prometheus Stack route automatically. A team still chooses the delivery mechanism and confirms that the chart version, target Kubernetes version, CRDs, and webhook behavior match the recorded plan. Direct apply has fresh-install evidence. Argo CD and Flux have fresh-install and 85.3.3 to 86.1.0 upgrade evidence for `no-crds`.
+ConfigHub does not yet select the Kube Prometheus Stack route automatically. A person or automation still chooses the delivery mechanism and confirms that the chart version, target Kubernetes version, CRDs, and webhook behavior match the recorded plan. Direct apply has fresh-install evidence. Argo CD and Flux have fresh-install and 85.3.3 to 86.1.0 upgrade evidence for `no-crds`. The ConfigHub proof covers the retained base, staging candidate, approval gates, release OCI, and Argo CD delivery for this exact pair.
 
 The controller run removed completed setup Jobs before replacing them. It did not test rollback, a long soak, or automatic post-success removal of every temporary hook resource.
 

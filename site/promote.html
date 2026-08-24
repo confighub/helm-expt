@@ -544,6 +544,8 @@
       <ul id="what-changes"></ul>
       <h3>What stays the same</h3>
       <ul id="what-stays"></ul>
+      <h3>Before this reaches the destination</h3>
+      <ul id="destination-preflight"></ul>
       <div id="source-aware-result" hidden>
         <h3>Where the changes came from</h3>
         <p id="source-aware-summary"></p>
@@ -607,6 +609,22 @@
       </table></div>
       <p>The selected object hash stayed the same in the ConfigHub base, staging, and production. Argo CD then used the ConfigHub release digest and Kubernetes reported two ready replicas.</p>
       <p><a href="./d/docs/user/test-candidates-before-promotion.html"><strong>Read the worked example</strong></a> · <a href="./d/data/measured-promotion-proof/summary.html">Check the recorded result</a></p>
+
+      <h3>A difficult upgrade: Kube Prometheus Stack</h3>
+      <p><strong>Question:</strong> can the <code>no-crds</code> configuration move from 85.3.3 to 86.1.0 without breaking CRD ordering, webhook setup, or namespaces?</p>
+      <p>The checked candidate keeps 130 Kubernetes objects. The upgrade changes 111 of them. ConfigHub retains the current objects as a base and the candidate as a staging variant. Approval is required. ConfigHub publishes an exact release OCI for each version.</p>
+      <div style="max-width:100%;overflow-x:auto"><table style="min-width:640px">
+        <thead><tr><th>Destination check</th><th>Recorded result</th></tr></thead>
+        <tbody>
+          <tr><td>Namespaces</td><td>Pass: five Services remain in <code>kube-system</code>; monitoring objects remain in <code>monitoring</code>.</td></tr>
+          <tr><td>Prerequisites</td><td>Pass: two target-owned Secrets and ten established CRDs.</td></tr>
+          <tr><td>Setup work</td><td>Pass: both completed setup Jobs were replaced and the webhook certificate handoff was checked.</td></tr>
+          <tr><td>Delivery</td><td>Pass: Argo CD reconciled both exact ConfigHub release digests using server-side apply for the large CRDs.</td></tr>
+          <tr><td>Runtime</td><td>Pass: six workloads, the operator endpoint, and Kubernetes admission checks.</td></tr>
+        </tbody>
+      </table></div>
+      <p>This proves one chart, version pair, Argo CD path, and test target. It does not prove rollback, a long soak, automatic route selection, or an untested cluster.</p>
+      <p><a href="./d/data/kps-confighub-lifecycle-promotion/summary.html"><strong>Read the result</strong></a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/promotion-review.yaml">Open the promotion review</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml">Open the destination route</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">85.3.3 chart page</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-86-1-0.html">86.1.0 chart page</a></p>
 
       <h3 id="rollback-release">Roll back the selected release</h3>
       <p>Keep the previous approved object set and release digest. Rehearse the reverse comparison in staging, then publish that recorded object set again if the rollback is approved. The Redis proof restores one bounded desired-object release on two test clusters. It does not reverse database migrations, cloud resources, or other external effects.</p>

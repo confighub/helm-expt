@@ -163,12 +163,20 @@ for (const term of ["challenge-intake", "id: question_code", "id: question", "co
   check(issueTemplate.includes(term), `problem-chart issue template must expose the receiving contract: ${term}`);
 }
 check(promotionSchema.properties?.kind?.const === "PromotionReview", "promotion schema must define PromotionReview");
+check(
+  promotionSchema.properties?.spec?.required?.includes("destinationPreflight"),
+  "promotion schema must require destination preflight",
+);
+check(
+  promotionSchema.definitions?.destinationPreflight?.required?.includes("checks"),
+  "promotion destination preflight must require checks",
+);
 check(Array.isArray(baseVariantRecords.records) && baseVariantRecords.records.length > 0, "base variant record index must contain records");
 check(baseVariantRecords.records.some((record) => record.spec?.source?.type === "timoni"), "base variant records must include the Timoni source pilot");
-for (const term of ["Where the changes came from", "Hooks, CRDs, and required setup", "Target results", "promotion-review.schema.json"]) {
+for (const term of ["Where the changes came from", "Hooks, CRDs, and required setup", "Before this reaches the destination", "Target results", "promotion-review.schema.json"]) {
   check(promote.includes(term), `site/promote.html must expose source-aware promotion results: ${term}`);
 }
-for (const term of ["classifySourceAware", "parseTargetResults", "--dry-run -o mutations", "Do not call the fleet successful"]) {
+for (const term of ["classifySourceAware", "destinationPreflight", "parseTargetResults", "--dry-run -o mutations", "Do not call the fleet successful"]) {
   check(promoteScript.includes(term), `site/promote-config.js must keep the promotion boundary: ${term}`);
 }
 
