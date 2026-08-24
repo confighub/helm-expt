@@ -1079,7 +1079,6 @@ function upsertAndApproveAttestation({ slug, role, proofPhase, document, sourceD
         id: unit.UnitID,
         headRevisionNum: unit.HeadRevisionNum,
         dataHash: unit.DataHash,
-        contentHash: unit.ContentHash,
         provider: unit.ProviderType,
         targetID: unit.TargetID ?? null,
         action,
@@ -1140,9 +1139,13 @@ function metadataDiffers(actual, expectedValues) {
   return Object.entries(expectedValues).some(([key, value]) => actual?.[key] !== value);
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
 function storedUnitData(unit) {
-  check(unit.Data, `${unit.Slug} has no stored data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+  check(text, `${unit.Slug} has no stored data`);
+  return text;
 }
 
 function approvalCount(value) {
@@ -1941,8 +1944,7 @@ function verifyReceipt(receipt) {
       evidence.unit?.ref === `${expected.controlSpace}/${name}`
         && evidence.unit.provider === "None"
         && evidence.unit.targetID === null
-        && /^[a-f0-9]{64}$/.test(evidence.unit.dataHash ?? "")
-        && Number.isInteger(evidence.unit.contentHash),
+        && /^[a-f0-9]{64}$/.test(evidence.unit.dataHash ?? ""),
       `faithful ConfigHub evidence Unit ${name} is malformed or target-applied`,
     );
   }

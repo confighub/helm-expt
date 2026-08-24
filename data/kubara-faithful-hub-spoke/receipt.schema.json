@@ -289,13 +289,12 @@
         },
         "unit": {
           "type": "object",
-          "required": ["ref", "id", "headRevisionNum", "dataHash", "contentHash", "provider", "targetID", "action"],
+          "required": ["ref", "id", "headRevisionNum", "dataHash", "provider", "targetID", "action"],
           "properties": {
             "ref": { "type": "string", "minLength": 1 },
             "id": { "type": "string", "format": "uuid" },
             "headRevisionNum": { "type": "integer", "minimum": 1 },
             "dataHash": { "$ref": "#/$defs/sha256" },
-            "contentHash": { "type": "integer" },
             "provider": { "const": "None" },
             "targetID": { "type": "null" },
             "action": { "type": "string", "minLength": 1 }

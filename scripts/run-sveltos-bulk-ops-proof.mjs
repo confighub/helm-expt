@@ -305,7 +305,7 @@ function run() {
           "unit", "get", "--space", spaceFor[environment], policyUnit, "-o", "json",
         ]).Unit;
         check(
-          canonicalDocs(parseDocs(storedData(current)))
+          canonicalDocs(parseDocs(storedData(policyContext, current)))
             === canonicalDocs([plan.changedDocs[environment]]),
           `ConfigHub rejected the ${environment} fan-out before storing it: ${update.error}`,
         );
@@ -771,7 +771,7 @@ function reviewHeadRevision({
 }) {
   const stored = waitForPolicy(policyContext, space, policyUnit, true);
   check(
-    canonicalDocs(parseDocs(storedData(stored))) === canonicalDocs(expectedDocs),
+    canonicalDocs(parseDocs(storedData(policyContext, stored))) === canonicalDocs(expectedDocs),
     `ConfigHub stored a different ${stageName} ClusterProfile`,
   );
   if (minimumRevision !== undefined) {
@@ -790,7 +790,7 @@ function reviewHeadRevision({
   );
   const approved = waitForPolicy(policyContext, space, policyUnit, false);
   check(
-    approved.ContentHash === stored.ContentHash,
+    approved.DataHash === stored.DataHash,
     `approval changed the ${stageName} content`,
   );
   const recordedApprovals = approvalCount(approved.ApprovedBy);
@@ -802,7 +802,7 @@ function reviewHeadRevision({
   const release = publishRelease(policyContext, space);
   return {
     revisionId,
-    contentHash: stored.ContentHash,
+    contentHash: stored.DataHash,
     beforeApproval,
     approval: {
       revision: approved.HeadRevisionNum,
@@ -916,10 +916,10 @@ function auditZeroDrift({
     check(
       Number(current.HeadRevisionNum)
         === Number(approvedRecord.approval.revision)
-        && current.ContentHash === approvedRecord.contentHash,
+        && current.DataHash === approvedRecord.contentHash,
       `the ${environment} record changed out of band after its approval`,
     );
-    const storedDoc = parseDocs(storedData(current))[0];
+    const storedDoc = parseDocs(storedData(policyContext, current))[0];
     storedValues.push(storedDoc.spec.helmCharts[0].values);
     records.push({
       environment,
@@ -2411,9 +2411,13 @@ function getByRef(context, entity, ref) {
   return cubJson(context, [entity, "get", "--space", space, slug, "-o", "json"]);
 }
 
-function storedData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no stored data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedData(context, unit) {
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(context, ["unit", "data", unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no stored data`);
+  return text;
 }
 
 function approvalCount(value) {
@@ -2984,11 +2988,11 @@ function selfTest() {
         "unit", "get", "--space", spaceFor[environment], policyUnit, "-o", "json",
       ]).Unit;
       check(
-        current.ContentHash
+        current.DataHash
           === environmentRecords[environment].changed.contentHash,
         `the ${environment} record changed out of band in the fake walk`,
       );
-      return parseDocs(storedData(current))[0].spec.helmCharts[0].values;
+      return parseDocs(storedData(policyContext, current))[0].spec.helmCharts[0].values;
     });
     check(
       storedValues.every((values) => values === storedValues[0]),
@@ -3346,6 +3350,12 @@ function createFakeConfigHub() {
   };
   const ok = (output) => ({ ok: true, status: 0, output, error: "" });
   const refuse = (error) => ({ ok: false, status: 1, output: "", error });
+  // The configuration is not a field of a Unit any more: it never appears in a
+  // `cub unit get`/`unit list` answer, only through `cub unit data`.
+  const publicUnit = (unit) => {
+    const { Data, ...rest } = structuredClone(unit);
+    return rest;
+  };
   const handle = (args) => {
     const { positionals, flags, labels } = parseCubCommand(args);
     const [entity, verb, ...rest] = positionals;
@@ -3419,8 +3429,8 @@ function createFakeConfigHub() {
         SpaceSlug: flags.space,
         UnitID: `self-test-unit-${flags.space}-${slug}`,
         Labels: unitLabels,
-        Data: Buffer.from(data).toString("base64"),
-        ContentHash: sha256(data),
+        Data: data,
+        DataHash: sha256(data),
         HeadRevisionNum: 1,
         ApplyGates: { "awaiting/triggers": true },
         ApprovedBy: [],
@@ -3434,13 +3444,13 @@ function createFakeConfigHub() {
       const unit = units.get(key);
       if (!unit) return refuse(`unit ${key} not found`);
       const data = readFileSync(path, "utf8");
-      unit.Data = Buffer.from(data).toString("base64");
-      unit.ContentHash = sha256(data);
+      unit.Data = data;
+      unit.DataHash = sha256(data);
       unit.HeadRevisionNum += 1;
       unit.ApprovedBy = [];
       unit.ApplyGates = { "awaiting/triggers": true };
       pending.add(key);
-      return ok(JSON.stringify({ Unit: structuredClone(unit) }));
+      return ok(JSON.stringify({ Unit: publicUnit(unit) }));
     }
     if (entity === "unit" && verb === "list") {
       if (flags.space !== "*" || !String(flags.where ?? "").includes("LEN(ApplyGates) > 0")) {
@@ -3450,8 +3460,14 @@ function createFakeConfigHub() {
         .filter((unit) =>
           unit.Labels?.Proof === proofLabel
           && Object.keys(unit.ApplyGates ?? {}).length > 0)
-        .map((unit) => ({ Unit: structuredClone(unit) }));
+        .map((unit) => ({ Unit: publicUnit(unit) }));
       return ok(JSON.stringify(rows));
+    }
+    if (entity === "unit" && verb === "data") {
+      const key = unitKey(flags.space, rest[0]);
+      const unit = units.get(key);
+      if (!unit) return refuse(`unit ${key} not found`);
+      return ok(unit.Data);
     }
     if (entity === "unit" && verb === "get") {
       const key = unitKey(flags.space, rest[0]);
@@ -3464,7 +3480,7 @@ function createFakeConfigHub() {
         }
         return ok(JSON.stringify(projection));
       }
-      return ok(JSON.stringify({ Unit: structuredClone(unit) }));
+      return ok(JSON.stringify({ Unit: publicUnit(unit) }));
     }
     if (entity === "unit" && verb === "approve") {
       if (state.approveFails) return refuse("self-test simulated approval rejection");
@@ -3481,7 +3497,7 @@ function createFakeConfigHub() {
         .filter((unit) => unit.SpaceSlug === spaceSlug)
         .sort((left, right) => left.Slug.localeCompare(right.Slug));
       const digestInput = rows
-        .map((unit) => `${unit.Slug}:${unit.ContentHash}:${unit.HeadRevisionNum}`)
+        .map((unit) => `${unit.Slug}:${unit.DataHash}:${unit.HeadRevisionNum}`)
         .join("|");
       releaseSequence += 1;
       const manifestDigest = state.stripReleaseManifestDigest
@@ -3492,7 +3508,7 @@ function createFakeConfigHub() {
       releases.set(spaceSlug, {
         manifestDigest,
         data: rows
-          .map((unit) => Buffer.from(unit.Data, "base64").toString("utf8"))
+          .map((unit) => unit.Data)
           .join("\n---\n"),
       });
       return ok(JSON.stringify({

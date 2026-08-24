@@ -726,6 +726,12 @@ function inspectLivePolicy(space, policy) {
   };
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedUnitData(spaceSlug, unit) {
+  return run("cub", ["unit", "data", unit.UnitID ?? unit.Slug, "--space", spaceSlug]);
+}
+
 function inspectLive(receipt, { allowReceiptRefresh = false } = {}) {
   const spaceSlug = receipt.spec.space.slug;
   const unitSlug = receipt.spec.unit.slug;
@@ -741,7 +747,7 @@ function inspectLive(receipt, { allowReceiptRefresh = false } = {}) {
   const unitResult = JSON.parse(run("cub", ["unit", "get", unitSlug, "--space", spaceSlug, "-o", "json"]));
   const unit = unitResult.Unit;
   check(unit.UnitID === receipt.spec.unit.id, "live Kubara Unit ID changed");
-  const liveYaml = Buffer.from(unit.Data, "base64").toString("utf8");
+  const liveYaml = storedUnitData(spaceSlug, unit);
   const sourceYaml = readFileSync(renderedPath, "utf8");
   const liveObjects = parseObjects(liveYaml);
   const sourceObjects = parseObjects(sourceYaml).filter((object) => object.kind !== "Secret");
@@ -766,7 +772,7 @@ function inspectLive(receipt, { allowReceiptRefresh = false } = {}) {
       check(readme.DataHash === receipt.spec.readme.dataHash, "live Kubara README data hash changed");
     }
   }
-  const liveReadme = Buffer.from(readme.Data, "base64").toString("utf8");
+  const liveReadme = storedUnitData(spaceSlug, readme);
   check(
     JSON.stringify(parseDocs(liveReadme))
       === JSON.stringify(parseDocs(readFileSync(readmeUnitPath, "utf8"))),

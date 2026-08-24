@@ -196,7 +196,7 @@ function run() {
         ...aicrValidationKeys,
       ],
     });
-    const storedBefore = storedData(before);
+    const storedBefore = storedData(context, before);
     const sourceSha = sha256(reviewedText);
     const storedSha = sha256(storedBefore);
     const semanticMatch =
@@ -246,13 +246,13 @@ function run() {
         ...aicrValidationKeys,
       ],
     });
-    const storedAfter = storedData(after);
+    const storedAfter = storedData(context, after);
     check(
       JSON.stringify(parseDocs(storedAfter)) === JSON.stringify(reviewedDocs),
       "approval changed the reviewed Kubernetes object",
     );
     check(
-      after.ContentHash === before.ContentHash,
+      after.DataHash === before.DataHash,
       "approval changed the Unit content hash",
     );
     const recordedApprovals = approvalCount(after.ApprovedBy);
@@ -293,8 +293,8 @@ function run() {
           storedSha256: storedSha,
           byteForByteMatch: storedBefore === reviewedText,
           semanticMatch,
-          contentHashBeforeApproval: before.ContentHash,
-          contentHashAfterApproval: after.ContentHash,
+          contentHashBeforeApproval: before.DataHash,
+          contentHashAfterApproval: after.DataHash,
         },
         unsafeProposal: {
           unit: proposalUnitSlug,
@@ -583,9 +583,13 @@ function allowedDryRun(context, space, unit) {
   };
 }
 
-function storedData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no stored data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedData(context, unit) {
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(context, ["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no stored data`);
+  return text;
 }
 
 function approvalCount(value) {
@@ -647,7 +651,7 @@ function verifyReceipt(receipt) {
     "stored source hash changed",
   );
   check(
-    Number.isInteger(stored?.contentHashBeforeApproval)
+    stored?.contentHashBeforeApproval != null
       && stored.contentHashBeforeApproval === stored.contentHashAfterApproval,
     "approval changed the stored Unit content hash",
   );

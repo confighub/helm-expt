@@ -712,10 +712,10 @@ function inspectLive() {
   const unit = cubJson(["unit", "get", "--space", spaceSlug, unitSlug, "-o", "json"]).Unit;
   const readme = cubJson(["unit", "get", "--space", spaceSlug, readmeSlug, "-o", "json"]).Unit;
   const sourceDocs = sourceApplicationDocs();
-  const liveDocs = parseDocs(Buffer.from(unit.Data, "base64").toString("utf8"));
+  const liveDocs = parseDocs(storedUnitData(unit));
   check(canonicalDocs(liveDocs) === canonicalDocs(sourceDocs), "live AICR Unit differs from the rendered Application files");
   const readmeSource = parseDocs(readFileSync(readmeUnitPath, "utf8"));
-  const liveReadme = parseDocs(Buffer.from(readme.Data, "base64").toString("utf8"));
+  const liveReadme = parseDocs(storedUnitData(readme));
   check(canonicalDocs(liveReadme) === canonicalDocs(readmeSource), "live AICR README differs from its generated source");
   const waves = sourceDocs
     .filter((doc) => doc.metadata?.name !== "aicr-stack")
@@ -1702,9 +1702,13 @@ function findPersistentRevision(revisions, predicate, label) {
   return revision;
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
 function storedUnitData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no data`);
+  return text;
 }
 
 function spacePresent(space) {
