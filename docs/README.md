@@ -107,7 +107,7 @@ What the catalog promises, and the briefs behind those promises.
 | [chart-successors-brief.md](./planning/chart-successors-brief.md) | Brief for replacing the six single-publisher chart sources: the measured breakage, the live-verified successor per component, the redis engine question, and the operator shape tax. |
 | [config-catalog-demo-program.md](./planning/config-catalog-demo-program.md) | Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps. |
 | [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
-| [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Canonical business purpose and user journey, plus the source-neutral model for materializing, flattening, routing, protecting, retaining, and delivering configuration across Helm, AICR, generators, OCI, YAML, and ConfigHub. |
+| [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Canonical business purpose and user journey, including how the Catalog, local advisory checks, promotion checks, and ConfigHub validation find and prevent misconfiguration; also defines the source-neutral model for materializing, flattening, routing, protecting, retaining, and delivering configuration. |
 | [flattening-alignment.md](./reference/flattening-alignment.md) | Source-neutral decision guide for retaining exact objects, retaining them with recorded setup, or processing the source late. |
 
 ### Working with charts
@@ -180,7 +180,7 @@ Where a design is written down before it is built.
 | --- | --- |
 | [agent-operated-cross-format-catalog.md](./planning/agent-operated-cross-format-catalog.md) | Plan for an installable Config Workshop agent skill, task evaluations, a source-neutral Catalog, and the first Timoni source entry. |
 | [config-workshop-ai-drift-growth-strategy.md](./planning/config-workshop-ai-drift-growth-strategy.md) | Decision-ready positioning for the Workshop, its AI-assisted question path, the four drift stages, a thirty-day demand test, and the ranked growth backlog. |
-| [config-workshop-simulation-findings.md](./planning/config-workshop-simulation-findings.md) | Canonical record of the deterministic website journey checks, the AICR and OCI gaps they found, their limits, and the human tests still required. |
+| [config-workshop-simulation-findings.md](./planning/config-workshop-simulation-findings.md) | Canonical record of the deterministic and qualitative website journey checks, the August 23 three-click results, the remaining managed-operation journey, their limits, and the human tests still required. |
 | [promotion-workshop-test-program.md](./planning/promotion-workshop-test-program.md) | Adversarial test program for a public promotion review: exact candidates, destination differences, flattening refusals, lifecycle routes, stale evidence, partial fan-out, and the ConfigHub handoff. |
 | [confighub-data-model.md](./user/confighub-data-model.md) | How Helm, AICR, generators, OCI, YAML, and ConfigHub fit one processing model: materialize exact objects, decide whether to flatten, attach lifecycle routes, retain variants, publish, reconcile, and observe. |
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
@@ -522,6 +522,7 @@ not the primary user path.
 | [large-machine-handover.md](./planning/large-machine-handover.md) | Strict handover for a Codex instance that can run live Kubernetes and GitOps proof lanes. |
 | [large-machine-roadmap.md](./planning/large-machine-roadmap.md) | Outcome-driven roadmap for live parity, target-bound derived variants, chart quirks, and docs organization. |
 | [next-execution-plan.md](./planning/next-execution-plan.md) | Current execution plan and near-term backlog. |
+| [next-execution-plan-2026-06-helm-proof.md](./planning/next-execution-plan-2026-06-helm-proof.md) | Historical Helm-proof execution programme, retained for traceability after the current plan moved to the cross-format check, retain, promotion, release, and observation journey. |
 | [serverless-verified-install-plan.md](./planning/serverless-verified-install-plan.md) | Product planning for `cub installer` as a no-login verified-install transcript and upgrade path into ConfigHub. |
 | [verified-install-commercial-model.md](./planning/verified-install-commercial-model.md) | Paid-tier planning for scan receipts, image digest inventory, signed artifacts, private catalogs, and fleet-wide security operations. |
 | [robust-sceptic-plan.md](./planning/robust-sceptic-plan.md) | Attack model and adversarial test queue for public claims, lifecycle gaps, blast-radius prediction, and external reproduction. |

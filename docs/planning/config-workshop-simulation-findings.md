@@ -1,6 +1,6 @@
 # Config Workshop simulation findings
 
-Date: 2026-08-22
+Updated: 2026-08-23
 
 This is the canonical record for the automated website journey checks. It does
 not replace the [business purpose and user journey](../reference/config-catalog-doctrine.md#business-purpose-and-user-journey),
@@ -10,8 +10,9 @@ and it is not user research.
 
 Four deterministic walkers represent an application developer, GitOps operator,
 platform engineer, and release reviewer. Each walker starts from every main page,
-follows visible internal links for at most five clicks, and looks for the facts and
-next action required by one practical task.
+follows visible internal links up to the configured click limit, and looks for the
+facts and next action required by one practical task. The original runs allowed five
+clicks; the latest first-use runs allow three.
 
 The test answers one narrow question: can a visitor reach the maintained answer from
 each main page? It cannot tell us whether a person trusts the answer, understands a
@@ -28,6 +29,9 @@ rows and language trials. The important checkpoints are:
 | 2026-08-21 final navigation run | 720 success out of 720 | Confirmed that every original task had a reachable answer. |
 | 2026-08-22 stricter model run | 708 success, 11 partial, 1 fail out of 720 | Replaced easy OCI and AICR checks with precise questions about artifact identity, nested sources, and unrun hardware work. |
 | 2026-08-22 final model run | 720 success out of 720 | Confirmed that the targeted AICR and OCI fixes made the precise answers reachable. |
+| 2026-08-23 qualitative three-click review | 423 concrete, 122 partial, 55 failed or blocked out of 600 | Showed where impatient first-time readers lost the thread even when a maintained answer existed. The four agents used different task mixes, so this is a coverage count rather than a persona ranking. |
+| 2026-08-23 deterministic three-click baseline | 892 success, 117 partial, 3 fail out of 1,012 | Tightened the first-use limit from five clicks to three and expanded the cross-format and managed-operation questions. |
+| 2026-08-23 deterministic three-click rerun | 910 success, 99 partial, 3 fail out of 1,012 | Confirmed that targeted recovery, lifecycle, Catalog handoff, and Timoni changes converted 18 partial journeys to success. |
 
 Only runs that use the same goals and scoring rules should be compared directly.
 The individual summary files state when such a comparison is valid.
@@ -51,6 +55,66 @@ In the final run, 363 of 720 tasks were answered on the starting page. When a ta
 needed navigation, 253 of 357 first clicks moved toward the answer. Every task reached
 the answer within five clicks. These figures are regression metrics, not a target for
 putting every answer on every page.
+
+## What the latest numbers mean
+
+The deterministic three-click test found that 910 of 1,012 tasks reached the
+required answer and a relevant action. This is strong evidence that maintained
+answers are reachable. It is a navigation and content regression test, not proof
+that a person understands the answer, trusts it, needs it, or will adopt ConfigHub.
+
+The looser 600-journey review produced 423 concrete answers, 122 partial answers,
+and 55 failed or blocked results. The lower result is useful. Impatient first-time
+readers were more likely to lose the thread around lifecycle work, current evidence,
+and live operations than the deterministic walker was.
+
+The deterministic before-and-after runs used the same 1,012 journeys. Successful
+journeys rose from 892 to 910, and answers available on the starting page rose from
+430 to 450. The useful-first-click rate remained 65.1%. A high final success total
+therefore does not remove the need to improve the first choice.
+
+The remaining weak goals are close to ConfigHub's managed value:
+
+- check hooks and CRDs for a specific destination;
+- compare desired configuration with live state;
+- test a candidate in staging;
+- retain approvals and current evidence;
+- run controlled rollout waves; and
+- prove rollback beyond the Kubernetes object set.
+
+This does not mean every incomplete website journey is a sales opportunity. Some
+are missing product capability or missing evidence and must remain named as such.
+It does mean that more explanatory copy cannot complete these journeys by itself.
+
+## The main remaining journey
+
+The project has demonstrated this public sequence:
+
+```text
+question -> exact objects -> comparison -> reviewed files or OCI
+```
+
+The site explains this managed sequence:
+
+```text
+reviewed result -> ConfigHub -> variants -> promotion -> release -> live comparison
+```
+
+The simulations have not shown that ordinary users can complete the second sequence
+easily. The next tests should therefore be end-to-end tasks rather than another
+general navigation sweep:
+
+1. Take AI-written Helm values through exact comparison to a reviewed OCI.
+2. Retain that reviewed OCI as a ConfigHub base.
+3. Change the base for staging and compare the candidate with production.
+4. Check hooks, CRDs, and destination requirements before promotion.
+5. Promote an exact release, deliver it through Argo CD or Flux, and compare it
+   with live state.
+6. Turn a useful public investigation into a retained Catalog answer.
+
+The website reflects the intended sequence. The next proof must come from people
+completing it and finding that the retained result saves work when the configuration
+changes again.
 
 ## Stable findings
 
@@ -98,6 +162,8 @@ Run the deterministic navigation check against a local generated site:
 python3 -m http.server 8766
 npm run site:persona:simulate -- \
   --base-url http://127.0.0.1:8766/site/ \
+  --max-clicks 3 \
+  --current-label "Check my config" \
   --out-dir data/site-persona-simulations-YYYY-MM-DD
 ```
 

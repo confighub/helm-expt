@@ -442,629 +442,157 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/next-execution-plan.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This plan captures the backlog from the question:</p>
-<pre><code>Are the top 20 the best, simplest, safest way for a Helm user to install and vary it?</code></pre>
-<p>through the current repo-structure, installer-capability, target-facts, and <code>cub variant</code> discussion.</p>
-<p>For the current project-wide roadmap, start with <a href="roadmap.html">Roadmap</a>. This file is the near-term execution plan that sits underneath that index.</p>
-<h2 id="mission">Mission</h2>
-<p>Prove this claim for public Helm charts:</p>
-<pre><code>correct variants
-safe operations
-immediate proof</code></pre>
-<p>In Helm-user language:</p>
-<pre><code>Use the charts you already trust.
-Install and vary them with less pain.
-See exactly what changed and why before you ship.</code></pre>
-<h2 id="todays-roadmap">Today's Roadmap</h2>
-<p>For the reviewer-facing harness explanation, see <a href="../user/how-the-harness-works.html">How The Harness Works</a>. That is the shortest explanation of how the harness proves chart behavior today, what product capabilities are still missing, and where each issue fits.</p>
-<p>For the current top-20 chart-version refresh, Redis promotion variant work, and Kubara overlay golden, see <a href="latest-top20-refresh-plan.html">Latest Top-20 Refresh Plan</a> and:</p>
-<pre><code>data/latest-top20-refresh/</code></pre>
-<p>For the first dedicated website shape, see <a href="dedicated-website-plan.html">Dedicated Website Plan</a>.</p>
-<h2 id="current-baseline">Current Baseline</h2>
-<p>Use generated status pages for current counts. Do not maintain exact live, production, or refresh counts by hand in this plan.</p>
-<table><thead><tr><th>Question</th><th>Current source</th></tr></thead><tbody><tr><td>What is working now, and what is partial?</td><td><a href="../../data/status-dashboard/summary.html">data/status-dashboard/summary.md</a></td></tr>
-<tr><td>Which exact chart/base rows have each proof lane?</td><td><a href="../../data/outcome-coverage/summary.html">data/outcome-coverage/summary.md</a></td></tr>
-<tr><td>Which base variant should a user try first?</td><td><a href="../../data/top20-base-readiness/summary.html">data/top20-base-readiness/summary.md</a></td></tr>
-<tr><td>Which non-pass live rows need decisions or reruns?</td><td><a href="../../data/live-parity-rerun-plan/summary.html">data/live-parity-rerun-plan/summary.md</a></td></tr>
-<tr><td>Which latest chart versions are promotion candidates?</td><td><a href="../../data/latest-top20-refresh/summary.html">data/latest-top20-refresh/summary.md</a></td></tr>
-<tr><td>Which compact work rows are next?</td><td><a href="../../data/next-ten-waves/summary.html">data/next-ten-waves/summary.md</a></td></tr>
-<tr><td>Which top-20 production-support tasks can be assigned?</td><td><a href="../../../../data/production-support-decisions/work-items.csv">data/production-support-decisions/work-items.csv</a></td></tr></tbody></table>
-<p>Do not paste live, matrix, production, or refresh counts into this plan. Those counts move as live rows land and generated surfaces refresh. The current browser-readable status is:</p>
-<pre><code>data/master-catalog-matrix/matrix.html</code></pre>
-<p>The compact GitHub-readable status is:</p>
-<pre><code>data/status-dashboard/summary.md
-data/outcome-coverage/summary.md
-data/matrix-completion-audit/summary.md
-data/live-matrix-burndown/summary.md
-data/live-parity-rerun-plan/summary.md</code></pre>
-<p>When a row moves from todo/watch/blocked to pass, update the relevant generated surface and let those files carry the number.</p>
-<h2 id="current-release-guardrails">Current Release Guardrails</h2>
-<p>The errors-and-omissions pass now has two blocking static checks.</p>
-<table><thead><tr><th>Guard</th><th>What it prevents</th></tr></thead><tbody><tr><td><code>chart-claim-integrity:verify</code></td><td>Chart pages making claims that contradict their cited receipts.</td></tr>
-<tr><td><code>site:ux:verify</code></td><td>Chart pages leaking unresolved next-action placeholders or raw work-dir placeholders.</td></tr></tbody></table>
-<p>Both checks are wired into the broad <code>npm run verify</code> release gate.</p>
-<h2 id="current-99-goal-shape">Current 99% Goal Shape</h2>
-<p>The repo now has the main matrices that were missing earlier: pain-point coverage, edge recovery, variant-path coverage, quirk coverage, outcome coverage, top100/top500 analysis, live-parity status, and production-support work items.</p>
-<p>The next step is to turn those artifacts into product-grade confidence. This is not a request for more broad verifier output or fake green cells. It is a request to close the important chart and workflow residues that users will feel.</p>
-<p>The goal for the master matrix is not &quot;make every cell green.&quot; The goal is that every top-100 chart/base cell has a verified disposition:</p>
-<pre><code>pass        the lane is proven for the stated scope
-watch       the main path works, but a runtime, lifecycle, or target behavior needs review
-blocked     the lane cannot make a green claim until a named prerequisite, model gap, or product decision is closed
-refused     the chart, option, or lane is intentionally outside the current catalog boundary
-n/a         the lane does not apply to that row
-todo        temporary state only; every todo must have a named next action</code></pre>
-<p>This matters more than a green dashboard. A correct <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> cell is part of the product because it tells a user where the proof stops.</p>
-<p>The four working goals are still the right shape for the launch push:</p>
-<table><thead><tr><th>Goal</th><th>Meaning</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Top-100 matrix completeness</td><td>Every top-100 chart/base has a clear user route, evidence status, lifecycle/quirk status, production scope, and next action. Green where real; <code>n/a</code>, <code>watch</code>, <code>blocked</code>, or <code>refused</code> where honest.</td><td><code>data/master-catalog-matrix/matrix.html</code>, <code>data/chart-use-guide/summary.md</code>, <code>data/top100-readiness/summary.md</code>, <code>data/outcome-coverage/summary.md</code>.</td></tr>
-<tr><td>2. Excellent public website and docs</td><td>A user can move from zero-touch public use to full ConfigHub operations and understand why, what, how, limits, free tier, and paid/managed boundary at each stage.</td><td><code>README.md</code>, <code>docs/user/offering.md</code>, <code>docs/user/choose-your-path.md</code>, <code>docs/user/try-now.md</code>, <code>site/*.html</code>.</td></tr>
-<tr><td>3. Tested UX, including Pilot</td><td>A fresh team user or Pilot run can follow the docs, install or inspect a chart, verify the result, see ConfigHub Units, understand variants, and know what to do next.</td><td><code>docs/planning/pilot-adversarial-testing.md</code>, Pilot reports under <code>runs/</code>, tutorial receipts, <code>docs/user/tutorial-sequence.md</code>.</td></tr>
-<tr><td>4. Strategy docs converted into product outcomes</td><td>The planning corpus maps to visible product claims, catalog features, tests, roadmap items, and commercial tiers. No orphan ideas.</td><td><code>docs/planning/</code>, <code>docs/user/product-support-tiers.md</code>, <code>data/claims-register/summary.md</code>, <code>data/outcome-evidence-contract/summary.md</code>.</td></tr></tbody></table>
-<p>Five supporting goals keep those four honest:</p>
-<table><thead><tr><th>Goal</th><th>Why it matters</th><th>Evidence</th></tr></thead><tbody><tr><td>5. Lifecycle and hard-chart proof</td><td>Hooks, CRDs, webhooks, generated facts, target facts, APIService, admission mutation, upgrades, and rollbacks are where skeptical Helm users will test the model.</td><td><code>data/hook-disposition/</code>, <code>data/lifecycle-boundary/</code>, <code>data/lifecycle-observations/</code>, <code>data/apiservice-coverage/</code>, serious-chart packets.</td></tr>
-<tr><td>6. Production readiness by target scope</td><td>Users need to know what is safe for dev, what is review-ready, and what is production-supported for a specific target shape.</td><td><code>data/production-support-decisions/</code>, <code>data/production-disposition/</code>, per-chart catalog status.</td></tr>
-<tr><td>7. Maintenance and freshness</td><td>Upstream chart updates, stale receipts, old-version support, patching, top100/top500 refresh, and promotion must be predictable.</td><td><code>data/refresh-survival/</code>, <code>data/latest-top20-refresh/</code>, <code>docs/user/maintenance-sla.md</code>.</td></tr>
-<tr><td>8. External reproduction and sceptic proofing</td><td>Internal evidence is not enough for strong trust claims. The cluster matrix, external reproduction, time-travel re-verification, and upgrade gauntlet remain open proof work.</td><td><code>docs/planning/robust-sceptic-plan.md</code>, <code>data/claims-register/</code>, <code>data/blast-radius-accuracy/</code>, <code>data/torture-suite/</code>, <code>data/environment-matrix/</code>.</td></tr>
-<tr><td>9. Variant and commercial clarity</td><td>Users must understand base variants, derived ConfigHub variants, custom overlays, fleets, promotions, free use, and managed/paid services without seeing proof machinery first.</td><td><code>docs/user/creating-variants.md</code>, <code>docs/user/custom-overlays.md</code>, <code>docs/user/product-support-tiers.md</code>, <code>docs/planning/verified-install-commercial-model.md</code>.</td></tr></tbody></table>
-<p>The maturity target is:</p>
-<table><thead><tr><th>Level</th><th>Meaning</th><th>Main work</th></tr></thead><tbody><tr><td>90%</td><td>The proof corpus is credible. Public charts have recipes, base variants, render parity, receipts, pain reports, and generated status.</td><td>Keep the corpus honest and current.</td></tr>
-<tr><td>95%</td><td>The public offering is obvious. A Helm user can see why the model is better, choose a chart/base, understand the proof boundary, and see what remains before production.</td><td>Close the serious-chart and high-fanout examples, production-support queues, lifecycle residues, and first-run docs.</td></tr>
-<tr><td>99%</td><td>The product is a managed desired-state system. ConfigHub stores the graph of variants, approvals, operations, receipts, target assignments, and freshness across many clusters and teams.</td><td>Product implementation across ConfigHub Server, <code>cub installer</code>, <code>cub variant</code>, GitOps, and cub-scout.</td></tr></tbody></table>
-<p>The shift from 90% to 95% should not be measured by how many more charts have static parity. It should be measured by whether a skeptical Helm user can see a hard chart, a real variant operation, and a production-support queue and say:</p>
-<pre><code>I know what this installs.
-I know how it differs from Helm.
-I know what changed across variants.
-I know what is safe today.
-I know what still needs a decision.</code></pre>
-<h2 id="current-launch-workstreams">Current Launch Workstreams</h2>
-<p>The next work should be organized by user outcome, not by whichever generator is nearest to hand.</p>
-<table><thead><tr><th>Workstream</th><th>Owner lane</th><th>Done when</th></tr></thead><tbody><tr><td>Public website</td><td>Product/site lane</td><td>A first-time Helm user can land on the site, choose a path, inspect a chart, understand free versus managed use, and see live proof without reading planning docs.</td></tr>
-<tr><td>Top-100 catalog completion</td><td>Dataset/catalog lane</td><td>Every top-100 chart has a user route, a recommended first base or a reason it lacks one, hook/quirk disposition, production-scope status, and a next action.</td></tr>
-<tr><td>Hard-chart live proof</td><td>Live evidence lane</td><td>Kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, and at least one stateful Bitnami chart have current live proof for their important base routes and lifecycle boundaries.</td></tr>
-<tr><td>Variant and operations story</td><td>Product proof lane</td><td>A user can see when to use a base variant, when to use a derived ConfigHub variant, and when a change must be handled as a delivery prerequisite or managed overlay.</td></tr>
-<tr><td>Sceptic proofing</td><td>Adversarial lane</td><td>Claims register, blast-radius accuracy, hook dispositions, environment matrix, torture fixtures, refresh survival, and upgrade evidence all name their limits and next tests.</td></tr></tbody></table>
-<h2 id="productisation-roadmap-for-the-highest-value-features">Productisation Roadmap For The Highest-Value Features</h2>
-<p>The public site should not only describe the proof corpus. It should accommodate the user jobs that make the product valuable, test them as flows, and turn the proven parts into product surfaces. The current public web pages are the entry points; the roadmap below is the acceptance layer behind them.</p>
-<table><thead><tr><th>Feature</th><th>User value</th><th>Accommodation in the public product</th><th>Testing and evidence</th><th>Productisation path</th></tr></thead><tbody><tr><td>Variants and promotion</td><td>Users can choose a reviewed base, derive target/environment/customer variants, preview differences, and promote safely as part of application SDLC.</td><td><code>site/variants.html</code>, <code>site/journey.html</code>, per-chart variant cards, matrix variant layer, and ConfigHub application examples.</td><td>Variant promotion receipts, Redis/NGINX/kube-prometheus-stack promotion examples, <code>cub variant create</code> and <code>cub variant promote</code> command checks.</td><td>Product UI for base-vs-derived routing, preview, checks, approvals, promotion, and receipts over existing ConfigHub primitives.</td></tr>
-<tr><td>Apps, custom apps, and stacks</td><td>Users can combine public charts, private services, wrapper charts, overlays, and target facts into one desired-state graph.</td><td><code>site/journey.html</code>, <code>site/custom-apps.html</code>, private catalog boundary, custom overlay examples, and app-readiness data.</td><td>Managed overlay golden, app-readiness queries, external-dns overlay example, future private-catalog and import receipts.</td><td>ConfigHub private catalog/import workflow for wrapper charts, values overlays, internal services, and application release.</td></tr>
-<tr><td>Bulk scan, bulk patch, and fleet operations</td><td>Teams can answer &quot;where is this running?&quot;, scan many Units, patch safely, and roll out in waves after the application graph exists.</td><td><code>site/operations.html</code>, fleet and bulk operation references, matrix/database links.</td><td>Bulk scan/patch tutorial, blast-radius fleet evidence, cub-scout desired-vs-live design, fleet ledger receipts when available.</td><td>Server feature set for fleet inventory, bulk changesets, approvals, wave rollout, policy gates, and audit history.</td></tr>
-<tr><td>Upgrade and crash prevention</td><td>Risky Helm upgrades become staged, diffed, rehearsed, gated, observed changes instead of opaque <code>helm upgrade</code> events.</td><td>FAQ and future public upgrade page, serious-chart proof, kube-prometheus-stack upgrade examples.</td><td>Render old/new object diffs, CRD upgrade delta, workload upgrade rehearsals, refresh-survival data, hard-chart packets.</td><td>Managed upgrade campaign workflow: candidate version, blast radius, live rehearsal, approvals, rollout, rollback, and receipt pack.</td></tr>
-<tr><td>Target prerequisites and lifecycle routes</td><td>Users know what must exist before apply/GitOps can converge: CRDs, Secrets, storage, topology, webhooks, cloud identity, and hooks.</td><td>Helm Catalog ConfigHub Actions section, FAQ, chart pages, matrix hard-gap fields, and target-prerequisite guides.</td><td>Target-prerequisite action packets, lifecycle-route actions, hook dispositions, live observations for cert-manager/ESO and serious charts.</td><td>Product preflight checklist and target-facts UX with machine-readable action packets for CLI, UI, agents, and fleet runs.</td></tr>
-<tr><td>Database and matrix reading</td><td>Users can inspect the exact chart/version/base status without reading raw CSVs or treating proof rows as the product.</td><td>Helm Catalog links to <code>site/matrix.html</code>; Docs page routes to matrix, generated data index, claims register, and status dashboard.</td><td><code>master-matrix:verify</code>, docs/site verification, matrix completion audit, chart-use guide.</td><td>Future &quot;Database&quot; menu/page if the matrix becomes a first-class browsing and filtering product surface.</td></tr></tbody></table>
-<p>Each row must follow the same pattern:</p>
-<pre><code>public page -&gt; concise user flow -&gt; evidence surface -&gt; verifier or receipt -&gt; product surface</code></pre>
-<p>Planning notes stay private unless they are distilled into one of those user flows. A feature is not productised merely because it has proof data; it becomes productised when a user can find it, run or understand it, verify the result, and see the limits without reading internal planning material.</p>
-<h2 id="desktop-planning-sweep-2026-06-16">Desktop Planning Sweep, 2026-06-16</h2>
-<p>The Desktop planning notes were reviewed against the repo docs, open issues, and roadmap. The result is:</p>
-<table><thead><tr><th>Desktop note</th><th>Canonical repo home</th></tr></thead><tbody><tr><td>Helm pain points</td><td><a href="../user/helm-pain-points.html">Helm Pain Points</a>, <a href="../../data/pain-point-coverage/summary.html">pain-point coverage</a>, per-chart <code>helm-pain-report.yaml</code> files.</td></tr>
-<tr><td>Product support tiers</td><td><a href="../user/product-support-tiers.html">Product Support Tiers</a>, <a href="maintenance-strategy.html">Maintenance Strategy</a>.</td></tr>
-<tr><td>Low-friction serverless installer</td><td><a href="serverless-verified-install-plan.html">Serverless Verified Install Model</a>, issue <a href="https://github.com/confighub/helm-expt/issues/23">#23</a>.</td></tr>
-<tr><td>Commercial safety model</td><td><a href="verified-install-commercial-model.html">Verified Install Commercial Model</a>, issue <a href="https://github.com/confighub/helm-expt/issues/949">#949</a>.</td></tr>
-<tr><td>Helm community personas</td><td><a href="helm-community-persona-prd.html">Helm Community Persona PRD</a>, <a href="helm-community-persona-plan.html">Persona Plan</a>, <a href="../reference/helm-community-persona-reference.html">Persona Reference</a>.</td></tr>
-<tr><td>Robust sceptic plan</td><td><a href="robust-sceptic-plan.html">Robust Sceptic Plan</a>, claims register, blast-radius, torture, environment, hook, and lifecycle data surfaces.</td></tr>
-<tr><td>Pilot HelmOps PRD</td><td><code>confighub-ai-demo</code> roadmap and milestone; helm-expt owns upstream evidence such as issue <a href="https://github.com/confighub/helm-expt/issues/948">#948</a>.</td></tr></tbody></table>
-<p>The sweep produced one new helm-expt tracker: <a href="https://github.com/confighub/helm-expt/issues/949">#949</a> for Helm remediation, lifecycle intelligence, and commercial support lanes. Pilot-specific HelmOps hardening lives in <code>confighub-ai-demo</code> under its <code>HelmOps product hardening</code> milestone. The main ownership rule remains:</p>
-<pre><code>helm-expt proves catalog and live-evidence claims.
-ConfigHub/cub/installer implement managed operations.
-Pilot consumes the evidence and gates user-facing routes.</code></pre>
-<p>The website must not present proof machinery as the product. The public flow should be:</p>
-<pre><code>choose chart
-choose supported base
-inspect exact objects
-verify the proof
-upload or deliver through ConfigHub
-operate with variants, scans, approvals, observations</code></pre>
-<p>Receipts stay underneath that flow. They are linked for trust and audit, not used as the first-screen explanation.</p>
-<table><thead><tr><th>Priority</th><th>Work</th><th>Why it matters</th><th>Evidence to update</th></tr></thead><tbody><tr><td>1</td><td>Turn the public site into the launch front door.</td><td>The repo has too much internal proof context for a first-time user. The website must carry the simple product story: why, what, how, proof, limits, and upgrade path.</td><td><code>site/*.html</code>, <code>scripts/generate-public-site.mjs</code>, <code>docs/planning/dedicated-website-plan.md</code>, <code>docs/user/offering.md</code>.</td></tr>
-<tr><td>2</td><td>Close more complete-core rows in the master matrix.</td><td>The main proof gap is no longer render parity. It is live GitOps/OCI and strict Helm-vs-ConfigHub parity across more important rows.</td><td><code>data/master-catalog-matrix/matrix.html</code>, <code>data/outcome-coverage/base-outcomes.csv</code>, <code>runs/live-helm-confighub-compare/</code>.</td></tr>
-<tr><td>3</td><td>Make kube-prometheus-stack the serious-chart proof.</td><td>It exercises high object count, CRDs, webhooks, RBAC, generated facts, extension slots, and large blast radius. It is the best answer to &quot;does this survive real Helm complexity?&quot;</td><td><code>docs/user/prometheus-high-fanout.md</code>, <code>data/hard-chart-production-packets/</code>, live and lifecycle receipts for the monitoring scope.</td></tr>
-<tr><td>4</td><td>Close top-20 production-support work items.</td><td>The catalog is useful only when a user can see which bases are supported for a target scope and what remains before production use.</td><td><code>data/production-support-decisions/work-items.csv</code>, per-chart <code>catalog-status.yaml</code>, target-scoped receipts.</td></tr>
-<tr><td>5</td><td>Expand field reachability beyond Redis and KPS.</td><td>Helm's root problem is forgetful 1-to-many generation. The next gap is mapping more rendered fields back to values, generated facts, target facts, and extension slots.</td><td><code>data/edge-recovery/edges.csv</code>, per-chart <code>inheritance-graph.yaml</code>, value-source maps, <code>data/blast-radius-accuracy/</code>.</td></tr>
-<tr><td>6</td><td>Finish hook and lifecycle observations for maintained hook charts.</td><td>Hook inventory is not enough. Users need to know whether lifecycle behavior is skipped, blocked, mapped, or observed.</td><td><code>data/hook-lifecycle/summary.md</code>, <code>data/hook-disposition/summary.md</code>, <code>data/lifecycle-boundary/summary.md</code>, lifecycle execution or observation receipts.</td></tr>
-<tr><td>7</td><td>Keep the public path short.</td><td>A new Helm user should understand the offering, pick a base variant, run the command, and know what proof they have without reading the planning corpus.</td><td><code>README.md</code>, <code>CATALOG.md</code>, <code>docs/user/try-now.md</code>, <code>docs/user/current-proof-status.md</code>, generated site pages.</td></tr></tbody></table>
-<h2 id="immediate-launch-sequence-after-the-planning-sweep">Immediate Launch Sequence After The Planning Sweep</h2>
-<p>The next work should close user-visible confidence gaps before adding more internal proof surfaces. The current status is strong enough to launch a proof site, but not yet strong enough to imply production support across the top-100.</p>
-<p>The launch push should prioritize the work a skeptical Helm user will feel:</p>
-<pre><code>Can I understand the product in five minutes?
-Can I try a chart without signing up?
-Can I see which variants are useful?
-Can I see what is production-supported versus only proven?
-Can I see hard Helm behavior handled honestly?
-Can I bring a problem chart and get a receipt, route, or refusal?</code></pre>
-<p>Do not optimize the launch around more proof machinery on the first screen. The website should expose proof as trust, not as the product path.</p>
-<table><thead><tr><th>Order</th><th>Work</th><th>Concrete next step</th><th>Main sources</th></tr></thead><tbody><tr><td>1</td><td>Public website launch path</td><td>Make <code>site/index.html</code>, <code>site/proof.html</code>, <code>site/tiers.html</code>, and the chart pages the primary user journey: choose chart, choose base, inspect proof, understand free versus managed next step.</td><td><code>docs/planning/dedicated-website-plan.md</code>, <code>site/README.md</code>, <code>data/master-catalog-matrix/matrix.html</code>.</td></tr>
-<tr><td>2</td><td>Complete-core expansion</td><td>Continue serial live Helm-vs-ConfigHub parity runs for the highest-value rows until each new pass updates the master matrix, status dashboard, and promotion wave.</td><td><code>data/master-catalog-matrix/matrix.html</code>, <code>data/outcome-coverage/base-outcomes.csv</code>, <code>runs/live-helm-confighub-compare/</code>.</td></tr>
-<tr><td>3</td><td>Promotion review wave</td><td>Turn the 24 strict top-100 promotion packets into human decisions: selected base, scan/gate disposition, lifecycle route, support scope, and production decision.</td><td><code>data/top100-promotion-wave/summary.md</code>, <code>data/top100-promotion-wave/review-packets/</code>.</td></tr>
-<tr><td>4</td><td>Useful base buildout</td><td>For the 35 user-shaped variant rows, create bases only when the change is a real Helm-user install shape. Do not manufacture bases just to make cells green.</td><td><code>data/top100-coverage/work-queue.md</code>, <code>data/useful-base-design-queue/summary.md</code>, <code>data/useful-base-realization-wave/summary.md</code>.</td></tr>
-<tr><td>5</td><td>Hard-chart proof</td><td>Keep kube-prometheus-stack as the serious-chart exemplar, and close the obvious lifecycle gaps for cert-manager, External Secrets, Argo Workflows, and at least one stateful chart.</td><td><code>docs/user/serious-chart-proof.md</code>, <code>data/production-readiness-packets/</code>, issues <code>#643</code>, <code>#248</code>.</td></tr>
-<tr><td>6</td><td>Hook and lifecycle trust</td><td>Treat every hook as routed, observed, refused, or per-target. The public claim is not universal hook execution; the public claim is that lifecycle behavior is no longer hidden.</td><td><code>data/hook-disposition/summary.md</code>, <code>docs/reference/what-hook-support-means.md</code>, <code>docs/user/hook-lifecycle-strategy.md</code>.</td></tr>
-<tr><td>7</td><td>Variant operations</td><td>Make the base-versus-derived-versus-delivery decision obvious in tutorials, then prove the ConfigHub side through derived variants, target-bound receipts, promotion examples, and bulk scan/patch.</td><td>issues <code>#143</code>-<code>#152</code>, <code>docs/user/creating-variants.md</code>, <code>docs/user/tutorial-sequence.md</code>.</td></tr>
-<tr><td>8</td><td>External reproduction</td><td>Run the outside-user/Pilot path against the public site and tutorials, then record where a fresh user gets confused or where a CLI command is imagined.</td><td><code>docs/planning/outside-user-test.md</code>, <code>docs/planning/pilot-adversarial-testing.md</code>, <code>docs/planning/independent-review-brief.md</code>.</td></tr>
-<tr><td>9</td><td>Commercial proof boundary</td><td>Keep the free path useful for public artifacts; route private overlays, stacks, old-version patch support, fleet operations, approvals, and production evidence into managed tiers.</td><td><code>docs/user/product-support-tiers.md</code>, <code>docs/planning/verified-install-commercial-model.md</code>, <code>docs/user/offering.md</code>.</td></tr></tbody></table>
-<h2 id="current-hard-blockers-for-95">Current Hard Blockers For 95%+</h2>
-<p>These are the blockers that matter more than adding easy green cells:</p>
-<table><thead><tr><th>Blocker</th><th>Why it matters</th><th>Current route</th></tr></thead><tbody><tr><td>Consul secure-mesh target-fit row</td><td>It is the only current selected live parity non-pass row. It needs a target with the declared target shape or an honest target-scope decision.</td><td><code>data/live-parity-rerun-plan/summary.md</code>, <code>recipes/hashicorp/consul/2.0.0/target-topology.yaml</code>.</td></tr>
-<tr><td>Argo Workflows CRD hook/default split</td><td>It is a real example of &quot;hooks are the install&quot;; the default omits CRDs unless the hook route or a minimal-CRDs base is used.</td><td>issue <code>#643</code>, hook/lifecycle and useful-base lanes.</td></tr>
-<tr><td>ConfigHub bulk unit-create failures</td><td>Several next80 rows are blocked by server-side <code>unit create</code> or bulk-create failures rather than chart semantics.</td><td>issue <code>#645</code>; keep rows partial until the server issue is resolved.</td></tr>
-<tr><td>Mutable image tags</td><td>OCI artifact integrity does not fully bind runtime if rendered image tags float.</td><td>issue <code>#99</code>, image digest workdown.</td></tr>
-<tr><td>Namespace transformer limits</td><td>Complex charts can retain embedded namespace references if users choose non-canonical namespaces.</td><td>issue <code>#96</code>; prefer render-time namespace or a refusal/warning for affected bases.</td></tr>
-<tr><td>Public website polish</td><td>The evidence exists, but the first-time user flow still needs product clarity, chart pages, problem-chart intake, and free-versus-managed routing.</td><td><code>docs/planning/dedicated-website-plan.md</code>, generated <code>site/</code>.</td></tr></tbody></table>
-<p>If Claude or another agent helps, give them one of these blockers with a narrow PR boundary. The live lane remains serial; non-live dataset and website work can run in isolated worktrees.</p>
-<p>When another agent helps, prefer these splits:</p>
-<table><thead><tr><th>Agent lane</th><th>Owns</th><th>Avoids</th></tr></thead><tbody><tr><td>Codex live lane</td><td>Serial live parity, ConfigHub/OCI runs, receipt commits, generated status/site refresh after live evidence.</td><td>Running multiple live lanes concurrently.</td></tr>
-<tr><td>Claude dataset lane</td><td>Promotion packet review drafts, useful-base design, hook/quirk audits, matrix consistency, website copy PRs.</td><td>Creating kind clusters or editing generated site files while the live lane is regenerating.</td></tr>
-<tr><td>Claude product lane</td><td>First-user walkthroughs, website information architecture, plain-English tutorial review, persona checks.</td><td>Changing proof semantics or broad generators without a focused PR.</td></tr></tbody></table>
-<h2 id="parallel-work-split">Parallel Work Split</h2>
-<p>Use separate branches or worktrees. Do not run live lanes concurrently.</p>
-<table><thead><tr><th>Lane</th><th>Good for Codex</th><th>Good for Claude</th></tr></thead><tbody><tr><td>Live evidence</td><td>Serial live parity, ConfigHub/OCI runs, hard chart runtime diagnosis, committing receipts, refreshing generated surfaces.</td><td>Static analysis of failed receipts, route proposals, issue comments, small verifier improvements that do not create clusters.</td></tr>
-<tr><td>Dataset/catalog</td><td>Merging generated evidence after live runs, resolving model defects found by live proof.</td><td>Top-100 useful-base design, hook/quirk table audits, field-reachability maps, CSV consistency work.</td></tr>
-<tr><td>Website/product</td><td>Final review and merge, because it touches generated site files and public messaging.</td><td>Drafting page sections, copy tests, persona walkthroughs, outside-user review scripts, site information architecture.</td></tr>
-<tr><td>Sceptic proof</td><td>Live upgrade or lifecycle tests where a cluster is required.</td><td>Torture fixtures, blast-radius cases, claims-register gaps, environment matrix expansion, issue triage.</td></tr></tbody></table>
-<p>Claude should avoid the live parity runner unless explicitly assigned the live lane for a window. When Claude works on site or dataset changes, it should open PRs and state which generated files it touched so the live lane can regenerate after merge if needed.</p>
-<p>The 99% product target is the persistent ConfigHub graph. helm-expt should feed that graph by producing chart, variant, provenance, quirk, and receipt data that is independently checkable. ConfigHub Server then adds authority, query, history, approvals, target assignment, and freshness across many variants and clusters.</p>
-<p>The main 95% demonstration should use kube-prometheus-stack, not because it is easy, but because it is hard in the ways Helm users recognize: CRDs, webhooks, cluster RBAC, generated facts, extension slots, lifecycle behavior, and a large object surface. Redis remains the teaching path. NGINX remains the simple web/live path. kube-prometheus-stack is the chart that proves the model is not only a happy-path wrapper.</p>
-<p>The first high-fanout operation should show a shared change before it is shipped:</p>
-<pre><code>selected base or shared input
--&gt; affected variants and fields
--&gt; protected overrides
--&gt; object-level deltas
--&gt; scans/gates
--&gt; delivery or observation receipts where available</code></pre>
-<p>This is the practical answer to Helm's fanout x density x blast-radius problem. It is more valuable than another broad parity count because it shows a user how ConfigHub makes a risky fleet change reviewable before it reaches a cluster.</p>
-<p>Important boundary:</p>
-<pre><code>Top-20 catalog presence is mandatory because these charts are popular.
-Machine proof decides support scope; it does not erase production review.
-Catalog support scope must be explicit in catalog-status.yaml.</code></pre>
-<p>Issue and command baseline:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>#76 is closed as a verifier-backed definition of the Helm import path from
-`cub helm template` / `cub helm install` to durable `cub installer` recipes.
-The future `cub installer import helm` command remains product implementation
-work, not a blocker for the current proof corpus.
-The Helm pain table explanation work is closed; keep
-[Helm Pain Points](../user/helm-pain-points.md) and
-[Pain Point Coverage](../../data/pain-point-coverage/summary.md) current as
-the proof lanes change.
-Use scoped verifiers while editing. Use the full `npm run verify` only as the
-broad release gate.</code></pre>
-<h2 id="roadmap-integration-real-cub-and-confighub-capabilities">Roadmap Integration: Real Cub And ConfigHub Capabilities</h2>
-<p>The capability doctrine turns into two roadmap tracks:</p>
-<pre><code>Use existing verbs now.
-Request missing verbs only where the current product surface is awkward, manual,
-or script-only.</code></pre>
-<p>The overlay doctrine adds one more roadmap constraint:</p>
-<pre><code>First try should be possible without full product signup for public signed artifacts.
-Public chart base variants stay in the public catalog proof.
-Post-render environment/customer variants require ConfigHub Server.
-Wrapper charts plus customer overlays are managed overlay imports and are not
-claimed as solved by the free/static proof alone.</code></pre>
-<p>See <a href="../user/product-support-tiers.html">Product Support Tiers For Helm Scenarios</a>.</p>
-<p>The hook doctrine adds a lifecycle constraint:</p>
-<pre><code>Helm hooks are source-visible but execution-dependent.
-The public catalog must inventory and classify them.
-Production support needs lifecycle receipts and observations, or an explicit
-blocker.</code></pre>
-<p>The current top-500 source scan found 54 hook-using charts among 495 scanned charts. A first-pass risk estimate classifies 42 as likely problematic, 6 as needs-review, and 6 as probably benign/test-only. See <a href="../user/hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a>.</p>
-<h3 id="use-current-confighub-capabilities">Use Current ConfigHub Capabilities</h3>
-<p>These existing verbs should move into the proof path wherever they make the result simpler, safer, or more provable.</p>
-<table><thead><tr><th>Lane</th><th>Existing verbs</th><th>Roadmap home</th><th>Acceptance</th></tr></thead><tbody><tr><td>Installer proof</td><td><code>cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list</code></td><td>P0.4, P1.1</td><td>Redis and each promoted catalog candidate shows package docs, deterministic setup/render, deterministic bundle, vet/plan output where useful, upload or publish evidence, and ConfigHub Unit reconciliation where available.</td></tr>
-<tr><td>Server variants</td><td><code>cub variant create</code> clone/link substrate plus Creator contract over ConfigHub primitives</td><td>P0.5</td><td>Redis demo shape describes cloning a reviewed uploaded base space when server-side variation is simpler than another Helm render.</td></tr>
-<tr><td>Review and diff</td><td><code>cub unit diff</code>, <code>cub revision data/list</code>, <code>cub unit data/tree/list</code></td><td>P1.6</td><td>Demo shows exact Unit data, revision history, tree view, and object-level differences for at least Redis.</td></tr>
-<tr><td>Safe operations</td><td><code>cub changeset create/list/update</code>, <code>cub unit approve/apply/destroy/cancel</code></td><td>P1.7</td><td>Local/test operation lane creates a changeset, records approval/apply intent, and shows how unsafe operations are gated or cancelled.</td></tr>
-<tr><td>Scanning and misconfig</td><td><code>cub function vet</code>, <code>cub function get/set</code>, <code>cub run ...</code></td><td>P1.8</td><td>Rendered objects or uploaded Units get ConfigHub function checks with scan/gate receipts.</td></tr>
-<tr><td>Target and live facts</td><td><code>cub target create/get/list</code>, <code>cub k8s collect</code>, <code>cub k8s source</code>, <code>cub unit livestate/livedata/refresh</code></td><td>P1.3, P1.4</td><td>Local kind target proves target facts, source tracing, and freshness/unknown status where available.</td></tr>
-<tr><td>GitOps adoption</td><td><code>cub gitops discover/import</code></td><td>P2.5</td><td>Separate compatibility proof shows ConfigHub can discover/import existing Argo/Flux resources without confusing this with the installer package path.</td></tr>
-<tr><td>Metadata model</td><td><code>cub tag</code>, <code>cub attribute</code>, <code>cub filter</code>, <code>cub view</code>, <code>cub link</code></td><td>P1.9</td><td>Catalog entries become searchable by chart, recipe, variant, target, risk, support status, and dependencies.</td></tr></tbody></table>
-<h3 id="missing-verb-asks">Missing Verb Asks</h3>
-<p>These are product/installer asks, not blockers for continuing the public proof. Where repo scripts already perform the job, the ask is to turn a proven pattern into a reusable <code>cub</code> capability.</p>
-<p>Current command routing:</p>
-<table><thead><tr><th>User need</th><th>Current command</th><th>Product role</th></tr></thead><tbody><tr><td>Render and inspect a Helm chart locally</td><td><code>cub helm template</code></td><td>Fast renderer and baseline generator</td></tr>
-<tr><td>Render and load a chart into ConfigHub Units</td><td><code>cub helm install</code></td><td>Fast one-shot ConfigHub action</td></tr>
-<tr><td>Discover/import existing Argo CD or Flux apps</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Existing app adoption path</td></tr>
-<tr><td>Import KRM YAML, rendered manifests, or live resources</td><td><code>cub unit import</code> or managed import workflow</td><td>Generic Kubernetes resource adoption path</td></tr>
-<tr><td>Build a maintained, variant-aware catalog entry</td><td>repo generator + <code>cub installer</code> package path</td><td>Current proof substrate</td></tr>
-<tr><td>Graduate fast Helm path into maintained catalog path</td><td>future <code>cub installer import helm</code></td><td>Missing bridge</td></tr></tbody></table>
-<table><thead><tr><th>Priority</th><th>Ask</th><th>Why</th></tr></thead><tbody><tr><td>P0 ask</td><td><code>cub installer import helm</code></td><td>Makes chart -&gt; installer recipe/package a product capability, not an AI/script-only step.</td></tr>
-<tr><td>P0 ask</td><td><code>cub installer analyze</code></td><td>Makes HelmPlan / chart weirdness visible before install.</td></tr>
-<tr><td>P0 ask</td><td>implemented <code>cub installer preflight</code></td><td>Turns target facts and <code>externalRequires</code> into live checks.</td></tr>
-<tr><td>P0 ask</td><td><code>cub installer compare</code> or <code>cub installer prove</code></td><td>Turns Helm-vs-<code>cub installer</code> equivalence into a product receipt.</td></tr>
-<tr><td>P1 ask</td><td><code>cub installer scan</code></td><td>Gives rendered-object scan receipts without hand-wiring scripts.</td></tr>
-<tr><td>P1 ask</td><td><code>cub variant list/diff/promote/update</code> and Creator-aware preview/check surfaces over <code>cub variant create</code></td><td>Completes the server-side variant lifecycle around the existing clone/link command.</td></tr>
-<tr><td>P1 ask</td><td><code>cub observe</code> or <code>cub target observe</code></td><td>Gives workerless ConfigHub a clean observation receipt path.</td></tr>
-<tr><td>P2 ask</td><td><code>cub catalog search/show/install</code></td><td>Makes the public catalog first-run UX simple after the proof shape is stable.</td></tr></tbody></table>
-<h3 id="low-friction-standalone-lane">Low-Friction Standalone Lane</h3>
-<p>Top-of-funnel requirement:</p>
-<pre><code>Make the first experience feel like helm install redis, not platform signup.</code></pre>
-<p>Target:</p>
-<pre><code>public catalog entry
-public signed package / OCI artifact
-authenticated or rate-limited public pull
-user-owned cluster
-optional Argo CD or Flux OCI sync
-local verification receipt</code></pre>
-<p>Signup and auth boundary:</p>
-<pre><code>No full product signup for trying public catalog artifacts.
-Authenticated/rate-limited public pulls are acceptable for abuse prevention.
-Artifact signatures and digest verification are required for trust.
-Browser cookies help the web catalog, but OCI/GitOps needs pull credentials.
-Full signup for private charts, private overlays, server-side variants,
-production approvals, managed receipts, fleet operations, and patch/support
-workflows.</code></pre>
-<p>Acceptance:</p>
-<ul><li>README explains the low-friction path as a product target without overclaiming current automation or promising an unauthenticated gateway.</li><li>Product tiers include a Tier 0 standalone try path with auth/rate-limit and signature expectations.</li><li>GitOps/OCI examples stay honest about what is local proof, what is live controller proof, and what requires ConfigHub Server.</li></ul>
-<h3 id="hook-and-lifecycle-intelligence-lane">Hook And Lifecycle Intelligence Lane</h3>
-<p>Hooks and other lifecycle-sensitive chart behavior should become a proof lane, not a hidden exception.</p>
-<p>Action:</p>
-<pre><code>turn hook scan evidence into per-chart hook disposition
-map test-only hooks to explicit checks
-map safe lifecycle hooks to Argo/GitOps lifecycle actions where possible
-block unsafe or unclear hooks before production support
-record execution-or-skip and observation receipts</code></pre>
-<p>Commercial direction:</p>
-<pre><code>public catalog = hook inventory and support-scope honesty
-managed tier = private hook analysis, lifecycle translation, upgrade/rollback
-receipts, and evidence packs</code></pre>
-<p>Acceptance:</p>
-<ul><li>top-500 catalog analysis exposes hook risk buckets;</li><li><code>helm-pain-report.yaml</code> records hook disposition for catalog-supported charts;</li><li>production disposition cannot mark a hook-using chart production-ready without lifecycle receipt or explicit safe skip/test disposition;</li><li>managed/commercial docs explain hook translation as lifecycle intelligence, not as automatic hook execution.</li></ul>
-<h2 id="p0-gates">P0 Gates</h2>
-<h3 id="p01-keep-archive-cleanup-catalog-status-green">P0.1 Keep Archive Cleanup / Catalog Status Green</h3>
-<p>Purpose:</p>
-<pre><code>Keep the active repo matched to the current story.</code></pre>
-<p>Status:</p>
-<pre><code>completed as a baseline; keep verified</code></pre>
-<p>Acceptance:</p>
-<ul><li>old top-20 archive is removed from active tree</li><li>Redis points at <code>packages/bitnami/redis/25.5.3</code></li><li><code>catalog-status.yaml</code> exists for all 100 recipes</li><li><code>npm run verify</code> passes</li><li><code>data/catalog-promotion-review/summary.md</code> reports:<ul><li><code>machine checks pass: 100</code></li><li><code>catalog-supported: 20</code></li><li><code>recipes with non-current executable fixture path: 0</code></li></ul></li></ul>
-<h3 id="p02-make-chart---recipe---variant-obvious">P0.2 Make Chart -&gt; Recipe -&gt; Variant Obvious</h3>
-<p>Problem:</p>
-<p>The current structure is mechanically coherent but hard to read. A new reader does not immediately see:</p>
-<pre><code>chart -&gt; recipe -&gt; variants -&gt; revisions -&gt; package bases -&gt; receipts</code></pre>
-<p>Action:</p>
-<p>Maintain generated per-chart maps:</p>
-<pre><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/CATALOG.md
-recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/artifact-index.yaml</code></pre>
-<p>Acceptance:</p>
-<ul><li>Every current recipe has a one-page artifact map.</li><li>The map links:<ul><li>source chart</li><li>recipe</li><li>variants</li><li>variant revisions</li><li>rendered object sets</li><li>package bases</li><li>scan/gate/equivalence receipts</li><li>catalog status</li></ul></li><li>A naive Helm user can answer: &quot;which variant do I install, and what will it create?&quot;</li></ul>
-<h3 id="p03-decide-what-a-best-simplest-safest-recipe-means">P0.3 Decide What A &quot;Best, Simplest, Safest&quot; Recipe Means</h3>
-<p>Problem:</p>
-<p>A recipe can be Helm-equivalent without being the best recommended path for a Helm user.</p>
-<p>Action:</p>
-<p>Turn catalog promotion into a stricter product review:</p>
-<pre><code>not harder than Helm
-not riskier than Helm
-not wrong compared with Helm
-obvious variants are present
-deferred variants are explicit
-scan/gate warnings have a disposition</code></pre>
-<p>Acceptance:</p>
-<ul><li><code>docs/planning/catalog-promotion-review.md</code> has this checklist.</li><li><code>catalog-status.yaml</code> records:<ul><li>supported variants</li><li>deferred variants</li><li>supported scopes</li><li>production readiness</li><li>warning disposition</li></ul></li><li>Redis passes this review for local-test scope.</li></ul>
-<h3 id="p04-use-more-of-real-cub-installer">P0.4 Use More Of Real <code>cub installer</code></h3>
-<p>Problem:</p>
-<p>The proof must not leave Helm pain in prose when a real installer, <code>cub</code>, or ConfigHub capability can carry it better. Current packages prove <code>cub installer setup</code> against Helm output and now synchronize required Secret target facts into installer packages, but the catalog must keep moving toward executable capabilities instead of documentation-only notes.</p>
-<p>Action:</p>
-<p>For Redis and each promoted catalog candidate, review whether the package should use:</p>
-<pre><code>components
-inputs
-externalRequires
-provides
-clusterSingleton
-transformers
-validators
-collector facts
-preflight, when implemented</code></pre>
-<p>Use the capability when it exists, fits the chart behavior, and makes the result simpler, safer, or more provable. If no suitable product capability exists yet, mark the control point as a capability gap and link it to an issue instead of pretending the docs solved it.</p>
-<p>Acceptance:</p>
-<ul><li>Redis has an installer-capability gap review.</li><li>Redis has a <code>docs/demo/redis/confighub-proof-transcript.md</code> proof using current <code>cub installer doc/setup/render/package/vet/plan/upload</code>.</li><li>The top-20 set has live ConfigHub proof receipts generated by <code>scripts/run-top20-confighub-proof.mjs</code> and verified by <code>scripts/verify-top20-confighub-proof.mjs</code>.</li><li>Large-chart runs may use <code>--cleanup-spaces</code> because the Kubara demo org has a finite Link quota. This is not a proof shortcut: the runner still uploads to ConfigHub, creates the server-side variant, runs ConfigHub functions, records safe-ops behavior, writes receipts, and only then removes temporary spaces.</li><li>Target facts are either:<ul><li>represented as installer-native <code>externalRequires</code> / fact requirements, or</li><li>explicitly documented as proof-layer-only pending installer support.</li></ul></li><li>At least one promoted candidate uses installer-native inputs or components, not only bases.</li><li>Documentation-only mitigations are allowed only when the matching product capability is missing, inferior, or would make the happy path harder.</li></ul>
-<h3 id="p05-define-creator-ux-on-top-of-cub-variant-create">P0.5 Define Creator UX On Top Of <code>cub variant create</code></h3>
-<p>Finding:</p>
-<p><code>cub variant create</code> now exists locally. It creates a downstream Space from a reviewed source, clones Units, sets the downstream Space <code>Variant</code> label, optionally sets environment/region/target metadata, copies selected triggers, permissions, and gates, and preserves upstream Unit links.</p>
-<p>Status:</p>
-<pre><code>reverified locally on 2026-05-31</code></pre>
-<p>Evidence:</p>
-<ul><li>local binary: <code>/usr/local/bin/cub</code></li><li><code>cub variant create --help</code> describes the clone/link operation and flags such as <code>--environment</code>, <code>--region</code>, <code>--target</code>, <code>--variant-labels</code>, <code>--space-annotation</code>, <code>--unit-annotation</code>, and Unit gates</li></ul>
-<p>Recomputed meaning:</p>
-<p>Variant creation is no longer hypothetical. The remaining work is product porcelain over the current primitive: blueprint selection, required fill values, preview, checks, receipts, and UX/AX/FX equivalence.</p>
-<p>The next product contract for this lane is <a href="../reference/variant-creation-artifact.html">Variant Creation Artifact</a>: a Variant Creator contract over existing ConfigHub primitives. Earlier notes called this formal shape <code>VariantCreationPlan</code>; treat that as the old working name, not as a new backend engine.</p>
-<p>The first worked promotion walkthrough is <a href="../reference/variant-promotion-worked-example.html">Variant Promotion Worked Example</a>.</p>
-<p>The mapping contract that connects Helm-derived bases to ConfigHub components, spaces, variants, promotion edges, and code work is <a href="../reference/confighub-promotion-mapping.html">ConfigHub Promotion Mapping Doctrine</a>.</p>
-<p>The continuous testing doctrine for this lane is <a href="../reference/variant-creator-verification.html">Variant Creator Artifact Verification</a>. It defines the invariants, goldens, and verification gates that keep UX, AX, and FX aligned as product, CLI/API, agent, and function surfaces are implemented.</p>
-<p>UX/AX/FX target:</p>
-<pre><code>UX: Creator with From -&gt; Blueprint -&gt; Target -&gt; Fill -&gt; Preview -&gt; Checks -&gt; Create.
-Agent: structured create_variant task with required checks and receipts.
-Function: create_variant(plan, row) -&gt; ConfigHub variant + receipts.</code></pre>
-<p>Implementation boundary:</p>
-<pre><code>`cub variant create` is available for clone/link.
-Creator UX/AX/FX porcelain is not complete yet.
-The operation should wire existing ConfigHub primitives together, not create a
-new backend variant engine.</code></pre>
-<p>What still needs code:</p>
-<table><thead><tr><th>Surface</th><th>Work</th></tr></thead><tbody><tr><td>CLI/API</td><td>Add porcelain and dry-run/check surfaces around existing primitives once the product contract is settled.</td></tr>
-<tr><td>UX</td><td>Expose the user-led form through an existing or chosen product surface without assuming a separate GUI named Variant Creator.</td></tr>
-<tr><td>UX</td><td>Ensure Helm-derived catalog bases appear in the existing component Promotion page by using <code>Component</code>, <code>Variant</code>, <code>Environment</code>, <code>Region</code>, target, and upstream-link conventions consistently.</td></tr>
-<tr><td>API/server</td><td>Store or load the formal Variant Creator contract and expose enough metadata for product UX, CLI/API, agents, and functions to use the same plan.</td></tr>
-<tr><td>AX/FX</td><td>Accept structured <code>create_variant</code> tasks and matrix inputs, then run the same checks and receipt expectations as the UX form.</td></tr>
-<tr><td>Verification</td><td>Add invariants, goldens, and a <code>variant-creator:verify</code>-style command so each surface proves it follows the same creation plan and produces comparable receipts.</td></tr>
-<tr><td>Catalog proof</td><td>Add generated mapping artifacts only if they are consumed by product code, a verifier, an agent workflow, or ConfigHub UI/CLI.</td></tr></tbody></table>
-<p>The implementation should compose existing primitives:</p>
-<pre><code>bulk clone
-labels / annotations / targets
-PostClone triggers
-placeholders
-TransformPaths links
-functions / checks
-gates
-receipts / MutationSources</code></pre>
-<p>This keeps the system honest:</p>
-<pre><code>Creator = the user-facing product flow
-Variant Creator contract = the formal machine-readable contract underneath
-Blueprint = a named creation pattern inside the contract
-UX = foundational user-led expression
-AX = agent-based expression
-FX = function-based expression over one row or many rows</code></pre>
-<p>Continuous proof target:</p>
-<pre><code>same creation plan
-same inputs
-same preview
-same checks
-same receipts
-across UX, AX, and FX</code></pre>
-<p>Example first-use path:</p>
-<pre><code>Redis/default -&gt; dev
-Redis/default -&gt; EU production
-Redis/default -&gt; customer-acme</code></pre>
-<p>It is an expected part of the workflow when it is the simpler path. It does not replace Helm-derived recipe variants for changes that require a different Helm render, but it should be preferred for downstream operational variation when a reviewed ConfigHub space can be cloned safely.</p>
-<p>The model is now:</p>
-<pre><code>Helm chart version
-  -&gt; recipe
-  -&gt; install variants / package bases
-  -&gt; rendered variant revisions
-  -&gt; ConfigHub spaces and units
-  -&gt; cub variant create plus Creator contract for downstream variants when useful</code></pre>
-<p>Decision rule:</p>
-<pre><code>Use recipe/package variants for render-time choices:
-  CRDs on/off, generated Secret vs existing Secret, HA mode, storage mode,
-  ingress/TLS shape, cloud-specific values, or anything that changes the
-  Kubernetes object set.
-
-Use ConfigHub variant creation for server-side choices:
-  staging/prod clone, region clone, target binding, space metadata, gates,
-  policy labels, post-clone trigger inputs, or other changes that can be made
-  after a reviewed rendered revision has become ConfigHub units.</code></pre>
-<p>Acceptance:</p>
-<ul><li>Keep chart-import variants in <code>helm-expt</code> as recipe/package-base variants.</li><li>Use <code>cub variant create</code> plus the Creator contract when the upstream ConfigHub space exists and server-side cloning is the easiest safe path.</li><li>Redis and proof lanes should include simple server-side clone evidence from reviewed uploaded spaces to staging spaces once the operation is available.</li><li>The top-20 receipts verify this with <code>npm run top20:verify-confighub-proof</code>.</li><li>Catalog maps should continue linking pre-publish recipe variants separately from post-upload ConfigHub server variants.</li></ul>
-<h3 id="p05b-support-values-kustomize-wrapper-and-customer-overlays-deliberately">P0.5b Support Values, Kustomize, Wrapper, And Customer Overlays Deliberately</h3>
-<p>Problem:</p>
-<p>Helm users customize with values files, <code>--set</code>, wrapper charts, umbrella charts, Kustomize overlays, customer overlays, and private platform defaults. If the docs only say &quot;variants&quot;, readers will not know which route is safe.</p>
-<p>Decision:</p>
-<pre><code>values/wrapper/Kustomize/custom overlay changes rendered objects
-  -&gt; cub installer recipe/base
-
-post-render target/metadata/links/gates/fill-values
-  -&gt; ConfigHub variant via cub variant create plus Creator contract</code></pre>
-<p>Acceptance:</p>
-<ul><li>README explains the rule in plain English.</li><li><a href="../reference/customization-algorithm.html">Customization Algorithm</a> lists supported overlay modes and proof requirements.</li><li><a href="../corpus/kubara-customized-overlays.html">Kubara Customized Overlay Analysis</a> defines the first managed overlay golden and its tier.</li><li><a href="../user/product-support-tiers.html">Product Support Tiers For Helm Scenarios</a> states which scenarios are public proof, ConfigHub managed variants, managed overlay import, and enterprise/fleet work.</li></ul>
-<h3 id="p06-recalculate-the-top-500-matrix-in-the-new-shape">P0.6 Recalculate The Top-500 Matrix In The New Shape</h3>
-<p>Problem:</p>
-<p>The old matrix is source-feature reconnaissance. It is not proof.</p>
-<p>Action:</p>
-<p>Build new outputs under:</p>
-<pre><code>data/top500-catalog-analysis/
-  raw.json
-  review.csv
-  drilldown.csv
-  summary.md</code></pre>
-<p>Status:</p>
-<pre><code>completed as generated catalog-analysis output</code></pre>
-<p>Acceptance:</p>
-<ul><li>rows trace to current artifacts where they exist</li><li>rows distinguish:<ul><li>no recipe yet</li><li>proof-grade</li><li>catalog-candidate</li><li>catalog-supported</li><li>blocked</li></ul></li><li>front sheet has no intimidating 60-column wall</li><li>drill-down has all control-point evidence</li><li>top-500 output can answer:</li></ul>
-<pre><code>What is proved?
-What is recommended?
-What remains risky or unreviewed?</code></pre>
-<p>Verification:</p>
-<pre><code>npm run top500:catalog:verify</code></pre>
-<p>The generated matrix currently shows 100 current proof recipes in the repo, 91 matched to the old top-500 source rows, 20 catalog-supported for local-test scope, 71 proof-grade/default rows that need user-shaped variants, and 409 rows that remain source reconnaissance only.</p>
-<h3 id="p07-select-the-next-real-variant-promotion-wave">P0.7 Select The Next Real-Variant Promotion Wave</h3>
-<p>Problem:</p>
-<p>The 80 generated default proofs are valuable but not enough to persuade a Helm user that this is the best, simplest, safest install path. The next wave must add real variants for charts where the variants are obvious user choices.</p>
-<p>Action:</p>
-<p>Maintain generated outputs under:</p>
-<pre><code>data/catalog-promotion-wave2/
-  candidates.yaml
-  review.csv
-  summary.md</code></pre>
-<p>Status:</p>
-<pre><code>started with five proof-grade/default charts selected</code></pre>
-<p>Selected charts:</p>
-<pre><code>traefik/traefik
-external-dns/external-dns
-vmware-tanzu/velero
-istio-official/istiod
-kyverno/kyverno</code></pre>
-<p>Acceptance:</p>
-<ul><li>each selected chart is proof-grade and exact-version matched in the top-500 catalog analysis</li><li>each selected chart is default-only today, so the next work is genuine variant promotion</li><li>each proposed variant must become a real recipe variant, package base, rendered revision, scan/gate receipt, and Helm-equivalence receipt before catalog support is claimed</li></ul>
-<p>Verification:</p>
-<pre><code>npm run catalog:wave2:verify</code></pre>
-<h2 id="p1-execution">P1 Execution</h2>
-<h3 id="p11-promote-the-top-20-catalog-candidates">P1.1 Promote The Top-20 Catalog Candidates</h3>
-<p>Status:</p>
-<pre><code>complete for local-test scope</code></pre>
-<p>The top-20 bespoke charts now have explicit <code>catalog-supported</code> status for local-test scope. This includes the first five promoted after Redis:</p>
-<pre><code>bitnami/nginx
-bitnami/postgresql
-metrics-server/metrics-server
-ingress-nginx/ingress-nginx
-jetstack/cert-manager</code></pre>
-<p>Why:</p>
-<ul><li>Nginx proves simple happy path.</li><li>PostgreSQL proves stateful install concerns.</li><li>Metrics Server proves APIService and target-fact shape.</li><li>Ingress Nginx proves hooks, webhooks, RBAC, and an obvious variant.</li><li>Cert Manager proves CRDs and webhook lifecycle.</li></ul>
-<p>Acceptance per chart:</p>
-<ul><li>artifact map exists</li><li>catalog promotion review completed</li><li><code>catalog-status.yaml</code> updated</li><li>supported variants and deferred variants are explicit</li><li>Helm-vs-<code>cub installer</code> comparison passes</li><li>scan/gate warnings have production or local-test disposition</li></ul>
-<p>Production support is still blocked for these recipes until scan, gate, and operating-policy findings have explicit dispositions.</p>
-<h3 id="p12-generate-per-chart-weirdness-and-mitigations">P1.2 Generate Per-Chart Weirdness And Mitigations</h3>
-<p>Problem:</p>
-<p>Helm pain is hidden unless each chart has a readable operating note.</p>
-<p>Action:</p>
-<p>Generate or maintain:</p>
-<pre><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/weirdness-and-mitigations.md</code></pre>
-<p>Acceptance:</p>
-<ul><li>every catalog-supported or catalog-candidate chart has the note</li><li>note covers:<ul><li>hooks</li><li>CRDs</li><li>webhooks</li><li>lookup</li><li>generated secrets/certs</li><li>required values</li><li>raw/tpl extension slots</li><li>RBAC</li><li>stateful storage</li><li>upgrade/rollback concerns</li></ul></li></ul>
-<h3 id="p13-improve-target-facts">P1.3 Improve Target Facts</h3>
-<p>Current state:</p>
-<p>Target facts are now synchronized into executable installer packages for every current chart variant that declares <code>targetFacts</code>.</p>
-<p>Implemented invariant:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>recipe variant targetFacts.requiredSecrets
-  -&gt; matching installer package base externalRequires
-  -&gt; package collector records targetFacts into out/spec/facts.yaml
-  -&gt; installer package receipt records targetFactMode/targetFactsBound
-  -&gt; npm run installer:target-facts:verify runs cub installer setup and checks facts</code></pre>
-<p>Current coverage:</p>
-<pre><code>10 charts
-10 target-fact variants
-all current target facts are required Secret facts</code></pre>
-<p>The 10 charts are Redis, MongoDB, MySQL, NGINX, PostgreSQL, RabbitMQ, Grafana, Tempo, Consul, and Metrics Server.</p>
-<p>Next action:</p>
-<p>Extend the canonical mapping beyond required Secrets:</p>
-<pre><code>existing CRD
-API availability
-namespace exists
-storage class exists
-ingress class exists
-runtime class exists</code></pre>
-<p>Acceptance:</p>
-<ul><li>top 10 target facts are documented</li><li>required Secret target facts stay represented by installer <code>externalRequires</code> plus collector facts in every current package</li><li>non-Secret target facts map to installer-native <code>externalRequires</code>, <code>provides</code>, <code>clusterSingleton</code>, collector facts, or explicit blocked status</li></ul>
-<h3 id="p14-add-live-e2e-confidence-for-promoted-charts">P1.4 Add Live E2E Confidence For Promoted Charts</h3>
-<p>Action:</p>
-<p>For catalog-supported and near-supported charts, run disposable local kind tests:</p>
-<pre><code>cub installer setup
-kubectl apply / dry-run / server-side validation where reasonable
-observation receipt
-cleanup</code></pre>
-<p>Acceptance:</p>
-<ul><li>Redis stays green</li><li>next promoted charts have live or dry-run evidence</li><li>live evidence is clearly separated from machine proof</li></ul>
-<p>Current lane:</p>
-<pre><code>data/production-disposition/
-  top20.csv
-  summary.md</code></pre>
-<p>Status:</p>
-<pre><code>started</code></pre>
-<p>Current facts:</p>
-<pre><code>20 catalog-supported local-test charts
-20 passing ConfigHub proof receipt sets
-20 live/e2e observed charts
-20 target-scoped support decision artifacts
-17 supported target-scoped decisions
-2 superseded deprecated-source decisions
-1 rejected production boundary
-0 draft support decisions
-20 production-review-ready disposition rows
-0 production-blocked pending disposition rows</code></pre>
-<p>Verification:</p>
-<pre><code>npm run production:disposition:verify</code></pre>
-<h3 id="p15-old-version-patch-lane">P1.5 Old-Version Patch Lane</h3>
-<p>Action:</p>
-<p>Start with Redis old versions and prove the paid patch shape:</p>
-<pre><code>old version source lock
-old version recipe
-patch diff
-scan/gate result
-upgrade receipt
-rollback receipt
-support window</code></pre>
-<p>Acceptance:</p>
-<ul><li>first Redis old-version patch scenario exists</li><li>generated <code>data/legacy-patch-review/</code> identifies selected versions</li><li>paid feature can be discussed without exposing private customer data</li></ul>
-<h3 id="p16-add-review-and-diff-demo">P1.6 Add Review And Diff Demo</h3>
-<p>Status:</p>
-<pre><code>complete for the Redis baseline; repeat or deepen for future catalog-supported charts</code></pre>
-<p>Action:</p>
-<p>Use existing ConfigHub review verbs against the Redis proof spaces:</p>
-<pre><code>cub unit tree
-cub unit data
-cub revision list
-cub revision data
-cub unit diff</code></pre>
-<p>Acceptance:</p>
-<ul><li>Redis demo shows the exact uploaded Unit tree.</li><li>At least one Unit's config data is shown from ConfigHub, not just from local files.</li><li>Revision history is visible.</li><li>A change or variant difference is shown with <code>cub unit diff</code>.</li><li>Current Redis evidence lives in <code>docs/demo/redis/confighub-proof-transcript.md</code>.</li></ul>
-<h3 id="p17-add-safe-operation-lane">P1.7 Add Safe Operation Lane</h3>
-<p>Status:</p>
-<pre><code>complete for the top-20 ConfigHub proof receipt set; repeat with a target-backed
-local-kind lane before claiming live deploy proof</code></pre>
-<p>Action:</p>
-<p>Use existing safe-operation verbs in local/test scope:</p>
-<pre><code>cub changeset create/list/update
-cub unit approve
-cub unit apply
-cub unit cancel</code></pre>
-<p>Acceptance:</p>
-<ul><li>Local/test apply path is explicit and separate from production readiness.</li><li>Approval and apply intent are recorded.</li><li>Gated or unsafe operations are shown as blocked/cancelled rather than silently skipped.</li><li>Current Redis evidence lives in:<ul><li><code>docs/demo/redis/safe-ops-lane.md</code></li><li><code>runs/redis-confighub-proof/latest/safe-ops-receipt.yaml</code></li></ul></li><li>Current NGINX evidence lives in:<ul><li><code>docs/demo/nginx/confighub-proof-transcript.md</code></li><li><code>runs/nginx-confighub-proof/latest/safe-ops-receipt.yaml</code></li></ul></li><li>Current Metrics Server evidence lives in:<ul><li><code>docs/demo/metrics-server/confighub-proof-transcript.md</code></li><li><code>runs/metrics-server-confighub-proof/latest/safe-ops-receipt.yaml</code></li></ul></li><li>Current PostgreSQL evidence lives in:<ul><li><code>docs/demo/postgresql/confighub-proof-transcript.md</code></li><li><code>runs/postgresql-confighub-proof/latest/safe-ops-receipt.yaml</code></li></ul></li><li>Current Ingress NGINX evidence lives in:<ul><li><code>docs/demo/ingress-nginx/confighub-proof-transcript.md</code></li><li><code>runs/ingress-nginx-confighub-proof/latest/safe-ops-receipt.yaml</code></li></ul></li><li>Current cert-manager evidence lives in:<ul><li><code>docs/demo/cert-manager/confighub-proof-transcript.md</code></li><li><code>runs/cert-manager-confighub-proof/latest/safe-ops-receipt.yaml</code></li></ul></li><li>The complete top-20 receipt set is verified by <code>npm run top20:verify-confighub-proof</code>.</li></ul>
-<h3 id="p18-add-confighub-function-scan-lane">P1.8 Add ConfigHub Function Scan Lane</h3>
-<p>Status:</p>
-<pre><code>complete for the top-20 ConfigHub proof receipt set; expand to future promoted
-charts</code></pre>
-<p>Action:</p>
-<p>Use existing function verbs to run misconfiguration checks against rendered objects or uploaded Units:</p>
-<pre><code>cub function vet
-cub function get
-cub function set
-cub run vet-...</code></pre>
-<p>Acceptance:</p>
-<ul><li>Every top-20 supported local-test chart has a ConfigHub function-based scan receipt.</li><li>Scan/gate results are bound to the rendered object set or Unit revision.</li><li>This lane coexists with external scanners such as Trivy/Snyk/kube-linter.</li><li>Current Redis evidence binds 14 uploaded Redis Unit heads and DataHashes to passing <code>vet-format</code>, <code>vet-placeholders</code>, and <code>vet-merge-keys</code> results:<ul><li><code>docs/demo/redis/function-scan-lane.md</code></li><li><code>runs/redis-confighub-proof/latest/function-scan-receipt.yaml</code></li></ul></li><li>Current NGINX evidence binds 6 uploaded NGINX Unit heads and DataHashes to passing <code>vet-format</code>, <code>vet-placeholders</code>, and <code>vet-merge-keys</code> results:<ul><li><code>docs/demo/nginx/confighub-proof-transcript.md</code></li><li><code>runs/nginx-confighub-proof/latest/function-scan-receipt.yaml</code></li></ul></li><li>Current Metrics Server evidence binds 10 uploaded Metrics Server Unit heads and DataHashes to passing <code>vet-format</code>, <code>vet-placeholders</code>, and <code>vet-merge-keys</code> results:<ul><li><code>docs/demo/metrics-server/confighub-proof-transcript.md</code></li><li><code>runs/metrics-server-confighub-proof/latest/function-scan-receipt.yaml</code></li></ul></li><li>Current PostgreSQL evidence binds 7 uploaded PostgreSQL Unit heads and DataHashes to passing <code>vet-format</code>, <code>vet-placeholders</code>, and <code>vet-merge-keys</code> results:<ul><li><code>docs/demo/postgresql/confighub-proof-transcript.md</code></li><li><code>runs/postgresql-confighub-proof/latest/function-scan-receipt.yaml</code></li></ul></li><li>Current Ingress NGINX evidence binds uploaded Ingress NGINX Unit heads and DataHashes to passing <code>vet-format</code>, <code>vet-placeholders</code>, and <code>vet-merge-keys</code> results:<ul><li><code>docs/demo/ingress-nginx/confighub-proof-transcript.md</code></li><li><code>runs/ingress-nginx-confighub-proof/latest/function-scan-receipt.yaml</code></li></ul></li><li>Current cert-manager evidence binds uploaded cert-manager Unit heads and DataHashes to passing <code>vet-format</code>, <code>vet-placeholders</code>, and <code>vet-merge-keys</code> results:<ul><li><code>docs/demo/cert-manager/confighub-proof-transcript.md</code></li><li><code>runs/cert-manager-confighub-proof/latest/function-scan-receipt.yaml</code></li></ul></li><li>The complete top-20 receipt set is verified by <code>npm run top20:verify-confighub-proof</code>.</li></ul>
-<h3 id="p19-add-catalog-metadata-and-views">P1.9 Add Catalog Metadata And Views</h3>
-<p>Action:</p>
-<p>Use existing metadata verbs to make the catalog searchable and explainable:</p>
-<pre><code>cub tag
-cub attribute
-cub filter
-cub view
-cub link</code></pre>
-<p>Acceptance:</p>
-<ul><li>Standard labels/tags cover chart, recipe, variant, target, risk, support status, and proof tier.</li><li>Catalog views can answer:</li></ul>
-<pre><code>Which Redis variants are supported?
-Which charts require target facts?
-Which charts are catalog candidates but not supported?
-Which units depend on a Secret, CRD, or target?</code></pre>
-<h2 id="p2-side-projects">P2 / Side Projects</h2>
-<h3 id="p21-paid-private-chart-diagnostics">P2.1 Paid Private Chart Diagnostics</h3>
-<p>Shape:</p>
-<pre><code>private chart intake
-AI-assisted Helm pain report
-recipe and variant suggestions
-misconfig scan
-patch/upgrade recommendations</code></pre>
-<p>Keep this out of public proof outputs unless sanitized.</p>
-<h3 id="p22-ai-assisted-recipe-maintenance">P2.2 AI-Assisted Recipe Maintenance</h3>
-<p>Shape:</p>
-<pre><code>new upstream chart version detected
-render old variants against new chart
-classify conflicts
-suggest variant updates
-produce review packet</code></pre>
-<p>This supports paid maintenance SLAs.</p>
-<h3 id="p23-pilot-adversarial-runs">P2.3 Pilot / Adversarial Runs</h3>
-<p>Use Pilot for adversarial validation after the core proof shape is stable.</p>
-<p>Acceptance:</p>
-<ul><li>Pilot attacks current claims</li><li>reports are written under <code>runs/pilot/</code></li><li>Pilot does not become part of the happy path</li></ul>
-<h3 id="p24-public-catalog-ux">P2.4 Public Catalog UX</h3>
-<p>Shape:</p>
-<pre><code>small public catalog page
-one line per chart
-status, variants, proof, install command, known caveats</code></pre>
-<p>Do this after the first few catalog promotions, not before.</p>
-<h3 id="p25-gitops-adoption-proof">P2.5 GitOps Adoption Proof</h3>
-<p>Action:</p>
-<p>Use existing GitOps verbs as a compatibility lane:</p>
-<pre><code>cub gitops discover
-cub gitops import</code></pre>
-<p>Acceptance:</p>
-<ul><li>Demonstrates discovery/import for an Argo CD or Flux estate.</li><li>Keeps GitOps adoption separate from the Helm-derived installer package path.</li><li>Explains how ConfigHub OCI/published artifacts can fit existing delivery tools without claiming ConfigHub replaces Argo or Flux.</li></ul>
-<h2 id="operating-rule">Operating Rule</h2>
-<p>For each task:</p>
-<pre><code>write the acceptance check first
-make the change
-run the check
-only then start the next task</code></pre>
-<p>This matters because the project is otherwise prone to accumulating impressive artifacts that do not prove the user-facing claim.</p>
-<h2 id="immediate-next-three-moves">Immediate Next Three Moves</h2>
-<ol><li>Pick 3-5 proof-grade charts from the generated/default set and add user-shaped variants.</li><li>Generate per-chart weirdness-and-mitigations notes for every supported chart.</li><li>Start the new top-500 catalog-analysis output shape.</li></ol>
+<p>This is the current execution plan for Config Workshop and its path into ConfigHub. It turns the project doctrine, user simulations, command audit, misconfiguration work, AI use, promotion work, and SaaS onboarding review into one sequence.</p>
+<p>For current evidence counts, use the <a href="../../data/top50-completion/summary.html">Top 50 Completion Plan</a> and generated status pages. For the business purpose and processing model, use the <a href="../reference/config-catalog-doctrine.html">Config Catalog Doctrine</a>.</p>
+<p>The previous Helm-proof execution plan is retained as a <a href="next-execution-plan-2026-06-helm-proof.html">historical snapshot</a>.</p>
+<h2 id="current-status">Current Status</h2>
+<p>The August 2026 audit covered the doctrine, roadmap, Top 50 tracker, user simulations, command guidance, open issues, installed <code>cub</code> plugins, <code>cub-scan</code>, and the shared patterns repository.</p>
+<p>The current Top 50 state is:</p>
+<pre><code>available: 29
+partial:   19
+planned:    2</code></pre>
+<p><a href="https://github.com/confighub/helm-expt/pull/1593">PR #1593</a> captures the latest simulation findings and misconfiguration doctrine. <a href="https://github.com/confighub/helm-expt/issues/1592">Issue #1592</a> tracks the work needed to join Catalog findings, local checks, and ConfigHub validation into one visible journey.</p>
+<h2 id="user-promise">User Promise</h2>
+<p>People should be able to bring configuration made by themselves or by AI and answer six practical questions:</p>
+<ol><li>What will this create or change?</li><li>How does it differ from a known configuration or what I run now?</li><li>What is wrong, risky, missing, or still unknown?</li><li>What exact result did I accept?</li><li>Can I promote that result to this destination?</li><li>Did the released configuration reach the intended live state?</li></ol>
+<p>The product journey is:</p>
+<pre><code>check it -&gt; keep it -&gt; change it -&gt; promote it -&gt; release it -&gt; observe it</code></pre>
+<p>Promotion is central. A checked configuration becomes more valuable when the same accepted result can be changed for staging, compared with production, tested against the destination, approved, promoted, released, and observed.</p>
+<h2 id="complete-journey">Complete Journey</h2>
+<pre><code>Helm, AICR, OCI, YAML, or a maintained package
+  -&gt; materialize the exact Kubernetes objects
+  -&gt; compare and run relevant checks
+  -&gt; correct the configuration and rerun the checks
+  -&gt; retain one accepted object set and digest
+  -&gt; create a candidate variant
+  -&gt; compare it with the destination
+  -&gt; check lifecycle work, target requirements, and available staging results
+  -&gt; approve and promote the exact revision
+  -&gt; publish release OCI
+  -&gt; deliver through Argo CD, Flux, or another selected route
+  -&gt; compare desired configuration with live state</code></pre>
+<p>The first part must remain useful without a ConfigHub account. ConfigHub is the next step when the user wants to retain the result, share it, change it again, enforce checks, promote it, release it, or compare it with live systems.</p>
+<h2 id="product-surfaces">Product Surfaces</h2>
+<p>Each surface has one job.</p>
+<table><thead><tr><th>Surface</th><th>Job</th></tr></thead><tbody><tr><td>Catalog</td><td>Publish answers already investigated for exact sources and versions: useful configurations, known problems, lifecycle requirements, and evidence.</td></tr>
+<tr><td>Check my config</td><td>Investigate the user's own chart, values, YAML, OCI, or current deployment. Materialize exact objects, compare them, run bounded checks, and produce a result the user can keep.</td></tr>
+<tr><td>Local <code>cub</code> tools</td><td>Perform source processing, comparison, checks, file output, and OCI output without requiring ConfigHub Server.</td></tr>
+<tr><td>ConfigHub browser tour</td><td>Show a short sample journey in the browser: create one component, inspect it, change one field, create a dev variant, and see the diff.</td></tr>
+<tr><td>ConfigHub managed product</td><td>Retain the user's accepted result, manage variants, rerun controls, record approvals, promote exact revisions, publish release OCI, and preserve live comparisons.</td></tr></tbody></table>
+<p>The public call to action must depend on context:</p>
+<ul><li><b>See ConfigHub in five minutes</b> opens the short sample tour.</li><li><b>Keep this checked result in ConfigHub</b> retains the user's real objects and digest. It must not replace them with the tutorial sample.</li></ul>
+<h2 id="website-and-cli-are-one-workflow">Website And CLI Are One Workflow</h2>
+<p>The website and <code>cub</code> must expose the same substantive jobs. A user may start in the browser and continue in a terminal, or start with an AI using the CLI and open the corresponding human explanation. The source identity, exact objects, digest, findings, limits, and next step must remain the same.</p>
+<table><thead><tr><th>User question</th><th>Website path</th><th>CLI path</th><th>Shared result</th></tr></thead><tbody><tr><td>I need a configuration.</td><td>Describe the need or choose a maintained starting configuration.</td><td>Discover or receive the same source reference, then process it through the applicable source plugin or package engine.</td><td>Source, version, selected configuration, requirements, and evidence links.</td></tr>
+<tr><td>I have a configuration. Is it right?</td><td>Upload or paste rendered YAML, compare it, run bounded checks, and download the result.</td><td>Use the applicable source command and local scanner; the leading common entry proposal is <code>cub check</code>.</td><td>Exact objects, object-set digest, comparison, findings, checks not run, and files or OCI.</td></tr>
+<tr><td>I have an accepted configuration. Can I promote it?</td><td>Compare the candidate with its destination, inspect checks, and continue into ConfigHub when a managed promotion is selected.</td><td>Use <code>cub variant create</code> and <code>cub variant promote</code>, followed by release and observation commands.</td><td>Candidate revision, destination, exact diff, validations, approvals, promotion result, and release identity.</td></tr></tbody></table>
+<p>The cross-surface rules are:</p>
+<ol><li>Every substantive website action provides a copyable command, API action, or downloadable record that continues the same job.</li><li>Every public CLI workflow links to a short website page that explains why it exists, what it changes, what it returns, and what it does not prove.</li><li>Browser and CLI results use the same schemas, pattern and control IDs, object digest rules, and checked-versus-not-checked language.</li><li>A user can move a browser result to the CLI and a CLI result to ConfigHub without repeating source selection or losing the accepted digest.</li><li>Generated website commands are verified against released CLI help. Proposed commands remain labelled as proposed until released.</li><li>AI agents use the CLI and machine output; people may use either surface. They are working with the same configuration record.</li></ol>
+<h2 id="key-scenario-build-an-internal-developer-platform">Key Scenario: Build An Internal Developer Platform</h2>
+<p>One complete user request is:</p>
+<blockquote><p>&quot;I want to use the Catalog, Kubara, and AI to create an internal developer platform for building and running the tools and applications my team creates with AI.&quot;</p></blockquote>
+<p>This scenario uses all three main journeys rather than adding another front door.</p>
+<h3 id="i-need-a-configuration">I need a configuration</h3>
+<p>The user describes the platform they need: cluster type, environments, GitOps tool, ingress, certificates, Secrets, observability, databases, policy, AI runtime, custom images, and expected application types.</p>
+<p>The Catalog supplies maintained components, exact versions, known configurations, requirements, and evidence. AI can help narrow the choices and write the native Kubara selection and wiring. Kubara remains the platform composer and generates its normal platform tree.</p>
+<p>The result includes:</p>
+<ul><li>native Kubara <code>config.yaml</code> and reviewed overlays;</li><li>exact component and image versions;</li><li>source-and-intent records;</li><li>generated platform and application-delivery objects;</li><li>component dependencies and provided services;</li><li>lifecycle requirements such as CRDs, hooks, certificates, and setup Jobs;</li><li>a portable Git handoff and target-neutral OCI packages plus platform index.</li></ul>
+<h3 id="i-have-a-configuration-is-it-right">I have a configuration. Is it right?</h3>
+<p>The user reviews the exact generated platform before selecting a ConfigHub organization or target. Local tools check source locks, generated paths, object inventories, lifecycle work, placeholders, image identities, and the provides-and-needs wiring. AI can explain findings and propose a smaller change, but the rerun output and digest show what was accepted.</p>
+<p>The website must offer the same platform selection as a downloadable native Kubara input and a copyable CLI path. The CLI must return the same component versions, source record, object inventory, findings, and platform digest that the website displays.</p>
+<h3 id="i-have-an-accepted-configuration-can-i-promote-it">I have an accepted configuration. Can I promote it?</h3>
+<p>ConfigHub retains the component definitions, effective configurations, relationships, target instances, and immutable release identities. Platform changes move through development, staging, and production as exact revisions. Checks, approvals, lifecycle requirements, rollout results, and rollback limits remain attached to those revisions.</p>
+<p>Applications remain separate from the platform import. Each application built by the team has its own source image and configuration, consumes services the platform provides, and follows the same check, retain, variant, promotion, release, and observation path. A platform change and an application change can therefore be reviewed and promoted independently while their compatibility is checked at the destination.</p>
+<p>The operating split is:</p>
+<pre><code>Catalog supplies maintained components and evidence.
+AI helps choose, explain, and propose changes.
+Kubara composes and generates the platform.
+ConfigHub retains, compares, validates, and promotes exact revisions.
+Argo CD or Flux reconciles selected release OCI.
+Kubernetes runs the platform and applications.</code></pre>
+<p>The current public starter and importer live in <a href="https://github.com/confighub/kubara-confighub"><code>confighub/kubara-confighub</code></a>. They currently expose native Kubara and <code>npm</code>-driven preparation and import paths. A simple <code>cub</code> entry for this journey is a product gap, not a shipped command. The likely direction is a source-specific Kubara plugin that produces the common review record and hands retained work to <code>cub variant</code> and <code>cub release</code>. Its exact command names require agreement with the Kubara and <code>cub</code> maintainers.</p>
+<h2 id="ai-throughout-the-journey">AI Throughout The Journey</h2>
+<p>AI is part of each job, not a separate final feature.</p>
+<table><thead><tr><th>Job</th><th>AI can help with</th><th>The deciding record</th></tr></thead><tbody><tr><td>Check</td><td>Run tools, explain objects, compare with known configurations, identify likely mistakes, and propose a correction.</td><td>Exact objects, source identity, checks run, findings, and work not checked.</td></tr>
+<tr><td>Keep</td><td>Prepare the accepted files and source information for retention.</td><td>The retained ConfigHub revision and digest.</td></tr>
+<tr><td>Change</td><td>Propose a values change or object patch and explain why it is needed.</td><td>The exact diff and rerun checks.</td></tr>
+<tr><td>Promote</td><td>Explain candidate-versus-destination differences and identify prerequisites or risks.</td><td>Destination checks, staging results, policy gates, and required approval.</td></tr>
+<tr><td>Release</td><td>Prepare release notes and invoke the selected command.</td><td>The exact retained revision published as OCI. There is no last-minute regeneration.</td></tr>
+<tr><td>Observe</td><td>Explain desired-versus-live differences and suggest a correction.</td><td>Recorded observations and an explicitly accepted change.</td></tr></tbody></table>
+<p>The primary AI question is:</p>
+<blockquote><p>&quot;Here is the chart and values my AI produced. Compare them with the chart defaults, the Catalog, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&quot;</p></blockquote>
+<p>AI may propose and explain. Exact objects, diffs, controls, approvals, release digests, and observations decide what progresses. The tools must support non-interactive use, stable machine output, meaningful exit status, and links to evidence. Raw prompts and secrets must not be required as configuration provenance.</p>
+<h2 id="misconfiguration-from-finding-to-prevention">Misconfiguration From Finding To Prevention</h2>
+<p>The user question is:</p>
+<blockquote><p>&quot;What is wrong with this configuration, what does it affect, and what should I fix before I ship it?&quot;</p></blockquote>
+<p>The maintained path is:</p>
+<pre><code>known problem
+  -&gt; exact objects
+  -&gt; advisory checks
+  -&gt; correction and new digest
+  -&gt; retained ConfigHub revision
+  -&gt; authoritative validation and approval
+  -&gt; promotion checks for the exact destination
+  -&gt; delivery and live observation</code></pre>
+<p>The current evidence systems must remain correctly named:</p>
+<ul><li>Existing helm-expt scan receipts were produced by the helm-expt rendered-object scanner. They must not be relabelled as <code>cub-scan</code> results.</li><li><code>cub-scan</code> is the current standalone scanner for local and CI use. Its result is advisory.</li><li>ConfigHub <code>scan-unit</code> and <code>scan-space</code> provide detailed advisory findings over retained data.</li><li>ConfigHub <code>validate-unit</code> and <code>validate-space</code> provide revision-bound results that can participate in managed gates.</li></ul>
+<p>The integration work must map Catalog findings to stable pattern and control IDs, generate new digest-bound shared-scan receipts, carry the accepted result into ConfigHub, and rerun the relevant controls there. A local result does not become authoritative merely because it was uploaded.</p>
+<p>Static checks do not prove hook execution, CRD readiness, admission behavior, workload health, rollback of external effects, or convergence. Promotion and live checks cover those separate questions where evidence exists.</p>
+<h2 id="cub-command-direction"><code>cub</code> Command Direction</h2>
+<p><code>cub</code> is the common command-line shell. Do not add another umbrella such as <code>cub workshop</code> or present <code>cub installer</code> as a replacement for Helm.</p>
+<p>The user-facing command structure should describe jobs:</p>
+<table><thead><tr><th>Job</th><th>Current or proposed path</th></tr></thead><tbody><tr><td>Check configuration made by the user or AI</td><td>Leading proposal: <code>cub check</code></td></tr>
+<tr><td>Process an arbitrary Helm chart</td><td><code>cub helm</code></td></tr>
+<tr><td>Process AICR or another source format</td><td>The relevant source plugin, such as <code>cub aicr</code></td></tr>
+<tr><td>Process a maintained Config Workshop package</td><td><code>cub installer</code> as the package engine; the first public command may later be wrapped by the check flow</td></tr>
+<tr><td>Run shared configuration controls</td><td>Current <code>cub-scan</code>; proposed <code>cub scan</code> plugin while retaining the standalone binary</td></tr>
+<tr><td>Retain literal objects</td><td><code>cub variant upload</code> or the applicable source upload command</td></tr>
+<tr><td>Create and promote variants</td><td><code>cub variant create</code> and <code>cub variant promote</code></td></tr>
+<tr><td>Publish a release</td><td><code>cub release publish</code></td></tr>
+<tr><td>Read desired and live state</td><td><code>cub k8s</code> and <code>cub scout</code></td></tr></tbody></table>
+<p><code>cub check</code> is the leading name because it describes the user's problem rather than the Catalog that helps answer it. Before it becomes a public command, its scope and result contract need product agreement. Every report must separate:</p>
+<pre><code>checked
+findings
+not checked
+requires a destination or live test</code></pre>
+<p><code>cub installer</code> remains useful for package authors, CI, reproducible examples, anonymous rendering, and OCI output. It pulls and verifies a maintained package, selects a configuration, materializes objects, and preserves companion records. It does not own deployment or replace the user's normal Helm path.</p>
+<p>All source adapters should produce the same portable review information:</p>
+<ul><li>source and version;</li><li>recorded input and intent;</li><li>exact objects and object-set digest;</li><li>comparison baseline and changed fields;</li><li>lifecycle requirements;</li><li>controls run, findings, and limits;</li><li>files or OCI output;</li><li>the next applicable command.</li></ul>
+<h2 id="saas-tour-and-handoff">SaaS Tour And Handoff</h2>
+<p><a href="https://github.com/confighubai/confighub/pull/5127">ConfigHub PR #5127</a> is the proposed browser tour. It must not be advertised as the common public destination until its first path is short, accurate, and covered by a passing chained test.</p>
+<p>Before public use:</p>
+<ol><li>Make the first tour the externally advertised path.</li><li>Show it on first login and in an empty organization.</li><li>End the short path after component creation, inspection, one change, a dev variant, and a visible diff.</li><li>Rename &quot;Deploy to dev&quot; to &quot;Create a dev variant&quot; until it actually deploys.</li><li>Remove or postpone steps that describe behavior that is not working.</li><li>Fix required empty fields that prevent a fresh user from continuing.</li><li>Add one passing end-to-end test for the advertised path.</li><li>Preserve the referring source in the URL. Analytics remain parked and do not block the product path.</li></ol>
+<p>The later tours remain optional education about ownership, production, releases, and other advanced work.</p>
+<h2 id="execution-order">Execution Order</h2>
+<h3 id="phase-0-land-the-current-doctrine">Phase 0: Land The Current Doctrine</h3>
+<ol><li>Merge <a href="https://github.com/confighub/helm-expt/pull/1593">PR #1593</a> after all required checks pass.</li><li>Keep the Top 50 tracker, roadmap, simulation findings, and this file as the maintained status sources. Do not recreate the plan in handover notes.</li><li>Remove analytics from the T50 completion condition. T50 is completed by outside-user evidence, not a selected analytics vendor.</li><li>Update stale umbrella issues such as #1251 and #989 to use the current journey.</li></ol>
+<h3 id="phase-1-prove-check-to-confighub">Phase 1: Prove Check To ConfigHub</h3>
+<ol><li>Implement <a href="https://github.com/confighub/helm-expt/issues/1592">issue #1592</a>.</li><li>Map Catalog warnings to stable pattern and control IDs where a maintained mapping exists.</li><li>Generate new <code>cub-scan</code> receipts for exact rendered variants without changing the identity of historical receipts.</li><li>Add a plain finding summary and local action to chart pages.</li><li>Include object digest, scanner version, bundle identity, findings, accepted fixes, exceptions, and limits in the downloadable review.</li><li>Retain the same objects in ConfigHub and rerun authoritative controls against that revision.</li><li>Show local evidence and ConfigHub validation separately in the product.</li><li>Demonstrate one complete case:</li></ol>
+<pre><code>unsafe candidate
+  -&gt; local finding
+  -&gt; reviewed correction
+  -&gt; retained ConfigHub revision
+  -&gt; enforced validation
+  -&gt; promotion result</code></pre>
+<h3 id="phase-2-make-promotion-the-main-managed-payoff">Phase 2: Make Promotion The Main Managed Payoff</h3>
+<ol><li>Start with an accepted base and a named destination.</li><li>Create one staging candidate with an exact object diff.</li><li>Classify source-controlled fields, ConfigHub changes, protected fields, and destination facts.</li><li>Resolve lifecycle work after the final candidate exists. Hooks, CRDs, setup Jobs, certificates, and prerequisites may change when a derived variant is created.</li><li>Run available static, destination, and staging checks separately.</li><li>Require the applicable validation and approval.</li><li>Promote the exact accepted revision rather than recreating it.</li><li>Publish release OCI and deliver it through Argo CD or Flux.</li><li>Record desired-versus-live results and rollback limits.</li><li>Repeat the proof on a second chart with meaningful lifecycle or upgrade work.</li></ol>
+<h3 id="phase-3-join-the-public-and-saas-experiences">Phase 3: Join The Public And SaaS Experiences</h3>
+<ol><li>Tighten the short ConfigHub browser tour and its end-to-end test.</li><li>Add <b>See ConfigHub in five minutes</b> where a sample is useful.</li><li>Add <b>Keep this checked result in ConfigHub</b> only where the user's exact result can continue.</li><li>Preserve the source and reviewed digest across the handoff.</li><li>Decide the <code>cub check</code> contract with the ConfigHub and plugin maintainers.</li><li>Decide whether the existing scanner should ship as a <code>cub scan</code> plugin.</li><li>Keep <code>cub installer</code> visible in technical package documentation, but describe the customer action rather than leading with the engine name.</li><li>Remove references to the retired top-level install alias and delete local plugin residue that still exposes it.</li><li>Add one generated website-to-CLI map for the three main journeys and verify every published command against the released command surface.</li><li>Add links from CLI results to the corresponding human explanation and from website results to the exact continuation command.</li><li>Agree and implement the smallest <code>cub</code> entry for the existing <code>kubara-confighub</code> platform starter and importer without replacing Kubara's native configuration model.</li></ol>
+<h3 id="phase-4-test-with-users-and-agents">Phase 4: Test With Users And Agents</h3>
+<ol><li>Run the first outreach wave from the private cohort list in issue #1553. Recheck every public thread before contact and record only aggregate outcomes in Git.</li><li>Run these six end-to-end tests:<ul><li>AI-written Helm values to a reviewed OCI;</li><li>reviewed OCI retained as a ConfigHub base;</li><li>a staging change compared with production;</li><li>hooks, CRDs, and destination requirements checked before promotion;</li><li>an exact release delivered through Argo CD or Flux and compared with live state;</li><li>a useful public investigation retained as a Catalog answer.</li></ul></li><li>Run the internal developer platform test: use AI and Catalog records to produce native Kubara input, generate and check the exact platform, retain it in ConfigHub, promote one platform change, then add and promote one small application that consumes a declared platform service.</li><li>Test both a human driving AI and an AI agent driving <code>cub</code> commands.</li><li>Measure whether users reach an answer, understand what was not checked, retain the result, and complete a promotion without losing the object identity.</li><li>Turn repeated failures into product or content changes, not additional prose on the same page.</li></ol>
+<h3 id="phase-5-strengthen-the-common-foundation">Phase 5: Strengthen The Common Foundation</h3>
+<ol><li>Complete package signatures and digest-pinned pulls in issue #1402.</li><li>Finish source-and-intent and lifecycle-route coverage for more maintained configurations.</li><li>Complete readable production promotion, rollback, and live-observation paths.</li><li>Promote the remaining 80 Helm entries from proof-grade rows to useful configurations.</li><li>Give AICR, Timoni, Kubara, Sveltos, literal OCI, and YAML stable browse and review paths using the same processing model.</li><li>Publish stable JSON schemas, exit behavior, and agent instructions for the common review result.</li><li>Add CI and pull-request reporting without implying that static findings prove runtime behavior.</li></ol>
+<h3 id="phase-6-extend-the-proven-paths">Phase 6: Extend The Proven Paths</h3>
+<ol><li>Complete representative AICR and GPU delivery evidence.</li><li>Record the H100/NIM and NVIDIA GPU Operator demonstrations.</li><li>Add lifecycle-heavy Timoni entries and live proof.</li><li>Deepen Kubara and Sveltos fleet rollout and rollback evidence.</li><li>Complete the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps as product experiences.</li><li>Add hosted processing for arbitrary private sources or OCI only after the security, credentials, cost, and abuse-control design is proven.</li></ol>
+<h2 id="acceptance-tests">Acceptance Tests</h2>
+<p>The next release is successful when a new user can:</p>
+<ol><li>Start from a maintained configuration or their own AI-produced input.</li><li>Materialize and inspect exact objects without an account.</li><li>Understand findings and the limits of the checks.</li><li>Correct the input and retain one accepted digest.</li><li>Keep that exact result in ConfigHub without repeating the investigation.</li><li>Create a staging variant and compare it with production.</li><li>See lifecycle and destination requirements before promotion.</li><li>Promote and release the exact accepted revision.</li><li>See what reached the destination and what remains unknown.</li><li>Complete the same job through the website or CLI and move between them without changing the source, selected configuration, or accepted digest.</li><li>Build one small internal developer platform from Catalog components and native Kubara input, then promote one platform revision and one application revision independently through ConfigHub.</li></ol>
+<p>The short browser tour is successful when a new user can create, inspect, change, and compare one sample component without a CLI or cluster and without being sent through the full education sequence.</p>
+<h2 id="work-deliberately-parked">Work Deliberately Parked</h2>
+<ul><li>Analytics vendor selection and issue #1060.</li><li>A new <code>cub workshop</code> or <code>cub config</code> umbrella.</li><li>Relabelling historical scanner receipts.</li><li>Letting an AI approve its own production change.</li><li>Treating static scanning as proof of lifecycle execution or runtime health.</li><li>Expanding the public site with equal-weight entry points before the main check, keep, and promote journey works end to end.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/planning/next-execution-plan.md</code>. The source file is the authoritative version.</p></footer>

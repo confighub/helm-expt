@@ -132,6 +132,72 @@ personal details remain outside Git.
 The [simulation findings](../planning/config-workshop-simulation-findings.md) record
 the automated navigation checks, their limits, and the human tests still required.
 
+### Finding and preventing misconfiguration
+
+The Catalog and Workshop should help a user find a concrete configuration problem,
+correct it, and avoid reintroducing it. Finding and prevention are different claims.
+A local report can identify a risk. Prevention requires a check or approval that is
+attached to the exact revision and enforced in the path that publishes or applies it.
+
+The four public jobs divide that work as follows:
+
+| Job | Misconfiguration role |
+| --- | --- |
+| Catalog | Publish known problems, checked starting configurations, safer alternatives, lifecycle requirements, and the evidence for one exact source and version. |
+| Check my config | Materialize the user's exact objects, compare them with defaults, a Catalog answer, or a current deployment, and run local advisory checks. The result must say what was and was not checked. |
+| Promote my config | Compare the candidate with its destination, recheck changed objects and lifecycle work, run available staging tests, and name anything that blocks the move. |
+| ConfigHub | Retain the accepted revision, run revision-bound validation, require approvals where policy says so, publish the selected OCI, and preserve the result for the next change. |
+
+The risk knowledge also needs stable layers:
+
+| Layer | Question it answers |
+| --- | --- |
+| Pattern | What configuration or live-state problem do we know about? |
+| Control | What should a user check or enforce? |
+| Framework | Which controls matter for this platform, standard, or operating job? |
+
+The shared pattern bundle is broader than the controls that have executable rules.
+The website must not present a known pattern as a completed scan, or a completed scan
+as proof that the configuration will run correctly on every target.
+
+The current scanner paths have different authority:
+
+- `cub-scan` is the standalone local scanner. It can inspect YAML, rendered Helm
+  output, snapshots, live-cluster output, and imported findings without a ConfigHub
+  account. Its result is advisory. `cub scan` is not the current command name.
+- ConfigHub `scan-unit` and `scan-space` produce detailed advisory findings over
+  retained data.
+- ConfigHub `validate-unit` and `validate-space` produce revision-bound pass or fail
+  results that can participate in managed workflow gates.
+- The existing `helm-catalog` apply gates enforce schema and placeholder checks,
+  record image and probe warnings, validate recorded lifecycle routes, and require
+  approval for selected production and system-configuration Spaces.
+
+The Catalog already records scan receipts for rendered variant revisions, but those
+receipts currently use the helm-expt rendered-object scanner. They are not automatically
+`cub-scan` results and do not yet use the complete shared pattern bundle. Every chart
+page and receipt must continue to name the scanner, policy or bundle identity, object
+digest, result, and date rather than using the generic word "scanned."
+
+The next integration should preserve the same user journey:
+
+1. Map existing Catalog warnings and checks to stable pattern and control IDs.
+2. Run the shared scanner against each exact rendered variant and retain a
+   digest-bound advisory receipt.
+3. Show the important findings, checked alternatives, and a "Check my config"
+   action on the chart page; keep the complete machine result behind it.
+4. Carry the accepted result and any approved exception into ConfigHub without
+   making the user repeat the investigation.
+5. Attach authoritative validation and approval to the retained revision when the
+   team wants ConfigHub to prevent a known problem from progressing.
+6. Re-run destination and live checks separately. Static configuration checks do not
+   prove hook execution, CRD readiness, workload health, rollback of external effects,
+   or convergence.
+
+This makes misconfiguration work useful before signup and more valuable afterward:
+the public path explains and corrects one exact result; ConfigHub keeps the result,
+enforces the selected controls, and shows whether later changes remain within them.
+
 The website, catalog, and public tools handle useful configuration work around OCI.
 They can prepare source before the first OCI is built, inspect an existing OCI, or
 produce a new OCI after checking or changing its contents. They help people work with
