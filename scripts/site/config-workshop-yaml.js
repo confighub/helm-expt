@@ -31,6 +31,116 @@
     return JSON.stringify(stableValue(value));
   }
 
+  function scannerJson(value) {
+    return JSON.stringify(stableValue(value))
+      .replaceAll("&", "\\u0026")
+      .replaceAll("<", "\\u003c")
+      .replaceAll(">", "\\u003e")
+      .replaceAll("\u2028", "\\u2028")
+      .replaceAll("\u2029", "\\u2029");
+  }
+
+  function scannerObjectSetPayload(objectSet) {
+    const defaultName = String(objectSet?.name || "candidate.yaml")
+      .split(/[\\/]/)
+      .pop()
+      .replace(/\.(?:yaml|yml)$/i, "") || "candidate";
+    const objects = (objectSet?.objects || []).map((item) => {
+      if (!item?.value || typeof item.value !== "object" || Array.isArray(item.value)) {
+        throw new Error("cub check can only be matched to Kubernetes object documents.");
+      }
+      const object = stableValue(item.value);
+      delete object._source_file;
+      delete object._source_doc_index;
+      if (!object.metadata || typeof object.metadata !== "object" || Array.isArray(object.metadata)) object.metadata = {};
+      if (!String(object.metadata.name || "").trim()) object.metadata.name = defaultName;
+      if (!String(object.metadata.namespace || "").trim()) object.metadata.namespace = "default";
+      return scannerJson(object);
+    }).sort();
+    return {
+      objectCount: objects.length,
+      payload: objects.map((object) => object + "\n").join(""),
+    };
+  }
+
+  function validateCubCheckReceipt(document, expectedInput) {
+    const fail = (message) => { throw new Error("cub-check.json " + message); };
+    const object = (value, name) => {
+      if (!value || typeof value !== "object" || Array.isArray(value)) fail("has no valid " + name + ".");
+      return value;
+    };
+    const text = (value, name) => {
+      if (typeof value !== "string" || !value.trim()) fail("has no " + name + ".");
+      return value.trim();
+    };
+    const bareSha = (value, name) => {
+      const digest = text(value, name).toLowerCase();
+      if (!/^[0-9a-f]{64}$/.test(digest)) fail("has an invalid " + name + ".");
+      return "sha256:" + digest;
+    };
+    const prefixedSha = (value, name) => {
+      const digest = text(value, name).toLowerCase();
+      if (!/^sha256:[0-9a-f]{64}$/.test(digest)) fail("has an invalid " + name + ".");
+      return digest;
+    };
+
+    const result = object(document, "top-level object");
+    if (result.schema_version !== "risk-scan-findings-v1") fail("does not use risk-scan-findings-v1.");
+    if (result.surface !== "cub-scan") fail("was not produced by cub-scan.");
+    const provenance = object(result.provenance, "provenance record");
+    if (provenance.source !== "cub-scan") fail("has the wrong provenance source.");
+    const version = text(provenance.source_version, "scanner version");
+    const scanTime = text(provenance.scan_time, "scan time");
+    if (Number.isNaN(Date.parse(scanTime))) fail("has an invalid scan time.");
+    const catalogVersion = text(provenance.catalog_version, "catalog version");
+    const bundle = object(result.pattern_bundle, "pattern bundle identity");
+    if (bundle.schema_version !== "bundle-manifest-v1") fail("does not identify a bundle-manifest-v1 pattern bundle.");
+    const bundleVersion = text(bundle.version, "pattern bundle version");
+    if (bundleVersion !== version) fail("uses a pattern bundle from a different scanner version.");
+    const sourceRepo = text(bundle.source_repo, "pattern bundle source repository");
+    const manifestSha256 = bareSha(bundle.manifest_sha256, "pattern bundle manifest digest");
+    const catalogSha256 = bareSha(bundle.catalog_sha256, "risk catalog digest");
+    const input = object(result.input, "input identity");
+    if (!Number.isInteger(input.object_count) || input.object_count < 1) fail("has an invalid input object count.");
+    const objectSetSha256 = prefixedSha(input.object_set_sha256, "input object-set digest");
+    if (!expectedInput || input.object_count !== expectedInput.objectCount) {
+      fail("does not describe the same number of objects as the candidate.");
+    }
+    if (objectSetSha256 !== expectedInput.objectSetSha256) {
+      fail("does not describe the candidate objects. Run cub check again on these exact files.");
+    }
+    if (!Array.isArray(result.findings)) fail("has no findings array.");
+    if (!Number.isInteger(result.finding_count) || result.finding_count !== result.findings.length) {
+      fail("has a finding count that does not match its findings.");
+    }
+    const findingIds = result.findings.map((finding, index) => {
+      if (!finding || typeof finding !== "object" || Array.isArray(finding)) fail("has an invalid finding at position " + (index + 1) + ".");
+      return text(finding.id, "stable ID for finding " + (index + 1));
+    });
+
+    return {
+      authority: "local-advisory",
+      tool: "cub-scan",
+      version,
+      schemaVersion: result.schema_version,
+      scanTime,
+      catalogVersion,
+      patternBundle: {
+        schemaVersion: bundle.schema_version,
+        version: bundleVersion,
+        sourceRepo,
+        manifestSha256,
+        catalogSha256,
+      },
+      input: {
+        objectCount: input.object_count,
+        objectSetSha256,
+      },
+      findingCount: result.finding_count,
+      findingIds,
+    };
+  }
+
   function sameValue(left, right) {
     return canonicalValue(left) === canonicalValue(right);
   }
@@ -421,6 +531,8 @@
     canonicalFileText,
     parseObjectSet,
     compareObjectSets,
+    scannerObjectSetPayload,
+    validateCubCheckReceipt,
     classifySourceAware,
     lifecycleFromRecord,
     parseTargetResults,

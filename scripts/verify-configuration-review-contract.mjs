@@ -70,9 +70,11 @@ function verify() {
   for (const field of ["question", "source", "candidate", "comparison", "checks", "finding", "recommendation"]) {
     check(schema.properties?.spec?.required?.includes(field), `review schema spec does not require ${field}`);
   }
-  for (const field of ["method", "scope", "findings", "notChecked"]) {
+  for (const field of ["method", "scope", "findings", "notChecked", "advisoryReceipts"]) {
     check(schema.properties?.spec?.properties?.checks?.required?.includes(field), `review schema checks do not require ${field}`);
   }
+  check(schema.properties?.spec?.properties?.source?.properties?.type?.enum?.includes("timoni"), "review schema does not accept the Timoni source option shown by the page");
+  check(schema.$defs?.localAdvisoryReceipt?.properties?.authority?.const === "local-advisory", "review schema must keep local checks advisory");
   check(resultSchema.properties?.kind?.const === "WorkshopResult", "workshop result schema has the wrong kind");
   for (const field of ["question", "source", "files", "checks", "next"]) {
     check(resultSchema.properties?.spec?.required?.includes(field), `workshop result schema spec does not require ${field}`);

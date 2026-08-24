@@ -20,7 +20,10 @@ and file hashes. See the [anonymous browser guide](./anonymous-browser-workshop.
    comparison.
 4. If the configuration came from the Catalog, add its `BaseVariantRecord`. This adds
    the known source, prerequisites, hooks, CRDs, policy, and evidence status.
-5. Run the browser check and download `candidate.yaml` with
+5. Run `cub check --format json --output cub-check.json <rendered-path>` when you
+   want the shared local checks. Add that result to the page. It is accepted only
+   when it names the same canonical object set.
+6. Run the browser check and download `candidate.yaml` with
    `workshop-review.json`.
 
 The browser parses the YAML as data. It inventories the objects, hides formatting-only
@@ -28,8 +31,9 @@ changes, checks a small set of manifest risks, and lists what it did not test. I
 not run the source tool, contact a cluster, execute hooks, or prove application health.
 
 The generated AI prompt asks your assistant to confirm the file hashes, keep private
-inputs local, separate computed findings from Catalog evidence, and write any proposed
-fix to a new file. The assistant does not get to turn an unrun check into a pass.
+inputs local, separate computed findings from Catalog evidence, retain stable scanner
+finding IDs, and write any proposed fix to a new file. The assistant does not get to
+turn an unrun check into a pass or a local advisory result into ConfigHub validation.
 
 ## Review a promotion
 

@@ -47,10 +47,14 @@
         },
         "checks": {
           "type": "object",
-          "required": ["completed", "notRun"],
+          "required": ["completed", "notRun", "advisoryReceipts"],
           "properties": {
             "completed": { "type": "array", "items": { "type": "string" } },
-            "notRun": { "type": "array", "items": { "type": "string" } }
+            "notRun": { "type": "array", "items": { "type": "string" } },
+            "advisoryReceipts": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/localAdvisoryReceipt" }
+            }
           },
           "additionalProperties": false
         },
@@ -63,6 +67,44 @@
           },
           "additionalProperties": false
         }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "localAdvisoryReceipt": {
+      "type": "object",
+      "required": ["authority", "tool", "version", "schemaVersion", "scanTime", "catalogVersion", "patternBundle", "input", "findingCount", "findingIds"],
+      "properties": {
+        "authority": { "const": "local-advisory" },
+        "tool": { "const": "cub-scan" },
+        "version": { "type": "string", "minLength": 1 },
+        "schemaVersion": { "const": "risk-scan-findings-v1" },
+        "scanTime": { "type": "string", "format": "date-time" },
+        "catalogVersion": { "type": "string", "minLength": 1 },
+        "patternBundle": {
+          "type": "object",
+          "required": ["schemaVersion", "version", "sourceRepo", "manifestSha256", "catalogSha256"],
+          "properties": {
+            "schemaVersion": { "const": "bundle-manifest-v1" },
+            "version": { "type": "string", "minLength": 1 },
+            "sourceRepo": { "type": "string", "minLength": 1 },
+            "manifestSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+            "catalogSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+          },
+          "additionalProperties": false
+        },
+        "input": {
+          "type": "object",
+          "required": ["objectCount", "objectSetSha256"],
+          "properties": {
+            "objectCount": { "type": "integer", "minimum": 1 },
+            "objectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+          },
+          "additionalProperties": false
+        },
+        "findingCount": { "type": "integer", "minimum": 0 },
+        "findingIds": { "type": "array", "items": { "type": "string", "minLength": 1 } }
       },
       "additionalProperties": false
     }
