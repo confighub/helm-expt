@@ -173,12 +173,12 @@ changes move through development, staging, and production as exact revisions.
 Checks, approvals, lifecycle requirements, rollout results, and rollback limits
 remain attached to those revisions.
 
-Applications remain separate from the platform import. Each application built
-by the team has its own source image and configuration, consumes services the
-platform provides, and follows the same check, retain, variant, promotion,
-release, and observation path. A platform change and an application change can
-therefore be reviewed and promoted independently while their compatibility is
-checked at the destination.
+Platform components, developer tools, and applications remain related but
+separately versioned. Each has its own source and configuration, consumes or
+provides named services, and follows the same check, retain, variant,
+promotion, release, and observation path. A shared platform change, a developer
+tool change, and an application change can therefore be reviewed and promoted
+independently while their compatibility is checked at the destination.
 
 The operating split is:
 
@@ -471,8 +471,9 @@ The next release is successful when a new user can:
 10. Complete the same job through the website or CLI and move between them
     without changing the source, selected configuration, or accepted digest.
 11. Build one small internal developer platform from Catalog components and
-    native Kubara input, then promote one platform revision and one application
-    revision independently through ConfigHub.
+    native Kubara input, then promote one platform-component revision, one
+    developer-tool revision, and one application revision independently through
+    ConfigHub.
 
 The short browser tour is successful when a new user can create, inspect, change,
 and compare one sample component without a CLI or cluster and without being sent

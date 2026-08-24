@@ -133,7 +133,7 @@
   .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
   .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
 
-  .routes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
   .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
@@ -182,9 +182,9 @@
             <p class="lead">If AI wrote the values, <a href="./ask.html">Check my config</a> builds local instructions for the assistant you already use. Install the <a href="./ai.html">Config Workshop agent skill</a> when you want the same evidence rules for repeated work. Your files stay on your machine.</p>
             <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./ask.html">Check my config</a>
-              <a class="btn ghost" href="./charts/index.html">Search tested configurations</a>
-              <a class="btn quiet" href="./try.html">Try Redis</a>
+              <a class="btn primary" href="./testing.html#start">Find a configuration</a>
+              <a class="btn ghost" href="./ask.html">Check my config</a>
+              <a class="btn quiet" href="./promote.html">Promote my config</a>
             </div>
           </div>
           <div class="hero-term">
@@ -209,19 +209,20 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
       <main>
         <section class="section">
-          <span class="eyebrow">One public path</span>
-          <h2>Find, Check, Then Keep</h2>
-          <p class="intro">Use a tested answer when one exists. Check your own case when it does not. Save the version you approve when your team needs it again.</p>
+          <span class="eyebrow">Three starting questions</span>
+          <h2>What do you need help with?</h2>
+          <p class="intro">Start with the question you have now. Each path gives you exact files, a result you can keep, and commands for continuing on your machine.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-          <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
+          <p class="intro"><strong>Without an account:</strong> find, render, inspect, compare, and keep files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, make variants, approve a change, promote it, and compare it with live systems.</p>
           <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">112 components</span></h3><p>Choose an exact chart version and a useful starting configuration. Retained versions stay pullable, so you can return to the package you used.</p><span class="go">Search the Catalog &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./promote.html"><h3>3. Test the next move <span class="tag">browser-local</span></h3><p>Compare the current and proposed objects. See what changes and what must run in staging before production.</p><span class="go">Promote my config &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>4. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. Run each promotion with its approval, release, and cluster result.</p><span class="go">Keep the reviewed result &rarr;</span></a>
+            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">112 components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, important differences, findings, and checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
+            <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
           </div>
+          <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer must be shared, changed, approved, promoted, released, or compared with live systems. The object digest stays with the result.</p>
+          <p class="intro"><strong>Website and CLI stay connected:</strong> the pages explain the job and provide local commands or downloadable records. The commands preserve the same source identity and object digest for the next step.</p>
+          <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Keep platform components, developer tools, and applications as separate ConfigHub revisions so each can be tested and promoted.</p>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
-          <p class="intro"><a href="./testing.html">Browse Helm, AICR, Timoni, OCI, and YAML examples</a>, including promotions and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
         </section>
 
         <section class="section">

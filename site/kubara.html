@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build a Platform with Kubara &middot; Config Workshop</title>
-  <meta name="description" content="Adopt Kubara with ConfigHub in six familiar steps, preserving Kubara catalogs, generated topology, Git hand-off, and Argo reconciliation while adding governed releases and fleet visibility.">
+  <title>Build an Internal Developer Platform with Kubara &middot; Config Workshop</title>
+  <meta name="description" content="Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/kubara.html">
-  <meta property="og:title" content="Build a Platform with Kubara &amp;middot; Config Workshop">
-  <meta property="og:description" content="Adopt Kubara with ConfigHub in six familiar steps, preserving Kubara catalogs, generated topology, Git hand-off, and Argo reconciliation while adding governed releases and fleet visibility.">
+  <meta property="og:title" content="Build an Internal Developer Platform with Kubara &amp;middot; Config Workshop">
+  <meta property="og:description" content="Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/kubara.html">
   <style>
@@ -514,17 +514,18 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <p style="margin:0 0 8px;color:var(--good);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0">For platform teams</p>
-    <h1>Build a Platform from Tested Components</h1>
-    <p class="lead">Choose the services you need. The starter writes native Kubara configuration and records the exact component versions, Catalog evidence, and any custom runtime images. Kubara then generates the platform files.</p>
+    <h1>Build an Internal Developer Platform</h1>
+    <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform needs shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
+    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes.</p>
+    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this Kubara buyer journey.</p>
     <section aria-labelledby="kubara-starter">
-      <h2 id="kubara-starter">1. Choose a small development platform</h2>
-      <p>This example uses four ordinary platform services and records one optional runtime image. Change the comma-separated service list to suit your platform.</p>
+      <h2 id="kubara-starter">1. Choose services for your developers</h2>
+      <p>This example uses four ordinary platform services and records one optional runtime image. Use the links to check each component, then change the comma-separated service list to suit your platform.</p>
       <div class="card"><table>
         <thead><tr><th>Job</th><th>Selected component</th><th>Catalog page</th></tr></thead>
         <tbody><tr><td>Certificates</td><td>cert-manager</td><td><a href="./charts/jetstack-cert-manager-v1-21-0.html">jetstack/cert-manager 1.21.0</a></td></tr><tr><td>Cluster metrics</td><td>metrics-server</td><td><a href="./charts/metrics-server-metrics-server-3-13-1.html">metrics-server 3.13.1</a></td></tr><tr><td>Ingress</td><td>traefik</td><td><a href="./charts/traefik-traefik-41-0-2.html">Traefik 41.0.2</a></td></tr><tr><td>Monitoring</td><td>kube-prometheus-stack</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-87-19-2.html">kube-prometheus-stack 87.19.2</a></td></tr></tbody>
@@ -543,7 +544,9 @@ npm run kubara-platform:start -- \
   --services cert-manager,metrics-server,traefik,kube-prometheus-stack \
   --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \
   --output ../my-platform</code></pre>
+      <p>Replace <code>https://github.com/acme/platform.git</code> with the HTTPS Git repository where you will keep the generated platform.</p>
       <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
+      <p><strong>Website to command line:</strong> choose and inspect components here, then run the command with those exact component names. Give the generated files to your AI assistant when you want help with a change; review its file diff before running Kubara again.</p>
       <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
       <h3>2. Review what the starter wrote</h3>
       <div class="card"><table>
@@ -557,13 +560,14 @@ npm run kubara-platform:start -- \
         th { color: var(--muted); font-weight: 600; }
       </style>
       <h3>3. Generate and inspect the platform</h3>
-      <p>Complete the private <code>.env</code> file, then run Kubara:</p>
+      <p>Review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
       <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
       <h3>4. Choose where the reviewed result goes</h3>
       <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
       <p><a href="d/docs/demo/kubara/adoption-4-oci.html"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="d/docs/demo/kubara/adoption.html">Continue through ConfigHub and Argo CD</a> · <a href="d/docs/reference/flattening-alignment.html">See what can be flattened</a></p>
       <p><a href="d/docs/demo/kubara/gui-tour.html">See the four-cluster result</a> · <a href="d/docs/demo/kubara/checkpoints.html">Check the evidence</a> · <a href="d/docs/demo/kubara/single-platform.html">Open the technical runbook</a></p>
+      <p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>See two applications added, promoted, released, and checked on the platform</strong></a>.</p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>

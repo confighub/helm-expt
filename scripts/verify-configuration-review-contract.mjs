@@ -108,7 +108,10 @@ function verify() {
     check(askPage.includes(item.label), `ask page is missing question label: ${item.label}`);
   }
   for (const term of [
-    "chart configurations we have already tested and documented",
+    "when we have already tested the exact chart and version",
+    "In the website:",
+    "On the command line:",
+    "copyable commands for keeping the same files and hashes in ConfigHub",
     "See an illustrative object review",
     "Check rendered objects in this browser",
     "Search the Catalog for this chart and version",

@@ -348,8 +348,8 @@ const PAGE_DESCRIPTIONS = {
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
   "ai.html": "Install the Config Workshop agent skill, choose a configuration task, and keep exact objects, lifecycle work, checks, and limits visible.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
-  "testing.html": "Choose a worked example that starts with Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
-  "kubara.html": "Adopt Kubara with ConfigHub in six familiar steps, preserving Kubara catalogs, generated topology, Git hand-off, and Argo reconciliation while adding governed releases and fleet visibility.",
+  "testing.html": "Find a tested starting configuration for a component, AI-infrastructure stack, or internal developer platform, then inspect the exact result before using it.",
+  "kubara.html": "Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
@@ -2364,7 +2364,7 @@ function homeDesignCss() {
   .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
   .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
 
-  .routes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
   .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
@@ -2430,9 +2430,9 @@ function configTestCentreHome(catalog) {
             <p class="lead">If AI wrote the values, <a href="./ask.html">Check my config</a> builds local instructions for the assistant you already use. Install the <a href="./ai.html">Config Workshop agent skill</a> when you want the same evidence rules for repeated work. Your files stay on your machine.</p>
             <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./ask.html">Check my config</a>
-              <a class="btn ghost" href="./charts/index.html">Search tested configurations</a>
-              <a class="btn quiet" href="./try.html">Try Redis</a>
+              <a class="btn primary" href="./testing.html#start">Find a configuration</a>
+              <a class="btn ghost" href="./ask.html">Check my config</a>
+              <a class="btn quiet" href="./promote.html">Promote my config</a>
             </div>
           </div>
           <div class="hero-term">
@@ -2457,19 +2457,20 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
       <main>
         <section class="section">
-          <span class="eyebrow">One public path</span>
-          <h2>Find, Check, Then Keep</h2>
-          <p class="intro">Use a tested answer when one exists. Check your own case when it does not. Save the version you approve when your team needs it again.</p>
+          <span class="eyebrow">Three starting questions</span>
+          <h2>What do you need help with?</h2>
+          <p class="intro">Start with the question you have now. Each path gives you exact files, a result you can keep, and commands for continuing on your machine.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
-          <p class="intro"><strong>Runs on your laptop:</strong> rendering, inspecting, and every catalog pull, with no account. <strong>Needs a ConfigHub account:</strong> variants, approvals, and rollout history. <strong>Needs an account and a cluster:</strong> the standing fleet record.</p>
+          <p class="intro"><strong>Without an account:</strong> find, render, inspect, compare, and keep files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, make variants, approve a change, promote it, and compare it with live systems.</p>
           <div class="routes">
-            <a class="route-card" href="./charts/index.html"><h3>1. Find a tested configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose an exact chart version and a useful starting configuration. Retained versions stay pullable, so you can return to the package you used.</p><span class="go">Search the Catalog &rarr;</span></a>
-            <a class="route-card mid" href="./ask.html"><h3>2. Check my own configuration <span class="tag">one question</span></h3><p>Bring the chart and values your AI produced, or compare rendered YAML in your browser. Keep the result as files or OCI.</p><span class="go">Check my config &rarr;</span></a>
-            <a class="route-card" href="./promote.html"><h3>3. Test the next move <span class="tag">browser-local</span></h3><p>Compare the current and proposed objects. See what changes and what must run in staging before production.</p><span class="go">Promote my config &rarr;</span></a>
-            <a class="route-card" href="./confighub.html"><h3>4. Keep it in ConfigHub <span class="tag">team record</span></h3><p>Save the objects you approved. Run each promotion with its approval, release, and cluster result.</p><span class="go">Keep the reviewed result &rarr;</span></a>
+            <a class="route-card" href="./testing.html#start"><h3>1. I need a configuration <span class="tag">${catalog.summary.retainedComponents} components</span></h3><p>Choose the job you need done. Start from a tested configuration, an exact version, and the requirements already found. Every published version remains available from the public Catalog registry.</p><span class="go">Find a starting point &rarr;</span></a>
+            <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, important differences, findings, and checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
+            <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
           </div>
+          <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer must be shared, changed, approved, promoted, released, or compared with live systems. The object digest stays with the result.</p>
+          <p class="intro"><strong>Website and CLI stay connected:</strong> the pages explain the job and provide local commands or downloadable records. The commands preserve the same source identity and object digest for the next step.</p>
+          <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Keep platform components, developer tools, and applications as separate ConfigHub revisions so each can be tested and promoted.</p>
           <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
-          <p class="intro"><a href="./testing.html">Browse Helm, AICR, Timoni, OCI, and YAML examples</a>, including promotions and fleets. Local and CI paths work without signing in. The hosted browser check can inspect rendered YAML without an account.</p>
         </section>
 
         <section class="section">
@@ -4756,13 +4757,14 @@ function askHtml() {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Check your configuration</h1>
+    <h1>Is my configuration right?</h1>
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
-    <p>The <strong>Catalog</strong> has chart configurations we have already tested and documented. Use this page for your own chart, values, new version, or unexpected result.</p>
-    <p>This page starts with rendered Kubernetes YAML. Render a chart or pull an OCI package on your machine, then check the exact objects here. Your files stay in this browser.</p>
+    <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
+    <p><strong>In the website:</strong> build local instructions for the AI assistant you already use, or compare rendered Kubernetes YAML in this browser. Download the exact objects, findings, file hashes, and checks that did not run.</p>
+    <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
-    <p>Download one complete result for your own AI or CI. Keep it locally, publish the reviewed objects as OCI, or retain it in ConfigHub when a team needs history and promotion.</p>
+    <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
     <p>Doing this regularly? <a href="./ai.html">Install the Config Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
     <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
@@ -5015,10 +5017,13 @@ function promoteHtml() {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Can I move this exact change safely?</h1>
+    <h1>Can I promote this configuration?</h1>
     <p id="promotion-context" hidden><strong id="promotion-context-text"></strong></p>
     <p class="lead">Compare what you run now with the exact configuration you want to move. See what the next environment would receive, what still needs testing, and whether any target has a current result.</p>
+    <p>The same process applies to a platform component, a developer tool, or an application. Each can move independently while ConfigHub checks what the destination already uses.</p>
     <p>An upgrade can fail because it changes an immutable StatefulSet field, removes an object, or needs setup that has not run. Compare the Kubernetes objects before production receives them.</p>
+    <p><strong>In the website:</strong> compare the current and proposed object sets. Add staging results and download a review bound to both file hashes.</p>
+    <p><strong>On the command line:</strong> create those object sets with Helm, AICR, OCI, or another source tool. Then use the generated <code>cub variant</code> commands to preview and run the managed promotion.</p>
     <p id="promotion-intro-detail">The comparison runs in your browser. Your files are not uploaded, and you do not need an account. It does not run Helm, contact a cluster, execute a test, or promote anything. A finished Redis review loads automatically so you can see the result before adding your own files.</p>
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
@@ -7308,24 +7313,25 @@ function kubaraHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build a Platform with Kubara &middot; Config Workshop</title>
+  <title>Build an Internal Developer Platform with Kubara &middot; Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
     ${audienceLabel("For platform teams")}
-    <h1>Build a Platform from Tested Components</h1>
-    <p class="lead">Choose the services you need. The starter writes native Kubara configuration and records the exact component versions, Catalog evidence, and any custom runtime images. Kubara then generates the platform files.</p>
+    <h1>Build an Internal Developer Platform</h1>
+    <p class="lead">Choose the services your developers need to build and run AI-assisted tools and applications. The Catalog supplies tested component versions and known requirements. AI can help with the selection and settings. The starter writes native Kubara configuration for you to review before Kubara generates the platform files.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
-    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform needs shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
+    <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes.</p>
+    <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "Kubara buyer journey")}
     <section aria-labelledby="kubara-starter">
-      <h2 id="kubara-starter">1. Choose a small development platform</h2>
-      <p>This example uses four ordinary platform services and records one optional runtime image. Change the comma-separated service list to suit your platform.</p>
+      <h2 id="kubara-starter">1. Choose services for your developers</h2>
+      <p>This example uses four ordinary platform services and records one optional runtime image. Use the links to check each component, then change the comma-separated service list to suit your platform.</p>
       ${markdownLikeTable([
         ["Job", "Selected component", "Catalog page"],
         ["Certificates", "cert-manager", '<a href="./charts/jetstack-cert-manager-v1-21-0.html">jetstack/cert-manager 1.21.0</a>'],
@@ -7341,7 +7347,9 @@ npm run kubara-platform:start -- \\
   --services cert-manager,metrics-server,traefik,kube-prometheus-stack \\
   --runtime-image vllm=vllm/vllm-openai-cpu:v0.27.1-arm64@sha256:e6745d7ba6610f637c6f22fc06cd730342e50245b6c46767235600483adfbbde \\
   --output ../my-platform</code></pre>
+      <p>Replace <code>https://github.com/acme/platform.git</code> with the HTTPS Git repository where you will keep the generated platform.</p>
       <p>The command needs Node.js. It does not contact ConfigHub Server, an OCI registry, or Kubernetes.</p>
+      <p><strong>Website to command line:</strong> choose and inspect components here, then run the command with those exact component names. Give the generated files to your AI assistant when you want help with a change; review its file diff before running Kubara again.</p>
       <p><a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/inference-platform"><strong>Open the exact generated example</strong></a> · <a href="https://github.com/confighub/kubara-confighub/tree/main/examples/kubara/starter-platform">Open the smaller three-service starter</a></p>
       <h3>2. Review what the starter wrote</h3>
       ${markdownLikeTable([
@@ -7352,13 +7360,14 @@ npm run kubara-platform:start -- \\
         ["README.md and checksums.txt", "The next commands and hashes for every generated starter file."],
       ])}
       <h3>3. Generate and inspect the platform</h3>
-      <p>Complete the private <code>.env</code> file, then run Kubara:</p>
+      <p>Review the generated <code>.env.example</code>, create a private <code>.env</code>, and replace every placeholder. Do not commit the private file. Then run Kubara:</p>
       <pre><code>kubara --work-dir . --config-file config.yaml --env-file .env generate --helm</code></pre>
       <p>Review the generated Kubernetes files and the required CRDs, hooks, setup Jobs, Secrets, certificate issuers, storage classes, and APIs. The Catalog links explain the known behavior of each selected chart, but the final check must use this platform's generated output and intended cluster.</p>
       <h3>4. Choose where the reviewed result goes</h3>
       <p>Keep the generated platform in Git, or compile its exact revision into component OCI packages plus a digest-bound platform index. Neither choice needs a ConfigHub account. Use ConfigHub when you want retained platform versions, environment variants, approvals, promotion, release OCI, rollback, or live fleet comparison.</p>
       <p><a href="../docs/demo/kubara/adoption-4-oci.md"><strong>Package the reviewed Git revision as OCI</strong></a> · <a href="../docs/demo/kubara/adoption.md">Continue through ConfigHub and Argo CD</a> · <a href="../docs/reference/flattening-alignment.md">See what can be flattened</a></p>
       <p><a href="../docs/demo/kubara/gui-tour.md">See the four-cluster result</a> · <a href="../docs/demo/kubara/checkpoints.md">Check the evidence</a> · <a href="../docs/demo/kubara/single-platform.md">Open the technical runbook</a></p>
+      <p><a href="../docs/demo/kubara/adoption-6-apps.md"><strong>See two applications added, promoted, released, and checked on the platform</strong></a>.</p>
     </section>
     <section aria-labelledby="benefits">
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
@@ -7527,18 +7536,31 @@ function examplesHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Choose a worked example</h1>
+    <h1>Find a starting configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-    <p class="tagline">Choose the kind of configuration you have, then follow one worked example to exact Kubernetes objects and a checked result.</p>
-    <p>After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs.</p>
-    <p>In a hurry with your own chart? One command, no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. Then check the chart&#39;s catalog page for the hazards a render alone cannot show.</p>
+    <p class="tagline">Start with the job you need done. Choose a tested component or platform example, then inspect the exact configuration before you use it.</p>
+    <p>The Config Workshop Catalog keeps exact versions, useful configurations, known requirements, and the evidence behind each result. It exists so you do not have to repeat the same investigation for every chart or package.</p>
+    <p>If you already have a chart, values, YAML, or OCI, use <a href="./ask.html">Check my config</a>. The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
     <span id="catalog-next-jobs"></span>
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
-      <h2 id="start">1. Start with a configuration</h2>
+      <h2 id="start">1. What do you need?</h2>
+      <p>Choose the closest job. Each link opens a tested starting point or the shortest current path to one.</p>
+      ${markdownLikeTable([
+        ["I need", "Start here"],
+        ["A database or cache", `<a href="./try.html"><strong>Try the Redis configuration.</strong></a> Render it locally, read the 14 objects, and check the recorded Helm match and install requirements.`],
+        ["Cluster monitoring", `<a href="./charts/index.html?q=kube-prometheus-stack"><strong>Find Kube Prometheus Stack.</strong></a> Compare exact versions, CRD choices, hooks, prerequisites, and delivery evidence.`],
+        ["Ingress and certificates", `<a href="./charts/index.html?q=ingress-nginx"><strong>Start with ingress-nginx</strong></a>, then <a href="./charts/index.html?q=cert-manager">add cert-manager</a>. The Catalog records the setup work that rendered YAML does not explain.`],
+        ["AI inference", `<a href="./try-aicr.html"><strong>Try the AICR CPU starter.</strong></a> Inspect the exact Applications and OCI without an account, cluster, or GPU, then continue to the NIM and EKS examples below.`],
+        ["An internal developer platform", `<a href="./kubara.html"><strong>Build a small platform with Catalog components, Kubara, and AI.</strong></a> Review native Kubara configuration, generate Git and OCI outputs, then retain and promote platform components, developer tools, and applications separately in ConfigHub.`],
+        ["A chart or configuration I already have", `<a href="./ask.html"><strong>Check my config.</strong></a> Bring the values, YAML, OCI, or work made by AI. Compare it with defaults, Catalog records, or what you run now.`],
+      ], { rawSecondColumn: true })}
+      <p>Missing the component or use case you need? <a href="${SITE_FEEDBACK_ISSUE_URL}">Tell us what you are trying to run</a>.</p>
+
+      <h2 id="simple-example">2. Try a simple example: Redis</h2>
       <h3 id="see-first">See what Redis installs, before you install it</h3>
       <p>Turn the published Redis package into the exact Kubernetes files it produces. You need no account, no login, and no cluster.</p>
       <div class="terminal-card">
@@ -7628,7 +7650,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
     </section>
 
     <section aria-labelledby="start-modes">
-      <h2 id="start-modes">2. Choose how to run a starting example</h2>
+      <h2 id="start-modes">3. Choose how to run a starting example</h2>
       <h3>Local or CI — available now</h3>
       <p>Use public tools and packages without ConfigHub Server or an account. Public catalog packages also need no Google registry login.</p>
       <h3>Hosted without sign-in — available for rendered YAML</h3>
@@ -7639,7 +7661,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
     </section>
 
     <section aria-labelledby="managed">
-      <h2 id="managed">3. Continue in ConfigHub</h2>
+      <h2 id="managed">4. Continue in ConfigHub</h2>
       <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
       ${markdownLikeTable([
         ["Job", "Working example", "Where to go"],
@@ -7651,7 +7673,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
     </section>
 
     <section aria-labelledby="platforms">
-      <h2 id="platforms">4. Build or roll out a platform</h2>
+      <h2 id="platforms">5. Build or roll out a platform</h2>
       <p><a href="./kubara.html"><strong>Build a small Kubara platform from tested Catalog components.</strong></a> Choose services, record optional digest-pinned runtime images, and review the native Kubara config before generation. The advanced examples below continue into ConfigHub and a fleet.</p>
       <p>A platform team runs the same components on many clusters. Tools like Kubara and Sveltos build these platforms. Sveltos installs one component across a group of clusters. Kubara describes a whole platform at once and generates its files.</p>
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
@@ -7667,7 +7689,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
     </section>
 
     <section aria-labelledby="apps">
-      <h2 id="apps">5. Use saved configuration for a repeated job</h2>
+      <h3 id="apps">6. Use saved configuration for a repeated job</h3>
       <p>Each row has a working example. The final column says what is still needed before the same result can be offered more generally.</p>
       ${markdownLikeTable([
         ["App", "Working example", "Open", "Still to build"],
