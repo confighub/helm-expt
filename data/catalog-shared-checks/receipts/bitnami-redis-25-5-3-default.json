@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "bitnami-redis-25-5-3-default",
+    "chart": "bitnami/redis",
+    "version": "25.5.3",
+    "base": "default",
+    "renderPath": "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+  },
+  "catalogReview": {
+    "path": "recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 4,
+    "findings": [
+      {
+        "id": "CCVE-2025-5013",
+        "name": "Helm-managed StatefulSet may orphan PVCs on release lifecycle operations",
+        "category": "ORPHAN",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "medium",
+        "tool": "helm",
+        "resource": {
+          "kind": "StatefulSet",
+          "name": "redis-master",
+          "namespace": "redis"
+        },
+        "message": "Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations",
+        "remedy_type": "config_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+            "Document explicit PVC retention and cleanup procedures when Retain is intentional",
+            "Add release cleanup automation for orphaned PVCs if data retention is not required"
+          ],
+          "commands": [
+            "kubectl get sts -n <namespace> <name> -o yaml",
+            "kubectl get pvc -n <namespace> -l app.kubernetes.io/instance=<release>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+          "command": "kubectl get sts -n <namespace> <name> -o yaml",
+          "doc_ref": "cub-scan --explain CCVE-2025-5013"
+        }
+      },
+      {
+        "id": "CCVE-2025-5013",
+        "name": "Helm-managed StatefulSet may orphan PVCs on release lifecycle operations",
+        "category": "ORPHAN",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "medium",
+        "tool": "helm",
+        "resource": {
+          "kind": "StatefulSet",
+          "name": "redis-replicas",
+          "namespace": "redis"
+        },
+        "message": "Helm-managed StatefulSet with volumeClaimTemplates is missing Delete/Delete PVC retention policy and can orphan storage on release lifecycle operations",
+        "remedy_type": "config_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+            "Document explicit PVC retention and cleanup procedures when Retain is intentional",
+            "Add release cleanup automation for orphaned PVCs if data retention is not required"
+          ],
+          "commands": [
+            "kubectl get sts -n <namespace> <name> -o yaml",
+            "kubectl get pvc -n <namespace> -l app.kubernetes.io/instance=<release>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Set persistentVolumeClaimRetentionPolicy to Delete/Delete for ephemeral lifecycle expectations",
+          "command": "kubectl get sts -n <namespace> <name> -o yaml",
+          "doc_ref": "cub-scan --explain CCVE-2025-5013"
+        }
+      },
+      {
+        "id": "CCVE-2025-5019",
+        "name": "Workload stores a sensitive environment value directly",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "helm",
+        "resource": {
+          "kind": "StatefulSet",
+          "name": "redis-master",
+          "namespace": "redis"
+        },
+        "message": "Container redis sets ALLOW_EMPTY_PASSWORD directly; use valueFrom.secretKeyRef",
+        "remedy_type": "config_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Remove the literal value from the workload object",
+            "Use env.valueFrom.secretKeyRef with an existing Secret name and key",
+            "Rotate any credential that was committed, rendered, published, or deployed"
+          ],
+          "commands": [
+            "kubectl get <kind> -n <namespace> <name> -o yaml",
+            "kubectl create secret generic <secret-name> --from-literal=<key>=<value> -n <namespace>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Remove the literal value from the workload object",
+          "command": "kubectl get <kind> -n <namespace> <name> -o yaml",
+          "doc_ref": "cub-scan --explain CCVE-2025-5019"
+        }
+      },
+      {
+        "id": "CCVE-2025-5019",
+        "name": "Workload stores a sensitive environment value directly",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "helm",
+        "resource": {
+          "kind": "StatefulSet",
+          "name": "redis-replicas",
+          "namespace": "redis"
+        },
+        "message": "Container redis sets ALLOW_EMPTY_PASSWORD directly; use valueFrom.secretKeyRef",
+        "remedy_type": "config_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Remove the literal value from the workload object",
+            "Use env.valueFrom.secretKeyRef with an existing Secret name and key",
+            "Rotate any credential that was committed, rendered, published, or deployed"
+          ],
+          "commands": [
+            "kubectl get <kind> -n <namespace> <name> -o yaml",
+            "kubectl create secret generic <secret-name> --from-literal=<key>=<value> -n <namespace>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Remove the literal value from the workload object",
+          "command": "kubectl get <kind> -n <namespace> <name> -o yaml",
+          "doc_ref": "cub-scan --explain CCVE-2025-5019"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:24Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 14,
+      "object_set_sha256": "sha256:f8906a2445c10fe36febf82663ebb2226b5b9a0bb79c72d3d882c1bb85499751"
+    }
+  }
+}

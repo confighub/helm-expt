@@ -1,0 +1,264 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "argo-cd-argo-rollouts-2-40-9-default",
+    "chart": "argo-cd/argo-rollouts",
+    "version": "2.40.9",
+    "base": "default",
+    "renderPath": "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
+  },
+  "catalogReview": {
+    "path": "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 6,
+    "findings": [
+      {
+        "id": "CCVE-2025-3728",
+        "name": "Deployment containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "argo-rollouts",
+          "namespace": "default"
+        },
+        "message": "Deployment containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add resources.limits for memory and CPU to each container",
+            "Add resources.requests to enable proper scheduling",
+            "Consider LimitRange defaults at the namespace level"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+            "kubectl set resources deployment <name> -n <namespace> --limits=cpu=500m,memory=256Mi --requests=cpu=100m,memory=128Mi"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add resources.limits for memory and CPU to each container",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+          "doc_ref": "cub-scan --explain CCVE-2025-3728"
+        }
+      },
+      {
+        "id": "CCVE-2025-3732",
+        "name": "Deployment containers omit resource requests",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "argo-rollouts",
+          "namespace": "default"
+        },
+        "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set resources.requests.cpu and resources.requests.memory on every container",
+            "Align requests with observed steady-state usage",
+            "Ensure requests are set when using HPA"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set resources.requests.cpu and resources.requests.memory on every container",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.containers[*].resources}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3732"
+        }
+      },
+      {
+        "id": "CCVE-2025-3744",
+        "name": "Multi-replica Deployment has no pod anti-affinity",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "argo-rollouts",
+          "namespace": "default"
+        },
+        "message": "Multi-replica Deployment has no podAntiAffinity; replicas may land on same node",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add podAntiAffinity with preferredDuringSchedulingIgnoredDuringExecution",
+            "Use topologyKey kubernetes.io/hostname to spread across nodes",
+            "For strict HA use requiredDuringSchedulingIgnoredDuringExecution"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.affinity}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add podAntiAffinity with preferredDuringSchedulingIgnoredDuringExecution",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.affinity}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3744"
+        }
+      },
+      {
+        "id": "CCVE-2025-3745",
+        "name": "emptyDir volume has no sizeLimit",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "argo-rollouts",
+          "namespace": "default"
+        },
+        "message": "Volume plugin-bin uses emptyDir without sizeLimit; may exhaust node disk",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set sizeLimit on all emptyDir volumes",
+            "Size the limit based on expected usage with headroom",
+            "{'Consider using memory-backed emptyDir (medium': 'Memory) for small caches'}"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set sizeLimit on all emptyDir volumes",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3745"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "argo-rollouts",
+          "namespace": "default"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      },
+      {
+        "id": "CCVE-2025-4078",
+        "name": "ClusterRole grants secrets read permissions",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "ClusterRole",
+          "name": "argo-rollouts",
+          "namespace": "default"
+        },
+        "message": "ClusterRole grants secrets get/list, enabling credential exfiltration across namespaces",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+            "Scope secret access to namespaced Role bindings where possible"
+          ],
+          "commands": [
+            "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0001"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Remove secrets get/list permissions from ClusterRoles that do not require credential access",
+          "command": "kubectl get clusterroles -o json | jq '.items[] | select(any(.rules[]?; any(.resources[]?; .==\"secrets\"))) | .metadata.name'",
+          "doc_ref": "cub-scan --explain CCVE-2025-4078"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:16Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 14,
+      "object_set_sha256": "sha256:7c4002f7343ec72f1037aa3640e0679ae479f57dd0bb307d99209359098dc4fc"
+    }
+  }
+}

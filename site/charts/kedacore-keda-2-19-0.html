@@ -664,6 +664,26 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </article></div>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>12 advisory findings</strong><br>4 critical, 4 warning, 4 info<br>ClusterRole grants nodes/proxy enabling Kubelet API RCE<br>ClusterRoleBinding binds nodes/proxy ClusterRole to subjects<br>ClusterRole grants secrets read permissions</td><td>29 objects<br><code>sha256:73a6fc3c23c8d71784aecb5c1c93cbd38871c656eca630e334c444adfa41fec5</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/kedacore-keda-2-19-0-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>no-crds</code></td><td><strong>12 advisory findings</strong><br>4 critical, 4 warning, 4 info<br>ClusterRole grants nodes/proxy enabling Kubelet API RCE<br>ClusterRoleBinding binds nodes/proxy ClusterRole to subjects<br>ClusterRole grants secrets read permissions</td><td>23 objects<br><code>sha256:ba08379edec7284256ceb342df9530a747e3377b2967989ab550fd3c3dfe6ef7</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/kedacore-keda-2-19-0-no-crds.json">Full <code>cub check</code> result</a><br><a href="../../recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>

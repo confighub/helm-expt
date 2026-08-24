@@ -174,11 +174,22 @@ The current scanner paths have different authority:
   record image and probe warnings, validate recorded lifecycle routes, and require
   approval for selected production and system-configuration Spaces.
 
-The Catalog already records scan receipts for rendered variant revisions, but those
-receipts currently use the helm-expt rendered-object scanner. They are not automatically
-`cub check` results and do not yet use the complete shared pattern bundle. Every chart
-page and receipt must continue to name the scanner, policy or bundle identity, object
-digest, result, and date rather than using the generic word "scanned."
+The Catalog keeps two separate local reviews for each maintained Helm base:
+
+- the existing per-revision `scan-receipt.yaml` is the chart-specific Catalog
+  review. Where that scanner ran, the receipt names the
+  `helm-expt-local-rendered-object-scan` version. Some older receipts explicitly
+  record that it did not run;
+- `data/catalog-shared-checks/receipts/` contains the released `cub check`
+  result for the same exact rendered objects. Its wrapper records the chart,
+  version, base, exact YAML-file digest, scanner object-set digest, scanner
+  version, pattern-bundle identity, findings, and date.
+
+The shared result does not replace the Catalog review. It applies maintained
+cross-chart controls to literal Kubernetes objects. The Catalog review can also
+cover values, source extensions, ownership, lifecycle work, and operating
+decisions that do not appear as a simple object-field rule. Chart pages show
+both results and link the full machine records.
 
 The browser Workshop now accepts a released `cub check` result only when its
 canonical object-set digest matches the candidate. It retains the scanner version,
@@ -187,13 +198,15 @@ pattern-bundle identity, stable finding IDs, raw result, and file hash in the
 beside the accepted revision. It does not rename the local result as managed
 validation.
 
-The next integration should preserve the same user journey:
+The maintained integration follows this user journey:
 
-1. Map existing Catalog warnings and checks to stable pattern and control IDs.
-2. Run the shared scanner against each exact rendered variant and retain a
-   digest-bound advisory receipt.
-3. Show the important findings, checked alternatives, and a "Check my config"
-   action on the chart page; keep the complete machine result behind it.
+1. Map existing Catalog warnings to stable pattern and control IDs only where
+   the checks overlap. Current mappings are explicitly partial rather than
+   claiming equivalence.
+2. Run the shared scanner against every exact maintained Helm base and retain a
+   receipt bound to both the YAML bytes and the scanner's canonical object set.
+3. Show a short finding summary, exact input digest, scanner and bundle identity,
+   date, and local action on each chart-version page; link the complete result.
 4. Carry the accepted result and any approved exception into ConfigHub without
    making the user repeat the investigation.
 5. Attach authoritative validation and approval to the retained revision when the
@@ -201,6 +214,12 @@ The next integration should preserve the same user journey:
 6. Re-run destination and live checks separately. Static configuration checks do not
    prove hook execution, CRD readiness, workload health, rollback of external effects,
    or convergence.
+
+Steps one through three are implemented for the maintained Helm bases. The
+NGINX example demonstrates a local credential finding, a reviewed correction,
+retention in ConfigHub, enforced validation, and promotion. General approved
+exceptions and the product view that joins local evidence to managed validation
+remain work to complete.
 
 This makes misconfiguration work useful before signup and more valuable afterward:
 the public path explains and corrects one exact result; ConfigHub keeps the result,

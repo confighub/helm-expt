@@ -475,6 +475,26 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>The section below says what these configurations expect you to provide.</p>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>11 advisory findings</strong><br>2 critical, 7 warning, 2 info<br>Container does not set runAsNonRoot<br>Container does not disable allowPrivilegeEscalation<br>Deployment omits pod and container securityContext baseline</td><td>23 objects<br><code>sha256:68f6e04c36ee191cdde6829e54ce446c8ae0c6c9e1bf02557b454d472b4bcea5</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/velero-velero-12-1-0-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/velero/velero/12.1.0/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/velero/velero/12.1.0/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     
     <section aria-labelledby="flattening">
       <h2 id="flattening">What This Chart Contains</h2>

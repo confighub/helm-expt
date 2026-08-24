@@ -108,6 +108,7 @@ What the catalog promises, and the briefs behind those promises.
 | [config-catalog-demo-program.md](./planning/config-catalog-demo-program.md) | Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps. |
 | [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
 | [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Canonical business purpose and user journey, including how the Catalog, local advisory checks, promotion checks, and ConfigHub validation find and prevent misconfiguration; also defines the source-neutral model for materializing, flattening, routing, protecting, retaining, and delivering configuration. |
+| [../data/catalog-shared-checks/summary.md](../data/catalog-shared-checks/summary.md) | Released `cub check` results for every exact maintained Helm base, with scanner and bundle identity, exact input digests, stable controls, and the deliberately partial mapping to chart-specific Catalog reviews. |
 | [flattening-alignment.md](./reference/flattening-alignment.md) | Source-neutral decision guide for retaining exact objects, retaining them with recorded setup, or processing the source late. |
 
 ### Working with charts

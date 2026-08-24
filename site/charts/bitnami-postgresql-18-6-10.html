@@ -476,6 +476,26 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>The section below says what these configurations expect you to provide.</p>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>existing-secret</code></td><td><strong>1 advisory finding</strong><br>1 warning<br>Helm-managed StatefulSet may orphan PVCs on release lifecycle operations</td><td>6 objects<br><code>sha256:7d0d3e92981fcf82c00f78fd6c863db390e9e4a7f51e7db211bc6c8bdbc69ef8</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-postgresql-18-6-10-existing-secret.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>static-passwords</code></td><td><strong>1 advisory finding</strong><br>1 warning<br>Helm-managed StatefulSet may orphan PVCs on release lifecycle operations</td><td>7 objects<br><code>sha256:b7b797ec1afb77e4aac06b7039028e267191dc41b8afca2f68c9e58f828eb148</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-postgresql-18-6-10-static-passwords.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     
     <section aria-labelledby="flattening">
       <h2 id="flattening">What This Chart Contains</h2>

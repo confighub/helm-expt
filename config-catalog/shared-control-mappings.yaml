@@ -1,0 +1,138 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SharedControlMappings"
+metadata:
+  name: "helm-catalog-shared-controls-v1"
+spec:
+  catalogScanner:
+    name: "helm-expt-local-rendered-object-scan"
+    versions:
+      - "0.1.0"
+      - "0.2.0"
+  sharedScanner:
+    command: "cub check"
+    surface: "cub-scan"
+    version: "v0.7.3"
+    sourceRepo: "confighubai/confighub-scan"
+    bundleManifestSHA256: "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8"
+    catalogSHA256: "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+  mappings:
+    - catalogRules:
+        - "cluster-rbac-review"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-4075"
+        - "CCVE-2025-4076"
+        - "CCVE-2025-4077"
+        - "CCVE-2025-4078"
+        - "CCVE-2025-4079"
+        - "CCVE-2025-4080"
+        - "CCVE-2025-4081"
+      explanation: "The shared controls check specific high-risk ClusterRole grants and bindings. The Catalog rule also asks for a broader chart and target policy review."
+    - catalogRules:
+        - "service-selector-has-workload-match"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-4001"
+      explanation: "Both checks find Services whose selectors match no rendered Deployment or StatefulSet. The Catalog rule also covers StatefulSet serviceName references."
+    - catalogRules:
+        - "mutable-image-tag"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-3731"
+      explanation: "The shared control finds an omitted tag or latest. The Catalog rule also treats chart-specific moving labels such as auto as mutable."
+    - catalogRules:
+        - "privileged-container-review"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-3727"
+      explanation: "The shared control finds privileged Deployment containers. The Catalog rule can also cover privileged containers in other workload kinds."
+    - catalogRules:
+        - "stateful-workload-review"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-3747"
+        - "CCVE-2025-3748"
+        - "CCVE-2025-3749"
+        - "CCVE-2025-3750"
+        - "CCVE-2025-3752"
+        - "CCVE-2025-5013"
+      explanation: "The shared controls check concrete StatefulSet security, resource, token, and PVC-retention fields. The Catalog rule also asks for storage, upgrade, and rollback decisions."
+    - catalogRules:
+        - "generated-secret-ownership"
+        - "rendered-secret-review"
+        - "rendered-secret-ownership"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-5019"
+      explanation: "The shared control finds sensitive values stored directly in workload environment fields. The Catalog rules also cover Secret ownership, generated material, rotation, and target-specific replacement."
+    - catalogRules:
+        - "deployment-workload-review"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-3725"
+        - "CCVE-2025-3726"
+        - "CCVE-2025-3728"
+        - "CCVE-2025-3732"
+        - "CCVE-2025-3733"
+        - "CCVE-2025-3734"
+        - "CCVE-2025-3735"
+        - "CCVE-2025-3736"
+        - "CCVE-2025-3740"
+        - "CCVE-2025-3743"
+        - "CCVE-2025-3744"
+        - "CCVE-2025-3745"
+        - "CCVE-2025-3746"
+      explanation: "The shared controls check concrete Deployment availability, resources, security, storage, and token fields. The Catalog rule also asks for target-specific rollout policy."
+    - catalogRules:
+        - "host-namespace-review"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-3729"
+      explanation: "The shared control finds host namespaces on Deployments. The Catalog rule can cover the same setting on other workload kinds."
+    - catalogRules:
+        - "privileged-storage-workload-review"
+        - "csi-daemonset-operate-review"
+      relationship: "partial"
+      sharedControlIds:
+        - "CCVE-2025-3737"
+        - "CCVE-2025-3754"
+        - "CCVE-2025-3755"
+        - "CCVE-2025-3756"
+        - "CCVE-2025-3757"
+        - "CCVE-2025-3758"
+      explanation: "The shared controls check hostPath use and concrete DaemonSet security, resource, and token fields. The Catalog rules also cover node access, storage behavior, rollout, and observation."
+  intentionallyUnmapped:
+    - catalogRules:
+        - "crd-upgrade-policy"
+        - "crd-lifecycle-review"
+        - "admission-webhook-requires-observation"
+        - "helm-hook-lifecycle-policy"
+        - "webhook-readiness-review"
+        - "apiservice-requires-observation"
+        - "webhook-secret-cert-controller-policy"
+        - "admission-webhook-review"
+        - "lifecycle-policy"
+        - "sync-secret-rotation-review"
+      reason: "These checks depend on install order, controller behavior, target state, or observations. A static rendered-object scan cannot replace them."
+    - catalogRules:
+        - "extension-slot-review"
+        - "dependency-lock-review"
+        - "blocked-default-render"
+        - "object-storage-policy"
+        - "storage-config-required"
+        - "scrape-config-review"
+        - "vault-tls-posture-review"
+      reason: "These checks depend on chart source, values, dependencies, or target-supplied settings that are not fully represented by the rendered objects."
+    - catalogRules:
+        - "monitoring-workload-review"
+        - "service-exposure-review"
+        - "vault-workload-operate-review"
+        - "bundle-component-review"
+        - "storage-retention-review"
+        - "csi-driver-review"
+        - "ui-ingress-policy"
+      reason: "These are broader operating and ownership decisions. Shared field checks can inform the review but do not answer it."
+    - catalogRules:
+        - "workload-service-account-exists"
+        - "pdb-unhealthy-pod-eviction-policy"
+      reason: "The current shared static bundle has no maintained equivalent for this exact Catalog check."

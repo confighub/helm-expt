@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "descheduler-descheduler-0-36-0-default",
+    "chart": "descheduler/descheduler",
+    "version": "0.36.0",
+    "base": "default",
+    "renderPath": "recipes/descheduler/descheduler/0.36.0/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+  },
+  "catalogReview": {
+    "path": "recipes/descheduler/descheduler/0.36.0/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 0,
+    "findings": [],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:27Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 5,
+      "object_set_sha256": "sha256:9331a08b04fd0f44723278b06d59b8e034a0d79f0d82f792c9808b0365726213"
+    }
+  }
+}

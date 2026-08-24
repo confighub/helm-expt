@@ -713,6 +713,26 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </article></div>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>5 advisory findings</strong><br>1 critical, 3 warning, 1 info<br>ClusterRole grants secrets read permissions<br>Deployment does not disable automountServiceAccountToken<br>Service selector matches no Deployment or StatefulSet in namespace default</td><td>20 objects<br><code>sha256:a8700d0581a26b4c27a6751eb921acff427fa8a1662eb9c34dd26e5091cc25af</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-contour-21-1-4-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/contour/21.1.4/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>legacy</code></td><td><strong>5 advisory findings</strong><br>1 critical, 3 warning, 1 info<br>ClusterRole grants secrets read permissions<br>Deployment does not disable automountServiceAccountToken<br>Service selector matches no Deployment or StatefulSet in namespace default</td><td>20 objects<br><code>sha256:43583cfaaee4961c91ed794f27e65eff740fb8b0335d4f558a7f9b606627caeb</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-contour-21-1-4-legacy.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/contour/21.1.4/revisions/legacy/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>no-crds</code></td><td><strong>5 advisory findings</strong><br>1 critical, 3 warning, 1 info<br>ClusterRole grants secrets read permissions<br>Deployment does not disable automountServiceAccountToken<br>Service selector matches no Deployment or StatefulSet in namespace default</td><td>15 objects<br><code>sha256:209537332ff13a0da9f7fba25d3bf4c2cebaf5cddb4a5b714fb9425ba1dd1fa0</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/bitnami-contour-21-1-4-no-crds.json">Full <code>cub check</code> result</a><br><a href="../../recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     <section aria-labelledby="images-pulled">
       <h2 id="images-pulled">Images This Chart Pulls</h2>
       <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>

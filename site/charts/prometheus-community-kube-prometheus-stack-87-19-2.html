@@ -477,6 +477,26 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>The section below says what these configurations expect you to provide.</p>
     </section>
 
+    <section aria-labelledby="shared-local-checks">
+      <h2 id="shared-local-checks">Local Configuration Checks</h2>
+      <p>We ran <code>cub check v0.7.3</code> against the exact rendered objects for every configuration below. The result is advisory: read each finding and decide whether it matters for your target.</p>
+      <details>
+        <summary>Scanner and ruleset identity</summary>
+        <p>Pattern bundle: <code>v0.7.3</code><br>Bundle manifest: <code>sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8</code><br>Risk catalog: <code>sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba</code></p>
+      </details>
+      <div class="card"><table>
+        <thead><tr><th>Configuration</th><th>Advisory result</th><th>Exact input</th><th>Checked</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td><code>default</code></td><td><strong>25 advisory findings</strong><br>5 critical, 16 warning, 4 info<br>ClusterRole grants secrets read permissions<br>Thanos sidecar not uploading blocks<br>Deployment containers omit resource limits</td><td>125 objects<br><code>sha256:f9a976944a7addb825e0dbb6ce6b3d0ebc43b2b5487211f7eb9b169f06d7aaef</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-87-19-2-default.json">Full <code>cub check</code> result</a><br><a href="../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>existing-secret</code></td><td><strong>25 advisory findings</strong><br>5 critical, 16 warning, 4 info<br>ClusterRole grants secrets read permissions<br>Thanos sidecar not uploading blocks<br>Deployment containers omit resource limits</td><td>124 objects<br><code>sha256:6a04712c9f61cad037c48464916f3f1d69c9d2330eb0be03ff75ded015a45f40</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-87-19-2-existing-secret.json">Full <code>cub check</code> result</a><br><a href="../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/existing-secret/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/existing-secret/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr><tr><td><code>no-crds</code></td><td><strong>25 advisory findings</strong><br>5 critical, 16 warning, 4 info<br>ClusterRole grants secrets read permissions<br>Thanos sidecar not uploading blocks<br>Deployment containers omit resource limits</td><td>115 objects<br><code>sha256:b05b4ca66b6785ad7cebf692a9a13f72b9397aea35f7d88ca2c400516e63115b</code></td><td>2026-08-24</td><td><a href="../../data/catalog-shared-checks/receipts/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.json">Full <code>cub check</code> result</a><br><a href="../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/rendered/release-objects.yaml">Exact YAML</a><br><a href="../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/receipts/scan-receipt.yaml">Separate Catalog review</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
+      <p><a href="../d/data/catalog-shared-checks/summary.html">Read all shared check results and the mapping to Catalog rules</a>.</p>
+    </section>
     
     <section aria-labelledby="flattening">
       <h2 id="flattening">What This Chart Contains</h2>

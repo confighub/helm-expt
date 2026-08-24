@@ -1,0 +1,268 @@
+{
+  "schemaVersion": "catalog-shared-check-receipt-v1",
+  "subject": {
+    "id": "metrics-server-metrics-server-3-13-0-default",
+    "chart": "metrics-server/metrics-server",
+    "version": "3.13.0",
+    "base": "default",
+    "renderPath": "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml",
+    "renderFileSHA256": "sha256:97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51"
+  },
+  "catalogReview": {
+    "path": "recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/receipts/scan-receipt.yaml",
+    "note": "Separate chart-specific Catalog review; not a cub check result."
+  },
+  "scannerResult": {
+    "schema_version": "risk-scan-findings-v1",
+    "surface": "cub-scan",
+    "finding_count": 6,
+    "findings": [
+      {
+        "id": "CCVE-2025-0071",
+        "name": "Metrics server missing or unreachable",
+        "category": "DEPEND",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "critical",
+        "confidence": "high",
+        "tool": "keda",
+        "resource": {
+          "kind": "APIService",
+          "name": "v1beta1.metrics.k8s.io",
+          "namespace": "default"
+        },
+        "message": "APIService v1beta1.metrics.k8s.io is not Available",
+        "remedy_type": "diagnose_then_fix",
+        "remedy_safety": "manual_only",
+        "remediation": {
+          "steps": [
+            "Install metrics-server if missing",
+            "Verify RBAC permissions allow metrics-server to read from kubelet",
+            "Check network policies aren't blocking metrics-server endpoints",
+            "Ensure TLS certificates are valid"
+          ],
+          "commands": [
+            "kubectl get apiservices v1beta1.metrics.k8s.io",
+            "kubectl get pods -n kube-system -l k8s-app=metrics-server",
+            "kubectl top nodes"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "human-decision",
+        "next_step": {
+          "action": "update_config",
+          "description": "Install metrics-server if missing",
+          "command": "kubectl get apiservices v1beta1.metrics.k8s.io",
+          "doc_ref": "cub-scan --explain CCVE-2025-0071"
+        }
+      },
+      {
+        "id": "CCVE-2025-3176",
+        "name": "RoleBinding not deleted when Role is removed",
+        "category": "ORPHAN",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "RoleBinding",
+          "name": "metrics-server-auth-reader",
+          "namespace": "kube-system"
+        },
+        "message": "RoleBinding references missing Role \"extension-apiserver-authentication-reader\" in namespace \"kube-system\"",
+        "remedy_type": "delete_resource",
+        "remedy_safety": "unsafe_auto",
+        "remediation": {
+          "steps": [
+            "Audit for orphaned RoleBindings and ClusterRoleBindings",
+            "Delete bindings before deleting roles",
+            "Use tools like rbac-lookup for RBAC auditing",
+            "Implement cleanup automation for RBAC resources"
+          ],
+          "commands": [
+            "kubectl get rolebinding -A -o json | jq '.items[] | select(.roleRef.kind==\"Role\") | {ns:.metadata.namespace, name:.metadata.name, role:.roleRef.name}'",
+            "kubectl get role -A",
+            "kubectl delete rolebinding <name> -n <ns>"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "update_config",
+          "description": "Audit for orphaned RoleBindings and ClusterRoleBindings",
+          "command": "kubectl get rolebinding -A -o json | jq '.items[] | select(.roleRef.kind==\"Role\") | {ns:.metadata.namespace, name:.metadata.name, role:.roleRef.name}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3176"
+        }
+      },
+      {
+        "id": "CCVE-2025-3728",
+        "name": "Deployment containers omit resource limits",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metrics-server",
+          "namespace": "kube-system"
+        },
+        "message": "Deployment containers omit resource limits",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Add resources.limits for memory and CPU to each container",
+            "Add resources.requests to enable proper scheduling",
+            "Consider LimitRange defaults at the namespace level"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+            "kubectl set resources deployment <name> -n <namespace> --limits=cpu=500m,memory=256Mi --requests=cpu=100m,memory=128Mi"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-WORKLOAD-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Add resources.limits for memory and CPU to each container",
+          "command": "kubectl get deployment <name> -n <namespace> -o yaml | grep -A10 resources",
+          "doc_ref": "cub-scan --explain CCVE-2025-3728"
+        }
+      },
+      {
+        "id": "CCVE-2025-3740",
+        "name": "Deployment explicitly sets replicas to 1",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metrics-server",
+          "namespace": "kube-system"
+        },
+        "message": "Deployment has replicas: 1; no high availability",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set replicas to at least 2 for services requiring availability",
+            "Use HPA with minReplicas >= 2 for auto-scaling workloads",
+            "Single replica is acceptable for batch jobs or development"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set replicas to at least 2 for services requiring availability",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.replicas}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3740"
+        }
+      },
+      {
+        "id": "CCVE-2025-3745",
+        "name": "emptyDir volume has no sizeLimit",
+        "category": "CONFIG",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "info",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metrics-server",
+          "namespace": "kube-system"
+        },
+        "message": "Volume tmp uses emptyDir without sizeLimit; may exhaust node disk",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set sizeLimit on all emptyDir volumes",
+            "Size the limit based on expected usage with headroom",
+            "{'Consider using memory-backed emptyDir (medium': 'Memory) for small caches'}"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'"
+          ]
+        },
+        "evidence_source": "native",
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set sizeLimit on all emptyDir volumes",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.volumes}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3745"
+        }
+      },
+      {
+        "id": "CCVE-2025-3746",
+        "name": "Deployment does not disable automountServiceAccountToken",
+        "category": "SECURITY",
+        "track": "misconfiguration",
+        "detection_method": "native_rule",
+        "severity": "warning",
+        "confidence": "high",
+        "tool": "kubernetes",
+        "resource": {
+          "kind": "Deployment",
+          "name": "metrics-server",
+          "namespace": "kube-system"
+        },
+        "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+        "remedy_type": "config_fix",
+        "remedy_safety": "safe_auto",
+        "remediation": {
+          "steps": [
+            "Set automountServiceAccountToken to false in the pod spec",
+            "Only enable it for pods that genuinely need Kubernetes API access",
+            "Use dedicated service accounts with minimal RBAC for pods that need API access"
+          ],
+          "commands": [
+            "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'"
+          ]
+        },
+        "evidence_source": "native",
+        "control_ids": [
+          "CTRL-RBAC-0002"
+        ],
+        "action_type": "mutating",
+        "next_step": {
+          "action": "apply_fix",
+          "description": "Set automountServiceAccountToken to false in the pod spec",
+          "command": "kubectl get deployment <name> -n <namespace> -o jsonpath='{.spec.template.spec.automountServiceAccountToken}'",
+          "doc_ref": "cub-scan --explain CCVE-2025-3746"
+        }
+      }
+    ],
+    "provenance": {
+      "source": "cub-scan",
+      "source_version": "v0.7.3",
+      "scan_time": "2026-08-24T16:00:40Z",
+      "catalog_version": "risk-catalog-v1.json@7ff79a126ad9"
+    },
+    "pattern_bundle": {
+      "schema_version": "bundle-manifest-v1",
+      "version": "v0.7.3",
+      "source_repo": "confighubai/confighub-scan",
+      "manifest_sha256": "0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "catalog_sha256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+    },
+    "input": {
+      "object_count": 9,
+      "object_set_sha256": "sha256:200ed7ef7d984ee9118f9625d56998da210848f8b39d0dca8b676c5fd4c84248"
+    }
+  }
+}

@@ -30,6 +30,12 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command",
   },
+  "catalog-shared-checks:verify": {
+    proves: "Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes for 245 exact Helm configurations; this focused gate also protects the distinction between the shared advisory result and the existing chart-specific Catalog review",
+  },
   "lifecycle:route-resolutions:verify": {
     proves: "Each destination-specific lifecycle record still binds one exact configuration revision and object digest to a destination, runtime, ordered requirements, routes, and scoped receipts, including the blocked AICR v0.19.0 EKS/H100 staging plan.",
     requires: "offline",

@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 36
+lanes outside the chain: 37
 should join the chain:   0
-deliberately outside:    36
+deliberately outside:    37
 superseded:              0
 ```
 
@@ -25,6 +25,7 @@ None.
 | --- | --- | --- | --- |
 | `helm-org:verify` | Every planned Space in the live ConfigHub `helm-catalog` organization exists, carries the planned labels, holds at least one Unit, and its recipe Unit data still equals the committed data/helm-render-intents/intents/<space>.yaml. | confighub | not run here, needs confighub |
 | `helm-org:policy:verify` | That the live helm-catalog ConfigHub organization's apply-policy topology — the Trigger definition Space, Trigger filters, and per-Space WhereTrigger assignments — still matches both config-catalog/policies/catalog-standard.yaml and the committed receipt data/apply-policy-profiles/live-helm-catalog.yaml, field by field. | confighub | not run here, needs confighub |
+| `catalog-shared-checks:verify` | Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes. | offline | passes for 245 exact Helm configurations; this focused gate also protects the distinction between the shared advisory result and the existing chart-specific Catalog review |
 | `helm-org:fleet:verify` | That the live ConfigHub 'helm-catalog' fleet-promotion exhibit still matches data/fleet-promotion/live-nginx-registry-migration.yaml: it re-reads every Space, Unit payload, revision history, upstream Link and trigger filter from the live organization and diffs the freshly collected receipt against the committed one. | confighub | not run here, needs confighub |
 | `prometheus-adapter:apiservice-base:verify` | The prometheus-community/prometheus-adapter 5.3.0 `apiservice-v1-capability` base is intact end to end: the recipe and installer package both declare it, the variant records the APIService v1 capability profile and capability-profile-rerender strategy, the package base upstream.yaml byte-equals the rendered release-objects.yaml, the inventory digest and the APIService object identity match, the revision receipts are consistent, and a fresh `cub installer setup --pull` of the package reproduces the Helm object set semantically with the counts recorded in the package receipt. | confighub | not run here, needs confighub |
 | `lifecycle:route-resolutions:verify` | Each destination-specific lifecycle record still binds one exact configuration revision and object digest to a destination, runtime, ordered requirements, routes, and scoped receipts, including the blocked AICR v0.19.0 EKS/H100 staging plan. | offline | passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias gives lifecycle work a focused gate |
