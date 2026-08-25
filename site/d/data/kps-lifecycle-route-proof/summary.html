@@ -447,12 +447,13 @@
     <article class="doc-body">
 <p>These tests install kube-prometheus-stack 85.3.3 from its local <code>cub installer</code> package. The package contains the checked Kubernetes objects plus the CRDs and admission-webhook work that regular Helm runs around them.</p>
 <p>Both catalog bases were tested on new kind clusters. Each package output matched its committed catalog render. The runner then applied ten CRDs, created the admission certificate, applied the workload, patched the webhooks, checked the running system, and removed the temporary Jobs and RBAC objects.</p>
-<table><thead><tr><th>Base</th><th>Checked chart objects</th><th>Established CRDs</th><th>Ready workloads</th><th>Result</th><th>Evidence</th></tr></thead><tbody><tr><td><code>default</code></td><td>124</td><td>10</td><td>6</td><td>pass</td><td><a href="../../../../runs/kps-lifecycle-route-proof/receipt.yaml">receipt</a></td></tr>
-<tr><td><code>no-crds</code></td><td>114</td><td>10</td><td>6</td><td>pass</td><td><a href="../../../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml">receipt</a></td></tr></tbody></table>
+<p>The upgrade routes are separate tests. The <code>default</code> package moved from 85.3.3 to 86.1.0 through the direct package route. The <code>no-crds</code> package moved through the four-stage Argo CD and Flux route. <a href="../kps-default-package-upgrade-proof/summary.html">Open the detailed default-package upgrade result</a>.</p>
+<table><thead><tr><th>Base</th><th>Checked chart objects</th><th>Established CRDs</th><th>Ready workloads</th><th>Upgrade route</th><th>Fresh install</th><th>Evidence</th></tr></thead><tbody><tr><td><code>default</code></td><td>124</td><td>10</td><td>6</td><td>pass</td><td>pass</td><td><a href="../../../../runs/kps-lifecycle-route-proof/receipt.yaml">receipt</a></td></tr>
+<tr><td><code>no-crds</code></td><td>114</td><td>10</td><td>6</td><td>pass</td><td>pass</td><td><a href="../../../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml">receipt</a></td></tr></tbody></table>
 <h2 id="what-this-proves">What this proves</h2>
-<p>The package can perform this chart's fresh-install work in the recorded order for both catalog bases. It uses the chart's own certificate and patch Jobs. The checked manifest set is unchanged.</p>
+<p>The package can perform this chart's fresh-install work in the recorded order for both catalog bases. It uses the chart's own certificate and patch Jobs. The checked manifest set is unchanged. The two upgrade receipts show the same CRD, certificate, workload, webhook, runtime, and cleanup order for the named version pair.</p>
 <h2 id="what-remains">What remains</h2>
-<ul><li>Argo CD and Flux have not yet run these chart-specific steps.</li><li>The 85.3.3 to 86.1.0 upgrade route has not yet been tested.</li><li>ConfigHub does not yet choose and execute this route automatically.</li></ul>
+<ul><li>The <code>default</code> upgrade has not been repeated through Argo CD or Flux.</li><li>Rollback and long-running checks remain separate work.</li><li>ConfigHub records the route but does not yet choose and execute it automatically.</li></ul>
 <h2 id="default">default</h2>
 <table><thead><tr><th>Route</th><th>Direct result</th><th>Automatic</th><th>What happened</th></tr></thead><tbody><tr><td><code>crds-first</code></td><td>pass</td><td>yes, in the direct script</td><td>Applied ten CRDs and waited for Established before dependent objects.</td></tr>
 <tr><td><code>postsync-check-or-observation</code></td><td>pass</td><td>yes, in the direct script</td><td>Ran the chart's admission-patch Job after the webhook objects existed.</td></tr>
@@ -460,7 +461,7 @@
 <tr><td><code>preserve-cleanup-policy</code></td><td>pass</td><td>yes, in the direct script</td><td>Removed the successful hook Jobs and their temporary RBAC support objects.</td></tr>
 <tr><td><code>preserve-ordering</code></td><td>pass</td><td>yes, in the direct script</td><td>Executed CRDs, certificate creation, ordinary objects, and webhook patching in order.</td></tr>
 <tr><td><code>target-facts-or-preflight</code></td><td>pass</td><td>yes, in the direct script</td><td>Created the chart-required admission Secret through the recorded pre-install Job.</td></tr>
-<tr><td><code>upgrade-action-with-receipt</code></td><td>not-run</td><td>no</td><td>This receipt covers a fresh install only; chart upgrade behavior remains unproved.</td></tr>
+<tr><td><code>upgrade-action-with-receipt</code></td><td>pass</td><td>no</td><td>The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.</td></tr>
 <tr><td><code>webhook-readiness-observation</code></td><td>pass</td><td>yes, in the direct script</td><td>Observed three matching CA bundles, a ready operator endpoint, and a successful server dry-run.</td></tr></tbody></table>
 <table><thead><tr><th>Workload kind</th><th>Name</th><th>Result</th></tr></thead><tbody><tr><td>daemonset</td><td><code>kube-prometheus-stack-prometheus-node-exporter</code></td><td>pass</td></tr>
 <tr><td>deployment</td><td><code>kube-prometheus-stack-grafana</code></td><td>pass</td></tr>
@@ -476,7 +477,7 @@
 <tr><td><code>preserve-cleanup-policy</code></td><td>pass</td><td>yes, in the direct script</td><td>Removed the successful hook Jobs and their temporary RBAC support objects.</td></tr>
 <tr><td><code>preserve-ordering</code></td><td>pass</td><td>yes, in the direct script</td><td>Executed CRDs, certificate creation, ordinary objects, and webhook patching in order.</td></tr>
 <tr><td><code>target-facts-or-preflight</code></td><td>pass</td><td>yes, in the direct script</td><td>Created the chart-required admission Secret through the recorded pre-install Job.</td></tr>
-<tr><td><code>upgrade-action-with-receipt</code></td><td>not-run</td><td>no</td><td>This receipt covers a fresh install only; chart upgrade behavior remains unproved.</td></tr>
+<tr><td><code>upgrade-action-with-receipt</code></td><td>pass</td><td>no</td><td>Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.</td></tr>
 <tr><td><code>webhook-readiness-observation</code></td><td>pass</td><td>yes, in the direct script</td><td>Observed three matching CA bundles, a ready operator endpoint, and a successful server dry-run.</td></tr></tbody></table>
 <table><thead><tr><th>Workload kind</th><th>Name</th><th>Result</th></tr></thead><tbody><tr><td>daemonset</td><td><code>kube-prometheus-stack-prometheus-node-exporter</code></td><td>pass</td></tr>
 <tr><td>deployment</td><td><code>kube-prometheus-stack-grafana</code></td><td>pass</td></tr>

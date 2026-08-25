@@ -7,8 +7,8 @@ spec:
   version: "85.3.3"
   base: "default"
   result: "observed"
-  selectedAt: "2026-07-29"
-  observedAt: "2026-07-29T10:45:22.801Z"
+  selectedAt: "2026-08-25"
+  observedAt: "2026-08-25T03:47:32.817Z"
   route:
     summary: "The package runs CRD and admission-webhook setup as named steps around the checked Kubernetes objects."
     phases:
@@ -74,11 +74,10 @@ spec:
           - "pre-upgrade"
           - "post-upgrade"
         action: "upgrade-action-with-receipt"
-        reason: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade."
-        disposition: "todo"
-        liveStatus: "not-run"
-        executionMode: "not-yet-executable"
-        nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+        reason: "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
   evidence:
     -
       path: "runs/kps-lifecycle-route-proof/receipt.yaml"
@@ -89,6 +88,9 @@ spec:
     -
       path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
       claim: "The ordinary package output matched this committed render."
+    -
+      path: "runs/kps-default-package-upgrade-proof/receipt.yaml"
+      claim: "The default package ran the explicit 85.3.3 to 86.1.0 upgrade route on kind, retained the admission Secret, and passed the CRD, webhook, workload, and cleanup checks."
   execution:
     helmHooksExecutedByHelm: false
     chartHookJobsExecutedByDirectRunner: true
@@ -102,7 +104,9 @@ spec:
       hookCleanup: "pass"
     notes:
       - "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically."
-      - "The upgrade and controller-specific paths remain separate proof work."
+      - "The direct proof covers this exact default-package version pair."
+      - "The upgrade evidence does not prove rollback, long soak, production, or automatic route selection."
   remainingWork:
-    - "Run the same staged lifecycle through Argo CD and Flux."
-    - "Test the 85.3.3 to 86.1.0 upgrade and record its cleanup behavior."
+    - "Make ConfigHub select and run this chart-specific route automatically."
+    - "Repeat the default-package upgrade through Argo CD or Flux."
+    - "Add rollback and longer-running checks before making broader lifecycle claims."

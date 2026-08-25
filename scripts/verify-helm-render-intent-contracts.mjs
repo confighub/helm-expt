@@ -228,11 +228,28 @@ for (const [base, receiptPath] of [
     intent.metadata.name === `prometheus-community-kube-prometheus-stack-85-3-3-${base}`);
   check(kps, `kube-prometheus-stack ${base} render intent is missing`);
   for (const route of kps.spec.lifecycle.variantRoutes) {
-    const expected = route.routeName === "upgrade-action-with-receipt" ? "not-run" : "pass";
+    const expected = route.routeName === "upgrade-action-with-receipt"
+      ? base === "default" ? "pass" : "not-run"
+      : "pass";
     check(route.runners.direct.status === expected, `KPS ${base}/${route.routeName} direct evidence status is wrong`);
     check(
       route.runners.direct.evidence.includes(receiptPath),
       `KPS ${base}/${route.routeName} is missing the direct lifecycle receipt`,
+    );
+  }
+  if (base === "default") {
+    const upgradeRoute = kps.spec.lifecycle.variantRoutes.find(
+      (route) => route.routeName === "upgrade-action-with-receipt",
+    );
+    check(
+      kps.spec.evidence.lifecycleDirectUpgrade === "85.3.3-to-86.1.0-pass",
+      "KPS default render intent is missing the direct package upgrade",
+    );
+    check(
+      upgradeRoute?.runners?.direct?.evidence.includes(
+        "runs/kps-default-package-upgrade-proof/receipt.yaml",
+      ),
+      "KPS default upgrade is missing its direct package receipt",
     );
   }
   if (base === "no-crds") {
@@ -258,19 +275,21 @@ for (const [base, receiptPath] of [
   }
 }
 
-const kpsUpgradeTarget = intents.find((intent) =>
-  intent.metadata.name === "prometheus-community-kube-prometheus-stack-86-1-0-no-crds");
-check(
-  kpsUpgradeTarget?.spec?.evidence?.lifecycleUpgradeTarget === "pass-from-85.3.3",
-  "KPS 86.1.0 no-crds intent is not linked as the proved upgrade target",
-);
-check(
-  kpsUpgradeTarget?.spec?.targetFacts?.requirements?.every((requirement) =>
-    requirement.category !== "crd"
-    || requirement.packagePath
-      === "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"),
-  "KPS 86.1.0 no-crds intent does not point at its versioned packaged CRDs",
-);
+for (const base of ["default", "no-crds"]) {
+  const kpsUpgradeTarget = intents.find((intent) =>
+    intent.metadata.name === `prometheus-community-kube-prometheus-stack-86-1-0-${base}`);
+  check(
+    kpsUpgradeTarget?.spec?.evidence?.lifecycleUpgradeTarget === "pass-from-85.3.3",
+    `KPS 86.1.0 ${base} intent is not linked as the proved upgrade target`,
+  );
+  check(
+    kpsUpgradeTarget?.spec?.targetFacts?.requirements?.every((requirement) =>
+      requirement.category !== "crd"
+      || requirement.packagePath
+        === "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"),
+    `KPS 86.1.0 ${base} intent does not point at its versioned packaged CRDs`,
+  );
+}
 
 const vault = intents.find((intent) =>
   intent.metadata.name === "hashicorp-vault-0-32-0-ha-raft-ui");

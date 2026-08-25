@@ -80,6 +80,12 @@ const gitOpsLifecycleReceiptPath = join(
   "kps-gitops-lifecycle-proof",
   "receipt.yaml",
 );
+const defaultUpgradeReceiptPath = join(
+  repoRoot,
+  "runs",
+  "kps-default-package-upgrade-proof",
+  "receipt.yaml",
+);
 const createJobName = "kube-prometheus-stack-admission-create";
 const patchJobName = "kube-prometheus-stack-admission-patch";
 const admissionSecretName = "kube-prometheus-stack-admission";
@@ -687,7 +693,8 @@ function renderSummary(receipts) {
   const resultRows = receipts
     .map((receipt) => {
       const spec = receipt.spec;
-      return `| \`${spec.base}\` | ${spec.render.ordinaryObjects} | ${spec.execution.crds.established} | ${spec.execution.workloads.length} | ${spec.result} | [receipt](../../${relativeRepo(receiptPathFor(spec.base))}) |`;
+      const upgrade = aggregateUpgradeRoute(receipt);
+      return `| \`${spec.base}\` | ${spec.render.ordinaryObjects} | ${spec.execution.crds.established} | ${spec.execution.workloads.length} | ${upgrade.result} | ${spec.result} | [receipt](../../${relativeRepo(receiptPathFor(spec.base))}) |`;
     })
     .join("\n");
   const sections = receipts
@@ -699,26 +706,32 @@ These tests install kube-prometheus-stack 85.3.3 from its local \`cub installer\
 
 Both catalog bases were tested on new kind clusters. Each package output matched its committed catalog render. The runner then applied ten CRDs, created the admission certificate, applied the workload, patched the webhooks, checked the running system, and removed the temporary Jobs and RBAC objects.
 
-| Base | Checked chart objects | Established CRDs | Ready workloads | Result | Evidence |
-| --- | ---: | ---: | ---: | --- | --- |
+The upgrade routes are separate tests. The \`default\` package moved from 85.3.3 to 86.1.0 through the direct package route. The \`no-crds\` package moved through the four-stage Argo CD and Flux route. [Open the detailed default-package upgrade result](../kps-default-package-upgrade-proof/summary.md).
+
+| Base | Checked chart objects | Established CRDs | Ready workloads | Upgrade route | Fresh install | Evidence |
+| --- | ---: | ---: | ---: | --- | --- | --- |
 ${resultRows}
 
 ## What this proves
 
-The package can perform this chart's fresh-install work in the recorded order for both catalog bases. It uses the chart's own certificate and patch Jobs. The checked manifest set is unchanged.
+The package can perform this chart's fresh-install work in the recorded order for both catalog bases. It uses the chart's own certificate and patch Jobs. The checked manifest set is unchanged. The two upgrade receipts show the same CRD, certificate, workload, webhook, runtime, and cleanup order for the named version pair.
 
 ## What remains
 
-- Argo CD and Flux have not yet run these chart-specific steps.
-- The 85.3.3 to 86.1.0 upgrade route has not yet been tested.
-- ConfigHub does not yet choose and execute this route automatically.
+- The \`default\` upgrade has not been repeated through Argo CD or Flux.
+- Rollback and long-running checks remain separate work.
+- ConfigHub records the route but does not yet choose and execute it automatically.
 
 ${sections}`;
 }
 
 function renderReceiptSection(receipt) {
   const spec = receipt.spec;
-  const routeRows = Object.entries(spec.routes)
+  const routes = {
+    ...spec.routes,
+    "upgrade-action-with-receipt": aggregateUpgradeRoute(receipt),
+  };
+  const routeRows = Object.entries(routes)
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([name, route]) => `| \`${name}\` | ${route.result} | ${route.automatic ? "yes, in the direct script" : "no"} | ${route.observation ?? route.reason} |`)
     .join("\n");
@@ -782,6 +795,22 @@ function routeReceiptFromRun(receipt) {
     && gitOpsReceipt?.spec?.upgradeVersion === "86.1.0"
     && ["argo", "flux"].every((controller) =>
       gitOpsReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
+  const defaultUpgradeReceipt = spec.base === "default"
+    && existsSync(defaultUpgradeReceiptPath)
+    ? readYaml(defaultUpgradeReceiptPath)
+    : null;
+  const hasDefaultUpgradeProof = defaultUpgradeReceipt?.kind
+      === "KubePrometheusStackDefaultPackageUpgradeReceipt"
+    && defaultUpgradeReceipt?.spec?.result === "pass"
+    && defaultUpgradeReceipt?.spec?.base === "default"
+    && defaultUpgradeReceipt?.spec?.currentVersion === chartVersion
+    && defaultUpgradeReceipt?.spec?.candidateVersion === "86.1.0"
+    && defaultUpgradeReceipt?.spec?.upgrade?.result === "pass"
+    && defaultUpgradeReceipt?.spec?.upgrade?.route?.every((stage) => stage.result === "pass");
+  const hasUpgradeProof = hasGitOpsUpgradeProof || hasDefaultUpgradeProof;
+  const upgradeObservation = hasGitOpsUpgradeProof
+    ? "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks."
+    : "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.";
   const crdReason = spec.base === "default"
     ? "The package applies the locked CRDs before the chart objects that use them."
     : "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.";
@@ -836,11 +865,11 @@ function routeReceiptFromRun(receipt) {
             "preserve-cleanup-policy",
             "The run removes both completed Jobs and their temporary RBAC objects.",
           ),
-          hasGitOpsUpgradeProof
+          hasUpgradeProof
             ? observedRoutePhase(
               ["pre-upgrade", "post-upgrade"],
               "upgrade-action-with-receipt",
-              "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
+              upgradeObservation,
             )
             : {
               hookTypes: ["pre-upgrade", "post-upgrade"],
@@ -872,6 +901,12 @@ function routeReceiptFromRun(receipt) {
             claim: "Argo CD and Flux installed 85.3.3 and then upgraded to 86.1.0 from exact staged OCI digests, with the chart-specific lifecycle order and runtime checks recorded.",
           }]
           : []),
+        ...(hasDefaultUpgradeProof
+          ? [{
+            path: relativeRepo(defaultUpgradeReceiptPath),
+            claim: "The default package ran the explicit 85.3.3 to 86.1.0 upgrade route on kind, retained the admission Secret, and passed the CRD, webhook, workload, and cleanup checks.",
+          }]
+          : []),
       ],
       execution: {
         helmHooksExecutedByHelm: false,
@@ -887,17 +922,22 @@ function routeReceiptFromRun(receipt) {
         },
         notes: [
           "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically.",
-          ...(hasGitOpsUpgradeProof
+          ...(hasUpgradeProof
             ? [
-              "The controller proof covers this exact no-crds version pair. It does not prove rollback, long soak, or automatic route selection.",
-              "The upgrade removes completed hook Jobs before replacement; it does not prove automatic post-success removal of every temporary hook resource.",
+              hasGitOpsUpgradeProof
+                ? "The controller proof covers this exact no-crds version pair."
+                : "The direct proof covers this exact default-package version pair.",
+              "The upgrade evidence does not prove rollback, long soak, production, or automatic route selection.",
             ]
             : ["The upgrade and controller-specific paths remain separate proof work."]),
         ],
       },
-      remainingWork: hasGitOpsUpgradeProof
+      remainingWork: hasUpgradeProof
         ? [
           "Make ConfigHub select and run this chart-specific route automatically.",
+          ...(hasDefaultUpgradeProof
+            ? ["Repeat the default-package upgrade through Argo CD or Flux."]
+            : []),
           "Add rollback and longer-running checks before making broader lifecycle claims.",
         ]
         : [
@@ -906,6 +946,15 @@ function routeReceiptFromRun(receipt) {
         ],
     },
   };
+}
+
+function aggregateUpgradeRoute(receipt) {
+  const phase = routeReceiptFromRun(receipt).spec.route.phases.find(
+    (item) => item.action === "upgrade-action-with-receipt",
+  );
+  return phase?.disposition === "observed"
+    ? { result: "pass", automatic: false, observation: phase.reason }
+    : receipt.spec.routes["upgrade-action-with-receipt"];
 }
 
 function observedRoutePhase(hookTypes, action, reason) {

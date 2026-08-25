@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-25 (commit `5c868c77a`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-25 (commit `58ff99e1a`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 290 |
-| Fresh (no linked source newer than the doc) | 56 |
-| **Review-due** | 79 |
+| Fresh (no linked source newer than the doc) | 54 |
+| **Review-due** | 81 |
 | No linked evidence sources (cannot auto-trigger) | 155 |
 
 ## Review queue
@@ -111,6 +111,8 @@ most recently changed triggers.
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
+| [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-08-25 | 1 | `data/top50-completion/summary.md (2026-08-25)` |
+| [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-08-25 | 1 | `data/top50-completion/summary.md (2026-08-25)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 1 | `data/claims-register/summary.md (2026-08-24)`<br>`data/byo-helm-values-review/public-and-confighub.md (2026-08-24)` |

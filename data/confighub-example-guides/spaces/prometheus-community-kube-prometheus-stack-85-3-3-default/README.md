@@ -38,7 +38,7 @@ The catalog records 8 extra steps for this preset. We call these lifecycle route
 - **Before install:** The certificate Job creates the required admission Secret with ca, cert, and key.
 - **After install:** The package runs the chart's webhook patch Job after the webhook objects exist.
 - **After install:** The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.
-- **During upgrade:** The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.
+- **During upgrade:** The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.
 - **When uninstalling:** The run removes both completed Jobs and their temporary RBAC objects.
 
 Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
@@ -102,7 +102,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | Before install | Prepare the target | The certificate Job creates the required admission Secret with ca, cert, and key. |
 | After install | Check the completed install | The package runs the chart's webhook patch Job after the webhook objects exist. |
 | After install | Wait for the webhook to be ready | The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads. |
-| During upgrade | Run the upgrade step | The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade. |
+| During upgrade | Run the upgrade step | The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs. |
 | When uninstalling | Keep the chart's cleanup policy | The run removes both completed Jobs and their temporary RBAC objects. |
 
 ## Evidence
