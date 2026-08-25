@@ -827,6 +827,10 @@ function buildSite(generatedAt) {
         installer_oci_layer_digest: installerOci?.layer_digest ?? "",
         installer_oci_digest_pinned_ref: installerOci?.digest_pinned_ref ?? "",
         installer_oci_verify_command: installerOci?.verify_command ?? "",
+        installer_oci_signature_status: installerOci?.signature_status ?? "unsigned",
+        installer_oci_signature_receipt: installerOci?.signature_receipt ?? "",
+        installer_oci_signature_bundle: installerOci?.signature_bundle ?? "",
+        installer_oci_signature_verification_command: installerOci?.signature_verification_command ?? "",
         installer_oci_default_base: installerOci?.default_base ?? startVariant,
         installer_oci_bases: installerOci?.bases ?? "",
         chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
@@ -8466,7 +8470,11 @@ function verifyRetainedCatalogPackage(row) {
         && !row.manifest_digest
         && !row.layer_digest
         && !row.digest_pinned_ref
-        && !row.verify_command,
+        && !row.verify_command
+        && row.signature_status === "unsigned"
+        && !row.signature_receipt
+        && !row.signature_bundle
+        && !row.signature_verification_command,
       `${row.chart}@${row.version}: an unpublished version must not carry publication or verification data`,
     );
     verifyRetainedCatalogConfigurations(row);
@@ -8511,6 +8519,22 @@ function verifyRetainedCatalogPackage(row) {
     /^[0-9a-f]{64}$/.test(receipt.spec?.outputs?.inspectJSONCanonicalSHA256 ?? receipt.spec?.outputs?.inspectJSONSHA256 ?? ""),
     `${row.chart}@${row.version}: receipt inspect digest is invalid`,
   );
+  check(row.signature_status === "signed-receipt", `${row.chart}@${row.version}: published package is not signed`);
+  check(
+    row.signature_receipt.startsWith("runs/installer-oci-signatures/")
+      && existsSync(join(repoRoot, row.signature_receipt)),
+    `${row.chart}@${row.version}: signature receipt path is unsafe or missing`,
+  );
+  check(
+    row.signature_bundle.startsWith("runs/installer-oci-signatures/")
+      && existsSync(join(repoRoot, row.signature_bundle)),
+    `${row.chart}@${row.version}: signature bundle path is unsafe or missing`,
+  );
+  const signatureReceipt = readYaml(join(repoRoot, row.signature_receipt));
+  check(signatureReceipt.kind === "InstallerPackageSignatureReceipt", `${row.chart}@${row.version}: signature receipt kind drifted`);
+  check(signatureReceipt.spec?.subject?.tagReference === row.installer_oci_ref, `${row.chart}@${row.version}: signature receipt ref differs`);
+  check(signatureReceipt.spec?.subject?.manifestDigest === manifestDigest, `${row.chart}@${row.version}: signature receipt manifest differs`);
+  check(signatureReceipt.spec?.verification?.command === row.signature_verification_command, `${row.chart}@${row.version}: signature verification command differs`);
   verifyRetainedCatalogConfigurations(row);
 }
 
@@ -8614,6 +8638,24 @@ function installerOciPullRefForEntry(entry) {
 function installerOciStatusText(entry) {
   if (entry.installer_oci_publication_status === "published-receipt") return "publication receipt recorded";
   return "assigned public ref; publication receipt not committed yet";
+}
+
+function installerOciSignatureStatusText(entry) {
+  if (entry.installer_oci_signature_status === "signed-receipt") return "publisher signature recorded and verified";
+  return "publisher signature not recorded";
+}
+
+function installerPackageSignatureHtml({ status, command, receipt, bundle }) {
+  if (status !== "signed-receipt" || !command) {
+    return `<p><strong>Publisher signature:</strong> not recorded. A publication receipt alone does not identify who published the package.</p>`;
+  }
+  return `<details>
+        <summary><strong>Verify the package publisher</strong></summary>
+        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
+        <pre><code>${escapeHtml(command)}</code></pre>
+        <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
+        <p><a href="../../${escapeHtml(receipt)}">Signature receipt</a> · <a href="../../${escapeHtml(bundle)}">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+      </details>`;
 }
 
 function firstPathCell(entry, row) {
@@ -9903,6 +9945,12 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const layerDigest = row.layer_digest || (published ? `sha256:${row.published_digest}` : "");
   const digestPinnedRef = row.digest_pinned_ref
     || (published && manifestDigest ? installerOciDigestRef(row.installer_oci_ref, manifestDigest) : "");
+  const packageSignatureHtml = installerPackageSignatureHtml({
+    status: row.signature_status,
+    command: row.signature_verification_command,
+    receipt: row.signature_receipt,
+    bundle: row.signature_bundle,
+  });
   const componentVersions = retainedInstallerRows(catalog, row.chart);
   const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
   const evidenceVersionNote = evidenceEntry
@@ -9994,6 +10042,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>Version tag: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
       ${digestPinnedRef ? `<p>Exact package: <code>${escapeHtml(digestPinnedRef)}</code></p>
       <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>` : ""}
+      ${packageSignatureHtml}
     </section>
 
     <section aria-labelledby="retained-configurations">
@@ -10040,6 +10089,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         ["Retained package source", `<a href="https://github.com/confighub/helm-expt/tree/main/${escapeHtml(row.package_path)}">${escapeHtml(row.package_path)}</a>`],
         ["Installer metadata", `<a href="../../${escapeHtml(row.installer_yaml)}">${escapeHtml(row.installer_yaml)}</a>`],
         ["Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
+        ["Publisher signature", `<a href="../../${escapeHtml(row.signature_receipt)}">${escapeHtml(row.signature_receipt)}</a>`],
+        ["Sigstore bundle", `<a href="../../${escapeHtml(row.signature_bundle)}">${escapeHtml(row.signature_bundle)}</a>`],
         ["Version tag", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
         ["Exact OCI ref", `<code>${escapeHtml(digestPinnedRef)}</code>`],
         ["Layer digest", `<code>${escapeHtml(layerDigest)}</code>`],
@@ -10143,6 +10194,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   const firstRunnableScriptDir = firstRunnableRow ? presetScriptDir(entry, firstRunnableRow) : null;
   const installerPackageOciRef = installerOciRefForEntry(entry);
   const installerPackageStatus = installerOciStatusText(entry);
+  const installerPackageSignatureStatus = installerOciSignatureStatusText(entry);
   const entryPublicationReceipt = entry.installer_oci_publication_receipt
     ? readYaml(join(repoRoot, entry.installer_oci_publication_receipt))
     : null;
@@ -10155,6 +10207,12 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   const installerPublicationReceiptLink = entry.installer_oci_publication_receipt
     ? `<a href="../../${escapeHtml(entry.installer_oci_publication_receipt)}">open the exact publication receipt</a>`
     : "no publication receipt is committed";
+  const installerPackageSignature = installerPackageSignatureHtml({
+    status: entry.installer_oci_signature_status,
+    command: entry.installer_oci_signature_verification_command,
+    receipt: entry.installer_oci_signature_receipt,
+    bundle: entry.installer_oci_signature_bundle,
+  });
   const firstRunnableReason = cleanPageActionText(
     firstRunnableRow?.active_proof_reason ||
     firstRunnableRow?.variant_promotion_reason ||
@@ -10434,6 +10492,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
         ["Chart version", entry.version],
         ["Exact installer package", installerPackagePullRef],
         ["OCI publication status", installerPackageStatus],
+        ["Publisher signature", installerPackageSignatureStatus],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
         [entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
         ["Not yet available", chartPageText(entry.not_yet_enabled) || "None recorded"],
@@ -10488,6 +10547,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
         ${entryDigestPinnedRef ? `<p>Readable version tag: <code>${escapeHtml(installerPackageOciRef)}</code>. The package is pinned so a republished tag cannot change what you get. The command below uses the exact manifest digest, so <code>cub installer</code> refuses different package bytes.</p>
         <h3>Check the package identity</h3>
         <pre><code>${escapeHtml(entry.installer_oci_verify_command || `cub installer inspect ${entryDigestPinnedRef} --json`)}</code></pre>` : ""}
+        ${installerPackageSignature}
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
         <p>${firstRunnableCommand}</p>

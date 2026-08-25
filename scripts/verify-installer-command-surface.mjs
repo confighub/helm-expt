@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
 import { check, listFiles, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
@@ -52,6 +53,17 @@ for (const file of scanned) {
 
 check(violations.length === 0, `installer command surface is stale:\n${violations.join("\n")}`);
 verifyMaintainedInstallerCommands();
+for (const [script, mode] of [
+  ["scripts/generate-installer-package-signatures.mjs", "--verify"],
+  ["scripts/verify-installer-oci-index-signature.mjs", "--verify"],
+]) {
+  execFileSync(process.execPath, [script, mode], {
+    cwd: repoRoot,
+    env: process.env,
+    stdio: "inherit",
+    maxBuffer: 1024 * 1024 * 64,
+  });
+}
 console.log(`verified installer command surface across ${scanned.length} file(s)`);
 
 function previousCommandItemIsCub(lines, index) {

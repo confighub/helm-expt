@@ -52,10 +52,15 @@ digest after `@` makes the reference immutable. `cub installer` refuses the
 pull if the registry cannot return that exact manifest. The inspect output also
 prints the manifest and layer digests recorded by the publication receipt.
 
-This establishes which package bytes you received. It does not show that the
-configuration is suitable for your cluster, and the current catalog packages
-do not yet have a separate publisher signature. Use the chart page for source,
-render, lifecycle, and test evidence.
+This establishes which package bytes you received. Each published package also
+has a Sigstore signature for the exact manifest digest. The chart page provides
+the complete `cosign verify` command and links to the signature receipt.
+
+The signature identifies the catalog publisher. It does not show that the
+configuration is suitable for your cluster. Use the same chart page for source,
+render, lifecycle, destination, and test evidence. See [Verifying Catalog
+Package Signatures](../reference/installer-package-signing.md) for the trust
+boundary and maintainer procedure.
 
 ## What The Package Contains
 
@@ -180,6 +185,8 @@ The verifier is:
 
 ```sh
 npm run installer-oci:catalog:verify
+npm run installer-oci:signatures:verify
+npm run installer-oci:index-signature:verify
 ```
 
 This checks that package refs, manifest and layer digests, immutable setup and
@@ -189,7 +196,14 @@ setup command that falls back to a mutable tag:
 
 ```sh
 npm run installer-oci:catalog:self-test
+npm run installer-oci:signatures:self-test
+npm run installer-oci:index-signature:self-test
 ```
+
+The package and index consistency checks run in the normal repository gate.
+The dedicated signature workflow also uses pinned Cosign v3.1.3 to verify the
+committed Sigstore bundles cryptographically and to prove that changed payload
+or index bytes are refused.
 
 Maintainers publish packages with:
 

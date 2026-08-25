@@ -41,6 +41,8 @@ does not return the requested manifest.
 | Public catalog packages | 109 |
 | Package refs with publication receipts | 139 |
 | Assigned refs without publication receipts yet | 0 |
+| Published manifests with signature receipts | 0 |
+| Published manifests without signature receipts | 139 |
 
 ## Public Examples
 
@@ -64,6 +66,20 @@ does not return the requested manifest.
 - [packages.csv](./packages.csv)
 - [packages.json](./packages.json)
 
+## Signed Index
+
+Status: **unsigned**
+
+The package rows are published in a dated JSON index. Its Sigstore signature
+binds the exact index bytes, package count, and package-signature coverage to
+the catalog publisher:
+
+~~~sh
+cosign verify-blob --bundle runs/installer-oci-index-signature/packages.sigstore.json --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com data/installer-oci-packages/packages.json
+~~~
+
+The index must be regenerated and signed after the package evidence changes.
+
 ## Publication Status
 
 `assigned-ref` means the repo knows the public ref that should be pushed, but
@@ -71,3 +87,8 @@ does not have a committed publication receipt for that package yet.
 `published-receipt` means a receipt records a package push and inspect for
 that ref. The current repository grants anonymous read access to published
 public catalog refs.
+
+`signed-receipt` means the exact published manifest digest also has a committed
+Sigstore bundle and a successful cosign verification record. The signature
+proves who signed the package bytes. Chart checks and lifecycle receipts answer
+whether a preset is suitable for a particular use.
