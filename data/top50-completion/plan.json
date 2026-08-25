@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 29,
-      "partial": 19,
+      "available": 30,
+      "partial": 18,
       "planned": 2,
       "blocked": 0
     },
@@ -358,15 +358,18 @@
         "area": "ConfigHub records",
         "evidence": [
           "data/redis-upgrade-app-proof/summary.md",
-          "runs/redis-upgrade-app-proof/receipt.yaml"
+          "runs/redis-upgrade-app-proof/receipt.yaml",
+          "data/prometheus-upgrade-preservation-proof/summary.md",
+          "runs/prometheus-upgrade-preservation-proof/receipt.yaml"
         ],
         "id": "T20",
         "name": "Keep approved object edits through source upgrades",
-        "next": "Repeat the upgrade proof on another chart and add a useful mutation preview for promotion dry runs.",
+        "next": "Repeat this receipt when package-upgrade behavior changes or when another protected field class is added.",
         "outcome": "A source upgrade can rebuild the base while reapplying reviewed post-render changes and surfacing conflicts.",
-        "status": "partial",
+        "status": "available",
         "verify": [
-          "npm run redis-upgrade-app:verify"
+          "npm run redis-upgrade-app:verify",
+          "npm run prometheus-upgrade-preservation:verify"
         ]
       },
       {

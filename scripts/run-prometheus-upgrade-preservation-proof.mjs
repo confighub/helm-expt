@@ -87,6 +87,10 @@ function runProof() {
   check(versionAtLeast(versions.client, "0.2.34"), `cub 0.2.34 or newer is required; found ${versions.client}`);
   const installerVersion = cub(["installer", "version"]).trim();
   check(installerVersion, "the cub installer plugin is required");
+  const packageInspection = {
+    current: inspectPackage(current),
+    candidate: inspectPackage(candidate),
+  };
 
   const recordedAt = new Date().toISOString();
   const runId = recordedAt.replaceAll(/[^0-9]/g, "").slice(0, 14);
@@ -217,6 +221,7 @@ function runProof() {
           namespace,
           current,
           candidate,
+          packageInspection,
         },
         userChange: {
           resource: "apps/v1/Deployment monitoring/prometheus-server",
@@ -287,6 +292,8 @@ function validateReceipt(receipt) {
   check(receipt.spec?.source?.chart === chart, "receipt chart is wrong");
   check(receipt.spec?.source?.current?.manifestDigest === current.manifestDigest, "current package digest drifted");
   check(receipt.spec?.source?.candidate?.manifestDigest === candidate.manifestDigest, "candidate package digest drifted");
+  check(receipt.spec?.source?.packageInspection?.current?.result === "pass", "current package inspection did not pass");
+  check(receipt.spec?.source?.packageInspection?.candidate?.result === "pass", "candidate package inspection did not pass");
   check(receipt.spec?.userChange?.protected === true, "the object edit was not protected");
   check(receipt.spec?.userChange?.reviewedValue === 2, "the reviewed replica value is wrong");
   check(receipt.spec?.baseUpgrade?.afterReconcile?.replicas === 2, "base upgrade lost the replica change");
@@ -344,6 +351,18 @@ function assertDeployment(state, expected) {
 function countManifestFiles(workDir) {
   return readdirSync(join(workDir, "out", "manifests"))
     .filter((name) => name.endsWith(".yaml") || name.endsWith(".yml")).length;
+}
+
+function inspectPackage(source) {
+  const output = cub(["installer", "inspect", source.ref]);
+  check(output.includes(`Manifest: ${source.manifestDigest}`), `${source.version} inspection returned the wrong manifest digest`);
+  check(output.includes(`Layer:    ${source.layerDigest}`), `${source.version} inspection returned the wrong package layer digest`);
+  return {
+    manifestDigest: source.manifestDigest,
+    layerDigest: source.layerDigest,
+    outputSha256: sha256(output),
+    result: "pass",
+  };
 }
 
 function spacePresent(space) {

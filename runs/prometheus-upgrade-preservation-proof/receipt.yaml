@@ -3,7 +3,7 @@ kind: "PrometheusUpgradePreservationReceipt"
 metadata:
   name: "prometheus-server-only-ephemeral-29-8-0-to-29-9-0"
 spec:
-  recordedAt: "2026-08-25T03:13:36.334Z"
+  recordedAt: "2026-08-25T03:19:19.768Z"
   context:
     organization: "helm-catalog"
     server: "https://hub.confighub.com"
@@ -27,6 +27,17 @@ spec:
       ref: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus@sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc"
       manifestDigest: "sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc"
       layerDigest: "sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
+    packageInspection:
+      current:
+        manifestDigest: "sha256:5cf6400c75d1cafc06fee5ddaada47651926bdab3a9d674a9f966540b29edd26"
+        layerDigest: "sha256:ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+        outputSha256: "838531b00c22e75df74a470f212c8c92344d88b272fccf73699c498daba76bea"
+        result: "pass"
+      candidate:
+        manifestDigest: "sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc"
+        layerDigest: "sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
+        outputSha256: "ade434f162acefe6127d1a85331fe69691b1389d332008cb9d0a238977e6a43e"
+        result: "pass"
   userChange:
     resource: "apps/v1/Deployment monitoring/prometheus-server"
     field: "spec.replicas"
@@ -63,7 +74,7 @@ spec:
       replicas: 2
       image: "quay.io/prometheus/prometheus:v3.12.0"
       objectSha256: "44210b8776d30bd91be1a6dc6ff4a8ca7342efd9046463772bf3d064a1819a31"
-    planSha256: "530a8f8e3648cae80ced0cde27b02621a5ffa5951eafecdf555aeacfb09dca31"
+    planSha256: "862b99ef56a95092ed58584948b7222f01c29f85cb2f109cf8016c0be31d8ee1"
     planShowedSourceChanges: true
     planTriedToResetReplicas: false
     result: "pass"

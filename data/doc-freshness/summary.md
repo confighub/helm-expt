@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-25 (commit `9975367ee`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-25 (commit `5c868c77a`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -57,7 +57,6 @@ most recently changed triggers.
 | [docs/user/reading-the-matrix.md](../../docs/user/reading-the-matrix.md) | user | 2026-06-18 | 59 | `data/master-catalog-matrix/matrix.html (2026-08-15)`<br>`data/lifecycle-route-actions/summary.md (2026-08-10)`<br>`data/live-matrix-burndown/summary.md (2026-08-10)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 58 | `data/variant-promotion/summary.md (2026-08-10)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 57 | `data/image-digest-workdown/summary.md (2026-08-12)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
-| [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-21 | 52 | `data/top100-coverage/summary.md (2026-08-12)`<br>`tests/README.md (2026-07-28)` |
 | [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 50 | `CATALOG.md (2026-08-12)`<br>`data/chart-facts/summary.md (2026-08-12)`<br>`data/image-digest-workdown/summary.md (2026-08-12)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
@@ -107,6 +106,7 @@ most recently changed triggers.
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/config-workshop-ai-drift-growth-strategy.md](../../docs/planning/config-workshop-ai-drift-growth-strategy.md) | planning | 2026-08-12 | 2 | `data/challenge-intake/summary.md (2026-08-14)` |
 | [docs/reference/question-intake-operation.md](../../docs/reference/question-intake-operation.md) | reference | 2026-08-13 | 2 | `data/challenge-intake/summary.md (2026-08-14)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-08-25 | 1 | `data/top50-completion/summary.md (2026-08-25)` |
 | [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-22 | 1 | `data/aicr-platform-evidence/summary.md (2026-08-22)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
