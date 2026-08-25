@@ -2150,7 +2150,13 @@ function validateRecords(records) {
       && aicrV020.spec.processing.flattening.record
         === "examples/aicr/eks-h100-training-kubeflow-v0-20-0/flattening-safety-verdict.yaml"
       && aicrV020.spec.lifecycle.routeIntent.status === "recorded"
-      && aicrV020.spec.lifecycle.resolution.status === "awaits-variant-and-target"
+      && aicrV020.spec.lifecycle.resolution.status === "blocked"
+      && aicrV020.spec.lifecycle.resolution.records.includes(
+        "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml",
+      )
+      && aicrV020.spec.lifecycle.resolution.records.includes(
+        "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml",
+      )
       && aicrV020.spec.ownership.status === "declared"
       && aicrV020.spec.delivery.sourcePackageOci.status
         === "public-anonymous-pull-proved"
@@ -4097,6 +4103,11 @@ function lifecycleRecord(record, intent, legacyRouting) {
       ? [
           "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml",
         ]
+      : record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+        ? [
+            "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml",
+            "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml",
+          ]
       : [];
   const externalResolutions = externalResolutionRecords
     .filter(existsRepo)

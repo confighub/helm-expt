@@ -13,13 +13,18 @@ Its status separates a plan from work that has actually run.
 | [kube-prometheus-stack-86-1-0-no-crds-argo-cd](./kube-prometheus-stack-86-1-0-no-crds-argo-cd.yaml) | Argo CD | `hx-kps-argo-20260729-1zvp` | 8 | ready | observed |
 | [kube-prometheus-stack-86-1-0-no-crds-flux](./kube-prometheus-stack-86-1-0-no-crds-flux.yaml) | Flux | `hx-kps-flux-20260729-1zvp` | 8 | ready | observed |
 | [aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd](./aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml) | Argo CD | `eks-h100-staging` | 6 | blocked | partly-observed |
+| [aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd](./aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml) | Argo CD | `eks-h100-staging` | 6 | blocked | partly-observed |
+| [aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux](./aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml) | Flux | `eks-h100-staging` | 6 | blocked | partly-observed |
 
 The five kube-prometheus-stack records have runtime receipts. The 85.3.3 records
 cover the direct and controller-specific starting state. The 86.1.0 records bind
 the candidate object set to the Argo CD and Flux destinations where the upgrade
-ran. The AICR v0.19.0 staging record binds a real promoted variant to its intended EKS/H100/Argo CD
-destination, but stays blocked until the target facts, nested chart routes, and
-runtime checks have been recorded. A new source version, lifecycle-sensitive
-variant, destination, or delivery runtime requires another resolution.
+ran. The AICR v0.19.0 staging record binds a promoted variant to its intended
+EKS/H100/Argo CD destination. The AICR v0.20.0 records bind the retained Argo CD
+configuration and generated Flux projection to the same intended staging target.
+They stay blocked until destination facts, controller reconciliation, component
+health, and workload results have been recorded. A new source version,
+lifecycle-sensitive variant, destination, or delivery runtime requires another
+resolution.
 
 Schema: [lifecycle-route-resolution.schema.json](../../schemas/lifecycle-route-resolution.schema.json).

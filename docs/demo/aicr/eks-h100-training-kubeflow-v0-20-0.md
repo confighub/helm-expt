@@ -42,10 +42,11 @@ they are not interchangeable.
 | Derived variant | A reviewed change made from the base for development, staging, production, a region, or a customer. | Not created for v0.20.0 yet. |
 
 The [source record](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml)
-shows how NVIDIA's 104 overlay files compose into 46 resolvable leaves and how
-the five choices select this one source variant. NVIDIA and other Catalog
-providers curate those choices; a snapshot diff alone cannot decide what a
-particular target ought to contain.
+keeps three counts separate: 103 overlay files in the retained source tree, 102
+entries in the embedded catalog, and 45 resolved leaves. The five choices select
+one of those leaves. NVIDIA curates the built-in source variants. Other Catalog
+providers can add target-specific configurations. A snapshot diff alone cannot
+decide what a particular target ought to contain.
 
 ## What the source produces
 
@@ -65,14 +66,37 @@ SBOM attestation.
 ## Rendering and lifecycle work
 
 The wrapper is only a partial flattening boundary. The 17 Application objects
-are exact. Sixteen of them still point to Helm charts or local chart sources
-that Argo CD would render later. Their final Kubernetes objects are not in this
-entry yet.
+are exact. Sixteen of them point to Helm charts or local chart sources that a
+controller processes later.
+
+The Catalog now materializes those 16 sources separately. Each record binds the
+fetched chart archive or local chart tree, the retained values, and the rendered
+object set with SHA-256 digests. Together they produce 409 local Kubernetes
+objects. Eight components contain 36 CRDs. No Helm hook object appears in this
+selected render.
+
+These are local renders. They show what each source produces with the selected
+values. They do not show that Argo CD or Flux applied the objects, that the CRDs
+became ready, or that a workload ran on H100 hardware.
+
+- [Nested source inventory](../../../data/aicr-v0-20-0-nested-sources/summary.md)
+- [Full object and lifecycle inventory](../../../data/aicr-v0-20-0-route-resolution/summary.md)
 
 The [route intent](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml)
-records the lifecycle work that must be handled around those later renders:
-ordering, CRDs, prerequisites, and AICR health checks. It is a plan, not a claim
-that those steps ran. The
+records the lifecycle work that may be needed: ordering, CRDs, prerequisites,
+and AICR health checks. The destination-specific records then say who performs
+that work for Argo CD and Flux. Neither record says that the work ran.
+
+- [Argo CD route resolution](../../../data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml)
+- [Flux route resolution](../../../data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml)
+- [Flux structural check and rerun commands](../../../data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml)
+
+The Flux bundle builds locally into 29 controller objects. Its NVSentinel
+HelmRelease uses `CreateReplace` for CRDs because the component record declares
+NVSentinel as their sole owner. The setting is not copied to components that
+share CRDs. A live Flux CRD upgrade still needs a real Git source and target.
+
+The
 [field-policy assessment](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/field-policy-assessment.yaml)
 separates source-controlled choices from fields that may become reviewed
 ConfigHub changes.
@@ -100,13 +124,15 @@ health check has not run on EKS in this entry.
 | Verify the upstream source | Complete. Checksums, binary provenance, recipe-catalog signature, and SBOM attestation pass. | [Source verification](../../../data/aicr-provenance-v0-20-0/summary.md) |
 | Generate the wrapper and exact Applications | Complete. The retained result contains 17 Applications. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml) |
 | Publish source and literal configuration OCI | Complete. Both artifacts pull anonymously and match the retained bytes. | [Public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml) |
-| Resolve all nested chart objects and lifecycle work | Not run. The 16 downstream sources still need the separate materialization and route-resolution pass. | [Route intent](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml) |
+| Materialize the 16 nested sources | Complete locally. The records bind 16 source artifacts and values sets to 409 objects, including 36 CRDs. | [Nested source inventory](../../../data/aicr-v0-20-0-nested-sources/summary.md) |
+| Resolve lifecycle work for Argo CD and Flux | Plans recorded. Both remain blocked until a destination, controller, and required credentials are available. | [Route resolution summary](../../../data/aicr-v0-20-0-route-resolution/summary.md) |
 | Retain a ConfigHub base and create derived variants | Not run for v0.20.0. | Tracked in issue #1616. |
 | Promote and publish a ConfigHub release OCI | Not run for v0.20.0. | Tracked in issue #1616. |
 | Deliver through Argo CD or Flux | Not run for v0.20.0. | Requires destination-specific receipts. |
 | Run on EKS and H100 | Not run. No training or NIM request, observation, or rollback is claimed. | Tracked in issue #1581. |
 
-The public OCI artifacts are useful now for inspection and local work. The next
-ConfigHub step is to retain the exact literal configuration as a base, make one
-reviewed derived variant, and promote that exact change. Delivery and H100
-runtime testing come after the lifecycle work is resolved for the destination.
+The public OCI artifacts and nested renders are useful now for inspection and
+local work. The next ConfigHub step is to retain the exact literal
+configuration as a base, make one reviewed derived variant, and promote that
+exact change. Delivery and H100 runtime testing come after the lifecycle work is
+resolved for the destination.

@@ -1,0 +1,72 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-20-0-cert-manager"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/cert-manager.yaml"
+  source:
+    repoURL: "https://charts.jetstack.io"
+    chart: "cert-manager"
+    path: ""
+    targetRevision: "1.20.2"
+  sourceArtifact:
+    type: "helm-chart-archive"
+    source: "https://charts.jetstack.io/cert-manager"
+    version: "1.20.2"
+    archiveName: "cert-manager-v1.20.2.tgz"
+    sha256: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/003-cert-manager/values.yaml"
+    sha256: "6581565972750edfa132ffdeb90c87244beb7c7ac2c3d0b6f2d01df3b0f95d80"
+  destinationNamespace: "cert-manager"
+  commands:
+    fetch:
+      - "helm"
+      - "pull"
+      - "cert-manager"
+      - "--repo"
+      - "https://charts.jetstack.io"
+      - "--version"
+      - "1.20.2"
+      - "--destination"
+      - "<temporary-directory>"
+    render:
+      - "helm"
+      - "template"
+      - "cert-manager"
+      - "<source-artifact sha256:d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79>"
+      - "--namespace"
+      - "cert-manager"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/003-cert-manager/values.yaml"
+      - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/cert-manager/objects.yaml"
+    sha256: "4b95e55d8a1a87aab84facea6c8a7117a0f5dee0ea197c82f1819dd21a830ce2"
+    objectCount: 52
+    kinds:
+      ClusterRole: 13
+      ClusterRoleBinding: 10
+      CustomResourceDefinition: 6
+      Deployment: 3
+      Job: 1
+      MutatingWebhookConfiguration: 1
+      Role: 5
+      RoleBinding: 5
+      Service: 3
+      ServiceAccount: 4
+      ValidatingWebhookConfiguration: 1
+    crdCount: 6
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

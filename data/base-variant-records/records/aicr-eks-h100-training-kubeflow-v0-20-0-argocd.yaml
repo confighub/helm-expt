@@ -91,7 +91,7 @@ spec:
       -
         id: "destination"
         question: "Can this destination accept it?"
-        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        answer: "The destination check is blocked. The recorded plan names the prerequisite or route that is still missing."
         requiredInputs:
           - "The exact candidate configuration"
           - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -99,11 +99,13 @@ spec:
         sourceIntentRequired: true
         destinationAccessRequired: true
         deploymentRequired: false
-        evidenceState: "not-run"
-        resultState: "not-run"
+        evidenceState: "blocked"
+        resultState: "blocked"
         records:
           - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
-        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+          - "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml"
+          - "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml"
+        nextAction: "Resolve the named prerequisite or route, then run the destination check again."
       -
         id: "post-deployment"
         question: "Did it work?"
@@ -278,7 +280,7 @@ spec:
           proposedMechanism: "handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source"
           automatic: false
           status: "recorded"
-          sourceStatus: "not-yet-materialized-for-v0.20.0"
+          sourceStatus: "materialized-awaits-destination-execution"
           supportedRuntimes:
             []
           checks:
@@ -337,10 +339,12 @@ spec:
       records:
         - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
     resolution:
-      status: "awaits-variant-and-target"
+      status: "blocked"
       rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
       records:
-        []
+        - "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml"
+        - "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
   ownership:
     status: "declared"
     sourceControlled:
@@ -391,6 +395,8 @@ spec:
     routeIntent: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
     fieldPolicy: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/field-policy-assessment.yaml"
     publicOciReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml"
+    nestedSourceRenders: "data/aicr-v0-20-0-nested-sources/summary.md"
+    stagingRouteResolution: "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml"
   operations:
     resourceClass: "system-configuration"
     ownerClass: "platform-team"
@@ -404,5 +410,5 @@ status:
     - "No v0.20.0 derived-variant promotion has run."
     - "The ConfigHub apply policy has not been tested for this v0.20.0 base."
     - "No approved ConfigHub release OCI has been pulled and compared for this version."
-    - "The 16 nested component sources have not been materialized and recorded separately."
+    - "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence."
     - "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version."

@@ -51,7 +51,12 @@ spec:
       owner: destination controller and the referenced source processor
       order: source- and destination-specific
       evidenceRequired: nested source render, flattening decision, route resolution, and execution receipt
-      status: not-yet-materialized-for-v0.20.0
+      status: materialized-awaits-destination-execution
+      evidence:
+        - data/aicr-v0-20-0-nested-sources/summary.md
+        - data/aicr-v0-20-0-route-resolution/inventory.yaml
+        - data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml
+        - data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml
     - id: aicr-node-inspection
       lifecycleWork: collect and compare node facts without requiring a selected recipe
       owner: AICR snapshot and diff

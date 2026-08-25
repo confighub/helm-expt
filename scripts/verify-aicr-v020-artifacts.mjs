@@ -284,9 +284,13 @@ function verifySupportingRecords() {
   check(
     routeIntent.spec?.routes?.some(
       (route) => route.id === "downstream-chart-lifecycle"
-        && route.status === "not-yet-materialized-for-v0.20.0",
+        && route.status === "materialized-awaits-destination-execution"
+        && route.evidence?.includes("data/aicr-v0-20-0-nested-sources/summary.md")
+        && route.evidence?.includes(
+          "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml",
+        ),
     ),
-    "route intent does not name the unfinished nested lifecycle work",
+    "route intent does not link the materialized nested sources and destination resolutions",
   );
 
   const fieldPolicy = readYaml(fieldPolicyPath);

@@ -9,6 +9,13 @@
         "path": "",
         "targetRevision": "2.59.0"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://kubernetes-sigs.github.io/aws-ebs-csi-driver/aws-ebs-csi-driver",
+        "version": "2.59.0",
+        "archiveName": "aws-ebs-csi-driver-2.59.0.tgz",
+        "sha256": "adb1961abcced2b66c49d4f64885d63b2fd824310c8d4f99c52c7d2c0193b118"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/001-aws-ebs-csi-driver/values.yaml",
         "sha256": "b92beb50587dc82462b09a0a25076e18f756b2617375ac4c25d652007d1a9fb2"
@@ -35,6 +42,13 @@
         "chart": "aws-efa-k8s-device-plugin",
         "path": "",
         "targetRevision": "0.5.29"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://aws.github.io/eks-charts/aws-efa-k8s-device-plugin",
+        "version": "0.5.29",
+        "archiveName": "aws-efa-k8s-device-plugin-v0.5.29.tgz",
+        "sha256": "078610ef669714f39be77d133674c7721fb3ca123213b3d6b16938c8c0d2e034"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/002-aws-efa/values.yaml",
@@ -63,6 +77,13 @@
         "path": "",
         "targetRevision": "1.20.2"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://charts.jetstack.io/cert-manager",
+        "version": "1.20.2",
+        "archiveName": "cert-manager-v1.20.2.tgz",
+        "sha256": "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/003-cert-manager/values.yaml",
         "sha256": "6581565972750edfa132ffdeb90c87244beb7c7ac2c3d0b6f2d01df3b0f95d80"
@@ -89,6 +110,13 @@
         "chart": "gpu-operator",
         "path": "",
         "targetRevision": "26.3.3"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://helm.ngc.nvidia.com/nvidia/gpu-operator",
+        "version": "26.3.3",
+        "archiveName": "gpu-operator-v26.3.3.tgz",
+        "sha256": "59abb5852a24b3ae0ef757bfea3051f419acbf559ee5efd72f0672d28af56a68"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/009-gpu-operator/values.yaml",
@@ -117,6 +145,13 @@
         "path": "",
         "targetRevision": "1.19.2"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart/k8s-ephemeral-storage-metrics",
+        "version": "1.19.2",
+        "archiveName": "k8s-ephemeral-storage-metrics-1.19.2.tgz",
+        "sha256": "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/010-k8s-ephemeral-storage-metrics/values.yaml",
         "sha256": "e6aa66c3d2bd222465b7bbe0cc28e870045264179e773b33304ee5f1966a04d8"
@@ -143,6 +178,13 @@
         "chart": "kai-scheduler",
         "path": "",
         "targetRevision": "v0.14.1"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler",
+        "version": "v0.14.1",
+        "archiveName": "kai-scheduler-v0.14.1.tgz",
+        "sha256": "7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/011-kai-scheduler/values.yaml",
@@ -171,6 +213,13 @@
         "path": "",
         "targetRevision": "84.4.0"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://prometheus-community.github.io/helm-charts/kube-prometheus-stack",
+        "version": "84.4.0",
+        "archiveName": "kube-prometheus-stack-84.4.0.tgz",
+        "sha256": "87bac65f32a358eeb52bda426cff20dd2fe3f1b61babe0b35866392bdd2721dd"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml",
         "sha256": "f14791d997988e6390d562801d591a9499e95796b214f3e1b92db6ca9ee552f6"
@@ -197,6 +246,13 @@
         "chart": "",
         "path": "013-kubeflow-trainer-post",
         "targetRevision": "0.19.0"
+      },
+      "sourceArtifact": {
+        "type": "local-chart-tree",
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/013-kubeflow-trainer-post",
+        "version": "0.19.0",
+        "sha256": "20b3c3aea98b81bdcdc8ad4cb33c605b1d1e8d7149aa03c73e805f5222c6e959",
+        "fileCount": 3
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/013-kubeflow-trainer-post/values.yaml",
@@ -225,6 +281,13 @@
         "path": "",
         "targetRevision": "2.2.0"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "oci://ghcr.io/kubeflow/charts/kubeflow-trainer",
+        "version": "2.2.0",
+        "archiveName": "kubeflow-trainer-2.2.0.tgz",
+        "sha256": "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml",
         "sha256": "8ca778d597cd568991bb464f6aa08c0e16206a9c942f48b8af94077b82a837e4"
@@ -251,6 +314,13 @@
         "chart": "node-feature-discovery",
         "path": "",
         "targetRevision": "0.19.0"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://kubernetes-sigs.github.io/node-feature-discovery/charts/node-feature-discovery",
+        "version": "0.19.0",
+        "archiveName": "node-feature-discovery-chart-0.19.0.tgz",
+        "sha256": "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/004-nfd/values.yaml",
@@ -279,6 +349,13 @@
         "path": "006-nodewright-customizations",
         "targetRevision": "0.19.0"
       },
+      "sourceArtifact": {
+        "type": "local-chart-tree",
+        "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations",
+        "version": "0.19.0",
+        "sha256": "e153d9784cc82fc4fb8cbb178632c74bdf6a71c2af558e3d251813525ff7c31b",
+        "fileCount": 3
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/006-nodewright-customizations/values.yaml",
         "sha256": "89ffd9460a7c3c90f529a441018d864afeb768b0368bd262107c04bfdda09007"
@@ -305,6 +382,13 @@
         "chart": "nodewright",
         "path": "",
         "targetRevision": "v0.17.1"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "oci://ghcr.io/nvidia/nodewright/charts/nodewright",
+        "version": "v0.17.1",
+        "archiveName": "nodewright-v0.17.1.tgz",
+        "sha256": "a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/005-nodewright-operator/values.yaml",
@@ -333,6 +417,13 @@
         "path": "",
         "targetRevision": "0.4.1"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu",
+        "version": "0.4.1",
+        "archiveName": "dra-driver-nvidia-gpu-0.4.1.tgz",
+        "sha256": "c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml",
         "sha256": "69377bd4d16edd23cfb2595d28951b5f2c11622e026ed7aa2410ef09db7e55cb"
@@ -359,6 +450,13 @@
         "chart": "nvsentinel",
         "path": "",
         "targetRevision": "v1.9.0"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "oci://ghcr.io/nvidia/nvsentinel",
+        "version": "v1.9.0",
+        "archiveName": "nvsentinel-v1.9.0.tgz",
+        "sha256": "3f145e8ac66057f06ac434619abbe7aa24b384e63713fc0a55e7f47493335220"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/015-nvsentinel/values.yaml",
@@ -387,6 +485,13 @@
         "path": "",
         "targetRevision": "5.3.0"
       },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://prometheus-community.github.io/helm-charts/prometheus-adapter",
+        "version": "5.3.0",
+        "archiveName": "prometheus-adapter-5.3.0.tgz",
+        "sha256": "aa6752b6207ed788522714c3ef7f67f27d423eb4d9512fecb52dc641b6434f31"
+      },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/016-prometheus-adapter/values.yaml",
         "sha256": "1d25ed7ce17337985eed95fb39f386450cf66cc1a6c9ecb802d1e7273c32aab8"
@@ -413,6 +518,13 @@
         "chart": "prometheus-operator-crds",
         "path": "",
         "targetRevision": "28.0.1"
+      },
+      "sourceArtifact": {
+        "type": "helm-chart-archive",
+        "source": "https://prometheus-community.github.io/helm-charts/prometheus-operator-crds",
+        "version": "28.0.1",
+        "archiveName": "prometheus-operator-crds-28.0.1.tgz",
+        "sha256": "bc011e24c1e053955c11b0648cf73a4204bf0f8883d9427d7c50f4553dfd0129"
       },
       "values": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/argocd-helm-bundle/007-prometheus-operator-crds/values.yaml",

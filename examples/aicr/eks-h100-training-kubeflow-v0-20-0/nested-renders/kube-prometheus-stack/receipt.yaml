@@ -1,0 +1,78 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-20-0-kube-prometheus-stack"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/kube-prometheus-stack.yaml"
+  source:
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    chart: "kube-prometheus-stack"
+    path: ""
+    targetRevision: "84.4.0"
+  sourceArtifact:
+    type: "helm-chart-archive"
+    source: "https://prometheus-community.github.io/helm-charts/kube-prometheus-stack"
+    version: "84.4.0"
+    archiveName: "kube-prometheus-stack-84.4.0.tgz"
+    sha256: "87bac65f32a358eeb52bda426cff20dd2fe3f1b61babe0b35866392bdd2721dd"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml"
+    sha256: "f14791d997988e6390d562801d591a9499e95796b214f3e1b92db6ca9ee552f6"
+  destinationNamespace: "monitoring"
+  commands:
+    fetch:
+      - "helm"
+      - "pull"
+      - "kube-prometheus-stack"
+      - "--repo"
+      - "https://prometheus-community.github.io/helm-charts"
+      - "--version"
+      - "84.4.0"
+      - "--destination"
+      - "<temporary-directory>"
+    render:
+      - "helm"
+      - "template"
+      - "kube-prometheus-stack"
+      - "<source-artifact sha256:87bac65f32a358eeb52bda426cff20dd2fe3f1b61babe0b35866392bdd2721dd>"
+      - "--namespace"
+      - "monitoring"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml"
+      - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/kube-prometheus-stack/objects.yaml"
+    sha256: "f5efe9738c249853fe247eaf83955cf570228ea7f4d3c6f729eabeda927045e1"
+    objectCount: 123
+    kinds:
+      Alertmanager: 1
+      ClusterRole: 5
+      ClusterRoleBinding: 5
+      ConfigMap: 31
+      DaemonSet: 1
+      Deployment: 3
+      Job: 2
+      MutatingWebhookConfiguration: 1
+      Prometheus: 1
+      PrometheusRule: 35
+      Role: 2
+      RoleBinding: 2
+      Secret: 2
+      Service: 11
+      ServiceAccount: 7
+      ServiceMonitor: 13
+      ValidatingWebhookConfiguration: 1
+    crdCount: 0
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "not-yet-reviewed"
+  delivery: "not-run"
+  error: ""

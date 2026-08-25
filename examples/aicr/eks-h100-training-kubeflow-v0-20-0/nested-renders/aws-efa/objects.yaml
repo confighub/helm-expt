@@ -1,0 +1,88 @@
+---
+# Source: aws-efa-k8s-device-plugin/templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: aws-efa-k8s-device-plugin
+  labels:
+    helm.sh/chart: aws-efa-k8s-device-plugin-v0.5.29
+    app.kubernetes.io/name: aws-efa-k8s-device-plugin
+    app.kubernetes.io/instance: aws-efa
+    app.kubernetes.io/version: "v0.5.20"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      name:  aws-efa-k8s-device-plugin
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: aws-efa-k8s-device-plugin
+    spec:
+      automountServiceAccountToken: false
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - operator: Exists
+      # Mark this pod as a critical add-on; when enabled, the critical add-on
+      # scheduler reserves resources for critical add-on pods so that they can
+      # be rescheduled after a failure.
+      # See https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
+      priorityClassName: "system-node-critical"
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodeGroup
+                  operator: In
+                  values:
+                    - gpu
+                    - "true"
+              - matchExpressions:
+                - key: nvidia.com/gpu.present
+                  operator: In
+                  values:
+                    - gpu
+                    - "true"
+                - key: eks.amazonaws.com/compute-type
+                  operator: NotIn
+                  values:
+                  - auto
+      hostNetwork: true
+      containers:
+        - image: 602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efa-k8s-device-plugin:v0.5.20
+          name: aws-efa-k8s-device-plugin
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            runAsNonRoot: false
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          volumeMounts:
+            - name: device-plugin
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: infiniband-volume
+              mountPath: /dev/infiniband/
+            - name: neuron-tools
+              mountPath: /opt/aws/neuron/
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: infiniband-volume
+          hostPath:
+            path: /dev/infiniband/
+        - name: neuron-tools
+          hostPath:
+            path: /opt/aws/neuron/
+            type: DirectoryOrCreate
