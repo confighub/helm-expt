@@ -521,6 +521,18 @@
 <main>
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
+    <h3 id="four-answers">Keep four answers separate</h3>
+    <div class="card"><table>
+        <thead><tr><th>Question</th><th>When it can be answered</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>Inspect the source, package, files, OCI, or snapshot. A Catalog match and deployment are not required.</td></tr><tr><td>What will it produce?</td><td>Run the source processor locally, or read the exact objects when the source is already literal configuration.</td></tr><tr><td>Can this destination accept it?</td><td>Check the exact candidate against the named destination before apply. This needs destination access, not a deployment.</td></tr><tr><td>Did it work?</td><td>Check controller, resource, runtime, drift, and rollback results after the exact revision is deployed.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p>A blocked prerequisite means the later check did not run. It is not a failed source or failed workload result.</p>
     <h3>Local files</h3>
     <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
@@ -538,7 +550,7 @@
     <p>Before deployment, every source must become exact Kubernetes objects. We call that step materialization. Helm renders a chart. AICR and Kubara generate or compose objects. Literal YAML and configuration OCI already contain the objects, so no transformation is needed.</p>
     <div class="card"><table>
         <thead><tr><th>Source</th><th>Materialization means</th></tr></thead>
-        <tbody><tr><td>Helm</td><td>Render the chart and recorded values.</td></tr><tr><td>AICR, Kubara, or another generator</td><td>Run its declared generation or composition step.</td></tr><tr><td>Source OCI</td><td>Pull it by digest, then run the processor it declares.</td></tr><tr><td>Configuration OCI</td><td>Read the exact objects it already contains.</td></tr><tr><td>Plain YAML</td><td>Parse and record the exact objects; no source transformation is needed.</td></tr><tr><td>ConfigHub Units</td><td>Read the retained revision; it is already materialized.</td></tr></tbody>
+        <tbody><tr><td>Helm</td><td>Render the chart and recorded values.</td></tr><tr><td>AICR</td><td>A snapshot and diff can inspect GPU-node state without a recipe. A selected recipe uses its own composition or generation step.</td></tr><tr><td>Timoni</td><td>Build the pinned module or bundle with its typed values.</td></tr><tr><td>Kubara or another generator</td><td>Run its declared generation or composition step.</td></tr><tr><td>Sveltos</td><td>Read the literal Sveltos objects. Materialize each nested source separately.</td></tr><tr><td>Source OCI</td><td>Pull it by digest, then run the processor it declares.</td></tr><tr><td>Configuration OCI</td><td>Read the exact objects it already contains.</td></tr><tr><td>Plain YAML</td><td>Parse and record the exact objects; no source transformation is needed.</td></tr><tr><td>ConfigHub Units</td><td>Read the retained revision; it is already materialized.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

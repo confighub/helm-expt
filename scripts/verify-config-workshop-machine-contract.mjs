@@ -28,6 +28,13 @@ const commandContractResultPaths = [
   join(repoRoot, "data", "config-workshop-command-contract", "helm", "workshop-result.json"),
   join(repoRoot, "data", "config-workshop-command-contract", "kubernetes-yaml", "workshop-result.json"),
 ];
+const commandContractPromotionReviewPath = join(
+  repoRoot,
+  "data",
+  "config-workshop-command-contract",
+  "helm",
+  "promotion-review.json",
+);
 const ciReportPaths = [
   join(repoRoot, "data", "config-workshop-ci-report", "nginx-reviewed", "report.json"),
   join(repoRoot, "data", "config-workshop-ci-report", "kubernetes-yaml", "report.json"),
@@ -138,6 +145,7 @@ const issueTemplate = readFileSync(issueTemplatePath, "utf8");
 const commandContract = readJson(commandContractPath);
 const commandContractSummary = readFileSync(commandContractSummaryPath, "utf8");
 const commandContractResults = commandContractResultPaths.map(readJson);
+const commandContractPromotionReview = readJson(commandContractPromotionReviewPath);
 const ciReports = ciReportPaths.map(readJson);
 for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json", "retention object is computed", "Normal catalog refreshes are additive"]) {
   check(llms.includes(term), `site/llms.txt must explain the machine contract: ${term}`);
@@ -160,6 +168,7 @@ for (const term of ["Run shared local checks", "cub check --format json --output
 check(workshopResultSchema.properties?.kind?.const === "WorkshopResult", "workshop result schema must define WorkshopResult");
 check(workshopResultSchema.properties?.apiVersion?.const === "workshop.confighub.com/v1alpha2", "workshop result schema must pin v1alpha2");
 check(workshopResultSchema.properties?.spec?.required?.includes("candidate"), "workshop result must require the candidate identity");
+check(workshopResultSchema.properties?.spec?.required?.includes("assessment"), "workshop result must require the four assessment stages");
 check(workshopResultSchema.properties?.spec?.required?.includes("findingDecisions"), "workshop result must require finding decisions");
 check(workshopResultSchema.$defs?.objectSetIdentity?.properties?.algorithm?.const === "cub-scan-canonical-json-v1", "workshop result must name the canonical object-set algorithm");
 check(workshopResultSchema.properties?.spec?.properties?.checks?.required?.includes("advisoryReceipts"), "workshop result must require explicit advisory receipts");
@@ -221,10 +230,15 @@ check(
   "promotion schema must require destination preflight",
 );
 check(
+  promotionSchema.properties?.spec?.required?.includes("assessment"),
+  "promotion schema must require the four assessment stages",
+);
+check(
   promotionSchema.definitions?.destinationPreflight?.required?.includes("checks"),
   "promotion destination preflight must require checks",
 );
 check(Array.isArray(baseVariantRecords.records) && baseVariantRecords.records.length > 0, "base variant record index must contain records");
+validateAssessment(commandContractPromotionReview.spec?.assessment, "generated PromotionReview");
 check(baseVariantRecords.records.some((record) => record.spec?.source?.type === "timoni"), "base variant records must include the Timoni source pilot");
 for (const term of ["Where the changes came from", "Hooks, CRDs, and required setup", "Before this reaches the destination", "Target results", "promotion-review.schema.json", "Preview commands do not change ConfigHub", "Run after approval", "confighub-promotion-preview", "confighub-promotion-run", "Create it, then run the preview again before using the write commands"]) {
   check(promote.includes(term), `site/promote.html must expose source-aware promotion results: ${term}`);
@@ -360,6 +374,7 @@ function validateWorkshopResult(result) {
   check(result.apiVersion === "workshop.confighub.com/v1alpha2", "generated WorkshopResult must use v1alpha2");
   check(result.kind === "WorkshopResult", "generated command-contract result must be WorkshopResult");
   const identity = result.spec?.candidate?.objectSet;
+  validateAssessment(result.spec?.assessment, "generated WorkshopResult");
   check(identity?.algorithm === "cub-scan-canonical-json-v1", "generated WorkshopResult must name its object-set algorithm");
   check(/^sha256:[0-9a-f]{64}$/.test(identity?.sha256 ?? ""), "generated WorkshopResult has an invalid object-set hash");
   const receipt = result.spec?.checks?.advisoryReceipts?.[0];
@@ -383,6 +398,23 @@ function validateWorkshopResult(result) {
     check(decisions.outcomes.every((outcome) => outcome.decision === "unreviewed"), "unrecorded findings must remain unreviewed");
   }
   check(result.spec.next.managed.includes(`workshop.confighub.com/object-set-sha256=${identity.sha256}`), "generated WorkshopResult must carry its accepted hash into the ConfigHub handoff");
+}
+
+function validateAssessment(assessment, label) {
+  const expected = ["inspection", "materialization", "destination", "post-deployment"];
+  const stages = assessment?.stages ?? [];
+  check(
+    JSON.stringify(stages.map((stage) => stage.id)) === JSON.stringify(expected),
+    `${label} must keep the four assessment stages in order`,
+  );
+  for (const stage of stages) {
+    check(stage.question && stage.answer && stage.nextAction, `${label}/${stage.id} must explain its answer and next action`);
+    check(Array.isArray(stage.requiredInputs) && stage.requiredInputs.length > 0, `${label}/${stage.id} must name its required inputs`);
+    check(typeof stage.destinationAccessRequired === "boolean" && typeof stage.deploymentRequired === "boolean", `${label}/${stage.id} must name its prerequisites`);
+    if (stage.id === "destination") check(stage.destinationAccessRequired && !stage.deploymentRequired, `${label}/destination prerequisites changed`);
+    if (stage.id === "post-deployment") check(stage.destinationAccessRequired && stage.deploymentRequired, `${label}/post-deployment prerequisites changed`);
+    if (stage.evidenceState === "blocked") check(["blocked", "not-run"].includes(stage.resultState), `${label}/${stage.id} turns missing evidence into a completed result`);
+  }
 }
 
 function readJson(path) {

@@ -54,5 +54,5 @@ Not checked:
 - [source-and-intent.yaml](./source-and-intent.yaml) · `sha256:1841c109d0d1c6e932bc46d02b082cb964f129015366d6b16c803466ff0fd163`
 - [cub-check.json](./cub-check.json) · `sha256:3c0ed08754dd08296949cb0308f8c16952769d6dd266afe0e9e17dec3ec58b96`
 - [configuration-decision.yaml](./configuration-decision.yaml) · `sha256:4689f859fd85e52beb7c9ca34dadf88e7621ac11ac5f98757603f1cd7e640b2a`
-- [workshop-review.json](./workshop-review.json) · `sha256:848d523d519ab452fcfb82649907ca75b52020a60cee9b313462ffbb5c5b72e3`
+- [workshop-review.json](./workshop-review.json) · `sha256:092f1276a8f318b51410975b88c9541a8631c7d8e21e1173c504bef505560ed9`
 - [Catalog record](https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html)

@@ -168,6 +168,100 @@
     byId("confighub-promotion-run").value = commands.execute;
   }
 
+  function assessmentForPromotion(sourceAware, destinationPreflight, targetResults) {
+    const destinations = destinationPreflight.destinations || [];
+    const suppliedTargetResults = (targetResults.targets || []).filter((target) =>
+      target.status !== "not-run" || target.digest !== "not supplied" || target.note !== "No result supplied.");
+    const postState = !suppliedTargetResults.length
+      ? { evidenceState: "not-run", resultState: "not-run", answer: "No result for the exact candidate digest was supplied." }
+      : targetResults.overall === "pass"
+        ? { evidenceState: "completed", resultState: "pass", answer: `Every supplied target result passed for the exact candidate digest across ${suppliedTargetResults.length} target(s).` }
+        : targetResults.overall === "blocked"
+          ? { evidenceState: "completed", resultState: "blocked", answer: "At least one supplied target result was blocked or referred to a different candidate digest." }
+          : { evidenceState: "completed", resultState: "watch", answer: "The supplied target results are partial or include a watch result. They do not establish a complete pass." };
+    const destinationState = suppliedTargetResults.length
+      ? {
+          evidenceState: "completed",
+          resultState: postState.resultState === "pass" ? "pass" : postState.resultState === "watch" ? "watch" : "blocked",
+          answer: "The supplied post-deployment result also provides evidence about destination acceptance for the exact candidate. Review its scope before reusing it.",
+        }
+      : {
+          evidenceState: "blocked",
+          resultState: "not-run",
+          answer: destinations.length
+            ? `The destination names are recorded (${destinations.join(", ")}), but current destination facts were not supplied.`
+            : "No destination or current destination facts were supplied.",
+        };
+    return {
+      stages: [
+        {
+          id: "inspection",
+          question: "What do I have?",
+          answer: "The browser parsed and compared the supplied current and candidate Kubernetes object sets.",
+          requiredInputs: ["current Kubernetes objects", "candidate Kubernetes objects"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: false,
+          destinationAccessRequired: false,
+          deploymentRequired: false,
+          evidenceState: "completed",
+          resultState: "available",
+          records: ["current.yaml", "candidate.yaml"],
+          nextAction: "Confirm that both object sets use the revisions you intend to compare.",
+        },
+        {
+          id: "materialization",
+          question: "What will it produce?",
+          answer: sourceAware.status === "compared"
+            ? "Supplied source renders were compared with the current and candidate objects, so source changes and later object edits are separated. The browser did not rerun the source-native tool."
+            : "The exact candidate objects are available, but source renders were not supplied and the source-native tool did not run.",
+          requiredInputs: ["source and intent", "source-native materialization tool or supplied source renders", "exact candidate objects"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: true,
+          destinationAccessRequired: false,
+          deploymentRequired: false,
+          evidenceState: sourceAware.status === "compared" ? "completed" : "not-run",
+          resultState: "available",
+          records: ["candidate.yaml"],
+          nextAction: sourceAware.status === "compared"
+            ? "Review fields changed by both the source and a later object edit."
+            : "Supply source renders or rerun the source-native tool when source-to-output reproduction matters.",
+        },
+        {
+          id: "destination",
+          question: "Can this destination accept it?",
+          answer: destinationState.answer,
+          requiredInputs: ["exact candidate", "named destination", "current destination facts"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: false,
+          destinationAccessRequired: true,
+          deploymentRequired: false,
+          evidenceState: destinationState.evidenceState,
+          resultState: destinationState.resultState,
+          records: suppliedTargetResults.length ? ["promotion-review.json"] : [],
+          nextAction: suppliedTargetResults.length
+            ? "Confirm that the evidence covers the destination acceptance claim you need."
+            : "Run the listed destination checks before promotion.",
+        },
+        {
+          id: "post-deployment",
+          question: "Did it work?",
+          answer: postState.answer,
+          requiredInputs: ["exact delivered revision", "named destination", "claim-specific live evidence"],
+          catalogMatchRequired: false,
+          sourceIntentRequired: false,
+          destinationAccessRequired: true,
+          deploymentRequired: true,
+          evidenceState: postState.evidenceState,
+          resultState: postState.resultState,
+          records: suppliedTargetResults.length ? ["promotion-review.json"] : [],
+          nextAction: suppliedTargetResults.length
+            ? "Keep each target result tied to the exact candidate digest and the claim it checked."
+            : "Deploy the exact candidate to staging, then record the controller, resource, workload, runtime, drift, or rollback result required by the claim.",
+        },
+      ],
+    };
+  }
+
   function buildAiPrompt(review) {
     const tests = review.spec.testsRequired.map((test) => `- ${test}`).join("\n");
     const sourceSummary = review.spec.sourceAware.status === "compared"
@@ -188,6 +282,8 @@
       "Explain added, removed, and changed Kubernetes objects in plain English.",
       "Check immutable fields, storage, Secrets, CRDs, hooks, pruning, rollback, and application-specific migrations.",
       "Do not call the fleet successful when any target is watch, blocked, or not-run.",
+      "Read spec.assessment and report its four stages separately. Inspection is not materialization, destination acceptance needs current target facts, and a post-deployment pass needs the exact delivered revision and live evidence.",
+      "Treat a missing prerequisite as blocked or not run. Do not call the source, candidate, workload, or conformance result failed unless the matching check actually ran and failed.",
       "Write any proposed correction to a new candidate file and show me the exact diff.",
       "Ask before running any ConfigHub write. Start with every --dry-run command in the review.",
       "Before a ConfigHub re-upload, read the base Space and confirm that the command repeats its recorded Unit layout and namespace. Stop if they differ.",
@@ -315,6 +411,7 @@
         destinations.length ? destinations : ["staging"],
         candidateRecord.objectSetSha256,
       );
+      const assessment = assessmentForPromotion(sourceAware, destinationPreflight, targetResults);
       const sameIdentities = comparison.added.length === 0 && comparison.removed.length === 0;
       const whatChanges = [`${comparison.added.length} object(s) added, ${comparison.removed.length} removed, and ${comparison.changed.length} changed.`];
       if (comparison.changed.length) whatChanges.push("Changed objects include " + comparison.changed.slice(0, 5).join(", ") + (comparison.changed.length > 5 ? ", and others." : "."));
@@ -364,6 +461,7 @@
           current: currentRecord,
           candidate: candidateRecord,
           comparison,
+          assessment,
           sourceAware: {
             ...sourceAware,
             ...(currentSource ? { currentSource: await objectSetRecord(currentSource, await sha256(currentSourceText)) } : {}),

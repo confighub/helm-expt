@@ -45,6 +45,73 @@ spec:
       record: ""
     boundaries:
       - "The source OCI is an input package. Its declared processor produces the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the cub-installer source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The installer package OCI or its unpacked files"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+          - "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+          - "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded source OCI processing step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The installer package OCI, selected base, and supported install-time inputs"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+          - "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "A related runtime path has evidence, but it differs from this exact base or package output and must not be treated as identical."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "completed"
+        resultState: "watch"
+        records:
+          - "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+        nextAction: "Run the live check for this exact configuration before making a base-specific runtime claim."
   inputs:
     fixedAtBuildTime:
       - "sourcePackage=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"

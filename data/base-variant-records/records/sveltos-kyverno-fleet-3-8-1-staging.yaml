@@ -46,6 +46,80 @@ spec:
     boundaries:
       - "The Sveltos ClusterProfile is already a literal Kubernetes object."
       - "The Helm chart referenced by the ClusterProfile remains a nested source that Sveltos processes on selected clusters."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the sveltos source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The Sveltos objects and any nested source references"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+          - "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step."
+        requiredInputs:
+          - "The literal Sveltos objects; nested sources keep their own materialization step"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+          - "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "A destination-specific lifecycle plan is recorded for the named target and delivery runtime."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+          - "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
+          - "data/sveltos-oci-delivery-proof/summary.md"
+          - "examples/sveltos/kyverno-fleet/README.md"
+          - "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+          - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+          - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+        nextAction: "Recheck the plan if the variant, destination, or delivery runtime changes."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "A recorded delivery path reached its checked live result for this exact configuration."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+          - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+          - "data/sveltos-oci-delivery-proof/summary.md"
+        nextAction: "Read the receipt for the target, checks, limits, and observation time before relying on the result."
   inputs:
     fixedAtBuildTime:
       - "sveltos=v1.12.0"

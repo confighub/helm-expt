@@ -13,10 +13,14 @@ The processing coverage is explicit rather than inferred:
 - Portable route intents: 167 gap, 14 recorded, 73 required-at-destination.
 - Variant-and-destination route resolution: 83 awaits-variant-and-target, 1 blocked, 167 gap, 3 resolved-for-recorded-targets.
 - Field ownership: 1 declared, 253 partly-declared.
+- Inspection evidence: 254 completed; results: 254 available.
+- Materialization evidence: 254 completed; results: 254 pass.
+- Destination evidence: 1 blocked, 3 completed, 83 not-run, 167 pending; results: 1 blocked, 83 not-run, 3 pass, 167 pending.
+- Post-deployment evidence: 3 completed, 251 not-run; results: 251 not-run, 2 pass, 1 watch.
 
 ## Model and Catalog alignment
 
-All **254/254 records** use the same source-neutral structure. Every row identifies its source record, base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits.
+All **254/254 records** use the same source-neutral structure. Every row identifies its source record, base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits. Every row also answers the same four questions separately: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.
 
 The evidence is not complete for every row:
 
@@ -38,6 +42,7 @@ The record structure is aligned across every row. The evidence is not. The Catal
 | --- | --- |
 | Where did this configuration come from? | `spec.source` |
 | Which exact configuration is managed? | `spec.configuration` |
+| Which of the four questions has evidence, and which prerequisites were used? | `spec.assessment` |
 | How were the objects produced, and may they be flattened? | `spec.processing` |
 | What was fixed and what remains to set? | `spec.inputs` |
 | What must happen around ordinary apply, and has it been resolved for a target? | `spec.lifecycle` |
@@ -65,5 +70,6 @@ The record structure is aligned across every row. The evidence is not. The Catal
 
 - [records.csv](./records.csv) is the compact index.
 - [records.json](./records.json) contains every generated record.
+- [Cross-format assessment cases](../config-assessment-stages/summary.md) test the four questions and their prerequisites.
 - [schemas/base-variant-record.schema.json](../../schemas/base-variant-record.schema.json) defines the record shape.
 - [Config catalog doctrine](../../docs/reference/config-catalog-doctrine.md) explains how the sources, variants, policy, delivery, and Apps fit together.

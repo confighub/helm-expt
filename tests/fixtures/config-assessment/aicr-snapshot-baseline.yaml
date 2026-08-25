@@ -1,0 +1,15 @@
+measurements:
+  - type: OS
+    subtypes:
+      - subtype: kernel-cmdline
+        data:
+          cmdline: quiet splash iommu=pt
+      - subtype: kernel-modules
+        data:
+          nvidia_peermem: loaded
+  - type: GPU
+    subtypes:
+      - subtype: hardware
+        data:
+          model: L40
+          count: 1

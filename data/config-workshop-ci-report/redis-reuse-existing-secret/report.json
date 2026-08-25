@@ -143,7 +143,7 @@
     },
     {
       "path": "source-and-intent.yaml",
-      "sha256": "sha256:f827ca22b674367f463aab9f925dd9de247b45ef332f26ce34c6153401d4359e",
+      "sha256": "sha256:6e1dedfa42612e8a1fe00365e3bd34deb91f209f790eb6b20e47c73fc06b8ec1",
       "url": "./source-and-intent.yaml"
     },
     {
@@ -153,7 +153,7 @@
     },
     {
       "path": "workshop-review.json",
-      "sha256": "sha256:692d3dcc017a10cedefcc3fc48f723d27684709b876f21f69dae6f4dae1b6010",
+      "sha256": "sha256:1d182e853a60ff95fefc17bfe2e79c6b8a0da85bd7e42f86d3436000efd12250",
       "url": "./workshop-review.json"
     },
     {

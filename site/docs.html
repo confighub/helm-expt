@@ -521,6 +521,19 @@
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
+      <h3 id="four-answers">First choose the answer you need</h3>
+      <p>The same questions apply to Helm, AICR, Timoni, Kubara, Sveltos, OCI, and Kubernetes YAML. Choose the question you need before choosing a command.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What you need</th><th>What it does not prove</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The source, snapshot, package, or exact files.</td><td>What a source tool will generate, or whether a destination can run it.</td></tr><tr><td>What will it produce?</td><td>The source inputs and the exact materialization command, or literal objects where materialization is a no-op.</td><td>Whether a named destination has the required APIs, credentials, hardware, and lifecycle setup.</td></tr><tr><td>Can this destination accept it?</td><td>The exact candidate and current facts from the named destination.</td><td>That the configuration has been deployed or works at runtime.</td></tr><tr><td>Did it work?</td><td>The exact delivered revision and the live result required by the claim.</td><td>Results for another revision, destination, or untested behavior.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>A missing prerequisite makes the unanswered stage <strong>blocked</strong> or <strong>not run</strong>. It does not make the source, configuration, workload, or conformance result a failure.</p>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
       <h3><a href="./try-aicr.html">Can I try one AICR configuration without a GPU?</a></h3>

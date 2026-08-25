@@ -6,6 +6,20 @@ Verification is how a reader checks a claim instead of trusting a screenshot.
 The npm commands in this repo are proof checks, not product install commands.
 Use the narrowest check that answers the question in front of you.
 
+## Four Different Questions
+
+| Question | Required input | Does it need deployment? |
+| --- | --- | --- |
+| **What do I have?** | The source, snapshot, package, OCI, or exact files. | No. A live snapshot needs read access to what it measures. |
+| **What will it produce?** | The source and intent plus its native tool, unless the configuration is already literal. | No. |
+| **Can this destination accept it?** | The exact candidate plus current facts from the named destination. | No, but it needs destination access. |
+| **Did it work?** | The exact delivered revision plus the live evidence required by the claim. | Yes. |
+
+Evidence state and result state are separate. A missing prerequisite makes the
+dependent check `blocked` or `not-run`; it does not make the source,
+configuration, workload, or conformance result fail. A Catalog listing does not
+turn missing destination or runtime evidence into a pass.
+
 ## The Short Rule
 
 - Product commands render, install, and manage configuration: `cub ...`,
@@ -19,20 +33,21 @@ Use the narrowest check that answers the question in front of you.
   GitOps controllers. Committed checks read evidence that is already in the
   repo.
 
-## Recipe, Render, Record, Route
+## Source, Materialize, Record, Route
 
 The verification model has four steps:
 
 | Step | Meaning | What gets checked |
 | --- | --- | --- |
-| Recipe | Lock and record the inputs as the recipe: chart source, version, values profile, release name, namespace, capability profile, and source lock. | The inputs are pinned and recorded, so the render is reproducible. |
-| Render | Turn that recipe into exact Kubernetes objects. | The rendered object set matches the recorded package or Helm baseline. |
+| Source and intent | Lock and record the source, version or digest, selected options, target assumptions, and source-specific inputs. A Helm recipe is one source-specific form of this record. | The inputs are pinned and named, so the source operation can be repeated. |
+| Materialize | Run Helm render, AICR generation, Timoni build, Kubara or Sveltos generation, OCI extraction, or another source-native operation. For literal YAML this is a no-op. | The exact Kubernetes object set and its identity are recorded. |
 | Record | Keep the output evidence with the render: objects, diffs, receipts, scans, and observations. | A later reviewer can see what changed and rerun the same proof boundary. |
-| Route | Name everything Helm leaves around the edges: hooks, CRDs, webhooks, generated facts, target prerequisites, Secrets, setup jobs, and GitOps handoff. | Each extra is applied, observed, blocked, refused, or marked target-specific instead of being hidden inside prose. |
+| Route | Name the lifecycle work around ordinary object delivery: hooks, CRDs, tests, waits, generated facts, target prerequisites, Secrets, setup jobs, and controller-specific handling. | Each step has an owner, order, destination decision, execution result, or explicit not-run state. |
 
-This is why a flat YAML render is only the start. The value is that the render
-has recorded intent and named routes for the work that is not just a literal
-Kubernetes object.
+This is why a flat object set is only the start. The source and intent explain
+where it came from. Route intent records the lifecycle work that is not an
+ordinary Kubernetes object. A resolved route says how that work is handled for
+one candidate, destination, and delivery runtime.
 
 ## Which Check Should I Run?
 

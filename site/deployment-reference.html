@@ -560,6 +560,16 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><a href="https://docs.confighub.com/background/entities/target/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=deployment-terms"><strong>Target</strong></a></td><td>Where a deployment variant is intended to run. It is a delivery address, not a connection from ConfigHub into the cluster.</td></tr>
   </table>
 
+  <h3>Four questions use different evidence</h3>
+  <table class="gtable">
+    <tr><th>Question</th><th>Required input</th><th>Boundary</th></tr>
+    <tr><td><strong>What do I have?</strong></td><td>Source, exact files, OCI, or a snapshot.</td><td>No Catalog match or deployment is required. A live snapshot needs read access to what it measures.</td></tr>
+    <tr><td><strong>What will it produce?</strong></td><td>The source-native processor and recorded choices, unless the source is already literal configuration.</td><td>No destination is required.</td></tr>
+    <tr><td><strong>Can this destination accept it?</strong></td><td>The exact candidate and current facts from the named destination.</td><td>Destination access is required; deployment is not.</td></tr>
+    <tr><td><strong>Did it work?</strong></td><td>The exact delivered revision and live evidence required by the claim.</td><td>The selected revision must be deployed.</td></tr>
+  </table>
+  <p>Every Catalog base records these answers separately. Missing prerequisites are blocked or not run, not failed conformance. <a href="./d/data/config-assessment-stages/summary.html">Open the cross-format cases</a>.</p>
+
   <h3>Why keep the rendered objects</h3>
   <p>ConfigHub keeps the exact objects you reviewed, so you can change one field later without re-running Helm. The full comparison with helm template, kubectl diff, and Kustomize lives on <a href="./compare.html">its own page</a>, with the honest boundary stated.</p>
 
@@ -604,7 +614,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>Starting point</th><th>Source and intent record</th><th>How it enters ConfigHub</th></tr>
     <tr><td>Helm chart</td><td><code>HelmRenderIntent</code>: chart version, preset values, release context, source lock, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
-    <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
+    <tr><td>AICR</td><td>A read-only GPU-node snapshot needs no recipe. Recipe-dependent generation records the AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Use snapshot and diff to inspect existing nodes. For a selected platform, keep the generated source package for Argo CD and upload the separate literal configuration OCI as a base variant. The <a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
     <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload --component &lt;name&gt; --variant base oci://...</code> creates the base Space and Units from the configuration bundle.</td></tr>
     <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload --component &lt;name&gt; --variant base &lt;files&gt;</code> creates the base Space and Units.</td></tr>
   </table>

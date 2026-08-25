@@ -37,6 +37,22 @@ locally or give it to Claude, Codex, another AI assistant, or CI.
 The separate YAML and review downloads remain available when a tool expects
 ordinary files.
 
+## Four answers in every result
+
+The downloaded review keeps four questions separate:
+
+| Question | What the browser can record | What it needs next |
+| --- | --- | --- |
+| What do I have? | The source identity and exact files or objects you supplied. | Nothing else. A Catalog match is optional. |
+| What will it produce? | Literal YAML is already the object set. For Helm, AICR, Timoni, Kubara, Sveltos, or another generator, the page can inspect supplied output but does not run the source tool. | Recorded source inputs and the source-native command when you need reproduction. |
+| Can this destination accept it? | Not answered by browser files alone. | The exact candidate and current facts from the named destination. Deployment is not required. |
+| Did it work? | Not answered before deployment. | The exact delivered revision and the live evidence required by the claim. |
+
+Each stage has an evidence state and a result state. Missing destination access,
+credentials, hardware, components, or a deployment makes the relevant stage
+`blocked` or `not-run`. It does not make the source, candidate, workload, or
+conformance result fail.
+
 ## What stays on your machine
 
 The static website does not:

@@ -30,6 +30,24 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command",
   },
+  "config-catalog:self-test": {
+    proves: "The Catalog generators reject malformed AI review records, invalid four-stage assessment cases, and inconsistent source-neutral Catalog records.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same self-tests run separately in the full verify chain, while this alias groups the Catalog contract checks for development",
+  },
+  "config-assessment-stages:verify": {
+    proves: "The six maintained assessment cases still separate inspection, materialization, destination acceptance, and post-deployment evidence across literal YAML, Helm, and AICR examples.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias checks the four-stage assessment contract directly",
+  },
+  "config-assessment-stages:self-test": {
+    proves: "The assessment-stage generator rejects reordered stages, missing prerequisites, false deployment claims, and AICR expected-resource failures that should be recorded as blocked or not-run.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same self-test runs inside config-catalog:self-test and the full verify chain, while this alias is the focused negative test",
+  },
   "catalog-shared-checks:verify": {
     proves: "Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes.",
     requires: "offline",

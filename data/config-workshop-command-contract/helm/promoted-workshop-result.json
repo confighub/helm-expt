@@ -28,6 +28,87 @@
         "sha256": "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
       }
     },
+    "assessment": {
+      "stages": [
+        {
+          "id": "inspection",
+          "question": "What do I have?",
+          "answer": "The review received 5 Kubernetes object(s) from bitnami/nginx. It inspected the supplied files, not an unstated source or destination.",
+          "requiredInputs": [
+            "source identity or exact files",
+            "candidate Kubernetes objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "completed",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Confirm that the supplied source identity and files are the ones you intended to review."
+        },
+        {
+          "id": "materialization",
+          "question": "What will it produce?",
+          "answer": "The exact candidate objects are available, but this review did not rerun the source-native materialization tool. Keep the source and intent record if you need to reproduce them.",
+          "requiredInputs": [
+            "source and intent",
+            "source-native materialization tool",
+            "exact candidate objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": true,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "not-run",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Rerun the source-native tool with recorded inputs when source-to-output reproduction is required."
+        },
+        {
+          "id": "destination",
+          "question": "Can this destination accept it?",
+          "answer": "No destination facts were supplied or checked by this local review.",
+          "requiredInputs": [
+            "exact candidate",
+            "named destination",
+            "current destination facts"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": false,
+          "evidenceState": "blocked",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "Check the exact candidate against the chosen destination before deployment."
+        },
+        {
+          "id": "post-deployment",
+          "question": "Did it work?",
+          "answer": "This local review did not deploy the candidate or inspect a live result.",
+          "requiredInputs": [
+            "exact delivered revision",
+            "named destination",
+            "claim-specific live evidence"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": true,
+          "evidenceState": "not-run",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "After deployment, record the controller, resource, workload, runtime, drift, or rollback result that answers the claim."
+        }
+      ]
+    },
     "files": [
       {
         "path": "candidate.yaml",
@@ -56,8 +137,8 @@
       {
         "path": "workshop-review.json",
         "mediaType": "application/json",
-        "sha256": "sha256:503e92d0cd0bcc075147a45086914e61eb2fd8684e0d7f61322523b22581865f",
-        "content": "{\n  \"apiVersion\": \"workshop.confighub.com/v1alpha1\",\n  \"kind\": \"ConfigurationReview\",\n  \"metadata\": {\n    \"id\": \"review-5b89805dce1f\",\n    \"createdAt\": \"2026-08-24T21:50:08Z\"\n  },\n  \"spec\": {\n    \"question\": {\n      \"code\": \"promotion-check\",\n      \"text\": \"Can I promote this four-replica NGINX configuration to staging?\"\n    },\n    \"source\": {\n      \"type\": \"helm\",\n      \"visibility\": \"public\",\n      \"identity\": \"bitnami/nginx\",\n      \"version\": \"24.0.2\",\n      \"valuesSummary\": \"ConfigHub change: replicas 3 to 4 and emptyDir sizeLimit 512Mi.\"\n    },\n    \"candidate\": {\n      \"name\": \"promoted-candidate.yaml\",\n      \"sha256\": \"sha256:5b89805dce1f9f42add7bf47a71183284b814a0a36a118716f96db50f8846ca1\",\n      \"objectCount\": 5,\n      \"objects\": [\n        \"Deployment/nginx/nginx\",\n        \"NetworkPolicy/nginx/nginx\",\n        \"PodDisruptionBudget/nginx/nginx\",\n        \"Service/nginx/nginx\",\n        \"ServiceAccount/nginx/nginx\"\n      ]\n    },\n    \"comparison\": {\n      \"status\": \"compared\",\n      \"objectSet\": {\n        \"name\": \"reviewed-render.yaml\",\n        \"sha256\": \"sha256:ec4195803615b2e0d31e82488a16e0ab190ade8ddb0d3b892ceee6c3a724c8b6\",\n        \"objectCount\": 5,\n        \"objects\": [\n          \"Deployment/nginx/nginx\",\n          \"NetworkPolicy/nginx/nginx\",\n          \"PodDisruptionBudget/nginx/nginx\",\n          \"Service/nginx/nginx\",\n          \"ServiceAccount/nginx/nginx\"\n        ]\n      },\n      \"added\": [],\n      \"removed\": [],\n      \"changed\": [\n        \"Deployment/nginx/nginx\"\n      ],\n      \"unchanged\": [\n        \"NetworkPolicy/nginx/nginx\",\n        \"PodDisruptionBudget/nginx/nginx\",\n        \"Service/nginx/nginx\",\n        \"ServiceAccount/nginx/nginx\"\n      ],\n      \"noOp\": []\n    },\n    \"checks\": {\n      \"method\": \"cub-check-workshop-composition-v1\",\n      \"scope\": \"Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.\",\n      \"findings\": [],\n      \"notChecked\": [\n        \"source rendering and values provenance beyond the supplied source record\",\n        \"Kubernetes schema and admission behavior\",\n        \"hook execution and CRD establishment\",\n        \"live workload health and drift\",\n        \"database migrations and external services\"\n      ],\n      \"advisoryReceipts\": [\n        {\n          \"authority\": \"local-advisory\",\n          \"tool\": \"cub-scan\",\n          \"version\": \"v0.7.3\",\n          \"schemaVersion\": \"risk-scan-findings-v1\",\n          \"scanTime\": \"2026-08-24T21:50:08Z\",\n          \"catalogVersion\": \"risk-catalog-v1.json@7ff79a126ad9\",\n          \"patternBundle\": {\n            \"schemaVersion\": \"bundle-manifest-v1\",\n            \"version\": \"v0.7.3\",\n            \"sourceRepo\": \"confighubai/confighub-scan\",\n            \"manifestSha256\": \"sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8\",\n            \"catalogSha256\": \"sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba\"\n          },\n          \"input\": {\n            \"objectCount\": 5,\n            \"objectSetSha256\": \"sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2\"\n          },\n          \"findingCount\": 0,\n          \"findingIds\": []\n        }\n      ]\n    },\n    \"findingDecisions\": {\n      \"status\": \"not-required\",\n      \"candidateObjectSetSha256\": \"sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2\",\n      \"outcomes\": []\n    },\n    \"finding\": \"\",\n    \"recommendation\": \"Review the findings and the checks that did not run before keeping or promoting this configuration.\",\n    \"lifecycle\": {\n      \"record\": \"byo-nginx-ai-values-24-0-2-reviewed\",\n      \"requirements\": [\n        {\n          \"detail\": \"The destination must supply the AI provider Secret before delivery.\",\n          \"id\": \"nginx/ai-provider-credentials\",\n          \"origin\": \"reviewed-values\",\n          \"type\": \"target-fact\"\n        }\n      ],\n      \"routes\": [],\n      \"targetFacts\": {\n        \"declared\": {\n          \"requiredSecrets\": [\n            {\n              \"keys\": [\n                \"AI_API_KEY\"\n              ],\n              \"name\": \"ai-provider-credentials\",\n              \"namespace\": \"nginx\"\n            }\n          ]\n        },\n        \"records\": [\n          \"data/byo-helm-values-review/review.yaml\"\n        ],\n        \"requirementRefs\": [\n          \"nginx/ai-provider-credentials\"\n        ],\n        \"status\": \"recorded\"\n      },\n      \"resolution\": {\n        \"records\": [\n          \"runs/byo-helm-values-deploy-proof/receipt.yaml\",\n          \"runs/byo-helm-values-staging-deploy-proof/receipt.yaml\"\n        ],\n        \"rule\": \"Recheck the required Secret and any lifecycle-sensitive change for each new destination.\",\n        \"status\": \"resolved-for-development-and-staging-proof\"\n      }\n    },\n    \"catalog\": {\n      \"status\": \"exact\",\n      \"url\": \"https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html\"\n    }\n  }\n}\n"
+        "sha256": "sha256:aae81ffcc27e32a384962dab9587247e7ccbd5e5a4ce25fd852ed2ff75c8d08c",
+        "content": "{\n  \"apiVersion\": \"workshop.confighub.com/v1alpha1\",\n  \"kind\": \"ConfigurationReview\",\n  \"metadata\": {\n    \"id\": \"review-5b89805dce1f\",\n    \"createdAt\": \"2026-08-24T21:50:08Z\"\n  },\n  \"spec\": {\n    \"question\": {\n      \"code\": \"promotion-check\",\n      \"text\": \"Can I promote this four-replica NGINX configuration to staging?\"\n    },\n    \"source\": {\n      \"type\": \"helm\",\n      \"visibility\": \"public\",\n      \"identity\": \"bitnami/nginx\",\n      \"version\": \"24.0.2\",\n      \"valuesSummary\": \"ConfigHub change: replicas 3 to 4 and emptyDir sizeLimit 512Mi.\"\n    },\n    \"candidate\": {\n      \"name\": \"promoted-candidate.yaml\",\n      \"sha256\": \"sha256:5b89805dce1f9f42add7bf47a71183284b814a0a36a118716f96db50f8846ca1\",\n      \"objectCount\": 5,\n      \"objects\": [\n        \"Deployment/nginx/nginx\",\n        \"NetworkPolicy/nginx/nginx\",\n        \"PodDisruptionBudget/nginx/nginx\",\n        \"Service/nginx/nginx\",\n        \"ServiceAccount/nginx/nginx\"\n      ]\n    },\n    \"comparison\": {\n      \"status\": \"compared\",\n      \"objectSet\": {\n        \"name\": \"reviewed-render.yaml\",\n        \"sha256\": \"sha256:ec4195803615b2e0d31e82488a16e0ab190ade8ddb0d3b892ceee6c3a724c8b6\",\n        \"objectCount\": 5,\n        \"objects\": [\n          \"Deployment/nginx/nginx\",\n          \"NetworkPolicy/nginx/nginx\",\n          \"PodDisruptionBudget/nginx/nginx\",\n          \"Service/nginx/nginx\",\n          \"ServiceAccount/nginx/nginx\"\n        ]\n      },\n      \"added\": [],\n      \"removed\": [],\n      \"changed\": [\n        \"Deployment/nginx/nginx\"\n      ],\n      \"unchanged\": [\n        \"NetworkPolicy/nginx/nginx\",\n        \"PodDisruptionBudget/nginx/nginx\",\n        \"Service/nginx/nginx\",\n        \"ServiceAccount/nginx/nginx\"\n      ],\n      \"noOp\": []\n    },\n    \"assessment\": {\n      \"stages\": [\n        {\n          \"id\": \"inspection\",\n          \"question\": \"What do I have?\",\n          \"answer\": \"The review received 5 Kubernetes object(s) from bitnami/nginx. It inspected the supplied files, not an unstated source or destination.\",\n          \"requiredInputs\": [\n            \"source identity or exact files\",\n            \"candidate Kubernetes objects\"\n          ],\n          \"catalogMatchRequired\": false,\n          \"sourceIntentRequired\": false,\n          \"destinationAccessRequired\": false,\n          \"deploymentRequired\": false,\n          \"evidenceState\": \"completed\",\n          \"resultState\": \"available\",\n          \"records\": [\n            \"candidate.yaml\",\n            \"source-and-intent.yaml\"\n          ],\n          \"nextAction\": \"Confirm that the supplied source identity and files are the ones you intended to review.\"\n        },\n        {\n          \"id\": \"materialization\",\n          \"question\": \"What will it produce?\",\n          \"answer\": \"The exact candidate objects are available, but this review did not rerun the source-native materialization tool. Keep the source and intent record if you need to reproduce them.\",\n          \"requiredInputs\": [\n            \"source and intent\",\n            \"source-native materialization tool\",\n            \"exact candidate objects\"\n          ],\n          \"catalogMatchRequired\": false,\n          \"sourceIntentRequired\": true,\n          \"destinationAccessRequired\": false,\n          \"deploymentRequired\": false,\n          \"evidenceState\": \"not-run\",\n          \"resultState\": \"available\",\n          \"records\": [\n            \"candidate.yaml\",\n            \"source-and-intent.yaml\"\n          ],\n          \"nextAction\": \"Rerun the source-native tool with recorded inputs when source-to-output reproduction is required.\"\n        },\n        {\n          \"id\": \"destination\",\n          \"question\": \"Can this destination accept it?\",\n          \"answer\": \"No destination facts were supplied or checked by this local review.\",\n          \"requiredInputs\": [\n            \"exact candidate\",\n            \"named destination\",\n            \"current destination facts\"\n          ],\n          \"catalogMatchRequired\": false,\n          \"sourceIntentRequired\": false,\n          \"destinationAccessRequired\": true,\n          \"deploymentRequired\": false,\n          \"evidenceState\": \"blocked\",\n          \"resultState\": \"not-run\",\n          \"records\": [],\n          \"nextAction\": \"Check the exact candidate against the chosen destination before deployment.\"\n        },\n        {\n          \"id\": \"post-deployment\",\n          \"question\": \"Did it work?\",\n          \"answer\": \"This local review did not deploy the candidate or inspect a live result.\",\n          \"requiredInputs\": [\n            \"exact delivered revision\",\n            \"named destination\",\n            \"claim-specific live evidence\"\n          ],\n          \"catalogMatchRequired\": false,\n          \"sourceIntentRequired\": false,\n          \"destinationAccessRequired\": true,\n          \"deploymentRequired\": true,\n          \"evidenceState\": \"not-run\",\n          \"resultState\": \"not-run\",\n          \"records\": [],\n          \"nextAction\": \"After deployment, record the controller, resource, workload, runtime, drift, or rollback result that answers the claim.\"\n        }\n      ]\n    },\n    \"checks\": {\n      \"method\": \"cub-check-workshop-composition-v1\",\n      \"scope\": \"Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.\",\n      \"findings\": [],\n      \"notChecked\": [\n        \"source rendering and values provenance beyond the supplied source record\",\n        \"Kubernetes schema and admission behavior\",\n        \"hook execution and CRD establishment\",\n        \"live workload health and drift\",\n        \"database migrations and external services\"\n      ],\n      \"advisoryReceipts\": [\n        {\n          \"authority\": \"local-advisory\",\n          \"tool\": \"cub-scan\",\n          \"version\": \"v0.7.3\",\n          \"schemaVersion\": \"risk-scan-findings-v1\",\n          \"scanTime\": \"2026-08-24T21:50:08Z\",\n          \"catalogVersion\": \"risk-catalog-v1.json@7ff79a126ad9\",\n          \"patternBundle\": {\n            \"schemaVersion\": \"bundle-manifest-v1\",\n            \"version\": \"v0.7.3\",\n            \"sourceRepo\": \"confighubai/confighub-scan\",\n            \"manifestSha256\": \"sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8\",\n            \"catalogSha256\": \"sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba\"\n          },\n          \"input\": {\n            \"objectCount\": 5,\n            \"objectSetSha256\": \"sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2\"\n          },\n          \"findingCount\": 0,\n          \"findingIds\": []\n        }\n      ]\n    },\n    \"findingDecisions\": {\n      \"status\": \"not-required\",\n      \"candidateObjectSetSha256\": \"sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2\",\n      \"outcomes\": []\n    },\n    \"finding\": \"\",\n    \"recommendation\": \"Review the findings and the checks that did not run before keeping or promoting this configuration.\",\n    \"lifecycle\": {\n      \"record\": \"byo-nginx-ai-values-24-0-2-reviewed\",\n      \"requirements\": [\n        {\n          \"detail\": \"The destination must supply the AI provider Secret before delivery.\",\n          \"id\": \"nginx/ai-provider-credentials\",\n          \"origin\": \"reviewed-values\",\n          \"type\": \"target-fact\"\n        }\n      ],\n      \"routes\": [],\n      \"targetFacts\": {\n        \"declared\": {\n          \"requiredSecrets\": [\n            {\n              \"keys\": [\n                \"AI_API_KEY\"\n              ],\n              \"name\": \"ai-provider-credentials\",\n              \"namespace\": \"nginx\"\n            }\n          ]\n        },\n        \"records\": [\n          \"data/byo-helm-values-review/review.yaml\"\n        ],\n        \"requirementRefs\": [\n          \"nginx/ai-provider-credentials\"\n        ],\n        \"status\": \"recorded\"\n      },\n      \"resolution\": {\n        \"records\": [\n          \"runs/byo-helm-values-deploy-proof/receipt.yaml\",\n          \"runs/byo-helm-values-staging-deploy-proof/receipt.yaml\"\n        ],\n        \"rule\": \"Recheck the required Secret and any lifecycle-sensitive change for each new destination.\",\n        \"status\": \"resolved-for-development-and-staging-proof\"\n      }\n    },\n    \"catalog\": {\n      \"status\": \"exact\",\n      \"url\": \"https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html\"\n    }\n  }\n}\n"
       }
     ],
     "checks": {

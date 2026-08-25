@@ -530,6 +530,20 @@
     </details>
   </header>
   <main>
+    <section aria-labelledby="check-scope">
+      <h2 id="check-scope">What This Page Can Answer</h2>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What happens here</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The page inventories and compares the exact rendered objects you provide. A local assistant can also inspect the source, values, or package.</td></tr><tr><td>What will it produce?</td><td>Helm, AICR, Timoni, or another source tool runs on your machine. The browser checks its output; it does not run the source processor.</td></tr><tr><td>Can this destination accept it?</td><td>Not from browser files alone. Run a destination check with the exact candidate and current target facts.</td></tr><tr><td>Did it work?</td><td>Not before deployment. Record controller, resource, runtime, drift, and rollback results after the exact revision is delivered.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
+    </section>
     <section aria-labelledby="build-prompt">
       <h2 id="build-prompt">Start with a chart and values</h2>
       <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
@@ -621,7 +635,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <p><label for="source-type"><strong>Starting format</strong></label><br>
             <select id="source-type" style="width:100%;padding:10px;margin-top:6px">
               <option value="helm">Helm chart and values</option>
-              <option value="aicr">AICR recipe</option>
+              <option value="aicr">AICR generated configuration</option>
               <option value="timoni">Timoni module or bundle</option>
               <option value="oci">OCI package</option>
               <option value="kubernetes-yaml">Kubernetes YAML</option>

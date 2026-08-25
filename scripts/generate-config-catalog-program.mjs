@@ -1907,6 +1907,42 @@ function validateRecords(records) {
       ),
       `${record.metadata.name} has no materialization status`,
     );
+    const assessmentStages = record.spec?.assessment?.stages ?? [];
+    check(
+      sameJson(
+        assessmentStages.map((stage) => stage.id),
+        ["inspection", "materialization", "destination", "post-deployment"],
+      ),
+      `${record.metadata.name} does not carry the four assessment stages in order`,
+    );
+    for (const stage of assessmentStages) {
+      check(
+        stage.question
+          && stage.answer
+          && Array.isArray(stage.requiredInputs)
+          && stage.requiredInputs.length > 0
+          && typeof stage.catalogMatchRequired === "boolean"
+          && typeof stage.sourceIntentRequired === "boolean"
+          && typeof stage.destinationAccessRequired === "boolean"
+          && typeof stage.deploymentRequired === "boolean"
+          && ["completed", "pending", "not-run", "blocked", "not-applicable"].includes(stage.evidenceState)
+          && ["available", "pass", "watch", "fail", "pending", "not-run", "blocked", "not-applicable"].includes(stage.resultState)
+          && Array.isArray(stage.records)
+          && stage.nextAction,
+        `${record.metadata.name}/${stage.id} has an incomplete assessment contract`,
+      );
+    }
+    check(
+      assessmentStages[0].destinationAccessRequired === false
+        && assessmentStages[0].deploymentRequired === false
+        && assessmentStages[1].destinationAccessRequired === false
+        && assessmentStages[1].deploymentRequired === false
+        && assessmentStages[2].destinationAccessRequired === true
+        && assessmentStages[2].deploymentRequired === false
+        && assessmentStages[3].destinationAccessRequired === true
+        && assessmentStages[3].deploymentRequired === true,
+      `${record.metadata.name} blurs inspection, destination, and post-deployment prerequisites`,
+    );
     check(
       [
         "born-flattened",
@@ -3377,6 +3413,7 @@ function alignRecordWithProcessingModel(record, intent) {
   const processing = processingRecord(record, intent, identity);
   const lifecycle = lifecycleRecord(record, intent, legacyRouting);
   const ownership = ownershipRecord(record, intent, legacyRouting);
+  const assessment = assessmentRecord(record, processing, lifecycle);
   const {
     source,
     baseVariant,
@@ -3402,6 +3439,7 @@ function alignRecordWithProcessingModel(record, intent) {
       digestRecord: identity.objectSet.digestRecord,
     },
     processing,
+    assessment,
     inputs,
     lifecycle,
     ownership,
@@ -3550,6 +3588,249 @@ function processingRecord(record, intent, identity) {
     flattening: flatteningRecord(record, intent),
     boundaries,
   };
+}
+
+function assessmentRecord(record, processing, lifecycle) {
+  const sourceType = record.spec.source.type;
+  const materialization = processing.materialization;
+  const materialized = ["captured", "recorded-no-op"].includes(materialization.status);
+  const literalSource = materialization.status === "recorded-no-op";
+  const destination = destinationAssessment(lifecycle);
+  const runtime = postDeploymentAssessment(record);
+
+  return {
+    stages: [
+      {
+        id: "inspection",
+        question: "What do I have?",
+        answer: inspectionAnswer(sourceType),
+        requiredInputs: [inspectionInput(sourceType)],
+        catalogMatchRequired: false,
+        sourceIntentRequired: false,
+        destinationAccessRequired: false,
+        deploymentRequired: false,
+        evidenceState: "completed",
+        resultState: "available",
+        records: compactUnique([
+          record.spec.source.record,
+          record.spec.configuration.objects,
+          record.spec.configuration.inventory,
+        ]),
+        nextAction: "Inspect or compare the source and exact files before choosing a destination.",
+      },
+      {
+        id: "materialization",
+        question: "What will it produce?",
+        answer: literalSource
+          ? "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step."
+          : `Run the recorded ${materializationMethodName(materialization.method)} step to produce the exact Kubernetes objects for this configuration.`,
+        requiredInputs: [materializationInput(sourceType)],
+        catalogMatchRequired: false,
+        sourceIntentRequired: !literalSource,
+        destinationAccessRequired: false,
+        deploymentRequired: false,
+        evidenceState: materialized
+          ? "completed"
+          : materialization.status === "gap" ? "pending" : "not-run",
+        resultState: materialized
+          ? "pass"
+          : materialization.status === "gap" ? "pending" : "not-run",
+        records: compactUnique([
+          processing.sourceIntent.record,
+          materialization.record,
+          record.spec.configuration.digestRecord,
+        ]),
+        nextAction: materialized
+          ? "Review the exact object set and its digest."
+          : "Supply the named source inputs and run the source processor before reviewing or deploying anything.",
+      },
+      {
+        id: "destination",
+        question: "Can this destination accept it?",
+        answer: destination.answer,
+        requiredInputs: [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts",
+        ],
+        catalogMatchRequired: false,
+        sourceIntentRequired: true,
+        destinationAccessRequired: true,
+        deploymentRequired: false,
+        evidenceState: destination.evidenceState,
+        resultState: destination.resultState,
+        records: destination.records,
+        nextAction: destination.nextAction,
+      },
+      {
+        id: "post-deployment",
+        question: "Did it work?",
+        answer: runtime.answer,
+        requiredInputs: [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim",
+        ],
+        catalogMatchRequired: false,
+        sourceIntentRequired: true,
+        destinationAccessRequired: true,
+        deploymentRequired: true,
+        evidenceState: runtime.evidenceState,
+        resultState: runtime.resultState,
+        records: runtime.records,
+        nextAction: runtime.nextAction,
+      },
+    ],
+  };
+}
+
+function destinationAssessment(lifecycle) {
+  const resolution = lifecycle.resolution ?? {};
+  const targetFacts = lifecycle.targetFacts ?? {};
+  const records = compactUnique([
+    ...(targetFacts.records ?? []),
+    ...(resolution.records ?? []),
+  ]);
+  if (resolution.status === "resolved-for-recorded-targets") {
+    return {
+      answer: "A destination-specific lifecycle plan is recorded for the named target and delivery runtime.",
+      evidenceState: "completed",
+      resultState: "pass",
+      records,
+      nextAction: "Recheck the plan if the variant, destination, or delivery runtime changes.",
+    };
+  }
+  if (resolution.status === "blocked") {
+    return {
+      answer: "The destination check is blocked. The recorded plan names the prerequisite or route that is still missing.",
+      evidenceState: "blocked",
+      resultState: "blocked",
+      records,
+      nextAction: "Resolve the named prerequisite or route, then run the destination check again.",
+    };
+  }
+  if (resolution.status === "gap" || targetFacts.status === "gap") {
+    return {
+      answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+      evidenceState: "pending",
+      resultState: "pending",
+      records,
+      nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+    };
+  }
+  return {
+    answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+    evidenceState: "not-run",
+    resultState: "not-run",
+    records,
+    nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+  };
+}
+
+function postDeploymentAssessment(record) {
+  const delivery = record.spec.delivery ?? {};
+  const statuses = [delivery.argoCd, delivery.flux, delivery.direct]
+    .filter((value) => typeof value === "string" && value);
+  const records = compactUnique([
+    delivery.receipt,
+    ...Object.entries(record.spec.evidence ?? {})
+      .filter(([key, value]) =>
+        typeof value === "string"
+        && /(runtime|delivery|gitops|sync|live|observation|rollout)/i.test(key)
+        && existsRepo(value))
+      .map(([, value]) => value),
+  ]);
+  if (statuses.some((status) => status === "pass" || status.startsWith("live-pass"))) {
+    return {
+      answer: "A recorded delivery path reached its checked live result for this exact configuration.",
+      evidenceState: "completed",
+      resultState: "pass",
+      records,
+      nextAction: "Read the receipt for the target, checks, limits, and observation time before relying on the result.",
+    };
+  }
+  if (statuses.some((status) => status.startsWith("separately-proved"))) {
+    return {
+      answer: "A related runtime path has evidence, but it differs from this exact base or package output and must not be treated as identical.",
+      evidenceState: "completed",
+      resultState: "watch",
+      records,
+      nextAction: "Run the live check for this exact configuration before making a base-specific runtime claim.",
+    };
+  }
+  if (statuses.some((status) => status.includes("blocked"))) {
+    return {
+      answer: "The post-deployment check is blocked, so there is no live success result for this configuration.",
+      evidenceState: "blocked",
+      resultState: "blocked",
+      records,
+      nextAction: "Resolve the recorded blocker, deliver the exact revision, and repeat the live checks.",
+    };
+  }
+  return {
+    answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+    evidenceState: "not-run",
+    resultState: "not-run",
+    records,
+    nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+  };
+}
+
+function inspectionInput(sourceType) {
+  return {
+    helm: "The chart and values, a rendered object set, or a package that contains them",
+    aicr: "An AICR snapshot, recipe, generated bundle, or exact generated output",
+    timoni: "A Timoni module or bundle, its schema and values, or built output",
+    kubara: "Kubara selections, generated platform files, or the retained source record",
+    sveltos: "The Sveltos objects and any nested source references",
+    "cub-installer": "The installer package OCI or its unpacked files",
+    "source-oci": "The source OCI manifest and its declared processor",
+    "configuration-oci": "The literal configuration OCI and its object inventory",
+    "kubernetes-yaml": "The Kubernetes YAML files",
+    confighub: "The retained ConfigHub revision",
+    "rendered-config": "The rendered Kubernetes object set",
+  }[sourceType] ?? "The source files or exact object set";
+}
+
+function materializationInput(sourceType) {
+  return {
+    helm: "The pinned chart, version, values, namespace, release name, and render capabilities",
+    aicr: "The selected AICR source and choices; a recipe is needed only for recipe-dependent generation or validation",
+    timoni: "The pinned module or bundle OCI, typed values, and Timoni build command",
+    kubara: "The Kubara source, component selections, and generator inputs",
+    sveltos: "The literal Sveltos objects; nested sources keep their own materialization step",
+    "cub-installer": "The installer package OCI, selected base, and supported install-time inputs",
+    "source-oci": "The source OCI and the processor declared by its source record",
+    "configuration-oci": "The literal configuration OCI; no source processor is required",
+    "kubernetes-yaml": "The literal Kubernetes YAML; no source processor is required",
+    confighub: "The retained ConfigHub revision; no source processor is required",
+    "rendered-config": "The rendered Kubernetes objects; no source processor is required",
+  }[sourceType] ?? "The source, its processing intent, and the required processor";
+}
+
+function inspectionAnswer(sourceType) {
+  if (sourceType === "aicr") {
+    return "Inspect or compare an AICR snapshot without selecting a recipe. Recipes are needed only when you want recipe-dependent generation or checks.";
+  }
+  if (["configuration-oci", "kubernetes-yaml", "rendered-config", "confighub"].includes(sourceType)) {
+    return "Read and compare the exact Kubernetes objects and their digest without running a source processor.";
+  }
+  return `Inspect the ${sourceType} source, choices, locks, and any existing output before selecting a destination.`;
+}
+
+function materializationMethodName(method) {
+  return {
+    "helm-render": "Helm render",
+    "aicr-compose": "AICR composition",
+    "aicr-compose-then-helm-render": "AICR composition and wrapper render",
+    "timoni-build": "Timoni build",
+    generator: "source generation",
+    "source-oci-processor": "source OCI processing",
+    "read-literal-configuration": "literal-configuration read",
+    "read-confighub-revision": "ConfigHub revision read",
+  }[method] ?? method;
+}
+
+function compactUnique(values) {
+  return [...new Set(values.filter((value) => typeof value === "string" && value))];
 }
 
 function flatteningRecord(record, intent) {
@@ -3996,6 +4277,14 @@ function renderRecordsCsv(records) {
     "objects",
     "source_intent_status",
     "materialization_status",
+    "inspection_evidence_state",
+    "inspection_result_state",
+    "materialization_evidence_state",
+    "materialization_result_state",
+    "destination_evidence_state",
+    "destination_result_state",
+    "post_deployment_evidence_state",
+    "post_deployment_result_state",
     "flattening_verdict",
     "lifecycle_requirements_status",
     "route_intent_status",
@@ -4012,6 +4301,10 @@ function renderRecordsCsv(records) {
     "live_space",
   ];
   const rows = records.map((record) => {
+    const inspection = assessmentStage(record, "inspection");
+    const materialization = assessmentStage(record, "materialization");
+    const destination = assessmentStage(record, "destination");
+    const postDeployment = assessmentStage(record, "post-deployment");
     const row = {
       name: record.metadata.name,
       source_type: record.spec.source.type,
@@ -4027,6 +4320,14 @@ function renderRecordsCsv(records) {
       objects: record.spec.configuration.objects,
       source_intent_status: record.spec.processing.sourceIntent.status,
       materialization_status: record.spec.processing.materialization.status,
+      inspection_evidence_state: inspection.evidenceState,
+      inspection_result_state: inspection.resultState,
+      materialization_evidence_state: materialization.evidenceState,
+      materialization_result_state: materialization.resultState,
+      destination_evidence_state: destination.evidenceState,
+      destination_result_state: destination.resultState,
+      post_deployment_evidence_state: postDeployment.evidenceState,
+      post_deployment_result_state: postDeployment.resultState,
       flattening_verdict: record.spec.processing.flattening.verdict,
       lifecycle_requirements_status: record.spec.lifecycle.requirements.status,
       route_intent_status: record.spec.lifecycle.routeIntent.status,
@@ -4045,6 +4346,10 @@ function renderRecordsCsv(records) {
     return headers.map((header) => csvCell(row[header] ?? "")).join(",");
   });
   return `${headers.join(",")}\n${rows.join("\n")}\n`;
+}
+
+function assessmentStage(record, id) {
+  return record.spec.assessment.stages.find((stage) => stage.id === id) ?? {};
 }
 
 function renderBaseSummary(records) {
@@ -4067,6 +4372,15 @@ function renderBaseSummary(records) {
     (record) => record.spec.lifecycle.resolution.status,
   );
   const ownershipCounts = countBy(records, (record) => record.spec.ownership.status);
+  const assessmentCounts = Object.fromEntries(
+    ["inspection", "materialization", "destination", "post-deployment"].map((id) => [
+      id,
+      {
+        evidence: countBy(records, (record) => assessmentStage(record, id).evidenceState),
+        result: countBy(records, (record) => assessmentStage(record, id).resultState),
+      },
+    ]),
+  );
   const resolvedRouteCount = records.filter(
     (record) => record.spec.lifecycle.resolution.status === "resolved-for-recorded-targets",
   ).length;
@@ -4113,10 +4427,14 @@ The processing coverage is explicit rather than inferred:
 - Portable route intents: ${formatCounts(routeIntentCounts)}.
 - Variant-and-destination route resolution: ${formatCounts(routeResolutionCounts)}.
 - Field ownership: ${formatCounts(ownershipCounts)}.
+- Inspection evidence: ${formatCounts(assessmentCounts.inspection.evidence)}; results: ${formatCounts(assessmentCounts.inspection.result)}.
+- Materialization evidence: ${formatCounts(assessmentCounts.materialization.evidence)}; results: ${formatCounts(assessmentCounts.materialization.result)}.
+- Destination evidence: ${formatCounts(assessmentCounts.destination.evidence)}; results: ${formatCounts(assessmentCounts.destination.result)}.
+- Post-deployment evidence: ${formatCounts(assessmentCounts["post-deployment"].evidence)}; results: ${formatCounts(assessmentCounts["post-deployment"].result)}.
 
 ## Model and Catalog alignment
 
-All **${records.length}/${records.length} records** use the same source-neutral structure. Every row identifies its source record, base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits.
+All **${records.length}/${records.length} records** use the same source-neutral structure. Every row identifies its source record, base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits. Every row also answers the same four questions separately: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.
 
 The evidence is not complete for every row:
 
@@ -4138,6 +4456,7 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 | --- | --- |
 | Where did this configuration come from? | \`spec.source\` |
 | Which exact configuration is managed? | \`spec.configuration\` |
+| Which of the four questions has evidence, and which prerequisites were used? | \`spec.assessment\` |
 | How were the objects produced, and may they be flattened? | \`spec.processing\` |
 | What was fixed and what remains to set? | \`spec.inputs\` |
 | What must happen around ordinary apply, and has it been resolved for a target? | \`spec.lifecycle\` |
@@ -4165,6 +4484,7 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 
 - [records.csv](./records.csv) is the compact index.
 - [records.json](./records.json) contains every generated record.
+- [Cross-format assessment cases](../config-assessment-stages/summary.md) test the four questions and their prerequisites.
 - [schemas/base-variant-record.schema.json](../../schemas/base-variant-record.schema.json) defines the record shape.
 - [Config catalog doctrine](../../docs/reference/config-catalog-doctrine.md) explains how the sources, variants, policy, delivery, and Apps fit together.
 `;
