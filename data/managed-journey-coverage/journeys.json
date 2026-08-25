@@ -22,6 +22,7 @@
         "question": "Can I turn Helm values written by AI into exact reviewed objects and OCI?",
         "technicalResult": "pass",
         "userTrial": "not-run",
+        "userTrialEvidence": [],
         "verify": [
           "npm run byo-helm-values:verify",
           "npm run byo-helm-values:public-verify"
@@ -37,6 +38,7 @@
         "question": "Can I retain the same reviewed OCI as a ConfigHub base without changing its objects?",
         "technicalResult": "pass",
         "userTrial": "not-run",
+        "userTrialEvidence": [],
         "verify": [
           "npm run byo-helm-values:verify",
           "npm run byo-helm-values:live-verify"
@@ -52,6 +54,7 @@
         "question": "Can I test exact candidates, compare the accepted result with production, and promote the selected revision?",
         "technicalResult": "pass",
         "userTrial": "not-run",
+        "userTrialEvidence": [],
         "verify": [
           "npm run measured-promotion:verify"
         ]
@@ -67,6 +70,7 @@
         "question": "Can I check hooks, CRDs, prerequisites, namespaces, and delivery mechanics after the final candidate exists?",
         "technicalResult": "pass",
         "userTrial": "not-run",
+        "userTrialEvidence": [],
         "verify": [
           "npm run kps:confighub-lifecycle-promotion:verify"
         ]
@@ -81,6 +85,7 @@
         "question": "Can I promote an exact ConfigHub release, deliver it through GitOps, and check the resulting live state?",
         "technicalResult": "pass",
         "userTrial": "not-run",
+        "userTrialEvidence": [],
         "verify": [
           "npm run kps:confighub-lifecycle-promotion:verify"
         ]
@@ -96,6 +101,7 @@
         "question": "Can a useful public investigation become a retained Catalog answer with its decision and limits visible?",
         "technicalResult": "pass",
         "userTrial": "not-run",
+        "userTrialEvidence": [],
         "verify": [
           "npm run config-review-decision:verify",
           "npm run site:verify"

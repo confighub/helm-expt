@@ -444,7 +444,7 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Updated: 2026-08-24</p>
+<p>Updated: 2026-08-25</p>
 <p>This is the canonical record for the automated website journey checks. It does not replace the <a href="../reference/config-catalog-doctrine.html#business-purpose-and-user-journey">business purpose and user journey</a>, and it is not user research.</p>
 <h2 id="what-the-simulation-does">What the simulation does</h2>
 <p>Four deterministic walkers represent an application developer, GitOps operator, platform engineer, and release reviewer. Each walker starts from every main page, follows visible internal links up to the configured click limit, and looks for the facts and next action required by one practical task. The original runs allowed five clicks; the latest first-use runs allow three.</p>
@@ -482,6 +482,7 @@
 <p>The repository now has one machine-run NGINX path that retains the accepted object set in ConfigHub, creates a staging variant, previews and performs a promotion, and binds the accepted object identity to the retained Unit. This proves that the current commands can complete that bounded path. It does not show that an ordinary user can discover or complete it easily. The next tests should therefore be end-to-end tasks rather than another general navigation sweep:</p>
 <ol><li>Take AI-written Helm values through exact comparison to a reviewed OCI.</li><li>Retain that reviewed OCI as a ConfigHub base.</li><li>Change the base for staging and compare the candidate with production.</li><li>Check hooks, CRDs, and destination requirements before promotion.</li><li>Promote an exact release, deliver it through Argo CD or Flux, and compare it with live state.</li><li>Turn a useful public investigation into a retained Catalog answer.</li></ol>
 <p>The <a href="../../data/managed-journey-coverage/summary.html">managed journey coverage</a> records these six tasks separately. All six have a committed technical proof and verifier. None has passed an outside-user trial. Keeping those results separate prevents a working test harness from being mistaken for a usable product journey.</p>
+<p>The <a href="outside-user-test.html">outside-user protocol</a> now uses these same six journeys. A user pass requires a durable artifact, an understood limitation, and preserved object identity. It also records the route taken, alternative paths, and first drop-off. Reaching a page within three clicks does not satisfy that protocol.</p>
 <p>One automated Kube Prometheus Stack run now covers the technical core of tasks 3, 4, and 5 for a lifecycle-heavy chart: retained base, staging candidate, destination preflight, approval, exact release OCI, Argo CD reconciliation, and live checks. It also caught an invalid namespace rewrite before the accepted release. This is machine evidence for one exact path. It is not evidence that an ordinary user can discover or complete the path without help, and it does not cover rollback.</p>
 <p>The website reflects the intended sequence. The next proof must come from people completing it and finding that the retained result saves work when the configuration changes again.</p>
 <h2 id="stable-findings">Stable findings</h2>

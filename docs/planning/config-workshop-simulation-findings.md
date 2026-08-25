@@ -1,6 +1,6 @@
 # Config Workshop simulation findings
 
-Updated: 2026-08-24
+Updated: 2026-08-25
 
 This is the canonical record for the automated website journey checks. It does
 not replace the [business purpose and user journey](../reference/config-catalog-doctrine.md#business-purpose-and-user-journey),
@@ -125,6 +125,12 @@ The [managed journey coverage](../../data/managed-journey-coverage/summary.md)
 records these six tasks separately. All six have a committed technical proof and
 verifier. None has passed an outside-user trial. Keeping those results separate
 prevents a working test harness from being mistaken for a usable product journey.
+
+The [outside-user protocol](./outside-user-test.md) now uses these same six
+journeys. A user pass requires a durable artifact, an understood limitation, and
+preserved object identity. It also records the route taken, alternative paths,
+and first drop-off. Reaching a page within three clicks does not satisfy that
+protocol.
 
 One automated Kube Prometheus Stack run now covers the technical core of tasks 3,
 4, and 5 for a lifecycle-heavy chart: retained base, staging candidate, destination

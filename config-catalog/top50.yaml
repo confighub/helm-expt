@@ -285,7 +285,6 @@ spec:
         - npm run helm-render-intents:contracts:verify
         - npm run lifecycle:routes:verify
       next: Work through the generated route and target-prerequisite gaps until every base has an exact attached contract or an explicit no-extra-work decision.
-      issue: https://github.com/confighub/helm-expt/issues/1037
 
     - id: T19
       area: ConfigHub records
