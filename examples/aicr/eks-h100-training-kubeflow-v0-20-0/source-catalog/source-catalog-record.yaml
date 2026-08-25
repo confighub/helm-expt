@@ -6,12 +6,20 @@ spec:
   provider:
     name: "NVIDIA"
     role: "source-catalog-curator"
+    identity: "https://github.com/NVIDIA/aicr"
   source:
     project: "NVIDIA AICR"
     repository: "https://github.com/NVIDIA/aicr"
     version: "v0.20.0"
     tag: "v0.20.0"
     commit: "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+  catalog:
+    name: "NVIDIA AICR built-in catalog"
+    format: "aicr-embedded-catalog"
+    version: "v0.20.0"
+    record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/catalog-list.json"
+    digest: "sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
+    digestRole: "source-catalog-content"
   inventories:
     sourceTreeOverlays:
       count: 103
@@ -28,8 +36,9 @@ spec:
       pendingEvidence: 43
       record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/recipe-health.md"
       recordSha256: "64854e7878acea6de17cb886b840fdb5b7768ab49046e23c42dae4df0e476c7a"
-  selectedSourceVariant:
+  selection:
     name: "h100-eks-ubuntu-training-kubeflow"
+    kind: "source-variant"
     source: "embedded"
     dimensions:
       service: "eks"
@@ -38,7 +47,6 @@ spec:
       intent: "training"
       platform: "kubeflow"
     structuralStatus: "pass"
-    linkedEvidence: "[eks/h100-ubuntu/training-kubeflow](https://validation.aicr.run/#/eks/h100-ubuntu/training-kubeflow)"
     appliedOverlays:
       - "base"
       - "monitoring-hpa"
@@ -48,10 +56,17 @@ spec:
       - "h100-eks-training"
       - "h100-eks-ubuntu-training"
       - "h100-eks-ubuntu-training-kubeflow"
-    exactRecipe:
+    record:
       path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml"
-      sha256: "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5"
-      componentCount: 15
+      digest: "sha256:f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5"
+      digestRole: "selected-source-variant"
+    componentCount: 15
+    evidence:
+      status: "provider-linked"
+      records:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/recipe-health.md"
+      references:
+        - "[eks/h100-ubuntu/training-kubeflow](https://validation.aicr.run/#/eks/h100-ubuntu/training-kubeflow)"
   interpretation:
     sourceVariant: "The provider-curated leaf selected from this exact catalog instance."
     retainedBaseVariant: "The exact objects later retained from this source variant, with separate digests and evidence."
@@ -66,6 +81,6 @@ spec:
     - "The selected source variant does not prove that its generated objects ran on EKS or H100 through ConfigHub."
 status:
   result: "pass"
-  sourceCatalogRetained: true
+  catalogDigestVerified: true
   selectedVariantReproducible: true
   runtimeProven: false

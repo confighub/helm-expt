@@ -14,6 +14,7 @@ import {
   repoRoot,
   sha256,
 } from "./lib/proof-common.mjs";
+import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 
 const root = join(
   repoRoot,
@@ -36,6 +37,11 @@ const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
 const releaseReceiptPath = join(root, "confighub-release-oci-receipt.yaml");
 const expected = receipt.spec?.processing?.transport ?? {};
+const sourceCatalogImport = resolveSourceCatalogImports().find(
+  (item) => item.baseVariantRecord
+    === "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+);
+check(sourceCatalogImport, "AICR v0.20.0 source-catalog import is missing");
 
 verifySourceChecksums();
 verifySourceLayout();
@@ -263,20 +269,17 @@ function verifyFlatteningVerdict() {
 
 function verifySupportingRecords() {
   const sourceCatalog = readYaml(sourceCatalogPath);
-  check(sourceCatalog.kind === "SourceCatalogRecord", "source catalog record has the wrong kind");
   check(
-    sourceCatalog.spec?.provider?.role === "source-catalog-curator",
-    "source catalog record does not name the provider's curation role",
-  );
-  check(
-    sourceCatalog.spec?.selectedSourceVariant?.name === "h100-eks-ubuntu-training-kubeflow",
-    "source catalog record selects a different source variant",
-  );
-  check(
-    sourceCatalog.status?.sourceCatalogRetained === true
+    sourceCatalog.spec?.provider?.name === "NVIDIA"
+      && sourceCatalog.spec?.provider?.role === "source-catalog-curator"
+      && sourceCatalog.spec?.catalog?.digest
+        === "sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
+      && sourceCatalog.spec?.selection?.name
+        === "h100-eks-ubuntu-training-kubeflow"
+      && sourceCatalog.status?.catalogDigestVerified === true
       && sourceCatalog.status?.selectedVariantReproducible === true
       && sourceCatalog.status?.runtimeProven === false,
-    "source catalog record overstates or omits its retained-source status",
+    "source catalog record lost its provider, catalog digest, selection, or claim boundary",
   );
 
   const routeIntent = readYaml(routeIntentPath);

@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.com/helm-expt/schemas/source-catalog-record.schema.json",
+  "title": "Config Catalog Source Catalog Record",
+  "description": "A versioned record for one provider-curated source catalog and one selected source variant. It records the provider, exact catalog content, selection dimensions, selection input, and the evidence that belongs to the provider layer before any ConfigHub base or derived variant exists.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "SourceCatalogRecord"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "source",
+        "catalog",
+        "inventories",
+        "selection",
+        "interpretation",
+        "limits"
+      ],
+      "properties": {
+        "provider": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "role", "identity"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "role": { "const": "source-catalog-curator" },
+            "identity": { "type": "string", "minLength": 1 }
+          }
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["project", "repository", "version", "commit"],
+          "properties": {
+            "project": { "type": "string", "minLength": 1 },
+            "repository": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "tag": { "type": "string" },
+            "commit": { "type": "string", "minLength": 1 }
+          }
+        },
+        "catalog": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "format", "version", "record", "digest", "digestRole"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "format": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "record": { "type": "string", "minLength": 1 },
+            "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+            "digestRole": { "const": "source-catalog-content" }
+          }
+        },
+        "inventories": {
+          "type": "object"
+        },
+        "selection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "kind",
+            "dimensions",
+            "record",
+            "structuralStatus",
+            "evidence"
+          ],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "kind": { "const": "source-variant" },
+            "source": { "type": "string" },
+            "dimensions": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": { "type": "string" }
+            },
+            "record": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "digest", "digestRole"],
+              "properties": {
+                "path": { "type": "string", "minLength": 1 },
+                "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+                "digestRole": { "const": "selected-source-variant" }
+              }
+            },
+            "structuralStatus": { "type": "string", "minLength": 1 },
+            "appliedOverlays": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "componentCount": { "type": "integer", "minimum": 0 },
+            "evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["status", "records", "references"],
+              "properties": {
+                "status": {
+                  "enum": ["provider-linked", "provider-pending", "not-recorded"]
+                },
+                "records": {
+                  "type": "array",
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "references": {
+                  "type": "array",
+                  "items": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          }
+        },
+        "interpretation": { "type": "object" },
+        "normalization": { "type": "object" },
+        "limits": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result",
+        "catalogDigestVerified",
+        "selectedVariantReproducible",
+        "runtimeProven"
+      ],
+      "properties": {
+        "result": { "enum": ["pass", "partial", "blocked"] },
+        "catalogDigestVerified": { "type": "boolean" },
+        "selectedVariantReproducible": { "type": "boolean" },
+        "runtimeProven": { "type": "boolean" }
+      }
+    }
+  }
+}

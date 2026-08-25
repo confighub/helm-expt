@@ -13,14 +13,36 @@ spec:
     name: "eks-h100-training-kubeflow"
     version: "v0.20.0"
     record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
-    sourceVariant: "h100-eks-ubuntu-training-kubeflow"
-    sourceCatalog: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:0.20.0"
     selection:
       name: "h100-eks-ubuntu-training-kubeflow"
       kind: "source-variant"
-      provider: "NVIDIA AICR"
+      provider: "NVIDIA"
+      providerRole: "source-catalog-curator"
+      providerIdentity: "https://github.com/NVIDIA/aicr"
       record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
+      catalog:
+        name: "NVIDIA AICR built-in catalog"
+        version: "v0.20.0"
+        digest: "sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
+        digestRole: "source-catalog-content"
+        record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/catalog-list.json"
+      dimensions:
+        accelerator: "h100"
+        intent: "training"
+        os: "ubuntu"
+        platform: "kubeflow"
+        service: "eks"
+      selectionRecord:
+        digest: "sha256:f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5"
+        digestRole: "selected-source-variant"
+        path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml"
+      evidence:
+        status: "provider-linked"
+        records:
+          - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/recipe-health.md"
+        references:
+          - "[eks/h100-ubuntu/training-kubeflow](https://validation.aicr.run/#/eks/h100-ubuntu/training-kubeflow)"
   baseVariant:
     name: "argocd"
     revision: "generated-v0.20.0"

@@ -125,6 +125,71 @@
                 "record": {
                   "type": "string",
                   "minLength": 1
+                },
+                "providerRole": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "providerIdentity": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "catalog": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "version",
+                    "digest",
+                    "digestRole",
+                    "record"
+                  ],
+                  "properties": {
+                    "name": { "type": "string", "minLength": 1 },
+                    "version": { "type": "string", "minLength": 1 },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    },
+                    "digestRole": { "const": "source-catalog-content" },
+                    "record": { "type": "string", "minLength": 1 }
+                  }
+                },
+                "dimensions": {
+                  "type": "object",
+                  "minProperties": 1,
+                  "additionalProperties": { "type": "string" }
+                },
+                "selectionRecord": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["path", "digest", "digestRole"],
+                  "properties": {
+                    "path": { "type": "string", "minLength": 1 },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    },
+                    "digestRole": { "const": "selected-source-variant" }
+                  }
+                },
+                "evidence": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["status", "records", "references"],
+                  "properties": {
+                    "status": {
+                      "enum": ["provider-linked", "provider-pending", "not-recorded"]
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": { "type": "string", "minLength": 1 }
+                    },
+                    "references": {
+                      "type": "array",
+                      "items": { "type": "string", "minLength": 1 }
+                    }
+                  }
                 }
               }
             }

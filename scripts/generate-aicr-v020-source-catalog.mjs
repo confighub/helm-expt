@@ -21,7 +21,7 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-check(["--import", "--verify"].includes(mode), "use --import or --verify");
+check(["--import", "--generate", "--verify"].includes(mode), "use --import, --generate, or --verify");
 
 const expectedCommit = "b8a6eadb2d6f7e5b62dcb93446874f383940de0f";
 const exampleRoot = join(
@@ -69,9 +69,14 @@ if (mode === "--import") {
     check(/^[0-9a-f]{64}$/.test(item.sha256), `${item.path}: invalid SHA-256`);
   }
   const expected = buildRecord(inventory);
-  const retained = readYaml(recordPath);
-  check(stableJson(retained) === stableJson(expected), `${relativeRepo(recordPath)} is stale; run --import`);
-  console.log("verified the NVIDIA AICR v0.20.0 source catalog and selected source variant");
+  if (mode === "--generate") {
+    writeYaml(recordPath, expected);
+    console.log(`wrote ${relativeRepo(recordPath)}`);
+  } else {
+    const retained = readYaml(recordPath);
+    check(stableJson(retained) === stableJson(expected), `${relativeRepo(recordPath)} is stale; run --generate`);
+    console.log("verified the NVIDIA AICR v0.20.0 source catalog and selected source variant");
+  }
 }
 
 function flagValue(name) {
@@ -113,6 +118,7 @@ function buildRecord(inventory) {
       provider: {
         name: "NVIDIA",
         role: "source-catalog-curator",
+        identity: "https://github.com/NVIDIA/aicr",
       },
       source: {
         project: "NVIDIA AICR",
@@ -120,6 +126,14 @@ function buildRecord(inventory) {
         version: "v0.20.0",
         tag: "v0.20.0",
         commit: expectedCommit,
+      },
+      catalog: {
+        name: "NVIDIA AICR built-in catalog",
+        format: "aicr-embedded-catalog",
+        version: "v0.20.0",
+        record: relativeRepo(catalogListPath),
+        digest: `sha256:${sha256(readFileSync(catalogListPath))}`,
+        digestRole: "source-catalog-content",
       },
       inventories: {
         sourceTreeOverlays: {
@@ -141,8 +155,9 @@ function buildRecord(inventory) {
           recordSha256: sha256(readFileSync(recipeHealthPath)),
         },
       },
-      selectedSourceVariant: {
+      selection: {
         name: selected.name,
+        kind: "source-variant",
         source: selected.source,
         dimensions: {
           service: selected.criteria.Service,
@@ -152,12 +167,21 @@ function buildRecord(inventory) {
           platform: selected.criteria.Platform,
         },
         structuralStatus: selected.health?.status,
-        linkedEvidence: recipeHealth.byName.get(selected.name)?.evidence ?? "pending",
         appliedOverlays: recipe.metadata.appliedOverlays,
-        exactRecipe: {
+        record: {
           path: relativeRepo(recipePath),
-          sha256: sha256(readFileSync(recipePath)),
-          componentCount: recipe.componentRefs.length,
+          digest: `sha256:${sha256(readFileSync(recipePath))}`,
+          digestRole: "selected-source-variant",
+        },
+        componentCount: recipe.componentRefs.length,
+        evidence: {
+          status: recipeHealth.byName.get(selected.name)?.evidence === "pending"
+            ? "provider-pending"
+            : "provider-linked",
+          records: [relativeRepo(recipeHealthPath)],
+          references: recipeHealth.byName.get(selected.name)?.evidence === "pending"
+            ? []
+            : [recipeHealth.byName.get(selected.name).evidence],
         },
       },
       interpretation: {
@@ -178,7 +202,7 @@ function buildRecord(inventory) {
     },
     status: {
       result: "pass",
-      sourceCatalogRetained: true,
+      catalogDigestVerified: true,
       selectedVariantReproducible: true,
       runtimeProven: false,
     },

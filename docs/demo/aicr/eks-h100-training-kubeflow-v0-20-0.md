@@ -48,6 +48,26 @@ one of those leaves. NVIDIA curates the built-in source variants. Other Catalog
 providers can add target-specific configurations. A snapshot diff alone cannot
 decide what a particular target ought to contain.
 
+The selection is now an imported record rather than metadata inferred by the
+Config Workshop generator:
+
+| Field | Retained value |
+| --- | --- |
+| Provider | NVIDIA, acting as the source-catalog curator |
+| Source catalog | NVIDIA AICR built-in catalog `v0.20.0` |
+| Catalog content digest | `sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8` |
+| Selected source variant | `h100-eks-ubuntu-training-kubeflow` |
+| Selection dimensions | `service=eks`, `accelerator=h100`, `os=ubuntu`, `intent=training`, `platform=kubeflow` |
+
+The generated
+[base-variant record](../../../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml)
+copies those fields from the source-catalog record. The
+[ConfigHub upload receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml)
+carries the same provider, catalog digest, selected variant, and dimensions beside
+the exact-object comparison. This keeps the provider's source choice separate from
+the ConfigHub base and the later development, staging, and production changes.
+Provider-linked evidence is not treated as ConfigHub delivery or runtime evidence.
+
 ## What the source produces
 
 AICR resolves the selected source variant into a recipe with 15 ordered
