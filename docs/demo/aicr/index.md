@@ -16,6 +16,11 @@ with the separate [vLLM CPU example](../../../examples/inference/vllm-cpu-starte
 It runs one real request without a GPU or cloud account. It is not an AICR entry;
 it is the accessible runtime check beside this platform catalog.
 
+If you already have GPU nodes and want to compare their current state, use the
+[snapshot and diff walkthrough](./snapshot-diff.md). It needs read access to the
+nodes but no AICR recipe or platform deployment. It shows why a difference is
+judged against the intended node variant before anyone calls it a fault.
+
 ## Which entry should I open?
 
 | Entry | What it builds | What you need | Retained version |

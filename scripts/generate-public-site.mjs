@@ -350,7 +350,7 @@ const PAGE_DESCRIPTIONS = {
   "index.html": "Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
   "offering.html": "Choose local public tools, a free ConfigHub account, or the commercial product according to the configuration work you need to do.",
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
-  "try-aicr.html": "Pull one public AICR configuration, select and verify seven CPU-starter Applications, and write a local OCI without an account or cluster.",
+  "try-aicr.html": "Compare two GPU-node snapshots against their intended roles, or pull one public AICR configuration and write a local OCI without an account or cluster.",
   "confighub.html": "Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.",
   "redis-walkthrough.html": "Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.",
   "serverless.html": "Run a public catalog package with no account and no sign-in, and keep the rendered objects under your control.",
@@ -3859,8 +3859,14 @@ aicr snapshot --output current.yaml
 aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code></pre>
     <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a variant intended for RDMA may require them.</p>
     <p>Choose the provider-curated source variant meant for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR variants. Other catalog providers can publish and review additional variants.</p>
+    ${markdownLikeTable([
+      ["Same observed target", "Result"],
+      ["Assigned to standard networking", "Pass. The two RDMA settings do not apply."],
+      ["Assigned to Mellanox RDMA", "Two findings: iommu=pt and nvidia_peermem."],
+    ])}
+    <p>The <a href="./d/docs/demo/aicr/snapshot-diff.html">complete snapshot walkthrough</a> includes a working local review command, a machine-readable result with both snapshot and profile hashes, optional local OCI output, and the commands that retain the review as non-deployable ConfigHub Units.</p>
     <p><code>expected-resources</code> answers a later question. It needs the selected variant and its declared components deployed. If those components are absent, record that check as blocked or not run; do not call it failed GPU conformance.</p>
-    <p><a href="https://github.com/NVIDIA/aicr/releases/tag/v0.20.0">Open the AICR v0.20.0 release</a> · <a href="./d/data/config-assessment-stages/summary.html">See the tested assessment boundaries</a></p>
+    <p><a href="./d/data/aicr-snapshot-review/summary.html">Read the maintained result</a> · <a href="../data/aicr-snapshot-review/review.yaml">Open the complete review YAML</a> · <a href="https://github.com/NVIDIA/aicr/releases/tag/v0.20.0">Open the AICR v0.20.0 release</a> · <a href="./d/data/config-assessment-stages/summary.html">See the tested assessment boundaries</a></p>
   </section>
 
   <section aria-labelledby="retained-config-path">

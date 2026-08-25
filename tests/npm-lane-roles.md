@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 40
+lanes outside the chain: 42
 should join the chain:   0
-deliberately outside:    40
+deliberately outside:    42
 superseded:              0
 ```
 
@@ -31,6 +31,8 @@ None.
 | `lifecycle:route-resolutions:verify` | Each destination-specific lifecycle record still binds one exact configuration revision and object digest to a destination, runtime, ordered requirements, routes, and scoped receipts, including the blocked AICR v0.19.0 EKS/H100 staging plan. | offline | passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias gives lifecycle work a focused gate |
 | `config-assessment-stages:verify` | The six maintained assessment cases still separate inspection, materialization, destination acceptance, and post-deployment evidence across literal YAML, Helm, and AICR examples. | offline | passes; the same generator runs inside config-catalog:verify and the full verify chain, while this alias checks the four-stage assessment contract directly |
 | `config-assessment-stages:self-test` | The assessment-stage generator rejects reordered stages, missing prerequisites, false deployment claims, and AICR expected-resource failures that should be recorded as blocked or not-run. | offline | passes; the same self-test runs inside config-catalog:self-test and the full verify chain, while this alias is the focused negative test |
+| `aicr-snapshot-review:verify` | The maintained AICR node comparison preserves both snapshot hashes, the selected provider-profile catalog and digest, two observed RDMA differences, variant-aware interpretations, and the missing-deployment boundary for expected-resources. | offline | passes; the same verifier runs inside config-catalog:verify, while this focused lane checks the public snapshot-to-review result directly |
+| `aicr-snapshot-review:self-test` | The AICR snapshot review rejects a weakened RDMA profile, a fixture that loses its recorded differences, and a missing deployment presented as failed conformance. | offline | passes; the same self-test runs inside config-catalog:self-test, while this alias is the focused negative test |
 | `config-catalog:verify` | The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output. | offline | passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command |
 | `config-catalog:self-test` | The Catalog generators reject malformed AI review records, invalid four-stage assessment cases, and inconsistent source-neutral Catalog records. | offline | passes; the same self-tests run separately in the full verify chain, while this alias groups the Catalog contract checks for development |
 | `kubara-current-catalog-candidates:verify` | All seven exact Kubara v0.13.0 public artifacts still verify as candidates — each recipe and package exists, its proof artifacts and installer package re-verify (including a byte-identical double `cub installer package` bundle and a semantic Helm-vs-`cub installer setup` object comparison per variant), source-lock version/URL/SHA match the recorded exact artifact — and data/kubara-catalog-refresh/current-candidates/{candidate-set.yaml,candidate-status.csv,README.md} are not stale relative to that inspection. | confighub | not run here, needs confighub |

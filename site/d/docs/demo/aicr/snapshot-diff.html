@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Compare two GPU nodes with AICR · Config Workshop</title>
+  <meta name="description" content="Compare two GPU nodes with AICR: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/snapshot-diff.html">
+  <meta property="og:title" content="Compare two GPU nodes with AICR · Config Workshop">
+  <meta property="og:description" content="Compare two GPU nodes with AICR: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/snapshot-diff.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,70 +433,87 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../ai.html">AI agents</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../ai.html">AI agents</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../ask.html">Check my config</a><a href="../../../../promote.html">Promote my config</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Compare two GPU nodes with AICR</h1>
+    <p class="lead">Use this path when you already have GPU nodes and want to know what differs between them. AICR records the current node state. Config Workshop keeps the diff beside the intended role for each node, so a difference is judged in the right context. <a href="../../../../../docs/demo/aicr/snapshot-diff.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 1019</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>541</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>436</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>42</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>494</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>production-support</code></td><td>72</td></tr>
-<tr><td><code>catalog-data</code></td><td>70</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>31</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>repo-integrity</code></td><td>27</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>436</td></tr>
-<tr><td><code>generate-or-run</code></td><td>389</td></tr>
-<tr><td><code>run</code></td><td>126</td></tr>
-<tr><td><code>self-test</code></td><td>58</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>942</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+
+<p>This matters because different is not the same as wrong. A node used for Mellanox RDMA may need <code>iommu=pt</code> and <code>nvidia_peermem</code>. A node with standard networking may correctly omit both.</p>
+<h2 id="1-record-the-nodes">1. Record the nodes</h2>
+<p><code>aicr snapshot</code> creates a temporary collector Job, ServiceAccount, and RBAC on the selected cluster. It writes the measured state to a local YAML file. It does not need an AICR recipe and does not deploy a platform bundle.</p>
+<pre><code>aicr snapshot --output baseline.yaml
+# Select the other node, or repeat after a change.
+aicr snapshot --output current.yaml</code></pre>
+<p>Read the files before continuing. They can contain detailed information about the operating system and hardware.</p>
+<h2 id="2-find-what-differs">2. Find what differs</h2>
+<pre><code>aicr diff --baseline baseline.yaml --target current.yaml</code></pre>
+<p>The diff answers <b>what changed?</b> It does not answer <b>which node is right?</b> That second answer needs the intended configuration for each node.</p>
+<h2 id="3-select-the-intended-role">3. Select the intended role</h2>
+<p>The maintained example uses two demonstration profiles:</p>
+<table><thead><tr><th>Profile</th><th>Intended node</th><th>RDMA settings</th></tr></thead><tbody><tr><td><code>l40-mellanox-rdma</code></td><td>L40 with a Mellanox RDMA role</td><td>Required</td></tr>
+<tr><td><code>l40-standard-networking</code></td><td>L40 with standard networking</td><td>Not required</td></tr></tbody></table>
+<p>These profiles show how a platform provider records target-specific intent. They are not NVIDIA AICR leaves or production hardware advice. NVIDIA curates the built-in AICR variants; a platform team or another catalog provider can maintain additional target profiles for its own hardware and workloads.</p>
+<p>Run the maintained comparison:</p>
+<pre><code>npm run aicr-snapshot-review:verify</code></pre>
+<p>The two snapshot files differ in two places. Both nodes pass their selected profile. If the target node is assigned the RDMA profile instead, the same two fields become findings.</p>
+<table><thead><tr><th>Node and profile</th><th>Result</th></tr></thead><tbody><tr><td>Baseline with Mellanox RDMA</td><td>Pass</td></tr>
+<tr><td>Target with standard networking</td><td>Pass; the two RDMA settings do not apply</td></tr>
+<tr><td>Target with Mellanox RDMA</td><td>Two findings</td></tr></tbody></table>
+<p>Open the <a href="../../../data/aicr-snapshot-review/summary.html">generated summary</a> or the complete <a href="../../../../../data/aicr-snapshot-review/review.yaml">machine-readable review</a>. The review keeps both snapshot hashes, the profile-catalog hash, the upstream AICR source-record hash, every observed difference, and every field decision.</p>
+<h2 id="4-review-your-own-snapshots">4. Review your own snapshots</h2>
+<p>From a local <code>helm-expt</code> checkout:</p>
+<pre><code>npm run aicr-snapshot-review -- \
+  --baseline ./baseline.yaml \
+  --target ./current.yaml \
+  --baseline-profile l40-mellanox-rdma \
+  --target-profile l40-standard-networking \
+  --output ./review.yaml</code></pre>
+<p>Omit the two profile flags if you only want an observed diff. The output then says that intended state is still missing; it does not invent a verdict.</p>
+<p>Your organization can replace the demonstration profile catalog with its own:</p>
+<pre><code>npm run aicr-snapshot-review -- \
+  --baseline ./baseline.yaml \
+  --target ./current.yaml \
+  --profiles ./my-node-profiles.yaml \
+  --baseline-profile my-rdma-profile \
+  --target-profile my-standard-profile \
+  --output ./review.yaml</code></pre>
+<h2 id="5-keep-the-review-as-files-or-oci">5. Keep the review as files or OCI</h2>
+<p>Add <code>--output-oci</code> to put the two snapshots, profile catalog, and review in one local OCI artifact:</p>
+<pre><code>npm run aicr-snapshot-review -- \
+  --baseline ./baseline.yaml \
+  --target ./current.yaml \
+  --baseline-profile l40-mellanox-rdma \
+  --target-profile l40-standard-networking \
+  --output ./review.yaml \
+  --output-oci ./aicr-node-review.oci:reviewed</code></pre>
+<p>This needs ORAS but no ConfigHub account. The artifact is a review record. It is not deployable Kubernetes configuration.</p>
+<h2 id="6-keep-it-in-confighub-when-the-comparison-must-continue">6. Keep it in ConfigHub when the comparison must continue</h2>
+<p>Store the two observations and their interpretation as non-deployable Units:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>cub space create aicr-node-review \
+  --component aicr-node-state --variant reviewed --stage Review
+cub unit create --space aicr-node-review --provider None \
+  baseline-snapshot ./baseline.yaml
+cub unit create --space aicr-node-review --provider None \
+  target-snapshot ./current.yaml
+cub unit create --space aicr-node-review --provider None \
+  snapshot-review ./review.yaml</code></pre>
+<p>Use ConfigHub when the team needs to compare the next snapshot with the same accepted intent, review a proposed correction, or relate observed state to a retained platform configuration. Uploading the review does not deploy it.</p>
+<h2 id="a-later-check-needs-a-deployment">A later check needs a deployment</h2>
+<p>AICR's <code>expected-resources</code> check answers whether resources declared by a selected AICR configuration exist and are healthy. It can run only after those components have been deployed. If they are absent and the check times out, record it as blocked and not run. That result is not failed GPU conformance.</p>
+<p>No GPU workload, RDMA transfer, model request, or performance test ran in this sanitized example.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/snapshot-diff.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

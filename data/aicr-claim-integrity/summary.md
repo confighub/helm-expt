@@ -72,7 +72,7 @@ cover.
 | `v0190-page-declares-fifteen-components` | `eks-h100-training-kubeflow-v0-19-0.md` | "15 components" | `training-v0190-components` = 15 |
 | `v0200-page-renders-seventeen` | `eks-h100-training-kubeflow-v0-20-0.md` | "17 Applications", "17 Application objects" | `training-v0200-applications` = 17 |
 
-30 claims across 10 pages are covered. A
+30 claims across 11 pages are covered. A
 sentence that adds a new count fails the lane until it is declared here, which
 is the difference between a register and a list somebody once wrote.
 
