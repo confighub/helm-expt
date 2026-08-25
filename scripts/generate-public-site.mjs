@@ -130,8 +130,9 @@ const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "rout
 const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
 const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "intents.csv");
 const demoProgramPath = join(repoRoot, "data", "demo-program", "program.json");
-// The AICR entries are evidence rather than catalog products, so the site
-// publishes their record for discovery and checking, not for installation.
+// The AICR entries are retained starting configurations. Their records keep
+// public package availability separate from later ConfigHub, delivery, and
+// runtime results.
 const platformEvidencePath = join(repoRoot, "data", "aicr-platform-evidence", "platform-evidence.json");
 const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
@@ -3910,7 +3911,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
     <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
     <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
-    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">Open the AICR v0.19.0 stage record</a> to see all 16 nested source renders, the public input artifacts, the ConfigHub release OCI, and the H100 test that has not run.</p>
+    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the newest retained source variant, 17 exact Applications, lifecycle plan, field policy, and two public OCI artifacts. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
   </section>
 
   <section aria-labelledby="aicr-next">
@@ -7824,7 +7825,7 @@ Rendered 0 secret(s)</code></pre>
         ],
         [
           "An AICR recipe or inference stack",
-          `<a href="./try-aicr.html"><strong>Choose an AICR question.</strong></a> Compare GPU-node snapshots without a recipe, or pull and verify the seven-Application CPU starter without an account, cluster, or GPU. Then compare the real CPU model request, NIM, and full EKS paths below.<br><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">AICR v0.19 H100 training record</a>`,
+          `<a href="./try-aicr.html"><strong>Choose an AICR question.</strong></a> Compare GPU-node snapshots without a recipe, or pull and verify the seven-Application CPU starter without an account, cluster, or GPU. Then compare the real CPU model request, NIM, and full EKS paths below.<br><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">AICR v0.20 H100 training starting configuration</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">v0.19 managed stages</a>`,
         ],
         [
           "A Timoni module",
@@ -8011,8 +8012,8 @@ cub helm install &lt;release&gt; &lt;chart&gt; \\
         ["Live Space guides", `<a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md">Base</a> · <a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.md">development</a> · <a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md">staging</a>.`],
       ], { rawSecondColumn: true })}
       <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
-      <h3>Four platform shapes, and what each one has proved</h3>
-      <p>That training platform is one of four AICR entries. They are evidence rather than products. Nothing here is offered for installation the way a catalog chart is. Each entry carries a digest that pins its shape, plus a path to every receipt behind it. The table below is generated from <a href="../data/aicr-platform-evidence/summary.md">the evidence record</a>, so a row cannot claim a rung its receipts do not support.</p>
+      <h3>Retained AI platform configurations</h3>
+      <p>The Catalog keeps exact AICR versions and derived examples side by side. A published entry can be pulled and inspected as a starting configuration. Each row also shows how many later steps have receipts, so public OCI publication is not confused with ConfigHub promotion, delivery, or runtime. The table is generated from <a href="../data/aicr-platform-evidence/summary.md">the entry record</a>.</p>
       ${markdownLikeTable([
         ["Shape", "Provenance", "Rungs with receipts"],
         ...catalog.platformEvidence.spec.entries.map((entry) => [
@@ -8021,7 +8022,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \\
           `${entry.ladder.climbedCount} · <code>${escapeHtml(entry.platformDigest.slice(0, 19))}…</code>`,
         ]),
       ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true })}
-      <p>Every one of them proves configuration mechanics only. No GPU workload ran to produce or verify any of it. The rungs no entry has climbed are listed in the record, not left to inference.</p>
+      <p>Open an entry to see its source, public OCI, ConfigHub, delivery, and runtime status, with a separate receipt for each completed step. A Catalog record does not by itself mean that the workload ran on a GPU.</p>
     </section>
 
     <section aria-labelledby="existing-oci-change">
@@ -8719,6 +8720,8 @@ function aicrCatalogRows() {
     "cpu-starter": "Nothing. No GPU, no cloud account, no NGC key.",
     "eks-h100-training-kubeflow": "AWS and GPU capacity to run it. Reading it costs nothing.",
     "eks-h100-training-kubeflow-v0-18-0": "AWS and GPU capacity to run it. Reading it costs nothing.",
+    "eks-h100-training-kubeflow-v0-19-0": "Reading and local verification need no cloud account or GPU. Running it needs EKS and H100 capacity.",
+    "eks-h100-training-kubeflow-v0-20-0": "Pulling and inspection need no ConfigHub account, cloud account, or GPU. Running it needs EKS and H100 capacity.",
     "eks-h100-inference-nim": "AWS, GPU capacity, and NGC access for the model images.",
     "kserve-nim-inference": "AWS, GPU capacity, and NGC access for the model images.",
   };
@@ -8726,6 +8729,8 @@ function aicrCatalogRows() {
     "cpu-starter": "The platform spine without accelerators.",
     "eks-h100-training-kubeflow": "EKS, H100 nodes, Kubeflow, and a training job.",
     "eks-h100-training-kubeflow-v0-18-0": "The same training platform, regenerated four minor versions later.",
+    "eks-h100-training-kubeflow-v0-19-0": "The training platform with public OCI, ConfigHub variants, and a release OCI.",
+    "eks-h100-training-kubeflow-v0-20-0": "The newest retained training platform, with public source and literal-configuration OCI.",
     "eks-h100-inference-nim": "A cluster that can serve NIM models.",
     "kserve-nim-inference": "The exact shape one model runs in.",
   };

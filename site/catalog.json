@@ -55284,10 +55284,10 @@
     },
     "spec": {
       "contract": {
-        "kind": "evidence",
-        "statement": "These entries are evidence, not a product line. They record what was proven about governing AI-platform configuration, with a path to every receipt. They are not offered for installation from the catalog the way a chart is, and no support posture attaches to them.",
-        "consumerExpectation": "Locate an entry, follow its paths, and check its receipts. Every path a consumer needs is published here, so nothing is reconstructed by convention.",
-        "boundary": "Every entry proves config-plane mechanics only. No GPU workload ran to produce or verify any of it."
+        "kind": "tested-starting-configurations",
+        "statement": "These entries are retained AICR configurations. A published entry can be pulled and inspected as an exact starting point. Its receipts state separately whether ConfigHub retention, promotion, delivery, and runtime testing have happened.",
+        "consumerExpectation": "Choose an exact version, inspect its source and generated Applications, pull its public OCI artifacts when available, and check the receipt for every later claim.",
+        "boundary": "Public availability and byte identity do not prove ConfigHub delivery or GPU runtime behavior. Those stages require separate receipts."
       },
       "entries": [
         {
@@ -55393,6 +55393,41 @@
               }
             ],
             "climbedCount": 2
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": true
+          }
+        },
+        {
+          "id": "eks-h100-training-kubeflow-v0-20-0",
+          "title": "EKS H100 Kubeflow training, AICR v0.20.0",
+          "provenance": "retained-upstream",
+          "platformDigest": "sha256:969e73550ef853489c201d336701ba6a3d53224bb899ae0a75dce31ce60f1241",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.20.0",
+            "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/eks-h100-training-kubeflow-v0-20-0",
+            "page": "docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md",
+            "digestIndex": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "public-source-and-literal-configuration-oci",
+                "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml",
+                "summary": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 1
           },
           "boundary": {
             "configPlaneOnly": true,
@@ -55542,6 +55577,11 @@
           "summary": "data/aicr-provenance-v0-19-0/summary.md"
         },
         {
+          "id": "upstream-provenance-v0-20-0",
+          "receipt": "runs/aicr-provenance-v0-20-0/receipt.yaml",
+          "summary": "data/aicr-provenance-v0-20-0/summary.md"
+        },
+        {
           "id": "blast-radius-parity",
           "summary": "data/aicr-blast-radius/summary.md"
         },
@@ -55551,8 +55591,9 @@
         }
       ],
       "openRungs": [
-        "ConfigHub import, variant and promotion for the AICR-native inference entry.",
-        "Any workload-plane claim, for every entry."
+        "ConfigHub base and derived variants for AICR v0.20.0.",
+        "Destination-specific route resolution for the AICR v0.20.0 nested sources.",
+        "EKS, H100, Argo CD, Flux, and workload runtime proof for AICR v0.20.0."
       ]
     }
   },
@@ -55940,6 +55981,14 @@
       "summary": "AICR selected an EKS H100 training platform. ConfigHub keeps the 17 exact Argo CD Applications, the source choices, and the work still required on the target.",
       "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/readme.yaml"
+    },
+    {
+      "space": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+      "kind": "source",
+      "title": "AICR v0.20.0 EKS H100 training configuration",
+      "summary": "NVIDIA AICR selected an EKS H100 training platform. This entry keeps the exact source choices, 17 generated Argo CD Applications, lifecycle plan, and public OCI digests together.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/readme.yaml"
     },
     {
       "space": "aws-network-base",

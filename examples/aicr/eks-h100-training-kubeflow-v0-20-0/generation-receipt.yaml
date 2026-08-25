@@ -100,7 +100,7 @@ spec:
         objectCount: 17
         ociLayout: examples/aicr/eks-h100-training-kubeflow-v0-20-0/oci-layouts/argocd-config
         publicTarget: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0
-      publicStatus: not-run
+      publicStatus: pass
   provenance:
     sourceCatalog: examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml
     verifiedReceipt: runs/aicr-provenance-v0-20-0/receipt.yaml
@@ -173,10 +173,11 @@ status:
   sourceBundleGenerated: true
   fluxBundleGenerated: true
   localOciLayoutsVerified: true
+  published: true
   upstreamSignatureVerified: true
   binaryAttestationVerified: true
   sbomAttestationVerified: true
-  publicOciPublication: not-run
+  publicOciPublication: pass
   configHubUpload: not-run
   promotion: not-run
   configHubReleaseOci: not-run

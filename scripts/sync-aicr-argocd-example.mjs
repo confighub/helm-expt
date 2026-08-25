@@ -50,13 +50,14 @@ if (!allowedModes.has(mode)) {
 
 const version = process.env.AICR_ARGOCD_VERSION?.trim() || "0.14.0";
 check(
-  ["0.14.0", "0.19.0"].includes(version),
+  ["0.14.0", "0.19.0", "0.20.0"].includes(version),
   `unsupported AICR Argo CD example version ${version}`,
 );
-const modernEntry = version === "0.19.0";
+const modernEntry = version !== "0.14.0";
+const v020Entry = version === "0.20.0";
 const versionSlug = `v${version.replaceAll(".", "-")}`;
 const exampleName = modernEntry
-  ? "eks-h100-training-kubeflow-v0-19-0"
+  ? `eks-h100-training-kubeflow-${versionSlug}`
   : "eks-h100-training-kubeflow";
 const componentSlug = "aicr-eks-h100-training-kubeflow";
 const baseVariantSlug = `${versionSlug}-argocd`;
@@ -67,6 +68,7 @@ const sourceReceiptPath = join(
 );
 const ociReceiptPath = join(root, "argocd-oci-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
+const publicationSummaryPath = join(root, "public-oci-summary.md");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
@@ -86,8 +88,15 @@ const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standar
 const sourceReceipt = readYaml(sourceReceiptPath);
 const registryBase =
   "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
-const publicSourceRef = `${registryBase}/${componentSlug}-argocd:${version}`;
-const publicConfigRef = `${registryBase}/${componentSlug}-argocd-config:${version}`;
+const recordedTransport = sourceReceipt.spec?.processing?.transport ?? {};
+const publicSourceRef = v020Entry
+  ? recordedTransport.sourcePackage?.publicTarget
+  : `${registryBase}/${componentSlug}-argocd:${version}`;
+const publicConfigRef = v020Entry
+  ? recordedTransport.literalConfiguration?.publicTarget
+  : `${registryBase}/${componentSlug}-argocd-config:${version}`;
+check(publicSourceRef?.startsWith(`${registryBase}/`), "AICR source public reference is missing or outside the retained registry");
+check(publicConfigRef?.startsWith(`${registryBase}/`), "AICR configuration public reference is missing or outside the retained registry");
 const sourceArtifact = modernEntry
   ? {
       role: "source-package",
@@ -142,6 +151,13 @@ const variantReadmeUnitPath = (space) => join(
 
 runLocalVerification();
 
+if (v020Entry && mode.startsWith("--hub")) {
+  check(
+    false,
+    "AICR v0.20.0 ConfigHub upload, variants, promotion, and release OCI are tracked in issue #1616; this command currently publishes and verifies only the public source and literal-configuration OCI artifacts",
+  );
+}
+
 if (mode === "--publish") {
   publishArtifacts();
   process.exit(0);
@@ -149,6 +165,11 @@ if (mode === "--publish") {
 if (mode === "--public-verify") {
   verifyPublicReceipt({ fetch: true });
   console.log("verified public AICR source and configuration OCI artifacts by anonymous pull");
+  process.exit(0);
+}
+if (mode === "--verify" && v020Entry) {
+  if (existsSync(publicReceiptPath)) verifyPublicReceipt({ fetch: false });
+  console.log("verified the retained AICR v0.20.0 source, configuration, provenance, and publication records");
   process.exit(0);
 }
 if (mode === "--hub-sync") {
@@ -235,9 +256,11 @@ verifyApplyPolicyReceipt(readYaml(policyReceiptPath), committedUploadReceipt);
 console.log("verified AICR ConfigHub upload and apply-policy receipts");
 
 function runLocalVerification() {
-  const verifier = modernEntry
-    ? "verify-aicr-v019-artifacts.mjs"
-    : "verify-aicr-argocd-example.mjs";
+  const verifier = v020Entry
+    ? "verify-aicr-v020-artifacts.mjs"
+    : modernEntry
+      ? "verify-aicr-v019-artifacts.mjs"
+      : "verify-aicr-argocd-example.mjs";
   execFileSync(
     process.execPath,
     [join(repoRoot, "scripts", verifier)],
@@ -265,11 +288,20 @@ function runLocalVerification() {
   if (modernEntry) {
     execFileSync(
       process.execPath,
-      [join(repoRoot, "scripts", "run-aicr-v019-provenance.mjs"), "--verify"],
+      [
+        join(
+          repoRoot,
+          "scripts",
+          v020Entry ? "run-aicr-v020-provenance.mjs" : "run-aicr-v019-provenance.mjs",
+        ),
+        "--verify",
+      ],
       { cwd: repoRoot, stdio: "inherit" },
     );
   }
-  check(existsSync(readmeUnitPath), "generated AICR README Unit is missing; run npm run helm-catalog-readmes");
+  if (!v020Entry || mode.startsWith("--hub")) {
+    check(existsSync(readmeUnitPath), "generated AICR README Unit is missing; run npm run helm-catalog-readmes");
+  }
 }
 
 function publishArtifacts() {
@@ -313,6 +345,7 @@ function publishArtifacts() {
     },
   };
   writeYaml(publicReceiptPath, receipt);
+  writePublicationSummary(receipt);
   if (modernEntry) {
     materializeLayoutManifest(
       sourceLayoutRoot,
@@ -428,6 +461,7 @@ function verifyPublicReceipt({ fetch }) {
   check(receipt.kind === "PublicOciReceipt", "AICR public OCI receipt kind changed");
   check(receipt.status?.result === "pass", "AICR public OCI receipt is not pass");
   check(receipt.status?.anonymousPull === "pass", "AICR public OCI receipt must record anonymous pull");
+  check(existsSync(publicationSummaryPath), "public AICR OCI summary is missing; run the publish command");
   const expected = [
     ["sourcePackage", publicSourceRef, sourceArtifact.portableDigest, sourceLayoutRoot],
     ["literalConfiguration", publicConfigRef, configArtifact.digest, configLayoutRoot],
@@ -446,6 +480,21 @@ function verifyPublicReceipt({ fetch }) {
     }
   }
   return receipt;
+}
+
+function writePublicationSummary(receipt) {
+  const source = receipt.spec.artifacts.sourcePackage;
+  const configuration = receipt.spec.artifacts.literalConfiguration;
+  writeFileSync(
+    publicationSummaryPath,
+    `# AICR v${version} public OCI publication\n\n`
+      + `The provider-curated source variant and its 17 exact Argo CD Application objects are public OCI artifacts. Both were pulled without registry credentials and matched the retained local bytes.\n\n`
+      + `| Artifact | Reference | Digest | Anonymous pull |\n`
+      + `|---|---|---|---|\n`
+      + `| Source package | \`${source.reference}\` | \`${source.digest}\` | pass |\n`
+      + `| Literal configuration | \`${configuration.reference}\` | \`${configuration.digest}\` | pass |\n\n`
+      + `Publication proves availability and byte identity. It does not prove ConfigHub upload, Argo CD delivery, EKS execution, or H100 runtime behavior.\n`,
+  );
 }
 
 function verifyPublicArtifact({ reference, expectedDigest, expectedLayout }) {

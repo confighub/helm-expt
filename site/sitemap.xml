@@ -167,6 +167,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-platform-evidence/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-platform-variant/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-provenance-v0-19-0/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-provenance-v0-20-0/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-refusal-corpus/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-trust-root-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-upstream-watch/summary.html</loc></url>
@@ -464,6 +465,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aws-network-base/README.html</loc></url>
@@ -754,6 +756,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/refusal-corpus.html</loc></url>
@@ -1049,6 +1052,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-inference-nim/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow-v0-19-0/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow-v0-20-0/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/digest-index/README.html</loc></url>

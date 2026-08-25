@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "retained": [
     {
       "entry": "eks-h100-training-kubeflow",
@@ -15,6 +15,11 @@
       "entry": "eks-h100-training-kubeflow-v0-19-0",
       "version": "v0.19.0",
       "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
+    },
+    {
+      "entry": "eks-h100-training-kubeflow-v0-20-0",
+      "version": "v0.20.0",
+      "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
     }
   ],
   "from": {
@@ -37,7 +42,165 @@
     "healthCheckBytesBefore": 0,
     "healthCheckBytesAfter": 72539,
     "selectedProfileBefore": null,
-    "selectedProfileAfter": null
+    "selectedProfileAfter": null,
+    "healthCheckChanges": [
+      {
+        "component": "aws-ebs-csi-driver",
+        "from": null,
+        "to": {
+          "sha256": "ebf64df93aaa7936d3098e10865c3cc64090558681ad77fb753394db8b3fbe53",
+          "bytes": 4652,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "aws-efa",
+        "from": null,
+        "to": {
+          "sha256": "01754715ffd5a894a506dc2c72363897df94f3616a7dc1abf61e442c41364df3",
+          "bytes": 4363,
+          "assertTimeout": "5m",
+          "daemonSetChecks": [
+            "aws-efa-k8s-device-plugin"
+          ]
+        }
+      },
+      {
+        "component": "cert-manager",
+        "from": null,
+        "to": {
+          "sha256": "4e35590210e9ae5ecfe6a20ab92ed2a58c5923c305c07c27a9d39e336d61d676",
+          "bytes": 5844,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "gpu-operator",
+        "from": null,
+        "to": {
+          "sha256": "fba1b287bfcf6657c3df290cd747d219746d4b92f9d4b4070077044096e12516",
+          "bytes": 5443,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "from": null,
+        "to": {
+          "sha256": "cc0e4ce8eda9f58e32a3918c10d2d8615b76d3e74f30dd57dbd29335ba41125a",
+          "bytes": 4762,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "kai-scheduler",
+        "from": null,
+        "to": {
+          "sha256": "95c15b60dfbc5ef1c9ff92f7e780c2e800c8bd44999e26bac7893f3af3ca0def",
+          "bytes": 4052,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "from": null,
+        "to": {
+          "sha256": "9647a374a98e3fc4da4148aa28db7c3ac2520b2313a252d52344a8f4e2b3afbd",
+          "bytes": 9098,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "kubeflow-trainer",
+        "from": null,
+        "to": {
+          "sha256": "a2992c2081e984ece6779cf32faab9862872851a8fc92326cf72fb8968ffb562",
+          "bytes": 4076,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "nfd",
+        "from": null,
+        "to": {
+          "sha256": "a789f9889935f3709403d7df573ec5bdc42bf757acd0d08cb62aef1d762010e1",
+          "bytes": 6074,
+          "assertTimeout": "5m",
+          "daemonSetChecks": [
+            "nfd-node-feature-discovery-worker"
+          ]
+        }
+      },
+      {
+        "component": "nodewright-customizations",
+        "from": null,
+        "to": {
+          "sha256": "dbd9a7e661bf4fd5aa65fc938a811a9db66c1cf9169a6557aefc96eeed31d141",
+          "bytes": 3050,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "nodewright-operator",
+        "from": null,
+        "to": {
+          "sha256": "a6ca4d5a907d23a109a9592f148bdd5f23cd8c298dc7c46ab6f1d6bb16f8ea19",
+          "bytes": 4036,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "from": null,
+        "to": {
+          "sha256": "b0fbc594a61d98c58b3ecbe235a4d2b14a40c9d2eb794a407fac6f1397cdbed6",
+          "bytes": 4245,
+          "assertTimeout": "5m",
+          "daemonSetChecks": [
+            "nvidia-dra-driver-gpu-kubelet-plugin"
+          ]
+        }
+      },
+      {
+        "component": "nvsentinel",
+        "from": null,
+        "to": {
+          "sha256": "b3aaa60621b638672192764bc57de87dbb1352df8aac74bd20cd96eda7703429",
+          "bytes": 4046,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "prometheus-adapter",
+        "from": null,
+        "to": {
+          "sha256": "026d07ad909b18decb532610cdb21da9ffc99ed33023cf35bf16fdb9b5498e53",
+          "bytes": 4651,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "from": null,
+        "to": {
+          "sha256": "98d98725b510cbdcc98900ddb1d6ebe40fe8b838ea4df004f701449063719e9d",
+          "bytes": 4147,
+          "assertTimeout": "5m",
+          "daemonSetChecks": []
+        }
+      }
+    ]
   },
   "shape": {
     "componentsBefore": 15,
@@ -251,26 +414,46 @@
   },
   "latest": {
     "from": {
-      "entry": "eks-h100-training-kubeflow-v0-18-0",
-      "version": "v0.18.0",
-      "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
-    },
-    "to": {
       "entry": "eks-h100-training-kubeflow-v0-19-0",
       "version": "v0.19.0",
       "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c"
     },
+    "to": {
+      "entry": "eks-h100-training-kubeflow-v0-20-0",
+      "version": "v0.20.0",
+      "commit": "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+    },
     "recipe": {
       "apiVersionBefore": "aicr.run/v1alpha2",
       "apiVersionAfter": "aicr.run/v1alpha2",
-      "sha256Before": "33b4eafc73359ff36424bb90b526a7736dbdbfaa8be3f771db8a5c2bf4ff213b",
-      "sha256After": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f",
+      "sha256Before": "a97e1136ecb7d31b31a87e56ff115e38602458ffad845b577cf8a7fc668bb21f",
+      "sha256After": "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5",
       "healthCheckComponentsBefore": 15,
       "healthCheckComponentsAfter": 15,
-      "healthCheckBytesBefore": 72539,
-      "healthCheckBytesAfter": 74308,
+      "healthCheckBytesBefore": 74308,
+      "healthCheckBytesAfter": 80081,
       "selectedProfileBefore": null,
-      "selectedProfileAfter": null
+      "selectedProfileAfter": null,
+      "healthCheckChanges": [
+        {
+          "component": "nvsentinel",
+          "from": {
+            "sha256": "b3aaa60621b638672192764bc57de87dbb1352df8aac74bd20cd96eda7703429",
+            "bytes": 4046,
+            "assertTimeout": "5m",
+            "daemonSetChecks": []
+          },
+          "to": {
+            "sha256": "40a1f66a09b6b0f88c1e607eb8fe38bde4022a6ef0a52843faf7ccddfed9ff28",
+            "bytes": 9819,
+            "assertTimeout": "90s",
+            "daemonSetChecks": [
+              "metadata-collector",
+              "syslog-health-monitor-regular"
+            ]
+          }
+        }
+      ]
     },
     "shape": {
       "componentsBefore": 15,
@@ -289,11 +472,11 @@
           "component": "aicr-stack",
           "change": "version",
           "from": {
-            "targetRevision": "0.18.0",
+            "targetRevision": "0.19.0",
             "wave": null
           },
           "to": {
-            "targetRevision": "0.19.0",
+            "targetRevision": "0.20.0",
             "wave": null
           }
         },
@@ -301,11 +484,11 @@
           "component": "kubeflow-trainer-post",
           "change": "version",
           "from": {
-            "targetRevision": "0.18.0",
+            "targetRevision": "0.19.0",
             "wave": 14
           },
           "to": {
-            "targetRevision": "0.19.0",
+            "targetRevision": "0.20.0",
             "wave": 14
           }
         },
@@ -313,12 +496,24 @@
           "component": "nodewright-customizations",
           "change": "version",
           "from": {
-            "targetRevision": "0.18.0",
+            "targetRevision": "0.19.0",
             "wave": 5
           },
           "to": {
-            "targetRevision": "0.19.0",
+            "targetRevision": "0.20.0",
             "wave": 5
+          }
+        },
+        {
+          "component": "nvsentinel",
+          "change": "version",
+          "from": {
+            "targetRevision": "v1.9.0",
+            "wave": 13
+          },
+          "to": {
+            "targetRevision": "v1.20.0",
+            "wave": 13
           }
         }
       ],
@@ -334,7 +529,6 @@
         "nfd",
         "nodewright-operator",
         "nvidia-dra-driver-gpu",
-        "nvsentinel",
         "prometheus-adapter",
         "prometheus-operator-crds"
       ]

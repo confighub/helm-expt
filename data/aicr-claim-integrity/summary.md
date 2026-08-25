@@ -24,6 +24,7 @@ cover.
 | `training-v0180-components` | 15 | `listLength` | The components the retained v0.18.0 recipe declares an order for. |
 | `training-v0190-applications` | 17 | `files` | The Argo CD Applications the v0.19.0 training entry renders. |
 | `training-v0190-components` | 15 | `listLength` | The components the retained v0.19.0 AICR recipe declares an order for. |
+| `training-v0200-applications` | 17 | `files` | The Argo CD Applications the v0.20.0 training entry renders. |
 | `version-diff-version-only-moves` | 4 | `countWhere` | Components whose chart version moved between the two retained AICR versions and whose sync-wave did not. |
 | `version-diff-version-and-wave-moves` | 5 | `countWhere` | Components whose chart version and sync-wave both moved between the two retained AICR versions. |
 | `version-diff-version-moves` | 9 | `sum` | Every component whose chart version moved between the two retained versions, however its wave behaved. |
@@ -69,8 +70,9 @@ cover.
 | `v0180-page-cites-the-version-moves` | `eks-h100-training-kubeflow-v0-18-0.md` | "Nine components" | `version-diff-version-moves` = 9 |
 | `v0190-page-renders-seventeen` | `eks-h100-training-kubeflow-v0-19-0.md` | "17 Applications" | `training-v0190-applications` = 17 |
 | `v0190-page-declares-fifteen-components` | `eks-h100-training-kubeflow-v0-19-0.md` | "15 components" | `training-v0190-components` = 15 |
+| `v0200-page-renders-seventeen` | `eks-h100-training-kubeflow-v0-20-0.md` | "17 Applications", "17 Application objects" | `training-v0200-applications` = 17 |
 
-29 claims across 9 pages are covered. A
+30 claims across 10 pages are covered. A
 sentence that adds a new count fails the lane until it is declared here, which
 is the difference between a register and a list somebody once wrote.
 

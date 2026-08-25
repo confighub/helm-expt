@@ -24,6 +24,7 @@ const retained = [
   "eks-h100-training-kubeflow",
   "eks-h100-training-kubeflow-v0-18-0",
   "eks-h100-training-kubeflow-v0-19-0",
+  "eks-h100-training-kubeflow-v0-20-0",
 ];
 const summaryPath = join(repoRoot, "data", "aicr-version-diff", "summary.md");
 const recordPath = join(repoRoot, "data", "aicr-version-diff", "diff.json");
@@ -37,9 +38,9 @@ if (!["--generate", "--verify"].includes(mode)) {
 }
 
 const historical = compare(retained[0], retained[1]);
-const latest = compare(retained[1], retained[2]);
+const latest = compare(retained.at(-2), retained.at(-1));
 const diff = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   retained: retained.map((id) => {
     const entry = readEntry(id);
     return { entry: entry.id, version: entry.version, commit: entry.commit };
@@ -98,6 +99,22 @@ function readEntry(name) {
       (total, component) => total + Buffer.byteLength(component.healthCheckAsserts ?? ""),
       0,
     ),
+    healthChecks: new Map(
+      (recipe.componentRefs ?? [])
+        .filter((component) => Boolean(component.healthCheckAsserts))
+        .map((component) => {
+          const text = component.healthCheckAsserts;
+          return [component.name ?? component.chart, {
+            sha256: sha256(Buffer.from(text)),
+            bytes: Buffer.byteLength(text),
+            assertTimeout: text.match(/assert:\s*([^\s]+)/)?.[1] ?? null,
+            daemonSetChecks: [...new Set(
+              [...text.matchAll(/kind:\s*DaemonSet[\s\S]*?name:\s*([^\s]+)/g)]
+                .map((match) => match[1]),
+            )],
+          }];
+        }),
+    ),
     selectedProfile: recipe.metadata?.selectedProfile ?? null,
     applications,
   };
@@ -141,6 +158,14 @@ function compare(fromId, toId) {
   const waveValues = (entry) =>
     [...entry.applications.values()].map((row) => row.wave).filter((wave) => wave !== null);
   const distinct = (entry) => new Set(waveValues(entry)).size;
+  const healthCheckNames = [...new Set([...from.healthChecks.keys(), ...to.healthChecks.keys()])].sort();
+  const healthCheckChanges = healthCheckNames
+    .map((component) => ({
+      component,
+      from: from.healthChecks.get(component) ?? null,
+      to: to.healthChecks.get(component) ?? null,
+    }))
+    .filter((row) => stableJson(row.from) !== stableJson(row.to));
 
   return {
     from: { entry: from.id, version: from.version, commit: from.commit },
@@ -156,6 +181,7 @@ function compare(fromId, toId) {
       healthCheckBytesAfter: to.healthCheckBytes,
       selectedProfileBefore: from.selectedProfile,
       selectedProfileAfter: to.selectedProfile,
+      healthCheckChanges,
     },
     shape: {
       componentsBefore: from.components.length,
@@ -185,6 +211,15 @@ function transitionSummary(transition, note) {
   const unchangedLine = unchangedCount === 1
     ? `One of the ${transition.components.compared} rendered Applications is unchanged in both version and wave.`
     : `${unchangedCount} of the ${transition.components.compared} rendered Applications are unchanged in both version and wave.`;
+  const healthRows = transition.recipe.healthCheckChanges.map((row) => {
+    const before = row.from
+      ? `${row.from.assertTimeout ?? "default timeout"}; ${row.from.daemonSetChecks.length} DaemonSet checks`
+      : "not present";
+    const after = row.to
+      ? `${row.to.assertTimeout ?? "default timeout"}; ${row.to.daemonSetChecks.length} DaemonSet checks`
+      : "not present";
+    return `| \`${row.component}\` | ${before} | ${after} |`;
+  });
 
   return `## ${transition.from.version} to ${transition.to.version}
 
@@ -203,6 +238,13 @@ ${rows.length > 0 ? rows.join("\n") : "| None | no chart-version or wave change 
 
 ${unchangedLine}
 
+${healthRows.length > 0 ? `### Health-check changes
+
+| Component | ${transition.from.version} | ${transition.to.version} |
+| --- | --- | --- |
+${healthRows.join("\n")}
+` : "No embedded health-check definition changed in this transition.\n"}
+
 ${note}
 `;
 }
@@ -210,7 +252,9 @@ ${note}
 function renderSummary(diff) {
   const historicalNote = `The sync-wave count fell from ${diff.shape.distinctWavesBefore} to ${diff.shape.distinctWavesAfter}. v0.18.0 began grouping independent components into parallel waves. That change is why the ordering verifier checks dependency edges instead of requiring one unique wave per component.`;
   const latest = diff.latest;
-  const latestNote = `The v0.19.0 EKS recipe remains unprofiled. The new \`gpuStack\` source profile is available on AKS and GKE families, not on this EKS composition. The retained field-policy assessment records that boundary and shows which AKS fields the profile protects.`;
+  const nvsentinelHealth = latest.recipe.healthCheckChanges.find((row) => row.component === "nvsentinel");
+  check(nvsentinelHealth, "the v0.19.0 to v0.20.0 comparison must retain the NVSentinel health-check change");
+  const latestNote = `NVSentinel moves from v1.9.0 to v1.20.0. Its check now tests the driver-labelled DaemonSets as well as the labeler Deployment and pods. The overall assert timeout changes from ${nvsentinelHealth.from.assertTimeout} to ${nvsentinelHealth.to.assertTimeout}, so a stalled DaemonSet reports its failure sooner. The optional zero-desired cases remain excluded. These are retained source changes; this comparison does not claim that the check ran on EKS.`;
 
   return `# What changed across retained AICR versions
 
@@ -236,4 +280,12 @@ Application objects. It does not render the downstream workload charts, run
 the AICR health checks, contact EKS, or prove a GPU workload. Those are separate
 route, delivery, and runtime steps with separate receipts.
 `;
+}
+
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stableJson(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
 }

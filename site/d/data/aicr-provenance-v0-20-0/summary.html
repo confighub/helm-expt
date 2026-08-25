@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try AICR · Config Workshop</title>
-  <meta name="description" content="Pull one public AICR configuration, select and verify seven CPU-starter Applications, and write a local OCI without an account or cluster.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try-aicr.html">
-  <meta property="og:title" content="Try AICR · Config Workshop">
-  <meta property="og:description" content="Pull one public AICR configuration, select and verify seven CPU-starter Applications, and write a local OCI without an account or cluster.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AICR v0.20.0 source verification · Config Workshop</title>
+  <meta name="description" content="AICR v0.20.0 source verification: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-provenance-v0-20-0/summary.html">
+  <meta property="og:title" content="AICR v0.20.0 source verification · Config Workshop">
+  <meta property="og:description" content="AICR v0.20.0 source verification: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try-aicr.html">
-<style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-provenance-v0-20-0/summary.html">
+  <style>
     :root {
       color-scheme: light dark;
       --ink: #131a20;
@@ -427,194 +427,31 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
-<header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-  <h1>Try AICR</h1>
-  <p class="boundary-chip">Two independent starting paths</p>
-  <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
-  <p>The node comparison needs read access to a Kubernetes cluster and creates a temporary collector Job with its ServiceAccount and RBAC. It does not need an AICR recipe or deploy a platform bundle.</p>
-  <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
-</header>
-<main>
-  <section aria-labelledby="aicr-questions">
-    <h2 id="aicr-questions">Choose The Question First</h2>
-    <div class="card"><table>
-        <thead><tr><th>Question</th><th>AICR path</th></tr></thead>
-        <tbody><tr><td>What do I have?</td><td>Use snapshot and diff to report differences between existing GPU nodes. No recipe, bundle, or Catalog match is required.</td></tr><tr><td>What will it produce?</td><td>Select a provider-curated AICR leaf variant and inspect the exact files it generates.</td></tr><tr><td>Can this destination accept it?</td><td>Check that the destination matches the variant's GPU, network, cloud, controller, credential, API, and component requirements.</td></tr><tr><td>Did it work?</td><td>Run recipe-dependent resource and runtime checks only after the declared components have been deployed.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-  </section>
-
-  <section id="aicr-node-state" aria-labelledby="aicr-node-state-title">
-    <h2 id="aicr-node-state-title">Path A: Compare Existing GPU Nodes</h2>
-    <p>Use AICR's read-only path when the question is whether two nodes or two points in time differ. It records kernel command-line settings, modules, system services, GPU hardware, and other measured state as YAML.</p>
-    <pre><code>aicr snapshot --output baseline.yaml
-# select the other node or repeat after the change
-aicr snapshot --output current.yaml
-aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code></pre>
-    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a variant intended for RDMA may require them.</p>
-    <p>Choose the provider-curated source variant meant for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR variants. Other catalog providers can publish and review additional variants.</p>
-    <p><code>expected-resources</code> answers a later question. It needs the selected variant and its declared components deployed. If those components are absent, record that check as blocked or not run; do not call it failed GPU conformance.</p>
-    <p><a href="https://github.com/NVIDIA/aicr/releases/tag/v0.20.0">Open the AICR v0.20.0 release</a> · <a href="./d/data/config-assessment-stages/summary.html">See the tested assessment boundaries</a></p>
-  </section>
-
-  <section aria-labelledby="retained-config-path">
-    <h2 id="retained-config-path">Path B: Inspect A Retained Configuration</h2>
-    <p>This path reads a reviewed AICR-generated package. It does not inspect a live GPU node or prove that the selected platform runs.</p>
-    <div class="card"><table>
-        <thead><tr><th>Layer</th><th>What it means here</th></tr></thead>
-        <tbody><tr><td>Source variant</td><td>The provider-curated AICR leaf selected before generation.</td></tr><tr><td>Retained base variant</td><td>The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub.</td></tr><tr><td>Derived ConfigHub variant</td><td>A later environment or policy change linked to that retained base.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-  </section>
-
-  <section aria-labelledby="install-oras">
-    <h2 id="install-oras">1. Install ORAS</h2>
-    <p>ORAS reads and writes OCI packages without running a container.</p>
-    <pre><code>oras version</code></pre>
-    <p>If that command fails, use the <a href="https://oras.land/docs/installation/">ORAS installation instructions</a>.</p>
-  </section>
-
-  <section aria-labelledby="run-aicr">
-    <h2 id="run-aicr">2. Pull and check the configuration</h2>
-    <p>Run one script. It uses an empty credential store for the public pull, checks the source digest, selects the seven reviewed files, and compares the local OCI with those files.</p>
-    <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aicr-cpu-starter/try.sh)</code></pre>
-    <p>Source: <code style="overflow-wrap:anywhere;word-break:break-word;">oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0</code></p>
-    <p>Recorded source digest: <code style="overflow-wrap:anywhere;word-break:break-word;">sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010</code></p>
-  </section>
-
-  <section aria-labelledby="inspect-aicr">
-    <h2 id="inspect-aicr">3. Read what you received</h2>
-    <p>The result contains seven Argo CD Application files, the source-and-intent record that explains the selection, and a local OCI containing the same seven files.</p>
-    <pre><code>find ./aicr-cpu-starter/config/templates -maxdepth 1 -type f -print
-cat ./aicr-cpu-starter/source-and-intent.yaml
-oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0</code></pre>
-    <table>
-      <thead><tr><th>Selected Application</th><th>Argo CD sync wave</th></tr></thead>
-      <tbody>
-        <tr><td><code>cert-manager</code></td><td>2</td></tr>
-        <tr><td><code>nfd</code></td><td>3</td></tr>
-        <tr><td><code>prometheus-operator-crds</code></td><td>6</td></tr>
-        <tr><td><code>kube-prometheus-stack</code></td><td>7</td></tr>
-        <tr><td><code>k8s-ephemeral-storage-metrics</code></td><td>9</td></tr>
-        <tr><td><code>kai-scheduler</code></td><td>10</td></tr>
-        <tr><td><code>prometheus-adapter</code></td><td>15</td></tr>
-      </tbody>
-    </table>
-    <p>Expected local OCI digest: <code style="overflow-wrap:anywhere;word-break:break-word;">sha256:62eaf39703ca0e5e968fcd4a667cbccbb5b3ff16403471c4b3441b3681b2b225</code>.</p>
-  </section>
-
-  <section aria-labelledby="aicr-boundary">
-    <h2 id="aicr-boundary">What the retained-configuration example proves</h2>
-    <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
-    <p>The CPU starter is a Config Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
-    <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
-    <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
-    <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
-    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the newest retained source variant, 17 exact Applications, lifecycle plan, field policy, and two public OCI artifacts. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
-  </section>
-
-  <section aria-labelledby="aicr-next">
-    <h2 id="aicr-next">Choose what to do next</h2>
-    <p>Keep the files and OCI locally, or <a href="./confighub.html">keep the reviewed result in ConfigHub</a> when your team needs shared changes, environment variants, approvals, promotion, or release history.</p>
-    <p>For deployment, <a href="./how-it-works.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
-    <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
-  </section>
-</main>
-<footer><p>The retained-configuration path uses no ConfigHub Server, account, registry login, Kubernetes cluster, or GPU. The snapshot path needs cluster access but no recipe or selected platform deployment.</p></footer>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>AICR v0.20.0 source verification</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-provenance-v0-20-0/summary.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>The release archive matched NVIDIA's checksum list. The extracted CLI binary matched the SHA-256 in its signed SLSA attestation. The retained SBOM matched its signed subject. The recipe-catalog signature also verified, and the catalog digest was reproduced from the retained registry and validator catalog.</p>
+<p>All three signatures identify the exact NVIDIA release workflow for <code>v0.20.0</code>:</p>
+<p><code>https://github.com/NVIDIA/aicr/.github/workflows/on-tag.yaml@refs/tags/v0.20.0</code></p>
+<p>Verification used the pinned Cosign image with networking disabled. The same binary check refused an unrelated signer identity.</p>
+<p>This proves the source inputs used by the retained entry. It does not prove that the generated platform ran on EKS or an H100, and it does not cover every AICR overlay. The <a href="../../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml">generation receipt</a> and digest index bind the generated files separately.</p>
+<p>Run <code>npm run aicr-provenance-v0200:verify</code> to check the committed receipt and retained bytes without Docker or network access.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-provenance-v0-20-0/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
