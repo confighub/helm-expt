@@ -1,0 +1,115 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "PrometheusUpgradePreservationReceipt"
+metadata:
+  name: "prometheus-server-only-ephemeral-29-8-0-to-29-9-0"
+spec:
+  recordedAt: "2026-08-25T03:13:36.334Z"
+  context:
+    organization: "helm-catalog"
+    server: "https://hub.confighub.com"
+  tools:
+    cubClient: "0.2.34"
+    configHubServer: "0.2.33"
+    installer: "installer 0.1.0"
+  source:
+    chart: "prometheus-community/prometheus"
+    base: "server-only-ephemeral"
+    namespace: "monitoring"
+    current:
+      version: "29.8.0"
+      appVersion: "v3.11.3"
+      ref: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus@sha256:5cf6400c75d1cafc06fee5ddaada47651926bdab3a9d674a9f966540b29edd26"
+      manifestDigest: "sha256:5cf6400c75d1cafc06fee5ddaada47651926bdab3a9d674a9f966540b29edd26"
+      layerDigest: "sha256:ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+    candidate:
+      version: "29.9.0"
+      appVersion: "v3.12.0"
+      ref: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus@sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc"
+      manifestDigest: "sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc"
+      layerDigest: "sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
+  userChange:
+    resource: "apps/v1/Deployment monitoring/prometheus-server"
+    field: "spec.replicas"
+    chartValue: 1
+    reviewedValue: 2
+    protected: true
+    result: "pass"
+  baseUpgrade:
+    before:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.8.0"
+      appVersion: "v3.11.3"
+      replicas: 1
+      image: "quay.io/prometheus/prometheus:v3.11.3"
+      objectSha256: "57c62f0761512ddadd796b976dec172fec7106bd01f67a0c4a21e2896093c7e4"
+    afterUserChange:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.8.0"
+      appVersion: "v3.11.3"
+      replicas: 2
+      image: "quay.io/prometheus/prometheus:v3.11.3"
+      objectSha256: "0957c755a5c06119f8ee3907c55d86cb6dff6e176a43a91a5ec4c87ea178c4b3"
+    renderedCandidate:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.9.0"
+      appVersion: "v3.12.0"
+      replicas: 1
+      image: "quay.io/prometheus/prometheus:v3.12.0"
+      objectSha256: "42bdbed40bd109a4b380e1638158629e3c68aa4cbd40dfec08025177686668ef"
+    afterReconcile:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.9.0"
+      appVersion: "v3.12.0"
+      replicas: 2
+      image: "quay.io/prometheus/prometheus:v3.12.0"
+      objectSha256: "44210b8776d30bd91be1a6dc6ff4a8ca7342efd9046463772bf3d064a1819a31"
+    planSha256: "530a8f8e3648cae80ced0cde27b02621a5ffa5951eafecdf555aeacfb09dca31"
+    planShowedSourceChanges: true
+    planTriedToResetReplicas: false
+    result: "pass"
+  stagingPromotion:
+    beforeUpgrade:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.8.0"
+      appVersion: "v3.11.3"
+      replicas: 2
+      image: "quay.io/prometheus/prometheus:v3.11.3"
+      objectSha256: "0957c755a5c06119f8ee3907c55d86cb6dff6e176a43a91a5ec4c87ea178c4b3"
+    beforePreview:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.8.0"
+      appVersion: "v3.11.3"
+      replicas: 2
+      image: "quay.io/prometheus/prometheus:v3.11.3"
+      objectSha256: "0957c755a5c06119f8ee3907c55d86cb6dff6e176a43a91a5ec4c87ea178c4b3"
+    afterPreview:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.8.0"
+      appVersion: "v3.11.3"
+      replicas: 2
+      image: "quay.io/prometheus/prometheus:v3.11.3"
+      objectSha256: "0957c755a5c06119f8ee3907c55d86cb6dff6e176a43a91a5ec4c87ea178c4b3"
+    afterPromotion:
+      resource: "apps/v1/Deployment monitoring/prometheus-server"
+      chartVersion: "29.9.0"
+      appVersion: "v3.12.0"
+      replicas: 2
+      image: "quay.io/prometheus/prometheus:v3.12.0"
+      objectSha256: "44210b8776d30bd91be1a6dc6ff4a8ca7342efd9046463772bf3d064a1819a31"
+    previewSha256: "c2fd9fc3b6face2dd2a61a718ff99cacff8c97f25f0387fc53578d68fd5880db"
+    previewShowedSourceChanges: true
+    previewTriedToResetReplicas: false
+    dryRunChangedStoredData: false
+    result: "pass"
+  cleanup:
+    base: "pass"
+    staging: "pass"
+    workDir: "pass"
+  limits:
+    - "This run used ConfigHub records only. It did not deliver Prometheus to Kubernetes."
+    - "The run used the chart's monitoring namespace for both versions. Custom-namespace upgrade behavior is not part of this receipt."
+    - "The selected preset has no Helm hooks or CRDs, so this receipt does not test lifecycle work."
+    - "This proves one protected Deployment field across one Prometheus source upgrade and one staging promotion. It does not prove every field or chart."
+status:
+  result: "pass"
+  claim: "A protected replica change remained at two while Prometheus moved from chart 29.8.0 to 29.9.0, first in the base and then through a previewed staging promotion."
