@@ -484,6 +484,22 @@
       </style>
     </section>
 
+    <section aria-labelledby="assessment-questions">
+    <h2 id="assessment-questions">Four Separate Questions</h2>
+    <p>Inspecting a source, producing objects, checking a destination, and checking a live result are different jobs. A Catalog match is useful for comparison but is not required. A missing destination or deployment is shown as not run or blocked, not as a failed configuration.</p>
+    <div class="card"><table>
+        <thead><tr><th>Question</th><th>Current answer</th><th>What it needs</th><th>Status</th></tr></thead>
+        <tbody><tr><td><strong>What do I have?</strong></td><td>Inspect the helm source, choices, locks, and any existing output before selecting a destination.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Available to inspect<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>What will it produce?</strong></td><td>Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Checked: passed<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>Can this destination accept it?</strong></td><td>No destination answer is available yet because target facts or lifecycle handling are incomplete.</td><td>Destination access: yes<br>Selected configuration deployed: no</td><td>Answer pending<br><span class="small">evidence pending</span></td></tr><tr><td><strong>Did it work?</strong></td><td>No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.</td><td>Destination access: yes<br>Selected configuration deployed: yes</td><td>Not run<br><span class="small">no run recorded</span></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p><a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml">Open the complete assessment, source, lifecycle, and evidence record</a>.</p>
+  </section>
+
     <section aria-labelledby="setting-sources">
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
       <div class="card"><table>

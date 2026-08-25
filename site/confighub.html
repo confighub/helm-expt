@@ -531,6 +531,18 @@
     <p>Upload reviewed files or OCI. ConfigHub stores each Kubernetes object and keeps the source and review record beside it.</p>
     <p>Create a version for each environment. ConfigHub shows the exact diff, records the approval, and keeps the promotion history.</p>
     <p>Publish a release for Argo CD or Flux. Add live observations when you need to compare the approved configuration with a cluster.</p>
+    <p>ConfigHub keeps the four answers connected without treating them as interchangeable.</p>
+    <p>It links the source and materialized objects, the destination check for one target, and the post-deployment result for one exact release. A retained object or published OCI is not automatically a destination or live pass.</p>
+    <div class="card"><table>
+        <thead><tr><th>Question</th><th>What ConfigHub retains</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The source identity, imported files, exact object records, and their history.</td></tr><tr><td>What will it produce?</td><td>The source and intent, materialized objects, object identity, and recorded transformation.</td></tr><tr><td>Can this destination accept it?</td><td>Checks against one named destination, tied to the exact candidate and current destination facts.</td></tr><tr><td>Did it work?</td><td>Results for the exact delivered revision, target, time, and claim that was checked.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
   </section>
   <section aria-labelledby="exact-handoff">
     <h2 id="exact-handoff">2. See one exact handoff</h2>

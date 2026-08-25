@@ -42,6 +42,54 @@ excessive permission, or large unintended rendered change.
 > does, compare it with what you trust, and give you a reviewed result that you can
 > keep and deliver.
 
+### Four assessment questions
+
+Every Catalog format and every public journey must keep these questions separate:
+
+| Question | Required input | What it may claim |
+| --- | --- | --- |
+| **What do I have?** | Source files, an OCI, exact objects, or a snapshot to inspect. | Source identity, contents, inventory, differences, and locally observable facts. |
+| **What will it produce?** | The source-native processor and its recorded choices, unless the source is already literal configuration. | The exact materialized object set and its identity. |
+| **Can this destination accept it?** | The exact candidate plus current facts from the named destination. | API, CRD, Secret, policy, controller, credential, hardware, and lifecycle readiness for that destination. |
+| **Did it work?** | The exact delivered revision, a deployment, and live evidence required by the claim. | Controller, resource, workload, runtime, drift, and rollback results that were actually checked. |
+
+A Catalog match can provide known comparisons and maintained evidence, but no
+question requires one. A user's own files remain valid input. Inspection and local
+materialization normally need no destination. A live snapshot can require read
+access to a system without deploying the selected configuration. Destination
+readiness requires destination access but not an apply. Post-deployment evidence
+requires the selected revision to have been delivered.
+
+Every machine record and human page must show the prerequisites, evidence state,
+and result state for each answer. A missing prerequisite produces `blocked` or
+`not-run`. It must not be relabeled as a failed configuration, failed workload, or
+failed conformance result. Publication, upload, and controller sync are also
+different results; none proves an application request unless that request was run.
+
+This distinction applies to every source. For example, AICR snapshot and diff can
+compare existing GPU nodes without a recipe or bundle. That comparison reports
+observed differences; it does not define desired state. Decide whether a difference
+is a fault only after binding the node to the provider-curated source variant meant
+for its service, accelerator, operating system, workload intent, platform, and
+relevant hardware. Its `expected-resources` check then depends on that selected
+variant and the declared components being deployed.
+Helm rendering can produce exact objects without a cluster, but destination CRDs,
+hook handling, workload health, and rollback need later evidence. Literal YAML and
+configuration OCI use a recorded no-op for materialization; they still need separate
+destination and live checks.
+
+Every maintained entry must distinguish three layers: a source variant or other
+source selection, the exact base variant retained after materialization, and any
+derived ConfigHub variants. The source selection names its provider. NVIDIA curates
+the built-in AICR catalog; other catalog providers may curate additional overlays
+and leaf variants. Config Workshop curates its Helm presets. A custom variant needs
+its own intended-target statement and evidence.
+
+The generated [assessment cases](../../data/config-assessment-stages/summary.md)
+test these boundaries. Every generated base record carries the four stages under
+`spec.assessment`. Catalog coverage and evidence coverage are separate: a format or
+version may be listed while destination or post-deployment evidence remains pending.
+
 ### The user journey
 
 | Step | Job |

@@ -13,12 +13,16 @@ spec:
     name: "prometheus-community/kube-prometheus-stack@85.3.3/no-crds"
     sha256: "sha256:6d671d75ca4ca17a5fcf76b1f276b18378afd3111f06d5c10fb79576911b7030"
     objectCount: 130
+    objectSetSha256: "sha256:6d671d75ca4ca17a5fcf76b1f276b18378afd3111f06d5c10fb79576911b7030"
+    objectSetHashAlgorithm: "sorted-json-kubernetes-object-set-v1"
     objects:
       []
   candidate:
     name: "prometheus-community/kube-prometheus-stack@86.1.0/no-crds"
     sha256: "sha256:8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
     objectCount: 130
+    objectSetSha256: "sha256:8fec9b3eacc37d6db3905af05b0942a4c3c602819a65b986c9d2e4aa7a77dd1c"
+    objectSetHashAlgorithm: "sorted-json-kubernetes-object-set-v1"
     objects:
       []
   comparison:
@@ -26,6 +30,78 @@ spec:
     removed: 0
     changed: 111
     unchanged: 19
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "The proof retained the exact current and candidate staged OCI references, digests, route records, and Kubernetes object sets."
+        requiredInputs:
+          - "current staged OCI"
+          - "candidate staged OCI"
+          - "route records"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+        nextAction: "Use these exact identities for any repeat of this version-pair review."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Both staged OCI artifacts were pulled and materialized into 130 exact Kubernetes objects; their object-set identities were recorded and compared."
+        requiredInputs:
+          - "staged OCI digest"
+          - "OCI extraction"
+          - "Kustomize build"
+          - "exact object-set identity"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+        nextAction: "Keep the candidate object-set identity unchanged through destination checks and delivery."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The proof checked the destination-specific namespaces, Secrets, CRDs, setup Jobs, route resolution, webhook handoff, and Argo CD server-side apply path for this candidate."
+        requiredInputs:
+          - "exact candidate"
+          - "kind proof cluster"
+          - "destination-specific lifecycle route"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "examples/promotions/kube-prometheus-stack-85-3-3-to-86-1-0-no-crds/lifecycle-route.yaml"
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+        nextAction: "Recheck the route and destination facts before using another cluster or controller version."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "Argo CD reconciled the exact current and candidate release digests on the proof cluster, and the recorded workload, webhook, and admission checks passed. Rollback was not part of this proof."
+        requiredInputs:
+          - "exact released OCI digests"
+          - "kind proof cluster"
+          - "Argo CD and workload observations"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "runs/kps-confighub-lifecycle-promotion/receipt.yaml"
+        nextAction: "Repeat the same checks for any new version, destination, or controller runtime."
   sourceAware:
     class: "upstream-version-change"
     currentOci: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds@sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"

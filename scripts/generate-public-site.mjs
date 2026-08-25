@@ -94,6 +94,9 @@ const jsYamlLicensePath = join(siteRoot, "js-yaml-4.1.0.LICENSE.txt");
 const jsYamlLicenseSourcePath = join(repoRoot, "scripts", "site", "vendor", "js-yaml-4.1.0.LICENSE.txt");
 const baseVariantRecordsJsonPath = join(siteRoot, "base-variant-records.json");
 const baseVariantRecordsJsonSourcePath = join(repoRoot, "data", "base-variant-records", "records.json");
+const baseVariantRecords = JSON.parse(
+  readFileSync(baseVariantRecordsJsonSourcePath, "utf8"),
+).records ?? [];
 const readmePath = join(siteRoot, "README.md");
 const generatedAtPath = join(siteRoot, "generated-at.txt");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -2456,6 +2459,8 @@ function configTestCentreHome(catalog) {
             <p class="lead">Start with Helm. Search the <a href="./charts/index.html">Catalog</a> when we already cover your chart and version. Use <a href="./ask.html">Check my config</a> for your own values, a new version, or an unexpected result.</p>
             <p class="lead">If AI wrote the values, <a href="./ask.html">Check my config</a> builds local instructions for the assistant you already use. Install the <a href="./ai.html">Config Workshop agent skill</a> when you want the same evidence rules for repeated work. Your files stay on your machine.</p>
             <p class="lead">Both paths work without an account. Keep the version you approve as files or OCI, and <a href="./promote.html">test its next move</a>. Save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared promotion and cluster record.</p>
+            <p class="lead">Keep four questions separate: What do I have? What will it produce? Can this destination accept it? Did it work?</p>
+            <p>Inspecting a source and producing objects can happen locally. Checking a destination needs access to that destination. Checking the live result needs the exact revision to be deployed.</p>
             <div class="cta-row">
               <a class="btn primary" href="./testing.html#start">Find a configuration</a>
               <a class="btn ghost" href="./ask.html">Check my config</a>
@@ -2619,6 +2624,16 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_TARGET_DOC_URL, "deployment-terms")}"><strong>Target</strong></a></td><td>Where a deployment variant is intended to run. It is a delivery address, not a connection from ConfigHub into the cluster.</td></tr>
   </table>
 
+  <h3>Four questions use different evidence</h3>
+  <table class="gtable">
+    <tr><th>Question</th><th>Required input</th><th>Boundary</th></tr>
+    <tr><td><strong>What do I have?</strong></td><td>Source, exact files, OCI, or a snapshot.</td><td>No Catalog match or deployment is required. A live snapshot needs read access to what it measures.</td></tr>
+    <tr><td><strong>What will it produce?</strong></td><td>The source-native processor and recorded choices, unless the source is already literal configuration.</td><td>No destination is required.</td></tr>
+    <tr><td><strong>Can this destination accept it?</strong></td><td>The exact candidate and current facts from the named destination.</td><td>Destination access is required; deployment is not.</td></tr>
+    <tr><td><strong>Did it work?</strong></td><td>The exact delivered revision and live evidence required by the claim.</td><td>The selected revision must be deployed.</td></tr>
+  </table>
+  <p>Every Catalog base records these answers separately. Missing prerequisites are blocked or not run, not failed conformance. <a href="./d/data/config-assessment-stages/summary.html">Open the cross-format cases</a>.</p>
+
   <h3>Why keep the rendered objects</h3>
   <p>ConfigHub keeps the exact objects you reviewed, so you can change one field later without re-running Helm. The full comparison with helm template, kubectl diff, and Kustomize lives on <a href="./compare.html">its own page</a>, with the honest boundary stated.</p>
 
@@ -2663,7 +2678,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>Starting point</th><th>Source and intent record</th><th>How it enters ConfigHub</th></tr>
     <tr><td>Helm chart</td><td><code>HelmRenderIntent</code>: chart version, preset values, release context, source lock, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
-    <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
+    <tr><td>AICR</td><td>A read-only GPU-node snapshot needs no recipe. Recipe-dependent generation records the AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Use snapshot and diff to inspect existing nodes. For a selected platform, keep the generated source package for Argo CD and upload the separate literal configuration OCI as a base variant. The <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
     <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload --component &lt;name&gt; --variant base oci://...</code> creates the base Space and Units from the configuration bundle.</td></tr>
     <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload --component &lt;name&gt; --variant base &lt;files&gt;</code> creates the base Space and Units.</td></tr>
   </table>
@@ -3816,12 +3831,48 @@ function tryAicrHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Try AICR without a GPU</h1>
-  <p class="boundary-chip">Runs on your laptop</p>
-  <p class="lead">Pull one retained NVIDIA AICR configuration, select seven platform Applications that do not need GPU hardware to inspect, verify every file, and write the result as a local OCI package.</p>
-  <p>You do not need ConfigHub, Kubernetes, a cloud account, a GPU, or a registry login. This exercise reads configuration; it does not install the components or run a model.</p>
+  <h1>Try AICR</h1>
+  <p class="boundary-chip">Two independent starting paths</p>
+  <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
+  <p>The node comparison needs read access to a Kubernetes cluster and creates a temporary collector Job with its ServiceAccount and RBAC. It does not need an AICR recipe or deploy a platform bundle.</p>
+  <p>The retained-configuration exercise is local. It needs no ConfigHub account, Kubernetes cluster, cloud account, GPU, or registry login.</p>
 </header>
 <main>
+  <section aria-labelledby="aicr-questions">
+    <h2 id="aicr-questions">Choose The Question First</h2>
+    ${markdownLikeTable([
+      ["Question", "AICR path"],
+      ["What do I have?", "Use snapshot and diff to report differences between existing GPU nodes. No recipe, bundle, or Catalog match is required."],
+      ["What will it produce?", "Select a provider-curated AICR leaf variant and inspect the exact files it generates."],
+      ["Can this destination accept it?", "Check that the destination matches the variant's GPU, network, cloud, controller, credential, API, and component requirements."],
+      ["Did it work?", "Run recipe-dependent resource and runtime checks only after the declared components have been deployed."],
+    ])}
+  </section>
+
+  <section id="aicr-node-state" aria-labelledby="aicr-node-state-title">
+    <h2 id="aicr-node-state-title">Path A: Compare Existing GPU Nodes</h2>
+    <p>Use AICR's read-only path when the question is whether two nodes or two points in time differ. It records kernel command-line settings, modules, system services, GPU hardware, and other measured state as YAML.</p>
+    <pre><code>aicr snapshot --output baseline.yaml
+# select the other node or repeat after the change
+aicr snapshot --output current.yaml
+aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code></pre>
+    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a variant intended for RDMA may require them.</p>
+    <p>Choose the provider-curated source variant meant for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR variants. Other catalog providers can publish and review additional variants.</p>
+    <p><code>expected-resources</code> answers a later question. It needs the selected variant and its declared components deployed. If those components are absent, record that check as blocked or not run; do not call it failed GPU conformance.</p>
+    <p><a href="https://github.com/NVIDIA/aicr/releases/tag/v0.20.0">Open the AICR v0.20.0 release</a> · <a href="./d/data/config-assessment-stages/summary.html">See the tested assessment boundaries</a></p>
+  </section>
+
+  <section aria-labelledby="retained-config-path">
+    <h2 id="retained-config-path">Path B: Inspect A Retained Configuration</h2>
+    <p>This path reads a reviewed AICR-generated package. It does not inspect a live GPU node or prove that the selected platform runs.</p>
+    ${markdownLikeTable([
+      ["Layer", "What it means here"],
+      ["Source variant", "The provider-curated AICR leaf selected before generation."],
+      ["Retained base variant", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
+      ["Derived ConfigHub variant", "A later environment or policy change linked to that retained base."],
+    ])}
+  </section>
+
   <section aria-labelledby="install-oras">
     <h2 id="install-oras">1. Install ORAS</h2>
     <p>ORAS reads and writes OCI packages without running a container.</p>
@@ -3853,7 +3904,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
   </section>
 
   <section aria-labelledby="aicr-boundary">
-    <h2 id="aicr-boundary">What this example proves</h2>
+    <h2 id="aicr-boundary">What the retained-configuration example proves</h2>
     <p>The public AICR configuration can be pulled without signing in. The seven selected Applications match their reviewed hashes, and the local OCI returns the same files.</p>
     <p>The CPU starter is a Config Workshop selection from an AICR-generated platform. It is not an upstream NVIDIA AICR recipe. It keeps the source files unchanged, including a <code>gp3</code> storage-class setting that must be changed before use on a cluster without that class.</p>
     <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
@@ -3869,7 +3920,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
     <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
   </section>
 </main>
-<footer><p>This exercise uses no ConfigHub Server, ConfigHub account, registry login, Kubernetes cluster, or GPU.</p></footer>
+<footer><p>The retained-configuration path uses no ConfigHub Server, account, registry login, Kubernetes cluster, or GPU. The snapshot path needs cluster access but no recipe or selected platform deployment.</p></footer>
 </body>
 </html>
 `;
@@ -3895,6 +3946,15 @@ function howItWorksHtml() {
 <main>
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
+    <h3 id="four-answers">Keep four answers separate</h3>
+    ${markdownLikeTable([
+      ["Question", "When it can be answered"],
+      ["What do I have?", "Inspect the source, package, files, OCI, or snapshot. A Catalog match and deployment are not required."],
+      ["What will it produce?", "Run the source processor locally, or read the exact objects when the source is already literal configuration."],
+      ["Can this destination accept it?", "Check the exact candidate against the named destination before apply. This needs destination access, not a deployment."],
+      ["Did it work?", "Check controller, resource, runtime, drift, and rollback results after the exact revision is deployed."],
+    ])}
+    <p>A blocked prerequisite means the later check did not run. It is not a failed source or failed workload result.</p>
     <h3>Local files</h3>
     <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
@@ -3913,7 +3973,10 @@ function howItWorksHtml() {
     ${markdownLikeTable([
       ["Source", "Materialization means"],
       ["Helm", "Render the chart and recorded values."],
-      ["AICR, Kubara, or another generator", "Run its declared generation or composition step."],
+      ["AICR", "A snapshot and diff report observed GPU-node differences without a recipe. Select the intended provider-curated leaf before deciding whether a difference is wrong. That leaf uses AICR's composition or generation step."],
+      ["Timoni", "Build the pinned module or bundle with its typed values."],
+      ["Kubara or another generator", "Run its declared generation or composition step."],
+      ["Sveltos", "Read the literal Sveltos objects. Materialize each nested source separately."],
       ["Source OCI", "Pull it by digest, then run the processor it declares."],
       ["Configuration OCI", "Read the exact objects it already contains."],
       ["Plain YAML", "Parse and record the exact objects; no source transformation is needed."],
@@ -4021,6 +4084,15 @@ function configHubHtml() {
     <p>Upload reviewed files or OCI. ConfigHub stores each Kubernetes object and keeps the source and review record beside it.</p>
     <p>Create a version for each environment. ConfigHub shows the exact diff, records the approval, and keeps the promotion history.</p>
     <p>Publish a release for Argo CD or Flux. Add live observations when you need to compare the approved configuration with a cluster.</p>
+    <p>ConfigHub keeps the four answers connected without treating them as interchangeable.</p>
+    <p>It links the source and materialized objects, the destination check for one target, and the post-deployment result for one exact release. A retained object or published OCI is not automatically a destination or live pass.</p>
+    ${markdownLikeTable([
+      ["Question", "What ConfigHub retains"],
+      ["What do I have?", "The source identity, imported files, exact object records, and their history."],
+      ["What will it produce?", "The source and intent, materialized objects, object identity, and recorded transformation."],
+      ["Can this destination accept it?", "Checks against one named destination, tied to the exact candidate and current destination facts."],
+      ["Did it work?", "Results for the exact delivered revision, target, time, and claim that was checked."],
+    ])}
   </section>
   <section aria-labelledby="exact-handoff">
     <h2 id="exact-handoff">2. See one exact handoff</h2>
@@ -4807,6 +4879,17 @@ function askHtml() {
     </details>
   </header>
   <main>
+    <section aria-labelledby="check-scope">
+      <h2 id="check-scope">What This Page Can Answer</h2>
+      ${markdownLikeTable([
+        ["Question", "What happens here"],
+        ["What do I have?", "The page inventories and compares the exact rendered objects you provide. A local assistant can also inspect the source, values, or package."],
+        ["What will it produce?", "Helm, AICR, Timoni, or another source tool runs on your machine. The browser checks its output; it does not run the source processor."],
+        ["Can this destination accept it?", "Not from browser files alone. Run a destination check with the exact candidate and current target facts."],
+        ["Did it work?", "Not before deployment. Record controller, resource, runtime, drift, and rollback results after the exact revision is delivered."],
+      ])}
+      <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
+    </section>
     <section aria-labelledby="build-prompt">
       <h2 id="build-prompt">Start with a chart and values</h2>
       <p>Choose one question. This form does not upload a values file or render Helm in your browser. It builds instructions for the Claude, Codex, or other AI assistant already running on your machine. The assistant runs Helm locally, records the inputs, and compares the exact objects.</p>
@@ -4897,7 +4980,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
           <p><label for="source-type"><strong>Starting format</strong></label><br>
             <select id="source-type" style="width:100%;padding:10px;margin-top:6px">
               <option value="helm">Helm chart and values</option>
-              <option value="aicr">AICR recipe</option>
+              <option value="aicr">AICR generated configuration</option>
               <option value="timoni">Timoni module or bundle</option>
               <option value="oci">OCI package</option>
               <option value="kubernetes-yaml">Kubernetes YAML</option>
@@ -5090,6 +5173,16 @@ function promoteHtml() {
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
+    <section aria-labelledby="promotion-scope">
+      <h2 id="promotion-scope">What A Promotion Review Answers</h2>
+      ${markdownLikeTable([
+        ["Question", "Promotion answer"],
+        ["What do I have?", "The exact current and proposed object sets, their identities, and their differences."],
+        ["What will it produce?", "Materialize both sources before using this page. The browser compares the output; it does not run Helm, AICR, Timoni, or another processor."],
+        ["Can this destination accept it?", "Add current destination checks for the same proposed digest. Without them, the answer remains not run."],
+        ["Did it work?", "Add staging or live results only after the exact revision has been deployed. One passing target does not cover another target."],
+      ])}
+    </section>
     <section id="promotion-result" aria-labelledby="promotion-result-title" hidden>
       <h2 id="promotion-result-title">1. Promotion review</h2>
       <p class="stat-strip"><strong id="promotion-status"></strong> &middot; <span id="promotion-counts"></span></p>
@@ -5555,6 +5648,16 @@ function docsHtml() {
   <main>
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
+      <h3 id="four-answers">First choose the answer you need</h3>
+      <p>The same questions apply to Helm, AICR, Timoni, Kubara, Sveltos, OCI, and Kubernetes YAML. Choose the question you need before choosing a command.</p>
+      ${markdownLikeTable([
+        ["Question", "What you need", "What it does not prove"],
+        ["What do I have?", "The source, snapshot, package, or exact files.", "What a source tool will generate, or whether a destination can run it."],
+        ["What will it produce?", "The source inputs and the exact materialization command, or literal objects where materialization is a no-op.", "Whether a named destination has the required APIs, credentials, hardware, and lifecycle setup."],
+        ["Can this destination accept it?", "The exact candidate and current facts from the named destination.", "That the configuration has been deployed or works at runtime."],
+        ["Did it work?", "The exact delivered revision and the live result required by the claim.", "Results for another revision, destination, or untested behavior."],
+      ])}
+      <p>A missing prerequisite makes the unanswered stage <strong>blocked</strong> or <strong>not run</strong>. It does not make the source, configuration, workload, or conformance result a failure.</p>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
       <h3><a href="./try-aicr.html">Can I try one AICR configuration without a GPU?</a></h3>
@@ -5678,7 +5781,18 @@ function verificationHtml(catalog) {
   </header>
   <main>
     <section aria-labelledby="start-question">
-      <h2 id="start-question">1. Choose the question</h2>
+      <h2 id="start-question">1. Choose the question and command</h2>
+      <h3 id="four-questions">First decide which answer you need</h3>
+      <p>Inspection, materialization, destination checks, and post-deployment checks use different inputs. A result from one stage does not pass the next stage.</p>
+      ${markdownLikeTable([
+        ["Question", "Minimum input", "Deployment needed?"],
+        ["What do I have?", "The source, package, snapshot, or files to inspect.", "No"],
+        ["What will it produce?", "Source inputs plus its native tool, or literal objects where this step is a no-op.", "No"],
+        ["Can this destination accept it?", "The exact candidate plus current destination facts.", "No"],
+        ["Did it work?", "The exact delivered revision plus the live evidence required by the claim.", "Yes"],
+      ])}
+      <p>Keep <strong>evidence state</strong> separate from <strong>result state</strong>. For example, an AICR resource check cannot run when the selected components were never deployed. That stage is blocked or not run; it is not a failed GPU or configuration result.</p>
+      <h3>Choose the matching command</h3>
       <p>Use the smallest check that answers it. A generated-file check confirms repository consistency. A live check tests one recorded configuration again and may create clusters and receipts.</p>
       ${markdownLikeTable([
         ["Question", "Command or page", "Needs cluster?", "What it proves"],
@@ -7179,6 +7293,16 @@ function aiHtml(catalog) {
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>
+      <h3 id="four-ai-questions">Keep the four answers separate</h3>
+      <p>An agent can help at every stage, but it cannot replace the input that stage needs. Tell it to report missing work as blocked or not run instead of turning a nearby result into a pass.</p>
+      ${markdownLikeTable([
+        ["Question", "What AI can do", "Required input"],
+        ["What do I have?", "Read and explain a source, snapshot, package, or exact object set.", "The material to inspect. A Catalog entry is optional."],
+        ["What will it produce?", "Run the source-native tool, retain its inputs, and compare the exact output.", "The source and intent. A destination is optional."],
+        ["Can this destination accept it?", "Run checks against current APIs, CRDs, Secrets, policies, controllers, credentials, and hardware.", "The exact candidate and access to the named destination."],
+        ["Did it work?", "Read controller, resource, workload, runtime, drift, and rollback evidence.", "The exact revision must have been deployed, and the required live check must have run."],
+      ])}
+      <p>For AICR, <code>snapshot</code> and <code>diff</code> inspect existing GPU nodes without a recipe or Catalog match. A recipe-dependent <code>expected-resources</code> check applies only after those components have been deployed.</p>
       <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
       ${markdownLikeTable([
         ["Task", "Example request", "What the agent should return"],
@@ -7557,10 +7681,10 @@ function inferenceFamilyTable(root) {
       `ConfigHub retained the two changed Units, published OCI, Argo CD pulled the same digest, the pod became ready, and the model answered. <a href="${href("d/data/vllm-cpu-starter-proof/summary.html")}">Read the proof</a>.`,
     ],
     [
-      `<a href="${href("try-aicr.html")}"><strong>Learn the AICR platform shape</strong></a>`,
-      `An anonymous pull of the retained AICR platform, followed by a reviewed seven-Application CPU-starter selection and a checked local OCI. <a href="${href("d/docs/demo/aicr/cpu-starter.html")}">Read the detailed record</a>.`,
-      "ORAS and a laptop. No GPU, cloud account, NGC key, ConfigHub account, registry login, or Kubernetes cluster.",
-      `The source digest, seven selected file hashes, source-and-intent record, local OCI digest, and pull-back comparison are checked. <a href="${href("d/data/aicr-cpu-starter-public-proof/summary.html")}">Read the anonymous run</a>. This is configuration inspection, not model inference.`,
+      `<a href="${href("try-aicr.html")}"><strong>Inspect GPU state or an AICR platform</strong></a>`,
+      `Use snapshot and diff for existing GPU nodes without a recipe, or anonymously pull the retained AICR platform and select a reviewed seven-Application CPU starter. <a href="${href("d/docs/demo/aicr/cpu-starter.html")}">Read the detailed configuration record</a>.`,
+      "Snapshot needs read access to a Kubernetes cluster. The retained-configuration path needs only ORAS and a laptop; no GPU, cloud account, NGC key, ConfigHub account, registry login, or cluster.",
+      `The retained path checks the source digest, seven selected file hashes, source-and-intent record, local OCI digest, and pull-back comparison. <a href="${href("d/data/aicr-cpu-starter-public-proof/summary.html")}">Read the anonymous run</a>. Snapshot findings, configuration inspection, destination checks, and model inference remain separate results.`,
     ],
     [
       `<a href="${href("d/docs/demo/aicr/eks-h100-inference-nim.html")}"><strong>Plan NVIDIA NIM serving</strong></a>`,
@@ -7636,6 +7760,7 @@ function examplesHtml(catalog) {
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="tagline">Start with the job you need done. Choose a tested component or platform example, then inspect the exact configuration before you use it.</p>
     <p>The Config Workshop Catalog keeps exact versions, useful configurations, known requirements, and the evidence behind each result. It exists so you do not have to repeat the same investigation for every chart or package.</p>
+    <p>Each example names the question it answers. It may inspect a source, produce objects, check a destination, or report what happened after deployment. Later answers are never inferred from earlier ones.</p>
     <p>If you already have a chart, values, YAML, or OCI, use <a href="./ask.html">Check my config</a>. The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs.</p>
   </header>
   <main id="examples-content">
@@ -7644,13 +7769,22 @@ function examplesHtml(catalog) {
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
       <h2 id="start">1. What do you need?</h2>
+      <h3 id="example-boundary">Read the result before choosing an example</h3>
+      ${markdownLikeTable([
+        ["Question", "What an example must show"],
+        ["What do I have?", "The source, snapshot, package, OCI, or exact files that were inspected."],
+        ["What will it produce?", "The source-native command and exact output, or a recorded no-op for literal configuration."],
+        ["Can this destination accept it?", "The named destination, current facts, exact candidate, and checks that ran."],
+        ["Did it work?", "The exact delivered revision and the controller, resource, workload, runtime, drift, or rollback evidence actually collected."],
+      ])}
+      <p>An example may answer only one or two questions. Later stages remain blocked or not run until their required input exists.</p>
       <p>Choose the closest job. Each link opens a tested starting point or the shortest current path to one.</p>
       ${markdownLikeTable([
         ["I need", "Start here"],
         ["A database or cache", `<a href="./try.html"><strong>Try the Redis configuration.</strong></a> Render it locally, read the 14 objects, and check the recorded Helm match and install requirements.`],
         ["Cluster monitoring", `<a href="./charts/index.html?q=kube-prometheus-stack"><strong>Find Kube Prometheus Stack.</strong></a> Compare exact versions, CRD choices, hooks, prerequisites, and delivery evidence.`],
         ["Ingress and certificates", `<a href="./charts/index.html?q=ingress-nginx"><strong>Start with ingress-nginx</strong></a>, then <a href="./charts/index.html?q=cert-manager">add cert-manager</a>. The Catalog records the setup work that rendered YAML does not explain.`],
-        ["AI inference", `<a href="./try-aicr.html"><strong>Try the AICR CPU starter.</strong></a> Inspect the exact Applications and OCI without an account, cluster, or GPU, then continue to the NIM and EKS examples below.`],
+        ["AI inference", `<a href="./try-aicr.html"><strong>Start with AICR.</strong></a> Compare existing GPU nodes without a recipe, or inspect the exact CPU-starter Applications and OCI without an account, cluster, or GPU. Then continue to the NIM and EKS examples below.`],
         ["An internal developer platform", `<a href="./kubara.html"><strong>Build a small platform with Catalog components, Kubara, and AI.</strong></a> Review native Kubara configuration, generate Git and OCI outputs, then retain and promote platform components, developer tools, and applications separately in ConfigHub.`],
         ["A chart or configuration I already have", `<a href="./ask.html"><strong>Check my config.</strong></a> Bring the values, YAML, OCI, or work made by AI. Compare it with defaults, Catalog records, or what you run now.`],
       ], { rawSecondColumn: true })}
@@ -7690,7 +7824,7 @@ Rendered 0 secret(s)</code></pre>
         ],
         [
           "An AICR recipe or inference stack",
-          `<a href="./try-aicr.html"><strong>Try one AICR configuration.</strong></a> Pull and verify the seven-Application CPU starter without an account, cluster, or GPU. Then compare the real CPU model request, NIM, and full EKS paths below.<br><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">AICR v0.19 H100 training record</a>`,
+          `<a href="./try-aicr.html"><strong>Choose an AICR question.</strong></a> Compare GPU-node snapshots without a recipe, or pull and verify the seven-Application CPU starter without an account, cluster, or GPU. Then compare the real CPU model request, NIM, and full EKS paths below.<br><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">AICR v0.19 H100 training record</a>`,
         ],
         [
           "A Timoni module",
@@ -8626,9 +8760,10 @@ function aicrEntriesSection() {
   return `<section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
       <h2 id="aicr-title">AI infrastructure configurations</h2>
       <p>Use this section when your starting point is a model runtime or a complete AI platform rather than one Helm chart. Start with the smallest path that answers your question.</p>
+      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their current state differs without a recipe, bundle, or matching Catalog entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${inferenceFamilyTable("..")}
       <h3>Retained AICR entries</h3>
-      <p>Each AICR entry records the exact version, generated files, pinned digest, and evidence for its claims.</p>
+      <p>Each AICR entry names the provider-curated source variant, exact version, generated files, pinned digest, and evidence for its claims. NVIDIA curates the built-in catalog; another catalog provider can publish and review additional variants.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
         <tbody>
@@ -8682,6 +8817,7 @@ function timoniEntrySection() {
     <h1>Find a Tested Configuration</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">Choose a tested starting configuration for a Helm component, a typed module, or an AI infrastructure stack.</p>
+    <p>Each entry separates four answers: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.</p>
     <p>Helm is the largest section. Each chart page shows the values, rendered Kubernetes objects, required setup, checks, and known limits. The AI infrastructure section starts with a CPU model and continues into AICR, NIM, and EKS.</p>
     <p>A new review adds a version instead of replacing the package you already used.</p>
     <p>If your chart, version, or question is missing, <a href="../ask.html">check your own configuration</a>. A useful public result can become a new Catalog configuration, test, or named warning.</p>
@@ -8690,6 +8826,15 @@ function timoniEntrySection() {
   <main>
     <section aria-labelledby="charts">
       <h2 id="charts">Search Helm Configurations</h2>
+      <h3 id="catalog-questions">Read each result correctly</h3>
+      <p>The Catalog can give you a source and exact objects without a cluster. Destination and live answers appear only when the required target or deployment evidence exists.</p>
+      ${markdownLikeTable([
+        ["Question", "What the Catalog shows", "What it needs"],
+        ["What do I have?", "The exact source, version, choices, package, files, or snapshot.", "No Catalog match, destination, or deployment is required."],
+        ["What will it produce?", "The exact materialized Kubernetes objects and their identity.", "The source-native processor, unless the source is already literal configuration."],
+        ["Can this destination accept it?", "A check of APIs, CRDs, Secrets, policies, controllers, hardware, and lifecycle work for one named destination.", "Destination access; the candidate does not need to be deployed."],
+        ["Did it work?", "The recorded controller, resource, workload, runtime, drift, and rollback results that were actually checked.", "The exact selected revision must have been deployed."],
+      ])}
       <p>Pick a chart and version. Its page shows the package digest, available configurations, and the evidence attached to that exact version.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search Helm charts</strong></label>
@@ -9594,8 +9739,70 @@ function configurationDecisionExampleHtml(entry) {
     </section>`;
 }
 
+function baseVariantRecordFor(chart, version, base) {
+  return baseVariantRecords.find((record) =>
+    record.metadata?.labels?.component === chart
+      && record.metadata?.labels?.sourceVersion === version
+      && record.metadata?.labels?.base === base) ?? null;
+}
+
+function assessmentStateText(stage) {
+  const labels = {
+    available: "Available to inspect",
+    pass: "Checked: passed",
+    watch: "Checked: review the limit",
+    fail: "Checked: failed",
+    pending: "Answer pending",
+    "not-run": "Not run",
+    blocked: "Blocked",
+    "not-applicable": "Not applicable",
+  };
+  const result = labels[stage.resultState] ?? sentenceCase(stage.resultState);
+  const evidence = {
+    completed: "evidence recorded",
+    pending: "evidence pending",
+    "not-run": "no run recorded",
+    blocked: "evidence blocked",
+    "not-applicable": "no evidence required",
+  }[stage.evidenceState] ?? sentenceCase(stage.evidenceState);
+  return `${result}<br><span class="small">${escapeHtml(evidence)}</span>`;
+}
+
+function assessmentQuestionsHtml(record) {
+  if (!record) {
+    return `<section aria-labelledby="assessment-questions">
+      <h2 id="assessment-questions">Four Separate Questions</h2>
+      <p>No source-neutral assessment record is available for this exact configuration. Do not infer destination or live results from the package page.</p>
+    </section>`;
+  }
+  const rows = record.spec.assessment.stages.map((stage) => [
+    `<strong>${escapeHtml(stage.question)}</strong>`,
+    escapeHtml(stage.answer),
+    [
+      `Destination access: ${stage.destinationAccessRequired ? "yes" : "no"}`,
+      `Selected configuration deployed: ${stage.deploymentRequired ? "yes" : "no"}`,
+    ].join("<br>"),
+    assessmentStateText(stage),
+  ]);
+  return `<section aria-labelledby="assessment-questions">
+    <h2 id="assessment-questions">Four Separate Questions</h2>
+    <p>Inspecting a source, producing objects, checking a destination, and checking a live result are different jobs. A Catalog match is useful for comparison but is not required. A missing destination or deployment is shown as not run or blocked, not as a failed configuration.</p>
+    ${markdownLikeTable([
+      ["Question", "Current answer", "What it needs", "Status"],
+      ...rows,
+    ], {
+      rawFirstColumn: true,
+      rawSecondColumn: true,
+      rawThirdColumn: true,
+      rawFourthColumn: true,
+    })}
+    <p><a href="${GITHUB_BLOB_BASE_URL}data/base-variant-records/records/${escapeHtml(record.metadata.name)}.yaml">Open the complete assessment, source, lifecycle, and evidence record</a>.</p>
+  </section>`;
+}
+
 function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const identity = `${row.chart}@${row.version}`;
+  const assessmentRecord = baseVariantRecordFor(row.chart, row.version, row.default_base);
   const kpsManagedPromotion = identity === "prometheus-community/kube-prometheus-stack@86.1.0";
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
   const published = row.publication_status === "published-receipt";
@@ -9684,6 +9891,8 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
         <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
       </div>
     </section>
+
+    ${assessmentQuestionsHtml(assessmentRecord)}
 
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
@@ -9839,6 +10048,9 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     matrixRows.find((row) => row.row_kind === "base" && row.variant === entry.start_variant) ??
     matrixRows.find((row) => row.row_kind === "base") ??
     matrixRows.find((row) => row.row_kind !== "source");
+  const firstBaseAssessmentRecord = firstRunnableRow
+    ? baseVariantRecordFor(entry.chart, entry.version, firstRunnableRow.variant)
+    : null;
   const firstRunnableCommand = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry) : "No runnable row recorded yet.";
   const firstRunnableScriptDir = firstRunnableRow ? presetScriptDir(entry, firstRunnableRow) : null;
   const installerPackageOciRef = installerOciRefForEntry(entry);
@@ -10140,6 +10352,8 @@ function chartPageHtml(catalog, entry, coverageEntry) {
         ["Namespace", entry.namespace || "chart default"],
       ])}
     </section>
+
+    ${assessmentQuestionsHtml(firstBaseAssessmentRecord)}
 
     <section aria-labelledby="setting-sources">
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>

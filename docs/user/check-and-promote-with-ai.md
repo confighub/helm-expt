@@ -13,6 +13,25 @@ candidate, optional comparison, optional Catalog source and intent record, revie
 file hashes, and canonical object-set identity. See the
 [anonymous browser guide](./anonymous-browser-workshop.md).
 
+## Keep four questions separate
+
+Ask the assistant to answer these in order:
+
+1. **What do I have?** Inspect the supplied source, snapshot, package, OCI, or
+   exact files. No Catalog match or deployment is required.
+2. **What will it produce?** Run the source-native tool and retain the exact
+   objects, or record that materialization is a no-op for literal YAML or OCI.
+3. **Can this destination accept it?** Check the exact candidate against current
+   destination facts. This needs destination access but not a deployment.
+4. **Did it work?** Check the exact delivered revision with the controller,
+   resource, workload, runtime, drift, or rollback evidence required by the
+   claim.
+
+The review stores evidence state separately from result state. If a required
+component was never deployed, a dependent resource check is blocked or not run.
+It is not a failed configuration or workload result. This rule applies to Helm,
+AICR, Timoni, Kubara, Sveltos, OCI, and Kubernetes YAML.
+
 ## Check a new configuration
 
 1. Open [Check my config](https://confighub.github.io/helm-expt/site/ask.html).

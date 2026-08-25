@@ -45,6 +45,71 @@ spec:
       record: "runs/literal-yaml-upload-proof/receipt.yaml"
     boundaries:
       - "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Read and compare the exact Kubernetes objects and their digest without running a source processor."
+        requiredInputs:
+          - "The Kubernetes YAML files"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "runs/literal-yaml-upload-proof/receipt.yaml"
+          - "examples/plain-yaml/acme-web"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "This source already contains exact Kubernetes objects. Reading and fingerprinting them is the recorded materialization step."
+        requiredInputs:
+          - "The literal Kubernetes YAML; no source processor is required"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "runs/literal-yaml-upload-proof/receipt.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "runs/literal-yaml-upload-proof/receipt.yaml"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
   inputs:
     fixedAtBuildTime:
       - "source=examples/plain-yaml/acme-web"

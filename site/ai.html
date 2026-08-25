@@ -527,6 +527,19 @@
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>
+      <h3 id="four-ai-questions">Keep the four answers separate</h3>
+      <p>An agent can help at every stage, but it cannot replace the input that stage needs. Tell it to report missing work as blocked or not run instead of turning a nearby result into a pass.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What AI can do</th><th>Required input</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>Read and explain a source, snapshot, package, or exact object set.</td><td>The material to inspect. A Catalog entry is optional.</td></tr><tr><td>What will it produce?</td><td>Run the source-native tool, retain its inputs, and compare the exact output.</td><td>The source and intent. A destination is optional.</td></tr><tr><td>Can this destination accept it?</td><td>Run checks against current APIs, CRDs, Secrets, policies, controllers, credentials, and hardware.</td><td>The exact candidate and access to the named destination.</td></tr><tr><td>Did it work?</td><td>Read controller, resource, workload, runtime, drift, and rollback evidence.</td><td>The exact revision must have been deployed, and the required live check must have run.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>For AICR, <code>snapshot</code> and <code>diff</code> inspect existing GPU nodes without a recipe or Catalog match. A recipe-dependent <code>expected-resources</code> check applies only after those components have been deployed.</p>
       <p>Start with the job in front of you. Include the exact version or digest when you know it.</p>
       <div class="card"><table>
         <thead><tr><th>Task</th><th>Example request</th><th>What the agent should return</th></tr></thead>

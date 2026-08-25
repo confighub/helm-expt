@@ -522,7 +522,21 @@
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <section aria-labelledby="start-question">
-      <h2 id="start-question">1. Choose the question</h2>
+      <h2 id="start-question">1. Choose the question and command</h2>
+      <h3 id="four-questions">First decide which answer you need</h3>
+      <p>Inspection, materialization, destination checks, and post-deployment checks use different inputs. A result from one stage does not pass the next stage.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Minimum input</th><th>Deployment needed?</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The source, package, snapshot, or files to inspect.</td><td>No</td></tr><tr><td>What will it produce?</td><td>Source inputs plus its native tool, or literal objects where this step is a no-op.</td><td>No</td></tr><tr><td>Can this destination accept it?</td><td>The exact candidate plus current destination facts.</td><td>No</td></tr><tr><td>Did it work?</td><td>The exact delivered revision plus the live evidence required by the claim.</td><td>Yes</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Keep <strong>evidence state</strong> separate from <strong>result state</strong>. For example, an AICR resource check cannot run when the selected components were never deployed. That stage is blocked or not run; it is not a failed GPU or configuration result.</p>
+      <h3>Choose the matching command</h3>
       <p>Use the smallest check that answers it. A generated-file check confirms repository consistency. A live check tests one recorded configuration again and may create clusters and receipts.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Command or page</th><th>Needs cluster?</th><th>What it proves</th></tr></thead>

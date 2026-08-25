@@ -19,7 +19,7 @@ oldest receipt is from 2026-05-26, so the evidence spans 91 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 318 |
+| 0 to 30 days | 319 |
 | 31 to 90 days | 1469 |
 | 91 to 180 days | 2 |
 | over 180 days | 0 |
@@ -66,7 +66,7 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-Every one of the 1789 committed receipts records a date, so none of
+Every one of the 1790 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now

@@ -64,6 +64,87 @@
       ],
       "noOp": []
     },
+    "assessment": {
+      "stages": [
+        {
+          "id": "inspection",
+          "question": "What do I have?",
+          "answer": "The command-contract proof contains exact current and candidate Kubernetes object sets.",
+          "requiredInputs": [
+            "current Kubernetes objects",
+            "candidate Kubernetes objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "completed",
+          "resultState": "available",
+          "records": [
+            "current.yaml",
+            "candidate.yaml"
+          ],
+          "nextAction": "Confirm that both object sets are the revisions intended for promotion."
+        },
+        {
+          "id": "materialization",
+          "question": "What will it produce?",
+          "answer": "The exact candidate object set and source record are retained. This command-contract proof did not rerun Helm.",
+          "requiredInputs": [
+            "source and intent",
+            "source-native materialization tool",
+            "exact candidate objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": true,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "not-run",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Rerun Helm with the recorded inputs when source-to-output reproduction is required."
+        },
+        {
+          "id": "destination",
+          "question": "Can this destination accept it?",
+          "answer": "The staging destination is named, but its current Secret, API, policy, controller, and lifecycle facts were not checked.",
+          "requiredInputs": [
+            "exact candidate",
+            "staging destination",
+            "current destination facts"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": false,
+          "evidenceState": "blocked",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "Run the required Secret and managed validation checks against staging."
+        },
+        {
+          "id": "post-deployment",
+          "question": "Did it work?",
+          "answer": "The candidate was not deployed by this command-contract proof.",
+          "requiredInputs": [
+            "exact delivered revision",
+            "staging destination",
+            "claim-specific live evidence"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": true,
+          "evidenceState": "not-run",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "After deployment, record convergence, health, drift, and rollback results for the exact candidate digest."
+        }
+      ]
+    },
     "sourceAware": {
       "source": "bitnami/nginx@24.0.2 with reviewed Helm values",
       "sourceControlled": "The chart and reviewed values produced the retained three-replica base.",

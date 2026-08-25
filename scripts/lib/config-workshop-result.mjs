@@ -63,6 +63,7 @@ export function composeWorkshopResult(options) {
     code: options.questionCode || "config-check",
     text: options.question || "Is this configuration right?",
   };
+  const assessment = assessmentForWorkshop({ source, candidate, sourceRecord });
   const review = {
     apiVersion: "workshop.confighub.com/v1alpha1",
     kind: "ConfigurationReview",
@@ -81,6 +82,7 @@ export function composeWorkshopResult(options) {
             ...compared,
           }
         : { status: "not-supplied" },
+      assessment,
       checks: {
         method: "cub-check-workshop-composition-v1",
         scope: "Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.",
@@ -124,6 +126,7 @@ export function composeWorkshopResult(options) {
         },
         objectSet: candidateIdentity,
       },
+      assessment,
       files,
       checks: {
         completed: [
@@ -151,6 +154,77 @@ export function composeWorkshopResult(options) {
     review,
     candidate,
     candidateIdentity,
+  };
+}
+
+function assessmentForWorkshop({ source, candidate, sourceRecord }) {
+  const literal = source.type === "kubernetes-yaml";
+  const sourceRecordAvailable = Boolean(sourceRecord);
+  return {
+    stages: [
+      {
+        id: "inspection",
+        question: "What do I have?",
+        answer: `The review received ${candidate.documents.length} Kubernetes object(s) from ${source.identity || source.type}. It inspected the supplied files, not an unstated source or destination.`,
+        requiredInputs: ["source identity or exact files", "candidate Kubernetes objects"],
+        catalogMatchRequired: false,
+        sourceIntentRequired: false,
+        destinationAccessRequired: false,
+        deploymentRequired: false,
+        evidenceState: "completed",
+        resultState: "available",
+        records: ["candidate.yaml", ...(sourceRecordAvailable ? ["source-and-intent.yaml"] : [])],
+        nextAction: "Confirm that the supplied source identity and files are the ones you intended to review.",
+      },
+      {
+        id: "materialization",
+        question: "What will it produce?",
+        answer: literal
+          ? "The supplied Kubernetes YAML is already the exact object set, so materialization is a no-op."
+          : "The exact candidate objects are available, but this review did not rerun the source-native materialization tool. Keep the source and intent record if you need to reproduce them.",
+        requiredInputs: literal
+          ? ["literal Kubernetes objects"]
+          : ["source and intent", "source-native materialization tool", "exact candidate objects"],
+        catalogMatchRequired: false,
+        sourceIntentRequired: !literal,
+        destinationAccessRequired: false,
+        deploymentRequired: false,
+        evidenceState: literal ? "completed" : "not-run",
+        resultState: "available",
+        records: ["candidate.yaml", ...(sourceRecordAvailable ? ["source-and-intent.yaml"] : [])],
+        nextAction: literal
+          ? "Use the exact object-set digest for comparison and retention."
+          : "Rerun the source-native tool with recorded inputs when source-to-output reproduction is required.",
+      },
+      {
+        id: "destination",
+        question: "Can this destination accept it?",
+        answer: "No destination facts were supplied or checked by this local review.",
+        requiredInputs: ["exact candidate", "named destination", "current destination facts"],
+        catalogMatchRequired: false,
+        sourceIntentRequired: false,
+        destinationAccessRequired: true,
+        deploymentRequired: false,
+        evidenceState: "blocked",
+        resultState: "not-run",
+        records: [],
+        nextAction: "Check the exact candidate against the chosen destination before deployment.",
+      },
+      {
+        id: "post-deployment",
+        question: "Did it work?",
+        answer: "This local review did not deploy the candidate or inspect a live result.",
+        requiredInputs: ["exact delivered revision", "named destination", "claim-specific live evidence"],
+        catalogMatchRequired: false,
+        sourceIntentRequired: false,
+        destinationAccessRequired: true,
+        deploymentRequired: true,
+        evidenceState: "not-run",
+        resultState: "not-run",
+        records: [],
+        nextAction: "After deployment, record the controller, resource, workload, runtime, drift, or rollback result that answers the claim.",
+      },
+    ],
   };
 }
 

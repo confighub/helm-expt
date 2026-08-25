@@ -56,6 +56,87 @@
       ],
       "noOp": []
     },
+    "assessment": {
+      "stages": [
+        {
+          "id": "inspection",
+          "question": "What do I have?",
+          "answer": "The review received 5 Kubernetes object(s) from bitnami/nginx. It inspected the supplied files, not an unstated source or destination.",
+          "requiredInputs": [
+            "source identity or exact files",
+            "candidate Kubernetes objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "completed",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Confirm that the supplied source identity and files are the ones you intended to review."
+        },
+        {
+          "id": "materialization",
+          "question": "What will it produce?",
+          "answer": "The exact candidate objects are available, but this review did not rerun the source-native materialization tool. Keep the source and intent record if you need to reproduce them.",
+          "requiredInputs": [
+            "source and intent",
+            "source-native materialization tool",
+            "exact candidate objects"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": true,
+          "destinationAccessRequired": false,
+          "deploymentRequired": false,
+          "evidenceState": "not-run",
+          "resultState": "available",
+          "records": [
+            "candidate.yaml",
+            "source-and-intent.yaml"
+          ],
+          "nextAction": "Rerun the source-native tool with recorded inputs when source-to-output reproduction is required."
+        },
+        {
+          "id": "destination",
+          "question": "Can this destination accept it?",
+          "answer": "No destination facts were supplied or checked by this local review.",
+          "requiredInputs": [
+            "exact candidate",
+            "named destination",
+            "current destination facts"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": false,
+          "evidenceState": "blocked",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "Check the exact candidate against the chosen destination before deployment."
+        },
+        {
+          "id": "post-deployment",
+          "question": "Did it work?",
+          "answer": "This local review did not deploy the candidate or inspect a live result.",
+          "requiredInputs": [
+            "exact delivered revision",
+            "named destination",
+            "claim-specific live evidence"
+          ],
+          "catalogMatchRequired": false,
+          "sourceIntentRequired": false,
+          "destinationAccessRequired": true,
+          "deploymentRequired": true,
+          "evidenceState": "not-run",
+          "resultState": "not-run",
+          "records": [],
+          "nextAction": "After deployment, record the controller, resource, workload, runtime, drift, or rollback result that answers the claim."
+        }
+      ]
+    },
     "checks": {
       "method": "cub-check-workshop-composition-v1",
       "scope": "Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.",
