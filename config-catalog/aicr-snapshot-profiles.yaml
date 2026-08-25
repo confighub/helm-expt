@@ -1,0 +1,71 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: AICRNodeProfileCatalog
+metadata:
+  name: aicr-l40-node-profiles
+  version: "2026-08-25"
+spec:
+  provider:
+    name: Config Workshop demonstration
+    role: deployment-profile-curator
+  basedOn:
+    project: NVIDIA AICR
+    version: v0.20.0
+    sourceCatalogRecord: examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml
+    note: These two L40 deployment profiles demonstrate how a platform provider adds target-specific intent. They are not NVIDIA AICR leaves or production hardware advice.
+  profiles:
+    - name: l40-standard-networking
+      displayName: L40 with standard networking
+      dimensions:
+        accelerator: l40
+        network: standard
+        rdma: false
+      targetAssumptions:
+        - No Mellanox or other RDMA network role is assigned to this node.
+        - Peer-memory support is not required for the intended workload.
+      requirements:
+        - path: GPU/hardware/model
+          operator: equals
+          value: L40
+          required: true
+          explanation: The profile is intended for an NVIDIA L40 node.
+        - path: OS/kernel-cmdline/cmdline
+          operator: contains
+          value: iommu=pt
+          required: false
+          explanation: This profile does not require the RDMA kernel setting.
+        - path: OS/kernel-modules/nvidia_peermem
+          operator: equals
+          value: loaded
+          required: false
+          explanation: This profile does not require the peer-memory module.
+
+    - name: l40-mellanox-rdma
+      displayName: L40 with Mellanox RDMA
+      dimensions:
+        accelerator: l40
+        network: mellanox
+        rdma: true
+      targetAssumptions:
+        - The node has a Mellanox network role that requires RDMA.
+        - The operating system and driver stack are expected to expose peer-memory support.
+      requirements:
+        - path: GPU/hardware/model
+          operator: equals
+          value: L40
+          required: true
+          explanation: The profile is intended for an NVIDIA L40 node.
+        - path: OS/kernel-cmdline/cmdline
+          operator: contains
+          value: iommu=pt
+          required: true
+          explanation: The RDMA profile requires this kernel command-line setting.
+        - path: OS/kernel-modules/nvidia_peermem
+          operator: equals
+          value: loaded
+          required: true
+          explanation: The RDMA profile requires the peer-memory module.
+
+status:
+  use: demonstration-only
+  runtimeProven: false
+

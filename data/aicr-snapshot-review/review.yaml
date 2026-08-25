@@ -1,0 +1,233 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigReviewRecord"
+metadata:
+  name: "aicr-l40-node-snapshot-review"
+spec:
+  question: "What differs between these GPU nodes, and does the difference matter for each node's intended role?"
+  source:
+    format: "aicr-snapshot"
+    inspectionCommands:
+      - "aicr snapshot --output baseline.yaml"
+      - "aicr snapshot --output current.yaml"
+      - "aicr diff --baseline baseline.yaml --target current.yaml"
+    note: "Snapshot and diff inspect observed node state. They do not require a recipe or deploy a bundle."
+  snapshots:
+    baseline:
+      path: "tests/fixtures/config-assessment/aicr-snapshot-baseline.yaml"
+      sha256: "27172d5c9ca2a59341ff403b075d765334690b79365209d8111beb4e47da0a22"
+      measurementCount: 4
+    target:
+      path: "tests/fixtures/config-assessment/aicr-snapshot-target.yaml"
+      sha256: "094a1b5764bdcc380461ea4e1eddb9c6bab271fb4bed7ff578b072ffbd8a641c"
+      measurementCount: 4
+  observedDifferences:
+    -
+      path: "OS/kernel-cmdline/cmdline"
+      baseline: "quiet splash iommu=pt"
+      target: "quiet splash"
+      classification: "observed-difference"
+    -
+      path: "OS/kernel-modules/nvidia_peermem"
+      baseline: "loaded"
+      target: "absent"
+      classification: "observed-difference"
+  unboundInterpretation:
+    result: "finding"
+    decision: "The snapshots differ. Select the intended profile for each node before deciding whether either node should change."
+  selectedIntent:
+    profileCatalog:
+      path: "config-catalog/aicr-snapshot-profiles.yaml"
+      sha256: "23193c03ad70e179a93e02fadd03d91a44f8b2a692372f6066a5e6092418f888"
+      provider:
+        name: "Config Workshop demonstration"
+        role: "deployment-profile-curator"
+      version: "2026-08-25"
+      use: "demonstration-only"
+    upstream:
+      project: "NVIDIA AICR"
+      version: "v0.20.0"
+      sourceCatalogRecord: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
+      sourceCatalogRecordSha256: "a3e35f07dbf611860f2642953348da4383cf83a4edbe1d9d3a5b694cc7b0b120"
+      retainedCatalogInventorySha256: "676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
+    bindings:
+      baseline:
+        profile: "l40-mellanox-rdma"
+        dimensions:
+          accelerator: "l40"
+          network: "mellanox"
+          rdma: true
+      target:
+        profile: "l40-standard-networking"
+        dimensions:
+          accelerator: "l40"
+          network: "standard"
+          rdma: false
+  variantAssessment:
+    baseline:
+      profile: "l40-mellanox-rdma"
+      provider:
+        name: "Config Workshop demonstration"
+        role: "deployment-profile-curator"
+      dimensions:
+        accelerator: "l40"
+        network: "mellanox"
+        rdma: true
+      targetAssumptions:
+        - "The node has a Mellanox network role that requires RDMA."
+        - "The operating system and driver stack are expected to expose peer-memory support."
+      result: "pass"
+      requirements:
+        -
+          path: "GPU/hardware/model"
+          required: true
+          expected:
+            operator: "equals"
+            value: "L40"
+          observed: "L40"
+          result: "pass"
+          explanation: "The profile is intended for an NVIDIA L40 node."
+        -
+          path: "OS/kernel-cmdline/cmdline"
+          required: true
+          expected:
+            operator: "contains"
+            value: "iommu=pt"
+          observed: "quiet splash iommu=pt"
+          result: "pass"
+          explanation: "The RDMA profile requires this kernel command-line setting."
+        -
+          path: "OS/kernel-modules/nvidia_peermem"
+          required: true
+          expected:
+            operator: "equals"
+            value: "loaded"
+          observed: "loaded"
+          result: "pass"
+          explanation: "The RDMA profile requires the peer-memory module."
+      decision: "The recorded fields satisfy this profile; checks outside the snapshot remain separate."
+    target:
+      profile: "l40-standard-networking"
+      provider:
+        name: "Config Workshop demonstration"
+        role: "deployment-profile-curator"
+      dimensions:
+        accelerator: "l40"
+        network: "standard"
+        rdma: false
+      targetAssumptions:
+        - "No Mellanox or other RDMA network role is assigned to this node."
+        - "Peer-memory support is not required for the intended workload."
+      result: "pass"
+      requirements:
+        -
+          path: "GPU/hardware/model"
+          required: true
+          expected:
+            operator: "equals"
+            value: "L40"
+          observed: "L40"
+          result: "pass"
+          explanation: "The profile is intended for an NVIDIA L40 node."
+        -
+          path: "OS/kernel-cmdline/cmdline"
+          required: false
+          observed: "quiet splash"
+          result: "not-applicable"
+          explanation: "This profile does not require the RDMA kernel setting."
+        -
+          path: "OS/kernel-modules/nvidia_peermem"
+          required: false
+          observed: "absent"
+          result: "not-applicable"
+          explanation: "This profile does not require the peer-memory module."
+      decision: "The recorded fields satisfy this profile; checks outside the snapshot remain separate."
+    targetUsingBaselineProfile:
+      purpose: "Shows why the same observed state can be correct for one variant and wrong for another."
+      profile: "l40-mellanox-rdma"
+      provider:
+        name: "Config Workshop demonstration"
+        role: "deployment-profile-curator"
+      dimensions:
+        accelerator: "l40"
+        network: "mellanox"
+        rdma: true
+      targetAssumptions:
+        - "The node has a Mellanox network role that requires RDMA."
+        - "The operating system and driver stack are expected to expose peer-memory support."
+      result: "finding"
+      requirements:
+        -
+          path: "GPU/hardware/model"
+          required: true
+          expected:
+            operator: "equals"
+            value: "L40"
+          observed: "L40"
+          result: "pass"
+          explanation: "The profile is intended for an NVIDIA L40 node."
+        -
+          path: "OS/kernel-cmdline/cmdline"
+          required: true
+          expected:
+            operator: "contains"
+            value: "iommu=pt"
+          observed: "quiet splash"
+          result: "finding"
+          explanation: "The RDMA profile requires this kernel command-line setting."
+        -
+          path: "OS/kernel-modules/nvidia_peermem"
+          required: true
+          expected:
+            operator: "equals"
+            value: "loaded"
+          observed: "absent"
+          result: "finding"
+          explanation: "The RDMA profile requires the peer-memory module."
+      decision: "2 required settings do not match this profile."
+  assessmentClasses:
+    nodeInspection:
+      evidenceState: "completed"
+      resultState: "available"
+      note: "Two exact snapshot files were parsed, hashed, and compared."
+    configurationValidation:
+      evidenceState: "not-applicable"
+      resultState: "not-applicable"
+      note: "A node snapshot is observed state, not a deployable configuration candidate."
+    postDeploymentValidation:
+      evidenceState: "blocked"
+      resultState: "not-run"
+      executionOutcome: "missing-deployment-timeout"
+      note: "The recipe-declared components are absent, so expected resource health cannot be evaluated."
+    hardwareRuntimeProof:
+      evidenceState: "not-run"
+      resultState: "not-run"
+      note: "No RDMA transfer, GPU workload, model request, or performance test ran for these sanitized fixtures."
+  retention:
+    acceptedContextSha256: "26fe8adb0975aa02e918876886a245ee978c809bf9b05d0e07961003c9a45654"
+    localFiles:
+      - "tests/fixtures/config-assessment/aicr-snapshot-baseline.yaml"
+      - "tests/fixtures/config-assessment/aicr-snapshot-target.yaml"
+      - "data/aicr-snapshot-review/review.yaml"
+    optionalOci:
+      artifactType: "application/vnd.confighub.config-review.v1"
+      contents:
+        - "baseline.yaml"
+        - "target.yaml"
+        - "profiles.yaml"
+        - "review.yaml"
+      note: "The optional local OCI keeps the observations and interpretation together. It is a review artifact, not deployable Kubernetes configuration."
+    configHub:
+      status: "not-run"
+      purpose: "Keep the two observations and their accepted interpretation as non-deployable Units for later comparison."
+      commands:
+        - "cub space create aicr-node-review --component aicr-node-state --variant reviewed --stage Review"
+        - "cub unit create --space aicr-node-review --provider None baseline-snapshot tests/fixtures/config-assessment/aicr-snapshot-baseline.yaml"
+        - "cub unit create --space aicr-node-review --provider None target-snapshot tests/fixtures/config-assessment/aicr-snapshot-target.yaml"
+        - "cub unit create --space aicr-node-review --provider None snapshot-review data/aicr-snapshot-review/review.yaml"
+status:
+  result: "reviewed"
+  decision: "The observed differences are compatible with the selected profiles. The target would have 2 findings if it were assigned the baseline profile."
+  limits:
+    - "The snapshots are sanitized fixtures, not fresh measurements from a live GPU cluster."
+    - "The deployment profiles demonstrate provider-owned intent and are not NVIDIA AICR leaves or production hardware advice."
+    - "No configuration was generated, deployed, validated after deployment, or exercised on GPU hardware."

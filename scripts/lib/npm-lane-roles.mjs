@@ -48,6 +48,18 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; the same self-test runs inside config-catalog:self-test and the full verify chain, while this alias is the focused negative test",
   },
+  "aicr-snapshot-review:verify": {
+    proves: "The maintained AICR node comparison preserves both snapshot hashes, the selected provider-profile catalog and digest, two observed RDMA differences, variant-aware interpretations, and the missing-deployment boundary for expected-resources.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same verifier runs inside config-catalog:verify, while this focused lane checks the public snapshot-to-review result directly",
+  },
+  "aicr-snapshot-review:self-test": {
+    proves: "The AICR snapshot review rejects a weakened RDMA profile, a fixture that loses its recorded differences, and a missing deployment presented as failed conformance.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the same self-test runs inside config-catalog:self-test, while this alias is the focused negative test",
+  },
   "catalog-shared-checks:verify": {
     proves: "Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes.",
     requires: "offline",

@@ -27,6 +27,7 @@ const documents = {
 };
 const failures = [];
 const assessmentCases = JSON.parse(read("data/config-assessment-stages/cases.json"));
+const aicrSnapshotReview = readYaml(join(root, "data/aicr-snapshot-review/review.yaml"));
 const assessmentStageOrder = [
   "inspection",
   "materialization",
@@ -416,6 +417,31 @@ requireCondition(
     && expectedResources.evidenceState === "blocked"
     && expectedResources.resultState === "not-run",
   "missing AICR expected-resources deployment is presented as failed conformance",
+);
+requireCondition(
+  aicrSnapshotReview.kind === "ConfigReviewRecord"
+    && aicrSnapshotReview.spec?.source?.format === "aicr-snapshot"
+    && aicrSnapshotReview.spec?.observedDifferences?.length === 2,
+  "the retained AICR snapshot review is missing or no longer records both observed differences",
+);
+requireCondition(
+  aicrSnapshotReview.spec?.variantAssessment?.baseline?.result === "pass"
+    && aicrSnapshotReview.spec?.variantAssessment?.target?.result === "pass"
+    && aicrSnapshotReview.spec?.variantAssessment?.targetUsingBaselineProfile?.result === "finding",
+  "the AICR snapshot review no longer separates observed differences from variant-aware findings",
+);
+requireCondition(
+  aicrSnapshotReview.spec?.selectedIntent?.profileCatalog?.sha256
+    && aicrSnapshotReview.spec?.selectedIntent?.upstream?.sourceCatalogRecordSha256
+    && aicrSnapshotReview.spec?.snapshots?.baseline?.sha256
+    && aicrSnapshotReview.spec?.snapshots?.target?.sha256,
+  "the AICR snapshot review does not retain the profile, source, and snapshot identities",
+);
+requireCondition(
+  aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.evidenceState === "blocked"
+    && aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.resultState === "not-run"
+    && aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.executionOutcome === "missing-deployment-timeout",
+  "the AICR snapshot review presents a missing deployment as a conformance result",
 );
 
 const resolutionRoot = join(root, "data/lifecycle-route-resolutions");
