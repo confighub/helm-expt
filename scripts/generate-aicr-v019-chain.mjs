@@ -13,12 +13,16 @@ import {
 
 const mode = process.argv[2] ?? "--verify";
 check(["--generate", "--verify"].includes(mode), "use --generate or --verify");
+const version = process.env.AICR_CHAIN_VERSION?.trim() || "0.19.0";
+check(["0.19.0", "0.20.0"].includes(version), `unsupported AICR chain version ${version}`);
+const versionSlug = `v${version.replaceAll(".", "-")}`;
+const hasProduction = version === "0.20.0";
 
 const exampleRoot = join(
   repoRoot,
   "examples",
   "aicr",
-  "eks-h100-training-kubeflow-v0-19-0",
+  `eks-h100-training-kubeflow-${versionSlug}`,
 );
 const paths = {
   generation: join(exampleRoot, "generation-receipt.yaml"),
@@ -30,15 +34,15 @@ const paths = {
   flattening: join(exampleRoot, "flattening-safety-verdict.yaml"),
   route: join(exampleRoot, "route-intent.yaml"),
   fields: join(exampleRoot, "field-policy-assessment.yaml"),
-  nestedSources: join(repoRoot, "data", "aicr-v0-19-0-nested-sources", "summary.md"),
+  nestedSources: join(repoRoot, "data", `aicr-${versionSlug}-nested-sources`, "summary.md"),
   routeResolution: join(
     repoRoot,
     "data",
     "lifecycle-route-resolutions",
-    "aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml",
+    `aicr-eks-h100-training-kubeflow-${versionSlug}-staging-argo-cd.yaml`,
   ),
 };
-const outputRoot = join(repoRoot, "data", "aicr-v0-19-0-chain");
+const outputRoot = join(repoRoot, "data", `aicr-${versionSlug}-chain`);
 const outputJson = join(outputRoot, "chain.json");
 const outputSummary = join(outputRoot, "summary.md");
 
@@ -64,7 +68,7 @@ if (mode === "--generate") {
   check(existsSync(outputJson), `${relativeRepo(outputJson)} is missing; run the generate command`);
   check(readFileSync(outputJson, "utf8") === json, `${relativeRepo(outputJson)} is stale`);
   check(readFileSync(outputSummary, "utf8") === summary, `${relativeRepo(outputSummary)} is stale`);
-  console.log("verified the AICR v0.19.0 source-to-promotion chain");
+  console.log(`verified the AICR v${version} source-to-promotion chain`);
 }
 
 function buildChain({
@@ -80,7 +84,7 @@ function buildChain({
   nestedSources,
   routeResolution,
 }) {
-  check(generation.spec?.source?.version === "v0.19.0", "AICR source version changed");
+  check(generation.spec?.source?.version === `v${version}`, "AICR source version changed");
   check(generation.status?.upstreamSignatureVerified === true, "upstream signature is not verified");
   check(generation.status?.publicOciPublication === "pass", "public OCI publication is not pass");
   check(generation.status?.configHubUpload === "pass", "ConfigHub upload is not pass");
@@ -133,10 +137,10 @@ function buildChain({
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "ConfigurationProcessingChain",
-    metadata: { name: "aicr-eks-h100-training-kubeflow-v0-19-0" },
+    metadata: { name: `aicr-eks-h100-training-kubeflow-${versionSlug}` },
     spec: {
       sourceAndIntent: {
-        type: "AICR recipe",
+        type: "AICR source variant",
         version: generation.spec.source.version,
         commit: generation.spec.source.commit,
         criteria: generation.spec.sourceAndIntent.criteria,
@@ -185,12 +189,17 @@ function buildChain({
       variants: {
         development: promotion.spec.chain.development.space,
         staging: promotion.spec.chain.staging.space,
+        ...(hasProduction
+          ? { production: promotion.spec.chain.production.space }
+          : {}),
         change: {
           resource: promotion.spec.change.resource,
           from: promotion.spec.change.from,
           to: promotion.spec.change.to,
         },
-        result: "The reviewed development change was promoted to staging.",
+        result: hasProduction
+          ? "The reviewed development change was promoted through staging and production."
+          : "The reviewed development change was promoted to staging.",
         receipt: relativeRepo(paths.promotion),
       },
       releaseOci: {
@@ -203,8 +212,8 @@ function buildChain({
         receipt: relativeRepo(paths.releaseOci),
       },
       notRun: [
-        "Argo CD reconciliation for this v0.19.0 configuration",
-        "Flux delivery for this v0.19.0 configuration",
+        `Argo CD reconciliation for this v${version} configuration`,
+        `Flux delivery for this v${version} configuration`,
         "EKS or H100 execution",
         "A training workload or model request",
         "An exact runtime rollback",
@@ -216,16 +225,16 @@ function buildChain({
 
 function renderSummary(record) {
   const spec = record.spec;
-  return `# AICR v0.19.0: from source to a promoted configuration
+  return `# AICR v${version}: from source to an approved release
 
-This page follows one configuration from NVIDIA AICR v0.19.0 into ConfigHub.
-It keeps the earlier v0.14.0 and v0.18.0 entries unchanged.
+This page follows one configuration from NVIDIA AICR v${version} into ConfigHub.
+The earlier retained AICR versions remain available for comparison.
 
 ## What was completed
 
 | Step | Result |
 | --- | --- |
-| Source and intent | AICR selected the EKS, H100, Ubuntu, Kubeflow training recipe at commit \`${spec.sourceAndIntent.commit}\`. |
+| Source and intent | AICR selected the provider-curated EKS, H100, Ubuntu, Kubeflow training source variant at commit \`${spec.sourceAndIntent.commit}\`. |
 | Materialize | AICR and Helm produced ${spec.materialize.objectCount} exact Argo CD Applications. |
 | Flatten | The 17 wrapper Applications were retained as literal configuration. All 16 nested sources also rendered locally; eight contain CRDs. Each nested source still needs its own flattening and lifecycle decision. |
 | Route lifecycle work | The staging resolution binds the promoted configuration to an EKS/H100/Argo CD destination. It remains blocked until the destination facts, nested routes, and runtime checks have receipts. |
@@ -233,18 +242,20 @@ It keeps the earlier v0.14.0 and v0.18.0 entries unchanged.
 | Publish OCI | The source package and literal configuration are publicly pullable without an account. |
 | Retain in ConfigHub | ConfigHub recorded the literal OCI digest, retained the same 17 object identities, and recorded its own data hash for the Unit. |
 | Check policy | ConfigHub refused to publish an unapproved release. |
-| Change and promote | Development changed one Grafana setting to use an existing Secret. The reviewed result was promoted to staging. |
-| Publish the approved release | After approval, ConfigHub published the staging result as OCI. A pull by manifest digest matched all 17 promoted Applications. |
+| Change and promote | Development changed one Grafana setting to use an existing Secret. The reviewed result was promoted ${hasProduction ? "through staging and production" : "to staging"}. |
+| Publish the approved release | After approval, ConfigHub published the ${hasProduction ? "production" : "staging"} result as OCI. A pull by manifest digest matched all 17 promoted Applications. |
 
 ## Exact references
 
-- Source package: \`${spec.publicOci.sourcePackage.reference}@${spec.publicOci.sourcePackage.digest}\`
-- Literal configuration: \`${spec.publicOci.literalConfiguration.reference}@${spec.publicOci.literalConfiguration.digest}\`
-- ConfigHub Unit data hash: \`${spec.configHub.dataHash}\`
-- ConfigHub base: \`${spec.configHub.base}\`
-- Development: \`${spec.variants.development}\`
-- Staging: \`${spec.variants.staging}\`
-- ConfigHub release OCI: \`${spec.releaseOci.reference}\`
+| Record | Exact value |
+| --- | --- |
+| Source package | \`${spec.publicOci.sourcePackage.reference}@${spec.publicOci.sourcePackage.digest}\` |
+| Literal configuration | \`${spec.publicOci.literalConfiguration.reference}@${spec.publicOci.literalConfiguration.digest}\` |
+| ConfigHub Unit data hash | \`${spec.configHub.dataHash}\` |
+| ConfigHub base | \`${spec.configHub.base}\` |
+| Development | \`${spec.variants.development}\` |
+| Staging | \`${spec.variants.staging}\` |
+${hasProduction ? `| Production | \`${spec.variants.production}\` |\n` : ""}| ConfigHub release OCI | \`${spec.releaseOci.reference}\` |
 
 ## What did not run
 

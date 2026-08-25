@@ -60,6 +60,24 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; the same self-test runs inside config-catalog:self-test, while this alias is the focused negative test",
   },
+  "aicr-v0200:chain:verify": {
+    proves: "The AICR v0.20.0 source variant, generated Applications, partial flattening boundary, lifecycle record, public OCI artifacts, ConfigHub base and environment variants, approval check, promotion, and approved release OCI remain linked by the committed receipts while runtime delivery stays not-run.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused lane gives the complete v0.20.0 configuration-plane chain one direct check",
+  },
+  "aicr-v0190:release-oci:verify": {
+    proves: "The committed AICR v0.19.0 release receipt still binds the approved ConfigHub staging revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result",
+  },
+  "aicr-v0200:release-oci:verify": {
+    proves: "The committed AICR v0.20.0 release receipt still binds the approved ConfigHub production revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result",
+  },
   "catalog-shared-checks:verify": {
     proves: "Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes.",
     requires: "offline",

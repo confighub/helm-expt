@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 42
+lanes outside the chain: 45
 should join the chain:   0
-deliberately outside:    42
+deliberately outside:    45
 superseded:              0
 ```
 
@@ -35,6 +35,9 @@ None.
 | `aicr-snapshot-review:self-test` | The AICR snapshot review rejects a weakened RDMA profile, a fixture that loses its recorded differences, and a missing deployment presented as failed conformance. | offline | passes; the same self-test runs inside config-catalog:self-test, while this alias is the focused negative test |
 | `config-catalog:verify` | The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output. | offline | passes; its component generators and model verifier already run in the full verify chain, while this focused lane checks the complete Catalog model in one command |
 | `config-catalog:self-test` | The Catalog generators reject malformed AI review records, invalid four-stage assessment cases, and inconsistent source-neutral Catalog records. | offline | passes; the same self-tests run separately in the full verify chain, while this alias groups the Catalog contract checks for development |
+| `aicr-v0200:chain:verify` | The AICR v0.20.0 source variant, generated Applications, partial flattening boundary, lifecycle record, public OCI artifacts, ConfigHub base and environment variants, approval check, promotion, and approved release OCI remain linked by the committed receipts while runtime delivery stays not-run. | offline | passes; this focused lane gives the complete v0.20.0 configuration-plane chain one direct check |
+| `aicr-v0190:release-oci:verify` | The committed AICR v0.19.0 release receipt still binds the approved ConfigHub staging revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution. | offline | passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result |
+| `aicr-v0200:release-oci:verify` | The committed AICR v0.20.0 release receipt still binds the approved ConfigHub production revisions, release manifest digest, pulled configuration and README files, and promoted 17-Application object set without claiming controller or GPU execution. | offline | passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result |
 | `kubara-current-catalog-candidates:verify` | All seven exact Kubara v0.13.0 public artifacts still verify as candidates — each recipe and package exists, its proof artifacts and installer package re-verify (including a byte-identical double `cub installer package` bundle and a semantic Helm-vs-`cub installer setup` object comparison per variant), source-lock version/URL/SHA match the recorded exact artifact — and data/kubara-catalog-refresh/current-candidates/{candidate-set.yaml,candidate-status.csv,README.md} are not stale relative to that inspection. | confighub | not run here, needs confighub |
 | `kubara-catalog-promotion:stage:verify` | That the disposable staging tree .tmp/kubara-catalog-root-promotion holds root-ready proof and package trees for all seven historical Kubara components — each with a source-lock pinned to the promoted version and exact artifact URL — and that promoting them would not disturb the 120-root immutable baseline. | network | not run here, needs network |
 | `kubara-catalog-promotion:verify` | Re-verifies the additive historical Kubara root promotion: the release scope manifest, the byte-locked baseline catalog roots, the required additions, each component's proof and installer-package receipts (including the packaged kube-prometheus-stack lifecycle files), the 13-lane live-qualification set receipt, and that data/kubara-catalog-refresh/root-promotion/receipt.yaml matches the receipt the script recomputes. | confighub | not run here, needs confighub |

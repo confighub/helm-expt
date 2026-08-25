@@ -1,0 +1,56 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubApplyPolicyReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0-required-approval"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-08-25T23:04:25.180Z"
+  source:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+    digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+  space:
+    slug: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+    id: "e9d83a0a-5d37-4177-8291-30e7d971f8ac"
+    resourceClass: "system-configuration"
+  unit:
+    slug: "aicr-eks-h100-training-kubeflow"
+    id: "437fefa8-e89d-4fb4-82f5-b2f1223ee7f1"
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-prod-gates"
+    gate: "platform/require-approval/vet-approvedby"
+    reason: "system-configuration"
+  command:
+    - "cub"
+    - "release"
+    - "publish"
+    - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+    - "-o"
+    - "json"
+  releasePublish:
+    exitCode: 1
+    response: "outstanding ApplyGates"
+    before:
+      dataHash: "99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56"
+      headRevision: 2
+      liveRevision: null
+      lastAppliedRevision: null
+      targetId: "73bb8a8f-5ffb-45d3-9e81-5b372e7b01bb"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+    after:
+      dataHash: "99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56"
+      headRevision: 2
+      liveRevision: null
+      lastAppliedRevision: null
+      targetId: "73bb8a8f-5ffb-45d3-9e81-5b372e7b01bb"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+status:
+  result: "pass"
+  requiredApprovalBlockedReleasePublish: "pass"
+  configurationApplied: "not-run"
+  claim: "ConfigHub refused to publish a release of the exact AICR base variant because the required approval was missing."
+  limits:
+    - "No release was published and no configuration was sent to Kubernetes."
+    - "This proves the required-approval behavior for this recorded AICR Unit and revision. It does not prove Argo CD reconciliation or GPU workload health."

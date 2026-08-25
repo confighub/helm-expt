@@ -32,6 +32,9 @@ const fieldPolicyPath = join(root, "field-policy-assessment.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const publicSummaryPath = join(root, "public-oci-summary.md");
 const ociReceiptPath = join(root, "argocd-oci-receipt.yaml");
+const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
+const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
+const releaseReceiptPath = join(root, "confighub-release-oci-receipt.yaml");
 const expected = receipt.spec?.processing?.transport ?? {};
 
 verifySourceChecksums();
@@ -319,14 +322,26 @@ function verifySupportingRecords() {
     "generation receipt public OCI result disagrees with the public receipt",
   );
   check(receipt.status?.published === (published ? true : undefined), "generation receipt published flag changed");
-  for (const key of [
-    "configHubUpload",
-    "promotion",
-    "configHubReleaseOci",
-    "argoCdDelivery",
-    "fluxDelivery",
-    "eksH100Runtime",
-  ]) {
+  const retainedConfigHubResults = [
+    ["configHubUpload", existsSync(uploadReceiptPath)],
+    [
+      "promotion",
+      existsSync(promotionReceiptPath)
+        && readYaml(promotionReceiptPath).status?.result === "pass",
+    ],
+    [
+      "configHubReleaseOci",
+      existsSync(releaseReceiptPath)
+        && readYaml(releaseReceiptPath).status?.result === "pass",
+    ],
+  ];
+  for (const [key, complete] of retainedConfigHubResults) {
+    check(
+      receipt.status?.[key] === (complete ? "pass" : "not-run"),
+      `generation receipt ${key} status disagrees with its retained receipt`,
+    );
+  }
+  for (const key of ["argoCdDelivery", "fluxDelivery", "eksH100Runtime"]) {
     check(receipt.status?.[key] === "not-run", `generation receipt must keep ${key} at not-run`);
   }
   if (published) verifyPublicationRecords();

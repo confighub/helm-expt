@@ -657,6 +657,7 @@ function buildAicrModernArgoCdRecord(version) {
   check(["0.19.0", "0.20.0"].includes(version), `unsupported modern AICR version ${version}`);
   const retainedVersion = `v${version}`;
   const versionSlug = `v${version.replaceAll(".", "-")}`;
+  const hasProduction = version === "0.20.0";
   const root = `examples/aicr/eks-h100-training-kubeflow-${versionSlug}`;
   const generationPath = `${root}/generation-receipt.yaml`;
   const routePath = `${root}/route-intent.yaml`;
@@ -671,6 +672,7 @@ function buildAicrModernArgoCdRecord(version) {
   const nestedSourcesPath = `data/aicr-${versionSlug}-nested-sources/summary.md`;
   const routeResolutionPath =
     `data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-${versionSlug}-staging-argo-cd.yaml`;
+  const processingChainPath = `data/aicr-${versionSlug}-chain/summary.md`;
   const generation = readYaml(join(repoRoot, generationPath));
   const routeIntent = readYaml(join(repoRoot, routePath));
   const platformIndex = JSON.parse(readFileSync(join(repoRoot, indexPath), "utf8"));
@@ -853,9 +855,19 @@ function buildAicrModernArgoCdRecord(version) {
               sourceDigest: promotionReceipt.spec.source.literalConfiguration.digest,
               changedApplications: [promotionReceipt.spec.change.resource],
               devDryRun: promotionReceipt.spec.change.preview.result,
-              stagingDryRun: promotionReceipt.spec.promotion.preview.result,
+              stagingDryRun:
+                promotionReceipt.spec.promotion.destinations?.staging?.preview?.result
+                ?? promotionReceipt.spec.promotion.preview?.result,
               stagingMatchesReviewedDev:
-                promotionReceipt.spec.promotion.stagingMatchesDevelopment,
+                promotionReceipt.spec.promotion.destinationsMatchDevelopment
+                ?? promotionReceipt.spec.promotion.stagingMatchesDevelopment,
+              ...(hasProduction
+                ? {
+                    production: promotionReceipt.spec.chain.production.space,
+                    productionDryRun:
+                      promotionReceipt.spec.promotion.destinations?.production?.preview?.result,
+                  }
+                : {}),
             },
           }
         : {}),
@@ -879,6 +891,7 @@ function buildAicrModernArgoCdRecord(version) {
         ...(releaseOciPassed ? { configHubReleaseOciReceipt: releaseOciReceiptPath } : {}),
         ...(existsRepo(nestedSourcesPath) ? { nestedSourceRenders: nestedSourcesPath } : {}),
         ...(existsRepo(routeResolutionPath) ? { stagingRouteResolution: routeResolutionPath } : {}),
+        ...(existsRepo(processingChainPath) ? { processingChain: processingChainPath } : {}),
       },
       operations: {
         resourceClass: "system-configuration",
@@ -889,7 +902,7 @@ function buildAicrModernArgoCdRecord(version) {
     status: {
       level: "partial",
       claim: publicPassed && uploadPassed && promotionPassed && releaseOciPassed
-        ? `AICR ${retainedVersion} produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change to staging, and published the approved staging result as a release OCI that was pulled and compared by digest.`
+        ? `AICR ${retainedVersion} produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change ${hasProduction ? "through staging and production" : "to staging"}, and published the approved ${hasProduction ? "production" : "staging"} result as a release OCI that was pulled and compared by digest.`
         : publicPassed
           ? `AICR ${retainedVersion} produced 17 exact Argo CD Applications with signed source provenance, lifecycle route intent, a field-policy assessment, and two publicly pullable OCI artifacts at recorded digests.`
           : `AICR ${retainedVersion} produced 17 exact Argo CD Applications with signed source provenance, a scoped flattening verdict, lifecycle route intent, field ownership assessment, and two verified local OCI layouts.`,
@@ -901,13 +914,13 @@ function buildAicrModernArgoCdRecord(version) {
           ? `ConfigHub recorded the literal OCI digest and its separate Unit data hash ${uploadReceipt.spec.unit.dataHash}; the upload receipt binds them by exact-object comparison.`
           : `This ${retainedVersion} base has not yet been uploaded to ConfigHub.`,
         promotionPassed
-          ? "The persistent development and staging variants contain the one reviewed Grafana Secret-reference change."
+          ? `The persistent ${hasProduction ? "development, staging, and production" : "development and staging"} variants contain the one reviewed Grafana Secret-reference change.`
           : `No ${retainedVersion} derived-variant promotion has run.`,
         policyPassed
           ? "The required-approval gate refused to publish an unapproved ConfigHub release."
           : `The ConfigHub apply policy has not been tested for this ${retainedVersion} base.`,
         releaseOciPassed
-          ? "After approval, ConfigHub published the staging release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set."
+          ? `After approval, ConfigHub published the ${hasProduction ? "production" : "staging"} release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set.`
           : "No approved ConfigHub release OCI has been pulled and compared for this version.",
         existsRepo(nestedSourcesPath)
           ? "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence."
@@ -2162,9 +2175,18 @@ function validateRecords(records) {
         === "public-anonymous-pull-proved"
       && aicrV020.spec.delivery.literalConfigOci.status
         === "public-anonymous-pull-proved"
-      && aicrV020.spec.delivery.configHubUpload.status === "not-run"
-      && aicrV020.spec.delivery.configHubReleaseOci.status === "not-run",
-    "AICR v0.20.0 does not expose its public artifacts, processing records, or unfinished managed stages",
+      && aicrV020.spec.delivery.configHubUpload.status === "pass"
+      && aicrV020.spec.delivery.configHubUpload.objectIdentitiesMatched === true
+      && aicrV020.spec.promotion?.status === "pass"
+      && aicrV020.spec.promotion?.path
+        === "base -> development -> staging -> production"
+      && aicrV020.spec.promotion?.production
+        === "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production"
+      && aicrV020.spec.delivery.configHubReleaseOci.status
+        === "published-and-pulled-by-digest"
+      && aicrV020.spec.delivery.configHubReleaseOci.promotedConfigurationMatched
+        === true,
+    "AICR v0.20.0 does not expose its public artifacts, processing records, promotion, and release OCI",
   );
   const timoni = records.find(
     (record) => record.metadata.name === "timoni-redis-8-10-1-default",
