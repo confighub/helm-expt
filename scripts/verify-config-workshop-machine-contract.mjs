@@ -14,6 +14,7 @@ const llmsPath = join(siteRoot, "llms.txt");
 const askPath = join(siteRoot, "ask.html");
 const checkScriptPath = join(siteRoot, "check-config.js");
 const workshopResultSchemaPath = join(siteRoot, "workshop-result.schema.json");
+const workshopCiReportSchemaPath = join(siteRoot, "workshop-ci-report.schema.json");
 const promotePath = join(siteRoot, "promote.html");
 const promoteScriptPath = join(siteRoot, "promote-config.js");
 const promotionSchemaPath = join(siteRoot, "promotion-review.schema.json");
@@ -26,6 +27,11 @@ const commandContractSummaryPath = join(repoRoot, "data", "config-workshop-comma
 const commandContractResultPaths = [
   join(repoRoot, "data", "config-workshop-command-contract", "helm", "workshop-result.json"),
   join(repoRoot, "data", "config-workshop-command-contract", "kubernetes-yaml", "workshop-result.json"),
+];
+const ciReportPaths = [
+  join(repoRoot, "data", "config-workshop-ci-report", "nginx-reviewed", "report.json"),
+  join(repoRoot, "data", "config-workshop-ci-report", "kubernetes-yaml", "report.json"),
+  join(repoRoot, "data", "config-workshop-ci-report", "redis-reuse-existing-secret", "report.json"),
 ];
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -121,6 +127,7 @@ const llms = readFileSync(llmsPath, "utf8");
 const ask = readFileSync(askPath, "utf8");
 const checkScript = readFileSync(checkScriptPath, "utf8");
 const workshopResultSchema = readJson(workshopResultSchemaPath);
+const workshopCiReportSchema = readJson(workshopCiReportSchemaPath);
 const promote = readFileSync(promotePath, "utf8");
 const promoteScript = readFileSync(promoteScriptPath, "utf8");
 const promotionSchema = readJson(promotionSchemaPath);
@@ -131,10 +138,11 @@ const issueTemplate = readFileSync(issueTemplatePath, "utf8");
 const commandContract = readJson(commandContractPath);
 const commandContractSummary = readFileSync(commandContractSummaryPath, "utf8");
 const commandContractResults = commandContractResultPaths.map(readJson);
+const ciReports = ciReportPaths.map(readJson);
 for (const term of ["## Machine contract", "Missing coverage means we have not checked that claim", "changes.schema.json", "retention object is computed", "Normal catalog refreshes are additive"]) {
   check(llms.includes(term), `site/llms.txt must explain the machine contract: ${term}`);
 }
-for (const term of ["workshop-result.schema.json", "promotion-review.schema.json", "base-variant-records.json"]) {
+for (const term of ["workshop-result.schema.json", "workshop-ci-report.schema.json", "promotion-review.schema.json", "base-variant-records.json"]) {
   check(llms.includes(term), `site/llms.txt must link the source-aware promotion contract: ${term}`);
 }
 for (const term of ["Config Workshop agent skill", ".well-known/agent-skills/config-workshop/SKILL.md"]) {
@@ -156,6 +164,15 @@ check(workshopResultSchema.properties?.spec?.required?.includes("findingDecision
 check(workshopResultSchema.$defs?.objectSetIdentity?.properties?.algorithm?.const === "cub-scan-canonical-json-v1", "workshop result must name the canonical object-set algorithm");
 check(workshopResultSchema.properties?.spec?.properties?.checks?.required?.includes("advisoryReceipts"), "workshop result must require explicit advisory receipts");
 check(workshopResultSchema.$defs?.localAdvisoryReceipt?.properties?.authority?.const === "local-advisory", "workshop result must keep local checks advisory");
+check(workshopCiReportSchema.properties?.schemaVersion?.const === "workshop-ci-report-v1", "CI report schema must pin v1");
+check(workshopCiReportSchema.properties?.verdict?.enum?.includes("clear-in-completed-checks"), "CI report schema must use the bounded clear verdict");
+check(!workshopCiReportSchema.properties?.verdict?.enum?.includes("safe"), "CI report schema must not call a static result safe");
+for (const report of ciReports) {
+  check(report.schemaVersion === "workshop-ci-report-v1", "generated CI report must use v1");
+  check(/^sha256:[0-9a-f]{64}$/.test(report.candidate?.objectSetSha256 ?? ""), "generated CI report must retain the exact object-set hash");
+  check(report.checks?.runtime === "not-checked", "generated local CI report must not claim runtime status");
+  check(report.scope?.notProven?.includes("destination acceptance"), "generated CI report must name its destination limit");
+}
 for (const term of ["kind: \"WorkshopResult\"", "download-workshop-result", "workshop-result.json", "notRun", "findingDecisions", "unreviewed", "matchedCubCheck", "scannerObjectSetPayload", "validateCubCheckReceipt", "cub-check.json", "local-check-object-set-sha256", "local advisory evidence, not ConfigHub validation"]) {
   check(checkScript.includes(term), `site/check-config.js must expose the complete browser result: ${term}`);
 }

@@ -177,16 +177,18 @@
           "docs/user/ai-assisted-helm-changes.md",
           "data/byo-helm-values-review/review.yaml",
           "runs/ai-change-review-live-proof/receipt.yaml",
-          "data/config-workshop-command-contract/helm/workshop-result.json"
+          "data/config-workshop-command-contract/helm/workshop-result.json",
+          "data/config-workshop-ci-report/summary.md"
         ],
         "id": "T10",
         "name": "Review values proposed by AI",
-        "next": "Add more chart classes and target-aware checks rather than treating one NGINX example as universal.",
+        "next": "Extend the same report to more source plugins and destination-aware checks rather than treating the NGINX and Redis cases as universal.",
         "outcome": "An AI-proposed values file becomes an exact object diff with checks and a corrected reviewed result.",
         "status": "available",
         "verify": [
           "npm run byo-helm-values:verify",
-          "npm run ai-change-review:live:verify"
+          "npm run ai-change-review:live:verify",
+          "npm run workshop:ci-report:verify"
         ]
       },
       {

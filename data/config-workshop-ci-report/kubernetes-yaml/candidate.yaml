@@ -1,0 +1,73 @@
+# Source: configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acme-web-content
+  namespace: acme-web
+  labels:
+    app.kubernetes.io/name: acme-web
+data:
+  welcome: "Hello from the plain YAML example"
+---
+# Source: deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acme-web
+  namespace: acme-web
+  labels:
+    app.kubernetes.io/name: acme-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: acme-web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: acme-web
+    spec:
+      containers:
+        - name: nginx
+          image: registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+          env:
+            - name: WELCOME_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: acme-web-content
+                  key: welcome
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+---
+# Source: namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acme-web
+  labels:
+    app.kubernetes.io/part-of: acme-web
+---
+# Source: service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: acme-web
+  namespace: acme-web
+  labels:
+    app.kubernetes.io/name: acme-web
+spec:
+  selector:
+    app.kubernetes.io/name: acme-web
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

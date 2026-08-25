@@ -155,10 +155,12 @@ spec:
         - data/byo-helm-values-review/review.yaml
         - runs/ai-change-review-live-proof/receipt.yaml
         - data/config-workshop-command-contract/helm/workshop-result.json
+        - data/config-workshop-ci-report/summary.md
       verify:
         - npm run byo-helm-values:verify
         - npm run ai-change-review:live:verify
-      next: Add more chart classes and target-aware checks rather than treating one NGINX example as universal.
+        - npm run workshop:ci-report:verify
+      next: Extend the same report to more source plugins and destination-aware checks rather than treating the NGINX and Redis cases as universal.
 
     - id: T11
       area: Bring your own config

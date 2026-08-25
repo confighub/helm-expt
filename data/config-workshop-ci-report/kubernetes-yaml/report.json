@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "workshop-ci-report-v1",
+  "generatedAt": "2026-08-24T21:50:08Z",
+  "generatedFrom": "result-78e3bacb58e6",
+  "verdict": "needs-review",
+  "verdictLabel": "Needs review",
+  "summary": "10 findings; 5 checks not run. Review them before this change progresses.",
+  "scope": {
+    "checked": "the exact Kubernetes objects and the completed checks listed in this report",
+    "notProven": "destination acceptance, deployment, workload health, drift, and rollback unless separate receipts are linked"
+  },
+  "source": {
+    "type": "kubernetes-yaml",
+    "identity": "examples/plain-yaml/acme-web",
+    "version": "source-r001",
+    "valuesSummary": "Literal Kubernetes YAML; materialization is a no-op."
+  },
+  "candidate": {
+    "objectCount": 4,
+    "objectSetSha256": "sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c",
+    "contentSha256": "sha256:78e3bacb58e6ee82be42420379c6376b71870c0b294d2241553026e45ac229c5"
+  },
+  "comparison": {
+    "status": "not-supplied",
+    "added": [],
+    "removed": [],
+    "changed": [],
+    "unchanged": []
+  },
+  "findings": [
+    {
+      "id": "CCVE-2025-3733",
+      "severity": "critical",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Container nginx does not set runAsNonRoot: true",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-WORKLOAD-0001"
+      ],
+      "nextAction": "Set securityContext.runAsNonRoot to true at pod or container level"
+    },
+    {
+      "id": "CCVE-2025-3734",
+      "severity": "critical",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Container nginx does not set allowPrivilegeEscalation: false",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-WORKLOAD-0001"
+      ],
+      "nextAction": "Set securityContext.allowPrivilegeEscalation to false on every container"
+    },
+    {
+      "id": "CCVE-2025-3726",
+      "severity": "warning",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Deployment omits pod and container securityContext settings",
+      "decision": "unreviewed",
+      "controlIds": [],
+      "nextAction": "Add pod-level securityContext defaults where appropriate"
+    },
+    {
+      "id": "CCVE-2025-3728",
+      "severity": "warning",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Deployment containers omit resource limits",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-WORKLOAD-0002"
+      ],
+      "nextAction": "Add resources.limits for memory and CPU to each container"
+    },
+    {
+      "id": "CCVE-2025-3732",
+      "severity": "warning",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable",
+      "decision": "unreviewed",
+      "controlIds": [],
+      "nextAction": "Set resources.requests.cpu and resources.requests.memory on every container"
+    },
+    {
+      "id": "CCVE-2025-3735",
+      "severity": "warning",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Container nginx does not set readOnlyRootFilesystem: true",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-WORKLOAD-0001"
+      ],
+      "nextAction": "Set securityContext.readOnlyRootFilesystem to true on every container"
+    },
+    {
+      "id": "CCVE-2025-3736",
+      "severity": "warning",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Container nginx does not drop ALL capabilities",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-WORKLOAD-0001"
+      ],
+      "nextAction": "Set securityContext.capabilities.drop to [\"ALL\"] on every container"
+    },
+    {
+      "id": "CCVE-2025-3746",
+      "severity": "warning",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-RBAC-0002"
+      ],
+      "nextAction": "Set automountServiceAccountToken to false in the pod spec"
+    },
+    {
+      "id": "CCVE-2025-3763",
+      "severity": "warning",
+      "resource": "Namespace/default/acme-web",
+      "message": "Namespace acme-web lacks pod-security.kubernetes.io/enforce label",
+      "decision": "unreviewed",
+      "controlIds": [
+        "CTRL-CLUSTER-0001"
+      ],
+      "nextAction": "Add pod-security.kubernetes.io/enforce label with baseline or restricted value"
+    },
+    {
+      "id": "CCVE-2025-3740",
+      "severity": "info",
+      "resource": "Deployment/acme-web/acme-web",
+      "message": "Deployment has replicas: 1; no high availability",
+      "decision": "unreviewed",
+      "controlIds": [],
+      "nextAction": "Set replicas to at least 2 for services requiring availability"
+    }
+  ],
+  "checks": {
+    "completed": [
+      "Kubernetes object inventory",
+      "shared local configuration checks from a matching cub check result",
+      "Catalog source and lifecycle record retained with the result"
+    ],
+    "notRun": [
+      "source rendering and values provenance beyond the supplied source record",
+      "Kubernetes schema and admission behavior",
+      "hook execution and CRD establishment",
+      "live workload health and drift",
+      "database migrations and external services"
+    ],
+    "localScanner": {
+      "authority": "local-advisory",
+      "tool": "cub-scan",
+      "version": "v0.7.3",
+      "scanTime": "2026-08-24T21:50:08Z",
+      "patternBundleVersion": "v0.7.3",
+      "patternBundleManifestSha256": "sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+      "objectSetMatched": true
+    },
+    "managedValidation": "not-recorded-by-this-local-report",
+    "destination": "not-checked",
+    "delivery": "not-checked",
+    "runtime": "not-checked"
+  },
+  "lifecycle": {
+    "requirements": [],
+    "routes": [],
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap"
+  },
+  "decision": {
+    "status": "not-recorded",
+    "record": null,
+    "outcomes": [
+      {
+        "findingId": "CCVE-2025-3726",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": []
+      },
+      {
+        "findingId": "CCVE-2025-3728",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-WORKLOAD-0002"
+        ]
+      },
+      {
+        "findingId": "CCVE-2025-3732",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": []
+      },
+      {
+        "findingId": "CCVE-2025-3733",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-WORKLOAD-0001"
+        ]
+      },
+      {
+        "findingId": "CCVE-2025-3734",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-WORKLOAD-0001"
+        ]
+      },
+      {
+        "findingId": "CCVE-2025-3735",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-WORKLOAD-0001"
+        ]
+      },
+      {
+        "findingId": "CCVE-2025-3736",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-WORKLOAD-0001"
+        ]
+      },
+      {
+        "findingId": "CCVE-2025-3740",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": []
+      },
+      {
+        "findingId": "CCVE-2025-3746",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-RBAC-0002"
+        ]
+      },
+      {
+        "findingId": "CCVE-2025-3763",
+        "decision": "unreviewed",
+        "rationale": "No configuration decision was supplied for this finding.",
+        "controlIds": [
+          "CTRL-CLUSTER-0001"
+        ]
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "candidate.yaml",
+      "sha256": "sha256:78e3bacb58e6ee82be42420379c6376b71870c0b294d2241553026e45ac229c5",
+      "url": "./candidate.yaml"
+    },
+    {
+      "path": "source-and-intent.yaml",
+      "sha256": "sha256:5673986a2e6b57071b3a3363123c40e005975787451609a820fb463f5050c917",
+      "url": "./source-and-intent.yaml"
+    },
+    {
+      "path": "cub-check.json",
+      "sha256": "sha256:7ce01333e504a5189d46afefa295eaec0633cabec5ac08094f234cc943aabf3f",
+      "url": "./cub-check.json"
+    },
+    {
+      "path": "workshop-review.json",
+      "sha256": "sha256:31066f7767f830e71938158010f38bbfed4af2bf120e98d741e6248d3c013cb5",
+      "url": "./workshop-review.json"
+    },
+    {
+      "path": "Related guide",
+      "sha256": "",
+      "url": "https://confighub.github.io/helm-expt/site/entry-path-reference.html#plain-yaml"
+    }
+  ],
+  "nextActions": [
+    "CCVE-2025-3733: Set securityContext.runAsNonRoot to true at pod or container level",
+    "CCVE-2025-3734: Set securityContext.allowPrivilegeEscalation to false on every container",
+    "CCVE-2025-3726: Add pod-level securityContext defaults where appropriate",
+    "CCVE-2025-3728: Add resources.limits for memory and CPU to each container",
+    "CCVE-2025-3732: Set resources.requests.cpu and resources.requests.memory on every container",
+    "CCVE-2025-3735: Set securityContext.readOnlyRootFilesystem to true on every container",
+    "CCVE-2025-3736: Set securityContext.capabilities.drop to [\"ALL\"] on every container",
+    "CCVE-2025-3746: Set automountServiceAccountToken to false in the pod spec",
+    "CCVE-2025-3763: Add pod-security.kubernetes.io/enforce label with baseline or restricted value",
+    "CCVE-2025-3740: Set replicas to at least 2 for services requiring availability",
+    "Run destination and live checks separately before deployment.",
+    "Review every finding before you call this result accepted. Keep the result with the change, or publish candidate.yaml as OCI using the local tools you already use.",
+    "Retain candidate.yaml in ConfigHub with annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c when the result needs shared history, validation, variants, promotion, release, or live comparison."
+  ]
+}

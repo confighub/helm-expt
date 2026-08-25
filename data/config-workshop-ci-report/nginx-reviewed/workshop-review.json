@@ -1,0 +1,193 @@
+{
+  "apiVersion": "workshop.confighub.com/v1alpha1",
+  "kind": "ConfigurationReview",
+  "metadata": {
+    "id": "review-ec4195803615",
+    "createdAt": "2026-08-24T15:04:01Z"
+  },
+  "spec": {
+    "question": {
+      "code": "config-check",
+      "text": "What did the Helm values written with AI change, and is the reviewed result ready to keep?"
+    },
+    "source": {
+      "type": "helm",
+      "visibility": "public",
+      "identity": "bitnami/nginx",
+      "version": "24.0.2",
+      "valuesSummary": "examples/byo-helm-values/reviewed-values.yaml"
+    },
+    "candidate": {
+      "name": "reviewed-render.yaml",
+      "sha256": "sha256:ec4195803615b2e0d31e82488a16e0ab190ade8ddb0d3b892ceee6c3a724c8b6",
+      "objectCount": 5,
+      "objects": [
+        "Deployment/nginx/nginx",
+        "NetworkPolicy/nginx/nginx",
+        "PodDisruptionBudget/nginx/nginx",
+        "Service/nginx/nginx",
+        "ServiceAccount/nginx/nginx"
+      ]
+    },
+    "comparison": {
+      "status": "compared",
+      "objectSet": {
+        "name": "proposed-render.yaml",
+        "sha256": "sha256:ae6bc63d5005bfef5fb62400619290bafe56d5bd9e2e58922f21757882ee1593",
+        "objectCount": 5,
+        "objects": [
+          "Deployment/nginx/nginx",
+          "NetworkPolicy/nginx/nginx",
+          "PodDisruptionBudget/nginx/nginx",
+          "Service/nginx/nginx",
+          "ServiceAccount/nginx/nginx"
+        ]
+      },
+      "added": [],
+      "removed": [],
+      "changed": [
+        "Deployment/nginx/nginx",
+        "Service/nginx/nginx"
+      ],
+      "unchanged": [
+        "NetworkPolicy/nginx/nginx",
+        "PodDisruptionBudget/nginx/nginx",
+        "ServiceAccount/nginx/nginx"
+      ],
+      "noOp": []
+    },
+    "checks": {
+      "method": "cub-check-workshop-composition-v1",
+      "scope": "Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.",
+      "findings": [
+        {
+          "code": "CCVE-2025-3745",
+          "level": "information",
+          "object": "Deployment/nginx/nginx",
+          "message": "Volume empty-dir uses emptyDir without sizeLimit; may exhaust node disk"
+        }
+      ],
+      "notChecked": [
+        "source rendering and values provenance beyond the supplied source record",
+        "Kubernetes schema and admission behavior",
+        "hook execution and CRD establishment",
+        "live workload health and drift",
+        "database migrations and external services"
+      ],
+      "advisoryReceipts": [
+        {
+          "authority": "local-advisory",
+          "tool": "cub-scan",
+          "version": "v0.7.3",
+          "schemaVersion": "risk-scan-findings-v1",
+          "scanTime": "2026-08-24T15:04:01Z",
+          "catalogVersion": "risk-catalog-v1.json@7ff79a126ad9",
+          "patternBundle": {
+            "schemaVersion": "bundle-manifest-v1",
+            "version": "v0.7.3",
+            "sourceRepo": "confighubai/confighub-scan",
+            "manifestSha256": "sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+            "catalogSha256": "sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+          },
+          "input": {
+            "objectCount": 5,
+            "objectSetSha256": "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+          },
+          "findingCount": 1,
+          "findingIds": [
+            "CCVE-2025-3745"
+          ]
+        }
+      ]
+    },
+    "findingDecisions": {
+      "status": "recorded",
+      "candidateObjectSetSha256": "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397",
+      "record": {
+        "path": "config-catalog/review-decisions/byo-nginx-ai-values-24-0-2-reviewed.yaml",
+        "sha256": "sha256:4689f859fd85e52beb7c9ca34dadf88e7621ac11ac5f98757603f1cd7e640b2a",
+        "apiVersion": "workshop.confighub.com/v1alpha1",
+        "kind": "ConfigurationDecision",
+        "name": "byo-nginx-ai-values-24-0-2-reviewed"
+      },
+      "outcomes": [
+        {
+          "findingId": "CCVE-2025-3745",
+          "decision": "approved-exception",
+          "rationale": "The chart uses one emptyDir for temporary NGINX files. The bounded development and staging demonstrations ran on throwaway kind clusters; this exception does not authorize a production target.",
+          "controlIds": [],
+          "exception": {
+            "appliesTo": [
+              "the exact accepted candidate digest",
+              "development and staging demonstrations on throwaway kind clusters"
+            ],
+            "excludes": [
+              "production",
+              "customer clusters",
+              "any later object-set digest"
+            ],
+            "reviewBy": "2026-11-30T23:59:59Z"
+          }
+        }
+      ],
+      "managedControls": [
+        {
+          "control": "platform/workload-sensitive-env-secret-refs",
+          "findingId": "CCVE-2025-5019",
+          "result": "clear"
+        },
+        {
+          "control": "no-managed-equivalent",
+          "findingId": "CCVE-2025-3745",
+          "result": "not-covered"
+        }
+      ]
+    },
+    "finding": "",
+    "recommendation": "Review the findings and the checks that did not run before keeping or promoting this configuration.",
+    "lifecycle": {
+      "record": "byo-nginx-ai-values-24-0-2-reviewed",
+      "requirements": [
+        {
+          "detail": "The destination must supply the AI provider Secret before delivery.",
+          "id": "nginx/ai-provider-credentials",
+          "origin": "reviewed-values",
+          "type": "target-fact"
+        }
+      ],
+      "routes": [],
+      "targetFacts": {
+        "declared": {
+          "requiredSecrets": [
+            {
+              "keys": [
+                "AI_API_KEY"
+              ],
+              "name": "ai-provider-credentials",
+              "namespace": "nginx"
+            }
+          ]
+        },
+        "records": [
+          "data/byo-helm-values-review/review.yaml"
+        ],
+        "requirementRefs": [
+          "nginx/ai-provider-credentials"
+        ],
+        "status": "recorded"
+      },
+      "resolution": {
+        "records": [
+          "runs/byo-helm-values-deploy-proof/receipt.yaml",
+          "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+        ],
+        "rule": "Recheck the required Secret and any lifecycle-sensitive change for each new destination.",
+        "status": "resolved-for-development-and-staging-proof"
+      }
+    },
+    "catalog": {
+      "status": "exact",
+      "url": "https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html"
+    }
+  }
+}

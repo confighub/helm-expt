@@ -1,0 +1,246 @@
+{
+  "apiVersion": "workshop.confighub.com/v1alpha1",
+  "kind": "ConfigurationReview",
+  "metadata": {
+    "id": "review-78e3bacb58e6",
+    "createdAt": "2026-08-24T21:50:08Z"
+  },
+  "spec": {
+    "question": {
+      "code": "config-check",
+      "text": "Is this existing Kubernetes YAML ready to retain and vary?"
+    },
+    "source": {
+      "type": "kubernetes-yaml",
+      "visibility": "public",
+      "identity": "examples/plain-yaml/acme-web",
+      "version": "source-r001",
+      "valuesSummary": "Literal Kubernetes YAML; materialization is a no-op."
+    },
+    "candidate": {
+      "name": "acme-web",
+      "sha256": "sha256:78e3bacb58e6ee82be42420379c6376b71870c0b294d2241553026e45ac229c5",
+      "objectCount": 4,
+      "objects": [
+        "ConfigMap/acme-web/acme-web-content",
+        "Deployment/acme-web/acme-web",
+        "Namespace/default/acme-web",
+        "Service/acme-web/acme-web"
+      ]
+    },
+    "comparison": {
+      "status": "not-supplied"
+    },
+    "checks": {
+      "method": "cub-check-workshop-composition-v1",
+      "scope": "Kubernetes object inventory, optional semantic comparison, and the supplied matching cub check result.",
+      "findings": [
+        {
+          "code": "CCVE-2025-3726",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Deployment omits pod and container securityContext settings"
+        },
+        {
+          "code": "CCVE-2025-3728",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Deployment containers omit resource limits"
+        },
+        {
+          "code": "CCVE-2025-3732",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Deployment containers omit resource requests; HPA and scheduler decisions will be unreliable"
+        },
+        {
+          "code": "CCVE-2025-3733",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Container nginx does not set runAsNonRoot: true"
+        },
+        {
+          "code": "CCVE-2025-3734",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Container nginx does not set allowPrivilegeEscalation: false"
+        },
+        {
+          "code": "CCVE-2025-3735",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Container nginx does not set readOnlyRootFilesystem: true"
+        },
+        {
+          "code": "CCVE-2025-3736",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Container nginx does not drop ALL capabilities"
+        },
+        {
+          "code": "CCVE-2025-3740",
+          "level": "information",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Deployment has replicas: 1; no high availability"
+        },
+        {
+          "code": "CCVE-2025-3746",
+          "level": "warning",
+          "object": "Deployment/acme-web/acme-web",
+          "message": "Deployment does not set automountServiceAccountToken: false; pods get unnecessary API credentials"
+        },
+        {
+          "code": "CCVE-2025-3763",
+          "level": "warning",
+          "object": "Namespace/default/acme-web",
+          "message": "Namespace acme-web lacks pod-security.kubernetes.io/enforce label"
+        }
+      ],
+      "notChecked": [
+        "source rendering and values provenance beyond the supplied source record",
+        "Kubernetes schema and admission behavior",
+        "hook execution and CRD establishment",
+        "live workload health and drift",
+        "database migrations and external services"
+      ],
+      "advisoryReceipts": [
+        {
+          "authority": "local-advisory",
+          "tool": "cub-scan",
+          "version": "v0.7.3",
+          "schemaVersion": "risk-scan-findings-v1",
+          "scanTime": "2026-08-24T21:50:08Z",
+          "catalogVersion": "risk-catalog-v1.json@7ff79a126ad9",
+          "patternBundle": {
+            "schemaVersion": "bundle-manifest-v1",
+            "version": "v0.7.3",
+            "sourceRepo": "confighubai/confighub-scan",
+            "manifestSha256": "sha256:0405f6ffe21e567adf5d6a732d181c7f228194920456d046b4338baeb14de1a8",
+            "catalogSha256": "sha256:7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
+          },
+          "input": {
+            "objectCount": 4,
+            "objectSetSha256": "sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c"
+          },
+          "findingCount": 10,
+          "findingIds": [
+            "CCVE-2025-3726",
+            "CCVE-2025-3728",
+            "CCVE-2025-3732",
+            "CCVE-2025-3733",
+            "CCVE-2025-3734",
+            "CCVE-2025-3735",
+            "CCVE-2025-3736",
+            "CCVE-2025-3740",
+            "CCVE-2025-3746",
+            "CCVE-2025-3763"
+          ]
+        }
+      ]
+    },
+    "findingDecisions": {
+      "status": "not-recorded",
+      "candidateObjectSetSha256": "sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c",
+      "outcomes": [
+        {
+          "findingId": "CCVE-2025-3726",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        },
+        {
+          "findingId": "CCVE-2025-3728",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-WORKLOAD-0002"
+          ]
+        },
+        {
+          "findingId": "CCVE-2025-3732",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        },
+        {
+          "findingId": "CCVE-2025-3733",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-WORKLOAD-0001"
+          ]
+        },
+        {
+          "findingId": "CCVE-2025-3734",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-WORKLOAD-0001"
+          ]
+        },
+        {
+          "findingId": "CCVE-2025-3735",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-WORKLOAD-0001"
+          ]
+        },
+        {
+          "findingId": "CCVE-2025-3736",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-WORKLOAD-0001"
+          ]
+        },
+        {
+          "findingId": "CCVE-2025-3740",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": []
+        },
+        {
+          "findingId": "CCVE-2025-3746",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-RBAC-0002"
+          ]
+        },
+        {
+          "findingId": "CCVE-2025-3763",
+          "decision": "unreviewed",
+          "rationale": "No configuration decision was supplied for this finding.",
+          "controlIds": [
+            "CTRL-CLUSTER-0001"
+          ]
+        }
+      ]
+    },
+    "finding": "",
+    "recommendation": "Review the findings and the checks that did not run before keeping or promoting this configuration.",
+    "lifecycle": {
+      "record": "kubernetes-yaml-acme-web-base",
+      "requirements": [],
+      "routes": [],
+      "targetFacts": {
+        "declared": {},
+        "records": [
+          "runs/literal-yaml-upload-proof/receipt.yaml"
+        ],
+        "requirementRefs": [],
+        "status": "gap"
+      },
+      "resolution": {
+        "records": [],
+        "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+        "status": "gap"
+      }
+    },
+    "catalog": {
+      "status": "exact",
+      "url": "https://confighub.github.io/helm-expt/site/entry-path-reference.html#plain-yaml"
+    }
+  }
+}

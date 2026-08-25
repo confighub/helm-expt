@@ -67,6 +67,15 @@ standalone `cub-scan` command. Keep the JSON result with the exact object-set
 digest. It is advisory and does not apply files, authorize a ConfigHub change,
 or prove target-specific behavior.
 
+After composing `workshop-result.json`, create a local CI or pull-request report:
+
+```sh
+npm run workshop:ci-report -- --input workshop-result.json --output comment.md
+```
+
+Use `--format json` for machine consumption. Keep the result's object-set hash,
+checks not run, and destination/runtime limits unchanged.
+
 ## Promotion review
 
 Require both current and proposed object sets. Report:

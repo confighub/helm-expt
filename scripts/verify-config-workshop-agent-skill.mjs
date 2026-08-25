@@ -34,6 +34,7 @@ for (const phrase of [
   "Do not run `kubectl apply`",
   "source-package OCI",
   "Timoni builds a module or bundle",
+  "npm run workshop:ci-report",
 ]) {
   check(skill.includes(phrase), `skills/config-workshop/SKILL.md must include: ${phrase}`);
 }
@@ -49,7 +50,7 @@ for (const phrase of [
 ]) {
   check(processing.includes(phrase), `processing-model.md must include: ${phrase}`);
 }
-for (const phrase of ["site/changes.json", "base-variant-records.json", "Checks not run", "ConfigHub handoff"]) {
+for (const phrase of ["site/changes.json", "base-variant-records.json", "Checks not run", "ConfigHub handoff", "workshop-result.json", "workshop:ci-report"]) {
   check(playbook.includes(phrase), `task-playbook.md must include: ${phrase}`);
 }
 check(metadata.includes('display_name: "Config Workshop"'), "agent metadata must name Config Workshop");

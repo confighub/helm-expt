@@ -518,8 +518,10 @@ generated examples. It remains open for commands emitted by every source plugin.
    review paths using the same processing model.
 6. Publish stable JSON schemas, exit behavior, and agent instructions for the
    common review result.
-7. Add CI and pull-request reporting without implying that static findings prove
-   runtime behavior.
+7. Keep the source-neutral CI and pull-request report current as WorkshopResult
+   grows. The local emitter, JSON form, Markdown form, Redis example, and bounded
+   exit behavior are implemented; source plugins still need to emit the common
+   result consistently.
 
 ### Phase 6: Extend The Proven Paths
 
