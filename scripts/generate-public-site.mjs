@@ -6706,9 +6706,9 @@ cub k8s get crd --space "*"</code></pre>
         <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD and Flux pulled that artifact on separate throwaway kind clusters and completed the Job. A separate direct local test pulled the same artifact and completed the Job.</p>
         <p>This test covers one setup Job on one recorded test environment. It does not cover every chart, hook type, or production environment.</p>
         <p><strong>The CRD ordering test.</strong> Direct apply first tried to create a custom resource before its CRD was established. Kubernetes refused the custom resource with the recorded error. Applying the CRD first and waiting for it fixed the installation. A separate receipt records the chart-specific order through Argo CD and Flux.</p>
-        <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs.</p>
+        <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs. A second direct test upgraded that default package to 86.1.0 through the same ordered route and retained the admission Secret.</p>
         <p>Separate clusters ran the Argo CD and Flux paths. Each installed the 85.3.3 no-crds OCI and upgraded to 86.1.0. Both controllers replaced the completed setup Jobs and passed the runtime tests after upgrade. ConfigHub does not yet select this route automatically.</p>
-      <p class="quiet-line">The receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-lifecycle-route-proof"><code>runs/kps-lifecycle-route-proof</code></a>, and <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-gitops-lifecycle-proof"><code>runs/kps-gitops-lifecycle-proof</code></a>) and summarized under <code>data/</code>. Each throwaway cluster was deleted after its run.</p>
+      <p class="quiet-line">The receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-lifecycle-route-proof"><code>runs/kps-lifecycle-route-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-default-package-upgrade-proof"><code>runs/kps-default-package-upgrade-proof</code></a>, and <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-gitops-lifecycle-proof"><code>runs/kps-gitops-lifecycle-proof</code></a>) and summarized under <code>data/</code>. Each throwaway cluster was deleted after its run.</p>
     </section>
 
       <section aria-labelledby="sketches">
@@ -9955,6 +9955,11 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       && entry.version === "85.3.3"
       ? "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       : "";
+  const kpsDefaultPackageUpgradeProofPath =
+    entry.chart === "prometheus-community/kube-prometheus-stack"
+      && ["85.3.3", "86.1.0"].includes(entry.version)
+      ? "data/kps-default-package-upgrade-proof/summary.md"
+      : "";
   const kpsPublicPackageProofPath =
     entry.chart === "prometheus-community/kube-prometheus-stack"
       && entry.version === "85.3.3"
@@ -10013,6 +10018,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     [gitOpsReview ? "Cluster runtime review" : "", gitOpsReview ? gitOpsReviewPath : ""],
     [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (default)" : "", kpsLifecycleProofPath],
     [kpsNoCrdsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (no-crds)" : "", kpsNoCrdsLifecycleProofPath],
+    [kpsDefaultPackageUpgradeProofPath ? "Direct default-package upgrade proof" : "", kpsDefaultPackageUpgradeProofPath],
     [kpsGitOpsLifecycleProofPath ? "Argo CD and Flux lifecycle proof (no-crds)" : "", kpsGitOpsLifecycleProofPath],
     [kpsConfigHubPromotionPath ? "ConfigHub lifecycle promotion proof (no-crds)" : "", kpsConfigHubPromotionPath],
     [argoWorkflowsGuidePath ? "Argo Workflows CRD guide" : "", argoWorkflowsGuidePath],
@@ -10426,8 +10432,8 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
           ["Watch results", "A Watch result tells you which deployment question is still open."],
         ])}
       </div>
-      <p>${entry.version === "85.3.3" ? "The public package has run that full fresh-install sequence. A separate isolated client pulled the same package with no ConfigHub account or registry login and received all nine lifecycle files. The <code>no-crds</code> base also ran from one staged OCI digest through Argo CD and Flux on separate fresh clusters, then upgraded to the 86.1.0 staged digest. Both controllers reran the ordered stages, replaced the completed setup Jobs, and reached the six checked workloads after upgrade." : "The 86.1.0 public package carries its own checked CRDs and admission setup files. An isolated client pulled and rendered it without a ConfigHub account or registry login. It then served as the tested upgrade target for the 85.3.3 <code>no-crds</code> staged OCI through both Argo CD and Flux. This does not claim a standalone 86.1.0 fresh install."} ConfigHub does not yet select the route automatically, and the receipt does not prove rollback or long-running soak.</p>
-      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the package lifecycle proof</a> · <a href="../../data/kps-gitops-lifecycle-proof/summary.md">Open the Argo CD and Flux proof</a> · <a href="../../data/kps-public-package-proof/summary.md">Check the anonymous pull</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
+      <p>${entry.version === "85.3.3" ? "The public package has run that full fresh-install sequence. A separate isolated client pulled the same package with no ConfigHub account or registry login and received all nine lifecycle files. The <code>default</code> base then upgraded through the same direct package route to 86.1.0, retained the admission Secret, reran the lifecycle steps, and reached all six checked workloads. The <code>no-crds</code> base also ran from one staged OCI digest through Argo CD and Flux on separate fresh clusters, then upgraded to the 86.1.0 staged digest." : "The 86.1.0 public package carries its own checked CRDs and admission setup files. An isolated client pulled and rendered it without a ConfigHub account or registry login. It served as the tested target for both the direct <code>default</code> package upgrade and the <code>no-crds</code> Argo CD and Flux upgrade from 85.3.3. This does not claim a standalone 86.1.0 fresh install."} ConfigHub does not yet select the route automatically. These receipts do not prove rollback or long-running soak.</p>
+      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the package lifecycle proof</a> · <a href="../../data/kps-default-package-upgrade-proof/summary.md">Open the direct upgrade proof</a> · <a href="../../data/kps-gitops-lifecycle-proof/summary.md">Open the Argo CD and Flux proof</a> · <a href="../../data/kps-public-package-proof/summary.md">Check the anonymous pull</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
     </section>`;
   }
   if (entry.chart === "argo-cd/argo-workflows" && entry.version === "1.0.14") {

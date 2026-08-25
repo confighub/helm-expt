@@ -1,6 +1,6 @@
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com	2026-06-11 05:03:45
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com	2026-06-11 05:03:45
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagerconfigs.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,10 +2,10 @@
  kind: CustomResourceDefinition
  metadata:
@@ -9,12 +9,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
 -  generation: 1
 +  generation: 2
    name: alertmanagerconfigs.monitoring.coreos.com
-   resourceVersion: "489"
-   uid: 8de5637e-85d8-4fb5-baca-eb9adca840a4
+   resourceVersion: "487"
+   uid: 3051d6c5-20f9-4e50-ad62-090f3995a79a
 @@ -1159,6 +1159,22 @@
                                This provides a fallback for email clients that don't support HTML.
                              minLength: 1
@@ -62,9 +62,9 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
                            subject:
                              description: |-
                                subject defines the subject line when the message is delivered to email endpoints.
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com	2026-06-11 05:03:45
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com	2026-06-11 05:03:45
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..alertmanagers.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,10 +2,10 @@
  kind: CustomResourceDefinition
  metadata:
@@ -73,12 +73,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
 -  generation: 1
 +  generation: 2
    name: alertmanagers.monitoring.coreos.com
-   resourceVersion: "491"
-   uid: cf784f4a-1946-4bd7-82e3-110430c36034
+   resourceVersion: "492"
+   uid: ff249a44-9d5b-4698-bbc2-7e8cb2a4cf46
 @@ -1865,6 +1865,37 @@
                                It requires Alertmanager >= v0.28.0.
                              pattern: ^(http|https)://.+$
@@ -117,9 +117,9 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
                          type: object
                        opsGenieApiKey:
                          description: opsGenieApiKey defines the default OpsGenie API
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com	2026-06-11 05:03:45
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com	2026-06-11 05:03:45
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..podmonitors.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,8 +2,8 @@
  kind: CustomResourceDefinition
  metadata:
@@ -128,12 +128,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
    generation: 1
    name: podmonitors.monitoring.coreos.com
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com	2026-06-11 05:03:45
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com	2026-06-11 05:03:45
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..probes.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,8 +2,8 @@
  kind: CustomResourceDefinition
  metadata:
@@ -142,12 +142,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
    generation: 1
    name: probes.monitoring.coreos.com
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com	2026-06-11 05:03:45
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com	2026-06-11 05:03:45
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusagents.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,10 +2,10 @@
  kind: CustomResourceDefinition
  metadata:
@@ -156,12 +156,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
 -  generation: 1
 +  generation: 2
    name: prometheusagents.monitoring.coreos.com
-   resourceVersion: "497"
-   uid: 458e5fee-5fe3-4a1a-9217-20bdc832d367
+   resourceVersion: "501"
+   uid: 73d597fa-b27e-4e3e-978c-575104fb4b95
 @@ -6265,6 +6265,12 @@
                            - key
                            type: object
@@ -275,9 +275,9 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
            status:
              description: |-
                status defines the most recent observed status of the Prometheus cluster. Read-only.
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com	2026-06-11 05:03:46
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com	2026-06-11 05:03:46
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheuses.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,10 +2,10 @@
  kind: CustomResourceDefinition
  metadata:
@@ -286,12 +286,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
 -  generation: 1
 +  generation: 2
    name: prometheuses.monitoring.coreos.com
-   resourceVersion: "505"
-   uid: 9dd2eff9-f1f4-4185-8899-fc440f24e34c
+   resourceVersion: "506"
+   uid: 7985e577-5662-4bbe-b521-5fa4313d6eea
 @@ -1560,6 +1560,12 @@
                                - key
                                type: object
@@ -497,9 +497,9 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
            status:
              description: |-
                status defines the most recent observed status of the Prometheus cluster. Read-only.
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com	2026-06-11 05:03:46
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com	2026-06-11 05:03:46
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..prometheusrules.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,8 +2,8 @@
  kind: CustomResourceDefinition
  metadata:
@@ -508,12 +508,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:41Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
    generation: 1
    name: prometheusrules.monitoring.coreos.com
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com	2026-06-11 05:03:46
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com	2026-06-11 05:03:46
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..scrapeconfigs.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,10 +2,10 @@
  kind: CustomResourceDefinition
  metadata:
@@ -522,12 +522,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:42Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
 -  generation: 1
 +  generation: 2
    name: scrapeconfigs.monitoring.coreos.com
-   resourceVersion: "514"
-   uid: fd238cc1-8a3b-4fae-8a2c-66026831a650
+   resourceVersion: "512"
+   uid: 7f454e42-7407-4275-bb36-2e41b66e2e87
 @@ -107,6 +107,7 @@
                        - OAuth
                        - ManagedIdentity
@@ -629,9 +629,9 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
            status:
              description: |-
                status defines the status subresource. It is under active development and is updated only when the
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com	2026-06-11 05:03:46
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com	2026-06-11 05:03:46
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..servicemonitors.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,8 +2,8 @@
  kind: CustomResourceDefinition
  metadata:
@@ -640,12 +640,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:42Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
    generation: 1
    name: servicemonitors.monitoring.coreos.com
-diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com
---- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com	2026-06-11 05:03:46
-+++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-3450329893/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com	2026-06-11 05:03:46
+diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com
+--- /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-1753700787/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com	2026-08-25 04:44:54
++++ /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/MERGED-910998669/apiextensions.k8s.io.v1.CustomResourceDefinition..thanosrulers.monitoring.coreos.com	2026-08-25 04:44:54
 @@ -2,10 +2,10 @@
  kind: CustomResourceDefinition
  metadata:
@@ -654,12 +654,12 @@ diff -u -N /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/LIVE-4239616578/apie
 -    operator.prometheus.io/version: 0.90.1
 +    controller-gen.kubebuilder.io/version: v0.20.1
 +    operator.prometheus.io/version: 0.91.0
-   creationTimestamp: "2026-06-11T04:03:42Z"
+   creationTimestamp: "2026-08-25T03:44:50Z"
 -  generation: 1
 +  generation: 2
    name: thanosrulers.monitoring.coreos.com
    resourceVersion: "516"
-   uid: f26e514c-c359-4dfb-86cb-15c4c324c0a6
+   uid: c0d444d7-ce34-48ae-b4f2-e6cd52554ddc
 @@ -2796,7 +2796,7 @@
                    grpcServerTlsConfig defines the gRPC server from which Thanos Querier reads
                    recorded rule data.

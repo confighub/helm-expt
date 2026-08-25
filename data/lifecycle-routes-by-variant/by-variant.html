@@ -299,7 +299,7 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Not tested for this path</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -375,56 +375,8 @@
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
-          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
-        </tr>
-        <tr>
-          <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
-          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>hook-phase <span class="rt">postsync-check-or-observation</span></td>
-          <td><span class="chip green">Your delivery — a post-apply check (receipted)</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>hook-phase <span class="rt">preflight-or-presync</span></td>
-          <td><span class="chip green">Your delivery — a preflight step before apply (receipted)</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Not tested for this path</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="base">
-        <div class="base-h">no-crds@86.1.0 <span class="muted">· package applies 10 CRDs first</span></div>
-        <table>
-          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
-          <tbody>
-        <tr>
-          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
-          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
         </tr>
         <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
@@ -453,7 +405,7 @@
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -465,14 +417,14 @@
         </table>
       </div>
       <div class="base">
-        <div class="base-h">default@87.15.1 <span class="muted">· package applies 10 CRDs first</span></div>
+        <div class="base-h">no-crds@86.1.0 <span class="muted">· package applies 10 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
-          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
         </tr>
         <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
@@ -491,7 +443,7 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Not tested for this path</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -501,7 +453,55 @@
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="base">
+        <div class="base-h">default@87.15.1 <span class="muted">· package applies 10 CRDs first</span></div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+        <tr>
+          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
+        </tr>
+        <tr>
+          <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">postsync-check-or-observation</span></td>
+          <td><span class="chip green">Your delivery — a post-apply check (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">preflight-or-presync</span></td>
+          <td><span class="chip green">Your delivery — a preflight step before apply (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -562,8 +562,8 @@
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
-          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
         </tr>
         <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
@@ -592,7 +592,7 @@
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -610,8 +610,8 @@
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
-          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
         </tr>
         <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
@@ -630,7 +630,7 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Not tested for this path</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -640,7 +640,7 @@
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -701,8 +701,8 @@
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
-          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
         </tr>
         <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
@@ -731,7 +731,7 @@
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>

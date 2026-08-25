@@ -44514,7 +44514,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44546,7 +44546,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44582,7 +44582,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44618,7 +44618,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44627,7 +44627,7 @@
       "quirk_class": "hook-phase",
       "hook_phases": "pre-upgrade, post-upgrade",
       "source_disposition": "selected-route-receipt",
-      "disposition": "todo",
+      "disposition": "observed",
       "route_name": "upgrade-action-with-receipt",
       "default_route": "upgrade-action-with-receipt",
       "alternatives": [
@@ -44644,17 +44644,17 @@
           "requirement": "accept that the catalog will not run this automatically and do it manually"
         }
       ],
-      "route_requirements": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
-      "execution_mode": "not-yet-executable",
+      "route_requirements": "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.",
+      "execution_mode": "user-executes",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
       },
-      "live_status": "not-run",
+      "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44686,7 +44686,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44718,7 +44718,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -44746,7 +44746,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -60418,7 +60418,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "target-owned",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your cluster - at uninstall, automatically",
               "operatingDetails": "Webhook and APIService cleanup belongs to delete or rollback policy.",
@@ -60427,8 +60427,8 @@
               "reason": "",
               "sourceVersion": "3.8.1",
               "evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 3.8.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 3.8.2 and this base",
               "sourceDrift": "route source version 3.8.1; recipe version 3.8.2"
             },
             {
@@ -60437,7 +60437,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "operatingDetails": "Resource migration after upgrade must be recorded as an upgrade operation.",
@@ -60446,8 +60446,8 @@
               "reason": "",
               "sourceVersion": "3.8.1",
               "evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 3.8.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 3.8.2 and this base",
               "sourceDrift": "route source version 3.8.1; recipe version 3.8.2"
             },
             {
@@ -60456,7 +60456,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "run-test",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "operatingDetails": "Test hooks become checks, not hidden install behavior.",
@@ -60465,8 +60465,8 @@
               "reason": "",
               "sourceVersion": "3.8.1",
               "evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 3.8.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 3.8.2 and this base",
               "sourceDrift": "route source version 3.8.1; recipe version 3.8.2"
             },
             {
@@ -60484,8 +60484,8 @@
               "reason": "",
               "sourceVersion": "3.8.1",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 3.8.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 3.8.2 and this base",
               "sourceDrift": "route source version 3.8.1; recipe version 3.8.2"
             },
             {
@@ -60503,8 +60503,8 @@
               "reason": "",
               "sourceVersion": "3.8.1",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 3.8.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 3.8.2 and this base",
               "sourceDrift": "route source version 3.8.1; recipe version 3.8.2"
             }
           ]
@@ -60589,7 +60589,7 @@
               "delta": "resolved",
               "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60608,7 +60608,7 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60627,7 +60627,7 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60646,7 +60646,7 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60656,18 +60656,18 @@
               "quirk_class": "hook-phase",
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
-              "execution_mode": "not-yet-executable",
-              "disposition": "not-run",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Not tested for this path",
-              "operatingDetails": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "",
-              "nextAction": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
-              "evidenceRequired": "run this route for the named path and capture a live receipt",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
             },
             {
@@ -60684,7 +60684,7 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60703,7 +60703,7 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60722,7 +60722,7 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -60901,17 +60901,17 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "The package applies the locked CRDs before the chart objects that use them.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "resolved",
-              "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
+              "delta": "packaged-action",
+              "reason": "the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -60920,7 +60920,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run removes both completed Jobs and their temporary RBAC objects.",
@@ -60928,9 +60928,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -60939,7 +60939,7 @@
               "lifecycle_phase": "post-apply",
               "action_kind": "run-check",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "operatingDetails": "The package runs the chart's webhook patch Job after the webhook objects exist.",
@@ -60947,9 +60947,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -60958,7 +60958,7 @@
               "lifecycle_phase": "preflight",
               "action_kind": "run-preflight",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "operatingDetails": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
@@ -60966,9 +60966,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -60976,18 +60976,18 @@
               "quirk_class": "hook-phase",
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
-              "execution_mode": "not-yet-executable",
-              "disposition": "not-run",
+              "execution_mode": "user-executes",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Not tested for this path",
-              "operatingDetails": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "",
-              "nextAction": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
-              "evidenceRequired": "run this route for the named path and capture a live receipt",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -60996,7 +60996,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "preserve-ordering",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
@@ -61004,9 +61004,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61015,17 +61015,17 @@
               "lifecycle_phase": "preflight",
               "action_kind": "stage-target-facts",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the recorded package script creates or checks this prerequisite",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "operatingDetails": "The certificate Job creates the required admission Secret with ca, cert, and key.",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61034,7 +61034,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "observe-webhook",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
@@ -61042,9 +61042,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             }
           ]
@@ -61061,17 +61061,17 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "resolved",
-              "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
+              "delta": "packaged-action",
+              "reason": "the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61080,7 +61080,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run removes both completed Jobs and their temporary RBAC objects.",
@@ -61089,8 +61089,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61099,7 +61099,7 @@
               "lifecycle_phase": "post-apply",
               "action_kind": "run-check",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "operatingDetails": "The package runs the chart's webhook patch Job after the webhook objects exist.",
@@ -61108,8 +61108,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61118,7 +61118,7 @@
               "lifecycle_phase": "preflight",
               "action_kind": "run-preflight",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "operatingDetails": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
@@ -61127,8 +61127,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61137,7 +61137,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "operatingDetails": "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
@@ -61146,8 +61146,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61156,7 +61156,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "preserve-ordering",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
@@ -61165,8 +61165,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61175,17 +61175,17 @@
               "lifecycle_phase": "preflight",
               "action_kind": "stage-target-facts",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the recorded package script creates or checks this prerequisite",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "operatingDetails": "The certificate Job creates the required admission Secret with ca, cert, and key.",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
@@ -61194,7 +61194,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "observe-webhook",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
@@ -61203,8 +61203,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 86.1.0 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 86.1.0 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             }
           ]
@@ -61221,17 +61221,17 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "The package applies the locked CRDs before the chart objects that use them.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "resolved",
-              "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
+              "delta": "packaged-action",
+              "reason": "the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61240,7 +61240,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run removes both completed Jobs and their temporary RBAC objects.",
@@ -61248,9 +61248,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61259,7 +61259,7 @@
               "lifecycle_phase": "post-apply",
               "action_kind": "run-check",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "operatingDetails": "The package runs the chart's webhook patch Job after the webhook objects exist.",
@@ -61267,9 +61267,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61278,7 +61278,7 @@
               "lifecycle_phase": "preflight",
               "action_kind": "run-preflight",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "operatingDetails": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
@@ -61286,9 +61286,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61296,18 +61296,18 @@
               "quirk_class": "hook-phase",
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
-              "execution_mode": "not-yet-executable",
-              "disposition": "not-run",
+              "execution_mode": "user-executes",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Not tested for this path",
-              "operatingDetails": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "",
-              "nextAction": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
-              "evidenceRequired": "run this route for the named path and capture a live receipt",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61316,7 +61316,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "preserve-ordering",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
@@ -61324,9 +61324,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61335,17 +61335,17 @@
               "lifecycle_phase": "preflight",
               "action_kind": "stage-target-facts",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the recorded package script creates or checks this prerequisite",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "operatingDetails": "The certificate Job creates the required admission Secret with ca, cert, and key.",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61354,7 +61354,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "observe-webhook",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
@@ -61362,9 +61362,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             }
           ]
@@ -61390,8 +61390,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             },
             {
@@ -61409,8 +61409,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             },
             {
@@ -61428,8 +61428,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             },
             {
@@ -61447,8 +61447,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             },
             {
@@ -61466,8 +61466,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             },
             {
@@ -61485,8 +61485,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             },
             {
@@ -61504,8 +61504,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.15.1"
             }
           ]
@@ -61522,17 +61522,17 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "resolved",
-              "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
+              "delta": "packaged-action",
+              "reason": "the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61541,7 +61541,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run removes both completed Jobs and their temporary RBAC objects.",
@@ -61550,8 +61550,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61560,7 +61560,7 @@
               "lifecycle_phase": "post-apply",
               "action_kind": "run-check",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "operatingDetails": "The package runs the chart's webhook patch Job after the webhook objects exist.",
@@ -61569,8 +61569,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61579,7 +61579,7 @@
               "lifecycle_phase": "preflight",
               "action_kind": "run-preflight",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "operatingDetails": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
@@ -61588,8 +61588,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61598,7 +61598,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "operatingDetails": "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
@@ -61607,8 +61607,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61617,7 +61617,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "preserve-ordering",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
@@ -61626,8 +61626,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61636,17 +61636,17 @@
               "lifecycle_phase": "preflight",
               "action_kind": "stage-target-facts",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the recorded package script creates or checks this prerequisite",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "operatingDetails": "The certificate Job creates the required admission Secret with ca, cert, and key.",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             },
             {
@@ -61655,7 +61655,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "observe-webhook",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
@@ -61664,8 +61664,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.15.1 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.15.1 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.15.1"
             }
           ]
@@ -61682,17 +61682,17 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "The package applies the locked CRDs before the chart objects that use them.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "resolved",
-              "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
+              "delta": "packaged-action",
+              "reason": "the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61701,7 +61701,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run removes both completed Jobs and their temporary RBAC objects.",
@@ -61709,9 +61709,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61720,7 +61720,7 @@
               "lifecycle_phase": "post-apply",
               "action_kind": "run-check",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "operatingDetails": "The package runs the chart's webhook patch Job after the webhook objects exist.",
@@ -61728,9 +61728,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61739,7 +61739,7 @@
               "lifecycle_phase": "preflight",
               "action_kind": "run-preflight",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "operatingDetails": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
@@ -61747,9 +61747,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61757,18 +61757,18 @@
               "quirk_class": "hook-phase",
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
-              "execution_mode": "not-yet-executable",
-              "disposition": "not-run",
+              "execution_mode": "user-executes",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Not tested for this path",
-              "operatingDetails": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "",
-              "nextAction": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
-              "evidenceRequired": "run this route for the named path and capture a live receipt",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61777,7 +61777,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "preserve-ordering",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
@@ -61785,9 +61785,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61796,17 +61796,17 @@
               "lifecycle_phase": "preflight",
               "action_kind": "stage-target-facts",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the recorded package script creates or checks this prerequisite",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "operatingDetails": "The certificate Job creates the required admission Secret with ca, cert, and key.",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -61815,7 +61815,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "observe-webhook",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
@@ -61823,9 +61823,9 @@
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml;runs/kps-default-package-upgrade-proof/receipt.yaml",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             }
           ]
@@ -61851,8 +61851,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             },
             {
@@ -61870,8 +61870,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             },
             {
@@ -61889,8 +61889,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             },
             {
@@ -61908,8 +61908,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             },
             {
@@ -61927,8 +61927,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             },
             {
@@ -61946,8 +61946,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             },
             {
@@ -61965,8 +61965,8 @@
               "reason": "",
               "sourceVersion": "85.3.0",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.0; recipe version 87.19.2"
             }
           ]
@@ -61983,17 +61983,17 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "resolved",
-              "reason": "the package carries and applies the 10 CRDs before the workload (observed live)",
+              "delta": "packaged-action",
+              "reason": "the package carries the 10 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62002,7 +62002,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "accept-target-policy",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run removes both completed Jobs and their temporary RBAC objects.",
@@ -62011,8 +62011,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62021,7 +62021,7 @@
               "lifecycle_phase": "post-apply",
               "action_kind": "run-check",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "operatingDetails": "The package runs the chart's webhook patch Job after the webhook objects exist.",
@@ -62030,8 +62030,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62040,7 +62040,7 @@
               "lifecycle_phase": "preflight",
               "action_kind": "run-preflight",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "operatingDetails": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
@@ -62049,8 +62049,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62059,7 +62059,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "run-job",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "operatingDetails": "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
@@ -62068,8 +62068,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62078,7 +62078,7 @@
               "lifecycle_phase": "pre-apply",
               "action_kind": "preserve-ordering",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
@@ -62087,8 +62087,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62097,17 +62097,17 @@
               "lifecycle_phase": "preflight",
               "action_kind": "stage-target-facts",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Handled - the recorded package script creates or checks this prerequisite",
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "operatingDetails": "The certificate Job creates the required admission Secret with ca, cert, and key.",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             },
             {
@@ -62116,7 +62116,7 @@
               "lifecycle_phase": "observe",
               "action_kind": "observe-webhook",
               "execution_mode": "user-executes",
-              "disposition": "observed",
+              "disposition": "routed",
               "automatic": false,
               "whoRuns": "Your delivery - an explicit, receipted step",
               "operatingDetails": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
@@ -62125,8 +62125,8 @@
               "reason": "",
               "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "nextAction": "Run this route for 87.19.2 and record the result before treating it as observed for this version.",
+              "evidenceRequired": "a live receipt for 87.19.2 and this base",
               "sourceDrift": "route source version 85.3.3; recipe version 87.19.2"
             }
           ]
@@ -97744,10 +97744,10 @@
       "hook_disposition": "observed",
       "hook_evidence_version": "",
       "hook_live_status": "yes",
-      "lifecycle_route_contract": "todo",
+      "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "8",
-      "lifecycle_route_dispositions": "observed:7; todo:1",
-      "lifecycle_route_execution_modes": "not-yet-executable:1; user-executes:7",
+      "lifecycle_route_dispositions": "observed:8",
+      "lifecycle_route_execution_modes": "user-executes:8",
       "lifecycle_route_safe_automatic": "0/8",
       "lifecycle_route_evidence_version": "",
       "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",

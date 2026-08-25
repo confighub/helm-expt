@@ -8,16 +8,16 @@ spec:
   fromVersion: "85.3.3"
   toVersion: "86.1.0"
   result: "pass"
-  observedAt: "2026-06-11T19:21:24Z"
+  observedAt: "2026-08-25T03:45:07Z"
   run:
     mode: "single-kind-cluster-regular-helm-workload-upgrade-rehearsal"
-    cluster: "helm-expt-kps-workload-upgrade-9vvhzr"
+    cluster: "helm-expt-kps-workload-upgrade-84gbog"
     namespace: "monitoring"
     cleanup:
       result: "pass"
       detail: "deleted kind cluster"
       evidencePath: "kind-delete.txt"
-      evidenceSHA256: "38078ce0948be8b455566fbbd1d4711641c15170a4ecd61aeb86831fc006cf44"
+      evidenceSHA256: "9d176f14e7c06374c32b97e4115d10ef221681a390f1778afc1092e1a8d88704"
   basis:
     crdLiveUpgradeReceipt: "runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml"
     fromValues: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml"
@@ -45,7 +45,7 @@ spec:
       result: "pass"
       detail: "fresh kind cluster created for kube-prometheus-stack workload upgrade rehearsal"
       evidencePath: "kind-create.txt"
-      evidenceSHA256: "0e94fc38f8c6c66c1b60834027f75af39c164f6b6f1ed6c23376480e8d455df7"
+      evidenceSHA256: "d103607ca995e8d2be4b195a46bfb7803983f8e4c5efdbfb3c223b354ad90093"
     -
       name: "namespace-create"
       result: "pass"
@@ -57,7 +57,7 @@ spec:
       result: "pass"
       detail: "85.3.3 Helm install completed with --wait"
       evidencePath: "helm-install-85.3.3.txt"
-      evidenceSHA256: "1d0d08a76e1854e2a1a69cf42192f3d5c8f995f9c04b26324d23988e897d1907"
+      evidenceSHA256: "32d0e6c83bb1eced49a3fa639e42529b8676f0ba2fe5cbe7fc2c949ac80452f3"
     -
       name: "workloads-ready-after-install"
       result: "pass"
@@ -67,21 +67,21 @@ spec:
         -
           detail: "85.3.3 pods listed after install"
           evidencePath: "pods-after-install.txt"
-          evidenceSHA256: "1f8de8088b6e0fdce8c4ccf76eed1fd33825257fc28195beb2855e96d2e5a3c5"
+          evidenceSHA256: "17c443ddde6d39ced1d5f16153490bf833b4c93c8226fc9b5f544bb14146e2c5"
         -
           detail: "85.3.3 pods reached Ready"
           evidencePath: "pods-ready-after-install.txt"
-          evidenceSHA256: "54f266c50181abdf12207e043c08ffbe51e365da491fac16a9c1ed703c2ce791"
+          evidenceSHA256: "c220d88a06f6d9200b044f8b1aaffda560fe648de46f78c6105c46ca13d63960"
         -
           detail: "85.3.3 workload snapshot after install"
           evidencePath: "workloads-after-install.txt"
-          evidenceSHA256: "9641d94864ff484203e26e39c97e1fe9a81ba20593674f8d177cbe17a0d2057e"
+          evidenceSHA256: "b2b4767140bbed55230a66533b3308acd09b455f706af24d1d72fa6340c2f29c"
     -
       name: "helm-upgrade-to-version"
       result: "pass"
       detail: "86.1.0 Helm upgrade completed with --wait"
       evidencePath: "helm-upgrade-86.1.0.txt"
-      evidenceSHA256: "00f8b771c0600f01b210aa409194fc0874c2ed5022373ea2ae6c5e07ea8945fa"
+      evidenceSHA256: "005aa3e47e2870fc6028bab548f3146b789e843acc7d131b0df8dd820812d81c"
     -
       name: "workloads-ready-after-upgrade"
       result: "pass"
@@ -91,21 +91,21 @@ spec:
         -
           detail: "86.1.0 pods listed after upgrade"
           evidencePath: "pods-after-upgrade.txt"
-          evidenceSHA256: "a275fb891ca0a9b68ab2aaf184e0e5d02b6fc139bb9995a63d16d1e9859a3300"
+          evidenceSHA256: "fd9d22c5bbaa0065593d223d82a93cf8bce6e49f7ffa9d06438958a208961c10"
         -
           detail: "86.1.0 pods reached Ready"
           evidencePath: "pods-ready-after-upgrade.txt"
-          evidenceSHA256: "fd0ccc1193182814532888b0b649cc1464ee109e5162a5358f9ebc782f72a8e5"
+          evidenceSHA256: "9bebe393a6c2042d01002f058ad92e55e5b80edbe3193de271dca4b1ed9425ba"
         -
           detail: "86.1.0 workload snapshot after upgrade"
           evidencePath: "workloads-after-upgrade.txt"
-          evidenceSHA256: "24f6b6be0a47006373b56dd2ef7dd15efb3ffe29030a476c0e8c75ef28b29758"
+          evidenceSHA256: "c03d852e8df6d200f403ec0116e3ec2ede51c171dbaba7ca88cad39c303db281"
     -
       name: "helm-history"
       result: "pass"
       detail: "Helm release history recorded after upgrade"
       evidencePath: "helm-history.txt"
-      evidenceSHA256: "9245d30ae295569136c0bc8a0fc39e6dc6cca937f3c2001fc7158bf7d6270f01"
+      evidenceSHA256: "ee8647c58b556a2f361f78f9b3e673409a524f28e827e0e372f6f3d13255766a"
     -
       name: "crds-after-upgrade"
       result: "pass"

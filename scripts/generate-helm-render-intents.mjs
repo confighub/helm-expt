@@ -19,6 +19,8 @@ const kpsLifecycleReceiptPaths = {
 };
 const kpsGitOpsLifecycleReceiptPath =
   "runs/kps-gitops-lifecycle-proof/receipt.yaml";
+const kpsDefaultPackageUpgradeReceiptPath =
+  "runs/kps-default-package-upgrade-proof/receipt.yaml";
 
 const outputs = {
   summary: join(root, "summary.md"),
@@ -88,6 +90,11 @@ function buildReport() {
   )
     ? readYaml(join(repoRoot, kpsGitOpsLifecycleReceiptPath))
     : null;
+  const kpsDefaultPackageUpgradeReceipt = existsSync(
+    join(repoRoot, kpsDefaultPackageUpgradeReceiptPath),
+  )
+    ? readYaml(join(repoRoot, kpsDefaultPackageUpgradeReceiptPath))
+    : null;
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
   const intents = realBases
@@ -98,6 +105,7 @@ function buildReport() {
       targetPrereqRows,
       kpsLifecycleReceipts,
       kpsGitOpsLifecycleReceipt,
+      kpsDefaultPackageUpgradeReceipt,
     ))
     .sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
   const summary = summaryMd(intents, matrixRows, candidates);
@@ -115,6 +123,7 @@ function buildIntent(
   targetPrereqRows,
   kpsLifecycleReceipts,
   kpsGitOpsLifecycleReceipt,
+  kpsDefaultPackageUpgradeReceipt,
 ) {
   const variantSpec = readVariantSpec(row.variant_path);
   const chartLifecycle = lifecycleByVariant.find((item) => item.chart === row.chart);
@@ -143,6 +152,16 @@ function buildIntent(
     && kpsGitOpsLifecycleReceipt?.spec?.upgradeVersion === "86.1.0"
     && ["argo", "flux"].every((controller) =>
       kpsGitOpsLifecycleReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
+  const hasKpsDefaultPackageUpgradeProof =
+    row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "85.3.3"
+    && row.variant === "default"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.base === "default"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.currentVersion === row.version
+    && kpsDefaultPackageUpgradeReceipt?.spec?.candidateVersion === "86.1.0"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.install?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.upgrade?.result === "pass";
   const isKpsGitOpsUpgradeTarget =
     row.chart === "prometheus-community/kube-prometheus-stack"
     && row.version === "86.1.0"
@@ -152,6 +171,14 @@ function buildIntent(
     && kpsGitOpsLifecycleReceipt?.spec?.upgradeVersion === row.version
     && ["argo", "flux"].every((controller) =>
       kpsGitOpsLifecycleReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
+  const isKpsDefaultUpgradeTarget =
+    row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "86.1.0"
+    && row.variant === "default"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.currentVersion === "85.3.3"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.candidateVersion === row.version
+    && kpsDefaultPackageUpgradeReceipt?.spec?.upgrade?.result === "pass";
   const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
     const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
     check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
@@ -200,6 +227,12 @@ function buildIntent(
           : null,
         kpsGitOpsLifecycleReceiptPath: hasKpsGitOpsLifecycleProof
           ? kpsGitOpsLifecycleReceiptPath
+          : "",
+        kpsDefaultPackageUpgradeReceipt: hasKpsDefaultPackageUpgradeProof
+          ? kpsDefaultPackageUpgradeReceipt
+          : null,
+        kpsDefaultPackageUpgradeReceiptPath: hasKpsDefaultPackageUpgradeProof
+          ? kpsDefaultPackageUpgradeReceiptPath
           : "",
       }),
     };
@@ -325,6 +358,13 @@ function buildIntent(
             lifecycleFlux: hasKpsGitOpsLifecycleProof
               ? "fresh-install-and-upgrade-pass"
               : "not-run",
+            ...(hasKpsDefaultPackageUpgradeProof
+              ? {
+                lifecycleDirectUpgrade: "85.3.3-to-86.1.0-pass",
+                lifecycleDirectUpgradeReceipt:
+                  kpsDefaultPackageUpgradeReceiptPath,
+              }
+              : {}),
             ...(hasKpsGitOpsLifecycleProof
               ? {
                 lifecycleGitOpsReceipt:
@@ -333,6 +373,10 @@ function buildIntent(
                   kpsGitOpsLifecycleReceipt.spec?.deliveryArtifact?.digest ?? "",
                 lifecycleGitOpsUpgradeArtifactDigest:
                   kpsGitOpsLifecycleReceipt.spec?.upgradeArtifact?.digest ?? "",
+              }
+              : {}),
+            ...(hasKpsDefaultPackageUpgradeProof || hasKpsGitOpsLifecycleProof
+              ? {
                 lifecycleUpgrade: "85.3.3-to-86.1.0-pass",
                 lifecycleUpgradeFromVersion: "85.3.3",
                 lifecycleUpgradeToVersion: "86.1.0",
@@ -346,6 +390,14 @@ function buildIntent(
             lifecycleUpgradeReceipt: kpsGitOpsLifecycleReceiptPath,
             lifecycleGitOpsUpgradeArtifactDigest:
               kpsGitOpsLifecycleReceipt.spec?.upgradeArtifact?.digest ?? "",
+          }
+          : {}),
+        ...(isKpsDefaultUpgradeTarget
+          ? {
+            lifecycleUpgradeTarget: "pass-from-85.3.3",
+            lifecycleUpgradeReceipt:
+              kpsDefaultPackageUpgradeReceiptPath,
+            lifecycleUpgradeRunner: "direct-package-route",
           }
           : {}),
       },
@@ -667,6 +719,8 @@ function routeRunnerRecords({
   kpsLifecycleReceiptPath,
   kpsGitOpsLifecycleReceipt,
   kpsGitOpsLifecycleReceiptPath,
+  kpsDefaultPackageUpgradeReceipt,
+  kpsDefaultPackageUpgradeReceiptPath,
 }) {
   const receiptRouteName = route.route_name === "preflight-or-presync-crd-apply"
     ? "crds-first"
@@ -674,11 +728,21 @@ function routeRunnerRecords({
   const directRoute = kpsLifecycleReceipt
     ? kpsLifecycleReceipt.spec?.routes?.[receiptRouteName]
     : null;
+  const hasDirectUpgradeProof = route.route_name === "upgrade-action-with-receipt"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.result === "pass"
+    && kpsDefaultPackageUpgradeReceipt?.spec?.upgrade?.result === "pass";
   const directEvidence = directRoute
-    ? [kpsLifecycleReceiptPath]
+    ? [
+      kpsLifecycleReceiptPath,
+      ...(hasDirectUpgradeProof ? [kpsDefaultPackageUpgradeReceiptPath] : []),
+    ]
     : routeEvidence.filter((path) => path.startsWith("runs/"));
-  const directStatus = directRoute?.result
-    ?? (directEvidence.length > 0 ? "evidence-linked" : "not-run");
+  const directStatus = hasDirectUpgradeProof
+    ? "pass"
+    : route.sourceDrift
+      ? directEvidence.length > 0 ? "historical-evidence" : "not-run"
+      : directRoute?.result
+        ?? (directEvidence.length > 0 ? "evidence-linked" : "not-run");
   const argoCd = kpsGitOpsRunnerRecord({
     controller: "argo",
     implementation: emission.argo,

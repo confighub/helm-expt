@@ -51,16 +51,16 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 42 |
+| `observed` | 43 |
 | `routed` | 5 |
-| `todo` | 5 |
+| `todo` | 4 |
 | `per-target` | 1 |
 
 | Execution mode | Rows |
 | --- | ---: |
-| `user-executes` | 35 |
+| `user-executes` | 36 |
 | `target-owned` | 10 |
-| `not-yet-executable` | 8 |
+| `not-yet-executable` | 7 |
 
 | Quirk class | Rows |
 | --- | ---: |
@@ -136,7 +136,7 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-delete-policy | `preserve-cleanup-policy` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `upgrade-action-with-receipt` | todo | not-yet-executable | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-weight-ordering | `preserve-ordering` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | webhook-readiness | `webhook-readiness-observation` | observed | user-executes | no |

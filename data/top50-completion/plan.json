@@ -91,6 +91,8 @@
         "evidence": [
           "data/lifecycle-routes/summary.md",
           "data/hook-lifecycle/summary.md",
+          "data/kps-default-package-upgrade-proof/summary.md",
+          "runs/kps-default-package-upgrade-proof/receipt.yaml",
           "data/kps-confighub-lifecycle-promotion/summary.md",
           "docs/user/target-prerequisites.md"
         ],
@@ -102,6 +104,7 @@
         "verify": [
           "npm run lifecycle:routes:verify",
           "npm run hooks:lifecycle:verify",
+          "npm run kps:default-package-upgrade:verify",
           "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },
@@ -326,6 +329,7 @@
           "data/helm-render-intents/contract-gaps.md",
           "data/master-catalog-matrix/summary.md",
           "data/lifecycle-routes/summary.md",
+          "data/kps-default-package-upgrade-proof/summary.md",
           "docs/user/helm-render-intents.md"
         ],
         "id": "T18",
@@ -336,7 +340,8 @@
         "verify": [
           "npm run helm-render-intents:verify",
           "npm run helm-render-intents:contracts:verify",
-          "npm run lifecycle:routes:verify"
+          "npm run lifecycle:routes:verify",
+          "npm run kps:default-package-upgrade:verify"
         ]
       },
       {
@@ -840,6 +845,7 @@
           "docs/user/chart-hooks-what-happens.md",
           "data/hook-route-candidates/work-orders.md",
           "data/lifecycle-routes/summary.md",
+          "data/kps-default-package-upgrade-proof/summary.md",
           "data/kps-confighub-lifecycle-promotion/summary.md"
         ],
         "id": "T48",
@@ -850,6 +856,7 @@
         "verify": [
           "npm run hooks:route-work-orders:verify",
           "npm run lifecycle:routes:verify",
+          "npm run kps:default-package-upgrade:verify",
           "npm run kps:confighub-lifecycle-promotion:verify"
         ]
       },

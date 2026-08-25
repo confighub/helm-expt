@@ -1,4 +1,4 @@
-Creating cluster "helm-expt-kps-workload-upgrade-9vvhzr" ...
+Creating cluster "helm-expt-kps-workload-upgrade-84gbog" ...
  • Ensuring node image (kindest/node:v1.35.0) 🖼  ...
  ✓ Ensuring node image (kindest/node:v1.35.0) 🖼
  • Preparing nodes 📦   ...
@@ -13,10 +13,10 @@ Creating cluster "helm-expt-kps-workload-upgrade-9vvhzr" ...
  ✓ Installing StorageClass 💾
  • Waiting ≤ 5m0s for control-plane = Ready ⏳  ...
  ✓ Waiting ≤ 5m0s for control-plane = Ready ⏳
- • Ready after 18s 💚
-Set kubectl context to "kind-helm-expt-kps-workload-upgrade-9vvhzr"
+ • Ready after 17s 💚
+Set kubectl context to "kind-helm-expt-kps-workload-upgrade-84gbog"
 You can now use your cluster with:
 
-kubectl cluster-info --context kind-helm-expt-kps-workload-upgrade-9vvhzr
+kubectl cluster-info --context kind-helm-expt-kps-workload-upgrade-84gbog
 
-Thanks for using kind! 😊
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/

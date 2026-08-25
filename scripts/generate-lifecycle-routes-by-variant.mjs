@@ -190,6 +190,12 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
     let disposition = route.base
       ? route.disposition
       : (perBase ?? route.disposition);
+    const sourceDrift = variant.version && route.version !== variant.version
+      ? `route source version ${route.version}; recipe version ${variant.version}`
+      : route.source_drift;
+    if (sourceDrift && route.base && disposition === "observed") {
+      disposition = "routed";
+    }
     const isCrdRoute = route.action_kind === "install-crd" || /crd/i.test(route.route_name);
     if (isCrdRoute) {
       if (packagedCrdCount === crdCount && crdCount > 0 && disposition === "observed") {
@@ -217,9 +223,6 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
         reason = `this base needs ${crdCount} CRDs supplied before deploy (the default base installs them for you)`;
       }
     }
-    const sourceDrift = variant.version && route.version !== variant.version
-      ? `route source version ${route.version}; recipe version ${variant.version}`
-      : route.source_drift;
     const routeOwner = packagedCrdCount === crdCount
       && crdCount > 0
       && isCrdRoute
@@ -246,8 +249,12 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
       reason,
       sourceVersion: route.version,
       evidence: evidencePaths(route.evidence_or_next_action).join(";"),
-      nextAction: evidenceNotes(route.evidence_or_next_action).join("; "),
-      evidenceRequired: route.evidence_required,
+      nextAction: sourceDrift
+        ? `Run this route for ${variant.version} and record the result before treating it as observed for this version.`
+        : evidenceNotes(route.evidence_or_next_action).join("; "),
+      evidenceRequired: sourceDrift
+        ? `a live receipt for ${variant.version} and this base`
+        : route.evidence_required,
       sourceDrift,
     };
   });

@@ -1,6 +1,6 @@
 Release "kube-prometheus-stack" has been upgraded. Happy Helming!
 NAME: kube-prometheus-stack
-LAST DEPLOYED: Thu Jun 11 20:24:06 2026
+LAST DEPLOYED: Tue Aug 25 04:46:28 2026
 NAMESPACE: monitoring
 STATUS: deployed
 REVISION: 2

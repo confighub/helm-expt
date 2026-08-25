@@ -1,7 +1,7 @@
-NAME                                                        READY   STATUS            RESTARTS   AGE     IP             NODE                                                  NOMINATED NODE   READINESS GATES
-alertmanager-kube-prometheus-stack-alertmanager-0           0/2     Init:0/1          0          4s      <none>         helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
-kube-prometheus-stack-grafana-689f864759-9zqf6              3/3     Running           0          2m20s   10.244.0.6     helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
-kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-xpr8j   1/1     Running           0          2m20s   10.244.0.8     helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
-kube-prometheus-stack-operator-6cd9d8fb8d-bm76h             1/1     Running           0          11s     10.244.0.13    helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
-kube-prometheus-stack-prometheus-node-exporter-9bc4z        1/1     Running           0          2m20s   192.168.97.2   helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
-prometheus-kube-prometheus-stack-prometheus-0               0/2     PodInitializing   0          10s     10.244.0.14    helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
+NAME                                                        READY   STATUS            RESTARTS   AGE   IP             NODE                                                  NOMINATED NODE   READINESS GATES
+alertmanager-kube-prometheus-stack-alertmanager-0           0/2     Init:0/1          0          5s    <none>         helm-expt-kps-workload-upgrade-84gbog-control-plane   <none>           <none>
+kube-prometheus-stack-grafana-689f864759-6wslr              3/3     Running           0          61s   10.244.0.7     helm-expt-kps-workload-upgrade-84gbog-control-plane   <none>           <none>
+kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-49xdx   1/1     Running           0          61s   10.244.0.6     helm-expt-kps-workload-upgrade-84gbog-control-plane   <none>           <none>
+kube-prometheus-stack-operator-6cd9d8fb8d-kb7ht             1/1     Running           0          9s    10.244.0.13    helm-expt-kps-workload-upgrade-84gbog-control-plane   <none>           <none>
+kube-prometheus-stack-prometheus-node-exporter-zwzp2        1/1     Running           0          61s   192.168.97.6   helm-expt-kps-workload-upgrade-84gbog-control-plane   <none>           <none>
+prometheus-kube-prometheus-stack-prometheus-0               0/2     PodInitializing   0          8s    10.244.0.14    helm-expt-kps-workload-upgrade-84gbog-control-plane   <none>           <none>
