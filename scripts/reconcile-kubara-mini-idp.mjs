@@ -4271,7 +4271,7 @@ function fetchUnitRows(space) {
     "unit", "list", "--space", space,
     "--select", `SpaceID,${UNIT_READ_SELECT}`,
   ]), "Unit");
-  for (const unit of rows) attachUnitConfigData(space, unit);
+  attachUnitConfigDataBulk(space, rows);
   return rows;
 }
 
@@ -4307,6 +4307,38 @@ function attachUnitConfigData(space, unit) {
   const ref = `${space}/${unit.Slug}`;
   unit.ConfigData = decodeUnitConfigBytes(fetchUnitConfigBytes(space, unit.Slug), unit.DataHash, ref);
   return unit;
+}
+
+// The bulk form of the same read. `cub unit data --where` answers for every Unit the clause
+// selects in one request, which is what keeps a list from costing one request per Unit -- the
+// thing this snapshot is measured on. Each row carries its own DataHash, so the same
+// validation runs per Unit as in the single-Unit path.
+//
+// Chunked because a where clause is a URL, and a Space with many Units would otherwise build
+// one too long to send.
+const UNIT_DATA_BULK_CHUNK = 100;
+
+function attachUnitConfigDataBulk(space, rows) {
+  const bySlug = new Map();
+  for (let i = 0; i < rows.length; i += UNIT_DATA_BULK_CHUNK) {
+    const chunk = rows.slice(i, i + UNIT_DATA_BULK_CHUNK);
+    const clause = `Slug IN (${chunk.map((unit) => `'${unit.Slug}'`).join(", ")})`;
+    const payload = cubJson(["unit", "data", "--space", space, "--where", clause]);
+    for (const row of Array.isArray(payload) ? payload : []) {
+      if (typeof row?.Slug === "string") bySlug.set(row.Slug, row.Data ?? "");
+    }
+  }
+  for (const unit of rows) {
+    const ref = `${space}/${unit.Slug}`;
+    // A Unit the bulk read did not answer for is a mismatch between the list and the data
+    // endpoint, not an empty configuration -- read it on its own rather than recording "".
+    if (!bySlug.has(unit.Slug)) {
+      attachUnitConfigData(space, unit);
+      continue;
+    }
+    unit.ConfigData = decodeUnitConfigBytes(Buffer.from(bySlug.get(unit.Slug), "utf8"), unit.DataHash, ref);
+  }
+  return rows;
 }
 
 function decodeUnitConfigBytes(bytes, dataHash, ref) {
