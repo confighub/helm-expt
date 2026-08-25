@@ -10,18 +10,18 @@ whether it is recent. A delivery proof from months ago and one from this
 morning read the same on the page.
 
 Ages below are measured against the newest receipt in the repository,
-**2026-08-24**, rather than against the clock. That keeps this a
+**2026-08-25**, rather than against the clock. That keeps this a
 function of committed bytes, so it cannot go stale overnight, and it asks the
 more useful question: old compared to what else this repository knows. The
-oldest receipt is from 2026-05-26, so the evidence spans 90 days.
+oldest receipt is from 2026-05-26, so the evidence spans 91 days.
 
 ## The spread
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 315 |
-| 31 to 90 days | 1473 |
-| 91 to 180 days | 0 |
+| 0 to 30 days | 316 |
+| 31 to 90 days | 1471 |
+| 91 to 180 days | 2 |
 | over 180 days | 0 |
 
 ## The largest families
@@ -32,9 +32,9 @@ receipt, and the full table is in the CSV for the rest.
 
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
-| `live-helm-confighub-compare` | 219 | 71 | 80 | none |
-| `live-kind-parity` | 179 | 70 | 80 | none |
-| `next80-local-kind` | 176 | 74 | 75 | none |
+| `live-helm-confighub-compare` | 219 | 71 | 81 | none |
+| `live-kind-parity` | 179 | 71 | 80 | none |
+| `next80-local-kind` | 176 | 75 | 75 | none |
 | `installer-oci` | 139 | 16 | 16 | none |
 | `certified-bundles` | 74 | 16 | 16 | none |
 | `latest-top20-refresh` | 40 | 90 | 90 | none |
@@ -53,6 +53,8 @@ families whose evidence has aged furthest.
 
 | Family | Receipt | Recorded | Age in days |
 | --- | --- | --- | --- |
+| `redis-confighub` | `upload-oci-receipt.yaml` | 2026-05-26 | 91 |
+| `redis-local-kind` | `observation-receipt.yaml` | 2026-05-26 | 91 |
 | `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 90 |
 | `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 90 |
 | `alertmanager-ha-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 90 |
@@ -61,12 +63,10 @@ families whose evidence has aged furthest.
 | `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 90 |
 | `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 90 |
 | `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 90 |
-| `argo-events-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 90 |
-| `argo-events-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 90 |
 
 ## Receipts that cannot age
 
-Every one of the 1788 committed receipts records a date, so none of
+Every one of the 1789 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now
