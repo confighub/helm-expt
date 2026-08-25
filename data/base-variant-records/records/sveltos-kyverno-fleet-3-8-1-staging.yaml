@@ -14,6 +14,11 @@ spec:
     version: "v1.12.0"
     record: "examples/sveltos/kyverno-fleet/source-lock.yaml"
     packageOciRef: ""
+    selection:
+      name: "staging"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "examples/sveltos/kyverno-fleet/source-lock.yaml"
   baseVariant:
     name: "staging"
     revision: "live-r001"

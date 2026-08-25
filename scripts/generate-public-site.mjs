@@ -3842,9 +3842,9 @@ function tryAicrHtml() {
     <h2 id="aicr-questions">Choose The Question First</h2>
     ${markdownLikeTable([
       ["Question", "AICR path"],
-      ["What do I have?", "Use snapshot and diff to compare existing GPU-node state. No recipe, bundle, or Catalog match is required."],
-      ["What will it produce?", "Select an AICR recipe or retained configuration and inspect the exact generated files."],
-      ["Can this destination accept it?", "Check the selected output against the destination's GPU, cloud, controller, credential, API, and component requirements."],
+      ["What do I have?", "Use snapshot and diff to report differences between existing GPU nodes. No recipe, bundle, or Catalog match is required."],
+      ["What will it produce?", "Select a provider-curated AICR leaf variant and inspect the exact files it generates."],
+      ["Can this destination accept it?", "Check that the destination matches the variant's GPU, network, cloud, controller, credential, API, and component requirements."],
       ["Did it work?", "Run recipe-dependent resource and runtime checks only after the declared components have been deployed."],
     ])}
   </section>
@@ -3856,14 +3856,21 @@ function tryAicrHtml() {
 # select the other node or repeat after the change
 aicr snapshot --output current.yaml
 aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code></pre>
-    <p>A difference such as missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is a node-state finding. It does not depend on a matching Catalog entry.</p>
-    <p><code>expected-resources</code> answers a later question. It needs a selected recipe and its declared components deployed. If those components are absent, record that check as blocked or not run; do not call it failed GPU conformance.</p>
+    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a variant intended for RDMA may require them.</p>
+    <p>Choose the provider-curated source variant meant for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR variants. Other catalog providers can publish and review additional variants.</p>
+    <p><code>expected-resources</code> answers a later question. It needs the selected variant and its declared components deployed. If those components are absent, record that check as blocked or not run; do not call it failed GPU conformance.</p>
     <p><a href="https://github.com/NVIDIA/aicr/releases/tag/v0.20.0">Open the AICR v0.20.0 release</a> · <a href="./d/data/config-assessment-stages/summary.html">See the tested assessment boundaries</a></p>
   </section>
 
   <section aria-labelledby="retained-config-path">
     <h2 id="retained-config-path">Path B: Inspect A Retained Configuration</h2>
     <p>This path reads a reviewed AICR-generated package. It does not inspect a live GPU node or prove that the selected platform runs.</p>
+    ${markdownLikeTable([
+      ["Layer", "What it means here"],
+      ["Source variant", "The provider-curated AICR leaf selected before generation."],
+      ["Retained base variant", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
+      ["Derived ConfigHub variant", "A later environment or policy change linked to that retained base."],
+    ])}
   </section>
 
   <section aria-labelledby="install-oras">
@@ -3966,7 +3973,7 @@ function howItWorksHtml() {
     ${markdownLikeTable([
       ["Source", "Materialization means"],
       ["Helm", "Render the chart and recorded values."],
-      ["AICR", "A snapshot and diff can inspect GPU-node state without a recipe. A selected recipe uses its own composition or generation step."],
+      ["AICR", "A snapshot and diff report observed GPU-node differences without a recipe. Select the intended provider-curated leaf before deciding whether a difference is wrong. That leaf uses AICR's composition or generation step."],
       ["Timoni", "Build the pinned module or bundle with its typed values."],
       ["Kubara or another generator", "Run its declared generation or composition step."],
       ["Sveltos", "Read the literal Sveltos objects. Materialize each nested source separately."],
@@ -8753,10 +8760,10 @@ function aicrEntriesSection() {
   return `<section id="aicr" data-aicr-entries aria-labelledby="aicr-title">
       <h2 id="aicr-title">AI infrastructure configurations</h2>
       <p>Use this section when your starting point is a model runtime or a complete AI platform rather than one Helm chart. Start with the smallest path that answers your question.</p>
-      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> can compare their current state without a recipe, bundle, or matching Catalog entry. That read-only investigation is separate from choosing and deploying one of the retained configurations below. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
+      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their current state differs without a recipe, bundle, or matching Catalog entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${inferenceFamilyTable("..")}
       <h3>Retained AICR entries</h3>
-      <p>Each AICR entry records the exact version, generated files, pinned digest, and evidence for its claims.</p>
+      <p>Each AICR entry names the provider-curated source variant, exact version, generated files, pinned digest, and evidence for its claims. NVIDIA curates the built-in catalog; another catalog provider can publish and review additional variants.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>Retained version</th><th>Also called</th></tr></thead>
         <tbody>

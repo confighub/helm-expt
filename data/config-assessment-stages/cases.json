@@ -74,9 +74,9 @@
       "stage": "destination"
     },
     {
-      "answer": "AICR snapshot and diff can compare existing GPU-node state without selecting a recipe, deploying a bundle, or matching a hardware row in the Catalog.",
+      "answer": "AICR snapshot and diff report observed differences between GPU nodes without selecting a recipe or deploying a bundle. To decide whether a difference is a fault, compare each node with the provider-curated source variant intended for its service, accelerator, operating system, workload intent, platform, and relevant hardware.",
       "catalogMatchRequired": false,
-      "claimBoundary": "These sanitized snapshots test the stage and prerequisite contract; they are not a live GPU conformance receipt.",
+      "claimBoundary": "These sanitized snapshots prove that two observations differ. They do not select an intended variant or prove that either node is misconfigured.",
       "deploymentRequired": false,
       "destinationAccessRequired": true,
       "evidence": [

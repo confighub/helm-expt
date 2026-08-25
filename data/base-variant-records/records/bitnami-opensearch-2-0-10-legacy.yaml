@@ -14,6 +14,11 @@ spec:
     version: "2.0.10"
     record: "data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10"
+    selection:
+      name: "legacy"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml"
   baseVariant:
     name: "legacy"
     revision: "r001"

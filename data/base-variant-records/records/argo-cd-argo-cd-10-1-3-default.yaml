@@ -14,6 +14,11 @@ spec:
     version: "10.1.3"
     record: "data/helm-render-intents/intents/argo-cd-argo-cd-10-1-3-default.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/argo-cd-argo-cd-10-1-3-default.yaml"
   baseVariant:
     name: "default"
     revision: "r001"

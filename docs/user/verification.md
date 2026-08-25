@@ -20,6 +20,12 @@ dependent check `blocked` or `not-run`; it does not make the source,
 configuration, workload, or conformance result fail. A Catalog listing does not
 turn missing destination or runtime evidence into a pass.
 
+An observed difference is not a configuration verdict by itself. For example,
+`aicr diff` can show that one GPU node lacks `iommu=pt` or `nvidia_peermem`. Decide
+whether that is wrong only after selecting the provider-curated source variant for
+that node's hardware and workload. A no-Mellanox variant and an RDMA variant can
+correctly require different host settings.
+
 ## The Short Rule
 
 - Product commands render, install, and manage configuration: `cub ...`,

@@ -1865,6 +1865,19 @@ function validateRecords(records) {
     check(!names.has(record.metadata.name), `duplicate base record ${record.metadata.name}`);
     names.add(record.metadata.name);
     check(supportedSourceTypes.includes(record.spec?.source?.type), `${record.metadata.name} has an invalid source type`);
+    check(
+      record.spec?.source?.selection?.name
+        && [
+          "source-variant",
+          "catalog-preset",
+          "package-base",
+          "literal-input",
+          "retained-revision",
+        ].includes(record.spec.source.selection.kind)
+        && record.spec.source.selection.provider
+        && record.spec.source.selection.record,
+      `${record.metadata.name} has no curated source selection`,
+    );
     check(["available", "partial", "planned"].includes(record.status?.level), `${record.metadata.name} has an invalid status`);
     check(Number.isInteger(record.spec?.configuration?.objectCount), `${record.metadata.name} has an invalid object count`);
     check(record.spec?.policy?.profile === "catalog-standard", `${record.metadata.name} is not bound to catalog-standard`);
@@ -3426,7 +3439,10 @@ function alignRecordWithProcessingModel(record, intent) {
     operations,
   } = record.spec;
   record.spec = {
-    source,
+    source: {
+      ...source,
+      selection: sourceSelectionRecord(record),
+    },
     baseVariant: {
       ...baseVariant,
       digestRole: identity.baseRevision.digestRole,
@@ -3450,6 +3466,50 @@ function alignRecordWithProcessingModel(record, intent) {
     operations,
   };
   return record;
+}
+
+function sourceSelectionRecord(record) {
+  const source = record.spec.source;
+  const base = record.spec.baseVariant.name;
+
+  if (source.type === "aicr") {
+    return {
+      name: source.name,
+      kind: "source-variant",
+      provider: "NVIDIA AICR",
+      record: source.record,
+    };
+  }
+  if (source.type === "helm" || ["timoni", "kubara", "sveltos"].includes(source.type)) {
+    return {
+      name: base,
+      kind: "catalog-preset",
+      provider: "Config Workshop",
+      record: source.record,
+    };
+  }
+  if (["cub-installer", "source-oci"].includes(source.type)) {
+    return {
+      name: base,
+      kind: "package-base",
+      provider: "Config Workshop",
+      record: source.record,
+    };
+  }
+  if (source.type === "confighub") {
+    return {
+      name: base,
+      kind: "retained-revision",
+      provider: "ConfigHub Space owner",
+      record: source.record,
+    };
+  }
+  return {
+    name: base,
+    kind: "literal-input",
+    provider: "Configuration owner",
+    record: source.record,
+  };
 }
 
 function identityRecord(record, intent) {
@@ -3793,7 +3853,7 @@ function inspectionInput(sourceType) {
 function materializationInput(sourceType) {
   return {
     helm: "The pinned chart, version, values, namespace, release name, and render capabilities",
-    aicr: "The selected AICR source and choices; a recipe is needed only for recipe-dependent generation or validation",
+    aicr: "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation",
     timoni: "The pinned module or bundle OCI, typed values, and Timoni build command",
     kubara: "The Kubara source, component selections, and generator inputs",
     sveltos: "The literal Sveltos objects; nested sources keep their own materialization step",
@@ -3808,7 +3868,7 @@ function materializationInput(sourceType) {
 
 function inspectionAnswer(sourceType) {
   if (sourceType === "aicr") {
-    return "Inspect or compare an AICR snapshot without selecting a recipe. Recipes are needed only when you want recipe-dependent generation or checks.";
+    return "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault.";
   }
   if (["configuration-oci", "kubernetes-yaml", "rendered-config", "confighub"].includes(sourceType)) {
     return "Read and compare the exact Kubernetes objects and their digest without running a source processor.";
@@ -4267,6 +4327,9 @@ function renderRecordsCsv(records) {
     "source_type",
     "source_name",
     "source_version",
+    "source_selection",
+    "source_selection_kind",
+    "source_selection_provider",
     "base",
     "status",
     "object_count",
@@ -4310,6 +4373,9 @@ function renderRecordsCsv(records) {
       source_type: record.spec.source.type,
       source_name: record.spec.source.name,
       source_version: record.spec.source.version,
+      source_selection: record.spec.source.selection.name,
+      source_selection_kind: record.spec.source.selection.kind,
+      source_selection_provider: record.spec.source.selection.provider,
       base: record.spec.baseVariant.name,
       status: record.status.level,
       object_count: String(record.spec.configuration.objectCount),
@@ -4418,7 +4484,7 @@ Generated by \`scripts/generate-config-catalog-program.mjs\`. Do not edit the ge
 
 There are **${records.length} records**: ${formatCounts(sourceCounts)}. Their current statuses are ${formatCounts(statusCounts)}.
 
-A base-variant record connects one exact configuration to its source and intent. It records how the objects were materialized, whether they can be retained as literal configuration, what lifecycle work may surround apply, which fields each layer controls, and which OCI and delivery results exist. It does not imply that every record is present in a live ConfigHub org.
+A base-variant record connects one exact configuration to its source and intent. It identifies the selected source form and who curated it, then records how the objects were materialized, whether they can be retained as literal configuration, what lifecycle work may surround apply, which fields each layer controls, and which OCI and delivery results exist. It does not imply that every record is present in a live ConfigHub org.
 
 The processing coverage is explicit rather than inferred:
 
@@ -4434,7 +4500,7 @@ The processing coverage is explicit rather than inferred:
 
 ## Model and Catalog alignment
 
-All **${records.length}/${records.length} records** use the same source-neutral structure. Every row identifies its source record, base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits. Every row also answers the same four questions separately: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.
+All **${records.length}/${records.length} records** use the same source-neutral structure. Every row identifies its source selection and provider, source record, retained base-revision digest role, exact-object digest role, materialization result, flattening status, lifecycle requirements, route intent, target-resolution status, field ownership, delivery evidence, and current limits. Every row also answers the same four questions separately: what the source contains, what it produces, whether a named destination can accept it, and what happened after deployment.
 
 The evidence is not complete for every row:
 
@@ -4455,6 +4521,7 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 | Question | Field |
 | --- | --- |
 | Where did this configuration come from? | \`spec.source\` |
+| Which source variant, preset, package base, or literal input was selected, and who curated it? | \`spec.source.selection\` |
 | Which exact configuration is managed? | \`spec.configuration\` |
 | Which of the four questions has evidence, and which prerequisites were used? | \`spec.assessment\` |
 | How were the objects produced, and may they be flattened? | \`spec.processing\` |

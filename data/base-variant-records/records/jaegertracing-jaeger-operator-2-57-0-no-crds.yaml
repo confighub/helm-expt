@@ -14,6 +14,11 @@ spec:
     version: "2.57.0"
     record: "data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml"
   baseVariant:
     name: "no-crds"
     revision: "r001"

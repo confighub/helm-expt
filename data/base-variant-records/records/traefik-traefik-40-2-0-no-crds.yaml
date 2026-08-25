@@ -14,6 +14,11 @@ spec:
     version: "40.2.0"
     record: "data/helm-render-intents/intents/traefik-traefik-40-2-0-no-crds.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/traefik-traefik-40-2-0-no-crds.yaml"
   baseVariant:
     name: "no-crds"
     revision: "r001"

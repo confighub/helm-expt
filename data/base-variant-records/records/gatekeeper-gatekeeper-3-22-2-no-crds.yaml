@@ -14,6 +14,11 @@ spec:
     version: "3.22.2"
     record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
   baseVariant:
     name: "no-crds"
     revision: "r001"

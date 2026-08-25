@@ -14,6 +14,11 @@ spec:
     version: "4.0.18"
     record: "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
   baseVariant:
     name: "default"
     revision: "r001"

@@ -14,6 +14,11 @@ spec:
     version: "24.0.4"
     record: "data/helm-render-intents/intents/bitnami-nginx-24-0-4-http-clusterip.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4"
+    selection:
+      name: "http-clusterip"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-nginx-24-0-4-http-clusterip.yaml"
   baseVariant:
     name: "http-clusterip"
     revision: "r001"

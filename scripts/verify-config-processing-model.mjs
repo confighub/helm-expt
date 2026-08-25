@@ -85,6 +85,10 @@ for (const [label, document] of Object.entries({
 for (const text of [
   "A derived variant can add, remove, or change",
   "variant, destination, and delivery runtime",
+  "Three variant layers",
+  "Source variant",
+  "Retained base variant",
+  "provider-curated",
   "Route intent",
   "Resolved lifecycle route",
   "Recipe is not the general name for a configuration",
@@ -196,6 +200,13 @@ for (const record of records) {
   const sourceType = spec.source?.type ?? "missing";
   sourceCounts.set(sourceType, (sourceCounts.get(sourceType) ?? 0) + 1);
   requireCondition(!Object.hasOwn(spec, "routing"), `${name}: legacy spec.routing is present`);
+  requireCondition(
+    spec.source?.selection?.name
+      && spec.source.selection.kind
+      && spec.source.selection.provider
+      && spec.source.selection.record,
+    `${name}: source selection or curator is missing`,
+  );
   requireCondition(
     spec.processing && spec.assessment && spec.lifecycle && spec.ownership,
     `${name}: model envelopes are incomplete`,
@@ -383,6 +394,19 @@ requireCondition(
     && !aicrSnapshot.deploymentRequired,
   "AICR snapshot/diff was made recipe- or deployment-dependent",
 );
+requireCondition(
+  aicrSnapshot?.answer?.includes("observed differences")
+    && aicrSnapshot.answer.includes("provider-curated source variant")
+    && aicrSnapshot?.claimBoundary?.includes("do not select an intended variant"),
+  "AICR snapshot/diff is presented as desired-state or conformance evidence",
+);
+for (const [label, document] of Object.entries({
+  tryAicr: documents.tryAicr,
+  catalog: documents.catalog,
+})) {
+  requireText(document, "provider-curated source variant", `${label} AICR variant boundary`);
+  requireText(document, "A difference is not automatically a fault", `${label} AICR observation boundary`);
+}
 const expectedResources = assessmentCases.cases.find(
   (item) => item.id === "aicr-expected-resources-components-absent",
 );

@@ -14,6 +14,11 @@ spec:
     version: "source-r001"
     record: "runs/literal-yaml-upload-proof/receipt.yaml"
     packageOciRef: ""
+    selection:
+      name: "base"
+      kind: "literal-input"
+      provider: "Configuration owner"
+      record: "runs/literal-yaml-upload-proof/receipt.yaml"
   baseVariant:
     name: "base"
     revision: "source-r001"

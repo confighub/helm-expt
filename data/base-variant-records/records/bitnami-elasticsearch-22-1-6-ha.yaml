@@ -14,6 +14,11 @@ spec:
     version: "22.1.6"
     record: "data/helm-render-intents/intents/bitnami-elasticsearch-22-1-6-ha.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6"
+    selection:
+      name: "ha"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-elasticsearch-22-1-6-ha.yaml"
   baseVariant:
     name: "ha"
     revision: "r001"

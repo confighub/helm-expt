@@ -14,6 +14,11 @@ spec:
     version: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
     record: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    selection:
+      name: "replicas-4"
+      kind: "literal-input"
+      provider: "Configuration owner"
+      record: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
   baseVariant:
     name: "replicas-4"
     revision: "reviewed-r001"

@@ -67,12 +67,23 @@ failed conformance result. Publication, upload, and controller sync are also
 different results; none proves an application request unless that request was run.
 
 This distinction applies to every source. For example, AICR snapshot and diff can
-compare existing GPU nodes without a recipe or bundle. Its `expected-resources`
-check depends on a selected recipe and the declared components being deployed.
+compare existing GPU nodes without a recipe or bundle. That comparison reports
+observed differences; it does not define desired state. Decide whether a difference
+is a fault only after binding the node to the provider-curated source variant meant
+for its service, accelerator, operating system, workload intent, platform, and
+relevant hardware. Its `expected-resources` check then depends on that selected
+variant and the declared components being deployed.
 Helm rendering can produce exact objects without a cluster, but destination CRDs,
 hook handling, workload health, and rollback need later evidence. Literal YAML and
 configuration OCI use a recorded no-op for materialization; they still need separate
 destination and live checks.
+
+Every maintained entry must distinguish three layers: a source variant or other
+source selection, the exact base variant retained after materialization, and any
+derived ConfigHub variants. The source selection names its provider. NVIDIA curates
+the built-in AICR catalog; other catalog providers may curate additional overlays
+and leaf variants. Config Workshop curates its Helm presets. A custom variant needs
+its own intended-target statement and evidence.
 
 The generated [assessment cases](../../data/config-assessment-stages/summary.md)
 test these boundaries. Every generated base record carries the four stages under

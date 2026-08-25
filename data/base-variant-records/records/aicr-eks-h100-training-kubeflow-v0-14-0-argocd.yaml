@@ -14,6 +14,11 @@ spec:
     version: "v0.14.0"
     record: "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0"
+    selection:
+      name: "eks-h100-training-kubeflow"
+      kind: "source-variant"
+      provider: "NVIDIA AICR"
+      record: "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
   baseVariant:
     name: "argocd"
     revision: "generated-v0.14.0"
@@ -51,7 +56,7 @@ spec:
       -
         id: "inspection"
         question: "What do I have?"
-        answer: "Inspect or compare an AICR snapshot without selecting a recipe. Recipes are needed only when you want recipe-dependent generation or checks."
+        answer: "Inspect or compare AICR snapshots without selecting a recipe. The diff reports observed differences; select the intended provider-curated source variant before deciding whether a difference is a fault."
         requiredInputs:
           - "An AICR snapshot, recipe, generated bundle, or exact generated output"
         catalogMatchRequired: false
@@ -70,7 +75,7 @@ spec:
         question: "What will it produce?"
         answer: "Run the recorded AICR composition and wrapper render step to produce the exact Kubernetes objects for this configuration."
         requiredInputs:
-          - "The selected AICR source and choices; a recipe is needed only for recipe-dependent generation or validation"
+          - "The selected provider-curated AICR leaf and its overlay choices; a recipe is needed for recipe-dependent generation or validation"
         catalogMatchRequired: false
         sourceIntentRequired: true
         destinationAccessRequired: false

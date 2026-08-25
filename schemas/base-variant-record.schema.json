@@ -64,7 +64,8 @@
             "type",
             "name",
             "version",
-            "record"
+            "record",
+            "selection"
           ],
           "properties": {
             "type": {
@@ -93,6 +94,39 @@
             },
             "packageOciRef": {
               "type": "string"
+            },
+            "selection": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "kind",
+                "provider",
+                "record"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "kind": {
+                  "enum": [
+                    "source-variant",
+                    "catalog-preset",
+                    "package-base",
+                    "literal-input",
+                    "retained-revision"
+                  ]
+                },
+                "provider": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "record": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
             }
           }
         },

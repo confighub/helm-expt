@@ -125,6 +125,12 @@ function validateSource(document) {
       && snapshot.deploymentRequired === false,
     "AICR snapshot/diff was made recipe- or deployment-dependent",
   );
+  check(
+    snapshot.answer.includes("observed differences")
+      && snapshot.answer.includes("provider-curated source variant")
+      && snapshot.claimBoundary.includes("do not select an intended variant"),
+    "AICR snapshot/diff was presented as desired-state or conformance evidence",
+  );
   const expectedResources = cases.find(
     (item) => item.id === "aicr-expected-resources-components-absent",
   );

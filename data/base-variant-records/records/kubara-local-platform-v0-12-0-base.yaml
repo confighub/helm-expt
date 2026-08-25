@@ -14,6 +14,11 @@ spec:
     version: "v0.12.0"
     record: "examples/kubara/local-platform/generation-receipt.yaml"
     packageOciRef: ""
+    selection:
+      name: "base"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "examples/kubara/local-platform/generation-receipt.yaml"
   baseVariant:
     name: "base"
     revision: "generated-v0.12.0"

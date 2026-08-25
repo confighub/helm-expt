@@ -22,8 +22,29 @@ must state its required inputs, evidence state, and result state. If the require
 destination or deployment does not exist, the check is **blocked** or **not run**.
 It is not a failed configuration, failed workload, or failed conformance result.
 
-AICR makes the distinction especially clear. `aicr snapshot` and `aicr diff` can
-compare GPU-node state without selecting a recipe or deploying a bundle. A
+### Three variant layers
+
+The word variant can describe a choice at three different stages. Keep the layers
+separate:
+
+| Layer | What it is | Example |
+| --- | --- | --- |
+| **Source variant** | A provider-curated choice before materialization. Its provider records which target and use case it is for. | An AICR leaf selected by service, accelerator, operating system, workload intent, and platform; or a Catalog Helm preset with recorded values. |
+| **Retained base variant** | The exact objects produced from one source variant, with their digest, source link, lifecycle requirements, and evidence. | The 17 Argo CD Applications produced from one AICR leaf, or one rendered Helm preset. |
+| **Derived ConfigHub variant** | A recorded change to a retained base for an environment, region, customer, or policy. | Development, staging, and production revisions linked to the same base. |
+
+The source provider curates the first layer. NVIDIA curates the built-in AICR
+catalog; another catalog provider can publish and review additional overlays and
+leaves. Config Workshop curates its Helm presets. A custom source variant must name
+its provider, intended target, and supporting evidence rather than borrowing the
+status of a similar upstream variant.
+
+AICR also makes the four assessment questions easy to distinguish. `aicr snapshot`
+and `aicr diff` report what differs between observed GPU nodes without selecting a
+recipe or deploying a bundle. They do not say which node is correct. To make that
+decision, compare each node with the source variant intended for its hardware and
+job. A node without Mellanox networking may correctly omit `iommu=pt` and
+`nvidia_peermem`; a provider-curated RDMA variant may require them. A
 recipe-dependent `expected-resources` check can run only after the declared
 components have been deployed. The same rule applies elsewhere: a Helm render is
 not destination acceptance, an OCI publication is not controller reconciliation,
@@ -267,7 +288,7 @@ difference matters.
 | Source | What do I have? | What will it produce? | Can this destination accept it? | Did it work? |
 | --- | --- | --- | --- | --- |
 | Helm | Inspect the chart, version, values, render context, and any existing render. | Render the pinned chart into exact objects. | Check APIs, CRDs, Secrets, hooks, setup Jobs, policies, and controller handling for the exact variant. | Record delivery, controller, workload, runtime, drift, and rollback results separately. |
-| AICR | Inspect or diff GPU-node snapshots without a recipe; inspect a recipe when one is selected. | Compose or generate the selected recipe output. Nested charts may still render later. | Check GPU and cloud facts, required controllers, component order, credentials, and nested-source requirements. | Run recipe-dependent resource and runtime checks only after the declared components have been deployed. |
+| AICR | Inspect or diff GPU-node snapshots without a recipe. A diff reports observed differences; judge them against the provider-curated source variant intended for each node. | Compose or generate the selected leaf variant. Nested charts may still render later. | Check that the destination matches the variant's GPU, network, cloud, controller, credential, component-order, and nested-source requirements. | Run variant-dependent resource and runtime checks only after the declared components have been deployed. |
 | Timoni | Inspect the pinned module or bundle, typed schema, selected values, and existing build output. | Build the exact objects from the module or bundle. | Check ordered apply sets, waits, tests, prune behavior, runtime lookups, and target requirements. | Record apply, status, test, health, drift, and rollback results for the exact build. |
 | Kubara | Inspect the selected platform components, versions, generator inputs, and generated files. | Generate the platform bootstrap and component assignments. | Check platform APIs, component prerequisites, ownership, credentials, nested sources, and controller work. | Record bootstrap, component, application, fleet, and rollback results at the layers actually tested. |
 | Sveltos | Inspect the literal Sveltos objects and their nested source references. | Reading the Sveltos objects is a no-op; each nested source keeps its own materialization step. | Check the management cluster, selected workload clusters, Sveltos APIs, selectors, credentials, and nested-source requirements. | Record management reconciliation and each selected cluster's result separately. |
@@ -303,11 +324,15 @@ materialized and flat. Record their source and digest, attach any required route
 then retain them as a base. Do not pretend they passed through Helm.
 
 **If you start with AICR:** use `snapshot` and `diff` first when the question is
-about existing GPU-node state; that path needs no recipe. When you select an AICR
-recipe, keep the recipe and choices, run its declared processor, and link the
-resulting object digest to those inputs. Record required controllers and setup as
-lifecycle work. Run recipe-dependent resource checks only after those components
-have been deployed.
+about existing GPU-node state; that path needs no recipe. The result tells you what
+differs, not what the node should contain. Select the provider-curated leaf variant
+for the service, accelerator, operating system, workload intent, platform, and
+relevant hardware before judging the difference. Keep that source variant and its
+provider with the generated output, then retain the exact objects as a base variant.
+Record required controllers and setup as lifecycle work. Run variant-dependent
+resource checks only after those components have been deployed. Later environment
+changes are derived ConfigHub variants; they do not silently rewrite the selected
+AICR source variant.
 
 **If you start with Kubara or another generator:** keep its native source and
 choices, run its declared processor, and link the resulting object digest to those

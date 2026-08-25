@@ -14,6 +14,11 @@ spec:
     version: "8.5.1"
     record: "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1"
+    selection:
+      name: "ha"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
   baseVariant:
     name: "ha"
     revision: "r001"
