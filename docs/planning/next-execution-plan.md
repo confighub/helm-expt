@@ -26,11 +26,21 @@ partial:   19
 planned:    2
 ```
 
-[PR #1593](https://github.com/confighub/helm-expt/pull/1593) is merged. It captured
-the August simulation findings and misconfiguration doctrine. [Issue #1592](https://github.com/confighub/helm-expt/issues/1592)
-now tracks the remaining product work: a general ConfigHub view where a user can
-decide arbitrary local findings, retain the accepted objects, see revision-bound
-validation and approval, and continue into promotion without losing object identity.
+[PR #1593](https://github.com/confighub/helm-expt/pull/1593) captured the August
+simulation findings and misconfiguration doctrine. The repository work from
+[#1592](https://github.com/confighub/helm-expt/issues/1592),
+[#1595](https://github.com/confighub/helm-expt/issues/1595), and
+[#14](https://github.com/confighub/helm-expt/issues/14) is complete: shared local
+checks, one retained decision chain, a source-neutral website and command
+contract, one hash-preserving promotion proof, and bounded CI reports are all
+generated and verified.
+
+Two ConfigHub product dependencies remain separate. ConfigHub
+[#5158](https://github.com/confighubai/confighub/issues/5158) owns the reusable
+view for local findings, managed validation, decisions, approval, and promotion.
+ConfigHub [#5159](https://github.com/confighubai/confighub/issues/5159) owns the
+stable `cub` continuation from an accepted result into retention and promotion.
+Closing the repository issues did not complete those product journeys.
 
 The first complete case and the Catalog-wide local evidence are now in place:
 
@@ -382,6 +392,10 @@ and other advanced work.
 
 ## Execution Order
 
+`Complete` below means that exact repository checkpoint is merged and guarded.
+It does not mean the whole roadmap, outside-user test, ConfigHub product path, or
+external hardware work is complete.
+
 ### Phase 0: Land The Current Doctrine
 
 1. **Complete:** merge [PR #1593](https://github.com/confighub/helm-expt/pull/1593)
@@ -394,7 +408,10 @@ and other advanced work.
 
 ### Phase 1: Prove Check To ConfigHub
 
-1. Continue [issue #1592](https://github.com/confighub/helm-expt/issues/1592).
+1. **Complete in the repository:** close
+   [#1592](https://github.com/confighub/helm-expt/issues/1592) and keep the
+   reusable ConfigHub view in product issue
+   [#5158](https://github.com/confighubai/confighub/issues/5158).
 2. **Complete:** map every current Catalog rule to partial shared controls or a
    clear reason why static object checking cannot replace it.
 3. **Complete:** generate separate `cub check` receipts for every exact
@@ -421,10 +438,10 @@ unsafe candidate
   -> promotion result
 ```
 
-9. **Next:** add the decision record to the ordinary ConfigHub review flow so a
+9. **Product dependency:** add the decision record to the ordinary ConfigHub review flow so a
    user can decide findings, set a scope and review date, approve the exact
    decision revision, and reopen it automatically when the configuration,
-   destination, or review date changes.
+   destination, or review date changes. Tracked in ConfigHub #5158.
 10. **Complete in one command proof:** preserve the same canonical object-set hash
     from the local result through ConfigHub retention and a staging promotion.
     General product support for arbitrary results remains part of step 9.
@@ -475,9 +492,11 @@ must earn their own evidence.
     `kubara-confighub` platform starter and importer without replacing Kubara's
     native configuration model.
 
-Steps 5 and 9 now have a generated Helm and literal-YAML command contract, public
-schemas, self-tests, and one live ConfigHub proof. Step 10 is complete for the
-generated examples. It remains open for commands emitted by every source plugin.
+Steps 5, 9, and 10 now have a generated Helm and literal-YAML command contract,
+public schemas, self-tests, one live ConfigHub proof, and source-neutral CI
+reports. Commands emitted by every source plugin still need to use the common
+result. The stable ConfigHub continuation is tracked in ConfigHub #5159 rather
+than the closed repository issue #1595.
 
 ### Phase 4: Test With Users And Agents
 
@@ -495,7 +514,10 @@ generated examples. It remains open for commands emitted by every source plugin.
    The [managed journey coverage](../../data/managed-journey-coverage/summary.md)
    now records a technical pass for all six and an outside-user pass for none.
    The next acceptance step is to run the same tasks with people using their own
-   input and normal AI assistant.
+   input and normal AI assistant. Use the
+   [outside-user protocol](./outside-user-test.md): a pass requires a durable
+   artifact, an understood limitation, preserved object identity, and no
+   facilitator choosing the route.
 3. Run the internal developer platform test: use AI and Catalog records to
    produce native Kubara input, generate and check the exact platform, retain it
    in ConfigHub, promote one platform change, then add and promote one small

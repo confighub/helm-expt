@@ -5,7 +5,7 @@
 It explains the current product direction, the active workstreams, and which
 planning files are authoritative for each kind of question.
 
-Updated: 2026-08-24.
+Updated: 2026-08-25.
 
 ## How To Read The Roadmap
 
@@ -23,6 +23,19 @@ Use this file for priority, ownership, and product shape.
 | Which historical notes explain how we got here? | Planning files marked as handovers, dated audits, or archive material. |
 
 Do not copy live counts into roadmap prose. Counts belong in generated data.
+
+## Status Language
+
+Use **checkpoint complete** when one PR, proof, issue, or generated surface is
+finished. Use **roadmap complete** only when no agreed repository work remains
+and every product, outside-user, hardware, and external dependency is either
+completed or explicitly removed from scope. A clean branch, green gate, merged
+PR, or live website proves its named checkpoint only.
+
+The Top 50 may remain partial while every currently unblocked repository change
+is complete. In that case, report both facts and name the remaining owner. Do
+not turn a product dependency, outside-user test, GPU run, or upstream change
+into a repository success.
 
 ## Current Product Goal
 
@@ -66,18 +79,39 @@ turning every format or advanced workflow into another top-level entry point.
 | Workstream | Current objective | Primary surfaces | Main trackers |
 | --- | --- | --- | --- |
 | Question-first acquisition | Turn real public Helm questions into answered checks and retained results. The next evidence is the outside-user cohort; deterministic simulations remain a regression test. | `site/ask.html`, `site/promote.html`, [simulation findings](./config-workshop-simulation-findings.md), [promotion test program](./promotion-workshop-test-program.md). | [#1553](https://github.com/confighub/helm-expt/issues/1553). |
-| Check, decide, and prevent misconfiguration | Join exact local findings to accepted fixes or scoped exceptions, then retain the same objects and run separate ConfigHub validation, approval, and promotion. | `WorkshopResult`, configuration decisions, shared check receipts, chart pages, and the live NGINX chain. | [#1592](https://github.com/confighub/helm-expt/issues/1592). |
-| Website and command contract | Keep the three user jobs identical on the website and command line. Preserve source identity, object identity, findings, omitted checks, and the next action across the handoff. | `site/ask.html`, `site/promote.html`, `data/config-workshop-command-contract/`, public schemas, and generated commands. | [#1595](https://github.com/confighub/helm-expt/issues/1595). |
-| Repeated review in CI | Turn the same WorkshopResult into Markdown or JSON for a pull request without treating static checks as deployment proof. | [CI guide](../user/ci-render-check.md), `data/config-workshop-ci-report/`, and the local report command. | [#14](https://github.com/confighub/helm-expt/issues/14). |
+| Check, decide, and prevent misconfiguration | Maintain the exact local findings, accepted fixes or scoped exceptions, retained objects, and separate ConfigHub validation, approval, and promotion records. The reusable ConfigHub view is product work. | `WorkshopResult`, configuration decisions, shared check receipts, chart pages, and the live NGINX chain. | Repository checkpoint closed in [#1592](https://github.com/confighub/helm-expt/issues/1592); product continuation is ConfigHub [#5158](https://github.com/confighubai/confighub/issues/5158). |
+| Website and command contract | Keep the three user jobs identical on the website and command line. Preserve source identity, object identity, findings, omitted checks, and the next action across the handoff. The stable managed continuation is product work. | `site/ask.html`, `site/promote.html`, `data/config-workshop-command-contract/`, public schemas, and generated commands. | Repository checkpoint closed in [#1595](https://github.com/confighub/helm-expt/issues/1595); product continuation is ConfigHub [#5159](https://github.com/confighubai/confighub/issues/5159). |
+| Repeated review in CI | Keep the source-neutral Markdown and JSON report synchronized with `WorkshopResult` without treating static checks as deployment proof. | [CI guide](../user/ci-render-check.md), `data/config-workshop-ci-report/`, and the local report command. | Completed in [#14](https://github.com/confighub/helm-expt/issues/14); maintained by the generated report and preverify gates. |
 | Public website and guides | Keep the site clear for a new Helm user, with short guide pages and deeper docs one click away. | `site/*.html`, [Dedicated Website Plan](./dedicated-website-plan.md), [persona UX audits](./persona-ux-audit-2026-06-22.md). | [#679](https://github.com/confighub/helm-expt/issues/679). |
 | Chart catalog and matrix | Keep the top-100 chart catalog useful, honest, and navigable by chart/version/base/variant. | [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html), [Chart Use Guide](../../data/chart-use-guide/summary.md), [Top-100 Readiness](../user/top100-readiness.md). | [#106](https://github.com/confighub/helm-expt/issues/106), [#113](https://github.com/confighub/helm-expt/issues/113), [#114](https://github.com/confighub/helm-expt/issues/114). |
 | Live evidence and hard charts | Keep hard chart behavior receipted: CRDs, webhooks, hooks, target facts, generated facts, storage, runtime health, and GitOps sync. | [Current Proof Status](../user/current-proof-status.md), [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md), [Lifecycle Boundary](../../data/lifecycle-boundary/summary.md). | [#842](https://github.com/confighub/helm-expt/issues/842), [#861](https://github.com/confighub/helm-expt/issues/861), [#878](https://github.com/confighub/helm-expt/issues/878). |
-| Variants and promotion | Show base variants, derived ConfigHub variants, destination checks, promotion, release OCI, and app workflows as ordinary ConfigHub value. | [Creating Variants](../user/creating-variants.md), [Variant Promotion Model](../reference/variant-promotion-model.md), [Variant Promotion](../../data/variant-promotion/summary.md), and the Kube Prometheus Stack proof. | [#151](https://github.com/confighub/helm-expt/issues/151), [#1595](https://github.com/confighub/helm-expt/issues/1595). |
+| Variants and promotion | Show base variants, derived ConfigHub variants, destination checks, promotion, release OCI, and app workflows as ordinary ConfigHub value. | [Creating Variants](../user/creating-variants.md), [Variant Promotion Model](../reference/variant-promotion-model.md), [Variant Promotion](../../data/variant-promotion/summary.md), and the Kube Prometheus Stack proof. | [#151](https://github.com/confighub/helm-expt/issues/151), ConfigHub [#5159](https://github.com/confighubai/confighub/issues/5159). |
 | Render-input capture and renderer integration | Ensure one-shot Helm adoption records the inputs needed for repeatable render, upgrade, and rollback, and align with Argo CD / Flux renderer sources where those are already the source of truth. | [Choosing Commands](../user/choosing-commands.md), [Why This Exists](../user/why-this-exists.md), [ConfigHub Data Model](../user/confighub-data-model.md). | Upstream ConfigHub [#3393](https://github.com/confighubai/confighub/issues/3393), [#4369](https://github.com/confighubai/confighub/issues/4369), helm-expt [#76](https://github.com/confighub/helm-expt/issues/76). |
 | ConfigHub/cub product blockers | Keep product gaps exposed by the corpus linked to upstream implementation work without overstating what helm-expt itself owns. | [Issue Backlog](./issue-backlog.md), [Variant Promotion Closeout](../reference/variant-promotion-closeout.md). | [#682](https://github.com/confighub/helm-expt/issues/682), upstream ConfigHub issue [#4609](https://github.com/confighubai/confighub/issues/4609). |
-| Errors, omissions, and UX guards | Prevent false claims, placeholder leaks, stale generated pages, and command drift from returning. | [Chart Claim Integrity Audit](./chart-claim-integrity-audit-2026-06-22.md), [Test Map](../../tests/README.md), machine-contract and command-contract verifiers. | [#679](https://github.com/confighub/helm-expt/issues/679), [#1595](https://github.com/confighub/helm-expt/issues/1595). |
-| AI-assisted apps and operations | Let a person or agent produce a concrete candidate, run the same checks, keep a machine result, and require human or policy authority before managed progression. | [AI-Assisted Helm Changes](../user/ai-assisted-helm-changes.md), [Check and Promote with AI](../user/check-and-promote-with-ai.md), and the Config Workshop agent skill. | [#14](https://github.com/confighub/helm-expt/issues/14), [#1592](https://github.com/confighub/helm-expt/issues/1592), [#1595](https://github.com/confighub/helm-expt/issues/1595). |
+| Errors, omissions, and UX guards | Prevent false claims, placeholder leaks, stale generated pages, and command drift from returning. | [Chart Claim Integrity Audit](./chart-claim-integrity-audit-2026-06-22.md), [Test Map](../../tests/README.md), machine-contract and command-contract verifiers. | [#679](https://github.com/confighub/helm-expt/issues/679) and the permanent verification lanes. |
+| AI-assisted apps and operations | Let a person or agent produce a concrete candidate, run the same checks, keep a machine result, and require human or policy authority before managed progression. | [AI-Assisted Helm Changes](../user/ai-assisted-helm-changes.md), [Check and Promote with AI](../user/check-and-promote-with-ai.md), and the Config Workshop agent skill. | ConfigHub [#5158](https://github.com/confighubai/confighub/issues/5158), [#5159](https://github.com/confighubai/confighub/issues/5159), and helm-expt [#151](https://github.com/confighub/helm-expt/issues/151). |
 | AI infrastructure and tested platform stacks | Let a user start an inference service or compose a platform from tested components, keep custom runtime images explicit, and move the reviewed configuration through OCI, ConfigHub, GitOps, and Kubernetes. | [AICR Catalog Brief](./aicr-catalog-brief.md), [Kubara journey](../../site/kubara.html), [Worked Examples](../../site/testing.html), and the AI runtime plan below. | Existing AICR and Kubara issues, followed by dedicated c3agent and platform-builder issues. |
+
+## Completed Repository Checkpoints
+
+These outcomes are complete in `helm-expt`. Their wider product journeys remain
+governed by the dependency table below.
+
+| Checkpoint | Result |
+| --- | --- |
+| Shared misconfiguration evidence | Catalog-wide exact `cub check` receipts, stable control mappings, generated chart links, and one NGINX decision, validation, approval, promotion, and delivery chain. Closed [#1592](https://github.com/confighub/helm-expt/issues/1592). |
+| Website and CLI machine contract | Helm and literal YAML use the same `WorkshopResult`; one accepted NGINX object set is retained and promoted without losing its canonical hash. Closed [#1595](https://github.com/confighub/helm-expt/issues/1595). |
+| CI and pull-request report | The same source-neutral result produces bounded Markdown or JSON and refuses to call static checks deployment proof. Closed [#14](https://github.com/confighub/helm-expt/issues/14). |
+
+## Remaining Dependency Classes
+
+| Class | What remains | Owner or tracker |
+| --- | --- | --- |
+| Outside-user evidence | Run the six stateful journeys with ordinary users and the public 40-question cohort. Synthetic reachability remains a regression test only. | [Outside-user protocol](./outside-user-test.md), [#1553](https://github.com/confighub/helm-expt/issues/1553), [#1251](https://github.com/confighub/helm-expt/issues/1251). |
+| ConfigHub product | Show local advice beside managed validation and provide one stable continuation from checked result to retained base and promotion. | ConfigHub [#5158](https://github.com/confighubai/confighub/issues/5158), [#5159](https://github.com/confighubai/confighub/issues/5159). |
+| Hardware and private services | Run H100/NIM and other GPU, cloud, licensed-image, and private-runtime paths on suitable targets. | [#1581](https://github.com/confighub/helm-expt/issues/1581), [#1582](https://github.com/confighub/helm-expt/issues/1582), [#1587](https://github.com/confighub/helm-expt/issues/1587), [#1588](https://github.com/confighub/helm-expt/issues/1588). |
+| Catalog breadth and lifecycle evidence | Work down chart-specific route, target, runtime, and variant gaps without turning representative proofs into catalog-wide claims. | Generated work queues and the chart-specific issues named in [Issue Backlog](./issue-backlog.md). |
+| Package trust | Sign every immutable public package manifest and the dated package index, then expose public verification commands. | [#1402](https://github.com/confighub/helm-expt/issues/1402), [#23](https://github.com/confighub/helm-expt/issues/23). |
 
 ## AI Infrastructure And Platform Track
 

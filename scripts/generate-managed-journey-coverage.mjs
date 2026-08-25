@@ -53,6 +53,15 @@ function buildReport() {
     check(typeof journey.question === "string" && journey.question.endsWith("?"), `${journey.id} must use a plain question`);
     check(allowedTechnicalResults.has(journey.technicalResult), `${journey.id} has invalid technicalResult`);
     check(allowedUserTrials.has(journey.userTrial), `${journey.id} has invalid userTrial`);
+    check(Array.isArray(journey.userTrialEvidence), `${journey.id} must declare userTrialEvidence`);
+    if (journey.userTrial === "not-run") {
+      check(journey.userTrialEvidence.length === 0, `${journey.id} cannot cite user evidence while its trial is not run`);
+    } else {
+      check(journey.userTrialEvidence.length > 0, `${journey.id} must cite aggregate outside-user evidence for ${journey.userTrial}`);
+      for (const path of journey.userTrialEvidence) {
+        check(existsSync(join(repoRoot, path)), `${journey.id} names missing user-trial evidence ${path}`);
+      }
+    }
     check(Array.isArray(journey.evidence) && journey.evidence.length, `${journey.id} has no evidence`);
     for (const path of journey.evidence) {
       check(existsSync(join(repoRoot, path)), `${journey.id} names missing evidence ${path}`);
@@ -106,9 +115,9 @@ user trial pass:  ${counts.userTrialPass}/${journeys.length}
 user trial not run: ${counts.userTrialNotRun}/${journeys.length}
 \`\`\`
 
-| User question | Technical result | User trial | Current limit |
-| --- | --- | --- | --- |
-${journeys.map((journey) => `| ${cell(journey.question)} | ${journey.technicalResult} | ${journey.userTrial} | ${cell(journey.limit)} |`).join("\n")}
+| User question | Technical result | User trial | User evidence | Current limit |
+| --- | --- | --- | --- | --- |
+${journeys.map((journey) => `| ${cell(journey.question)} | ${journey.technicalResult} | ${journey.userTrial} | ${journey.userTrialEvidence.length ? journey.userTrialEvidence.map((path) => `[${path}](../../${path})`).join("<br>") : "None"} | ${cell(journey.limit)} |`).join("\n")}
 
 ## Evidence and commands
 
@@ -121,8 +130,9 @@ ${journeys.map((journey) => `| ${journey.id} | ${journey.evidence.map((path) => 
 A technical pass means the named example has committed evidence and a verifier.
 It does not mean the public website, CLI, or ConfigHub browser makes the journey
 easy for a new user. A user-trial pass requires an outside user to complete the
-same task with their own input and normal AI assistant. No such trial is recorded
-for these six journeys yet.
+same task with their own input and normal AI assistant, produce the required
+artifact, explain the unrun checks, and preserve the accepted object identity.
+The aggregate evidence must be linked from the row; a status alone is refused.
 `;
 }
 

@@ -7,7 +7,7 @@ keeps reviewers aligned with the written plan.
 For current priority and workstream shape, start with [Roadmap](./roadmap.md).
 This file is the issue mirror that supports that roadmap.
 
-Last synced with planning docs: 2026-08-24.
+Last synced with planning docs: 2026-08-25.
 
 ## Rule
 
@@ -65,9 +65,9 @@ product claims.
 | Tracker | Scope | Why it matters |
 | --- | --- | --- |
 | [#1553](https://github.com/confighub/helm-expt/issues/1553) public question cohort | Outside-user evidence | The deterministic simulations are link and content regression tests. This issue owns the first contact with people who already have an exact Helm problem and records aggregate outcomes only. |
-| [#1592](https://github.com/confighub/helm-expt/issues/1592) misconfiguration decisions and managed controls | Local check to ConfigHub | Catalog-wide `cub check` evidence and one complete NGINX decision chain exist. The remaining product gap is a general ConfigHub view for arbitrary findings, decisions, validation, approval, and promotion. |
-| [#1595](https://github.com/confighub/helm-expt/issues/1595) website and command contract | Browser, CLI, and agent continuity | Tracks one machine contract for the same three jobs, including source-specific materialization, canonical object identity, local checks, ConfigHub retention, and promotion. |
-| [#14](https://github.com/confighub/helm-expt/issues/14) CI and pull-request reporting | Repeated team use | The local emitter now turns WorkshopResult into bounded Markdown or JSON. The tracker closes when the generated reports, guide, and gates land on main. |
+| [#1592](https://github.com/confighub/helm-expt/issues/1592) misconfiguration decisions and managed controls | Completed repository checkpoint | Catalog-wide `cub check` evidence, stable mappings, generated chart links, and one complete NGINX decision chain are guarded. The reusable product view is ConfigHub [#5158](https://github.com/confighubai/confighub/issues/5158). |
+| [#1595](https://github.com/confighub/helm-expt/issues/1595) website and command contract | Completed repository checkpoint | Helm and literal YAML use one machine contract, and the accepted NGINX hash reaches retention and promotion. The stable product continuation is ConfigHub [#5159](https://github.com/confighubai/confighub/issues/5159). |
+| [#14](https://github.com/confighub/helm-expt/issues/14) CI and pull-request reporting | Completed repository checkpoint | The local emitter turns any source-neutral `WorkshopResult` into bounded Markdown or JSON, with examples and permanent gates. |
 | [#1402](https://github.com/confighub/helm-expt/issues/1402) package verification and signatures | Public package trust | Completes the consumer story for digest-pinned pulls and signature verification without changing historical package records. |
 | [#1251](https://github.com/confighub/helm-expt/issues/1251) visitor to ConfigHub journey | Product conversion | Keeps the public result useful without signup, then carries the exact accepted result into ConfigHub when the user wants retention, variants, promotion, release, and live comparison. |
 
