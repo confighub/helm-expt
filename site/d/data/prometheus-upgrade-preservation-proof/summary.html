@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What changed &middot; Config Workshop</title>
-  <meta name="description" content="The twenty newest receipts in the catalog, from the committed evidence-aging table.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/whats-new.html">
-  <meta property="og:title" content="What changed &amp;middot; Config Workshop">
-  <meta property="og:description" content="The twenty newest receipts in the catalog, from the committed evidence-aging table.">
+  <title>Prometheus upgrade preservation proof · Config Workshop</title>
+  <meta name="description" content="Prometheus upgrade preservation proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/prometheus-upgrade-preservation-proof/summary.html">
+  <meta property="og:title" content="Prometheus upgrade preservation proof · Config Workshop">
+  <meta property="og:description" content="Prometheus upgrade preservation proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/whats-new.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/prometheus-upgrade-preservation-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,127 +427,36 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>What changed recently</h1>
-    <p class="lead">The twenty newest receipts in the catalog, straight from the committed evidence-aging table. A returning visitor can tell in one look whether anything moved since last time.</p>
-    <p>For the machine-readable version, <a href="./changes.json">changes.json</a> lists every chart, version, and digest. The <a href="./d/data/receipt-aging/summary.html">full aging record</a> dates every receipt and names the oldest in each family, including ours.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Prometheus upgrade preservation proof</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/prometheus-upgrade-preservation-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="recent">
-      <h2 id="recent">Twenty newest receipts</h2>
-      <div class="card" style="overflow-x: auto;"><table>
-        <thead><tr><th>Recorded</th><th>Proof family</th><th>Receipt</th></tr></thead>
-        <tbody>
-        <tr><td class="mono">2026-08-24</td><td>byo-helm-values-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/byo-helm-values-proof/confighub-upload-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-24</td><td>config-review-decision-chain</td><td class="mono" style="overflow-wrap: anywhere;">runs/config-review-decision-chain/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-24</td><td>config-workshop-command-contract</td><td class="mono" style="overflow-wrap: anywhere;">runs/config-workshop-command-contract/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-24</td><td>existing-oci-upload-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/existing-oci-upload-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-24</td><td>kps-confighub-lifecycle-promotion</td><td class="mono" style="overflow-wrap: anywhere;">runs/kps-confighub-lifecycle-promotion/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-24</td><td>literal-yaml-upload-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/literal-yaml-upload-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-25</td><td>prometheus-upgrade-preservation-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/prometheus-upgrade-preservation-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-23</td><td>timoni-redis-catalog-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/timoni-redis-catalog-proof/confighub-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-23</td><td>timoni-redis-catalog-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/timoni-redis-catalog-proof/public-oci-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-22</td><td>aicr-provenance-v0-19-0</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-provenance-v0-19-0/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-21</td><td>default-credential-check</td><td class="mono" style="overflow-wrap: anywhere;">runs/default-credential-check/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-21</td><td>aicr-cpu-starter-public-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-cpu-starter-public-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-21</td><td>aicr-platform-variant</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-platform-variant/accepted-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-21</td><td>aicr-platform-variant</td><td class="mono" style="overflow-wrap: anywhere;">runs/aicr-platform-variant/refused-receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>c3agent-configuration-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/c3agent-configuration-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>eks-inference-promotion-delivery-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/eks-inference-promotion-delivery-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>eks-inference-sandbox-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/eks-inference-sandbox-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>measured-promotion-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/measured-promotion-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>redis-upgrade-app-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/redis-upgrade-app-proof/receipt.yaml</td></tr>
-        <tr><td class="mono">2026-08-20</td><td>vllm-cpu-starter-proof</td><td class="mono" style="overflow-wrap: anywhere;">runs/vllm-cpu-starter-proof/receipt.yaml</td></tr>
-        </tbody>
-      </table></div>
-      <p>Charts added and versions retained appear here as their receipts land. Gaps closed appear as the lane that was red going green in the verify chain.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This live ConfigHub run kept one reviewed Kubernetes edit while the upstream Prometheus chart changed.</p>
+<h2 id="result">Result</h2>
+<ul><li>Chart: <code>prometheus-community/prometheus</code></li><li>Preset config: <code>server-only-ephemeral</code></li><li>Upgrade: <code>29.8.0</code> to <code>29.9.0</code></li><li>Reviewed edit: <code>Deployment/monitoring/prometheus-server spec.replicas</code>, from <code>1</code> to <code>2</code></li><li>Base after upgrade: chart <code>29.9.0</code>, image <code>quay.io/prometheus/prometheus:v3.12.0</code>, replicas <code>2</code></li><li>Staging after promotion: chart <code>29.9.0</code>, image <code>quay.io/prometheus/prometheus:v3.12.0</code>, replicas <code>2</code></li></ul>
+<p>The installer rendered the candidate chart with its normal one-replica value. ConfigHub had already recorded the two-replica edit as a protected local change. The upgrade plan changed the chart labels and Prometheus image but did not reset <code>spec.replicas</code>.</p>
+<p>The staging promotion was previewed first. The preview showed the chart and image changes, did not include a replica reset, and did not change stored staging data. The real promotion then moved staging to chart <code>29.9.0</code> while keeping two replicas.</p>
+<h2 id="exact-packages">Exact packages</h2>
+<table><thead><tr><th>Version</th><th>OCI manifest</th><th>Package layer</th></tr></thead><tbody><tr><td><code>29.8.0</code></td><td><code>sha256:5cf6400c75d1cafc06fee5ddaada47651926bdab3a9d674a9f966540b29edd26</code></td><td><code>sha256:ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1</code></td></tr>
+<tr><td><code>29.9.0</code></td><td><code>sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc</code></td><td><code>sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9</code></td></tr></tbody></table>
+<h2 id="limits">Limits</h2>
+<ul><li>This run used ConfigHub records only. It did not deliver Prometheus to Kubernetes.</li><li>The run used the chart's monitoring namespace for both versions. Custom-namespace upgrade behavior is not part of this receipt.</li><li>The selected preset has no Helm hooks or CRDs, so this receipt does not test lifecycle work.</li><li>This proves one protected Deployment field across one Prometheus source upgrade and one staging promotion. It does not prove every field or chart.</li></ul>
+<p>The machine receipt is <a href="../../../../runs/prometheus-upgrade-preservation-proof/receipt.yaml"><code>runs/prometheus-upgrade-preservation-proof/receipt.yaml</code></a>.</p>
+    </article>
   </main>
-  <footer>Generated from data/receipt-aging/aging.csv. If this page looks stale, the aging table is what to regenerate.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/prometheus-upgrade-preservation-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

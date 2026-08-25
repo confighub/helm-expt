@@ -301,14 +301,17 @@ spec:
     - id: T20
       area: ConfigHub records
       name: Keep approved object edits through source upgrades
-      status: partial
+      status: available
       outcome: A source upgrade can rebuild the base while reapplying reviewed post-render changes and surfacing conflicts.
       evidence:
         - data/redis-upgrade-app-proof/summary.md
         - runs/redis-upgrade-app-proof/receipt.yaml
+        - data/prometheus-upgrade-preservation-proof/summary.md
+        - runs/prometheus-upgrade-preservation-proof/receipt.yaml
       verify:
         - npm run redis-upgrade-app:verify
-      next: Repeat the upgrade proof on another chart and add a useful mutation preview for promotion dry runs.
+        - npm run prometheus-upgrade-preservation:verify
+      next: Repeat this receipt when package-upgrade behavior changes or when another protected field class is added.
 
     - id: T21
       area: ConfigHub records
