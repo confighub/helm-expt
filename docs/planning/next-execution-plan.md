@@ -26,10 +26,11 @@ partial:   19
 planned:    2
 ```
 
-[PR #1593](https://github.com/confighub/helm-expt/pull/1593) captures the latest
-simulation findings and misconfiguration doctrine. [Issue #1592](https://github.com/confighub/helm-expt/issues/1592)
-tracks the work needed to join Catalog findings, local checks, and ConfigHub
-validation into one visible journey.
+[PR #1593](https://github.com/confighub/helm-expt/pull/1593) is merged. It captured
+the August simulation findings and misconfiguration doctrine. [Issue #1592](https://github.com/confighub/helm-expt/issues/1592)
+now tracks the remaining product work: a general ConfigHub view where a user can
+decide arbitrary local findings, retain the accepted objects, see revision-bound
+validation and approval, and continue into promotion without losing object identity.
 
 The first complete case and the Catalog-wide local evidence are now in place:
 
@@ -49,6 +50,13 @@ and managed checks, the exact retained ConfigHub revision, promotion, and Argo
 CD delivery. The decision is also stored as an approved, non-deployable Unit in
 the live demo organization. A general ConfigHub product view that creates and
 shows these decisions for arbitrary configurations remains open in issue #1592.
+
+The same NGINX case now has a generated website-to-command contract and a separate
+live command proof. The proof retained the exact reviewed object set, created a
+staging variant, previewed and performed the promotion, and kept the canonical
+object-set hash visible after ConfigHub storage metadata was excluded. The literal
+YAML example uses the same result format and records materialization as a no-op; its
+managed promotion remains unrun.
 
 The first lifecycle-heavy managed promotion is also complete for one exact path.
 Kube Prometheus Stack `no-crds` moves from 85.3.3 to 86.1.0 through a retained
@@ -376,8 +384,8 @@ and other advanced work.
 
 ### Phase 0: Land The Current Doctrine
 
-1. Merge [PR #1593](https://github.com/confighub/helm-expt/pull/1593) after all
-   required checks pass.
+1. **Complete:** merge [PR #1593](https://github.com/confighub/helm-expt/pull/1593)
+   after all required checks pass.
 2. Keep the Top 50 tracker, roadmap, simulation findings, and this file as the
    maintained status sources. Do not recreate the plan in handover notes.
 3. Remove analytics from the T50 completion condition. T50 is completed by
@@ -417,6 +425,9 @@ unsafe candidate
    user can decide findings, set a scope and review date, approve the exact
    decision revision, and reopen it automatically when the configuration,
    destination, or review date changes.
+10. **Complete in one command proof:** preserve the same canonical object-set hash
+    from the local result through ConfigHub retention and a staging promotion.
+    General product support for arbitrary results remains part of step 9.
 
 ### Phase 2: Make Promotion The Main Managed Payoff
 
@@ -463,6 +474,10 @@ must earn their own evidence.
 11. Agree and implement the smallest `cub` entry for the existing
     `kubara-confighub` platform starter and importer without replacing Kubara's
     native configuration model.
+
+Steps 5 and 9 now have a generated Helm and literal-YAML command contract, public
+schemas, self-tests, and one live ConfigHub proof. Step 10 is complete for the
+generated examples. It remains open for commands emitted by every source plugin.
 
 ### Phase 4: Test With Users And Agents
 

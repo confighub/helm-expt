@@ -521,6 +521,7 @@
     <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
+    <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
     <p>Doing this regularly? <a href="./ai.html">Install the Config Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
     <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
@@ -587,6 +588,7 @@
       <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
       <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
       <p>When the assistant finishes, return with <code>candidate.yaml</code>, the optional comparison file, and its final <code>WORKSHOP FINDING</code> block.</p>
+      <p><a class="button secondary" href="#check-files">I am back with the rendered files</a></p>
     </section>
 
     <section id="check-command" aria-labelledby="check-command-title">
@@ -596,6 +598,7 @@
   <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
+      <p><a href="./d/data/config-workshop-command-contract/summary.html">See the same three jobs through the website and released <code>cub</code> commands</a>. The Helm and plain-YAML examples use the same <code>WorkshopResult</code> record and carry one canonical object-set hash into the ConfigHub upload.</p>
     </section>
 
     <section aria-labelledby="completed-decision">
@@ -603,6 +606,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <p>In the worked NGINX case, the proposed values produced six local findings and an unwanted public LoadBalancer. The reviewed result fixes six problems and keeps one emptyDir finding visible under a narrow, dated exception for development and staging only.</p>
       <p>The same record then follows the accepted objects into ConfigHub, through a development-to-staging promotion, and into two Argo CD test deployments. Each step says what it proves and what it does not prove.</p>
       <p><a class="button secondary" href="./d/data/config-review-decision-chain/summary.html">Open the completed review</a></p>
+      <p>For a lifecycle-heavy upgrade, read the <a href="./d/data/kps-confighub-lifecycle-promotion/summary.html">Kube Prometheus Stack 85.3.3 to 86.1.0 destination result</a>. It checks namespaces, CRDs, server-side apply, prerequisites, approval, release OCI, and Argo CD separately.</p>
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
@@ -681,7 +685,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
 
       <h3>Keep this reviewed result in ConfigHub</h3>
       <p>ConfigHub stores the exact Kubernetes objects you approved. It keeps the review record and any matching local check result beside them without adding those evidence files to a deployment release. Local findings remain advisory; ConfigHub records its own validation against the stored revision.</p>
-      <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code>. The upload records this hash and the review hash on the saved configuration.</p>
+      <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code><br><strong>Accepted object-set hash:</strong> <code id="handoff-object-set-digest"></code></p>
+      <p>The file hash identifies the exact bytes you reviewed. The object-set hash identifies the Kubernetes objects across file names and document order. The upload records both identities and the review hash on the saved configuration.</p>
       <p>If the candidate contains a Kubernetes Secret, stage that Secret separately. <code>cub variant upload</code> deliberately does not upload rendered Secret data.</p>
       <p><label for="component-slug"><strong>Component name</strong></label><br>
         <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>

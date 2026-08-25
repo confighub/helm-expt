@@ -470,11 +470,11 @@ What was scanned, approved, applied, observed, and supported?</code></pre>
 <p>Command routing:</p>
 <table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody><tr><td>Render and inspect an arbitrary Helm chart locally.</td><td><code>cub helm template</code></td></tr>
 <tr><td>Store an arbitrary chart and its rendered base in ConfigHub.</td><td><code>cub helm install</code></td></tr>
-<tr><td>Load rendered files or a literal OCI bundle into ConfigHub Units now.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
+<tr><td>Load rendered files or a literal OCI bundle into ConfigHub Units now.</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Maintain a reviewed, variant-aware catalog entry.</td><td><code>cub installer</code> recipe/package path</td></tr>
 <tr><td>Graduate a chart render into that catalog path.</td><td>future <code>cub installer import helm</code></td></tr>
 <tr><td>Bring existing Argo CD or Flux apps under ConfigHub visibility.</td><td>Read or export the app, then use <code>cub variant upload</code>.</td></tr>
-<tr><td>Bring KRM YAML or rendered manifests under ConfigHub visibility.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr></tbody></table>
+<tr><td>Bring KRM YAML or rendered manifests under ConfigHub visibility.</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr></tbody></table>
 <h2 id="what-the-wrappermachinery-is-for">What The Wrapper/Machinery Is For</h2>
 <p>Yes, the first step often resembles <code>helm template</code>: render the Helm chart and inspect the resulting Kubernetes objects.</p>
 <p>The machinery exists because the useful product object is not a raw render. It is a reviewed model around the render:</p>

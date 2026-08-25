@@ -7,7 +7,7 @@ keeps reviewers aligned with the written plan.
 For current priority and workstream shape, start with [Roadmap](./roadmap.md).
 This file is the issue mirror that supports that roadmap.
 
-Last synced with planning docs: 2026-06-23.
+Last synced with planning docs: 2026-08-24.
 
 ## Rule
 
@@ -59,6 +59,21 @@ proof scripts.
 Do not maintain issue counts by hand here. Use GitHub labels for counts, and
 use this file only for the issue groups that affect doctrine, roadmap, or
 product claims.
+
+## Current Config Workshop Trackers Added 2026-08-24
+
+| Tracker | Scope | Why it matters |
+| --- | --- | --- |
+| [#1553](https://github.com/confighub/helm-expt/issues/1553) public question cohort | Outside-user evidence | The deterministic simulations are link and content regression tests. This issue owns the first contact with people who already have an exact Helm problem and records aggregate outcomes only. |
+| [#1592](https://github.com/confighub/helm-expt/issues/1592) misconfiguration decisions and managed controls | Local check to ConfigHub | Catalog-wide `cub check` evidence and one complete NGINX decision chain exist. The remaining product gap is a general ConfigHub view for arbitrary findings, decisions, validation, approval, and promotion. |
+| [#1595](https://github.com/confighub/helm-expt/issues/1595) website and command contract | Browser, CLI, and agent continuity | Tracks one machine contract for the same three jobs, including source-specific materialization, canonical object identity, local checks, ConfigHub retention, and promotion. |
+| [#14](https://github.com/confighub/helm-expt/issues/14) CI and pull-request reporting | Repeated team use | Turns the same WorkshopResult into a bounded CI summary without implying that a static check proves target behavior or runtime health. |
+| [#1402](https://github.com/confighub/helm-expt/issues/1402) package verification and signatures | Public package trust | Completes the consumer story for digest-pinned pulls and signature verification without changing historical package records. |
+| [#1251](https://github.com/confighub/helm-expt/issues/1251) visitor to ConfigHub journey | Product conversion | Keeps the public result useful without signup, then carries the exact accepted result into ConfigHub when the user wants retention, variants, promotion, release, and live comparison. |
+
+The older dated sections below remain useful implementation history. When an older
+issue is closed, its row is evidence of a completed slice rather than an active
+priority. Current execution order belongs in [Next Execution Plan](./next-execution-plan.md).
 
 ## Current Canonical Trackers Added Or Confirmed 2026-06-16
 

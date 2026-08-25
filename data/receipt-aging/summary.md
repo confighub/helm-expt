@@ -19,7 +19,7 @@ oldest receipt is from 2026-05-26, so the evidence spans 90 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 314 |
+| 0 to 30 days | 315 |
 | 31 to 90 days | 1473 |
 | 91 to 180 days | 0 |
 | over 180 days | 0 |
@@ -34,7 +34,7 @@ receipt, and the full table is in the CSV for the rest.
 | --- | --- | --- | --- | --- |
 | `live-helm-confighub-compare` | 219 | 71 | 80 | none |
 | `live-kind-parity` | 179 | 70 | 80 | none |
-| `next80-local-kind` | 176 | 74 | 74 | none |
+| `next80-local-kind` | 176 | 74 | 75 | none |
 | `installer-oci` | 139 | 16 | 16 | none |
 | `certified-bundles` | 74 | 16 | 16 | none |
 | `latest-top20-refresh` | 40 | 90 | 90 | none |
@@ -66,7 +66,7 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-Every one of the 1787 committed receipts records a date, so none of
+Every one of the 1788 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now

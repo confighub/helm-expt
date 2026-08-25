@@ -17,7 +17,8 @@ The user-facing command is:
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/<repo>-<chart>:<version> \
   --base <preset> \
   --work-dir ./out \
-  --non-interactive
+  --non-interactive \
+  --namespace <namespace>
 ```
 
 For example:

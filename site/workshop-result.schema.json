@@ -5,7 +5,7 @@
   "type": "object",
   "required": ["apiVersion", "kind", "metadata", "spec"],
   "properties": {
-    "apiVersion": { "const": "workshop.confighub.com/v1alpha1" },
+    "apiVersion": { "const": "workshop.confighub.com/v1alpha2" },
     "kind": { "const": "WorkshopResult" },
     "metadata": {
       "type": "object",
@@ -18,7 +18,7 @@
     },
     "spec": {
       "type": "object",
-      "required": ["question", "source", "files", "checks", "next"],
+      "required": ["question", "source", "candidate", "files", "checks", "findingDecisions", "next"],
       "properties": {
         "question": {
           "type": "object",
@@ -30,6 +30,23 @@
           "additionalProperties": false
         },
         "source": { "type": "object" },
+        "candidate": {
+          "type": "object",
+          "required": ["content", "objectSet"],
+          "properties": {
+            "content": {
+              "type": "object",
+              "required": ["path", "sha256"],
+              "properties": {
+                "path": { "type": "string", "minLength": 1 },
+                "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+              },
+              "additionalProperties": false
+            },
+            "objectSet": { "$ref": "#/$defs/objectSetIdentity" }
+          },
+          "additionalProperties": false
+        },
         "files": {
           "type": "array",
           "minItems": 2,
@@ -58,6 +75,52 @@
           },
           "additionalProperties": false
         },
+        "findingDecisions": {
+          "type": "object",
+          "required": ["status", "candidateObjectSetSha256", "outcomes"],
+          "properties": {
+            "status": { "enum": ["not-required", "not-recorded", "recorded"] },
+            "candidateObjectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+            "record": {
+              "type": "object",
+              "required": ["path", "sha256", "apiVersion", "kind", "name"],
+              "properties": {
+                "path": { "type": "string", "minLength": 1 },
+                "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+                "apiVersion": { "type": "string", "minLength": 1 },
+                "kind": { "const": "ConfigurationDecision" },
+                "name": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            },
+            "outcomes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["findingId", "decision", "rationale", "controlIds"],
+                "properties": {
+                  "findingId": { "type": "string", "minLength": 1 },
+                  "decision": { "enum": ["unreviewed", "accepted-fix", "approved-exception", "rejected"] },
+                  "rationale": { "type": "string", "minLength": 1 },
+                  "controlIds": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+                  "exception": {
+                    "type": "object",
+                    "required": ["appliesTo", "excludes", "reviewBy"],
+                    "properties": {
+                      "appliesTo": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+                      "excludes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+                      "reviewBy": { "type": "string", "format": "date-time" }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "managedControls": { "type": "array", "items": { "type": "object" } }
+          },
+          "additionalProperties": false
+        },
         "next": {
           "type": "object",
           "required": ["local", "managed"],
@@ -72,6 +135,16 @@
     }
   },
   "$defs": {
+    "objectSetIdentity": {
+      "type": "object",
+      "required": ["algorithm", "objectCount", "sha256"],
+      "properties": {
+        "algorithm": { "const": "cub-scan-canonical-json-v1" },
+        "objectCount": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
     "localAdvisoryReceipt": {
       "type": "object",
       "required": ["authority", "tool", "version", "schemaVersion", "scanTime", "catalogVersion", "patternBundle", "input", "findingCount", "findingIds"],

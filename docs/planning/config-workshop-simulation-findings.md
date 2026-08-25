@@ -34,6 +34,7 @@ rows and language trials. The important checkpoints are:
 | 2026-08-23 deterministic three-click rerun | 910 success, 99 partial, 3 fail out of 1,012 | Confirmed that targeted recovery, lifecycle, Catalog handoff, and Timoni changes converted 18 partial journeys to success. |
 | 2026-08-24 managed-promotion baseline | 921 success, 121 partial, 14 fail out of 1,056 | Added exact questions about destination checks, approval, release OCI, and lifecycle-heavy promotion. |
 | 2026-08-24 managed-promotion rerun | 931 success, 121 partial, 4 fail out of 1,056 | Confirmed that the worked Kube Prometheus Stack proof and clearer links removed ten failed journeys. |
+| 2026-08-24 command-contract rerun | 938 success, 118 partial, 0 fail out of 1,056 | Confirmed that direct promotion, lifecycle, and identity links removed the remaining deterministic failures. |
 
 Only runs that use the same goals and scoring rules should be compared directly.
 The individual summary files state when such a comparison is valid.
@@ -60,7 +61,7 @@ putting every answer on every page.
 
 ## What the latest numbers mean
 
-The latest deterministic three-click test found that 931 of 1,056 tasks reached
+The latest deterministic three-click test found that 938 of 1,056 tasks reached
 the required answer and a relevant action. This is strong evidence that maintained
 answers are reachable. It is a navigation and content regression test, not proof
 that a person understands the answer, trusts it, needs it, or will adopt ConfigHub.
@@ -71,9 +72,11 @@ readers were more likely to lose the thread around lifecycle work, current evide
 and live operations than the deterministic walker was.
 
 The latest before-and-after runs used the same 1,056 journeys. Successful journeys
-rose from 921 to 931, failed journeys fell from 14 to 4, and answers available on
-the starting page rose from 463 to 465. The useful-first-click rate rose from 65.1%
-to 66.2%. A high final success total therefore does not remove the need to improve
+rose from 931 to 938, failed journeys fell from 4 to 0, and answers available on
+the starting page rose from 465 to 471. The useful-first-click rate rose from 66.2%
+to 67.0%. The repaired journeys now point directly to a destination-aware promotion
+action, the lifecycle-heavy Kube Prometheus Stack result, and the three distinct
+object and OCI identities. A high final success total does not remove the need to improve
 the first choice or turn partial answers into completed actions.
 
 The remaining weak goals are close to ConfigHub's managed value:
@@ -103,9 +106,12 @@ The site explains this managed sequence:
 reviewed result -> ConfigHub -> variants -> promotion -> release -> live comparison
 ```
 
-The simulations have not shown that ordinary users can complete the second sequence
-easily. The next tests should therefore be end-to-end tasks rather than another
-general navigation sweep:
+The repository now has one machine-run NGINX path that retains the accepted object
+set in ConfigHub, creates a staging variant, previews and performs a promotion, and
+binds the accepted object identity to the retained Unit. This proves that the current
+commands can complete that bounded path. It does not show that an ordinary user can
+discover or complete it easily. The next tests should therefore be end-to-end tasks
+rather than another general navigation sweep:
 
 1. Take AI-written Helm values through exact comparison to a reviewed OCI.
 2. Retain that reviewed OCI as a ConfigHub base.

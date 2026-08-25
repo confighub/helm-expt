@@ -10,7 +10,8 @@ Claude, Codex, or another assistant you already use.
 
 Check my config also downloads one `workshop-result.json`. It contains the exact
 candidate, optional comparison, optional Catalog source and intent record, review,
-and file hashes. See the [anonymous browser guide](./anonymous-browser-workshop.md).
+file hashes, and canonical object-set identity. See the
+[anonymous browser guide](./anonymous-browser-workshop.md).
 
 ## Check a new configuration
 
@@ -75,6 +76,11 @@ The promotion page generates current `cub` commands. It starts with
 `cub variant promote --dry-run -o mutations` to preview each downstream Space. Review
 those outputs before any write. After approval, record the source refresh, promote the
 same candidate, publish the release OCI, and add each target result to the review.
+
+The generated upload annotation carries the same canonical object-set hash as
+the browser or CLI result. This does not replace the OCI digest or ConfigHub
+revision identity. It connects the accepted Kubernetes objects across the
+handoff. See the [generated Helm and plain-YAML command contract](../../data/config-workshop-command-contract/summary.md).
 
 ConfigHub records desired configuration. A successful upload or promotion does not by
 itself prove Kubernetes admission, hook execution, application health, data migration,

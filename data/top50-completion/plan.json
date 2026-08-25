@@ -158,7 +158,8 @@
         "area": "Bring your own config",
         "evidence": [
           "data/byo-helm-values-review/summary.md",
-          "runs/byo-helm-values-proof/receipt.yaml"
+          "runs/byo-helm-values-proof/receipt.yaml",
+          "data/config-workshop-command-contract/summary.md"
         ],
         "id": "T09",
         "name": "Review a chart and values supplied by the user",
@@ -166,7 +167,8 @@
         "outcome": "A user can render a chart and values from their team, inspect exact objects, and compare the result with defaults.",
         "status": "available",
         "verify": [
-          "npm run byo-helm-values:verify"
+          "npm run byo-helm-values:verify",
+          "npm run workshop:commands:verify"
         ]
       },
       {
@@ -174,7 +176,8 @@
         "evidence": [
           "docs/user/ai-assisted-helm-changes.md",
           "data/byo-helm-values-review/review.yaml",
-          "runs/ai-change-review-live-proof/receipt.yaml"
+          "runs/ai-change-review-live-proof/receipt.yaml",
+          "data/config-workshop-command-contract/helm/workshop-result.json"
         ],
         "id": "T10",
         "name": "Review values proposed by AI",
@@ -284,7 +287,8 @@
           "docs/user/app-to-live-walkthrough.md",
           "examples/plain-yaml/acme-web/README.md",
           "runs/literal-yaml-upload-proof/receipt.yaml",
-          "data/literal-config-examples/summary.md"
+          "data/literal-config-examples/summary.md",
+          "data/config-workshop-command-contract/kubernetes-yaml/workshop-result.json"
         ],
         "id": "T16",
         "name": "Upload literal Kubernetes YAML without rerendering",
@@ -293,6 +297,7 @@
         "status": "available",
         "verify": [
           "npm run literal-config-examples:verify",
+          "npm run workshop:commands:verify",
           "npm run docs:verify"
         ]
       },
@@ -369,7 +374,9 @@
           "data/byo-helm-values-promotion-proof/summary.md",
           "runs/aicr-variant-promotion-proof/receipt.yaml",
           "data/measured-promotion-proof/summary.md",
-          "data/kps-confighub-lifecycle-promotion/summary.md"
+          "data/kps-confighub-lifecycle-promotion/summary.md",
+          "data/config-workshop-command-contract/live-promotion.md",
+          "runs/config-workshop-command-contract/receipt.yaml"
         ],
         "id": "T21",
         "name": "Promote through development staging and production",
@@ -379,7 +386,8 @@
         "verify": [
           "npm run byo-helm-values:promotion-verify",
           "npm run aicr-variant-promotion:verify",
-          "npm run kps:confighub-lifecycle-promotion:verify"
+          "npm run kps:confighub-lifecycle-promotion:verify",
+          "npm run workshop:command-proof:verify"
         ]
       },
       {
@@ -777,7 +785,8 @@
           "config-catalog/program.yaml",
           "docs/user/config-catalog-demonstrations.md",
           "site/charts/index.html",
-          "site/testing.html"
+          "site/testing.html",
+          "data/config-workshop-command-contract/summary.md"
         ],
         "id": "T45",
         "name": "Let users browse by starting point and next job",
@@ -786,7 +795,8 @@
         "status": "available",
         "verify": [
           "npm run config-catalog:verify",
-          "npm run site:verify"
+          "npm run site:verify",
+          "npm run workshop:commands:verify"
         ]
       },
       {
@@ -859,7 +869,9 @@
         "evidence": [
           "docs/planning/outside-user-test.md",
           "docs/planning/persona-ux-audit-2026-06-22.md",
-          "data/managed-journey-coverage/summary.md"
+          "data/managed-journey-coverage/summary.md",
+          "docs/planning/config-workshop-simulation-findings.md",
+          "data/site-persona-simulations-2026-08-24-command-contract-final/summary.md"
         ],
         "id": "T50",
         "issue": "https://github.com/confighub/helm-expt/issues/1553",
