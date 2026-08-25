@@ -72,6 +72,9 @@ spec:
     - id: training-v0200-applications
       description: The Argo CD Applications the v0.20.0 training entry renders.
       compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates, suffix: .yaml }
+    - id: training-v0200-components-with-crds
+      description: The v0.20.0 nested components whose selected local render contains CRDs.
+      compute: { kind: number, file: data/aicr-v0-20-0-nested-sources/catalog.json, path: summary.componentsWithCrds }
     - id: version-diff-version-only-moves
       description: >-
         Components whose chart version moved between the two retained AICR
@@ -280,3 +283,7 @@ spec:
       quantity: training-v0200-applications
       page: eks-h100-training-kubeflow-v0-20-0.md
       phrases: ["17 Applications", "17 Application objects"]
+    - id: v0200-page-cites-components-with-crds
+      quantity: training-v0200-components-with-crds
+      page: eks-h100-training-kubeflow-v0-20-0.md
+      phrases: ["Eight components"]

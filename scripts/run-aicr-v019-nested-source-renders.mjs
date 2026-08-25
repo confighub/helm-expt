@@ -52,7 +52,7 @@ if (mode === "--run") {
   mkdirSync(outputRoot, { recursive: true });
   const entries = applications.map(renderApplication);
   mkdirSync(dataRoot, { recursive: true });
-  write(catalogPath, `${JSON.stringify({ entries }, null, 2)}\n`);
+  write(catalogPath, `${JSON.stringify({ summary: summarizeEntries(entries), entries }, null, 2)}\n`);
   write(summaryPath, renderSummary(entries));
   const passed = entries.filter((entry) => entry.render.status === "pass").length;
   console.log(`rendered ${passed}/${entries.length} AICR v${version} nested sources`);
@@ -299,6 +299,10 @@ function verifyRetainedCatalog() {
   check(existsSync(summaryPath), `${relativeRepo(summaryPath)} is missing; run with --run`);
   const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
   check(catalog.entries?.length === 16, "nested-source Catalog must contain 16 entries");
+  check(
+    JSON.stringify(catalog.summary) === JSON.stringify(summarizeEntries(catalog.entries)),
+    "nested-source Catalog summary does not match its entries",
+  );
   const expectedNames = applications.map((item) => item.slug).sort();
   check(
     JSON.stringify(catalog.entries.map((item) => item.name).sort()) === JSON.stringify(expectedNames),
@@ -348,6 +352,18 @@ function renderSummary(entries) {
     return `| ${entry.name} | \`${source}\` | \`${entry.sourceArtifact.sha256.slice(0, 12)}...\` | ${result} | ${entry.render.crdCount} | ${entry.render.hookObjectCount} | [receipt](../../${entry.receipt}) |`;
   });
   return `# AICR v${version} nested source processing\n\nThe parent AICR entry contains 17 literal Argo CD Applications. One is the root\nApplication. The other 16 name sources that Argo CD processes later. This table\nmakes that second boundary explicit.\n\nA successful row binds the fetched chart archive or local chart tree, retained\nvalues, and rendered object set with separate SHA-256 digests. It does not prove\nthat lifecycle work ran or that a controller reconciled the objects on EKS.\n\n- Local renders captured: **${passed}/${entries.length}**.\n- Components whose rendered output contains CRDs: **${crdEntries}**.\n- Components whose rendered output contains Helm hook objects: **${hookEntries}**.\n\n| Component | Exact nested source | Source SHA-256 | Local result | CRDs | hook objects | Evidence |\n| --- | --- | --- | --- | ---: | ---: | --- |\n${rows.join("\n")}\n`;
+}
+
+function summarizeEntries(entries) {
+  return {
+    sourceCount: entries.length,
+    renderedSourceCount: entries.filter((entry) => entry.render.status === "pass").length,
+    objectCount: entries.reduce((total, entry) => total + (entry.render.objectCount ?? 0), 0),
+    componentsWithCrds: entries.filter((entry) => entry.render.crdCount > 0).length,
+    crdCount: entries.reduce((total, entry) => total + (entry.render.crdCount ?? 0), 0),
+    componentsWithHookObjects: entries.filter((entry) => entry.render.hookObjectCount > 0).length,
+    hookObjectCount: entries.reduce((total, entry) => total + (entry.render.hookObjectCount ?? 0), 0),
+  };
 }
 
 function countBy(values, keyFor) {

@@ -458,6 +458,7 @@
 <tr><td><code>training-v0190-applications</code></td><td>17</td><td><code>files</code></td><td>The Argo CD Applications the v0.19.0 training entry renders.</td></tr>
 <tr><td><code>training-v0190-components</code></td><td>15</td><td><code>listLength</code></td><td>The components the retained v0.19.0 AICR recipe declares an order for.</td></tr>
 <tr><td><code>training-v0200-applications</code></td><td>17</td><td><code>files</code></td><td>The Argo CD Applications the v0.20.0 training entry renders.</td></tr>
+<tr><td><code>training-v0200-components-with-crds</code></td><td>8</td><td><code>number</code></td><td>The v0.20.0 nested components whose selected local render contains CRDs.</td></tr>
 <tr><td><code>version-diff-version-only-moves</code></td><td>4</td><td><code>countWhere</code></td><td>Components whose chart version moved between the two retained AICR versions and whose sync-wave did not.</td></tr>
 <tr><td><code>version-diff-version-and-wave-moves</code></td><td>5</td><td><code>countWhere</code></td><td>Components whose chart version and sync-wave both moved between the two retained AICR versions.</td></tr>
 <tr><td><code>version-diff-version-moves</code></td><td>9</td><td><code>sum</code></td><td>Every component whose chart version moved between the two retained versions, however its wave behaved.</td></tr>
@@ -499,8 +500,9 @@
 <tr><td><code>v0180-page-cites-the-version-moves</code></td><td><code>eks-h100-training-kubeflow-v0-18-0.md</code></td><td>&quot;Nine components&quot;</td><td><code>version-diff-version-moves</code> = 9</td></tr>
 <tr><td><code>v0190-page-renders-seventeen</code></td><td><code>eks-h100-training-kubeflow-v0-19-0.md</code></td><td>&quot;17 Applications&quot;</td><td><code>training-v0190-applications</code> = 17</td></tr>
 <tr><td><code>v0190-page-declares-fifteen-components</code></td><td><code>eks-h100-training-kubeflow-v0-19-0.md</code></td><td>&quot;15 components&quot;</td><td><code>training-v0190-components</code> = 15</td></tr>
-<tr><td><code>v0200-page-renders-seventeen</code></td><td><code>eks-h100-training-kubeflow-v0-20-0.md</code></td><td>&quot;17 Applications&quot;, &quot;17 Application objects&quot;</td><td><code>training-v0200-applications</code> = 17</td></tr></tbody></table>
-<p>30 claims across 11 pages are covered. A sentence that adds a new count fails the lane until it is declared here, which is the difference between a register and a list somebody once wrote.</p>
+<tr><td><code>v0200-page-renders-seventeen</code></td><td><code>eks-h100-training-kubeflow-v0-20-0.md</code></td><td>&quot;17 Applications&quot;, &quot;17 Application objects&quot;</td><td><code>training-v0200-applications</code> = 17</td></tr>
+<tr><td><code>v0200-page-cites-components-with-crds</code></td><td><code>eks-h100-training-kubeflow-v0-20-0.md</code></td><td>&quot;Eight components&quot;</td><td><code>training-v0200-components-with-crds</code> = 8</td></tr></tbody></table>
+<p>31 claims across 11 pages are covered. A sentence that adds a new count fails the lane until it is declared here, which is the difference between a register and a list somebody once wrote.</p>
 <h2 id="what-this-does-not-check">What this does not check</h2>
 <p>It checks numbers, not meaning. A page can count correctly and still describe the wrong thing, and this lane will pass it. The claims that resist counting, such as which rung an entry has climbed or what a proof did not prove, are held by the receipts and by the platform evidence record rather than here.</p>
 <p>Everything runs offline against committed bytes. No cluster, no organization, and no network takes part.</p>

@@ -449,7 +449,7 @@
 <h2 id="the-rules-this-follows">The rules this follows</h2>
 <ul><li><b>Reference, never mirror.</b> Retained configuration names gated artifacts by reference. The catalog does not copy, cache, re-host, or republish their bytes, and nothing in any proof pulls one.</li><li><b>Credentials are the cluster's.</b> The key that reaches a gated registry belongs to the cluster that pulls, never to this repository. Secret surfaces in retained bytes carry names or substitutions, which the credential-boundary lane enforces across every producer.</li><li><b>No vendor performance claims.</b> The catalog publishes no throughput, latency, or benchmark numbers for a gated runtime. It has run none, and repeating a vendor's would be passing off a claim it cannot verify.</li><li><b>Entitlement is the reader's to judge.</b> The catalog names the terms a page listed on a date. It does not tell anyone which entitlement or tier they need, because that is a reading of their situation rather than a fact about an artifact.</li></ul>
 <h2 id="every-reference-in-the-retained-configuration">Every reference in the retained configuration</h2>
-<p>12 gated references appear across 29 committed files, not counting this register, which names them all by definition. The lane refuses a reference that is not listed here, and refuses a listing that no committed document names, so this table cannot drift in either direction.</p>
+<p>12 gated references appear across 30 committed files, not counting this register, which names them all by definition. The lane refuses a reference that is not listed here, and refuses a listing that no committed document names, so this table cannot drift in either direction.</p>
 <table><thead><tr><th>Reference</th><th>Files naming it</th><th>Per-artifact terms</th></tr></thead><tbody><tr><td><code>nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0</code></td><td>10</td><td>read 2026-08-07</td></tr>
 <tr><td><code>nvcr.io/nim/meta/llama-3.1-70b-instruct:1.1.0</code></td><td>3</td><td>not read</td></tr>
 <tr><td><code>nvcr.io/nim/meta/llama3-8b-instruct:1.0.0</code></td><td>3</td><td>not read</td></tr>
@@ -460,8 +460,8 @@
 <tr><td><code>nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0</code></td><td>3</td><td>not read</td></tr>
 <tr><td><code>nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0</code></td><td>3</td><td>not read</td></tr>
 <tr><td><code>nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0</code></td><td>3</td><td>not read</td></tr>
-<tr><td><code>nvcr.io/nvidia/gpu-operator:v26.3.3</code></td><td>1</td><td>not read</td></tr>
-<tr><td><code>nvcr.io/nvidia/cloud-native/k8s-driver-manager:v0.11.0</code></td><td>1</td><td>not read</td></tr></tbody></table>
+<tr><td><code>nvcr.io/nvidia/gpu-operator:v26.3.3</code></td><td>2</td><td>not read</td></tr>
+<tr><td><code>nvcr.io/nvidia/cloud-native/k8s-driver-manager:v0.11.0</code></td><td>2</td><td>not read</td></tr></tbody></table>
 <h2 id="what-has-actually-been-read">What has actually been read</h2>
 <ul><li><code>nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0</code>, read on 2026-08-07, naming <b>NVIDIA Software License Agreement</b>, <b>Product-Specific Terms for AI Products</b>, <b>NVIDIA Open Model Agreement</b>, <b>Llama 3.1 Community License Agreement</b>. Carried as data in <a href="../../../../examples/aicr/kserve-nim-inference/profile/model-profile.yaml">examples/aicr/kserve-nim-inference/profile/model-profile.yaml</a>.</li></ul>
 <p>11 of the 12 references have no per-artifact terms recorded, and the reason is worth stating rather than leaving as an absence. An NGC overview page is not a complete review of the terms for one exact tagged artifact, and some terms pages reject automated access. This catalog does not work around those controls or treat overview text as legal advice. One artifact has named terms read by hand on the recorded date. The others are listed with a page for a person to review before use.</p>

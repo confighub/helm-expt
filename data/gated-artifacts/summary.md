@@ -19,7 +19,7 @@ moment an entry retains a document that mentions it.
 
 ## Every reference in the retained configuration
 
-12 gated references appear across 29 committed files, not counting this
+12 gated references appear across 30 committed files, not counting this
 register, which names them all by definition. The lane
 refuses a reference that is not listed here, and refuses a listing that no
 committed document names, so this table cannot drift in either direction.
@@ -36,8 +36,8 @@ committed document names, so this table cannot drift in either direction.
 | `nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0` | 3 | not read |
 | `nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0` | 3 | not read |
 | `nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0` | 3 | not read |
-| `nvcr.io/nvidia/gpu-operator:v26.3.3` | 1 | not read |
-| `nvcr.io/nvidia/cloud-native/k8s-driver-manager:v0.11.0` | 1 | not read |
+| `nvcr.io/nvidia/gpu-operator:v26.3.3` | 2 | not read |
+| `nvcr.io/nvidia/cloud-native/k8s-driver-manager:v0.11.0` | 2 | not read |
 
 ## What has actually been read
 

@@ -1,4 +1,13 @@
 {
+  "summary": {
+    "sourceCount": 16,
+    "renderedSourceCount": 16,
+    "objectCount": 408,
+    "componentsWithCrds": 8,
+    "crdCount": 36,
+    "componentsWithHookObjects": 0,
+    "hookObjectCount": 0
+  },
   "entries": [
     {
       "name": "aws-ebs-csi-driver",
