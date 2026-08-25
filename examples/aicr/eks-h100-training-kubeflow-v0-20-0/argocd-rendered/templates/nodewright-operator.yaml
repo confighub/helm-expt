@@ -1,0 +1,46 @@
+---
+# Source: aicr-bundle/templates/nodewright-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: 'nodewright-operator'
+    namespace: argocd
+spec:
+    destination:
+        namespace: skyhook
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: nodewright
+        helm:
+            values: |-
+                controllerManager:
+                  manager:
+                    resources:
+                      limits:
+                        cpu: 1000m
+                        memory: 4000Mi
+                      requests:
+                        cpu: 1000m
+                        memory: 2000Mi
+                  tolerations:
+                  - operator: Exists
+                fullnameOverride: skyhook-operator
+                limitRange:
+                  default:
+                    cpu: "1"
+                    memory: 1Gi
+                  defaultRequest:
+                    cpu: 500m
+                    memory: 512Mi
+        repoURL: oci://ghcr.io/nvidia/nodewright/charts/nodewright
+        targetRevision: v0.17.1
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

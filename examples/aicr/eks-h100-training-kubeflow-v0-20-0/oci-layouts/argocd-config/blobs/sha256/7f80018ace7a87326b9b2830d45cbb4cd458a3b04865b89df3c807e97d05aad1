@@ -1,0 +1,34 @@
+---
+# Source: aicr-bundle/templates/kai-scheduler.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "13"
+    name: 'kai-scheduler'
+    namespace: argocd
+spec:
+    destination:
+        namespace: kai-scheduler
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: kai-scheduler
+        helm:
+            values: |-
+                admission:
+                  gpuPodRuntimeClassName: ""
+                global:
+                  tolerations:
+                  - operator: Exists
+                postCleanup:
+                  enabled: false
+        repoURL: oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler
+        targetRevision: v0.14.1
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

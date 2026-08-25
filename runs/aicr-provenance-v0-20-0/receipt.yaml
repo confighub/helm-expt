@@ -1,0 +1,89 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrUpstreamProvenanceReceipt"
+metadata:
+  name: "aicr-v0-20-0-provenance"
+spec:
+  observedAt: "2026-08-25T14:59:27.545Z"
+  upstream:
+    project: "NVIDIA AICR"
+    version: "v0.20.0"
+    commit: "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+    archive: "aicr_0.20.0_darwin_arm64.tar.gz"
+    archiveSha256: "0e1b735f91383f0ba130aedf2b83299d0255587474e80dabf0392e194460a846"
+    checksumList: "examples/aicr/upstream-signatures/v0.20.0/aicr_checksums.txt"
+    checksumListSha256: "4e3965161d3f20d996a6f3e06af02079329af08a6de07a08e24230ccfe122b37"
+  toolchain:
+    verifier: "gcr.io/projectsigstore/cosign@sha256:d91bc4e7e95e8d2f549c747a72dc174f90579e410a1695f57f686674f84ce849"
+    execution: "container with network disabled"
+    trustedRoot: "examples/aicr/upstream-signatures/trusted_root.json"
+    trustedRootSha256: "6494e21ea73fa7ee769f85f57d5a3e6a08725eae1e38c755fc3517c9e6bc0b66"
+  recipeCatalog:
+    bundle: "examples/aicr/upstream-signatures/v0.20.0/recipe-catalog.sigstore.json"
+    bundleSha256: "e6132a41257b7dfe4d3a94220bbb773395b84ef4a822215e5a5c0b4fc4774b29"
+    attestedSha256: "f4414971c97abd9339985cdb3827f6e668e88d3c85604f88d132ebc35f9df4d5"
+    recomputedSha256: "f4414971c97abd9339985cdb3827f6e668e88d3c85604f88d132ebc35f9df4d5"
+    retainedParts:
+      -
+        file: "registry.yaml"
+        sha256: "07ee6846a7bb1309571b84f31dc44da965d64ed566e3c9d23753e1119e609cd3"
+        bytes: 42955
+      -
+        file: "catalog.yaml"
+        sha256: "9d6ec3ddaa225d09ee1960df5979c934dc8a5bc59dafb77c8788e0cf1e80a8d9"
+        bytes: 14274
+    algorithm: "sha256 over u64be(len(registry.yaml)) || registry.yaml || u64be(len(validators/catalog.yaml)) || validators/catalog.yaml"
+  binary:
+    bundle: "examples/aicr/upstream-signatures/v0.20.0/aicr-attestation.sigstore.json"
+    bundleSha256: "c91dc2e25f21934fa36f4a1ef71105d1cf12d2b0ff52f95ec74c1f2a4ca519a6"
+    attestedSha256: "4eb1dd0d13709e6614327c53b2528502ec0c226f5c58c226fb16ea466324bdb7"
+    downloadedBinarySha256: "4eb1dd0d13709e6614327c53b2528502ec0c226f5c58c226fb16ea466324bdb7"
+  sbom:
+    path: "examples/aicr/upstream-signatures/v0.20.0/aicr_0.20.0_darwin_arm64.sbom.json"
+    sha256: "0db257dbb2758b81f51c3adf90fd513f78217b4c87b7676445c5a386852d0eda"
+    bundle: "examples/aicr/upstream-signatures/v0.20.0/aicr_0.20.0_darwin_arm64.sbom.json.sigstore.json"
+    bundleSha256: "29737b5571f8e1d6933a6b273cfdde4ca852c9016e6a9b5988c584c1c267562c"
+    attestedSha256: "0db257dbb2758b81f51c3adf90fd513f78217b4c87b7676445c5a386852d0eda"
+  signature:
+    signerIdentity: "https://github.com/NVIDIA/aicr/.github/workflows/on-tag.yaml@refs/tags/v0.20.0"
+    oidcIssuer: "https://token.actions.githubusercontent.com"
+    recipeCatalog:
+      mediaType: "application/vnd.dev.sigstore.bundle.v0.3+json"
+      predicateType: "https://slsa.dev/provenance/v1"
+      transparencyLog:
+        kind: "hashedrekord"
+        version: "0.0.2"
+        carriesIntegratedTime: false
+      signedTimestampCount: 1
+    binary:
+      mediaType: "application/vnd.dev.sigstore.bundle.v0.3+json"
+      predicateType: "https://slsa.dev/provenance/v1"
+      transparencyLog:
+        kind: "hashedrekord"
+        version: "0.0.2"
+        carriesIntegratedTime: false
+      signedTimestampCount: 1
+    sbom:
+      mediaType: "application/vnd.dev.sigstore.bundle.v0.3+json"
+      predicateType: "https://slsa.dev/provenance/v1"
+      transparencyLog:
+        kind: "hashedrekord"
+        version: "0.0.2"
+        carriesIntegratedTime: false
+      signedTimestampCount: 1
+  result:
+    recipeCatalogSignature: "pass"
+    binaryAttestation: "pass"
+    sbomAttestation: "pass"
+    archiveChecksum: "pass"
+    networkDisabled: true
+    wrongIdentityRefused: true
+  limits:
+    - "The binary attestation covers the exact CLI binary, not the generated recipe or bundle."
+    - "The SBOM attestation covers the retained SBOM file, not the generated recipe or bundle."
+    - "The recipe-catalog signature covers the retained component registry and validator catalog, not every overlay in the AICR repository."
+    - "The retained output is bound separately by its checksums and digest index."
+    - "No cluster, cloud account, GPU, model, or ConfigHub organization was used by this provenance run."
+status:
+  result: "pass"
+  offlineSignatureVerification: "pass"
+  negativeControl: "pass"
