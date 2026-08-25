@@ -29,7 +29,7 @@ judged against the intended node variant before anyone calls it a fault.
 | [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | A training platform: EKS, H100 nodes, Kubeflow, a training job. | AWS and GPU capacity to run it. Reading it costs nothing. | AICR v0.14.0 |
 | [The same platform, four minor versions later](./eks-h100-training-kubeflow-v0-18-0.md) | The same training platform regenerated, so you can see what upstream changed. | As above. | AICR v0.18.0 |
 | [AICR v0.19.0 with source, objects, variants, and release OCI](./eks-h100-training-kubeflow-v0-19-0.md) | The same training choice retained again, including source signatures, 17 exact Applications, all 16 nested-source renders, public input OCI, ConfigHub variants, an approved release OCI, and the blocked EKS/H100 route. | Reading and local verification need no cloud account or GPU. Running it still needs EKS and H100 capacity. | AICR v0.19.0 |
-| [AICR v0.20.0 public starting configuration](./eks-h100-training-kubeflow-v0-20-0.md) | The same training choice on the newest retained version, including signed source provenance, 17 exact Applications, lifecycle and field-policy records, and two public OCI artifacts. | Pulling and inspecting it needs no ConfigHub account, cloud account, or GPU. ConfigHub variants, delivery, and H100 runtime remain separate work. | AICR v0.20.0 |
+| [AICR v0.20.0 public starting configuration](./eks-h100-training-kubeflow-v0-20-0.md) | The same training choice on the newest retained version, including signed source provenance, 17 exact Applications, all 16 digest-bound nested renders, Argo CD and Flux lifecycle plans, and two public OCI artifacts. | Pulling, rendering, and inspecting it needs no ConfigHub account, cloud account, or GPU. ConfigHub variants, controller delivery, and H100 runtime remain separate work. | AICR v0.20.0 |
 | [The AICR-native NIM platform](./eks-h100-inference-nim.md) | A cluster that can serve NIM models. | AWS, GPU capacity, and NGC access to run the models. | AICR v0.14.0, `platform: nim` |
 | [NIM on KServe](./kserve-nim-inference.md) | The exact shape one model runs in, at model level rather than cluster level. | As above. | Upstream commit 3ef33472 |
 
@@ -41,10 +41,11 @@ them directly.
 
 ## What has actually been run
 
-Every proof here ran on kind or against ConfigHub, and every one is
-config-plane only: import, render, digest pinning, variants, promotion,
-delivery wiring. **No GPU workload ran to produce or verify any receipt in this
-catalog.** Workload claims stay absent rather than implied.
+Each entry says whether a check ran locally, on kind, against ConfigHub, or on a
+named destination. The retained work covers source verification, generation,
+rendering, digest pinning, variants, promotion, and selected delivery wiring.
+**No GPU workload ran to produce or verify any receipt in this catalog.** A
+local render or controller plan is not reported as a GPU result.
 
 The [CPU starter](./cpu-starter.md) has been taken furthest: imported into
 ConfigHub with a reviewed gp3 override, promoted to staging, delivered to a kind
@@ -94,8 +95,11 @@ The v0.19.0 and v0.20.0 entries verify NVIDIA's signed CLI binary and recipe
 catalog against the exact release-workflow identity. Both keep the AICR recipe,
 generated source chart, literal Application OCI, route intent, and field-policy
 record connected instead of treating one rendered directory as the whole
-answer. The v0.19.0 entry also has nested renders, ConfigHub variants, and an
-approved ConfigHub release OCI. Those later stages have not run for v0.20.0.
+answer. Both entries now have digest-bound nested renders. The v0.20.0 entry
+also has separate Argo CD and Flux route resolutions, but neither has run on a
+target. The v0.19.0 entry continues further with ConfigHub variants and an
+approved ConfigHub release OCI. Those ConfigHub stages have not run for
+v0.20.0.
 
 ## How do I know these are the files AICR wrote?
 

@@ -1,0 +1,72 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "NestedSourceRenderReceipt"
+metadata:
+  name: "aicr-v0-20-0-kai-scheduler"
+spec:
+  parent: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+  application: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates/kai-scheduler.yaml"
+  source:
+    repoURL: "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler"
+    chart: "kai-scheduler"
+    path: ""
+    targetRevision: "v0.14.1"
+  sourceArtifact:
+    type: "helm-chart-archive"
+    source: "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler"
+    version: "v0.14.1"
+    archiveName: "kai-scheduler-v0.14.1.tgz"
+    sha256: "7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e"
+  values:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/011-kai-scheduler/values.yaml"
+    sha256: "059ff4565fff7bfdddd8f2ea2a59bcdb63875d3cd66830077e3966dde3ac4187"
+  destinationNamespace: "kai-scheduler"
+  commands:
+    fetch:
+      - "helm"
+      - "pull"
+      - "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler"
+      - "--version"
+      - "v0.14.1"
+      - "--destination"
+      - "<temporary-directory>"
+    render:
+      - "helm"
+      - "template"
+      - "kai-scheduler"
+      - "<source-artifact sha256:7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e>"
+      - "--namespace"
+      - "kai-scheduler"
+      - "--values"
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/011-kai-scheduler/values.yaml"
+      - "--include-crds"
+  output:
+    path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/nested-renders/kai-scheduler/objects.yaml"
+    sha256: "20bd6ca9c9ab40073c0a716a664cf070bfc3e53bb9ae1ffbfde4079f1a515623"
+    objectCount: 47
+    kinds:
+      ClusterRole: 12
+      ClusterRoleBinding: 11
+      Config: 1
+      ConfigMap: 1
+      CustomResourceDefinition: 6
+      Deployment: 1
+      Job: 2
+      Namespace: 1
+      PriorityClass: 4
+      Queue: 2
+      RoleBinding: 1
+      SchedulingShard: 1
+      ServiceAccount: 4
+    crdCount: 6
+    hookObjectCount: 0
+  processingBoundary:
+    wrapper: "The parent Catalog entry retains the Argo CD Application object."
+    nestedSource: "This receipt runs the source named by that Application and records its exact rendered objects."
+    delivery: "Rendering does not prove that Argo CD reconciled the objects or that the workload became healthy."
+status:
+  result: "pass"
+  materialization: "captured"
+  flattening: "not-assessed"
+  lifecycle: "requires-review"
+  delivery: "not-run"
+  error: ""

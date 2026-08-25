@@ -132,7 +132,12 @@ function categorize(name) {
   if (name.startsWith("oci-evidence:")) return "oci-evidence";
   if (name.startsWith("oci:inspect")) return "oci-inspection";
   if (name === "oci:transform" || name.startsWith("anonymous-oci-transform:")) return "oci-transformation";
-  if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
+  if (
+    name.startsWith("hooks:")
+    || name.startsWith("lifecycle:")
+    || name.startsWith("aicr-v0200:nested:")
+    || name.startsWith("aicr-v0200:routes")
+  ) return "hook-lifecycle";
   if (name.startsWith("derived-variants") || name.startsWith("variant-goldens") || name.startsWith("variant-paths")) return "derived-variants";
   if (name.startsWith("next80:") || name.startsWith("adversarial10:")) return "scale-proof";
   if (name.startsWith("pain-points") || name.startsWith("claims") || name.startsWith("blast-radius") || name.startsWith("reverse-reconcile") || name.startsWith("helm-render-intents") || name.startsWith("edges") || name.startsWith("high-fanout") || name.startsWith("outcomes") || name.startsWith("attack-plan") || name.startsWith("next-ten")) return "evidence-workdown";
@@ -221,7 +226,7 @@ function why(category) {
     "catalog-data": "Maintains generated catalog, top100/top500, site, and CSV front-door data.",
     "production-support": "Routes scan, image, lifecycle, and support decisions into target-scoped production evidence.",
     "live-parity-gitops": "Produces or verifies live Helm-vs-ConfigHub, two-cluster parity, or GitOps/OCI evidence.",
-    "hook-lifecycle": "Tracks Helm hooks and hook-like controller behavior as lifecycle routes and receipts.",
+    "hook-lifecycle": "Tracks lifecycle work such as hooks, CRD ordering, prerequisites, and controller-specific handling as routes and receipts.",
     "derived-variants": "Checks post-render ConfigHub variant clone, link, target, and operation evidence.",
     "oci-evidence": "Builds source-neutral records linking input, reviewed configuration, ConfigHub revision, output OCI, delivery, and live observation.",
     "oci-inspection": "Identifies supported OCI package roles and checks the readable Kubernetes configuration they contain or render.",

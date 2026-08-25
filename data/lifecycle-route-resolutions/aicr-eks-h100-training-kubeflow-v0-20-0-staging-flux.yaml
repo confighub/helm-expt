@@ -1,0 +1,217 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "LifecycleRouteResolution"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux"
+spec:
+  configuration:
+    baseVariantRecord: "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml"
+    variant: "generated-flux-bundle"
+    revision: "generated-v0.20.0"
+    baseRevisionDigest: "969e73550ef853489c201d336701ba6a3d53224bb899ae0a75dce31ce60f1241"
+    digest: "bd6a120968ad601e4afe7c1463868ad0c4957f74682458966bdf9b9f528cab2e"
+    digestRole: "canonical-object-set"
+    digestRecord: "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+  destination:
+    name: "eks-h100-staging"
+    type: "Amazon EKS with H100 nodes"
+    deliveryRuntime: "Flux"
+  requirements:
+    -
+      id: "source-variant-target-match"
+      origin: "base"
+      disposition: "inherited"
+      state: "blocked"
+      detail: "Observed target facts must match the EKS, H100, Ubuntu, training, and Kubeflow source variant, with any exception explained."
+    -
+      id: "destination-access"
+      origin: "destination"
+      disposition: "added"
+      state: "blocked"
+      detail: "The destination must provide the required AWS access, storage, node labels, networking, and any workload or registry credentials."
+    -
+      id: "flux-prerequisite"
+      origin: "destination"
+      disposition: "added"
+      state: "blocked"
+      detail: "Flux source-controller, kustomize-controller, and helm-controller must be ready before reconciliation."
+    -
+      id: "flux-git-source"
+      origin: "destination"
+      disposition: "added"
+      state: "blocked"
+      detail: "The generated placeholder GitRepository must be replaced by a real repository containing the Flux bundle."
+    -
+      id: "flux-source-objects"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "Thirteen source objects must resolve the exact component charts or local chart tree."
+    -
+      id: "component-owned-crds"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "NVSentinel alone receives CreateReplace because its AICR component record declares sole CRD ownership."
+    -
+      id: "component-order"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "The 16 components must follow the dependency order generated from the AICR recipe."
+    -
+      id: "nested-materialization"
+      origin: "base"
+      disposition: "inherited"
+      state: "satisfied"
+      detail: "All 16 nested sources are bound to chart, values, and output digests; together they render 409 objects."
+    -
+      id: "nested-crds"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "Eight selected nested renders contain 36 CRDs that must be established before dependent resources."
+    -
+      id: "nested-setup"
+      origin: "base"
+      disposition: "inherited"
+      state: "required"
+      detail: "Operators, certificates, setup work, and component health checks must run in their source-specific order. No Helm hook object appears in this selected render."
+    -
+      id: "aicr-validation"
+      origin: "base"
+      disposition: "inherited"
+      state: "blocked"
+      detail: "AICR validation and workload checks require their declared components, destination facts, and hardware to exist."
+  routes:
+    -
+      id: "target-facts"
+      requirementRefs:
+        - "source-variant-target-match"
+        - "destination-access"
+      actor: "destination owner"
+      phase: "preflight"
+      order: 5
+      mechanism: "Check EKS, H100, Ubuntu, storage, node labels, networking, credentials, and the selected source variant before delivery."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "flux-prerequisite"
+      requirementRefs:
+        - "flux-prerequisite"
+        - "flux-git-source"
+      actor: "destination owner"
+      phase: "preflight"
+      order: 10
+      mechanism: "Install the required Flux controllers and replace the example Git URL with the repository that contains this bundle."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "flux-sources"
+      requirementRefs:
+        - "flux-source-objects"
+      actor: "Flux source-controller"
+      phase: "pre-apply"
+      order: 20
+      mechanism: "Resolve the 13 pinned Helm and Git source objects before HelmRelease reconciliation."
+      automatic: true
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "component-owned-crds"
+      requirementRefs:
+        - "component-owned-crds"
+      actor: "Flux helm-controller"
+      phase: "pre-apply"
+      order: 30
+      mechanism: "Use CreateReplace only for NVSentinel, whose AICR component record says it solely owns its CRDs. Shared-CRD components keep the default policy."
+      automatic: true
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "component-order"
+      requirementRefs:
+        - "component-order"
+        - "nested-crds"
+        - "nested-setup"
+      actor: "Flux helm-controller"
+      phase: "apply"
+      order: 40
+      mechanism: "Follow the 16 HelmRelease dependsOn graph and let each selected chart handle its own declared CRDs and setup work."
+      automatic: true
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+    -
+      id: "aicr-validation"
+      requirementRefs:
+        - "aicr-validation"
+      actor: "AICR validator and workload test runner"
+      phase: "observe"
+      order: 50
+      mechanism: "Run only checks whose components and hardware prerequisites exist, then record each result separately."
+      automatic: false
+      retry: "Resolve the failed requirement, then retry this stage without advancing later stages."
+      onFailure: "Stop before later stages and retain the failed check with the exact configuration digest."
+      checks:
+        - "Every requirement named by this stage must pass before the next ordered stage starts."
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml"
+        - "data/aicr-v0-20-0-nested-sources/summary.md"
+        - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+        - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"
+  protection:
+    records:
+      - "examples/aicr/eks-h100-training-kubeflow-v0-20-0/field-policy-assessment.yaml"
+status:
+  decision: "blocked"
+  evidence: "partly-observed"
+  unresolved:
+    - "The Flux bundle builds locally into 29 controller objects, but its example GitRepository still needs a real repository URL."
+    - "NVSentinel records spec.upgrade.crds=CreateReplace, but no Flux controller has executed an install or CRD upgrade for this retained revision."
+    - "Rerun the commands in data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml after attaching an EKS/H100 target and Git source."
+  receipts:
+    - "data/aicr-v0-20-0-nested-sources/summary.md"
+    - "data/aicr-v0-20-0-route-resolution/inventory.yaml"
+    - "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"

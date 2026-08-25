@@ -43,6 +43,14 @@ const aicrFieldPolicyPath =
   "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml";
 const aicrApplyPolicyReceiptPath =
   "examples/aicr/eks-h100-training-kubeflow-v0-19-0/apply-policy-receipt.yaml";
+const aicrV020BaseRecordPath =
+  "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml";
+const aicrV020FluxReceiptPath =
+  "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml";
+const aicrV020ExternalResolutionPaths = [
+  "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml",
+  "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-flux.yaml",
+];
 const outputRoot = join(repoRoot, "data", "lifecycle-route-resolutions");
 
 const directReceipt = readYaml(join(repoRoot, directReceiptPath));
@@ -58,9 +66,11 @@ const kpsRecords = Object.fromEntries(
 );
 const aicrBaseRecord = readYaml(join(repoRoot, aicrBaseRecordPath));
 const aicrPromotionReceipt = readYaml(join(repoRoot, aicrPromotionReceiptPath));
+const aicrV020BaseRecord = readYaml(join(repoRoot, aicrV020BaseRecordPath));
+const aicrV020FluxReceipt = readYaml(join(repoRoot, aicrV020FluxReceiptPath));
 
 validateInputs();
-const records = [
+const managedRecords = [
   buildDirectRecord(),
   buildGitOpsRecord("argo", "Argo CD", "85.3.3"),
   buildGitOpsRecord("flux", "Flux", "85.3.3"),
@@ -68,17 +78,21 @@ const records = [
   buildGitOpsRecord("flux", "Flux", "86.1.0"),
   buildAicrStagingRecord(),
 ];
+const records = [
+  ...managedRecords,
+  ...aicrV020ExternalResolutionPaths.map((path) => readYaml(join(repoRoot, path))),
+];
 for (const record of records) validateRecord(record);
 const summary = renderSummary(records);
 
 if (mode === "--generate") {
-  for (const record of records) {
+  for (const record of managedRecords) {
     writeYaml(join(outputRoot, `${record.metadata.name}.yaml`), record);
   }
   write(join(outputRoot, "summary.md"), summary);
   console.log(`wrote ${records.length} lifecycle route resolutions`);
 } else {
-  for (const record of records) {
+  for (const record of managedRecords) {
     verifyFile(join(outputRoot, `${record.metadata.name}.yaml`), `${toYaml(record)}\n`);
   }
   verifyFile(join(outputRoot, "summary.md"), summary);
@@ -122,6 +136,16 @@ function validateInputs() {
     aicrBaseRecord.spec?.source?.version === "v0.19.0"
       && /^[0-9a-f]{64}$/.test(aicrBaseRecord.spec?.baseVariant?.digest ?? ""),
     "AICR v0.19.0 base record is incomplete",
+  );
+  check(
+    aicrV020BaseRecord.spec?.source?.version === "v0.20.0"
+      && /^[0-9a-f]{64}$/.test(aicrV020BaseRecord.spec?.baseVariant?.digest ?? ""),
+    "AICR v0.20.0 base record is incomplete",
+  );
+  check(
+    aicrV020FluxReceipt.status?.structureBuilt === true
+      && aicrV020FluxReceipt.status?.controllerReconciliation === "not-run",
+    "AICR v0.20.0 Flux structural receipt is incomplete or overstates delivery",
   );
 }
 
@@ -381,7 +405,7 @@ function route(id, requirementRefs, actor, phase, order, mechanism) {
 
 function validateRecord(record) {
   check(record.kind === "LifecycleRouteResolution", `${record.metadata.name}: wrong kind`);
-  if (record.metadata.name.startsWith("aicr-")) {
+  if (record.metadata.name.startsWith("aicr-") && record.metadata.name.includes("v0-19-0")) {
     check(
       record.spec.configuration.baseRevisionDigest === aicrBaseRecord.spec.baseVariant.digest,
       `${record.metadata.name}: AICR base revision digest changed`,
@@ -390,6 +414,18 @@ function validateRecord(record) {
       record.spec.configuration.digest === aicrPromotionReceipt.spec.chain.staging.canonicalDataSha256
         && record.spec.configuration.digestRole === "canonical-object-set",
       `${record.metadata.name}: AICR staging identity changed`,
+    );
+  } else if (record.metadata.name.startsWith("aicr-") && record.metadata.name.includes("v0-20-0")) {
+    check(
+      record.spec.configuration.baseRevisionDigest === aicrV020BaseRecord.spec.baseVariant.digest,
+      `${record.metadata.name}: AICR v0.20.0 base revision digest changed`,
+    );
+    const expectedDigest = record.metadata.name.endsWith("-flux")
+      ? aicrV020FluxReceipt.spec.output.sha256
+      : aicrV020BaseRecord.spec.configuration.digest;
+    check(
+      record.spec.configuration.digest === expectedDigest,
+      `${record.metadata.name}: AICR v0.20.0 configuration identity changed`,
     );
   } else {
     const versionMatch = record.metadata.name.match(/kube-prometheus-stack-([0-9]+)-([0-9]+)-([0-9]+)-/);
@@ -443,10 +479,13 @@ ${rows}
 The five kube-prometheus-stack records have runtime receipts. The 85.3.3 records
 cover the direct and controller-specific starting state. The 86.1.0 records bind
 the candidate object set to the Argo CD and Flux destinations where the upgrade
-ran. The AICR v0.19.0 staging record binds a real promoted variant to its intended EKS/H100/Argo CD
-destination, but stays blocked until the target facts, nested chart routes, and
-runtime checks have been recorded. A new source version, lifecycle-sensitive
-variant, destination, or delivery runtime requires another resolution.
+ran. The AICR v0.19.0 staging record binds a promoted variant to its intended
+EKS/H100/Argo CD destination. The AICR v0.20.0 records bind the retained Argo CD
+configuration and generated Flux projection to the same intended staging target.
+They stay blocked until destination facts, controller reconciliation, component
+health, and workload results have been recorded. A new source version,
+lifecycle-sensitive variant, destination, or delivery runtime requires another
+resolution.
 
 Schema: [lifecycle-route-resolution.schema.json](../../schemas/lifecycle-route-resolution.schema.json).
 `;

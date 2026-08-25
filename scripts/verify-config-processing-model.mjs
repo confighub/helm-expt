@@ -28,6 +28,15 @@ const documents = {
 const failures = [];
 const assessmentCases = JSON.parse(read("data/config-assessment-stages/cases.json"));
 const aicrSnapshotReview = readYaml(join(root, "data/aicr-snapshot-review/review.yaml"));
+const aicrV020NestedCatalog = JSON.parse(
+  read("data/aicr-v0-20-0-nested-sources/catalog.json"),
+);
+const aicrV020LifecycleInventory = readYaml(
+  join(root, "data/aicr-v0-20-0-route-resolution/inventory.yaml"),
+);
+const aicrV020FluxReceipt = readYaml(
+  join(root, "data/aicr-v0-20-0-route-resolution/flux-structure-receipt.yaml"),
+);
 const assessmentStageOrder = [
   "inspection",
   "materialization",
@@ -442,6 +451,33 @@ requireCondition(
     && aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.resultState === "not-run"
     && aicrSnapshotReview.spec?.assessmentClasses?.postDeploymentValidation?.executionOutcome === "missing-deployment-timeout",
   "the AICR snapshot review presents a missing deployment as a conformance result",
+);
+requireCondition(
+  aicrV020NestedCatalog.entries?.length === 16
+    && aicrV020NestedCatalog.entries.every(
+      (entry) =>
+        entry.render?.status === "pass"
+        && /^[0-9a-f]{64}$/.test(entry.sourceArtifact?.sha256 ?? "")
+        && /^[0-9a-f]{64}$/.test(entry.values?.sha256 ?? "")
+        && /^[0-9a-f]{64}$/.test(entry.render?.objectSha256 ?? ""),
+    ),
+  "the AICR v0.20.0 nested sources are not all bound to source, values, and object digests",
+);
+requireCondition(
+  aicrV020LifecycleInventory.spec?.wrapper?.objectCount === 17
+    && aicrV020LifecycleInventory.spec?.wrapper?.componentApplicationCount === 16
+    && aicrV020LifecycleInventory.spec?.nestedMaterialization?.objectCount === 409
+    && aicrV020LifecycleInventory.spec?.nestedMaterialization?.crdCount === 36
+    && aicrV020LifecycleInventory.status?.destinationRoutesExecuted === false,
+  "the AICR v0.20.0 wrapper and nested object inventories no longer reconcile",
+);
+requireCondition(
+  aicrV020FluxReceipt.spec?.crdUpgradeCase?.configuredPolicy
+      === "spec.upgrade.crds=CreateReplace"
+    && aicrV020FluxReceipt.spec?.crdUpgradeCase?.otherComponentsUsePolicy === false
+    && aicrV020FluxReceipt.status?.controllerReconciliation === "not-run"
+    && aicrV020FluxReceipt.status?.crdUpgradeExecution === "blocked",
+  "the AICR v0.20.0 Flux CRD policy is missing, unscoped, or presented as live proof",
 );
 
 const resolutionRoot = join(root, "data/lifecycle-route-resolutions");

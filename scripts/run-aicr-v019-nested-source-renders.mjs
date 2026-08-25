@@ -3,15 +3,18 @@
 import { execFileSync } from "node:child_process";
 import {
   existsSync,
+  mkdtempSync,
   mkdirSync,
   readFileSync,
   readdirSync,
   rmSync,
 } from "node:fs";
+import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 
 import {
   check,
+  listFiles,
   parseObjects,
   readYaml,
   relativeRepo,
@@ -24,16 +27,20 @@ import {
 const mode = process.argv[2] ?? "--verify";
 check(["--run", "--verify"].includes(mode), "use --run or --verify");
 
+const version = process.env.AICR_NESTED_VERSION ?? "0.19.0";
+check(/^0\.(19|20)\.0$/.test(version), "AICR_NESTED_VERSION must be 0.19.0 or 0.20.0");
+const versionSlug = version.replaceAll(".", "-");
+
 const exampleRoot = join(
   repoRoot,
   "examples",
   "aicr",
-  "eks-h100-training-kubeflow-v0-19-0",
+  `eks-h100-training-kubeflow-v${versionSlug}`,
 );
 const applicationsRoot = join(exampleRoot, "argocd-rendered", "templates");
 const bundleRoot = join(exampleRoot, "argocd-helm-bundle");
 const outputRoot = join(exampleRoot, "nested-renders");
-const dataRoot = join(repoRoot, "data", "aicr-v0-19-0-nested-sources");
+const dataRoot = join(repoRoot, "data", `aicr-v${versionSlug}-nested-sources`);
 const catalogPath = join(dataRoot, "catalog.json");
 const summaryPath = join(dataRoot, "summary.md");
 
@@ -45,10 +52,10 @@ if (mode === "--run") {
   mkdirSync(outputRoot, { recursive: true });
   const entries = applications.map(renderApplication);
   mkdirSync(dataRoot, { recursive: true });
-  write(catalogPath, `${JSON.stringify({ entries }, null, 2)}\n`);
+  write(catalogPath, `${JSON.stringify({ summary: summarizeEntries(entries), entries }, null, 2)}\n`);
   write(summaryPath, renderSummary(entries));
   const passed = entries.filter((entry) => entry.render.status === "pass").length;
-  console.log(`rendered ${passed}/${entries.length} AICR v0.19.0 nested sources`);
+  console.log(`rendered ${passed}/${entries.length} AICR v${version} nested sources`);
   if (passed !== entries.length) process.exitCode = 1;
 } else {
   verifyRetainedCatalog();
@@ -92,7 +99,8 @@ function renderApplication(application) {
   mkdirSync(componentRoot, { recursive: true });
   const objectsPath = join(componentRoot, "objects.yaml");
   const receiptPath = join(componentRoot, "receipt.yaml");
-  const args = helmArgs(application);
+  const resolvedSource = resolveSource(application);
+  const args = helmArgs(application, resolvedSource.chartPath);
   let stdout = "";
   let stderr = "";
   let exitCode = 0;
@@ -107,6 +115,8 @@ function renderApplication(application) {
     exitCode = Number(error.status ?? 1);
     stdout = String(error.stdout ?? "");
     stderr = String(error.stderr ?? error.message ?? "");
+  } finally {
+    resolvedSource.cleanup();
   }
 
   const normalizedOutput = normalizeRenderOutput(stdout);
@@ -118,17 +128,31 @@ function renderApplication(application) {
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "NestedSourceRenderReceipt",
-    metadata: { name: `aicr-v0-19-0-${application.slug}` },
+    metadata: { name: `aicr-v${versionSlug}-${application.slug}` },
     spec: {
-      parent: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+      parent: `aicr-eks-h100-training-kubeflow-v${versionSlug}-argocd`,
       application: application.applicationPath,
       source: application.source,
+      sourceArtifact: resolvedSource.record,
       values: {
         path: relativeRepo(application.valuesPath),
         sha256: application.valuesSha256,
       },
       destinationNamespace: application.namespace,
-      command: ["helm", ...args.map(recordedArgument)],
+      commands: {
+        fetch: resolvedSource.command,
+        render: [
+          "helm",
+          "template",
+          application.slug,
+          `<source-artifact sha256:${resolvedSource.record.sha256}>`,
+          "--namespace",
+          application.namespace,
+          "--values",
+          relativeRepo(application.valuesPath),
+          "--include-crds",
+        ],
+      },
       output: exitCode === 0
         ? {
             path: relativeRepo(objectsPath),
@@ -158,16 +182,8 @@ function renderApplication(application) {
   return catalogEntry(receipt, receiptPath);
 }
 
-function helmArgs(application) {
-  const source = application.source;
-  const args = ["template", application.slug];
-  if (source.path && source.repoURL.includes("aicr-eks-h100-training-kubeflow-argocd")) {
-    args.push(join(bundleRoot, source.path));
-  } else if (source.repoURL.startsWith("oci://")) {
-    args.push(source.repoURL, "--version", source.targetRevision);
-  } else {
-    args.push(source.chart, "--repo", source.repoURL, "--version", source.targetRevision);
-  }
+function helmArgs(application, chartPath) {
+  const args = ["template", application.slug, chartPath];
   args.push(
     "--namespace",
     application.namespace,
@@ -178,11 +194,89 @@ function helmArgs(application) {
   return args;
 }
 
+function resolveSource(application) {
+  const source = application.source;
+  const localPath = source.path ? join(bundleRoot, source.path) : "";
+  if (localPath && existsSync(localPath)) {
+    const files = listFiles(localPath)
+      .map((path) => ({
+        path: path.slice(`${localPath}/`.length),
+        sha256: sha256(readFileSync(path)),
+      }))
+      .sort((left, right) => left.path.localeCompare(right.path));
+    const treeSha256 = sha256(
+      files.map((file) => `${file.sha256}  ${file.path}`).join("\n") + "\n",
+    );
+    return {
+      chartPath: localPath,
+      command: ["read", relativeRepo(localPath)],
+      record: {
+        type: "local-chart-tree",
+        path: relativeRepo(localPath),
+        version: source.targetRevision,
+        sha256: treeSha256,
+        fileCount: files.length,
+      },
+      cleanup() {},
+    };
+  }
+
+  const work = mkdtempSync(join(tmpdir(), `helm-expt-aicr-v${versionSlug}-${application.slug}-`));
+  const pullArgs = source.repoURL.startsWith("oci://")
+    ? ["pull", source.repoURL, "--version", source.targetRevision, "--destination", work]
+    : [
+        "pull",
+        source.chart,
+        "--repo",
+        source.repoURL,
+        "--version",
+        source.targetRevision,
+        "--destination",
+        work,
+      ];
+  try {
+    execFileSync("helm", pullArgs, {
+      cwd: repoRoot,
+      encoding: "utf8",
+      maxBuffer: 128 * 1024 * 1024,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    const archives = readdirSync(work).filter((name) => name.endsWith(".tgz"));
+    check(archives.length === 1, `${application.slug}: expected one pulled chart archive`);
+    const chartPath = join(work, archives[0]);
+    return {
+      chartPath,
+      command: [
+        "helm",
+        ...pullArgs.map((value) => (value === work ? "<temporary-directory>" : value)),
+      ],
+      record: {
+        type: "helm-chart-archive",
+        source: source.path
+          ? `${source.repoURL}/${source.path}`
+          : source.repoURL.startsWith("oci://")
+            ? source.repoURL
+            : `${source.repoURL}/${source.chart}`,
+        version: source.targetRevision,
+        archiveName: archives[0],
+        sha256: sha256(readFileSync(chartPath)),
+      },
+      cleanup() {
+        rmSync(work, { recursive: true, force: true });
+      },
+    };
+  } catch (error) {
+    rmSync(work, { recursive: true, force: true });
+    throw error;
+  }
+}
+
 function catalogEntry(receipt, receiptPath) {
   return {
-    name: receipt.metadata.name.replace(/^aicr-v0-19-0-/, ""),
+    name: receipt.metadata.name.replace(new RegExp(`^aicr-v${versionSlug}-`), ""),
     application: receipt.spec.application,
     source: receipt.spec.source,
+    sourceArtifact: receipt.spec.sourceArtifact,
     values: receipt.spec.values,
     destinationNamespace: receipt.spec.destinationNamespace,
     render: {
@@ -205,6 +299,10 @@ function verifyRetainedCatalog() {
   check(existsSync(summaryPath), `${relativeRepo(summaryPath)} is missing; run with --run`);
   const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
   check(catalog.entries?.length === 16, "nested-source Catalog must contain 16 entries");
+  check(
+    JSON.stringify(catalog.summary) === JSON.stringify(summarizeEntries(catalog.entries)),
+    "nested-source Catalog summary does not match its entries",
+  );
   const expectedNames = applications.map((item) => item.slug).sort();
   check(
     JSON.stringify(catalog.entries.map((item) => item.name).sort()) === JSON.stringify(expectedNames),
@@ -218,6 +316,14 @@ function verifyRetainedCatalog() {
     check(existsSync(join(repoRoot, entry.receipt)), `${entry.name}: receipt is missing`);
     const receipt = readYaml(join(repoRoot, entry.receipt));
     check(receipt.status?.result === entry.render.status, `${entry.name}: receipt status changed`);
+    check(
+      /^[0-9a-f]{64}$/.test(receipt.spec?.sourceArtifact?.sha256 ?? ""),
+      `${entry.name}: source artifact digest is missing`,
+    );
+    check(
+      entry.sourceArtifact?.sha256 === receipt.spec.sourceArtifact.sha256,
+      `${entry.name}: Catalog source digest differs from its receipt`,
+    );
     if (entry.render.status === "pass") {
       const outputPath = join(repoRoot, receipt.spec.output.path);
       check(existsSync(outputPath), `${entry.name}: rendered output is missing`);
@@ -227,7 +333,7 @@ function verifyRetainedCatalog() {
       check(objects.length === entry.render.objectCount, `${entry.name}: object count changed`);
     }
   }
-  console.log(`verified ${catalog.entries.length} retained AICR v0.19.0 nested-source records`);
+  console.log(`verified ${catalog.entries.length} retained AICR v${version} nested-source records`);
 }
 
 function renderSummary(entries) {
@@ -241,11 +347,23 @@ function renderSummary(entries) {
         ? `${entry.source.repoURL}@${entry.source.targetRevision}`
       : `${entry.source.repoURL}${entry.source.chart ? `/${entry.source.chart}` : ""}@${entry.source.targetRevision}`;
     const result = entry.render.status === "pass"
-      ? `${entry.render.objectCount} objects`
+      ? `${entry.render.objectCount} ${entry.render.objectCount === 1 ? "object" : "objects"}`
       : `blocked: ${entry.render.error}`;
-    return `| ${entry.name} | \`${source}\` | ${result} | ${entry.render.crdCount} | ${entry.render.hookObjectCount} | [receipt](../../${entry.receipt}) |`;
+    return `| ${entry.name} | \`${source}\` | \`${entry.sourceArtifact.sha256.slice(0, 12)}...\` | ${result} | ${entry.render.crdCount} | ${entry.render.hookObjectCount} | [receipt](../../${entry.receipt}) |`;
   });
-  return `# AICR v0.19.0 nested source processing\n\nThe parent AICR entry contains 17 literal Argo CD Applications. One is the root\nApplication. The other 16 name sources that Argo CD processes later. This table\nmakes that second boundary explicit.\n\nA successful row proves that the exact source and retained values rendered locally.\nIt does not prove that the result is safe to flatten, that its lifecycle work is\nhandled, or that Argo CD reconciled it on EKS. Those are separate stages.\n\n- Local renders captured: **${passed}/${entries.length}**.\n- Components whose rendered output contains CRDs: **${crdEntries}**.\n- Components whose rendered output contains Helm hook objects: **${hookEntries}**.\n\n| Component | Exact nested source | Local result | CRDs | hook objects | Evidence |\n| --- | --- | --- | ---: | ---: | --- |\n${rows.join("\n")}\n`;
+  return `# AICR v${version} nested source processing\n\nThe parent AICR entry contains 17 literal Argo CD Applications. One is the root\nApplication. The other 16 name sources that Argo CD processes later. This table\nmakes that second boundary explicit.\n\nA successful row binds the fetched chart archive or local chart tree, retained\nvalues, and rendered object set with separate SHA-256 digests. It does not prove\nthat lifecycle work ran or that a controller reconciled the objects on EKS.\n\n- Local renders captured: **${passed}/${entries.length}**.\n- Components whose rendered output contains CRDs: **${crdEntries}**.\n- Components whose rendered output contains Helm hook objects: **${hookEntries}**.\n\n| Component | Exact nested source | Source SHA-256 | Local result | CRDs | hook objects | Evidence |\n| --- | --- | --- | --- | ---: | ---: | --- |\n${rows.join("\n")}\n`;
+}
+
+function summarizeEntries(entries) {
+  return {
+    sourceCount: entries.length,
+    renderedSourceCount: entries.filter((entry) => entry.render.status === "pass").length,
+    objectCount: entries.reduce((total, entry) => total + (entry.render.objectCount ?? 0), 0),
+    componentsWithCrds: entries.filter((entry) => entry.render.crdCount > 0).length,
+    crdCount: entries.reduce((total, entry) => total + (entry.render.crdCount ?? 0), 0),
+    componentsWithHookObjects: entries.filter((entry) => entry.render.hookObjectCount > 0).length,
+    hookObjectCount: entries.reduce((total, entry) => total + (entry.render.hookObjectCount ?? 0), 0),
+  };
 }
 
 function countBy(values, keyFor) {
@@ -264,10 +382,6 @@ function conciseError(value) {
 function normalizeRenderOutput(value) {
   const withoutTrailingSpace = value.replace(/[ \t]+$/gm, "");
   return `${withoutTrailingSpace.replace(/\n+$/, "")}\n`;
-}
-
-function recordedArgument(value) {
-  return value.startsWith(`${repoRoot}/`) ? relativeRepo(value) : value;
 }
 
 function escapeRegExp(value) {
