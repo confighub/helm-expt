@@ -448,7 +448,7 @@
 <p>Every proof here writes a receipt, and a receipt is a claim about one moment. The catalog is careful about whether a claim is true and has been silent about whether it is recent. A delivery proof from months ago and one from this morning read the same on the page.</p>
 <p>Ages below are measured against the newest receipt in the repository, <b>2026-08-25</b>, rather than against the clock. That keeps this a function of committed bytes, so it cannot go stale overnight, and it asks the more useful question: old compared to what else this repository knows. The oldest receipt is from 2026-05-26, so the evidence spans 91 days.</p>
 <h2 id="the-spread">The spread</h2>
-<table><thead><tr><th>Age</th><th>Receipts</th></tr></thead><tbody><tr><td>0 to 30 days</td><td>318</td></tr>
+<table><thead><tr><th>Age</th><th>Receipts</th></tr></thead><tbody><tr><td>0 to 30 days</td><td>319</td></tr>
 <tr><td>31 to 90 days</td><td>1469</td></tr>
 <tr><td>91 to 180 days</td><td>2</td></tr>
 <tr><td>over 180 days</td><td>0</td></tr></tbody></table>
@@ -479,7 +479,7 @@
 <tr><td><code>argo-cd-default-confighub-proof</code></td><td><code>confighub-proof-receipt.yaml</code></td><td>2026-05-27</td><td>90</td></tr>
 <tr><td><code>argo-cd-no-crds-confighub-proof</code></td><td><code>confighub-proof-receipt.yaml</code></td><td>2026-05-27</td><td>90</td></tr></tbody></table>
 <h2 id="receipts-that-cannot-age">Receipts that cannot age</h2>
-<p>Every one of the 1789 committed receipts records a date, so none of this repository's evidence is beyond ageing. The count is still published and still ratcheted. A receipt that records no date raises it above the recorded baseline of zero and the lane refuses, which is why this section stays here now that it has nothing to list.</p>
+<p>Every one of the 1790 committed receipts records a date, so none of this repository's evidence is beyond ageing. The count is still published and still ratcheted. A receipt that records no date raises it above the recorded baseline of zero and the lane refuses, which is why this section stays here now that it has nothing to list.</p>
 <h2 id="what-this-does-not-say">What this does not say</h2>
 <p>An old receipt is not a wrong receipt. Everything here still verifies against committed bytes, and a proof about a version nobody has changed is as true as the day it ran. Age is a prompt to re-run, not a verdict, and deciding which families deserve a re-run is a judgement this lane deliberately leaves open.</p>
 <p>It also measures only what receipts say about themselves. A receipt whose recorded date is wrong will be reported confidently and wrongly, which is worth knowing before treating any of these numbers as a freshness guarantee.</p>
