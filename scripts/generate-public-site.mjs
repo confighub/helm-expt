@@ -76,6 +76,8 @@ const reviewSchemaPath = join(siteRoot, "review.schema.json");
 const reviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-review.schema.json");
 const workshopResultSchemaPath = join(siteRoot, "workshop-result.schema.json");
 const workshopResultSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-result.schema.json");
+const workshopCiReportSchemaPath = join(siteRoot, "workshop-ci-report.schema.json");
+const workshopCiReportSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-ci-report.schema.json");
 const promotionReviewSchemaPath = join(siteRoot, "promotion-review.schema.json");
 const promotionReviewSchemaSourcePath = join(repoRoot, "schemas", "config-workshop-promotion-review.schema.json");
 const configurationDecisionSchemaPath = join(siteRoot, "configuration-decision.schema.json");
@@ -455,6 +457,7 @@ if (mode === "--generate") {
   write(changesSchemaPath, site.changesSchemaJson);
   write(reviewSchemaPath, site.reviewSchemaJson);
   write(workshopResultSchemaPath, site.workshopResultSchemaJson);
+  write(workshopCiReportSchemaPath, site.workshopCiReportSchemaJson);
   write(promotionReviewSchemaPath, site.promotionReviewSchemaJson);
   write(configurationDecisionSchemaPath, site.configurationDecisionSchemaJson);
   write(checkConfigScriptPath, site.checkConfigScript);
@@ -519,6 +522,7 @@ if (mode === "--generate") {
   check(existsSync(changesJsonPath), "site/changes.json is missing; run npm run site:generate");
   check(existsSync(reviewSchemaPath), "site/review.schema.json is missing; run npm run site:generate");
   check(existsSync(workshopResultSchemaPath), "site/workshop-result.schema.json is missing; run npm run site:generate");
+  check(existsSync(workshopCiReportSchemaPath), "site/workshop-ci-report.schema.json is missing; run npm run site:generate");
   check(existsSync(promotionReviewSchemaPath), "site/promotion-review.schema.json is missing; run npm run site:generate");
   check(existsSync(configurationDecisionSchemaPath), "site/configuration-decision.schema.json is missing; run npm run site:generate");
   check(existsSync(checkConfigScriptPath), "site/check-config.js is missing; run npm run site:generate");
@@ -599,6 +603,7 @@ if (mode === "--generate") {
   check(readFileSync(changesSchemaPath, "utf8") === site.changesSchemaJson, "site/changes.schema.json is stale");
   check(readFileSync(reviewSchemaPath, "utf8") === site.reviewSchemaJson, "site/review.schema.json is stale");
   check(readFileSync(workshopResultSchemaPath, "utf8") === site.workshopResultSchemaJson, "site/workshop-result.schema.json is stale");
+  check(readFileSync(workshopCiReportSchemaPath, "utf8") === site.workshopCiReportSchemaJson, "site/workshop-ci-report.schema.json is stale");
   check(readFileSync(promotionReviewSchemaPath, "utf8") === site.promotionReviewSchemaJson, "site/promotion-review.schema.json is stale");
   check(readFileSync(configurationDecisionSchemaPath, "utf8") === site.configurationDecisionSchemaJson, "site/configuration-decision.schema.json is stale");
   check(readFileSync(checkConfigScriptPath, "utf8") === site.checkConfigScript, "site/check-config.js is stale");
@@ -1104,6 +1109,7 @@ function buildSite(generatedAt) {
     changesSchemaJson: readFileSync(changesSchemaSourcePath, "utf8"),
     reviewSchemaJson: readFileSync(reviewSchemaSourcePath, "utf8"),
     workshopResultSchemaJson: readFileSync(workshopResultSchemaSourcePath, "utf8"),
+    workshopCiReportSchemaJson: readFileSync(workshopCiReportSchemaSourcePath, "utf8"),
     promotionReviewSchemaJson: readFileSync(promotionReviewSchemaSourcePath, "utf8"),
     configurationDecisionSchemaJson: readFileSync(configurationDecisionSchemaSourcePath, "utf8"),
     checkConfigScript: readFileSync(checkConfigScriptSourcePath, "utf8"),
@@ -1609,6 +1615,7 @@ function buildLlmsTxt() {
 - [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
 - [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
 - [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
+- [CI report schema](${SITE_BASE_URL}workshop-ci-report.schema.json): the bounded Markdown/JSON report derived from WorkshopResult for local CI, pull-request comments, and AI tools.
 - [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
 - [Configuration decision schema](${SITE_BASE_URL}configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
 - [Completed NGINX decision chain](${SITE_BASE_URL}d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
@@ -4648,13 +4655,13 @@ function compareHtml() {
         ${rowsHtml}
         </tbody>
       </table></div>
-      <p>The first two rows work with no account anywhere. The last three name ConfigHub because records are what answer them, and records need a place to live. That boundary is the honest one: nothing on this site pretends a laptop can answer a history question.</p>
+      <p>The first two rows work with no account. The last three need ConfigHub because they depend on shared history. A local tool cannot answer questions about changes that it has never recorded.</p>
     </section>
 
     <section aria-labelledby="works-with">
       <h2 id="works-with">This works with your tools, not instead of them</h2>
       <p>The catalog renders Helm charts to plain Kubernetes objects. You can patch those objects with Kustomize exactly as you do today, keep reviewing PRs, and keep your reconciler. Nothing here replaces your overlays or wants to own your YAML. If you arrived expecting a Kustomize replacement, this is not one, and you can stop reading here.</p>
-      <p>Two worked artifacts to take with you either way: <a href="./d/docs/user/example-rendered-diff.html">one real rendered diff between two chart versions</a>, computed from committed renders, and <a href="./d/docs/user/ci-render-check.html">a GitHub Actions workflow</a> that renders and diffs on every pull request with no account and no server.</p>
+      <p>Two worked artifacts to take with you either way: <a href="./d/docs/user/example-rendered-diff.html">one real rendered diff between two chart versions</a>, computed from committed renders, and <a href="./d/docs/user/ci-render-check.html">a local CI report</a> that turns the same checked result into Markdown or JSON. GitHub Actions is one optional place to post it.</p>
     </section>
   </main>
   <footer>The fastest way to check any claim in the table is the receipt behind it. Start with the drift record and the upgrade proof.</footer>
@@ -4938,6 +4945,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p><strong>Only completed checks count as evidence. Everything else is not checked and cannot support a safety claim.</strong></p>
       <p><strong>Complete result hash:</strong> <code id="workshop-result-digest" style="overflow-wrap:anywhere;word-break:break-all"></code></p>
       <p><button class="button primary" id="download-workshop-result" type="button">Download complete result</button></p>
+      <p><a href="./d/docs/user/ci-render-check.html">Create a pull-request report from this result</a>. The same local command works for Helm, OCI, AICR, Timoni, and literal YAML after each source has produced exact Kubernetes objects.</p>
       <p><a class="button primary" href="./confighub.html">See how to keep this in ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "ask-reviewed-result")}">Open the ConfigHub tutorial</a> <a class="button secondary" href="./known-gaps.html">See what this check does not prove</a></p>
       <details>
         <summary><strong>Open the complete result</strong></summary>

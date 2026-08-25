@@ -219,6 +219,10 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-use-guide/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/claims-register/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-review-decision-chain/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-workshop-ci-report/kubernetes-yaml/report.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-workshop-ci-report/nginx-reviewed/report.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-workshop-ci-report/redis-reuse-existing-secret/report.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-workshop-ci-report/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-workshop-command-contract/live-promotion.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/config-workshop-command-contract/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/spaces/aqua-trivy-operator-0-32-1-default/README.html</loc></url>

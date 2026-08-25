@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Check a chart render on every pull request · Config Workshop</title>
-  <meta name="description" content="Check a chart render on every pull request: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Add a configuration check to CI · Config Workshop</title>
+  <meta name="description" content="Add a configuration check to CI: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/ci-render-check.html">
-  <meta property="og:title" content="Check a chart render on every pull request · Config Workshop">
-  <meta property="og:description" content="Check a chart render on every pull request: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Add a configuration check to CI · Config Workshop">
+  <meta property="og:description" content="Add a configuration check to CI: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/ci-render-check.html">
   <style>
@@ -442,48 +442,51 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Check a chart render on every pull request</h1>
-    <p class="lead">Both the Flux and the Kustomize workflows reviewed here live in pull requests, so the natural place to see what a values change does is the PR itself. This workflow renders the chart on every pull request and posts the object diff as a comment. It needs no ConfigHub account and no server: everything runs inside the GitHub runner. <a href="../../../../docs/user/ci-render-check.md">View source markdown</a>.</p>
+    <h1>Add a configuration check to CI</h1>
+    <p class="lead">Use this when a pull request changes Helm values, generated Kubernetes YAML, an OCI configuration, or another source that produces Kubernetes objects. <a href="../../../../docs/user/ci-render-check.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
-<pre><code>name: render-check
-on: pull_request
-permissions:
-  contents: read
-  pull-requests: write
-jobs:
-  render:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Install helm
-        uses: azure/setup-helm@v4
-      - name: Render both sides
-        run: |
-          helm template rel ./chart -f values.yaml --include-crds &gt; pr.yaml
-          git fetch origin ${{ github.base_ref }} --depth 1
-          git checkout origin/${{ github.base_ref }} -- values.yaml || true
-          helm template rel ./chart -f values.yaml --include-crds &gt; base.yaml
-      - name: Validate the rendered objects
-        run: |
-          curl -sL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz | tar xz
-          ./kubeconform -summary -ignore-missing-schemas pr.yaml
-      - name: Diff and comment
-        run: |
-          diff -u base.yaml pr.yaml &gt; render.diff || true
-          {
-            echo '### Rendered object diff'
-            echo '```diff'
-            head -200 render.diff
-            echo '```'
-          } &gt; comment.md
-          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
-        env:
-          GH_TOKEN: ${{ github.token }}</code></pre>
-<p>Adjust the chart path and values file to your layout. The <code>head -200</code> keeps a large diff from flooding the PR; the full diff stays in the job log. The kubeconform step validates every rendered object against the Kubernetes schema before the diff posts, so a values change that renders an invalid object fails the check instead of shipping. <code>-ignore-missing-schemas</code> keeps CRD-defined kinds from failing the run; drop it if you also publish schemas for your CRDs. For a Kustomize overlay, the same shape works with <code>kustomize build</code> in place of <code>helm template</code> on both sides.</p>
-<p>For charts in this catalog, the committed render receipts give you the same comparison against the reviewed baseline instead of against your own previous render.</p>
+<p>First produce a <code>workshop-result.json</code>. It binds the source, exact objects, object-set hash, local findings, decisions, and checks that did not run. The <a href="../../data/config-workshop-command-contract/summary.html">website and command-line guide</a> shows the same process for Helm and literal Kubernetes YAML.</p>
+<p>Then create a short review comment:</p>
+<pre><code>npm run workshop:ci-report -- \
+  --input workshop-result.json \
+  --output comment.md</code></pre>
+<p>The command works locally and needs no ConfigHub account or server. It reports:</p>
+<ul><li>the source and exact object-set hash;</li><li>the objects changed by an optional comparison;</li><li>the most important findings and their review decisions;</li><li>required Secrets, CRDs, hooks, or other lifecycle work recorded with the source;</li><li>checks that ran and checks that did not run;</li><li>the next local step and the command handoff to ConfigHub.</li></ul>
+<p>By default, the command returns a non-zero exit status only when a recorded decision or managed control blocks the object set. Use this stricter form when unreviewed findings or omitted checks must also stop CI:</p>
+<pre><code>npm run workshop:ci-report -- \
+  --input workshop-result.json \
+  --output comment.md \
+  --fail-on needs-review</code></pre>
+<p>Use <code>--format json</code> when another tool or AI assistant should consume the same bounded result. Use <code>--extract-dir ./ci-artifacts</code> to extract the files embedded in <code>workshop-result.json</code> for retention as CI artifacts.</p>
+<h2 id="github-pull-request-comment">GitHub pull-request comment</h2>
+<p>The report is plain Markdown. A small GitHub Actions step can post it after your existing render and check job has created <code>workshop-result.json</code>:</p>
+<pre><code>- name: Build the review comment
+  run: |
+    npm run workshop:ci-report -- \
+      --input workshop-result.json \
+      --output comment.md \
+      --extract-dir ci-artifacts \
+      --fail-on blocked
+
+- name: Post the review comment
+  if: always()
+  run: gh pr comment &quot;${{ github.event.pull_request.number }}&quot; --body-file comment.md
+  env:
+    GH_TOKEN: ${{ github.token }}
+
+- name: Keep the complete result
+  if: always()
+  uses: actions/upload-artifact@v4
+  with:
+    name: config-workshop-result
+    path: ci-artifacts/</code></pre>
+<p>The same <code>comment.md</code> can be used in GitLab, Jenkins, Buildkite, or a local review script. GitHub Actions is an example, not a requirement.</p>
+<h2 id="what-the-result-means">What the result means</h2>
+<p>The strongest clear result is <b>No blocker found in the completed checks</b>. It does not say that the configuration is safe to deploy. Kubernetes admission, destination prerequisites, delivery, workload health, drift, and rollback need their own checks and receipts.</p>
+<p>See the <a href="../../data/config-workshop-ci-report/summary.html">worked NGINX, Redis, and literal-YAML reports</a>. The JSON form follows the <a href="https://confighub.github.io/helm-expt/site/workshop-ci-report.schema.json">Config Workshop CI report schema</a>.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/ci-render-check.md</code>. The source file is the authoritative version.</p></footer>

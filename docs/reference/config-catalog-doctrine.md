@@ -206,6 +206,13 @@ the local result through a real ConfigHub staging promotion. The literal-YAML pa
 stops after retention. This distinction keeps a reusable record format separate
 from evidence for one execution.
 
+The same result is also the CI boundary. `npm run workshop:ci-report` turns a
+WorkshopResult into Markdown for people or JSON for tools and AI assistants. It
+keeps the source identity, canonical object-set hash, findings, lifecycle
+requirements, decisions, and omitted checks. Its strongest clear wording is
+**No blocker found in the completed checks**. It never translates a static result
+into destination acceptance, deployment health, drift, or rollback evidence.
+
 The maintained integration follows this user journey:
 
 1. Map existing Catalog warnings to stable pattern and control IDs only where

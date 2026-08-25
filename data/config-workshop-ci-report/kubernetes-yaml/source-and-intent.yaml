@@ -1,0 +1,125 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "kubernetes-yaml-acme-web-base"
+  labels:
+    sourceType: "kubernetes-yaml"
+    component: "plain-yaml-acme-web"
+    sourceVersion: "source-r001"
+    base: "base"
+spec:
+  source:
+    type: "kubernetes-yaml"
+    name: "plain-yaml-acme-web"
+    version: "source-r001"
+    record: "runs/literal-yaml-upload-proof/receipt.yaml"
+    packageOciRef: ""
+  baseVariant:
+    name: "base"
+    revision: "source-r001"
+    digest: "963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+    digestRole: "source-file-set"
+    digestRecord: "runs/literal-yaml-upload-proof/receipt.yaml"
+  configuration:
+    format: "kubernetes-yaml-directory"
+    objects: "examples/plain-yaml/acme-web"
+    inventory: "runs/literal-yaml-upload-proof/receipt.yaml"
+    objectCount: 4
+    digest: "963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+    digestRole: "canonical-object-set"
+    digestRecord: "runs/literal-yaml-upload-proof/receipt.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "runs/literal-yaml-upload-proof/receipt.yaml"
+    materialization:
+      method: "read-literal-configuration"
+      status: "recorded-no-op"
+      outputDigest: "963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+      record: "runs/literal-yaml-upload-proof/receipt.yaml"
+    flattening:
+      status: "decided"
+      verdict: "born-flattened"
+      action: "retain-exact-objects"
+      scope: "plain-yaml-acme-web@source-r001/base; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "runs/literal-yaml-upload-proof/receipt.yaml"
+    boundaries:
+      - "The source already contains exact Kubernetes objects; parsing and canonicalization do not change their meaning."
+  inputs:
+    fixedAtBuildTime:
+      - "source=examples/plain-yaml/acme-web"
+      - "objectSetSha256=963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+    installTime:
+      []
+    installTimeStatus: "no target facts assessed"
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        []
+      records:
+        - "runs/literal-yaml-upload-proof/receipt.yaml"
+    routeIntent:
+      status: "gap"
+      routes:
+        []
+      records:
+        - "runs/literal-yaml-upload-proof/receipt.yaml"
+    targetFacts:
+      status: "gap"
+      declared:
+        {}
+      requirementRefs:
+        []
+      records:
+        - "runs/literal-yaml-upload-proof/receipt.yaml"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Choices fixed by the recorded source configuration"
+    variantControlled:
+      - "Exact object changes retained after the base"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "runs/literal-yaml-upload-proof/receipt.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-for-this-base"
+    configHubUpload:
+      status: "pass"
+      space: "plain-yaml-acme-web-base"
+      objectSetSha256: "963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+      receipt: "runs/literal-yaml-upload-proof/receipt.yaml"
+    configHubReleaseOci:
+      status: "not-run"
+    argoCd: "not-run"
+    flux: "not-run"
+    direct: "not-run"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+    normalSet: "baseline"
+  evidence:
+    source: "examples/plain-yaml/acme-web"
+    configHubUpload: "runs/literal-yaml-upload-proof/receipt.yaml"
+    guide: "data/literal-config-examples/summary.md"
+  operations:
+    resourceClass: "user-workload"
+    ownerClass: "application-team"
+    changeCadence: "application-release"
+status:
+  level: "partial"
+  claim: "ConfigHub stored the four supplied Kubernetes objects unchanged, with no render step."
+  limits:
+    - "The upload receipt does not assess lifecycle requirements or target facts, so the Catalog records that work as a gap."
+    - "OCI publication, deployment, promotion, and live observation have not run for this base."

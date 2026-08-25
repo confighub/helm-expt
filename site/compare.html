@@ -531,13 +531,13 @@
         <tr><td><strong>Require an approval bound to an exact revision</strong></td><td>No.</td><td>No.</td><td>PR review approves a diff, not a revision a cluster converges to.</td><td>Yes, with ConfigHub: approving yesterday's revision authorizes nothing about today's.</td></tr>
         </tbody>
       </table></div>
-      <p>The first two rows work with no account anywhere. The last three name ConfigHub because records are what answer them, and records need a place to live. That boundary is the honest one: nothing on this site pretends a laptop can answer a history question.</p>
+      <p>The first two rows work with no account. The last three need ConfigHub because they depend on shared history. A local tool cannot answer questions about changes that it has never recorded.</p>
     </section>
 
     <section aria-labelledby="works-with">
       <h2 id="works-with">This works with your tools, not instead of them</h2>
       <p>The catalog renders Helm charts to plain Kubernetes objects. You can patch those objects with Kustomize exactly as you do today, keep reviewing PRs, and keep your reconciler. Nothing here replaces your overlays or wants to own your YAML. If you arrived expecting a Kustomize replacement, this is not one, and you can stop reading here.</p>
-      <p>Two worked artifacts to take with you either way: <a href="./d/docs/user/example-rendered-diff.html">one real rendered diff between two chart versions</a>, computed from committed renders, and <a href="./d/docs/user/ci-render-check.html">a GitHub Actions workflow</a> that renders and diffs on every pull request with no account and no server.</p>
+      <p>Two worked artifacts to take with you either way: <a href="./d/docs/user/example-rendered-diff.html">one real rendered diff between two chart versions</a>, computed from committed renders, and <a href="./d/docs/user/ci-render-check.html">a local CI report</a> that turns the same checked result into Markdown or JSON. GitHub Actions is one optional place to post it.</p>
     </section>
   </main>
   <footer>The fastest way to check any claim in the table is the receipt behind it. Start with the drift record and the upgrade proof.</footer>

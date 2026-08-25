@@ -83,7 +83,7 @@ function buildCases() {
       scan: "data/config-workshop-command-contract/kubernetes-yaml/cub-check.json",
       sourceRecord: "data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml",
       valuesSummary: "Literal Kubernetes YAML; materialization is a no-op.",
-      catalogUrl: "https://confighub.github.io/helm-expt/site/examples.html#plain-yaml",
+      catalogUrl: "https://confighub.github.io/helm-expt/site/entry-path-reference.html#plain-yaml",
       question: "Is this existing Kubernetes YAML ready to retain and vary?",
     }),
   ];

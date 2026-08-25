@@ -19,7 +19,9 @@ const NOT_CHECKED = [
 
 export function composeWorkshopResult(options) {
   const candidate = loadObjectInput(options.candidatePath);
-  const scanText = canonicalFileText(readFileSync(options.cubCheckPath, "utf8"));
+  const scanText = canonicalFileText(
+    options.cubCheckText ?? readFileSync(options.cubCheckPath, "utf8"),
+  );
   const scan = JSON.parse(scanText);
   const candidateIdentity = scannerObjectSetIdentity(candidate.documents);
   const advisoryReceipt = advisoryReceiptFor(scan, candidateIdentity);
