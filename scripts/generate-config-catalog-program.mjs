@@ -205,7 +205,8 @@ function buildReport() {
     ...intents.map(buildHelmRecord),
     buildAicrRecord(),
     buildAicrArgoCdRecord(),
-    buildAicrV019ArgoCdRecord(),
+    buildAicrModernArgoCdRecord("0.19.0"),
+    buildAicrModernArgoCdRecord("0.20.0"),
     buildTimoniRecord(),
     buildKubaraRecord(),
     buildSveltosRecord(),
@@ -652,8 +653,11 @@ function buildAicrArgoCdRecord() {
   };
 }
 
-function buildAicrV019ArgoCdRecord() {
-  const root = "examples/aicr/eks-h100-training-kubeflow-v0-19-0";
+function buildAicrModernArgoCdRecord(version) {
+  check(["0.19.0", "0.20.0"].includes(version), `unsupported modern AICR version ${version}`);
+  const retainedVersion = `v${version}`;
+  const versionSlug = `v${version.replaceAll(".", "-")}`;
+  const root = `examples/aicr/eks-h100-training-kubeflow-${versionSlug}`;
   const generationPath = `${root}/generation-receipt.yaml`;
   const routePath = `${root}/route-intent.yaml`;
   const fieldPolicyPath = `${root}/field-policy-assessment.yaml`;
@@ -664,9 +668,9 @@ function buildAicrV019ArgoCdRecord() {
   const policyReceiptPath = `${root}/apply-policy-receipt.yaml`;
   const promotionReceiptPath = `${root}/promotion-readiness-receipt.yaml`;
   const releaseOciReceiptPath = `${root}/confighub-release-oci-receipt.yaml`;
-  const nestedSourcesPath = "data/aicr-v0-19-0-nested-sources/summary.md";
+  const nestedSourcesPath = `data/aicr-${versionSlug}-nested-sources/summary.md`;
   const routeResolutionPath =
-    "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml";
+    `data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-${versionSlug}-staging-argo-cd.yaml`;
   const generation = readYaml(join(repoRoot, generationPath));
   const routeIntent = readYaml(join(repoRoot, routePath));
   const platformIndex = JSON.parse(readFileSync(join(repoRoot, indexPath), "utf8"));
@@ -687,6 +691,13 @@ function buildAicrV019ArgoCdRecord() {
     : null;
   const publicPassed = publicReceipt?.status?.result === "pass"
     && publicReceipt?.status?.anonymousPull === "pass";
+  const sourcePublicRef = publicReceipt?.spec?.artifacts?.sourcePackage?.reference
+    ?? generation.spec.processing.transport.sourcePackage?.publicTarget
+    ?? "";
+  const configPublicRef = publicReceipt?.spec?.artifacts?.literalConfiguration?.reference
+    ?? generation.spec.processing.transport.literalConfiguration?.publicTarget
+    ?? generation.spec.processing.transport.publicTarget
+    ?? "";
   const uploadPassed = uploadReceipt?.status?.configHubBaseVariantUpload === "pass";
   const promotionPassed = promotionReceipt?.status?.result === "pass";
   const policyPassed = policyReceipt?.status?.requiredApprovalBlockedReleasePublish === "pass";
@@ -698,10 +709,10 @@ function buildAicrV019ArgoCdRecord() {
   const applicationsRoot = `${root}/argocd-rendered`;
   const inventoryPath = `${root}/argocd-rendered/checksums.txt`;
   const objects = objectsInDirectory(join(repoRoot, applicationsRoot), { includeTemplates: true });
-  check(objects.length === 17, `expected 17 AICR v0.19.0 Applications, found ${objects.length}`);
+  check(objects.length === 17, `expected 17 AICR ${retainedVersion} Applications, found ${objects.length}`);
   check(
     platformIndex.spec?.platformDigest,
-    "AICR v0.19.0 platform digest is missing",
+    `AICR ${retainedVersion} platform digest is missing`,
   );
 
   const targetRequirements = routeIntent.spec.targetFacts.map((detail, index) => ({
@@ -727,11 +738,11 @@ function buildAicrV019ArgoCdRecord() {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "BaseVariantRecord",
     metadata: {
-      name: "aicr-eks-h100-training-kubeflow-v0-19-0-argocd",
+      name: `aicr-eks-h100-training-kubeflow-${versionSlug}-argocd`,
       labels: {
         sourceType: "aicr",
         component: "aicr-eks-h100-training-kubeflow",
-        sourceVersion: "v0.19.0",
+        sourceVersion: retainedVersion,
         base: "argocd",
       },
     },
@@ -739,15 +750,18 @@ function buildAicrV019ArgoCdRecord() {
       source: {
         type: "aicr",
         name: "eks-h100-training-kubeflow",
-        version: "v0.19.0",
+        version: retainedVersion,
         record: generationPath,
-        packageOciRef: publicPassed
-          ? "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
-          : "",
+        sourceVariant: generation.spec.sourceAndIntent?.sourceVariant
+          ?? "h100-eks-ubuntu-training-kubeflow",
+        ...(generation.spec.sourceAndIntent?.sourceCatalog
+          ? { sourceCatalog: generation.spec.sourceAndIntent.sourceCatalog }
+          : {}),
+        packageOciRef: publicPassed ? sourcePublicRef : "",
       },
       baseVariant: {
         name: "argocd",
-        revision: "generated-v0.19.0",
+        revision: `generated-${retainedVersion}`,
         digest: String(platformIndex.spec.platformDigest).replace(/^sha256:/, ""),
       },
       configuration: {
@@ -781,16 +795,14 @@ function buildAicrV019ArgoCdRecord() {
         sourcePackageOci: {
           status: publicPassed ? "public-anonymous-pull-proved" : "local-layout-verified",
           localDigest: sourcePackage.digest,
-          plannedRef:
-            "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0",
+          plannedRef: sourcePublicRef,
           ociLayout: sourcePackage.ociLayout,
           ...(publicPassed ? { receipt: publicReceiptPath } : {}),
         },
         literalConfigOci: {
           status: publicPassed ? "public-anonymous-pull-proved" : "local-layout-verified",
           localDigest: literalConfiguration.digest,
-          plannedRef:
-            "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.19.0",
+          plannedRef: configPublicRef,
           ociLayout: literalConfiguration.ociLayout,
           ...(publicPassed ? { receipt: publicReceiptPath } : {}),
         },
@@ -855,7 +867,7 @@ function buildAicrV019ArgoCdRecord() {
       },
       evidence: {
         sourceGenerationReceipt: generationPath,
-        sourceProvenance: "runs/aicr-provenance-v0-19-0/receipt.yaml",
+        sourceProvenance: `runs/aicr-provenance-${versionSlug}/receipt.yaml`,
         digestIndex: indexPath,
         flatteningVerdict: verdictPath,
         routeIntent: routePath,
@@ -877,21 +889,23 @@ function buildAicrV019ArgoCdRecord() {
     status: {
       level: "partial",
       claim: publicPassed && uploadPassed && promotionPassed && releaseOciPassed
-        ? "AICR v0.19.0 produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change to staging, and published the approved staging result as a release OCI that was pulled and compared by digest."
-        : "AICR v0.19.0 produced 17 exact Argo CD Applications with signed source provenance, a scoped flattening verdict, lifecycle route intent, field ownership assessment, and two verified local OCI layouts.",
+        ? `AICR ${retainedVersion} produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change to staging, and published the approved staging result as a release OCI that was pulled and compared by digest.`
+        : publicPassed
+          ? `AICR ${retainedVersion} produced 17 exact Argo CD Applications with signed source provenance, lifecycle route intent, a field-policy assessment, and two publicly pullable OCI artifacts at recorded digests.`
+          : `AICR ${retainedVersion} produced 17 exact Argo CD Applications with signed source provenance, a scoped flattening verdict, lifecycle route intent, field ownership assessment, and two verified local OCI layouts.`,
       limits: [
         publicPassed
           ? "Both OCI artifacts were anonymously pulled at their recorded digests."
           : "The two OCI layouts are verified locally but have not yet been published at their public references.",
         uploadPassed
           ? `ConfigHub recorded the literal OCI digest and its separate Unit data hash ${uploadReceipt.spec.unit.dataHash}; the upload receipt binds them by exact-object comparison.`
-          : "This v0.19.0 base has not yet been uploaded to ConfigHub.",
+          : `This ${retainedVersion} base has not yet been uploaded to ConfigHub.`,
         promotionPassed
           ? "The persistent development and staging variants contain the one reviewed Grafana Secret-reference change."
-          : "No v0.19.0 derived-variant promotion has run.",
+          : `No ${retainedVersion} derived-variant promotion has run.`,
         policyPassed
           ? "The required-approval gate refused to publish an unapproved ConfigHub release."
-          : "The ConfigHub apply policy has not been tested for this v0.19.0 base.",
+          : `The ConfigHub apply policy has not been tested for this ${retainedVersion} base.`,
         releaseOciPassed
           ? "After approval, ConfigHub published the staging release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set."
           : "No approved ConfigHub release OCI has been pulled and compared for this version.",
@@ -2126,6 +2140,25 @@ function validateRecords(records) {
         === "published-and-pulled-by-digest"
       && aicrV019.spec.delivery.configHubReleaseOci.promotedConfigurationMatched === true,
     "AICR v0.19.0 does not expose its processing, lifecycle, and ownership records",
+  );
+  const aicrV020 = records.find(
+    (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
+  );
+  check(aicrV020, "AICR v0.20.0 Argo CD base record is missing");
+  check(
+    aicrV020.spec.processing.flattening.verdict === "flatten-with-routes"
+      && aicrV020.spec.processing.flattening.record
+        === "examples/aicr/eks-h100-training-kubeflow-v0-20-0/flattening-safety-verdict.yaml"
+      && aicrV020.spec.lifecycle.routeIntent.status === "recorded"
+      && aicrV020.spec.lifecycle.resolution.status === "awaits-variant-and-target"
+      && aicrV020.spec.ownership.status === "declared"
+      && aicrV020.spec.delivery.sourcePackageOci.status
+        === "public-anonymous-pull-proved"
+      && aicrV020.spec.delivery.literalConfigOci.status
+        === "public-anonymous-pull-proved"
+      && aicrV020.spec.delivery.configHubUpload.status === "not-run"
+      && aicrV020.spec.delivery.configHubReleaseOci.status === "not-run",
+    "AICR v0.20.0 does not expose its public artifacts, processing records, or unfinished managed stages",
   );
   const timoni = records.find(
     (record) => record.metadata.name === "timoni-redis-8-10-1-default",
@@ -3474,10 +3507,10 @@ function sourceSelectionRecord(record) {
 
   if (source.type === "aicr") {
     return {
-      name: source.name,
+      name: source.sourceVariant ?? source.name,
       kind: "source-variant",
       provider: "NVIDIA AICR",
-      record: source.record,
+      record: source.sourceCatalog || source.record,
     };
   }
   if (source.type === "helm" || ["timoni", "kubara", "sveltos"].includes(source.type)) {
@@ -3529,7 +3562,7 @@ function identityRecord(record, intent) {
     objectDigest = String(revision.spec?.digestInputs?.renderedObjectSetSHA256 ?? "");
     objectDigestRole = "canonical-object-set";
     objectDigestRecord = revisionPath;
-  } else if (source.type === "aicr" && source.version === "v0.19.0") {
+  } else if (source.type === "aicr" && ["v0.19.0", "v0.20.0"].includes(source.version)) {
     baseDigestRole = "aicr-platform-index";
     baseDigestRecord = record.spec.evidence.digestIndex;
   } else if (source.type === "aicr") {
@@ -4216,8 +4249,8 @@ function firstNonEmptyString(...values) {
 
 function ownershipRecord(record, intent, legacyRouting) {
   const source = record.spec.source;
-  const fieldPolicy = source.version === "v0.19.0"
-    ? "examples/aicr/eks-h100-training-kubeflow-v0-19-0/field-policy-assessment.yaml"
+  const fieldPolicy = source.type === "aicr" && ["v0.19.0", "v0.20.0"].includes(source.version)
+    ? `examples/aicr/eks-h100-training-kubeflow-${source.version.replaceAll(".", "-")}/field-policy-assessment.yaml`
     : "";
   const targetSupplied = (legacyRouting.targetFacts?.requirements ?? []).map(
     (requirement) => String(requirement.name ?? requirement.category ?? "target input"),
@@ -4237,8 +4270,8 @@ function ownershipRecord(record, intent, legacyRouting) {
     records = [source.record];
   } else if (fieldPolicy && existsRepo(fieldPolicy)) {
     status = "declared";
-    sourceControlled = ["Fields classified as source-owned by the AICR v0.19 field-policy assessment"];
-    variantControlled = ["Fields classified as safe reviewed ConfigHub changes by the AICR v0.19 field-policy assessment"];
+    sourceControlled = [`Fields classified as source-owned by the AICR ${source.version} field-policy assessment`];
+    variantControlled = [`Fields classified as safe reviewed ConfigHub changes by the AICR ${source.version} field-policy assessment`];
     records = [fieldPolicy];
   } else if ([
     "aicr",

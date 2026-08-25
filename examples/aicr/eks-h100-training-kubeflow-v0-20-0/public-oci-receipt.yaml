@@ -1,0 +1,28 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "PublicOciReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0"
+spec:
+  verifiedAt: "2026-08-25T15:39:01.573Z"
+  registry: "Google Artifact Registry"
+  project: "nth-fort-499605-q5"
+  location: "europe-west1"
+  repository: "helm-expt"
+  artifacts:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:0.20.0"
+      digest: "sha256:2eedf6b36ea2cfab828245e38f72b7ed344915b6695c6a56d92a744d25992431"
+      authenticatedPush: "pass"
+      anonymousPull: "pass"
+    literalConfiguration:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+      digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+      authenticatedPush: "pass"
+      anonymousPull: "pass"
+status:
+  result: "pass"
+  authenticatedPush: "pass"
+  anonymousPull: "pass"
+  claim: "The exact AICR source package and 17-file literal configuration artifact are publicly pullable at their recorded digests."
+  limits:
+    - "Public pullability does not prove ConfigHub upload, Argo CD reconciliation, or GPU workload health."

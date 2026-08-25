@@ -1,18 +1,12 @@
 #!/usr/bin/env node
 
-// Publish the AICR platform entries as evidence records.
+// Publish retained AICR platform configurations and their evidence records.
 //
-// The catalog data model had no place for a platform shape, so consumers could
-// not discover these entries at all. The decision behind this generator is that
-// they are evidence rather than a product line: nobody is meant to install an
-// AICR entry from the catalog the way they install a chart. They are meant to
-// find what was proven, follow the path to the receipt, and check it.
-//
-// That decision changes what the record must carry. A product record promises
-// installability, so it needs delivery paths and a support posture. An evidence
-// record promises locatability and honesty, so it carries the digest that pins
-// the shape, a path to every artifact a reader might want, the ladder rungs
-// that have receipts, and the rungs that do not.
+// A reader should be able to find a tested starting configuration, pull any
+// published artifact, and see exactly which later steps have receipts. A public
+// OCI package is useful before ConfigHub, but it is not delivery or runtime
+// proof. Keeping those stages separate prevents a downloadable entry from
+// silently acquiring stronger claims.
 //
 // Every value here is derived from committed bytes. The consumer-contract rule
 // holds: every path a consumer needs appears in the record, so nothing has to
@@ -81,6 +75,20 @@ const entries = [
         rung: "confighub-base-policy-and-promotion",
         receipt: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml",
         summary: "data/aicr-v0-19-0-chain/summary.md",
+      },
+    ],
+  },
+  {
+    id: "eks-h100-training-kubeflow-v0-20-0",
+    title: "EKS H100 Kubeflow training, AICR v0.20.0",
+    provenance: "retained-upstream",
+    page: "docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md",
+    sourceReceipt: "generation-receipt.yaml",
+    ladder: [
+      {
+        rung: "public-source-and-literal-configuration-oci",
+        receipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml",
+        summary: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-summary.md",
       },
     ],
   },
@@ -158,6 +166,11 @@ const crossEntryEvidence = [
     id: "upstream-provenance-v0-19-0",
     receipt: "runs/aicr-provenance-v0-19-0/receipt.yaml",
     summary: "data/aicr-provenance-v0-19-0/summary.md",
+  },
+  {
+    id: "upstream-provenance-v0-20-0",
+    receipt: "runs/aicr-provenance-v0-20-0/receipt.yaml",
+    summary: "data/aicr-provenance-v0-20-0/summary.md",
   },
   { id: "blast-radius-parity", summary: "data/aicr-blast-radius/summary.md" },
   { id: "ordering-parity", summary: "data/aicr-ordering-parity/summary.md" },
@@ -269,19 +282,20 @@ function buildRecord() {
     spec: {
       // The decision, made machine-readable rather than left in prose.
       contract: {
-        kind: "evidence",
+        kind: "tested-starting-configurations",
         statement:
-          "These entries are evidence, not a product line. They record what was proven about governing AI-platform configuration, with a path to every receipt. They are not offered for installation from the catalog the way a chart is, and no support posture attaches to them.",
+          "These entries are retained AICR configurations. A published entry can be pulled and inspected as an exact starting point. Its receipts state separately whether ConfigHub retention, promotion, delivery, and runtime testing have happened.",
         consumerExpectation:
-          "Locate an entry, follow its paths, and check its receipts. Every path a consumer needs is published here, so nothing is reconstructed by convention.",
+          "Choose an exact version, inspect its source and generated Applications, pull its public OCI artifacts when available, and check the receipt for every later claim.",
         boundary:
-          "Every entry proves config-plane mechanics only. No GPU workload ran to produce or verify any of it.",
+          "Public availability and byte identity do not prove ConfigHub delivery or GPU runtime behavior. Those stages require separate receipts.",
       },
       entries: rows,
       crossEntryEvidence: crossEntry,
       openRungs: [
-        "ConfigHub import, variant and promotion for the AICR-native inference entry.",
-        "Any workload-plane claim, for every entry.",
+        "ConfigHub base and derived variants for AICR v0.20.0.",
+        "Destination-specific route resolution for the AICR v0.20.0 nested sources.",
+        "EKS, H100, Argo CD, Flux, and workload runtime proof for AICR v0.20.0.",
       ],
     },
   };
@@ -302,10 +316,11 @@ function renderSummary(record) {
 \`site/catalog.json\` under \`platformEvidence\`, so a consumer can find these
 entries without reading the repository.
 
-These entries are evidence, not a product line. Nobody is meant to install an
-AICR entry from the catalog the way they install a chart. The record exists so
-a reader can locate what was proven, follow the path to the receipt, and check
-it.
+These entries are tested starting configurations for exact AICR versions. When
+an entry has public OCI artifacts, a user can pull and inspect them without a
+ConfigHub account. The ladder counts only later steps that have matching
+receipts; publication, promotion, delivery, and runtime are not treated as the
+same result.
 
 | Entry | Provenance | Platform digest | Ladder rungs with receipts |
 | --- | --- | --- | --- |
@@ -314,13 +329,10 @@ ${rows}
 Cross-entry evidence covers the whole set rather than one entry:
 ${record.spec.crossEntryEvidence.map((row) => `\`${row.id}\``).join(", ")}.
 
-The rungs no entry has climbed are listed in the record rather than left to
-inference:
+The next v0.20.0 steps are listed directly:
 
 ${record.spec.openRungs.map((row) => `- ${row}`).join("\n")}
 
-Every path a consumer needs is published in the record, so nothing has to be
-reconstructed by convention. That is the consumer-contract rule applied to a
-shape the contract did not previously cover.
+Every path needed to inspect a claim is published in the record.
 `;
 }

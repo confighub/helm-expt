@@ -611,11 +611,11 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
-      <h3>Four platform shapes, and what each one has proved</h3>
-      <p>That training platform is one of four AICR entries. They are evidence rather than products. Nothing here is offered for installation the way a catalog chart is. Each entry carries a digest that pins its shape, plus a path to every receipt behind it. The table below is generated from <a href="d/data/aicr-platform-evidence/summary.html">the evidence record</a>, so a row cannot claim a rung its receipts do not support.</p>
+      <h3>Retained AI platform configurations</h3>
+      <p>The Catalog keeps exact AICR versions and derived examples side by side. A published entry can be pulled and inspected as a starting configuration. Each row also shows how many later steps have receipts, so public OCI publication is not confused with ConfigHub promotion, delivery, or runtime. The table is generated from <a href="d/data/aicr-platform-evidence/summary.html">the entry record</a>.</p>
       <div class="card"><table>
         <thead><tr><th>Shape</th><th>Provenance</th><th>Rungs with receipts</th></tr></thead>
-        <tbody><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">EKS H100 Kubeflow training</a></td><td>retained-upstream</td><td>2 · <code>sha256:3f9ec2a69619…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html">EKS H100 Kubeflow training, AICR v0.18.0</a></td><td>retained-upstream</td><td>0 · <code>sha256:b9e5af994a0e…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">EKS H100 Kubeflow training, AICR v0.19.0</a></td><td>retained-upstream</td><td>2 · <code>sha256:6dd6fd925a36…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-inference-nim.html">EKS H100 NIM inference, AICR-native</a></td><td>retained-upstream</td><td>1 · <code>sha256:cc4ea0fb2347…</code></td></tr><tr><td><a href="d/docs/demo/aicr/kserve-nim-inference.html">NIM on KServe model shapes</a></td><td>retained-third-party</td><td>2 · <code>sha256:7a219c5b0fde…</code></td></tr><tr><td><a href="d/docs/demo/aicr/cpu-starter.html">CPU starter, derived</a></td><td>derived</td><td>4 · <code>sha256:d4c19c203ba3…</code></td></tr></tbody>
+        <tbody><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">EKS H100 Kubeflow training</a></td><td>retained-upstream</td><td>2 · <code>sha256:3f9ec2a69619…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html">EKS H100 Kubeflow training, AICR v0.18.0</a></td><td>retained-upstream</td><td>0 · <code>sha256:b9e5af994a0e…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">EKS H100 Kubeflow training, AICR v0.19.0</a></td><td>retained-upstream</td><td>2 · <code>sha256:6dd6fd925a36…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">EKS H100 Kubeflow training, AICR v0.20.0</a></td><td>retained-upstream</td><td>1 · <code>sha256:969e73550ef8…</code></td></tr><tr><td><a href="d/docs/demo/aicr/eks-h100-inference-nim.html">EKS H100 NIM inference, AICR-native</a></td><td>retained-upstream</td><td>1 · <code>sha256:cc4ea0fb2347…</code></td></tr><tr><td><a href="d/docs/demo/aicr/kserve-nim-inference.html">NIM on KServe model shapes</a></td><td>retained-third-party</td><td>2 · <code>sha256:7a219c5b0fde…</code></td></tr><tr><td><a href="d/docs/demo/aicr/cpu-starter.html">CPU starter, derived</a></td><td>derived</td><td>4 · <code>sha256:d4c19c203ba3…</code></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -623,7 +623,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>Every one of them proves configuration mechanics only. No GPU workload ran to produce or verify any of it. The rungs no entry has climbed are listed in the record, not left to inference.</p>
+      <p>Open an entry to see its source, public OCI, ConfigHub, delivery, and runtime status, with a separate receipt for each completed step. A Catalog record does not by itself mean that the workload ran on a GPU.</p>
     </section>
 
     <section aria-labelledby="existing-oci-change">

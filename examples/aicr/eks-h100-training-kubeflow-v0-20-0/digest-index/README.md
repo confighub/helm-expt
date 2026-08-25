@@ -19,7 +19,7 @@ anywhere in the shape and the digest changes.
 [platform-index.json](./platform-index.json) holds the full index. Each member row
 names its payload file under [payloads/](./payloads/) and the OCI reference the
 payload uses or would use. Nothing in this directory claims a registry push by
-itself. The OCI receipt records verified local layouts. Public publication has not run.
+itself. The OCI receipts next to this directory record the publication that was observed.
 
 This follows the pattern the Kubara importer proved: per-component immutable
 payloads plus one digest-bound index, compiled offline from committed bytes.

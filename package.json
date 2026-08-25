@@ -531,6 +531,8 @@
     "aicr-argocd-example:promotion-verify": "node scripts/sync-aicr-argocd-example.mjs --hub-promotion-verify",
     "aicr-v0190:publish": "AICR_ARGOCD_VERSION=0.19.0 node scripts/sync-aicr-argocd-example.mjs --publish",
     "aicr-v0190:public-verify": "AICR_ARGOCD_VERSION=0.19.0 node scripts/sync-aicr-argocd-example.mjs --public-verify",
+    "aicr-v0200:publish": "AICR_ARGOCD_VERSION=0.20.0 node scripts/sync-aicr-argocd-example.mjs --publish",
+    "aicr-v0200:public-verify": "AICR_ARGOCD_VERSION=0.20.0 node scripts/sync-aicr-argocd-example.mjs --public-verify",
     "aicr-v0190:hub-sync": "AICR_ARGOCD_VERSION=0.19.0 node scripts/sync-aicr-argocd-example.mjs --hub-sync",
     "aicr-v0190:hub-verify": "AICR_ARGOCD_VERSION=0.19.0 node scripts/sync-aicr-argocd-example.mjs --hub-verify",
     "aicr-v0190:hub-policy-check": "AICR_ARGOCD_VERSION=0.19.0 node scripts/sync-aicr-argocd-example.mjs --hub-policy-check",

@@ -6,7 +6,7 @@
 committed bytes of all retained entries, so the version tables cannot drift
 from the recipes and Application objects they describe.
 
-The catalog retains v0.14.0, v0.18.0, v0.19.0 side by side.
+The catalog retains v0.14.0, v0.18.0, v0.19.0, v0.20.0 side by side.
 Each entry uses the same EKS, H100, Ubuntu, training, and Kubeflow criteria and
 the same local generation inputs. Earlier entries remain available when a new
 one is added.
@@ -43,29 +43,58 @@ The component set is identical and the declared deployment order is identical. 9
 
 One of the 17 rendered Applications is unchanged in both version and wave.
 
+### Health-check changes
+
+| Component | v0.14.0 | v0.18.0 |
+| --- | --- | --- |
+| `aws-ebs-csi-driver` | not present | 5m; 0 DaemonSet checks |
+| `aws-efa` | not present | 5m; 1 DaemonSet checks |
+| `cert-manager` | not present | 5m; 0 DaemonSet checks |
+| `gpu-operator` | not present | 5m; 0 DaemonSet checks |
+| `k8s-ephemeral-storage-metrics` | not present | 5m; 0 DaemonSet checks |
+| `kai-scheduler` | not present | 5m; 0 DaemonSet checks |
+| `kube-prometheus-stack` | not present | 5m; 0 DaemonSet checks |
+| `kubeflow-trainer` | not present | 5m; 0 DaemonSet checks |
+| `nfd` | not present | 5m; 1 DaemonSet checks |
+| `nodewright-customizations` | not present | 5m; 0 DaemonSet checks |
+| `nodewright-operator` | not present | 5m; 0 DaemonSet checks |
+| `nvidia-dra-driver-gpu` | not present | 5m; 1 DaemonSet checks |
+| `nvsentinel` | not present | 5m; 0 DaemonSet checks |
+| `prometheus-adapter` | not present | 5m; 0 DaemonSet checks |
+| `prometheus-operator-crds` | not present | 5m; 0 DaemonSet checks |
+
+
 The sync-wave count fell from 16 to 5. v0.18.0 began grouping independent components into parallel waves. That change is why the ordering verifier checks dependency edges instead of requiring one unique wave per component.
 
 
-## v0.18.0 to v0.19.0
+## v0.19.0 to v0.20.0
 
-| | v0.18.0 | v0.19.0 |
+| | v0.19.0 | v0.20.0 |
 | --- | --- | --- |
 | Components in the recipe | 15 | 15 |
 | Argo CD Applications | 17 | 17 |
 | Distinct sync-waves | 5 | 5 |
 | Components with embedded health checks | 15 | 15 |
 
-The component set is identical and the declared deployment order is identical. 3 components changed the chart version they pull, and 0 changed the wave they deploy in.
+The component set is identical and the declared deployment order is identical. 4 components changed the chart version they pull, and 0 changed the wave they deploy in.
 
-| Component | What moved | v0.18.0 | v0.19.0 |
+| Component | What moved | v0.19.0 | v0.20.0 |
 | --- | --- | --- | --- |
-| `aicr-stack` | version | 0.18.0 in wave none | 0.19.0 in wave none |
-| `kubeflow-trainer-post` | version | 0.18.0 in wave 14 | 0.19.0 in wave 14 |
-| `nodewright-customizations` | version | 0.18.0 in wave 5 | 0.19.0 in wave 5 |
+| `aicr-stack` | version | 0.19.0 in wave none | 0.20.0 in wave none |
+| `kubeflow-trainer-post` | version | 0.19.0 in wave 14 | 0.20.0 in wave 14 |
+| `nodewright-customizations` | version | 0.19.0 in wave 5 | 0.20.0 in wave 5 |
+| `nvsentinel` | version | v1.9.0 in wave 13 | v1.20.0 in wave 13 |
 
-14 of the 17 rendered Applications are unchanged in both version and wave.
+13 of the 17 rendered Applications are unchanged in both version and wave.
 
-The v0.19.0 EKS recipe remains unprofiled. The new `gpuStack` source profile is available on AKS and GKE families, not on this EKS composition. The retained field-policy assessment records that boundary and shows which AKS fields the profile protects.
+### Health-check changes
+
+| Component | v0.19.0 | v0.20.0 |
+| --- | --- | --- |
+| `nvsentinel` | 5m; 0 DaemonSet checks | 90s; 2 DaemonSet checks |
+
+
+NVSentinel moves from v1.9.0 to v1.20.0. Its check now tests the driver-labelled DaemonSets as well as the labeler Deployment and pods. The overall assert timeout changes from 5m to 90s, so a stalled DaemonSet reports its failure sooner. The optional zero-desired cases remain excluded. These are retained source changes; this comparison does not claim that the check ran on EKS.
 
 
 ## What this comparison covers

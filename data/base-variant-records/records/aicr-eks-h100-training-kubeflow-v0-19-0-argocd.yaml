@@ -13,9 +13,10 @@ spec:
     name: "eks-h100-training-kubeflow"
     version: "v0.19.0"
     record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
+    sourceVariant: "h100-eks-ubuntu-training-kubeflow"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
     selection:
-      name: "eks-h100-training-kubeflow"
+      name: "h100-eks-ubuntu-training-kubeflow"
       kind: "source-variant"
       provider: "NVIDIA AICR"
       record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
@@ -290,9 +291,9 @@ spec:
   ownership:
     status: "declared"
     sourceControlled:
-      - "Fields classified as source-owned by the AICR v0.19 field-policy assessment"
+      - "Fields classified as source-owned by the AICR v0.19.0 field-policy assessment"
     variantControlled:
-      - "Fields classified as safe reviewed ConfigHub changes by the AICR v0.19 field-policy assessment"
+      - "Fields classified as safe reviewed ConfigHub changes by the AICR v0.19.0 field-policy assessment"
     targetSupplied:
       - "aicr-target-fact-1"
       - "aicr-target-fact-2"

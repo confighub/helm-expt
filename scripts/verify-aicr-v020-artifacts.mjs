@@ -29,6 +29,9 @@ const platformIndexPath = join(root, "digest-index", "platform-index.json");
 const sourceCatalogPath = join(root, "source-catalog", "source-catalog-record.yaml");
 const routeIntentPath = join(root, "route-intent.yaml");
 const fieldPolicyPath = join(root, "field-policy-assessment.yaml");
+const publicReceiptPath = join(root, "public-oci-receipt.yaml");
+const publicSummaryPath = join(root, "public-oci-summary.md");
+const ociReceiptPath = join(root, "argocd-oci-receipt.yaml");
 const expected = receipt.spec?.processing?.transport ?? {};
 
 verifySourceChecksums();
@@ -302,9 +305,17 @@ function verifySupportingRecords() {
     "generation receipt does not link the provenance receipt",
   );
   check(existsPath(receipt.spec.provenance.verifiedReceipt), "linked provenance receipt is missing");
-  check(receipt.spec?.processing?.transport?.publicStatus === "not-run", "generation receipt overstates publication");
+  const published = existsSync(publicReceiptPath);
+  check(
+    receipt.spec?.processing?.transport?.publicStatus === (published ? "pass" : "not-run"),
+    "generation receipt publication status disagrees with the public receipt",
+  );
+  check(
+    receipt.status?.publicOciPublication === (published ? "pass" : "not-run"),
+    "generation receipt public OCI result disagrees with the public receipt",
+  );
+  check(receipt.status?.published === (published ? true : undefined), "generation receipt published flag changed");
   for (const key of [
-    "publicOciPublication",
     "configHubUpload",
     "promotion",
     "configHubReleaseOci",
@@ -314,6 +325,7 @@ function verifySupportingRecords() {
   ]) {
     check(receipt.status?.[key] === "not-run", `generation receipt must keep ${key} at not-run`);
   }
+  if (published) verifyPublicationRecords();
 
   verifyRetainedManifest(
     "argocd-source",
@@ -325,6 +337,40 @@ function verifySupportingRecords() {
     join(root, "local-argocd-config-oci-manifest.json"),
     expected.literalConfiguration?.digest,
   );
+}
+
+function verifyPublicationRecords() {
+  const source = expected.sourcePackage;
+  const configuration = expected.literalConfiguration;
+  const publicReceipt = readYaml(publicReceiptPath);
+  check(publicReceipt.kind === "PublicOciReceipt", "public OCI receipt has the wrong kind");
+  check(publicReceipt.status?.result === "pass", "public OCI receipt is not pass");
+  check(publicReceipt.status?.anonymousPull === "pass", "public OCI receipt does not record anonymous pull");
+  for (const [name, artifact] of [
+    ["sourcePackage", source],
+    ["literalConfiguration", configuration],
+  ]) {
+    const observed = publicReceipt.spec?.artifacts?.[name];
+    check(observed?.reference === artifact?.publicTarget, `${name}: public reference changed`);
+    check(observed?.digest === artifact?.digest, `${name}: public digest changed`);
+    check(observed?.authenticatedPush === "pass", `${name}: authenticated push is not pass`);
+    check(observed?.anonymousPull === "pass", `${name}: anonymous pull is not pass`);
+  }
+  check(existsSync(publicSummaryPath), "public OCI summary is missing");
+
+  const ociReceipt = readYaml(ociReceiptPath);
+  check(ociReceipt.kind === "OciArtifactReceipt", "OCI artifact receipt has the wrong kind");
+  check(ociReceipt.status?.result === "pass", "OCI artifact receipt is not pass");
+  for (const key of [
+    "publicSourcePush",
+    "publicSourcePull",
+    "publicRenderedPush",
+    "publicRenderedPull",
+  ]) {
+    check(ociReceipt.status?.[key] === "pass", `OCI artifact receipt must record ${key} as pass`);
+  }
+  check(ociReceipt.status?.liveArgoReconciliation === "not-run", "OCI publication must not claim Argo CD delivery");
+  check(ociReceipt.status?.liveGpuReconciliation === "not-run", "OCI publication must not claim GPU runtime");
 }
 
 function verifyRetainedManifest(layoutName, retainedPath, expectedDigest) {
