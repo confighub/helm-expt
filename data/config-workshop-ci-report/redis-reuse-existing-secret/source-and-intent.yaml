@@ -14,6 +14,11 @@ spec:
     version: "25.5.3"
     record: "data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3"
+    selection:
+      name: "reuse-existing-secret"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml"
   baseVariant:
     name: "reuse-existing-secret"
     revision: "r001"

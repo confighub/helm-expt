@@ -1,0 +1,59 @@
+---
+# Source: aicr-bundle/templates/aws-efa.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: 'aws-efa'
+    namespace: argocd
+spec:
+    destination:
+        namespace: kube-system
+        server: 'https://kubernetes.default.svc'
+    project: 'default'
+    source:
+        chart: aws-efa-k8s-device-plugin
+        helm:
+            values: |-
+                additionalPodAnnotations: {}
+                additionalPodLabels: {}
+                affinity:
+                  nodeAffinity: {}
+                fullnameOverride: aws-efa-k8s-device-plugin
+                image:
+                  repository: 602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efa-k8s-device-plugin
+                  tag: v0.5.20
+                imagePullSecrets: []
+                nodeSelector:
+                  nvidia.com/gpu.present: "true"
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 20Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                    - ALL
+                  privileged: false
+                  runAsNonRoot: false
+                  runAsUser: null
+                supportedInstanceLabels:
+                  keys:
+                  - nodeGroup
+                  - nvidia.com/gpu.present
+                  values:
+                  - gpu
+                  - "true"
+                tolerations:
+                - operator: Exists
+        repoURL: https://aws.github.io/eks-charts
+        targetRevision: 0.5.29
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

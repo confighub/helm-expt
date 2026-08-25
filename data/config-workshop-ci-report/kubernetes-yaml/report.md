@@ -55,7 +55,7 @@ Not checked:
 ## Artifacts
 
 - [candidate.yaml](./candidate.yaml) · `sha256:78e3bacb58e6ee82be42420379c6376b71870c0b294d2241553026e45ac229c5`
-- [source-and-intent.yaml](./source-and-intent.yaml) · `sha256:d6c729df39b3dcbe014f2a01cc92a23fb9a8ed9c5ef2dfe13688fdea19adef55`
+- [source-and-intent.yaml](./source-and-intent.yaml) · `sha256:3ebbd72d8f222795ab4e823970d4146aa1996951518b95031f83deb7ef393dcc`
 - [cub-check.json](./cub-check.json) · `sha256:7ce01333e504a5189d46afefa295eaec0633cabec5ac08094f234cc943aabf3f`
 - [workshop-review.json](./workshop-review.json) · `sha256:22a40445de04a6ef0b66f69bcaa8ce81d7ec1cba322665d613cdebf0c7571ca7`
 - [Related guide](https://confighub.github.io/helm-expt/site/entry-path-reference.html#plain-yaml)

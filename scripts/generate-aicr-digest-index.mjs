@@ -197,11 +197,11 @@ function compile(root) {
 
   // A published entry proves its transports with receipts. An unpublished one
   // declares the same references as plans, and says so in its boundary.
-  const publishedEntry = existsSync(join(root, "argocd-oci-receipt.yaml"));
+  const hasOciReceipt = existsSync(join(root, "argocd-oci-receipt.yaml"));
   let ociBase = "";
   let sourcePackageRepository = "";
   let expectedObjectCount = null;
-  if (!publishedEntry) {
+  if (!hasOciReceipt) {
     const config = readYaml(join(root, "index-config.yaml"));
     ociBase = String(config.spec?.plannedOCIBase ?? "");
     sourcePackageRepository = String(config.spec?.sourcePackageRepository ?? "");
@@ -213,10 +213,15 @@ function compile(root) {
       "index-config.yaml is only for entries that were not published; a published entry needs its OCI receipt",
     );
   }
-  const ociReceipt = publishedEntry ? readYaml(join(root, "argocd-oci-receipt.yaml")) : {};
+  const ociReceipt = hasOciReceipt ? readYaml(join(root, "argocd-oci-receipt.yaml")) : {};
   const literal = ociReceipt.spec?.artifacts?.literalConfiguration ?? {};
   const sourcePackage = ociReceipt.spec?.artifacts?.sourcePackage ?? {};
-  if (publishedEntry) {
+  const publiclyPublished = hasOciReceipt
+    && ociReceipt.status?.publicSourcePush === "pass"
+    && ociReceipt.status?.publicSourcePull === "pass"
+    && ociReceipt.status?.publicRenderedPush === "pass"
+    && ociReceipt.status?.publicRenderedPull === "pass";
+  if (hasOciReceipt) {
     check(/^sha256:[0-9a-f]{64}$/.test(literal.digest ?? ""), "OCI receipt pins no literal-configuration digest");
     check(/^sha256:[0-9a-f]{64}$/.test(sourcePackage.portableDigest ?? ""), "OCI receipt pins no source-package digest");
     check(Number.isInteger(literal.objectCount) && literal.objectCount > 0, "OCI receipt records no literal object count");
@@ -225,7 +230,7 @@ function compile(root) {
     expectedObjectCount = literal.objectCount;
   }
 
-  const transports = !publishedEntry ? [] : [
+  const transports = !hasOciReceipt ? [] : [
     manifestTransport(root, "argocd-config-oci", "literal-configuration", "local-argocd-config-oci-manifest.json", {
       receiptDigest: literal.digest,
       layout: "argocd-config",
@@ -369,7 +374,7 @@ function compile(root) {
       },
       boundary: {
         configPlaneOnly: true,
-        published: publishedEntry,
+        published: publiclyPublished,
         gpuWorkloadsProven: false,
         secretValuesIncluded: false,
         liveRegistryPublicationClaimed: false,
@@ -387,11 +392,13 @@ function renderReadme(compiled) {
   const { index } = compiled;
   const components = index.spec.members.filter((member) => member.role === "component-application");
   const root = index.spec.members.find((member) => member.role === "platform-root");
-  const transportSentence = index.spec.boundary.published
+  const transportSentence = index.spec.transports.length > 0
     ? `the ${index.spec.transports.length} committed OCI transport manifests`
     : "the planned OCI member references";
   const publicationSentence = index.spec.boundary.published
     ? "The OCI receipts next to this directory record the publication that was observed."
+    : index.spec.transports.length > 0
+      ? "The OCI receipt records verified local layouts. Public publication has not run."
     : "This retained version has no OCI publication receipt, so every OCI reference remains a plan.";
   return `# One digest pins the whole training shape
 

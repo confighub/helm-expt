@@ -1,0 +1,71 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SourceCatalogRecord"
+metadata:
+  name: "nvidia-aicr-v0-20-0"
+spec:
+  provider:
+    name: "NVIDIA"
+    role: "source-catalog-curator"
+  source:
+    project: "NVIDIA AICR"
+    repository: "https://github.com/NVIDIA/aicr"
+    version: "v0.20.0"
+    tag: "v0.20.0"
+    commit: "b8a6eadb2d6f7e5b62dcb93446874f383940de0f"
+  inventories:
+    sourceTreeOverlays:
+      count: 103
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-overlays.json"
+      recordSha256: "6a65a50d4533231c12d4920c5d94220fb410dc171f2f0f9c080b5ee29e581205"
+    embeddedCatalogEntries:
+      count: 102
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/catalog-list.json"
+      recordSha256: "676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
+    resolvedLeaves:
+      count: 45
+      structuralPass: 45
+      linkedEvidence: 2
+      pendingEvidence: 43
+      record: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/recipe-health.md"
+      recordSha256: "64854e7878acea6de17cb886b840fdb5b7768ab49046e23c42dae4df0e476c7a"
+  selectedSourceVariant:
+    name: "h100-eks-ubuntu-training-kubeflow"
+    source: "embedded"
+    dimensions:
+      service: "eks"
+      accelerator: "h100"
+      os: "ubuntu"
+      intent: "training"
+      platform: "kubeflow"
+    structuralStatus: "pass"
+    linkedEvidence: "[eks/h100-ubuntu/training-kubeflow](https://validation.aicr.run/#/eks/h100-ubuntu/training-kubeflow)"
+    appliedOverlays:
+      - "base"
+      - "monitoring-hpa"
+      - "h100-any"
+      - "eks"
+      - "eks-training"
+      - "h100-eks-training"
+      - "h100-eks-ubuntu-training"
+      - "h100-eks-ubuntu-training-kubeflow"
+    exactRecipe:
+      path: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/recipe.yaml"
+      sha256: "f7195375d052a1c4c169bfa7eb25e9999715cdae753dfab4b98da3b0aec49ea5"
+      componentCount: 15
+  interpretation:
+    sourceVariant: "The provider-curated leaf selected from this exact catalog instance."
+    retainedBaseVariant: "The exact objects later retained from this source variant, with separate digests and evidence."
+    derivedVariant: "A later reviewed ConfigHub change. It does not alter the identity or evidence of the provider source variant."
+    observedDifference: "A snapshot or diff reports what differs. It becomes a fault only when the intended source variant requires a different value."
+  normalization:
+    recipeHealthLinks: "Relative source-tree documentation links were replaced with immutable links at the retained NVIDIA commit. Report data and evidence links are unchanged."
+  limits:
+    - "The three inventory counts describe different sets and are not interchangeable."
+    - "Structural pass means the recipe resolves and pins chart versions; it is not runtime validation."
+    - "Only two of the 45 retained leaves have linked evidence in this upstream snapshot; 43 remain pending."
+    - "The selected source variant does not prove that its generated objects ran on EKS or H100 through ConfigHub."
+status:
+  result: "pass"
+  sourceCatalogRetained: true
+  selectedVariantReproducible: true
+  runtimeProven: false

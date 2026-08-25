@@ -1,0 +1,75 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: PlatformRouteIntent
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-20-0
+spec:
+  source:
+    type: aicr
+    provider: NVIDIA
+    sourceVariant: h100-eks-ubuntu-training-kubeflow
+    record: examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml
+  materializedObjects: examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered
+  boundary:
+    exactObjects: >-
+      The retained files are 17 Argo CD Application objects. Their exact
+      content can be reviewed and transported before delivery.
+    downstreamRendering: >-
+      Sixteen component Applications still reference Helm or local chart
+      sources. Argo CD or Flux processes those sources later. This entry does
+      not call the wrapper Applications the final workload objects.
+    observation: >-
+      AICR snapshot and diff can report node differences without this source
+      variant. Decide whether a difference is wrong only after binding the node
+      to the intended provider-curated variant and target role.
+  targetFacts:
+    - Argo CD and its Application CRD must exist before the retained wrapper objects can be applied.
+    - The destination must match the selected EKS, H100, Ubuntu, and Kubeflow training source variant.
+    - A gp3 StorageClass must be available for the selected storage input.
+    - GPU nodes must carry nvidia.com/gpu.present=true for the selected placement.
+    - EFA, RDMA, driver, and nvidia_peermem requirements must be checked against the actual node and network role.
+  routes:
+    - id: source-variant-target-match
+      lifecycleWork: compare observed destination facts with the intended NVIDIA source variant
+      owner: platform operator or admission policy
+      order: before destination-specific promotion or delivery
+      evidenceRequired: target snapshot, selected source-catalog digest, and an explained match or exception
+      status: recorded-not-run
+    - id: argocd-prerequisite
+      lifecycleWork: make the Argo CD Application API and controller available
+      owner: platform operator
+      order: before any retained Application object
+      evidenceRequired: Argo CD CRD discovery and controller readiness
+      status: recorded-not-run
+    - id: component-order
+      lifecycleWork: reconcile component Applications in AICR dependency order
+      owner: Argo CD
+      order: sync-wave annotations generated from recipe.deploymentOrder
+      evidenceRequired: observed sync operations and component health, not annotation survival alone
+      status: recorded-not-run
+    - id: downstream-chart-lifecycle
+      lifecycleWork: handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source
+      owner: destination controller and the referenced source processor
+      order: source- and destination-specific
+      evidenceRequired: nested source render, flattening decision, route resolution, and execution receipt
+      status: not-yet-materialized-for-v0.20.0
+    - id: aicr-node-inspection
+      lifecycleWork: collect and compare node facts without requiring a selected recipe
+      owner: AICR snapshot and diff
+      order: before or independently of configuration delivery
+      evidenceRequired: snapshot digests and the exact diff
+      status: available-not-run-for-this-entry
+    - id: aicr-configuration-validation
+      lifecycleWork: run checks whose prerequisites are satisfied by the selected source variant
+      owner: AICR validator or the operator's test runner
+      order: after the relevant components or hardware exist
+      evidenceRequired: per-check prerequisite classification and target output
+      status: not-run
+  checkClasses:
+    nodeInspection: usable without a recipe or deployed platform
+    configurationValidation: requires the selected source-and-intent record
+    postDeploymentValidation: requires declared components to exist
+    hardwareRuntimeProof: requires the named hardware and workload
+status:
+  configurationGenerated: true
+  routesExecuted: false
+  runtimeProven: false
