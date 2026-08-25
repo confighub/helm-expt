@@ -30,8 +30,10 @@ The page:
 
 The complete result contains the candidate YAML, optional comparison, optional
 source and intent record, browser review, matching local check result, and
-SHA-256 hash for every file. You can keep it locally or give it to Claude,
-Codex, another AI assistant, or CI.
+SHA-256 hash for every file. It also contains one canonical object-set hash for
+the accepted Kubernetes objects. The file hash changes when file layout or
+document order changes; the object-set hash does not. You can keep the result
+locally or give it to Claude, Codex, another AI assistant, or CI.
 The separate YAML and review downloads remain available when a tool expects
 ordinary files.
 
@@ -68,6 +70,10 @@ The generated commands keep a matching `cub check` result as a non-deployable
 evidence Unit beside the reviewed objects. That local result remains advisory.
 ConfigHub validation and apply gates are separate checks against the retained
 revision.
+
+The [website and command-line contract](../../data/config-workshop-command-contract/summary.md)
+shows the same flow for Helm and literal Kubernetes YAML. Both carry the
+canonical object-set hash into the ConfigHub upload annotation.
 
 The result format is defined by the
 [WorkshopResult schema](../../schemas/config-workshop-result.schema.json).

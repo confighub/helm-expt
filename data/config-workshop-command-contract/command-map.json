@@ -1,0 +1,181 @@
+{
+  "apiVersion": "workshop.confighub.com/v1alpha1",
+  "kind": "CommandContract",
+  "metadata": {
+    "name": "config-workshop-three-jobs",
+    "generatedAt": "2026-08-24T21:50:08.000Z"
+  },
+  "spec": {
+    "purpose": "Use released cub commands and one WorkshopResult record for the same three jobs shown on the website.",
+    "objectIdentity": {
+      "algorithm": "cub-scan-canonical-json-v1",
+      "rule": "The file hash identifies exact bytes. The object-set hash identifies the accepted Kubernetes objects across file names and document order.",
+      "configHubAnnotation": "workshop.confighub.com/object-set-sha256"
+    },
+    "jobs": [
+      {
+        "id": "need-configuration",
+        "question": "I need a configuration. How should I run this?",
+        "website": "https://confighub.github.io/helm-expt/site/charts/index.html",
+        "result": "Select an exact source and starting configuration before changing it."
+      },
+      {
+        "id": "check-configuration",
+        "question": "I have a configuration. Is it right?",
+        "website": "https://confighub.github.io/helm-expt/site/ask.html#check-my-config",
+        "result": "Keep exact objects, findings, omitted checks, and source context in workshop-result.json."
+      },
+      {
+        "id": "promote-configuration",
+        "question": "I have an accepted configuration. Can I promote it?",
+        "website": "https://confighub.github.io/helm-expt/site/promote.html",
+        "result": "Retain the accepted object-set hash in ConfigHub, then preview the linked downstream promotion."
+      }
+    ],
+    "examples": [
+      {
+        "id": "helm",
+        "label": "Helm values written with AI",
+        "source": {
+          "type": "helm",
+          "identity": "bitnami/nginx",
+          "version": "24.0.2",
+          "sourceAndIntent": "config-catalog/config-workshop-command-contract/helm-source-and-intent.yaml"
+        },
+        "acceptedObjectSet": {
+          "algorithm": "cub-scan-canonical-json-v1",
+          "objectCount": 5,
+          "sha256": "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+        },
+        "workshopResult": "data/config-workshop-command-contract/helm/workshop-result.json",
+        "stages": {
+          "select": {
+            "status": "real-work",
+            "command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 --json",
+            "note": "Read the maintained package choices without downloading or installing the package."
+          },
+          "materialize": {
+            "status": "real-work",
+            "command": "cub helm template nginx nginx --repo https://charts.bitnami.com/bitnami --version 24.0.2 --namespace nginx --values examples/byo-helm-values/reviewed-values.yaml --output-dir ./rendered",
+            "note": "Helm turns the pinned chart and values into Kubernetes objects."
+          },
+          "check": {
+            "status": "local-advisory",
+            "command": "cub check --format json --output cub-check.json ./rendered",
+            "receipt": "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+          },
+          "record": {
+            "status": "machine-readable",
+            "command": "node scripts/create-config-workshop-result.mjs --candidate ./rendered --cub-check cub-check.json --source-type helm --source bitnami/nginx --source-version 24.0.2 --source-record config-catalog/config-workshop-command-contract/helm-source-and-intent.yaml --configuration-decision config-catalog/review-decisions/byo-nginx-ai-values-24-0-2-reviewed.yaml --output workshop-result.json",
+            "output": "data/config-workshop-command-contract/helm/workshop-result.json",
+            "committedEvidence": {
+              "candidate": "data/byo-helm-values-review/reviewed-render.yaml",
+              "cubCheck": "runs/config-catalog-policy-functional-proof/reviewed-cub-check.json"
+            }
+          },
+          "retain": {
+            "status": "managed-dry-run-first",
+            "dryRun": "cub variant upload --dry-run --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered",
+            "execute": "cub variant upload --component byo-nginx-ai-values --variant reviewed --space byo-nginx-ai-values-24-0-2-reviewed --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 ./rendered",
+            "bindAcceptedIdentity": "cub unit update byo-nginx-ai-values --space byo-nginx-ai-values-24-0-2-reviewed --annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397 --change-desc \"Bind the accepted object set\""
+          },
+          "vary": {
+            "status": "proved-existing-chain",
+            "command": "cub variant create staging byo-nginx-ai-values-24-0-2-reviewed --space-pattern template:byo-nginx-ai-values-24-0-2-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+          },
+          "promote": {
+            "status": "proved-existing-chain",
+            "command": "cub variant promote byo-nginx-ai-values-24-0-2-staging --dry-run -o mutations",
+            "acceptedObjectSetSha256": "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+          },
+          "release": {
+            "status": "requires-release-target-and-gates",
+            "command": "cub release publish byo-nginx-ai-values-24-0-2-staging",
+            "note": "Publish only after the destination Space has a release target and its required checks and approvals pass."
+          }
+        },
+        "evidence": [
+          "data/config-review-decision-chain/summary.md",
+          "runs/byo-helm-values-proof/confighub-upload-receipt.yaml",
+          "runs/byo-helm-values-promotion-proof/receipt.yaml",
+          "runs/byo-helm-values-staging-deploy-proof/receipt.yaml",
+          "runs/config-workshop-command-contract/receipt.yaml"
+        ],
+        "currentLimit": "The retained base carries the canonical object-set annotation. Each derived variant still needs its own identity because a namespace or field change produces a different object set."
+      },
+      {
+        "id": "kubernetes-yaml",
+        "label": "Existing Kubernetes YAML",
+        "source": {
+          "type": "kubernetes-yaml",
+          "identity": "examples/plain-yaml/acme-web",
+          "version": "source-r001",
+          "sourceAndIntent": "data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml"
+        },
+        "acceptedObjectSet": {
+          "algorithm": "cub-scan-canonical-json-v1",
+          "objectCount": 4,
+          "sha256": "sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c"
+        },
+        "workshopResult": "data/config-workshop-command-contract/kubernetes-yaml/workshop-result.json",
+        "stages": {
+          "select": {
+            "status": "recorded-no-op",
+            "command": "find examples/plain-yaml/acme-web -name '*.yaml' -maxdepth 1 -print",
+            "note": "The supplied directory is already the selected source."
+          },
+          "materialize": {
+            "status": "recorded-no-op",
+            "command": "find examples/plain-yaml/acme-web -maxdepth 1 -name '*.yaml' -print",
+            "note": "The source already contains Kubernetes objects, so checking can start without rendering."
+          },
+          "check": {
+            "status": "local-advisory",
+            "command": "cub check --format json --output cub-check.json examples/plain-yaml/acme-web",
+            "receipt": "data/config-workshop-command-contract/kubernetes-yaml/cub-check.json"
+          },
+          "record": {
+            "status": "machine-readable",
+            "command": "node scripts/create-config-workshop-result.mjs --candidate examples/plain-yaml/acme-web --cub-check cub-check.json --source-type kubernetes-yaml --source examples/plain-yaml/acme-web --source-version source-r001 --source-record data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml --output workshop-result.json",
+            "output": "data/config-workshop-command-contract/kubernetes-yaml/workshop-result.json",
+            "committedEvidence": {
+              "candidate": "examples/plain-yaml/acme-web",
+              "cubCheck": "data/config-workshop-command-contract/kubernetes-yaml/cub-check.json"
+            }
+          },
+          "retain": {
+            "status": "managed-dry-run-first",
+            "dryRun": "cub variant upload --dry-run --component acme-web --variant base --space plain-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c examples/plain-yaml/acme-web",
+            "execute": "cub variant upload --component acme-web --variant base --space plain-yaml-acme-web-base --granularity minimal --annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c examples/plain-yaml/acme-web",
+            "bindAcceptedIdentity": "cub unit update acme-web --space plain-yaml-acme-web-base --annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c --change-desc \"Bind the accepted object set\""
+          },
+          "vary": {
+            "status": "command-contract-only",
+            "command": "cub variant create staging plain-yaml-acme-web-base --space-pattern template:plain-yaml-acme-web-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c"
+          },
+          "promote": {
+            "status": "command-contract-only",
+            "command": "cub variant promote plain-yaml-acme-web-staging --dry-run -o mutations",
+            "acceptedObjectSetSha256": "sha256:4c7fac59248636842c560c5fcb2076bf9ffe2ed2e4576ff754b51c8dc21fed6c"
+          },
+          "release": {
+            "status": "requires-release-target-and-gates",
+            "command": "cub release publish plain-yaml-acme-web-staging",
+            "note": "Publish only after the destination Space has a release target and its required checks and approvals pass."
+          }
+        },
+        "evidence": [
+          "data/literal-config-examples/summary.md",
+          "runs/literal-yaml-upload-proof/receipt.yaml"
+        ],
+        "currentLimit": "Checking and ConfigHub retention are proved. A linked staging promotion and delivery have not run for this example."
+      }
+    ],
+    "boundaries": [
+      "cub check is local advisory evidence. ConfigHub validation remains a separate managed control.",
+      "A promotion command is a preview until destination checks and the promotion itself have run.",
+      "Helm materialization does real work. Literal Kubernetes YAML is already materialized, so that stage is recorded as a no-op.",
+      "The public OCI digest, exact file hash, canonical object-set hash, and ConfigHub data hash have different roles."
+    ]
+  }
+}

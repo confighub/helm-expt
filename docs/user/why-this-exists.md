@@ -74,11 +74,11 @@ Command routing:
 | --- | --- |
 | Render and inspect an arbitrary Helm chart locally. | `cub helm template` |
 | Store an arbitrary chart and its rendered base in ConfigHub. | `cub helm install` |
-| Load rendered files or a literal OCI bundle into ConfigHub Units now. | `cub variant upload <files-or-oci-ref>` |
+| Load rendered files or a literal OCI bundle into ConfigHub Units now. | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
 | Maintain a reviewed, variant-aware catalog entry. | `cub installer` recipe/package path |
 | Graduate a chart render into that catalog path. | future `cub installer import helm` |
 | Bring existing Argo CD or Flux apps under ConfigHub visibility. | Read or export the app, then use `cub variant upload`. |
-| Bring KRM YAML or rendered manifests under ConfigHub visibility. | `cub variant upload <files-or-oci-ref>` |
+| Bring KRM YAML or rendered manifests under ConfigHub visibility. | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
 
 ## What The Wrapper/Machinery Is For
 

@@ -532,7 +532,7 @@ ConfigHub variant using `cub variant create` plus guided review.</code></pre>
 <p>Use the shortest command that answers the question you are asking:</p>
 <table><thead><tr><th>Goal</th><th>Command path</th></tr></thead><tbody><tr><td>See what an arbitrary chart and values render, without ConfigHub state.</td><td><code>cub helm template</code></td></tr>
 <tr><td>Store an arbitrary chart, its inputs, and its rendered base in ConfigHub.</td><td><code>cub helm install</code></td></tr>
-<tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
+<tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Adopt an existing Argo, Flux, KRM, or rendered-manifest app.</td><td>Read or export it from its current controller, then upload the reviewed YAML with <code>cub variant upload</code>.</td></tr>
 <tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
 <tr><td>Upload a reviewed rendered base into ConfigHub.</td><td><code>cub installer upload</code></td></tr>

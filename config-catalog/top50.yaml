@@ -139,8 +139,10 @@ spec:
       evidence:
         - data/byo-helm-values-review/summary.md
         - runs/byo-helm-values-proof/receipt.yaml
+        - data/config-workshop-command-contract/summary.md
       verify:
         - npm run byo-helm-values:verify
+        - npm run workshop:commands:verify
       next: Add private-chart and dependency-auth examples without weakening source-lock requirements.
 
     - id: T10
@@ -152,6 +154,7 @@ spec:
         - docs/user/ai-assisted-helm-changes.md
         - data/byo-helm-values-review/review.yaml
         - runs/ai-change-review-live-proof/receipt.yaml
+        - data/config-workshop-command-contract/helm/workshop-result.json
       verify:
         - npm run byo-helm-values:verify
         - npm run ai-change-review:live:verify
@@ -244,8 +247,10 @@ spec:
         - examples/plain-yaml/acme-web/README.md
         - runs/literal-yaml-upload-proof/receipt.yaml
         - data/literal-config-examples/summary.md
+        - data/config-workshop-command-contract/kubernetes-yaml/workshop-result.json
       verify:
         - npm run literal-config-examples:verify
+        - npm run workshop:commands:verify
         - npm run docs:verify
       next: Continue the same four-object base through a derived variant and release only when that adds a lesson not already covered by the main ConfigHub tutorial.
 
@@ -314,10 +319,13 @@ spec:
         - runs/aicr-variant-promotion-proof/receipt.yaml
         - data/measured-promotion-proof/summary.md
         - data/kps-confighub-lifecycle-promotion/summary.md
+        - data/config-workshop-command-contract/live-promotion.md
+        - runs/config-workshop-command-contract/receipt.yaml
       verify:
         - npm run byo-helm-values:promotion-verify
         - npm run aicr-variant-promotion:verify
         - npm run kps:confighub-lifecycle-promotion:verify
+        - npm run workshop:command-proof:verify
       next: Add the ordinary product interface and repeat destination preflight, rollback, and live comparison across more chart and target classes.
 
     - id: T22
@@ -650,9 +658,11 @@ spec:
         - docs/user/config-catalog-demonstrations.md
         - site/charts/index.html
         - site/testing.html
+        - data/config-workshop-command-contract/summary.md
       verify:
         - npm run config-catalog:verify
         - npm run site:verify
+        - npm run workshop:commands:verify
       next: Keep both navigation tables and their linked source pages current as starting points and jobs change.
 
     - id: T46
@@ -717,6 +727,8 @@ spec:
         - docs/planning/outside-user-test.md
         - docs/planning/persona-ux-audit-2026-06-22.md
         - data/managed-journey-coverage/summary.md
+        - docs/planning/config-workshop-simulation-findings.md
+        - data/site-persona-simulations-2026-08-24-command-contract-final/summary.md
       verify:
         - npm run docs:verify
         - npm run managed-journeys:verify

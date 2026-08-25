@@ -4791,6 +4791,7 @@ function askHtml() {
     <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
+    <p><strong>Already accepted a result?</strong> <a href="./promote.html">Compare the exact current result with the candidate for the next stage</a>. The promotion review shows what changed, what blocks the move, and which destination checks have not run.</p>
     <p>Doing this regularly? <a href="./ai.html">Install the Config Workshop agent skill</a> so your assistant follows the same version, evidence, lifecycle, and safety rules.</p>
     <p><button class="button primary" id="load-example" type="button">See an illustrative object review</button> <a class="button secondary" href="#build-prompt">Start with my chart and values</a> <a class="button secondary" href="#check-files">I have rendered YAML</a></p>
     <details>
@@ -4857,6 +4858,7 @@ function askHtml() {
       <textarea id="prompt-output" rows="28" readonly style="width:100%;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.45"></textarea>
       <p><button class="button primary" id="copy-prompt" type="button">Copy prompt</button> <span id="copy-status" role="status" style="color:var(--muted)"></span></p>
       <p>When the assistant finishes, return with <code>candidate.yaml</code>, the optional comparison file, and its final <code>WORKSHOP FINDING</code> block.</p>
+      <p><a class="button secondary" href="#check-files">I am back with the rendered files</a></p>
     </section>
 
     <section id="check-command" aria-labelledby="check-command-title">
@@ -4865,6 +4867,7 @@ function askHtml() {
       <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
 ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
+      <p><a href="./d/data/config-workshop-command-contract/summary.html">See the same three jobs through the website and released <code>cub</code> commands</a>. The Helm and plain-YAML examples use the same <code>WorkshopResult</code> record and carry one canonical object-set hash into the ConfigHub upload.</p>
     </section>
 
     <section aria-labelledby="completed-decision">
@@ -4872,6 +4875,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
       <p>In the worked NGINX case, the proposed values produced six local findings and an unwanted public LoadBalancer. The reviewed result fixes six problems and keeps one emptyDir finding visible under a narrow, dated exception for development and staging only.</p>
       <p>The same record then follows the accepted objects into ConfigHub, through a development-to-staging promotion, and into two Argo CD test deployments. Each step says what it proves and what it does not prove.</p>
       <p><a class="button secondary" href="./d/data/config-review-decision-chain/summary.html">Open the completed review</a></p>
+      <p>For a lifecycle-heavy upgrade, read the <a href="./d/data/kps-confighub-lifecycle-promotion/summary.html">Kube Prometheus Stack 85.3.3 to 86.1.0 destination result</a>. It checks namespaces, CRDs, server-side apply, prerequisites, approval, release OCI, and Argo CD separately.</p>
     </section>
 
     <section id="check-files" aria-labelledby="check-files-title">
@@ -4950,7 +4954,8 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
       <h3>Keep this reviewed result in ConfigHub</h3>
       <p>ConfigHub stores the exact Kubernetes objects you approved. It keeps the review record and any matching local check result beside them without adding those evidence files to a deployment release. Local findings remain advisory; ConfigHub records its own validation against the stored revision.</p>
-      <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code>. The upload records this hash and the review hash on the saved configuration.</p>
+      <p><strong>Candidate file hash:</strong> <code id="handoff-candidate-digest"></code><br><strong>Accepted object-set hash:</strong> <code id="handoff-object-set-digest"></code></p>
+      <p>The file hash identifies the exact bytes you reviewed. The object-set hash identifies the Kubernetes objects across file names and document order. The upload records both identities and the review hash on the saved configuration.</p>
       <p>If the candidate contains a Kubernetes Secret, stage that Secret separately. <code>cub variant upload</code> deliberately does not upload rendered Secret data.</p>
       <p><label for="component-slug"><strong>Component name</strong></label><br>
         <input id="component-slug" type="text" style="width:100%;max-width:520px;padding:10px;margin-top:6px" placeholder="my-service"></p>
@@ -5072,6 +5077,7 @@ function promoteHtml() {
     <p>An upgrade can fail because it changes an immutable StatefulSet field, removes an object, or needs setup that has not run. Compare the Kubernetes objects before production receives them.</p>
     <p><strong>In the website:</strong> compare the current and proposed object sets. Add staging results and download a review bound to both file hashes.</p>
     <p><strong>On the command line:</strong> create those object sets with Helm, AICR, OCI, or another source tool. Then use the generated <code>cub variant</code> commands to preview and run the managed promotion.</p>
+    <p><a href="./d/data/config-workshop-command-contract/summary.html">See the website and command-line contract</a> for one Helm result and one plain-YAML result. Both keep the accepted object-set hash before the ConfigHub dry run.</p>
     <p id="promotion-intro-detail">The comparison runs in your browser. Your files are not uploaded, and you do not need an account. It does not run Helm, contact a cluster, execute a test, or promote anything. A finished Redis review loads automatically so you can see the result before adding your own files.</p>
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
@@ -5135,7 +5141,7 @@ function promoteHtml() {
       <p><button class="button secondary" id="copy-ai-promotion" type="button">Copy the AI review prompt</button> <span id="ai-promotion-copy-status" role="status" style="color:var(--muted)"></span></p>
 
       <h3>Keep and run the promotion in ConfigHub</h3>
-      <p>The browser review stops before deployment. The commands below first preview a source refresh, then preview what each downstream variant would receive. Nothing changes until you remove <code>--dry-run</code>.</p>
+      <p>The browser review stops before deployment. Preview commands do not change ConfigHub. The write commands are separate so you can run them only after the preview, destination checks, and approval pass.</p>
       <div class="grid">
         <p><label for="confighub-component"><strong>Component</strong></label><br><input id="confighub-component" type="text" value="redis" style="width:100%;padding:10px;margin-top:6px"></p>
         <p><label for="confighub-base-space"><strong>Base Space</strong></label><br><input id="confighub-base-space" type="text" value="redis-base" style="width:100%;padding:10px;margin-top:6px"></p>
@@ -5145,8 +5151,13 @@ function promoteHtml() {
         <p><label for="confighub-namespace"><strong>Recorded namespace</strong> <span style="color:var(--muted);font-weight:400">(optional)</span></label><br><input id="confighub-namespace" type="text" value="" placeholder="Repeat the namespace used for the first upload" style="width:100%;padding:10px;margin-top:6px"></p>
       </div>
       <p><label for="confighub-destination-spaces"><strong>Downstream Spaces</strong></label><br><input id="confighub-destination-spaces" type="text" value="redis-staging" style="width:100%;padding:10px;margin-top:6px"></p>
-      <textarea id="confighub-promotion-commands" rows="18" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
-      <p><button class="button primary" id="copy-confighub-promotion" type="button">Copy the ConfigHub preview</button> <span id="confighub-promotion-copy-status" role="status" style="color:var(--muted)"></span> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
+      <p class="small">If a downstream Space does not exist, the preview shows its one-time creation command as a comment. Create it, then run the preview again before using the write commands.</p>
+      <h4>Preview</h4>
+      <textarea id="confighub-promotion-preview" rows="10" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button primary" id="copy-confighub-preview" type="button">Copy preview commands</button> <span id="confighub-preview-copy-status" role="status" style="color:var(--muted)"></span></p>
+      <h4>Run after approval</h4>
+      <textarea id="confighub-promotion-run" rows="16" readonly style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"></textarea>
+      <p><button class="button secondary" id="copy-confighub-run" type="button">Copy write commands</button> <span id="confighub-run-copy-status" role="status" style="color:var(--muted)"></span> <a class="button secondary" href="./redis-walkthrough.html">See the complete Redis run</a></p>
       <p><a href="./d/data/redis-upgrade-app-proof/summary.html">Open the Redis promotion, two-cluster rollout, and rollback evidence</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis 25.5.3</a> · <a href="./charts/bitnami-redis-27-0-0.html">Redis 27.0.0</a></p>
 
       <h3>Test candidates, then promote the one that passed</h3>
@@ -5194,9 +5205,11 @@ function promoteHtml() {
             <textarea id="destination" rows="3" style="width:100%;padding:10px;margin-top:6px" placeholder="One or more environment, cluster, or target names"></textarea></p>
         </div>
         <h3>Current configuration</h3>
+        <p class="small">For example: the rendered objects that development or production uses now.</p>
         <p><input id="current-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="current-label" type="text" value="current.yaml" aria-label="Current configuration name" style="padding:8px"></p>
         <textarea id="current-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you use now."></textarea>
         <h3>Proposed configuration</h3>
+        <p class="small">For example: the rendered objects from the new chart version or settings you want to move next.</p>
         <p><input id="candidate-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"> <input id="candidate-label" type="text" value="candidate.yaml" aria-label="Proposed configuration name" style="padding:8px"></p>
         <textarea id="candidate-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste or choose the Kubernetes YAML you want to move."></textarea>
         <details style="margin:18px 0">
@@ -5505,6 +5518,7 @@ function guidesHtml() {
     <section aria-labelledby="after">
       <h2 id="after">After a guide</h2>
       <p>Choose where the reviewed result goes on the <a href="./how-it-works.html">Deployment</a> page, find a configuration to start from in the <a href="./charts/index.html">Catalog</a>, or read <a href="./known-gaps.html">what is not ready yet</a>.</p>
+      <p>Need to compare identities? <a href="./how-it-works.html">Deployment</a> separates the Kubernetes object-set digest, the OCI manifest digest, and the ConfigHub release OCI digest. They identify different records.</p>
       <p>Some steps in the later two guides store the result in <a href="./confighub.html">ConfigHub</a>. Read <a href="./confighub.html">what ConfigHub adds</a> to see why a reviewed configuration becomes a shared record when your team needs changes, approvals, promotion, and rollout, and <a href="./serverless.html">how far you get without an account</a> if you would rather not.</p>
     </section>
   </main>
@@ -5566,7 +5580,7 @@ function docsHtml() {
       <h3><a href="./d/docs/user/variants-after-upload.html">How do I make environment variants?</a></h3>
       <p>Create, compare, and promote development and production variants.</p>
       <h3 id="promotion"><a href="./promote.html">How do I test a change before promotion?</a></h3>
-      <p>Compare the current and proposed Kubernetes objects in your browser. The result names what changed and what still needs a staging test.</p>
+      <p>Compare the exact current result with the candidate for the next stage. The review shows what changed, what blocks the move, and what still needs a staging test.</p>
       <h3><a href="../docs/user/day2-upgrade-story.md">How do I upgrade and roll back?</a></h3>
       <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, rollout, and rollback.</p>
       <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>

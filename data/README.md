@@ -26,6 +26,7 @@ smallest generated surface that answers it.
 | I want to know if I can use a chart AND how: support level beside evidence depth, prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md)<br>[chart-fact-sheets/fact-sheets.html](./chart-fact-sheets/fact-sheets.html)<br>[chart-fact-sheets/fact-sheets.csv](./chart-fact-sheets/fact-sheets.csv) |
 | I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions. | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md)<br>[chart-evidence-router/router.csv](./chart-evidence-router/router.csv) |
 | I want to know what outcomes are actually promised and proven. | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md)<br>[outcome-evidence-contract/outcomes.csv](./outcome-evidence-contract/outcomes.csv) |
+| I want the same choose, check, and promote jobs on the website and command line. | [config-workshop-command-contract/summary.md](./config-workshop-command-contract/summary.md)<br>[config-workshop-command-contract/command-map.json](./config-workshop-command-contract/command-map.json) |
 | I want the next work queues. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) |
 | I want to know which catalog base to try first. | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) |
 | I want to know whether any top-20 chart/base is easy, partial, blocked, or watch. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
@@ -87,6 +88,7 @@ smallest generated surface that answers it.
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
 | [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | Plain-English guide set for how each public chart preset stores rendered YAML in ConfigHub: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain. |
+| [config-workshop-command-contract/summary.md](./config-workshop-command-contract/summary.md) | The shared website and command-line contract for choosing, checking, retaining, and promoting configuration, with one exact Helm proof and one source-neutral YAML record. |
 | [anonymous-oci-ci-proof/summary.md](./anonymous-oci-ci-proof/summary.md) | Anonymous OCI work in GitHub Actions: public package digest, rendered object set, OCI-layout digest, pull-back comparison, and explicit limits. |
 | [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md) | Source-neutral OCI evidence chains for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration, with missing delivery or observation kept explicit. |
 | [redis-upgrade-app-proof/summary.md](./redis-upgrade-app-proof/summary.md) | Live Redis Upgrade App proof: retain a post-render replica change across a chart upgrade, show the two-wave environment impact, promote in sequence, and check one OCI digest on two Argo CD clusters. |
@@ -359,6 +361,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `site-persona-simulations-2026-08-23-change-workflow` | [site-persona-simulations-2026-08-23-change-workflow/summary.md](./site-persona-simulations-2026-08-23-change-workflow/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-three-click` | [site-persona-simulations-2026-08-23-three-click/summary.md](./site-persona-simulations-2026-08-23-three-click/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-23-three-click-after` | [site-persona-simulations-2026-08-23-three-click-after/summary.md](./site-persona-simulations-2026-08-23-three-click-after/summary.md) | supporting generated evidence |
+| `site-persona-simulations-2026-08-24-command-contract-final` | [site-persona-simulations-2026-08-24-command-contract-final/summary.md](./site-persona-simulations-2026-08-24-command-contract-final/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-24-managed-promotion` | [site-persona-simulations-2026-08-24-managed-promotion/summary.md](./site-persona-simulations-2026-08-24-managed-promotion/summary.md) | supporting generated evidence |
 | `site-persona-simulations-2026-08-24-managed-promotion-final` | [site-persona-simulations-2026-08-24-managed-promotion-final/summary.md](./site-persona-simulations-2026-08-24-managed-promotion-final/summary.md) | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
@@ -398,7 +401,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 219 CSV files. Each row records the path, audience,
+It includes 221 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

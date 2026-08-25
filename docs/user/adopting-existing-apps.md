@@ -52,7 +52,7 @@ team upgrade into ConfigHub gradually.
 | Argo CD Application | Read the Application and rendered objects through Argo CD or the Kubernetes API, then use `cub variant upload`. | controller ownership, source reference, rendered resources, links, target |
 | Flux HelmRelease | Read the HelmRelease and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | chart source, values source, rendered resources, links, target |
 | Flux Kustomization | Read the Kustomization and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | Kustomize source, rendered resources, links, target |
-| KRM YAML / rendered manifests | `cub variant upload <files-or-oci-ref>` | resource identity, labels, target, provenance, scans |
+| KRM YAML / rendered manifests | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` | resource identity, labels, target, provenance, scans |
 | Public Helm chart with no existing app | `helm template` or the `cub installer` catalog path | local Helm render or maintained catalog package depending on intent |
 
 ## A Small Plain YAML Example

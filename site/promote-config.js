@@ -94,11 +94,14 @@
     return record;
   }
 
-  function objectSetRecord(objectSet, digest) {
+  async function objectSetRecord(objectSet, digest) {
+    const identity = yamlTools.scannerObjectSetPayload(objectSet);
     return {
       name: objectSet.name,
       sha256: digest,
       objectCount: objectSet.objects.length,
+      objectSetSha256: await sha256(identity.payload),
+      objectSetHashAlgorithm: "cub-scan-canonical-json-v1",
       objects: objectSet.objects.map((object) => object.ref).sort(),
     };
   }
@@ -118,35 +121,51 @@
     const namespace = safeSlug(byId("confighub-namespace").value, "");
     const uploadShape = `--granularity ${granularity}${namespace ? ` --namespace ${namespace}` : ""}`;
     const destinations = byId("confighub-destination-spaces").value.split(/[\n,]/).map((value) => safeSlug(value, "")).filter(Boolean);
-    const changeId = `promote-${review.spec.candidate.sha256.slice(7, 19)}`;
+    const changeId = `promote-${review.spec.candidate.objectSetSha256.slice(7, 19)}`;
     const escapedBase = baseSpace.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const commands = [
+    const preview = [
       "# 1. Read the Space first. A re-upload must repeat its recorded Unit layout and namespace.",
       `cub space get ${baseSpace} -o yaml`,
       "# 2. Preview the source refresh. This is a three-way merge and changes nothing.",
-      `cub variant upload --dry-run --component ${component} --variant base --space ${baseSpace} ${uploadShape} candidate.yaml`,
-      "",
-      "# 3. After reviewing that output, retain the same candidate in the base Space.",
-      `cub variant upload --component ${component} --variant base --space ${baseSpace} ${uploadShape} --change-desc \"Reviewed ${review.spec.candidate.sha256}\" candidate.yaml`,
+      `cub variant upload --dry-run --component ${component} --variant base --space ${baseSpace} ${uploadShape} --annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} candidate.yaml`,
     ];
-    if (!destinations.length) commands.push("", "# Add one downstream Space above to receive concrete preview and promotion commands.");
+    const execute = [
+      "set -euo pipefail",
+      "",
+      "# Run these writes only after the preview and destination checks pass.",
+      `cub variant upload --component ${component} --variant base --space ${baseSpace} ${uploadShape} --annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} --change-desc \"Reviewed ${review.spec.candidate.objectSetSha256}\" candidate.yaml`,
+      `cub unit update ${component} --space ${baseSpace} --annotation workshop.confighub.com/object-set-sha256=${review.spec.candidate.objectSetSha256} --change-desc \"Bind the accepted object set\"`,
+    ];
+    if (!destinations.length) preview.push("", "# Add one existing downstream Space above to preview its promotion.");
     for (const destination of destinations) {
       const variantName = safeSlug(destination.replace(new RegExp(`^${escapedBase}-?`), ""), "staging");
-      commands.push(
+      preview.push(
         "",
-        `# Run once if ${destination} does not exist yet:`,
-        `cub variant create ${variantName} ${baseSpace} --space-pattern ${destination}`,
-        `# Preview exactly what ${destination} would receive:`,
+        `# If ${destination} does not exist, run this once, then rerun this preview:`,
+        `# cub variant create ${variantName} ${baseSpace} --space-pattern template:${destination}`,
+        `cub space get ${destination} -o name`,
+        `# Preview exactly what existing Space ${destination} would receive:`,
         `cub variant promote ${destination} --dry-run -o mutations`,
-        `# After checks and approval, retain the promotion in one ChangeSet:`,
-        `cub changeset create --space ${destination} ${changeId} --description \"Promote reviewed ${review.spec.candidate.sha256}\"`,
-        `cub variant promote ${destination} --changeset ${changeId} --change-desc \"Promote reviewed ${review.spec.candidate.sha256}\"`,
+      );
+      execute.push(
+        "",
+        `# Stop if ${destination} has not been created and previewed:`,
+        `cub space get ${destination} -o name >/dev/null`,
+        `# After the preview, destination checks, and approval, retain the promotion in one ChangeSet:`,
+        `cub changeset create --space ${destination} ${changeId} --description \"Promote reviewed ${review.spec.candidate.objectSetSha256}\"`,
+        `cub variant promote ${destination} --changeset ${changeId} --change-desc \"Promote reviewed ${review.spec.candidate.objectSetSha256}\"`,
         `# Publish only after the Space has a release target and its apply gates pass:`,
         `cub release publish ${destination}`,
       );
     }
-    commands.push("", "# Read the released digest back and add each target result to the PromotionReview.");
-    return commands.join("\n");
+    execute.push("", "# Read the released digest back and add each target result to the PromotionReview.");
+    return { preview: preview.join("\n"), execute: execute.join("\n") };
+  }
+
+  function setConfigHubCommands(review) {
+    const commands = buildConfigHubCommands(review);
+    byId("confighub-promotion-preview").value = commands.preview;
+    byId("confighub-promotion-run").value = commands.execute;
   }
 
   function buildAiPrompt(review) {
@@ -157,8 +176,8 @@
     return [
       "I am reviewing one configuration promotion.",
       "",
-      `Current file: current.yaml (${review.spec.current.sha256})`,
-      `Candidate file: candidate.yaml (${review.spec.candidate.sha256})`,
+      `Current file: current.yaml (${review.spec.current.sha256}); object set ${review.spec.current.objectSetSha256}`,
+      `Candidate file: candidate.yaml (${review.spec.candidate.sha256}); object set ${review.spec.candidate.objectSetSha256}`,
       `Destinations: ${review.spec.change.destinations.join(", ") || "not supplied"}`,
       `Field ownership: ${sourceSummary}`,
       "",
@@ -286,10 +305,16 @@
       const findings = inspectCandidate(candidate, comparison);
       const currentDigest = await sha256(currentText);
       const candidateDigest = await sha256(candidateText);
+      const currentRecord = await objectSetRecord(current, currentDigest);
+      const candidateRecord = await objectSetRecord(candidate, candidateDigest);
       const lifecycle = yamlTools.lifecycleFromRecord(sourceRecord, candidate);
       const destinations = destinationNames();
       const destinationPreflight = yamlTools.destinationPreflight(candidate, lifecycle, destinations);
-      const targetResults = yamlTools.parseTargetResults(byId("target-results").value, destinations.length ? destinations : ["staging"], candidateDigest);
+      const targetResults = yamlTools.parseTargetResults(
+        byId("target-results").value,
+        destinations.length ? destinations : ["staging"],
+        candidateRecord.objectSetSha256,
+      );
       const sameIdentities = comparison.added.length === 0 && comparison.removed.length === 0;
       const whatChanges = [`${comparison.added.length} object(s) added, ${comparison.removed.length} removed, and ${comparison.changed.length} changed.`];
       if (comparison.changed.length) whatChanges.push("Changed objects include " + comparison.changed.slice(0, 5).join(", ") + (comparison.changed.length > 5 ? ", and others." : "."));
@@ -336,13 +361,13 @@
         metadata: { createdAt: new Date().toISOString() },
         spec: {
           change: { type: byId("change-type").value, destinations, example: isExample ? "bitnami-redis-25.5.3-to-27.0.0" : "" },
-          current: objectSetRecord(current, currentDigest),
-          candidate: objectSetRecord(candidate, candidateDigest),
+          current: currentRecord,
+          candidate: candidateRecord,
           comparison,
           sourceAware: {
             ...sourceAware,
-            ...(currentSource ? { currentSource: objectSetRecord(currentSource, await sha256(currentSourceText)) } : {}),
-            ...(candidateSource ? { candidateSource: objectSetRecord(candidateSource, await sha256(candidateSourceText)) } : {}),
+            ...(currentSource ? { currentSource: await objectSetRecord(currentSource, await sha256(currentSourceText)) } : {}),
+            ...(candidateSource ? { candidateSource: await objectSetRecord(candidateSource, await sha256(candidateSourceText)) } : {}),
           },
           lifecycle,
           destinationPreflight,
@@ -361,7 +386,12 @@
           },
           testsRequired: [...new Set(testsRequired)],
           nextAction,
-          configHubPlan: { method: "variant-upload-refresh-then-variant-promote", candidateSha256: candidateDigest, previewRequired: true },
+          configHubPlan: {
+            method: "variant-upload-refresh-then-variant-promote",
+            candidateSha256: candidateDigest,
+            candidateObjectSetSha256: candidateRecord.objectSetSha256,
+            previewRequired: true,
+          },
         },
       };
       latestReviewJson = JSON.stringify(latestReview, null, 2) + "\n";
@@ -370,7 +400,7 @@
 
       byId("promotion-status").textContent = status;
       byId("promotion-counts").textContent = `${comparison.added.length} added · ${comparison.removed.length} removed · ${comparison.changed.length} changed · ${comparison.unchanged.length} unchanged · ${comparison.noOp.length} no-op`;
-      byId("promotion-exact-answer").textContent = `${candidate.name}: ${candidate.objects.length} Kubernetes objects at ${candidateDigest}.`;
+      byId("promotion-exact-answer").textContent = `${candidate.name}: ${candidate.objects.length} Kubernetes objects at ${candidateRecord.objectSetSha256}.`;
       byId("promotion-stage-answer").textContent = destinations.length
         ? destinations.join(" → ")
         : "No destination named. Test the candidate in a non-production environment first.";
@@ -383,7 +413,7 @@
       byId("promotion-current-answer").textContent = targetResults.counts.pass === 0
         && targetResults.counts.watch === 0
         && targetResults.counts.blocked === 0
-        ? `No target result has been supplied for ${candidateDigest}.`
+        ? `No target result has been supplied for ${candidateRecord.objectSetSha256}.`
         : `${targetResults.overall}: ${targetResults.counts.pass} pass, ${targetResults.counts.watch} watch, ${targetResults.counts.blocked} blocked, ${targetResults.counts["not-run"]} not run.`;
       byId("current-digest").textContent = currentDigest;
       byId("candidate-digest").textContent = candidateDigest;
@@ -401,7 +431,7 @@
       addList("next-actions", [nextAction], "Review the result before it moves.");
       byId("promotion-review-output").value = latestReviewJson;
       byId("ai-promotion-prompt").value = buildAiPrompt(latestReview);
-      byId("confighub-promotion-commands").value = buildConfigHubCommands(latestReview);
+      setConfigHubCommands(latestReview);
       byId("promotion-result").hidden = false;
       if (!autoLoading) byId("promotion-result").scrollIntoView({ behavior: "smooth", block: "start" });
     } catch (error) {
@@ -522,10 +552,11 @@
   byId("download-promotion-current").addEventListener("click", () => latestCurrent && download("current.yaml", latestCurrent, "application/yaml"));
   byId("download-promotion-candidate").addEventListener("click", () => latestCandidate && download("candidate.yaml", latestCandidate, "application/yaml"));
   byId("copy-ai-promotion").addEventListener("click", () => copyText(byId("ai-promotion-prompt").value, "ai-promotion-copy-status"));
-  byId("copy-confighub-promotion").addEventListener("click", () => copyText(byId("confighub-promotion-commands").value, "confighub-promotion-copy-status"));
+  byId("copy-confighub-preview").addEventListener("click", () => copyText(byId("confighub-promotion-preview").value, "confighub-preview-copy-status"));
+  byId("copy-confighub-run").addEventListener("click", () => copyText(byId("confighub-promotion-run").value, "confighub-run-copy-status"));
   for (const id of ["confighub-component", "confighub-base-space", "confighub-granularity", "confighub-namespace", "confighub-destination-spaces"]) {
     byId(id).addEventListener("input", () => {
-      if (latestReview) byId("confighub-promotion-commands").value = buildConfigHubCommands(latestReview);
+      if (latestReview) setConfigHubCommands(latestReview);
     });
   }
 

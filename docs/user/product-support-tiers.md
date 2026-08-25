@@ -264,7 +264,7 @@ Current entry points:
 | Argo CD Application | Read the Application and rendered objects, then use `cub variant upload`. |
 | Flux HelmRelease | Read the HelmRelease and rendered objects, then use `cub variant upload`. |
 | Flux Kustomization | Read the Kustomization and rendered objects, then use `cub variant upload`. |
-| KRM YAML or rendered Kubernetes resources | `cub variant upload <files-or-oci-ref>` |
+| KRM YAML or rendered Kubernetes resources | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
 
 The first promise is visibility without disruption:
 

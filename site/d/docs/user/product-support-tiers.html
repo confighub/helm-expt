@@ -580,7 +580,7 @@ live resources imported for review</code></pre>
 <table><thead><tr><th>Existing source</th><th>Entry point</th></tr></thead><tbody><tr><td>Argo CD Application</td><td>Read the Application and rendered objects, then use <code>cub variant upload</code>.</td></tr>
 <tr><td>Flux HelmRelease</td><td>Read the HelmRelease and rendered objects, then use <code>cub variant upload</code>.</td></tr>
 <tr><td>Flux Kustomization</td><td>Read the Kustomization and rendered objects, then use <code>cub variant upload</code>.</td></tr>
-<tr><td>KRM YAML or rendered Kubernetes resources</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr></tbody></table>
+<tr><td>KRM YAML or rendered Kubernetes resources</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr></tbody></table>
 <p>The first promise is visibility without disruption:</p>
 <pre><code>Show me the app.
 Preserve where it came from.

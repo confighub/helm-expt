@@ -71,6 +71,7 @@
   let latestWorkshopResultDigest = "";
   let latestCubCheckJson = "";
   let latestCubCheckDigest = "";
+  let latestCandidateObjectSet = null;
 
   function selectedQuestion() {
     return questions[byId("question-type").value];
@@ -321,7 +322,16 @@
     return "sha256:" + [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
   }
 
-  async function matchedCubCheck(candidate) {
+  async function scannerObjectSetIdentity(candidate) {
+    const identity = yamlTools.scannerObjectSetPayload(candidate);
+    return {
+      algorithm: "cub-scan-canonical-json-v1",
+      objectCount: identity.objectCount,
+      sha256: await sha256(identity.payload),
+    };
+  }
+
+  async function matchedCubCheck(expectedInput) {
     const text = byId("cub-check-result").value.trim();
     if (!text) return null;
     let document;
@@ -330,15 +340,13 @@
     } catch {
       throw new Error("cub-check.json is not valid JSON.");
     }
-    const identity = yamlTools.scannerObjectSetPayload(candidate);
-    const expectedInput = {
-      objectCount: identity.objectCount,
-      objectSetSha256: await sha256(identity.payload),
-    };
     return {
       text,
       digest: await sha256(text),
-      receipt: yamlTools.validateCubCheckReceipt(document, expectedInput),
+      receipt: yamlTools.validateCubCheckReceipt(document, {
+        objectCount: expectedInput.objectCount,
+        objectSetSha256: expectedInput.sha256,
+      }),
     };
   }
 
@@ -431,7 +439,8 @@
     const findings = inspectObjects(candidate);
     const sourceRecord = parseSourceRecord();
     const lifecycle = yamlTools.lifecycleFromRecord(sourceRecord, candidate);
-    const cubCheck = await matchedCubCheck(candidate);
+    const candidateObjectSet = await scannerObjectSetIdentity(candidate);
+    const cubCheck = await matchedCubCheck(candidateObjectSet);
     const candidateDigest = await sha256(candidateText);
     const comparisonDigest = comparisonSet ? await sha256(comparisonText) : "";
     const code = byId("question-type").value;
@@ -493,6 +502,7 @@
     latestCandidate = candidateText;
     latestCubCheckJson = cubCheck?.text || "";
     latestCubCheckDigest = cubCheck?.digest || "";
+    latestCandidateObjectSet = candidateObjectSet;
     const sourceRecordText = byId("check-source-record").value.trim();
     const resultFiles = [
       { path: "candidate.yaml", mediaType: "application/yaml", sha256: candidateDigest, content: candidateText },
@@ -517,12 +527,16 @@
       content: cubCheck.text,
     });
     const workshopResult = {
-      apiVersion: "workshop.confighub.com/v1alpha1",
+      apiVersion: "workshop.confighub.com/v1alpha2",
       kind: "WorkshopResult",
       metadata: { id: "result-" + candidateDigest.slice(7, 19), createdAt: now },
       spec: {
         question: latestReview.spec.question,
         source: latestReview.spec.source,
+        candidate: {
+          content: { path: "candidate.yaml", sha256: candidateDigest },
+          objectSet: candidateObjectSet,
+        },
         files: resultFiles,
         checks: {
           completed: [
@@ -535,16 +549,28 @@
           notRun: latestReview.spec.checks.notChecked,
           advisoryReceipts: cubCheck ? [cubCheck.receipt] : [],
         },
+        findingDecisions: {
+          status: (cubCheck ? cubCheck.receipt.findingIds : findings.map((finding) => finding.code)).length
+            ? "not-recorded"
+            : "not-required",
+          candidateObjectSetSha256: candidateObjectSet.sha256,
+          outcomes: (cubCheck ? cubCheck.receipt.findingIds : findings.map((finding) => finding.code)).map((findingId) => ({
+            findingId,
+            decision: "unreviewed",
+            rationale: "No configuration decision was supplied for this finding.",
+            controlIds: [],
+          })),
+        },
         next: {
-          local: "Keep this file, extract its exact files for your own AI or CI, or publish the reviewed candidate as OCI with local tools.",
-          managed: "Retain candidate.yaml and workshop-review.json in ConfigHub when a team needs shared history, variants, promotion, release OCI, or live comparison.",
+          local: "Review every finding before you call this result accepted. Keep this file, extract its exact files for your own AI or CI, or publish the reviewed candidate as OCI with local tools.",
+          managed: "Retain candidate.yaml and workshop-review.json in ConfigHub with annotation workshop.confighub.com/object-set-sha256=" + candidateObjectSet.sha256 + " when a team needs shared history, variants, promotion, release OCI, or live comparison.",
         },
       },
     };
     latestWorkshopResultJson = JSON.stringify(workshopResult, null, 2) + "\n";
     latestWorkshopResultDigest = await sha256(latestWorkshopResultJson);
     byId("browser-check-summary").innerHTML =
-      "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; <code style=\"overflow-wrap:anywhere;word-break:break-all\">" + escapeHtml(candidateDigest) + "</code></p>" +
+      "<p><strong>Candidate:</strong> " + candidate.objects.length + " objects &middot; object set <code style=\"overflow-wrap:anywhere;word-break:break-all\">" + escapeHtml(candidateObjectSet.sha256) + "</code></p>" +
       comparisonSummary(comparison) +
       "<h3>Findings to review</h3>" + findingList(findings) +
       (cubCheck
@@ -559,6 +585,7 @@
     byId("workshop-result-output").value = latestWorkshopResultJson;
     byId("workshop-result-digest").textContent = latestWorkshopResultDigest;
     byId("handoff-candidate-digest").textContent = candidateDigest;
+    byId("handoff-object-set-digest").textContent = candidateObjectSet.sha256;
     byId("review-result").hidden = false;
     try {
       sessionStorage.setItem("config-workshop-reviewed-candidate", latestCandidate);
@@ -597,6 +624,7 @@
       "  --granularity per-resource \\",
       "  --change-desc \"Config Workshop " + latestReview.metadata.id + "\" \\",
       "  --annotation workshop.confighub.com/candidate-sha256=" + latestReview.spec.candidate.sha256 + " \\",
+      "  --annotation workshop.confighub.com/object-set-sha256=" + latestCandidateObjectSet.sha256 + " \\",
       "  --annotation workshop.confighub.com/review-sha256=" + latestReviewDigest + " \\",
       ...(latestReview.spec.checks.advisoryReceipts.length
         ? ["  --annotation workshop.confighub.com/local-check-object-set-sha256=" + latestReview.spec.checks.advisoryReceipts[0].input.objectSetSha256 + " \\"]
@@ -638,12 +666,13 @@
       "Do this:",
       "1. Read candidate.yaml and workshop-review.json through the workspace you already have open. If only workshop-result.json is present, extract those exact file contents from spec.files first and verify their recorded hashes. Treat them as private unless workshop-review.json explicitly says the source is public. Do not disclose them through another service or a public issue.",
       "2. Calculate the SHA-256 of candidate.yaml and confirm that it matches spec.candidate.sha256 in workshop-review.json. The expected SHA-256 of workshop-review.json is " + latestReviewDigest + ". Stop if either digest differs.",
-      "3. Summarize the recorded findings, any spec.checks.advisoryReceipts, and the checks listed under spec.checks.notChecked. A cub check receipt is local advisory evidence; do not call it ConfigHub validation or describe an omitted check as passed.",
-      "4. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
-      "5. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
-      "6. Show me the exact ConfigHub commands below and ask for approval before running them.",
-      "7. After approval, run the commands. Then read the stored result with `cub unit list --space " + space + "` and `cub k8s get all --space " + space + " --show data`.",
-      "8. Report the Space, stored Units, candidate digest, review digest, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
+      "3. Read spec.candidate.objectSet in workshop-result.json. Its " + latestCandidateObjectSet.algorithm + " identity is " + latestCandidateObjectSet.sha256 + ". If you rerun cub check, require the same input.object_set_sha256 before continuing.",
+      "4. Summarize the recorded findings, any spec.checks.advisoryReceipts, and the checks listed under spec.checks.notChecked. A cub check receipt is local advisory evidence; do not call it ConfigHub validation or describe an omitted check as passed.",
+      "5. Do not rewrite or re-render candidate.yaml during this handoff. If you recommend a fix, write a separate candidate and ask me to run the checks again.",
+      "6. Check candidate.yaml for Kubernetes Secret objects. If it contains any, stop and ask me how those Secrets will be supplied. Do not put rendered Secret data into the ConfigHub upload.",
+      "7. Show me the exact ConfigHub commands below and ask for approval before running them.",
+      "8. After approval, run the commands. Then read the stored result with `cub unit list --space " + space + "` and `cub k8s get all --space " + space + " --show data`.",
+      "9. Report the Space, stored Units, candidate file hash, object-set hash, review hash, and any discrepancy. Say plainly that a successful upload does not prove deployment, admission, hook execution, or workload health.",
       "",
       "Exact ConfigHub commands:",
       byId("handoff-command").value,

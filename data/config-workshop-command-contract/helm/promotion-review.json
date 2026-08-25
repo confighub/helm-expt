@@ -1,0 +1,190 @@
+{
+  "apiVersion": "workshop.confighub.com/v1alpha2",
+  "kind": "PromotionReview",
+  "metadata": {
+    "createdAt": "2026-08-24T21:50:08Z"
+  },
+  "spec": {
+    "change": {
+      "question": "Can I promote this four-replica NGINX configuration to staging?",
+      "summary": "Increase replicas from three to four and bound the temporary emptyDir to 512Mi."
+    },
+    "current": {
+      "name": "candidate.yaml",
+      "sha256": "sha256:ec4195803615b2e0d31e82488a16e0ab190ade8ddb0d3b892ceee6c3a724c8b6",
+      "objectCount": 5,
+      "objectSetSha256": "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397",
+      "objectSetHashAlgorithm": "cub-scan-canonical-json-v1",
+      "objects": [
+        "Deployment/nginx/nginx",
+        "NetworkPolicy/nginx/nginx",
+        "PodDisruptionBudget/nginx/nginx",
+        "Service/nginx/nginx",
+        "ServiceAccount/nginx/nginx"
+      ]
+    },
+    "candidate": {
+      "name": "candidate.yaml",
+      "sha256": "sha256:5b89805dce1f9f42add7bf47a71183284b814a0a36a118716f96db50f8846ca1",
+      "objectCount": 5,
+      "objectSetSha256": "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2",
+      "objectSetHashAlgorithm": "cub-scan-canonical-json-v1",
+      "objects": [
+        "Deployment/nginx/nginx",
+        "NetworkPolicy/nginx/nginx",
+        "PodDisruptionBudget/nginx/nginx",
+        "Service/nginx/nginx",
+        "ServiceAccount/nginx/nginx"
+      ]
+    },
+    "comparison": {
+      "status": "compared",
+      "objectSet": {
+        "name": "reviewed-render.yaml",
+        "sha256": "sha256:ec4195803615b2e0d31e82488a16e0ab190ade8ddb0d3b892ceee6c3a724c8b6",
+        "objectCount": 5,
+        "objects": [
+          "Deployment/nginx/nginx",
+          "NetworkPolicy/nginx/nginx",
+          "PodDisruptionBudget/nginx/nginx",
+          "Service/nginx/nginx",
+          "ServiceAccount/nginx/nginx"
+        ]
+      },
+      "added": [],
+      "removed": [],
+      "changed": [
+        "Deployment/nginx/nginx"
+      ],
+      "unchanged": [
+        "NetworkPolicy/nginx/nginx",
+        "PodDisruptionBudget/nginx/nginx",
+        "Service/nginx/nginx",
+        "ServiceAccount/nginx/nginx"
+      ],
+      "noOp": []
+    },
+    "sourceAware": {
+      "source": "bitnami/nginx@24.0.2 with reviewed Helm values",
+      "sourceControlled": "The chart and reviewed values produced the retained three-replica base.",
+      "configHubControlled": [
+        "apps/v1 Deployment/nginx spec.replicas",
+        "apps/v1 Deployment/nginx spec.template.spec.volumes[name=empty-dir].emptyDir.sizeLimit"
+      ],
+      "targetSupplied": [
+        "Secret nginx/ai-provider-credentials"
+      ]
+    },
+    "lifecycle": {
+      "record": "byo-nginx-ai-values-24-0-2-reviewed",
+      "requirements": [
+        {
+          "detail": "The destination must supply the AI provider Secret before delivery.",
+          "id": "nginx/ai-provider-credentials",
+          "origin": "reviewed-values",
+          "type": "target-fact"
+        }
+      ],
+      "routes": [],
+      "targetFacts": {
+        "declared": {
+          "requiredSecrets": [
+            {
+              "keys": [
+                "AI_API_KEY"
+              ],
+              "name": "ai-provider-credentials",
+              "namespace": "nginx"
+            }
+          ]
+        },
+        "records": [
+          "data/byo-helm-values-review/review.yaml"
+        ],
+        "requirementRefs": [
+          "nginx/ai-provider-credentials"
+        ],
+        "status": "recorded"
+      },
+      "resolution": {
+        "records": [
+          "runs/byo-helm-values-deploy-proof/receipt.yaml",
+          "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+        ],
+        "rule": "Recheck the required Secret and any lifecycle-sensitive change for each new destination.",
+        "status": "resolved-for-development-and-staging-proof"
+      }
+    },
+    "destinationPreflight": {
+      "destinations": [
+        "staging"
+      ],
+      "namespaces": [
+        "nginx"
+      ],
+      "namespaceHandling": "preserve-source-namespaces",
+      "prerequisites": {
+        "requiredSecrets": [
+          "nginx/ai-provider-credentials"
+        ]
+      },
+      "lifecycleResolution": {
+        "status": "recheck-at-destination",
+        "routes": []
+      },
+      "delivery": {
+        "route": "ConfigHub release OCI to Argo CD",
+        "status": "not-run-for-this-candidate"
+      },
+      "checks": [
+        {
+          "id": "local-cub-check",
+          "status": "pass",
+          "note": "cub check reported no finding for the exact candidate object set.",
+          "evidence": [
+            "data/config-workshop-command-contract/helm/promoted-cub-check.json"
+          ]
+        },
+        {
+          "id": "required-secret",
+          "status": "not-run",
+          "note": "Check the named Secret at the staging destination before release."
+        },
+        {
+          "id": "managed-validation",
+          "status": "not-run",
+          "note": "Run ConfigHub validation against the retained candidate revision."
+        },
+        {
+          "id": "live-convergence",
+          "status": "not-run",
+          "note": "Observe Argo CD and the workload after release."
+        }
+      ]
+    },
+    "targets": {
+      "selected": [
+        "staging"
+      ],
+      "liveFactsSupplied": false
+    },
+    "browserChecks": {
+      "status": "pass",
+      "candidateObjectSetSha256": "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2",
+      "localReceipt": "data/config-workshop-command-contract/helm/promoted-cub-check.json"
+    },
+    "testsRequired": [
+      "Confirm Secret nginx/ai-provider-credentials exists at the destination.",
+      "Run revision-bound ConfigHub validation.",
+      "Preview the promotion mutations before execution.",
+      "Publish and observe the exact release before calling staging converged."
+    ],
+    "nextAction": "Retain the exact candidate in ConfigHub, bind its object-set hash to the change record, and run a promotion preview.",
+    "configHubPlan": {
+      "baseSpace": "workshop-contract-nginx-base",
+      "destinationSpace": "workshop-contract-nginx-staging",
+      "objectSetAnnotation": "workshop.confighub.com/object-set-sha256=sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2",
+      "proof": "runs/config-workshop-command-contract/receipt.yaml"
+    }
+  }
+}

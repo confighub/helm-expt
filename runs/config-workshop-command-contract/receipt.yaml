@@ -1,0 +1,81 @@
+apiVersion: "workshop.confighub.com/v1alpha1"
+kind: "WorkshopCommandContractLiveReceipt"
+metadata:
+  name: "nginx-reviewed-base-to-staging"
+spec:
+  capturedAt: "2026-08-24T22:00:46.242Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+  source:
+    baseWorkshopResult: "data/config-workshop-command-contract/helm/workshop-result.json"
+    promotedWorkshopResult: "data/config-workshop-command-contract/helm/promoted-workshop-result.json"
+    promotionReview: "data/config-workshop-command-contract/helm/promotion-review.json"
+    currentObjectSetSha256: "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+    candidateObjectSetSha256: "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+  retention:
+    space: "workshop-contract-nginx-base"
+    unit: "workshop-contract-nginx"
+    unitId: "9a9096f0-2577-45c7-8fc9-d7f463aafee6"
+    headRevision: 2
+    upstreamRevision: 0
+    dataHash: "05670a9c781f77d3fa69d14942ab44bcb9610b9948714317d6940069abac1818"
+    objectSetSha256: "sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+    annotation: "workshop.confighub.com/object-set-sha256=sha256:502d8c85470455fa4152f8d0abb9d1582552e830148e90335e9649cbfd42f397"
+  candidate:
+    space: "workshop-contract-nginx-base"
+    unit: "workshop-contract-nginx"
+    unitId: "9a9096f0-2577-45c7-8fc9-d7f463aafee6"
+    headRevision: 3
+    upstreamRevision: 0
+    dataHash: "1850a80fc13e7e897ff5699c3cd71aa55361187c857fb0e9a5cb9fa6c34e8d87"
+    objectSetSha256: "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+    annotation: "workshop.confighub.com/object-set-sha256=sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+  preview:
+    command: "cub variant promote workshop-contract-nginx-staging --dry-run -o mutations"
+    summary: "Deployment/nginx: replicas 3 to 4; emptyDir sizeLimit set to 512Mi; ConfigHub also reported one storage-only source-comment change."
+    includesStorageOnlyCommentChange: true
+    storedDataUnchanged: true
+    revisionUnchanged: true
+  promotion:
+    command: "cub variant promote workshop-contract-nginx-staging --changeset reviewed-four-replica-promotion"
+    destination:
+      space: "workshop-contract-nginx-staging"
+      unit: "workshop-contract-nginx"
+      unitId: "f4747a9b-b129-4dbc-bce2-209ab358ab8f"
+      headRevision: 4
+      upstreamRevision: 3
+      dataHash: "1850a80fc13e7e897ff5699c3cd71aa55361187c857fb0e9a5cb9fa6c34e8d87"
+      objectSetSha256: "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+      annotation: "workshop.confighub.com/object-set-sha256=sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+    changeSet:
+      slug: "reviewed-four-replica-promotion"
+      id: "1c7fb14d-95d1-4ceb-9370-2bb44ed8aeaf"
+      candidateObjectSetSha256: "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+    candidateObjectSetSha256: "sha256:55f6bdcd4f07dc2f57d2dad456addcb035eaf867adcf864ebdf224555636f9e2"
+    approvedRevision: 4
+  identities:
+    algorithm: "cub-scan-canonical-json-v1"
+    ConfigHubDataHashRole: "ConfigHub storage identity"
+    objectSetHashRole: "accepted Kubernetes object identity"
+    resourceView: "cub k8s get all --space workshop-contract-nginx-staging --show data -o json"
+    resourceViewRole: "ConfigHub's Kubernetes resource view omits storage-only comment-preservation data before the object-set hash is calculated."
+  checks:
+    localCandidate: "pass"
+    retainedObjectSet: "pass"
+    previewNonMutating: "pass"
+    promotedObjectSet: "pass"
+    changeRecordBoundToCandidate: "pass"
+    revisionApproval: "pass"
+    destinationSecret: "not-run"
+    releaseOci: "not-run"
+    delivery: "not-run"
+    liveObservation: "not-run"
+status:
+  result: "pass"
+  claim: "The exact locally checked candidate was retained in ConfigHub, named on the promotion ChangeSet, promoted to staging, and approved without losing its canonical object-set identity."
+  limits:
+    - "This receipt stops before release publication, delivery, and live observation."
+    - "The required staging Secret was not checked in this run."
+    - "The preview also reported a storage-only source-comment change; the canonical Kubernetes object comparison excludes that metadata."
+    - "Local cub check evidence and ConfigHub revision approval remain separate records."

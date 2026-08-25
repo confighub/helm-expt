@@ -452,7 +452,7 @@
 <h2 id="short-version">Short Version</h2>
 <table><thead><tr><th>User goal</th><th>Use</th></tr></thead><tbody><tr><td>See what an arbitrary Helm chart and values render, without ConfigHub state.</td><td><code>cub helm template</code></td></tr>
 <tr><td>Store an arbitrary Helm chart, its inputs, and its rendered base in ConfigHub.</td><td><code>cub helm install</code></td></tr>
-<tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
+<tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
 <tr><td>Keep one selected catalog preset as a local OCI layout or push it to a registry.</td><td>Add <code>--output-oci &lt;path-or-oci-ref&gt;</code> to <code>cub installer setup</code>.</td></tr>
 <tr><td>Upload a reviewed rendered base into ConfigHub.</td><td><code>cub installer upload</code></td></tr>
@@ -481,13 +481,13 @@
 <p>A user can move through these paths over time. They do not need to choose the full catalog model on day one.</p>
 <table><thead><tr><th>Stage</th><th>Command path</th><th>Result</th></tr></thead><tbody><tr><td>Inspect</td><td><code>cub helm template</code></td><td>Render an arbitrary chart locally and see the Kubernetes objects.</td></tr>
 <tr><td>Adopt an arbitrary Helm chart</td><td><code>cub helm install</code></td><td>Store a HelmSource Unit and the rendered base Units in two ConfigHub Spaces.</td></tr>
-<tr><td>Adopt files or OCI</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td></tr>
+<tr><td>Adopt files or OCI</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td></tr>
 <tr><td>Use a maintained catalog entry</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt; [--output-oci &lt;path-or-ref&gt;]</code></td><td>Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks; optionally keep the selected result as OCI.</td></tr>
 <tr><td>Operate</td><td><code>cub installer upload</code>, <code>cub variant create</code>, <code>cub variant promote</code>, ConfigHub changesets, scans, approvals, OCI/GitOps, observations</td><td>Manage reviewed objects as ConfigHub Units and derived variants.</td></tr></tbody></table>
 <p>Existing apps enter through the same model without a recipe rewrite:</p>
 <table><thead><tr><th>Existing source</th><th>First command path</th><th>Next decision</th></tr></thead><tbody><tr><td>Argo CD Application</td><td>Read the Application and rendered objects through Argo CD or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>Preserve the controller source and target before changing delivery.</td></tr>
 <tr><td>Flux HelmRelease or Kustomization</td><td>Read the source object and rendered objects through Flux or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>Preserve the controller source and target before changing delivery.</td></tr>
-<tr><td>Rendered KRM YAML or manifests</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Add labels, links, scans, gates, and observations.</td></tr></tbody></table>
+<tr><td>Rendered KRM YAML or manifests</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td><td>Add labels, links, scans, gates, and observations.</td></tr></tbody></table>
 <p>The important boundary is whether the user wants a one-time representation or a maintained artifact. Direct commands are good for one-time representation. Catalog entries are for repeatable bases, variant support, updates, patches, and proof.</p>
 <p>For concrete &quot;you should see something like this&quot; checks after each command, use <a href="expected-results-and-clusters.html">Expected Results And Clusters</a>. It also explains when users need no cluster, a local kind cluster, their own Kubernetes cluster, or a temporary cluster created by <code>cub cluster up</code>.</p>
 <h2 id="command-roles">Command Roles</h2>
@@ -544,7 +544,7 @@
 <h2 id="routing-table">Routing Table</h2>
 <table><thead><tr><th>Request</th><th>Route</th></tr></thead><tbody><tr><td>&quot;Show me what this arbitrary chart and values produce.&quot;</td><td><code>cub helm template</code></td></tr>
 <tr><td>&quot;Store this arbitrary chart and values in ConfigHub.&quot;</td><td><code>cub helm install</code></td></tr>
-<tr><td>&quot;Load these rendered files or this literal OCI bundle into ConfigHub.&quot;</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
+<tr><td>&quot;Load these rendered files or this literal OCI bundle into ConfigHub.&quot;</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>&quot;Use the supported Redis catalog entry.&quot;</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default</code></td></tr>
 <tr><td>&quot;Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology.&quot;</td><td>create or choose a <code>cub installer</code> base variant</td></tr>
 <tr><td>&quot;Fill <code>extraDeploy</code>, <code>serverBlock</code>, <code>tpl</code>, sidecar, raw manifest, or config-block slots.&quot;</td><td>create or choose a reviewed <code>cub installer</code> base variant</td></tr>

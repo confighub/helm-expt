@@ -44,11 +44,13 @@
     "objectSet": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "sha256", "objectCount", "objects"],
+      "required": ["name", "sha256", "objectCount", "objectSetSha256", "objectSetHashAlgorithm", "objects"],
       "properties": {
         "name": { "type": "string" },
         "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
         "objectCount": { "type": "integer", "minimum": 0 },
+        "objectSetSha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "objectSetHashAlgorithm": { "const": "cub-scan-canonical-json-v1" },
         "objects": {
           "type": "array",
           "items": { "type": "string" }

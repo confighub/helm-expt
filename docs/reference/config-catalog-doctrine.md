@@ -198,6 +198,14 @@ pattern-bundle identity, stable finding IDs, raw result, and file hash in the
 beside the accepted revision. It does not rename the local result as managed
 validation.
 
+The generated command contract uses the same `WorkshopResult` for a Helm render and
+literal Kubernetes YAML. It records source selection, materialization, local checks,
+the accepted object identity, ConfigHub retention, variation, promotion, and the
+steps that have not run. One NGINX proof carries the canonical object-set hash from
+the local result through a real ConfigHub staging promotion. The literal-YAML path
+stops after retention. This distinction keeps a reusable record format separate
+from evidence for one execution.
+
 The maintained integration follows this user journey:
 
 1. Map existing Catalog warnings to stable pattern and control IDs only where
@@ -217,9 +225,9 @@ The maintained integration follows this user journey:
 
 Steps one through three are implemented for the maintained Helm bases. The
 NGINX example demonstrates a local credential finding, a reviewed correction,
-retention in ConfigHub, enforced validation, and promotion. General approved
-exceptions and the product view that joins local evidence to managed validation
-remain work to complete.
+retention in ConfigHub, enforced validation, and promotion. A general ConfigHub
+view for deciding findings, approving exceptions, seeing managed validation, and
+continuing into promotion for an arbitrary configuration remains work to complete.
 
 This makes misconfiguration work useful before signup and more valuable afterward:
 the public path explains and corrects one exact result; ConfigHub keeps the result,

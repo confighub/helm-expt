@@ -12,7 +12,7 @@ other.
 | --- | --- |
 | See what an arbitrary Helm chart and values render, without ConfigHub state. | `cub helm template` |
 | Store an arbitrary Helm chart, its inputs, and its rendered base in ConfigHub. | `cub helm install` |
-| Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
+| Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Keep one selected catalog preset as a local OCI layout or push it to a registry. | Add `--output-oci <path-or-oci-ref>` to `cub installer setup`. |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
@@ -69,7 +69,7 @@ full catalog model on day one.
 | --- | --- | --- |
 | Inspect | `cub helm template` | Render an arbitrary chart locally and see the Kubernetes objects. |
 | Adopt an arbitrary Helm chart | `cub helm install` | Store a HelmSource Unit and the rendered base Units in two ConfigHub Spaces. |
-| Adopt files or OCI | `cub variant upload <files-or-oci-ref>` | Load rendered files or a literal configuration OCI into ConfigHub Units. |
+| Adopt files or OCI | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` | Load rendered files or a literal configuration OCI into ConfigHub Units. |
 | Use a maintained catalog entry | `cub installer setup --pull <installer OCI ref> --base <base> [--output-oci <path-or-ref>]` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks; optionally keep the selected result as OCI. |
 | Operate | `cub installer upload`, `cub variant create`, `cub variant promote`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
 
@@ -79,7 +79,7 @@ Existing apps enter through the same model without a recipe rewrite:
 | --- | --- | --- |
 | Argo CD Application | Read the Application and rendered objects through Argo CD or the Kubernetes API, then use `cub variant upload`. | Preserve the controller source and target before changing delivery. |
 | Flux HelmRelease or Kustomization | Read the source object and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | Preserve the controller source and target before changing delivery. |
-| Rendered KRM YAML or manifests | `cub variant upload <files-or-oci-ref>` | Add labels, links, scans, gates, and observations. |
+| Rendered KRM YAML or manifests | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` | Add labels, links, scans, gates, and observations. |
 
 The important boundary is whether the user wants a one-time representation or a
 maintained artifact. Direct commands are good for one-time representation.
@@ -255,7 +255,7 @@ path, future chart refreshes, and catalog-grade proof.
 | --- | --- |
 | "Show me what this arbitrary chart and values produce." | `cub helm template` |
 | "Store this arbitrary chart and values in ConfigHub." | `cub helm install` |
-| "Load these rendered files or this literal OCI bundle into ConfigHub." | `cub variant upload <files-or-oci-ref>` |
+| "Load these rendered files or this literal OCI bundle into ConfigHub." | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
 | "Use the supported Redis catalog entry." | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default` |
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
 | "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |

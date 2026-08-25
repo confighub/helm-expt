@@ -456,7 +456,8 @@
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/&lt;repo&gt;-&lt;chart&gt;:&lt;version&gt; \
   --base &lt;preset&gt; \
   --work-dir ./out \
-  --non-interactive</code></pre>
+  --non-interactive \
+  --namespace &lt;namespace&gt;</code></pre>
 <p>For example:</p>
 <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base reuse-existing-secret \
