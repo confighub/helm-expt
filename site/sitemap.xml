@@ -173,6 +173,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-trust-root-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-upstream-watch/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-v0-19-0-nested-sources/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-v0-20-0-chain/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-v0-20-0-nested-sources/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-v0-20-0-route-resolution/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-variant-promotion-proof/summary.html</loc></url>
@@ -468,6 +469,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.html</loc></url>

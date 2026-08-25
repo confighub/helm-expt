@@ -14,12 +14,12 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | --- | ---: |
 | org | 2 |
 | preset | 21 |
-| environment | 22 |
+| environment | 25 |
 | source | 16 |
 | fleet | 5 |
 | pilot | 1 |
 | route | 2 |
-| total | 69 |
+| total | 72 |
 
 ## Files
 
@@ -60,6 +60,9 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-development/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging/readme.yaml) |
 | `aws-network-workshop-proof` | environment | [README](spaces/aws-network-workshop-proof/README.md) | [readme.yaml](units/aws-network-workshop-proof/readme.yaml) |
 | `bitnami-redis-base` | environment | [README](spaces/bitnami-redis-base/README.md) | [readme.yaml](units/bitnami-redis-base/readme.yaml) |
 | `bitnami-redis-prod` | environment | [README](spaces/bitnami-redis-prod/README.md) | [readme.yaml](units/bitnami-redis-prod/readme.yaml) |

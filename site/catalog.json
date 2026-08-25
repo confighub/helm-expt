@@ -55823,6 +55823,30 @@
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-19-0-argocd-staging/readme.yaml"
     },
     {
+      "space": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development",
+      "kind": "environment",
+      "title": "Review an AICR v0.20.0 platform change",
+      "summary": "Development starts from the unchanged v0.20.0 base and changes one Grafana setting to use a target-owned Secret.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/readme.yaml"
+    },
+    {
+      "space": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production",
+      "kind": "environment",
+      "title": "Publish the approved AICR v0.20.0 production release",
+      "summary": "Production receives the same named ChangeOrder as staging, requires approval, and publishes the accepted configuration as an immutable OCI release.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production/readme.yaml"
+    },
+    {
+      "space": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging",
+      "kind": "environment",
+      "title": "Test the reviewed AICR v0.20.0 change in staging",
+      "summary": "Staging receives the named Grafana Secret change from development while the other 16 Applications remain unchanged.",
+      "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging/readme.yaml"
+    },
+    {
       "space": "aws-network-workshop-proof",
       "kind": "environment",
       "title": "AWS network: workshop configuration",
@@ -55986,7 +56010,7 @@
       "space": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd",
       "kind": "source",
       "title": "AICR v0.20.0 EKS H100 training configuration",
-      "summary": "NVIDIA AICR selected an EKS H100 training platform. This entry keeps the exact source choices, 17 generated Argo CD Applications, lifecycle plan, and public OCI digests together.",
+      "summary": "NVIDIA AICR selected an EKS H100 training platform. ConfigHub keeps the source choices, 17 generated Argo CD Applications, lifecycle plan, and OCI digests together.",
       "source_path": "data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-20-0-argocd/readme.yaml"
     },

@@ -1123,7 +1123,8 @@
           "variantPromotionReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/promotion-readiness-receipt.yaml",
           "configHubReleaseOciReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-19-0/confighub-release-oci-receipt.yaml",
           "nestedSourceRenders": "data/aicr-v0-19-0-nested-sources/summary.md",
-          "stagingRouteResolution": "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml"
+          "stagingRouteResolution": "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-19-0-staging-argo-cd.yaml",
+          "processingChain": "data/aicr-v0-19-0-chain/summary.md"
         },
         "operations": {
           "resourceClass": "system-configuration",
@@ -1607,13 +1608,38 @@
             "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml"
           },
           "configHubUpload": {
-            "status": "not-run"
+            "status": "pass",
+            "sourceRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0",
+            "sourceOciDigest": "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8",
+            "configHubDataHash": "99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56",
+            "objectIdentitiesMatched": true,
+            "bindingMethod": "external-source-annotation-plus-exact-object-comparison",
+            "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml"
           },
           "configHubReleaseOci": {
-            "status": "not-run"
+            "status": "published-and-pulled-by-digest",
+            "reference": "oci://oci.hub.confighub.com:443/space/aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production@sha256:4684baa1f7d7c83b479dfeaa8a189e452e9de41156dd8eda5a707e37689ffdd7",
+            "manifestDigest": "sha256:4684baa1f7d7c83b479dfeaa8a189e452e9de41156dd8eda5a707e37689ffdd7",
+            "bundleDigest": "sha256:786f06fe9fafdb24546ae3d62dfaabbf03d4943f4986c6c6a7ecbc92c46f6c85",
+            "promotedConfigurationMatched": true,
+            "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-release-oci-receipt.yaml"
           },
           "argoCd": "applications-retained-not-reconciled",
           "flux": "not-run-for-argo-application-wrapper"
+        },
+        "promotion": {
+          "status": "pass",
+          "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml",
+          "path": "base -> development -> staging -> production",
+          "sourceDigest": "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8",
+          "changedApplications": [
+            "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+          ],
+          "devDryRun": "pass",
+          "stagingDryRun": "pass",
+          "stagingMatchesReviewedDev": true,
+          "production": "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production",
+          "productionDryRun": "pass"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1631,8 +1657,13 @@
           "routeIntent": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml",
           "fieldPolicy": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/field-policy-assessment.yaml",
           "publicOciReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml",
+          "configHubUploadReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml",
+          "applyPolicyReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/apply-policy-receipt.yaml",
+          "variantPromotionReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml",
+          "configHubReleaseOciReceipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-release-oci-receipt.yaml",
           "nestedSourceRenders": "data/aicr-v0-20-0-nested-sources/summary.md",
-          "stagingRouteResolution": "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml"
+          "stagingRouteResolution": "data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-v0-20-0-staging-argo-cd.yaml",
+          "processingChain": "data/aicr-v0-20-0-chain/summary.md"
         },
         "operations": {
           "resourceClass": "system-configuration",
@@ -1642,13 +1673,13 @@
       },
       "status": {
         "level": "partial",
-        "claim": "AICR v0.20.0 produced 17 exact Argo CD Applications with signed source provenance, lifecycle route intent, a field-policy assessment, and two publicly pullable OCI artifacts at recorded digests.",
+        "claim": "AICR v0.20.0 produced 17 exact Argo CD Applications. Their source and literal OCI artifacts are publicly pullable. ConfigHub retained those Applications, promoted one reviewed change through staging and production, and published the approved production result as a release OCI that was pulled and compared by digest.",
         "limits": [
           "Both OCI artifacts were anonymously pulled at their recorded digests.",
-          "This v0.20.0 base has not yet been uploaded to ConfigHub.",
-          "No v0.20.0 derived-variant promotion has run.",
-          "The ConfigHub apply policy has not been tested for this v0.20.0 base.",
-          "No approved ConfigHub release OCI has been pulled and compared for this version.",
+          "ConfigHub recorded the literal OCI digest and its separate Unit data hash 99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56; the upload receipt binds them by exact-object comparison.",
+          "The persistent development, staging, and production variants contain the one reviewed Grafana Secret-reference change.",
+          "The required-approval gate refused to publish an unapproved ConfigHub release.",
+          "After approval, ConfigHub published the production release OCI; an authenticated pull resolved the exact manifest digest and matched the promoted 17-Application object set.",
           "All 16 nested component sources rendered locally; eight rendered CRDs. Their destination-specific lifecycle handling still requires runtime evidence.",
           "Argo CD reconciliation, EKS, H100 execution, training, model requests, and exact runtime rollback have not run for this version."
         ]

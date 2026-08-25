@@ -6,7 +6,7 @@
   },
   "spec": {
     "sourceAndIntent": {
-      "type": "AICR recipe",
+      "type": "AICR source variant",
       "version": "v0.19.0",
       "commit": "f1f63463f7fae6dea608c89f92975b0dbc27c59c",
       "criteria": {

@@ -1,0 +1,321 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "VariantReadinessReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-20-0-production"
+spec:
+  checkedAt: "2026-08-25T23:03:45.593Z"
+  organization: "helm-catalog"
+  source:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow/aicr-bundle:0.20.0"
+      digest: "sha256:2eedf6b36ea2cfab828245e38f72b7ed344915b6695c6a56d92a744d25992431"
+      anonymousPull: "pass"
+    literalConfiguration:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.20.0"
+      digest: "sha256:4779ed69b9858791379a93704bb92ac11ec3b72e987b34921e293dd695415be8"
+      anonymousPull: "pass"
+    configHubUploadReceipt: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml"
+  chain:
+    base:
+      space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd"
+      id: "e9d83a0a-5d37-4177-8291-30e7d971f8ac"
+      variant: "v0-20-0-argocd"
+      environment: ""
+      upstreamSpaceId: ""
+      applicationCount: 17
+      canonicalDataSha256: "dc3cc2659433374b5557d31ddd9d9bebcc85d11cf5cd308befa7b89771bb7734"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "437fefa8-e89d-4fb4-82f5-b2f1223ee7f1"
+        dataHash: "99246a3a947ec2b4a0037a395e81c21c4f6efb92198fe08e9a9afb63b2f3ab56"
+        headRevision: 2
+        upstreamRevision: 0
+        fromLinkIds:
+          []
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      readmeUnit:
+        slug: "readme"
+        id: "c6999c25-93f2-4fff-b6b2-63b10fdb5328"
+        dataHash: "84744d24f89b16405891f5f22a7e9760a51d859d3931c82199af8578caf4c127"
+        headRevision: 3
+        fromLinkIds:
+          []
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      policyChecks:
+        - "aicr-training-images-pinned"
+        - "aicr-training-secret-refs"
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+        - "workload-sensitive-env-secret-refs"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+    development:
+      space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development"
+      id: "a816dbf6-d6a3-4439-8caf-84a091d2c8db"
+      variant: "development"
+      environment: "Development"
+      upstreamSpaceId: "e9d83a0a-5d37-4177-8291-30e7d971f8ac"
+      applicationCount: 17
+      canonicalDataSha256: "7c74fc147e7b5e961e349a83590afcc5d646430e88733705a82c053256a709ed"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "1a271582-fac8-45ae-ae0d-03805a9e2616"
+        dataHash: "8af7ab476800f30e574390a240c31e050b9366d2b0efad6a142de00e89f9bb69"
+        headRevision: 3
+        upstreamRevision: 2
+        fromLinkIds:
+          - "f6ca3043-494b-4af7-b24b-65d88168ee29"
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      readmeUnit:
+        slug: "readme"
+        id: "a9841a90-948b-4fbe-a52c-4f588f9bd2f0"
+        dataHash: "c3951cfb100ef0083add06449231a6167cd0de6dfc24a3bba15c3ecb2be82852"
+        headRevision: 4
+        fromLinkIds:
+          []
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      policyChecks:
+        - "aicr-training-images-pinned"
+        - "aicr-training-secret-refs"
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+        - "workload-sensitive-env-secret-refs"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+    staging:
+      space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging"
+      id: "aeb44b8e-8345-494d-9e5d-a95e8838978a"
+      variant: "staging"
+      environment: "Staging"
+      upstreamSpaceId: "a816dbf6-d6a3-4439-8caf-84a091d2c8db"
+      applicationCount: 17
+      canonicalDataSha256: "7c74fc147e7b5e961e349a83590afcc5d646430e88733705a82c053256a709ed"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "07087707-7700-4a1f-b29f-494c82078877"
+        dataHash: "8af7ab476800f30e574390a240c31e050b9366d2b0efad6a142de00e89f9bb69"
+        headRevision: 3
+        upstreamRevision: 3
+        fromLinkIds:
+          - "e38c6db1-8cdf-48a4-bf77-0432fa1044ae"
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      readmeUnit:
+        slug: "readme"
+        id: "2a63bdaf-f0ba-4f73-9eb4-d01916511173"
+        dataHash: "a225ea85d71b9d3e64d10dd9284e66f77d0ab5b15825f9ddc41ca768e3e65d58"
+        headRevision: 4
+        fromLinkIds:
+          []
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      policyChecks:
+        - "aicr-training-images-pinned"
+        - "aicr-training-secret-refs"
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+        - "workload-sensitive-env-secret-refs"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+    production:
+      space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production"
+      id: "0e121050-d30d-4a25-9d85-9c4245bac4af"
+      variant: "production"
+      environment: "Prod"
+      upstreamSpaceId: "aeb44b8e-8345-494d-9e5d-a95e8838978a"
+      applicationCount: 17
+      canonicalDataSha256: "7c74fc147e7b5e961e349a83590afcc5d646430e88733705a82c053256a709ed"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "bb92df59-6f3d-47c4-90d1-bee5df1e05a5"
+        dataHash: "8af7ab476800f30e574390a240c31e050b9366d2b0efad6a142de00e89f9bb69"
+        headRevision: 3
+        upstreamRevision: 3
+        fromLinkIds:
+          - "c291b3b4-92b5-4acf-9d84-1d6a2cca5399"
+        applyGates:
+          []
+      readmeUnit:
+        slug: "readme"
+        id: "3d1ec670-fb80-485a-8a2d-d6d878d9b3b0"
+        dataHash: "6d538bb6bcc3068625fcbf505460ec1dd47df1134d1121ccfe5f87c1210e6558"
+        headRevision: 4
+        fromLinkIds:
+          []
+        applyGates:
+          - "platform/require-approval/vet-approvedby"
+      policyChecks:
+        - "aicr-training-images-pinned"
+        - "aicr-training-secret-refs"
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+        - "workload-sensitive-env-secret-refs"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+  change:
+    resource: "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+    path: "spec.source.helm.values.grafana"
+    from: "grafana.adminPassword"
+    to: "grafana.admin.existingSecret"
+    requiredSecret: "monitoring/aicr-grafana-admin"
+    changedApplicationCount: 1
+    preview:
+      changedApplicationCount: 1
+      command:
+        - "cub"
+        - "run"
+        - "search-replace"
+        - "--space"
+        - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development"
+        - "--unit"
+        - "aicr-eks-h100-training-kubeflow"
+        - "--search-value"
+        - "  adminPassword: admin"
+        - "--replace-value"
+        - "  admin:\n    existingSecret: aicr-grafana-admin\n    userKey: admin-user\n    passwordKey: admin-password"
+        - "--dry-run"
+        - "-o"
+        - "mutations"
+      namedApplication: "argocd/kube-prometheus-stack"
+      result: "pass"
+      storedDataUnchanged: true
+    revision:
+      id: "3e568fe6-4e4a-4fee-b583-a1188b16ff19"
+      number: 3
+      source: "Invoke"
+      description: "Use an existing Secret for the AICR Grafana administrator| Functions: search-replace"
+      createdAt: "2026-08-25T21:25:24.657947Z"
+  changeOrder:
+    slug: "grafana-existing-secret"
+    id: "624d3e08-06e5-42a0-9d1d-75476384eca9"
+    space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development"
+    startTagId: "00136b8b-702f-4d60-8134-44cac91afd89"
+    endTagId: "9e6947eb-10e1-4366-b718-b54368c9feac"
+    updateType: "UpgradeUnit"
+    whereSpace: null
+    inScopeSpaceIds:
+      - "0e121050-d30d-4a25-9d85-9c4245bac4af"
+      - "aeb44b8e-8345-494d-9e5d-a95e8838978a"
+    resolvedSpaceIds:
+      - "0e121050-d30d-4a25-9d85-9c4245bac4af"
+      - "a816dbf6-d6a3-4439-8caf-84a091d2c8db"
+      - "aeb44b8e-8345-494d-9e5d-a95e8838978a"
+    releasedSpaceIds:
+      - "0e121050-d30d-4a25-9d85-9c4245bac4af"
+    state: "Resolved"
+  promotion:
+    path: "base -> development -> staging -> production"
+    scope: "configuration Unit aicr-eks-h100-training-kubeflow"
+    changeOrder: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/grafana-existing-secret"
+    destinations:
+      staging:
+        space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging"
+        preview:
+          command:
+            - "cub"
+            - "variant"
+            - "promote"
+            - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-staging"
+            - "--change-order"
+            - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/grafana-existing-secret"
+            - "--dry-run"
+            - "-o"
+            - "mutations"
+          reportedUnitCount: 1
+          result: "pass"
+          storedDataUnchanged: true
+        result: "pass"
+        revision:
+          id: "a6788214-53f4-4e97-b81d-1a13ea16e121"
+          number: 3
+          source: "UpgradeUnit"
+          description: "Promote the reviewed AICR Grafana Secret change to staging"
+          createdAt: "2026-08-25T21:25:55.964284Z"
+        upstreamRevisionMatched: true
+        pendingAfter: 0
+      production:
+        space: "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production"
+        preview:
+          command:
+            - "cub"
+            - "variant"
+            - "promote"
+            - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-production"
+            - "--change-order"
+            - "aicr-eks-h100-training-kubeflow-v0-20-0-argocd-development/grafana-existing-secret"
+            - "--dry-run"
+            - "-o"
+            - "mutations"
+          reportedUnitCount: 1
+          result: "pass"
+          storedDataUnchanged: true
+        result: "pass"
+        revision:
+          id: "cb8c9490-15c9-4d60-b1e9-1cf6b0b2737c"
+          number: 3
+          source: "UpgradeUnit"
+          description: "Promote the reviewed AICR Grafana Secret change to production"
+          createdAt: "2026-08-25T21:26:16.354648Z"
+        upstreamRevisionMatched: true
+        pendingAfter: 0
+    result: "pass"
+    pendingAfter: 0
+    destinationsMatchDevelopment: true
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-prod-gates"
+    checks:
+      - "aicr-training-images-pinned"
+      - "aicr-training-secret-refs"
+      - "digest-pinned-images"
+      - "lifecycle-route-evidence"
+      - "probes-declared"
+      - "require-approval"
+      - "vet-placeholders"
+      - "vet-schemas"
+      - "workload-sensitive-env-secret-refs"
+    approvalGate: "platform/require-approval/vet-approvedby"
+    approvalReason: "AICR is system configuration, so every environment requires approval before release or apply."
+    approvalRequiredOnEverySpace: true
+  documentation:
+    oneReadmePerSpace: true
+    readmesIndependentOfConfigurationLinks: true
+    promotionScope: "Only the configuration Unit is promoted. Each Space keeps its own README."
+  limits:
+    - "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys."
+    - "This receipt proves stored configuration, one reviewed change, a named ChangeOrder, and promotion through staging and production. It does not prove controller reconciliation or GPU workload health."
+    - "Publishing the production release OCI is a separate action and has its own receipt."
+status:
+  result: "pass"
+  publicOci: "pass"
+  baseVariant: "pass"
+  developmentChange: "pass"
+  changeOrder: "pass"
+  stagingPromotion: "pass"
+  productionPromotion: "pass"
+  approvalRequired: "pass"
+  claim: "ConfigHub retained the exact AICR v0.20.0 configuration, recorded one named development change, and promoted that change through staging and production."

@@ -38,8 +38,8 @@ they are not interchangeable.
 | Variant | Meaning here | Current v0.20.0 status |
 | --- | --- | --- |
 | Source variant | NVIDIA's curated combination of service, accelerator, operating system, workload, and platform: `h100-eks-ubuntu-training-kubeflow`. | Selected and retained. |
-| Base variant | The checked starting configuration: source and intent, 17 exact Applications, lifecycle plan, field policy, digests, and receipts. | Retained in the Catalog and published as OCI. It has not yet been uploaded as a ConfigHub base. |
-| Derived variant | A reviewed change made from the base for development, staging, production, a region, or a customer. | Not created for v0.20.0 yet. |
+| Base variant | The checked starting configuration: source and intent, 17 exact Applications, lifecycle plan, field policy, digests, and receipts. | Retained in the Catalog, published as OCI, and stored in the live ConfigHub Catalog organization. |
+| Derived variant | A reviewed change made from the base for development, staging, production, a region, or a customer. | Development, staging, and production variants now contain one promoted Grafana Secret change. |
 
 The [source record](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml)
 keeps three counts separate: 103 overlay files in the retained source tree, 102
@@ -101,6 +101,41 @@ The
 separates source-controlled choices from fields that may become reviewed
 ConfigHub changes.
 
+## Stored, changed, and promoted in ConfigHub
+
+The ConfigHub base stores the 17 Application objects and a README as separate
+Units. Development, staging, and production are derived from that base.
+
+The development change removes the literal Grafana administrator password and
+uses the existing Secret `monitoring/aicr-grafana-admin` instead. A dry run
+named the affected `kube-prometheus-stack` Application without changing stored
+data. One ChangeOrder then moved that change through staging and production.
+No other Application changed.
+
+Every environment requires approval before release. An attempted unapproved
+release was blocked. After the production configuration and README were
+approved, ConfigHub published a release OCI with this manifest digest:
+
+```text
+sha256:2576c38241454d44998c4ad26615552e9b04ed745e06724f4213c1c39a8e47d1
+```
+
+The release was pulled back by that digest. Its configuration matches the
+promoted production object set and its README matches the approved production
+README. Promotion moved a reviewed change between ConfigHub environments;
+release publication made the resulting OCI available for delivery.
+
+- [ConfigHub base receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml)
+- [Required-approval check](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/apply-policy-receipt.yaml)
+- [Development-to-production promotion receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml)
+- [Approved release OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-release-oci-receipt.yaml)
+- [Complete source-to-release chain](../../../data/aicr-v0-20-0-chain/summary.md)
+
+This proves the ConfigHub records, change, promotion, approval, OCI publication,
+digest pull, and file comparison. It does not prove that Argo CD or Flux
+reconciled the release, that EKS accepted the lifecycle work, or that an H100
+workload ran.
+
 ## What changed from v0.19.0?
 
 The [computed comparison](../../../data/aicr-version-diff/summary.md) records
@@ -126,13 +161,12 @@ health check has not run on EKS in this entry.
 | Publish source and literal configuration OCI | Complete. Both artifacts pull anonymously and match the retained bytes. | [Public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml) |
 | Materialize the 16 nested sources | Complete locally. The records bind 16 source artifacts and values sets to 409 objects, including 36 CRDs. | [Nested source inventory](../../../data/aicr-v0-20-0-nested-sources/summary.md) |
 | Resolve lifecycle work for Argo CD and Flux | Plans recorded. Both remain blocked until a destination, controller, and required credentials are available. | [Route resolution summary](../../../data/aicr-v0-20-0-route-resolution/summary.md) |
-| Retain a ConfigHub base and create derived variants | Not run for v0.20.0. | Tracked in issue #1616. |
-| Promote and publish a ConfigHub release OCI | Not run for v0.20.0. | Tracked in issue #1616. |
+| Retain a ConfigHub base and create derived variants | Complete. The base, development, staging, and production Spaces retain exact configuration and their own README Units. | [ConfigHub base receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml) and [promotion receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml) |
+| Check approval, promote, and publish a release OCI | Complete. One named change reached production; an unapproved release was blocked; the approved release pulled back by exact digest and matched. | [Required-approval check](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/apply-policy-receipt.yaml) and [release OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-release-oci-receipt.yaml) |
 | Deliver through Argo CD or Flux | Not run for v0.20.0. | Requires destination-specific receipts. |
 | Run on EKS and H100 | Not run. No training or NIM request, observation, or rollback is claimed. | Tracked in issue #1581. |
 
-The public OCI artifacts and nested renders are useful now for inspection and
-local work. The next ConfigHub step is to retain the exact literal
-configuration as a base, make one reviewed derived variant, and promote that
-exact change. Delivery and H100 runtime testing come after the lifecycle work is
-resolved for the destination.
+The configuration work is now retained through an approved production release.
+The next step is destination evidence: reconcile the release through Argo CD on
+EKS, check its CRD and prerequisite handling, run an H100 workload, record live
+state, and test exact rollback. Flux and small-fleet evidence follow that run.
