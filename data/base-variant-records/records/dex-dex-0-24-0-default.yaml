@@ -13,7 +13,7 @@ spec:
     name: "dex/dex"
     version: "0.24.0"
     record: "data/helm-render-intents/intents/dex-dex-0-24-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8"
     selection:
       name: "default"
       kind: "catalog-preset"

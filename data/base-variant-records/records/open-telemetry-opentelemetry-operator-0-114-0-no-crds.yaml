@@ -13,7 +13,7 @@ spec:
     name: "open-telemetry/opentelemetry-operator"
     version: "0.114.0"
     record: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

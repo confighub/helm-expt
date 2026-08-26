@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./prometheus-community-prometheus-blackbox-exporter-11-10-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0 --base default --work-dir ./prometheus-community-prometheus-blackbox-exporter-11-10-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e --base default --work-dir ./prometheus-community-prometheus-blackbox-exporter-11-10-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-prometheus-blackbox-exporter-11-10-0-default --space "${SPACE}"

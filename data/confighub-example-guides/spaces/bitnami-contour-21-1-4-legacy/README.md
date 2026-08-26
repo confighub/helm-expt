@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/contour@21.1.4`, choose the `legacy` pr
 
 That captured output is the render variant: [`recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml). It contains 20 Kubernetes object(s): CustomResourceDefinition x5, NetworkPolicy x3, Service x2, ServiceAccount x2, ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, DaemonSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-contour-legacy`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:9367550cdf3060ffa460fe6beffb60e102c9f5c6254d3c153974dfc9242767d3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-contour-legacy`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -64,7 +64,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-contour-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base legacy --work-dir ./bitnami-contour-21-1-4-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:9367550cdf3060ffa460fe6beffb60e102c9f5c6254d3c153974dfc9242767d3 --base legacy --work-dir ./bitnami-contour-21-1-4-legacy --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

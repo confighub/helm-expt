@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the legacy base variant into ./bitnami-phpmyadmin-20-0-0-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0 --base legacy --work-dir ./bitnami-phpmyadmin-20-0-0-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a --base legacy --work-dir ./bitnami-phpmyadmin-20-0-0-legacy --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-phpmyadmin-20-0-0-legacy/out/manifests

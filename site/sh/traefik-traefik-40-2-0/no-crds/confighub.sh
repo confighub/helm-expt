@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./traefik-traefik-40-2-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0 --base no-crds --work-dir ./traefik-traefik-40-2-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:c735927068194a19f326ff1e62c26fb87b8f5881abca750070efaa0bc4b4d123 --base no-crds --work-dir ./traefik-traefik-40-2-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./traefik-traefik-40-2-0-no-crds --space "${SPACE}"

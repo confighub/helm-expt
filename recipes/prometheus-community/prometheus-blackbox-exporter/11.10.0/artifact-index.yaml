@@ -62,7 +62,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0"
+    manifestDigest: "sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e"
+    layerDigest: "sha256:3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
+    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.10.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
@@ -99,7 +103,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-blackbox-exporter default variant rendered from prometheus-community/prometheus-blackbox-exporter@11.10.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"
@@ -161,7 +165,7 @@ spec:
         default: false
         description: "prometheus-community/prometheus-blackbox-exporter cluster-metrics-readonly useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

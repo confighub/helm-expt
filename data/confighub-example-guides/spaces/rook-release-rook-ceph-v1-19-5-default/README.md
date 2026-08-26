@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `rook-release/rook-ceph@v1.19.5`, choose the `de
 
 That captured output is the render variant: [`recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml). It contains 133 Kubernetes object(s): ClusterRole x33, CustomResourceDefinition x25, ServiceAccount x22, ClusterRoleBinding x20, RoleBinding x16, Role x14, Deployment x2, ConfigMap x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-rook-ceph-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-rook-ceph-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/rook-release-roo
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5 --base default --work-dir ./rook-release-rook-ceph-v1-19-5-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf --base default --work-dir ./rook-release-rook-ceph-v1-19-5-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -63,7 +63,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/crossplane-stable/crossplane/2.3.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1"
+    manifestDigest: "sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f"
+    layerDigest: "sha256:243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+    publicationReceipt: "runs/installer-oci/crossplane-stable-crossplane/2.3.1/installer-package-publication-receipt.yaml"
     installer: "packages/crossplane-stable/crossplane/2.3.1/installer.yaml"
     receipt: "recipes/crossplane-stable/crossplane/2.3.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
@@ -95,7 +99,7 @@ spec:
         default: true
         description: "crossplane-stable/crossplane default variant rendered from crossplane-stable/crossplane@2.3.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `jetstack/trust-manager@v0.22.1`, choose the `no
 
 That captured output is the render variant: [`recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 13 Kubernetes object(s): Role x2, RoleBinding x2, Service x2, Certificate x1, ClusterRole x1, ClusterRoleBinding x1, Deployment x1, Issuer x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-trust-manager-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-trust-manager-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-trust-m
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1 --base no-crds --work-dir ./jetstack-trust-manager-v0-22-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5 --base no-crds --work-dir ./jetstack-trust-manager-v0-22-1-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

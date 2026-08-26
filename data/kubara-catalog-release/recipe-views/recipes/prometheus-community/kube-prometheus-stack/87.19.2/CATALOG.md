@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Production readiness plan | [recipes/prometheus-community/kube-prometheus-stack/87.19.2/production-readiness-plan.yaml](../../../../../../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/production-readiness-plan.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:8b053b6c851efaf1f26f9caa09e96d45835d8c6295cbdceca2871f6e847445f5` |
 | Installer package source | [packages/prometheus-community/kube-prometheus-stack/87.19.2](../../../../../../../packages/prometheus-community/kube-prometheus-stack/87.19.2) |
 | Installer package receipt | [recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/installer-package-receipt.yaml](../../../../../../../recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/artifact-index.yaml](artifact-index.yaml) |
@@ -91,7 +91,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:8b053b6c851efaf1f26f9caa09e96d45835d8c6295cbdceca2871f6e847445f5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

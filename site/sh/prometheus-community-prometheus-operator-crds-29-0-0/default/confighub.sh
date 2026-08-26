@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./prometheus-community-prometheus-operator-crds-29-0-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0 --base default --work-dir ./prometheus-community-prometheus-operator-crds-29-0-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:14c598914ce3526238bb871b58b298c39410e1a60f980228556b3bdd96814ec5 --base default --work-dir ./prometheus-community-prometheus-operator-crds-29-0-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-prometheus-operator-crds-29-0-0-default --space "${SPACE}"

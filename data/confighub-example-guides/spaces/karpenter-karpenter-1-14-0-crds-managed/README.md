@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `karpenter/karpenter@1.14.0`, choose the `crds-m
 
 That captured output is the render variant: [`recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml). It contains 13 Kubernetes object(s): ClusterRole x3, ClusterRoleBinding x2, Role x2, RoleBinding x2, Deployment x1, PodDisruptionBudget x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-karpenter-crds-managed`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-karpenter-crds-managed`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/karpenter-karpen
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base crds-managed --work-dir ./karpenter-karpenter-1-14-0-crds-managed --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --base crds-managed --work-dir ./karpenter-karpenter-1-14-0-crds-managed --non-interactive --namespace kube-system
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./prometheus-community-prometheus-pushgateway-3-6-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --base default --work-dir ./prometheus-community-prometheus-pushgateway-3-6-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:81ddc722ff2e7f59d7b99b2a70895b011983bf8edff8f1cfdcb61c49ce3312a8 --base default --work-dir ./prometheus-community-prometheus-pushgateway-3-6-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-prometheus-pushgateway-3-6-0-default --space "${SPACE}"

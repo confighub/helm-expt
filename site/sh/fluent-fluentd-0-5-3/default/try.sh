@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./fluent-fluentd-0-5-3-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3 --base default --work-dir ./fluent-fluentd-0-5-3-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:4391d452fd6c66b8d2bfc6ccba87b75e64426b9e3b7111b38c12bddff8e7b376 --base default --work-dir ./fluent-fluentd-0-5-3-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./fluent-fluentd-0-5-3-default/out/manifests

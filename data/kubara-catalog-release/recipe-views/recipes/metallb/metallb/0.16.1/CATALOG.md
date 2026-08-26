@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/metallb/metallb/0.16.1/value-model.yaml](../../../../../../../recipes/metallb/metallb/0.16.1/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d` |
 | Installer package source | [packages/metallb/metallb/0.16.1](../../../../../../../packages/metallb/metallb/0.16.1) |
 | Installer package receipt | [recipes/metallb/metallb/0.16.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/metallb/metallb/0.16.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

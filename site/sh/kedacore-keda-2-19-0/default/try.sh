@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./kedacore-keda-2-19-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0 --base default --work-dir ./kedacore-keda-2-19-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525 --base default --work-dir ./kedacore-keda-2-19-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./kedacore-keda-2-19-0-default/out/manifests

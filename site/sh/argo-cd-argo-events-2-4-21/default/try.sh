@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./argo-cd-argo-events-2-4-21-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21 --base default --work-dir ./argo-cd-argo-events-2-4-21-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2 --base default --work-dir ./argo-cd-argo-events-2-4-21-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./argo-cd-argo-events-2-4-21-default/out/manifests

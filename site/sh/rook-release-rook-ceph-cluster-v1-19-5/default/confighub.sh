@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./rook-release-rook-ceph-cluster-v1-19-5-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --base default --work-dir ./rook-release-rook-ceph-cluster-v1-19-5-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5@sha256:4aef8ca4f19cf6da7cee52e77cce27a6c66ecb6c0718e37590109c27170c399e --base default --work-dir ./rook-release-rook-ceph-cluster-v1-19-5-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./rook-release-rook-ceph-cluster-v1-19-5-default --space "${SPACE}"

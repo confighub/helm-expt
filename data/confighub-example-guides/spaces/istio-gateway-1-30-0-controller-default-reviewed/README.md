@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `istio/gateway@1.30.0`, choose the `controller-d
 
 That captured output is the render variant: [`recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml). It contains 6 Kubernetes object(s): Deployment x1, HorizontalPodAutoscaler x1, Role x1, RoleBinding x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-gateway-controller-default-reviewed`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-gateway-controller-default-reviewed`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/istio-gateway-1-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0 --base controller-default-reviewed --work-dir ./istio-gateway-1-30-0-controller-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a --base controller-default-reviewed --work-dir ./istio-gateway-1-30-0-controller-default-reviewed --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

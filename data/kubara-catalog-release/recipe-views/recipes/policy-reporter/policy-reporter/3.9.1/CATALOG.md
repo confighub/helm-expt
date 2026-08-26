@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/policy-reporter/policy-reporter/3.9.1/value-model.yaml](../../../../../../../recipes/policy-reporter/policy-reporter/3.9.1/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05` |
 | Installer package source | [packages/policy-reporter/policy-reporter/3.9.1](../../../../../../../packages/policy-reporter/policy-reporter/3.9.1) |
 | Installer package receipt | [recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

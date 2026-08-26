@@ -13,7 +13,7 @@ spec:
     name: "elastic/eck-operator"
     version: "3.4.0"
     record: "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f"
     selection:
       name: "ha"
       kind: "catalog-preset"

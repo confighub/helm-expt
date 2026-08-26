@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./cloudpirates-redis-0-34-11-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11 --base default --work-dir ./cloudpirates-redis-0-34-11-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99 --base default --work-dir ./cloudpirates-redis-0-34-11-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./cloudpirates-redis-0-34-11-default/out/manifests

@@ -4,7 +4,7 @@ import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, readYaml, relativeRepo, repoRoot, toYaml, write, writeYaml } from "./lib/proof-common.mjs";
-import { installerOciRef } from "./lib/installer-oci.mjs";
+import { installerOciPublication } from "./lib/installer-oci-publication.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const root = join(repoRoot, "data", "helm-render-intents");
@@ -298,6 +298,7 @@ function buildIntent(
         && targetCoverage.state === "no-target-facts-required"
         ? "none-required"
         : "review-required";
+  const packagePublication = installerOciPublication(row.chart, row.version);
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmRenderIntent",
@@ -325,7 +326,7 @@ function buildIntent(
         variant: row.variant_path || "",
         revision: row.variant_revision_path || "",
         packageBase: row.package_base_path || "",
-        installerPackageOciRef: installerOciRef(row.chart, row.version),
+        installerPackageOciRef: packagePublication.exactRef,
         sourceLock: row.source_lock_path || "",
         namespace: variantSpec.namespace ?? "",
         releaseName: variantSpec.releaseName ?? "",
@@ -460,7 +461,7 @@ function buildIntent(
           `render intent: data/helm-render-intents/intents/${name}.yaml`,
           `rendered revision: ${row.variant_revision_path || "(missing)"}`,
           `full rendered YAML: ${renderedObjectsPath(row.variant_revision_path) || "(missing)"}`,
-          `installer package OCI: ${installerOciRef(row.chart, row.version)}`,
+          `installer package OCI: ${packagePublication.exactRef}`,
           `package base: ${row.package_base_path || "(missing)"}`,
           "ConfigHub Units: created when the package is uploaded",
           "managed variants: created after upload with cub variant create/promote",

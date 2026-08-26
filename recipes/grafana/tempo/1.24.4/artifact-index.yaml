@@ -68,7 +68,11 @@ spec:
     nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/grafana/tempo/1.24.4"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
+    manifestDigest: "sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1"
+    layerDigest: "sha256:0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f"
+    publicationReceipt: "runs/installer-oci/grafana-tempo/1.24.4/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"
     receipt: "recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f"
@@ -105,7 +109,7 @@ spec:
         default: true
         description: "tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"
@@ -221,7 +225,7 @@ spec:
         default: false
         description: "tempo S3 query and observability variant rendered from grafana/tempo@1.24.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

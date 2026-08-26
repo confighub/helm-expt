@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c` |
 | Installer package source | [packages/cloudnative-pg/cloudnative-pg/0.28.2](../../../../packages/cloudnative-pg/cloudnative-pg/0.28.2) |
 | Installer package receipt | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudnative-pg/cloudnative-pg/0.28.2/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

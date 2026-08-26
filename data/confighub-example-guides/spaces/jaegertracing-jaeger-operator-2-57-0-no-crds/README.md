@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `jaegertracing/jaeger-operator@2.57.0`, choose t
 
 That captured output is the render variant: [`recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 10 Kubernetes object(s): Service x2, Certificate x1, Deployment x1, Issuer x1, MutatingWebhookConfiguration x1, Role x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-jaeger-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-jaeger-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jaegertracing-ja
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0 --base no-crds --work-dir ./jaegertracing-jaeger-operator-2-57-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85 --base no-crds --work-dir ./jaegertracing-jaeger-operator-2-57-0-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

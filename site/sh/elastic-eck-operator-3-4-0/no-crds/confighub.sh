@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./elastic-eck-operator-3-4-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --base no-crds --work-dir ./elastic-eck-operator-3-4-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f --base no-crds --work-dir ./elastic-eck-operator-3-4-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./elastic-eck-operator-3-4-0-no-crds --space "${SPACE}"

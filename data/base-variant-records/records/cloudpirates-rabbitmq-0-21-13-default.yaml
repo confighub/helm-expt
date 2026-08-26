@@ -13,7 +13,7 @@ spec:
     name: "cloudpirates/rabbitmq"
     version: "0.21.13"
     record: "data/helm-render-intents/intents/cloudpirates-rabbitmq-0-21-13-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6"
     selection:
       name: "default"
       kind: "catalog-preset"

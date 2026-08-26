@@ -13,7 +13,7 @@ spec:
     name: "cloudpirates/nginx"
     version: "0.16.1"
     record: "data/helm-render-intents/intents/cloudpirates-nginx-0-16-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103"
     selection:
       name: "default"
       kind: "catalog-preset"

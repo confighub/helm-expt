@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/elasticsearch@22.1.6`, choose the `lega
 
 That captured output is the render variant: [`recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/rendered/release-objects.yaml). It contains 21 Kubernetes object(s): Service x5, NetworkPolicy x4, PodDisruptionBudget x4, ServiceAccount x4, StatefulSet x4.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-elasticsearch-legacy`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-elasticsearch-legacy`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-elastics
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base legacy --work-dir ./bitnami-elasticsearch-22-1-6-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9 --base legacy --work-dir ./bitnami-elasticsearch-22-1-6-legacy --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

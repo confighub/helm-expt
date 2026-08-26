@@ -64,7 +64,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/argo-cd/argo-rollouts/2.40.9"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:3c5ce38388c8ba364e305f9ecebbb9e605e37891cab52aafa4320bd86baf8b95"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9"
+    manifestDigest: "sha256:3c5ce38388c8ba364e305f9ecebbb9e605e37891cab52aafa4320bd86baf8b95"
+    layerDigest: "sha256:ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39"
+    publicationReceipt: "runs/installer-oci/argo-cd-argo-rollouts/2.40.9/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-rollouts/2.40.9/installer.yaml"
     receipt: "recipes/argo-cd/argo-rollouts/2.40.9/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39"
@@ -101,7 +105,7 @@ spec:
         default: true
         description: "argo-cd/argo-rollouts default variant rendered from argo-cd/argo-rollouts@2.40.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:3c5ce38388c8ba364e305f9ecebbb9e605e37891cab52aafa4320bd86baf8b95 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -163,7 +167,7 @@ spec:
         default: false
         description: "argo-cd/argo-rollouts no-crds variant rendered from argo-cd/argo-rollouts@2.40.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:3c5ce38388c8ba364e305f9ecebbb9e605e37891cab52aafa4320bd86baf8b95 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

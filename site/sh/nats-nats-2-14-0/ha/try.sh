@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the ha base variant into ./nats-nats-2-14-0-ha"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0 --base ha --work-dir ./nats-nats-2-14-0-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11 --base ha --work-dir ./nats-nats-2-14-0-ha --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nats-nats-2-14-0-ha/out/manifests

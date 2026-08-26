@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/prometheus-adapter"
     version: "5.3.0"
     record: "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c"
     selection:
       name: "apiservice-v1-capability"
       kind: "catalog-preset"

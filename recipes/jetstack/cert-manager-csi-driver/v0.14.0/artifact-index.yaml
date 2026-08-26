@@ -60,7 +60,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0"
+    manifestDigest: "sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c"
+    layerDigest: "sha256:3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951"
+    publicationReceipt: "runs/installer-oci/jetstack-cert-manager-csi-driver/v0.14.0/installer-package-publication-receipt.yaml"
     installer: "packages/jetstack/cert-manager-csi-driver/v0.14.0/installer.yaml"
     receipt: "recipes/jetstack/cert-manager-csi-driver/v0.14.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951"
@@ -92,7 +96,7 @@ spec:
         default: true
         description: "jetstack/cert-manager-csi-driver default variant rendered from jetstack/cert-manager-csi-driver@v0.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

@@ -545,7 +545,7 @@
 <table><thead><tr><th>Request</th><th>Route</th></tr></thead><tbody><tr><td>&quot;Show me what this arbitrary chart and values produce.&quot;</td><td><code>cub helm template</code></td></tr>
 <tr><td>&quot;Store this arbitrary chart and values in ConfigHub.&quot;</td><td><code>cub helm install</code></td></tr>
 <tr><td>&quot;Load these rendered files or this literal OCI bundle into ConfigHub.&quot;</td><td><code>cub variant upload --component &lt;name&gt; --variant &lt;name&gt; &lt;files-or-oci-ref&gt;</code></td></tr>
-<tr><td>&quot;Use the supported Redis catalog entry.&quot;</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default</code></td></tr>
+<tr><td>&quot;Use the supported Redis catalog entry.&quot;</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 --base default</code></td></tr>
 <tr><td>&quot;Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology.&quot;</td><td>create or choose a <code>cub installer</code> base variant</td></tr>
 <tr><td>&quot;Fill <code>extraDeploy</code>, <code>serverBlock</code>, <code>tpl</code>, sidecar, raw manifest, or config-block slots.&quot;</td><td>create or choose a reviewed <code>cub installer</code> base variant</td></tr>
 <tr><td>&quot;Create prod-us-east from this reviewed Prometheus base.&quot;</td><td><code>cub variant create</code> over the uploaded ConfigHub Space</td></tr>

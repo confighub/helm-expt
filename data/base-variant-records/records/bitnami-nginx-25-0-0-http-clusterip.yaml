@@ -13,7 +13,7 @@ spec:
     name: "bitnami/nginx"
     version: "25.0.0"
     record: "data/helm-render-intents/intents/bitnami-nginx-25-0-0-http-clusterip.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:9965016714ddf56dd47a3e8705c06d42a25defd1aa57474e5939c04fc600ece9"
     selection:
       name: "http-clusterip"
       kind: "catalog-preset"

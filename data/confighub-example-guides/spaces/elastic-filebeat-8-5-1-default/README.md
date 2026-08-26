@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `elastic/filebeat@8.5.1`, choose the `default` p
 
 That captured output is the render variant: [`recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml). It contains 7 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, DaemonSet x1, Role x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-filebeat-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-filebeat-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-filebeat
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1 --base default --work-dir ./elastic-filebeat-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072 --base default --work-dir ./elastic-filebeat-8-5-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./vm-victoria-logs-single-0-12-5-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5 --base default --work-dir ./vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315 --base default --work-dir ./vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./vm-victoria-logs-single-0-12-5-default/out/manifests

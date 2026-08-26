@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./cloudpirates-rabbitmq-0-21-13-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13 --base default --work-dir ./cloudpirates-rabbitmq-0-21-13-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6 --base default --work-dir ./cloudpirates-rabbitmq-0-21-13-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./cloudpirates-rabbitmq-0-21-13-default --space "${SPACE}"

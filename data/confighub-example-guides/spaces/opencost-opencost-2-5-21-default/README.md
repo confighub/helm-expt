@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `opencost/opencost@2.5.21`, choose the `default`
 
 That captured output is the render variant: [`recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml). It contains 6 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, Deployment x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-opencost-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-opencost-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/opencost-opencos
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21 --base default --work-dir ./opencost-opencost-2-5-21-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8 --base default --work-dir ./opencost-opencost-2-5-21-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudpirates/redis/0.34.11/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/redis/0.34.11/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudpirates/redis/0.34.11/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99` |
 | Installer package source | [packages/cloudpirates/redis/0.34.11](../../../../packages/cloudpirates/redis/0.34.11) |
 | Installer package receipt | [recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudpirates/redis/0.34.11/artifact-index.yaml](artifact-index.yaml) |
@@ -80,7 +80,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

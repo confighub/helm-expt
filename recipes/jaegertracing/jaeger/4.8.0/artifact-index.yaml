@@ -64,7 +64,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/jaegertracing/jaeger/4.8.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0"
+    manifestDigest: "sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
+    layerDigest: "sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+    publicationReceipt: "runs/installer-oci/jaegertracing-jaeger/4.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/jaegertracing/jaeger/4.8.0/installer.yaml"
     receipt: "recipes/jaegertracing/jaeger/4.8.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
@@ -96,7 +100,7 @@ spec:
         default: true
         description: "jaegertracing/jaeger default variant rendered from jaegertracing/jaeger@4.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

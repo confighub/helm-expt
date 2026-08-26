@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./fluent-fluent-bit-0-57-6-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6 --base default --work-dir ./fluent-fluent-bit-0-57-6-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf --base default --work-dir ./fluent-fluent-bit-0-57-6-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./fluent-fluent-bit-0-57-6-default --space "${SPACE}"

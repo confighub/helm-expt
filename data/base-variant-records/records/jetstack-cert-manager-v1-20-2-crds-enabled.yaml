@@ -13,7 +13,7 @@ spec:
     name: "jetstack/cert-manager"
     version: "v1.20.2"
     record: "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98"
     selection:
       name: "crds-enabled"
       kind: "catalog-preset"

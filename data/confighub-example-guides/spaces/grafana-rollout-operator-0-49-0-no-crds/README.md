@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `grafana/rollout-operator@0.49.0`, choose the `n
 
 That captured output is the render variant: [`recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 13 Kubernetes object(s): ValidatingWebhookConfiguration x3, Role x2, RoleBinding x2, ClusterRole x1, ClusterRoleBinding x1, Deployment x1, MutatingWebhookConfiguration x1, Service x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-rollout-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:abeba25a66ca518bd63ac15fde7d5caf85cacd9a3061e7b62b523b50bdef7b2c`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-rollout-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-rollout-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --base no-crds --work-dir ./grafana-rollout-operator-0-49-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:abeba25a66ca518bd63ac15fde7d5caf85cacd9a3061e7b62b523b50bdef7b2c --base no-crds --work-dir ./grafana-rollout-operator-0-49-0-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

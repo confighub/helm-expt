@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/kyverno/kyverno/3.8.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kyverno/kyverno/3.8.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:13f2502075632259f7471d7043a09303d2cbee19c82c11c0485561b487288768` |
 | Installer package source | [packages/kyverno/kyverno/3.8.1](../../../../packages/kyverno/kyverno/3.8.1) |
 | Installer package receipt | [recipes/kyverno/kyverno/3.8.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kyverno/kyverno/3.8.1/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:13f2502075632259f7471d7043a09303d2cbee19c82c11c0485561b487288768 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

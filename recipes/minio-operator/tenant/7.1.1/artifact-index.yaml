@@ -61,7 +61,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/minio-operator/tenant/7.1.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1"
+    manifestDigest: "sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8"
+    layerDigest: "sha256:441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
+    publicationReceipt: "runs/installer-oci/minio-operator-tenant/7.1.1/installer-package-publication-receipt.yaml"
     installer: "packages/minio-operator/tenant/7.1.1/installer.yaml"
     receipt: "recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
@@ -103,7 +107,7 @@ spec:
         default: true
         description: "minio-operator/tenant default variant rendered from minio-operator/tenant@7.1.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

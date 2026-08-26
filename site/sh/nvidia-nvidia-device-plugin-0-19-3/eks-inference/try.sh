@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the eks-inference base variant into ./nvidia-nvidia-device-plugin-0-19-3-eks-inference"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --base eks-inference --work-dir ./nvidia-nvidia-device-plugin-0-19-3-eks-inference --non-interactive --namespace gpu-operator
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base eks-inference --work-dir ./nvidia-nvidia-device-plugin-0-19-3-eks-inference --non-interactive --namespace gpu-operator
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nvidia-nvidia-device-plugin-0-19-3-eks-inference/out/manifests

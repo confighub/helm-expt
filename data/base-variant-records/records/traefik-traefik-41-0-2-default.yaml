@@ -13,7 +13,7 @@ spec:
     name: "traefik/traefik"
     version: "41.0.2"
     record: "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
     selection:
       name: "default"
       kind: "catalog-preset"

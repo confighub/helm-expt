@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52 --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default/out/manifests

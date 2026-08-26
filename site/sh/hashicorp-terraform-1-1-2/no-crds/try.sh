@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./hashicorp-terraform-1-1-2-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2 --base no-crds --work-dir ./hashicorp-terraform-1-1-2-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:dc1abc1c3ee4780fa98c7d02bd7ab44e915fe9537f953cfa3eff8c2a7decfd02 --base no-crds --work-dir ./hashicorp-terraform-1-1-2-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./hashicorp-terraform-1-1-2-no-crds/out/manifests

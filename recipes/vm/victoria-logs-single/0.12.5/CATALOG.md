@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/vm/victoria-logs-single/0.12.5/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/vm/victoria-logs-single/0.12.5/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315` |
 | Installer package source | [packages/vm/victoria-logs-single/0.12.5](../../../../packages/vm/victoria-logs-single/0.12.5) |
 | Installer package receipt | [recipes/vm/victoria-logs-single/0.12.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/vm/victoria-logs-single/0.12.5/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the existing-secret base variant into ./bitnami-postgresql-18-6-7-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base existing-secret --work-dir ./bitnami-postgresql-18-6-7-existing-secret --non-interactive --namespace postgresql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002 --base existing-secret --work-dir ./bitnami-postgresql-18-6-7-existing-secret --non-interactive --namespace postgresql
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-postgresql-18-6-7-existing-secret --space "${SPACE}"

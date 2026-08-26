@@ -13,7 +13,7 @@ spec:
     name: "autoscaler/vertical-pod-autoscaler"
     version: "0.9.0"
     record: "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
     selection:
       name: "default"
       kind: "catalog-preset"

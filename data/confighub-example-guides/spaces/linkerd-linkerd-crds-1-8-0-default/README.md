@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `linkerd/linkerd-crds@1.8.0`, choose the `defaul
 
 That captured output is the render variant: [`recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml). It contains 8 Kubernetes object(s): CustomResourceDefinition x8.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-linkerd-crds-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-linkerd-crds-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/linkerd-linkerd-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0 --base default --work-dir ./linkerd-linkerd-crds-1-8-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c --base default --work-dir ./linkerd-linkerd-crds-1-8-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

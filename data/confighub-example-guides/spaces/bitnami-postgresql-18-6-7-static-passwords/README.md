@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/postgresql@18.6.7`, choose the `static-
 
 That captured output is the render variant: [`recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml). It contains 7 Kubernetes object(s): Service x2, NetworkPolicy x1, PodDisruptionBudget x1, Secret x1, ServiceAccount x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-postgresql-static-passwords`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-postgresql-static-passwords`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-postgres
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

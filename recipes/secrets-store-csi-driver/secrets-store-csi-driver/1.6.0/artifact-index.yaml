@@ -66,7 +66,11 @@ spec:
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0"
+    manifestDigest: "sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726"
+    layerDigest: "sha256:3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+    publicationReceipt: "runs/installer-oci/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/installer-package-publication-receipt.yaml"
     installer: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/installer.yaml"
     receipt: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
@@ -103,7 +107,7 @@ spec:
         default: true
         description: "secrets-store-csi-driver default Linux driver variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -165,7 +169,7 @@ spec:
         default: false
         description: "secrets-store-csi-driver sync Secret and rotation variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --base sync-secret-rotation --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726 --base sync-secret-rotation --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"

@@ -575,7 +575,7 @@ cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-r
   <p>Start without a cluster. Pull the public Redis package, select the existing-Secret configuration, write the Kubernetes files, and write the same non-secret objects as a local OCI image layout.</p>
   <p><code>reuse-existing-secret</code> is a <a href="./charts/index.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
   <pre><code># No ConfigHub account, Google registry login, or Kubernetes cluster.
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
     --base reuse-existing-secret --work-dir ./redis \
     --non-interactive --namespace redis \
     --output-oci ./redis-25.oci
@@ -607,7 +607,7 @@ bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis
       <h3>No account: the package choice stays</h3>
       <p class="tag">no ConfigHub account</p>
       <pre><code># Re-enter the same work directory with the newer public package.
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0 \
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780 \
     --work-dir ./redis --reuse --non-interactive --namespace redis \
     --output-oci ./redis-27.oci
 
@@ -629,7 +629,7 @@ cub run set-replicas --space my-redis \
     --change-desc "Keep two Redis replicas through chart upgrades" --wait
 
 # Pull 27.0.0. setup reads upload.yaml; plan shows the comparison.
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0 \
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780 \
     --work-dir ./redis --reuse --non-interactive --namespace redis
 cub installer plan --work-dir ./redis
 cub installer upload --work-dir ./redis --yes</code></pre>
@@ -644,7 +644,7 @@ cub installer upload --work-dir ./redis --yes</code></pre>
   <h2>3 · See why the Redis base matters</h2>
   <p>The Redis <code>default</code> catalog base is retained as an explicit static-password demonstration. Its rendered YAML contains credential material, so the chart page warns against treating it as a production default. The recommended <code>reuse-existing-secret</code> base used above contains no Secret object and names the Secret that must exist at delivery time.</p>
   <pre><code># Compare the two choices without touching a cluster.
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
     --base default --work-dir ./redis-static \
     --non-interactive --namespace redis
 grep -R "kind: Secret" ./redis-static/out/manifests
@@ -655,7 +655,7 @@ grep -R "kind: Secret" ./redis/out/manifests
 
   <h2>4 · Already on Argo or Flux? Write OCI directly</h2>
   <p>If your cluster pulls from an OCI registry, give <code>--output-oci</code> a registry reference instead of a local path. The installer pushes the same 14 non-secret Redis objects you inspected. It records the source package and selected base. It then reads the artifact back and verifies its object-set digest. Registry write access is the only additional requirement.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
+  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
     --base reuse-existing-secret --work-dir ./redis \
     --non-interactive --namespace redis \
     --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>

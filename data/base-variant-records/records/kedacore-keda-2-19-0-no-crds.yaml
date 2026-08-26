@@ -13,7 +13,7 @@ spec:
     name: "kedacore/keda"
     version: "2.19.0"
     record: "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

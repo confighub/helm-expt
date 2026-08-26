@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./fairwinds-stable-goldilocks-10-3-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0 --base default --work-dir ./fairwinds-stable-goldilocks-10-3-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a --base default --work-dir ./fairwinds-stable-goldilocks-10-3-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./fairwinds-stable-goldilocks-10-3-0-default --space "${SPACE}"

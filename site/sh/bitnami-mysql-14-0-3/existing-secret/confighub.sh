@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the existing-secret base variant into ./bitnami-mysql-14-0-3-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base existing-secret --work-dir ./bitnami-mysql-14-0-3-existing-secret --non-interactive --namespace mysql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e --base existing-secret --work-dir ./bitnami-mysql-14-0-3-existing-secret --non-interactive --namespace mysql
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-mysql-14-0-3-existing-secret --space "${SPACE}"

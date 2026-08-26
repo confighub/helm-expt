@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the static-passwords base variant into ./bitnami-mongodb-19-0-7-static-passwords"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base static-passwords --work-dir ./bitnami-mongodb-19-0-7-static-passwords --non-interactive --namespace mongodb
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:8f690ed44774fc97011c366cf2e54730d6a07dfb4e6823d1dff07101eb0da534 --base static-passwords --work-dir ./bitnami-mongodb-19-0-7-static-passwords --non-interactive --namespace mongodb
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-mongodb-19-0-7-static-passwords --space "${SPACE}"

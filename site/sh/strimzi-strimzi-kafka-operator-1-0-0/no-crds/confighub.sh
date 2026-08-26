@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./strimzi-strimzi-kafka-operator-1-0-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --base no-crds --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6 --base no-crds --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-no-crds --space "${SPACE}"

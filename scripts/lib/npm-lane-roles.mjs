@@ -24,6 +24,24 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; this focused lane checks the public agent contract and its published copy directly",
   },
+  "installer-oci:catalog:self-test": {
+    proves: "Every published installer package row has a valid manifest digest, keeps its readable version tag in an immutable OCI reference, and uses that exact reference in generated inspect and setup commands; malformed digests and mutable published commands are refused.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes for all retained installer packages; installer-oci:catalog:verify checks the generated files while this lane exercises the refusal rules",
+  },
+  "installer-oci:commands:verify": {
+    proves: "Maintained docs, Catalog records, public pages, and generated scripts use immutable digest-pinned refs for published cub installer setup and inspect commands.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "runs through verify-installer-command-surface in the full verify chain and is also available as a focused command",
+  },
+  "installer-oci:commands:self-test": {
+    proves: "The public command verifier rejects mutable setup and inspect examples while accepting the readable tag-plus-digest form.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "the production verifier runs in the full verify chain; this focused lane exercises its refusal cases",
+  },
   "config-catalog:verify": {
     proves: "The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.",
     requires: "offline",

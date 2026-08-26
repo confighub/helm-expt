@@ -13,7 +13,7 @@ spec:
     name: "hashicorp/vault"
     version: "0.32.0"
     record: "data/helm-render-intents/intents/hashicorp-vault-0-32-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
     selection:
       name: "default"
       kind: "catalog-preset"

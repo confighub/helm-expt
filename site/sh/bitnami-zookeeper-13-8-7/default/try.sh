@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./bitnami-zookeeper-13-8-7-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7 --base default --work-dir ./bitnami-zookeeper-13-8-7-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --base default --work-dir ./bitnami-zookeeper-13-8-7-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-zookeeper-13-8-7-default/out/manifests

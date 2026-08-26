@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/percona/psmdb-operator/1.22.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/percona/psmdb-operator/1.22.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722` |
 | Installer package source | [packages/percona/psmdb-operator/1.22.0](../../../../packages/percona/psmdb-operator/1.22.0) |
 | Installer package receipt | [recipes/percona/psmdb-operator/1.22.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/percona/psmdb-operator/1.22.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

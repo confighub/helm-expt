@@ -60,7 +60,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    manifestDigest: "sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3"
+    layerDigest: "sha256:c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
+    publicationReceipt: "runs/installer-oci/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/installer-package-publication-receipt.yaml"
     installer: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/installer.yaml"
     receipt: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
@@ -92,7 +96,7 @@ spec:
         default: true
         description: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner default variant rendered from nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

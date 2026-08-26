@@ -13,7 +13,7 @@ spec:
     name: "grafana/tempo"
     version: "1.24.4"
     record: "data/helm-render-intents/intents/grafana-tempo-1-24-4-local-persistent.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1"
     selection:
       name: "local-persistent"
       kind: "catalog-preset"

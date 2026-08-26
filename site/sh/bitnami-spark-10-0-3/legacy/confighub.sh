@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the legacy base variant into ./bitnami-spark-10-0-3-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --base legacy --work-dir ./bitnami-spark-10-0-3-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --base legacy --work-dir ./bitnami-spark-10-0-3-legacy --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-spark-10-0-3-legacy --space "${SPACE}"

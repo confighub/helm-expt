@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./gitlab-gitlab-runner-0-89-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0 --base default --work-dir ./gitlab-gitlab-runner-0-89-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a --base default --work-dir ./gitlab-gitlab-runner-0-89-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./gitlab-gitlab-runner-0-89-0-default/out/manifests

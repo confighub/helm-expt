@@ -64,7 +64,11 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/metrics-server/metrics-server/3.13.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0"
+    manifestDigest: "sha256:ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b"
+    layerDigest: "sha256:10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
+    publicationReceipt: "runs/installer-oci/metrics-server-metrics-server/3.13.0/installer-package-publication-receipt.yaml"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
@@ -101,7 +105,7 @@ spec:
         default: true
         description: "metrics-server default variant rendered from metrics-server/metrics-server@3.13.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -179,7 +183,7 @@ spec:
         default: false
         description: "metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

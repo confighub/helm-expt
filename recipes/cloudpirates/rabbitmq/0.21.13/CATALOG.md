@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudpirates/rabbitmq/0.21.13/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/rabbitmq/0.21.13/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudpirates/rabbitmq/0.21.13/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6` |
 | Installer package source | [packages/cloudpirates/rabbitmq/0.21.13](../../../../packages/cloudpirates/rabbitmq/0.21.13) |
 | Installer package receipt | [recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudpirates/rabbitmq/0.21.13/artifact-index.yaml](artifact-index.yaml) |
@@ -80,7 +80,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

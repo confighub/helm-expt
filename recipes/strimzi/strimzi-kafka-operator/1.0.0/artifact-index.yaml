@@ -65,7 +65,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
+    manifestDigest: "sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6"
+    layerDigest: "sha256:1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
+    publicationReceipt: "runs/installer-oci/strimzi-strimzi-kafka-operator/1.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/strimzi/strimzi-kafka-operator/1.0.0/installer.yaml"
     receipt: "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
@@ -102,7 +106,7 @@ spec:
         default: true
         description: "strimzi/strimzi-kafka-operator default variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -264,7 +268,7 @@ spec:
         default: false
         description: "strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

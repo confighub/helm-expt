@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/redis/25.5.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/redis/25.5.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33` |
 | Installer package source | [packages/bitnami/redis/25.5.3](../../../../packages/bitnami/redis/25.5.3) |
 | Installer package receipt | [recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/redis/25.5.3/artifact-index.yaml](artifact-index.yaml) |
@@ -86,7 +86,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

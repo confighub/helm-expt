@@ -32,8 +32,8 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
-| `single-binary-filesystem` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki` |
-| `simple-scalable-minio` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki` |
+| `single-binary-filesystem` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki` |
+| `simple-scalable-minio` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass | none | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki` |
 
 ## Quirks And Inputs
 

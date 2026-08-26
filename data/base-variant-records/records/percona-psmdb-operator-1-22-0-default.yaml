@@ -13,7 +13,7 @@ spec:
     name: "percona/psmdb-operator"
     version: "1.22.0"
     record: "data/helm-render-intents/intents/percona-psmdb-operator-1-22-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722"
     selection:
       name: "default"
       kind: "catalog-preset"

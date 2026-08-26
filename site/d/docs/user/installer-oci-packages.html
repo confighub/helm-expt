@@ -449,23 +449,28 @@
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
-<p>Current status: the catalog records 110 published installer package OCI refs. 100 are public catalog chart packages; the extra refs are retained chart-version packages used by refresh and comparison work. The refs are published in Google Artifact Registry with public read access. The local setup path does not require a ConfigHub account, a Google registry login, or a clone of this repo.</p>
+<p>The generated package index lists every current and retained package version. Published refs are in Google Artifact Registry with public read access. The local setup path does not require a ConfigHub account, a Google registry login, or a clone of this repo.</p>
 <p>The user-facing command is:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/&lt;repo&gt;-&lt;chart&gt;:&lt;version&gt; \
+  <pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/&lt;repo&gt;-&lt;chart&gt;:&lt;version&gt;@sha256:&lt;manifest-digest&gt;' \
   --base &lt;preset&gt; \
   --work-dir ./out \
   --non-interactive \
   --namespace &lt;namespace&gt;</code></pre>
 <p>For example:</p>
-<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+<pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
   --namespace redis \
   --output-oci ./redis-rendered.oci</code></pre>
 <p><code>cub installer setup</code> pulls the package into the work directory, writes the selected inputs under <code>out/spec</code>, and writes the rendered Kubernetes files under <code>out/manifests</code>. If the preset separates secret material, it also writes files under <code>out/secrets</code>. The optional <code>--output-oci</code> flag writes the exact non-secret rendered objects to a local OCI image layout or pushes them to an <code>oci://host/repository:tag</code> reference. The installer reads that artifact back and checks its object-set digest before returning.</p>
+<h2 id="check-the-package-before-rendering">Check The Package Before Rendering</h2>
+<p>Use the exact reference from the chart page or generated package index:</p>
+<pre><code>cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' --json</code></pre>
+<p>The version tag tells you which retained version you selected. The manifest digest after <code>@</code> makes the reference immutable. <code>cub installer</code> refuses the pull if the registry cannot return that exact manifest. The inspect output also prints the manifest and layer digests recorded by the publication receipt.</p>
+<p>This establishes which package bytes you received. It does not show that the configuration is suitable for your cluster, and the current catalog packages do not yet have a separate publisher signature. Use the chart page for source, render, lifecycle, and test evidence.</p>
 <h2 id="what-the-package-contains">What The Package Contains</h2>
 <p>An installer package is the catalog artifact for one chart version. It contains:</p>
 <ul><li>the package metadata and <code>installer.yaml</code>;</li><li>the available preset chart configurations, called bases in the repo;</li><li>the files needed to render each supported preset locally;</li><li>the recorded inputs behind those presets;</li><li>links back to the catalog evidence: rendered output, checks, receipts, hooks, CRDs, target prerequisites, and other chart extras.</li></ul>
@@ -479,7 +484,7 @@
 <tr><td>ConfigHub release OCI</td><td>A reviewed ConfigHub Space release, published after the objects are stored and managed.</td><td>Argo CD, Flux, or another delivery path that consumes the managed result.</td></tr></tbody></table>
 <p>The input and output may both be OCI without being the same artifact. The installer package can offer several presets and the files needed to render them. A rendered OCI contains one chosen result. A ConfigHub release OCI contains the later managed revision after variants, review, approval, or promotion.</p>
 <p>To push the selected result directly:</p>
-<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+<pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -492,14 +497,14 @@
 <p>Until a row has a publication receipt, maintainers can still use the local source package path under <code>packages/...</code> from a repo checkout. Users who are pulling from OCI should follow rows that have a published package, or treat an unpublished row as a preview of the intended address.</p>
 <h2 id="public-pull-access">Public Pull Access</h2>
 <p>Publishing and public pull access are separate. For this catalog, both are now in place:</p>
-<ul><li>the 110 package refs have publication receipts;</li><li>the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>;</li><li>the project-level organization policy allows that public read binding for this public package project.</li></ul>
+<ul><li>every currently published package ref has a committed publication receipt;</li><li>the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>;</li><li>the project-level organization policy allows that public read binding for this public package project.</li></ul>
 <p>That means a user can run <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against the public catalog refs without Google Cloud credentials. Write access is still private: maintainers need registry credentials to publish or replace packages.</p>
 <p>The registry setting is deliberately narrow: the <code>helm-expt</code> Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>. The project has a project-level organization-policy override that permits that public read binding. This does not grant anonymous write access, and it does not make other project resources public.</p>
 <p>Anonymous read was checked with empty local auth state:</p>
 <pre><code>tmpd=$(mktemp -d); tmpc=$(mktemp -d)
 
 DOCKER_CONFIG=&quot;$tmpd&quot; CLOUDSDK_CONFIG=&quot;$tmpc&quot; GOOGLE_APPLICATION_CREDENTIALS= \
-  cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
     --base reuse-existing-secret \
     --work-dir ./out \
     --non-interactive \
@@ -511,7 +516,8 @@ rm -rf &quot;$tmpd&quot; &quot;$tmpc&quot;</code></pre>
 <ul><li><a href="../../data/installer-oci-packages/summary.html">Installer OCI package summary</a></li><li><a href="../../../../data/installer-oci-packages/packages.csv">Installer OCI package CSV</a></li><li><a href="../../../../data/installer-oci-packages/packages.json">Installer OCI package JSON</a></li></ul>
 <p>The verifier is:</p>
 <pre><code>npm run installer-oci:catalog:verify</code></pre>
-<p>This checks that the package refs, setup commands, package paths, bases, and publication statuses match the current repo.</p>
+<p>This checks that package refs, manifest and layer digests, immutable setup and inspect commands, package paths, bases, and publication statuses match the committed receipts. Its self-test also refuses invalid digests and any published setup command that falls back to a mutable tag:</p>
+<pre><code>npm run installer-oci:catalog:self-test</code></pre>
 <p>Maintainers publish packages with:</p>
 <pre><code>npm run installer-oci:publish -- --package packages/bitnami/redis/25.5.3</code></pre>
 <p>or, for the full catalog:</p>

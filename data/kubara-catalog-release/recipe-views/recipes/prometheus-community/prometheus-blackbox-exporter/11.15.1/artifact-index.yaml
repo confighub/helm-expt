@@ -57,7 +57,11 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1"
+    manifestDigest: "sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512"
+    layerDigest: "sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551"
+    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.15.1/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551"
@@ -89,7 +93,7 @@ spec:
         default: true
         description: "prometheus-blackbox-exporter chart defaults variant rendered from prometheus-community/prometheus-blackbox-exporter@11.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

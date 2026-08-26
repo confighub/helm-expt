@@ -64,7 +64,11 @@ spec:
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+    manifestDigest: "sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679"
+    layerDigest: "sha256:cd92ab8dbd15343e9ece4bdaab87d3ca6ab5820d87c11bd3497b400c9d220798"
+    publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/85.3.3/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "cd92ab8dbd15343e9ece4bdaab87d3ca6ab5820d87c11bd3497b400c9d220798"
@@ -225,7 +229,7 @@ spec:
         default: true
         description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 124
         cubInstallObjectCountIncludingSupport: 125
         semanticObjectMatches: "124/124"
@@ -401,7 +405,7 @@ spec:
         default: false
         description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 114
         cubInstallObjectCountIncludingSupport: 115
         semanticObjectMatches: "114/114"

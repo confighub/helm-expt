@@ -5,16 +5,15 @@
 The catalog should let a user try a chart without cloning this repo. That is
 why each chart version now has an installer package OCI ref.
 
-Current status: the catalog records 110 published installer package OCI refs.
-100 are public catalog chart packages; the extra refs are retained chart-version
-packages used by refresh and comparison work. The refs are published in Google
-Artifact Registry with public read access. The local setup path does not require
-a ConfigHub account, a Google registry login, or a clone of this repo.
+The generated package index lists every current and retained package version.
+Published refs are in Google Artifact Registry with public read access. The
+local setup path does not require a ConfigHub account, a Google registry login,
+or a clone of this repo.
 
 The user-facing command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/<repo>-<chart>:<version> \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/<repo>-<chart>:<version>@sha256:<manifest-digest>' \
   --base <preset> \
   --work-dir ./out \
   --non-interactive \
@@ -24,7 +23,7 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 For example:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -39,6 +38,24 @@ under `out/secrets`. The optional `--output-oci` flag writes the exact non-secre
 rendered objects to a local OCI image layout or pushes them to an
 `oci://host/repository:tag` reference. The installer reads that artifact back and
 checks its object-set digest before returning.
+
+## Check The Package Before Rendering
+
+Use the exact reference from the chart page or generated package index:
+
+```sh
+cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' --json
+```
+
+The version tag tells you which retained version you selected. The manifest
+digest after `@` makes the reference immutable. `cub installer` refuses the
+pull if the registry cannot return that exact manifest. The inspect output also
+prints the manifest and layer digests recorded by the publication receipt.
+
+This establishes which package bytes you received. It does not show that the
+configuration is suitable for your cluster, and the current catalog packages
+do not yet have a separate publisher signature. Use the chart page for source,
+render, lifecycle, and test evidence.
 
 ## What The Package Contains
 
@@ -86,7 +103,7 @@ revision after variants, review, approval, or promotion.
 To push the selected result directly:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -119,7 +136,7 @@ unpublished row as a preview of the intended address.
 Publishing and public pull access are separate. For this catalog, both are now
 in place:
 
-- the 110 package refs have publication receipts;
+- every currently published package ref has a committed publication receipt;
 - the Google Artifact Registry repository grants `roles/artifactregistry.reader`
   to `allUsers`;
 - the project-level organization policy allows that public read binding for this
@@ -142,7 +159,7 @@ Anonymous read was checked with empty local auth state:
 tmpd=$(mktemp -d); tmpc=$(mktemp -d)
 
 DOCKER_CONFIG="$tmpd" CLOUDSDK_CONFIG="$tmpc" GOOGLE_APPLICATION_CREDENTIALS= \
-  cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
     --base reuse-existing-secret \
     --work-dir ./out \
     --non-interactive \
@@ -165,8 +182,14 @@ The verifier is:
 npm run installer-oci:catalog:verify
 ```
 
-This checks that the package refs, setup commands, package paths, bases, and
-publication statuses match the current repo.
+This checks that package refs, manifest and layer digests, immutable setup and
+inspect commands, package paths, bases, and publication statuses match the
+committed receipts. Its self-test also refuses invalid digests and any published
+setup command that falls back to a mutable tag:
+
+```sh
+npm run installer-oci:catalog:self-test
+```
 
 Maintainers publish packages with:
 

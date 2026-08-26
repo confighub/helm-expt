@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the eks-inference base variant into ./karpenter-karpenter-1-14-0-eks-inference"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base eks-inference --work-dir ./karpenter-karpenter-1-14-0-eks-inference --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --base eks-inference --work-dir ./karpenter-karpenter-1-14-0-eks-inference --non-interactive --namespace kube-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./karpenter-karpenter-1-14-0-eks-inference/out/manifests

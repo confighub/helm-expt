@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./elastic-metricbeat-8-5-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1 --base default --work-dir ./elastic-metricbeat-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc --base default --work-dir ./elastic-metricbeat-8-5-1-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./elastic-metricbeat-8-5-1-default --space "${SPACE}"

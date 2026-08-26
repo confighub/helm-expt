@@ -67,7 +67,11 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/spark/10.0.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3"
+    manifestDigest: "sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9"
+    layerDigest: "sha256:d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
+    publicationReceipt: "runs/installer-oci/bitnami-spark/10.0.3/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/spark/10.0.3/installer.yaml"
     receipt: "recipes/bitnami/spark/10.0.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
@@ -109,7 +113,7 @@ spec:
         default: true
         description: "bitnami/spark default variant rendered from bitnami/spark@10.0.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -171,7 +175,7 @@ spec:
         default: false
         description: "bitnami/spark ha variant rendered from bitnami/spark@10.0.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -233,7 +237,7 @@ spec:
         default: false
         description: "bitnami/spark legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/spark@10.0.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./fairwinds-stable-vpa-4-11-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0 --base no-crds --work-dir ./fairwinds-stable-vpa-4-11-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61 --base no-crds --work-dir ./fairwinds-stable-vpa-4-11-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./fairwinds-stable-vpa-4-11-0-no-crds --space "${SPACE}"

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./minio-operator-tenant-7-1-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1 --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8 --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./minio-operator-tenant-7-1-1-default/out/manifests

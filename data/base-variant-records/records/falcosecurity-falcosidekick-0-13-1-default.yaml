@@ -13,7 +13,7 @@ spec:
     name: "falcosecurity/falcosidekick"
     version: "0.13.1"
     record: "data/helm-render-intents/intents/falcosecurity-falcosidekick-0-13-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9"
     selection:
       name: "default"
       kind: "catalog-preset"

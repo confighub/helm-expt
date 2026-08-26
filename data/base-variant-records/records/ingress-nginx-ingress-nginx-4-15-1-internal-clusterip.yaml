@@ -13,7 +13,7 @@ spec:
     name: "ingress-nginx/ingress-nginx"
     version: "4.15.1"
     record: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
     selection:
       name: "internal-clusterip"
       kind: "catalog-preset"

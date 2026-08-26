@@ -13,7 +13,7 @@ spec:
     name: "metrics-server/metrics-server"
     version: "3.13.1"
     record: "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-1-external-tls-ca.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:be476b65366c456783f0b2b09f21fff15ebba0c1547a043893893874fe87fc92"
     selection:
       name: "external-tls-ca"
       kind: "catalog-preset"

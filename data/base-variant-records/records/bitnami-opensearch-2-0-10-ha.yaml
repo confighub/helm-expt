@@ -13,7 +13,7 @@ spec:
     name: "bitnami/opensearch"
     version: "2.0.10"
     record: "data/helm-render-intents/intents/bitnami-opensearch-2-0-10-ha.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b"
     selection:
       name: "ha"
       kind: "catalog-preset"

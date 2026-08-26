@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `aws-controllers-k8s/iam-chart@1.7.3`, choose th
 
 That captured output is the render variant: [`recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/release-objects.yaml). It contains 19 Kubernetes object(s): CustomResourceDefinition x9, Role x3, ClusterRole x2, ClusterRoleBinding x2, Deployment x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-iam-chart-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-iam-chart-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aws-controllers-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base default --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b --base default --work-dir ./aws-controllers-k8s-iam-chart-1-7-3-default --non-interactive --namespace ack-system
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

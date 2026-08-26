@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `nfs-subdir-external-provisioner/nfs-subdir-exte
 
 That captured output is the render variant: [`recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml). It contains 7 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, Deployment x1, Role x1, RoleBinding x1, ServiceAccount x1, StorageClass x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-nfs-subdir-external-provisioner-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-nfs-subdir-external-provisioner-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/nfs-subdir-exter
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18 --base default --work-dir ./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3 --base default --work-dir ./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

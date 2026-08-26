@@ -58,7 +58,11 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/grafana/alloy/1.11.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
+    manifestDigest: "sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305"
+    layerDigest: "sha256:1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b"
+    publicationReceipt: "runs/installer-oci/grafana-alloy/1.11.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/alloy/1.11.0/installer.yaml"
     receipt: "recipes/grafana/alloy/1.11.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b"
@@ -90,7 +94,7 @@ spec:
         default: true
         description: "alloy chart defaults variant rendered from grafana/alloy@1.11.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0 --base default --work-dir <tmp> --non-interactive --namespace alloy"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305 --base default --work-dir <tmp> --non-interactive --namespace alloy"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

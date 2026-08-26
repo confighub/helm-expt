@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./aws-controllers-k8s-ec2-chart-1-18-4-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4 --base default --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-default --non-interactive --namespace ack-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9 --base default --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-default --non-interactive --namespace ack-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./aws-controllers-k8s-ec2-chart-1-18-4-default/out/manifests

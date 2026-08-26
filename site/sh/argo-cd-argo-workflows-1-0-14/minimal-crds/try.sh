@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the minimal-crds base variant into ./argo-cd-argo-workflows-1-0-14-minimal-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base minimal-crds --work-dir ./argo-cd-argo-workflows-1-0-14-minimal-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2 --base minimal-crds --work-dir ./argo-cd-argo-workflows-1-0-14-minimal-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./argo-cd-argo-workflows-1-0-14-minimal-crds/out/manifests

@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs
 import { join, posix } from "node:path";
 
 import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
-import { installerOciRef } from "./lib/installer-oci.mjs";
+import { installerOciDigestRef, installerOciRef } from "./lib/installer-oci.mjs";
 import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
 import {
   AICR_CPU_STARTER_LOCAL_OCI_DIGEST,
@@ -194,9 +194,21 @@ const REDIS_INSTALLER_MANIFEST_DIGEST = REDIS_INSTALLER_PUBLICATION_RECEIPT?.spe
   ?? String(REDIS_INSTALLER_PUBLICATION_RECEIPT?.spec?.outputs?.push ?? "").match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
   ?? "";
 check(REDIS_INSTALLER_MANIFEST_DIGEST, "Redis installer publication receipt has no manifest digest");
-const REDIS_INSTALLER_PINNED_OCI_REF = REDIS_INSTALLER_OCI_REF.replace(
-  /:[^:/]+$/u,
-  `@${REDIS_INSTALLER_MANIFEST_DIGEST}`,
+const REDIS_INSTALLER_PINNED_OCI_REF = installerOciDigestRef(
+  REDIS_INSTALLER_OCI_REF,
+  REDIS_INSTALLER_MANIFEST_DIGEST,
+);
+const REDIS_27_INSTALLER_PUBLICATION_RECEIPT = readYaml(join(
+  repoRoot,
+  "runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml",
+));
+const REDIS_27_INSTALLER_MANIFEST_DIGEST = REDIS_27_INSTALLER_PUBLICATION_RECEIPT?.spec?.outputs?.manifestDigest
+  ?? String(REDIS_27_INSTALLER_PUBLICATION_RECEIPT?.spec?.outputs?.push ?? "").match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
+  ?? "";
+check(REDIS_27_INSTALLER_MANIFEST_DIGEST, "Redis 27 installer publication receipt has no manifest digest");
+const REDIS_27_INSTALLER_PINNED_OCI_REF = installerOciDigestRef(
+  REDIS_27_INSTALLER_OCI_REF,
+  REDIS_27_INSTALLER_MANIFEST_DIGEST,
 );
 const REDIS_25_REUSE_RENDER_PATH = join(
   repoRoot,
@@ -209,6 +221,18 @@ const REDIS_27_REUSE_RENDER_PATH = join(
 const REDIS_IMAGE_DIGEST =
   "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
+const PROMETHEUS_INSTALLER_PUBLICATION_RECEIPT = readYaml(join(
+  repoRoot,
+  "runs/installer-oci/prometheus-community-prometheus/29.8.0/installer-package-publication-receipt.yaml",
+));
+const PROMETHEUS_INSTALLER_MANIFEST_DIGEST = PROMETHEUS_INSTALLER_PUBLICATION_RECEIPT?.spec?.outputs?.manifestDigest
+  ?? String(PROMETHEUS_INSTALLER_PUBLICATION_RECEIPT?.spec?.outputs?.push ?? "").match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
+  ?? "";
+check(PROMETHEUS_INSTALLER_MANIFEST_DIGEST, "Prometheus installer publication receipt has no manifest digest");
+const PROMETHEUS_INSTALLER_PINNED_OCI_REF = installerOciDigestRef(
+  PROMETHEUS_INSTALLER_OCI_REF,
+  PROMETHEUS_INSTALLER_MANIFEST_DIGEST,
+);
 const INSTALLER_OCI_AUTH_NOTE =
   "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
 const CONFIGHUB_SIGNUP_URL = "https://hub.confighub.com";
@@ -799,6 +823,10 @@ function buildSite(generatedAt) {
         installer_oci_ref: installerOci?.installer_oci_ref ?? installerOciRef(entry.chart, entry.version),
         installer_oci_publication_status: installerOci?.publication_status ?? "assigned-ref",
         installer_oci_publication_receipt: installerOci?.publication_receipt ?? "",
+        installer_oci_manifest_digest: installerOci?.manifest_digest ?? "",
+        installer_oci_layer_digest: installerOci?.layer_digest ?? "",
+        installer_oci_digest_pinned_ref: installerOci?.digest_pinned_ref ?? "",
+        installer_oci_verify_command: installerOci?.verify_command ?? "",
         installer_oci_default_base: installerOci?.default_base ?? startVariant,
         installer_oci_bases: installerOci?.bases ?? "",
         chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
@@ -2472,7 +2500,7 @@ function configTestCentreHome(catalog) {
           <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
             <pre class="term-body"><code><span class="pr">$</span> cub installer setup \\
-  <span class="k">--pull</span> ${REDIS_INSTALLER_OCI_REF} \\
+  <span class="k">--pull</span> ${REDIS_INSTALLER_PINNED_OCI_REF} \\
   <span class="k">--base</span> reuse-existing-secret \\
   <span class="k">--namespace</span> redis <span class="k">--work-dir</span> ./redis \\
   <span class="k">--non-interactive --output-oci</span> ./redis-rendered.oci
@@ -2719,7 +2747,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the chart version, values profile, namespace, capabilities, and source lock.</p>
     <p>Helm renders those inputs. AICR and Kubara generate or compose. Literal YAML and configuration OCI already contain objects, so this step only reads and checks them. The result is an exact Kubernetes object set with an inventory and digest.</p>
     <p>Make a new base variant when the source inputs should produce a different object set. Use a derived ConfigHub variant when one environment needs an exact field changed after render.</p>
-    <p><strong>Redis example:</strong> the <code>default</code> base has a public package, <code>${REDIS_INSTALLER_OCI_REF}</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
+    <p><strong>Redis example:</strong> the <code>default</code> base has an exact public package, <code>${REDIS_INSTALLER_PINNED_OCI_REF}</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
     <p>The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums. The <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repository source for the base variant. Redis has no hook route; charts with hooks or CRDs record them in lifecycle routes and target facts. <a href="../data/helm-render-intents/summary.md">Open more render-intent examples</a>.</p>
   </div>
 
@@ -3066,7 +3094,7 @@ function legacyDashboardHtml(catalog) {
         <h3><a href="./try.html">Try one package in 5 minutes</a></h3>
         <p>Render and inspect Redis locally. You do not need ConfigHub Server, a ConfigHub account, or a Kubernetes cluster.</p>
         <pre><code>cub installer setup \\
-  --pull ${REDIS_INSTALLER_OCI_REF} \\
+  --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
   --base reuse-existing-secret --work-dir ./redis \\
   --non-interactive --namespace redis \\
   --output-oci ./redis-25.oci</code></pre>
@@ -3663,7 +3691,7 @@ function legacyOfferingHtml(catalog) {
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
       <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ${signupLink("offering", "ConfigHub account")} is free: use it to record config changes and compare them with later upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
-      <pre>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+      <pre>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
   --base reuse-existing-secret \\
   --work-dir .tmp/redis \\
   --non-interactive \\
@@ -4272,7 +4300,7 @@ bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-secr
       <h3>No account: the package choice stays</h3>
       <p class="tag">no ConfigHub account</p>
       <pre><code># Re-enter the same work directory with the newer public package.
-cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
+cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} \\
     --work-dir ./redis --reuse --non-interactive --namespace redis \\
     --output-oci ./redis-27.oci
 
@@ -4294,7 +4322,7 @@ cub run set-replicas --space my-redis \\
     --change-desc "Keep two Redis replicas through chart upgrades" --wait
 
 # Pull 27.0.0. setup reads upload.yaml; plan shows the comparison.
-cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
+cub installer setup --pull ${REDIS_27_INSTALLER_PINNED_OCI_REF} \\
     --work-dir ./redis --reuse --non-interactive --namespace redis
 cub installer plan --work-dir ./redis
 cub installer upload --work-dir ./redis --yes</code></pre>
@@ -7126,8 +7154,8 @@ Variants:
 
     <section aria-labelledby="flow">
       <h2 id="flow">4. Run the commands</h2>
-      <pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base reuse-existing-secret --work-dir .tmp/redis
-cub installer upload --work-dir .tmp/redis --space helm-redis-base
+      <pre><code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} --base reuse-existing-secret --work-dir ./redis-reviewed
+cub installer upload --work-dir ./redis-reviewed --space helm-redis-base
 cub variant create prod-us-east helm-redis-base --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
       <p>You see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
@@ -8433,8 +8461,13 @@ function verifyRetainedCatalogPackage(row) {
   // words. Everything below applies to versions that do claim publication.
   if (row.publication_status === "assigned-ref") {
     check(
-      !row.publication_receipt && !row.published_digest,
-      `${row.chart}@${row.version}: an unpublished version must not carry a publication receipt or a published digest`,
+      !row.publication_receipt
+        && !row.published_digest
+        && !row.manifest_digest
+        && !row.layer_digest
+        && !row.digest_pinned_ref
+        && !row.verify_command,
+      `${row.chart}@${row.version}: an unpublished version must not carry publication or verification data`,
     );
     verifyRetainedCatalogConfigurations(row);
     return;
@@ -8459,6 +8492,21 @@ function verifyRetainedCatalogPackage(row) {
     ?? "";
   check(layerDigest === `sha256:${row.published_digest}`, `${row.chart}@${row.version}: receipt layer digest differs from the exact package`);
   check(/^sha256:[0-9a-f]{64}$/.test(manifestDigest), `${row.chart}@${row.version}: receipt manifest digest is invalid`);
+  check(row.manifest_digest === manifestDigest, `${row.chart}@${row.version}: catalog manifest digest differs from its receipt`);
+  check(row.layer_digest === layerDigest, `${row.chart}@${row.version}: catalog layer digest differs from its receipt`);
+  check(
+    row.digest_pinned_ref === installerOciDigestRef(row.installer_oci_ref, manifestDigest),
+    `${row.chart}@${row.version}: catalog exact OCI ref differs from its receipt`,
+  );
+  check(
+    row.setup_command.includes(`--pull ${row.digest_pinned_ref} `),
+    `${row.chart}@${row.version}: published setup command uses a mutable OCI ref`,
+  );
+  check(
+    row.inspect_command === `cub installer inspect ${row.digest_pinned_ref} --json`
+      && row.verify_command === row.inspect_command,
+    `${row.chart}@${row.version}: published verification command is incomplete`,
+  );
   check(
     /^[0-9a-f]{64}$/.test(receipt.spec?.outputs?.inspectJSONCanonicalSHA256 ?? receipt.spec?.outputs?.inspectJSONSHA256 ?? ""),
     `${row.chart}@${row.version}: receipt inspect digest is invalid`,
@@ -8557,6 +8605,10 @@ function flatteningVerdictCell(catalog, entry) {
 
 function installerOciRefForEntry(entry) {
   return entry.installer_oci_ref || installerOciRef(entry.chart, entry.version);
+}
+
+function installerOciPullRefForEntry(entry) {
+  return entry.installer_oci_digest_pinned_ref || installerOciRefForEntry(entry);
 }
 
 function installerOciStatusText(entry) {
@@ -9848,10 +9900,9 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const manifestDigest = receipt?.spec?.outputs?.manifestDigest
     ?? pushOutput.match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
     ?? "";
-  const layerDigest = published ? `sha256:${row.published_digest}` : "";
-  const digestPinnedSetup = published && manifestDigest
-    ? escapeHtml(String(row.setup_command ?? "").replace(row.installer_oci_ref, row.installer_oci_ref.replace(/:[^:/]+$/u, `@${manifestDigest}`)))
-    : "";
+  const layerDigest = row.layer_digest || (published ? `sha256:${row.published_digest}` : "");
+  const digestPinnedRef = row.digest_pinned_ref
+    || (published && manifestDigest ? installerOciDigestRef(row.installer_oci_ref, manifestDigest) : "");
   const componentVersions = retainedInstallerRows(catalog, row.chart);
   const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
   const evidenceVersionNote = evidenceEntry
@@ -9933,17 +9984,16 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
 
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
-      <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
-      <pre><code>${escapeHtml(row.inspect_command)}
+      <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
+      <pre><code>${escapeHtml(row.verify_command || row.inspect_command)}
 ${escapeHtml(row.setup_command)}</code></pre>
       <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
       <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
 cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
       <p>The check is advisory and does not apply anything.</p>
-      <p>Exact OCI ref: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
-      ${digestPinnedSetup ? `<p>The same pull, pinned so a republished tag cannot change what you get:</p>
-      <pre><code>${digestPinnedSetup}</code></pre>
-      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>` : ""}
+      <p>Version tag: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
+      ${digestPinnedRef ? `<p>Exact package: <code>${escapeHtml(digestPinnedRef)}</code></p>
+      <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>` : ""}
     </section>
 
     <section aria-labelledby="retained-configurations">
@@ -9990,7 +10040,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         ["Retained package source", `<a href="https://github.com/confighub/helm-expt/tree/main/${escapeHtml(row.package_path)}">${escapeHtml(row.package_path)}</a>`],
         ["Installer metadata", `<a href="../../${escapeHtml(row.installer_yaml)}">${escapeHtml(row.installer_yaml)}</a>`],
         ["Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
-        ["OCI ref", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
+        ["Version tag", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
+        ["Exact OCI ref", `<code>${escapeHtml(digestPinnedRef)}</code>`],
         ["Layer digest", `<code>${escapeHtml(layerDigest)}</code>`],
         ["Manifest digest", `<code>${escapeHtml(manifestDigest)}</code>`],
       ], { rawSecondColumn: true })}
@@ -10098,9 +10149,9 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   const entryManifestDigest = entryPublicationReceipt?.spec?.outputs?.manifestDigest
     ?? String(entryPublicationReceipt?.spec?.outputs?.push ?? "").match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
     ?? "";
-  const entryDigestPinnedRef = entryManifestDigest
-    ? installerPackageOciRef.replace(/:[^:/]+$/u, `@${entryManifestDigest}`)
-    : "";
+  const entryDigestPinnedRef = entry.installer_oci_digest_pinned_ref
+    || (entryManifestDigest ? installerOciDigestRef(installerPackageOciRef, entryManifestDigest) : "");
+  const installerPackagePullRef = entryDigestPinnedRef || installerPackageOciRef;
   const installerPublicationReceiptLink = entry.installer_oci_publication_receipt
     ? `<a href="../../${escapeHtml(entry.installer_oci_publication_receipt)}">open the exact publication receipt</a>`
     : "no publication receipt is committed";
@@ -10318,7 +10369,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     ["User status", humanizeReasonToken(evidenceRoute?.user_status || userReadiness?.user_status || "Status not recorded")],
     ["Can I use it?", chartUseMeaning(evidenceRoute?.chart_use_answer || "")],
     ["First base", evidenceRoute?.first_base || entry.start_variant],
-    ["Installer package OCI", installerPackageOciRef],
+    ["Exact installer package", installerPackagePullRef],
     ["Tests completed", chartPageText(humanizeReasonList(evidenceRoute?.current_proof || entry.proof_status || "See the test results"))],
     ["Coverage", humanizeReasonList(evidenceRoute?.coverage_status || "See coverage evidence")],
     ["You must provide", chartPageText(cleanPageActionText(evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "Check the target requirements and configuration status"))],
@@ -10381,7 +10432,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
         ["Question", "Answer"],
         ["Catalog readiness", catalogReadinessLabel(entry)],
         ["Chart version", entry.version],
-        ["Installer package OCI", installerPackageOciRef],
+        ["Exact installer package", installerPackagePullRef],
         ["OCI publication status", installerPackageStatus],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
         [entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
@@ -10413,7 +10464,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
       ${markdownLikeTable([
         ["Key", "Where to look first", "What it means"],
-        ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, `The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. ${INSTALLER_OCI_AUTH_NOTE}`],
+        ["Package users pull", `<code>${escapeHtml(installerPackagePullRef)}</code>`, `The exact installer package for this chart version. The version tag is readable, and the manifest digest makes a published pull immutable. ${INSTALLER_OCI_AUTH_NOTE}`],
         ["Required before apply", packageRequirementTableRows.map(([name, source]) => `${escapeHtml(name)}${source ? `<br>${source}` : ""}`).join("<br>"), "External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact."],
         ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this base variant. It is the output of the render."],
         ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
@@ -10433,8 +10484,10 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       <p>${isReadyToTry ? `Start with <strong>${escapeHtml(entry.start_variant)}</strong>.` : `Review <strong>${escapeHtml(entry.start_variant)}</strong> before use.`} If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
-        <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)} · ${installerPublicationReceiptLink}</span></p>
-        ${entryDigestPinnedRef ? `<p>The same pull, pinned so a republished tag cannot change what you get: swap the ref above for <code>${escapeHtml(entryDigestPinnedRef)}</code>. The digest comes from this package's committed publication receipt, and the pinned command form was verified live against the Redis package.</p>` : ""}
+        <p><strong>Exact package:</strong> <code>${escapeHtml(installerPackagePullRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)} · ${installerPublicationReceiptLink}</span></p>
+        ${entryDigestPinnedRef ? `<p>Readable version tag: <code>${escapeHtml(installerPackageOciRef)}</code>. The package is pinned so a republished tag cannot change what you get. The command below uses the exact manifest digest, so <code>cub installer</code> refuses different package bytes.</p>
+        <h3>Check the package identity</h3>
+        <pre><code>${escapeHtml(entry.installer_oci_verify_command || `cub installer inspect ${entryDigestPinnedRef} --json`)}</code></pre>` : ""}
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
         <p>${firstRunnableCommand}</p>
@@ -10646,7 +10699,7 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
   --set auth.existingSecret=redis-existing-secret \\
   --set auth.existingSecretPasswordKey=redis-password \\
   --set image.digest=${REDIS_IMAGE_DIGEST}</code></pre><p>Helm receives the password from a Secret created separately.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_PINNED_OCI_REF} \\
   --base reuse-existing-secret --work-dir ./redis-reviewed \\
   --non-interactive --namespace redis \\
   --output-oci ./redis-rendered.oci</code></pre><p>You can inspect the 13 chart objects before apply. cub adds an explicit Namespace and writes the same non-secret object set as OCI.</p></div>
@@ -10663,7 +10716,7 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/prometheus --version 29.8.0 --namespace monitoring --create-namespace</code></pre><p>You should see Helm create a Prometheus release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} --base server-only-ephemeral --work-dir ./prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${PROMETHEUS_INSTALLER_PINNED_OCI_REF} --base server-only-ephemeral --work-dir ./prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
         <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./prometheus-server-only --space helm-prometheus-server-only</code></pre><p>You should see Prometheus Units in ConfigHub. Derived variants can start from that uploaded base.</p></div>
       </div>
       <p><a href="../try.html">Open Get Started</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
@@ -11059,7 +11112,7 @@ function matrixRowRunPath(row, entry, options = {}) {
 function installerSetupCommand(packagePath, variant, entry, row) {
   void packagePath;
   const namespace = entry.namespace ? ` --namespace ${entry.namespace}` : "";
-  return `cub installer setup --pull ${installerOciRefForEntry(entry)} --base ${variant} --work-dir ${presetWorkDir(entry, row)} --non-interactive${namespace}`;
+  return `cub installer setup --pull ${installerOciPullRefForEntry(entry)} --base ${variant} --work-dir ${presetWorkDir(entry, row)} --non-interactive${namespace}`;
 }
 
 function presetStem(entry, row) {

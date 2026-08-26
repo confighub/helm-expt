@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./external-secrets-external-secrets-2-5-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0 --base default --work-dir ./external-secrets-external-secrets-2-5-0-default --non-interactive --namespace external-secrets
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:e4835f92ea97357cf269eabe966ca562cc46fd0f97e4dd18d52f72f0e07459b1 --base default --work-dir ./external-secrets-external-secrets-2-5-0-default --non-interactive --namespace external-secrets
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./external-secrets-external-secrets-2-5-0-default --space "${SPACE}"
