@@ -4,23 +4,28 @@ metadata:
   name: aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1
-  observedAt: "2026-08-08T20:46:56.052Z"
+  observedAt: "2026-08-26T06:59:55.420Z"
   package:
     path: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
-    sha256: 9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624
+    sha256: 60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6
+    sourceTreeSHA256: 34074d8a283429ad0fe082afbd32c1fe0a0b9cb1dd70534d960d78b7f0822ccf
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.tgz"
     push: "cub installer push <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --json"
   outputs:
+    manifestDigest: sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0
+    layerDigest: sha256:60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6
     package: |
-      Bundled aws-ebs-csi-driver-aws-ebs-csi-driver@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-e2O5n4/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.tgz
-        files:  4
-        size:   4485 bytes
-        digest: sha256:9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624
+      Bundled aws-ebs-csi-driver-aws-ebs-csi-driver@2.60.1
+        output: <tmp>
+        files:  8
+        size:   8819 bytes
+        digest: sha256:60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1
-        manifest: sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52
-        layer:    sha256:9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624 (4485 bytes, 4 files)
-    inspectJSONSHA256: 2502bf25a731e934c0535fbe15be5dfaebb480adc22cd2af3ed3516e0b3a5b8f
+        manifest: sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0
+        layer:    sha256:60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6 (8819 bytes, 8 files)
+    inspectJSONSHA256: 396367aa9125b5b12b5bfd9498cdf822e267cb39b4d40007e419c6990def430b
+    inspectJSONCanonicalSHA256: 45284b719bb86811c09c8d6b7673d86d128ff129b4e4628447a9a5edcea4034c

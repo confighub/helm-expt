@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "bitnami-zookeeper-13.8.7"
 spec:
-  observedAt: "2026-08-26T05:37:40.606Z"
+  observedAt: "2026-08-26T07:59:24.018Z"
   subject:
     packagePath: "packages/bitnami/zookeeper/13.8.7"
     publicationReceipt: "runs/installer-oci/bitnami-zookeeper/13.8.7/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7"
-    manifestDigest: "sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f"
-    packageSHA256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
-    layerDigest: "sha256:8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+    manifestDigest: "sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0"
+    packageSHA256: "cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824"
+    layerDigest: "sha256:cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/bitnami-zookeeper/13.8.7/signature.sigstore.json"
-    bundleSHA256: "8f7ed12a857be97cc5ce33937e9941b8cb1c8e90d5ef5b6d7bd6b10550a333d3"
+    bundleSHA256: "79ebaf56ddc3b92babb4ec786803de5685df4e26044504e2f554dff22faadc7c"
     payloadPath: "runs/installer-oci-signatures/bitnami-zookeeper/13.8.7/signature-payload.json"
-    payloadSHA256: "d77e146058f2e97de183519cd3e01679704706ad3c43fd33a097c2b2404fe4b9"
+    payloadSHA256: "77c462de666467e1452095e216d392aec0c6d39f88a114229867b60bf3b0fb01"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/zookeeper/13.8.7 --annotations confighub.com/package-sha256=8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/zookeeper/13.8.7 --annotations confighub.com/package-sha256=cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0"
     outputPath: "runs/installer-oci-signatures/bitnami-zookeeper/13.8.7/verification.json"
-    outputSHA256: "36dd25e36d8974dcbd3e089782d0e9b3a5b4d232128c5e19cf3d419d4f211b00"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-zookeeper/13.8.7/signature.sigstore.json --digest 4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "cee49e16f005f15051f915cc50fcbb4152abfab54edfd77cd5779101ba301895"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-zookeeper/13.8.7/signature.sigstore.json --digest bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/bitnami-zookeeper/13.8.7/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/bitnami/zookeeper/13.8.7"
-    confighub.com/package-sha256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+    confighub.com/package-sha256: "cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

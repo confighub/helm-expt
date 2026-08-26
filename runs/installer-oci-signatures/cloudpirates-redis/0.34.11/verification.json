@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
       },
       "image": {
-        "docker-manifest-digest": "sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99"
+        "docker-manifest-digest": "sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/cloudpirates/redis/0.34.11",
-      "confighub.com/package-sha256": "328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3"
+      "confighub.com/package-sha256": "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
     }
   }
 ]

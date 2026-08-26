@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./grafana-promtail-6-17-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2 --base default --work-dir ./grafana-promtail-6-17-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647 --base default --work-dir ./grafana-promtail-6-17-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-promtail-6-17-1-default/out/manifests

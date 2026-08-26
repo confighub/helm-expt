@@ -4,23 +4,28 @@ metadata:
   name: kedacore-keda-2.19.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0
-  observedAt: "2026-08-08T20:47:23.231Z"
+  observedAt: "2026-08-26T07:01:49.858Z"
   package:
     path: packages/kedacore/keda/2.19.0
-    sha256: 5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b
+    sha256: 58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8
+    sourceTreeSHA256: 5aa5b69e24ba31cde3ec0b7318bc262726ed136e66a2d236ed60d902d2e5138f
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
     push: "cub installer push <tmp>/kedacore-keda-2.19.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0 --json"
   outputs:
+    manifestDigest: sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9
+    layerDigest: sha256:58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8
     package: |
-      Bundled kedacore-keda@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-lsYUaL/kedacore-keda-2.19.0.tgz
-        files:  8
-        size:   166104 bytes
-        digest: sha256:5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b
+      Bundled kedacore-keda@2.19.0
+        output: <tmp>
+        files:  14
+        size:   173120 bytes
+        digest: sha256:58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0
-        manifest: sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525
-        layer:    sha256:5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b (166104 bytes, 8 files)
-    inspectJSONSHA256: 455486259c2d582d2ec39a31bb8cf44bc69805ffb67afd6b4624494e7f40f73a
+        manifest: sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9
+        layer:    sha256:58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8 (173120 bytes, 14 files)
+    inspectJSONSHA256: 94714b4e66fa911060dfeef6fd8e93ff42f344d7b7843b015a4b84aeeeadce44
+    inspectJSONCanonicalSHA256: b8015de4df7766beffced9824ff7feb215894465b8151db3d90ee413f7d64b86

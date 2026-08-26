@@ -4,23 +4,28 @@ metadata:
   name: linkerd-linkerd-crds-1.8.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0
-  observedAt: "2026-08-08T20:47:25.362Z"
+  observedAt: "2026-08-26T07:01:59.231Z"
   package:
     path: packages/linkerd/linkerd-crds/1.8.0
-    sha256: 770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42
+    sha256: 121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4
+    sourceTreeSHA256: daf908fef3c860ba0588e717bfeb27231b28aff934d9e2e8efdae035e14ca97a
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1.8.0.tgz"
     push: "cub installer push <tmp>/linkerd-linkerd-crds-1.8.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0 --json"
   outputs:
+    manifestDigest: sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c
+    layerDigest: sha256:121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4
     package: |
-      Bundled linkerd-linkerd-crds@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Q81wPL/linkerd-linkerd-crds-1.8.0.tgz
-        files:  4
-        size:   87801 bytes
-        digest: sha256:770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42
+      Bundled linkerd-linkerd-crds@1.8.0
+        output: <tmp>
+        files:  8
+        size:   91952 bytes
+        digest: sha256:121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0
-        manifest: sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c
-        layer:    sha256:770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42 (87801 bytes, 4 files)
-    inspectJSONSHA256: ce36fa89603a2c67c5720c8c4ba9fbaefc77dbecd905c354f704e65c3202c5a8
+        manifest: sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c
+        layer:    sha256:121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4 (91952 bytes, 8 files)
+    inspectJSONSHA256: caed0110c0712ee713206a08ad9175da67773f29ad72b3877b15df5beb4012c3
+    inspectJSONCanonicalSHA256: ad9381334368b747f49232dc9b58ccec48ed52010d2c54809d5a3b381d0d1813

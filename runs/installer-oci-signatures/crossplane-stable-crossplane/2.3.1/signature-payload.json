@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f"
+        "sha256": "fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616"
       },
       "annotations": {
         "confighub.com/package-path": "packages/crossplane-stable/crossplane/2.3.1",
-        "confighub.com/package-sha256": "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+        "confighub.com/package-sha256": "c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051"
       }
     }
   ],

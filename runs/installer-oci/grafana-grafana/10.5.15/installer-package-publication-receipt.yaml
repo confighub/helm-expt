@@ -4,23 +4,28 @@ metadata:
   name: grafana-grafana-10.5.15
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15
-  observedAt: "2026-08-08T20:47:15.235Z"
+  observedAt: "2026-08-26T07:01:15.361Z"
   package:
     path: packages/grafana/grafana/10.5.15
-    sha256: 8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed
+    sha256: b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6
+    sourceTreeSHA256: f702337b056a6309d62bf5f0896b25b124a4e8306c40f52d8716b5b58f3a14f6
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-grafana-10.5.15.tgz"
     push: "cub installer push <tmp>/grafana-grafana-10.5.15.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15 --json"
   outputs:
+    manifestDigest: sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3
+    layerDigest: sha256:b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6
     package: |
-      Bundled grafana-grafana@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-TYcdIB/grafana-grafana-10.5.15.tgz
-        files:  7
-        size:   3543 bytes
-        digest: sha256:8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed
+      Bundled grafana-grafana@10.5.15
+        output: <tmp>
+        files:  13
+        size:   8597 bytes
+        digest: sha256:b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15
-        manifest: sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f
-        layer:    sha256:8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed (3543 bytes, 7 files)
-    inspectJSONSHA256: f856f1db46403ee859269a3788c3b86259437e4eb3ec08ac070069442146d3a5
+        manifest: sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3
+        layer:    sha256:b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6 (8597 bytes, 13 files)
+    inspectJSONSHA256: 912bb3ac5ddab226f67559e7d8544b8795cd724a42b62b854fef6ba48a1dfb0f
+    inspectJSONCanonicalSHA256: 8a252a1d03c640093bf1041501ffea8aa6ab52ed13efe25f4dbbb7495ab35063

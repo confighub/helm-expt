@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq@sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
       },
       "image": {
-        "docker-manifest-digest": "sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0"
+        "docker-manifest-digest": "sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/bitnami/rabbitmq/16.0.14",
-      "confighub.com/package-sha256": "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9"
+      "confighub.com/package-sha256": "1add13b1e9dc72f00b442b70ad31d86e00401dd102811b3935710af7255bb0da"
     }
   }
 ]

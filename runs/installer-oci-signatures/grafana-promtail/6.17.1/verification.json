@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647"
       },
       "image": {
-        "docker-manifest-digest": "sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2"
+        "docker-manifest-digest": "sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/grafana/promtail/6.17.1",
-      "confighub.com/package-sha256": "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
+      "confighub.com/package-sha256": "b55fef333b2bd31729b1629e67cc91be51d9662afdbfdc1e3303323059a26577"
     }
   }
 ]

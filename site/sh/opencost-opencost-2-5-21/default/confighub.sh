@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./opencost-opencost-2-5-21-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8 --base default --work-dir ./opencost-opencost-2-5-21-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75 --base default --work-dir ./opencost-opencost-2-5-21-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./opencost-opencost-2-5-21-default --space "${SPACE}"

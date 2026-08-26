@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "gatekeeper-gatekeeper-3.22.2"
 spec:
-  observedAt: "2026-08-26T05:39:51.335Z"
+  observedAt: "2026-08-26T08:01:12.423Z"
   subject:
     packagePath: "packages/gatekeeper/gatekeeper/3.22.2"
     publicationReceipt: "runs/installer-oci/gatekeeper-gatekeeper/3.22.2/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
-    manifestDigest: "sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
-    packageSHA256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
-    layerDigest: "sha256:93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
+    manifestDigest: "sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
+    packageSHA256: "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
+    layerDigest: "sha256:a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/gatekeeper-gatekeeper/3.22.2/signature.sigstore.json"
-    bundleSHA256: "b353616fd4436e7256b74b0e03b810cae113469806227a311fe9212db5c4674c"
+    bundleSHA256: "1b2bf8940f1be6586feac87ada14017cc773ae1f46890a55e9a9ea4f11874c94"
     payloadPath: "runs/installer-oci-signatures/gatekeeper-gatekeeper/3.22.2/signature-payload.json"
-    payloadSHA256: "9ac001fc8cd433e3cd0f69206444a2b97dc9f73175b02445472d61e0c1816f72"
+    payloadSHA256: "28cd357cf919a8ac96a97a9a8165d4fdd6aa7706954981cda32b82381d46140b"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/gatekeeper/gatekeeper/3.22.2 --annotations confighub.com/package-sha256=93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/gatekeeper/gatekeeper/3.22.2 --annotations confighub.com/package-sha256=a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
     outputPath: "runs/installer-oci-signatures/gatekeeper-gatekeeper/3.22.2/verification.json"
-    outputSHA256: "5c7b75f67d3b9680c1518ac7c90b01f90915cd0a67ca6dd4ab5ca40e7a0d5439"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/gatekeeper-gatekeeper/3.22.2/signature.sigstore.json --digest 5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "ed2046f3c279ae3aba4b33d7d8209914b1effeb196b0b81375ebacbc89cfc171"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/gatekeeper-gatekeeper/3.22.2/signature.sigstore.json --digest ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/gatekeeper-gatekeeper/3.22.2/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/gatekeeper/gatekeeper/3.22.2"
-    confighub.com/package-sha256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
+    confighub.com/package-sha256: "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

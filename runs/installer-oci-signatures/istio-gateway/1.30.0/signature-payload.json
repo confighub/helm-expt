@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a"
+        "sha256": "1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
       },
       "annotations": {
         "confighub.com/package-path": "packages/istio/gateway/1.30.0",
-        "confighub.com/package-sha256": "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
+        "confighub.com/package-sha256": "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
       }
     }
   ],

@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat@sha256:228176a6c17e791d85afb63c678068aa3b284f6c3515b4c2512c23ebfbd67d9c"
       },
       "image": {
-        "docker-manifest-digest": "sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
+        "docker-manifest-digest": "sha256:228176a6c17e791d85afb63c678068aa3b284f6c3515b4c2512c23ebfbd67d9c"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/elastic/metricbeat/8.5.1",
-      "confighub.com/package-sha256": "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+      "confighub.com/package-sha256": "296578528bea356c6b3892038deb3b631d1870b0b25c89ad68deeca580879e88"
     }
   }
 ]

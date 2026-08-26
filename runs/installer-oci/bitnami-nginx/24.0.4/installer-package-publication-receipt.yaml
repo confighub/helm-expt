@@ -4,23 +4,28 @@ metadata:
   name: bitnami-nginx-24.0.4
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4
-  observedAt: "2026-08-08T20:47:00.063Z"
+  observedAt: "2026-08-26T07:00:14.874Z"
   package:
     path: packages/bitnami/nginx/24.0.4
-    sha256: c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c
+    sha256: 8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705
+    sourceTreeSHA256: 4716e142659e19c5a9c89467c238622a9d43789006e67f3d090d0c0f50a83fb3
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/nginx/24.0.4 -o <tmp>/bitnami-nginx-24.0.4.tgz"
     push: "cub installer push <tmp>/bitnami-nginx-24.0.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4 --json"
   outputs:
+    manifestDigest: sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b
+    layerDigest: sha256:8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705
     package: |
-      Bundled bitnami-nginx@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-IL1bNU/bitnami-nginx-24.0.4.tgz
-        files:  7
-        size:   3393 bytes
-        digest: sha256:c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c
+      Bundled bitnami-nginx@24.0.4
+        output: <tmp>
+        files:  13
+        size:   8561 bytes
+        digest: sha256:8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4
-        manifest: sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30
-        layer:    sha256:c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c (3393 bytes, 7 files)
-    inspectJSONSHA256: 799b44d13096a220eae6dd5b1179095c5688acffd99fc3c32e835f91951c6c07
+        manifest: sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b
+        layer:    sha256:8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705 (8561 bytes, 13 files)
+    inspectJSONSHA256: 703327607fc7044eb254c20166ddb9632f6d595d5a63653db5b9bf6787051f5f
+    inspectJSONCanonicalSHA256: c572f839822aab3b28488167f657382ff04fb6f179e2fb0ec2e411ee8a55dd9f

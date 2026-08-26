@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b"
+        "sha256": "682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127"
       },
       "annotations": {
         "confighub.com/package-path": "packages/metrics-server/metrics-server/3.13.0",
-        "confighub.com/package-sha256": "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
+        "confighub.com/package-sha256": "6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089"
       }
     }
   ],

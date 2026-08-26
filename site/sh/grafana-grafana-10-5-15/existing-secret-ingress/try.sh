@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the existing-secret-ingress base variant into ./grafana-grafana-10-5-15-existing-secret-ingress"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f --base existing-secret-ingress --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --non-interactive --namespace grafana
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base existing-secret-ingress --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --non-interactive --namespace grafana
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-grafana-10-5-15-existing-secret-ingress/out/manifests

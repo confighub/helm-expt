@@ -4,23 +4,28 @@ metadata:
   name: bitnami-mongodb-19.1.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0
-  observedAt: "2026-08-08T20:46:58.791Z"
+  observedAt: "2026-08-26T07:00:10.041Z"
   package:
     path: packages/bitnami/mongodb/19.1.0
-    sha256: 7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0
+    sha256: ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb
+    sourceTreeSHA256: 953514d9eb652d24198ba3d2e1dd2d8b0320b9e22bd566cf07907f0f21c06c76
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/mongodb/19.1.0 -o <tmp>/bitnami-mongodb-19.1.0.tgz"
     push: "cub installer push <tmp>/bitnami-mongodb-19.1.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0 --json"
   outputs:
+    manifestDigest: sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406
+    layerDigest: sha256:ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb
     package: |
-      Bundled bitnami-mongodb@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-SVPyge/bitnami-mongodb-19.1.0.tgz
-        files:  7
-        size:   5499 bytes
-        digest: sha256:7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0
+      Bundled bitnami-mongodb@19.1.0
+        output: <tmp>
+        files:  13
+        size:   10578 bytes
+        digest: sha256:ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0
-        manifest: sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d
-        layer:    sha256:7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0 (5499 bytes, 7 files)
-    inspectJSONSHA256: d91bc28637b1474eaa2267f4dafac107fd1bf481ba00b7f23429e8f2bb2ac325
+        manifest: sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406
+        layer:    sha256:ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb (10578 bytes, 13 files)
+    inspectJSONSHA256: d8b682436e8c65bda13126ca66664fbe92e53dec5cc007d1708cd6805e28521a
+    inspectJSONCanonicalSHA256: 42e09c9fabedb0dc1923250a0a0c590f9845661e948a604cc1ab58bccf12146f

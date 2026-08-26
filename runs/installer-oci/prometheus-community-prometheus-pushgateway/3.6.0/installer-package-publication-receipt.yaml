@@ -4,23 +4,28 @@ metadata:
   name: prometheus-community-prometheus-pushgateway-3.6.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0
-  observedAt: "2026-08-08T20:47:40.080Z"
+  observedAt: "2026-08-26T07:02:52.759Z"
   package:
     path: packages/prometheus-community/prometheus-pushgateway/3.6.0
-    sha256: 11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2
+    sha256: 1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c
+    sourceTreeSHA256: 81d36e4556f6cf140f4cdb8ad35f7449b18285fdc985ff910c2e2b7948de0509
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/prometheus-pushgateway/3.6.0 -o <tmp>/prometheus-community-prometheus-pushgateway-3.6.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-prometheus-pushgateway-3.6.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --json"
   outputs:
+    manifestDigest: sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b
+    layerDigest: sha256:1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c
     package: |
-      Bundled prometheus-community-prometheus-pushgateway@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-QVAkP9/prometheus-community-prometheus-pushgateway-3.6.0.tgz
-        files:  4
-        size:   1082 bytes
-        digest: sha256:11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2
+      Bundled prometheus-community-prometheus-pushgateway@3.6.0
+        output: <tmp>
+        files:  8
+        size:   5239 bytes
+        digest: sha256:1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0
-        manifest: sha256:81ddc722ff2e7f59d7b99b2a70895b011983bf8edff8f1cfdcb61c49ce3312a8
-        layer:    sha256:11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2 (1082 bytes, 4 files)
-    inspectJSONSHA256: d7d0e629786b1d897572520ed83b65eec50415f2d6a01fdc2426a81a7e40bf5d
+        manifest: sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b
+        layer:    sha256:1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c (5239 bytes, 8 files)
+    inspectJSONSHA256: d8c0127afcdccd00747d840bbb9109f42afe57810553f79d207c73307925e41a
+    inspectJSONCanonicalSHA256: 3295741b6d4b5ddea2b3c5cf1c5139d4b9d6228b2df48b47c1b34250afa0434e

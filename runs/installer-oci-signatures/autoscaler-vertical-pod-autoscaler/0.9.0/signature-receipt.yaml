@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "autoscaler-vertical-pod-autoscaler-0.9.0"
 spec:
-  observedAt: "2026-08-26T05:35:30.713Z"
+  observedAt: "2026-08-26T07:57:28.345Z"
   subject:
     packagePath: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
     publicationReceipt: "runs/installer-oci/autoscaler-vertical-pod-autoscaler/0.9.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0"
-    manifestDigest: "sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
-    packageSHA256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
-    layerDigest: "sha256:482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
+    manifestDigest: "sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7"
+    packageSHA256: "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4"
+    layerDigest: "sha256:659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/autoscaler-vertical-pod-autoscaler/0.9.0/signature.sigstore.json"
-    bundleSHA256: "1e9f7743a7b525f70242e506b6efc9d0daf20c66f1a71d44e9d68e1bea09d5a3"
+    bundleSHA256: "6a92e7ba38d00a7dc9b9f3a4b327b31e8895e36644e676487288b792206120d7"
     payloadPath: "runs/installer-oci-signatures/autoscaler-vertical-pod-autoscaler/0.9.0/signature-payload.json"
-    payloadSHA256: "6105f6b9457245e00a918f95605f36cd7f0069c34b1444c1ef268f2f1ebc8565"
+    payloadSHA256: "8f1354636c4c034a877b3ce1ef428bff8d268e16a16bc997ea6e279a2e2b3b8c"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/autoscaler/vertical-pod-autoscaler/0.9.0 --annotations confighub.com/package-sha256=482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/autoscaler/vertical-pod-autoscaler/0.9.0 --annotations confighub.com/package-sha256=659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7"
     outputPath: "runs/installer-oci-signatures/autoscaler-vertical-pod-autoscaler/0.9.0/verification.json"
-    outputSHA256: "cf9bea389f8facbcc51438618fe04542d06c7081670268fb07a414c32da2f4fb"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/autoscaler-vertical-pod-autoscaler/0.9.0/signature.sigstore.json --digest 89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "44a7db4a593efd9ba24933f58296e045c3dbfd11af9654b864ca4225780b17d9"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/autoscaler-vertical-pod-autoscaler/0.9.0/signature.sigstore.json --digest 1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/autoscaler-vertical-pod-autoscaler/0.9.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
-    confighub.com/package-sha256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
+    confighub.com/package-sha256: "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

@@ -4,28 +4,28 @@ metadata:
   name: aws-controllers-k8s-iam-chart-1.7.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3
-  observedAt: "2026-08-08T20:46:55.662Z"
+  observedAt: "2026-08-26T06:59:53.708Z"
   package:
     path: packages/aws-controllers-k8s/iam-chart/1.7.3
-    sha256: d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965
-    sourceTreeSHA256: 4725f585b08472d14a6837d09d6c80f7cba7dd379440948709742e6741680507
+    sha256: 0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f
+    sourceTreeSHA256: a80dac47bbe84394d27701861d3e36ba66c69b7147a363fe05b02ef0c956dcad
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/aws-controllers-k8s/iam-chart/1.7.3 -o <tmp>/aws-controllers-k8s-iam-chart-1.7.3.tgz"
     push: "cub installer push <tmp>/aws-controllers-k8s-iam-chart-1.7.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --json"
   outputs:
-    manifestDigest: sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b
-    layerDigest: sha256:d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965
+    manifestDigest: sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac
+    layerDigest: sha256:0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f
     package: |
       Bundled aws-controllers-k8s-iam-chart@1.7.3
         output: <tmp>
-        files:  7
-        size:   22191 bytes
-        digest: sha256:d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965
+        files:  13
+        size:   27364 bytes
+        digest: sha256:0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3
-        manifest: sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b
-        layer:    sha256:d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965 (22191 bytes, 7 files)
-    inspectJSONSHA256: ec5a9158e86bd16ed7bc243ce34ad5bee948752340c4f2b6627b429ffc8e627f
-    inspectJSONCanonicalSHA256: 248e8d0d05557a6a6c3142b21cf637828042cc87f9a2a26ab246bc306d9aeff6
+        manifest: sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac
+        layer:    sha256:0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f (27364 bytes, 13 files)
+    inspectJSONSHA256: 0fbd2b6dc2967bd7947c97a0e46c16500ca7bc865631079cd0535b8f2b6da221
+    inspectJSONCanonicalSHA256: 61916b1a77c87fae4e0b274dca427a36f6ed2ca7fb91e6838c29dd9e30441e9d

@@ -4,23 +4,28 @@ metadata:
   name: velero-velero-12.0.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1
-  observedAt: "2026-08-08T20:47:46.114Z"
+  observedAt: "2026-08-26T07:03:14.999Z"
   package:
     path: packages/velero/velero/12.0.1
-    sha256: 4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058
+    sha256: c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4
+    sourceTreeSHA256: 16f5ec49abd665ebbba038981736db610f4aeb3757cf02e54c07a95190ff9c0a
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/velero/velero/12.0.1 -o <tmp>/velero-velero-12.0.1.tgz"
     push: "cub installer push <tmp>/velero-velero-12.0.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1 --json"
   outputs:
+    manifestDigest: sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e
+    layerDigest: sha256:c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4
     package: |
-      Bundled velero-velero@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-SwFZZz/velero-velero-12.0.1.tgz
-        files:  6
-        size:   20205 bytes
-        digest: sha256:4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058
+      Bundled velero-velero@12.0.1
+        output: <tmp>
+        files:  12
+        size:   25127 bytes
+        digest: sha256:c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1
-        manifest: sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7
-        layer:    sha256:4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058 (20205 bytes, 6 files)
-    inspectJSONSHA256: 2154935d32c86b9cf37d7cb5e5206d47348f71414c4a6e04c6d132a33fcc0eca
+        manifest: sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e
+        layer:    sha256:c296184a8a84feae6194d7f2e1430b24af4f9f1de9cc65566046e9cb4f3ba5a4 (25127 bytes, 12 files)
+    inspectJSONSHA256: 659e01c3a506d40ac3226e14c90bc6dc2e9832f6185dc9f8ee3b89dd490d70a2
+    inspectJSONCanonicalSHA256: d4e1122451546b86fab249b0259d74d0a9cf49bc950111197a7bd96da962f0da

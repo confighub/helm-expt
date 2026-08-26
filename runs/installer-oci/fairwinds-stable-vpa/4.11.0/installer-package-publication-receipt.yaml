@@ -4,23 +4,28 @@ metadata:
   name: fairwinds-stable-vpa-4.11.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0
-  observedAt: "2026-08-08T20:47:11.968Z"
+  observedAt: "2026-08-26T07:01:01.949Z"
   package:
     path: packages/fairwinds-stable/vpa/4.11.0
-    sha256: eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3
+    sha256: ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704
+    sourceTreeSHA256: fd4667f1dc5112d928a32242e1a6b0e5d2020aee9621aaa2b2f9686aeef6049c
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
     push: "cub installer push <tmp>/fairwinds-stable-vpa-4.11.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0 --json"
   outputs:
+    manifestDigest: sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f
+    layerDigest: sha256:ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704
     package: |
-      Bundled fairwinds-stable-vpa@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-AUOJx4/fairwinds-stable-vpa-4.11.0.tgz
-        files:  8
-        size:   13167 bytes
-        digest: sha256:eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3
+      Bundled fairwinds-stable-vpa@4.11.0
+        output: <tmp>
+        files:  14
+        size:   18431 bytes
+        digest: sha256:ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0
-        manifest: sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61
-        layer:    sha256:eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3 (13167 bytes, 8 files)
-    inspectJSONSHA256: b058a13b3633e505626b6238bd004b061a637aab06a3b205c3d3e2fc4afa3da7
+        manifest: sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f
+        layer:    sha256:ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704 (18431 bytes, 14 files)
+    inspectJSONSHA256: ab3cc9f8b5091a0a143296ce1b77389b842b394398d6e4d9f424b29a4b0d8a51
+    inspectJSONCanonicalSHA256: 4c095677d932f031c17cc48b24d5726a569483ea82fc59860b607619d7e4cee2

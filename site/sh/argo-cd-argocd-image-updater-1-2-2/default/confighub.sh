@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./argo-cd-argocd-image-updater-1-2-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:3f50dd91833bcd42870138464b00fc58e066f4b92765069755bd7d1de5c4b89a --base default --work-dir ./argo-cd-argocd-image-updater-1-2-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa --base default --work-dir ./argo-cd-argocd-image-updater-1-2-2-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./argo-cd-argocd-image-updater-1-2-2-default --space "${SPACE}"

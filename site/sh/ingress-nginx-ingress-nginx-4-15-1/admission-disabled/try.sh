@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the admission-disabled base variant into ./ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94 --base admission-disabled --work-dir ./ingress-nginx-ingress-nginx-4-15-1-admission-disabled --non-interactive --namespace ingress-nginx
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base admission-disabled --work-dir ./ingress-nginx-ingress-nginx-4-15-1-admission-disabled --non-interactive --namespace ingress-nginx
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./ingress-nginx-ingress-nginx-4-15-1-admission-disabled/out/manifests

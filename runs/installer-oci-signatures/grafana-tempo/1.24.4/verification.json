@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12"
       },
       "image": {
-        "docker-manifest-digest": "sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1"
+        "docker-manifest-digest": "sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/grafana/tempo/1.24.4",
-      "confighub.com/package-sha256": "0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f"
+      "confighub.com/package-sha256": "fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c"
     }
   }
 ]

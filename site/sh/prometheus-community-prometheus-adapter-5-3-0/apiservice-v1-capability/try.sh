@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the apiservice-v1-capability base variant into ./prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c --base apiservice-v1-capability --work-dir ./prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d --base apiservice-v1-capability --work-dir ./prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability/out/manifests

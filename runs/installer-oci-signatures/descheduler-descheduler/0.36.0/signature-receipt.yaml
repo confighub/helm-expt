@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "descheduler-descheduler-0.36.0"
 spec:
-  observedAt: "2026-08-26T05:38:19.911Z"
+  observedAt: "2026-08-26T07:59:58.589Z"
   subject:
     packagePath: "packages/descheduler/descheduler/0.36.0"
     publicationReceipt: "runs/installer-oci/descheduler-descheduler/0.36.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0"
-    manifestDigest: "sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6"
-    packageSHA256: "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
-    layerDigest: "sha256:ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
+    manifestDigest: "sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
+    packageSHA256: "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
+    layerDigest: "sha256:ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/descheduler-descheduler/0.36.0/signature.sigstore.json"
-    bundleSHA256: "298ce69703e31566a0811e11364df89766fffc503ada085d52216c6b8b5f8c26"
+    bundleSHA256: "cf74d0a4d9b82b2af647805b86cb7ffc5f58aca8305f4cf584c7690f3329a717"
     payloadPath: "runs/installer-oci-signatures/descheduler-descheduler/0.36.0/signature-payload.json"
-    payloadSHA256: "5d91ec4dff64398afad7fb9c4d7e2c2b74df79d44111a193ce99a99a061e32c5"
+    payloadSHA256: "60f08d029281f9932a1048f9adbefe300db512da9b420b69b4ce27f5001a0867"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/descheduler/descheduler/0.36.0 --annotations confighub.com/package-sha256=ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/descheduler/descheduler/0.36.0 --annotations confighub.com/package-sha256=ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
     outputPath: "runs/installer-oci-signatures/descheduler-descheduler/0.36.0/verification.json"
-    outputSHA256: "5e35e5d717401b59407248ff60a5e5ab372c4f9b5e896d0b85a1ab93402a2cd2"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/descheduler-descheduler/0.36.0/signature.sigstore.json --digest 22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "fcc4f6ddec6133070af50b3ecc82b376a144ba5512f618cc53fdb480968346cc"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/descheduler-descheduler/0.36.0/signature.sigstore.json --digest 3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/descheduler-descheduler/0.36.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/descheduler/descheduler/0.36.0"
-    confighub.com/package-sha256: "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
+    confighub.com/package-sha256: "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

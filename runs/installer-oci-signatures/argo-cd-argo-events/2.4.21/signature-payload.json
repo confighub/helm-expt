@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2"
+        "sha256": "d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47"
       },
       "annotations": {
         "confighub.com/package-path": "packages/argo-cd/argo-events/2.4.21",
-        "confighub.com/package-sha256": "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
+        "confighub.com/package-sha256": "007ff648b1ce66660eec2b128fd765a9a4b9df62d7a00cc3bd6e02f756f3240f"
       }
     }
   ],

@@ -4,23 +4,28 @@ metadata:
   name: autoscaler-vertical-pod-autoscaler-0.9.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0
-  observedAt: "2026-08-08T20:46:54.380Z"
+  observedAt: "2026-08-26T06:59:48.986Z"
   package:
     path: packages/autoscaler/vertical-pod-autoscaler/0.9.0
-    sha256: 482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd
+    sha256: 659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4
+    sourceTreeSHA256: 66df1aa768054471640bd5e8c33d661d9467515977e4a4fb7a299d70d29511bd
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz"
     push: "cub installer push <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --json"
   outputs:
+    manifestDigest: sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7
+    layerDigest: sha256:659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4
     package: |
-      Bundled autoscaler-vertical-pod-autoscaler@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-KkafMj/autoscaler-vertical-pod-autoscaler-0.9.0.tgz
-        files:  7
-        size:   11311 bytes
-        digest: sha256:482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd
+      Bundled autoscaler-vertical-pod-autoscaler@0.9.0
+        output: <tmp>
+        files:  13
+        size:   16138 bytes
+        digest: sha256:659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0
-        manifest: sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44
-        layer:    sha256:482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd (11311 bytes, 7 files)
-    inspectJSONSHA256: e8c08a6f212981314a3311f22804bd8c2ed1c486fe235883342e83ea1ad72e23
+        manifest: sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7
+        layer:    sha256:659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4 (16138 bytes, 13 files)
+    inspectJSONSHA256: babcdc4ff63717919444d516aecf2d7c457e5333cfa34f8b0a38ba061d126d13
+    inspectJSONCanonicalSHA256: 038600269003714688ebe6dbc545fd1a2292578ba3ede1cec67831427518b48a

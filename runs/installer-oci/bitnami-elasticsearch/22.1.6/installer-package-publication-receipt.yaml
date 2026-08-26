@@ -4,23 +4,28 @@ metadata:
   name: bitnami-elasticsearch-22.1.6
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6
-  observedAt: "2026-08-08T20:46:57.256Z"
+  observedAt: "2026-08-26T07:00:00.243Z"
   package:
     path: packages/bitnami/elasticsearch/22.1.6
-    sha256: ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c
+    sha256: 4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1
+    sourceTreeSHA256: 4675d962ef2cae651f13aacae870998d92c21de8b7d097f0d0083d44271e45bd
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22.1.6.tgz"
     push: "cub installer push <tmp>/bitnami-elasticsearch-22.1.6.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --json"
   outputs:
+    manifestDigest: sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719
+    layerDigest: sha256:4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1
     package: |
-      Bundled bitnami-elasticsearch@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-iLXTum/bitnami-elasticsearch-22.1.6.tgz
-        files:  8
-        size:   5733 bytes
-        digest: sha256:ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c
+      Bundled bitnami-elasticsearch@22.1.6
+        output: <tmp>
+        files:  16
+        size:   10949 bytes
+        digest: sha256:4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6
-        manifest: sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9
-        layer:    sha256:ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c (5733 bytes, 8 files)
-    inspectJSONSHA256: 6136d8b049f3dd85b16be39fdf8ea131e85de7213cad1eeb1ddcb40d0640c006
+        manifest: sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719
+        layer:    sha256:4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1 (10949 bytes, 16 files)
+    inspectJSONSHA256: 101dda2162032e7e8d103bb0d7b849c37e713b3cc1bf49e14460efc274ec07db
+    inspectJSONCanonicalSHA256: 8d5b76e731afeef7973d5a7ce3a2f1fd415f54ce81e48e78889a090da6d04944

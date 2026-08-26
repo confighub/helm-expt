@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6"
       },
       "image": {
-        "docker-manifest-digest": "sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b"
+        "docker-manifest-digest": "sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/elastic/kibana/8.5.1",
-      "confighub.com/package-sha256": "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
+      "confighub.com/package-sha256": "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5"
     }
   }
 ]

@@ -4,23 +4,28 @@ metadata:
   name: opencost-opencost-2.5.21
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21
-  observedAt: "2026-08-08T20:47:31.681Z"
+  observedAt: "2026-08-26T07:02:23.395Z"
   package:
     path: packages/opencost/opencost/2.5.21
-    sha256: 1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47
+    sha256: 174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a
+    sourceTreeSHA256: 22715df071f0ec26c6f2b9093873863195ae9b220b1a06a3c34785c1aff05226
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/opencost/opencost/2.5.21 -o <tmp>/opencost-opencost-2.5.21.tgz"
     push: "cub installer push <tmp>/opencost-opencost-2.5.21.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21 --json"
   outputs:
+    manifestDigest: sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75
+    layerDigest: sha256:174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a
     package: |
-      Bundled opencost-opencost@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-xvsrIE/opencost-opencost-2.5.21.tgz
-        files:  4
-        size:   2884 bytes
-        digest: sha256:1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47
+      Bundled opencost-opencost@2.5.21
+        output: <tmp>
+        files:  8
+        size:   7277 bytes
+        digest: sha256:174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21
-        manifest: sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8
-        layer:    sha256:1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47 (2884 bytes, 4 files)
-    inspectJSONSHA256: 4703d225bde31ca4b0ea4cb073bb774dc6ccd11c486118aa46cc7c55ef5d4a7c
+        manifest: sha256:fe20f3373efbf0a04f374fa580de65ffb9401b0f471c41391c887edfb3859b75
+        layer:    sha256:174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a (7277 bytes, 8 files)
+    inspectJSONSHA256: d11d17ab3870b22312103cd8b035de74f666252f455c9a9365d074fd2922b743
+    inspectJSONCanonicalSHA256: 1ae5d4b9e2c94207b99198e1ea3fdae6e8856382b6ef05793811cd4d21eede06

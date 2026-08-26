@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "abeba25a66ca518bd63ac15fde7d5caf85cacd9a3061e7b62b523b50bdef7b2c"
+        "sha256": "c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
       },
       "annotations": {
         "confighub.com/package-path": "packages/grafana/rollout-operator/0.49.0",
-        "confighub.com/package-sha256": "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad"
+        "confighub.com/package-sha256": "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
       }
     }
   ],

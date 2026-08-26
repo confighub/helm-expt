@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "e51e2e709d6eeb281d7010b56c94fd520e90abdae5c16adc4b58f53f1752bda9"
+        "sha256": "ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476"
       },
       "annotations": {
         "confighub.com/package-path": "packages/istio/istiod/1.30.0",
-        "confighub.com/package-sha256": "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6"
+        "confighub.com/package-sha256": "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
       }
     }
   ],

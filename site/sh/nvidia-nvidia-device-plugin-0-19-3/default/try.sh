@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./nvidia-nvidia-device-plugin-0-19-3-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base default --work-dir ./nvidia-nvidia-device-plugin-0-19-3-default --non-interactive --namespace gpu-operator
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base default --work-dir ./nvidia-nvidia-device-plugin-0-19-3-default --non-interactive --namespace gpu-operator
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nvidia-nvidia-device-plugin-0-19-3-default/out/manifests

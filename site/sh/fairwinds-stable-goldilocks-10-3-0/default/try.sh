@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./fairwinds-stable-goldilocks-10-3-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a --base default --work-dir ./fairwinds-stable-goldilocks-10-3-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852 --base default --work-dir ./fairwinds-stable-goldilocks-10-3-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./fairwinds-stable-goldilocks-10-3-0-default/out/manifests

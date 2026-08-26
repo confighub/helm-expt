@@ -4,23 +4,28 @@ metadata:
   name: prometheus-community-kube-state-metrics-7.4.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0
-  observedAt: "2026-08-08T20:47:37.682Z"
+  observedAt: "2026-08-26T07:02:43.088Z"
   package:
     path: packages/prometheus-community/kube-state-metrics/7.4.0
-    sha256: 1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90
+    sha256: f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562
+    sourceTreeSHA256: c8f7f46effa0c2b53f30ab53cfc62c265db30aa9caf71313f9bc8866afe6d8ee
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7.4.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-kube-state-metrics-7.4.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0 --json"
   outputs:
+    manifestDigest: sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251
+    layerDigest: sha256:f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562
     package: |
-      Bundled prometheus-community-kube-state-metrics@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-DdTUcR/prometheus-community-kube-state-metrics-7.4.0.tgz
-        files:  6
-        size:   2032 bytes
-        digest: sha256:1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90
+      Bundled prometheus-community-kube-state-metrics@7.4.0
+        output: <tmp>
+        files:  12
+        size:   6728 bytes
+        digest: sha256:f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0
-        manifest: sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3
-        layer:    sha256:1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90 (2032 bytes, 6 files)
-    inspectJSONSHA256: bf02bef41a2fa34c934e23df0eec312e409aed5df67d6cb9a16261e15d0d2a06
+        manifest: sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251
+        layer:    sha256:f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562 (6728 bytes, 12 files)
+    inspectJSONSHA256: 935faf7e09c0bc3bf72689e8da4548354933e911a3d439746da27a0ffdfc3ef3
+    inspectJSONCanonicalSHA256: 2a775b271889799abc23f12b03af14d4f360d6cf431fdbc4dd50e5057c96ffd6

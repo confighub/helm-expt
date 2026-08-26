@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "grafana-loki-7.1.0"
 spec:
-  observedAt: "2026-08-26T05:40:22.277Z"
+  observedAt: "2026-08-26T08:01:38.382Z"
   subject:
     packagePath: "packages/grafana/loki/7.1.0"
     publicationReceipt: "runs/installer-oci/grafana-loki/7.1.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0"
-    manifestDigest: "sha256:83711c1b4b1dffabf4ee7f63a37853a59021f887062b1f78bddadb6b722fda1c"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:83711c1b4b1dffabf4ee7f63a37853a59021f887062b1f78bddadb6b722fda1c"
-    packageSHA256: "bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204"
-    layerDigest: "sha256:bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204"
+    manifestDigest: "sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
+    packageSHA256: "d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365"
+    layerDigest: "sha256:d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/grafana-loki/7.1.0/signature.sigstore.json"
-    bundleSHA256: "de678af4abcff8ad8355af135a100b50eee4d41b07148a7bbfe99604b6791846"
+    bundleSHA256: "6aa282d40d85e7d698e3f8ddb4a40a5831a96705a12d6f5c8ea683933382736e"
     payloadPath: "runs/installer-oci-signatures/grafana-loki/7.1.0/signature-payload.json"
-    payloadSHA256: "30d1a9e5794ccd6972a18887622d848f41b5afb9c8a281fb53cc64566bb84c2a"
+    payloadSHA256: "10480dc91fcaf4c324da95dcb26a5d4130e34809e0f8da220febcb999b1cadba"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/grafana/loki/7.1.0 --annotations confighub.com/package-sha256=bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:83711c1b4b1dffabf4ee7f63a37853a59021f887062b1f78bddadb6b722fda1c"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/grafana/loki/7.1.0 --annotations confighub.com/package-sha256=d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
     outputPath: "runs/installer-oci-signatures/grafana-loki/7.1.0/verification.json"
-    outputSHA256: "f3c5f86adb1d5843e520ea15bb74eff3b67258e00c3171ae20beea0322cb9b74"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/grafana-loki/7.1.0/signature.sigstore.json --digest 83711c1b4b1dffabf4ee7f63a37853a59021f887062b1f78bddadb6b722fda1c --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "5ce8e4c0fc551af8570d6a9f8c6352d72e61f9245f9df7e75c918b6f6b027182"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/grafana-loki/7.1.0/signature.sigstore.json --digest 339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/grafana-loki/7.1.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/grafana/loki/7.1.0"
-    confighub.com/package-sha256: "bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204"
+    confighub.com/package-sha256: "d1195d0f327f5b7de83132d1ae3af8c98c44be0394a6601be71ac225f972f365"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

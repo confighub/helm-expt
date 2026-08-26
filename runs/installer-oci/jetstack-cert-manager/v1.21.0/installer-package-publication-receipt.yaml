@@ -4,28 +4,28 @@ metadata:
   name: jetstack-cert-manager-v1.21.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0
-  observedAt: "2026-08-08T20:47:22.067Z"
+  observedAt: "2026-08-26T07:01:44.836Z"
   package:
     path: packages/jetstack/cert-manager/v1.21.0
-    sha256: d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e
-    sourceTreeSHA256: 5ebc7b1860fc2eb216e85979f25b40aa5187708806876d21e87595ed98a9e668
+    sha256: 3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0
+    sourceTreeSHA256: 7d65eb350349cfbd1c15c328a434498aed28fc7c7a170b00a46444e55e400d11
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/jetstack/cert-manager/v1.21.0 -o <tmp>/jetstack-cert-manager-v1.21.0.tgz"
     push: "cub installer push <tmp>/jetstack-cert-manager-v1.21.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0 --json"
   outputs:
-    manifestDigest: sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f
-    layerDigest: sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e
+    manifestDigest: sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc
+    layerDigest: sha256:3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0
     package: |
       Bundled jetstack-cert-manager@v1.21.0
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-pLISdc/jetstack-cert-manager-v1.21.0.tgz
-        files:  7
-        size:   102477 bytes
-        digest: sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e
+        output: <tmp>
+        files:  13
+        size:   107833 bytes
+        digest: sha256:3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0
-        manifest: sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f
-        layer:    sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e (102477 bytes, 7 files)
-    inspectJSONSHA256: 86f04a85bdab9b8662d144433aa779e41083794c4c8a45a98e0f116206e0a79c
-    inspectJSONCanonicalSHA256: c59229ddb2423ad1d1111d4857adc17b21d1ba38e3cf76f0cbfe32a0b8213edc
+        manifest: sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc
+        layer:    sha256:3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0 (107833 bytes, 13 files)
+    inspectJSONSHA256: 807bce2d39df5dacbfe6bae267948be13d034188ebaf80e9f651b71d38ba6d76
+    inspectJSONCanonicalSHA256: 638580dd3cf3b15b3cf09ab6c932fb13463817e9823eeb51b0e0c026892a1adb

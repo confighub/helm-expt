@@ -4,23 +4,28 @@ metadata:
   name: grafana-loki-7.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0
-  observedAt: "2026-08-08T20:47:15.626Z"
+  observedAt: "2026-08-26T07:01:16.917Z"
   package:
     path: packages/grafana/loki/7.0.0
-    sha256: 811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126
+    sha256: 48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507
+    sourceTreeSHA256: 3fec48ac0b4f06a6c0dc3a9622c00e634450a3c6375e51cd3479ee241590d862
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/grafana-loki-7.0.0.tgz"
     push: "cub installer push <tmp>/grafana-loki-7.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --json"
   outputs:
+    manifestDigest: sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da
+    layerDigest: sha256:48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507
     package: |
-      Bundled grafana-loki@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-zYEe7H/grafana-loki-7.0.0.tgz
-        files:  6
-        size:   12698 bytes
-        digest: sha256:811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126
+      Bundled grafana-loki@7.0.0
+        output: <tmp>
+        files:  12
+        size:   17637 bytes
+        digest: sha256:48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0
-        manifest: sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773
-        layer:    sha256:811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126 (12698 bytes, 6 files)
-    inspectJSONSHA256: bee16fab3f832d795fd9246b5a6572ab1d8b1ab2140ea1169dbb7d1e2bd4a9dc
+        manifest: sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da
+        layer:    sha256:48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507 (17637 bytes, 12 files)
+    inspectJSONSHA256: 02384e631f9ce6686178d4713f44bc1ae70829f30064529541f5118c487e4fae
+    inspectJSONCanonicalSHA256: c10d89f6d9a738e0f6d187d34f024f4151784ba8f2a89d9cc64dda1db5382058

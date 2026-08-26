@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator@sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator@sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24"
       },
       "image": {
-        "docker-manifest-digest": "sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a"
+        "docker-manifest-digest": "sha256:b6e1298c04526648e5e182fffb70d7fefe40d7809dc400699acb3e3f73abaa24"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/open-telemetry/opentelemetry-operator/0.114.0",
-      "confighub.com/package-sha256": "af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d"
+      "confighub.com/package-sha256": "f67492edf6f1b7906412374dd5897622b37569e016edb34b105f3e7cb3cf780e"
     }
   }
 ]

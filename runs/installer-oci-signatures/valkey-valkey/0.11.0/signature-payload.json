@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "2fbbed3706b6947a30c6e26fc6190aa209441ef2cce1dcdbcca2586a0b2c7945"
+        "sha256": "79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f"
       },
       "annotations": {
         "confighub.com/package-path": "packages/valkey/valkey/0.11.0",
-        "confighub.com/package-sha256": "1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c"
+        "confighub.com/package-sha256": "247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b"
       }
     }
   ],

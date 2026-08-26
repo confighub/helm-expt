@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
+        "sha256": "7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
       },
       "annotations": {
         "confighub.com/package-path": "packages/hashicorp/vault/0.32.0",
-        "confighub.com/package-sha256": "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+        "confighub.com/package-sha256": "add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09"
       }
     }
   ],

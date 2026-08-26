@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "37635092808e22db71cd3d3521bcd02db056a9f46d81f372f98be1d03c89fcb2"
+        "sha256": "52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4"
       },
       "annotations": {
         "confighub.com/package-path": "packages/bitnami/memcached/8.5.5",
-        "confighub.com/package-sha256": "60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9"
+        "confighub.com/package-sha256": "7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b"
       }
     }
   ],

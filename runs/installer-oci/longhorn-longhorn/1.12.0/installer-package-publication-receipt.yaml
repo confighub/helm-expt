@@ -4,28 +4,28 @@ metadata:
   name: longhorn-longhorn-1.12.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0
-  observedAt: "2026-08-08T20:47:26.191Z"
+  observedAt: "2026-08-26T07:02:02.481Z"
   package:
     path: packages/longhorn/longhorn/1.12.0
-    sha256: 06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69
-    sourceTreeSHA256: 04c5218eaee62193c92bf71aeb58d6a452238d808d6f24f974da626d5f52a53a
+    sha256: ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282
+    sourceTreeSHA256: dbd6c620d00863493a4f78f3220d1b53447d5f0b7fcfe54e67d9fb345364c773
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/longhorn/longhorn/1.12.0 -o <tmp>/longhorn-longhorn-1.12.0.tgz"
     push: "cub installer push <tmp>/longhorn-longhorn-1.12.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0 --json"
   outputs:
-    manifestDigest: sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912
-    layerDigest: sha256:06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69
+    manifestDigest: sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717
+    layerDigest: sha256:ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282
     package: |
       Bundled longhorn-longhorn@1.12.0
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-AG0BDv/longhorn-longhorn-1.12.0.tgz
-        files:  4
-        size:   17826 bytes
-        digest: sha256:06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69
+        output: <tmp>
+        files:  8
+        size:   21947 bytes
+        digest: sha256:ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0
-        manifest: sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912
-        layer:    sha256:06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69 (17826 bytes, 4 files)
-    inspectJSONSHA256: 0c21173d5448aa74a7693257ebbcdb2455a6b051cc64ec803660163e3357c579
-    inspectJSONCanonicalSHA256: dcb1240baff333a5679583d8284f14a7a329e029cc6759c7ad53a4fc271e1552
+        manifest: sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717
+        layer:    sha256:ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282 (21947 bytes, 8 files)
+    inspectJSONSHA256: ed2b1792702fb00c2503c5ca49cc558202c177499681002f9939e7fa1cbf04d7
+    inspectJSONCanonicalSHA256: 279f28d1e784e3b302b8cc179f5264bd1df8cbfb6bb4cb028a32523d274ce676

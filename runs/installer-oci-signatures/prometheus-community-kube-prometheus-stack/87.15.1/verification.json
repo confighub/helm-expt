@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858"
       },
       "image": {
-        "docker-manifest-digest": "sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac"
+        "docker-manifest-digest": "sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/prometheus-community/kube-prometheus-stack/87.15.1",
-      "confighub.com/package-sha256": "1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375"
+      "confighub.com/package-sha256": "f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d"
     }
   }
 ]

@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c"
+        "sha256": "75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d"
       },
       "annotations": {
         "confighub.com/package-path": "packages/prometheus-community/prometheus-adapter/5.3.0",
-        "confighub.com/package-sha256": "320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea"
+        "confighub.com/package-sha256": "dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a"
       }
     }
   ],

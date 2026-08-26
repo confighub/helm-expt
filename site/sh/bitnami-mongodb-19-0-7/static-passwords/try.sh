@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the static-passwords base variant into ./bitnami-mongodb-19-0-7-static-passwords"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:8f690ed44774fc97011c366cf2e54730d6a07dfb4e6823d1dff07101eb0da534 --base static-passwords --work-dir ./bitnami-mongodb-19-0-7-static-passwords --non-interactive --namespace mongodb
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base static-passwords --work-dir ./bitnami-mongodb-19-0-7-static-passwords --non-interactive --namespace mongodb
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-mongodb-19-0-7-static-passwords/out/manifests

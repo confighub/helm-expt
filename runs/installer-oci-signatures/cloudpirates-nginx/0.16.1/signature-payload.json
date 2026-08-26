@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103"
+        "sha256": "1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183"
       },
       "annotations": {
         "confighub.com/package-path": "packages/cloudpirates/nginx/0.16.1",
-        "confighub.com/package-sha256": "74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e"
+        "confighub.com/package-sha256": "063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827"
       }
     }
   ],

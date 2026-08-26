@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "longhorn-longhorn-1.12.0"
 spec:
-  observedAt: "2026-08-26T05:42:31.555Z"
+  observedAt: "2026-08-26T08:03:32.680Z"
   subject:
     packagePath: "packages/longhorn/longhorn/1.12.0"
     publicationReceipt: "runs/installer-oci/longhorn-longhorn/1.12.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0"
-    manifestDigest: "sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912"
-    packageSHA256: "06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69"
-    layerDigest: "sha256:06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69"
+    manifestDigest: "sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
+    packageSHA256: "ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282"
+    layerDigest: "sha256:ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/longhorn-longhorn/1.12.0/signature.sigstore.json"
-    bundleSHA256: "d8054b351afd0f340ca47e315416dbb9f5fae5204ed87f53a01c1795669db15a"
+    bundleSHA256: "047f3106f0bcf5b69505abede3ef2550577b2ed2aa263cdcdf0be2fbaf9aae81"
     payloadPath: "runs/installer-oci-signatures/longhorn-longhorn/1.12.0/signature-payload.json"
-    payloadSHA256: "32cd4880b86a62ab285cb3eccdfa58ebeb28e63e1f44486ce4c340df62f61267"
+    payloadSHA256: "0f6189e6efc5f8b0ecebce73ff1ec3275dd4b1f83133f8a478eaa26862aa83a5"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/longhorn/longhorn/1.12.0 --annotations confighub.com/package-sha256=06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/longhorn/longhorn/1.12.0 --annotations confighub.com/package-sha256=ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
     outputPath: "runs/installer-oci-signatures/longhorn-longhorn/1.12.0/verification.json"
-    outputSHA256: "a660fd6f9dcd0a0738dd4879bb42baa7f31ec5dc7aa9f5e577c54c5b30672da4"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/longhorn-longhorn/1.12.0/signature.sigstore.json --digest c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "6e1f2a83fd4381abbabd5c0765655dd7560fb04bf3fa37fb1708cc374796a4eb"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/longhorn-longhorn/1.12.0/signature.sigstore.json --digest f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/longhorn-longhorn/1.12.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/longhorn/longhorn/1.12.0"
-    confighub.com/package-sha256: "06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69"
+    confighub.com/package-sha256: "ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

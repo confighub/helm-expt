@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "elastic-kibana-8.5.1"
 spec:
-  observedAt: "2026-08-26T05:38:46.567Z"
+  observedAt: "2026-08-26T08:00:16.680Z"
   subject:
     packagePath: "packages/elastic/kibana/8.5.1"
     publicationReceipt: "runs/installer-oci/elastic-kibana/8.5.1/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1"
-    manifestDigest: "sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b"
-    packageSHA256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
-    layerDigest: "sha256:d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
+    manifestDigest: "sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6"
+    packageSHA256: "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5"
+    layerDigest: "sha256:a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/elastic-kibana/8.5.1/signature.sigstore.json"
-    bundleSHA256: "808d062b15d07515fadcc16acfd4a83c9706deb01be4b2f0268feaed0da9fe90"
+    bundleSHA256: "adc4ad82210c9d9ecb2d76e6aee0a8aa964559d1a7fd4a85d4ca05105eaf83b6"
     payloadPath: "runs/installer-oci-signatures/elastic-kibana/8.5.1/signature-payload.json"
-    payloadSHA256: "d766c833023ac76b3d690a325f54d19d2c11dee02427427705c5ae33cbb37c01"
+    payloadSHA256: "9309404f4b5e976631c7bf1682354ccda194331ad22b7ca76626eea52b17cafb"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/elastic/kibana/8.5.1 --annotations confighub.com/package-sha256=d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/elastic/kibana/8.5.1 --annotations confighub.com/package-sha256=a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6"
     outputPath: "runs/installer-oci-signatures/elastic-kibana/8.5.1/verification.json"
-    outputSHA256: "1b664e2ca4b88efb58c706a4d270c49ca6a0b1e8e43628cbd86794ab6f2393c2"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/elastic-kibana/8.5.1/signature.sigstore.json --digest 4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "0f7280ee83703eb08adbcba6049b6a2b9f6ecdbf43f1ce6a3bf07cfb3916a6ff"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/elastic-kibana/8.5.1/signature.sigstore.json --digest ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/elastic-kibana/8.5.1/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/elastic/kibana/8.5.1"
-    confighub.com/package-sha256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
+    confighub.com/package-sha256: "a01ae926c3700229d1d4c1f5072ef01e3767e632b68df45e58f5b0cdd9def3d5"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

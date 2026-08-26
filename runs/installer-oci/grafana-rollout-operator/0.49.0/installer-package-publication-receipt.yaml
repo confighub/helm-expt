@@ -4,23 +4,28 @@ metadata:
   name: grafana-rollout-operator-0.49.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0
-  observedAt: "2026-08-08T20:47:17.043Z"
+  observedAt: "2026-08-26T07:01:23.348Z"
   package:
     path: packages/grafana/rollout-operator/0.49.0
-    sha256: 57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad
+    sha256: 2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da
+    sourceTreeSHA256: 8f02c060e7556a6a219dd32ce5a6c4746d1864db264e5da88359692a956f36d3
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0.49.0.tgz"
     push: "cub installer push <tmp>/grafana-rollout-operator-0.49.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --json"
   outputs:
+    manifestDigest: sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d
+    layerDigest: sha256:2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da
     package: |
-      Bundled grafana-rollout-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-HTBzbu/grafana-rollout-operator-0.49.0.tgz
-        files:  8
-        size:   4676 bytes
-        digest: sha256:57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad
+      Bundled grafana-rollout-operator@0.49.0
+        output: <tmp>
+        files:  14
+        size:   9778 bytes
+        digest: sha256:2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0
-        manifest: sha256:abeba25a66ca518bd63ac15fde7d5caf85cacd9a3061e7b62b523b50bdef7b2c
-        layer:    sha256:57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad (4676 bytes, 8 files)
-    inspectJSONSHA256: f4ead6bbc9e9bf90b9b138b2ca20b1fc1cc8eeab2a8853f238685dfa6a220fec
+        manifest: sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d
+        layer:    sha256:2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da (9778 bytes, 14 files)
+    inspectJSONSHA256: 77fab0acf8470b7365ae29b1c84f36683168fda468f8032d9461ca9d60138964
+    inspectJSONCanonicalSHA256: f0f3025e8aa82f1022fa49a2fc0f6a86187e7abec5de8957d5d718a74e769a55

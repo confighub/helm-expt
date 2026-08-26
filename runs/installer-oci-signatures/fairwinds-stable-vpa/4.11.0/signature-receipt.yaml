@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "fairwinds-stable-vpa-4.11.0"
 spec:
-  observedAt: "2026-08-26T05:39:27.040Z"
+  observedAt: "2026-08-26T08:00:50.723Z"
   subject:
     packagePath: "packages/fairwinds-stable/vpa/4.11.0"
     publicationReceipt: "runs/installer-oci/fairwinds-stable-vpa/4.11.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
-    manifestDigest: "sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61"
-    packageSHA256: "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
-    layerDigest: "sha256:eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
+    manifestDigest: "sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f"
+    packageSHA256: "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704"
+    layerDigest: "sha256:ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/fairwinds-stable-vpa/4.11.0/signature.sigstore.json"
-    bundleSHA256: "a97a8e38e6c0750064859e1859ca2c31b2a78f3f52214aa01ae93e2b0d6a64d3"
+    bundleSHA256: "86b861a3f74806bdd8c05eefe5f1702d3a82b9d76695e463b77f3f3cdae4aef0"
     payloadPath: "runs/installer-oci-signatures/fairwinds-stable-vpa/4.11.0/signature-payload.json"
-    payloadSHA256: "9eb1eb8631fba0d89f5d98e95d59d88ede3b10d7658c526c624fc8021d8f8bdb"
+    payloadSHA256: "0db677e80694f9edaa42d43fa887b2458f8ec699c636724b7575145567d564f8"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/fairwinds-stable/vpa/4.11.0 --annotations confighub.com/package-sha256=eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/fairwinds-stable/vpa/4.11.0 --annotations confighub.com/package-sha256=ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f"
     outputPath: "runs/installer-oci-signatures/fairwinds-stable-vpa/4.11.0/verification.json"
-    outputSHA256: "4e5a120c147d4492e7c3c36cea207814b2beb86facd73cc29262813e919c1d3f"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/fairwinds-stable-vpa/4.11.0/signature.sigstore.json --digest b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "3c2962e7873d5a8f00fc3338d7688d6d806b1b68cd592e52538e4aee2afa80b6"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/fairwinds-stable-vpa/4.11.0/signature.sigstore.json --digest 449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/fairwinds-stable-vpa/4.11.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/fairwinds-stable/vpa/4.11.0"
-    confighub.com/package-sha256: "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
+    confighub.com/package-sha256: "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

@@ -4,23 +4,28 @@ metadata:
   name: argo-cd-argo-cd-9.5.17
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17
-  observedAt: "2026-08-08T20:46:51.561Z"
+  observedAt: "2026-08-26T06:59:38.711Z"
   package:
     path: packages/argo-cd/argo-cd/9.5.17
-    sha256: a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac
+    sha256: 7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182
+    sourceTreeSHA256: 4100219e037e260b2cbcab5f45ccab3e2b5033b9828b1ec3f8e1f857ecaf57ed
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/argo-cd/argo-cd/9.5.17 -o <tmp>/argo-cd-argo-cd-9.5.17.tgz"
     push: "cub installer push <tmp>/argo-cd-argo-cd-9.5.17.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17 --json"
   outputs:
+    manifestDigest: sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f
+    layerDigest: sha256:7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182
     package: |
-      Bundled argo-cd-argo-cd@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-AljSpT/argo-cd-argo-cd-9.5.17.tgz
-        files:  8
-        size:   195105 bytes
-        digest: sha256:a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac
+      Bundled argo-cd-argo-cd@9.5.17
+        output: <tmp>
+        files:  14
+        size:   200650 bytes
+        digest: sha256:7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17
-        manifest: sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116
-        layer:    sha256:a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac (195105 bytes, 8 files)
-    inspectJSONSHA256: 125495c2a357a85385ccf6f98ed28c372511dea542c89a5c44ac027dba5462b8
+        manifest: sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f
+        layer:    sha256:7d3e65afe2f1a41819005d3c2a440340193f3e75ab7b35433dd854ddb0e40182 (200650 bytes, 14 files)
+    inspectJSONSHA256: e2b7334c10532271bb341767026daabb0e1eb087a62190e396f3fa0b14f6e5b4
+    inspectJSONCanonicalSHA256: bde2278a46467261c6f2bedd73a6755df1522237d548f0930c6d74219771b3bf

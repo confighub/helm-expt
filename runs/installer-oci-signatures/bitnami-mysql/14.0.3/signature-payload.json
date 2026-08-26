@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e"
+        "sha256": "d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
       },
       "annotations": {
         "confighub.com/package-path": "packages/bitnami/mysql/14.0.3",
-        "confighub.com/package-sha256": "fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867"
+        "confighub.com/package-sha256": "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
       }
     }
   ],

@@ -4,23 +4,28 @@ metadata:
   name: coredns-coredns-1.45.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2
-  observedAt: "2026-08-08T20:47:06.568Z"
+  observedAt: "2026-08-26T07:00:39.953Z"
   package:
     path: packages/coredns/coredns/1.45.2
-    sha256: 795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e
+    sha256: 623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3
+    sourceTreeSHA256: 97b09ce2d4dc95bd099c52be8685516dc45a61e405e1cff706dbd251d792fe9b
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/coredns/coredns/1.45.2 -o <tmp>/coredns-coredns-1.45.2.tgz"
     push: "cub installer push <tmp>/coredns-coredns-1.45.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2 --json"
   outputs:
+    manifestDigest: sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc
+    layerDigest: sha256:623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3
     package: |
-      Bundled coredns-coredns@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-tnKtSk/coredns-coredns-1.45.2.tgz
-        files:  4
-        size:   1793 bytes
-        digest: sha256:795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e
+      Bundled coredns-coredns@1.45.2
+        output: <tmp>
+        files:  8
+        size:   5916 bytes
+        digest: sha256:623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2
-        manifest: sha256:6c7db8f14b174c03f96a64de8baaa5c49654c029eadb1f864ac235949a667290
-        layer:    sha256:795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e (1793 bytes, 4 files)
-    inspectJSONSHA256: 0e37f2b38c0f59823f3202a34d93631e9ade70aefdb70444ae335cf3416a5715
+        manifest: sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc
+        layer:    sha256:623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3 (5916 bytes, 8 files)
+    inspectJSONSHA256: 339afb9e9dfeffb755d45a65c3d1fe9f480f5b5a6599c0b8a269f79f2791fa70
+    inspectJSONCanonicalSHA256: 3285875f85cf109d76738fcfe206867463a6b806a957021db0acf5d2cd18a215

@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "bitnami-spark-10.0.3"
 spec:
-  observedAt: "2026-08-26T05:37:33.555Z"
+  observedAt: "2026-08-26T07:59:19.531Z"
   subject:
     packagePath: "packages/bitnami/spark/10.0.3"
     publicationReceipt: "runs/installer-oci/bitnami-spark/10.0.3/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3"
-    manifestDigest: "sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9"
-    packageSHA256: "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
-    layerDigest: "sha256:d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
+    manifestDigest: "sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8"
+    packageSHA256: "5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8"
+    layerDigest: "sha256:5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/bitnami-spark/10.0.3/signature.sigstore.json"
-    bundleSHA256: "ca27cd14cc54b463a3d1e19ab0fd086683f71282513dc41013774cea01e2291b"
+    bundleSHA256: "a3e07bc42a77e163d4cd5ea6ab55182161fba6d4ef1261f78a0dd444a93a5921"
     payloadPath: "runs/installer-oci-signatures/bitnami-spark/10.0.3/signature-payload.json"
-    payloadSHA256: "243e102c91cf4d1458a5114287c39978a5e8d24df65e1375ed576371e16b1dcd"
+    payloadSHA256: "d6635f148aa195db26796e21d0b129e2321914f56180e7a6a73760449af276aa"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/spark/10.0.3 --annotations confighub.com/package-sha256=d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/spark/10.0.3 --annotations confighub.com/package-sha256=5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8"
     outputPath: "runs/installer-oci-signatures/bitnami-spark/10.0.3/verification.json"
-    outputSHA256: "820fb258f609e10287ca6342f7f1053804a9d00463f3ed81cd93e13f0d89cd65"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-spark/10.0.3/signature.sigstore.json --digest 2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "e97992e505b1158ea270bf744b20125ed2ae644c9cf291bc8ff05b5bb9aa17e5"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-spark/10.0.3/signature.sigstore.json --digest 2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/bitnami-spark/10.0.3/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/bitnami/spark/10.0.3"
-    confighub.com/package-sha256: "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
+    confighub.com/package-sha256: "5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

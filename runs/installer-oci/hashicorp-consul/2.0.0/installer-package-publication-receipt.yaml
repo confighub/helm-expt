@@ -4,23 +4,28 @@ metadata:
   name: hashicorp-consul-2.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0
-  observedAt: "2026-08-08T20:47:18.250Z"
+  observedAt: "2026-08-26T07:01:28.414Z"
   package:
     path: packages/hashicorp/consul/2.0.0
-    sha256: 0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43
+    sha256: 538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37
+    sourceTreeSHA256: ab0777c627decdd3c496658cdd2d458496042aa3e99922092d18af9d2c19c588
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/hashicorp/consul/2.0.0 -o <tmp>/hashicorp-consul-2.0.0.tgz"
     push: "cub installer push <tmp>/hashicorp-consul-2.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --json"
   outputs:
+    manifestDigest: sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5
+    layerDigest: sha256:538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37
     package: |
-      Bundled hashicorp-consul@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-s3ynlT/hashicorp-consul-2.0.0.tgz
-        files:  7
-        size:   187794 bytes
-        digest: sha256:0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43
+      Bundled hashicorp-consul@2.0.0
+        output: <tmp>
+        files:  13
+        size:   193424 bytes
+        digest: sha256:538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0
-        manifest: sha256:3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063
-        layer:    sha256:0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43 (187794 bytes, 7 files)
-    inspectJSONSHA256: 9020653e01117fbfa77f77d7ff5a09ddfc14c1fc71e5accc88c8d19823e6e9b4
+        manifest: sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5
+        layer:    sha256:538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37 (193424 bytes, 13 files)
+    inspectJSONSHA256: 95ba3b82e3e6f601c41600438af5c179b2b681fdab4fd22803cf3716d335d1ab
+    inspectJSONCanonicalSHA256: 11b712c217c3911a54bf8a3cf40d6eb5defe054e43e2b12070790dfc0751b509

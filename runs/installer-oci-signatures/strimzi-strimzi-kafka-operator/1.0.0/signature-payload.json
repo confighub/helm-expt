@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6"
+        "sha256": "40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
       },
       "annotations": {
         "confighub.com/package-path": "packages/strimzi/strimzi-kafka-operator/1.0.0",
-        "confighub.com/package-sha256": "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
+        "confighub.com/package-sha256": "5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49"
       }
     }
   ],

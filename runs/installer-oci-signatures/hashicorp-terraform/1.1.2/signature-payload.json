@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "dc1abc1c3ee4780fa98c7d02bd7ab44e915fe9537f953cfa3eff8c2a7decfd02"
+        "sha256": "0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
       },
       "annotations": {
         "confighub.com/package-path": "packages/hashicorp/terraform/1.1.2",
-        "confighub.com/package-sha256": "a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e"
+        "confighub.com/package-sha256": "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
       }
     }
   ],

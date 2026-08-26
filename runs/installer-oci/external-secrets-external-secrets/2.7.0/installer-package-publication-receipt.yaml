@@ -4,28 +4,28 @@ metadata:
   name: external-secrets-external-secrets-2.7.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0
-  observedAt: "2026-08-08T20:47:10.815Z"
+  observedAt: "2026-08-26T07:00:57.273Z"
   package:
     path: packages/external-secrets/external-secrets/2.7.0
-    sha256: 42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4
-    sourceTreeSHA256: 0b404e58608ac27734f7ec42037251fe8f94d1bfd0aa37862b59588d23752a6f
+    sha256: 943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c
+    sourceTreeSHA256: 67fce2db968919383c23c99402e9dc1a997049e52309dc57a83e751d1d46a819
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/external-secrets/external-secrets/2.7.0 -o <tmp>/external-secrets-external-secrets-2.7.0.tgz"
     push: "cub installer push <tmp>/external-secrets-external-secrets-2.7.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0 --json"
   outputs:
-    manifestDigest: sha256:ee514659892b2222b8173cde2a1a39f2e9ec80c15862a7bd30b36c44fc8f24cb
-    layerDigest: sha256:42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4
+    manifestDigest: sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34
+    layerDigest: sha256:943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c
     package: |
       Bundled external-secrets-external-secrets@2.7.0
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PSdMGF/external-secrets-external-secrets-2.7.0.tgz
-        files:  7
-        size:   157436 bytes
-        digest: sha256:42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4
+        output: <tmp>
+        files:  13
+        size:   166477 bytes
+        digest: sha256:943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0
-        manifest: sha256:ee514659892b2222b8173cde2a1a39f2e9ec80c15862a7bd30b36c44fc8f24cb
-        layer:    sha256:42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4 (157436 bytes, 7 files)
-    inspectJSONSHA256: 1dde4b191ac62a0a50e783c52511989af53bf2b301a6d78ea6a9f66f76b06402
-    inspectJSONCanonicalSHA256: ce861b639529c85cfe15761ec007b6bb210f9a009c6affa69a94eb82be4f2052
+        manifest: sha256:053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34
+        layer:    sha256:943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c (166477 bytes, 13 files)
+    inspectJSONSHA256: 1ad1ec6ae0d3aeea08ec5e5e64594081986b7a974eaed798cfcd44ba00fbe617
+    inspectJSONCanonicalSHA256: 74c198c29289d3afce731873924fd2f022b3347444d0f8640a997ce23f2bf7f9

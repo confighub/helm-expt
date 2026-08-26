@@ -4,23 +4,28 @@ metadata:
   name: elastic-eck-operator-3.4.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0
-  observedAt: "2026-08-08T20:47:08.063Z"
+  observedAt: "2026-08-26T07:00:46.059Z"
   package:
     path: packages/elastic/eck-operator/3.4.0
-    sha256: cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d
+    sha256: 3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b
+    sourceTreeSHA256: 376a2c1921bbadf02af98e0df27fe3c52e6b5df4ea73667e46fe6aade401c42b
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3.4.0.tgz"
     push: "cub installer push <tmp>/elastic-eck-operator-3.4.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --json"
   outputs:
+    manifestDigest: sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a
+    layerDigest: sha256:3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b
     package: |
-      Bundled elastic-eck-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-VFHZaB/elastic-eck-operator-3.4.0.tgz
-        files:  8
-        size:   271285 bytes
-        digest: sha256:cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d
+      Bundled elastic-eck-operator@3.4.0
+        output: <tmp>
+        files:  16
+        size:   276427 bytes
+        digest: sha256:3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0
-        manifest: sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f
-        layer:    sha256:cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d (271285 bytes, 8 files)
-    inspectJSONSHA256: 096a80a8dfeda574e491a3d1745cd961cadfb82f10b9d50a1026e2e7a5b41ba3
+        manifest: sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a
+        layer:    sha256:3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b (276427 bytes, 16 files)
+    inspectJSONSHA256: 170f1db39d34a4186ea336d1a8f7d994485fd12bd14dc1a25239fe5c2fa52db2
+    inspectJSONCanonicalSHA256: 9619371a914c3b2b519a904ddb8b3c13bb5a139ec15af84fef77f95474338e4c

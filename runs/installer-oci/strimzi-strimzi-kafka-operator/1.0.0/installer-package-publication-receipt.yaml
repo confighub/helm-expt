@@ -4,23 +4,28 @@ metadata:
   name: strimzi-strimzi-kafka-operator-1.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0
-  observedAt: "2026-08-08T20:47:44.717Z"
+  observedAt: "2026-08-26T07:03:08.479Z"
   package:
     path: packages/strimzi/strimzi-kafka-operator/1.0.0
-    sha256: 1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b
+    sha256: 5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49
+    sourceTreeSHA256: da23e895e56b37b3ea4de7c692a4ff14eca463bd0deba1045e657f7b6ad52ac2
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz"
     push: "cub installer push <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --json"
   outputs:
+    manifestDigest: sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848
+    layerDigest: sha256:5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49
     package: |
-      Bundled strimzi-strimzi-kafka-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Zx0BAJ/strimzi-strimzi-kafka-operator-1.0.0.tgz
-        files:  8
-        size:   161767 bytes
-        digest: sha256:1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b
+      Bundled strimzi-strimzi-kafka-operator@1.0.0
+        output: <tmp>
+        files:  14
+        size:   169897 bytes
+        digest: sha256:5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0
-        manifest: sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6
-        layer:    sha256:1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b (161767 bytes, 8 files)
-    inspectJSONSHA256: 76470398f320d39b720f1c6c223806b3c9e078825a1dd7bb35be07ee6b7f161c
+        manifest: sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848
+        layer:    sha256:5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49 (169897 bytes, 14 files)
+    inspectJSONSHA256: a7dd0247f211f2ceda150c2d4f72b6bae835aaa6272e5b0558adcfbfc80d864c
+    inspectJSONCanonicalSHA256: c290db58e91b0bb07551fe2f5a7238ebb9ae46161205c09800d7d742cf1e096c

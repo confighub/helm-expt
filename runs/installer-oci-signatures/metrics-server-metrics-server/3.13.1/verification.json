@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server@sha256:be476b65366c456783f0b2b09f21fff15ebba0c1547a043893893874fe87fc92"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f"
       },
       "image": {
-        "docker-manifest-digest": "sha256:be476b65366c456783f0b2b09f21fff15ebba0c1547a043893893874fe87fc92"
+        "docker-manifest-digest": "sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/metrics-server/metrics-server/3.13.1",
-      "confighub.com/package-sha256": "dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a"
+      "confighub.com/package-sha256": "0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991"
     }
   }
 ]

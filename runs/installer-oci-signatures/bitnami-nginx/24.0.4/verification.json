@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx@sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
       },
       "image": {
-        "docker-manifest-digest": "sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30"
+        "docker-manifest-digest": "sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/bitnami/nginx/24.0.4",
-      "confighub.com/package-sha256": "c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c"
+      "confighub.com/package-sha256": "8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705"
     }
   }
 ]

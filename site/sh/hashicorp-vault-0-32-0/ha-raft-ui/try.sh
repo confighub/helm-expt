@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the ha-raft-ui base variant into ./hashicorp-vault-0-32-0-ha-raft-ui"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base ha-raft-ui --work-dir ./hashicorp-vault-0-32-0-ha-raft-ui --non-interactive --namespace vault
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base ha-raft-ui --work-dir ./hashicorp-vault-0-32-0-ha-raft-ui --non-interactive --namespace vault
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./hashicorp-vault-0-32-0-ha-raft-ui/out/manifests

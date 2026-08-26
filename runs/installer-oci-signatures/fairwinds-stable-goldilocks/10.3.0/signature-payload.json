@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a"
+        "sha256": "b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
       },
       "annotations": {
         "confighub.com/package-path": "packages/fairwinds-stable/goldilocks/10.3.0",
-        "confighub.com/package-sha256": "1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a"
+        "confighub.com/package-sha256": "50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e"
       }
     }
   ],

@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single@sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
       },
       "image": {
-        "docker-manifest-digest": "sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40"
+        "docker-manifest-digest": "sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/vm/victoria-metrics-single/0.39.0",
-      "confighub.com/package-sha256": "15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946"
+      "confighub.com/package-sha256": "7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4"
     }
   }
 ]

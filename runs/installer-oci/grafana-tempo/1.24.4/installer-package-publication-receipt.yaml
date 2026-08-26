@@ -4,23 +4,28 @@ metadata:
   name: grafana-tempo-1.24.4
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4
-  observedAt: "2026-08-08T20:47:17.479Z"
+  observedAt: "2026-08-26T07:01:24.927Z"
   package:
     path: packages/grafana/tempo/1.24.4
-    sha256: 0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f
+    sha256: fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c
+    sourceTreeSHA256: 432cdef011c275c2693961806478b0a2b0af80905985c12ca70ceb694047efd4
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/grafana-tempo-1.24.4.tgz"
     push: "cub installer push <tmp>/grafana-tempo-1.24.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --json"
   outputs:
+    manifestDigest: sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12
+    layerDigest: sha256:fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c
     package: |
-      Bundled grafana-tempo@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PNdjds/grafana-tempo-1.24.4.tgz
-        files:  8
-        size:   12776 bytes
-        digest: sha256:0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f
+      Bundled grafana-tempo@1.24.4
+        output: <tmp>
+        files:  14
+        size:   18898 bytes
+        digest: sha256:fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4
-        manifest: sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1
-        layer:    sha256:0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f (12776 bytes, 8 files)
-    inspectJSONSHA256: f59cc96ddf9855b471e943a9d59019c04e3fc6ff1270f5f3b4b27b4afab723e4
+        manifest: sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12
+        layer:    sha256:fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c (18898 bytes, 14 files)
+    inspectJSONSHA256: db408f6cd1cd0e54936a7c7172bfa08b49418b59ca24c561d6392491cf279f93
+    inspectJSONCanonicalSHA256: 21548e802cddb85132c04672bf86a062480400c4ef5d6036abb10728bc075358

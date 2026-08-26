@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "6c7db8f14b174c03f96a64de8baaa5c49654c029eadb1f864ac235949a667290"
+        "sha256": "2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
       },
       "annotations": {
         "confighub.com/package-path": "packages/coredns/coredns/1.45.2",
-        "confighub.com/package-sha256": "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
+        "confighub.com/package-sha256": "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
       }
     }
   ],

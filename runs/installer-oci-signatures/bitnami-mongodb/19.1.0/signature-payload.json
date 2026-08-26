@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d"
+        "sha256": "1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406"
       },
       "annotations": {
         "confighub.com/package-path": "packages/bitnami/mongodb/19.1.0",
-        "confighub.com/package-sha256": "7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0"
+        "confighub.com/package-sha256": "ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb"
       }
     }
   ],

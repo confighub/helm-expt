@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8"
+        "sha256": "0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f"
       },
       "annotations": {
         "confighub.com/package-path": "packages/dex/dex/0.24.0",
-        "confighub.com/package-sha256": "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
+        "confighub.com/package-sha256": "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af"
       }
     }
   ],

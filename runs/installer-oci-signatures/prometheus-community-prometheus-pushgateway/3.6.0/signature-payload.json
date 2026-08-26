@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "81ddc722ff2e7f59d7b99b2a70895b011983bf8edff8f1cfdcb61c49ce3312a8"
+        "sha256": "0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b"
       },
       "annotations": {
         "confighub.com/package-path": "packages/prometheus-community/prometheus-pushgateway/3.6.0",
-        "confighub.com/package-sha256": "11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2"
+        "confighub.com/package-sha256": "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c"
       }
     }
   ],

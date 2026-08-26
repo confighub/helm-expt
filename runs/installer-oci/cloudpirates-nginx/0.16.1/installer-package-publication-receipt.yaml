@@ -4,28 +4,28 @@ metadata:
   name: cloudpirates-nginx-0.16.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1
-  observedAt: "2026-08-08T20:47:05.438Z"
+  observedAt: "2026-08-26T07:00:35.318Z"
   package:
     path: packages/cloudpirates/nginx/0.16.1
-    sha256: 74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
-    sourceTreeSHA256: 5b385d32c27155aab574e1cf44cf7b8205d81f35fd1c3871df30b67569a8c7a0
-  publicationAction: reused-existing-exact-artifact
+    sha256: 063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827
+    sourceTreeSHA256: 1eb5773089ea3f1aee34082035777cb7f051998dc16e750fcf9a06877e5ac15c
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/cloudpirates/nginx/0.16.1 -o <tmp>/cloudpirates-nginx-0.16.1.tgz"
     push: "cub installer push <tmp>/cloudpirates-nginx-0.16.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1 --json"
   outputs:
-    manifestDigest: sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103
-    layerDigest: sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
+    manifestDigest: sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183
+    layerDigest: sha256:063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827
     package: |
       Bundled cloudpirates-nginx@0.16.1
         output: <tmp>
-        files:  4
-        size:   1238 bytes
-        digest: sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
+        files:  8
+        size:   5380 bytes
+        digest: sha256:063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827
     push: |
-      Reused existing oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1
-        manifest: sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103
-        layer:    sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
-    inspectJSONSHA256: 038c5e850fa00286d009b326f9c170ed8a469473255aac81921dfb418bd9c436
-    inspectJSONCanonicalSHA256: 90a47d82db8a370c41595e20fda23e133146400b45ab16dd662d7fdb2309ef12
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1
+        manifest: sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183
+        layer:    sha256:063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827 (5380 bytes, 8 files)
+    inspectJSONSHA256: 87700c083311d2faa112b7e38111f026dc80917e2b96a0eefe353149b0e690c5
+    inspectJSONCanonicalSHA256: 1361ecf99152d3a41ba95b40a594deaea475796e261e20e674ea25f2e62181ee

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./metrics-server-metrics-server-3-13-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b --base default --work-dir ./metrics-server-metrics-server-3-13-0-default --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base default --work-dir ./metrics-server-metrics-server-3-13-0-default --non-interactive --namespace kube-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./metrics-server-metrics-server-3-13-0-default/out/manifests

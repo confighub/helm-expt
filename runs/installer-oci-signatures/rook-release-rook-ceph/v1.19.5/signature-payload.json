@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf"
+        "sha256": "b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7"
       },
       "annotations": {
         "confighub.com/package-path": "packages/rook-release/rook-ceph/v1.19.5",
-        "confighub.com/package-sha256": "21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
+        "confighub.com/package-sha256": "62e2fad07123cdd2621bf6d1d9289c925596deabdc76cd15904f0f37d90dea93"
       }
     }
   ],

@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "bitnami-mysql-14.0.3"
 spec:
-  observedAt: "2026-08-26T05:36:34.821Z"
+  observedAt: "2026-08-26T07:58:23.812Z"
   subject:
     packagePath: "packages/bitnami/mysql/14.0.3"
     publicationReceipt: "runs/installer-oci/bitnami-mysql/14.0.3/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3"
-    manifestDigest: "sha256:0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e"
-    packageSHA256: "fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867"
-    layerDigest: "sha256:fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867"
+    manifestDigest: "sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
+    packageSHA256: "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
+    layerDigest: "sha256:b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/bitnami-mysql/14.0.3/signature.sigstore.json"
-    bundleSHA256: "ed6f831c8e04520b9ffac61a3fe42e168dfd30ee33ccc8d7b9728ec9aad01a37"
+    bundleSHA256: "96ded4e7a22a9aca0698739fb6c937590419560e63785c8e9536ab6215098b34"
     payloadPath: "runs/installer-oci-signatures/bitnami-mysql/14.0.3/signature-payload.json"
-    payloadSHA256: "bcb40913ab8070d10b4e9104e1cdfa2bcbbb485d097858a7581e0292d4b929d2"
+    payloadSHA256: "db205d737b9f811e8b8096e24ce70267ddb60944163f39901c4cc1b0143e72b6"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/mysql/14.0.3 --annotations confighub.com/package-sha256=fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/mysql/14.0.3 --annotations confighub.com/package-sha256=b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
     outputPath: "runs/installer-oci-signatures/bitnami-mysql/14.0.3/verification.json"
-    outputSHA256: "5163841e25330e11e0241650bddfa816409d518f1db9760d84a83a5116051ecc"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-mysql/14.0.3/signature.sigstore.json --digest 0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "c4af5e83a201efaa9029b8a30dfcc170252cb2fed43fc2ef2c054db2011f9594"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-mysql/14.0.3/signature.sigstore.json --digest d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/bitnami-mysql/14.0.3/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/bitnami/mysql/14.0.3"
-    confighub.com/package-sha256: "fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867"
+    confighub.com/package-sha256: "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "dex-dex-0.24.0"
 spec:
-  observedAt: "2026-08-26T05:38:25.620Z"
+  observedAt: "2026-08-26T08:00:03.193Z"
   subject:
     packagePath: "packages/dex/dex/0.24.0"
     publicationReceipt: "runs/installer-oci/dex-dex/0.24.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0"
-    manifestDigest: "sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8"
-    packageSHA256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
-    layerDigest: "sha256:61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
+    manifestDigest: "sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f"
+    packageSHA256: "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af"
+    layerDigest: "sha256:6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/dex-dex/0.24.0/signature.sigstore.json"
-    bundleSHA256: "ad8c383308146c8ead6f5f5a3a4f1fea708d029acca1b9f5a26b6e50f9b22b34"
+    bundleSHA256: "d9463273ef7dad4d6315df02abc148ca8cf26e4c52e041ed87431b4b42d41562"
     payloadPath: "runs/installer-oci-signatures/dex-dex/0.24.0/signature-payload.json"
-    payloadSHA256: "0df9a5371b4edebee92b98aab0d61df4235d4d30a0de7aabc9bfaf933f2b52ef"
+    payloadSHA256: "ae4a03b1681b187fc97cf1a4d88030e781b63300da14afbf23d51c0974539bb9"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/dex/dex/0.24.0 --annotations confighub.com/package-sha256=61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/dex/dex/0.24.0 --annotations confighub.com/package-sha256=6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f"
     outputPath: "runs/installer-oci-signatures/dex-dex/0.24.0/verification.json"
-    outputSHA256: "3011feb423e83c81d39007b23f7c7417fff3c6873b9c6e9ce103ac9cca6f7382"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/dex-dex/0.24.0/signature.sigstore.json --digest 06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "bea5c558e26d7fb0e68788c6dded3bfb1ca358ec4269ff53d8bb7c86e4ba7768"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/dex-dex/0.24.0/signature.sigstore.json --digest 0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/dex-dex/0.24.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/dex/dex/0.24.0"
-    confighub.com/package-sha256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
+    confighub.com/package-sha256: "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

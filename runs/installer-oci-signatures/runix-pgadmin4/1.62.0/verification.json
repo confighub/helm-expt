@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
       },
       "image": {
-        "docker-manifest-digest": "sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
+        "docker-manifest-digest": "sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/runix/pgadmin4/1.62.0",
-      "confighub.com/package-sha256": "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
+      "confighub.com/package-sha256": "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
     }
   }
 ]

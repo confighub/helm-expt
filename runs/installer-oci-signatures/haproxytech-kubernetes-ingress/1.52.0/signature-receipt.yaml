@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "haproxytech-kubernetes-ingress-1.52.0"
 spec:
-  observedAt: "2026-08-26T05:40:46.808Z"
+  observedAt: "2026-08-26T08:01:59.948Z"
   subject:
     packagePath: "packages/haproxytech/kubernetes-ingress/1.52.0"
     publicationReceipt: "runs/installer-oci/haproxytech-kubernetes-ingress/1.52.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0"
-    manifestDigest: "sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab"
-    packageSHA256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
-    layerDigest: "sha256:3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
+    manifestDigest: "sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
+    packageSHA256: "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
+    layerDigest: "sha256:62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/haproxytech-kubernetes-ingress/1.52.0/signature.sigstore.json"
-    bundleSHA256: "12b627219022cc3e8717b1433ef4335abe9269e3923c1a55ad4ee36ca253e42a"
+    bundleSHA256: "687df512f9356e700dd2811cca831f7a7a36cf03fb60610ad2e6ea683cc6650f"
     payloadPath: "runs/installer-oci-signatures/haproxytech-kubernetes-ingress/1.52.0/signature-payload.json"
-    payloadSHA256: "8dfb414241c8a1cb1f5fc4d0662836b3831311462302e17858e5dac0ebb1e4aa"
+    payloadSHA256: "f44d6800d09eacc661a825669755cd7eb257c8b18b84a901e314c08420808a50"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/haproxytech/kubernetes-ingress/1.52.0 --annotations confighub.com/package-sha256=3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/haproxytech/kubernetes-ingress/1.52.0 --annotations confighub.com/package-sha256=62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
     outputPath: "runs/installer-oci-signatures/haproxytech-kubernetes-ingress/1.52.0/verification.json"
-    outputSHA256: "fa1841f4048a950936ba124a4c9b021bb4e085aef5d80a2e4464ebcfbb1ee569"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/haproxytech-kubernetes-ingress/1.52.0/signature.sigstore.json --digest 866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "362de47702cc1f1e556a0cf0ef64a3203ee676fe2177fcd8cfd0f8ffcd107876"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/haproxytech-kubernetes-ingress/1.52.0/signature.sigstore.json --digest 11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/haproxytech-kubernetes-ingress/1.52.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/haproxytech/kubernetes-ingress/1.52.0"
-    confighub.com/package-sha256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
+    confighub.com/package-sha256: "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6"
+        "sha256": "4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882"
       },
       "annotations": {
         "confighub.com/package-path": "packages/velero/velero/12.1.0",
-        "confighub.com/package-sha256": "94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307"
+        "confighub.com/package-sha256": "b0a29b59046d0a424cb972a33c6bdfbedce977676222c1b9f99b8191fdaf760a"
       }
     }
   ],

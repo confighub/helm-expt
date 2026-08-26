@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85"
+        "sha256": "bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db"
       },
       "annotations": {
         "confighub.com/package-path": "packages/jaegertracing/jaeger-operator/2.57.0",
-        "confighub.com/package-sha256": "f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3"
+        "confighub.com/package-sha256": "c8ad17a3e068d40895d103e54cb52792feea649682f50c45f3ca151d9d7457c9"
       }
     }
   ],

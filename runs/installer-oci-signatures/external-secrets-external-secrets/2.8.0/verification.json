@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets@sha256:4dbc97da60b9cda5fa85a8c69d06abff3edb71c0f9ab35fb8b393d2e14cc8dcc"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c"
       },
       "image": {
-        "docker-manifest-digest": "sha256:4dbc97da60b9cda5fa85a8c69d06abff3edb71c0f9ab35fb8b393d2e14cc8dcc"
+        "docker-manifest-digest": "sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/external-secrets/external-secrets/2.8.0",
-      "confighub.com/package-sha256": "4cb4c3e9dd71329332f7757b33ac5d9980d6ed5a33153d6eb85b2f145bfb1f78"
+      "confighub.com/package-sha256": "7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb"
     }
   }
 ]

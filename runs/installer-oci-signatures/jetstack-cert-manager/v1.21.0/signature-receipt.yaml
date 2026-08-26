@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "jetstack-cert-manager-v1.21.0"
 spec:
-  observedAt: "2026-08-26T05:41:39.631Z"
+  observedAt: "2026-08-26T08:02:48.964Z"
   subject:
     packagePath: "packages/jetstack/cert-manager/v1.21.0"
     publicationReceipt: "runs/installer-oci/jetstack-cert-manager/v1.21.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
-    manifestDigest: "sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f"
-    packageSHA256: "d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e"
-    layerDigest: "sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e"
+    manifestDigest: "sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
+    packageSHA256: "3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0"
+    layerDigest: "sha256:3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/jetstack-cert-manager/v1.21.0/signature.sigstore.json"
-    bundleSHA256: "871d0b6885f172cebec3bb10a0ae67c7daecb3dde8495ebc1c68ae4f679fc690"
+    bundleSHA256: "b94ab84f5e4f0805529eb3df0a4480d06c4e1bea067b48c92f41a3d8c3d7ba14"
     payloadPath: "runs/installer-oci-signatures/jetstack-cert-manager/v1.21.0/signature-payload.json"
-    payloadSHA256: "adf64b09ed3cff2284110b0d20dfd8a5be9556d14894623adb10bbf33bc4fff6"
+    payloadSHA256: "512d7db4a5f969f27e146cf24376d6a826f3b9830a5549b2ce74465a52dc27c8"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/jetstack/cert-manager/v1.21.0 --annotations confighub.com/package-sha256=d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/jetstack/cert-manager/v1.21.0 --annotations confighub.com/package-sha256=3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
     outputPath: "runs/installer-oci-signatures/jetstack-cert-manager/v1.21.0/verification.json"
-    outputSHA256: "fa6ef1f631804b13e29cac6044b1beb09954305731ef8c0500b00a1805f1fd49"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/jetstack-cert-manager/v1.21.0/signature.sigstore.json --digest ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "3a2626c59022213b2949d9f0f86c024d243ffc0ad53809b34260c70ba3174576"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/jetstack-cert-manager/v1.21.0/signature.sigstore.json --digest c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/jetstack-cert-manager/v1.21.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/jetstack/cert-manager/v1.21.0"
-    confighub.com/package-sha256: "d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e"
+    confighub.com/package-sha256: "3aae227fdb5e32be21e01950a13ea8ede2f2090f0386a71d910f28eb2ae220c0"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

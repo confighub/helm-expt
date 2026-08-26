@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "bitnami-redis-27.0.0"
 spec:
-  observedAt: "2026-08-26T05:37:27.881Z"
+  observedAt: "2026-08-26T07:59:14.560Z"
   subject:
     packagePath: "packages/bitnami/redis/27.0.0"
     publicationReceipt: "runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0"
-    manifestDigest: "sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
-    packageSHA256: "8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
-    layerDigest: "sha256:8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
+    manifestDigest: "sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
+    packageSHA256: "6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
+    layerDigest: "sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json"
-    bundleSHA256: "0af902f08925fabe4ffa2013d1bfbcf6e6efaf1437527ec7a6d47462d1954766"
+    bundleSHA256: "de665db2f0b0dfeec13c271fa8317ba1ca0dc0687dda22b19c7dfffc5f3fbefe"
     payloadPath: "runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-payload.json"
-    payloadSHA256: "fb6b4681d24b9211ae4abb2bb0c51618d0f2f29cdd73aa177e335bb855bcf318"
+    payloadSHA256: "0475dc7c9700d079780816db8c7c59f4a23ead372f64fadf6a4308b02541c57c"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/redis/27.0.0 --annotations confighub.com/package-sha256=8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/redis/27.0.0 --annotations confighub.com/package-sha256=6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
     outputPath: "runs/installer-oci-signatures/bitnami-redis/27.0.0/verification.json"
-    outputSHA256: "1fd6c10cab1d8b27c825a936cb2b7cf35ad386ab2f889144bba4b51bdf73fba5"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json --digest f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "7efa40eba5005fc541d6f9f354ac7bcd2c631ccdc8b7fcd0aa3c8b97ea4858d7"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json --digest d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/bitnami-redis/27.0.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/bitnami/redis/27.0.0"
-    confighub.com/package-sha256: "8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
+    confighub.com/package-sha256: "6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

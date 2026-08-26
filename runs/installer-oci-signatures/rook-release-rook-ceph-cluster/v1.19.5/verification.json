@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster@sha256:4aef8ca4f19cf6da7cee52e77cce27a6c66ecb6c0718e37590109c27170c399e"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster@sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a"
       },
       "image": {
-        "docker-manifest-digest": "sha256:4aef8ca4f19cf6da7cee52e77cce27a6c66ecb6c0718e37590109c27170c399e"
+        "docker-manifest-digest": "sha256:a85479c01667c8c575223e2f68de07b51cd8b84de24776b12553f2f23583728a"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/rook-release/rook-ceph-cluster/v1.19.5",
-      "confighub.com/package-sha256": "74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d"
+      "confighub.com/package-sha256": "f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5"
     }
   }
 ]
