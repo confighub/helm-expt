@@ -8,6 +8,7 @@ export const INSTALLER_PACKAGE_SIGNER_IDENTITY =
 export const INSTALLER_PACKAGE_SIGNER_ISSUER = "https://accounts.google.com";
 export const INSTALLER_PACKAGE_SIGNATURE_SCHEME = "sigstore-keyless";
 export const INSTALLER_PACKAGE_COSIGN_VERSION = "v3.1.3";
+export const INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE = "https://sigstore.dev/cosign/sign/v1";
 export const INSTALLER_PACKAGE_SIGNATURE_ROOT = join(repoRoot, "runs", "installer-oci-signatures");
 export const INSTALLER_OCI_INDEX_PATH = join(repoRoot, "data", "installer-oci-packages", "packages.json");
 export const INSTALLER_OCI_INDEX_SIGNATURE_ROOT = join(repoRoot, "runs", "installer-oci-index-signature");
@@ -87,11 +88,13 @@ export function signatureVerificationCommand(record) {
 
 export function signaturePayloadVerificationCommand(record) {
   return [
-    "cosign verify-blob",
+    "cosign verify-blob-attestation",
     `--bundle ${relativeRepo(record.bundlePath)}`,
+    `--digest ${record.manifestDigest.replace(/^sha256:/, "")}`,
+    "--digestAlg sha256",
+    `--type ${INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE}`,
     `--certificate-identity ${INSTALLER_PACKAGE_SIGNER_IDENTITY}`,
     `--certificate-oidc-issuer ${INSTALLER_PACKAGE_SIGNER_ISSUER}`,
-    relativeRepo(record.payloadPath),
   ].join(" ");
 }
 

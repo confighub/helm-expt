@@ -6,13 +6,14 @@
 // publication receipt and refuse missing, duplicated, or mismatched evidence.
 
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
+import { isDeepStrictEqual } from "node:util";
 
 import {
   INSTALLER_PACKAGE_COSIGN_VERSION,
   INSTALLER_PACKAGE_SIGNATURE_SCHEME,
+  INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE,
   INSTALLER_PACKAGE_SIGNER_IDENTITY,
   INSTALLER_PACKAGE_SIGNER_ISSUER,
   allStringValues,
@@ -176,10 +177,12 @@ function validateBindings({
   check((spec.scope?.doesNotProve ?? []).length >= 2, `${prefix}: receipt does not state the signature limits`);
 
   check(/sigstore\.bundle/.test(String(bundle?.mediaType ?? "")), `${prefix}: unexpected Sigstore bundle media type`);
-  check(Boolean(bundle?.messageSignature?.signature || bundle?.dsseEnvelope?.signatures?.[0]?.sig), `${prefix}: bundle carries no signature`);
+  check(bundle?.dsseEnvelope?.payloadType === "application/vnd.in-toto+json", `${prefix}: bundle carries no in-toto statement`);
+  check(Boolean(bundle?.dsseEnvelope?.signatures?.[0]?.sig), `${prefix}: bundle carries no DSSE signature`);
   check((bundle?.verificationMaterial?.tlogEntries ?? []).length > 0, `${prefix}: bundle carries no transparency-log entry`);
   check(certificateText.includes(INSTALLER_PACKAGE_SIGNER_IDENTITY), `${prefix}: certificate does not name the expected signer`);
   check(certificateText.includes(INSTALLER_PACKAGE_SIGNER_ISSUER), `${prefix}: certificate does not name the expected OIDC issuer`);
+  check(isDeepStrictEqual(payload, decodeBundlePayload(bundle, prefix)), `${prefix}: saved statement differs from the signed bundle payload`);
   validatePayloadClaims(record, payload, prefix);
 
   const values = new Set(allStringValues(verification));
@@ -193,63 +196,55 @@ function validateBindings({
 }
 
 function validatePayloadClaims(record, payload, prefix) {
-  const critical = valueIgnoreCase(payload, "critical");
-  const image = valueIgnoreCase(critical, "image");
-  const manifestDigest = valueIgnoreCase(image, "docker-manifest-digest");
-  const optional = valueIgnoreCase(payload, "optional");
-  check(manifestDigest === record.manifestDigest, `${prefix}: signed payload has the wrong manifest digest`);
-  check(optional?.["confighub.com/package-path"] === record.packagePath, `${prefix}: signed payload has the wrong package-path annotation`);
-  check(optional?.["confighub.com/package-sha256"] === record.packageSHA256, `${prefix}: signed payload has the wrong package-sha256 annotation`);
+  check(payload?._type === "https://in-toto.io/Statement/v1", `${prefix}: signed payload is not an in-toto statement`);
+  check(payload.predicateType === INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE, `${prefix}: signed payload has the wrong predicate type`);
+  const subject = (payload.subject ?? []).find((item) => item?.digest?.sha256 === record.manifestDigest.replace(/^sha256:/, ""));
+  check(subject, `${prefix}: signed payload has the wrong manifest digest`);
+  check(subject.annotations?.["confighub.com/package-path"] === record.packagePath, `${prefix}: signed payload has the wrong package-path annotation`);
+  check(subject.annotations?.["confighub.com/package-sha256"] === record.packageSHA256, `${prefix}: signed payload has the wrong package-sha256 annotation`);
 }
 
-function valueIgnoreCase(object, name) {
-  if (!object || typeof object !== "object") return undefined;
-  const key = Object.keys(object).find((candidate) => candidate.toLowerCase() === name.toLowerCase());
-  return key === undefined ? undefined : object[key];
+function decodeBundlePayload(bundle, prefix) {
+  const encoded = String(bundle?.dsseEnvelope?.payload ?? "");
+  check(encoded, `${prefix}: bundle carries no DSSE payload`);
+  try {
+    return JSON.parse(Buffer.from(encoded, "base64").toString("utf8"));
+  } catch (error) {
+    throw new Error(`${prefix}: cannot decode the signed bundle payload: ${error.message}`);
+  }
 }
 
 function cryptographicallyVerifyRows(rows) {
   check(commandAvailable("cosign", ["version"]), "cosign is required for cryptographic package verification");
   const version = readCosignVersion();
   check(version === INSTALLER_PACKAGE_COSIGN_VERSION, `expected cosign ${INSTALLER_PACKAGE_COSIGN_VERSION}, found ${version}`);
-  for (const row of rows) cryptographicallyVerify(row.signature_bundle, row.signature_payload);
+  for (const row of rows) cryptographicallyVerify(row.signature_bundle, row.manifest_digest);
 }
 
-function cryptographicallyVerify(bundle, payload, { expectFailure = false } = {}) {
+function cryptographicallyVerify(bundle, manifestDigest, { expectFailure = false } = {}) {
   const result = spawnSync("cosign", [
-    "verify-blob",
+    "verify-blob-attestation",
     "--bundle", join(repoRoot, bundle),
+    "--digest", manifestDigest.replace(/^sha256:/, ""),
+    "--digestAlg", "sha256",
+    "--type", INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE,
     "--certificate-identity", INSTALLER_PACKAGE_SIGNER_IDENTITY,
     "--certificate-oidc-issuer", INSTALLER_PACKAGE_SIGNER_ISSUER,
-    join(repoRoot, payload),
   ], { encoding: "utf8", maxBuffer: 1024 * 1024 * 8 });
   if (expectFailure) {
-    check(result.status !== 0, "cosign accepted a changed package signature payload");
+    check(result.status !== 0, "cosign accepted the wrong package manifest digest");
     return;
   }
-  check(result.status === 0, `${payload}: cosign verify-blob failed: ${String(result.stderr || result.stdout).trim()}`);
-  check(/Verified OK/i.test(result.stdout), `${payload}: cosign did not report successful payload verification`);
+  check(result.status === 0, `${bundle}: cosign verify-blob-attestation failed: ${String(result.stderr || result.stdout).trim()}`);
+  check(/Verified OK/i.test(result.stdout), `${bundle}: cosign did not report successful statement verification`);
 }
 
 function cryptographicSelfTest(rows) {
   check(rows.length > 0, "no signed package is available for the cryptographic self-test");
   const row = rows[0];
   cryptographicallyVerifyRows([row]);
-  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-package-signature-self-test-"));
-  try {
-    const changed = join(tempRoot, "changed-payload.json");
-    writeFileSync(changed, `${readFileSync(join(repoRoot, row.signature_payload), "utf8")} `);
-    const result = spawnSync("cosign", [
-      "verify-blob",
-      "--bundle", join(repoRoot, row.signature_bundle),
-      "--certificate-identity", INSTALLER_PACKAGE_SIGNER_IDENTITY,
-      "--certificate-oidc-issuer", INSTALLER_PACKAGE_SIGNER_ISSUER,
-      changed,
-    ], { encoding: "utf8", maxBuffer: 1024 * 1024 * 8 });
-    check(result.status !== 0, "cosign accepted a changed package signature payload");
-  } finally {
-    rmSync(tempRoot, { recursive: true, force: true });
-  }
+  const wrongDigest = `sha256:${row.manifest_digest.slice("sha256:".length).replace(/^./, (value) => value === "0" ? "1" : "0")}`;
+  cryptographicallyVerify(row.signature_bundle, wrongDigest, { expectFailure: true });
 }
 
 function commandAvailable(command, args) {
@@ -313,10 +308,11 @@ This command checks the named signer, the Google OIDC issuer, the exact OCI
 manifest digest, the package path, and the package SHA-256 annotation. A
 successful run cryptographically checks that those exact package bytes were
 signed by the catalog publisher. The repository keeps the exact signed payload
-and verifies it against the bundle with \`cosign verify-blob\`. It also checks
-the signature attached to the public OCI digest. A signature does not show that
-a preset is suitable for a particular cluster. Use the chart page and its
-checks, lifecycle instructions, and receipts for that decision.
+from the DSSE bundle and verifies that the bundle names the exact OCI manifest
+digest. It also checks the signature attached to the public OCI digest. A
+signature does not show that a preset is suitable for a particular cluster.
+Use the chart page and its checks, lifecycle instructions, and receipts for
+that decision.
 
 ## Files
 
@@ -357,23 +353,32 @@ function selfTest() {
     verificationPath: join(repoRoot, "runs/installer-oci-signatures/example/1.0.0/verification.json"),
     payloadVerificationPath: join(repoRoot, "runs/installer-oci-signatures/example/1.0.0/payload-verification.txt"),
   };
+  const payload = {
+    _type: "https://in-toto.io/Statement/v1",
+    subject: [{
+      digest: { sha256: record.manifestDigest.replace(/^sha256:/, "") },
+      annotations: {
+        "confighub.com/package-path": record.packagePath,
+        "confighub.com/package-sha256": record.packageSHA256,
+      },
+    }],
+    predicateType: INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE,
+    predicate: {},
+  };
   const bundle = {
     mediaType: "application/vnd.dev.sigstore.bundle.v0.3+json",
     verificationMaterial: { certificate: { rawBytes: "ZmFrZQ==" }, tlogEntries: [{}] },
-    messageSignature: { signature: "c2ln" },
+    dsseEnvelope: {
+      payload: Buffer.from(JSON.stringify(payload)).toString("base64"),
+      payloadType: "application/vnd.in-toto+json",
+      signatures: [{ sig: "c2ln" }],
+    },
   };
   const verification = [
     { manifestDigest, packagePath: record.packagePath, packageSHA256, signer: INSTALLER_PACKAGE_SIGNER_IDENTITY, issuer: INSTALLER_PACKAGE_SIGNER_ISSUER },
   ];
   const bundleText = `${JSON.stringify(bundle)}\n`;
   const verificationText = `${JSON.stringify(verification)}\n`;
-  const payload = {
-    critical: { image: { "docker-manifest-digest": record.manifestDigest } },
-    optional: {
-      "confighub.com/package-path": record.packagePath,
-      "confighub.com/package-sha256": record.packageSHA256,
-    },
-  };
   const payloadText = `${JSON.stringify(payload)}\n`;
   const payloadVerificationText = "Verified OK\n";
   const receipt = {

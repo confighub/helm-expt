@@ -14,6 +14,7 @@ import { join } from "node:path";
 import {
   INSTALLER_PACKAGE_COSIGN_VERSION,
   INSTALLER_PACKAGE_SIGNATURE_SCHEME,
+  INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE,
   INSTALLER_PACKAGE_SIGNER_IDENTITY,
   INSTALLER_PACKAGE_SIGNER_ISSUER,
   installerPackagePublicationRecords,
@@ -67,7 +68,6 @@ for (const record of records) {
     continue;
   }
   if (mode === "--reobserve") {
-    check(existsSync(record.receiptPath), `${record.packagePath}: no signature receipt to reobserve`);
     check(existsSync(record.bundlePath), `${record.packagePath}: no committed Sigstore bundle to reobserve`);
     check(existsSync(record.payloadPath), `${record.packagePath}: no committed signed payload to reobserve`);
     const bundleText = readFileSync(record.bundlePath, "utf8");
@@ -88,7 +88,9 @@ function signAndRecord(record, cosignVersion) {
     const tokenPath = join(tempRoot, "sigstore-identity-token");
     const dockerConfigPath = join(tempRoot, "config.json");
     const bundlePath = join(tempRoot, "signature.sigstore.json");
-    writeFileSync(tokenPath, identityToken(), { encoding: "utf8", mode: 0o600 });
+    const oidcToken = identityToken();
+    check(oidcToken && !/\s/.test(oidcToken), "the Sigstore identity token must not contain whitespace");
+    writeFileSync(tokenPath, oidcToken, { encoding: "utf8", mode: 0o600 });
     chmodSync(tokenPath, 0o600);
     writeFileSync(dockerConfigPath, registryDockerConfig(registryAccessToken()), { encoding: "utf8", mode: 0o600 });
     chmodSync(dockerConfigPath, 0o600);
@@ -207,13 +209,13 @@ function receiptFor(record, cosignVersion, bundleText, payloadText, verification
 
 function downloadSignedPayload(record, bundleText, extraEnv = {}) {
   const bundle = JSON.parse(bundleText);
-  const bundleSignature = String(bundle?.messageSignature?.signature ?? bundle?.dsseEnvelope?.signatures?.[0]?.sig ?? "");
+  const bundleSignature = bundleSignatureValue(bundle);
   check(bundleSignature, `${record.packagePath}: Sigstore bundle carries no signature`);
   const output = runCosign(["download", "signature", record.immutableReference], extraEnv);
   const entries = parseDownloadedSignatures(output);
-  const matched = entries.find((entry) => String(entry.Base64Signature ?? entry.base64Signature ?? "") === bundleSignature);
+  const matched = entries.find((entry) => bundleSignatureValue(entry) === bundleSignature);
   check(matched, `${record.packagePath}: registry signature payload does not match the new Sigstore bundle`);
-  const encoded = String(matched.Payload ?? matched.payload ?? "");
+  const encoded = String(matched?.dsseEnvelope?.payload ?? matched.Payload ?? matched.payload ?? "");
   check(encoded, `${record.packagePath}: registry signature has no payload`);
   let payload;
   try {
@@ -237,6 +239,14 @@ function parseDownloadedSignatures(text) {
 }
 
 function validateSignedPayload(record, payload) {
+  if (payload?._type === "https://in-toto.io/Statement/v1") {
+    check(payload.predicateType === INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE, `${record.packagePath}: signed statement has the wrong predicate type`);
+    const subject = (payload.subject ?? []).find((item) => item?.digest?.sha256 === record.manifestDigest.replace(/^sha256:/, ""));
+    check(subject, `${record.packagePath}: signed statement has the wrong manifest digest`);
+    check(subject.annotations?.["confighub.com/package-path"] === record.packagePath, `${record.packagePath}: signed statement has the wrong package-path annotation`);
+    check(subject.annotations?.["confighub.com/package-sha256"] === record.packageSHA256, `${record.packagePath}: signed statement has the wrong package-sha256 annotation`);
+    return;
+  }
   const critical = valueIgnoreCase(payload, "critical");
   const image = valueIgnoreCase(critical, "image");
   const manifestDigest = valueIgnoreCase(image, "docker-manifest-digest");
@@ -252,20 +262,38 @@ function valueIgnoreCase(object, name) {
   return key === undefined ? undefined : object[key];
 }
 
+function bundleSignatureValue(bundle) {
+  return String(
+    bundle?.dsseEnvelope?.signatures?.[0]?.sig
+      ?? bundle?.messageSignature?.signature
+      ?? bundle?.Base64Signature
+      ?? bundle?.base64Signature
+      ?? "",
+  );
+}
+
 function verifyPayload(record) {
-  const output = runCosign([
-    "verify-blob",
+  const result = spawnSync("cosign", [
+    "verify-blob-attestation",
     "--bundle", record.bundlePath,
+    "--digest", record.manifestDigest.replace(/^sha256:/, ""),
+    "--digestAlg", "sha256",
+    "--type", INSTALLER_PACKAGE_SIGNATURE_PREDICATE_TYPE,
     "--certificate-identity", INSTALLER_PACKAGE_SIGNER_IDENTITY,
     "--certificate-oidc-issuer", INSTALLER_PACKAGE_SIGNER_ISSUER,
-    record.payloadPath,
-  ]);
-  check(/Verified OK/i.test(output), `${record.packagePath}: cosign did not verify the committed package payload`);
+  ], {
+    encoding: "utf8",
+    env: { ...process.env, COSIGN_YES: "true" },
+    maxBuffer: 1024 * 1024 * 64,
+  });
+  check(result.status === 0, `${record.packagePath}: cosign could not verify the committed package signature bundle: ${String(result.stderr || result.stdout).trim()}`);
+  const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+  check(/Verified OK/i.test(output), `${record.packagePath}: cosign did not verify the committed package signature bundle`);
   return output.endsWith("\n") ? output : `${output}\n`;
 }
 
 function identityToken() {
-  if (process.env.SIGSTORE_ID_TOKEN) return `${process.env.SIGSTORE_ID_TOKEN.trim()}\n`;
+  if (process.env.SIGSTORE_ID_TOKEN) return process.env.SIGSTORE_ID_TOKEN.trim();
   if (identityToken.cached) return identityToken.cached;
   identityToken.cached = execFileSync(
     "gcloud",
@@ -277,7 +305,7 @@ function identityToken() {
       "--audiences=sigstore",
     ],
     { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], maxBuffer: 1024 * 1024 * 8 },
-  );
+  ).trim();
   return identityToken.cached;
 }
 

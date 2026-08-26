@@ -56,7 +56,9 @@ function signIndex() {
   try {
     const tokenPath = join(tempRoot, "sigstore-identity-token");
     const bundlePath = join(tempRoot, "packages.sigstore.json");
-    writeFileSync(tokenPath, identityToken(), { encoding: "utf8", mode: 0o600 });
+    const oidcToken = identityToken();
+    check(oidcToken && !/\s/.test(oidcToken), "the Sigstore identity token must not contain whitespace");
+    writeFileSync(tokenPath, oidcToken, { encoding: "utf8", mode: 0o600 });
     chmodSync(tokenPath, 0o600);
     runCosign(["sign-blob", "--yes", "--identity-token", tokenPath, "--bundle", bundlePath, INSTALLER_OCI_INDEX_PATH]);
     check(existsSync(bundlePath), "cosign wrote no index signature bundle");
@@ -141,12 +143,12 @@ function readCatalog() {
 }
 
 function identityToken() {
-  if (process.env.SIGSTORE_ID_TOKEN) return `${process.env.SIGSTORE_ID_TOKEN.trim()}\n`;
+  if (process.env.SIGSTORE_ID_TOKEN) return process.env.SIGSTORE_ID_TOKEN.trim();
   return execFileSync("gcloud", [
     "auth", "print-identity-token",
     `--impersonate-service-account=${INSTALLER_PACKAGE_SIGNER_IDENTITY}`,
     "--include-email", "--audiences=sigstore",
-  ], { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], maxBuffer: 1024 * 1024 * 8 });
+  ], { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], maxBuffer: 1024 * 1024 * 8 }).trim();
 }
 
 function runCosign(args) {
