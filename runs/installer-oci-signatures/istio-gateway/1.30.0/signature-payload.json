@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/istio/gateway/1.30.0",
+        "confighub.com/package-sha256": "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

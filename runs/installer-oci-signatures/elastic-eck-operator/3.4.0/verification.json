@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/elastic/eck-operator/3.4.0",
+      "confighub.com/package-sha256": "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
+    }
+  }
+]

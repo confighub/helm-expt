@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "322525fd8fd73a75a3ad61407dce90763352833b83b58b0fb91ba7601faee1ad"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/kyverno/kyverno-policies/3.8.0",
+        "confighub.com/package-sha256": "f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

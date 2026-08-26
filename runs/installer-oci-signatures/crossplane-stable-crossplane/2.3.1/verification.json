@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane@sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/crossplane-stable/crossplane/2.3.1",
+      "confighub.com/package-sha256": "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+    }
+  }
+]

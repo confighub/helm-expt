@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/grafana/alloy/1.8.2",
+      "confighub.com/package-sha256": "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
+    }
+  }
+]

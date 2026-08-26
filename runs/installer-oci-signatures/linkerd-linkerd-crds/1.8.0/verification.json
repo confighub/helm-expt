@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/linkerd/linkerd-crds/1.8.0",
+      "confighub.com/package-sha256": "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
+    }
+  }
+]

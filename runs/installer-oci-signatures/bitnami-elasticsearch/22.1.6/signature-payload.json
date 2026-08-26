@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/bitnami/elasticsearch/22.1.6",
+        "confighub.com/package-sha256": "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

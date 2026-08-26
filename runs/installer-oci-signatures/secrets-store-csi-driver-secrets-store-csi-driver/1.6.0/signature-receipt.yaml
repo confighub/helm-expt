@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-1.6.0"
+spec:
+  observedAt: "2026-08-26T05:46:09.200Z"
+  subject:
+    packagePath: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    publicationReceipt: "runs/installer-oci/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0"
+    manifestDigest: "sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726"
+    packageSHA256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+    layerDigest: "sha256:3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/signature.sigstore.json"
+    bundleSHA256: "8b9abaf0022a68a8cf83a523b8c305e3680292073c3ca561eb727b58b1cfd218"
+    payloadPath: "runs/installer-oci-signatures/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/signature-payload.json"
+    payloadSHA256: "b42a18a17c059ba66eaa3ac7deca1853fab80a7a4ece188b7a3c7e8cec9f4d35"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --annotations confighub.com/package-sha256=3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726"
+    outputPath: "runs/installer-oci-signatures/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/verification.json"
+    outputSHA256: "5affc214c68bfb0226504681c2e8868a74d25f93cc6d0d2d4097b48e517231f7"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/signature.sigstore.json --digest 1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+    confighub.com/package-sha256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

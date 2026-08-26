@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/strimzi/strimzi-kafka-operator/1.0.0",
+        "confighub.com/package-sha256": "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

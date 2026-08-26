@@ -19,6 +19,7 @@ Use this route when you are trying to understand the product quickly.
 | Which path should I take? | [Choose Your Path](./choose-your-path.md) | Direct render, one-shot upload, public catalog, and ConfigHub-managed operations. |
 | Can I try it now? | [Try Now](./try-now.md) | A short public package OCI path and the serious-chart check. |
 | What package do I pull? | [Installer Package OCI Refs](./installer-oci-packages.md) | The public `oci://` refs for catalog packages, and how they differ from ConfigHub delivery OCI. |
+| Who signed this package? | [Verifying Catalog Package Signatures](../reference/installer-package-signing.md) | Check the publisher, immutable manifest digest, and signed package annotations with cosign. |
 | How do Helm, AICR, cub installer, promotions, and fleet examples fit together? | [Config Catalog Demonstrations](./config-catalog-demonstrations.md) | The maintained status of each source path and the five ConfigHub App examples. |
 | What should I see after each command? | [Expected Results And Clusters](./expected-results-and-clusters.md) | Output snippets, cluster choices, bring-your-own Kubernetes, `cub cluster up`, and optional npm proof checks. |
 | How do chart presets relate to Helm values? | [Helm Chart Presets And Values](./helm-presets-and-values.md) | Why the catalog offers useful chart-specific presets instead of claiming every values combination. |

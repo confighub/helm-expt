@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana@sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/grafana/grafana/10.5.15",
+      "confighub.com/package-sha256": "8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed"
+    }
+  }
+]

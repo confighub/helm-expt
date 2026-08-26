@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/cloudpirates/rabbitmq/0.21.13",
+      "confighub.com/package-sha256": "610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864"
+    }
+  }
+]

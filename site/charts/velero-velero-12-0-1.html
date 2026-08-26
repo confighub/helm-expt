@@ -474,7 +474,7 @@
       <p>The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>12.0.1</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>12.0.1</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -568,6 +568,13 @@
         <h3>Check the package identity</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7 --json</code></pre>
+        <details>
+        <summary><strong>Verify the package publisher</strong></summary>
+        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
+        <pre><code>cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/velero/velero/12.0.1 --annotations confighub.com/package-sha256=4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7</code></pre>
+        <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
+        <p><a href="../../runs/installer-oci-signatures/velero-velero/12.0.1/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/velero-velero/12.0.1/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+      </details>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>First recorded command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7 --base default --work-dir ./velero-velero-12-0-1-default --non-interactive --namespace default</code></p>

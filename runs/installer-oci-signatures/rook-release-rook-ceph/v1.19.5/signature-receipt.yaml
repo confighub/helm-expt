@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "rook-release-rook-ceph-v1.19.5"
+spec:
+  observedAt: "2026-08-26T05:45:50.006Z"
+  subject:
+    packagePath: "packages/rook-release/rook-ceph/v1.19.5"
+    publicationReceipt: "runs/installer-oci/rook-release-rook-ceph/v1.19.5/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5"
+    manifestDigest: "sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf"
+    packageSHA256: "21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
+    layerDigest: "sha256:21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/rook-release-rook-ceph/v1.19.5/signature.sigstore.json"
+    bundleSHA256: "c2f6b26c2b9f443312a4fee1a7349f910dae7fa6dd47d7523a9c2bdb57807997"
+    payloadPath: "runs/installer-oci-signatures/rook-release-rook-ceph/v1.19.5/signature-payload.json"
+    payloadSHA256: "68b7be2a7edd047ec85b99b1365b2186e00b4a569fde1c761205113ff9f4dc28"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/rook-release/rook-ceph/v1.19.5 --annotations confighub.com/package-sha256=21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf"
+    outputPath: "runs/installer-oci-signatures/rook-release-rook-ceph/v1.19.5/verification.json"
+    outputSHA256: "56b90eec261660b11fdd8993ac3b72f6bca2b9d7357c4d76cc64c74b576da47b"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/rook-release-rook-ceph/v1.19.5/signature.sigstore.json --digest be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/rook-release-rook-ceph/v1.19.5/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/rook-release/rook-ceph/v1.19.5"
+    confighub.com/package-sha256: "21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

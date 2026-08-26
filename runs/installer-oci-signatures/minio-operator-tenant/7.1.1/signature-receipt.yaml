@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "minio-operator-tenant-7.1.1"
+spec:
+  observedAt: "2026-08-26T05:42:59.590Z"
+  subject:
+    packagePath: "packages/minio-operator/tenant/7.1.1"
+    publicationReceipt: "runs/installer-oci/minio-operator-tenant/7.1.1/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1"
+    manifestDigest: "sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8"
+    packageSHA256: "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
+    layerDigest: "sha256:441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/minio-operator-tenant/7.1.1/signature.sigstore.json"
+    bundleSHA256: "69be2127e7304101518414dd209e3dc864a133ec8c704fb235dc2f0feecd4f60"
+    payloadPath: "runs/installer-oci-signatures/minio-operator-tenant/7.1.1/signature-payload.json"
+    payloadSHA256: "fc28b1518bc11483ebe6705504dbc96bc8c3d7401dc4b9976f5e9fac64fe651c"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/minio-operator/tenant/7.1.1 --annotations confighub.com/package-sha256=441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8"
+    outputPath: "runs/installer-oci-signatures/minio-operator-tenant/7.1.1/verification.json"
+    outputSHA256: "764959bbf32d092b52054da1f3b2cf5e7d8eada5b4f36fbe7141c0bb286778a0"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/minio-operator-tenant/7.1.1/signature.sigstore.json --digest 7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/minio-operator-tenant/7.1.1/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/minio-operator/tenant/7.1.1"
+    confighub.com/package-sha256: "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

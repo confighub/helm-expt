@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/velero/velero/12.1.0",
+        "confighub.com/package-sha256": "94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

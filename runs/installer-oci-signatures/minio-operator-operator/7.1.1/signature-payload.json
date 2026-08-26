@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "c1bfea10ba182a727725356a04c4ed0a9a1b8170240353057a69ed4222e0a6a3"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/minio-operator/operator/7.1.1",
+        "confighub.com/package-sha256": "030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

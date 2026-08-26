@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/bitnami/rabbitmq/16.0.14",
+        "confighub.com/package-sha256": "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

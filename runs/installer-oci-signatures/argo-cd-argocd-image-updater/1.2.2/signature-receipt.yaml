@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "argo-cd-argocd-image-updater-1.2.2"
+spec:
+  observedAt: "2026-08-26T05:35:17.575Z"
+  subject:
+    packagePath: "packages/argo-cd/argocd-image-updater/1.2.2"
+    publicationReceipt: "runs/installer-oci/argo-cd-argocd-image-updater/1.2.2/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2"
+    manifestDigest: "sha256:3f50dd91833bcd42870138464b00fc58e066f4b92765069755bd7d1de5c4b89a"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:3f50dd91833bcd42870138464b00fc58e066f4b92765069755bd7d1de5c4b89a"
+    packageSHA256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+    layerDigest: "sha256:f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/argo-cd-argocd-image-updater/1.2.2/signature.sigstore.json"
+    bundleSHA256: "23e6e453a2558678108cc0dfa076a9efbfe49e61e0ebd4e2d86ab3e6fe137ca3"
+    payloadPath: "runs/installer-oci-signatures/argo-cd-argocd-image-updater/1.2.2/signature-payload.json"
+    payloadSHA256: "e114e99e5950bf9d66a54bf351d82747487b0c99fda397e3dd74a2bb43a3adde"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/argo-cd/argocd-image-updater/1.2.2 --annotations confighub.com/package-sha256=f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:3f50dd91833bcd42870138464b00fc58e066f4b92765069755bd7d1de5c4b89a"
+    outputPath: "runs/installer-oci-signatures/argo-cd-argocd-image-updater/1.2.2/verification.json"
+    outputSHA256: "42c0b9b5431f11a7fbe7c98f991a63a6444693e7e48e446f054b8076d5417271"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/argo-cd-argocd-image-updater/1.2.2/signature.sigstore.json --digest 3f50dd91833bcd42870138464b00fc58e066f4b92765069755bd7d1de5c4b89a --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/argo-cd-argocd-image-updater/1.2.2/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/argo-cd/argocd-image-updater/1.2.2"
+    confighub.com/package-sha256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

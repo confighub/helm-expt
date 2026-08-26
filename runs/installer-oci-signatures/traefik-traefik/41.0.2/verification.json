@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/traefik/traefik/41.0.2",
+      "confighub.com/package-sha256": "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+    }
+  }
+]

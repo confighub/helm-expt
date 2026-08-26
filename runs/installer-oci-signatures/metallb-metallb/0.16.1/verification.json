@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb@sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/metallb/metallb/0.16.1",
+      "confighub.com/package-sha256": "a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070"
+    }
+  }
+]

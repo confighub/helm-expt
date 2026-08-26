@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit@sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/fluent/fluent-bit/0.57.6",
+      "confighub.com/package-sha256": "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
+    }
+  }
+]

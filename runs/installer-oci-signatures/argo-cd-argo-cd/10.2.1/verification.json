@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd@sha256:8a651b909262f4d33cae5c2454ba3a6b89b6fcf79434544cfc71d4c221f227ad"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:8a651b909262f4d33cae5c2454ba3a6b89b6fcf79434544cfc71d4c221f227ad"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/argo-cd/argo-cd/10.2.1",
+      "confighub.com/package-sha256": "41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88"
+    }
+  }
+]

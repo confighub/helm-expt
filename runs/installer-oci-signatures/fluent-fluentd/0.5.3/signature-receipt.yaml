@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "fluent-fluentd-0.5.3"
+spec:
+  observedAt: "2026-08-26T05:39:46.698Z"
+  subject:
+    packagePath: "packages/fluent/fluentd/0.5.3"
+    publicationReceipt: "runs/installer-oci/fluent-fluentd/0.5.3/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3"
+    manifestDigest: "sha256:4391d452fd6c66b8d2bfc6ccba87b75e64426b9e3b7111b38c12bddff8e7b376"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:4391d452fd6c66b8d2bfc6ccba87b75e64426b9e3b7111b38c12bddff8e7b376"
+    packageSHA256: "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
+    layerDigest: "sha256:73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/fluent-fluentd/0.5.3/signature.sigstore.json"
+    bundleSHA256: "410de122c3abc0deb8d718dd0e97965c78de6b3de2f5fd37c7f8d34de386051a"
+    payloadPath: "runs/installer-oci-signatures/fluent-fluentd/0.5.3/signature-payload.json"
+    payloadSHA256: "f793f4473fd09aee5220d93d77beba5185102eefdf0a3b52635717496ba2bd9c"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/fluent/fluentd/0.5.3 --annotations confighub.com/package-sha256=73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3@sha256:4391d452fd6c66b8d2bfc6ccba87b75e64426b9e3b7111b38c12bddff8e7b376"
+    outputPath: "runs/installer-oci-signatures/fluent-fluentd/0.5.3/verification.json"
+    outputSHA256: "6e49dd495d2be7459a0b36d8041bcf1b382eb07aa226e55c79d1856edb6b729d"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/fluent-fluentd/0.5.3/signature.sigstore.json --digest 4391d452fd6c66b8d2bfc6ccba87b75e64426b9e3b7111b38c12bddff8e7b376 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/fluent-fluentd/0.5.3/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/fluent/fluentd/0.5.3"
+    confighub.com/package-sha256: "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

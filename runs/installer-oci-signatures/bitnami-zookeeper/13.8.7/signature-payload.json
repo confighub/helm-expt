@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/bitnami/zookeeper/13.8.7",
+        "confighub.com/package-sha256": "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

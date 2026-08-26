@@ -42,6 +42,30 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "the production verifier runs in the full verify chain; this focused lane exercises its refusal cases",
   },
+  "installer-oci:signatures:verify": {
+    proves: "Every published installer package has one signature receipt that binds its publication receipt, exact manifest, package digest, Sigstore bundle, expected signer, and recorded verification result.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs in the dedicated Cosign workflow",
+  },
+  "installer-oci:signatures:self-test": {
+    proves: "The package-signature verifier rejects changed digests, signer identities, bundles, and transparency-log material.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "focused negative test; the production consistency verifier runs in the full chain",
+  },
+  "installer-oci:index-signature:verify": {
+    proves: "The signed public JSON index matches its receipt, package count, complete package-signature coverage, signer, bundle, and recorded verification output.",
+    requires: "offline",
+    disposition: "join-the-chain",
+    status: "runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs separately",
+  },
+  "installer-oci:index-signature:self-test": {
+    proves: "The signed-index verifier rejects changed index bytes, signer identity, bundle bytes, and missing transparency-log material.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "focused negative test; the production consistency verifier runs in the full chain",
+  },
   "config-catalog:verify": {
     proves: "The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.",
     requires: "offline",

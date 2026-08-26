@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager@sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/prometheus-community/alertmanager/1.37.0",
+      "confighub.com/package-sha256": "beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e"
+    }
+  }
+]

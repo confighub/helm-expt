@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "nats-surveyor-0.20.9"
+spec:
+  observedAt: "2026-08-26T05:43:14.130Z"
+  subject:
+    packagePath: "packages/nats/surveyor/0.20.9"
+    publicationReceipt: "runs/installer-oci/nats-surveyor/0.20.9/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9"
+    manifestDigest: "sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe"
+    packageSHA256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
+    layerDigest: "sha256:d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/nats-surveyor/0.20.9/signature.sigstore.json"
+    bundleSHA256: "3d5f016f252796777bc267f4b0bfdfcda9152cdcd9ec01e61e834c0277f867d5"
+    payloadPath: "runs/installer-oci-signatures/nats-surveyor/0.20.9/signature-payload.json"
+    payloadSHA256: "8b659f243c5ca77b4931a441c56e9c93d1b523ec3b07648253da0bb846df8c4a"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/nats/surveyor/0.20.9 --annotations confighub.com/package-sha256=d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe"
+    outputPath: "runs/installer-oci-signatures/nats-surveyor/0.20.9/verification.json"
+    outputSHA256: "7e5f16ea401b8c69daa57061529ba29018ec8b80b8b8a16e7b91c88b6ec2b101"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/nats-surveyor/0.20.9/signature.sigstore.json --digest 91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/nats-surveyor/0.20.9/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/nats/surveyor/0.20.9"
+    confighub.com/package-sha256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

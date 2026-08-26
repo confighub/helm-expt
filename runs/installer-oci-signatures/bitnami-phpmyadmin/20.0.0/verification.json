@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin@sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/bitnami/phpmyadmin/20.0.0",
+      "confighub.com/package-sha256": "f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e"
+    }
+  }
+]

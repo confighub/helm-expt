@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "aqua-trivy-operator-0.32.1"
+spec:
+  observedAt: "2026-08-26T05:34:24.455Z"
+  subject:
+    packagePath: "packages/aqua/trivy-operator/0.32.1"
+    publicationReceipt: "runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
+    manifestDigest: "sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+    packageSHA256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+    layerDigest: "sha256:355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/aqua-trivy-operator/0.32.1/signature.sigstore.json"
+    bundleSHA256: "2be1e8cf95477f74a4c07995ac24d3e842145a5002cbecca80decc181b706ddb"
+    payloadPath: "runs/installer-oci-signatures/aqua-trivy-operator/0.32.1/signature-payload.json"
+    payloadSHA256: "144a98797ef4a50d5e1f1fda941928f2b54dc8ae5114d25808ef696e140cef31"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/aqua/trivy-operator/0.32.1 --annotations confighub.com/package-sha256=355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+    outputPath: "runs/installer-oci-signatures/aqua-trivy-operator/0.32.1/verification.json"
+    outputSHA256: "70476ec2da324740a97b5137f088414f29fa171fe6c7383968e70dd138c219e7"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/aqua-trivy-operator/0.32.1/signature.sigstore.json --digest df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/aqua-trivy-operator/0.32.1/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/aqua/trivy-operator/0.32.1"
+    confighub.com/package-sha256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

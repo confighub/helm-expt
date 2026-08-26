@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18",
+        "confighub.com/package-sha256": "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

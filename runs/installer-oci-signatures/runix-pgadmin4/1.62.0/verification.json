@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/runix/pgadmin4/1.62.0",
+      "confighub.com/package-sha256": "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
+    }
+  }
+]

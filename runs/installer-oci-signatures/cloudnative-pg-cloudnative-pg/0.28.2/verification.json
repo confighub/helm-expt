@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg@sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/cloudnative-pg/cloudnative-pg/0.28.2",
+      "confighub.com/package-sha256": "8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013"
+    }
+  }
+]

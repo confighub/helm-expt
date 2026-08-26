@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver@sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/jetstack/cert-manager-csi-driver/v0.14.0",
+      "confighub.com/package-sha256": "3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951"
+    }
+  }
+]

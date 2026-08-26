@@ -474,7 +474,7 @@
       <p>Use the public catalog entry, then check the exact configuration and its tests before making a production claim.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Ready to try</td></tr><tr><td>Chart version</td><td>v1.20.2</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>v1.20.2</td></tr><tr><td>Supported base variants</td><td>default;crds-enabled</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>cert-manager</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Ready to try</td></tr><tr><td>Chart version</td><td>v1.20.2</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>v1.20.2</td></tr><tr><td>Supported base variants</td><td>default;crds-enabled</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>cert-manager</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -568,6 +568,13 @@
         <h3>Check the package identity</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98 --json</code></pre>
+        <details>
+        <summary><strong>Verify the package publisher</strong></summary>
+        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
+        <pre><code>cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/jetstack/cert-manager/v1.20.2 --annotations confighub.com/package-sha256=700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98</code></pre>
+        <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
+        <p><a href="../../runs/installer-oci-signatures/jetstack-cert-manager/v1.20.2/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/jetstack-cert-manager/v1.20.2/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+      </details>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98 --base crds-enabled --work-dir ./jetstack-cert-manager-v1-20-2-crds-enabled --non-interactive --namespace cert-manager</code></p>

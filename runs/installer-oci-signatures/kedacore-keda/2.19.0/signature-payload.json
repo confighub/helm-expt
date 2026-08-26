@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/kedacore/keda/2.19.0",
+        "confighub.com/package-sha256": "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

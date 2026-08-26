@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick@sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/falcosecurity/falcosidekick/0.13.1",
+      "confighub.com/package-sha256": "f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047"
+    }
+  }
+]

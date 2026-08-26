@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "5cf6400c75d1cafc06fee5ddaada47651926bdab3a9d674a9f966540b29edd26"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/prometheus-community/prometheus/29.8.0",
+        "confighub.com/package-sha256": "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}
