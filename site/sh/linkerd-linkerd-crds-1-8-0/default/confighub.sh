@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./linkerd-linkerd-crds-1-8-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0 --base default --work-dir ./linkerd-linkerd-crds-1-8-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c --base default --work-dir ./linkerd-linkerd-crds-1-8-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./linkerd-linkerd-crds-1-8-0-default --space "${SPACE}"

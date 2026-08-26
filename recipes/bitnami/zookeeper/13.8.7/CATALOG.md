@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/bitnami/zookeeper/13.8.7/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/zookeeper/13.8.7/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/zookeeper/13.8.7/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f` |
 | Installer package source | [packages/bitnami/zookeeper/13.8.7](../../../../packages/bitnami/zookeeper/13.8.7) |
 | Installer package receipt | [recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/zookeeper/13.8.7/artifact-index.yaml](artifact-index.yaml) |
@@ -90,7 +90,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

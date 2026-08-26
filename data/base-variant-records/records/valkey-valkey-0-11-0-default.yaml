@@ -13,7 +13,7 @@ spec:
     name: "valkey/valkey"
     version: "0.11.0"
     record: "data/helm-render-intents/intents/valkey-valkey-0-11-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0@sha256:2fbbed3706b6947a30c6e26fc6190aa209441ef2cce1dcdbcca2586a0b2c7945"
     selection:
       name: "default"
       kind: "catalog-preset"

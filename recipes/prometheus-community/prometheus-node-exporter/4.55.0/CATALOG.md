@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42` |
 | Installer package source | [packages/prometheus-community/prometheus-node-exporter/4.55.0](../../../../packages/prometheus-community/prometheus-node-exporter/4.55.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus-node-exporter/4.55.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

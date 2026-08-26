@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/opencost/opencost/2.5.21/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/opencost/opencost/2.5.21/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/opencost/opencost/2.5.21/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8` |
 | Installer package source | [packages/opencost/opencost/2.5.21](../../../../packages/opencost/opencost/2.5.21) |
 | Installer package receipt | [recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/opencost/opencost/2.5.21/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21@sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

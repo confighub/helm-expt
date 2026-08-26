@@ -58,7 +58,11 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/policy-reporter/policy-reporter/3.9.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1"
+    manifestDigest: "sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
+    layerDigest: "sha256:40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6"
+    publicationReceipt: "runs/installer-oci/policy-reporter-policy-reporter/3.9.1/installer-package-publication-receipt.yaml"
     installer: "packages/policy-reporter/policy-reporter/3.9.1/installer.yaml"
     receipt: "recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6"
@@ -90,7 +94,7 @@ spec:
         default: true
         description: "policy-reporter chart defaults variant rendered from policy-reporter/policy-reporter@3.9.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1 --base default --work-dir <tmp> --non-interactive --namespace policy-reporter"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05 --base default --work-dir <tmp> --non-interactive --namespace policy-reporter"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

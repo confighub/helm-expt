@@ -193,7 +193,7 @@
           <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
             <pre class="term-body"><code><span class="pr">$</span> cub installer setup \
-  <span class="k">--pull</span> oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  <span class="k">--pull</span> oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
   <span class="k">--base</span> reuse-existing-secret \
   <span class="k">--namespace</span> redis <span class="k">--work-dir</span> ./redis \
   <span class="k">--non-interactive --output-oci</span> ./redis-rendered.oci

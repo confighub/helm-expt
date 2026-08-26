@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./grafana-alloy-1-8-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2 --base default --work-dir ./grafana-alloy-1-8-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425 --base default --work-dir ./grafana-alloy-1-8-2-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-alloy-1-8-2-default/out/manifests

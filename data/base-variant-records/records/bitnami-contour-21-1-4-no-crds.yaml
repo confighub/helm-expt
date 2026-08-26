@@ -13,7 +13,7 @@ spec:
     name: "bitnami/contour"
     version: "21.1.4"
     record: "data/helm-render-intents/intents/bitnami-contour-21-1-4-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:9367550cdf3060ffa460fe6beffb60e102c9f5c6254d3c153974dfc9242767d3"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

@@ -73,7 +73,7 @@ Render one base:
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679 \
   --base no-crds \
   --work-dir .tmp/demo/kps-no-crds \
   --non-interactive \

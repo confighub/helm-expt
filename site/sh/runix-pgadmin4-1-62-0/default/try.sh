@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./runix-pgadmin4-1-62-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0 --base default --work-dir ./runix-pgadmin4-1-62-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6 --base default --work-dir ./runix-pgadmin4-1-62-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./runix-pgadmin4-1-62-0-default/out/manifests

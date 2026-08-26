@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the cluster-metrics-readonly base variant into ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0 --base cluster-metrics-readonly --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3 --base cluster-metrics-readonly --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --space "${SPACE}"

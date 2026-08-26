@@ -11,7 +11,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
-import { installerOciRef } from "./lib/installer-oci.mjs";
+import { installerOciPublication } from "./lib/installer-oci-publication.mjs";
 import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const args = process.argv.slice(2);
@@ -114,7 +114,8 @@ function buildChartCatalog(root, context) {
     `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
   const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? recipe.metadata?.version ?? "");
   const chartKey = `${chartRef}@${version}`;
-  const packageOciRef = installerOciRef(chartRef, version);
+  const packagePublication = installerOciPublication(chartRef, version);
+  const packageOciRef = packagePublication.exactRef;
   const proofSummary = proofSummaryFor(chartKey, context);
   const packagePath = packageReceipt.spec?.package?.path;
   check(packagePath, `${relativeRepo(root)} publication receipt missing package path`);
@@ -195,6 +196,10 @@ function buildChartCatalog(root, context) {
       installerPackage: {
         path: packagePath,
         ociRef: packageOciRef,
+        taggedOciRef: packagePublication.tagRef,
+        manifestDigest: packagePublication.manifestDigest,
+        layerDigest: packagePublication.layerDigest,
+        publicationReceipt: packagePublication.receiptPath,
         installer: relativeRepo(installerPath),
         receipt: relativeRepo(join(root, "publication", "installer-package-receipt.yaml")),
         deterministicBundleSHA256: packageReceipt.spec?.deterministicBundle?.sha256 ?? "",

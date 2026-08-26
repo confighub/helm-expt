@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `nats/surveyor@0.20.9`, choose the `default` pre
 
 That captured output is the render variant: [`recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml). It contains 3 Kubernetes object(s): Deployment x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-surveyor-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-surveyor-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/nats-surveyor-0-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9 --base default --work-dir ./nats-surveyor-0-20-9-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe --base default --work-dir ./nats-surveyor-0-20-9-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

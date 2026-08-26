@@ -13,7 +13,7 @@ spec:
     name: "fairwinds-stable/goldilocks"
     version: "10.3.0"
     record: "data/helm-render-intents/intents/fairwinds-stable-goldilocks-10-3-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a"
     selection:
       name: "default"
       kind: "catalog-preset"

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e` |
 | Installer package source | [packages/prometheus-community/prometheus-blackbox-exporter/11.10.0](../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.10.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:8faaeebfabe92e9ddfbc866a2ad14666fe8efc8a4d6aa678eea49ef8bae8111e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

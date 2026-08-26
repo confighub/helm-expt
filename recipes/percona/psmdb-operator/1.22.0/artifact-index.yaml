@@ -62,7 +62,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/percona/psmdb-operator/1.22.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0"
+    manifestDigest: "sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722"
+    layerDigest: "sha256:29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8"
+    publicationReceipt: "runs/installer-oci/percona-psmdb-operator/1.22.0/installer-package-publication-receipt.yaml"
     installer: "packages/percona/psmdb-operator/1.22.0/installer.yaml"
     receipt: "recipes/percona/psmdb-operator/1.22.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8"
@@ -99,7 +103,7 @@ spec:
         default: true
         description: "percona/psmdb-operator default variant rendered from percona/psmdb-operator@1.22.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -161,7 +165,7 @@ spec:
         default: false
         description: "percona/psmdb-operator no-crds variant rendered from percona/psmdb-operator@1.22.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

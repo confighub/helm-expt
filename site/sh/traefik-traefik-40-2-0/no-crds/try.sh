@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./traefik-traefik-40-2-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0 --base no-crds --work-dir ./traefik-traefik-40-2-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:c735927068194a19f326ff1e62c26fb87b8f5881abca750070efaa0bc4b4d123 --base no-crds --work-dir ./traefik-traefik-40-2-0-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./traefik-traefik-40-2-0-no-crds/out/manifests

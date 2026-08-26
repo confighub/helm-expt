@@ -13,7 +13,7 @@ spec:
     name: "policy-reporter/policy-reporter"
     version: "3.9.1"
     record: "data/helm-render-intents/intents/policy-reporter-policy-reporter-3-9-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
     selection:
       name: "default"
       kind: "catalog-preset"

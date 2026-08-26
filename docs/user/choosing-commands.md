@@ -256,7 +256,7 @@ path, future chart refreshes, and catalog-grade proof.
 | "Show me what this arbitrary chart and values produce." | `cub helm template` |
 | "Store this arbitrary chart and values in ConfigHub." | `cub helm install` |
 | "Load these rendered files or this literal OCI bundle into ConfigHub." | `cub variant upload --component <name> --variant <name> <files-or-oci-ref>` |
-| "Use the supported Redis catalog entry." | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default` |
+| "Use the supported Redis catalog entry." | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 --base default` |
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
 | "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |
 | "Create prod-us-east from this reviewed Prometheus base." | `cub variant create` over the uploaded ConfigHub Space |

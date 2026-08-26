@@ -13,7 +13,7 @@ spec:
     name: "strimzi/strimzi-kafka-operator"
     version: "1.0.0"
     record: "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6"
     selection:
       name: "default"
       kind: "catalog-preset"

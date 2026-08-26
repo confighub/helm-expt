@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `ingress-nginx/ingress-nginx@4.15.1`, choose the
 
 That captured output is the render variant: [`recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml). It contains 11 Kubernetes object(s): Service x2, ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, Deployment x1, IngressClass x1, Role x1, RoleBinding x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-ingress-nginx-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-ingress-nginx-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-in
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --base default --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94 --base default --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./bitnami-memcached-8-5-5-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5 --base default --work-dir ./bitnami-memcached-8-5-5-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:37635092808e22db71cd3d3521bcd02db056a9f46d81f372f98be1d03c89fcb2 --base default --work-dir ./bitnami-memcached-8-5-5-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-memcached-8-5-5-default/out/manifests

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the legacy base variant into ./bitnami-apache-11-4-29-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base legacy --work-dir ./bitnami-apache-11-4-29-legacy --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29@sha256:00d1fe619e9dd8e6ba062ab02a3459c925451a39249e7f94f8088981bde81eb8 --base legacy --work-dir ./bitnami-apache-11-4-29-legacy --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-apache-11-4-29-legacy/out/manifests

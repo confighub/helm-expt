@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the dev-mode base variant into ./hashicorp-vault-0-32-0-dev-mode"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base dev-mode --work-dir ./hashicorp-vault-0-32-0-dev-mode --non-interactive --namespace vault
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base dev-mode --work-dir ./hashicorp-vault-0-32-0-dev-mode --non-interactive --namespace vault
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./hashicorp-vault-0-32-0-dev-mode --space "${SPACE}"

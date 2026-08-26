@@ -13,7 +13,7 @@ spec:
     name: "grafana/loki"
     version: "7.0.0"
     record: "data/helm-render-intents/intents/grafana-loki-7-0-0-simple-scalable-minio.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773"
     selection:
       name: "simple-scalable-minio"
       kind: "catalog-preset"

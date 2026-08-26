@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./hashicorp-terraform-1-1-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2 --base default --work-dir ./hashicorp-terraform-1-1-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:dc1abc1c3ee4780fa98c7d02bd7ab44e915fe9537f953cfa3eff8c2a7decfd02 --base default --work-dir ./hashicorp-terraform-1-1-2-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./hashicorp-terraform-1-1-2-default --space "${SPACE}"

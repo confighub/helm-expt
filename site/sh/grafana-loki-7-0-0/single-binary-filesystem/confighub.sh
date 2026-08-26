@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the single-binary-filesystem base variant into ./grafana-loki-7-0-0-single-binary-filesystem"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir ./grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773 --base single-binary-filesystem --work-dir ./grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-loki-7-0-0-single-binary-filesystem --space "${SPACE}"

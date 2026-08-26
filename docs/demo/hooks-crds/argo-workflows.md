@@ -54,7 +54,7 @@ The same package can be rendered without touching a cluster:
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2 \
   --base default \
   --work-dir ./argo-workflows-default \
   --non-interactive \

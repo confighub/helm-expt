@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default-reviewed base variant into ./nats-surveyor-0-20-9-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9 --base default-reviewed --work-dir ./nats-surveyor-0-20-9-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe --base default-reviewed --work-dir ./nats-surveyor-0-20-9-default-reviewed --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nats-surveyor-0-20-9-default-reviewed/out/manifests

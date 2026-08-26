@@ -13,7 +13,7 @@ spec:
     name: "longhorn/longhorn"
     version: "1.11.2"
     record: "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-ui-ingress.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:a6fcbe3cb5728a096f61c52fc8a0a4034a9511b0bbfb8a9cfedf91313a3a4064"
     selection:
       name: "ui-ingress"
       kind: "catalog-preset"

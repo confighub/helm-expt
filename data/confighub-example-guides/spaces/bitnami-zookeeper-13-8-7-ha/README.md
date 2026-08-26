@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/zookeeper@13.8.7`, choose the `ha` pres
 
 That captured output is the render variant: [`recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml). It contains 7 Kubernetes object(s): Service x2, ConfigMap x1, NetworkPolicy x1, PodDisruptionBudget x1, ServiceAccount x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-zookeeper-ha`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-zookeeper-ha`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-zookeepe
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7 --base ha --work-dir ./bitnami-zookeeper-13-8-7-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --base ha --work-dir ./bitnami-zookeeper-13-8-7-ha --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

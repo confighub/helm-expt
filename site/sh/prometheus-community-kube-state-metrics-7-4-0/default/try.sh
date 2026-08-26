@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./prometheus-community-kube-state-metrics-7-4-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0 --base default --work-dir ./prometheus-community-kube-state-metrics-7-4-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3 --base default --work-dir ./prometheus-community-kube-state-metrics-7-4-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-kube-state-metrics-7-4-0-default/out/manifests

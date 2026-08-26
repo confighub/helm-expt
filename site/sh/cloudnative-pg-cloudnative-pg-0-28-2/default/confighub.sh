@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./cloudnative-pg-cloudnative-pg-0-28-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2 --base default --work-dir ./cloudnative-pg-cloudnative-pg-0-28-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c --base default --work-dir ./cloudnative-pg-cloudnative-pg-0-28-2-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./cloudnative-pg-cloudnative-pg-0-28-2-default --space "${SPACE}"

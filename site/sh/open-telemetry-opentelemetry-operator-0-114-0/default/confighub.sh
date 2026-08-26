@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./open-telemetry-opentelemetry-operator-0-114-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a --base default --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-default --space "${SPACE}"

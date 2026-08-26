@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 
 import { check, listFiles, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
+import { verifyMaintainedInstallerCommands } from "./verify-installer-consumer-commands.mjs";
 
 const roots = ["README.md", "CATALOG.md", "docs", "scripts", "recipes", "packages", "data", "runs"];
 const files = roots.flatMap((root) => {
@@ -50,6 +51,7 @@ for (const file of scanned) {
 }
 
 check(violations.length === 0, `installer command surface is stale:\n${violations.join("\n")}`);
+verifyMaintainedInstallerCommands();
 console.log(`verified installer command surface across ${scanned.length} file(s)`);
 
 function previousCommandItemIsCub(lines, index) {

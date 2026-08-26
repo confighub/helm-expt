@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `percona/pg-operator@3.0.0`, choose the `no-crds
 
 That captured output is the render variant: [`recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 4 Kubernetes object(s): Deployment x1, Role x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-pg-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-pg-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pg-opera
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0 --base no-crds --work-dir ./percona-pg-operator-3-0-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7 --base no-crds --work-dir ./percona-pg-operator-3-0-0-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

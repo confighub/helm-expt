@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./haproxytech-kubernetes-ingress-1-52-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0 --base default --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab --base default --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --space "${SPACE}"

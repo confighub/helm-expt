@@ -66,7 +66,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0"
+    manifestDigest: "sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
+    layerDigest: "sha256:482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
+    publicationReceipt: "runs/installer-oci/autoscaler-vertical-pod-autoscaler/0.9.0/installer-package-publication-receipt.yaml"
     installer: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/installer.yaml"
     receipt: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
@@ -117,7 +121,7 @@ spec:
         default: true
         description: "autoscaler/vertical-pod-autoscaler default variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 39
         cubInstallObjectCountIncludingSupport: 40
         semanticObjectMatches: "39/39"
@@ -193,7 +197,7 @@ spec:
         default: false
         description: "autoscaler/vertical-pod-autoscaler no-crds variant rendered from autoscaler/vertical-pod-autoscaler@0.9.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 37
         cubInstallObjectCountIncludingSupport: 38
         semanticObjectMatches: "37/37"

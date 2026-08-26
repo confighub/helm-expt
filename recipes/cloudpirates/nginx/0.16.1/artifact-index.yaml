@@ -71,7 +71,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/cloudpirates/nginx/0.16.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1"
+    manifestDigest: "sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103"
+    layerDigest: "sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e"
+    publicationReceipt: "runs/installer-oci/cloudpirates-nginx/0.16.1/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/nginx/0.16.1/installer.yaml"
     receipt: "recipes/cloudpirates/nginx/0.16.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e"
@@ -103,7 +107,7 @@ spec:
         default: true
         description: "cloudpirates/nginx default variant rendered from cloudpirates/nginx@0.16.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

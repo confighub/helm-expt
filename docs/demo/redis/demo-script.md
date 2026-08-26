@@ -58,7 +58,7 @@ kubectl --context <your-context> -n redis create secret generic redis-existing-s
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --non-interactive \

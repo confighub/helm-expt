@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `hashicorp/vault@0.32.0`, choose the `dev-mode` 
 
 That captured output is the render variant: [`recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml). It contains 11 Kubernetes object(s): Service x3, ClusterRoleBinding x2, ServiceAccount x2, ClusterRole x1, Deployment x1, MutatingWebhookConfiguration x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vault-dev-mode`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vault-dev-mode`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base dev-mode --work-dir ./hashicorp-vault-0-32-0-dev-mode --non-interactive --namespace vault
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base dev-mode --work-dir ./hashicorp-vault-0-32-0-dev-mode --non-interactive --namespace vault
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

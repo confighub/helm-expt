@@ -13,7 +13,7 @@ spec:
     name: "rook-release/rook-ceph-cluster"
     version: "v1.19.5"
     record: "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5@sha256:4aef8ca4f19cf6da7cee52e77cce27a6c66ecb6c0718e37590109c27170c399e"
     selection:
       name: "default"
       kind: "catalog-preset"

@@ -68,7 +68,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+    manifestDigest: "sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a"
+    layerDigest: "sha256:af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d"
+    publicationReceipt: "runs/installer-oci/open-telemetry-opentelemetry-operator/0.114.0/installer-package-publication-receipt.yaml"
     installer: "packages/open-telemetry/opentelemetry-operator/0.114.0/installer.yaml"
     receipt: "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d"
@@ -141,7 +145,7 @@ spec:
         default: true
         description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"
@@ -283,7 +287,7 @@ spec:
         default: false
         description: "open-telemetry/opentelemetry-operator no-crds variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0@sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/value-model.yaml](../../../../../../../recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512` |
 | Installer package source | [packages/prometheus-community/prometheus-blackbox-exporter/11.15.1](../../../../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.15.1) |
 | Installer package receipt | [recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

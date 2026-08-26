@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the simple-scalable-minio base variant into ./grafana-loki-7-0-0-simple-scalable-minio"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base simple-scalable-minio --work-dir ./grafana-loki-7-0-0-simple-scalable-minio --non-interactive --namespace loki
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773 --base simple-scalable-minio --work-dir ./grafana-loki-7-0-0-simple-scalable-minio --non-interactive --namespace loki
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-loki-7-0-0-simple-scalable-minio/out/manifests

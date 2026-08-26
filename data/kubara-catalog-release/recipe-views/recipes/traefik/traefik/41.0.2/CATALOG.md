@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/traefik/traefik/41.0.2/value-model.yaml](../../../../../../../recipes/traefik/traefik/41.0.2/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/traefik/traefik/41.0.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/traefik/traefik/41.0.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a` |
 | Installer package source | [packages/traefik/traefik/41.0.2](../../../../../../../packages/traefik/traefik/41.0.2) |
 | Installer package receipt | [recipes/traefik/traefik/41.0.2/publication/installer-package-receipt.yaml](../../../../../../../recipes/traefik/traefik/41.0.2/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/traefik/traefik/41.0.2/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

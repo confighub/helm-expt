@@ -62,7 +62,11 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/aws-controllers-k8s/ec2-chart/1.18.4"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"
+    manifestDigest: "sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9"
+    layerDigest: "sha256:19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795"
+    publicationReceipt: "runs/installer-oci/aws-controllers-k8s-ec2-chart/1.18.4/installer-package-publication-receipt.yaml"
     installer: "packages/aws-controllers-k8s/ec2-chart/1.18.4/installer.yaml"
     receipt: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795"
@@ -99,7 +103,7 @@ spec:
         default: true
         description: "ec2-chart default variant rendered from aws-controllers-k8s/ec2-chart@1.18.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 32
         cubInstallObjectCountIncludingSupport: 33
         semanticObjectMatches: "32/32"
@@ -174,7 +178,7 @@ spec:
         default: false
         description: "ec2-chart eks-inference variant rendered from aws-controllers-k8s/ec2-chart@1.18.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 32
         cubInstallObjectCountIncludingSupport: 33
         semanticObjectMatches: "32/32"

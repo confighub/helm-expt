@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default-control-plane base variant into ./hashicorp-consul-2-0-0-default-control-plane"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --base default-control-plane --work-dir ./hashicorp-consul-2-0-0-default-control-plane --non-interactive --namespace consul
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063 --base default-control-plane --work-dir ./hashicorp-consul-2-0-0-default-control-plane --non-interactive --namespace consul
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./hashicorp-consul-2-0-0-default-control-plane/out/manifests

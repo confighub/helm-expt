@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/jetstack/cert-manager/v1.20.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98` |
 | Installer package source | [packages/jetstack/cert-manager/v1.20.2](../../../../packages/jetstack/cert-manager/v1.20.2) |
 | Installer package receipt | [recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jetstack/cert-manager/v1.20.2/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

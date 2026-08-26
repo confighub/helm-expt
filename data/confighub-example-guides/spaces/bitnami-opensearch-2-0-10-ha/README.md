@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/opensearch@2.0.10`, choose the `ha` pre
 
 That captured output is the render variant: [`recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml). It contains 18 Kubernetes object(s): NetworkPolicy x5, Service x5, PodDisruptionBudget x4, StatefulSet x4.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-opensearch-ha`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-opensearch-ha`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-opensear
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10 --base ha --work-dir ./bitnami-opensearch-2-0-10-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b --base ha --work-dir ./bitnami-opensearch-2-0-10-ha --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

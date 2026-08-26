@@ -13,7 +13,7 @@ spec:
     name: "grafana/promtail"
     version: "6.17.1"
     record: "data/helm-render-intents/intents/grafana-promtail-6-17-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2"
     selection:
       name: "default"
       kind: "catalog-preset"

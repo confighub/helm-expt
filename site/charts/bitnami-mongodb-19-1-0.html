@@ -468,19 +468,18 @@
 
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
-      <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
+      <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0 --base existing-secret-replicaset --work-dir .tmp/demo/bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive</code></pre>
+  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d --json
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d --base existing-secret-replicaset --work-dir ./bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive</code></pre>
       <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
       <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
       <p>The check is advisory and does not apply anything.</p>
-      <p>Exact OCI ref: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0</code></p>
-      <p>The same pull, pinned so a republished tag cannot change what you get:</p>
-      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d --base existing-secret-replicaset --work-dir .tmp/demo/bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive</code></pre>
-      <p>The digest comes from this package's committed publication receipt. The pinned command form was verified live against the Redis package.</p>
+      <p>Version tag: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0</code></p>
+      <p>Exact package: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d</code></p>
+      <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>
     </section>
 
     <section aria-labelledby="retained-configurations">
@@ -637,7 +636,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <h2 id="retained-files">Source And Evidence Files</h2>
       <div class="card"><table>
         <thead><tr><th>Record</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.1.0">packages/bitnami/mongodb/19.1.0</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/bitnami/mongodb/19.1.0/installer.yaml">packages/bitnami/mongodb/19.1.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/bitnami-mongodb/19.1.0/installer-package-publication-receipt.yaml">runs/installer-oci/bitnami-mongodb/19.1.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0</code></td></tr><tr><td>Layer digest</td><td><code>sha256:7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d</code></td></tr></tbody>
+        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.1.0">packages/bitnami/mongodb/19.1.0</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/bitnami/mongodb/19.1.0/installer.yaml">packages/bitnami/mongodb/19.1.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/bitnami-mongodb/19.1.0/installer-package-publication-receipt.yaml">runs/installer-oci/bitnami-mongodb/19.1.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Version tag</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0</code></td></tr><tr><td>Exact OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d</code></td></tr><tr><td>Layer digest</td><td><code>sha256:7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d</code></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --base default --work-dir ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726 --base default --work-dir ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default --non-interactive --namespace kube-system
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default --space "${SPACE}"

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./elastic-filebeat-8-5-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1 --base default --work-dir ./elastic-filebeat-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072 --base default --work-dir ./elastic-filebeat-8-5-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./elastic-filebeat-8-5-1-default/out/manifests

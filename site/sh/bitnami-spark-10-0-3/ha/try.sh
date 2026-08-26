@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the ha base variant into ./bitnami-spark-10-0-3-ha"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --base ha --work-dir ./bitnami-spark-10-0-3-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --base ha --work-dir ./bitnami-spark-10-0-3-ha --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-spark-10-0-3-ha/out/manifests

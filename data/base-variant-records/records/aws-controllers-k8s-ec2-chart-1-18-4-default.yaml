@@ -13,7 +13,7 @@ spec:
     name: "aws-controllers-k8s/ec2-chart"
     version: "1.18.4"
     record: "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9"
     selection:
       name: "default"
       kind: "catalog-preset"

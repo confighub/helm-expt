@@ -13,7 +13,7 @@ spec:
     name: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
     version: "4.0.18"
     record: "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3"
     selection:
       name: "default"
       kind: "catalog-preset"

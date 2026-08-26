@@ -13,7 +13,7 @@ spec:
     name: "elastic/filebeat"
     version: "8.5.1"
     record: "data/helm-render-intents/intents/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072"
     selection:
       name: "node-or-cluster-collector"
       kind: "catalog-preset"

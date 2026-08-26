@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `autoscaler/vertical-pod-autoscaler@0.9.0`, choo
 
 That captured output is the render variant: [`recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml). It contains 39 Kubernetes object(s): ClusterRole x11, ClusterRoleBinding x11, Deployment x3, PodDisruptionBudget x3, ServiceAccount x3, CustomResourceDefinition x2, Role x2, RoleBinding x2.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vertical-pod-autoscaler-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vertical-pod-autoscaler-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/autoscaler-verti
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base default --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44 --base default --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

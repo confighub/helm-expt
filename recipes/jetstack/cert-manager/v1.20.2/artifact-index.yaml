@@ -64,7 +64,11 @@ spec:
     nextAction: "write or fix the receipt for target fact preflight"
   installerPackage:
     path: "packages/jetstack/cert-manager/v1.20.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+    manifestDigest: "sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98"
+    layerDigest: "sha256:700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1"
+    publicationReceipt: "runs/installer-oci/jetstack-cert-manager/v1.20.2/installer-package-publication-receipt.yaml"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"
     receipt: "recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1"
@@ -137,7 +141,7 @@ spec:
         default: true
         description: "cert-manager default variant rendered from jetstack/cert-manager@v1.20.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98 --base default --work-dir <tmp> --non-interactive --namespace cert-manager"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"
@@ -199,7 +203,7 @@ spec:
         default: false
         description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.20.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
         helmReleaseObjectCount: 48
         cubInstallObjectCountIncludingSupport: 49
         semanticObjectMatches: "48/48"

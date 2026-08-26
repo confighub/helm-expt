@@ -13,7 +13,7 @@ spec:
     name: "elastic/metricbeat"
     version: "8.5.1"
     record: "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
     selection:
       name: "default"
       kind: "catalog-preset"

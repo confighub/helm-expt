@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `stakater/reloader@2.2.12`, choose the `default`
 
 That captured output is the render variant: [`recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml). It contains 6 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, Deployment x1, Role x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-reloader-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-reloader-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/stakater-reloade
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12 --base default --work-dir ./stakater-reloader-2-2-12-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663 --base default --work-dir ./stakater-reloader-2-2-12-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

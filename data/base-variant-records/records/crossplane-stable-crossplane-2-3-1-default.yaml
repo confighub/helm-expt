@@ -13,7 +13,7 @@ spec:
     name: "crossplane-stable/crossplane"
     version: "2.3.1"
     record: "data/helm-render-intents/intents/crossplane-stable-crossplane-2-3-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f"
     selection:
       name: "default"
       kind: "catalog-preset"

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/grafana/alloy/1.8.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/grafana/alloy/1.8.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/alloy/1.8.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425` |
 | Installer package source | [packages/grafana/alloy/1.8.2](../../../../packages/grafana/alloy/1.8.2) |
 | Installer package receipt | [recipes/grafana/alloy/1.8.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/alloy/1.8.2/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

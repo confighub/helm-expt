@@ -139,7 +139,7 @@ reuse the same work directory to reconcile the existing upload.
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
   --base reuse-existing-secret \
   --work-dir ./redis-reuse-existing-secret \
   --non-interactive \
@@ -235,7 +235,7 @@ kubectl --context <your-context> -n redis create secret generic redis-existing-s
   --dry-run=client -o yaml | kubectl --context <your-context> apply -f -
 
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
   --base reuse-existing-secret \
   --work-dir ./redis-reuse-existing-secret \
   --non-interactive \
@@ -291,7 +291,7 @@ Run the server-only base:
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:5cf6400c75d1cafc06fee5ddaada47651926bdab3a9d674a9f966540b29edd26 \
   --base server-only-ephemeral \
   --work-dir .tmp/demo/prometheus-server-only \
   --non-interactive \
@@ -663,7 +663,7 @@ Upload or select the reviewed base first:
 
 ```sh
 cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1 \
   --base http-clusterip \
   --work-dir .tmp/demo/nginx-http \
   --non-interactive \

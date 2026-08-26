@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/istio/istiod/1.30.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/istio/istiod/1.30.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:e51e2e709d6eeb281d7010b56c94fd520e90abdae5c16adc4b58f53f1752bda9` |
 | Installer package source | [packages/istio/istiod/1.30.0](../../../../packages/istio/istiod/1.30.0) |
 | Installer package receipt | [recipes/istio/istiod/1.30.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/istio/istiod/1.30.0/artifact-index.yaml](artifact-index.yaml) |
@@ -79,7 +79,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:e51e2e709d6eeb281d7010b56c94fd520e90abdae5c16adc4b58f53f1752bda9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

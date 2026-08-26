@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./coredns-coredns-1-45-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2 --base default --work-dir ./coredns-coredns-1-45-2-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:6c7db8f14b174c03f96a64de8baaa5c49654c029eadb1f864ac235949a667290 --base default --work-dir ./coredns-coredns-1-45-2-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./coredns-coredns-1-45-2-default --space "${SPACE}"

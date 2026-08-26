@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./projectcalico-tigera-operator-v3-32-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0 --base default --work-dir ./projectcalico-tigera-operator-v3-32-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb --base default --work-dir ./projectcalico-tigera-operator-v3-32-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./projectcalico-tigera-operator-v3-32-0-default/out/manifests

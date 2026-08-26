@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `prometheus-community/kube-prometheus-stack@85.3
 
 That captured output is the render variant: [`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 114 Kubernetes object(s): PrometheusRule x35, ConfigMap x31, ServiceMonitor x13, Service x11, ServiceAccount x6, ClusterRole x4, ClusterRoleBinding x4, Deployment x3.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kube-prometheus-stack-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kube-prometheus-stack-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -71,7 +71,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-commu
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base no-crds --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679 --base no-crds --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base no-crds --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44 --base no-crds --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-no-crds --space "${SPACE}"

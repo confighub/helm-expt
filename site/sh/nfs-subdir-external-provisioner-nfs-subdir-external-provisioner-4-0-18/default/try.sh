@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18 --base default --work-dir ./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3 --base default --work-dir ./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default/out/manifests

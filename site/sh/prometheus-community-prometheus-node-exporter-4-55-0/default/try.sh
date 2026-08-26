@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./prometheus-community-prometheus-node-exporter-4-55-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0 --base default --work-dir ./prometheus-community-prometheus-node-exporter-4-55-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42 --base default --work-dir ./prometheus-community-prometheus-node-exporter-4-55-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-prometheus-node-exporter-4-55-0-default/out/manifests

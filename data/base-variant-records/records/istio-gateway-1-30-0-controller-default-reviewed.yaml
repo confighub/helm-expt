@@ -13,7 +13,7 @@ spec:
     name: "istio/gateway"
     version: "1.30.0"
     record: "data/helm-render-intents/intents/istio-gateway-1-30-0-controller-default-reviewed.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a"
     selection:
       name: "controller-default-reviewed"
       kind: "catalog-preset"

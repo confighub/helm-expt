@@ -63,7 +63,11 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/grafana/promtail/6.17.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1"
+    manifestDigest: "sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2"
+    layerDigest: "sha256:9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
+    publicationReceipt: "runs/installer-oci/grafana-promtail/6.17.1/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/promtail/6.17.1/installer.yaml"
     receipt: "recipes/grafana/promtail/6.17.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
@@ -95,7 +99,7 @@ spec:
         default: true
         description: "grafana/promtail default variant rendered from grafana/promtail@6.17.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

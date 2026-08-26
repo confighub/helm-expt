@@ -13,7 +13,7 @@ spec:
     name: "vm/victoria-metrics-single"
     version: "0.39.0"
     record: "data/helm-render-intents/intents/vm-victoria-metrics-single-0-39-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40"
     selection:
       name: "default"
       kind: "catalog-preset"

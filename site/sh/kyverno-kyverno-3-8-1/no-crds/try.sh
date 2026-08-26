@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./kyverno-kyverno-3-8-1-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1 --base no-crds --work-dir ./kyverno-kyverno-3-8-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:13f2502075632259f7471d7043a09303d2cbee19c82c11c0485561b487288768 --base no-crds --work-dir ./kyverno-kyverno-3-8-1-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./kyverno-kyverno-3-8-1-no-crds/out/manifests

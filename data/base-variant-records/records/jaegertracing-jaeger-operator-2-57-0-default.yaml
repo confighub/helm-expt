@@ -13,7 +13,7 @@ spec:
     name: "jaegertracing/jaeger-operator"
     version: "2.57.0"
     record: "data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85"
     selection:
       name: "default"
       kind: "catalog-preset"

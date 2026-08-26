@@ -475,7 +475,7 @@
 <tr><td>Value source map</td><td><a href="../../../../../../recipes/bitnami/redis/27.0.0/value-source-map.yaml">recipes/bitnami/redis/27.0.0/value-source-map.yaml</a></td></tr>
 <tr><td>Catalog status</td><td><a href="../../../../../../recipes/bitnami/redis/27.0.0/catalog-status.yaml">recipes/bitnami/redis/27.0.0/catalog-status.yaml</a></td></tr>
 <tr><td>Helm pain report</td><td><a href="../../../../../../recipes/bitnami/redis/27.0.0/helm-pain-report.yaml">recipes/bitnami/redis/27.0.0/helm-pain-report.yaml</a></td></tr>
-<tr><td>Installer package OCI</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0</code></td></tr>
+<tr><td>Installer package OCI</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780</code></td></tr>
 <tr><td>Installer package source</td><td><a href="../../../../../../packages/bitnami/redis/27.0.0">packages/bitnami/redis/27.0.0</a></td></tr>
 <tr><td>Installer package receipt</td><td><a href="../../../../../../recipes/bitnami/redis/27.0.0/publication/installer-package-receipt.yaml">recipes/bitnami/redis/27.0.0/publication/installer-package-receipt.yaml</a></td></tr>
 <tr><td>Machine index</td><td><a href="../../../../../../recipes/bitnami/redis/27.0.0/artifact-index.yaml">recipes/bitnami/redis/27.0.0/artifact-index.yaml</a></td></tr></tbody></table>
@@ -497,7 +497,7 @@
 <h2 id="current-install-shape">Current Install Shape</h2>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0 --base &lt;variant&gt; --work-dir &lt;tmp&gt; --non-interactive --namespace &lt;namespace&gt;</code></pre>
+  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780 --base &lt;variant&gt; --work-dir &lt;tmp&gt; --non-interactive --namespace &lt;namespace&gt;</code></pre>
 <p>Use the variant table above to choose the package base. The <code>oci://</code> ref is the public package users pull; the <code>packages/...</code> path is the repo source path used by maintainers and proof scripts. The proof path compares regular Helm output with real <code>cub installer setup</code> output and explains every intentional difference, such as the Namespace support object or separated Secrets.</p>
     </article>
   </main>

@@ -66,7 +66,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/gatekeeper/gatekeeper/3.22.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
+    manifestDigest: "sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
+    layerDigest: "sha256:93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
+    publicationReceipt: "runs/installer-oci/gatekeeper-gatekeeper/3.22.2/installer-package-publication-receipt.yaml"
     installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
     receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
@@ -103,7 +107,7 @@ spec:
         default: true
         description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 30
         cubInstallObjectCountIncludingSupport: 31
         semanticObjectMatches: "30/30"
@@ -352,7 +356,7 @@ spec:
         default: false
         description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

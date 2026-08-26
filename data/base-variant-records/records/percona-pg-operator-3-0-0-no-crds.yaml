@@ -13,7 +13,7 @@ spec:
     name: "percona/pg-operator"
     version: "3.0.0"
     record: "data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

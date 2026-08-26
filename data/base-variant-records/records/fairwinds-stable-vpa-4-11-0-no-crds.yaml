@@ -13,7 +13,7 @@ spec:
     name: "fairwinds-stable/vpa"
     version: "4.11.0"
     record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

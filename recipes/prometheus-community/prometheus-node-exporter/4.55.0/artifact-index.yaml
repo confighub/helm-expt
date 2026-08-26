@@ -63,7 +63,11 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0"
+    manifestDigest: "sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42"
+    layerDigest: "sha256:54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b"
+    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-node-exporter/4.55.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-node-exporter/4.55.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b"
@@ -100,7 +104,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-node-exporter default variant rendered from prometheus-community/prometheus-node-exporter@4.55.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -172,7 +176,7 @@ spec:
         default: false
         description: "prometheus-community/prometheus-node-exporter cluster-metrics-readonly useful base rendered with Prometheus monitor values"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0@sha256:cac59f97aad4fd5c01773072a5d644b2d9435bd0224dee4f10ededee6cb2be42 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

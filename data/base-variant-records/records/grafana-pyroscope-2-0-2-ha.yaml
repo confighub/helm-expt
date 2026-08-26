@@ -13,7 +13,7 @@ spec:
     name: "grafana/pyroscope"
     version: "2.0.2"
     record: "data/helm-render-intents/intents/grafana-pyroscope-2-0-2-ha.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:20ca7d206be312dc1730ae8b96a4d175a736af66f44416d62accd94ae153f083"
     selection:
       name: "ha"
       kind: "catalog-preset"

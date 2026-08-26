@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the controller-default-reviewed base variant into ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base controller-default-reviewed --work-dir ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:2024c48b8dc5e19932a91c11c36baf2c9f694b5200158a45f6f4b142063fe352 --base controller-default-reviewed --work-dir ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed --space "${SPACE}"

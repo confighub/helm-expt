@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/grafana/promtail/6.17.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/grafana/promtail/6.17.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/promtail/6.17.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2` |
 | Installer package source | [packages/grafana/promtail/6.17.1](../../../../packages/grafana/promtail/6.17.1) |
 | Installer package receipt | [recipes/grafana/promtail/6.17.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/promtail/6.17.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

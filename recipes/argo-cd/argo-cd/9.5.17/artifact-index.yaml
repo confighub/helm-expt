@@ -65,7 +65,11 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.17"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
+    manifestDigest: "sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116"
+    layerDigest: "sha256:a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac"
+    publicationReceipt: "runs/installer-oci/argo-cd-argo-cd/9.5.17/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac"
@@ -112,7 +116,7 @@ spec:
         default: true
         description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116 --base default --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 49
         cubInstallObjectCountIncludingSupport: 50
         semanticObjectMatches: "49/49"
@@ -212,7 +216,7 @@ spec:
         default: false
         description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

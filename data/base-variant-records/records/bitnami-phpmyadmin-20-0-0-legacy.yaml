@@ -13,7 +13,7 @@ spec:
     name: "bitnami/phpmyadmin"
     version: "20.0.0"
     record: "data/helm-render-intents/intents/bitnami-phpmyadmin-20-0-0-legacy.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a"
     selection:
       name: "legacy"
       kind: "catalog-preset"

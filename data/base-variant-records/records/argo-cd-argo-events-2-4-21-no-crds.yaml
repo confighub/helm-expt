@@ -13,7 +13,7 @@ spec:
     name: "argo-cd/argo-events"
     version: "2.4.21"
     record: "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

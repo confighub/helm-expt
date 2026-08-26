@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./istio-istiod-1-30-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0 --base default --work-dir ./istio-istiod-1-30-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:e51e2e709d6eeb281d7010b56c94fd520e90abdae5c16adc4b58f53f1752bda9 --base default --work-dir ./istio-istiod-1-30-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./istio-istiod-1-30-0-default/out/manifests

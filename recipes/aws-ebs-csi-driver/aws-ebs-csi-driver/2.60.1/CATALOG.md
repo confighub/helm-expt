@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target topology | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml](target-topology.yaml) |
 | Catalog status | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52` |
 | Installer package source | [packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1](../../../../packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1) |
 | Installer package receipt | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/artifact-index.yaml](artifact-index.yaml) |
@@ -79,7 +79,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

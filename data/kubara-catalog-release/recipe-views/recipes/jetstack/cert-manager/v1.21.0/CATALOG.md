@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/jetstack/cert-manager/v1.21.0/value-model.yaml](../../../../../../../recipes/jetstack/cert-manager/v1.21.0/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/jetstack/cert-manager/v1.21.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/jetstack/cert-manager/v1.21.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f` |
 | Installer package source | [packages/jetstack/cert-manager/v1.21.0](../../../../../../../packages/jetstack/cert-manager/v1.21.0) |
 | Installer package receipt | [recipes/jetstack/cert-manager/v1.21.0/publication/installer-package-receipt.yaml](../../../../../../../recipes/jetstack/cert-manager/v1.21.0/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/jetstack/cert-manager/v1.21.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
