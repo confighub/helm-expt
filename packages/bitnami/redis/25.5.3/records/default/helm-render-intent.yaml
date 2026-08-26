@@ -74,14 +74,14 @@ spec:
     review:
       status: "reviewed"
       decision: "no-separate-target-prerequisites"
-      scope: "the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD."
+      scope: "the supported default base for the recorded cub-lk-kind-vanilla test target in namespace redis, delivered from ConfigHub OCI through Argo CD."
       evidence:
         - "data/production-support-decisions/bitnami-redis/support-decision.yaml"
         - "data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml"
     coverage:
       state: "no-target-facts-required"
-      reason: "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD."
-      declarationSource: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
+      reason: "The prerequisite review found no separate target prerequisite in this scope: the supported default base for the recorded cub-lk-kind-vanilla test target in namespace redis, delivered from ConfigHub OCI through Argo CD."
+      declarationSource: "config-catalog/target-fact-reviews.yaml"
       evidence:
         - "data/production-support-decisions/bitnami-redis/support-decision.yaml"
         - "data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml"

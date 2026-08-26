@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
-    sha256: "908c5613852aced2593ada3664b563e352107f59307dfa4896cd1ffef9b7f2f8"
+    sha256: "b3480492646d4e9bafdee00abb9e3a8478ae9f3f25290be062b33fca0359f5f6"
   package:
     name: "grafana-grafana"
     path: "packages/grafana/grafana/10.5.15"
@@ -61,8 +61,8 @@ spec:
         bytes: 923
       -
         path: "records/static-passwords/helm-render-intent.yaml"
-        sha256: "40ef78a477bc0a2b1eefc8f2e7e51a83516959fa82b74832004abc73d6511a7f"
-        bytes: 5386
+        sha256: "16a30b1da6c3fda4033dee75c93492d55339cd5029459e31d4b855850d838a4c"
+        bytes: 5375
       -
         path: "records/static-passwords/source-and-intent.yaml"
         sha256: "5a30344a6367e70cb372fe95214a7b02ac599d223d7d7ce882a8cf513976bb49"

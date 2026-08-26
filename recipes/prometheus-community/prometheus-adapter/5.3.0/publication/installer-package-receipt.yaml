@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-adapter/5.3.0 -o <tmp>/prometheus-community-prometheus-adapter-5-3-0.tgz"
-    sha256: "f0343a403ef8eb1cd2af955f0eee596dd9f7a6403c3adbbe615af3c9d4e10e08"
+    sha256: "dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a"
   package:
     name: "prometheus-community-prometheus-adapter"
     path: "packages/prometheus-community/prometheus-adapter/5.3.0"
@@ -53,8 +53,8 @@ spec:
         bytes: 1499
       -
         path: "records/apiservice-v1-capability/helm-render-intent.yaml"
-        sha256: "5bfc144c8546c17177b909cf9dd6a6ee56c5e10efa5a0e455684bc9a1ec1c421"
-        bytes: 6087
+        sha256: "ec0eb0dea81b5dc733899041c2876057695eaeed651f8a02bc14a08205bd81fa"
+        bytes: 6076
       -
         path: "records/apiservice-v1-capability/source-and-intent.yaml"
         sha256: "6dee7c15c55f5fdbf37773ae5be830381fb123244c2be4fe692a291c3e4bc6b4"

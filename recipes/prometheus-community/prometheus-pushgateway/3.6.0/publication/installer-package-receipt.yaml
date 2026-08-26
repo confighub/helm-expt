@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-pushgateway/3.6.0 -o <tmp>/prometheus-community-prometheus-pushgateway-3-6-0.tgz"
-    sha256: "2b26abe968d5aeca0ce18ee977c7d335d0c22093de7626ceca2542cdabc2f16f"
+    sha256: "1c3f804faf1e041eca6690419ef6e8cf3fb2f9ad88535497ceb21f9cd0bef74c"
   package:
     name: "prometheus-community-prometheus-pushgateway"
     path: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "39e6213374f066ab975cb395b9a3d7d3c7dce65e97dd40fcc9ff8a20dfa02977"
-        bytes: 5884
+        sha256: "8faed7d12a1d6034b9564b0c9740935b515fc47dddf36e2d4e33eb52e31613b6"
+        bytes: 5873
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "17162a8fa10ca389bffb0b8dc37e1aa1ca45ee2d17cf9fcd7643fd150968368f"

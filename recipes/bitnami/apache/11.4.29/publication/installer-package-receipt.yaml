@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11.4.29.tgz"
-    sha256: "dcc0403c6e61dc1ec806220ef3ea70329014eb56276f1d173c46800f4f332dd8"
+    sha256: "990b4a48c43ca19e346fceff64b3ad731de93cc088115a3f52923e5de1f1c761"
   package:
     name: "bitnami-apache"
     path: "packages/bitnami/apache/11.4.29"
@@ -45,8 +45,8 @@ spec:
         bytes: 1176
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "0e138f5466a52678f1333c10723f4c83f5f955ec3519cedf724c091eb930fc24"
-        bytes: 5202
+        sha256: "4bccb75df06944f114fe2e0ab1ee635aa20b963a22777faec58314fc63150c9c"
+        bytes: 5191
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "ec7d26e19d8a7029eb2f7913d27661c9a5a697e5ae03cb725eaec3ba46319b59"
@@ -57,8 +57,8 @@ spec:
         bytes: 817
       -
         path: "records/legacy/helm-render-intent.yaml"
-        sha256: "b81c430891a5acddcfaefdc04018828265a37a41505796bf7b2e25e39d20860a"
-        bytes: 5190
+        sha256: "05ee8b43bb092a0ea65cf7c953f6aefc8e35e3808defc4c43e0bb0a876a04f79"
+        bytes: 5179
       -
         path: "records/legacy/source-and-intent.yaml"
         sha256: "79afaad666475b2271387d5b15bba49f39a56defd38d9280740b4370fe736c3d"

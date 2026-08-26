@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/falcosecurity/falcosidekick/0.13.1 -o <tmp>/falcosecurity-falcosidekick-0-13-1.tgz"
-    sha256: "d64e056afe682d4e3118e634e574f9289a7a6e694d725617432cb0b29c92017d"
+    sha256: "a2b9bc98306bc47ee557bfe73fff72b37d15a2a7b18293a3f1837ea4b7f9fdac"
   package:
     name: "falcosecurity-falcosidekick"
     path: "packages/falcosecurity/falcosidekick/0.13.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "5093a8c92a0da1e609a4db6c7b40a735d2497ef3877e79298e5629f39dae4b68"
-        bytes: 5501
+        sha256: "36d08e2b5feb133366c6e4b48e353213f48fb743ba9cfa10b3cb43f0789fcc8b"
+        bytes: 5490
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "f147fec48a49e296c1b121ed84a331e6fbd4364eb05177fb91390c60df5c4c3b"

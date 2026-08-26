@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3.4.0.tgz"
-    sha256: "8ee3a3e6d5ac7667b263783ac1de2b9922c929afb4d9caf4d314973f58b6d7d7"
+    sha256: "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
   package:
     name: "elastic-eck-operator"
     path: "packages/elastic/eck-operator/3.4.0"
@@ -53,16 +53,16 @@ spec:
         bytes: 1343
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "1e7cde2f45a776c90c9a5c5e1fc00a55cbf9b21209e02d630f6e6b740f202589"
-        bytes: 5296
+        sha256: "fc331ee3a38b8bc8d49c5228290569d7c7a49509263278b8058adb0cf24c10e2"
+        bytes: 5285
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "0b186bcb75207eb9bb351a2734674ee31fe83ccf5eaed457ee575843f67296d3"
         bytes: 8736
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "00b08be7eb1209424f8de8802f95bb88e2c3423ed2c55440c8ffe4f0fe2b0a39"
-        bytes: 5225
+        sha256: "6bbba676992e7db7c9659f88c101ad48803e8d56cfaac8c32846ae6105d1e261"
+        bytes: 5214
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "702acc26f9bb2fff3ba13a510b4b8c5b35c13f328c8d5f6ffee2f49b2eb0636e"
@@ -73,8 +73,8 @@ spec:
         bytes: 1016
       -
         path: "records/no-crds/helm-render-intent.yaml"
-        sha256: "947b072a2696da137d4e08d2d3fe929ac495c75f757eb97464c5a464e23e6aa1"
-        bytes: 5315
+        sha256: "5a588e06faf1b5cab01ce22c44268ff4b80a42a5945242490e2bf152e9bcd790"
+        bytes: 5304
       -
         path: "records/no-crds/source-and-intent.yaml"
         sha256: "0b736a2dd987304b76d1fe9a1fd923a511f434efd9afaf50163fc253168afb9a"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/coredns/coredns/1.45.2 -o <tmp>/coredns-coredns-1-45-2.tgz"
-    sha256: "2aa2a51b72cac381ebb7d9a4ce14aa120dd456f91300d0b0d29b576618a7e402"
+    sha256: "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
   package:
     name: "coredns-coredns"
     path: "packages/coredns/coredns/1.45.2"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "0deff62518e37008dcd153aecbb54e8825309d8c24a47523d44d917d41cfa1be"
-        bytes: 5199
+        sha256: "107cf63afa839427fa96f1bc0c8b609744274f545bd445279a48ca6578d0ec5e"
+        bytes: 5188
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "3f367865d31101739757e824d7e0b7458c83efd6cb6b296f76736fc69f2c9c39"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1.8.2.tgz"
-    sha256: "98c45ecf889f24b7979d572c8dd76b2ed8f242bad20b88ca9c18face2a223fd5"
+    sha256: "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
   package:
     name: "grafana-alloy"
     path: "packages/grafana/alloy/1.8.2"
@@ -45,8 +45,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "568ed720cbe1ade4610340cda601659204ef5b7f5ee25e313d2f57af51127fac"
-        bytes: 5136
+        sha256: "86345b15bbad0383108ee6d53b0d25cadf504ddfaa29a5ff571394e720665c70"
+        bytes: 5125
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "337d1414202b400917f368f687d12a89fca09845ae91f12a17d6967390c36cc7"
@@ -57,8 +57,8 @@ spec:
         bytes: 815
       -
         path: "records/no-crds/helm-render-intent.yaml"
-        sha256: "9f2a2331b0c44ae38f99660c603a6f74368fd37358259d058a39371a809ea7e3"
-        bytes: 5155
+        sha256: "879f1791c3c4f2e599209292b02923ed71e37a9cb0799c33befd8eb883df4e04"
+        bytes: 5144
       -
         path: "records/no-crds/source-and-intent.yaml"
         sha256: "29217d28ec6f08aa4e9463e34cbf16da4613d9e49f23a5016252ed93eeacb94c"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/valkey/valkey/0.11.0 -o <tmp>/valkey-valkey-0-11-0.tgz"
-    sha256: "4d297f630eec58d0e61d375e6b015f3f8266a80952db588ad40cb6143ae64a20"
+    sha256: "247804134318137febf31c337bd6ce03cbd44a8615e66ca4721a75d06de7386b"
   package:
     name: "valkey-valkey"
     path: "packages/valkey/valkey/0.11.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "0e381b7174993186e170ba49d42707526c3824842f11dd6130a2f1ac4f7cb038"
-        bytes: 5172
+        sha256: "7bf173167d322b720dc73839da29a29fe3f38f4569d46a9bbce9ab9d72849817"
+        bytes: 5161
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "32bbbc73f52a02003b5df1c6eceef3097ddbf0e6216fb3260a947ba45ec8ef2a"

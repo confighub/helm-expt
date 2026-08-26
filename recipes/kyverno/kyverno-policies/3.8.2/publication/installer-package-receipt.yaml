@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/kyverno/kyverno-policies/3.8.2 -o <tmp>/kyverno-policies-3.8.2.tgz"
-    sha256: "a85ec0d339e9be40902bee9d58d2fb94f158f65087bbc07c1c8d480efb27a196"
+    sha256: "1253acd9011bc57c1a996904e4bb161cf1f7865a5f3de5878dd40aa5c998d164"
   package:
     name: "kyverno-kyverno-policies"
     path: "packages/kyverno/kyverno-policies/3.8.2"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "e49887ab953216c247f8bd9137042029900779f353e20eafd87d1973f809b08b"
-        bytes: 5427
+        sha256: "5ecce2477047c80f332d1519b7fae17549b962310c35d6987dcb05a5c900e10c"
+        bytes: 5416
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "139503947e7f22bc1793ae45a001312a26a0c4e835d466dc5db3b5b686c62e3c"

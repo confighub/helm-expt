@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11-10-0.tgz"
-    sha256: "46ecca408dd546aa230a2de732e604aa567866a42a8247a990fa0786dfb07b61"
+    sha256: "8486fa9bd94ed03347f3369d5165868783910455d274fcea4f98bcb60a11a427"
   package:
     name: "prometheus-community-prometheus-blackbox-exporter"
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
@@ -45,16 +45,16 @@ spec:
         bytes: 1248
       -
         path: "records/cluster-metrics-readonly/helm-render-intent.yaml"
-        sha256: "ceb32e130116857d2f6e7e07593f9f2ecab02e70e3ec4f20401e126e39cad77e"
-        bytes: 6353
+        sha256: "8997b362c7707e29ef23b5fa9692f59516b54e14c0a29c7caa60146b11bfc974"
+        bytes: 6342
       -
         path: "records/cluster-metrics-readonly/source-and-intent.yaml"
         sha256: "ed874866d33598a240ee09f125fc978118bb252bd115b86d690dd12e97437cbf"
         bytes: 9902
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "7c44baa344fbab826a3498c5f3e682563985bf3080d0d4f7379c75f12646648d"
-        bytes: 6078
+        sha256: "9017176f0025f06499e5671f0dd577d255b1cfcb473dcdb0f7e0c7f7dc942610"
+        bytes: 6067
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "4f320c3e985d070ee57b505a511b44986636bebbf3a6ac5c28da647bf7f8988f"

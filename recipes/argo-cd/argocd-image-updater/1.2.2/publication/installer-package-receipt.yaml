@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argocd-image-updater/1.2.2 -o <tmp>/argo-cd-argocd-image-updater-1-2-2.tgz"
-    sha256: "6baba13e8e6f60a505b19045b6f737d17333ac07d0d4b4a9affd5525e92263c2"
+    sha256: "734237e77d319a0be616920ae63494d6e704289765328677775687f74272befe"
   package:
     name: "argo-cd-argocd-image-updater"
     path: "packages/argo-cd/argocd-image-updater/1.2.2"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "61cb602ffd7b7a901c2bb7438dec4efff03b11bad1f864dbb19efc5f259d6171"
-        bytes: 5509
+        sha256: "a7a85d4e397b4ccfc3679b623787d9a4a6ed1b2cd68d95c0a588f26af0cc6fd7"
+        bytes: 5498
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "0404815c19e67fea8987ef2d4c289ba5606773e01b407b70a8ef074cd0f48c25"

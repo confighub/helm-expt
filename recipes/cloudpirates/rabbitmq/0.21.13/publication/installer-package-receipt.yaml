@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/cloudpirates/rabbitmq/0.21.13 -o <tmp>/cloudpirates-rabbitmq-0-21-13.tgz"
-    sha256: "bb936f83c78b7aa984310205d38bc3af82f85b01130217c7fd13f474e16f94eb"
+    sha256: "41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83"
   package:
     name: "cloudpirates-rabbitmq"
     path: "packages/cloudpirates/rabbitmq/0.21.13"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "f37595f689704f424bb2250a1f0f86f52063b50ce1c3b7ef9f8de20caafccf24"
-        bytes: 5406
+        sha256: "0e0b50cb48d0372649c00886092383ff5f0a6b3925fc32ca5942d41d872ae943"
+        bytes: 5395
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "83b4a9136c771f2c3563a5e081014dcfcedbdaabd05c7389bd0073643993bfcb"

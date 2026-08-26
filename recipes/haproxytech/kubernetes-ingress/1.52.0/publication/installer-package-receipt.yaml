@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/haproxytech/kubernetes-ingress/1.52.0 -o <tmp>/haproxytech-kubernetes-ingress-1-52-0.tgz"
-    sha256: "d5af5579ae1f31270158b65bf1f294b1182e7d673af2e856836e29782d54a00a"
+    sha256: "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
   package:
     name: "haproxytech-kubernetes-ingress"
     path: "packages/haproxytech/kubernetes-ingress/1.52.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "d535fca6526146b1f11558c2459c04b736b64463c7ab81b20fb564656f8244f6"
-        bytes: 5581
+        sha256: "e0a8e82227aa2dc1f3fd2dd1df4f8c708bdee032b879eb491fc7c387c5f131e8"
+        bytes: 5570
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "ebb9a8b097f27162440e16a38c00a53fa89bf52771ca054cf77aa1020fce3533"

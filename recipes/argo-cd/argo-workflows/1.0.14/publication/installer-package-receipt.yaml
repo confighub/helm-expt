@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
-    sha256: "922f96b47816f661f2ad59acd419cbc1a8763dd1dca93c75c4304cd0efb90ac1"
+    sha256: "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
   package:
     name: "argo-cd-argo-workflows"
     path: "packages/argo-cd/argo-workflows/1.0.14"
@@ -85,8 +85,8 @@ spec:
         bytes: 1142
       -
         path: "records/minimal-crds/helm-render-intent.yaml"
-        sha256: "6df4d3273d315cb6e7c56d2bc1b738a98ddf74384848e705d5cf48096641ed41"
-        bytes: 8386
+        sha256: "5fe5ae00891ca06c6b80464bb527847a6c4e7d2350bd26976972f46f2d77e01a"
+        bytes: 8375
       -
         path: "records/minimal-crds/source-and-intent.yaml"
         sha256: "ad6d1fe257134dc805ce156dc58053ee8dfcff70d5f1423949092c4111a9d5b0"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/memcached/8.5.5 -o <tmp>/bitnami-memcached-8-5-5.tgz"
-    sha256: "d1453cad041b996200fc13021551356b9994ef225de54abf97118eaa772e8c09"
+    sha256: "7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b"
   package:
     name: "bitnami-memcached"
     path: "packages/bitnami/memcached/8.5.5"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "9b241be5402fb5b6636636e71891be688c9507bebb1d2a7197475296cea2c8da"
-        bytes: 5231
+        sha256: "08617ed788834e63e0449bb7bebc3f1dce2b415959db2966984415046da45a37"
+        bytes: 5220
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "e9537fd2ca1b20f09117ddd8c9f8ebd4d7254c0280c3a97ee34a44e1592d37ac"

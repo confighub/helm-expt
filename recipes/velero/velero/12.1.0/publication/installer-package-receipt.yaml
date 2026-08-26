@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/velero/velero/12.1.0 -o <tmp>/velero-12.1.0.tgz"
-    sha256: "fa08947941a4fec050c554dfce9ef6d04e8fdc5a9aa0f96ddca714e7ed84d9d3"
+    sha256: "b0a29b59046d0a424cb972a33c6bdfbedce977676222c1b9f99b8191fdaf760a"
   package:
     name: "velero-velero"
     path: "packages/velero/velero/12.1.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "fb991603af2de9e3f0c15f42bf7d450c360beffba9a1eb58238d5ab9bac07f68"
-        bytes: 5183
+        sha256: "381f06d53e2fac6ec578cf475f4136ddd8002e348f6b9852ed3aaae5635f7f5d"
+        bytes: 5172
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "ab3cba126daa5e75d7a58455fb3e98ce628162a58b43ffd059b7212d0de5ea2f"

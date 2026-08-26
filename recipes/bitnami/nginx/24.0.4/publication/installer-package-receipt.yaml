@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/nginx/24.0.4 -o <tmp>/nginx-24.0.4.tgz"
-    sha256: "e4c24dac62c4f7c82d0c4823d2f931d5f9dd5d3e9a068920eebac2a436820fd3"
+    sha256: "8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705"
   package:
     name: "bitnami-nginx"
     path: "packages/bitnami/nginx/24.0.4"
@@ -57,8 +57,8 @@ spec:
         bytes: 10628
       -
         path: "records/http-clusterip/helm-render-intent.yaml"
-        sha256: "8662825e7de80b86b2d5937ab85cf2a336c3c72b787c0c1a827e75a6a0267295"
-        bytes: 5278
+        sha256: "7d9bd177161bcd93f5ebb83885ad25ebe5092147d155c13db0fd7a4c0e76644d"
+        bytes: 5267
       -
         path: "records/http-clusterip/source-and-intent.yaml"
         sha256: "0b747c481c2cb9e4030ac9dcbcaf09f7daa93ed8ba7717f07b3a83f09b8489aa"

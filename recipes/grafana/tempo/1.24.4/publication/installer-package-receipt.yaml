@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "2884df7f2bc6bb2c84a1645031821f2afebbce92d8726c9a1d322610c11c687c"
+    sha256: "fb9d1fa30abf0a75cdbed916865e553c3db1d618938551432bc164db29475e0c"
   package:
     name: "grafana-tempo"
     path: "packages/grafana/tempo/1.24.4"
@@ -57,8 +57,8 @@ spec:
         bytes: 913
       -
         path: "records/local-persistent/helm-render-intent.yaml"
-        sha256: "5f5d7bf648242d1fde6b010454ea9b8a07f1f7357843c018a97c5cd56b80bcee"
-        bytes: 5323
+        sha256: "0748ab1ec0b1cc5d6011dadeeb5d85317641264f50a1ee3974ea08e68f5aef77"
+        bytes: 5312
       -
         path: "records/local-persistent/source-and-intent.yaml"
         sha256: "507dbfbc5308df18c892c689ffbe431f4f5e0293bf3509a8479c0eb778311ba0"

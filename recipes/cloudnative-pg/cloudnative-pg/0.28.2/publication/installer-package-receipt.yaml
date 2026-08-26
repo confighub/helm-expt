@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0.28.2.tgz"
-    sha256: "45ac63ec64eab06b545ce4b4cb86ecfb888a3998df196a8a40aeefca75de0fb0"
+    sha256: "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
   package:
     name: "cloudnative-pg-cloudnative-pg"
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "730f408d886ed666f113cf37fe672d0d0d1d35741853c1d0b419873e4ddb368d"
-        bytes: 5552
+        sha256: "cb5fde1189c66304631a259264d516a77e25923ed50c7df942be72644f2f119e"
+        bytes: 5541
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "b22f167237ada9e07f114948497875e8d0704effbd8302537f368e5ed3bbf926"

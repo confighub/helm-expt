@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/cloudpirates/nginx/0.16.1 -o <tmp>/cloudpirates-nginx-0-16-1.tgz"
-    sha256: "50292aeac182225f602d7394795fbbdfe40408f0afe479f050cb7f40c2c388d1"
+    sha256: "063d2513e81e4ab317c893dac90c337b3dad724bc390de511db4a12cba74c827"
   package:
     name: "cloudpirates-nginx"
     path: "packages/cloudpirates/nginx/0.16.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "052edc0516be58ab983752740459f4735e4625b4366be9b60a478ad7fb8fc0e6"
-        bytes: 5306
+        sha256: "d550044684c8355261f063c79e66e5ee9f37cf42f1e6e93dd38d411b1a8c6a15"
+        bytes: 5295
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "b9dae555b88498ec0d245b2c6953e68ca107ac547c3af09d051c82ab60a1b816"

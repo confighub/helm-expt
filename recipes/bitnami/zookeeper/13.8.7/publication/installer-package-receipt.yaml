@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13.8.7.tgz"
-    sha256: "1cf1f35cd0998bb4f0f999611e45b1bb84b0843fa91a43e71056e3ce5d3b202c"
+    sha256: "cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824"
   package:
     name: "bitnami-zookeeper"
     path: "packages/bitnami/zookeeper/13.8.7"
@@ -53,16 +53,16 @@ spec:
         bytes: 1339
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "87b619883cd1f96c83c085966dcf0aa210952407cd9710ad14a01025f29a09e9"
-        bytes: 5255
+        sha256: "fc719ce6e8b8f1f45e9f82c8e2b35553fce311cfd0a43a929d7bb5bcec9a3374"
+        bytes: 5244
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "09e5e2670215b84a2b8b6542f4a6bfbebc3bb7bd7d0b8a6459071e72a2e70f63"
         bytes: 8761
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "c9ba979720c03035e87bf33de788c9b738c847a08b63be5bb29d2dfd0ce987a0"
-        bytes: 5184
+        sha256: "2ac8f56a6d402bb1ff5b5e2bf49619269001f5fa5c3956c7cca2d4b2a6388007"
+        bytes: 5173
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "4ffbd4d8e97f1ce5761169b23ca0ee67c288d36a0c0a2f2b8ec4ea53a08dbde9"
@@ -73,8 +73,8 @@ spec:
         bytes: 1008
       -
         path: "records/legacy/helm-render-intent.yaml"
-        sha256: "198558876a90f5d61b7de8f1a797ef6cb095423e7593cf9459361e67212b6354"
-        bytes: 5243
+        sha256: "f1bd3296ed75d48bbe884864519dc0df00e3eb193d38f52f40e9a4b3bccfe468"
+        bytes: 5232
       -
         path: "records/legacy/source-and-intent.yaml"
         sha256: "968bb611eae4f8512d317041aed1ca9258d554592e33019eaa1588e369de2072"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz"
-    sha256: "4dc6c529bb5f03dc8f1aeedcc7ed257056571a79a85923e22eec697a3f05b821"
+    sha256: "5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49"
   package:
     name: "strimzi-strimzi-kafka-operator"
     path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "cb7e43586ac5d5bb93b78475a9175b2a8de47e6bdfc2749325da0e299a9778e8"
-        bytes: 5549
+        sha256: "8ab2fb2a4755e878355168359d3ff2cdf16260ca86a39424c4e0848a33d308f7"
+        bytes: 5538
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "ba9343f51ce337256738d4ca625bc3762758cba69d316b830dadc831b5b97cbe"

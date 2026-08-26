@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/phpmyadmin/20.0.0 -o <tmp>/bitnami-phpmyadmin-20.0.0.tgz"
-    sha256: "d6a6dce225ccdbb6c15059b0e6471a4b62a41958c105c70aee4c92df5bc9eeec"
+    sha256: "70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b"
   package:
     name: "bitnami-phpmyadmin"
     path: "packages/bitnami/phpmyadmin/20.0.0"
@@ -45,8 +45,8 @@ spec:
         bytes: 1176
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "e5f4bdcc9c2aa9008b1cc7d42a9622d754bfdae4b3aa4dc5be6c71a5b3b7daff"
-        bytes: 5280
+        sha256: "2d877164ff8cfafda2c0e9611ec71702eafb63e99a7b85227c765ea14fff39bd"
+        bytes: 5269
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "b8ffb7b48f81caa06b0b1643fa14cd1bafefe634576941ffd28ac5f5e49516f6"
@@ -57,8 +57,8 @@ spec:
         bytes: 823
       -
         path: "records/legacy/helm-render-intent.yaml"
-        sha256: "70476082bf01f564f5653d365770b2e65d3761489473d04995aec3ffef38dd59"
-        bytes: 5268
+        sha256: "0b8f531e45d061010d5a9c0d038ffcae9fe10c737faec08158b073f42e52aa11"
+        bytes: 5257
       -
         path: "records/legacy/source-and-intent.yaml"
         sha256: "e40a63c8ded1e729dfb79eda57b1274f1f4106b723773d018b5bd9c7ae2a82b5"

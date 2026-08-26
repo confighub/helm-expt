@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0-34-11.tgz"
-    sha256: "20dab27e5f765931340a2fe9fb2ae08cc8946b412170bedac15c52e876acadce"
+    sha256: "d4b5fc420b0a5d4a12a36f7ebe78af360a8b49ceff16a59cf29e23fb6a4e29ca"
   package:
     name: "cloudpirates-redis"
     path: "packages/cloudpirates/redis/0.34.11"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "3da3a8d36593336ab4f5986933f142407e301c9620b7aa665b2c61a466c56e53"
-        bytes: 5328
+        sha256: "d30eead1046c76596cb75fbb2e8d6353ab6dd4b63ac5a755e1a64d43175d1619"
+        bytes: 5317
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "8d83585683f6bca2a6dc2a4d38b901ef0712532ef636e16f6fb3b0f08f7ee8e9"

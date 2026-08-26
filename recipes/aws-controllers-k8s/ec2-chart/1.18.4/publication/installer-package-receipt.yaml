@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/aws-controllers-k8s/ec2-chart/1.18.4 -o <tmp>/ack-ec2-1.18.4.tgz"
-    sha256: "752d653089c5de462c9fd428b8361115ed24c111aaff195054cb6ae1453b5e81"
+    sha256: "d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c"
   package:
     name: "aws-controllers-k8s-ec2-chart"
     path: "packages/aws-controllers-k8s/ec2-chart/1.18.4"
@@ -49,8 +49,8 @@ spec:
         bytes: 1204
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "bfbf1c4549ba259b8e3a11e1c181fb110a49eddb6ba26c8b6cf25769a4d96ea4"
-        bytes: 5584
+        sha256: "fe7a91a381e47a04f293f5386fca71e5243738fc289ccc4ecd981f7048d6bbc5"
+        bytes: 5573
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "fa9c6e3f88549d2b58c4bf57e2acaa238555b8e424b96b2ba09b5553c12e4341"

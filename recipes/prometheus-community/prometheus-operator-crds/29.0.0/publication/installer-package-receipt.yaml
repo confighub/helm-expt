@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-operator-crds/29.0.0 -o <tmp>/prometheus-community-prometheus-operator-crds-29-0-0.tgz"
-    sha256: "520b8a3b2b41332dbf0d6eea8f97bfd64777e6dc13c7e91b074037cb2eeded3d"
+    sha256: "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
   package:
     name: "prometheus-community-prometheus-operator-crds"
     path: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "69c4549a2689a4cd95a95d9ccc0ba9815d4f6d4880111601642aad8df4534ee9"
-        bytes: 5957
+        sha256: "ee65dd856515bd94754a8cfc7fbd11cb9f94ce7a7d27d0fac0ac7000178bf319"
+        bytes: 5946
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "c29359c96460a3752218307214e425745439c0e309960808766c1f9bc1930212"

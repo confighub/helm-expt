@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/runix/pgadmin4/1.62.0 -o <tmp>/runix-pgadmin4-1-62-0.tgz"
-    sha256: "62f19f171650b4d5fe9bedf20383258ad0e10eca0e531f021618014ba111652d"
+    sha256: "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
   package:
     name: "runix-pgadmin4"
     path: "packages/runix/pgadmin4/1.62.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "e654df438ea47baa19f6dff89a633ff2c4dc4c36bbd259bfe854176f9dd247c0"
-        bytes: 5168
+        sha256: "23d727f317d0d6ca4110b43d76d29dc7ca115dba9ed5eca567c8a2bfce3665ae"
+        bytes: 5157
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "3ab24427d9d22cbc7c988692547eada04afeebedeaceada6fe445012946d5b4d"

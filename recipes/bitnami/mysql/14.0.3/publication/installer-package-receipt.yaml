@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "e5665720a6163db17af42621f41d4c5268919ea45216902c56e6487d0d16bd0b"
+    sha256: "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
   package:
     name: "bitnami-mysql"
     path: "packages/bitnami/mysql/14.0.3"
@@ -61,8 +61,8 @@ spec:
         bytes: 885
       -
         path: "records/static-passwords/helm-render-intent.yaml"
-        sha256: "9e1b0de681f914e5a85a1b14e98ee04ae2a4404619386654eec683540d84d238"
-        bytes: 5775
+        sha256: "5d290bdd640820da43ea7c90ec92eaf95c0f8b10ff523f775fb53e6ae082163d"
+        bytes: 5803
       -
         path: "records/static-passwords/source-and-intent.yaml"
         sha256: "f35a6bbed629416754ccc044dd5b4f1fc475d9b387f0bcade03e8f8caa7e85de"

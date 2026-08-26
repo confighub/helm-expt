@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nats/nack/0.34.0 -o <tmp>/nats-nack-0.34.0.tgz"
-    sha256: "1e8390daf6b7372f49bc554bb246c8a762db52080cf8f1f9f3cd715a612e4fb2"
+    sha256: "f1ccce2cf17da047870ba3a21c974e70d51cfb22fa8225b9279031f2673bb35d"
   package:
     name: "nats-nack"
     path: "packages/nats/nack/0.34.0"
@@ -45,8 +45,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "255b90ee7a9d5f2980e89bf87f540f60b85c7bcd16f37933e11c33a5c505e2a7"
-        bytes: 5063
+        sha256: "2b36e32e8b5428255cab527643c5ae41266410d48b33af32f229a8a063f30474"
+        bytes: 5052
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "41dd2bc31993acf3aceab9e5299cf6ce19786077fe9db68f60a7b82aa52a6ac1"
@@ -57,8 +57,8 @@ spec:
         bytes: 809
       -
         path: "records/no-crds/helm-render-intent.yaml"
-        sha256: "0b99216cc6ef64760083172a8d9d6ad6c7458e2c44a0c9b29e06f18300f40a0c"
-        bytes: 5083
+        sha256: "86464da488ba01f9068c7376bc9a923d57a13cb42b40963e2bfb3f8f775aac1e"
+        bytes: 5072
       -
         path: "records/no-crds/source-and-intent.yaml"
         sha256: "ceca1a3fb2f5b84e03fc2760b6ee63aa21b1bc755420b08c6e3277335209f3ec"

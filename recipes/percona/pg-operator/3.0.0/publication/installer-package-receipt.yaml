@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3.0.0.tgz"
-    sha256: "1e9214109699c1dfaf42d4ba72ab5fac1a5c883e8715f9f635bf624387fff162"
+    sha256: "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76"
   package:
     name: "percona-pg-operator"
     path: "packages/percona/pg-operator/3.0.0"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "52fbffec685baca3ab60274e3887c5c20854928067d4bd60d87fd781b00699c1"
-        bytes: 5293
+        sha256: "607d3ef2fea712784cab9d5c0ec7c1a892d1cf4b10067eee92da59a044398d28"
+        bytes: 5282
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "b5f14bbffd6b78117f08f276a602ff3b70c1fb264031117601ea2adf1dfcc9ed"

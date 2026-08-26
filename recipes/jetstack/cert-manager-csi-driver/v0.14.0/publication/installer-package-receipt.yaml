@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0-14-0.tgz"
-    sha256: "6de4c33a57d152072adeb7f2e46053ffc7d2fc142d7353b084e61d5c461aaf73"
+    sha256: "cfb843e3b21e98f9f4b6199a65ef71e501ec67ed9bf859d5d327494a1201e98b"
   package:
     name: "jetstack-cert-manager-csi-driver"
     path: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "8ff4eec769b78387f1c358d7b3535b9b1d17fcb55f405179375b7049e49edeb3"
-        bytes: 5641
+        sha256: "5970256e23a7c8ad8283bb69e4a003ff5327b62931a26d4699fe23cd3c76ac72"
+        bytes: 5630
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "58d1cffcbf662a86eb787ba36d3d953d525d887ed4d9561de2bb523fb30e6080"

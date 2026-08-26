@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7-1-1.tgz"
-    sha256: "42e414423458f183ca5439c21f381726df78654fb0cc50fb321f9561eaa9e39d"
+    sha256: "16cbc70c2675573873e45bc328208cd49082b905aedf8ecb483ea9b3e7549b0d"
   package:
     name: "minio-operator-operator"
     path: "packages/minio-operator/operator/7.1.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "a21b6c4e67283a18eff155dee82da3e95f7f884ac5378edc18b822a8391e1b28"
-        bytes: 5364
+        sha256: "930202c24675406d923199d386d1f8a11d521c3332967d5ea24322edf7c525df"
+        bytes: 5353
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "4c87ea51beace43bb7592ebf8331edd461ea78d4c3ca9ec5f008d1804a00b4cc"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1.37.0.tgz"
-    sha256: "00384b190c36cb5dc9b4d255bba8fbe18c9516562bb2e7e3b1bed5aee48a5f30"
+    sha256: "6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6"
   package:
     name: "prometheus-community-alertmanager"
     path: "packages/prometheus-community/alertmanager/1.37.0"
@@ -45,16 +45,16 @@ spec:
         bytes: 1160
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "2a8b6523a290f1d3b3cd2fbc2b96327ba8cf055f1bc5125a48dc7dff9e1e2435"
-        bytes: 5656
+        sha256: "de7ab1c969b927c7bc603081e6c810c8714e334c627ef07ab3921f90766bb2a2"
+        bytes: 5645
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "7728b2c6b4ded370bbc7c4cd3cf7ac2da7cf96af46d1fb1a2e782557df284361"
         bytes: 9070
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "fc13ef833a636809aec5ec3a1c55b82c4d59d427d0b78ce9a5610dfc414acc9a"
-        bytes: 5585
+        sha256: "56907871b67b2aba6376683c3e196a65a244f3582afae450a665c70299bef79b"
+        bytes: 5574
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "859c1f104108438203846a4ca9ea388e6ae201d3f27a45479b347b401f1ad497"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/promtail/6.17.1 -o <tmp>/grafana-promtail-6-17-1.tgz"
-    sha256: "9a166c4cff36e54842423e2ef03723774a5752d714fa83468e02bc0e0c223018"
+    sha256: "b55fef333b2bd31729b1629e67cc91be51d9662afdbfdc1e3303323059a26577"
   package:
     name: "grafana-promtail"
     path: "packages/grafana/promtail/6.17.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "b6b59014cc0a4589e48a6c1e6b3f3ca3554ffdfb5eeb30386adbae9f3c849066"
-        bytes: 5231
+        sha256: "9892077537a6b7a1c3120fcf4e197b53f2d542d6ca6965d7590aa684a3133cf1"
+        bytes: 5220
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "287d6bdd1e213228f02d6100ca23546abf46d5ecbe8ec0c6ff15220336458245"

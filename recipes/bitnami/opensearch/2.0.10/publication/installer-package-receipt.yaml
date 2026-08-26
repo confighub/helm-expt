@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2.0.10.tgz"
-    sha256: "61ce70f2ff413db2f8fa1742e50025e80f78906cd6592e2db1da1ec4d1794db3"
+    sha256: "c981534878c200f8a5c24484aeefd40366a77eda8c7affe28166c2d8f53b544a"
   package:
     name: "bitnami-opensearch"
     path: "packages/bitnami/opensearch/2.0.10"
@@ -53,16 +53,16 @@ spec:
         bytes: 1339
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "5ea60b4e5e91fa74b11b35a3711149bb5c706f566012375918e58fb038857957"
-        bytes: 5280
+        sha256: "ed85518167f6c6be4284cfa392df653ece5b8994ba774e054d2c386b7fb79f67"
+        bytes: 5269
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "0c06848f4ab5c5ffe655ac21416641ee82c92a9d3616dcbf8ea16c412bc36776"
         bytes: 8788
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "f48a681935bf3bd525a193b3545f1f8472cb72c0041be33a958694a141f6aa36"
-        bytes: 5209
+        sha256: "06e6d78b579ced58eb2514b61f2003b10bac56517249bd2050bd116f36914763"
+        bytes: 5198
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "93bbff5386d48ffba315fa6fd46d4ab84331f61c9c11304e392c6480519adf57"
@@ -73,8 +73,8 @@ spec:
         bytes: 1010
       -
         path: "records/legacy/helm-render-intent.yaml"
-        sha256: "447cbd0caf6bc4cdaeb3d056cbe25da4b7289707e0a25d05aacf57e96ca57096"
-        bytes: 5268
+        sha256: "ef13717e10154b2fca29a1223715372e7f9cb695b8e563e3516db0fdfe9ac5df"
+        bytes: 5257
       -
         path: "records/legacy/source-and-intent.yaml"
         sha256: "d62223066ba3003bfc8b0fe9cf373bd2fe333b5c3744c1c26891307ef847b2ae"

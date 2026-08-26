@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/aws-controllers-k8s/iam-chart/1.7.3 -o <tmp>/ack-iam-1.7.3.tgz"
-    sha256: "60eeada10fc2822cdbe7349218ce555d194b383f612943945a371bb97c3de856"
+    sha256: "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
   package:
     name: "aws-controllers-k8s-iam-chart"
     path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
@@ -49,8 +49,8 @@ spec:
         bytes: 1204
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "fb98d98536dd023d9045dc74aa1d608deb951422afc39c36eb04e2afda8b1905"
-        bytes: 5562
+        sha256: "2a0c01655cc9b0a1572374afad6fcf09d6823e4a4bbb5236d25a3423bbe3cf89"
+        bytes: 5551
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "67256e64defe5c5b796b62eb0333acdaa6d13ea2908da56b0504f0e59b373f69"

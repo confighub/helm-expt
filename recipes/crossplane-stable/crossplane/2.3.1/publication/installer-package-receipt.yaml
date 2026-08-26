@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2-3-1.tgz"
-    sha256: "f2f08bc2ee357ee5f29aa6b2531d477933f842fabc7f5474a5d5bd203427427a"
+    sha256: "c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051"
   package:
     name: "crossplane-stable-crossplane"
     path: "packages/crossplane-stable/crossplane/2.3.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "290d8f5ed4ba0c38985e19323149c8676683dc183a517ab0e713e8815e1afa1e"
-        bytes: 5497
+        sha256: "e5793a87922a375e524a9738a65feb582fde47ffcbc8a035c04410ad5645e8c4"
+        bytes: 5486
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "eb6241664fb60ec29680184ce36d17f08055fa99e8d4010fae232aa42e26b99f"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0-36-0.tgz"
-    sha256: "9444ab166cc92af45cafd8508b3014d924f521d2cf040b59cfe6654608e37145"
+    sha256: "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
   package:
     name: "descheduler-descheduler"
     path: "packages/descheduler/descheduler/0.36.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "3f159b53f59751939f2c977d801d71416c5f9e02c59cfdd149f1d1f1a6a73ed6"
-        bytes: 5411
+        sha256: "55e07f23133c44ffbd763f7d89be55941ba48e412e2eb1d783fbfef4bfdf6185"
+        bytes: 5400
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "132fd74accd6fbc5d02e3d9e387968b7ed4e7a74694477933965d730e4affb41"

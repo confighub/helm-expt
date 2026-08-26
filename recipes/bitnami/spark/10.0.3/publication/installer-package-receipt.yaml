@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10.0.3.tgz"
-    sha256: "ddbb84f0e04dddcf4d9e20b24f5b484bc66d473ab83b9d5c7aeda928a6b0ce03"
+    sha256: "5bdab75d6c9850a7446a69314672e68512149cebcc49f225e489b4870e5927a8"
   package:
     name: "bitnami-spark"
     path: "packages/bitnami/spark/10.0.3"
@@ -53,16 +53,16 @@ spec:
         bytes: 1339
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "913ead90f7d4517f1249b49178f352550f20e46b5868a7caa366daea82493373"
-        bytes: 5155
+        sha256: "614e5dd017e137baf7b73bc639214940a60bfb693acf2ffb3ea94042bc9249ed"
+        bytes: 5144
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "5637bf3bcf11f30e7d2c9e5b826fc9b399df054b90f061a5cf17356035f30ee7"
         bytes: 8658
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "df4d587d4ea9fffb6b3d62291d5785fedc636b02c6fe008ffe84adde5321052f"
-        bytes: 5084
+        sha256: "2d7695283be86ebb223c32ac07bbbb9e55041ca1921363ea454e351cca85236e"
+        bytes: 5073
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "a89f78e082f1b1af0c2075d3f6d7a13fc71f1115b8ab88266ccd022f555871eb"
@@ -73,8 +73,8 @@ spec:
         bytes: 1000
       -
         path: "records/legacy/helm-render-intent.yaml"
-        sha256: "529694f74d84452fa519787c6b4aee60e581b0be6a735017c97adf360bc84361"
-        bytes: 5143
+        sha256: "9c269ca24636ee77f91d3f304c3c8fce74f5620536b7435923ca0f57b7ad6d56"
+        bytes: 5132
       -
         path: "records/legacy/source-and-intent.yaml"
         sha256: "2177cff37225a0bb6eebacaa58266f83e2de5ffccce4127ea9c81945ddff4eed"

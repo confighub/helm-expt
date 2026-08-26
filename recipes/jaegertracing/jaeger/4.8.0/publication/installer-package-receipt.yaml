@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jaegertracing/jaeger/4.8.0 -o <tmp>/jaegertracing-jaeger-4-8-0.tgz"
-    sha256: "14533b519f5a269cd30c8cd5432d05517920fdb1d9c9eb92caf7ef0f912d510b"
+    sha256: "1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436"
   package:
     name: "jaegertracing-jaeger"
     path: "packages/jaegertracing/jaeger/4.8.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "16ea302f486314958682cc03401d2d1778840a01ed8a1c6dc2a7901da6a3a474"
-        bytes: 5309
+        sha256: "5bbe4df7575f1eb3d4336891ef271ee03d949ee3761084d6512b820c66560f6c"
+        bytes: 5298
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "33419ce12b3097847ec27dee316c6d63346dc1b11f0b2f9a1153746a3be3ed2d"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
-    sha256: "97c926dc35310ac403385b942b1afe669aac7435d10a3d66489e20db4114010b"
+    sha256: "58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8"
   package:
     name: "kedacore-keda"
     path: "packages/kedacore/keda/2.19.0"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "409f2b9d3ffaa3ae076116c1b51d00e90050c39600b1074d380d1470c1a74138"
-        bytes: 5152
+        sha256: "78c08507074ff281a4dda964eee08362c6858361c07bcb33249744672ec27e04"
+        bytes: 5141
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "78c71ffd70e02f2bb196281cf6b1fc35162f196ce26a9ef39cc8c144e6209853"

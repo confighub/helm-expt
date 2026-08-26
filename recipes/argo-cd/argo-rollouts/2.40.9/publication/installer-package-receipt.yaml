@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argo-rollouts/2.40.9 -o <tmp>/argo-cd-argo-rollouts-2.40.9.tgz"
-    sha256: "0f485805f11d5d09038c274e5444de7d09df6110920da9dfb4926ab23a1443f1"
+    sha256: "cec22be9190fc18c4ab4d6a936a53f836df66cf270f1b2497c557ee2de595c63"
   package:
     name: "argo-cd-argo-rollouts"
     path: "packages/argo-cd/argo-rollouts/2.40.9"
@@ -45,8 +45,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "44d119422572e7f04cbd779b4c0676f799a81d45711c7c2cc62fac53e5da038f"
-        bytes: 5355
+        sha256: "09c95878e828585044a5e677459064628a230c5791be59b062d9e4aacedef03c"
+        bytes: 5344
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "94eb714b1b94399d21b7ebbc633ff5c2ab1a2a619247a7f2ff32ff137b444110"
@@ -57,8 +57,8 @@ spec:
         bytes: 833
       -
         path: "records/no-crds/helm-render-intent.yaml"
-        sha256: "314fa1c0f15c25c1aa52b7b21c5bdc959e62fb4ba0fb690734e95623d80181a6"
-        bytes: 5374
+        sha256: "96c25a816e437407d6edd38f4475b6351f66510efe4a3a885b92ec10dfcec69f"
+        bytes: 5363
       -
         path: "records/no-crds/source-and-intent.yaml"
         sha256: "55f1a94987f244bbacf89c7d23cd9e938c9ba94290e420ac9f8e3a4ea6bb7035"

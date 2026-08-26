@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/falcosecurity/falco/9.0.0 -o <tmp>/falcosecurity-falco-9-0-0.tgz"
-    sha256: "90bedac12a95180bd5478b31d413fd703cb72694df1aea8ec0687be12aa3c105"
+    sha256: "f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a"
   package:
     name: "falcosecurity-falco"
     path: "packages/falcosecurity/falco/9.0.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "1f18a7a2b05a0da7865ffaf5e27c112429dd0d2fa2299f04b7312f7a7b71941e"
-        bytes: 5279
+        sha256: "7d87736742a7b6aee1be48444c5186f0e42ee7aec7aa3cae4c0d144f74cadd7d"
+        bytes: 5268
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "60c9d6f767329361328a77374c284231fe6a6cfe45243db19ed6fb999e628644"

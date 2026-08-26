@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-1.11.2.tgz"
-    sha256: "ab352adee3fe7c9a8419d359519218e518d1287e50404cfc65c221a4e28795d1"
+    sha256: "b93bb32cddff28466398e8cad45bbe9e3778df84d996bc9cf64619ad7091aa95"
   package:
     name: "longhorn-longhorn"
     path: "packages/longhorn/longhorn/1.11.2"
@@ -45,8 +45,8 @@ spec:
         bytes: 1192
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "c362bd7b4177974d0ae302ec6d55107ec8f02618a1608f02ed550a91b483d2c4"
-        bytes: 5731
+        sha256: "9d829fa4b10a10c9b3e694bf0148475a3c07a40f174b5db3a88f83d16b1d848a"
+        bytes: 5764
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "8467cb2b6a076bfea260ce52f977fed1c17298a772800641805f121bfb44f272"
@@ -57,8 +57,8 @@ spec:
         bytes: 837
       -
         path: "records/ui-ingress/helm-render-intent.yaml"
-        sha256: "bdb9ae11a2fba3f97f26496a8a0005f7ebd744a4b06acf735a696cb6438c43d2"
-        bytes: 5325
+        sha256: "81896fed456e8a81085c5213e43edc8342b3d299cca8580be17816991283d76d"
+        bytes: 5314
       -
         path: "records/ui-ingress/source-and-intent.yaml"
         sha256: "269199d3c3737408816a57cfd28aab0dc808300e75a2f3c380260e866f37abdb"

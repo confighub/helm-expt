@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3.22.2.tgz"
-    sha256: "8147ddab1d0e035a2eef1906e0fdb8b182ec053bc973884f24726228923a3bd8"
+    sha256: "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
   package:
     name: "gatekeeper-gatekeeper"
     path: "packages/gatekeeper/gatekeeper/3.22.2"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "cd4ff54160869a27436e47851f178abdb993b1bfa97e2c45ca7663d34d65663f"
-        bytes: 9562
+        sha256: "6cba7c7233e755390cbebeadd6585623dbe074d533deb189963130dea650765c"
+        bytes: 9551
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "89b23d1ceef25ab4b4208c7dff4189458a1a986a181302f93c760fb6ae74c30f"

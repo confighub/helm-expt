@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0.49.0.tgz"
-    sha256: "43ffc7bc9029b5164705301253def0a2f6d61ca3a22b4d975ca1fbb472c8d556"
+    sha256: "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
   package:
     name: "grafana-rollout-operator"
     path: "packages/grafana/rollout-operator/0.49.0"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "a6aba3fe7930d6c75e0a9837683e3b860571032158564505fa59f680c18fd4fd"
-        bytes: 5431
+        sha256: "b8ff1a87c843418056034ed9b438a84953c19dcdf22853d22dc7a8f3efc9980a"
+        bytes: 5420
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "b30a10d80c5783f02bbf9a9e568e9d58fa38165611c22c1b2103a517e968880a"

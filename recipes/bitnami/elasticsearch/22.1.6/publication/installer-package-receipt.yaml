@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22.1.6.tgz"
-    sha256: "739593b56eb29a532a95a8242ad4803d71b5e89bee84a241a6320d3833abe0d6"
+    sha256: "4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1"
   package:
     name: "bitnami-elasticsearch"
     path: "packages/bitnami/elasticsearch/22.1.6"
@@ -53,16 +53,16 @@ spec:
         bytes: 1339
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "ec0d9db6b3cfea3895be1961fc8a69a059f41828e33c6cda9a565d773d8fb5a7"
-        bytes: 5355
+        sha256: "608e22aaf25ac87dcec84399d67fe79dec3751053589f132773ac884133d9e08"
+        bytes: 5344
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "cdd52c2ced9523d729a7839337308ae905359b68b35dcabb0fb0322ce75bf289"
         bytes: 8866
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "4edef021559d66494023ab2d8cc2850a3d23b304c1e07f1a01c9897d0e3ccf55"
-        bytes: 5284
+        sha256: "c9a690c5d9a77dff8d3c3557b0bfd18ffbddb2ed239a95f8582a6aa924c88497"
+        bytes: 5273
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "06457032af64c5dbc7f1f2dc17ec3b169d6fef2dc0c58b53988eb87b6c2f6303"
@@ -73,8 +73,8 @@ spec:
         bytes: 1016
       -
         path: "records/legacy/helm-render-intent.yaml"
-        sha256: "a2cc5768955f98ab6ac8fb730049c47a9ad1fb59a0072d0eba9260574eb7b9b8"
-        bytes: 5343
+        sha256: "1d09882fa75e7e68376d564e5e457eea1aa50f4cebaa79d0be3a295481219f8d"
+        bytes: 5332
       -
         path: "records/legacy/source-and-intent.yaml"
         sha256: "6dea3a86509c806d5bbc93d34a6303ec6d28ba6b97d1f9391c8d450c515bbb29"

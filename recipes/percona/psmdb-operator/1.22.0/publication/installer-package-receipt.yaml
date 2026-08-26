@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1.22.0.tgz"
-    sha256: "da51e54f48e5d3b187cd1d8fe008ba8f0f33c7061d0f5519072d53cab3955db9"
+    sha256: "857aa79c0ec5e1f87f0dd94bda5290c4fe5c8c357577b802cda7343da4876ffe"
   package:
     name: "percona-psmdb-operator"
     path: "packages/percona/psmdb-operator/1.22.0"
@@ -45,8 +45,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "0ab4aaa770d8e34b9cb1eb1ee8b7083a52221c089add00beb17a16f350158d4e"
-        bytes: 5390
+        sha256: "2281d5cd76f343f873873766a94914422dfb6b79753082c737dd6a6310b78b8c"
+        bytes: 5379
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "62f1fbf4bd5df7e530237a7ee705919995d2dd3abc2478cbe205cd7c69d1978c"
@@ -57,8 +57,8 @@ spec:
         bytes: 835
       -
         path: "records/no-crds/helm-render-intent.yaml"
-        sha256: "878c48dc64e5999108d8c82d0748a165359082a765ac28e17835339635c5692b"
-        bytes: 5409
+        sha256: "19264a6cd76514720b417745d7a65b5ea6532bdf8f84fcf5275bfbe58f7994a4"
+        bytes: 5398
       -
         path: "records/no-crds/source-and-intent.yaml"
         sha256: "e2ea9afbf67f378d65fe9c0a28433db655fba3bbf17c825e770adeadfa93def4"

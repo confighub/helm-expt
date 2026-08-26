@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/metallb/metallb/0.16.1 -o <tmp>/metallb-0.16.1.tgz"
-    sha256: "1d9b04b7d6d310cf3a90cbcc7d5410401676febf41acb782a153f18be1703df3"
+    sha256: "30841c447f2f76e9b7f8665e87c1ae3a9f3cef457818705ff35a3015114ed652"
   package:
     name: "metallb-metallb"
     path: "packages/metallb/metallb/0.16.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "856359983f0e3d748a55b4ced188911ed31c082fe38031706e6343ffc65490dc"
-        bytes: 5231
+        sha256: "e66db01e9ea4d0740b26b74e7d837854a70bd74ac8341e3bc6aac9bb407924cb"
+        bytes: 5220
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "5a3aaf2602b19cdc89e56e100f8990d54c05c251b3782bde2257a0b758e3c323"

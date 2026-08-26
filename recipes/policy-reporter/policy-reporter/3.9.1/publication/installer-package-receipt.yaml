@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/policy-reporter/policy-reporter/3.9.1 -o <tmp>/policy-reporter-3.9.1.tgz"
-    sha256: "315d06c4da6f2e70ab0e1aab68d97a2cb0cb4ef37035bc28eb96a73bdc797ce2"
+    sha256: "aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90"
   package:
     name: "policy-reporter-policy-reporter"
     path: "packages/policy-reporter/policy-reporter/3.9.1"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "e5cfbe51b277ae8251214a947f4dcbe5f2032a46f9e96f5c5901b609882252f1"
-        bytes: 5610
+        sha256: "3ea4b3f73b8980f0c59eebb2fff9a5bdeaaa0081c4ecab58b6de2556d35782cd"
+        bytes: 5599
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "2d2555255a8628ade8e10adb433ce2565ccf43b86de5a19de7437f6fde00f57e"

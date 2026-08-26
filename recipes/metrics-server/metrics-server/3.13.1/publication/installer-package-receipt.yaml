@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/metrics-server/metrics-server/3.13.1 -o <tmp>/metrics-server-3.13.1.tgz"
-    sha256: "74a404365bb355df43f6ab20c9a076151ddb0bb0cb7f727b783f321dd0fafcf5"
+    sha256: "0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991"
   package:
     name: "metrics-server-metrics-server"
     path: "packages/metrics-server/metrics-server/3.13.1"
@@ -49,8 +49,8 @@ spec:
         bytes: 1212
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "6d8e09fb3dc250d9f46785a59c867d981c5605023bb8866a5956aa687b4cd9b2"
-        bytes: 5586
+        sha256: "f250432bc81aa5ef4367d9cbf79536131ddab3c53040a536e3c859faaa227cce"
+        bytes: 5575
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "c0c411660f930d1273da77a31f81c87b55d8051ecd4a6677d9b360e3e5583fb5"

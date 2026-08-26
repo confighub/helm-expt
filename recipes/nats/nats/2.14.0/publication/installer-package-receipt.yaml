@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2.14.0.tgz"
-    sha256: "e8769041f5c8e1cd919dd2f81c872313e5b3e423729c974f771a5e28fa441320"
+    sha256: "707a3c3fd2649784637f78f7603e2c9173bc4828c653af0879c742c72d145764"
   package:
     name: "nats-nats"
     path: "packages/nats/nats/2.14.0"
@@ -45,16 +45,16 @@ spec:
         bytes: 1160
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "3bc20d3606bdfee60fd63a1ddd8309d6b6f222e6f4e498bfea09c3e1974a0087"
-        bytes: 5064
+        sha256: "af1abee205de23f1e69682b526dff22e50e90f5575fd575204f334b538fe6788"
+        bytes: 5053
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "026cec14d392498ec7f0e8559ba7979b41f9b235ff2c4fce78bb0cfb47b03b62"
         bytes: 8552
       -
         path: "records/ha/helm-render-intent.yaml"
-        sha256: "698f8a1c54b487c52d997e016302606be9c6c045bbf4f65a9ec1828b610313b3"
-        bytes: 4992
+        sha256: "2734a370a9a583f3abb591208185128af8963a746371c2c9a3a06859dcfb6342"
+        bytes: 4981
       -
         path: "records/ha/source-and-intent.yaml"
         sha256: "a1cdc6db4f01a77b63bbbd7d1d358457efeca214f1818caf329869abc51ca16c"

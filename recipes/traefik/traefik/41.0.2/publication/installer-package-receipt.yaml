@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/traefik/traefik/41.0.2 -o <tmp>/traefik-41.0.2.tgz"
-    sha256: "c5db540af784e849c3379bb33d4a0a09d06d6033a0b72b2b5c5b9b5622cf8af8"
+    sha256: "7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b"
   package:
     name: "traefik-traefik"
     path: "packages/traefik/traefik/41.0.2"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "69acde1aafc70dcc1d6931003eb9250ad24ec8856c9875870dd6c0ecd1fa16e4"
-        bytes: 5217
+        sha256: "70b7dfe3533042624c42f0445514acbe4dfb6b8b767e2f05b80e28e7e1f3efcb"
+        bytes: 5206
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "4db9759b93f1a151537b6efffd28c326546e98d6c563fb8da4fc08360564ff04"

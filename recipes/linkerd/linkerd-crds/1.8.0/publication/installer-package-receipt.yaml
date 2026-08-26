@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1-8-0.tgz"
-    sha256: "1fdc381abc0c9a0db2a1a02a761462ad95404320346e3f7bf2fa2e7d391ff077"
+    sha256: "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
   package:
     name: "linkerd-linkerd-crds"
     path: "packages/linkerd/linkerd-crds/1.8.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "d59e8817d0ec4ab891a0d7c4f10f9f186d96d804c135f9557e2772684d14479f"
-        bytes: 5306
+        sha256: "262dae7afd9f814bdcc93896fe11c3551409d3edb52669d383fd67cf455c817f"
+        bytes: 5295
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "353cc35db0dc7c722e46e203f33e9d262701337cfba25e21cc101aca087a4bfd"

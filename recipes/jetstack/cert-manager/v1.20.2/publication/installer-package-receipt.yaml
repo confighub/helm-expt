@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
-    sha256: "8e6cacdbfc789c3f695184e7cfc5068b5a12f2f6e65142d8440b7e678d55fc23"
+    sha256: "63ad0e0f931fcb9fab89af1c5e78297bc3a32bee841d13413211b612818606f9"
   package:
     name: "jetstack-cert-manager"
     path: "packages/jetstack/cert-manager/v1.20.2"
@@ -53,8 +53,8 @@ spec:
         bytes: 1200
       -
         path: "records/crds-enabled/helm-render-intent.yaml"
-        sha256: "3bc5c26bf790134e4a8cc725345955961041d2ed2b540f45e9cd5c2f14d294ee"
-        bytes: 5989
+        sha256: "f7a79e86b4513e7bbee675744f219b562054f7bc8a0c9942bc1b86a3013ea523"
+        bytes: 6012
       -
         path: "records/crds-enabled/source-and-intent.yaml"
         sha256: "3d4bd065e6b43ccff404643d4dc1fa00d5e051be47534cf05208db72c26c64d9"

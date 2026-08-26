@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
-    sha256: "3d7da75a72bb991e23ee8c13c081ee06d16dd43601acd1f3aea1a280fcc40ac0"
+    sha256: "ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a"
   package:
     name: "aqua-trivy-operator"
     path: "packages/aqua/trivy-operator/0.32.1"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "4054047b987e5cb9c986e6285ad54ca77b2878187b4567a61fee82b89a6e2efa"
-        bytes: 5315
+        sha256: "fe1b1b736ef1a841f49a8bb6459ded2c12b0ebfb232ce36edf878af7cdc55a92"
+        bytes: 5304
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "d2d42d617b2d3ffeb3600bbc06ee5bffab3312f2186f1a42114f519d23b1b30f"

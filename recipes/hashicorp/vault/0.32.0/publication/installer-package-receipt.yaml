@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/vault-0.32.0.tgz"
-    sha256: "fa75df13f1c9e6c72c7d6196f9219b0a092d485a23082724b4077beef2218739"
+    sha256: "add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09"
   package:
     name: "hashicorp-vault"
     path: "packages/hashicorp/vault/0.32.0"
@@ -57,16 +57,16 @@ spec:
         bytes: 1379
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "3813359d1e656945a4839e2546ceaaf80b5bd054f97acf128ab896ed3c0e0294"
-        bytes: 5201
+        sha256: "03327992a846345b8fc8cbb12bf31bba53682b4921bb3210b718cbe72306b9b2"
+        bytes: 5190
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "fc3af2204d96c9304f716dea18da106232c08a5f75542c223cfb09b6ff13fc32"
         bytes: 8703
       -
         path: "records/dev-mode/helm-render-intent.yaml"
-        sha256: "171f0df08b58f75aff4a4ce82ebc45454a75e1a39954400b1d8aa0eeb071b39e"
-        bytes: 5238
+        sha256: "ba29ef358d15a174c169f5631a62878e26831764b9d01e635ac936605869052b"
+        bytes: 5227
       -
         path: "records/dev-mode/source-and-intent.yaml"
         sha256: "118e774f5a43fad6b7f5ec01b1250c3463f2abc11d16db66c7c547474f440421"

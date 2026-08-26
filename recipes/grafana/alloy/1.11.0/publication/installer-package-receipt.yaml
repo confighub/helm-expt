@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/alloy/1.11.0 -o <tmp>/alloy-1.11.0.tgz"
-    sha256: "8510ac0284dff01e275ac3276d332416d438bf268f7227af5015bf396187e2bc"
+    sha256: "75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a"
   package:
     name: "grafana-alloy"
     path: "packages/grafana/alloy/1.11.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "68baf8ff639f5fedf30ae2d3c780a7b289e0db875fcb836bcc90ab6a23465905"
-        bytes: 5176
+        sha256: "e7f5e10911f34c18faf2ce64bfdba1502f7c166fe3d92f0a2f162187bf7f72c7"
+        bytes: 5165
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "acb536539811adc0c831fa8457fd59f796f3011d7711fad16eeb890780e7e477"

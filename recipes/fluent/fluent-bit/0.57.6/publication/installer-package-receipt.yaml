@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0-57-6.tgz"
-    sha256: "188ab53ef7c050936088c33366fcee866413cb670cbcf3c075a0d6b8435ebe94"
+    sha256: "bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b"
   package:
     name: "fluent-fluent-bit"
     path: "packages/fluent/fluent-bit/0.57.6"
@@ -37,8 +37,8 @@ spec:
         bytes: 997
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "cb5b7c504dfd8248e9f87a29d144dbfbea4720f2df65969ce680cd3e62241b43"
-        bytes: 8808
+        sha256: "8c80df54ec34c2dad33942fb618595a6b33685f6f1267155f0fa3af3e6bd9f67"
+        bytes: 8797
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "b93cc9c25558b766ed77820d1862119529c60413d07e5d369ee47fb589ab20ec"

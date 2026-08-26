@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
-    sha256: "ce2c51245effd14765d063883a052e31b83d81de49d86daa970b4a8efb0dde59"
+    sha256: "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629"
   package:
     name: "percona-pxc-operator"
     path: "packages/percona/pxc-operator/1.19.1"
@@ -53,8 +53,8 @@ spec:
         bytes: 1180
       -
         path: "records/default/helm-render-intent.yaml"
-        sha256: "831be041e773ce1fe36499151b9ec6241b6e982948b504ff549b3c27972b190d"
-        bytes: 5341
+        sha256: "28de6cbb17a8135f3f5b22379b996aef6c24bd2fbe503baaebbf19d7708cee00"
+        bytes: 5330
       -
         path: "records/default/source-and-intent.yaml"
         sha256: "d3caf1bc42d2be3900db112bfc336012f41c3f2f995315b22506109629e3a8a2"
