@@ -21,6 +21,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
@@ -186,6 +187,10 @@ function buildReport() {
   const policy = readYaml(policySourcePath);
   const program = readYaml(programSourcePath);
   const operationalClassExamples = readYaml(operationalClassSourcePath);
+  const sourceCatalogImports = resolveSourceCatalogImports();
+  const sourceCatalogImportByBase = new Map(
+    sourceCatalogImports.map((item) => [item.baseVariantRecord, item]),
+  );
 
   validatePolicy(policy);
   validateProgram(program);
@@ -214,8 +219,19 @@ function buildReport() {
     buildConfigurationOciRecord(),
     buildPlainYamlRecord(),
   ]
-    .map((record) => alignRecordWithProcessingModel(record, intentByName.get(record.metadata.name)))
+    .map((record) => alignRecordWithProcessingModel(
+      record,
+      intentByName.get(record.metadata.name),
+      sourceCatalogImportByBase.get(record.metadata.name),
+    ))
     .sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
+
+  for (const sourceCatalogImport of sourceCatalogImports) {
+    check(
+      records.some((record) => record.metadata.name === sourceCatalogImport.baseVariantRecord),
+      `${sourceCatalogImport.id}: imported source catalog does not match a base-variant record`,
+    );
+  }
 
   applyOperationalClassExamples(records, operationalClassExamples, policy);
   validateRecords(records);
@@ -1905,6 +1921,33 @@ function validateRecords(records) {
         && record.spec.source.selection.record,
       `${record.metadata.name} has no curated source selection`,
     );
+    const sourceSelection = record.spec.source.selection;
+    if (sourceSelection.catalog) {
+      check(
+        sourceSelection.kind === "source-variant"
+          && sourceSelection.providerRole === "source-catalog-curator"
+          && sourceSelection.providerIdentity
+          && sourceSelection.catalog.name
+          && sourceSelection.catalog.version
+          && /^sha256:[a-f0-9]{64}$/.test(sourceSelection.catalog.digest ?? "")
+          && sourceSelection.catalog.digestRole === "source-catalog-content"
+          && sourceSelection.catalog.record
+          && Object.keys(sourceSelection.dimensions ?? {}).length > 0
+          && sourceSelection.selectionRecord?.path
+          && /^sha256:[a-f0-9]{64}$/.test(sourceSelection.selectionRecord?.digest ?? "")
+          && sourceSelection.selectionRecord?.digestRole === "selected-source-variant"
+          && sourceSelection.evidence?.status,
+        `${record.metadata.name} has an incomplete provider source-catalog selection`,
+      );
+      for (const path of [
+        sourceSelection.record,
+        sourceSelection.catalog.record,
+        sourceSelection.selectionRecord.path,
+        ...(sourceSelection.evidence.records ?? []),
+      ]) {
+        check(existsRepo(path), `${record.metadata.name} points at missing source-catalog record ${path}`);
+      }
+    }
     check(["available", "partial", "planned"].includes(record.status?.level), `${record.metadata.name} has an invalid status`);
     check(Number.isInteger(record.spec?.configuration?.objectCount), `${record.metadata.name} has an invalid object count`);
     check(record.spec?.policy?.profile === "catalog-standard", `${record.metadata.name} is not bound to catalog-standard`);
@@ -3477,7 +3520,7 @@ function expectFailure(fn, message) {
   check(failed, message);
 }
 
-function alignRecordWithProcessingModel(record, intent) {
+function alignRecordWithProcessingModel(record, intent, sourceCatalogImport) {
   const legacyRouting = record.spec.routing ?? {
     routes: [],
     targetFacts: {},
@@ -3499,10 +3542,13 @@ function alignRecordWithProcessingModel(record, intent) {
     evidence,
     operations,
   } = record.spec;
+  const normalizedSource = { ...source };
+  delete normalizedSource.sourceVariant;
+  delete normalizedSource.sourceCatalog;
   record.spec = {
     source: {
-      ...source,
-      selection: sourceSelectionRecord(record),
+      ...normalizedSource,
+      selection: sourceSelectionRecord(record, sourceCatalogImport),
     },
     baseVariant: {
       ...baseVariant,
@@ -3529,9 +3575,17 @@ function alignRecordWithProcessingModel(record, intent) {
   return record;
 }
 
-function sourceSelectionRecord(record) {
+function sourceSelectionRecord(record, sourceCatalogImport) {
   const source = record.spec.source;
   const base = record.spec.baseVariant.name;
+
+  if (sourceCatalogImport) {
+    check(
+      source.type === sourceCatalogImport.sourceType,
+      `${record.metadata.name}: imported source catalog has the wrong source type`,
+    );
+    return sourceCatalogImport.selection;
+  }
 
   if (source.type === "aicr") {
     return {
@@ -4396,6 +4450,8 @@ function renderRecordsCsv(records) {
     "source_selection",
     "source_selection_kind",
     "source_selection_provider",
+    "source_catalog_version",
+    "source_catalog_digest",
     "base",
     "status",
     "object_count",
@@ -4442,6 +4498,8 @@ function renderRecordsCsv(records) {
       source_selection: record.spec.source.selection.name,
       source_selection_kind: record.spec.source.selection.kind,
       source_selection_provider: record.spec.source.selection.provider,
+      source_catalog_version: record.spec.source.selection.catalog?.version,
+      source_catalog_digest: record.spec.source.selection.catalog?.digest,
       base: record.spec.baseVariant.name,
       status: record.status.level,
       object_count: String(record.spec.configuration.objectCount),
@@ -4522,6 +4580,9 @@ function renderBaseSummary(records) {
   const declaredOwnershipCount = records.filter(
     (record) => record.spec.ownership.status === "declared",
   ).length;
+  const importedSourceCatalogCount = records.filter(
+    (record) => record.spec.source.selection.catalog,
+  ).length;
   const classifiedRecords = records.filter(
     (record) => record.spec.operations.classificationSource,
   );
@@ -4551,6 +4612,8 @@ Generated by \`scripts/generate-config-catalog-program.mjs\`. Do not edit the ge
 There are **${records.length} records**: ${formatCounts(sourceCounts)}. Their current statuses are ${formatCounts(statusCounts)}.
 
 A base-variant record connects one exact configuration to its source and intent. It identifies the selected source form and who curated it, then records how the objects were materialized, whether they can be retained as literal configuration, what lifecycle work may surround apply, which fields each layer controls, and which OCI and delivery results exist. It does not imply that every record is present in a live ConfigHub org.
+
+${importedSourceCatalogCount} record(s) import a provider source catalog directly. Those records carry the provider identity, catalog version and content digest, selection dimensions, selected source input, and provider evidence into the retained base and ConfigHub handoff.
 
 The processing coverage is explicit rather than inferred:
 
@@ -4606,6 +4669,7 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
+- [AICR v0.20 EKS H100 training for Argo CD](records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml) imports NVIDIA's exact source-catalog digest and selected leaf before binding them to the retained base, ConfigHub upload, and later variants.
 - [Timoni Redis default](${timoni ? `records/${timoni.metadata.name}.yaml` : ""}) records one immutable module, its typed configuration, seven exact objects, and the master-first lifecycle work that plain YAML does not carry.
 - [cub installer source package](${cubInstaller ? `records/${cubInstaller.metadata.name}.yaml` : ""}) separates the public multi-preset package digest from the exact five-object output of one selected preset.
 - [Literal configuration OCI](${configurationOci ? `records/${configurationOci.metadata.name}.yaml` : ""}) records a public five-object OCI, its separate object-set digest, its required Secret, and an unchanged ConfigHub import.

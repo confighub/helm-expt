@@ -6,6 +6,8 @@ There are **255 records**: 4 aicr, 1 configuration-oci, 1 cub-installer, 245 hel
 
 A base-variant record connects one exact configuration to its source and intent. It identifies the selected source form and who curated it, then records how the objects were materialized, whether they can be retained as literal configuration, what lifecycle work may surround apply, which fields each layer controls, and which OCI and delivery results exist. It does not imply that every record is present in a live ConfigHub org.
 
+1 record(s) import a provider source catalog directly. Those records carry the provider identity, catalog version and content digest, selection dimensions, selected source input, and provider evidence into the retained base and ConfigHub handoff.
+
 The processing coverage is explicit rather than inferred:
 
 - Flattening verdicts: 3 born-flattened, 35 flatten-with-routes, 167 not-assessed, 41 safe-to-flatten, 9 unsafe-to-flatten.
@@ -60,6 +62,7 @@ The record structure is aligned across every row. The evidence is not. The Catal
 - [Argo CD no-crds](records/argo-cd-argo-cd-9-5-15-no-crds.yaml) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
+- [AICR v0.20 EKS H100 training for Argo CD](records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml) imports NVIDIA's exact source-catalog digest and selected leaf before binding them to the retained base, ConfigHub upload, and later variants.
 - [Timoni Redis default](records/timoni-redis-8-10-1-default.yaml) records one immutable module, its typed configuration, seven exact objects, and the master-first lifecycle work that plain YAML does not carry.
 - [cub installer source package](records/cub-installer-bitnami-nginx-24-0-2-http-clusterip.yaml) separates the public multi-preset package digest from the exact five-object output of one selected preset.
 - [Literal configuration OCI](records/configuration-oci-nginx-replicas-4.yaml) records a public five-object OCI, its separate object-set digest, its required Secret, and an unchanged ConfigHub import.

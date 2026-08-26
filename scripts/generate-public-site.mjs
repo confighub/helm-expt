@@ -3821,6 +3821,18 @@ function tryAicrHtml() {
   const rows = aicrCpuStarterRecords()
     .map((record) => `<tr><td><code>${escapeHtml(record.name)}</code></td><td>${record.syncWave}</td></tr>`)
     .join("\n        ");
+  const v020SourceCatalog = readYaml(join(
+    repoRoot,
+    "examples",
+    "aicr",
+    "eks-h100-training-kubeflow-v0-20-0",
+    "source-catalog",
+    "source-catalog-record.yaml",
+  ));
+  const v020Selection = v020SourceCatalog.spec.selection;
+  const v020Dimensions = Object.entries(v020Selection.dimensions)
+    .map(([name, value]) => `${name}=${value}`)
+    .join(", ");
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -3878,6 +3890,20 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
       ["Retained base variant", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
       ["Derived ConfigHub variant", "A later environment or policy change linked to that retained base."],
     ])}
+  </section>
+
+  <section aria-labelledby="aicr-source-catalog">
+    <h2 id="aicr-source-catalog">Where the selected configuration came from</h2>
+    <p>The provider chooses the source variant. Config Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
+    ${markdownLikeTable([
+      ["Record", "Exact v0.20.0 value"],
+      ["Provider", `${escapeHtml(v020SourceCatalog.spec.provider.name)} · <a href="${escapeHtml(v020SourceCatalog.spec.provider.identity)}">provider source</a>`],
+      ["Provider catalog", `${escapeHtml(v020SourceCatalog.spec.catalog.name)} ${escapeHtml(v020SourceCatalog.spec.catalog.version)} · <code>${escapeHtml(v020SourceCatalog.spec.catalog.digest)}</code>`],
+      ["Selected source variant", `<code>${escapeHtml(v020Selection.name)}</code> · ${escapeHtml(v020Dimensions)}`],
+      ["Retained base", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a>`],
+      ["ConfigHub handoff", `<a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a>`],
+    ], { rawSecondColumn: true })}
+    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected source variant. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
   </section>
 
   <section aria-labelledby="install-oras">

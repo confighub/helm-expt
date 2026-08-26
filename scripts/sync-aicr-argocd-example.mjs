@@ -21,6 +21,7 @@ import {
   repoRoot,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const allowedModes = new Set([
@@ -85,6 +86,14 @@ const readmeUnitPath = join(
   "readme.yaml",
 );
 const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const sourceCatalogImport = v020Entry
+  ? resolveSourceCatalogImports().find(
+      (item) => item.baseVariantRecord === `${componentSlug}-${versionSlug}-argocd`,
+    )
+  : null;
+if (v020Entry) {
+  check(sourceCatalogImport, "AICR v0.20.0 source-catalog import is missing");
+}
 
 const sourceReceipt = readYaml(sourceReceiptPath);
 const registryBase =
@@ -682,6 +691,7 @@ function collectLiveReceipt(sourceReference) {
         reference: sourceReference,
         digest: configArtifact.digest,
         renderedObjectCount: live.applicationCount,
+        ...(sourceCatalogImport ? { sourceCatalog: sourceCatalogImport.handoff } : {}),
         sourcePackage: {
           reference: publicSourceRef,
           digest: sourceArtifact.portableDigest,
@@ -842,6 +852,16 @@ function canonicalDocs(docs) {
   );
 }
 
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map(
+      (key) => `${JSON.stringify(key)}:${stableJson(value[key])}`,
+    ).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
 function verifyCommittedUploadReceipt() {
   check(existsSync(uploadReceiptPath), "AICR ConfigHub upload receipt is missing; run the Hub sync command");
   const receipt = readYaml(uploadReceiptPath);
@@ -854,6 +874,13 @@ function verifyUploadReceipt(receipt) {
   check(receipt.spec?.organization === expectedOrg, "AICR upload receipt organization changed");
   check(receipt.spec?.source?.digest === configArtifact.digest, "AICR upload source digest changed");
   check(receipt.spec?.source?.renderedObjectCount === 17, "AICR upload object count changed");
+  if (sourceCatalogImport) {
+    check(
+      stableJson(receipt.spec?.source?.sourceCatalog)
+        === stableJson(sourceCatalogImport.handoff),
+      "AICR ConfigHub upload lost or changed its provider source-catalog binding",
+    );
+  }
   check(receipt.spec?.space?.slug === spaceSlug, "AICR upload Space changed");
   if (modernEntry) {
     check(

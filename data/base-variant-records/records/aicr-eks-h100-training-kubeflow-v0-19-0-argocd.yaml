@@ -13,7 +13,6 @@ spec:
     name: "eks-h100-training-kubeflow"
     version: "v0.19.0"
     record: "examples/aicr/eks-h100-training-kubeflow-v0-19-0/generation-receipt.yaml"
-    sourceVariant: "h100-eks-ubuntu-training-kubeflow"
     packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.19.0"
     selection:
       name: "h100-eks-ubuntu-training-kubeflow"

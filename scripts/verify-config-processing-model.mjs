@@ -146,6 +146,7 @@ requireText(documents.catalog, "alignment report", "Catalog alignment link");
 
 for (const path of [
   "schemas/base-variant-record.schema.json",
+  "schemas/source-catalog-record.schema.json",
   "schemas/flattening-safety-verdict.schema.json",
   "schemas/lifecycle-route-resolution.schema.json",
 ]) {

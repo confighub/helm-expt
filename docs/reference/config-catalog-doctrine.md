@@ -85,6 +85,14 @@ the built-in AICR catalog; other catalog providers may curate additional overlay
 and leaf variants. Config Workshop curates its Helm presets. A custom variant needs
 its own intended-target statement and evidence.
 
+When a provider publishes a versioned source catalog, the Catalog imports the
+provider identity, exact catalog-content digest, selected variant, selection
+dimensions, and provider evidence. The resulting `BaseVariantRecord` carries that
+imported selection unchanged. A ConfigHub upload receipt carries the same binding
+beside the exact objects it retained. Provider evidence remains attached to the
+source variant; it does not become evidence for a ConfigHub change, destination,
+delivery controller, or running workload.
+
 The generated [assessment cases](../../data/config-assessment-stages/summary.md)
 test these boundaries. Every generated base record carries the four stages under
 `spec.assessment`. Catalog coverage and evidence coverage are separate: a format or

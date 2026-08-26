@@ -39,6 +39,12 @@ leaves. Config Workshop curates its Helm presets. A custom source variant must n
 its provider, intended target, and supporting evidence rather than borrowing the
 status of a similar upstream variant.
 
+For an imported provider catalog, the source layer also records the provider's
+identity, catalog version, catalog-content digest, selected source variant,
+selection dimensions, and provider evidence. Those fields are copied into the
+retained base and ConfigHub upload receipt. They are not recomputed from the output
+objects, and they do not change when a ConfigHub derived variant is created.
+
 AICR also makes the four assessment questions easy to distinguish. `aicr snapshot`
 and `aicr diff` report what differs between observed GPU nodes without selecting a
 recipe or deploying a bundle. They do not say which node is correct. To make that

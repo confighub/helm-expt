@@ -573,6 +573,22 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
       </style>
   </section>
 
+  <section aria-labelledby="aicr-source-catalog">
+    <h2 id="aicr-source-catalog">Where the selected configuration came from</h2>
+    <p>The provider chooses the source variant. Config Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
+    <div class="card"><table>
+        <thead><tr><th>Record</th><th>Exact v0.20.0 value</th></tr></thead>
+        <tbody><tr><td>Provider</td><td>NVIDIA · <a href="https://github.com/NVIDIA/aicr">provider source</a></td></tr><tr><td>Provider catalog</td><td>NVIDIA AICR built-in catalog v0.20.0 · <code>sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8</code></td></tr><tr><td>Selected source variant</td><td><code>h100-eks-ubuntu-training-kubeflow</code> · accelerator=h100, intent=training, os=ubuntu, platform=kubeflow, service=eks</td></tr><tr><td>Retained base</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a></td></tr><tr><td>ConfigHub handoff</td><td><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected source variant. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
+  </section>
+
   <section aria-labelledby="install-oras">
     <h2 id="install-oras">1. Install ORAS</h2>
     <p>ORAS reads and writes OCI packages without running a container.</p>

@@ -47,7 +47,7 @@ spec:
       project: "NVIDIA AICR"
       version: "v0.20.0"
       sourceCatalogRecord: "examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml"
-      sourceCatalogRecordSha256: "a3e35f07dbf611860f2642953348da4383cf83a4edbe1d9d3a5b694cc7b0b120"
+      sourceCatalogRecordSha256: "b136f9e9c0614d7ef86728c1723237325c4a96dc4e73b58d8f6d3d7ef88c7238"
       retainedCatalogInventorySha256: "676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8"
     bindings:
       baseline:
@@ -203,7 +203,7 @@ spec:
       resultState: "not-run"
       note: "No RDMA transfer, GPU workload, model request, or performance test ran for these sanitized fixtures."
   retention:
-    acceptedContextSha256: "26fe8adb0975aa02e918876886a245ee978c809bf9b05d0e07961003c9a45654"
+    acceptedContextSha256: "528316f6386420c9d591d1a8e0e5a092055f3fee512d2fde9796499007be5c54"
     localFiles:
       - "tests/fixtures/config-assessment/aicr-snapshot-baseline.yaml"
       - "tests/fixtures/config-assessment/aicr-snapshot-target.yaml"
