@@ -75,7 +75,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-contour/21.1.4/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/contour/21.1.4/installer.yaml"
     receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48"
+    deterministicBundleSHA256: "648097b27fe73c3441ed5bf6618b66776aec28ecd3f0ff2181cb83443f189926"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

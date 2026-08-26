@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/grafana-loki/7.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/loki/7.0.0/installer.yaml"
     receipt: "recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126"
+    deterministicBundleSHA256: "cfd134e967b04936ae22f47da6ab12aee1f7dff855bd058efe7335ac9e479f72"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

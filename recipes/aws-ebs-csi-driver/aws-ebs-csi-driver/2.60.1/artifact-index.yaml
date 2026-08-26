@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.60.1/installer-package-publication-receipt.yaml"
     installer: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/installer.yaml"
     receipt: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624"
+    deterministicBundleSHA256: "60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

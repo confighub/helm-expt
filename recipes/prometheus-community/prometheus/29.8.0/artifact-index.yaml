@@ -72,7 +72,7 @@ spec:
     publicationReceipt: "runs/installer-oci/prometheus-community-prometheus/29.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus/29.8.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+    deterministicBundleSHA256: "cea5f78c11093398ef237bba86d39f3cf0a7e6a1f7c558e5fe10ec403d4fb32b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

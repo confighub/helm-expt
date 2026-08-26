@@ -1,0 +1,241 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "elastic-filebeat-8-5-1-node-or-cluster-collector"
+  labels:
+    component: "elastic/filebeat"
+    chart: "elastic/filebeat"
+    version: "8.5.1"
+    base: "node-or-cluster-collector"
+    catalogLayer: "F2b"
+spec:
+  component: "elastic/filebeat"
+  chart:
+    name: "elastic/filebeat"
+    version: "8.5.1"
+    sourceRepository: "https://helm.elastic.co"
+    sourceContent: ""
+  baseVariant: "node-or-cluster-collector"
+  renderInputs:
+    recipe: "recipes/elastic/filebeat/8.5.1"
+    variant: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+    revision: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
+    packageBase: "packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+    sourceLock: "recipes/elastic/filebeat/8.5.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "filebeat"
+    valuesProfile: "recipes/elastic/filebeat/8.5.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/object-inventory.yaml"
+    revision: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
+    packageBase: "packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts-and-observed-action-records"
+    declared:
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+            - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          name: "elasticsearch-master-certs"
+          namespace: "default"
+          purpose: "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection"
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+            - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          keys:
+            - "username"
+            - "password"
+          name: "elasticsearch-master-credentials"
+          namespace: "default"
+          purpose: "Elasticsearch username and password read by the Filebeat container"
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+    requirements:
+      -
+        category: "secret"
+        name: "default/elasticsearch-master-certs"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection"
+        check: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        declarationPath: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+      -
+        category: "secret"
+        name: "default/elasticsearch-master-credentials"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Elasticsearch username and password read by the Filebeat container"
+        check: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+        declarationPath: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+      -
+        lane: "K"
+        prerequisiteKind: "external-api"
+        prerequisiteName: "unknown"
+        actionKind: "provide-external-service"
+        ownerClass: "operator-review"
+        requiredInputs: "the upstream service/endpoint the workload connects to"
+        evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+        sourceReceipt: "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+        rerunCommand: "npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base node-or-cluster-collector"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached-with-observed-actions"
+      reason: "2 prerequisite declarations and 2 follow-up action records are attached."
+      declarationSource: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/elastic/filebeat/8.5.1/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 2
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/elastic/filebeat/8.5.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+    fullModelPath:
+      - "chart/version: elastic/filebeat@8.5.1"
+      - "recipe: recipes/elastic/filebeat/8.5.1"
+      - "base variant: node-or-cluster-collector"
+      - "render intent: data/helm-render-intents/intents/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
+      - "rendered revision: recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml"
+      - "package base: packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

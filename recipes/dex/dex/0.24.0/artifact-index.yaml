@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/dex-dex/0.24.0/installer-package-publication-receipt.yaml"
     installer: "packages/dex/dex/0.24.0/installer.yaml"
     receipt: "recipes/dex/dex/0.24.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
+    deterministicBundleSHA256: "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-mysql/14.0.3/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867"
+    deterministicBundleSHA256: "e5665720a6163db17af42621f41d4c5268919ea45216902c56e6487d0d16bd0b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

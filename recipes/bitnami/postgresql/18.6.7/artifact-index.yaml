@@ -72,7 +72,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-postgresql/18.6.7/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/postgresql/18.6.7/installer.yaml"
     receipt: "recipes/bitnami/postgresql/18.6.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "81a9d77b20f9d2497ec3e6870404f9626c373deec08eefedc6637237f2fec212"
+    deterministicBundleSHA256: "937519f41c9c94872c059a3c901ca36a4983989576efa45e271c274fe9a4de56"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

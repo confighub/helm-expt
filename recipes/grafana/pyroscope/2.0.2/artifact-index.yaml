@@ -76,7 +76,7 @@ spec:
     publicationReceipt: "runs/installer-oci/grafana-pyroscope/2.0.2/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/pyroscope/2.0.2/installer.yaml"
     receipt: "recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04"
+    deterministicBundleSHA256: "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

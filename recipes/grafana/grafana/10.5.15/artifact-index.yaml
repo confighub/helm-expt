@@ -72,7 +72,7 @@ spec:
     publicationReceipt: "runs/installer-oci/grafana-grafana/10.5.15/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"
     receipt: "recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed"
+    deterministicBundleSHA256: "908c5613852aced2593ada3664b563e352107f59307dfa4896cd1ffef9b7f2f8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

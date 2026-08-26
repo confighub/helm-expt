@@ -1,0 +1,302 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "fairwinds-stable-vpa-4-11-0-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "fairwinds-stable/vpa"
+    sourceVersion: "4.11.0"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "fairwinds-stable/vpa"
+    version: "4.11.0"
+    record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+    digest: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187"
+      record: "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "fairwinds-stable/vpa@4.11.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+          - "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+          - "recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=fairwinds-stable/vpa"
+      - "version=4.11.0"
+      - "base=no-crds"
+      - "valuesProfile=recipes/fairwinds-stable/vpa/4.11.0/effective-values-no-crds.yaml"
+      - "namespace=default"
+      - "releaseName=vpa"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+          purpose: "VPA CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "verticalpodautoscalers.autoscaling.k8s.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "verticalpodautoscalers.autoscaling.k8s.io"
+          purpose: "VPA CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "vpa-tls-secret"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "ca"
+            - "cert"
+            - "key"
+          name: "vpa-tls-secret"
+          namespace: "default"
+          purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA CRD managed outside this no-crds base"
+        -
+          id: "verticalpodautoscalers.autoscaling.k8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA CRD managed outside this no-crds base"
+        -
+          id: "default/vpa-tls-secret"
+          origin: "base"
+          type: "target-fact"
+          detail: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+            purpose: "VPA CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "verticalpodautoscalers.autoscaling.k8s.io"
+            purpose: "VPA CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+            name: "vpa-tls-secret"
+            namespace: "default"
+            purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      requirementRefs:
+        - "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+        - "verticalpodautoscalers.autoscaling.k8s.io"
+        - "default/vpa-tls-secret"
+      records:
+        - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+      - "verticalpodautoscalers.autoscaling.k8s.io"
+      - "default/vpa-tls-secret"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

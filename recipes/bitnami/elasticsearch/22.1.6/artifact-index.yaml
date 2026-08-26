@@ -74,7 +74,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-elasticsearch/22.1.6/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/elasticsearch/22.1.6/installer.yaml"
     receipt: "recipes/bitnami/elasticsearch/22.1.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+    deterministicBundleSHA256: "739593b56eb29a532a95a8242ad4803d71b5e89bee84a241a6320d3833abe0d6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

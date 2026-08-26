@@ -4,13 +4,16 @@ metadata:
   name: "fluent-fluent-bit-0-57-6"
 spec:
   chart:
-    repository: "fluent"
     name: "fluent-bit"
+    repository: "fluent"
     version: "0.57.6"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0-57-6.tgz"
+    sha256: "188ab53ef7c050936088c33366fcee866413cb670cbcf3c075a0d6b8435ebe94"
   package:
-    path: "packages/fluent/fluent-bit/0.57.6"
     name: "fluent-fluent-bit"
-    version: "0.57.6"
+    path: "packages/fluent/fluent-bit/0.57.6"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "676ea0cb1bff224a6b3531f821ac3b138b0d3c06d78b5ef2f079a2c63fb4a483"
         bytes: 306
-  deterministicBundle:
-    command: "cub installer package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0-57-6.tgz"
-    sha256: "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "cb5b7c504dfd8248e9f87a29d144dbfbea4720f2df65969ce680cd3e62241b43"
+        bytes: 8808
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "b93cc9c25558b766ed77820d1862119529c60413d07e5d369ee47fb589ab20ec"
+        bytes: 11139
+      -
+        path: "records/index.yaml"
+        sha256: "1e0a2315d77d6b4e25dbfdf272085b1072fdafbe302853372f043e35fc7cb56d"
+        bytes: 618
+    version: "0.57.6"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/fluent/fluent-bit/0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "default"

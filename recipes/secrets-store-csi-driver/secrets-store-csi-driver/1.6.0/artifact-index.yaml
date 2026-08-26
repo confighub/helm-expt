@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/secrets-store-csi-driver-secrets-store-csi-driver/1.6.0/installer-package-publication-receipt.yaml"
     installer: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/installer.yaml"
     receipt: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+    deterministicBundleSHA256: "3892b5fd4e8006c6782acb033aa701bdad5de8de9cb5949afb9839460035a070"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

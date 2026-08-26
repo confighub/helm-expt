@@ -74,7 +74,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-spark/10.0.3/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/spark/10.0.3/installer.yaml"
     receipt: "recipes/bitnami/spark/10.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353"
+    deterministicBundleSHA256: "ddbb84f0e04dddcf4d9e20b24f5b484bc66d473ab83b9d5c7aeda928a6b0ce03"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

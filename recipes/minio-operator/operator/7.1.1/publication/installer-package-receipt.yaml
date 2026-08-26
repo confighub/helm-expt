@@ -4,13 +4,16 @@ metadata:
   name: "minio-operator-operator-7-1-1"
 spec:
   chart:
-    repository: "minio-operator"
     name: "operator"
+    repository: "minio-operator"
     version: "7.1.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7-1-1.tgz"
+    sha256: "42e414423458f183ca5439c21f381726df78654fb0cc50fb321f9561eaa9e39d"
   package:
-    path: "packages/minio-operator/operator/7.1.1"
     name: "minio-operator-operator"
-    version: "7.1.1"
+    path: "packages/minio-operator/operator/7.1.1"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "20736fa57df32a5ebc7a3d092616cdb49e22882a4c6dd0ea09b3d04f201dde88"
         bytes: 322
-  deterministicBundle:
-    command: "cub installer package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7-1-1.tgz"
-    sha256: "030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "a21b6c4e67283a18eff155dee82da3e95f7f884ac5378edc18b822a8391e1b28"
+        bytes: 5364
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "4c87ea51beace43bb7592ebf8331edd461ea78d4c3ca9ec5f008d1804a00b4cc"
+        bytes: 8898
+      -
+        path: "records/index.yaml"
+        sha256: "157e2446bffd8d771775cd6c5f0b8cb1709cad8ce5d3452761d469b0697a44ca"
+        bytes: 628
+    version: "7.1.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 8
-      cubInstallObjectCountIncludingSupport: 9
-      semanticObjectMatches: "8/8"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/minio-operator/operator/7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 0
+      variant: "default"

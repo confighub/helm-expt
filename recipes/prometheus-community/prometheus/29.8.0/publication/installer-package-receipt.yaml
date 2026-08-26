@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus/29.8.0 -o <tmp>/prometheus-29.8.0.tgz"
-    sha256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
+    sha256: "cea5f78c11093398ef237bba86d39f3cf0a7e6a1f7c558e5fe10ec403d4fb32b"
   package:
     name: "prometheus"
     path: "packages/prometheus-community/prometheus/29.8.0"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "9b5a295c50132357c6f8c6420104b77aaa922c929f89f83511835116730a4495"
         bytes: 1009
+      -
+        path: "records/README.md"
+        sha256: "7329f2312cf1f595361314ea5b25d0b644317e26e684c493c27614a98cdcfc7f"
+        bytes: 1236
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "52104c8cd1e1182a228e8fc845887df508a815e97308ea77406db20cea8ea6f7"
+        bytes: 5610
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "44d31f0ff66e78156de8db950fe84a7178e89153c2581b02eb1682a6472d870e"
+        bytes: 9113
+      -
+        path: "records/index.yaml"
+        sha256: "b1fe63ff56fa4b10a46d3aa3e32dbe1ddbab0f0d84a062c8bf224fcc804ce76a"
+        bytes: 867
+      -
+        path: "records/server-only-ephemeral/helm-render-intent.yaml"
+        sha256: "bbe4d51ce5dbf1b51499e3e69c3319e3c99b0d050c54c6a3bcc298b0b2ee9803"
+        bytes: 6462
+      -
+        path: "records/server-only-ephemeral/source-and-intent.yaml"
+        sha256: "0c69b1298518269ddc59b5246e994405fe86b38237f550ea8fa0b39052dfa5cd"
+        bytes: 9472
     version: "29.8.0"
   setupChecks:
     -

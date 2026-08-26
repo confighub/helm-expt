@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14"
+spec:
+  package:
+    name: "argo-cd-argo-workflows"
+    version: "1.0.14"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "controller-default-reviewed"
+      objects: "bases/controller-default-reviewed/upstream.yaml"
+      sourceAndIntent: "records/controller-default-reviewed/source-and-intent.yaml"
+      sourceSpecificIntent: "records/controller-default-reviewed/helm-render-intent.yaml"
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "minimal-crds"
+      objects: "bases/minimal-crds/upstream.yaml"
+      sourceAndIntent: "records/minimal-crds/source-and-intent.yaml"
+      sourceSpecificIntent: "records/minimal-crds/helm-render-intent.yaml"

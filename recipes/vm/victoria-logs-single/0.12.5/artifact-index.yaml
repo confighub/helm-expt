@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/vm-victoria-logs-single/0.12.5/installer-package-publication-receipt.yaml"
     installer: "packages/vm/victoria-logs-single/0.12.5/installer.yaml"
     receipt: "recipes/vm/victoria-logs-single/0.12.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
+    deterministicBundleSHA256: "0d6ff02285ccaa7752e0aa899af42c581c6903139934b53986e03951e6f65620"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

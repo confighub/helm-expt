@@ -1,0 +1,315 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "jetstack-cert-manager-v1-21-0-default"
+  labels:
+    component: "jetstack/cert-manager"
+    chart: "jetstack/cert-manager"
+    version: "v1.21.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "jetstack/cert-manager"
+  chart:
+    name: "jetstack/cert-manager"
+    version: "v1.21.0"
+    sourceRepository: "https://charts.jetstack.io"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/jetstack/cert-manager/v1.21.0"
+    variant: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+    revision: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/cert-manager/v1.21.0/bases/default"
+    sourceLock: "recipes/jetstack/cert-manager/v1.21.0/source-lock.yaml"
+    namespace: "cert-manager"
+    releaseName: "cert-manager"
+    valuesProfile: "recipes/jetstack/cert-manager/v1.21.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/cert-manager/v1.21.0/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "challenges.acme.cert-manager.io"
+          purpose: "cert-manager CRD staged before the default chart and its startup API check"
+          sourceVariant: "crds-enabled"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "orders.acme.cert-manager.io"
+          purpose: "cert-manager CRD staged before the default chart and its startup API check"
+          sourceVariant: "crds-enabled"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certificaterequests.cert-manager.io"
+          purpose: "cert-manager CRD staged before the default chart and its startup API check"
+          sourceVariant: "crds-enabled"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certificates.cert-manager.io"
+          purpose: "cert-manager CRD staged before the default chart and its startup API check"
+          sourceVariant: "crds-enabled"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterissuers.cert-manager.io"
+          purpose: "cert-manager CRD staged before the default chart and its startup API check"
+          sourceVariant: "crds-enabled"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "issuers.cert-manager.io"
+          purpose: "cert-manager CRD staged before the default chart and its startup API check"
+          sourceVariant: "crds-enabled"
+    requirements:
+      -
+        category: "crd"
+        name: "challenges.acme.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD staged before the default chart and its startup API check"
+        check: ""
+        declarationPath: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        sourceVariant: "crds-enabled"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "orders.acme.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD staged before the default chart and its startup API check"
+        check: ""
+        declarationPath: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        sourceVariant: "crds-enabled"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "certificaterequests.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD staged before the default chart and its startup API check"
+        check: ""
+        declarationPath: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        sourceVariant: "crds-enabled"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "certificates.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD staged before the default chart and its startup API check"
+        check: ""
+        declarationPath: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        sourceVariant: "crds-enabled"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "clusterissuers.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD staged before the default chart and its startup API check"
+        check: ""
+        declarationPath: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        sourceVariant: "crds-enabled"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "issuers.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager CRD staged before the default chart and its startup API check"
+        check: ""
+        declarationPath: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        sourceVariant: "crds-enabled"
+        sourcePath: ""
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "6 target prerequisites declared by this base."
+      declarationSource: "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/jetstack/cert-manager/v1.21.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 6
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager/v1.21.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.21.0/bases/default"
+    fullModelPath:
+      - "chart/version: jetstack/cert-manager@v1.21.0"
+      - "recipe: recipes/jetstack/cert-manager/v1.21.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
+      - "rendered revision: recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/jetstack/cert-manager/v1.21.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

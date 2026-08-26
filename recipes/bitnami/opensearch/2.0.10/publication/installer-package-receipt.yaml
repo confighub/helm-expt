@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2.0.10.tgz"
-    sha256: "b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8"
+    sha256: "61ce70f2ff413db2f8fa1742e50025e80f78906cd6592e2db1da1ec4d1794db3"
   package:
     name: "bitnami-opensearch"
     path: "packages/bitnami/opensearch/2.0.10"
@@ -47,6 +47,38 @@ spec:
         path: "installer.yaml"
         sha256: "e05007e1b5c55d047437f1717766b7434d52d8f2b3330be76a1a81c639420181"
         bytes: 654
+      -
+        path: "records/README.md"
+        sha256: "ac5bca60f537923bbbd9639908074307dbacc4c9f9f38b4453a264cd6083af02"
+        bytes: 1339
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "5ea60b4e5e91fa74b11b35a3711149bb5c706f566012375918e58fb038857957"
+        bytes: 5280
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "0c06848f4ab5c5ffe655ac21416641ee82c92a9d3616dcbf8ea16c412bc36776"
+        bytes: 8788
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "f48a681935bf3bd525a193b3545f1f8472cb72c0041be33a958694a141f6aa36"
+        bytes: 5209
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "93bbff5386d48ffba315fa6fd46d4ab84331f61c9c11304e392c6480519adf57"
+        bytes: 8531
+      -
+        path: "records/index.yaml"
+        sha256: "d66c9e015d26ab13e675ac79e466c4c158af0504275566021dba504734548e1f"
+        bytes: 1010
+      -
+        path: "records/legacy/helm-render-intent.yaml"
+        sha256: "447cbd0caf6bc4cdaeb3d056cbe25da4b7289707e0a25d05aacf57e96ca57096"
+        bytes: 5268
+      -
+        path: "records/legacy/source-and-intent.yaml"
+        sha256: "d62223066ba3003bfc8b0fe9cf373bd2fe333b5c3744c1c26891307ef847b2ae"
+        bytes: 8626
     version: "2.0.10"
   setupChecks:
     -
@@ -70,12 +102,12 @@ spec:
       separatedSecretCount: 0
       variant: "ha"
     -
-      base: "legacy"
-      variant: "legacy"
-      command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base legacy --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 18
-      cubInstallObjectCountIncludingSupport: 19
-      semanticObjectMatches: "18/18"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "legacy"
+      command: "cub installer setup --pull packages/bitnami/opensearch/2.0.10 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      variant: "legacy"

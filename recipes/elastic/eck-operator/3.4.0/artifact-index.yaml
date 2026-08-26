@@ -76,7 +76,7 @@ spec:
     publicationReceipt: "runs/installer-oci/elastic-eck-operator/3.4.0/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/eck-operator/3.4.0/installer.yaml"
     receipt: "recipes/elastic/eck-operator/3.4.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
+    deterministicBundleSHA256: "8ee3a3e6d5ac7667b263783ac1de2b9922c929afb4d9caf4d314973f58b6d7d7"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

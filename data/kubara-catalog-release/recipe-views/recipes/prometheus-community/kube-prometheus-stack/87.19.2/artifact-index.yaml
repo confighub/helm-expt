@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/87.19.2/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/kube-prometheus-stack/87.19.2/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7f2c47213f1df203c3b5996d28d15a90f38125c31cc9dcf21f49c0483fe57291"
+    deterministicBundleSHA256: "677058d72313c3c124a4eea80a280d5a1f63145d09079f6f3a8565c9d9c33ca4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

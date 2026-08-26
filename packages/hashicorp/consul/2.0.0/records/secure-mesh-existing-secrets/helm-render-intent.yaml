@@ -1,0 +1,258 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "hashicorp-consul-2-0-0-secure-mesh-existing-secrets"
+  labels:
+    component: "hashicorp/consul"
+    chart: "hashicorp/consul"
+    version: "2.0.0"
+    base: "secure-mesh-existing-secrets"
+    catalogLayer: "F2b"
+spec:
+  component: "hashicorp/consul"
+  chart:
+    name: "hashicorp/consul"
+    version: "2.0.0"
+    sourceRepository: "https://helm.releases.hashicorp.com"
+    sourceContent: ""
+  baseVariant: "secure-mesh-existing-secrets"
+  renderInputs:
+    recipe: "recipes/hashicorp/consul/2.0.0"
+    variant: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+    revision: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
+    packageBase: "packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets"
+    sourceLock: "recipes/hashicorp/consul/2.0.0/source-lock.yaml"
+    namespace: "consul"
+    releaseName: "consul"
+    valuesProfile: "recipes/hashicorp/consul/2.0.0/effective-values-secure-mesh-existing-secrets.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/object-inventory.yaml"
+    revision: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
+    packageBase: "packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "no"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredSecrets:
+        -
+          keys:
+            - "tls.crt"
+          name: "consul-ca-cert"
+          namespace: "consul"
+          purpose: "Consul TLS CA certificate; must sign consul-server-cert"
+        -
+          caSecretName: "consul-ca-cert"
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "consul-server-cert"
+          namespace: "consul"
+          purpose: "Consul server TLS certificate and private key; certificate SANs must cover server.dc1.consul and rendered consul-consul-server service DNS names"
+          requiredDNSNames:
+            - "server.dc1.consul"
+            - "consul-consul-server"
+            - "consul-consul-server.consul"
+            - "consul-consul-server.consul.svc"
+            - "consul-consul-server.consul-helm"
+            - "consul-consul-server.consul-helm.svc"
+            - "consul-consul-server.consul-apply"
+            - "consul-consul-server.consul-apply.svc"
+            - "consul-consul-server.consul-oci"
+            - "consul-consul-server.consul-oci.svc"
+        -
+          keys:
+            - "key"
+          name: "consul-gossip-encryption-key"
+          namespace: "consul"
+          purpose: "Consul gossip encryption key"
+        -
+          keys:
+            - "token"
+          name: "consul-bootstrap-acl-token"
+          namespace: "consul"
+          purpose: "Consul ACL bootstrap token"
+      requiredTopology:
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+        minimumSchedulableNodes: 3
+        purpose: "Consul secure mesh renders three server replicas with anti-affinity and gateway workloads."
+    requirements:
+      -
+        category: "secret"
+        name: "consul/consul-ca-cert"
+        namespace: "consul"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Consul TLS CA certificate; must sign consul-server-cert"
+        check: ""
+        declarationPath: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+      -
+        category: "secret"
+        name: "consul/consul-server-cert"
+        namespace: "consul"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Consul server TLS certificate and private key; certificate SANs must cover server.dc1.consul and rendered consul-consul-server service DNS names"
+        check: ""
+        declarationPath: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+      -
+        category: "secret"
+        name: "consul/consul-gossip-encryption-key"
+        namespace: "consul"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Consul gossip encryption key"
+        check: ""
+        declarationPath: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+      -
+        category: "secret"
+        name: "consul/consul-bootstrap-acl-token"
+        namespace: "consul"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Consul ACL bootstrap token"
+        check: ""
+        declarationPath: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+      -
+        category: "topology"
+        name: "target topology"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Consul secure mesh renders three server replicas with anti-affinity and gateway workloads."
+        check: ""
+        declarationPath: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+        evidence:
+          - "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "5 target prerequisites declared by this base."
+      declarationSource: "recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/hashicorp/consul/2.0.0/effective-values-secure-mesh-existing-secrets.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 5
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/hashicorp/consul/2.0.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets"
+    fullModelPath:
+      - "chart/version: hashicorp/consul@2.0.0"
+      - "recipe: recipes/hashicorp/consul/2.0.0"
+      - "base variant: secure-mesh-existing-secrets"
+      - "render intent: data/helm-render-intents/intents/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml"
+      - "rendered revision: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
+      - "package base: packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/fairwinds-stable-vpa/4.11.0/installer-package-publication-receipt.yaml"
     installer: "packages/fairwinds-stable/vpa/4.11.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
+    deterministicBundleSHA256: "ee06d167d2d000dcace5c8a03bd368a849f20796704a9ad6fdcb23f5ffec9704"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

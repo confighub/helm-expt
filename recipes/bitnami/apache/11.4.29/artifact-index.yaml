@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-apache/11.4.29/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/apache/11.4.29/installer.yaml"
     receipt: "recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
+    deterministicBundleSHA256: "dcc0403c6e61dc1ec806220ef3ea70329014eb56276f1d173c46800f4f332dd8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

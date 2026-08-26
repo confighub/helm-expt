@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/metricbeat/8.5.1 -o <tmp>/elastic-metricbeat-8-5-1.tgz"
-    sha256: "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+    sha256: "296578528bea356c6b3892038deb3b631d1870b0b25c89ad68deeca580879e88"
   package:
     name: "elastic-metricbeat"
     path: "packages/elastic/metricbeat/8.5.1"
@@ -35,6 +35,22 @@ spec:
         path: "installer.yaml"
         sha256: "9e5bc754fb21c7241ee0c13677228f26528c3ccaa65ed1e12f575b0afc5bea62"
         bytes: 1113
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "6c8962583d0ef832c0b85061f634cd08825209433da7356bc6628e7d8d98d27a"
+        bytes: 10607
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "c4561ce72d43f123a2e1ab786d8ee4dacf02d1c59b8ca9192a89b30d42075c8a"
+        bytes: 12998
+      -
+        path: "records/index.yaml"
+        sha256: "eb3245f349b1d889d815c668c2df59db5fcf6e8ce128a5135a6ebc2f85f10dcf"
+        bytes: 618
     version: "8.5.1"
   setupChecks:
     -

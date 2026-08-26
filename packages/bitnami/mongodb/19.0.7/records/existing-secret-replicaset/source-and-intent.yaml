@@ -1,0 +1,225 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-mongodb-19-0-7-existing-secret-replicaset"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/mongodb"
+    sourceVersion: "19.0.7"
+    base: "existing-secret-replicaset"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/mongodb"
+    version: "19.0.7"
+    record: "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+    selection:
+      name: "existing-secret-replicaset"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+  baseVariant:
+    name: "existing-secret-replicaset"
+    revision: "r001"
+    digest: "e6bb1a9cd5f8cd648c1de31cf90274158f56b1d10d4c1c737f41a0009b50b58f"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml"
+    objectCount: 10
+    digest: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+      record: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "bitnami/mongodb@19.0.7/existing-secret-replicaset; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+          - "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
+          - "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+          - "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/mongodb"
+      - "version=19.0.7"
+      - "base=existing-secret-replicaset"
+      - "valuesProfile=recipes/bitnami/mongodb/19.0.7/effective-values-existing-secret-replicaset.yaml"
+      - "namespace=mongodb"
+      - "releaseName=mongodb"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "mongodb-auth"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "mongodb-root-password"
+            - "mongodb-replica-set-key"
+          name: "mongodb-auth"
+          namespace: "mongodb"
+          purpose: "MongoDB root password and MongoDB-valid replica-set key"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "mongodb/mongodb-auth"
+          origin: "base"
+          type: "target-fact"
+          detail: "MongoDB root password and MongoDB-valid replica-set key"
+      records:
+        - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredSecrets:
+          -
+            keys:
+              - "mongodb-root-password"
+              - "mongodb-replica-set-key"
+            name: "mongodb-auth"
+            namespace: "mongodb"
+            purpose: "MongoDB root password and MongoDB-valid replica-set key"
+      requirementRefs:
+        - "mongodb/mongodb-auth"
+      records:
+        - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "mongodb/mongodb-auth"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "todo"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

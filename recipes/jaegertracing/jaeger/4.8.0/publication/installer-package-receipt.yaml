@@ -4,13 +4,16 @@ metadata:
   name: "jaegertracing-jaeger-4-8-0"
 spec:
   chart:
-    repository: "jaegertracing"
     name: "jaeger"
+    repository: "jaegertracing"
     version: "4.8.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/jaegertracing/jaeger/4.8.0 -o <tmp>/jaegertracing-jaeger-4-8-0.tgz"
+    sha256: "14533b519f5a269cd30c8cd5432d05517920fdb1d9c9eb92caf7ef0f912d510b"
   package:
-    path: "packages/jaegertracing/jaeger/4.8.0"
     name: "jaegertracing-jaeger"
-    version: "4.8.0"
+    path: "packages/jaegertracing/jaeger/4.8.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "cbb227533453d98a3f96e827933ef61bc4595a5992156805cbb0e981743df017"
         bytes: 313
-  deterministicBundle:
-    command: "cub installer package packages/jaegertracing/jaeger/4.8.0 -o <tmp>/jaegertracing-jaeger-4-8-0.tgz"
-    sha256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "16ea302f486314958682cc03401d2d1778840a01ed8a1c6dc2a7901da6a3a474"
+        bytes: 5309
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "33419ce12b3097847ec27dee316c6d63346dc1b11f0b2f9a1153746a3be3ed2d"
+        bytes: 8728
+      -
+        path: "records/index.yaml"
+        sha256: "ec70c56c6e85590d689f50ed6e42456e3f8fdb68f058f45dc5e90c3245d5ed9f"
+        bytes: 622
+    version: "4.8.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/jaegertracing/jaeger/4.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 3
-      cubInstallObjectCountIncludingSupport: 4
-      semanticObjectMatches: "3/3"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/jaegertracing/jaeger/4.8.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 4
+      helmReleaseObjectCount: 3
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      variant: "default"

@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/jetstack-trust-manager/v0.22.1/installer-package-publication-receipt.yaml"
     installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
     receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b"
+    deterministicBundleSHA256: "31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/percona-pg-operator/3.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/percona/pg-operator/3.0.0/installer.yaml"
     receipt: "recipes/percona/pg-operator/3.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5"
+    deterministicBundleSHA256: "1e9214109699c1dfaf42d4ba72ab5fac1a5c883e8715f9f635bf624387fff162"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

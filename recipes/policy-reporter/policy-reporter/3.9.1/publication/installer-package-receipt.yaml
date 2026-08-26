@@ -10,27 +10,43 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/policy-reporter/policy-reporter/3.9.1 -o <tmp>/policy-reporter-3.9.1.tgz"
-    sha256: "40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6"
+    sha256: "315d06c4da6f2e70ab0e1aab68d97a2cb0cb4ef37035bc28eb96a73bdc797ce2"
   package:
     name: "policy-reporter-policy-reporter"
     path: "packages/policy-reporter/policy-reporter/3.9.1"
     sourceFiles:
       -
-        bytes: 411
         path: "README.md"
         sha256: "8989eafa9b80cd741d7256f816ed8283c8ddebfb88b2eaccb85fcb78e8ebc463"
+        bytes: 411
       -
-        bytes: 99
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
       -
-        bytes: 13689
         path: "bases/default/upstream.yaml"
         sha256: "95d0f5f27c2ca4df172b45db2a8f60d2c86c43801984c62ee032fca725bf1abf"
+        bytes: 13689
       -
-        bytes: 337
         path: "installer.yaml"
         sha256: "f2113ca764cb9234732fc7207077349eb4411eea8958bc2c86f150871c6ea7a5"
+        bytes: 337
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "e5cfbe51b277ae8251214a947f4dcbe5f2032a46f9e96f5c5901b609882252f1"
+        bytes: 5610
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "2d2555255a8628ade8e10adb433ce2565ccf43b86de5a19de7437f6fde00f57e"
+        bytes: 9119
+      -
+        path: "records/index.yaml"
+        sha256: "5d408a656246bf749945c6d53805362a398f96b1b21c2e0958250b39b9fc528e"
+        bytes: 644
     version: "3.9.1"
   setupChecks:
     -

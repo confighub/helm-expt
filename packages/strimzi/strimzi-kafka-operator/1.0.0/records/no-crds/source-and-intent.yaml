@@ -1,0 +1,550 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1-0-0-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "strimzi/strimzi-kafka-operator"
+    sourceVersion: "1.0.0"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "strimzi/strimzi-kafka-operator"
+    version: "1.0.0"
+    record: "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+    digest: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+      record: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "strimzi/strimzi-kafka-operator@1.0.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+          - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+          - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=strimzi/strimzi-kafka-operator"
+      - "version=1.0.0"
+      - "base=no-crds"
+      - "valuesProfile=recipes/strimzi/strimzi-kafka-operator/1.0.0/effective-values-no-crds.yaml"
+      - "namespace=default"
+      - "releaseName=strimzi-kafka-operator"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "kafkas.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkas.kafka.strimzi.io"
+          purpose: "Kafka CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkaconnects.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkaconnects.kafka.strimzi.io"
+          purpose: "KafkaConnect CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "strimzipodsets.core.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "strimzipodsets.core.strimzi.io"
+          purpose: "StrimziPodSet CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkatopics.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkatopics.kafka.strimzi.io"
+          purpose: "KafkaTopic CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkausers.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkausers.kafka.strimzi.io"
+          purpose: "KafkaUser CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkanodepools.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkanodepools.kafka.strimzi.io"
+          purpose: "KafkaNodePool CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkabridges.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkabridges.kafka.strimzi.io"
+          purpose: "KafkaBridge CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkaconnectors.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkaconnectors.kafka.strimzi.io"
+          purpose: "KafkaConnector CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkamirrormaker2s.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkamirrormaker2s.kafka.strimzi.io"
+          purpose: "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "kafkarebalances.kafka.strimzi.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "kafkarebalances.kafka.strimzi.io"
+          purpose: "KafkaRebalance CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "kafkas.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kafka CRD managed outside this no-crds preset"
+        -
+          id: "kafkaconnects.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaConnect CRD managed outside this no-crds preset"
+        -
+          id: "strimzipodsets.core.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "StrimziPodSet CRD managed outside this no-crds preset"
+        -
+          id: "kafkatopics.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaTopic CRD managed outside this no-crds preset"
+        -
+          id: "kafkausers.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaUser CRD managed outside this no-crds preset"
+        -
+          id: "kafkanodepools.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaNodePool CRD managed outside this no-crds preset"
+        -
+          id: "kafkabridges.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaBridge CRD managed outside this no-crds preset"
+        -
+          id: "kafkaconnectors.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaConnector CRD managed outside this no-crds preset"
+        -
+          id: "kafkamirrormaker2s.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
+        -
+          id: "kafkarebalances.kafka.strimzi.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "KafkaRebalance CRD managed outside this no-crds preset"
+      records:
+        - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkas.kafka.strimzi.io"
+            purpose: "Kafka CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkaconnects.kafka.strimzi.io"
+            purpose: "KafkaConnect CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "strimzipodsets.core.strimzi.io"
+            purpose: "StrimziPodSet CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkatopics.kafka.strimzi.io"
+            purpose: "KafkaTopic CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkausers.kafka.strimzi.io"
+            purpose: "KafkaUser CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkanodepools.kafka.strimzi.io"
+            purpose: "KafkaNodePool CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkabridges.kafka.strimzi.io"
+            purpose: "KafkaBridge CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkaconnectors.kafka.strimzi.io"
+            purpose: "KafkaConnector CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkamirrormaker2s.kafka.strimzi.io"
+            purpose: "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "kafkarebalances.kafka.strimzi.io"
+            purpose: "KafkaRebalance CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
+      requirementRefs:
+        - "kafkas.kafka.strimzi.io"
+        - "kafkaconnects.kafka.strimzi.io"
+        - "strimzipodsets.core.strimzi.io"
+        - "kafkatopics.kafka.strimzi.io"
+        - "kafkausers.kafka.strimzi.io"
+        - "kafkanodepools.kafka.strimzi.io"
+        - "kafkabridges.kafka.strimzi.io"
+        - "kafkaconnectors.kafka.strimzi.io"
+        - "kafkamirrormaker2s.kafka.strimzi.io"
+        - "kafkarebalances.kafka.strimzi.io"
+      records:
+        - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "kafkas.kafka.strimzi.io"
+      - "kafkaconnects.kafka.strimzi.io"
+      - "strimzipodsets.core.strimzi.io"
+      - "kafkatopics.kafka.strimzi.io"
+      - "kafkausers.kafka.strimzi.io"
+      - "kafkanodepools.kafka.strimzi.io"
+      - "kafkabridges.kafka.strimzi.io"
+      - "kafkaconnectors.kafka.strimzi.io"
+      - "kafkamirrormaker2s.kafka.strimzi.io"
+      - "kafkarebalances.kafka.strimzi.io"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

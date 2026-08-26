@@ -65,7 +65,7 @@ spec:
     publicationReceipt: "runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml"
     installer: "packages/oauth2-proxy/oauth2-proxy/10.7.0/installer.yaml"
     receipt: "recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65"
+    deterministicBundleSHA256: "78e1103192420ba0e537ad5da4ab7a173b41bf081555668a4d5b52df5da24747"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

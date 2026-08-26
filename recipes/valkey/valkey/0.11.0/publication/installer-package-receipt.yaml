@@ -4,13 +4,16 @@ metadata:
   name: "valkey-valkey-0-11-0"
 spec:
   chart:
-    repository: "valkey"
     name: "valkey"
+    repository: "valkey"
     version: "0.11.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/valkey/valkey/0.11.0 -o <tmp>/valkey-valkey-0-11-0.tgz"
+    sha256: "4d297f630eec58d0e61d375e6b015f3f8266a80952db588ad40cb6143ae64a20"
   package:
-    path: "packages/valkey/valkey/0.11.0"
     name: "valkey-valkey"
-    version: "0.11.0"
+    path: "packages/valkey/valkey/0.11.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "c14196fb627f4b90bdb6dda493c2fa2a9e1698a266b8d255a2369a6e6bc671c1"
         bytes: 294
-  deterministicBundle:
-    command: "cub installer package packages/valkey/valkey/0.11.0 -o <tmp>/valkey-valkey-0-11-0.tgz"
-    sha256: "1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "0e381b7174993186e170ba49d42707526c3824842f11dd6130a2f1ac4f7cb038"
+        bytes: 5172
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "32bbbc73f52a02003b5df1c6eceef3097ddbf0e6216fb3260a947ba45ec8ef2a"
+        bytes: 8607
+      -
+        path: "records/index.yaml"
+        sha256: "22a0b321276c0de66592d14c6f94fee005a5faaad6dc4ffc3c4cc960fced1178"
+        bytes: 610
+    version: "0.11.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/valkey/valkey/0.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 4
-      cubInstallObjectCountIncludingSupport: 5
-      semanticObjectMatches: "4/4"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/valkey/valkey/0.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      variant: "default"

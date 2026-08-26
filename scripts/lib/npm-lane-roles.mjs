@@ -30,6 +30,18 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes for all retained installer packages; installer-oci:catalog:verify checks the generated files while this lane exercises the refusal rules",
   },
+  "installer-package-companions:verify": {
+    proves: "Every installer package carries one non-deployable source-and-intent record and one Helm render-intent record for each packaged base, and the recipe receipt lists the complete package tree.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes for 245 bases in 139 packages; the focused lane checks generated records and their package-receipt inventory together",
+  },
+  "installer-package-companions:self-test": {
+    proves: "Generated package records are marked non-deployable and omit the package's own OCI digest, avoiding a circular content hash.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; this focused negative check protects the companion-record package format",
+  },
   "installer-oci:commands:verify": {
     proves: "Maintained docs, Catalog records, public pages, and generated scripts use immutable digest-pinned refs for published cub installer setup and inspect commands.",
     requires: "offline",

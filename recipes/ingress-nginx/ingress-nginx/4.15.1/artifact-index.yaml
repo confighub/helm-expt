@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/ingress-nginx-ingress-nginx/4.15.1/installer-package-publication-receipt.yaml"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"
     receipt: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
+    deterministicBundleSHA256: "ab2383b5b37c77daa3a392f75f0507445ce1fdb14e950c678f96ff7eece52e3b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

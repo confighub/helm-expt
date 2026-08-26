@@ -67,7 +67,7 @@ spec:
     publicationReceipt: "runs/installer-oci/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner/4.0.18/installer-package-publication-receipt.yaml"
     installer: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/installer.yaml"
     receipt: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
+    deterministicBundleSHA256: "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

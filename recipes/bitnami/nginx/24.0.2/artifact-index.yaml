@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"
     receipt: "recipes/bitnami/nginx/24.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d"
+    deterministicBundleSHA256: "f9fc996284b255e3f095675a242d17c34da94d3c5b53077475d273848e4c75be"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

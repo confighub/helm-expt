@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/falcosecurity-falcosidekick/0.13.1/installer-package-publication-receipt.yaml"
     installer: "packages/falcosecurity/falcosidekick/0.13.1/installer.yaml"
     receipt: "recipes/falcosecurity/falcosidekick/0.13.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047"
+    deterministicBundleSHA256: "d64e056afe682d4e3118e634e574f9289a7a6e694d725617432cb0b29c92017d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/elastic-logstash/8.5.1/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/logstash/8.5.1/installer.yaml"
     receipt: "recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3"
+    deterministicBundleSHA256: "fee1ba4a39237f729ea68860d332d2fea6a14cb64f74d9e2ae000a6f6c7cb81b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

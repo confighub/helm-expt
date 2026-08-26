@@ -4,13 +4,16 @@ metadata:
   name: "aws-controllers-k8s-eks-chart-1.16.3"
 spec:
   chart:
-    repository: "aws-controllers-k8s"
     name: "eks-chart"
+    repository: "aws-controllers-k8s"
     version: "1.16.3"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/aws-controllers-k8s/eks-chart/1.16.3 -o <tmp>/ack-eks-1.16.3.tgz"
+    sha256: "332d54c1bdb800e679e430b086ca87dc811920ad0f009d35793d17e6af5f9c32"
   package:
-    path: "packages/aws-controllers-k8s/eks-chart/1.16.3"
     name: "aws-controllers-k8s-eks-chart"
-    version: "1.16.3"
+    path: "packages/aws-controllers-k8s/eks-chart/1.16.3"
     sourceFiles:
       -
         path: "README.md"
@@ -40,32 +43,53 @@ spec:
         path: "installer.yaml"
         sha256: "1ea181e059814bceb186f2c26f3270aeb2cab68d508af535f3349687e76ab8cf"
         bytes: 2213
-  deterministicBundle:
-    command: "cub installer package packages/aws-controllers-k8s/eks-chart/1.16.3 -o <tmp>/ack-eks-1.16.3.tgz"
-    sha256: "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "fb10a1acdcea866f3282f740b54c99ae95a7a302c43cb71d7805fec020eaa945"
+        bytes: 1204
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "a5aba7aae97c5578d167db82d85b0d4c583b40923cefafb327adcb6c8e357ba6"
+        bytes: 5584
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "6fc87f36577bbc11e0f5e71c6d1613501b56755ba4334d88629f178c2e57a3b2"
+        bytes: 9106
+      -
+        path: "records/eks-inference/helm-render-intent.yaml"
+        sha256: "a1d8d6a058991fb073c70a9e8fb0a2f74d6cd844ff25da5aa92057cb834030a1"
+        bytes: 7296
+      -
+        path: "records/eks-inference/source-and-intent.yaml"
+        sha256: "02b6eea26c53d0fbf4cdc21627ee2b9069bbd0a9ed1936d0084b6ada0deb182f"
+        bytes: 10984
+      -
+        path: "records/index.yaml"
+        sha256: "12843395f6e3f7ab35bbfd87eab02513dc180e2f9088770c4e73c15929788705"
+        bytes: 873
+    version: "1.16.3"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ack-system"
       base: "default"
       command: "cub installer setup --pull packages/aws-controllers-k8s/eks-chart/1.16.3 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
-      helmReleaseObjectCount: 20
       cubInstallObjectCountIncludingSupport: 21
+      helmReleaseObjectCount: 20
       semanticObjectMatches: "20/20"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||ack-system"
-    -
-      variant: "eks-inference"
       base: "eks-inference"
       command: "cub installer setup --pull packages/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
-      helmReleaseObjectCount: 20
       cubInstallObjectCountIncludingSupport: 21
+      helmReleaseObjectCount: 20
       semanticObjectMatches: "20/20"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||ack-system"
+      variant: "eks-inference"

@@ -4,13 +4,16 @@ metadata:
   name: "descheduler-descheduler-0-36-0"
 spec:
   chart:
-    repository: "descheduler"
     name: "descheduler"
+    repository: "descheduler"
     version: "0.36.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0-36-0.tgz"
+    sha256: "9444ab166cc92af45cafd8508b3014d924f521d2cf040b59cfe6654608e37145"
   package:
-    path: "packages/descheduler/descheduler/0.36.0"
     name: "descheduler-descheduler"
-    version: "0.36.0"
+    path: "packages/descheduler/descheduler/0.36.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "6b60942f4b287d035bc5045689237911bba1c79ac3a671aa33c7f093680b98ef"
         bytes: 324
-  deterministicBundle:
-    command: "cub installer package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0-36-0.tgz"
-    sha256: "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "3f159b53f59751939f2c977d801d71416c5f9e02c59cfdd149f1d1f1a6a73ed6"
+        bytes: 5411
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "132fd74accd6fbc5d02e3d9e387968b7ed4e7a74694477933965d730e4affb41"
+        bytes: 8909
+      -
+        path: "records/index.yaml"
+        sha256: "0e6c45a7260700a14d32262ec20918c794ba7395439592c6398ec45c4813630d"
+        bytes: 630
+    version: "0.36.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/descheduler/descheduler/0.36.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 5
-      cubInstallObjectCountIncludingSupport: 6
-      semanticObjectMatches: "5/5"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/descheduler/descheduler/0.36.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "default"

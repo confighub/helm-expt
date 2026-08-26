@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
-    sha256: "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+    sha256: "97c926dc35310ac403385b942b1afe669aac7435d10a3d66489e20db4114010b"
   package:
     name: "kedacore-keda"
     path: "packages/kedacore/keda/2.19.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "08adf90416ec3b7b6ce5c8f805ada41c36e7b57c8d37bc0321a5d897e3fcdf6a"
         bytes: 686811
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "409f2b9d3ffaa3ae076116c1b51d00e90050c39600b1074d380d1470c1a74138"
+        bytes: 5152
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "78c71ffd70e02f2bb196281cf6b1fc35162f196ce26a9ef39cc8c144e6209853"
+        bytes: 8584
+      -
+        path: "records/index.yaml"
+        sha256: "d675235ea63608346ad033591bdbc4cdc2727ed9bc44f715a00dac2dcbf071c8"
+        bytes: 817
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "1789ff315be435754476a5472cde8c4c8a70376877b900a09652b75dc3af3319"
+        bytes: 17510
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "16707d7447cf04b0ed96cb5549070e6777cac65827d1cbafc75eab7ca50de7f3"
+        bytes: 20353
     version: "2.19.0"
   setupChecks:
     -

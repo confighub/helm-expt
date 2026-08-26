@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867"
+    sha256: "e5665720a6163db17af42621f41d4c5268919ea45216902c56e6487d0d16bd0b"
   package:
     name: "bitnami-mysql"
     path: "packages/bitnami/mysql/14.0.3"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "37600a6ee72f0f84ecbeb719544896d45bcd00122310718e0697bd133b00f391"
         bytes: 3455
+      -
+        path: "records/README.md"
+        sha256: "ffec6d5ec643c956c82c7b5636ec5043a3ee8c7888ecc766f6aaa5b0ec83c1ff"
+        bytes: 1248
+      -
+        path: "records/existing-secret/helm-render-intent.yaml"
+        sha256: "64a5ddcefb5579cb12d2ba8e2363d7668ddc7dc07d4a0b376fe1f373024c19d3"
+        bytes: 5955
+      -
+        path: "records/existing-secret/source-and-intent.yaml"
+        sha256: "8099569de53925cd609b7d362ccecb151262056e4c6be0118e00ad0c4f8070a2"
+        bytes: 9717
+      -
+        path: "records/index.yaml"
+        sha256: "9b6d6d98763e92ac3c3e7f39e2c35e501031c6781bf9bf7dac440a281e6225ae"
+        bytes: 885
+      -
+        path: "records/static-passwords/helm-render-intent.yaml"
+        sha256: "9e1b0de681f914e5a85a1b14e98ee04ae2a4404619386654eec683540d84d238"
+        bytes: 5775
+      -
+        path: "records/static-passwords/source-and-intent.yaml"
+        sha256: "f35a6bbed629416754ccc044dd5b4f1fc475d9b387f0bcade03e8f8caa7e85de"
+        bytes: 8898
     version: "14.0.3"
   setupChecks:
     -

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0.49.0.tgz"
-    sha256: "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad"
+    sha256: "43ffc7bc9029b5164705301253def0a2f6d61ca3a22b4d975ca1fbb472c8d556"
   package:
     name: "grafana-rollout-operator"
     path: "packages/grafana/rollout-operator/0.49.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "62142ff2b76378977e9369a07cc0746da5596e57804dce00610d7f3f2810f3a4"
         bytes: 3985
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "a6aba3fe7930d6c75e0a9837683e3b860571032158564505fa59f680c18fd4fd"
+        bytes: 5431
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "b30a10d80c5783f02bbf9a9e568e9d58fa38165611c22c1b2103a517e968880a"
+        bytes: 8859
+      -
+        path: "records/index.yaml"
+        sha256: "56873345c1aa677676802ff65bbbda1112175e412e7402747488ce72f850088b"
+        bytes: 839
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "5e56b7ac0786055d8ddf6e27fa7964182ba2b660adfc0915599f5f73d4960320"
+        bytes: 8686
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "f3520834bffbfc9a45b74401332f131b2a759c6c2053b7c6360e37173589a99a"
+        bytes: 12382
     version: "0.49.0"
   setupChecks:
     -

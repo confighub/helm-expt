@@ -4,17 +4,16 @@ metadata:
   name: "velero-velero-12-0-1"
 spec:
   chart:
-    repository: "velero"
     name: "velero"
+    repository: "velero"
     version: "12.0.1"
   deterministicBundle:
-    command: "cub installer package packages/velero/velero/12.0.1 -o <tmp>/velero-velero-12.0.1.tgz"
-    sha256: "4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/velero/velero/12.0.1 -o <tmp>/velero-velero-12.0.1.tgz"
+    sha256: "d7963bb5fbd7f86ab891436ce3d194f525679be68c7ea297b0d9e70d6f0cc585"
   package:
-    path: "packages/velero/velero/12.0.1"
     name: "velero-velero"
-    version: "12.0.1"
+    path: "packages/velero/velero/12.0.1"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "00e7ef87e943252f4c001dad6e7b5f27e5ada7d47ed3cadc21bc72ceb560fa63"
         bytes: 436
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "beffab4d1419f9ef1915ea5ae74a9043ff12200935ef69918686540cbcfb7899"
+        bytes: 5158
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "f07f861601a42890832408800b764f344011901685671e8d3e3cd858c9560821"
+        bytes: 8580
+      -
+        path: "records/index.yaml"
+        sha256: "1fc281f7f45434541db93dd33f1172b4f6e6ced4304b0e34b6a84a8c51793d78"
+        bytes: 817
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "aa149f0891e938d02ad6993880f0c856bcfda4cf25eb6458016aa4fa34d1c8b3"
+        bytes: 5903
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "c40b89881e5dca6edbad9127890508cb53cd9335a2cca34af008f7e6aed4531f"
+        bytes: 8523
+    version: "12.0.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 1
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/velero/velero/12.0.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/velero/velero/12.0.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 1
+      variant: "no-crds"

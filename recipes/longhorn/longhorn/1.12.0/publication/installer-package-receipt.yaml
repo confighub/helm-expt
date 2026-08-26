@@ -10,27 +10,43 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/longhorn/longhorn/1.12.0 -o <tmp>/longhorn-1.12.0.tgz"
-    sha256: "06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69"
+    sha256: "6ac18fd258b88faa5900f07cd2086440ef22122b7e05fb4f8c641328b8c69d38"
   package:
     name: "longhorn-longhorn"
     path: "packages/longhorn/longhorn/1.12.0"
     sourceFiles:
       -
-        bytes: 391
         path: "README.md"
         sha256: "33c8913ba1db1fc7671d70241857a4e20f047cc0a24ec1170a66504dae38a475"
+        bytes: 391
       -
-        bytes: 99
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
       -
-        bytes: 178668
         path: "bases/default/upstream.yaml"
         sha256: "5297ce7e4c7d1dcbae7404f2b3348efcb4c2d4e1b11a140de98c81eb99fe07c7"
+        bytes: 178668
       -
-        bytes: 304
         path: "installer.yaml"
         sha256: "bd66e6a90ef7f20062cc04a378dc56734a45377128d9291130d511a9debc13ef"
+        bytes: 304
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "195cfee41fa3d38fee29075e6dbcd1b50c7ca2eb858fd4d7d40fb8c82edb1e1f"
+        bytes: 5274
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "5f24519b967a64d17efbf2afcba9ed84dcf9e3af7ee0ebafc27a1882c62d9168"
+        bytes: 8714
+      -
+        path: "records/index.yaml"
+        sha256: "1ff4256d74a9b1703630927945553676c208fca14d090c05c1bdf5a404f28994"
+        bytes: 618
     version: "1.12.0"
   setupChecks:
     -

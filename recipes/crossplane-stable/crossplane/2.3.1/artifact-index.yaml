@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/crossplane-stable-crossplane/2.3.1/installer-package-publication-receipt.yaml"
     installer: "packages/crossplane-stable/crossplane/2.3.1/installer.yaml"
     receipt: "recipes/crossplane-stable/crossplane/2.3.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016"
+    deterministicBundleSHA256: "f2f08bc2ee357ee5f29aa6b2531d477933f842fabc7f5474a5d5bd203427427a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/zookeeper/13.8.7 -o <tmp>/bitnami-zookeeper-13.8.7.tgz"
-    sha256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+    sha256: "1cf1f35cd0998bb4f0f999611e45b1bb84b0843fa91a43e71056e3ce5d3b202c"
   package:
     name: "bitnami-zookeeper"
     path: "packages/bitnami/zookeeper/13.8.7"
@@ -47,6 +47,38 @@ spec:
         path: "installer.yaml"
         sha256: "37f8fe382496418bea572ddea5735c27cd9c1182313b2d7ec5b5c0854da732f1"
         bytes: 647
+      -
+        path: "records/README.md"
+        sha256: "ac5bca60f537923bbbd9639908074307dbacc4c9f9f38b4453a264cd6083af02"
+        bytes: 1339
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "87b619883cd1f96c83c085966dcf0aa210952407cd9710ad14a01025f29a09e9"
+        bytes: 5255
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "09e5e2670215b84a2b8b6542f4a6bfbebc3bb7bd7d0b8a6459071e72a2e70f63"
+        bytes: 8761
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "c9ba979720c03035e87bf33de788c9b738c847a08b63be5bb29d2dfd0ce987a0"
+        bytes: 5184
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "4ffbd4d8e97f1ce5761169b23ca0ee67c288d36a0c0a2f2b8ec4ea53a08dbde9"
+        bytes: 8506
+      -
+        path: "records/index.yaml"
+        sha256: "05951b038a26e6f64082b208a8039118a901aefeb8ee2a81d2b764846ddd6ddc"
+        bytes: 1008
+      -
+        path: "records/legacy/helm-render-intent.yaml"
+        sha256: "198558876a90f5d61b7de8f1a797ef6cb095423e7593cf9459361e67212b6354"
+        bytes: 5243
+      -
+        path: "records/legacy/source-and-intent.yaml"
+        sha256: "968bb611eae4f8512d317041aed1ca9258d554592e33019eaa1588e369de2072"
+        bytes: 8664
     version: "13.8.7"
   setupChecks:
     -
@@ -70,12 +102,12 @@ spec:
       separatedSecretCount: 0
       variant: "ha"
     -
-      base: "legacy"
-      variant: "legacy"
-      command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base legacy --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "legacy"
+      command: "cub installer setup --pull packages/bitnami/zookeeper/13.8.7 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "legacy"

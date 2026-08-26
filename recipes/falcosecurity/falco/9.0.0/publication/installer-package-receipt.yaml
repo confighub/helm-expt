@@ -4,13 +4,16 @@ metadata:
   name: "falcosecurity-falco-9-0-0"
 spec:
   chart:
-    repository: "falcosecurity"
     name: "falco"
+    repository: "falcosecurity"
     version: "9.0.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/falcosecurity/falco/9.0.0 -o <tmp>/falcosecurity-falco-9-0-0.tgz"
+    sha256: "90bedac12a95180bd5478b31d413fd703cb72694df1aea8ec0687be12aa3c105"
   package:
-    path: "packages/falcosecurity/falco/9.0.0"
     name: "falcosecurity-falco"
-    version: "9.0.0"
+    path: "packages/falcosecurity/falco/9.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "0fa807b165ad90f353b544ee6c3bf896b92d3eeda8d438d6f8cb69d33f6f8434"
         bytes: 310
-  deterministicBundle:
-    command: "cub installer package packages/falcosecurity/falco/9.0.0 -o <tmp>/falcosecurity-falco-9-0-0.tgz"
-    sha256: "a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "1f18a7a2b05a0da7865ffaf5e27c112429dd0d2fa2299f04b7312f7a7b71941e"
+        bytes: 5279
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "60c9d6f767329361328a77374c284231fe6a6cfe45243db19ed6fb999e628644"
+        bytes: 8703
+      -
+        path: "records/index.yaml"
+        sha256: "0b8814e145df85f5c987e5d6e1babfdbc77d9a4166e60d6a7c5dfcbbff603970"
+        bytes: 620
+    version: "9.0.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/falcosecurity/falco/9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/falcosecurity/falco/9.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "default"

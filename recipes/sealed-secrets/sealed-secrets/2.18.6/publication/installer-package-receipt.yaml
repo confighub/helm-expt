@@ -4,17 +4,16 @@ metadata:
   name: "sealed-secrets-sealed-secrets-2-18-6"
 spec:
   chart:
-    repository: "sealed-secrets"
     name: "sealed-secrets"
+    repository: "sealed-secrets"
     version: "2.18.6"
   deterministicBundle:
-    command: "cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2.18.6.tgz"
-    sha256: "a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2.18.6.tgz"
+    sha256: "d7cb5ea22d0be92a483c32180d83c50fab9e0960082bd59c5c6021363895ad7c"
   package:
-    path: "packages/sealed-secrets/sealed-secrets/2.18.6"
     name: "sealed-secrets-sealed-secrets"
-    version: "2.18.6"
+    path: "packages/sealed-secrets/sealed-secrets/2.18.6"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "f7fc6d35e3a66780d735c6f990245a1830bd6f521cb78abaa5da0026f99005f2"
         bytes: 516
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "f1d9fe42f5df4f3eb3d8005abef3148e9e87eaba22b90afee3a67f463f7ad1e8"
+        bytes: 5557
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "19e475619f5d3d7dcc6ec53fcb6a5a4555ebd5d870dce297067f017099f050c0"
+        bytes: 8977
+      -
+        path: "records/index.yaml"
+        sha256: "e3093572bf28918bccb23ab217461c33d50a66fc77c58108cbf11b73c2e1c32a"
+        bytes: 849
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "06162a76947ff741dc683a749066a3bff12b9658b41cfcb81e74da73ddfbc029"
+        bytes: 5576
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "17fcf14fd9fca5dfe47642aefd369c23974bbb81c5958e21c84750a9db2318f4"
+        bytes: 8920
+    version: "2.18.6"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/sealed-secrets/sealed-secrets/2.18.6 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      variant: "no-crds"

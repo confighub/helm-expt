@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/coredns-coredns/1.45.2/installer-package-publication-receipt.yaml"
     installer: "packages/coredns/coredns/1.45.2/installer.yaml"
     receipt: "recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
+    deterministicBundleSHA256: "2aa2a51b72cac381ebb7d9a4ce14aa120dd456f91300d0b0d29b576618a7e402"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

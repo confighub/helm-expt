@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml"
     installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
     receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+    deterministicBundleSHA256: "3d7da75a72bb991e23ee8c13c081ee06d16dd43601acd1f3aea1a280fcc40ac0"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

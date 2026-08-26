@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml"
     installer: "packages/projectcalico/tigera-operator/v3.32.0/installer.yaml"
     receipt: "recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
+    deterministicBundleSHA256: "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-node-exporter/4.55.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-node-exporter/4.55.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b"
+    deterministicBundleSHA256: "21b0cfdf50852882f924778d3d944b79777ae1088c4effd4bde86076c5673a73"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

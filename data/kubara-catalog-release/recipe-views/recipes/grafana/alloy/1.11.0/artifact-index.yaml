@@ -65,7 +65,7 @@ spec:
     publicationReceipt: "runs/installer-oci/grafana-alloy/1.11.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/alloy/1.11.0/installer.yaml"
     receipt: "recipes/grafana/alloy/1.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b"
+    deterministicBundleSHA256: "8510ac0284dff01e275ac3276d332416d438bf268f7227af5015bf396187e2bc"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

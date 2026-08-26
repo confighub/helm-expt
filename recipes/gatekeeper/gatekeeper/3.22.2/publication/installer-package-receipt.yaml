@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3.22.2.tgz"
-    sha256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
+    sha256: "8147ddab1d0e035a2eef1906e0fdb8b182ec053bc973884f24726228923a3bd8"
   package:
     name: "gatekeeper-gatekeeper"
     path: "packages/gatekeeper/gatekeeper/3.22.2"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "2c516b0b70d8347e91224ba54ccc7c19c34353e3331b7f2d98c4823d8674313c"
         bytes: 239234
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "cd4ff54160869a27436e47851f178abdb993b1bfa97e2c45ca7663d34d65663f"
+        bytes: 9562
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "89b23d1ceef25ab4b4208c7dff4189458a1a986a181302f93c760fb6ae74c30f"
+        bytes: 11554
+      -
+        path: "records/index.yaml"
+        sha256: "f57817cdd26c1f366c443622bef56224db62cdffccd46109751a605c11ad70c2"
+        bytes: 833
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "f488ce0f46c27c8c0791c21304245b78c5847302b989f804f57bd3c69cb6000a"
+        bytes: 36089
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "3b90f61c745fc8728aca02457343676ff979bb438a478a12076fda2fcd67acde"
+        bytes: 40186
     version: "3.22.2"
   setupChecks:
     -

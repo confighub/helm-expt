@@ -4,13 +4,16 @@ metadata:
   name: "grafana-loki-7.0.0"
 spec:
   chart:
-    repository: "grafana"
     name: "loki"
+    repository: "grafana"
     version: "7.0.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/loki-7.0.0.tgz"
+    sha256: "cfd134e967b04936ae22f47da6ab12aee1f7dff855bd058efe7335ac9e479f72"
   package:
-    path: "packages/grafana/loki/7.0.0"
     name: "grafana-loki"
-    version: "7.0.0"
+    path: "packages/grafana/loki/7.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -36,32 +39,53 @@ spec:
         path: "installer.yaml"
         sha256: "5b93a4e38d437cdf1f848d6a8392019848515c5b9a468640fa4ebaecaa818814"
         bytes: 510
-  deterministicBundle:
-    command: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/loki-7.0.0.tgz"
-    sha256: "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "1f419fd6cfa9cdc1194c3e178205931e6e001804f3ac5d2a8c4a75a7578db85e"
+        bytes: 1304
+      -
+        path: "records/index.yaml"
+        sha256: "a727ca4d32a42d77bf1668f4fcaeb5be615c9e48c9d1d48d2f2299d5b90f73bf"
+        bytes: 937
+      -
+        path: "records/simple-scalable-minio/helm-render-intent.yaml"
+        sha256: "80be599ee5419accca01ca1f6685a7faad39a6389e2ded63dcf4b211e17a577d"
+        bytes: 5378
+      -
+        path: "records/simple-scalable-minio/source-and-intent.yaml"
+        sha256: "3a7d4e8d6f8d45816acde224de4b6a362c356318e15836ae77a9fe0245ca5aef"
+        bytes: 8891
+      -
+        path: "records/single-binary-filesystem/helm-render-intent.yaml"
+        sha256: "30a736a620d9a2111520c27f21e30049014281fd2d4dc509567e87a146ec3f10"
+        bytes: 5864
+      -
+        path: "records/single-binary-filesystem/source-and-intent.yaml"
+        sha256: "762af5cd1a6eb89fd459e473c8baf3c703d78cefebc9151cc1b8208a6d5cd12a"
+        bytes: 9031
+    version: "7.0.0"
   setupChecks:
     -
-      variant: "single-binary-filesystem"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||loki"
       base: "single-binary-filesystem"
       command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
-      helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "single-binary-filesystem"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||loki"
-    -
-      variant: "simple-scalable-minio"
       base: "simple-scalable-minio"
       command: "cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
-      helmReleaseObjectCount: 33
       cubInstallObjectCountIncludingSupport: 34
+      helmReleaseObjectCount: 33
       semanticObjectMatches: "33/33"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
-      allowedCubOnlyObjects:
-        - "v1|Namespace||loki"
+      variant: "simple-scalable-minio"

@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/opencost-opencost/2.5.21/installer-package-publication-receipt.yaml"
     installer: "packages/opencost/opencost/2.5.21/installer.yaml"
     receipt: "recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
+    deterministicBundleSHA256: "174ec78cf025f8e9ef56468d2f90b94b876717d8bfff64674d733c0739a6d35a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

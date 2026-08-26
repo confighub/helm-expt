@@ -1,0 +1,130 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "longhorn-longhorn-1-12-0-default"
+  labels:
+    component: "longhorn/longhorn"
+    chart: "longhorn/longhorn"
+    version: "1.12.0"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "longhorn/longhorn"
+  chart:
+    name: "longhorn/longhorn"
+    version: "1.12.0"
+    sourceRepository: "https://charts.longhorn.io"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/longhorn/longhorn/1.12.0"
+    variant: "recipes/longhorn/longhorn/1.12.0/variants/default/variant.yaml"
+    revision: "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/longhorn/longhorn/1.12.0/bases/default"
+    sourceLock: "recipes/longhorn/longhorn/1.12.0/source-lock.yaml"
+    namespace: "longhorn-system"
+    releaseName: "longhorn"
+    valuesProfile: "recipes/longhorn/longhorn/1.12.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/longhorn/longhorn/1.12.0/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit empty targetFacts declaration plus targetFactsReview scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/longhorn/longhorn/1.12.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/longhorn/longhorn/1.12.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/longhorn/longhorn/1.12.0/bases/default"
+    fullModelPath:
+      - "chart/version: longhorn/longhorn@1.12.0"
+      - "recipe: recipes/longhorn/longhorn/1.12.0"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/longhorn-longhorn-1-12-0-default.yaml"
+      - "rendered revision: recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/longhorn/longhorn/1.12.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/longhorn/longhorn/1.12.0/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

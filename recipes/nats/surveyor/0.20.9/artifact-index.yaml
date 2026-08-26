@@ -68,7 +68,7 @@ spec:
     publicationReceipt: "runs/installer-oci/nats-surveyor/0.20.9/installer-package-publication-receipt.yaml"
     installer: "packages/nats/surveyor/0.20.9/installer.yaml"
     receipt: "recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
+    deterministicBundleSHA256: "5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

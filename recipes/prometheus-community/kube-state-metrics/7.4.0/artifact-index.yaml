@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/prometheus-community-kube-state-metrics/7.4.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/kube-state-metrics/7.4.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-state-metrics/7.4.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
+    deterministicBundleSHA256: "5bc67bbbfd166c62a741f1d56f70b08ffb3bb6b15429e07ec545eef1e2260399"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

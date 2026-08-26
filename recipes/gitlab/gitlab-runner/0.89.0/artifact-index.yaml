@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/gitlab-gitlab-runner/0.89.0/installer-package-publication-receipt.yaml"
     installer: "packages/gitlab/gitlab-runner/0.89.0/installer.yaml"
     receipt: "recipes/gitlab/gitlab-runner/0.89.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e"
+    deterministicBundleSHA256: "bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

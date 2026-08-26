@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  package:
+    name: "hashicorp-consul"
+    version: "2.0.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default-control-plane"
+      objects: "bases/default-control-plane/upstream.yaml"
+      sourceAndIntent: "records/default-control-plane/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default-control-plane/helm-render-intent.yaml"
+    -
+      name: "secure-mesh-existing-secrets"
+      objects: "bases/secure-mesh-existing-secrets/upstream.yaml"
+      sourceAndIntent: "records/secure-mesh-existing-secrets/source-and-intent.yaml"
+      sourceSpecificIntent: "records/secure-mesh-existing-secrets/helm-render-intent.yaml"

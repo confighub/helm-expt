@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/nginx/24.0.2 -o <tmp>/nginx-24.0.2.tgz"
-    sha256: "2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d"
+    sha256: "f9fc996284b255e3f095675a242d17c34da94d3c5b53077475d273848e4c75be"
   package:
     name: "bitnami-nginx"
     path: "packages/bitnami/nginx/24.0.2"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "a1a4b668e248cf0b39961ed484ac5126a179d0786324e07b7107c9239d121f0f"
         bytes: 1311
+      -
+        path: "records/README.md"
+        sha256: "7acf2e860653a71fbf01aadd2dc9f2e83d15752f0ab74c0623b28adc5708385e"
+        bytes: 1260
+      -
+        path: "records/existing-tls-ingress/helm-render-intent.yaml"
+        sha256: "0807bed008dc9e9123837d9a31c35eee5b02501039229cd1130fa7cc07328165"
+        bytes: 6860
+      -
+        path: "records/existing-tls-ingress/source-and-intent.yaml"
+        sha256: "445b86aacd47662205557ba2e1d1770e90c661bd771117a8615deffad8a9b202"
+        bytes: 10611
+      -
+        path: "records/http-clusterip/helm-render-intent.yaml"
+        sha256: "266610a0035616a87e3540e9eada2cc12b4608d2e9b4453aadacb457f47e549f"
+        bytes: 5267
+      -
+        path: "records/http-clusterip/source-and-intent.yaml"
+        sha256: "81b8185b8b7a5605a60d77a2cc0a1d2477318b2bf47d44a85332373c8493e98b"
+        bytes: 10017
+      -
+        path: "records/index.yaml"
+        sha256: "f1c7561a17c0a13940ce6b104ff11991cab2b554e345f543094e4000408b4bb2"
+        bytes: 897
     version: "24.0.2"
   setupChecks:
     -

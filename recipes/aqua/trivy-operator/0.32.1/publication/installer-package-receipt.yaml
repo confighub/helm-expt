@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
-    sha256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+    sha256: "3d7da75a72bb991e23ee8c13c081ee06d16dd43601acd1f3aea1a280fcc40ac0"
   package:
     name: "aqua-trivy-operator"
     path: "packages/aqua/trivy-operator/0.32.1"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "0d81e90d47b2462b9b54657d5a4a1ff244c13557b890c25b1d7f11cc980fcb7f"
         bytes: 109037
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "4054047b987e5cb9c986e6285ad54ca77b2878187b4567a61fee82b89a6e2efa"
+        bytes: 5315
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "d2d42d617b2d3ffeb3600bbc06ee5bffab3312f2186f1a42114f519d23b1b30f"
+        bytes: 8737
+      -
+        path: "records/index.yaml"
+        sha256: "2a1c6ad65ec898d3893da8e1884ec5317a7a34ccbddc82ad982050df7c3ec88a"
+        bytes: 829
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "5d2a152ea082022ad5a19433ec79fe10793274198c3ff1f1079aaa9837930220"
+        bytes: 23808
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "194f6471d1157a8a7268e4665b3bd96fa29a7e88129a5353b602547f236e616d"
+        bytes: 27746
     version: "0.32.1"
   setupChecks:
     -

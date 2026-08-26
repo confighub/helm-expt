@@ -4,13 +4,16 @@ metadata:
   name: "vm-victoria-logs-single-0-12-5"
 spec:
   chart:
-    repository: "vm"
     name: "victoria-logs-single"
+    repository: "vm"
     version: "0.12.5"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/vm/victoria-logs-single/0.12.5 -o <tmp>/vm-victoria-logs-single-0-12-5.tgz"
+    sha256: "0d6ff02285ccaa7752e0aa899af42c581c6903139934b53986e03951e6f65620"
   package:
-    path: "packages/vm/victoria-logs-single/0.12.5"
     name: "vm-victoria-logs-single"
-    version: "0.12.5"
+    path: "packages/vm/victoria-logs-single/0.12.5"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "18916e700db59250dc29e757bfd50e6f6dffcab3bc39e34eb90966968874634f"
         bytes: 324
-  deterministicBundle:
-    command: "cub installer package packages/vm/victoria-logs-single/0.12.5 -o <tmp>/vm-victoria-logs-single-0-12-5.tgz"
-    sha256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "c4a37d66c8f0022d08a4eda2b9fd656b5051ef2040553192d732fdcb2a1f2cd5"
+        bytes: 5419
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "ae9b3cffd578dba1f20db66326fcd87446c029ec715be3366fe4cb9fcab71125"
+        bytes: 8838
+      -
+        path: "records/index.yaml"
+        sha256: "d36d8d511aedaceafb38f8575dcdd99c549508f66d64290b2016d3cc1649ab4d"
+        bytes: 630
+    version: "0.12.5"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 2
-      cubInstallObjectCountIncludingSupport: 3
-      semanticObjectMatches: "2/2"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 3
+      helmReleaseObjectCount: 2
+      semanticObjectMatches: "2/2"
+      separatedSecretCount: 0
+      variant: "default"

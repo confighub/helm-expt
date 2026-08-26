@@ -1,0 +1,166 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "hashicorp-vault-0-32-0-ha-raft-ui"
+  labels:
+    component: "hashicorp/vault"
+    chart: "hashicorp/vault"
+    version: "0.32.0"
+    base: "ha-raft-ui"
+    catalogLayer: "F2b"
+spec:
+  component: "hashicorp/vault"
+  chart:
+    name: "hashicorp/vault"
+    version: "0.32.0"
+    sourceRepository: "https://helm.releases.hashicorp.com"
+    sourceContent: ""
+  baseVariant: "ha-raft-ui"
+  renderInputs:
+    recipe: "recipes/hashicorp/vault/0.32.0"
+    variant: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+    revision: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+    packageBase: "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
+    sourceLock: "recipes/hashicorp/vault/0.32.0/source-lock.yaml"
+    namespace: "vault"
+    releaseName: "vault"
+    valuesProfile: "recipes/hashicorp/vault/0.32.0/effective-values-ha-raft-ui.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml"
+    revision: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+    packageBase: "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts-and-observed-action-records"
+    declared:
+      requiredTopology:
+        minimumSchedulableNodes: 3
+        purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+    requirements:
+      -
+        category: "topology"
+        name: "target topology"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+        check: ""
+        declarationPath: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+    actions:
+      -
+        lane: "G/P"
+        prerequisiteKind: "unknown"
+        prerequisiteName: "unknown"
+        actionKind: "operator-review"
+        ownerClass: "operator-review"
+        requiredInputs: "operator review of the runtime residue"
+        evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+        automatic: false
+        supportArtifact: "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
+        sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
+        rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
+          - "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached-with-observed-actions"
+      reason: "1 prerequisite declaration and 1 follow-up action record are attached."
+      declarationSource: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/hashicorp/vault/0.32.0/effective-values-ha-raft-ui.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 1
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/hashicorp/vault/0.32.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
+    fullModelPath:
+      - "chart/version: hashicorp/vault@0.32.0"
+      - "recipe: recipes/hashicorp/vault/0.32.0"
+      - "base variant: ha-raft-ui"
+      - "render intent: data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+      - "rendered revision: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
+      - "package base: packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

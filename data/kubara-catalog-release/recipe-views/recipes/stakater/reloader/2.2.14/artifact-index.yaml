@@ -64,7 +64,7 @@ spec:
     publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.14/installer-package-publication-receipt.yaml"
     installer: "packages/stakater/reloader/2.2.14/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65"
+    deterministicBundleSHA256: "ddf8b920151c9806f06ef745bb8ee54f3e8fb7b512e66c582d9f0b8292a55e5c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

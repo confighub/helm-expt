@@ -68,7 +68,7 @@ spec:
     publicationReceipt: "runs/installer-oci/minio-operator-tenant/7.1.1/installer-package-publication-receipt.yaml"
     installer: "packages/minio-operator/tenant/7.1.1/installer.yaml"
     receipt: "recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
+    deterministicBundleSHA256: "e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

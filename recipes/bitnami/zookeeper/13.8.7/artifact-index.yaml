@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-zookeeper/13.8.7/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/zookeeper/13.8.7/installer.yaml"
     receipt: "recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+    deterministicBundleSHA256: "1cf1f35cd0998bb4f0f999611e45b1bb84b0843fa91a43e71056e3ce5d3b202c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

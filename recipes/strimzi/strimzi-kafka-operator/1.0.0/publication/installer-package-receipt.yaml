@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz"
-    sha256: "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
+    sha256: "4dc6c529bb5f03dc8f1aeedcc7ed257056571a79a85923e22eec697a3f05b821"
   package:
     name: "strimzi-strimzi-kafka-operator"
     path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "f92a12518be055bef95f432853ca8b4f209c9e748a20a1135f36073a3d969ac8"
         bytes: 786611
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "cb7e43586ac5d5bb93b78475a9175b2a8de47e6bdfc2749325da0e299a9778e8"
+        bytes: 5549
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "ba9343f51ce337256738d4ca625bc3762758cba69d316b830dadc831b5b97cbe"
+        bytes: 9088
+      -
+        path: "records/index.yaml"
+        sha256: "557de6b8dda4f29f4ee7b39005ae3b49cbfb8f292b9294d680302e7b39f2ca7a"
+        bytes: 849
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "f206b8abfa483191a2c77b62801648d5e016ee1df89d9ab4c28a79e9ba1db350"
+        bytes: 22061
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "a6ea7ab45cda709930542ec4d4d2fdd7007d0799ffe8fd93f19b2db7fcf870e9"
+        bytes: 24850
     version: "1.0.0"
   setupChecks:
     -

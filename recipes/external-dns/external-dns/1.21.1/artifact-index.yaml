@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/external-dns-external-dns/1.21.1/installer-package-publication-receipt.yaml"
     installer: "packages/external-dns/external-dns/1.21.1/installer.yaml"
     receipt: "recipes/external-dns/external-dns/1.21.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f"
+    deterministicBundleSHA256: "b6928b94d588813ef29354e5588e1211a8fa8a5443d81a29496d4591bc3179b9"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

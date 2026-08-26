@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/redis/27.0.0 -o <tmp>/bitnami-redis-27.0.0.tgz"
-    sha256: "8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
+    sha256: "dfd53b7c59231996087a6c614a229d1eae6351e695c8b5963bab15884597fa25"
   ociPublication:
     command: "REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-package"
     reason: "No registry ref is supplied by default; publication is verified only against an explicit OCI endpoint."
@@ -47,6 +47,30 @@ spec:
         path: "installer.yaml"
         sha256: "aaed573d885e89a9e13ff0d0f3e6ae798407f2daff6beecf943032da6fff7765"
         bytes: 975
+      -
+        path: "records/README.md"
+        sha256: "3d1d35af39468204fe0500d248a1679c536f90a93983c3ee11f79a51a35fceb7"
+        bytes: 1236
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "7188a7586c100e0fa7394c082f963006874047bb2ef373eee0836beefa99d25a"
+        bytes: 5401
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "1ed3a3f47c9da8ed5ef64f3bff5c7d72fcf9388e392114e269c924f49e487f9f"
+        bytes: 8847
+      -
+        path: "records/index.yaml"
+        sha256: "8a9ec895212f1e8a441b3ece0875059d9a846518b489d77eb7ba2637795eef3d"
+        bytes: 873
+      -
+        path: "records/reuse-existing-secret/helm-render-intent.yaml"
+        sha256: "83d17b6e520f786d264467088a6e423444feffd25c51cca10e60d36b23824702"
+        bytes: 6246
+      -
+        path: "records/reuse-existing-secret/source-and-intent.yaml"
+        sha256: "f5b95b5b01831215b4392f20ef319bdb0d0cc6cbbc0d58e2ba05afc21e42409e"
+        bytes: 9924
     version: "27.0.0"
   setupChecks:
     -

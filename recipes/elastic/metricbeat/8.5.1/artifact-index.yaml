@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/elastic-metricbeat/8.5.1/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/metricbeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/metricbeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+    deterministicBundleSHA256: "296578528bea356c6b3892038deb3b631d1870b0b25c89ad68deeca580879e88"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

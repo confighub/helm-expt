@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/sealed-secrets-sealed-secrets/2.18.6/installer-package-publication-receipt.yaml"
     installer: "packages/sealed-secrets/sealed-secrets/2.18.6/installer.yaml"
     receipt: "recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508"
+    deterministicBundleSHA256: "d7cb5ea22d0be92a483c32180d83c50fab9e0960082bd59c5c6021363895ad7c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -10,27 +10,43 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/loki/7.1.0 -o <tmp>/loki-7.1.0.tgz"
-    sha256: "bc46d26a4002b46b9073b1e7f2a61d38a96ecae9aa8c23d5e936c2985bc58204"
+    sha256: "ab72d2ae70421c2e9de5a8c1113c5eec901e47864a0135fce92468106f8c1705"
   package:
     name: "grafana-loki"
     path: "packages/grafana/loki/7.1.0"
     sourceFiles:
       -
-        bytes: 381
         path: "README.md"
         sha256: "96a40e080819815b9c2bcddf21cb492a8d7874397b786069204d1c9b614b6eb8"
+        bytes: 381
       -
-        bytes: 99
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
       -
-        bytes: 32177
         path: "bases/default/upstream.yaml"
         sha256: "2e25c21e656867877b5211bfb1914d335806e76df455a78f72e7ec7f8bd8b9ff"
+        bytes: 32177
       -
-        bytes: 298
         path: "installer.yaml"
         sha256: "b71e64311e197d3b9180f2c9f855b2a737701ce18ce54c9db3a0245e85337cd1"
+        bytes: 298
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "1a18c65487d5ac1e69d28f0561c75650362c54be0749a90be0606d5ade3bbc5f"
+        bytes: 5178
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "a33b179e6f5a112701303486894cffeed80db08d6f8abdeced3bd431d2f143ed"
+        bytes: 8580
+      -
+        path: "records/index.yaml"
+        sha256: "4c04780314cf7330d5f548761fdd7bf2e9fefe8e9911b06ca85e9f109e1c0e93"
+        bytes: 606
     version: "7.1.0"
   setupChecks:
     -

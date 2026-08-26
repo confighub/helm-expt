@@ -4,17 +4,16 @@ metadata:
   name: "argo-cd-argo-rollouts-2-40-9"
 spec:
   chart:
-    repository: "argo-cd"
     name: "argo-rollouts"
+    repository: "argo-cd"
     version: "2.40.9"
   deterministicBundle:
-    command: "cub installer package packages/argo-cd/argo-rollouts/2.40.9 -o <tmp>/argo-cd-argo-rollouts-2.40.9.tgz"
-    sha256: "ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/argo-cd/argo-rollouts/2.40.9 -o <tmp>/argo-cd-argo-rollouts-2.40.9.tgz"
+    sha256: "0f485805f11d5d09038c274e5444de7d09df6110920da9dfb4926ab23a1443f1"
   package:
-    path: "packages/argo-cd/argo-rollouts/2.40.9"
     name: "argo-cd-argo-rollouts"
-    version: "2.40.9"
+    path: "packages/argo-cd/argo-rollouts/2.40.9"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "b52c0510128ce6f345042ca28e66019d341d1cb1d0461d359a7db4c800cd4940"
         bytes: 476
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "44d119422572e7f04cbd779b4c0676f799a81d45711c7c2cc62fac53e5da038f"
+        bytes: 5355
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "94eb714b1b94399d21b7ebbc633ff5c2ab1a2a619247a7f2ff32ff137b444110"
+        bytes: 8878
+      -
+        path: "records/index.yaml"
+        sha256: "388b702a1643eb12fc36fbcb738a90ab74514f464591e5af66bae6b3c238cd2a"
+        bytes: 833
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "314fa1c0f15c25c1aa52b7b21c5bdc959e62fb4ba0fb690734e95623d80181a6"
+        bytes: 5374
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "55f1a94987f244bbacf89c7d23cd9e938c9ba94290e420ac9f8e3a4ea6bb7035"
+        bytes: 8727
+    version: "2.40.9"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 9
-      cubInstallObjectCountIncludingSupport: 10
-      semanticObjectMatches: "9/9"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      variant: "no-crds"

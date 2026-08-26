@@ -74,7 +74,7 @@ spec:
     publicationReceipt: "runs/installer-oci/hashicorp-vault/0.32.0/installer-package-publication-receipt.yaml"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"
     receipt: "recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+    deterministicBundleSHA256: "fa75df13f1c9e6c72c7d6196f9219b0a092d485a23082724b4077beef2218739"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

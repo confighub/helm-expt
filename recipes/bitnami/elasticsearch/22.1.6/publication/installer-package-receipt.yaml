@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22.1.6.tgz"
-    sha256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+    sha256: "739593b56eb29a532a95a8242ad4803d71b5e89bee84a241a6320d3833abe0d6"
   package:
     name: "bitnami-elasticsearch"
     path: "packages/bitnami/elasticsearch/22.1.6"
@@ -47,6 +47,38 @@ spec:
         path: "installer.yaml"
         sha256: "b023bfaf495cb35a22e53269edc9871198a3330403636f32f9fab8f19ca6618a"
         bytes: 675
+      -
+        path: "records/README.md"
+        sha256: "ac5bca60f537923bbbd9639908074307dbacc4c9f9f38b4453a264cd6083af02"
+        bytes: 1339
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "ec0d9db6b3cfea3895be1961fc8a69a059f41828e33c6cda9a565d773d8fb5a7"
+        bytes: 5355
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "cdd52c2ced9523d729a7839337308ae905359b68b35dcabb0fb0322ce75bf289"
+        bytes: 8866
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "4edef021559d66494023ab2d8cc2850a3d23b304c1e07f1a01c9897d0e3ccf55"
+        bytes: 5284
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "06457032af64c5dbc7f1f2dc17ec3b169d6fef2dc0c58b53988eb87b6c2f6303"
+        bytes: 8606
+      -
+        path: "records/index.yaml"
+        sha256: "529c11f1e2e959c79f57f17e7e2148c23bb830aa5c3dad0b9241355d21d0eb8b"
+        bytes: 1016
+      -
+        path: "records/legacy/helm-render-intent.yaml"
+        sha256: "a2cc5768955f98ab6ac8fb730049c47a9ad1fb59a0072d0eba9260574eb7b9b8"
+        bytes: 5343
+      -
+        path: "records/legacy/source-and-intent.yaml"
+        sha256: "6dea3a86509c806d5bbc93d34a6303ec6d28ba6b97d1f9391c8d450c515bbb29"
+        bytes: 8701
     version: "22.1.6"
   setupChecks:
     -
@@ -70,12 +102,12 @@ spec:
       separatedSecretCount: 0
       variant: "ha"
     -
-      base: "legacy"
-      variant: "legacy"
-      command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base legacy --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 21
-      cubInstallObjectCountIncludingSupport: 22
-      semanticObjectMatches: "21/21"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "legacy"
+      command: "cub installer setup --pull packages/bitnami/elasticsearch/22.1.6 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 22
+      helmReleaseObjectCount: 21
+      semanticObjectMatches: "21/21"
+      separatedSecretCount: 0
+      variant: "legacy"

@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/prometheus-community-alertmanager/1.37.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/alertmanager/1.37.0/installer.yaml"
     receipt: "recipes/prometheus-community/alertmanager/1.37.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e"
+    deterministicBundleSHA256: "00384b190c36cb5dc9b4d255bba8fbe18c9516562bb2e7e3b1bed5aee48a5f30"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

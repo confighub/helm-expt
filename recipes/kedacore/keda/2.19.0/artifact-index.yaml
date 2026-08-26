@@ -74,7 +74,7 @@ spec:
     publicationReceipt: "runs/installer-oci/kedacore-keda/2.19.0/installer-package-publication-receipt.yaml"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"
     receipt: "recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+    deterministicBundleSHA256: "97c926dc35310ac403385b942b1afe669aac7435d10a3d66489e20db4114010b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

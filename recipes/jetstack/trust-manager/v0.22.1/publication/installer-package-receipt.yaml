@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0.22.1.tgz"
-    sha256: "59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b"
+    sha256: "31b4af9a07fe7428bb037d9331b1209d1f5bd587e2149846ad80964f418c1c22"
   package:
     name: "jetstack-trust-manager"
     path: "packages/jetstack/trust-manager/v0.22.1"
@@ -51,6 +51,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "fb012cfb792d9e19e54031cb2282f9fd1a53d651d806c51ba45691191f76300b"
         bytes: 359752
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "8e6155722397893b7d421305f12a8320f72ebc2fc7e46c9235c7e604b73a9d3e"
+        bytes: 11264
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "20f24c237ca8adbe7139a42f957f0e3c998a172f3eb4891342909dd2f9575cfa"
+        bytes: 14843
+      -
+        path: "records/index.yaml"
+        sha256: "580c1773165cb885cc9ed7073b0244d15ed33b96155834dd210b35e877c7dd48"
+        bytes: 837
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "0dbca18afc0b6fa8993b5b1fbd057407fe63c05e0b1ddb7a1fa8db9e7a8435be"
+        bytes: 12862
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "7ec51979589120b63feba6a99fe27a219b2853b467ce1e4a4bb1288346a49169"
+        bytes: 16233
     version: "v0.22.1"
   setupChecks:
     -

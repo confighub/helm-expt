@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
-    sha256: "63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388"
+    sha256: "922f96b47816f661f2ad59acd419cbc1a8763dd1dca93c75c4304cd0efb90ac1"
   package:
     name: "argo-cd-argo-workflows"
     path: "packages/argo-cd/argo-workflows/1.0.14"
@@ -59,6 +59,38 @@ spec:
         path: "prerequisites/target-facts/default-crds.yaml"
         sha256: "f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398"
         bytes: 10187177
+      -
+        path: "records/README.md"
+        sha256: "ed5087727f06ce97e4d5ac95febfe7d3647325df4b22691387bea1ab95af2ddf"
+        bytes: 1463
+      -
+        path: "records/controller-default-reviewed/helm-render-intent.yaml"
+        sha256: "7d4abcb2c633f4346b5fb937d30c0c0ab4b75a4eb23a23f1e879ec802baafccc"
+        bytes: 24833
+      -
+        path: "records/controller-default-reviewed/source-and-intent.yaml"
+        sha256: "7436c3ab366c2ecf7e41d5ad303b584168159d8103e00369e7b3edfb56b01bc7"
+        bytes: 26059
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "efb820e002ef43e62027e07862dad7d967c75dc6cb56057a2bb1df9738380a4b"
+        bytes: 23783
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "d847df445f9f13585b66d69111664ec869f7030eba2b0d9fab21b98ca633ab43"
+        bytes: 25413
+      -
+        path: "records/index.yaml"
+        sha256: "f1a4f48e7ca51080078f4176dce8406affbff29824cd9bb5604999de267b639f"
+        bytes: 1142
+      -
+        path: "records/minimal-crds/helm-render-intent.yaml"
+        sha256: "6df4d3273d315cb6e7c56d2bc1b738a98ddf74384848e705d5cf48096641ed41"
+        bytes: 8386
+      -
+        path: "records/minimal-crds/source-and-intent.yaml"
+        sha256: "ad6d1fe257134dc805ce156dc58053ee8dfcff70d5f1423949092c4111a9d5b0"
+        bytes: 10983
     version: "1.0.14"
   setupChecks:
     -

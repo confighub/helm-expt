@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11.4.29.tgz"
-    sha256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
+    sha256: "dcc0403c6e61dc1ec806220ef3ea70329014eb56276f1d173c46800f4f332dd8"
   package:
     name: "bitnami-apache"
     path: "packages/bitnami/apache/11.4.29"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "98f2df2ba4dc7c152617bbaba61ab15b156464e27c379879e7b274b5e51c2b68"
         bytes: 500
+      -
+        path: "records/README.md"
+        sha256: "64497919266839fc05a8e4bda4c76448bd05e5d6045f297d97b6209064d0d1b2"
+        bytes: 1176
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "0e138f5466a52678f1333c10723f4c83f5f955ec3519cedf724c091eb930fc24"
+        bytes: 5202
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "ec7d26e19d8a7029eb2f7913d27661c9a5a697e5ae03cb725eaec3ba46319b59"
+        bytes: 8708
+      -
+        path: "records/index.yaml"
+        sha256: "5374b931c56dcc512d23f9e15812a8c7ae6dcdda4ccb3f9f96419ec3cd03a31a"
+        bytes: 817
+      -
+        path: "records/legacy/helm-render-intent.yaml"
+        sha256: "b81c430891a5acddcfaefdc04018828265a37a41505796bf7b2e25e39d20860a"
+        bytes: 5190
+      -
+        path: "records/legacy/source-and-intent.yaml"
+        sha256: "79afaad666475b2271387d5b15bba49f39a56defd38d9280740b4370fe736c3d"
+        bytes: 8549
     version: "11.4.29"
   setupChecks:
     -
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      base: "legacy"
-      variant: "legacy"
-      command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 5
-      cubInstallObjectCountIncludingSupport: 6
-      semanticObjectMatches: "5/5"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "legacy"
+      command: "cub installer setup --pull packages/bitnami/apache/11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "legacy"

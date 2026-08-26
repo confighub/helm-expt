@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/hashicorp-terraform/1.1.2/installer-package-publication-receipt.yaml"
     installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
     receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e"
+    deterministicBundleSHA256: "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

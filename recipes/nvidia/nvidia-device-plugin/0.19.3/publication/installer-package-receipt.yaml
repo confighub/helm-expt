@@ -4,13 +4,16 @@ metadata:
   name: "nvidia-nvidia-device-plugin-0.19.3"
 spec:
   chart:
-    repository: "nvidia"
     name: "nvidia-device-plugin"
+    repository: "nvidia"
     version: "0.19.3"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/nvidia-device-plugin/0.19.3 -o <tmp>/nvidia-device-plugin-0.19.3.tgz"
+    sha256: "0fb1e5eaf28ae2787aa7997e594a30bebcbda6581b5f35e152fd41b19cc4d761"
   package:
-    path: "packages/nvidia/nvidia-device-plugin/0.19.3"
     name: "nvidia-nvidia-device-plugin"
-    version: "0.19.3"
+    path: "packages/nvidia/nvidia-device-plugin/0.19.3"
     sourceFiles:
       -
         path: "README.md"
@@ -44,44 +47,73 @@ spec:
         path: "installer.yaml"
         sha256: "34f528dcb24640c831b346d098cc10e6005b2105bdbf8ab0b70a45a404650ea6"
         bytes: 995
-  deterministicBundle:
-    command: "cub installer package packages/nvidia/nvidia-device-plugin/0.19.3 -o <tmp>/nvidia-device-plugin-0.19.3.tgz"
-    sha256: "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "88c082f0e8a19f063c7e4201acc09bec5ed941c8addafb66da00efc2487e2364"
+        bytes: 1403
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "5450851f37749eed8d8dccff0fc49086c50e36da697963035cce35afbb9a9df3"
+        bytes: 5553
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "794c05ee07aa00def5315281f30f7a11d7212fb3ea0b4b8ee81dfc1d8b9a2f30"
+        bytes: 9054
+      -
+        path: "records/eks-inference/helm-render-intent.yaml"
+        sha256: "a91e49eb6295500593503cbe3b31ace440653b018a2beb53fe0172f4d98f8da8"
+        bytes: 5680
+      -
+        path: "records/eks-inference/source-and-intent.yaml"
+        sha256: "4c4b5b88109a63ce78088857e7fee02ced5350ea68efba4d29fe0e1697963426"
+        bytes: 9204
+      -
+        path: "records/index.yaml"
+        sha256: "8f38625a78721a337f63d6fb4617eb97a4d6965ec5e0603bda653f8b3aa47fd4"
+        bytes: 1092
+      -
+        path: "records/nfd-enabled/helm-render-intent.yaml"
+        sha256: "f99b9aa514e19bcea367dfe30b4e896ac06a08a979ef67f200839a406bbc583c"
+        bytes: 5644
+      -
+        path: "records/nfd-enabled/source-and-intent.yaml"
+        sha256: "e76c902796b21af9c9b33b430825bcf6e65ffb2f6d392f8e44552aae8f734a1d"
+        bytes: 9183
+    version: "0.19.3"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
       base: "default"
       command: "cub installer setup --pull packages/nvidia/nvidia-device-plugin/0.19.3 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
-      helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||gpu-operator"
-    -
-      variant: "eks-inference"
       base: "eks-inference"
       command: "cub installer setup --pull packages/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
-      helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "eks-inference"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||gpu-operator"
-    -
-      variant: "nfd-enabled"
       base: "nfd-enabled"
       command: "cub installer setup --pull packages/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
-      helmReleaseObjectCount: 26
       cubInstallObjectCountIncludingSupport: 27
+      helmReleaseObjectCount: 26
       semanticObjectMatches: "26/26"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      allowedCubOnlyObjects:
-        - "v1|Namespace||gpu-operator"
+      variant: "nfd-enabled"

@@ -1,0 +1,164 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "minio-operator-tenant-7-1-1-default"
+  labels:
+    component: "minio-operator/tenant"
+    chart: "minio-operator/tenant"
+    version: "7.1.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "minio-operator/tenant"
+  chart:
+    name: "minio-operator/tenant"
+    version: "7.1.1"
+    sourceRepository: "https://operator.min.io"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/minio-operator/tenant/7.1.1"
+    variant: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+    revision: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/minio-operator/tenant/7.1.1/bases/default"
+    sourceLock: "recipes/minio-operator/tenant/7.1.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "tenant"
+    valuesProfile: "recipes/minio-operator/tenant/7.1.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/minio-operator/tenant/7.1.1/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "tenants.minio.min.io"
+          purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
+          sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "minio-operator/operator@7.1.1/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "tenants.minio.min.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+        sourceVariant: "minio-operator/operator@7.1.1/default"
+        sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+          - "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "1 target prerequisite declared by this base."
+      declarationSource: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/minio-operator/tenant/7.1.1/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 1
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/minio-operator/tenant/7.1.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/minio-operator/tenant/7.1.1/bases/default"
+    fullModelPath:
+      - "chart/version: minio-operator/tenant@7.1.1"
+      - "recipe: recipes/minio-operator/tenant/7.1.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
+      - "rendered revision: recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/minio-operator/tenant/7.1.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

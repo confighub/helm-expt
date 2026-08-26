@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml"
     installer: "packages/aws-controllers-k8s/eks-chart/1.16.3/installer.yaml"
     receipt: "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555"
+    deterministicBundleSHA256: "332d54c1bdb800e679e430b086ca87dc811920ad0f009d35793d17e6af5f9c32"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -4,17 +4,16 @@ metadata:
   name: "traefik-traefik-40-2-0"
 spec:
   chart:
-    repository: "traefik"
     name: "traefik"
+    repository: "traefik"
     version: "40.2.0"
   deterministicBundle:
-    command: "cub installer package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40.2.0.tgz"
-    sha256: "5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40.2.0.tgz"
+    sha256: "b2ab1e325beace11582f950c11b4aebfaba905c0fe9490f8ae7e5017fb8be828"
   package:
-    path: "packages/traefik/traefik/40.2.0"
     name: "traefik-traefik"
-    version: "40.2.0"
+    path: "packages/traefik/traefik/40.2.0"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "f3689d76fe8d3ae0211a7125b70e7a261eb3d1d487aecc5b55f6afee885753fc"
         bytes: 446
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "5132aa76f5e136a8633e1a0eda2f462925d41cb563604a5abbe5af348a4215cb"
+        bytes: 5201
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "652517e08edee05c146ff0e59306700d3b16de1f429c5625e7130819b888ba51"
+        bytes: 8634
+      -
+        path: "records/index.yaml"
+        sha256: "4b823219bceddc3ba01410f6df43379c8bdbd6c6562119105952f9888cba37e0"
+        bytes: 821
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "43d13b70dec41cf7b59845d1b0021b47b82a1207867b79953e0885d31152a632"
+        bytes: 5225
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "3c24cb705620b8341d1b5965468b29311f2c6b1a76e1df626cdb3c38548d3e95"
+        bytes: 8584
+    version: "40.2.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/traefik/traefik/40.2.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "no-crds"

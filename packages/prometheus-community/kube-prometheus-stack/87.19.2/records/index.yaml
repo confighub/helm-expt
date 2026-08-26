@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-87.19.2"
+spec:
+  package:
+    name: "kube-prometheus-stack-kube-prometheus-stack"
+    version: "87.19.2"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "existing-secret"
+      objects: "bases/existing-secret/upstream.yaml"
+      sourceAndIntent: "records/existing-secret/source-and-intent.yaml"
+      sourceSpecificIntent: "records/existing-secret/helm-render-intent.yaml"
+    -
+      name: "no-crds"
+      objects: "bases/no-crds/upstream.yaml"
+      sourceAndIntent: "records/no-crds/source-and-intent.yaml"
+      sourceSpecificIntent: "records/no-crds/helm-render-intent.yaml"

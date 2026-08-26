@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/metrics-server-metrics-server/3.13.0/installer-package-publication-receipt.yaml"
     installer: "packages/metrics-server/metrics-server/3.13.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.13.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864"
+    deterministicBundleSHA256: "216b052da973a002c86db51935c3bb62c08fe54f8ab18898ac60ef42181d19ee"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

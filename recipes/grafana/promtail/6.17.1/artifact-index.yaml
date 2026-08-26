@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/grafana-promtail/6.17.1/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/promtail/6.17.1/installer.yaml"
     receipt: "recipes/grafana/promtail/6.17.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62"
+    deterministicBundleSHA256: "9a166c4cff36e54842423e2ef03723774a5752d714fa83468e02bc0e0c223018"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

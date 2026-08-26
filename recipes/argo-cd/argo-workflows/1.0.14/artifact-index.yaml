@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/argo-cd-argo-workflows/1.0.14/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388"
+    deterministicBundleSHA256: "922f96b47816f661f2ad59acd419cbc1a8763dd1dca93c75c4304cd0efb90ac1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

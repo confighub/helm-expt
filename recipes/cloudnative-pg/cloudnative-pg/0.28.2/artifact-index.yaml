@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudnative-pg-cloudnative-pg/0.28.2/installer-package-publication-receipt.yaml"
     installer: "packages/cloudnative-pg/cloudnative-pg/0.28.2/installer.yaml"
     receipt: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013"
+    deterministicBundleSHA256: "45ac63ec64eab06b545ce4b4cb86ecfb888a3998df196a8a40aeefca75de0fb0"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

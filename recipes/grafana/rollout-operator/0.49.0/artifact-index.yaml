@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/grafana-rollout-operator/0.49.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
     receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad"
+    deterministicBundleSHA256: "43ffc7bc9029b5164705301253def0a2f6d61ca3a22b4d975ca1fbb472c8d556"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

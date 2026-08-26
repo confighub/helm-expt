@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/jetstack-cert-manager/v1.20.2/installer-package-publication-receipt.yaml"
     installer: "packages/jetstack/cert-manager/v1.20.2/installer.yaml"
     receipt: "recipes/jetstack/cert-manager/v1.20.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1"
+    deterministicBundleSHA256: "8e6cacdbfc789c3f695184e7cfc5068b5a12f2f6e65142d8440b7e678d55fc23"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

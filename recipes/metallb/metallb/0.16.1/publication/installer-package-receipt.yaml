@@ -10,27 +10,43 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/metallb/metallb/0.16.1 -o <tmp>/metallb-0.16.1.tgz"
-    sha256: "a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070"
+    sha256: "1d9b04b7d6d310cf3a90cbcc7d5410401676febf41acb782a153f18be1703df3"
   package:
     name: "metallb-metallb"
     path: "packages/metallb/metallb/0.16.1"
     sourceFiles:
       -
-        bytes: 388
         path: "README.md"
         sha256: "7d99f4399955c321a10a1f10e3450754dc26a5bf206086f7d44a00b5c36bc8dc"
+        bytes: 388
       -
-        bytes: 99
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
       -
-        bytes: 151459
         path: "bases/default/upstream.yaml"
         sha256: "430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e"
+        bytes: 151459
       -
-        bytes: 299
         path: "installer.yaml"
         sha256: "8c65e981dd3eb6610099b7d12d716f744c450ac57046f527d4bc7222799f57cb"
+        bytes: 299
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "856359983f0e3d748a55b4ced188911ed31c082fe38031706e6343ffc65490dc"
+        bytes: 5231
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "5a3aaf2602b19cdc89e56e100f8990d54c05c251b3782bde2257a0b758e3c323"
+        bytes: 8664
+      -
+        path: "records/index.yaml"
+        sha256: "8af9d8f4fde0c220ef9bfa13dc21c87cf1f75d324988952c33e5c9be15e2f4db"
+        bytes: 614
     version: "0.16.1"
   setupChecks:
     -

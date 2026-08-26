@@ -4,13 +4,16 @@ metadata:
   name: "haproxytech-kubernetes-ingress-1-52-0"
 spec:
   chart:
-    repository: "haproxytech"
     name: "kubernetes-ingress"
+    repository: "haproxytech"
     version: "1.52.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/haproxytech/kubernetes-ingress/1.52.0 -o <tmp>/haproxytech-kubernetes-ingress-1-52-0.tgz"
+    sha256: "d5af5579ae1f31270158b65bf1f294b1182e7d673af2e856836e29782d54a00a"
   package:
-    path: "packages/haproxytech/kubernetes-ingress/1.52.0"
     name: "haproxytech-kubernetes-ingress"
-    version: "1.52.0"
+    path: "packages/haproxytech/kubernetes-ingress/1.52.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "01e836bff0b5b9fd8385689e6bca1b0ccb2cf493ef8ce87d766552b56e338de3"
         bytes: 345
-  deterministicBundle:
-    command: "cub installer package packages/haproxytech/kubernetes-ingress/1.52.0 -o <tmp>/haproxytech-kubernetes-ingress-1-52-0.tgz"
-    sha256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "d535fca6526146b1f11558c2459c04b736b64463c7ab81b20fb564656f8244f6"
+        bytes: 5581
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "ebb9a8b097f27162440e16a38c00a53fa89bf52771ca054cf77aa1020fce3533"
+        bytes: 9004
+      -
+        path: "records/index.yaml"
+        sha256: "fa67b78f581b7dcfc65ff95094b66c8678f6cd663abbd9f56e475b3e7e2056d0"
+        bytes: 644
+    version: "1.52.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"

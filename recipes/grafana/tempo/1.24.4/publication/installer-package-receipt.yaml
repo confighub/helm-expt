@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f"
+    sha256: "2884df7f2bc6bb2c84a1645031821f2afebbce92d8726c9a1d322610c11c687c"
   package:
     name: "grafana-tempo"
     path: "packages/grafana/tempo/1.24.4"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/s3-query-observability-crds.yaml"
         sha256: "408410b6fa758eaf995207467c9906ce178fad7310e11c9a53a18dae0ce4b191"
         bytes: 69333
+      -
+        path: "records/README.md"
+        sha256: "025ded738a1384ee7a44f763293ad829ad6d3d5799bfa17fda6571909c51b387"
+        bytes: 1276
+      -
+        path: "records/index.yaml"
+        sha256: "05c29c94bcffbba6e1775c6e03af75435f7712f3925b42a5c7da6fede6f27f7c"
+        bytes: 913
+      -
+        path: "records/local-persistent/helm-render-intent.yaml"
+        sha256: "5f5d7bf648242d1fde6b010454ea9b8a07f1f7357843c018a97c5cd56b80bcee"
+        bytes: 5323
+      -
+        path: "records/local-persistent/source-and-intent.yaml"
+        sha256: "507dbfbc5308df18c892c689ffbe431f4f5e0293bf3509a8479c0eb778311ba0"
+        bytes: 8821
+      -
+        path: "records/s3-query-observability/helm-render-intent.yaml"
+        sha256: "89e27985bd7374ec260336ad2f02729d5cb112a72b0a4b10d7f4ec04789d37bc"
+        bytes: 12137
+      -
+        path: "records/s3-query-observability/source-and-intent.yaml"
+        sha256: "5b4d3079cf6f41cf07c7faa3cb2b489ad06a96e3c84d7b8acc5a372c3d84cb29"
+        bytes: 16127
     version: "1.24.4"
   setupChecks:
     -

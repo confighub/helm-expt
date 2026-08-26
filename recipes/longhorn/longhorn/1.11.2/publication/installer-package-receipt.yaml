@@ -4,13 +4,16 @@ metadata:
   name: "longhorn-longhorn-1.11.2"
 spec:
   chart:
-    repository: "longhorn"
     name: "longhorn"
+    repository: "longhorn"
     version: "1.11.2"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-1.11.2.tgz"
+    sha256: "ab352adee3fe7c9a8419d359519218e518d1287e50404cfc65c221a4e28795d1"
   package:
-    path: "packages/longhorn/longhorn/1.11.2"
     name: "longhorn-longhorn"
-    version: "1.11.2"
+    path: "packages/longhorn/longhorn/1.11.2"
     sourceFiles:
       -
         path: "README.md"
@@ -36,28 +39,49 @@ spec:
         path: "installer.yaml"
         sha256: "091f3b2fe4c63b1317ca757b678c6b44bb1774ee39a9da6a10814b080c901bde"
         bytes: 477
-  deterministicBundle:
-    command: "cub installer package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-1.11.2.tgz"
-    sha256: "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "f0c2c9a55daff2b20f26080d0da850a055876a27209c48fb60d707473fe48727"
+        bytes: 1192
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "c362bd7b4177974d0ae302ec6d55107ec8f02618a1608f02ed550a91b483d2c4"
+        bytes: 5731
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "8467cb2b6a076bfea260ce52f977fed1c17298a772800641805f121bfb44f272"
+        bytes: 8856
+      -
+        path: "records/index.yaml"
+        sha256: "5670507ce9fb47ebdb93786610f6ebe34ad2eced9f2cb3e2d6b7cb39542ea624"
+        bytes: 837
+      -
+        path: "records/ui-ingress/helm-render-intent.yaml"
+        sha256: "bdb9ae11a2fba3f97f26496a8a0005f7ebd744a4b06acf735a696cb6438c43d2"
+        bytes: 5325
+      -
+        path: "records/ui-ingress/source-and-intent.yaml"
+        sha256: "269199d3c3737408816a57cfd28aab0dc808300e75a2f3c380260e866f37abdb"
+        bytes: 8774
+    version: "1.11.2"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||longhorn-system"
       base: "default"
       command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
-      helmReleaseObjectCount: 41
       cubInstallObjectCountIncludingSupport: 42
+      helmReleaseObjectCount: 41
       semanticObjectMatches: "41/41"
       separatedSecretCount: 0
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||longhorn-system"
-    -
-      variant: "ui-ingress"
       base: "ui-ingress"
       command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
-      helmReleaseObjectCount: 42
       cubInstallObjectCountIncludingSupport: 43
+      helmReleaseObjectCount: 42
       semanticObjectMatches: "42/42"
       separatedSecretCount: 0
-      allowedCubOnlyObjects:
-        - "v1|Namespace||longhorn-system"
+      variant: "ui-ingress"

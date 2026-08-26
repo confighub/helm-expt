@@ -65,7 +65,7 @@ spec:
     publicationReceipt: "runs/installer-oci/traefik-traefik/41.0.2/installer-package-publication-receipt.yaml"
     installer: "packages/traefik/traefik/41.0.2/installer.yaml"
     receipt: "recipes/traefik/traefik/41.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+    deterministicBundleSHA256: "c5db540af784e849c3379bb33d4a0a09d06d6033a0b72b2b5c5b9b5622cf8af8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/percona-psmdb-operator/1.22.0/installer-package-publication-receipt.yaml"
     installer: "packages/percona/psmdb-operator/1.22.0/installer.yaml"
     receipt: "recipes/percona/psmdb-operator/1.22.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8"
+    deterministicBundleSHA256: "da51e54f48e5d3b187cd1d8fe008ba8f0f33c7061d0f5519072d53cab3955db9"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

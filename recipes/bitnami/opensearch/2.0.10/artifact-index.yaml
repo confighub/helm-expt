@@ -74,7 +74,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-opensearch/2.0.10/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/opensearch/2.0.10/installer.yaml"
     receipt: "recipes/bitnami/opensearch/2.0.10/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8"
+    deterministicBundleSHA256: "61ce70f2ff413db2f8fa1742e50025e80f78906cd6592e2db1da1ec4d1794db3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

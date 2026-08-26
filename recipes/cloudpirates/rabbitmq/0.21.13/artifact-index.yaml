@@ -81,7 +81,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudpirates-rabbitmq/0.21.13/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/rabbitmq/0.21.13/installer.yaml"
     receipt: "recipes/cloudpirates/rabbitmq/0.21.13/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864"
+    deterministicBundleSHA256: "bb936f83c78b7aa984310205d38bc3af82f85b01130217c7fd13f474e16f94eb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

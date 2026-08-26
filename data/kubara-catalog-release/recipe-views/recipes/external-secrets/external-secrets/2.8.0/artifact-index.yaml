@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/external-secrets/external-secrets/2.8.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "4cb4c3e9dd71329332f7757b33ac5d9980d6ed5a33153d6eb85b2f145bfb1f78"
+    deterministicBundleSHA256: "7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

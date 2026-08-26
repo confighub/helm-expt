@@ -1,0 +1,1078 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "kyverno-kyverno-3-8-1-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "kyverno/kyverno"
+    sourceVersion: "3.8.1"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "kyverno/kyverno"
+    version: "3.8.1"
+    record: "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+    selection:
+      name: "no-crds"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: ""
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+    digest: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227"
+      record: "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml"
+    flattening:
+      status: "not-assessed"
+      verdict: "not-assessed"
+      action: "assessment-required"
+      scope: "kyverno/kyverno@3.8.1/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: ""
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+          - "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+          - "recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=kyverno/kyverno"
+      - "version=3.8.1"
+      - "base=no-crds"
+      - "valuesProfile=recipes/kyverno/kyverno/3.8.1/effective-values-no-crds.yaml"
+      - "namespace=default"
+      - "releaseName=kyverno"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "cleanuppolicies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cleanuppolicies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clustercleanuppolicies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustercleanuppolicies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clusterpolicies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterpolicies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "globalcontextentries.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "globalcontextentries.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "policyexceptions.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "policyexceptions.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "updaterequests.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "updaterequests.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clusterephemeralreports.reports.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterephemeralreports.reports.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "ephemeralreports.reports.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "ephemeralreports.reports.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "clusterpolicyreports.wgpolicyk8s.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterpolicyreports.wgpolicyk8s.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "policyreports.wgpolicyk8s.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "policyreports.wgpolicyk8s.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "deletingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "deletingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "generatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "generatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "imagevalidatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "imagevalidatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "mutatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "mutatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "namespaceddeletingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "namespaceddeletingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "namespacedgeneratingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "namespacedgeneratingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "namespacedmutatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "namespacedmutatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "namespacedvalidatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "namespacedvalidatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "policyexceptions.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "policyexceptions.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        name: "validatingpolicies.policies.kyverno.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "validatingpolicies.policies.kyverno.io"
+          purpose: "Kyverno CRD managed outside this no-crds base"
+          sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "delete-cleanup-policy"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "hook-delete-policy"
+        -
+          id: "preserve-cleanup-policy"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "hook-delete-policy"
+        -
+          id: "upgrade-action-with-receipt"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "hook-phase"
+        -
+          id: "explicit-test-check"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "hook-test"
+        -
+          id: "preserve-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD-first ordering is not needed in a base that installs no CRDs"
+        -
+          id: "target-facts-or-preflight"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "this base needs 22 CRDs supplied before deploy (the default base installs them for you)"
+        -
+          id: "cleanuppolicies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "clustercleanuppolicies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "clusterpolicies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "globalcontextentries.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "policyexceptions.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "updaterequests.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "clusterephemeralreports.reports.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "ephemeralreports.reports.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "clusterpolicyreports.wgpolicyk8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "policyreports.wgpolicyk8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "deletingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "generatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "imagevalidatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "mutatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "namespaceddeletingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "namespacedgeneratingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "namespacedmutatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "namespacedvalidatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "policyexceptions.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+        -
+          id: "validatingpolicies.policies.kyverno.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "Kyverno CRD managed outside this no-crds base"
+      records:
+        - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "recorded"
+      routes:
+        -
+          id: "delete-cleanup-policy"
+          requirementRefs:
+            - "delete-cleanup-policy"
+          phase: "observe"
+          proposedActor: "Kubernetes"
+          proposedMechanism: "Your cluster — at uninstall, automatically"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        -
+          id: "preserve-cleanup-policy"
+          requirementRefs:
+            - "preserve-cleanup-policy"
+          phase: "observe"
+          proposedActor: "Kubernetes"
+          proposedMechanism: "Your cluster — at uninstall, automatically"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        -
+          id: "upgrade-action-with-receipt"
+          requirementRefs:
+            - "upgrade-action-with-receipt"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        -
+          id: "explicit-test-check"
+          requirementRefs:
+            - "explicit-test-check"
+          phase: "observe"
+          proposedActor: "CI or operator"
+          proposedMechanism: "# run the chart's test/check (helm test equivalent)"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        -
+          id: "preserve-ordering"
+          requirementRefs:
+            - "preserve-ordering"
+          phase: "pre-apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "CRD-first ordering is not needed in a base that installs no CRDs"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+        -
+          id: "target-facts-or-preflight"
+          requirementRefs:
+            - "target-facts-or-preflight"
+          phase: "preflight"
+          proposedActor: "operator"
+          proposedMechanism: "this base needs 22 CRDs supplied before deploy (the default base installs them for you)"
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipt-index.csv"
+            - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+      records:
+        - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cleanuppolicies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clustercleanuppolicies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "globalcontextentries.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "policyexceptions.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "updaterequests.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterephemeralreports.reports.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "ephemeralreports.reports.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clusterpolicyreports.wgpolicyk8s.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "policyreports.wgpolicyk8s.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "deletingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "generatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "imagevalidatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "mutatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "namespaceddeletingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "namespacedgeneratingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "namespacedmutatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "namespacedvalidatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "policyexceptions.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "validatingpolicies.policies.kyverno.io"
+            purpose: "Kyverno CRD managed outside this no-crds base"
+            sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
+      requirementRefs:
+        - "cleanuppolicies.kyverno.io"
+        - "clustercleanuppolicies.kyverno.io"
+        - "clusterpolicies.kyverno.io"
+        - "globalcontextentries.kyverno.io"
+        - "policies.kyverno.io"
+        - "policyexceptions.kyverno.io"
+        - "updaterequests.kyverno.io"
+        - "clusterephemeralreports.reports.kyverno.io"
+        - "ephemeralreports.reports.kyverno.io"
+        - "clusterpolicyreports.wgpolicyk8s.io"
+        - "policyreports.wgpolicyk8s.io"
+        - "deletingpolicies.policies.kyverno.io"
+        - "generatingpolicies.policies.kyverno.io"
+        - "imagevalidatingpolicies.policies.kyverno.io"
+        - "mutatingpolicies.policies.kyverno.io"
+        - "namespaceddeletingpolicies.policies.kyverno.io"
+        - "namespacedgeneratingpolicies.policies.kyverno.io"
+        - "namespacedimagevalidatingpolicies.policies.kyverno.io"
+        - "namespacedmutatingpolicies.policies.kyverno.io"
+        - "namespacedvalidatingpolicies.policies.kyverno.io"
+        - "policyexceptions.policies.kyverno.io"
+        - "validatingpolicies.policies.kyverno.io"
+      records:
+        - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "cleanuppolicies.kyverno.io"
+      - "clustercleanuppolicies.kyverno.io"
+      - "clusterpolicies.kyverno.io"
+      - "globalcontextentries.kyverno.io"
+      - "policies.kyverno.io"
+      - "policyexceptions.kyverno.io"
+      - "updaterequests.kyverno.io"
+      - "clusterephemeralreports.reports.kyverno.io"
+      - "ephemeralreports.reports.kyverno.io"
+      - "clusterpolicyreports.wgpolicyk8s.io"
+      - "policyreports.wgpolicyk8s.io"
+      - "deletingpolicies.policies.kyverno.io"
+      - "generatingpolicies.policies.kyverno.io"
+      - "imagevalidatingpolicies.policies.kyverno.io"
+      - "mutatingpolicies.policies.kyverno.io"
+      - "namespaceddeletingpolicies.policies.kyverno.io"
+      - "namespacedgeneratingpolicies.policies.kyverno.io"
+      - "namespacedimagevalidatingpolicies.policies.kyverno.io"
+      - "namespacedmutatingpolicies.policies.kyverno.io"
+      - "namespacedvalidatingpolicies.policies.kyverno.io"
+      - "policyexceptions.policies.kyverno.io"
+      - "validatingpolicies.policies.kyverno.io"
+    deliveryProtected:
+      - "delete-cleanup-policy"
+      - "preserve-cleanup-policy"
+    records:
+      - "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "external-dns-external-dns-1.21.1"
+spec:
+  package:
+    name: "external-dns-external-dns"
+    version: "1.21.1"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "dry-run-txt-registry"
+      objects: "bases/dry-run-txt-registry/upstream.yaml"
+      sourceAndIntent: "records/dry-run-txt-registry/source-and-intent.yaml"
+      sourceSpecificIntent: "records/dry-run-txt-registry/helm-render-intent.yaml"
+    -
+      name: "no-crds"
+      objects: "bases/no-crds/upstream.yaml"
+      sourceAndIntent: "records/no-crds/source-and-intent.yaml"
+      sourceSpecificIntent: "records/no-crds/helm-render-intent.yaml"

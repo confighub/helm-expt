@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/postgresql/18.6.10 -o <tmp>/postgresql-18.6.10.tgz"
-    sha256: "1fe4595ee7e39914965e58019b56101e6e1f1ff24e750cb8283655dfb51a2e93"
+    sha256: "3b3b604fffeeaaa77ad2199f12fdf40e5c78842df718c497cbd4ea0b1cace664"
   package:
     name: "bitnami-postgresql"
     path: "packages/bitnami/postgresql/18.6.10"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "575c8c4b0205751b964590294896b0ebc556b553e12f587c6420090b468cfb69"
         bytes: 1278
+      -
+        path: "records/README.md"
+        sha256: "ffec6d5ec643c956c82c7b5636ec5043a3ee8c7888ecc766f6aaa5b0ec83c1ff"
+        bytes: 1248
+      -
+        path: "records/existing-secret/helm-render-intent.yaml"
+        sha256: "e8bb7ef5028a67336b317be4da4f97093c12343087c049cdcd57e029b0ae5caf"
+        bytes: 6066
+      -
+        path: "records/existing-secret/source-and-intent.yaml"
+        sha256: "82e9a90881dcabdb77e69d06658d380ec16332ed3cb5fa81560b7772fe656d0c"
+        bytes: 9752
+      -
+        path: "records/index.yaml"
+        sha256: "340a5d982995a73f425019ca404d46ae163782d7520df69a0e6b6b52b3ccf0b9"
+        bytes: 897
+      -
+        path: "records/static-passwords/helm-render-intent.yaml"
+        sha256: "0e881d7a383fcc81b6a6918e77fba15fb9235ea57796caf9e0d926e3afada7fd"
+        bytes: 5451
+      -
+        path: "records/static-passwords/source-and-intent.yaml"
+        sha256: "da21351d86e4e11fa6a00b2731f7899754be7ce14404d0445c68b9a6f52f8861"
+        bytes: 8952
     version: "18.6.10"
   setupChecks:
     -

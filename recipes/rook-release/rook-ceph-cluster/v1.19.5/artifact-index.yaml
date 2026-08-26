@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/rook-release-rook-ceph-cluster/v1.19.5/installer-package-publication-receipt.yaml"
     installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d"
+    deterministicBundleSHA256: "f02e133d11d6aed5db38eb0d0189436859cc77c3abf85c9e54fbed2f594a07d5"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

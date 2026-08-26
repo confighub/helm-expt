@@ -72,7 +72,7 @@ spec:
     publicationReceipt: "runs/installer-oci/argo-cd-argo-cd/10.2.1/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-cd/10.2.1/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/10.2.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88"
+    deterministicBundleSHA256: "da6f004da8dfa65785c24378a6292618619cb8bb43eec0e304d56b759b6577ce"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

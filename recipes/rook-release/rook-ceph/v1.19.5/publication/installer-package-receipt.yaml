@@ -4,13 +4,16 @@ metadata:
   name: "rook-release-rook-ceph-v1-19-5"
 spec:
   chart:
-    repository: "rook-release"
     name: "rook-ceph"
+    repository: "rook-release"
     version: "v1.19.5"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/rook-release/rook-ceph/v1.19.5 -o <tmp>/rook-release-rook-ceph-v1-19-5.tgz"
+    sha256: "2ba5ac957b783ee8d2422f5cdc4572f243b01bc1ee9e26ef299960cd95fd9247"
   package:
-    path: "packages/rook-release/rook-ceph/v1.19.5"
     name: "rook-release-rook-ceph"
-    version: "v1.19.5"
+    path: "packages/rook-release/rook-ceph/v1.19.5"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "fb7e953a55a07c94c21d581ace12d75792f2fa97a0b70ada24d96b7bcaf6216b"
         bytes: 323
-  deterministicBundle:
-    command: "cub installer package packages/rook-release/rook-ceph/v1.19.5 -o <tmp>/rook-release-rook-ceph-v1-19-5.tgz"
-    sha256: "21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "bd0adf86292b55ca0d89e9c12161f87301b2cb4af8e2a8582cf62ad18afce66f"
+        bytes: 5392
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "3e3fd16484ff1011f1e0743969e70e799681f8c610ad3efc2003cbd2e045ec43"
+        bytes: 8926
+      -
+        path: "records/index.yaml"
+        sha256: "7aa0f4a481862de56b966bd850b5d25198fa1a1b209d6290aa279072bef20c1b"
+        bytes: 630
+    version: "v1.19.5"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/rook-release/rook-ceph/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 133
-      cubInstallObjectCountIncludingSupport: 134
-      semanticObjectMatches: "133/133"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/rook-release/rook-ceph/v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 134
+      helmReleaseObjectCount: 133
+      semanticObjectMatches: "133/133"
+      separatedSecretCount: 0
+      variant: "default"

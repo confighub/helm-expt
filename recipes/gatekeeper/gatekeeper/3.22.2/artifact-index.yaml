@@ -73,7 +73,7 @@ spec:
     publicationReceipt: "runs/installer-oci/gatekeeper-gatekeeper/3.22.2/installer-package-publication-receipt.yaml"
     installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
     receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
+    deterministicBundleSHA256: "8147ddab1d0e035a2eef1906e0fdb8b182ec053bc973884f24726228923a3bd8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/jaegertracing-jaeger/4.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/jaegertracing/jaeger/4.8.0/installer.yaml"
     receipt: "recipes/jaegertracing/jaeger/4.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+    deterministicBundleSHA256: "14533b519f5a269cd30c8cd5432d05517920fdb1d9c9eb92caf7ef0f912d510b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

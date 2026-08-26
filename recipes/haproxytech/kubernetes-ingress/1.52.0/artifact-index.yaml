@@ -72,7 +72,7 @@ spec:
     publicationReceipt: "runs/installer-oci/haproxytech-kubernetes-ingress/1.52.0/installer-package-publication-receipt.yaml"
     installer: "packages/haproxytech/kubernetes-ingress/1.52.0/installer.yaml"
     receipt: "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
+    deterministicBundleSHA256: "d5af5579ae1f31270158b65bf1f294b1182e7d673af2e856836e29782d54a00a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

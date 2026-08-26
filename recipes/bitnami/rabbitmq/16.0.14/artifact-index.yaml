@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-rabbitmq/16.0.14/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
     receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9"
+    deterministicBundleSHA256: "d058feeed443fe6629715f0df08e543e30904bd07ecf3c52d42abe885779ccb3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

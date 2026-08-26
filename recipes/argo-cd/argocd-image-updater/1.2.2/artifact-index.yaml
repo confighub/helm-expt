@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/argo-cd-argocd-image-updater/1.2.2/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argocd-image-updater/1.2.2/installer.yaml"
     receipt: "recipes/argo-cd/argocd-image-updater/1.2.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+    deterministicBundleSHA256: "6baba13e8e6f60a505b19045b6f737d17333ac07d0d4b4a9affd5525e92263c2"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

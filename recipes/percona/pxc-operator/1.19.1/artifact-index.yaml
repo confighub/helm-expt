@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/percona-pxc-operator/1.19.1/installer-package-publication-receipt.yaml"
     installer: "packages/percona/pxc-operator/1.19.1/installer.yaml"
     receipt: "recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb"
+    deterministicBundleSHA256: "ce2c51245effd14765d063883a052e31b83d81de49d86daa970b4a8efb0dde59"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

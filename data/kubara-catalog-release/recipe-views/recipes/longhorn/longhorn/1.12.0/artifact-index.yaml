@@ -65,7 +65,7 @@ spec:
     publicationReceipt: "runs/installer-oci/longhorn-longhorn/1.12.0/installer-package-publication-receipt.yaml"
     installer: "packages/longhorn/longhorn/1.12.0/installer.yaml"
     receipt: "recipes/longhorn/longhorn/1.12.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "06a73e1d849b99b26da8c25ed683ffd3d6ce290b2a2feca1123d9c5ae7083a69"
+    deterministicBundleSHA256: "6ac18fd258b88faa5900f07cd2086440ef22122b7e05fb4f8c641328b8c69d38"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

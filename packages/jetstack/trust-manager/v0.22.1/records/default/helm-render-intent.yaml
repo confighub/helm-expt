@@ -1,0 +1,261 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "jetstack-trust-manager-v0-22-1-default"
+  labels:
+    component: "jetstack/trust-manager"
+    chart: "jetstack/trust-manager"
+    version: "v0.22.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "jetstack/trust-manager"
+  chart:
+    name: "jetstack/trust-manager"
+    version: "v0.22.1"
+    sourceRepository: "https://charts.jetstack.io"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/jetstack/trust-manager/v0.22.1"
+    variant: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+    revision: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/trust-manager/v0.22.1/bases/default"
+    sourceLock: "recipes/jetstack/trust-manager/v0.22.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "trust-manager"
+    valuesProfile: "recipes/jetstack/trust-manager/v0.22.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/trust-manager/v0.22.1/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certificates.cert-manager.io"
+          purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+          sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "issuers.cert-manager.io"
+          purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+          sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+      requiredNamespaces:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cert-manager"
+          purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for this base"
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "trust-manager-tls"
+          namespace: "default"
+          purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+    requirements:
+      -
+        category: "crd"
+        name: "certificates.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+          - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "crd"
+        name: "issuers.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+          - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+      -
+        category: "namespace"
+        name: "cert-manager"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for this base"
+        check: ""
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      -
+        category: "secret"
+        name: "default/trust-manager-tls"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+        check: ""
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "4 target prerequisites declared by this base."
+      declarationSource: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/jetstack/trust-manager/v0.22.1/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 4
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/trust-manager/v0.22.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/jetstack/trust-manager/v0.22.1/bases/default"
+    fullModelPath:
+      - "chart/version: jetstack/trust-manager@v0.22.1"
+      - "recipe: recipes/jetstack/trust-manager/v0.22.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
+      - "rendered revision: recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/jetstack/trust-manager/v0.22.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

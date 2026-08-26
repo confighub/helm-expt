@@ -10,27 +10,43 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/stakater/reloader/2.2.14 -o <tmp>/reloader-2.2.14.tgz"
-    sha256: "eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65"
+    sha256: "ddf8b920151c9806f06ef745bb8ee54f3e8fb7b512e66c582d9f0b8292a55e5c"
   package:
     name: "stakater-reloader"
     path: "packages/stakater/reloader/2.2.14"
     sourceFiles:
       -
-        bytes: 391
         path: "README.md"
         sha256: "87b31fd66337fd8bb0c21bd435f167db60e462dd4b87755bd7b827fb7b953fbb"
+        bytes: 391
       -
-        bytes: 99
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
       -
-        bytes: 6720
         path: "bases/default/upstream.yaml"
         sha256: "206dcaad71b6f825e834c5b1c0a3dc6799927de8344f4f5d58ed8f6a8bded049"
+        bytes: 6720
       -
-        bytes: 304
         path: "installer.yaml"
         sha256: "e0f99190882bf9f2b0cf631fac224173aba164c457334deceb6ff8b689e3f5f7"
+        bytes: 304
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "16013b642eeab9e586f3dd19c35b3e9bc349f62cae84635a64ba908d0d40b10f"
+        bytes: 5283
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "a75e75ad348be356fede780a51a8c3c95cc6da5729200f80c53280a1a831c832"
+        bytes: 8780
+      -
+        path: "records/index.yaml"
+        sha256: "5e15ec27e4cdecff9a9f2ac0ad4f5c5fc86cc498f19feb3577a885da87bf62a0"
+        bytes: 618
     version: "2.2.14"
   setupChecks:
     -

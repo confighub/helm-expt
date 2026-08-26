@@ -78,7 +78,7 @@ spec:
     publicationReceipt: "runs/installer-oci/cloudpirates-nginx/0.16.1/installer-package-publication-receipt.yaml"
     installer: "packages/cloudpirates/nginx/0.16.1/installer.yaml"
     receipt: "recipes/cloudpirates/nginx/0.16.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e"
+    deterministicBundleSHA256: "50292aeac182225f602d7394795fbbdfe40408f0afe479f050cb7f40c2c388d1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

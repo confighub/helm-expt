@@ -72,7 +72,7 @@ spec:
     publicationReceipt: "runs/installer-oci/strimzi-strimzi-kafka-operator/1.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/strimzi/strimzi-kafka-operator/1.0.0/installer.yaml"
     receipt: "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
+    deterministicBundleSHA256: "4dc6c529bb5f03dc8f1aeedcc7ed257056571a79a85923e22eec697a3f05b821"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

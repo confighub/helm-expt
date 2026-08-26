@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/nvidia-device-plugin/0.19.3/installer.yaml"
     receipt: "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
+    deterministicBundleSHA256: "0fb1e5eaf28ae2787aa7997e594a30bebcbda6581b5f35e152fd41b19cc4d761"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

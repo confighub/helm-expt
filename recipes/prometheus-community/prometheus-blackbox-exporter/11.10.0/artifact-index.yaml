@@ -69,7 +69,7 @@ spec:
     publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-blackbox-exporter/11.10.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
+    deterministicBundleSHA256: "46ecca408dd546aa230a2de732e604aa567866a42a8247a990fa0786dfb07b61"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

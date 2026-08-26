@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/istio-istiod/1.30.0/installer-package-publication-receipt.yaml"
     installer: "packages/istio/istiod/1.30.0/installer.yaml"
     receipt: "recipes/istio/istiod/1.30.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6"
+    deterministicBundleSHA256: "13f0c70fe723daf5c27d959d794a7f9f48e7bb45fd9fdfaf1fcf81f9a345e8fe"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

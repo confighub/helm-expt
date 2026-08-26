@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/elastic-filebeat/8.5.1/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
+    deterministicBundleSHA256: "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -65,7 +65,7 @@ spec:
     publicationReceipt: "runs/installer-oci/policy-reporter-policy-reporter/3.9.1/installer-package-publication-receipt.yaml"
     installer: "packages/policy-reporter/policy-reporter/3.9.1/installer.yaml"
     receipt: "recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6"
+    deterministicBundleSHA256: "315d06c4da6f2e70ab0e1aab68d97a2cb0cb4ef37035bc28eb96a73bdc797ce2"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

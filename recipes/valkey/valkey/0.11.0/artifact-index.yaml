@@ -78,7 +78,7 @@ spec:
     publicationReceipt: "runs/installer-oci/valkey-valkey/0.11.0/installer-package-publication-receipt.yaml"
     installer: "packages/valkey/valkey/0.11.0/installer.yaml"
     receipt: "recipes/valkey/valkey/0.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c"
+    deterministicBundleSHA256: "4d297f630eec58d0e61d375e6b015f3f8266a80952db588ad40cb6143ae64a20"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

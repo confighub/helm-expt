@@ -68,7 +68,7 @@ spec:
     publicationReceipt: "runs/installer-oci/linkerd-linkerd-crds/1.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/linkerd/linkerd-crds/1.8.0/installer.yaml"
     receipt: "recipes/linkerd/linkerd-crds/1.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
+    deterministicBundleSHA256: "1fdc381abc0c9a0db2a1a02a761462ad95404320346e3f7bf2fa2e7d391ff077"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

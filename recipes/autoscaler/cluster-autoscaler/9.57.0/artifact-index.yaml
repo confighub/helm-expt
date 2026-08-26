@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/autoscaler-cluster-autoscaler/9.57.0/installer-package-publication-receipt.yaml"
     installer: "packages/autoscaler/cluster-autoscaler/9.57.0/installer.yaml"
     receipt: "recipes/autoscaler/cluster-autoscaler/9.57.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2"
+    deterministicBundleSHA256: "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

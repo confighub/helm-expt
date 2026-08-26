@@ -75,7 +75,7 @@ spec:
     publicationReceipt: "runs/installer-oci/bitnami-mongodb/19.1.0/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/mongodb/19.1.0/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.1.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0"
+    deterministicBundleSHA256: "9286aa7a3bc4b35ca48fd5e99d4d583e3b17495529cc86aecdd4d40f48e53bba"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

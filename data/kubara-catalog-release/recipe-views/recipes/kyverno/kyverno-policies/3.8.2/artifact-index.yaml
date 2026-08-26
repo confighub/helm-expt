@@ -64,7 +64,7 @@ spec:
     publicationReceipt: "runs/installer-oci/kyverno-kyverno-policies/3.8.2/installer-package-publication-receipt.yaml"
     installer: "packages/kyverno/kyverno-policies/3.8.2/installer.yaml"
     receipt: "recipes/kyverno/kyverno-policies/3.8.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e7d016fe4f673dc4887602f3408e0f7ecae189da78d71d48673fcca781487a0e"
+    deterministicBundleSHA256: "a85ec0d339e9be40902bee9d58d2fb94f158f65087bbc07c1c8d480efb27a196"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

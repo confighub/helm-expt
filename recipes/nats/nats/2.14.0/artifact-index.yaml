@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/nats-nats/2.14.0/installer-package-publication-receipt.yaml"
     installer: "packages/nats/nats/2.14.0/installer.yaml"
     receipt: "recipes/nats/nats/2.14.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b"
+    deterministicBundleSHA256: "e8769041f5c8e1cd919dd2f81c872313e5b3e423729c974f771a5e28fa441320"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  package:
+    name: "grafana-grafana"
+    version: "10.5.15"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "existing-secret-ingress"
+      objects: "bases/existing-secret-ingress/upstream.yaml"
+      sourceAndIntent: "records/existing-secret-ingress/source-and-intent.yaml"
+      sourceSpecificIntent: "records/existing-secret-ingress/helm-render-intent.yaml"
+    -
+      name: "static-passwords"
+      objects: "bases/static-passwords/upstream.yaml"
+      sourceAndIntent: "records/static-passwords/source-and-intent.yaml"
+      sourceSpecificIntent: "records/static-passwords/helm-render-intent.yaml"

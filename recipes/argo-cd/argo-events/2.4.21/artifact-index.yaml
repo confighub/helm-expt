@@ -71,7 +71,7 @@ spec:
     publicationReceipt: "runs/installer-oci/argo-cd-argo-events/2.4.21/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-events/2.4.21/installer.yaml"
     receipt: "recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
+    deterministicBundleSHA256: "0743b7edc53e97801ad73987ccff32e7d3ed3a8d4f498febb61103306408fd87"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

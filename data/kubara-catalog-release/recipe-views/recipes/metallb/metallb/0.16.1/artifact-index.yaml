@@ -66,7 +66,7 @@ spec:
     publicationReceipt: "runs/installer-oci/metallb-metallb/0.16.1/installer-package-publication-receipt.yaml"
     installer: "packages/metallb/metallb/0.16.1/installer.yaml"
     receipt: "recipes/metallb/metallb/0.16.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070"
+    deterministicBundleSHA256: "1d9b04b7d6d310cf3a90cbcc7d5410401676febf41acb782a153f18be1703df3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

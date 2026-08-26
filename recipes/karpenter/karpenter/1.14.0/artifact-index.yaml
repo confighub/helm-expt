@@ -70,7 +70,7 @@ spec:
     publicationReceipt: "runs/installer-oci/karpenter-karpenter/1.14.0/installer-package-publication-receipt.yaml"
     installer: "packages/karpenter/karpenter/1.14.0/installer.yaml"
     receipt: "recipes/karpenter/karpenter/1.14.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8d01d0bbcecbe89b7bf4f11de980252ce6875f812d9d0d239bf4220107364a8e"
+    deterministicBundleSHA256: "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
