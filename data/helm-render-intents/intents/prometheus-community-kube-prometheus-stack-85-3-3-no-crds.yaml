@@ -813,10 +813,18 @@ spec:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "11 target prerequisites declared by this base."
       declarationSource: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

@@ -318,10 +318,18 @@ spec:
           - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "7 target prerequisites declared by this base."
       declarationSource: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

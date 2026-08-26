@@ -105,10 +105,18 @@ spec:
         evidence:
           - "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
           - "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached-with-observed-actions"
       reason: "1 prerequisite declaration and 1 follow-up action record are attached."
       declarationSource: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

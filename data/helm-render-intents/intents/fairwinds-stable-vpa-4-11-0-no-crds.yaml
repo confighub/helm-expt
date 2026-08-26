@@ -168,10 +168,18 @@ spec:
           - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "3 target prerequisites declared by this base."
       declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

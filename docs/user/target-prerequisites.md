@@ -28,6 +28,11 @@ expects before deployment. `targetFacts.actions` is different: it records work
 derived from a failed or blocked live run. An empty action list does not cancel
 a declared Secret or CRD requirement.
 
+Do not add `targetFacts: {}` just to close a gap. If a review finds that the
+base needs no separate target prerequisite, record a `targetFactsReview` too.
+It must say what was checked and link to the evidence. Without that review, the
+gap stays open.
+
 The useful product claim is not only:
 
 ```text

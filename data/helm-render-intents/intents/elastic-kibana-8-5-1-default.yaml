@@ -104,10 +104,19 @@ spec:
           maxAge: "one-apply"
         evidence:
           - "runs/live-kind-parity/elastic-kibana-default/receipt.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/elastic-kibana-default/receipt.yaml"
+        - "runs/live-kind-parity/elastic-kibana-default/receipt.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:

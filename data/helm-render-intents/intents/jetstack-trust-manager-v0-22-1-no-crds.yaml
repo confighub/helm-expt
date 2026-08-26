@@ -234,10 +234,18 @@ spec:
           - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "5 target prerequisites declared by this base."
       declarationSource: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

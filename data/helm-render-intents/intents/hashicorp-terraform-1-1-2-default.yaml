@@ -160,10 +160,18 @@ spec:
         evidence:
           - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
           - "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached-with-observed-actions"
       reason: "2 prerequisite declarations and 1 follow-up action record are attached."
       declarationSource: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

@@ -87,10 +87,19 @@ spec:
         evidence:
           - "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
           - "recipes/grafana/pyroscope/2.0.2/runtime-review.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
+        - "recipes/grafana/pyroscope/2.0.2/runtime-review.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:

@@ -103,10 +103,18 @@ spec:
           - "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "1 target prerequisite declared by this base."
       declarationSource: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

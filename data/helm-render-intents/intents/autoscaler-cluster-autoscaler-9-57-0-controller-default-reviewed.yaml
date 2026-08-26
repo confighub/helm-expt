@@ -110,10 +110,18 @@ spec:
           - "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "2 target prerequisites declared by this base."
       declarationSource: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
