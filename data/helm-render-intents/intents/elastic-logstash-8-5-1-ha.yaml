@@ -93,10 +93,18 @@ spec:
           - "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "1 target prerequisite declared by this base."
       declarationSource: "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

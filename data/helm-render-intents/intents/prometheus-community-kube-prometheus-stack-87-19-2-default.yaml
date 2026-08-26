@@ -834,10 +834,18 @@ spec:
           - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/variants/default/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "11 target prerequisites declared by this base."
       declarationSource: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
@@ -852,7 +860,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "recorded"
+      status: "review-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 11
       lifecycleRouteCount: 8

@@ -62,10 +62,136 @@ if (mode === "--generate") {
     check(readFileSync(path, "utf8") === `${toYaml(intent)}\n`, `${relativeRepo(path)} is stale; run npm run helm-render-intents`);
   }
   console.log(`verified helm render intents for ${report.intents.length} real base row(s)`);
+} else if (mode === "--self-test") {
+  runSelfTest();
+  console.log("verified target-fact and install-work guards");
 } else {
   console.log(`Usage:
   node scripts/generate-helm-render-intents.mjs --generate
-  node scripts/generate-helm-render-intents.mjs --verify`);
+  node scripts/generate-helm-render-intents.mjs --verify
+  node scripts/generate-helm-render-intents.mjs --self-test`);
+}
+
+function runSelfTest() {
+  const row = { chart: "example/chart", version: "1.0.0", variant: "default", variant_path: "recipes/example/chart/1.0.0/variants/default/variant.yaml" };
+  const review = normalizeTargetFactsReview({
+    decision: "no-separate-target-prerequisites",
+    scope: "the test scope",
+    evidence: ["package.json"],
+  }, row);
+  validateTargetFactsReview({
+    declaredTargetFactCount: 0,
+    declaredTargetFactsPresent: true,
+    targetFactsReview: review,
+    row,
+  });
+  const coverage = targetFactCoverage({
+    declaredTargetFactCount: 0,
+    declaredTargetFactsPresent: true,
+    targetFactsReview: review,
+    targetActions: [],
+    row,
+  });
+  check(coverage.state === "no-target-facts-required", "reviewed empty declaration did not close target-fact coverage");
+  check(coverage.evidence[0] === "package.json", "review evidence was not retained in coverage");
+
+  const missingReviewCoverage = targetFactCoverage({
+    declaredTargetFactCount: 0,
+    declaredTargetFactsPresent: true,
+    targetFactsReview: normalizeTargetFactsReview(undefined, row),
+    targetActions: [],
+    row,
+  });
+  check(missingReviewCoverage.state === "actionable-gap", "an unreviewed empty declaration closed target-fact coverage");
+
+  expectFailure(
+    () => validateTargetFactsReview({
+      declaredTargetFactCount: 0,
+      declaredTargetFactsPresent: false,
+      targetFactsReview: review,
+      row,
+    }),
+    "accepted a no-prerequisite review without an explicit empty declaration",
+  );
+  expectFailure(
+    () => validateTargetFactsReview({
+      declaredTargetFactCount: 1,
+      declaredTargetFactsPresent: true,
+      targetFactsReview: review,
+      row,
+    }),
+    "accepted a no-prerequisite review beside a declared prerequisite",
+  );
+  expectFailure(
+    () => validateTargetFactsReview({
+      declaredTargetFactCount: 0,
+      declaredTargetFactsPresent: true,
+      targetFactsReview: {
+        ...review,
+        decision: "requirements-declared",
+      },
+      row,
+    }),
+    "accepted a requirements-declared review without a requirement",
+  );
+  expectFailure(
+    () => normalizeTargetFactsReview({
+      decision: "no-separate-target-prerequisites",
+      scope: "the test scope",
+      evidence: ["../package.json"],
+    }, row),
+    "accepted an unsafe review evidence path",
+  );
+  expectFailure(
+    () => normalizeTargetFactsReview({
+      decision: "no-separate-target-prerequisites",
+      scope: "the test scope",
+      evidence: ["data/this-review-evidence-does-not-exist.yaml"],
+    }, row),
+    "accepted a missing review evidence path",
+  );
+
+  check(
+    resolveInstallWorkStatus({ state: "attached" }, { state: "actionable-gap" }) === "review-required",
+    "recorded lifecycle work hid an unresolved target-prerequisite review",
+  );
+  check(
+    resolveInstallWorkStatus({ state: "actionable-gap" }, { state: "attached" }) === "review-required",
+    "recorded target prerequisites hid an unresolved lifecycle review",
+  );
+  check(
+    resolveInstallWorkStatus({ state: "attached" }, { state: "no-target-facts-required" }) === "recorded",
+    "complete lifecycle work and target review were not recorded",
+  );
+  check(
+    resolveInstallWorkStatus({ state: "no-route-required" }, { state: "no-target-facts-required" }) === "none-required",
+    "two explicit no-work decisions were not retained",
+  );
+}
+
+function expectFailure(fn, message) {
+  let failed = false;
+  try {
+    fn();
+  } catch {
+    failed = true;
+  }
+  check(failed, message);
+}
+
+function resolveInstallWorkStatus(lifecycleCoverage, targetCoverage) {
+  const lifecycleComplete = ["attached", "no-route-required"].includes(lifecycleCoverage.state);
+  const targetComplete = [
+    "attached",
+    "attached-with-observed-actions",
+    "no-target-facts-required",
+  ].includes(targetCoverage.state);
+  if (!lifecycleComplete || !targetComplete) return "review-required";
+  if (
+    lifecycleCoverage.state === "no-route-required"
+      && targetCoverage.state === "no-target-facts-required"
+  ) return "none-required";
+  return "recorded";
 }
 
 function buildReport() {
@@ -261,18 +387,21 @@ function buildIntent(
     row,
   );
   const declaredTargetFactsPresent = Object.hasOwn(variantSpec, "targetFacts");
+  const targetFactsReview = normalizeTargetFactsReview(
+    variantSpec.targetFactsReview,
+    row,
+  );
   const targetRequirements = normalizeTargetRequirements(
     declaredTargetFacts,
     row.variant_path,
   );
   const declaredTargetFactCount = targetFactCount(declaredTargetFacts);
-  const targetStatus = declaredTargetFactCount > 0 && targetActions.length > 0
-    ? "declared-target-facts-and-observed-action-records"
-    : declaredTargetFactCount > 0
-      ? "declared-target-facts"
-      : targetActions.length > 0
-        ? "observed-action-records"
-        : "none-declared-or-observed";
+  validateTargetFactsReview({
+    declaredTargetFactCount,
+    declaredTargetFactsPresent,
+    targetFactsReview,
+    row,
+  });
   const lifecycleCoverage = lifecycleContractCoverage(row, lifecycleRoutes);
   const lifecycleRouteCount = lifecycleRoutes.length;
   const lifecycleDispositions = summarizeRouteValues(lifecycleRoutes, "disposition");
@@ -283,21 +412,27 @@ function buildIntent(
   const targetCoverage = targetFactCoverage({
     declaredTargetFactCount,
     declaredTargetFactsPresent,
+    targetFactsReview,
     targetActions,
     row,
   });
+  const targetStatus = targetCoverage.state === "no-target-facts-required"
+    ? "reviewed-no-target-facts-required"
+    : declaredTargetFactCount > 0 && targetActions.length > 0
+      ? "declared-target-facts-and-observed-action-records"
+      : declaredTargetFactCount > 0
+        ? "declared-target-facts"
+        : targetActions.length > 0
+          ? "observed-action-records"
+          : "none-declared-or-observed";
   const valuesProfile = resolveVariantPath(
     row.variant_path,
     variantSpec.valuesProfile,
   );
-  const installWorkStatus =
-    lifecycleCoverage.state === "attached"
-      || ["attached", "attached-with-observed-actions"].includes(targetCoverage.state)
-      ? "recorded"
-      : lifecycleCoverage.state === "no-route-required"
-        && targetCoverage.state === "no-target-facts-required"
-        ? "none-required"
-        : "review-required";
+  const installWorkStatus = resolveInstallWorkStatus(
+    lifecycleCoverage,
+    targetCoverage,
+  );
   const packagePublication = installerOciPublication(row.chart, row.version);
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -418,6 +553,7 @@ function buildIntent(
         declared: declaredTargetFacts,
         requirements: targetRequirements,
         actions: targetActions,
+        review: targetFactsReview,
         coverage: targetCoverage,
       },
       settingSources: {
@@ -527,6 +663,59 @@ function targetFactCount(targetFacts) {
     }
     return count + (value === undefined || value === null || value === "" ? 0 : 1);
   }, 0);
+}
+
+function normalizeTargetFactsReview(review, row) {
+  if (review === undefined || review === null) {
+    return {
+      status: "not-recorded",
+      decision: "not-reviewed",
+      scope: "",
+      evidence: [],
+    };
+  }
+  check(review && typeof review === "object" && !Array.isArray(review), `${row.chart}@${row.version} ${row.variant}: targetFactsReview must be an object`);
+  const decision = String(review.decision ?? "");
+  check(
+    ["requirements-declared", "no-separate-target-prerequisites"].includes(decision),
+    `${row.chart}@${row.version} ${row.variant}: targetFactsReview.decision is invalid`,
+  );
+  const scope = String(review.scope ?? "").trim();
+  check(scope, `${row.chart}@${row.version} ${row.variant}: targetFactsReview.scope is required`);
+  const evidence = Array.isArray(review.evidence)
+    ? review.evidence.map((item) => String(item).trim()).filter(Boolean)
+    : [];
+  check(evidence.length > 0, `${row.chart}@${row.version} ${row.variant}: targetFactsReview.evidence is required`);
+  for (const path of evidence) {
+    check(!path.startsWith("/") && !path.split("/").includes(".."), `${row.chart}@${row.version} ${row.variant}: targetFactsReview evidence path is unsafe: ${path}`);
+    check(existsSync(join(repoRoot, path)), `${row.chart}@${row.version} ${row.variant}: targetFactsReview evidence is missing: ${path}`);
+  }
+  return {
+    status: "reviewed",
+    decision,
+    scope,
+    evidence,
+  };
+}
+
+function validateTargetFactsReview({
+  declaredTargetFactCount,
+  declaredTargetFactsPresent,
+  targetFactsReview,
+  row,
+}) {
+  if (targetFactsReview.status !== "reviewed") return;
+  if (targetFactsReview.decision === "no-separate-target-prerequisites") {
+    check(
+      declaredTargetFactsPresent && declaredTargetFactCount === 0,
+      `${row.chart}@${row.version} ${row.variant}: a no-separate-target-prerequisites review requires an explicit empty targetFacts declaration`,
+    );
+    return;
+  }
+  check(
+    declaredTargetFactCount > 0,
+    `${row.chart}@${row.version} ${row.variant}: a requirements-declared review requires at least one target fact`,
+  );
 }
 
 function normalizeTargetRequirements(targetFacts, variantPath) {
@@ -669,6 +858,7 @@ function lifecycleContractCoverage(row, routes) {
 function targetFactCoverage({
   declaredTargetFactCount,
   declaredTargetFactsPresent,
+  targetFactsReview,
   targetActions,
   row,
 }) {
@@ -677,6 +867,7 @@ function targetFactCoverage({
       state: "attached-with-observed-actions",
       reason: `${declaredTargetFactCount} prerequisite declaration${declaredTargetFactCount === 1 ? "" : "s"} and ${targetActions.length} follow-up action record${targetActions.length === 1 ? "" : "s"} are attached.`,
       declarationSource: row.variant_path,
+      evidence: targetFactsReview.evidence,
       nextAction: "",
     };
   }
@@ -685,6 +876,7 @@ function targetFactCoverage({
       state: "attached",
       reason: `${declaredTargetFactCount} target prerequisite${declaredTargetFactCount === 1 ? "" : "s"} declared by this base.`,
       declarationSource: row.variant_path,
+      evidence: targetFactsReview.evidence,
       nextAction: "",
     };
   }
@@ -693,22 +885,38 @@ function targetFactCoverage({
       state: "actionable-gap",
       reason: `${targetActions.length} observed prerequisite action record${targetActions.length === 1 ? " exists" : "s exist"}, but the base does not declare the prerequisite.`,
       declarationSource: "",
+      evidence: targetActions.flatMap((action) => action.evidence ?? []),
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof.",
+    };
+  }
+  if (
+    declaredTargetFactsPresent
+    && targetFactsReview.status === "reviewed"
+    && targetFactsReview.decision === "no-separate-target-prerequisites"
+  ) {
+    return {
+      state: "no-target-facts-required",
+      reason: `The base review found no separate target prerequisite in this scope: ${targetFactsReview.scope}`,
+      declarationSource: row.variant_path,
+      evidence: targetFactsReview.evidence,
+      nextAction: "",
     };
   }
   if (declaredTargetFactsPresent) {
     return {
-      state: "no-target-facts-required",
-      reason: "The base explicitly declares no separate target prerequisite.",
+      state: "actionable-gap",
+      reason: "The base contains an empty targetFacts declaration without a review record that explains the checked scope and evidence.",
       declarationSource: row.variant_path,
-      nextAction: "",
+      evidence: [],
+      nextAction: "Add spec.targetFactsReview with the reviewed scope and evidence, or declare the prerequisite that is still required.",
     };
   }
   return {
     state: "actionable-gap",
     reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
     declarationSource: "",
-    nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required.",
+    evidence: [],
+    nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit empty targetFacts declaration plus targetFactsReview scope and evidence.",
   };
 }
 

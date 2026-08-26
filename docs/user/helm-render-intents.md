@@ -60,6 +60,17 @@ Every intent has a `spec.settingSources` section:
 | `liveCluster` | Live state is observed separately; it is not used as desired configuration by itself. |
 | `overlapPolicy` | `review-required`: if a later Helm render and a ConfigHub revision touch the same field, review the overlap before promotion. |
 
+`installWork.status` has three meanings:
+
+- `recorded`: both the lifecycle route and target-prerequisite review are
+  complete, and at least one route or requirement is attached;
+- `none-required`: both reviews explicitly say that this base needs no separate
+  lifecycle route or target prerequisite;
+- `review-required`: at least one of those two reviews is still incomplete.
+
+A route on its own does not hide a missing target review, and a declared target
+requirement does not hide a missing lifecycle review.
+
 This is the machine-readable form of the table shown on every chart page and
 in every demo Space README. It does not claim that every rendered field can be
 traced back to one exact Helm value key; arbitrary chart templates make that
@@ -137,6 +148,12 @@ The target-prerequisite section has two parts:
 - `targetFacts.actions` contains follow-up work derived from an observed failed
   or blocked run. A base can have declared facts even when no failure has
   produced an action record.
+- `targetFacts.review` records the prerequisite scope that was checked and
+  which repository evidence supports the decision. It is required before an empty
+  `targetFacts` declaration can mean that no separate prerequisite is needed.
+- `targetFacts.coverage.evidence` carries those evidence links into the
+  generated record. An empty declaration without a review remains an
+  `actionable-gap`.
 
 For a chart with lifecycle routes, each route names the version that supplied
 its evidence. It has separate records for direct commands, Argo CD, and Flux.
@@ -160,8 +177,11 @@ Every generated render intent has two coverage states:
 | Hooks and lifecycle work | `attached` or `no-route-required` | `actionable-gap` |
 | Target prerequisites | `attached`, `attached-with-observed-actions`, or `no-target-facts-required` | `actionable-gap` |
 
-`no-route-required` and `no-target-facts-required` are explicit decisions. A
-missing declaration does not receive either state.
+`no-route-required` and `no-target-facts-required` are explicit decisions. For
+target prerequisites, the base must contain both an empty `targetFacts`
+declaration and a `targetFactsReview` that states the checked scope and links
+the evidence. A missing or unreviewed declaration does not receive either
+complete state.
 
 The current work list is generated here:
 

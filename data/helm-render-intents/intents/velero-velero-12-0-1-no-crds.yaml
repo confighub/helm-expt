@@ -86,10 +86,18 @@ spec:
           maxAge: "one-apply"
         evidence:
           - "runs/live-kind-parity/velero-velero-no-crds/receipt.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-kind-parity/velero-velero-no-crds/receipt.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:

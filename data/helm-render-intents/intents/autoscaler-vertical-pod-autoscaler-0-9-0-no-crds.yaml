@@ -102,10 +102,18 @@ spec:
           - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/no-crds/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "1 target prerequisite declared by this base."
       declarationSource: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

@@ -266,10 +266,18 @@ spec:
           - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "4 target prerequisites declared by this base."
       declarationSource: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

@@ -173,10 +173,18 @@ spec:
           - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "3 target prerequisites declared by this base."
       declarationSource: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

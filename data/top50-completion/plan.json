@@ -333,6 +333,7 @@
           "docs/user/helm-render-intents.md"
         ],
         "id": "T18",
+        "issue": "https://github.com/confighub/helm-expt/issues/1625",
         "name": "Attach render context and route intent to every base variant",
         "next": "Work through the generated route and target-prerequisite gaps until every base has an exact attached contract or an explicit no-extra-work decision.",
         "outcome": "Each base records source inputs, render context, produced objects, prerequisites, and lifecycle routes.",
@@ -764,6 +765,7 @@
           "data/useful-base-realization-wave/summary.md"
         ],
         "id": "T43",
+        "issue": "https://github.com/confighub/helm-expt/issues/1626",
         "name": "Promote the next 80 from proof-grade to useful catalog configs",
         "next": "Build the remaining useful-base proposals and review promotion candidates in evidence order.",
         "outcome": "More charts gain reviewed starting presets, useful variants, target guidance, and selected live evidence rather than default-only proof.",
@@ -780,6 +782,7 @@
           "data/demo-program/summary.md"
         ],
         "id": "T44",
+        "issue": "https://github.com/confighub/helm-expt/issues/1627",
         "name": "Expand the catalog beyond Helm",
         "next": "Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations.",
         "outcome": "The catalog explains and proves AICR, cub installer, literal OCI, Kubara, Sveltos, and Kubernetes YAML alongside Helm.",
@@ -849,6 +852,7 @@
           "data/kps-confighub-lifecycle-promotion/summary.md"
         ],
         "id": "T48",
+        "issue": "https://github.com/confighub/helm-expt/issues/1628",
         "name": "Make hooks CRDs and setup work manageable per chart",
         "next": "Repeat destination-bound lifecycle promotion for more high-value route work orders and keep untested controller paths named.",
         "outcome": "Most real chart lifecycle cases use maintained chart-specific presets and routes, with tests and receipts rather than a universal replacement claim.",

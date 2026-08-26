@@ -371,6 +371,7 @@
             "declared",
             "requirements",
             "actions",
+            "review",
             "coverage"
           ],
           "properties": {
@@ -461,12 +462,50 @@
                 "additionalProperties": true
               }
             },
+            "review": {
+              "type": "object",
+              "description": "The recorded review behind the target-fact declaration. A reviewed empty declaration must name its scope and evidence.",
+              "required": [
+                "status",
+                "decision",
+                "scope",
+                "evidence"
+              ],
+              "properties": {
+                "status": {
+                  "description": "recorded means both lifecycle and target-prerequisite reviews are complete and at least one item is attached; none-required means both reviews explicitly found no separate work; review-required means either review is incomplete.",
+                  "enum": [
+                    "reviewed",
+                    "not-recorded"
+                  ]
+                },
+                "decision": {
+                  "enum": [
+                    "requirements-declared",
+                    "no-separate-target-prerequisites",
+                    "not-reviewed"
+                  ]
+                },
+                "scope": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
             "coverage": {
               "type": "object",
               "required": [
                 "state",
                 "reason",
                 "declarationSource",
+                "evidence",
                 "nextAction"
               ],
               "properties": {
@@ -484,6 +523,13 @@
                 },
                 "declarationSource": {
                   "type": "string"
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
                 },
                 "nextAction": {
                   "type": "string"

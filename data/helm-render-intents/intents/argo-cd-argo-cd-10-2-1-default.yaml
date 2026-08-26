@@ -97,10 +97,18 @@ spec:
           - "recipes/argo-cd/argo-cd/10.2.1/variants/default/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "1 target prerequisite declared by this base."
       declarationSource: "recipes/argo-cd/argo-cd/10.2.1/variants/default/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:

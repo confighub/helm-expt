@@ -106,10 +106,21 @@ spec:
         evidence:
           - "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
           - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "actionable-gap"
       reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
       declarationSource: ""
+      evidence:
+        - "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+        - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+        - "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
+        - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   settingSources:
     helmValues:

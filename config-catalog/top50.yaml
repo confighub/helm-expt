@@ -290,6 +290,7 @@ spec:
         - npm run lifecycle:routes:verify
         - npm run kps:default-package-upgrade:verify
       next: Work through the generated route and target-prerequisite gaps until every base has an exact attached contract or an explicit no-extra-work decision.
+      issue: https://github.com/confighub/helm-expt/issues/1625
 
     - id: T19
       area: ConfigHub records
@@ -644,6 +645,7 @@ spec:
         - npm run top100:coverage:verify
         - npm run top100:useful-base-realization:verify
       next: Build the remaining useful-base proposals and review promotion candidates in evidence order.
+      issue: https://github.com/confighub/helm-expt/issues/1626
 
     - id: T44
       area: Catalog
@@ -656,6 +658,7 @@ spec:
       verify:
         - npm run config-catalog:verify
       next: Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations.
+      issue: https://github.com/confighub/helm-expt/issues/1627
 
     - id: T45
       area: Catalog
@@ -716,6 +719,7 @@ spec:
         - npm run kps:default-package-upgrade:verify
         - npm run kps:confighub-lifecycle-promotion:verify
       next: Repeat destination-bound lifecycle promotion for more high-value route work orders and keep untested controller paths named.
+      issue: https://github.com/confighub/helm-expt/issues/1628
 
     - id: T49
       area: Release quality

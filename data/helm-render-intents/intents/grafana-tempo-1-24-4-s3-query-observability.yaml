@@ -233,10 +233,18 @@ spec:
           - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
     actions:
       []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
     coverage:
       state: "attached"
       reason: "6 target prerequisites declared by this base."
       declarationSource: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+      evidence:
+        []
       nextAction: ""
   settingSources:
     helmValues:
