@@ -81,7 +81,7 @@ spec:
       declarationSource: ""
       evidence:
         []
-      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit empty targetFacts declaration plus targetFactsReview scope and evidence."
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
   settingSources:
     helmValues:
       status: "recorded"

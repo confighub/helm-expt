@@ -11,11 +11,4 @@ spec:
     kubeVersion: "1.30.0"
     apiVersions:
       []
-  targetFacts: {}
-  targetFactsReview:
-    decision: no-separate-target-prerequisites
-    scope: "the supported static-passwords base on a cub-lk kind cluster in namespace mysql, delivered from ConfigHub OCI through Argo CD."
-    evidence:
-      - data/production-support-decisions/bitnami-mysql/support-decision.yaml
-      - data/production-support-decisions/bitnami-mysql/fresh-target-evidence-2026-06-08.yaml
   hookPolicy: "no-hooks"

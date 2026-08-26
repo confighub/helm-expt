@@ -13,11 +13,4 @@ spec:
     digest: "sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf"
     kubeVersion: "1.30.0"
     apiVersions: []
-  targetFacts: {}
-  targetFactsReview:
-    decision: no-separate-target-prerequisites
-    scope: "the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD."
-    evidence:
-      - data/production-support-decisions/bitnami-redis/support-decision.yaml
-      - data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml
   hookPolicy: no-hooks

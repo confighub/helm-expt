@@ -53,7 +53,7 @@ from a different chart version's disposition row.
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 47 / 2 / 219 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 20 / 0 / 1 / 443 |
 | Render-intent lifecycle records (attached / gap / no separate route) | 12 / 10 / 223 |
-| Render-intent prerequisite records (attached / gap / none explicitly required) | 89 / 156 / 0 |
+| Render-intent prerequisite records (attached / gap / none explicitly required) | 89 / 144 / 12 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 74 |
 | Cells with deferred accepted disposition | 114 |

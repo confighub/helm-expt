@@ -13,6 +13,7 @@ const matrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv")
 const lifecycleByVariantPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const gitopsRouteEmissionPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const targetPrereqActionsPath = join(repoRoot, "data", "target-prerequisite-actions", "actions.csv");
+const targetFactReviewCatalogPath = join(repoRoot, "config-catalog", "target-fact-reviews.yaml");
 const kpsLifecycleReceiptPaths = {
   default: "runs/kps-lifecycle-route-proof/receipt.yaml",
   "no-crds": "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml",
@@ -94,6 +95,23 @@ function runSelfTest() {
   });
   check(coverage.state === "no-target-facts-required", "reviewed empty declaration did not close target-fact coverage");
   check(coverage.evidence[0] === "package.json", "review evidence was not retained in coverage");
+
+  const externalRecord = resolveTargetFactsRecord({}, row, new Map([[row.variant_path, {
+    targetFacts: {},
+    targetFactsPresent: true,
+    review: {
+      decision: "no-separate-target-prerequisites",
+      scope: "the test scope",
+      evidence: ["package.json"],
+    },
+    declarationSource: "config-catalog/target-fact-reviews.yaml",
+  }]]));
+  check(externalRecord.declaredTargetFactsPresent, "external empty declaration was not retained");
+  check(externalRecord.declarationSource === "config-catalog/target-fact-reviews.yaml", "external declaration source was not retained");
+  expectFailure(
+    () => resolveTargetFactsRecord({ targetFactsReview: review }, row, new Map([[row.variant_path, externalRecord]])),
+    "accepted both inline and catalog target-fact reviews",
+  );
 
   const missingReviewCoverage = targetFactCoverage({
     declaredTargetFactCount: 0,
@@ -179,6 +197,62 @@ function expectFailure(fn, message) {
   check(failed, message);
 }
 
+function loadTargetFactReviewCatalog() {
+  check(existsSync(targetFactReviewCatalogPath), `${relativeRepo(targetFactReviewCatalogPath)} is missing`);
+  const catalog = readYaml(targetFactReviewCatalogPath);
+  check(catalog?.kind === "TargetFactReviewCatalog", `${relativeRepo(targetFactReviewCatalogPath)} has the wrong kind`);
+  const reviews = catalog?.spec?.reviews;
+  check(Array.isArray(reviews), `${relativeRepo(targetFactReviewCatalogPath)} must contain spec.reviews`);
+  const result = new Map();
+  for (const entry of reviews) {
+    const variantPath = String(entry?.variantPath ?? "").replaceAll("\\", "/");
+    check(
+      variantPath.startsWith("recipes/") && variantPath.endsWith("/variant.yaml") && !variantPath.split("/").includes(".."),
+      `${relativeRepo(targetFactReviewCatalogPath)} has an unsafe variantPath: ${variantPath}`,
+    );
+    check(existsSync(join(repoRoot, variantPath)), `${relativeRepo(targetFactReviewCatalogPath)} targets a missing variant: ${variantPath}`);
+    check(!result.has(variantPath), `${relativeRepo(targetFactReviewCatalogPath)} repeats ${variantPath}`);
+    result.set(variantPath, {
+      targetFacts: entry?.targetFacts ?? {},
+      targetFactsPresent: Object.hasOwn(entry ?? {}, "targetFacts"),
+      review: entry?.review,
+      declarationSource: relativeRepo(targetFactReviewCatalogPath),
+    });
+  }
+  return result;
+}
+
+function resolveTargetFactsRecord(variantSpec, row, targetFactReviews) {
+  const catalogRecord = targetFactReviews.get(row.variant_path);
+  if (catalogRecord) {
+    check(
+      !Object.hasOwn(variantSpec, "targetFactsReview"),
+      `${row.chart}@${row.version} ${row.variant}: target-fact review is declared both inline and in ${catalogRecord.declarationSource}`,
+    );
+    check(
+      !(catalogRecord.targetFactsPresent && Object.hasOwn(variantSpec, "targetFacts")),
+      `${row.chart}@${row.version} ${row.variant}: target facts are declared both inline and in ${catalogRecord.declarationSource}`,
+    );
+    return {
+      targetFacts: catalogRecord.targetFactsPresent
+        ? catalogRecord.targetFacts
+        : variantSpec.targetFacts ?? {},
+      declaredTargetFactsPresent: catalogRecord.targetFactsPresent
+        || Object.hasOwn(variantSpec, "targetFacts"),
+      review: catalogRecord.review,
+      declarationSource: catalogRecord.targetFactsPresent
+        ? catalogRecord.declarationSource
+        : row.variant_path,
+    };
+  }
+  return {
+    targetFacts: variantSpec.targetFacts ?? {},
+    declaredTargetFactsPresent: Object.hasOwn(variantSpec, "targetFacts"),
+    review: variantSpec.targetFactsReview,
+    declarationSource: row.variant_path,
+  };
+}
+
 function resolveInstallWorkStatus(lifecycleCoverage, targetCoverage) {
   const lifecycleComplete = ["attached", "no-route-required"].includes(lifecycleCoverage.state);
   const targetComplete = [
@@ -206,6 +280,7 @@ function buildReport() {
   const targetPrereqRows = existsSync(targetPrereqActionsPath)
     ? parseCsv(readFileSync(targetPrereqActionsPath, "utf8"))
     : [];
+  const targetFactReviews = loadTargetFactReviewCatalog();
   const kpsLifecycleReceipts = Object.fromEntries(
     Object.entries(kpsLifecycleReceiptPaths)
       .filter(([, path]) => existsSync(join(repoRoot, path)))
@@ -223,12 +298,17 @@ function buildReport() {
     : null;
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
+  const realVariantPaths = new Set(realBases.map((row) => row.variant_path));
+  for (const variantPath of targetFactReviews.keys()) {
+    check(realVariantPaths.has(variantPath), `${relativeRepo(targetFactReviewCatalogPath)}: review targets a non-runnable base: ${variantPath}`);
+  }
   const intents = realBases
     .map((row) => buildIntent(
       row,
       lifecycleByVariant,
       gitopsRouteEmission,
       targetPrereqRows,
+      targetFactReviews,
       kpsLifecycleReceipts,
       kpsGitOpsLifecycleReceipt,
       kpsDefaultPackageUpgradeReceipt,
@@ -247,6 +327,7 @@ function buildIntent(
   lifecycleByVariant,
   gitopsRouteEmission,
   targetPrereqRows,
+  targetFactReviews,
   kpsLifecycleReceipts,
   kpsGitOpsLifecycleReceipt,
   kpsDefaultPackageUpgradeReceipt,
@@ -382,18 +463,23 @@ function buildIntent(
     },
     evidence: [fact.source_receipt, fact.support_artifact].filter(Boolean),
   }));
+  const targetFactsRecord = resolveTargetFactsRecord(
+    variantSpec,
+    row,
+    targetFactReviews,
+  );
   const declaredTargetFacts = withPackagedCrdSources(
-    variantSpec.targetFacts ?? {},
+    targetFactsRecord.targetFacts,
     row,
   );
-  const declaredTargetFactsPresent = Object.hasOwn(variantSpec, "targetFacts");
+  const declaredTargetFactsPresent = targetFactsRecord.declaredTargetFactsPresent;
   const targetFactsReview = normalizeTargetFactsReview(
-    variantSpec.targetFactsReview,
+    targetFactsRecord.review,
     row,
   );
   const targetRequirements = normalizeTargetRequirements(
     declaredTargetFacts,
-    row.variant_path,
+    targetFactsRecord.declarationSource,
   );
   const declaredTargetFactCount = targetFactCount(declaredTargetFacts);
   validateTargetFactsReview({
@@ -415,6 +501,7 @@ function buildIntent(
     targetFactsReview,
     targetActions,
     row,
+    declarationSource: targetFactsRecord.declarationSource,
   });
   const targetStatus = targetCoverage.state === "no-target-facts-required"
     ? "reviewed-no-target-facts-required"
@@ -861,12 +948,13 @@ function targetFactCoverage({
   targetFactsReview,
   targetActions,
   row,
+  declarationSource = row.variant_path,
 }) {
   if (declaredTargetFactCount > 0 && targetActions.length > 0) {
     return {
       state: "attached-with-observed-actions",
       reason: `${declaredTargetFactCount} prerequisite declaration${declaredTargetFactCount === 1 ? "" : "s"} and ${targetActions.length} follow-up action record${targetActions.length === 1 ? "" : "s"} are attached.`,
-      declarationSource: row.variant_path,
+      declarationSource,
       evidence: targetFactsReview.evidence,
       nextAction: "",
     };
@@ -875,7 +963,7 @@ function targetFactCoverage({
     return {
       state: "attached",
       reason: `${declaredTargetFactCount} target prerequisite${declaredTargetFactCount === 1 ? "" : "s"} declared by this base.`,
-      declarationSource: row.variant_path,
+      declarationSource,
       evidence: targetFactsReview.evidence,
       nextAction: "",
     };
@@ -896,8 +984,8 @@ function targetFactCoverage({
   ) {
     return {
       state: "no-target-facts-required",
-      reason: `The base review found no separate target prerequisite in this scope: ${targetFactsReview.scope}`,
-      declarationSource: row.variant_path,
+      reason: `The prerequisite review found no separate target prerequisite in this scope: ${targetFactsReview.scope}`,
+      declarationSource,
       evidence: targetFactsReview.evidence,
       nextAction: "",
     };
@@ -906,9 +994,9 @@ function targetFactCoverage({
     return {
       state: "actionable-gap",
       reason: "The base contains an empty targetFacts declaration without a review record that explains the checked scope and evidence.",
-      declarationSource: row.variant_path,
+      declarationSource,
       evidence: [],
-      nextAction: "Add spec.targetFactsReview with the reviewed scope and evidence, or declare the prerequisite that is still required.",
+      nextAction: "Record the reviewed scope and evidence, or declare the prerequisite that is still required.",
     };
   }
   return {
@@ -916,7 +1004,7 @@ function targetFactCoverage({
     reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
     declarationSource: "",
     evidence: [],
-    nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit empty targetFacts declaration plus targetFactsReview scope and evidence.",
+    nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence.",
   };
 }
 
