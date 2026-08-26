@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `istio/istiod@1.30.0`, choose the `default` pres
 
 That captured output is the render variant: [`recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml). It contains 17 Kubernetes object(s): ClusterRole x3, ClusterRoleBinding x3, ConfigMap x3, Deployment x1, HorizontalPodAutoscaler x1, MutatingWebhookConfiguration x1, Role x1, RoleBinding x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:e51e2e709d6eeb281d7010b56c94fd520e90abdae5c16adc4b58f53f1752bda9`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-istiod-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-istiod-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/istio-istiod-1-3
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:e51e2e709d6eeb281d7010b56c94fd520e90abdae5c16adc4b58f53f1752bda9 --base default --work-dir ./istio-istiod-1-30-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0@sha256:ecb9f9cbd9dc89bb7707cdc98c61797f51ddf08c155f43955d3f4372ac2e5476 --base default --work-dir ./istio-istiod-1-30-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

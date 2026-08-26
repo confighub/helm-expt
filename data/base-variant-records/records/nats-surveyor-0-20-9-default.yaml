@@ -13,7 +13,7 @@ spec:
     name: "nats/surveyor"
     version: "0.20.9"
     record: "data/helm-render-intents/intents/nats-surveyor-0-20-9-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
     selection:
       name: "default"
       kind: "catalog-preset"

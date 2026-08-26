@@ -13,7 +13,7 @@ spec:
     name: "autoscaler/cluster-autoscaler"
     version: "9.57.0"
     record: "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:2024c48b8dc5e19932a91c11c36baf2c9f694b5200158a45f6f4b142063fe352"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
     selection:
       name: "default"
       kind: "catalog-preset"

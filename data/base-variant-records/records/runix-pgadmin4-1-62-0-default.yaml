@@ -13,7 +13,7 @@ spec:
     name: "runix/pgadmin4"
     version: "1.62.0"
     record: "data/helm-render-intents/intents/runix-pgadmin4-1-62-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
     selection:
       name: "default"
       kind: "catalog-preset"

@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/kube-prometheus-stack"
     version: "86.1.0"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0@sha256:9810de65b598e14ab7eb8fe1d6fc12602c3f81bd991f21b8dfe0d6e15063881f"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0@sha256:8ed23f666f651c0acaddb55713c582dbc154730470b23c107a01ce86250d9e56"
     selection:
       name: "default"
       kind: "catalog-preset"

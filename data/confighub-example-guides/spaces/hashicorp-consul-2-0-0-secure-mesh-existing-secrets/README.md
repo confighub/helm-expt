@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `hashicorp/consul@2.0.0`, choose the `secure-mes
 
 That captured output is the render variant: [`recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml). It contains 97 Kubernetes object(s): CustomResourceDefinition x28, ServiceAccount x13, ClusterRoleBinding x10, ClusterRole x9, ConfigMap x7, Service x7, Role x6, RoleBinding x6.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-consul-secure-mesh-existing-secrets`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-consul-secure-mesh-existing-secrets`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-consul
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063 --base secure-mesh-existing-secrets --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --non-interactive --namespace consul
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5 --base secure-mesh-existing-secrets --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --non-interactive --namespace consul
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

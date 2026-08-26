@@ -13,7 +13,7 @@ spec:
     name: "linkerd/linkerd-crds"
     version: "1.8.0"
     record: "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c"
     selection:
       name: "default"
       kind: "catalog-preset"

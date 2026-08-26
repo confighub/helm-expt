@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `strimzi/strimzi-kafka-operator@1.0.0`, choose t
 
 That captured output is the render variant: [`recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 17 Kubernetes object(s): ClusterRole x7, RoleBinding x4, ClusterRoleBinding x3, ConfigMap x1, Deployment x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-strimzi-kafka-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-strimzi-kafka-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/strimzi-strimzi-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:1d01864d246bc18e87f23aad663a5ccf8d488905b09dd4c5d41dd3e77a43b3c6 --base no-crds --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848 --base no-crds --work-dir ./strimzi-strimzi-kafka-operator-1-0-0-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

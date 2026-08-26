@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `prometheus-community/prometheus-adapter@5.3.0`,
 
 That captured output is the render variant: [`recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml). It contains 11 Kubernetes object(s): ClusterRoleBinding x3, ClusterRole x2, APIService x1, ConfigMap x1, Deployment x1, RoleBinding x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-prometheus-adapter-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-prometheus-adapter-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-commu
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c --base default --work-dir ./prometheus-community-prometheus-adapter-5-3-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d --base default --work-dir ./prometheus-community-prometheus-adapter-5-3-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

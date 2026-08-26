@@ -13,7 +13,7 @@ spec:
     name: "grafana/rollout-operator"
     version: "0.49.0"
     record: "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:abeba25a66ca518bd63ac15fde7d5caf85cacd9a3061e7b62b523b50bdef7b2c"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

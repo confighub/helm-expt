@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/prometheus-pushgateway"
     version: "3.6.0"
     record: "data/helm-render-intents/intents/prometheus-community-prometheus-pushgateway-3-6-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:81ddc722ff2e7f59d7b99b2a70895b011983bf8edff8f1cfdcb61c49ce3312a8"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0@sha256:0018337ac8b9d81ccce8b98c7bbcf09fac81b9e5706b3c59113d8748492b719b"
     selection:
       name: "default"
       kind: "catalog-preset"

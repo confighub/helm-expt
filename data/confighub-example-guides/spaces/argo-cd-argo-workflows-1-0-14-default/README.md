@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `argo-cd/argo-workflows@1.0.14`, choose the `def
 
 That captured output is the render variant: [`recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml). It contains 19 Kubernetes object(s): ClusterRole x7, ClusterRoleBinding x4, Deployment x2, ServiceAccount x2, ConfigMap x1, Role x1, RoleBinding x1, Service x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-argo-workflows-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-argo-workflows-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -64,7 +64,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-wor
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2 --base default --work-dir ./argo-cd-argo-workflows-1-0-14-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f --base default --work-dir ./argo-cd-argo-workflows-1-0-14-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

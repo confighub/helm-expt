@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `elastic/metricbeat@8.5.1`, choose the `default`
 
 That captured output is the render variant: [`recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml). It contains 14 Kubernetes object(s): ClusterRole x2, ClusterRoleBinding x2, ConfigMap x2, Deployment x2, ServiceAccount x2, DaemonSet x1, Role x1, RoleBinding x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-metricbeat-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:228176a6c17e791d85afb63c678068aa3b284f6c3515b4c2512c23ebfbd67d9c`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-metricbeat-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-metricbe
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc --base default --work-dir ./elastic-metricbeat-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:228176a6c17e791d85afb63c678068aa3b284f6c3515b4c2512c23ebfbd67d9c --base default --work-dir ./elastic-metricbeat-8-5-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

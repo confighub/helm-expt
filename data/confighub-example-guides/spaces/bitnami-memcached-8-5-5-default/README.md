@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/memcached@8.5.5`, choose the `default` 
 
 That captured output is the render variant: [`recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml). It contains 5 Kubernetes object(s): Deployment x1, NetworkPolicy x1, PodDisruptionBudget x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:37635092808e22db71cd3d3521bcd02db056a9f46d81f372f98be1d03c89fcb2`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-memcached-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-memcached-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-memcache
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:37635092808e22db71cd3d3521bcd02db056a9f46d81f372f98be1d03c89fcb2 --base default --work-dir ./bitnami-memcached-8-5-5-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4 --base default --work-dir ./bitnami-memcached-8-5-5-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

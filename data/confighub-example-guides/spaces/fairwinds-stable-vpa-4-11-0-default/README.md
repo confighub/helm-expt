@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `fairwinds-stable/vpa@4.11.0`, choose the `defau
 
 That captured output is the render variant: [`recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml). It contains 28 Kubernetes object(s): ClusterRole x9, ClusterRoleBinding x9, Deployment x3, ServiceAccount x3, CustomResourceDefinition x2, MutatingWebhookConfiguration x1, Service x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vpa-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-vpa-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fairwinds-stable
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61 --base default --work-dir ./fairwinds-stable-vpa-4-11-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0@sha256:449c4a96412aaf799622daab235efd8800f9700c0bd5b36c9523d95756e9fc8f --base default --work-dir ./fairwinds-stable-vpa-4-11-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

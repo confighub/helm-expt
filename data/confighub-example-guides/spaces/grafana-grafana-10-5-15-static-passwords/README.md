@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `grafana/grafana@10.5.15`, choose the `static-pa
 
 That captured output is the render variant: [`recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml). It contains 9 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, Deployment x1, Role x1, RoleBinding x1, Secret x1, Service x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-grafana-static-passwords`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-grafana-static-passwords`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f --base static-passwords --work-dir ./grafana-grafana-10-5-15-static-passwords --non-interactive --namespace grafana
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base static-passwords --work-dir ./grafana-grafana-10-5-15-static-passwords --non-interactive --namespace grafana
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `nvidia/nvidia-device-plugin@0.19.3`, choose the
 
 That captured output is the render variant: [`recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml). It contains 26 Kubernetes object(s): ServiceAccount x5, ClusterRole x4, ClusterRoleBinding x4, CustomResourceDefinition x3, DaemonSet x3, ConfigMap x2, Deployment x2, Job x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-nvidia-device-plugin-nfd-enabled`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-nvidia-device-plugin-nfd-enabled`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/nvidia-nvidia-de
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base nfd-enabled --work-dir ./nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --non-interactive --namespace gpu-operator
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base nfd-enabled --work-dir ./nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --non-interactive --namespace gpu-operator
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

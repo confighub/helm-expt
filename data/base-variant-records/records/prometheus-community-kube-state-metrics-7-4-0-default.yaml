@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/kube-state-metrics"
     version: "7.4.0"
     record: "data/helm-render-intents/intents/prometheus-community-kube-state-metrics-7-4-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
     selection:
       name: "default"
       kind: "catalog-preset"

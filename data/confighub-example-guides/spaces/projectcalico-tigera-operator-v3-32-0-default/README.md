@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `projectcalico/tigera-operator@v3.32.0`, choose 
 
 That captured output is the render variant: [`recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml). It contains 10 Kubernetes object(s): ClusterRole x2, APIServer x1, ClusterRoleBinding x1, Deployment x1, Goldmane x1, Installation x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-tigera-operator-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-tigera-operator-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -65,7 +65,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/projectcalico-ti
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb --base default --work-dir ./projectcalico-tigera-operator-v3-32-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a --base default --work-dir ./projectcalico-tigera-operator-v3-32-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

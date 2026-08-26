@@ -13,7 +13,7 @@ spec:
     name: "bitnami/nginx"
     version: "24.0.4"
     record: "data/helm-render-intents/intents/bitnami-nginx-24-0-4-existing-tls-ingress.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
     selection:
       name: "existing-tls-ingress"
       kind: "catalog-preset"

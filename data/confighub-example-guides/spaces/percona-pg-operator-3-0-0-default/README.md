@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `percona/pg-operator@3.0.0`, choose the `default
 
 That captured output is the render variant: [`recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml). It contains 12 Kubernetes object(s): CustomResourceDefinition x8, Deployment x1, Role x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-pg-operator-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-pg-operator-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pg-opera
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7 --base default --work-dir ./percona-pg-operator-3-0-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1 --base default --work-dir ./percona-pg-operator-3-0-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

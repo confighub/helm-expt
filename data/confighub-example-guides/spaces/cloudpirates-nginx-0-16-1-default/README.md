@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `cloudpirates/nginx@0.16.1`, choose the `default
 
 That captured output is the render variant: [`recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/release-objects.yaml). It contains 3 Kubernetes object(s): Deployment x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-nginx-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-nginx-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudpirates-ngi
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103 --base default --work-dir ./cloudpirates-nginx-0-16-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183 --base default --work-dir ./cloudpirates-nginx-0-16-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `bitnami/spark@10.0.3`, choose the `ha` preset c
 
 That captured output is the render variant: [`recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml). It contains 10 Kubernetes object(s): NetworkPolicy x2, PodDisruptionBudget x2, Service x2, StatefulSet x2, Secret x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-spark-ha`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-spark-ha`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-spark-10
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9 --base ha --work-dir ./bitnami-spark-10-0-3-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8 --base ha --work-dir ./bitnami-spark-10-0-3-ha --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

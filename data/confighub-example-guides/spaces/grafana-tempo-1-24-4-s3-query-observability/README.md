@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `grafana/tempo@1.24.4`, choose the `s3-query-obs
 
 That captured output is the render variant: [`recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml). It contains 8 Kubernetes object(s): ConfigMap x2, Ingress x1, NetworkPolicy x1, Service x1, ServiceAccount x1, ServiceMonitor x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-tempo-s3-query-observability`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-tempo-s3-query-observability`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -61,7 +61,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1 --base s3-query-observability --work-dir ./grafana-tempo-1-24-4-s3-query-observability --non-interactive --namespace tempo
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --base s3-query-observability --work-dir ./grafana-tempo-1-24-4-s3-query-observability --non-interactive --namespace tempo
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

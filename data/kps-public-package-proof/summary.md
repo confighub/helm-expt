@@ -2,9 +2,9 @@
 
 This test starts with a new local home directory and an empty Docker credential file. It pulls the public kube-prometheus-stack package without a ConfigHub account or registry login.
 
-The pulled package matches the 16-file source package exactly at tree digest `b9f068ffa850824473349204d1e19dd52b0645c6b8729d841101a9fca95bc158`. It renders 123 manifest objects and 2 Secret objects. It also contains all nine chart-specific lifecycle files: the ten CRDs, the admission certificate and patch Jobs, their temporary RBAC, the two runner scripts, and the action and generation records.
+The pulled package matches the 22-file source package exactly at tree digest `3e21f4c3592513d442b3954b3cb9166c4f2c60074e085f1b4f9d46e7b487ba05`. It renders 123 manifest objects and 2 Secret objects. It also contains all nine chart-specific lifecycle files: the ten CRDs, the admission certificate and patch Jobs, their temporary RBAC, the two runner scripts, and the action and generation records.
 
-Public OCI manifest: `sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679`.
+Public OCI manifest: `sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85`.
 
 Result: **pass**.
 

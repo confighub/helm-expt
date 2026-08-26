@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `falcosecurity/falcosidekick@0.13.1`, choose the
 
 That captured output is the render variant: [`recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml). It contains 6 Kubernetes object(s): Deployment x1, Role x1, RoleBinding x1, Secret x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-falcosidekick-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-falcosidekick-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/falcosecurity-fa
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9 --base default --work-dir ./falcosecurity-falcosidekick-0-13-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5 --base default --work-dir ./falcosecurity-falcosidekick-0-13-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

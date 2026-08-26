@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `percona/psmdb-operator@1.22.0`, choose the `no-
 
 That captured output is the render variant: [`recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 4 Kubernetes object(s): Deployment x1, Role x1, RoleBinding x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-psmdb-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-psmdb-operator-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-psmdb-op
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722 --base no-crds --work-dir ./percona-psmdb-operator-1-22-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --base no-crds --work-dir ./percona-psmdb-operator-1-22-0-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

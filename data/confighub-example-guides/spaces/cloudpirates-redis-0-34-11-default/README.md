@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `cloudpirates/redis@0.34.11`, choose the `defaul
 
 That captured output is the render variant: [`recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml). It contains 5 Kubernetes object(s): Service x2, ConfigMap x1, Secret x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-redis-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-redis-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudpirates-red
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99 --base default --work-dir ./cloudpirates-redis-0-34-11-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base default --work-dir ./cloudpirates-redis-0-34-11-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

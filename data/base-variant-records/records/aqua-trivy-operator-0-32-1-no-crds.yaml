@@ -13,7 +13,7 @@ spec:
     name: "aqua/trivy-operator"
     version: "0.32.1"
     record: "data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

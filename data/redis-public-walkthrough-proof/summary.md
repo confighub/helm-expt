@@ -16,8 +16,8 @@ installer retains the selected existing-Secret base and verifies a second
 
 | Chart | App | Selected base | Objects | Secrets in output | Public package digest | Rendered object digest | OCI pull-back |
 | --- | --- | --- | ---: | ---: | --- | --- | --- |
-| `25.5.3` | `8.6.3` | `reuse-existing-secret` | 14 | 0 | `sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33` | `sha256:518db60ad92b59818c9e84042b12cc7b3d850a583ab7ca565bbf09f6806e4324` | pass |
-| `27.0.0` | `8.8.0` | `reuse-existing-secret` | 14 | 0 | `sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780` | `sha256:222cdae547665b7be00a61001ee6789582ff387e687890a46da9112232bd1ebc` | pass |
+| `25.5.3` | `8.6.3` | `reuse-existing-secret` | 14 | 0 | `sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a` | `sha256:518db60ad92b59818c9e84042b12cc7b3d850a583ab7ca565bbf09f6806e4324` | pass |
+| `27.0.0` | `8.8.0` | `reuse-existing-secret` | 14 | 0 | `sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6` | `sha256:222cdae547665b7be00a61001ee6789582ff387e687890a46da9112232bd1ebc` | pass |
 
 The package and output OCI contain no Secret object. A deployment still needs
 `redis/redis-existing-secret`, key `redis-password`, supplied through the

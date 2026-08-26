@@ -13,7 +13,7 @@ spec:
     name: "hashicorp/consul"
     version: "2.0.0"
     record: "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5"
     selection:
       name: "default-control-plane"
       kind: "catalog-preset"

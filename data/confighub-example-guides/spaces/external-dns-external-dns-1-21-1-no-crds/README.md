@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `external-dns/external-dns@1.21.1`, choose the `
 
 That captured output is the render variant: [`recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 5 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, Deployment x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-external-dns-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-external-dns-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/external-dns-ext
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd --base no-crds --work-dir ./external-dns-external-dns-1-21-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base no-crds --work-dir ./external-dns-external-dns-1-21-1-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `kyverno/kyverno@3.8.1`, choose the `default` pr
 
 That captured output is the render variant: [`recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml). It contains 69 Kubernetes object(s): CustomResourceDefinition x22, ClusterRole x16, ClusterRoleBinding x7, Service x6, Deployment x4, Role x4, RoleBinding x4, ServiceAccount x4.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:13f2502075632259f7471d7043a09303d2cbee19c82c11c0485561b487288768`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kyverno-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kyverno-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -67,7 +67,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:13f2502075632259f7471d7043a09303d2cbee19c82c11c0485561b487288768 --base default --work-dir ./kyverno-kyverno-3-8-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1@sha256:3c7560e8038b74ed7f5dd6257a11656f3e94ea4dee92768b726e50580ef3cea3 --base default --work-dir ./kyverno-kyverno-3-8-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `argo-cd/argo-events@2.4.21`, choose the `defaul
 
 That captured output is the render variant: [`recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml). It contains 9 Kubernetes object(s): CustomResourceDefinition x3, ServiceAccount x2, ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, Deployment x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-argo-events-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-argo-events-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-eve
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2 --base default --work-dir ./argo-cd-argo-events-2-4-21-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47 --base default --work-dir ./argo-cd-argo-events-2-4-21-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

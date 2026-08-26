@@ -13,7 +13,7 @@ spec:
     name: "jetstack/cert-manager"
     version: "v1.21.0"
     record: "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc"
     selection:
       name: "default"
       kind: "catalog-preset"

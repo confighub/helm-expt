@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `grafana/alloy@1.8.2`, choose the `no-crds` pres
 
 That captured output is the render variant: [`recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 6 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, DaemonSet x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-alloy-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-alloy-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-alloy-1-
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425 --base no-crds --work-dir ./grafana-alloy-1-8-2-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314 --base no-crds --work-dir ./grafana-alloy-1-8-2-no-crds --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).
