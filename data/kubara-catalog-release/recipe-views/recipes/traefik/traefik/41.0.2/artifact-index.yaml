@@ -58,14 +58,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/traefik/traefik/41.0.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2"
-    manifestDigest: "sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
-    layerDigest: "sha256:c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+    manifestDigest: "sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
+    layerDigest: "sha256:7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b"
     publicationReceipt: "runs/installer-oci/traefik-traefik/41.0.2/installer-package-publication-receipt.yaml"
     installer: "packages/traefik/traefik/41.0.2/installer.yaml"
     receipt: "recipes/traefik/traefik/41.0.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+    deterministicBundleSHA256: "7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -94,7 +94,7 @@ spec:
         default: true
         description: "traefik chart defaults variant rendered from traefik/traefik@41.0.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a --base default --work-dir <tmp> --non-interactive --namespace traefik"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9 --base default --work-dir <tmp> --non-interactive --namespace traefik"
         helmReleaseObjectCount: 31
         cubInstallObjectCountIncludingSupport: 32
         semanticObjectMatches: "31/31"

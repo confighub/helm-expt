@@ -4,17 +4,16 @@ metadata:
   name: "prometheus-community-alertmanager-1-37-0"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "alertmanager"
+    repository: "prometheus-community"
     version: "1.37.0"
   deterministicBundle:
-    command: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1.37.0.tgz"
-    sha256: "beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1.37.0.tgz"
+    sha256: "6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6"
   package:
-    path: "packages/prometheus-community/alertmanager/1.37.0"
     name: "prometheus-community-alertmanager"
-    version: "1.37.0"
+    path: "packages/prometheus-community/alertmanager/1.37.0"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "57f304437cd7ce6daceb955098e2d1eaec14b0385b33777f9f04ada887572b01"
         bytes: 521
+      -
+        path: "records/README.md"
+        sha256: "a039fa1e0f18327d1758a65b40eeaaf4cbd6baed1f7a9c4cece70bcbfc9b5efc"
+        bytes: 1160
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "de7ab1c969b927c7bc603081e6c810c8714e334c627ef07ab3921f90766bb2a2"
+        bytes: 5645
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "7728b2c6b4ded370bbc7c4cd3cf7ac2da7cf96af46d1fb1a2e782557df284361"
+        bytes: 9070
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "56907871b67b2aba6376683c3e196a65a244f3582afae450a665c70299bef79b"
+        bytes: 5574
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "859c1f104108438203846a4ca9ea388e6ae201d3f27a45479b347b401f1ad497"
+        bytes: 8889
+      -
+        path: "records/index.yaml"
+        sha256: "79881f171448f80635c19270c5ddfea2178d3ea5d051ee91c7d02f04da64a49c"
+        bytes: 837
+    version: "1.37.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "ha"
-      base: "ha"
-      command: "cub installer setup --pull packages/prometheus-community/alertmanager/1.37.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 5
-      cubInstallObjectCountIncludingSupport: 6
-      semanticObjectMatches: "5/5"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "ha"
+      command: "cub installer setup --pull packages/prometheus-community/alertmanager/1.37.0 --base ha --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "ha"

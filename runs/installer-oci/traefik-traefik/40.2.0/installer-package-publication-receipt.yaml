@@ -4,23 +4,28 @@ metadata:
   name: traefik-traefik-40.2.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0
-  observedAt: "2026-08-08T20:47:45.046Z"
+  observedAt: "2026-08-26T07:03:10.227Z"
   package:
     path: packages/traefik/traefik/40.2.0
-    sha256: 5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9
+    sha256: 04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9
+    sourceTreeSHA256: e076cab3a5c65a7527647e204799afa5af8c58c81d549371260fedd88bb24239
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/traefik/traefik/40.2.0 -o <tmp>/traefik-traefik-40.2.0.tgz"
     push: "cub installer push <tmp>/traefik-traefik-40.2.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0 --json"
   outputs:
+    manifestDigest: sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535
+    layerDigest: sha256:04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9
     package: |
-      Bundled traefik-traefik@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-o8bTty/traefik-traefik-40.2.0.tgz
-        files:  6
-        size:   42663 bytes
-        digest: sha256:5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9
+      Bundled traefik-traefik@40.2.0
+        output: <tmp>
+        files:  12
+        size:   47297 bytes
+        digest: sha256:04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0
-        manifest: sha256:c735927068194a19f326ff1e62c26fb87b8f5881abca750070efaa0bc4b4d123
-        layer:    sha256:5d9c0bdf6306b0c196fbee35312d89a6df807bbbae4c64f49f831b8f8959eaa9 (42663 bytes, 6 files)
-    inspectJSONSHA256: f4016de29c11d2b53fd934ffd6d6e9c5209fbc593c0670c241cac3d9244b7bd3
+        manifest: sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535
+        layer:    sha256:04da2fe58c8614c22e53a59adf62a6580c58ae635bb141f6bb1616c1cfdcc7e9 (47297 bytes, 12 files)
+    inspectJSONSHA256: 0a10166f5e574fe5f9284a44df63555bd23141ecc072da67f5d0ef39f7949542
+    inspectJSONCanonicalSHA256: 8e122f9f2cfe15767cc2d53e5bee0fa5bec0463b343ef339d0b77a195053ba20

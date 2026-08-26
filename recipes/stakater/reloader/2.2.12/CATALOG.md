@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/stakater/reloader/2.2.12/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/stakater/reloader/2.2.12/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/stakater/reloader/2.2.12/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb` |
 | Installer package source | [packages/stakater/reloader/2.2.12](../../../../packages/stakater/reloader/2.2.12) |
 | Installer package receipt | [recipes/stakater/reloader/2.2.12/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/stakater/reloader/2.2.12/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

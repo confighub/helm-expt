@@ -4,13 +4,16 @@ metadata:
   name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18"
 spec:
   chart:
-    repository: "nfs-subdir-external-provisioner"
     name: "nfs-subdir-external-provisioner"
+    repository: "nfs-subdir-external-provisioner"
     version: "4.0.18"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 -o <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.tgz"
+    sha256: "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
   package:
-    path: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
     name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner"
-    version: "4.0.18"
+    path: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "1d0e242f416ebf56776cdc7b01823865c97a1fcd66776546e12f1f2f65058e3f"
         bytes: 444
-  deterministicBundle:
-    command: "cub installer package packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 -o <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.tgz"
-    sha256: "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "bc35112b2f756749f2bb23f2d700f8a8139c60974103e8164b3745e2447865da"
+        bytes: 7364
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "248cf7290abf53f14ea822e9b2364ba6645dedf012652b71da964a50fde4e226"
+        bytes: 9924
+      -
+        path: "records/index.yaml"
+        sha256: "453c52be7ecaab20cde460cdf23993c965ffe103a593c67c0b37514906e0a874"
+        bytes: 710
+    version: "4.0.18"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"

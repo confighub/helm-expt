@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/hashicorp/consul/2.0.0 -o <tmp>/consul-2.0.0.tgz"
-    sha256: "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
+    sha256: "538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37"
   package:
     name: "hashicorp-consul"
     path: "packages/hashicorp/consul/2.0.0"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "8e93a0add17b50c3735bd1ccd94dd9dc053d95cdd9d0044d08ca515ed5323bcb"
         bytes: 7929
+      -
+        path: "records/README.md"
+        sha256: "c292f10a9d253c7f00dcad227ecaf88b6d5d7eecb9c74c92b517891aeaee2712"
+        bytes: 1320
+      -
+        path: "records/default-control-plane/helm-render-intent.yaml"
+        sha256: "3962ea980720391fe6e087f05358442e1a6988130c0642dc1a8d0612d98b978f"
+        bytes: 5950
+      -
+        path: "records/default-control-plane/source-and-intent.yaml"
+        sha256: "156bff9bd37a99526534669df22092cf899dd1ac305b076ee54909c75010e3e6"
+        bytes: 9059
+      -
+        path: "records/index.yaml"
+        sha256: "2d50e5e2c9f47223506852f29937ec81185e15aeca76728969a0bbcc789c2b1c"
+        bytes: 961
+      -
+        path: "records/secure-mesh-existing-secrets/helm-render-intent.yaml"
+        sha256: "23994be5109c2c51038f7dda6750fcc6eef28234668730988343dc9ef89d3272"
+        bytes: 10306
+      -
+        path: "records/secure-mesh-existing-secrets/source-and-intent.yaml"
+        sha256: "16b1878c0b8016364a6527511b960e3b3aaed1587a4c48c2d24f24c2ed5bea09"
+        bytes: 14489
     version: "2.0.0"
   setupChecks:
     -

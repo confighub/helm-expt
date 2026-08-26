@@ -4,17 +4,16 @@ metadata:
   name: "grafana-alloy-1-8-2"
 spec:
   chart:
-    repository: "grafana"
     name: "alloy"
+    repository: "grafana"
     version: "1.8.2"
   deterministicBundle:
-    command: "cub installer package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1.8.2.tgz"
-    sha256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/grafana/alloy/1.8.2 -o <tmp>/grafana-alloy-1.8.2.tgz"
+    sha256: "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
   package:
-    path: "packages/grafana/alloy/1.8.2"
     name: "grafana-alloy"
-    version: "1.8.2"
+    path: "packages/grafana/alloy/1.8.2"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "7285a00edeb31d962ce88a9fefcb459f216f469d2bafc407293524dd35c4a4bb"
         bytes: 433
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "86345b15bbad0383108ee6d53b0d25cadf504ddfaa29a5ff571394e720665c70"
+        bytes: 5125
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "337d1414202b400917f368f687d12a89fca09845ae91f12a17d6967390c36cc7"
+        bytes: 8646
+      -
+        path: "records/index.yaml"
+        sha256: "e0cc87fbb391ade5b238157fc6f317cf522bbd615f27e795b16b23dc3a7e97b3"
+        bytes: 815
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "879f1791c3c4f2e599209292b02923ed71e37a9cb0799c33befd8eb883df4e04"
+        bytes: 5144
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "29217d28ec6f08aa4e9463e34cbf16da4613d9e49f23a5016252ed93eeacb94c"
+        bytes: 8505
+    version: "1.8.2"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "no-crds"

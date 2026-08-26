@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `crossplane-stable/crossplane@2.3.1`, choose the
 
 That captured output is the render variant: [`recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml). It contains 23 Kubernetes object(s): ClusterRole x12, ClusterRoleBinding x3, Secret x3, Deployment x2, ServiceAccount x2, Service x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-crossplane-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-crossplane-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/crossplane-stabl
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f --base default --work-dir ./crossplane-stable-crossplane-2-3-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616 --base default --work-dir ./crossplane-stable-crossplane-2-3-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c"
+        "sha256": "30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
       },
       "annotations": {
         "confighub.com/package-path": "packages/cloudnative-pg/cloudnative-pg/0.28.2",
-        "confighub.com/package-sha256": "8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013"
+        "confighub.com/package-sha256": "040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f"
       }
     }
   ],

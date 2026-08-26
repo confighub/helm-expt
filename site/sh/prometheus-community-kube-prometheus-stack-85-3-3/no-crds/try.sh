@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679 --base no-crds --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85 --base no-crds --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out/manifests

@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
       },
       "image": {
-        "docker-manifest-digest": "sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
+        "docker-manifest-digest": "sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/karpenter/karpenter/1.14.0",
-      "confighub.com/package-sha256": "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+      "confighub.com/package-sha256": "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
     }
   }
 ]

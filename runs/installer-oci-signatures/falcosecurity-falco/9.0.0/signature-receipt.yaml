@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "falcosecurity-falco-9.0.0"
 spec:
-  observedAt: "2026-08-26T05:39:32.131Z"
+  observedAt: "2026-08-26T08:00:54.989Z"
   subject:
     packagePath: "packages/falcosecurity/falco/9.0.0"
     publicationReceipt: "runs/installer-oci/falcosecurity-falco/9.0.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0"
-    manifestDigest: "sha256:9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea"
-    packageSHA256: "a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b"
-    layerDigest: "sha256:a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b"
+    manifestDigest: "sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf"
+    packageSHA256: "f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a"
+    layerDigest: "sha256:f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/falcosecurity-falco/9.0.0/signature.sigstore.json"
-    bundleSHA256: "af36d219cc8a9b69ff46f962aff4f078d0a26bc9f66dec16c3b15d5d9a0564b5"
+    bundleSHA256: "d553f1378767ba6437bc25523f7e33de941f30ad21a3cafef12ef4fc4f5f3d75"
     payloadPath: "runs/installer-oci-signatures/falcosecurity-falco/9.0.0/signature-payload.json"
-    payloadSHA256: "ec1c9d4a30bd3834dbb3bf3d9799fe313f422ae72fbfb4d436a935b8bff3ec33"
+    payloadSHA256: "57c8faef141794a97e4e537c61a17d814c34c2ac379592ccff466034231775f9"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/falcosecurity/falco/9.0.0 --annotations confighub.com/package-sha256=a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/falcosecurity/falco/9.0.0 --annotations confighub.com/package-sha256=f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf"
     outputPath: "runs/installer-oci-signatures/falcosecurity-falco/9.0.0/verification.json"
-    outputSHA256: "4570c40104d1dd2f5e42a5cc37d2f96703b9086ef98d18404a5fb77c7d412942"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/falcosecurity-falco/9.0.0/signature.sigstore.json --digest 9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "3cd48e43f35c366a2c4d2fa232b605efc618aa390bfdf0cfb6be2d8903cccbd7"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/falcosecurity-falco/9.0.0/signature.sigstore.json --digest 0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/falcosecurity-falco/9.0.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/falcosecurity/falco/9.0.0"
-    confighub.com/package-sha256: "a519fcb3bb6edf83336ad98da88745645597448bd6514358b40993ba4eb6ee9b"
+    confighub.com/package-sha256: "f6e206e7dd44542fffcf9bc50de58cc40879e0c0b589f9691e3f901f05eb6d7a"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

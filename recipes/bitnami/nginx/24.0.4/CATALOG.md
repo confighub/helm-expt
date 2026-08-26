@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/bitnami/nginx/24.0.4/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/bitnami/nginx/24.0.4/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/nginx/24.0.4/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b` |
 | Installer package source | [packages/bitnami/nginx/24.0.4](../../../../packages/bitnami/nginx/24.0.4) |
 | Installer package receipt | [recipes/bitnami/nginx/24.0.4/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/nginx/24.0.4/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

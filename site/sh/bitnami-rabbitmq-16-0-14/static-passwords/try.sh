@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the static-passwords base variant into ./bitnami-rabbitmq-16-0-14-static-passwords"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0 --base static-passwords --work-dir ./bitnami-rabbitmq-16-0-14-static-passwords --non-interactive --namespace rabbitmq
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --base static-passwords --work-dir ./bitnami-rabbitmq-16-0-14-static-passwords --non-interactive --namespace rabbitmq
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-rabbitmq-16-0-14-static-passwords/out/manifests

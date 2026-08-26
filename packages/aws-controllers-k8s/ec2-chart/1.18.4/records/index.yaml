@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4"
+spec:
+  package:
+    name: "aws-controllers-k8s-ec2-chart"
+    version: "1.18.4"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "eks-inference"
+      objects: "bases/eks-inference/upstream.yaml"
+      sourceAndIntent: "records/eks-inference/source-and-intent.yaml"
+      sourceSpecificIntent: "records/eks-inference/helm-render-intent.yaml"

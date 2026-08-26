@@ -13,7 +13,7 @@ spec:
     name: "ingress-nginx/ingress-nginx"
     version: "4.15.1"
     record: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
     selection:
       name: "admission-disabled"
       kind: "catalog-preset"

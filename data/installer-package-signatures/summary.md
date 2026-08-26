@@ -18,7 +18,7 @@ key is kept in this repository or on the package-building machine.
 ## Verify One Package
 
 ~~~sh
-cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/redis/25.5.3 --annotations confighub.com/package-sha256=1a84bda79a870b6249d0f42582d434b2983e557006f4faba0d250fb47197ac40 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33
+cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/redis/25.5.3 --annotations confighub.com/package-sha256=5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a
 ~~~
 
 This command checks the named signer, the Google OIDC issuer, the exact OCI

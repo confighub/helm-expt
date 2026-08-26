@@ -4,23 +4,28 @@ metadata:
   name: bitnami-memcached-8.5.5
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5
-  observedAt: "2026-08-08T20:46:57.615Z"
+  observedAt: "2026-08-26T07:00:01.955Z"
   package:
     path: packages/bitnami/memcached/8.5.5
-    sha256: 60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9
+    sha256: 7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b
+    sourceTreeSHA256: 599e5efde0b9bef8424ce364ca691cee03999cbd0c393ed260bc8a377a7c4498
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/memcached/8.5.5 -o <tmp>/bitnami-memcached-8.5.5.tgz"
     push: "cub installer push <tmp>/bitnami-memcached-8.5.5.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5 --json"
   outputs:
+    manifestDigest: sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4
+    layerDigest: sha256:7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b
     package: |
-      Bundled bitnami-memcached@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-uiB5WG/bitnami-memcached-8.5.5.tgz
-        files:  4
-        size:   1709 bytes
-        digest: sha256:60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9
+      Bundled bitnami-memcached@8.5.5
+        output: <tmp>
+        files:  8
+        size:   5826 bytes
+        digest: sha256:7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5
-        manifest: sha256:37635092808e22db71cd3d3521bcd02db056a9f46d81f372f98be1d03c89fcb2
-        layer:    sha256:60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9 (1709 bytes, 4 files)
-    inspectJSONSHA256: 405eea5627110eeeb21cd1036ebb3532c919bbcd464ab079f7aefd18d0b91323
+        manifest: sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4
+        layer:    sha256:7f0484f445800c22ed8df44077a70f13de1449f95de1f933f26b9cea9e72de1b (5826 bytes, 8 files)
+    inspectJSONSHA256: bbbde7a852a7e6989390b6a155ee3d93d4a55bb57d94e974384a3f8cb3790dcd
+    inspectJSONCanonicalSHA256: fa8c946d00fb5106486db96138a5ba54d6ad0824d714d50e5c2cd017da9857b5

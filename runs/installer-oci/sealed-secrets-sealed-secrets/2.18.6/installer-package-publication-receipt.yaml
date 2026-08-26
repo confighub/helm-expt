@@ -4,23 +4,28 @@ metadata:
   name: sealed-secrets-sealed-secrets-2.18.6
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6
-  observedAt: "2026-08-08T20:47:42.588Z"
+  observedAt: "2026-08-26T07:03:02.261Z"
   package:
     path: packages/sealed-secrets/sealed-secrets/2.18.6
-    sha256: a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508
+    sha256: 9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec
+    sourceTreeSHA256: 22d807f8c788ad6e3ed57b9ddcec4dccbcfcdc711c9b373a5c889f75620a4ecf
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/sealed-secrets/sealed-secrets/2.18.6 -o <tmp>/sealed-secrets-sealed-secrets-2.18.6.tgz"
     push: "cub installer push <tmp>/sealed-secrets-sealed-secrets-2.18.6.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6 --json"
   outputs:
+    manifestDigest: sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6
+    layerDigest: sha256:9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec
     package: |
-      Bundled sealed-secrets-sealed-secrets@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-js4S5H/sealed-secrets-sealed-secrets-2.18.6.tgz
-        files:  6
-        size:   3304 bytes
-        digest: sha256:a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508
+      Bundled sealed-secrets-sealed-secrets@2.18.6
+        output: <tmp>
+        files:  12
+        size:   7925 bytes
+        digest: sha256:9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6
-        manifest: sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72
-        layer:    sha256:a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508 (3304 bytes, 6 files)
-    inspectJSONSHA256: c830766df3ec6d97a4b6ed1211222ef906236a00c54c3201517970dd03545fe6
+        manifest: sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6
+        layer:    sha256:9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec (7925 bytes, 12 files)
+    inspectJSONSHA256: cd1081bb785292ecb8d44200d544c4362b0b5400c42576fca3256734fb6ddc9c
+    inspectJSONCanonicalSHA256: a9f4ea1d06aab132cba0fa09e5e84ccbdb00bfa739366b5a913daa0ca43507b0

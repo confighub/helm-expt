@@ -62,14 +62,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/gitlab/gitlab-runner/0.89.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0"
-    manifestDigest: "sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a"
-    layerDigest: "sha256:e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e"
+    manifestDigest: "sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a"
+    layerDigest: "sha256:bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370"
     publicationReceipt: "runs/installer-oci/gitlab-gitlab-runner/0.89.0/installer-package-publication-receipt.yaml"
     installer: "packages/gitlab/gitlab-runner/0.89.0/installer.yaml"
     receipt: "recipes/gitlab/gitlab-runner/0.89.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e"
+    deterministicBundleSHA256: "bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -98,7 +98,7 @@ spec:
         default: true
         description: "gitlab/gitlab-runner default variant rendered from gitlab/gitlab-runner@0.89.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

@@ -11,10 +11,7 @@
 // An entry is a debt with a date on it. It says what changed, why, and what
 // clears it. Republishing the package clears it, at which point the entry is
 // removed and both lanes go back to demanding an exact match.
-export const DECLARED_PACKAGE_DRIFT = Object.freeze({
-  "packages/karpenter/karpenter/1.14.0":
-    "2026-08-08: gained the packaged CRD bundle its crds-managed base promised. Awaiting republication.",
-});
+export const DECLARED_PACKAGE_DRIFT = Object.freeze({});
 
 export function packageDriftReason(packagePath) {
   return DECLARED_PACKAGE_DRIFT[packagePath] ?? "";

@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb"
+        "sha256": "c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
       },
       "annotations": {
         "confighub.com/package-path": "packages/projectcalico/tigera-operator/v3.32.0",
-        "confighub.com/package-sha256": "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
+        "confighub.com/package-sha256": "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
       }
     }
   ],

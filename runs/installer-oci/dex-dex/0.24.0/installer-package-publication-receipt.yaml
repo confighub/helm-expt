@@ -4,23 +4,28 @@ metadata:
   name: dex-dex-0.24.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0
-  observedAt: "2026-08-08T20:47:07.723Z"
+  observedAt: "2026-08-26T07:00:44.481Z"
   package:
     path: packages/dex/dex/0.24.0
-    sha256: 61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1
+    sha256: 6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af
+    sourceTreeSHA256: c6e095eb9c8caf3f056529fd00e5adba7316b44d8b0837e8cdeb334634497f58
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0.24.0.tgz"
     push: "cub installer push <tmp>/dex-dex-0.24.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0 --json"
   outputs:
+    manifestDigest: sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f
+    layerDigest: sha256:6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af
     package: |
-      Bundled dex-dex@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-kmNkaE/dex-dex-0.24.0.tgz
-        files:  4
-        size:   1368 bytes
-        digest: sha256:61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1
+      Bundled dex-dex@0.24.0
+        output: <tmp>
+        files:  8
+        size:   5710 bytes
+        digest: sha256:6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0
-        manifest: sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8
-        layer:    sha256:61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1 (1368 bytes, 4 files)
-    inspectJSONSHA256: a45d8ffb8e7c14b6f7f122ead3792c63bea969d09deb4cf2afb8b219d9b01b11
+        manifest: sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f
+        layer:    sha256:6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af (5710 bytes, 8 files)
+    inspectJSONSHA256: e112a7845b8b56d9a2bd02c6c9d56a320df9718beae122a0e809a6308477f4e6
+    inspectJSONCanonicalSHA256: fa4ba500bfad7b91cae931f873a6c705239315e200805c9e05478e41241ffe24

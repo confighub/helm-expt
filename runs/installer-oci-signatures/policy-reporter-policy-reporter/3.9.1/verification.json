@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef"
       },
       "image": {
-        "docker-manifest-digest": "sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
+        "docker-manifest-digest": "sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/policy-reporter/policy-reporter/3.9.1",
-      "confighub.com/package-sha256": "40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6"
+      "confighub.com/package-sha256": "aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90"
     }
   }
 ]

@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "20ca7d206be312dc1730ae8b96a4d175a736af66f44416d62accd94ae153f083"
+        "sha256": "e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab"
       },
       "annotations": {
         "confighub.com/package-path": "packages/grafana/pyroscope/2.0.2",
-        "confighub.com/package-sha256": "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04"
+        "confighub.com/package-sha256": "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf"
       }
     }
   ],

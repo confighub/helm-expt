@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc"
+        "sha256": "0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c"
       },
       "annotations": {
         "confighub.com/package-path": "packages/prometheus-community/prometheus/29.9.0",
-        "confighub.com/package-sha256": "05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
+        "confighub.com/package-sha256": "690fbb2d3037aa3226dad611d3aa314d90bf5998ff619b1c0b45ff4e5dfb2fe2"
       }
     }
   ],

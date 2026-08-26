@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1.1.2.tgz"
-    sha256: "a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e"
+    sha256: "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
   package:
     name: "hashicorp-terraform"
     path: "packages/hashicorp/terraform/1.1.2"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "fdce26684eb016c59e648ef8a1f8f7e41804320d4bc58090901e5bd334e8be64"
         bytes: 13956
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "86b4aba5127a0f1b2767023c61426fa53208737340ddfd6c63c3e30cc1ea0181"
+        bytes: 9541
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "bf2ba056f09894b0508fc819a23426c39ef23d334840a000bb8b1914348e93ac"
+        bytes: 12368
+      -
+        path: "records/index.yaml"
+        sha256: "b5c2a63e93f49600f9c01d6e2ae38c6b0733b7becc3d2f630cbcea92c660148f"
+        bytes: 827
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "7c5f2ad7e6897d25dd7d7b441869c2e32dbf2bc1ae71e8d006f10c8e42ec69cb"
+        bytes: 12585
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "92e9a08d343c3b6cf803e718f844d384ca099b712b63e13c5fad3d6a80dd0788"
+        bytes: 14330
     version: "1.1.2"
   setupChecks:
     -

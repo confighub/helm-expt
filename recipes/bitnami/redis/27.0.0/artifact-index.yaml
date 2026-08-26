@@ -64,14 +64,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/bitnami/redis/27.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0"
-    manifestDigest: "sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
-    layerDigest: "sha256:8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
+    manifestDigest: "sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
+    layerDigest: "sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
     publicationReceipt: "runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/redis/27.0.0/installer.yaml"
     receipt: "recipes/bitnami/redis/27.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
+    deterministicBundleSHA256: "6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -108,7 +108,7 @@ spec:
         default: false
         description: "Redis static password demo variant rendered from bitnami/redis@27.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780 --base default --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -179,7 +179,7 @@ spec:
         default: true
         description: "Redis existing Secret default variant rendered from bitnami/redis@27.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

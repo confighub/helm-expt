@@ -4,13 +4,16 @@ metadata:
   name: "dex-dex-0-24-0"
 spec:
   chart:
-    repository: "dex"
     name: "dex"
+    repository: "dex"
     version: "0.24.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0-24-0.tgz"
+    sha256: "6d6918a9b4e5b711e09db84e27fc9b8f208f1bb18d3f4921202e32b9a59031af"
   package:
-    path: "packages/dex/dex/0.24.0"
     name: "dex-dex"
-    version: "0.24.0"
+    path: "packages/dex/dex/0.24.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "87e5eba998a688aebc6a2dead55787ba785415d3ae35c99405373414b2bdf26f"
         bytes: 276
-  deterministicBundle:
-    command: "cub installer package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0-24-0.tgz"
-    sha256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "c0417a3396baf2404455c6d1c91472b502fbd7fc13e8118d4fd60da52b5834ab"
+        bytes: 6624
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "9c8fd14873e4d6379006693e40952183d9358c3cb88e2769d489d4c9079f6730"
+        bytes: 8441
+      -
+        path: "records/index.yaml"
+        sha256: "b17b8abe62f91f5f6ff2c43df847e7a368baa2bc50a10545dba9ab47b9757221"
+        bytes: 598
+    version: "0.24.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/dex/dex/0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 8
-      cubInstallObjectCountIncludingSupport: 9
-      semanticObjectMatches: "8/8"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/dex/dex/0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 1
+      variant: "default"

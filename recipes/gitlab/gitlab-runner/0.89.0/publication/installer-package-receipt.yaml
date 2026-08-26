@@ -4,13 +4,16 @@ metadata:
   name: "gitlab-gitlab-runner-0-89-0"
 spec:
   chart:
-    repository: "gitlab"
     name: "gitlab-runner"
+    repository: "gitlab"
     version: "0.89.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/gitlab/gitlab-runner/0.89.0 -o <tmp>/gitlab-gitlab-runner-0-89-0.tgz"
+    sha256: "bb44b4b6fcaea031eba98a6be699cac7c0969df3c3d697aa740439d48c9dc370"
   package:
-    path: "packages/gitlab/gitlab-runner/0.89.0"
     name: "gitlab-gitlab-runner"
-    version: "0.89.0"
+    path: "packages/gitlab/gitlab-runner/0.89.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "ae5eb793e1e9a2fee203816266476a628c6b39ad5674f53b1ee6b55b9f75b2e1"
         bytes: 315
-  deterministicBundle:
-    command: "cub installer package packages/gitlab/gitlab-runner/0.89.0 -o <tmp>/gitlab-gitlab-runner-0-89-0.tgz"
-    sha256: "e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "ce9ee6972c4902ae98a50c10620e27d8671a0438ad2ad612b275ecc3e82a9c0f"
+        bytes: 7090
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "68b53d9c6ed4a8183fd17aeec9cb7ccd6cba1429a6c2f2e9e1d191ddb57b33d2"
+        bytes: 8843
+      -
+        path: "records/index.yaml"
+        sha256: "6e81e0585c6da402ec21f5685a41a82b33e35908c8aca76eea3accec05911c66"
+        bytes: 624
+    version: "0.89.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/gitlab/gitlab-runner/0.89.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 2
-      cubInstallObjectCountIncludingSupport: 3
-      semanticObjectMatches: "2/2"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/gitlab/gitlab-runner/0.89.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 3
+      helmReleaseObjectCount: 2
+      semanticObjectMatches: "2/2"
+      separatedSecretCount: 0
+      variant: "default"

@@ -4,17 +4,16 @@ metadata:
   name: "elastic-eck-operator-3-4-0"
 spec:
   chart:
-    repository: "elastic"
     name: "eck-operator"
+    repository: "elastic"
     version: "3.4.0"
   deterministicBundle:
-    command: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3.4.0.tgz"
-    sha256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3.4.0.tgz"
+    sha256: "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
   package:
-    path: "packages/elastic/eck-operator/3.4.0"
     name: "elastic-eck-operator"
-    version: "3.4.0"
+    path: "packages/elastic/eck-operator/3.4.0"
     sourceFiles:
       -
         path: "README.md"
@@ -48,6 +47,39 @@ spec:
         path: "installer.yaml"
         sha256: "b9f4af1803e210909700ae74b0fee79a5d962466802aec2d24721806b5eed408"
         bytes: 608
+      -
+        path: "records/README.md"
+        sha256: "9f60f7bb9a9d30fa6ac36b2fe43e39308f7fa3167002c2f8b283fff55529f233"
+        bytes: 1343
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "fc331ee3a38b8bc8d49c5228290569d7c7a49509263278b8058adb0cf24c10e2"
+        bytes: 5285
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "0b186bcb75207eb9bb351a2734674ee31fe83ccf5eaed457ee575843f67296d3"
+        bytes: 8736
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "6bbba676992e7db7c9659f88c101ad48803e8d56cfaac8c32846ae6105d1e261"
+        bytes: 5214
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "702acc26f9bb2fff3ba13a510b4b8c5b35c13f328c8d5f6ffee2f49b2eb0636e"
+        bytes: 8554
+      -
+        path: "records/index.yaml"
+        sha256: "22510bfc578faac80afec323db490ed36d773570bcd2808eb1a5fec04eeec06a"
+        bytes: 1016
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "5a588e06faf1b5cab01ce22c44268ff4b80a42a5945242490e2bf152e9bcd790"
+        bytes: 5304
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "0b736a2dd987304b76d1fe9a1fd923a511f434efd9afaf50163fc253168afb9a"
+        bytes: 8679
+    version: "3.4.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -70,12 +102,12 @@ spec:
       separatedSecretCount: 1
       variant: "ha"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 1
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/elastic/eck-operator/3.4.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 1
+      variant: "no-crds"

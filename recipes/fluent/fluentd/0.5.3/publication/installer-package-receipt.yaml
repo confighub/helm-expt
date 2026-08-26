@@ -4,13 +4,16 @@ metadata:
   name: "fluent-fluentd-0-5-3"
 spec:
   chart:
-    repository: "fluent"
     name: "fluentd"
+    repository: "fluent"
     version: "0.5.3"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/fluent/fluentd/0.5.3 -o <tmp>/fluent-fluentd-0-5-3.tgz"
+    sha256: "d9c767611089bf128564a339b8e352fd8c57ff6febef9ecc1d520dab83f7afd8"
   package:
-    path: "packages/fluent/fluentd/0.5.3"
     name: "fluent-fluentd"
-    version: "0.5.3"
+    path: "packages/fluent/fluentd/0.5.3"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "ef852341f60ee73d3bda696dfa8f4d4136363cc66b0c218f66407dadccbcfa97"
         bytes: 295
-  deterministicBundle:
-    command: "cub installer package packages/fluent/fluentd/0.5.3 -o <tmp>/fluent-fluentd-0-5-3.tgz"
-    sha256: "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "458c79a71bd7ad96bc49a20be0501a00d95e8e69c559433f06f0524107f8e408"
+        bytes: 6128
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "b247e38957b07ba562c2ce95acdc6864ca6d753033c649a40cd10ae7fc89ca6d"
+        bytes: 8592
+      -
+        path: "records/index.yaml"
+        sha256: "bbc99cf95db2f45884ed9b3415c7a61d75a6778d25b1518fc5e49582e8219bee"
+        bytes: 610
+    version: "0.5.3"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      variant: "default"

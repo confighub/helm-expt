@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o <tmp>/secrets-store-csi-driver-1.6.0.tgz"
-    sha256: "3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed"
+    sha256: "4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2"
   package:
     name: "secrets-store-csi-driver"
     path: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "cd2abe8662151963af893ed48229db03622805117b76488a361ee19a167ea16e"
         bytes: 1071
+      -
+        path: "records/README.md"
+        sha256: "f75c7ad13aa549d61312b1a5313d0c57eaa55bb0f96b7c412cbf157c968f1ef4"
+        bytes: 1232
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "fe2d0529372af8d78025d771930d7c9e506a669656e72bc7894eed220a8c519d"
+        bytes: 6681
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "aef10ce285110fc9ddcf627d6ff38596252d43bde4282a2676b2b7b671eba15a"
+        bytes: 9658
+      -
+        path: "records/index.yaml"
+        sha256: "7231382e0fce86bf0252a4ebceb227b211cfdfbb959b367e01168f35d512ca81"
+        bytes: 889
+      -
+        path: "records/sync-secret-rotation/helm-render-intent.yaml"
+        sha256: "6ed0731b7484298c2af98183e21e02acb7c5ff9743132537dd67815bd2b3a250"
+        bytes: 6291
+      -
+        path: "records/sync-secret-rotation/source-and-intent.yaml"
+        sha256: "f76b25b17a3df58ce44a1a0ecc17221f18f326387a5a892670e4166a908b322a"
+        bytes: 9780
     version: "1.6.0"
   setupChecks:
     -

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `elastic/eck-operator@3.4.0`, choose the `ha` pr
 
 That captured output is the render variant: [`recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml). It contains 22 Kubernetes object(s): CustomResourceDefinition x12, ClusterRole x3, ClusterRoleBinding x1, ConfigMap x1, Secret x1, Service x1, ServiceAccount x1, StatefulSet x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-eck-operator-ha`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-eck-operator-ha`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-eck-oper
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f --base ha --work-dir ./elastic-eck-operator-3-4-0-ha --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --base ha --work-dir ./elastic-eck-operator-3-4-0-ha --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

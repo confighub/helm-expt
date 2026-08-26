@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/prometheus-community/kube-state-metrics/7.4.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/kube-state-metrics/7.4.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/kube-state-metrics/7.4.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251` |
 | Installer package source | [packages/prometheus-community/kube-state-metrics/7.4.0](../../../../packages/prometheus-community/kube-state-metrics/7.4.0) |
 | Installer package receipt | [recipes/prometheus-community/kube-state-metrics/7.4.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/kube-state-metrics/7.4.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

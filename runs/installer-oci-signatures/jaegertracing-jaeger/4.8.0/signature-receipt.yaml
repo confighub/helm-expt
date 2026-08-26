@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "jaegertracing-jaeger-4.8.0"
 spec:
-  observedAt: "2026-08-26T05:41:24.711Z"
+  observedAt: "2026-08-26T08:02:35.926Z"
   subject:
     packagePath: "packages/jaegertracing/jaeger/4.8.0"
     publicationReceipt: "runs/installer-oci/jaegertracing-jaeger/4.8.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0"
-    manifestDigest: "sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
-    packageSHA256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
-    layerDigest: "sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+    manifestDigest: "sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9"
+    packageSHA256: "1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436"
+    layerDigest: "sha256:1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/jaegertracing-jaeger/4.8.0/signature.sigstore.json"
-    bundleSHA256: "81a3a860e4af5da74918ecabc9ed8fe39f86592ad4b5370625a4adaaf46e833b"
+    bundleSHA256: "7e661e475eda3c0633479e310d2bbde85cb72318577d4ae94e00bfeefefa2b16"
     payloadPath: "runs/installer-oci-signatures/jaegertracing-jaeger/4.8.0/signature-payload.json"
-    payloadSHA256: "8bd3a7ff88f74a8240ee25581cd2dbe20cba449cb319892a02dc545c39d3d345"
+    payloadSHA256: "6e4e77f4688a09327d95b2a50c5ef91c60bc85e1a2638baec33c942795eb954d"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/jaegertracing/jaeger/4.8.0 --annotations confighub.com/package-sha256=da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/jaegertracing/jaeger/4.8.0 --annotations confighub.com/package-sha256=1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9"
     outputPath: "runs/installer-oci-signatures/jaegertracing-jaeger/4.8.0/verification.json"
-    outputSHA256: "afb752f99b46573da58659c523bb90a2abe22c7420d5ad754cdcc292a70febfa"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/jaegertracing-jaeger/4.8.0/signature.sigstore.json --digest aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "3ecaa986e36f179704ff915c9a32c594f4ec2916c59252c95a1251e55df89eb1"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/jaegertracing-jaeger/4.8.0/signature.sigstore.json --digest d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/jaegertracing-jaeger/4.8.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/jaegertracing/jaeger/4.8.0"
-    confighub.com/package-sha256: "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+    confighub.com/package-sha256: "1fa5ac15b4bd6605b43b8fd97a8974f0e62fee33a7751d3842cdfcbda7e45436"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

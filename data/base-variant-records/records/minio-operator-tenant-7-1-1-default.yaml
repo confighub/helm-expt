@@ -13,7 +13,7 @@ spec:
     name: "minio-operator/tenant"
     version: "7.1.1"
     record: "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:7e299b39fafb43ce72c098b93dacfcb861e8aa48a336844fcd3a4798f59b9fd8"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a"
     selection:
       name: "default"
       kind: "catalog-preset"

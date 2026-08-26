@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7"
+        "sha256": "c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1"
       },
       "annotations": {
         "confighub.com/package-path": "packages/percona/pg-operator/3.0.0",
-        "confighub.com/package-sha256": "30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5"
+        "confighub.com/package-sha256": "0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76"
       }
     }
   ],

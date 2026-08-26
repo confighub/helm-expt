@@ -1,0 +1,839 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-87-19-2-default"
+  labels:
+    sourceType: "helm"
+    component: "prometheus-community/kube-prometheus-stack"
+    sourceVersion: "87.19.2"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "prometheus-community/kube-prometheus-stack"
+    version: "87.19.2"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "78a99b1324a7c8360c446e68dc07aaf31edd9bcbc84fc3bac0b8fd87ca15fcc0"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 125
+    digest: "f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99"
+      record: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "unsafe-to-flatten"
+      action: "process-source-late"
+      scope: "prometheus-community/kube-prometheus-stack@87.19.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+          - "recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=prometheus-community/kube-prometheus-stack"
+      - "version=87.19.2"
+      - "base=default"
+      - "valuesProfile=recipes/prometheus-community/kube-prometheus-stack/87.19.2/effective-values.yaml"
+      - "namespace=monitoring"
+      - "releaseName=kube-prometheus-stack"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "alertmanagerconfigs.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "alertmanagers.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagers.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "podmonitors.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "podmonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "probes.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "probes.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "prometheusagents.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusagents.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "prometheuses.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheuses.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "prometheusrules.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusrules.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "scrapeconfigs.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scrapeconfigs.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "thanosrulers.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "thanosrulers.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+          sourceVariant: "default"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+      -
+        name: "kube-prometheus-stack-admission"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "ca"
+            - "cert"
+            - "key"
+          name: "kube-prometheus-stack-admission"
+          namespace: "monitoring"
+          purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/prepare.sh"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        -
+          id: "preflight-or-presync-crd-apply"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The package applies the locked CRDs before the chart objects that use them."
+        -
+          id: "preserve-cleanup-policy"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The run removes both completed Jobs and their temporary RBAC objects."
+        -
+          id: "postsync-check-or-observation"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The package runs the chart's webhook patch Job after the webhook objects exist."
+        -
+          id: "preflight-or-presync"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The package runs the chart's certificate creation Job before applying the admission webhooks."
+        -
+          id: "upgrade-action-with-receipt"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs."
+        -
+          id: "preserve-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order."
+        -
+          id: "target-facts-or-preflight"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The certificate Job creates the required admission Secret with ca, cert, and key."
+        -
+          id: "webhook-readiness-observation"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads."
+        -
+          id: "alertmanagerconfigs.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "alertmanagers.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "podmonitors.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "probes.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "prometheusagents.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "prometheuses.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "prometheusrules.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "scrapeconfigs.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "servicemonitors.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "thanosrulers.monitoring.coreos.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+        -
+          id: "monitoring/kube-prometheus-stack-admission"
+          origin: "base"
+          type: "target-fact"
+          detail: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job"
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "gap"
+      routes:
+        -
+          id: "preflight-or-presync-crd-apply"
+          requirementRefs:
+            - "preflight-or-presync-crd-apply"
+          phase: "pre-apply"
+          proposedActor: "cub installer package script"
+          proposedMechanism: "The package applies the locked CRDs before the chart objects that use them."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "preserve-cleanup-policy"
+          requirementRefs:
+            - "preserve-cleanup-policy"
+          phase: "observe"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The run removes both completed Jobs and their temporary RBAC objects."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "postsync-check-or-observation"
+          requirementRefs:
+            - "postsync-check-or-observation"
+          phase: "post-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The package runs the chart's webhook patch Job after the webhook objects exist."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "preflight-or-presync"
+          requirementRefs:
+            - "preflight-or-presync"
+          phase: "preflight"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The package runs the chart's certificate creation Job before applying the admission webhooks."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "upgrade-action-with-receipt"
+          requirementRefs:
+            - "upgrade-action-with-receipt"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "preserve-ordering"
+          requirementRefs:
+            - "preserve-ordering"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "target-facts-or-preflight"
+          requirementRefs:
+            - "target-facts-or-preflight"
+          phase: "preflight"
+          proposedActor: "operator"
+          proposedMechanism: "The certificate Job creates the required admission Secret with ca, cert, and key."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+        -
+          id: "webhook-readiness-observation"
+          requirementRefs:
+            - "webhook-readiness-observation"
+          phase: "observe"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "routed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "a live receipt for 87.19.2 and this base"
+            - "Run this route for 87.19.2 and record the result before treating it as observed for this version."
+          evidence:
+            - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+            - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            - "runs/kps-default-package-upgrade-proof/receipt.yaml"
+            - "runs/kps-lifecycle-route-proof/receipt.yaml"
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    targetFacts:
+      status: "gap"
+      declared:
+        requiredCRDs:
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagers.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podmonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "probes.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusagents.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheuses.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusrules.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "scrapeconfigs.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "thanosrulers.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+            sourceVariant: "default"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+            packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+            name: "kube-prometheus-stack-admission"
+            namespace: "monitoring"
+            purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job"
+            suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/prepare.sh"
+      requirementRefs:
+        - "alertmanagerconfigs.monitoring.coreos.com"
+        - "alertmanagers.monitoring.coreos.com"
+        - "podmonitors.monitoring.coreos.com"
+        - "probes.monitoring.coreos.com"
+        - "prometheusagents.monitoring.coreos.com"
+        - "prometheuses.monitoring.coreos.com"
+        - "prometheusrules.monitoring.coreos.com"
+        - "scrapeconfigs.monitoring.coreos.com"
+        - "servicemonitors.monitoring.coreos.com"
+        - "thanosrulers.monitoring.coreos.com"
+        - "monitoring/kube-prometheus-stack-admission"
+      records:
+        - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "alertmanagerconfigs.monitoring.coreos.com"
+      - "alertmanagers.monitoring.coreos.com"
+      - "podmonitors.monitoring.coreos.com"
+      - "probes.monitoring.coreos.com"
+      - "prometheusagents.monitoring.coreos.com"
+      - "prometheuses.monitoring.coreos.com"
+      - "prometheusrules.monitoring.coreos.com"
+      - "scrapeconfigs.monitoring.coreos.com"
+      - "servicemonitors.monitoring.coreos.com"
+      - "thanosrulers.monitoring.coreos.com"
+      - "monitoring/kube-prometheus-stack-admission"
+    deliveryProtected:
+      - "preserve-cleanup-policy"
+    records:
+      - "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-87-19-2-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

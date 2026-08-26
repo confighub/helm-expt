@@ -13,7 +13,7 @@ spec:
     name: "cloudnative-pg/cloudnative-pg"
     version: "0.28.2"
     record: "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
     selection:
       name: "default"
       kind: "catalog-preset"

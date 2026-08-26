@@ -4,23 +4,28 @@ metadata:
   name: external-dns-external-dns-1.21.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1
-  observedAt: "2026-08-08T20:47:09.913Z"
+  observedAt: "2026-08-26T07:00:53.803Z"
   package:
     path: packages/external-dns/external-dns/1.21.1
-    sha256: e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f
+    sha256: f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704
+    sourceTreeSHA256: 0c240c02fe8ed1b93fcf9fc0d5cf2e8c9ac4688af2db5fbc5e98e866ceba5408
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/external-dns/external-dns/1.21.1 -o <tmp>/external-dns-external-dns-1.21.1.tgz"
     push: "cub installer push <tmp>/external-dns-external-dns-1.21.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1 --json"
   outputs:
+    manifestDigest: sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9
+    layerDigest: sha256:f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704
     package: |
-      Bundled external-dns-external-dns@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-4r9Fur/external-dns-external-dns-1.21.1.tgz
-        files:  8
-        size:   2888 bytes
-        digest: sha256:e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f
+      Bundled external-dns-external-dns@1.21.1
+        output: <tmp>
+        files:  16
+        size:   8065 bytes
+        digest: sha256:f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1
-        manifest: sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd
-        layer:    sha256:e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f (2888 bytes, 8 files)
-    inspectJSONSHA256: 0edf9c4995886a7461afe8ebc0fcc46f87343c89f29c220e972c3aacc0bfd449
+        manifest: sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9
+        layer:    sha256:f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704 (8065 bytes, 16 files)
+    inspectJSONSHA256: 3c09dfd032c0a661533864fd72d7738b34c05b517472167c8ab714b2b4882c14
+    inspectJSONCanonicalSHA256: 593bbbe48fe7335b8970c6c4f4c3c98b32aefe3e443d448f26fc5e416459a547

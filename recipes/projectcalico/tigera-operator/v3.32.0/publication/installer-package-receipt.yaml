@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3-32-0.tgz"
-    sha256: "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
+    sha256: "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
   package:
     name: "projectcalico-tigera-operator"
     path: "packages/projectcalico/tigera-operator/v3.32.0"
@@ -43,6 +43,22 @@ spec:
         path: "prerequisites/tigera-operator-bootstrap/kustomization.yaml"
         sha256: "4a1ffce0d962ca1c2c2efdc80930e367a0ccf6dca6af238e2f97352dbb356b0a"
         bytes: 147
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "37f62a2eceb1aab8be10dd50a5e7eaa1ec510949aa53244a910e40fd06def0d8"
+        bytes: 16498
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "7b0c1761b93df8cbe0ff050dd50b948ebdf29ff1c3c5082b96293895dafd66a0"
+        bytes: 18856
+      -
+        path: "records/index.yaml"
+        sha256: "0a979c8c9c84c639a40941a8a702ccd7946a1cf30cc2fef40acb17643c71a586"
+        bytes: 644
     version: "v3.32.0"
   setupChecks:
     -
@@ -54,6 +70,6 @@ spec:
       helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"

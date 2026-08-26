@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "stakater-reloader-2.2.12"
 spec:
-  observedAt: "2026-08-26T05:46:15.044Z"
+  observedAt: "2026-08-26T08:06:23.484Z"
   subject:
     packagePath: "packages/stakater/reloader/2.2.12"
     publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.12/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12"
-    manifestDigest: "sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663"
-    packageSHA256: "297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
-    layerDigest: "sha256:297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
+    manifestDigest: "sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+    packageSHA256: "0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720"
+    layerDigest: "sha256:0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/stakater-reloader/2.2.12/signature.sigstore.json"
-    bundleSHA256: "946de576f14db420cf069b644c0150c561276edb2e5ea4c2f0c0604415dd8178"
+    bundleSHA256: "0e88821f70ed072edbd65b7fb24bf13a922aed597cceba219783076ef5585e36"
     payloadPath: "runs/installer-oci-signatures/stakater-reloader/2.2.12/signature-payload.json"
-    payloadSHA256: "60c017cb95efffdfa3acc72e7a56abc8284b94d72102a99e8860579c2d9b64b3"
+    payloadSHA256: "c525ef5a21698a18b9354efbd7053bf2da7d3ec5fcf59bf2bad3a58c4eb9aedd"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/stakater/reloader/2.2.12 --annotations confighub.com/package-sha256=297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/stakater/reloader/2.2.12 --annotations confighub.com/package-sha256=0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
     outputPath: "runs/installer-oci-signatures/stakater-reloader/2.2.12/verification.json"
-    outputSHA256: "a5612dcd0ef6f3f1bfc7c20b416dc1e93561b93326b2cec18d07313f221e0277"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/stakater-reloader/2.2.12/signature.sigstore.json --digest 63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "6180d87396399bb5c97cd49f3d0da5cfa14ec0bcd5ea323d22b46b8f606b5313"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/stakater-reloader/2.2.12/signature.sigstore.json --digest 323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/stakater-reloader/2.2.12/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/stakater/reloader/2.2.12"
-    confighub.com/package-sha256: "297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
+    confighub.com/package-sha256: "0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

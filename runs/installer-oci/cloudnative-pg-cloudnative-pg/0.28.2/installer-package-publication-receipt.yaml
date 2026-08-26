@@ -4,23 +4,28 @@ metadata:
   name: cloudnative-pg-cloudnative-pg-0.28.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2
-  observedAt: "2026-08-08T20:47:05.104Z"
+  observedAt: "2026-08-26T07:00:33.808Z"
   package:
     path: packages/cloudnative-pg/cloudnative-pg/0.28.2
-    sha256: 8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013
+    sha256: 040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f
+    sourceTreeSHA256: 0705ab0ac296f86c8be59f31679e4869b3fae1750f51ab5b0479e4980608c8ec
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.28.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0.28.2.tgz"
     push: "cub installer push <tmp>/cloudnative-pg-cloudnative-pg-0.28.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2 --json"
   outputs:
+    manifestDigest: sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2
+    layerDigest: sha256:040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f
     package: |
-      Bundled cloudnative-pg-cloudnative-pg@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Wwcblr/cloudnative-pg-cloudnative-pg-0.28.2.tgz
-        files:  8
-        size:   310467 bytes
-        digest: sha256:8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013
+      Bundled cloudnative-pg-cloudnative-pg@0.28.2
+        output: <tmp>
+        files:  14
+        size:   318492 bytes
+        digest: sha256:040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2
-        manifest: sha256:c9169b6a3f7855f1dc6d9b634eeab7c4c256ea7400a57fcb7025fcf71b91432c
-        layer:    sha256:8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013 (310467 bytes, 8 files)
-    inspectJSONSHA256: ba5d5596dd3e5230a9dd9ca5febf295f552847338637aefa2dc6ceb3338e0e76
+        manifest: sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2
+        layer:    sha256:040cb5767ec4d9de62fdfaec96a35574656ef6cd2d50dadccb2c3920ba3b135f (318492 bytes, 14 files)
+    inspectJSONSHA256: 955efcce513e1b9ea8244ec3ebe3b0d06ff68fedac379c2f89c1f1ede2d3bbf0
+    inspectJSONCanonicalSHA256: 5d19d10d18ab8c81d9557aad891f4a7e1f4166397cecd6e298d18c14b796ec91

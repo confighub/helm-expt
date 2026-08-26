@@ -4,28 +4,28 @@ metadata:
   name: prometheus-community-prometheus-blackbox-exporter-11.15.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1
-  observedAt: "2026-08-08T20:47:38.896Z"
+  observedAt: "2026-08-26T07:02:47.789Z"
   package:
     path: packages/prometheus-community/prometheus-blackbox-exporter/11.15.1
-    sha256: cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551
-    sourceTreeSHA256: 0d3f33d7ae4967b8943750aafa39b1b6f7691a3600a7c209ebb6a8a18bebb4e8
+    sha256: efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427
+    sourceTreeSHA256: 6b6d0f8b614bd9bc9ab2ee9e7a8994957acfa1ad763a96817f4fef475eb6bab2
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.15.1 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11.15.1.tgz"
     push: "cub installer push <tmp>/prometheus-community-prometheus-blackbox-exporter-11.15.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1 --json"
   outputs:
-    manifestDigest: sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512
-    layerDigest: sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551
+    manifestDigest: sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189
+    layerDigest: sha256:efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427
     package: |
       Bundled prometheus-community-prometheus-blackbox-exporter@11.15.1
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-RrPi3r/prometheus-community-prometheus-blackbox-exporter-11.15.1.tgz
-        files:  4
-        size:   1408 bytes
-        digest: sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551
+        output: <tmp>
+        files:  8
+        size:   5579 bytes
+        digest: sha256:efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1
-        manifest: sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512
-        layer:    sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551 (1408 bytes, 4 files)
-    inspectJSONSHA256: 324da596d7c9e717ec6aaaef51a9cb6bebb19d516c2e202a16e66903392f8cfa
-    inspectJSONCanonicalSHA256: c0f28393d47cd8ceaf493244800433aba6d29c9afff05870d64c020e1b679eb6
+        manifest: sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189
+        layer:    sha256:efd99d3e0c984d07c25a417b846c1cb1dba3c50d078fcedde2387d181c6ce427 (5579 bytes, 8 files)
+    inspectJSONSHA256: 4c9d5e95ef7e16802523284e98c7ff6dafb96b60644fa0f04f28650d755a8340
+    inspectJSONCanonicalSHA256: 259360f7197fa85df4304b2cd20979931d3aeb9cf35712aeee227c8a0075cced

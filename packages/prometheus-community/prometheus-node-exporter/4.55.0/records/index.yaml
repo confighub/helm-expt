@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4.55.0"
+spec:
+  package:
+    name: "prometheus-community-prometheus-node-exporter"
+    version: "4.55.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "cluster-metrics-readonly"
+      objects: "bases/cluster-metrics-readonly/upstream.yaml"
+      sourceAndIntent: "records/cluster-metrics-readonly/source-and-intent.yaml"
+      sourceSpecificIntent: "records/cluster-metrics-readonly/helm-render-intent.yaml"
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"

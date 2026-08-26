@@ -4,23 +4,28 @@ metadata:
   name: hashicorp-vault-0.32.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0
-  observedAt: "2026-08-08T20:47:18.934Z"
+  observedAt: "2026-08-26T07:01:31.603Z"
   package:
     path: packages/hashicorp/vault/0.32.0
-    sha256: bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654
+    sha256: add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09
+    sourceTreeSHA256: 61bdbd2d362e51619b23871553ed71ffdea13ae873472966838f187a2a115c7f
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/hashicorp-vault-0.32.0.tgz"
     push: "cub installer push <tmp>/hashicorp-vault-0.32.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --json"
   outputs:
+    manifestDigest: sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292
+    layerDigest: sha256:add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09
     package: |
-      Bundled hashicorp-vault@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-MndLvj/hashicorp-vault-0.32.0.tgz
-        files:  9
-        size:   5758 bytes
-        digest: sha256:bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654
+      Bundled hashicorp-vault@0.32.0
+        output: <tmp>
+        files:  17
+        size:   11709 bytes
+        digest: sha256:add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0
-        manifest: sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3
-        layer:    sha256:bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654 (5758 bytes, 9 files)
-    inspectJSONSHA256: e7d3785359102a5cf18d3c59fc1a1daa2dce8ef16544233a133aab202426f274
+        manifest: sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292
+        layer:    sha256:add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09 (11709 bytes, 17 files)
+    inspectJSONSHA256: 165841e597bb67f77d07a78c9050b6cc490625501c7f0c7d77d359d4f067ee97
+    inspectJSONCanonicalSHA256: 909e45eeb6368452633b21bf3744077b4ea173c790239c7905c667444f90ce22

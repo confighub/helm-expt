@@ -13,7 +13,7 @@ spec:
     name: "grafana/alloy"
     version: "1.8.2"
     record: "data/helm-render-intents/intents/grafana-alloy-1-8-2-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

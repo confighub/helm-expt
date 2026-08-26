@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/bitnami/mongodb/19.1.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/bitnami/mongodb/19.1.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/mongodb/19.1.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406` |
 | Installer package source | [packages/bitnami/mongodb/19.1.0](../../../../packages/bitnami/mongodb/19.1.0) |
 | Installer package receipt | [recipes/bitnami/mongodb/19.1.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/mongodb/19.1.0/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:9eeeef6d94630143d4bd60d17d3ba0abcd151d4c73108d0fd5511fd533b9ad2d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

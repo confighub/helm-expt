@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the crds-enabled base variant into ./jetstack-cert-manager-v1-20-2-crds-enabled"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98 --base crds-enabled --work-dir ./jetstack-cert-manager-v1-20-2-crds-enabled --non-interactive --namespace cert-manager
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2@sha256:b688d5ef7ae759bd73d2970528a7192e14058bc593a8601b6af12157270c6d2c --base crds-enabled --work-dir ./jetstack-cert-manager-v1-20-2-crds-enabled --non-interactive --namespace cert-manager
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./jetstack-cert-manager-v1-20-2-crds-enabled/out/manifests

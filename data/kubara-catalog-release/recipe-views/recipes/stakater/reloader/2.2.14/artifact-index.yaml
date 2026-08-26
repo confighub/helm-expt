@@ -57,14 +57,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/stakater/reloader/2.2.14"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14"
-    manifestDigest: "sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269"
-    layerDigest: "sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65"
+    manifestDigest: "sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
+    layerDigest: "sha256:3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c"
     publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.14/installer-package-publication-receipt.yaml"
     installer: "packages/stakater/reloader/2.2.14/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65"
+    deterministicBundleSHA256: "3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -93,7 +93,7 @@ spec:
         default: true
         description: "reloader chart defaults variant rendered from stakater/reloader@2.2.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269 --base default --work-dir <tmp> --non-interactive --namespace reloader"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4 --base default --work-dir <tmp> --non-interactive --namespace reloader"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

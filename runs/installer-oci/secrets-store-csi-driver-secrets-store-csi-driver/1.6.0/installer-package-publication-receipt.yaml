@@ -4,23 +4,28 @@ metadata:
   name: secrets-store-csi-driver-secrets-store-csi-driver-1.6.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0
-  observedAt: "2026-08-08T20:47:42.949Z"
+  observedAt: "2026-08-26T07:03:03.749Z"
   package:
     path: packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
-    sha256: 3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed
+    sha256: 4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2
+    sourceTreeSHA256: 4d755eb303dbc2551dd38878046ca7d2256937fdc56435f20c29c34b81d24828
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o <tmp>/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.tgz"
     push: "cub installer push <tmp>/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --json"
   outputs:
+    manifestDigest: sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791
+    layerDigest: sha256:4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2
     package: |
-      Bundled secrets-store-csi-driver@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Ygjr1g/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.tgz
-        files:  6
-        size:   4045 bytes
-        digest: sha256:3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed
+      Bundled secrets-store-csi-driver@1.6.0
+        output: <tmp>
+        files:  12
+        size:   9114 bytes
+        digest: sha256:4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0
-        manifest: sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726
-        layer:    sha256:3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed (4045 bytes, 6 files)
-    inspectJSONSHA256: e1112d56213ed23cdc514aeab336198d565d240b0b0abb0701189bdd07c2a995
+        manifest: sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791
+        layer:    sha256:4dccea39870a28820d34d59237c2cba25b1aefbe15650f5bd431e08d347e01d2 (9114 bytes, 12 files)
+    inspectJSONSHA256: f4d5c5f3757fa64e4206b30962178e360a6fba66419ab451b1270f52ca8525d2
+    inspectJSONCanonicalSHA256: a45826d8a4efa55777a73b1d573ba87cdab8a795de3ea615fdbb40f917f0cc52

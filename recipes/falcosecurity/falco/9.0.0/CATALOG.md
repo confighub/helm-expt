@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/falcosecurity/falco/9.0.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/falcosecurity/falco/9.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/falcosecurity/falco/9.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf` |
 | Installer package source | [packages/falcosecurity/falco/9.0.0](../../../../packages/falcosecurity/falco/9.0.0) |
 | Installer package receipt | [recipes/falcosecurity/falco/9.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/falcosecurity/falco/9.0.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:9f37a47ba415f04fe54ae85f9df315f907d54d6666ebb999378d9f1239e870ea --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0@sha256:0a17c36c302c5e5fb8cd13ced42c8c72f6ed5c59fa06ab78b63c5e9a9fb32bcf --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

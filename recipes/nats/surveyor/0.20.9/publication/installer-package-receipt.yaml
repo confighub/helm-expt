@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/nats/surveyor/0.20.9 -o <tmp>/nats-surveyor-0-20-9.tgz"
-    sha256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
+    sha256: "5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321"
   package:
     name: "nats-surveyor"
     path: "packages/nats/surveyor/0.20.9"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "94125efc9f0ca1ca6f7153f29379da7ef4efd105450d5735e60fcf86a6f210dd"
         bytes: 510
+      -
+        path: "records/README.md"
+        sha256: "04571a794cd762a2cfe084e4fc7bc3eb196c8bb77986ea27404a0afd2fd3a8ae"
+        bytes: 1216
+      -
+        path: "records/default-reviewed/helm-render-intent.yaml"
+        sha256: "f503cef00a6c5c15b15166193c290ad4ef9fbf1856d7beba88ebcc63c472b185"
+        bytes: 7439
+      -
+        path: "records/default-reviewed/source-and-intent.yaml"
+        sha256: "e91c94e18bbbb932d885ba6338b57f2ba59af22c722aa92c4b75cf4f74dfca1d"
+        bytes: 8806
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "2e371bd9c9cdfc32614db4a0c2f96affb55287d3db15b50a5add08337574699c"
+        bytes: 7183
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "89407927bc066e6e685152d9db2fb778b52faf60d840feb348361e2cfcf7914d"
+        bytes: 8660
+      -
+        path: "records/index.yaml"
+        sha256: "3e727c38c1378057f581470080c51c1e77c30d3cecb52c52b90287d20129fe69"
+        bytes: 853
     version: "0.20.9"
   setupChecks:
     -

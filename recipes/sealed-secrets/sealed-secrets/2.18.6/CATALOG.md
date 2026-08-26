@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/sealed-secrets/sealed-secrets/2.18.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/sealed-secrets/sealed-secrets/2.18.6/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6` |
 | Installer package source | [packages/sealed-secrets/sealed-secrets/2.18.6](../../../../packages/sealed-secrets/sealed-secrets/2.18.6) |
 | Installer package receipt | [recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/sealed-secrets/sealed-secrets/2.18.6/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

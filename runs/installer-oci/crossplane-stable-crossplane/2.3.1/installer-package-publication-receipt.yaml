@@ -4,23 +4,28 @@ metadata:
   name: crossplane-stable-crossplane-2.3.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1
-  observedAt: "2026-08-08T20:47:06.966Z"
+  observedAt: "2026-08-26T07:00:41.453Z"
   package:
     path: packages/crossplane-stable/crossplane/2.3.1
-    sha256: 243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016
+    sha256: c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051
+    sourceTreeSHA256: af562f6194577bd05005236cfadd9f37873f3ff9199ba3ae66e079119ee2b9ad
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2.3.1.tgz"
     push: "cub installer push <tmp>/crossplane-stable-crossplane-2.3.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1 --json"
   outputs:
+    manifestDigest: sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616
+    layerDigest: sha256:c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051
     package: |
-      Bundled crossplane-stable-crossplane@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-EyMgj7/crossplane-stable-crossplane-2.3.1.tgz
-        files:  4
-        size:   3433 bytes
-        digest: sha256:243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016
+      Bundled crossplane-stable-crossplane@2.3.1
+        output: <tmp>
+        files:  8
+        size:   7543 bytes
+        digest: sha256:c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1
-        manifest: sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f
-        layer:    sha256:243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016 (3433 bytes, 4 files)
-    inspectJSONSHA256: 5b714dadbbb5631faccbb9ab7cf862f85535dfc46ac79df2c94fed41251d27c5
+        manifest: sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616
+        layer:    sha256:c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051 (7543 bytes, 8 files)
+    inspectJSONSHA256: 99099e3ea78861677ab3398c7a390e0382455478301c46c4b21a2726f613e809
+    inspectJSONCanonicalSHA256: 593258b5871ab00c73b6237284e7dea7e03e2e3f28707940f631a5ffbb00475a

@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/bitnami/opensearch/2.0.10/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/bitnami/opensearch/2.0.10/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/opensearch/2.0.10/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0` |
 | Installer package source | [packages/bitnami/opensearch/2.0.10](../../../../packages/bitnami/opensearch/2.0.10) |
 | Installer package receipt | [recipes/bitnami/opensearch/2.0.10/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/opensearch/2.0.10/artifact-index.yaml](artifact-index.yaml) |
@@ -91,7 +91,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10@sha256:3334c0f8f9ec8db8de4c35b946912dfd9a0822e8b640b62f60da6b8714be79d0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

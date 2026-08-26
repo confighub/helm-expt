@@ -13,7 +13,7 @@ spec:
     name: "metallb/metallb"
     version: "0.16.1"
     record: "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee"
     selection:
       name: "default"
       kind: "catalog-preset"

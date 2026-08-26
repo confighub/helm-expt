@@ -4,23 +4,28 @@ metadata:
   name: metrics-server-metrics-server-3.13.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0
-  observedAt: "2026-08-08T20:47:27.106Z"
+  observedAt: "2026-08-26T07:02:05.741Z"
   package:
     path: packages/metrics-server/metrics-server/3.13.0
-    sha256: 10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864
+    sha256: 6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089
+    sourceTreeSHA256: dea1cc9af51d2829d822420782d31b78bbfc1435d050aea28a3616c154420304
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-metrics-server-3.13.0.tgz"
     push: "cub installer push <tmp>/metrics-server-metrics-server-3.13.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0 --json"
   outputs:
+    manifestDigest: sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127
+    layerDigest: sha256:6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089
     package: |
-      Bundled metrics-server-metrics-server@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-7pf6gQ/metrics-server-metrics-server-3.13.0.tgz
-        files:  7
-        size:   3329 bytes
-        digest: sha256:10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864
+      Bundled metrics-server-metrics-server@3.13.0
+        output: <tmp>
+        files:  13
+        size:   8584 bytes
+        digest: sha256:6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0
-        manifest: sha256:ebe6356044a23425f14c440f195f89f82569962a2aa6ddb25fc8503e0978d50b
-        layer:    sha256:10533c3e9e3d36c42145a97a5faf5b878db95aee76a3335e70671237265ca864 (3329 bytes, 7 files)
-    inspectJSONSHA256: 138bf8bab8b4fadca73e07841a7eda27d5e237560f4f3f56bbfc2566b47ec08f
+        manifest: sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127
+        layer:    sha256:6c0e5cdf921eae97db433726305cbfe67d9c540cf8d8f792679b701fbd4b0089 (8584 bytes, 13 files)
+    inspectJSONSHA256: 517a859b81dcaf024a93512fb1496a9ba0d17d66bec430717e51c495f4b6d18f
+    inspectJSONCanonicalSHA256: 3cd925a8d0d9fb5f2bb13e3cbff5c2fc5797c0df63174c93ecd69b147c2d3652

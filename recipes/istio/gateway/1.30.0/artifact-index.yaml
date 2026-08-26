@@ -60,14 +60,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/istio/gateway/1.30.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0"
-    manifestDigest: "sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a"
-    layerDigest: "sha256:2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
+    manifestDigest: "sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69"
+    layerDigest: "sha256:8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
     publicationReceipt: "runs/installer-oci/istio-gateway/1.30.0/installer-package-publication-receipt.yaml"
     installer: "packages/istio/gateway/1.30.0/installer.yaml"
     receipt: "recipes/istio/gateway/1.30.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
+    deterministicBundleSHA256: "8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,7 +101,7 @@ spec:
         default: true
         description: "istio/gateway default variant rendered from istio/gateway@1.30.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -163,7 +163,7 @@ spec:
         default: false
         description: "istio/gateway controller-default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0@sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

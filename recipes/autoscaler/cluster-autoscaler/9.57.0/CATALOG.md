@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/autoscaler/cluster-autoscaler/9.57.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/autoscaler/cluster-autoscaler/9.57.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/autoscaler/cluster-autoscaler/9.57.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:2024c48b8dc5e19932a91c11c36baf2c9f694b5200158a45f6f4b142063fe352` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8` |
 | Installer package source | [packages/autoscaler/cluster-autoscaler/9.57.0](../../../../packages/autoscaler/cluster-autoscaler/9.57.0) |
 | Installer package receipt | [recipes/autoscaler/cluster-autoscaler/9.57.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/autoscaler/cluster-autoscaler/9.57.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:2024c48b8dc5e19932a91c11c36baf2c9f694b5200158a45f6f4b142063fe352 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0@sha256:5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

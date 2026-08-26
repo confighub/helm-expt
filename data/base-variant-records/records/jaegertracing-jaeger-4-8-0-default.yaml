@@ -13,7 +13,7 @@ spec:
     name: "jaegertracing/jaeger"
     version: "4.8.0"
     record: "data/helm-render-intents/intents/jaegertracing-jaeger-4-8-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0@sha256:d4646d2cd4c0e3d64842737a0d8434b2663e65314a40ffeecb5f9943c19438a9"
     selection:
       name: "default"
       kind: "catalog-preset"

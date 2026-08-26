@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/bitnami/elasticsearch/22.1.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/elasticsearch/22.1.6/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/elasticsearch/22.1.6/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719` |
 | Installer package source | [packages/bitnami/elasticsearch/22.1.6](../../../../packages/bitnami/elasticsearch/22.1.6) |
 | Installer package receipt | [recipes/bitnami/elasticsearch/22.1.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/elasticsearch/22.1.6/artifact-index.yaml](artifact-index.yaml) |
@@ -90,7 +90,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

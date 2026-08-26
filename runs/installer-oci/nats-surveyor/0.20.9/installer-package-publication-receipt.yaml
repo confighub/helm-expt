@@ -4,23 +4,28 @@ metadata:
   name: nats-surveyor-0.20.9
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9
-  observedAt: "2026-08-08T20:47:29.632Z"
+  observedAt: "2026-08-26T07:02:15.276Z"
   package:
     path: packages/nats/surveyor/0.20.9
-    sha256: d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6
+    sha256: 5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321
+    sourceTreeSHA256: 0f01188578278b892c2c340dbfb91a4d26710a68a5702077503cf4202d2c6ace
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/nats/surveyor/0.20.9 -o <tmp>/nats-surveyor-0.20.9.tgz"
     push: "cub installer push <tmp>/nats-surveyor-0.20.9.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9 --json"
   outputs:
+    manifestDigest: sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d
+    layerDigest: sha256:5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321
     package: |
-      Bundled nats-surveyor@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mRQmP5/nats-surveyor-0.20.9.tgz
-        files:  6
-        size:   1074 bytes
-        digest: sha256:d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6
+      Bundled nats-surveyor@0.20.9
+        output: <tmp>
+        files:  12
+        size:   6070 bytes
+        digest: sha256:5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9
-        manifest: sha256:91058331c4da0d7485450ee8acad2235b54a40cdf00ea89d842d645cb63eb5fe
-        layer:    sha256:d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6 (1074 bytes, 6 files)
-    inspectJSONSHA256: 6a8a356b61851845520ca7fa29616d949dced9aba3e6f34bf18df50f0e5bea21
+        manifest: sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d
+        layer:    sha256:5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321 (6070 bytes, 12 files)
+    inspectJSONSHA256: 2be8cc9fc06c4eb27db754fd8cf5d3688bc5cf2b8b9bc9fe4c8e6f49e9cfee95
+    inspectJSONCanonicalSHA256: fc7a53aa61d961b2c8d7147d6c732a7afe094549f6ede66051424130828be12a

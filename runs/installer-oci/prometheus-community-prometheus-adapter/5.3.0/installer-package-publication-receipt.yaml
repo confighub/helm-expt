@@ -4,23 +4,28 @@ metadata:
   name: prometheus-community-prometheus-adapter-5.3.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0
-  observedAt: "2026-08-08T20:47:38.089Z"
+  observedAt: "2026-08-26T07:02:44.656Z"
   package:
     path: packages/prometheus-community/prometheus-adapter/5.3.0
-    sha256: 320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea
+    sha256: dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a
+    sourceTreeSHA256: 9c29a9966eafd324846ebb244ca9d2564ddfa5a02b4cf0a5688962e68a30d135
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/prometheus-adapter/5.3.0 -o <tmp>/prometheus-community-prometheus-adapter-5.3.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-prometheus-adapter-5.3.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0 --json"
   outputs:
+    manifestDigest: sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d
+    layerDigest: sha256:dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a
     package: |
-      Bundled prometheus-community-prometheus-adapter@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-M39d78/prometheus-community-prometheus-adapter-5.3.0.tgz
-        files:  8
-        size:   2657 bytes
-        digest: sha256:320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea
+      Bundled prometheus-community-prometheus-adapter@5.3.0
+        output: <tmp>
+        files:  16
+        size:   8349 bytes
+        digest: sha256:dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0
-        manifest: sha256:3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c
-        layer:    sha256:320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea (2657 bytes, 8 files)
-    inspectJSONSHA256: 6e43ebbd229cdfbfa2b52d19a810f5a077b62386000172a7380676f154f79941
+        manifest: sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d
+        layer:    sha256:dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a (8349 bytes, 16 files)
+    inspectJSONSHA256: db8836e7762e71f7299e4c53e322558778fb9bc09f461679af107c66f27c8c57
+    inspectJSONCanonicalSHA256: 330faaab52fcde68df03423f8b537bf1cbfd7fdadc5e22d9d28901438d74f835

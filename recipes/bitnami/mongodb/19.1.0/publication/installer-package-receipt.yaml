@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mongodb/19.1.0 -o <tmp>/mongodb-19.1.0.tgz"
-    sha256: "7622250a3e678312b14d64c548a0e9448dbee8f66a9f50231b793ba21ee43fd0"
+    sha256: "ac253fd134639ebe4ab3eb186f5f5b03dd320a2090228f6fd75e82b2f38337fb"
   package:
     name: "bitnami-mongodb"
     path: "packages/bitnami/mongodb/19.1.0"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "dee36638711d6bbbd701b31658e5e1b61a66d07bacafb6a4d51ba814f5b8d599"
         bytes: 1370
+      -
+        path: "records/README.md"
+        sha256: "2fe43ee3d4118e2d218623d564bca244925b2be7202603cedcc8f2be21295fc1"
+        bytes: 1292
+      -
+        path: "records/existing-secret-replicaset/helm-render-intent.yaml"
+        sha256: "4bd6f9ec86689201c097e6af8a76c55756168a6090e316266f1d29658b96b47d"
+        bytes: 6261
+      -
+        path: "records/existing-secret-replicaset/source-and-intent.yaml"
+        sha256: "b399820530660f6b4df89b15e6f6a3679a3c65e538f5429b661918b1dad5b454"
+        bytes: 10054
+      -
+        path: "records/index.yaml"
+        sha256: "c6af025ef630ee12aa9e8072489a94b2f6256e6e99cb072a451767e462ef71bf"
+        bytes: 933
+      -
+        path: "records/static-passwords/helm-render-intent.yaml"
+        sha256: "72cf35ee4a7e6c71c8d660815765a93f1f247005d54171aa1f5095bde42f61f3"
+        bytes: 5350
+      -
+        path: "records/static-passwords/source-and-intent.yaml"
+        sha256: "4d3fcfda815678b0fd6d3ce40035360d3a4504c3ed3b13e1927360354d37a128"
+        bytes: 8860
     version: "19.1.0"
   setupChecks:
     -

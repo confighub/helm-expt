@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/vm/victoria-metrics-single/0.39.0 -o <tmp>/vm-victoria-metrics-single-0-39-0.tgz"
-    sha256: "15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946"
+    sha256: "7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4"
   package:
     name: "vm-victoria-metrics-single"
     path: "packages/vm/victoria-metrics-single/0.39.0"
@@ -39,6 +39,30 @@ spec:
         path: "installer.yaml"
         sha256: "6b86d8f7553da1430ec824b5fed42f18f6548f93ee04123f9b10ed6877c781ce"
         bytes: 562
+      -
+        path: "records/README.md"
+        sha256: "04571a794cd762a2cfe084e4fc7bc3eb196c8bb77986ea27404a0afd2fd3a8ae"
+        bytes: 1216
+      -
+        path: "records/default-reviewed/helm-render-intent.yaml"
+        sha256: "c3fce6656b5f764ba2e0f759197cf6644bbbe756bf7ef5664e9e11c758e8ab1c"
+        bytes: 5630
+      -
+        path: "records/default-reviewed/source-and-intent.yaml"
+        sha256: "f489f43d1cd5a7e64c57b3d00b88f8039f37248f9c9b8c8257d943106e60deef"
+        bytes: 9129
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "0ed16b2f8e44ed11386dda7edbdc32dd3f3046968cc0ee14628f5a7a3799405c"
+        bytes: 5483
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "5891f00c37ad53dc2b2014800bd1cf97d7faaac1754108a67d59939231b25ff3"
+        bytes: 8996
+      -
+        path: "records/index.yaml"
+        sha256: "537ac3752d6c7b462107353652bb7ea6a3aa9eae9480fd79677f961da7c09de8"
+        bytes: 879
     version: "0.39.0"
   setupChecks:
     -

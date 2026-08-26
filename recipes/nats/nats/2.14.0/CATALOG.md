@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/nats/nats/2.14.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/nats/nats/2.14.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nats/nats/2.14.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b` |
 | Installer package source | [packages/nats/nats/2.14.0](../../../../packages/nats/nats/2.14.0) |
 | Installer package receipt | [recipes/nats/nats/2.14.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nats/nats/2.14.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

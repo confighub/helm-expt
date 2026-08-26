@@ -3,7 +3,7 @@ kind: "RedisPublicWalkthroughProofReceipt"
 metadata:
   name: "redis-25-5-3-to-27-0-0"
 spec:
-  observedAt: "2026-07-29T07:28:25.252Z"
+  observedAt: "2026-08-26T08:51:15.409Z"
   chart: "bitnami/redis"
   execution:
     configHubAccountUsed: false
@@ -18,14 +18,14 @@ spec:
       appVersion: "8.6.3"
       packageReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3"
       publicationReceipt: "runs/installer-oci/bitnami-redis/25.5.3/installer-package-publication-receipt.yaml"
-      sourceManifestDigest: "sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33"
+      sourceManifestDigest: "sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a"
       anonymousPull: "pass"
       selectedBase: "reuse-existing-secret"
       objectCount: 14
       secretObjectCount: 0
       renderedOci:
         destination: "temporary local OCI layout"
-        manifestDigest: "sha256:ceb2afe39c3eeff54b70e1c3e83a8c805f389c0f331ce2fefbff4ed69daa4fca"
+        manifestDigest: "sha256:47722bab563bd53478ae6c780da2e2bd08bcc4bf838824be4f3b4ce3a5ac328f"
         objectSetDigest: "sha256:518db60ad92b59818c9e84042b12cc7b3d850a583ab7ca565bbf09f6806e4324"
         pullBack: "pass"
     -
@@ -33,14 +33,14 @@ spec:
       appVersion: "8.8.0"
       packageReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0"
       publicationReceipt: "runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml"
-      sourceManifestDigest: "sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
+      sourceManifestDigest: "sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6"
       anonymousPull: "pass"
       selectedBase: "reuse-existing-secret"
       objectCount: 14
       secretObjectCount: 0
       renderedOci:
         destination: "temporary local OCI layout"
-        manifestDigest: "sha256:f94516849e8dd8ab8cc71500cff0d34c96fca925a1491f710eb399727d33bb1b"
+        manifestDigest: "sha256:54ace3509593296f4855e01b4a8369f71d93fd2c1a75861abca9266835e0509f"
         objectSetDigest: "sha256:222cdae547665b7be00a61001ee6789582ff387e687890a46da9112232bd1ebc"
         pullBack: "pass"
   retainedChoice:

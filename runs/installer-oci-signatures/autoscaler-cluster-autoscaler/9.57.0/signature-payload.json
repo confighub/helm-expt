@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "2024c48b8dc5e19932a91c11c36baf2c9f694b5200158a45f6f4b142063fe352"
+        "sha256": "5eb03d4a705cb819281555c6618a61a42e73cbbacebb0d0604d2c88dfc996fd8"
       },
       "annotations": {
         "confighub.com/package-path": "packages/autoscaler/cluster-autoscaler/9.57.0",
-        "confighub.com/package-sha256": "3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2"
+        "confighub.com/package-sha256": "17ac0b373c34d668fad6fdca47c3774b3cad9b9a64e17b53f12e9fcba8b70566"
       }
     }
   ],

@@ -13,7 +13,7 @@ spec:
     name: "cloudpirates/redis"
     version: "0.34.11"
     record: "data/helm-render-intents/intents/cloudpirates-redis-0-34-11-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333"
     selection:
       name: "default"
       kind: "catalog-preset"

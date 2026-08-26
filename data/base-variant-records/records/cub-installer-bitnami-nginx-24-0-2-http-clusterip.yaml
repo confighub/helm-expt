@@ -22,7 +22,7 @@ spec:
   baseVariant:
     name: "http-clusterip"
     revision: "r001"
-    digest: "08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+    digest: "7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67"
     digestRole: "source-package-oci-manifest"
     digestRecord: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
   configuration:
@@ -119,7 +119,7 @@ spec:
         nextAction: "Run the live check for this exact configuration before making a base-specific runtime claim."
   inputs:
     fixedAtBuildTime:
-      - "sourcePackage=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+      - "sourcePackage=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67"
       - "preset=http-clusterip"
       - "releaseName=nginx"
       - "namespace=nginx"
@@ -170,7 +170,7 @@ spec:
     sourcePackageOci:
       status: "public"
       reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
-      digest: "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+      digest: "sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67"
       receipt: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
     literalConfigOci:
       status: "not-published-for-this-five-object-base"

@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  package:
+    name: "ingress-nginx-ingress-nginx"
+    version: "4.15.1"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "admission-disabled"
+      objects: "bases/admission-disabled/upstream.yaml"
+      sourceAndIntent: "records/admission-disabled/source-and-intent.yaml"
+      sourceSpecificIntent: "records/admission-disabled/helm-render-intent.yaml"
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "internal-clusterip"
+      objects: "bases/internal-clusterip/upstream.yaml"
+      sourceAndIntent: "records/internal-clusterip/source-and-intent.yaml"
+      sourceSpecificIntent: "records/internal-clusterip/helm-render-intent.yaml"

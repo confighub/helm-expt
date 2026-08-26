@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql@sha256:92ef63e4264bad114e4a63c03d603b021246894b9bc4dc9c3465469bd8eb3f35"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353"
       },
       "image": {
-        "docker-manifest-digest": "sha256:92ef63e4264bad114e4a63c03d603b021246894b9bc4dc9c3465469bd8eb3f35"
+        "docker-manifest-digest": "sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/bitnami/postgresql/18.7.0",
-      "confighub.com/package-sha256": "6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92"
+      "confighub.com/package-sha256": "30ac053e6c9b76656926b6af3659f9d8057c3686d5f77af05f540a4f981ce5f9"
     }
   }
 ]

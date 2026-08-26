@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `elastic/kibana@8.5.1`, choose the `default` pre
 
 That captured output is the render variant: [`recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml). It contains 2 Kubernetes object(s): Deployment x1, Service x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kibana-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kibana-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-kibana-8
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b --base default --work-dir ./elastic-kibana-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6 --base default --work-dir ./elastic-kibana-8-5-1-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

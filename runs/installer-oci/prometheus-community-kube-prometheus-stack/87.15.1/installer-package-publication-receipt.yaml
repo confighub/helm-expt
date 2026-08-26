@@ -4,28 +4,28 @@ metadata:
   name: prometheus-community-kube-prometheus-stack-87.15.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1
-  observedAt: "2026-08-08T20:47:36.800Z"
+  observedAt: "2026-08-26T07:02:39.174Z"
   package:
     path: packages/prometheus-community/kube-prometheus-stack/87.15.1
-    sha256: 1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375
-    sourceTreeSHA256: a0c4502941d30df49709a9025098881f9141d25042532a9239ae2e3e979caf6f
+    sha256: f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d
+    sourceTreeSHA256: f716c3b3e5661f70bc6608553d3ac05cbab5c293875aa190caaef43a7b21f6f2
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/kube-prometheus-stack/87.15.1 -o <tmp>/prometheus-community-kube-prometheus-stack-87.15.1.tgz"
     push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-87.15.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1 --json"
   outputs:
-    manifestDigest: sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac
-    layerDigest: sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375
+    manifestDigest: sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858
+    layerDigest: sha256:f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d
     package: |
       Bundled kube-prometheus-stack-kube-prometheus-stack@87.15.1
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-tInLWJ/prometheus-community-kube-prometheus-stack-87.15.1.tgz
-        files:  18
-        size:   1448755 bytes
-        digest: sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375
+        output: <tmp>
+        files:  26
+        size:   1471834 bytes
+        digest: sha256:f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1
-        manifest: sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac
-        layer:    sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375 (1448755 bytes, 18 files)
-    inspectJSONSHA256: df6fe766ea8b261e080a9009fab814379dba7a1f16c30e1ab9a4c3519aa435b6
-    inspectJSONCanonicalSHA256: 68c90517ea4bb216400fc7307ae4a2c3cb3ec64a4f38c382f41e7d7a912ecfe0
+        manifest: sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858
+        layer:    sha256:f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d (1471834 bytes, 26 files)
+    inspectJSONSHA256: 7e2a677eeddae1addc97f12186431bca2a70f01f773649ee22490ffe9f0ab4d1
+    inspectJSONCanonicalSHA256: 07f8efd50b0c9b2bc6e15dfe6dfab8d07fb847b7434731e8ffd56e5d7946ab67

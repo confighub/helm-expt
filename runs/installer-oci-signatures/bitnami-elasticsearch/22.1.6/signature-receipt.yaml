@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "bitnami-elasticsearch-22.1.6"
 spec:
-  observedAt: "2026-08-26T05:36:09.972Z"
+  observedAt: "2026-08-26T07:58:00.288Z"
   subject:
     packagePath: "packages/bitnami/elasticsearch/22.1.6"
     publicationReceipt: "runs/installer-oci/bitnami-elasticsearch/22.1.6/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6"
-    manifestDigest: "sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9"
-    packageSHA256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
-    layerDigest: "sha256:ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+    manifestDigest: "sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719"
+    packageSHA256: "4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1"
+    layerDigest: "sha256:4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/bitnami-elasticsearch/22.1.6/signature.sigstore.json"
-    bundleSHA256: "8f861f9dcde3ba13d3c048b547bd594d8b38ba483b343e3cfffc5d89bd840e09"
+    bundleSHA256: "d577fad4121b82a952f3b4c97d7de9abc8e991863f244ba413ba3f8b595564ab"
     payloadPath: "runs/installer-oci-signatures/bitnami-elasticsearch/22.1.6/signature-payload.json"
-    payloadSHA256: "45d83ba4bd96ed64a79a6a5d32cb00f2321febcf6100937ebab4b4ed7bbae06a"
+    payloadSHA256: "6735083ec80c98d423648fe4337437d57087b2321ac7d7557fbc282200fe14e3"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/elasticsearch/22.1.6 --annotations confighub.com/package-sha256=ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/elasticsearch/22.1.6 --annotations confighub.com/package-sha256=4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719"
     outputPath: "runs/installer-oci-signatures/bitnami-elasticsearch/22.1.6/verification.json"
-    outputSHA256: "926a2a6e83b0e681c1710a7ed97e3e2a0b2e0351c7bef87afa8167a55e4f1ba2"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-elasticsearch/22.1.6/signature.sigstore.json --digest 3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "2ae62c3d3c6dec8aab0c330114094246d410a697f237f094f4e9b69768f9e2dd"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-elasticsearch/22.1.6/signature.sigstore.json --digest 8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/bitnami-elasticsearch/22.1.6/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/bitnami/elasticsearch/22.1.6"
-    confighub.com/package-sha256: "ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c"
+    confighub.com/package-sha256: "4fbd70ca6383f28001ef41bf08ac9ccd4874208a55eaf6febadd061d7aec3ca1"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

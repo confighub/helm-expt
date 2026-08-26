@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./grafana-pyroscope-2-0-2-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:20ca7d206be312dc1730ae8b96a4d175a736af66f44416d62accd94ae153f083 --base no-crds --work-dir ./grafana-pyroscope-2-0-2-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab --base no-crds --work-dir ./grafana-pyroscope-2-0-2-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-pyroscope-2-0-2-no-crds/out/manifests

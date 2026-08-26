@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "grafana-alloy-1.8.2"
 spec:
-  observedAt: "2026-08-26T05:40:06.511Z"
+  observedAt: "2026-08-26T08:01:25.193Z"
   subject:
     packagePath: "packages/grafana/alloy/1.8.2"
     publicationReceipt: "runs/installer-oci/grafana-alloy/1.8.2/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2"
-    manifestDigest: "sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
-    packageSHA256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
-    layerDigest: "sha256:ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
+    manifestDigest: "sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
+    packageSHA256: "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
+    layerDigest: "sha256:02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/grafana-alloy/1.8.2/signature.sigstore.json"
-    bundleSHA256: "6b2358e58758b74be319e5d26ce0df7ebfd2cfac69d71a0b465e188481544a1a"
+    bundleSHA256: "aebd386509d662201c8ee759e7c7f8c3bdd935c0a33deda9f05a57ee1eab975b"
     payloadPath: "runs/installer-oci-signatures/grafana-alloy/1.8.2/signature-payload.json"
-    payloadSHA256: "afbc0e8d95ab87be15843e7401c6212377a3ec0408012563c70961d3d2504b86"
+    payloadSHA256: "d210d7faa2bbb1ba9e86fb7d36dbeede2aa3d96e18dadf33a3d32fcc45be72c6"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/grafana/alloy/1.8.2 --annotations confighub.com/package-sha256=ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/grafana/alloy/1.8.2 --annotations confighub.com/package-sha256=02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
     outputPath: "runs/installer-oci-signatures/grafana-alloy/1.8.2/verification.json"
-    outputSHA256: "6abce3cd736cd271382f5e4975db0aca8fbbdc77ad3a7245f941e85b4c36c1ef"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/grafana-alloy/1.8.2/signature.sigstore.json --digest c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "7c704946bfb27545e54df72e8dc7cd7dd636fae43ff652fa3c67fbd296bc7b5f"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/grafana-alloy/1.8.2/signature.sigstore.json --digest cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/grafana-alloy/1.8.2/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/grafana/alloy/1.8.2"
-    confighub.com/package-sha256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
+    confighub.com/package-sha256: "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

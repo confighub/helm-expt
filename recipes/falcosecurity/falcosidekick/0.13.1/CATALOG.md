@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/falcosecurity/falcosidekick/0.13.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/falcosecurity/falcosidekick/0.13.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/falcosecurity/falcosidekick/0.13.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5` |
 | Installer package source | [packages/falcosecurity/falcosidekick/0.13.1](../../../../packages/falcosecurity/falcosidekick/0.13.1) |
 | Installer package receipt | [recipes/falcosecurity/falcosidekick/0.13.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/falcosecurity/falcosidekick/0.13.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1@sha256:7fb6d41ff5721ca4df26959bda2c80022a2a3cc70b0e4e4cc8f8f878f7cc11d5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

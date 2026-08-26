@@ -4,28 +4,28 @@ metadata:
   name: aws-controllers-k8s-ec2-chart-1.18.4
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4
-  observedAt: "2026-08-08T20:46:54.792Z"
+  observedAt: "2026-08-26T06:59:50.617Z"
   package:
     path: packages/aws-controllers-k8s/ec2-chart/1.18.4
-    sha256: 19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795
-    sourceTreeSHA256: 5a78eaa4d947a681685c36a14c41e2a4bf85f6496e2454179f1fe59ab6672927
+    sha256: d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c
+    sourceTreeSHA256: 7c344d4123daf4f001db9bf88710784e71fbfd58ff1d5aef7ae499905b7fd692
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/aws-controllers-k8s/ec2-chart/1.18.4 -o <tmp>/aws-controllers-k8s-ec2-chart-1.18.4.tgz"
     push: "cub installer push <tmp>/aws-controllers-k8s-ec2-chart-1.18.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4 --json"
   outputs:
-    manifestDigest: sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9
-    layerDigest: sha256:19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795
+    manifestDigest: sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721
+    layerDigest: sha256:d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c
     package: |
       Bundled aws-controllers-k8s-ec2-chart@1.18.4
         output: <tmp>
-        files:  7
-        size:   64793 bytes
-        digest: sha256:19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795
+        files:  13
+        size:   69992 bytes
+        digest: sha256:d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4
-        manifest: sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9
-        layer:    sha256:19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795 (64793 bytes, 7 files)
-    inspectJSONSHA256: 04522ce4c2f7b135f4884e3df74af980b02a93bfbc6920d856e4de128e4c6b38
-    inspectJSONCanonicalSHA256: 8557781efe4ced4d54b236b8be6aaed1efd932b0a59ca3dda41ac6a4eea18e62
+        manifest: sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721
+        layer:    sha256:d1d55de7845a8419c7ead50a09fb3ad44337b49c0dcd015c1d0a4fea933ceb2c (69992 bytes, 13 files)
+    inspectJSONSHA256: ebda63e0d33f4a7dc72f91bd14115de6b18a35af7b028d3e6611644b3c1e380b
+    inspectJSONCanonicalSHA256: 951dc098938dd02a574ee216557366202c995c6290538451ba44059c4008015e

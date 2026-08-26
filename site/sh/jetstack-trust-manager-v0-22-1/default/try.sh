@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./jetstack-trust-manager-v0-22-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5 --base default --work-dir ./jetstack-trust-manager-v0-22-1-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e --base default --work-dir ./jetstack-trust-manager-v0-22-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./jetstack-trust-manager-v0-22-1-default/out/manifests

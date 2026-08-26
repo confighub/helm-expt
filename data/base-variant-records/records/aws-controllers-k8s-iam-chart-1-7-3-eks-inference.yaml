@@ -13,7 +13,7 @@ spec:
     name: "aws-controllers-k8s/iam-chart"
     version: "1.7.3"
     record: "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
     selection:
       name: "eks-inference"
       kind: "catalog-preset"

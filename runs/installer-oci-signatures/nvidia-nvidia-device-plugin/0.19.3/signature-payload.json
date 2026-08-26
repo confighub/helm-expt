@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3"
+        "sha256": "9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
       },
       "annotations": {
         "confighub.com/package-path": "packages/nvidia/nvidia-device-plugin/0.19.3",
-        "confighub.com/package-sha256": "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
+        "confighub.com/package-sha256": "d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a"
       }
     }
   ],

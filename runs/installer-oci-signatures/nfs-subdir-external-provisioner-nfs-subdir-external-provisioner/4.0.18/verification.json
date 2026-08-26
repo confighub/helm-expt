@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
       },
       "image": {
-        "docker-manifest-digest": "sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3"
+        "docker-manifest-digest": "sha256:83561964324fb9e4bc9befa65c3d130df1cd17fd8211390203e461ee3852aa9a"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18",
-      "confighub.com/package-sha256": "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
+      "confighub.com/package-sha256": "6b475946a41402ec51d8d6107f6722891a0704b15906a55ecf47105d6b88109c"
     }
   }
 ]

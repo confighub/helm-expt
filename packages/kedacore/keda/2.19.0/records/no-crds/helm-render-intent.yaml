@@ -1,0 +1,388 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "kedacore-keda-2-19-0-no-crds"
+  labels:
+    component: "kedacore/keda"
+    chart: "kedacore/keda"
+    version: "2.19.0"
+    base: "no-crds"
+    catalogLayer: "F2b"
+spec:
+  component: "kedacore/keda"
+  chart:
+    name: "kedacore/keda"
+    version: "2.19.0"
+    sourceRepository: "https://kedacore.github.io/charts"
+    sourceContent: ""
+  baseVariant: "no-crds"
+  renderInputs:
+    recipe: "recipes/kedacore/keda/2.19.0"
+    variant: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+    revision: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/kedacore/keda/2.19.0/bases/no-crds"
+    sourceLock: "recipes/kedacore/keda/2.19.0/source-lock.yaml"
+    namespace: "default"
+    releaseName: "keda"
+    valuesProfile: "recipes/kedacore/keda/2.19.0/effective-values-no-crds.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    revision: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/kedacore/keda/2.19.0/bases/no-crds"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "1"
+    dispositions: "observed:1"
+    executionModes: "target-owned:1"
+    safeAutomatic: "0/1"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "webhook-readiness-observation"
+        quirkClass: "webhook-readiness"
+        lifecyclePhase: "observe"
+        actionKind: "observe-webhook"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness"
+        operatingDetails: "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods."
+        command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "2.19.0"
+        evidence:
+          - "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml"
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "wait for the certificate handoff, then observe webhook and workload health after sync"
+          flux: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+            status: "evidence-linked"
+            evidence:
+              - "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+          argoCd:
+            implementation: "wait for the certificate handoff, then observe webhook and workload health after sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "attached"
+      reason: "1 lifecycle route attached for this exact chart version and base."
+      evidence:
+        - "data/lifecycle-routes/summary.md"
+        - "data/lifecycle-routes/routes.json"
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cloudeventsources.eventing.keda.sh"
+          purpose: "KEDA CRD managed outside this no-crds preset"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustercloudeventsources.eventing.keda.sh"
+          purpose: "KEDA CRD managed outside this no-crds preset"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustertriggerauthentications.keda.sh"
+          purpose: "KEDA CRD managed outside this no-crds preset"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scaledjobs.keda.sh"
+          purpose: "KEDA CRD managed outside this no-crds preset"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scaledobjects.keda.sh"
+          purpose: "KEDA CRD managed outside this no-crds preset"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "triggerauthentications.keda.sh"
+          purpose: "KEDA CRD managed outside this no-crds preset"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "cloudeventsources.eventing.keda.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        category: "crd"
+        name: "clustercloudeventsources.eventing.keda.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        category: "crd"
+        name: "clustertriggerauthentications.keda.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        category: "crd"
+        name: "scaledjobs.keda.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        category: "crd"
+        name: "scaledobjects.keda.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+      -
+        category: "crd"
+        name: "triggerauthentications.keda.sh"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+        declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "6 target prerequisites declared by this base."
+      declarationSource: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/kedacore/keda/2.19.0/effective-values-no-crds.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 6
+      lifecycleRouteCount: 1
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/kedacore/keda/2.19.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/kedacore/keda/2.19.0/bases/no-crds"
+    fullModelPath:
+      - "chart/version: kedacore/keda@2.19.0"
+      - "recipe: recipes/kedacore/keda/2.19.0"
+      - "base variant: no-crds"
+      - "render intent: data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
+      - "rendered revision: recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "package base: packages/kedacore/keda/2.19.0/bases/no-crds"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

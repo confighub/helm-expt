@@ -66,14 +66,14 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/zookeeper/13.8.7"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7"
-    manifestDigest: "sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f"
-    layerDigest: "sha256:8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+    manifestDigest: "sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0"
+    layerDigest: "sha256:cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824"
     publicationReceipt: "runs/installer-oci/bitnami-zookeeper/13.8.7/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/zookeeper/13.8.7/installer.yaml"
     receipt: "recipes/bitnami/zookeeper/13.8.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8e9161b914f556f0ce40ba5493bd86136ffa45796ff86806f776bf680906c5f8"
+    deterministicBundleSHA256: "cb9cbc3db9844aa06219b1d4f1cde30186a85291a83756c7498d33c12054a824"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -112,7 +112,7 @@ spec:
         default: true
         description: "bitnami/zookeeper default variant rendered from bitnami/zookeeper@13.8.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -174,7 +174,7 @@ spec:
         default: false
         description: "bitnami/zookeeper ha variant rendered from bitnami/zookeeper@13.8.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -236,7 +236,7 @@ spec:
         default: false
         description: "bitnami/zookeeper legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/zookeeper@13.8.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:4679a6d791d1ae9181e865013def2090b32397f3ab98c3b506ce0824103f7a4f --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

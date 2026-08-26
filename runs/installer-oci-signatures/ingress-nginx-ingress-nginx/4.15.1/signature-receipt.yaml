@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "ingress-nginx-ingress-nginx-4.15.1"
 spec:
-  observedAt: "2026-08-26T05:41:06.175Z"
+  observedAt: "2026-08-26T08:02:17.708Z"
   subject:
     packagePath: "packages/ingress-nginx/ingress-nginx/4.15.1"
     publicationReceipt: "runs/installer-oci/ingress-nginx-ingress-nginx/4.15.1/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1"
-    manifestDigest: "sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
-    packageSHA256: "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
-    layerDigest: "sha256:902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
+    manifestDigest: "sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
+    packageSHA256: "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
+    layerDigest: "sha256:9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/ingress-nginx-ingress-nginx/4.15.1/signature.sigstore.json"
-    bundleSHA256: "71519c81e9d512969d00096b58b51cc6b8bf296bf7f9d7ad788529ae82704d43"
+    bundleSHA256: "51f95fbf58df347ca7b98ef4a719b467d70c9beea56084138c431e78b27ec6d9"
     payloadPath: "runs/installer-oci-signatures/ingress-nginx-ingress-nginx/4.15.1/signature-payload.json"
-    payloadSHA256: "e52222d9a9ef0293dfda386e5a1e0e3db54acc214e38cdc22d86bd004b2aa4b8"
+    payloadSHA256: "49aff6ec017fd1dff57bbcf76786c710a75b2d61f49f28687396cfbdd152b7d4"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/ingress-nginx/ingress-nginx/4.15.1 --annotations confighub.com/package-sha256=902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/ingress-nginx/ingress-nginx/4.15.1 --annotations confighub.com/package-sha256=9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
     outputPath: "runs/installer-oci-signatures/ingress-nginx-ingress-nginx/4.15.1/verification.json"
-    outputSHA256: "456b12b2fb316cda92af37892c4f816275b600a123b49982ab6acbc198c67b1a"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/ingress-nginx-ingress-nginx/4.15.1/signature.sigstore.json --digest 9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "3c2cb8f2c5233b4b2eed307995a87530e83f57b7119d339097b85a44aa831e6e"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/ingress-nginx-ingress-nginx/4.15.1/signature.sigstore.json --digest dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/ingress-nginx-ingress-nginx/4.15.1/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/ingress-nginx/ingress-nginx/4.15.1"
-    confighub.com/package-sha256: "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
+    confighub.com/package-sha256: "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

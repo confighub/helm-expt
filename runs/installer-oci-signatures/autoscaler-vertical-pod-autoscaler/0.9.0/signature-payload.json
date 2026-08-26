@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44"
+        "sha256": "1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7"
       },
       "annotations": {
         "confighub.com/package-path": "packages/autoscaler/vertical-pod-autoscaler/0.9.0",
-        "confighub.com/package-sha256": "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
+        "confighub.com/package-sha256": "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4"
       }
     }
   ],

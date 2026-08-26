@@ -10,8 +10,10 @@
 // installer.yaml, so the F1 transformer and any target-facts collector are preserved. Charts with no
 // drift — and charts red for other reasons (e.g. a semantic-equivalence diff) — are left untouched.
 //
-//   node scripts/resync-package-receipts.mjs            # re-sync drifted receipts
-//   node scripts/resync-package-receipts.mjs --check    # report drift only, change nothing
+//   node scripts/resync-package-receipts.mjs                         # re-sync installer.yaml drift
+//   node scripts/resync-package-receipts.mjs --check                 # report installer.yaml drift
+//   node scripts/resync-package-receipts.mjs --all-source-files      # re-sync any package-tree drift
+//   node scripts/resync-package-receipts.mjs --all-source-files --verify
 //
 // Helpers mirror sync-installer-target-facts.mjs (that module has top-level execution, so it can't be
 // imported without side effects).
@@ -21,6 +23,9 @@ import { join, relative } from "node:path";
 import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256File, writeYaml } from "./lib/proof-common.mjs";
 
 const checkOnly = process.argv.includes("--check");
+const verifyOnly = process.argv.includes("--verify");
+const allSourceFiles = process.argv.includes("--all-source-files");
+check(!(checkOnly && verifyOnly), "choose either --check or --verify, not both");
 
 function cubEnv() {
   const env = { ...process.env, CONFIGHUB_AGENT: "1" };
@@ -72,19 +77,26 @@ for (const receiptPath of receipts) {
   const pkgRel = receipt.spec?.package?.path;
   if (!pkgRel) continue;
   const packageRoot = join(repoRoot, pkgRel);
-  const recorded = (receipt.spec.package.sourceFiles ?? []).find((f) => f.path === "installer.yaml");
-  if (!recorded) continue;
-  if (sha256File(join(packageRoot, "installer.yaml")) === recorded.sha256) continue; // in sync
+  if (allSourceFiles) {
+    if (sameSourceFiles(receipt.spec.package.sourceFiles ?? [], packageSourceFiles(packageRoot))) continue;
+  } else {
+    const recorded = (receipt.spec.package.sourceFiles ?? []).find((f) => f.path === "installer.yaml");
+    if (!recorded) continue;
+    if (sha256File(join(packageRoot, "installer.yaml")) === recorded.sha256) continue;
+  }
   drifted.push({ receiptPath, packageRoot, pkgRel, receipt });
 }
 
 if (!drifted.length) {
-  console.log("all package receipts in sync with installer.yaml — no drift");
+  console.log(`all package receipts in sync with ${allSourceFiles ? "their complete source trees" : "installer.yaml"} — no drift`);
   process.exit(0);
 }
-console.log(`${drifted.length} receipt(s) with installer.yaml SHA drift:`);
+console.log(`${drifted.length} receipt(s) with ${allSourceFiles ? "package-tree" : "installer.yaml SHA"} drift:`);
 for (const d of drifted) console.log(`  ${relativeRepo(d.packageRoot)}`);
 if (checkOnly) process.exit(0);
+if (verifyOnly) {
+  throw new Error(`${drifted.length} installer package receipt(s) do not describe their current source trees`);
+}
 
 let ok = 0;
 const failed = [];
@@ -104,3 +116,14 @@ for (const d of drifted) {
   }
 }
 console.log(`\nre-synced ${ok}/${drifted.length} receipt(s)${failed.length ? ` · ${failed.length} failed` : ""}`);
+
+function sameSourceFiles(recorded, actual) {
+  const normalize = (files) => files
+    .map((file) => ({
+      path: String(file.path ?? "").replaceAll("\\", "/"),
+      sha256: String(file.sha256 ?? ""),
+      bytes: Number(file.bytes ?? -1),
+    }))
+    .sort((left, right) => left.path.localeCompare(right.path));
+  return JSON.stringify(normalize(recorded)) === JSON.stringify(normalize(actual));
+}

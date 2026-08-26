@@ -1,0 +1,132 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "grafana-loki-7-0-0-single-binary-filesystem"
+  labels:
+    component: "grafana/loki"
+    chart: "grafana/loki"
+    version: "7.0.0"
+    base: "single-binary-filesystem"
+    catalogLayer: "F2b"
+spec:
+  component: "grafana/loki"
+  chart:
+    name: "grafana/loki"
+    version: "7.0.0"
+    sourceRepository: "https://grafana.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "single-binary-filesystem"
+  renderInputs:
+    recipe: "recipes/grafana/loki/7.0.0"
+    variant: "recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml"
+    revision: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
+    packageBase: "packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
+    sourceLock: "recipes/grafana/loki/7.0.0/source-lock.yaml"
+    namespace: "loki"
+    releaseName: "loki"
+    valuesProfile: "recipes/grafana/loki/7.0.0/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/object-inventory.yaml"
+    revision: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
+    packageBase: "packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "reviewed-no-target-facts-required"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "reviewed"
+      decision: "no-separate-target-prerequisites"
+      scope: "the supported single-binary-filesystem base for the recorded cub-lk-kind-vanilla test target in namespace loki, delivered from ConfigHub OCI through Argo CD."
+      evidence:
+        - "data/production-support-decisions/grafana-loki/support-decision.yaml"
+        - "data/production-support-decisions/grafana-loki/fresh-target-evidence-2026-06-08.yaml"
+    coverage:
+      state: "no-target-facts-required"
+      reason: "The prerequisite review found no separate target prerequisite in this scope: the supported single-binary-filesystem base for the recorded cub-lk-kind-vanilla test target in namespace loki, delivered from ConfigHub OCI through Argo CD."
+      declarationSource: "config-catalog/target-fact-reviews.yaml"
+      evidence:
+        - "data/production-support-decisions/grafana-loki/support-decision.yaml"
+        - "data/production-support-decisions/grafana-loki/fresh-target-evidence-2026-06-08.yaml"
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/grafana/loki/7.0.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "none-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/grafana/loki/7.0.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
+    fullModelPath:
+      - "chart/version: grafana/loki@7.0.0"
+      - "recipe: recipes/grafana/loki/7.0.0"
+      - "base variant: single-binary-filesystem"
+      - "render intent: data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml"
+      - "rendered revision: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
+      - "package base: packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

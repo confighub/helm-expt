@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a"
+        "sha256": "920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b"
       },
       "annotations": {
         "confighub.com/package-path": "packages/bitnami/phpmyadmin/20.0.0",
-        "confighub.com/package-sha256": "f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e"
+        "confighub.com/package-sha256": "70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b"
       }
     }
   ],

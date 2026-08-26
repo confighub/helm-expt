@@ -9,12 +9,12 @@ This live test starts with the public Redis installer package and its recommende
 | Check | Result |
 | --- | --- |
 | Public installer package | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` |
-| Published package digest | `sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33` |
+| Published package digest | `sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a` |
 | Helm inputs | Redis 25.5.3; pinned image digest; existing Secret `redis-existing-secret` key `redis-password` |
 | Helm chart objects | 13 |
 | cub objects | 14: the same 13 chart objects plus an explicit Namespace |
 | Full object comparison | 13/13; no differing fields |
-| Rendered OCI | `sha256:ceb2afe39c3eeff54b70e1c3e83a8c805f389c0f331ce2fefbff4ed69daa4fca` |
+| Rendered OCI | `sha256:47722bab563bd53478ae6c780da2e2bd08bcc4bf838824be4f3b4ce3a5ac328f` |
 | Rendered OCI object set | `sha256:518db60ad92b59818c9e84042b12cc7b3d850a583ab7ca565bbf09f6806e4324` |
 | OCI pull-back | verified; pulled objects matched the files |
 | ConfigHub account | not used |

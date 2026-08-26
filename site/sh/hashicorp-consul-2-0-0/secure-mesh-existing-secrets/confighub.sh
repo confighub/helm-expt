@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the secure-mesh-existing-secrets base variant into ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063 --base secure-mesh-existing-secrets --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --non-interactive --namespace consul
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0@sha256:eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5 --base secure-mesh-existing-secrets --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --non-interactive --namespace consul
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets --space "${SPACE}"

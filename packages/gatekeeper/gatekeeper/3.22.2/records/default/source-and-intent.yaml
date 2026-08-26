@@ -1,0 +1,262 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2-default"
+  labels:
+    sourceType: "helm"
+    component: "gatekeeper/gatekeeper"
+    sourceVersion: "3.22.2"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "gatekeeper/gatekeeper"
+    version: "3.22.2"
+    record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    selection:
+      name: "default"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "57649ce2ff654a2900d594b5aac09186f35e6349fd72d333922229b7d2c6e49a"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 30
+    digest: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+      record: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "gatekeeper/gatekeeper@3.22.2/default; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+          - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
+          - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration."
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "pass"
+        records:
+          - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+          - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "pending"
+        resultState: "pending"
+        records:
+          - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+          - "data/lifecycle-routes/routes.json"
+          - "data/lifecycle-routes/summary.md"
+        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=gatekeeper/gatekeeper"
+      - "version=3.22.2"
+      - "base=default"
+      - "valuesProfile=recipes/gatekeeper/gatekeeper/3.22.2/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=gatekeeper"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  lifecycle:
+    requirements:
+      status: "gap"
+      items:
+        -
+          id: "preflight-or-presync"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD and admission-webhook prerequisites must be checked before apply."
+        -
+          id: "upgrade-action-with-receipt"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+      records:
+        - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    routeIntent:
+      status: "gap"
+      routes:
+        -
+          id: "preflight-or-presync"
+          requirementRefs:
+            - "preflight-or-presync"
+          phase: "preflight"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "CRD and admission-webhook prerequisites must be checked before apply."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+            - "data/hook-lifecycle/top100-hooks.csv"
+            - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+            - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+        -
+          id: "upgrade-action-with-receipt"
+          requirementRefs:
+            - "upgrade-action-with-receipt"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "direct apply"
+          checks:
+            - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+          evidence:
+            - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+            - "data/hook-lifecycle/top100-hooks.csv"
+            - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+            - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+      records:
+        - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    targetFacts:
+      status: "gap"
+      declared:
+        {}
+      requirementRefs:
+        []
+      records:
+        - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+        - "data/lifecycle-routes/routes.json"
+        - "data/lifecycle-routes/summary.md"
+    resolution:
+      status: "gap"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      []
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

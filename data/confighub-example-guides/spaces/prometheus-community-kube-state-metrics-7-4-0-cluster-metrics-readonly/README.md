@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `prometheus-community/kube-state-metrics@7.4.0`,
 
 That captured output is the render variant: [`recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml). It contains 5 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, Deployment x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kube-state-metrics-cluster-metrics-readonly`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kube-state-metrics-cluster-metrics-readonly`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-commu
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3 --base cluster-metrics-readonly --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251 --base cluster-metrics-readonly --work-dir ./prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

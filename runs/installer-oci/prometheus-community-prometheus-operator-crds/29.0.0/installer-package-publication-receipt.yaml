@@ -4,23 +4,28 @@ metadata:
   name: prometheus-community-prometheus-operator-crds-29.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0
-  observedAt: "2026-08-08T20:47:39.723Z"
+  observedAt: "2026-08-26T07:02:51.105Z"
   package:
     path: packages/prometheus-community/prometheus-operator-crds/29.0.0
-    sha256: 98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664
+    sha256: 304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94
+    sourceTreeSHA256: 1a30a5b9aa27c140d1b1177b034ede37fb893c19538a8f48a1f476749daf2e4f
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/prometheus-operator-crds/29.0.0 -o <tmp>/prometheus-community-prometheus-operator-crds-29.0.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-prometheus-operator-crds-29.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0 --json"
   outputs:
+    manifestDigest: sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42
+    layerDigest: sha256:304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94
     package: |
-      Bundled prometheus-community-prometheus-operator-crds@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-CKoajQ/prometheus-community-prometheus-operator-crds-29.0.0.tgz
-        files:  4
-        size:   441201 bytes
-        digest: sha256:98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664
+      Bundled prometheus-community-prometheus-operator-crds@29.0.0
+        output: <tmp>
+        files:  8
+        size:   445331 bytes
+        digest: sha256:304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0
-        manifest: sha256:14c598914ce3526238bb871b58b298c39410e1a60f980228556b3bdd96814ec5
-        layer:    sha256:98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664 (441201 bytes, 4 files)
-    inspectJSONSHA256: 134996c0507948dd6a829120ec8ae481f57f0f3309484366751730807b29dc60
+        manifest: sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42
+        layer:    sha256:304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94 (445331 bytes, 8 files)
+    inspectJSONSHA256: 27901e2837462cedb83a51eb392fcb4ada862ec513ac11d442d8086f1c5e66aa
+    inspectJSONCanonicalSHA256: c25ff22e2451c0034a08d957db4843f431f9015880c6abe3599244729cafd7a9

@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the nfd-enabled base variant into ./nvidia-nvidia-device-plugin-0-19-3-nfd-enabled"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base nfd-enabled --work-dir ./nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --non-interactive --namespace gpu-operator
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base nfd-enabled --work-dir ./nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --non-interactive --namespace gpu-operator
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nvidia-nvidia-device-plugin-0-19-3-nfd-enabled --space "${SPACE}"

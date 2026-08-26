@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063"
+        "sha256": "eec0c002730d44e10c1c807aaf9f02fe8d1454e54e3ec6024956e2e079b5a2a5"
       },
       "annotations": {
         "confighub.com/package-path": "packages/hashicorp/consul/2.0.0",
-        "confighub.com/package-sha256": "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
+        "confighub.com/package-sha256": "538a6c44df45fdbb0a53f1598f0c34fbe01e613bdc89ef2324481201c1bd6c37"
       }
     }
   ],

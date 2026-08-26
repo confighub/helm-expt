@@ -1,0 +1,29 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  package:
+    name: "karpenter-karpenter"
+    version: "1.14.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "crds-managed"
+      objects: "bases/crds-managed/upstream.yaml"
+      sourceAndIntent: "records/crds-managed/source-and-intent.yaml"
+      sourceSpecificIntent: "records/crds-managed/helm-render-intent.yaml"
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "eks-inference"
+      objects: "bases/eks-inference/upstream.yaml"
+      sourceAndIntent: "records/eks-inference/source-and-intent.yaml"
+      sourceSpecificIntent: "records/eks-inference/helm-render-intent.yaml"

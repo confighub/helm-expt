@@ -4,23 +4,28 @@ metadata:
   name: percona-pg-operator-3.0.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0
-  observedAt: "2026-08-08T20:47:32.102Z"
+  observedAt: "2026-08-26T07:02:25.071Z"
   package:
     path: packages/percona/pg-operator/3.0.0
-    sha256: 30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5
+    sha256: 0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76
+    sourceTreeSHA256: 8ef0693052dfd5eec735738ba7303d00e85fc6020fc22cbd828f6223ad735955
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3.0.0.tgz"
     push: "cub installer push <tmp>/percona-pg-operator-3.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0 --json"
   outputs:
+    manifestDigest: sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1
+    layerDigest: sha256:0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76
     package: |
-      Bundled percona-pg-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-YVJT9l/percona-pg-operator-3.0.0.tgz
-        files:  8
-        size:   151218 bytes
-        digest: sha256:30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5
+      Bundled percona-pg-operator@3.0.0
+        output: <tmp>
+        files:  14
+        size:   158007 bytes
+        digest: sha256:0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0
-        manifest: sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7
-        layer:    sha256:30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5 (151218 bytes, 8 files)
-    inspectJSONSHA256: c4a31afdbadfbe12528bd0a41787ed56ab122a4197e0008714dae0439afb46b0
+        manifest: sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1
+        layer:    sha256:0e426332f3d910fce042d96e7b46778dd57dc596ebf342de089dc1f23e66ce76 (158007 bytes, 14 files)
+    inspectJSONSHA256: 6110092cf69c563cbbc318a5fdc27d183cea721bcb47d42aadebc6b616c398da
+    inspectJSONCanonicalSHA256: 58689ffdbd625d9439768a7754cf8ce81272d275ea79dc81e9b67ccaf17fd0ac

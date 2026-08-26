@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the eks-inference base variant into ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9 --base eks-inference --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --non-interactive --namespace ack-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4@sha256:40806df17d8ff6732613c13d151c5eff9c1e9551389718a9f3d3dac68d9f3721 --base eks-inference --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --non-interactive --namespace ack-system
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./aws-controllers-k8s-ec2-chart-1-18-4-eks-inference --space "${SPACE}"

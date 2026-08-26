@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/gitlab/gitlab-runner/0.89.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/gitlab/gitlab-runner/0.89.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/gitlab/gitlab-runner/0.89.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a` |
 | Installer package source | [packages/gitlab/gitlab-runner/0.89.0](../../../../packages/gitlab/gitlab-runner/0.89.0) |
 | Installer package receipt | [recipes/gitlab/gitlab-runner/0.89.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/gitlab/gitlab-runner/0.89.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

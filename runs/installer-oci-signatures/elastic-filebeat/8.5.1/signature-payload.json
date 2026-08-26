@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072"
+        "sha256": "16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47"
       },
       "annotations": {
         "confighub.com/package-path": "packages/elastic/filebeat/8.5.1",
-        "confighub.com/package-sha256": "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
+        "confighub.com/package-sha256": "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
       }
     }
   ],

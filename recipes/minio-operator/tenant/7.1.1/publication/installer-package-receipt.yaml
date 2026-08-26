@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7-1-1.tgz"
-    sha256: "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
+    sha256: "e4b7cb7c92b63f0057830b0e4e3b0f2024f841d647abbee658d6e6ef731184f6"
   package:
     name: "minio-operator-tenant"
     path: "packages/minio-operator/tenant/7.1.1"
@@ -39,6 +39,22 @@ spec:
         path: "prerequisites/target-facts/default-crds.yaml"
         sha256: "4e0593c65436fececc1ea35d7a730f6a074e5d233132928866a432756f9ab9b0"
         bytes: 251118
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "3f0d8ffb483f534ad41936ae46169033e1a5616993d1103ece271f346153fa61"
+        bytes: 6926
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "da18c8d216eff408e459875e63712b8b6151d42e76657f853cb119a412ff0eff"
+        bytes: 10602
+      -
+        path: "records/index.yaml"
+        sha256: "dc4c807edd2e5d6bc011988328e9efc4630cf372736b74b76a71aaa7a8c449c3"
+        bytes: 624
     version: "7.1.1"
   setupChecks:
     -

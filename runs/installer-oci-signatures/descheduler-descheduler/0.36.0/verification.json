@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler@sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
       },
       "image": {
-        "docker-manifest-digest": "sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6"
+        "docker-manifest-digest": "sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/descheduler/descheduler/0.36.0",
-      "confighub.com/package-sha256": "ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490"
+      "confighub.com/package-sha256": "ebed93eac08d1c2c3846f37c38ee63c0fcc4c48d76ed1195fc8fe616eac7e841"
     }
   }
 ]

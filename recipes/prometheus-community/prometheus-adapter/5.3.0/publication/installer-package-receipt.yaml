@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-adapter/5.3.0 -o <tmp>/prometheus-community-prometheus-adapter-5-3-0.tgz"
-    sha256: "320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea"
+    sha256: "dee364aa707febe158da1247fe8c3b65f00ecb7721ab266d8e94c12b1f0e9e2a"
   package:
     name: "prometheus-community-prometheus-adapter"
     path: "packages/prometheus-community/prometheus-adapter/5.3.0"
@@ -47,6 +47,38 @@ spec:
         path: "installer.yaml"
         sha256: "48477afd8f7cf37cdf13a6c45f5380bd654aa3bd2b6e9632aea9745a7f3ead18"
         bytes: 906
+      -
+        path: "records/README.md"
+        sha256: "e13eff0d375491e086e3407716d54f5f676b150e2a38dc53a1b4eb14e6352013"
+        bytes: 1499
+      -
+        path: "records/apiservice-v1-capability/helm-render-intent.yaml"
+        sha256: "ec0eb0dea81b5dc733899041c2876057695eaeed651f8a02bc14a08205bd81fa"
+        bytes: 6076
+      -
+        path: "records/apiservice-v1-capability/source-and-intent.yaml"
+        sha256: "6dee7c15c55f5fdbf37773ae5be830381fb123244c2be4fe692a291c3e4bc6b4"
+        bytes: 9635
+      -
+        path: "records/cluster-metrics-readonly/helm-render-intent.yaml"
+        sha256: "a0fbd1177eb2f0a0914aac5f3aa0a8031009a4d2f19a86964b5384d7ee5659d3"
+        bytes: 6953
+      -
+        path: "records/cluster-metrics-readonly/source-and-intent.yaml"
+        sha256: "1ea7126540325ac174ddef2cafed7d74b318bf9f4625dcca2215a05aa11e8a03"
+        bytes: 9601
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "7997f19ee80d8febcb600cf3b05fd170f23374926ed39fcf5d027d734ff3c9d4"
+        bytes: 6610
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "d44dfbec2d68cde4ac12efdd9cf086dce1955887c7d84137699b6e785acf3c0f"
+        bytes: 9288
+      -
+        path: "records/index.yaml"
+        sha256: "5ac4c2fc6bf643b9adfeafabf24f599bcbaad4b48bcae6f3d30614c6ec114244"
+        bytes: 1210
     version: "5.3.0"
   setupChecks:
     -

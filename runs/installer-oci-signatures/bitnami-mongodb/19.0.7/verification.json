@@ -2,16 +2,16 @@
   {
     "critical": {
       "identity": {
-        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb@sha256:8f690ed44774fc97011c366cf2e54730d6a07dfb4e6823d1dff07101eb0da534"
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
       },
       "image": {
-        "docker-manifest-digest": "sha256:8f690ed44774fc97011c366cf2e54730d6a07dfb4e6823d1dff07101eb0da534"
+        "docker-manifest-digest": "sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
       },
       "type": "https://sigstore.dev/cosign/sign/v1"
     },
     "optional": {
       "confighub.com/package-path": "packages/bitnami/mongodb/19.0.7",
-      "confighub.com/package-sha256": "be877c3e95f1ac35191e6c4bb0eefcd456aef55ab44d613ad75c0a35f50f9923"
+      "confighub.com/package-sha256": "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
     }
   }
 ]

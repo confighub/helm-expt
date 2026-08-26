@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/elastic/kibana/8.5.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/elastic/kibana/8.5.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/kibana/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6` |
 | Installer package source | [packages/elastic/kibana/8.5.1](../../../../packages/elastic/kibana/8.5.1) |
 | Installer package receipt | [recipes/elastic/kibana/8.5.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/kibana/8.5.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:4831bb66066143d635e768c4ad39fca9714afd131672819fb0324dc0d7d2c86b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1@sha256:ad45602eaac23f5e9ec2ebef4c00f9cf7a99dee5173755234f598b22df30c9a6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

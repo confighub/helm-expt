@@ -13,7 +13,7 @@ spec:
     name: "nvidia/nvidia-device-plugin"
     version: "0.19.3"
     record: "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
     selection:
       name: "default"
       kind: "catalog-preset"

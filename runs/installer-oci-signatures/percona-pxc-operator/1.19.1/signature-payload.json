@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "dfd45f6ec4cefd0615535ad7f43273ddb3176f0d1d5fa6edd96a5835d66c0e27"
+        "sha256": "bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
       },
       "annotations": {
         "confighub.com/package-path": "packages/percona/pxc-operator/1.19.1",
-        "confighub.com/package-sha256": "715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb"
+        "confighub.com/package-sha256": "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629"
       }
     }
   ],

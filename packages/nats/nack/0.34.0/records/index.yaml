@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "nats-nack-0.34.0"
+spec:
+  package:
+    name: "nats-nack"
+    version: "0.34.0"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "no-crds"
+      objects: "bases/no-crds/upstream.yaml"
+      sourceAndIntent: "records/no-crds/source-and-intent.yaml"
+      sourceSpecificIntent: "records/no-crds/helm-render-intent.yaml"

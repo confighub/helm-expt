@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8.5.1.tgz"
-    sha256: "83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3"
+    sha256: "2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa"
   package:
     name: "elastic-logstash"
     path: "packages/elastic/logstash/8.5.1"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "a0194aaa7dce14cdb14ffb2d49c4d75b205dd4667bc6605210e6a90c4a80b295"
         bytes: 827
+      -
+        path: "records/README.md"
+        sha256: "a039fa1e0f18327d1758a65b40eeaaf4cbd6baed1f7a9c4cece70bcbfc9b5efc"
+        bytes: 1160
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "9344b5ebda3abe9364a1dd0f8771001403cfd1a9e5f150ac06a02e4d0d48983a"
+        bytes: 5184
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "c81bbc102eb3be038b039505cb681964d206299575c446511043e33a3c549c9f"
+        bytes: 8706
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "f720a3f64f4678bb61d377fa99a104899551c58986b5a95f51d929e6e3280dbe"
+        bytes: 5863
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "73570bf4cf22dd17c1ac117675a46991474c931eefbff331e1200db705b1a0c1"
+        bytes: 9469
+      -
+        path: "records/index.yaml"
+        sha256: "c706d1db74d27905cadb4b76b715d6d39c6e79e1a92e8d54e948fb3cec2805cd"
+        bytes: 801
     version: "8.5.1"
   setupChecks:
     -

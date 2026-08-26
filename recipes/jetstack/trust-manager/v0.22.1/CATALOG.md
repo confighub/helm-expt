@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/jetstack/trust-manager/v0.22.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/jetstack/trust-manager/v0.22.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e` |
 | Installer package source | [packages/jetstack/trust-manager/v0.22.1](../../../../packages/jetstack/trust-manager/v0.22.1) |
 | Installer package receipt | [recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jetstack/trust-manager/v0.22.1/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1@sha256:dbdd2e3fbce82f520467f23eb6e0f10d745fd608b3f3a1e117f3238ea41f104e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

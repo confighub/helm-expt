@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./external-secrets-external-secrets-2-5-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:e4835f92ea97357cf269eabe966ca562cc46fd0f97e4dd18d52f72f0e07459b1 --base no-crds --work-dir ./external-secrets-external-secrets-2-5-0-no-crds --non-interactive --namespace external-secrets
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001 --base no-crds --work-dir ./external-secrets-external-secrets-2-5-0-no-crds --non-interactive --namespace external-secrets
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./external-secrets-external-secrets-2-5-0-no-crds/out/manifests

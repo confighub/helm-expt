@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "elastic-logstash-8.5.1"
+spec:
+  package:
+    name: "elastic-logstash"
+    version: "8.5.1"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "ha"
+      objects: "bases/ha/upstream.yaml"
+      sourceAndIntent: "records/ha/source-and-intent.yaml"
+      sourceSpecificIntent: "records/ha/helm-render-intent.yaml"

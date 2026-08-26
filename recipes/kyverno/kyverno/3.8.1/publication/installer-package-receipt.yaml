@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/kyverno/kyverno/3.8.1 -o <tmp>/kyverno-kyverno-3.8.1.tgz"
-    sha256: "fce4f2ec34412a1a55c1018ccf1a1e5eb1d6e739a456954e83e63236747264f4"
+    sha256: "81f11841d7e967ca91f5e6e434ad6b5ff0a5b7b6ed6dcab19535fc8c378bf4b5"
   package:
     name: "kyverno-kyverno"
     path: "packages/kyverno/kyverno/3.8.1"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "1425d237552e0ccdd3a4a3c26b098be4c32841907f72bd5a0d9ea6e5f96aec7d"
         bytes: 5044020
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "f58866b6a3923d0080ee1797ac81c296160f8ad2c93923e8d38fe17ed647bc16"
+        bytes: 14064
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "6fdbc7246decd3774d0f2679e620cc0be49f262ce670b985d5865447854ea0cb"
+        bytes: 14125
+      -
+        path: "records/index.yaml"
+        sha256: "ce4a6e1e79bf840995e9108d1c735e4e3a3a339f3b3b2404613047b87231ed64"
+        bytes: 819
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "450602950e9b749d4fd785ed877fdc427c71e21273f784e2563aec9e63638148"
+        bytes: 48229
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "d5ee7c8cc15eda550520bdcd97d41455834c1ebc25434cc1f9b8248f0cae9d36"
+        bytes: 46151
     version: "3.8.1"
   setupChecks:
     -

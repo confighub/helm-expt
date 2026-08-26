@@ -1,0 +1,130 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "prometheus-community-prometheus-29-9-0-server-only-ephemeral"
+  labels:
+    component: "prometheus-community/prometheus"
+    chart: "prometheus-community/prometheus"
+    version: "29.9.0"
+    base: "server-only-ephemeral"
+    catalogLayer: "F2b"
+spec:
+  component: "prometheus-community/prometheus"
+  chart:
+    name: "prometheus-community/prometheus"
+    version: "29.9.0"
+    sourceRepository: "https://prometheus-community.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "server-only-ephemeral"
+  renderInputs:
+    recipe: "recipes/prometheus-community/prometheus/29.9.0"
+    variant: "recipes/prometheus-community/prometheus/29.9.0/variants/server-only-ephemeral/variant.yaml"
+    revision: "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/prometheus/29.9.0/bases/server-only-ephemeral"
+    sourceLock: "recipes/prometheus-community/prometheus/29.9.0/source-lock.yaml"
+    namespace: "monitoring"
+    releaseName: "prometheus"
+    valuesProfile: "recipes/prometheus-community/prometheus/29.9.0/effective-values-server-only-ephemeral.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/object-inventory.yaml"
+    revision: "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/prometheus/29.9.0/bases/server-only-ephemeral"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/prometheus-community/prometheus/29.9.0/effective-values-server-only-ephemeral.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus/29.9.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus/29.9.0/bases/server-only-ephemeral"
+    fullModelPath:
+      - "chart/version: prometheus-community/prometheus@29.9.0"
+      - "recipe: recipes/prometheus-community/prometheus/29.9.0"
+      - "base variant: server-only-ephemeral"
+      - "render intent: data/helm-render-intents/intents/prometheus-community-prometheus-29-9-0-server-only-ephemeral.yaml"
+      - "rendered revision: recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
+      - "package base: packages/prometheus-community/prometheus/29.9.0/bases/server-only-ephemeral"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

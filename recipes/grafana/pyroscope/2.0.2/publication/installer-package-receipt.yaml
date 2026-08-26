@@ -4,17 +4,16 @@ metadata:
   name: "grafana-pyroscope-2-0-2"
 spec:
   chart:
-    repository: "grafana"
     name: "pyroscope"
+    repository: "grafana"
     version: "2.0.2"
   deterministicBundle:
-    command: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2.0.2.tgz"
-    sha256: "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2.0.2.tgz"
+    sha256: "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf"
   package:
-    path: "packages/grafana/pyroscope/2.0.2"
     name: "grafana-pyroscope"
-    version: "2.0.2"
+    path: "packages/grafana/pyroscope/2.0.2"
     sourceFiles:
       -
         path: "README.md"
@@ -48,6 +47,39 @@ spec:
         path: "installer.yaml"
         sha256: "b654538c777a061ad0fc843d819fe6c0c4da46c17a74f062006ec49ce887c2d1"
         bytes: 587
+      -
+        path: "records/README.md"
+        sha256: "9f60f7bb9a9d30fa6ac36b2fe43e39308f7fa3167002c2f8b283fff55529f233"
+        bytes: 1343
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "3d131a35b6b097c40050a2c2b4e5f5922e83baf7bdb0b4e59d25ce8e9981731c"
+        bytes: 6225
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "7c3c1f977294393dc3d131a606eb78e9e967fbbf5a893ff14b58629d2fa0ca86"
+        bytes: 8667
+      -
+        path: "records/ha/helm-render-intent.yaml"
+        sha256: "e1e074de6f64133f63b108fa25b216b2ae25d23f5bb613e221b908de6d5f6617"
+        bytes: 6132
+      -
+        path: "records/ha/source-and-intent.yaml"
+        sha256: "187ebca8e0676d9a2cecc6c0d5bb988414dc4680c95d2ae5ebd15d06599e1b5e"
+        bytes: 8483
+      -
+        path: "records/index.yaml"
+        sha256: "adeb6ca15cbfa74ad14675f2dd06516d33701a2d4ac63c2c124b3fdadfe91fd8"
+        bytes: 1010
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "0925611553301eb6ecc3e8a20893e6efa8837e0c038040c3ffb2a897ee6b5da8"
+        bytes: 6244
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "ec3e54beb3853848047518d4640234f1c387ece95b0fb199dc145d1739f21c13"
+        bytes: 8610
+    version: "2.0.2"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -70,12 +102,12 @@ spec:
       separatedSecretCount: 0
       variant: "ha"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 17
-      cubInstallObjectCountIncludingSupport: 18
-      semanticObjectMatches: "17/17"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 18
+      helmReleaseObjectCount: 17
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      variant: "no-crds"

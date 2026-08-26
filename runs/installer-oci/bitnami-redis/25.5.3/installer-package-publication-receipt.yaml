@@ -4,23 +4,28 @@ metadata:
   name: bitnami-redis-25.5.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3
-  observedAt: "2026-08-08T20:47:03.488Z"
+  observedAt: "2026-08-26T07:00:27.567Z"
   package:
     path: packages/bitnami/redis/25.5.3
-    sha256: 1a84bda79a870b6249d0f42582d434b2983e557006f4faba0d250fb47197ac40
+    sha256: 5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7
+    sourceTreeSHA256: 5f6ac86e40079eb48af7198a4403989604e7212080fe3eab17be4c6bd2764244
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/redis/25.5.3 -o <tmp>/bitnami-redis-25.5.3.tgz"
     push: "cub installer push <tmp>/bitnami-redis-25.5.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --json"
   outputs:
+    manifestDigest: sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a
+    layerDigest: sha256:5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7
     package: |
-      Bundled bitnami-redis@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-6MzjXZ/bitnami-redis-25.5.3.tgz
-        files:  7
-        size:   5949 bytes
-        digest: sha256:1a84bda79a870b6249d0f42582d434b2983e557006f4faba0d250fb47197ac40
+      Bundled bitnami-redis@25.5.3
+        output: <tmp>
+        files:  13
+        size:   11181 bytes
+        digest: sha256:5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3
-        manifest: sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33
-        layer:    sha256:1a84bda79a870b6249d0f42582d434b2983e557006f4faba0d250fb47197ac40 (5949 bytes, 7 files)
-    inspectJSONSHA256: f9f556eca01c664156163919a74d526b54f5dcc1975dceada12ba0611353653c
+        manifest: sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a
+        layer:    sha256:5e683c6f7327875a58d604d9140c510b6a094735f18e4e2219946e3f2e5ed8e7 (11181 bytes, 13 files)
+    inspectJSONSHA256: 2ac7bba4ba86ea1373a890710a392c093a36e636e2f821ad99c2607e298e481a
+    inspectJSONCanonicalSHA256: 7d74fea6930da43f690a32b15680b1b58c981af0f550d9350682fdc7cf889629

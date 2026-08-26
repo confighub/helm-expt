@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "ee514659892b2222b8173cde2a1a39f2e9ec80c15862a7bd30b36c44fc8f24cb"
+        "sha256": "053f6e17323888a20473408f9310168abdbce7b19682d3b9ed7ddb6cc5097a34"
       },
       "annotations": {
         "confighub.com/package-path": "packages/external-secrets/external-secrets/2.7.0",
-        "confighub.com/package-sha256": "42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4"
+        "confighub.com/package-sha256": "943893fcc9fcddb2f4ce3b6cc405d6a8ac3cb91ab416681d4b86aab457e93f2c"
       }
     }
   ],

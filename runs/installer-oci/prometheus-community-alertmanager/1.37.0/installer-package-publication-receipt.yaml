@@ -4,23 +4,28 @@ metadata:
   name: prometheus-community-alertmanager-1.37.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0
-  observedAt: "2026-08-08T20:47:35.523Z"
+  observedAt: "2026-08-26T07:02:32.690Z"
   package:
     path: packages/prometheus-community/alertmanager/1.37.0
-    sha256: beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e
+    sha256: 6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6
+    sourceTreeSHA256: b0908461fa6dfbe468592365a4200c15ea76769f37842e2b355036dc018e8eb8
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1.37.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-alertmanager-1.37.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0 --json"
   outputs:
+    manifestDigest: sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e
+    layerDigest: sha256:6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6
     package: |
-      Bundled prometheus-community-alertmanager@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-oCJCmh/prometheus-community-alertmanager-1.37.0.tgz
-        files:  6
-        size:   1647 bytes
-        digest: sha256:beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e
+      Bundled prometheus-community-alertmanager@1.37.0
+        output: <tmp>
+        files:  12
+        size:   6299 bytes
+        digest: sha256:6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0
-        manifest: sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2
-        layer:    sha256:beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e (1647 bytes, 6 files)
-    inspectJSONSHA256: 7aaa191df76c94d0c4feef11fe72b611443c9b3bad09d75a79336b5aa4abeafc
+        manifest: sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e
+        layer:    sha256:6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6 (6299 bytes, 12 files)
+    inspectJSONSHA256: 5ac451e889a451590f004cbd995d1da2a93aec6b53cba012d80de0427d532b93
+    inspectJSONCanonicalSHA256: fd6156b4399bcb4c6b74147c6d1628bdb6d98107a7ebdd61d5973d0715d2485c

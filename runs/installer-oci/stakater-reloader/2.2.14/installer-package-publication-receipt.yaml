@@ -4,28 +4,28 @@ metadata:
   name: stakater-reloader-2.2.14
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14
-  observedAt: "2026-08-08T20:47:43.729Z"
+  observedAt: "2026-08-26T07:03:06.879Z"
   package:
     path: packages/stakater/reloader/2.2.14
-    sha256: eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65
-    sourceTreeSHA256: ac3a8750acf639657eaee5beef4182245f75c645259176fd3e47f617354db085
+    sha256: 3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c
+    sourceTreeSHA256: 6049ee7fc999f607a43eaf157def25ae66b9cfcdc1d95a4be84b7f9c003ce0a7
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/stakater/reloader/2.2.14 -o <tmp>/stakater-reloader-2.2.14.tgz"
     push: "cub installer push <tmp>/stakater-reloader-2.2.14.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14 --json"
   outputs:
-    manifestDigest: sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269
-    layerDigest: sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65
+    manifestDigest: sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4
+    layerDigest: sha256:3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c
     package: |
       Bundled stakater-reloader@2.2.14
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-91LTDB/stakater-reloader-2.2.14.tgz
-        files:  4
-        size:   1550 bytes
-        digest: sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65
+        output: <tmp>
+        files:  8
+        size:   5685 bytes
+        digest: sha256:3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14
-        manifest: sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269
-        layer:    sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65 (1550 bytes, 4 files)
-    inspectJSONSHA256: 7d4ad92d2af97d58cd77e84634315517779185bcaee12c55740ec37a678d6070
-    inspectJSONCanonicalSHA256: f297fb5a252c12e497f926740240951ccf9730bc87c9afd7c9f33ac291974f0c
+        manifest: sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4
+        layer:    sha256:3c3937720734200df4740f169b70b373507b1802dc4a8f204bd9444eb950769c (5685 bytes, 8 files)
+    inspectJSONSHA256: b647543f7270da81415b8477dc1fa8bf5e58c4d0a5a716bd775969b2ad1eb350
+    inspectJSONCanonicalSHA256: 5a4a5ed85840eacd469b49691945d4f37dd2fbd42d531df7da03f29b95d78b5a

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the local-persistent base variant into ./grafana-tempo-1-24-4-local-persistent"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:16f07571e893e001c11c5810e8905d7b17e26265ff4dfd972ce77cf1e42cfce1 --base local-persistent --work-dir ./grafana-tempo-1-24-4-local-persistent --non-interactive --namespace tempo
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4@sha256:bdeba9d642d10538e41f72eb96bd59f62428a6d0bc395111c74a7bcb8c1e7e12 --base local-persistent --work-dir ./grafana-tempo-1-24-4-local-persistent --non-interactive --namespace tempo
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-tempo-1-24-4-local-persistent/out/manifests

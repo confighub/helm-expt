@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz"
-    sha256: "482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd"
+    sha256: "659dab6ea2e9c4f2c58002508eaa3f8578b03580e597af13c713c79662a1f9d4"
   package:
     name: "autoscaler-vertical-pod-autoscaler"
     path: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
@@ -43,6 +43,30 @@ spec:
         path: "installer.yaml"
         sha256: "e9d879c4df74bbe215eb8300b4e64408bb89eba30a69e482047537a84b74bd31"
         bytes: 1341
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "5a5a4d453b2b518a1f62080481cf480b471228bdfa62f8d4940c4ce267451339"
+        bytes: 6997
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "a81020902c12980a786a14d8adfefb6109258efba532d100a1eda4ae9262f866"
+        bytes: 10806
+      -
+        path: "records/index.yaml"
+        sha256: "388f54a7379ab46c14a2a84bd2a2c97860915199d43e94b62fa3bf4d767da261"
+        bytes: 857
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "c95caeeeabb5baf3e97302cfaef065c4b87b7b17ef1b30ea21b9f67c4b736a9a"
+        bytes: 7016
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "f16c2504ce6d08c816209f31d0fefc0e0b16b9cba0524fe9ca4c53cd5257ac54"
+        bytes: 10749
     version: "0.9.0"
   setupChecks:
     -

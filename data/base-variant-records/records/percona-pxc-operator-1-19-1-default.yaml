@@ -13,7 +13,7 @@ spec:
     name: "percona/pxc-operator"
     version: "1.19.1"
     record: "data/helm-render-intents/intents/percona-pxc-operator-1-19-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:dfd45f6ec4cefd0615535ad7f43273ddb3176f0d1d5fa6edd96a5835d66c0e27"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
     selection:
       name: "default"
       kind: "catalog-preset"

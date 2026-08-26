@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the node-or-cluster-collector base variant into ./elastic-filebeat-8-5-1-node-or-cluster-collector"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072 --base node-or-cluster-collector --work-dir ./elastic-filebeat-8-5-1-node-or-cluster-collector --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base node-or-cluster-collector --work-dir ./elastic-filebeat-8-5-1-node-or-cluster-collector --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./elastic-filebeat-8-5-1-node-or-cluster-collector/out/manifests

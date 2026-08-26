@@ -4,28 +4,28 @@ metadata:
   name: cloudpirates-rabbitmq-0.21.13
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13
-  observedAt: "2026-08-08T20:47:05.778Z"
+  observedAt: "2026-08-26T07:00:36.881Z"
   package:
     path: packages/cloudpirates/rabbitmq/0.21.13
-    sha256: 610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864
-    sourceTreeSHA256: c497288fc8869b4cd335e700ae89836772dc1b59733bd4df9f258c24d32bdd52
-  publicationAction: reused-existing-exact-artifact
+    sha256: 41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83
+    sourceTreeSHA256: 0f6354b4c384c9e29e3db72600459fe7d393d938a29966c18080114ca725b927
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/cloudpirates/rabbitmq/0.21.13 -o <tmp>/cloudpirates-rabbitmq-0.21.13.tgz"
     push: "cub installer push <tmp>/cloudpirates-rabbitmq-0.21.13.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13 --json"
   outputs:
-    manifestDigest: sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6
-    layerDigest: sha256:610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864
+    manifestDigest: sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f
+    layerDigest: sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83
     package: |
       Bundled cloudpirates-rabbitmq@0.21.13
         output: <tmp>
-        files:  4
-        size:   2171 bytes
-        digest: sha256:610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864
+        files:  8
+        size:   6302 bytes
+        digest: sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83
     push: |
-      Reused existing oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13
-        manifest: sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6
-        layer:    sha256:610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864
-    inspectJSONSHA256: f449f2e389d3a4f78509cfafb65e62390a72460fb471e9332832e3d57d0f6de7
-    inspectJSONCanonicalSHA256: 43cb36c37ac14e6b7e39fc6336828970447dd33a57dd47fbcb60d30026cd6934
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13
+        manifest: sha256:76f078d77d8b5b713c03d7515504dae9f24c2b5679a9b755fe85ef22920a119f
+        layer:    sha256:41603e6873eece110241b536a693de7d2b15621b314c39484f0d2a0aaba6be83 (6302 bytes, 8 files)
+    inspectJSONSHA256: e1d18f1f23065dd361d6108d8ffe27e6b8a2d9b09d814910d927c29550ce3c14
+    inspectJSONCanonicalSHA256: 1b69b937f91ef6b11ae380763c2acc04e3c39e96f0f01fd361cfce8f6b53de52

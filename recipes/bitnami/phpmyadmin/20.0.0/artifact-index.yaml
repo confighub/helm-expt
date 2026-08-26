@@ -65,14 +65,14 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/phpmyadmin/20.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0"
-    manifestDigest: "sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a"
-    layerDigest: "sha256:f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e"
+    manifestDigest: "sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b"
+    layerDigest: "sha256:70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b"
     publicationReceipt: "runs/installer-oci/bitnami-phpmyadmin/20.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/phpmyadmin/20.0.0/installer.yaml"
     receipt: "recipes/bitnami/phpmyadmin/20.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f50ad2ddbe534906722d1ec6ce0a3748e4cc5c517d38fde70501425e9aeda46e"
+    deterministicBundleSHA256: "70d1e0822c93fb98c31a3466d7b9390c889673992c83578f58c408f1c49d5d7b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -106,7 +106,7 @@ spec:
         default: true
         description: "bitnami/phpmyadmin default variant rendered from bitnami/phpmyadmin@20.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -168,7 +168,7 @@ spec:
         default: false
         description: "bitnami/phpmyadmin legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/phpmyadmin@20.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:19dfb7dca75b8849c7d2735b1e56154301f95ee0b0b38c69bdf4364a2c09731a --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

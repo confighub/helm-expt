@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "elastic-eck-operator-3.4.0"
 spec:
-  observedAt: "2026-08-26T05:38:30.320Z"
+  observedAt: "2026-08-26T08:00:07.697Z"
   subject:
     packagePath: "packages/elastic/eck-operator/3.4.0"
     publicationReceipt: "runs/installer-oci/elastic-eck-operator/3.4.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0"
-    manifestDigest: "sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f"
-    packageSHA256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
-    layerDigest: "sha256:cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
+    manifestDigest: "sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a"
+    packageSHA256: "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
+    layerDigest: "sha256:3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/elastic-eck-operator/3.4.0/signature.sigstore.json"
-    bundleSHA256: "521894133480de4046461ed08749d4221638ac8b485e6710deaddaa2c6617cdb"
+    bundleSHA256: "649219dfcf2123287b8a1ebb1eb6543e8e24d330b76aedbe0506112cbdd9d8da"
     payloadPath: "runs/installer-oci-signatures/elastic-eck-operator/3.4.0/signature-payload.json"
-    payloadSHA256: "2a2ff5bb1bfdab89d160f04fa11084493a461c3771e3fb8ccd993107c6a5b9ae"
+    payloadSHA256: "99009578b9b728fe6714dc58e654af90ebe87ad85555757d12e654464403c081"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/elastic/eck-operator/3.4.0 --annotations confighub.com/package-sha256=cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/elastic/eck-operator/3.4.0 --annotations confighub.com/package-sha256=3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0@sha256:267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a"
     outputPath: "runs/installer-oci-signatures/elastic-eck-operator/3.4.0/verification.json"
-    outputSHA256: "f4f113fc7ce0d5f4094ea942b69a9902b5e785bfccf3cceefd6fa2702acc054e"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/elastic-eck-operator/3.4.0/signature.sigstore.json --digest 1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "1edc13a9d7f672c8de9217f91854471003071d72c5d08d42b3c163324ad57dca"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/elastic-eck-operator/3.4.0/signature.sigstore.json --digest 267c9f2d73b62188edc6f1ef32891327bd3d69a6386d997309c3b5dcccacba0a --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/elastic-eck-operator/3.4.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/elastic/eck-operator/3.4.0"
-    confighub.com/package-sha256: "cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d"
+    confighub.com/package-sha256: "3f4fef3a40243c6919b458818dfa3c67a0bc69cc953e09749b4e7607de55a86b"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

@@ -13,7 +13,7 @@ spec:
     name: "jetstack/cert-manager-csi-driver"
     version: "v0.14.0"
     record: "data/helm-render-intents/intents/jetstack-cert-manager-csi-driver-v0-14-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999"
     selection:
       name: "default"
       kind: "catalog-preset"

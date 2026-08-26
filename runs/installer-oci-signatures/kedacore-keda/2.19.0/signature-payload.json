@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525"
+        "sha256": "69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
       },
       "annotations": {
         "confighub.com/package-path": "packages/kedacore/keda/2.19.0",
-        "confighub.com/package-sha256": "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+        "confighub.com/package-sha256": "58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8"
       }
     }
   ],

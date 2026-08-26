@@ -1,0 +1,130 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "velero-velero-12-0-1-default"
+  labels:
+    component: "velero/velero"
+    chart: "velero/velero"
+    version: "12.0.1"
+    base: "default"
+    catalogLayer: "F2a"
+spec:
+  component: "velero/velero"
+  chart:
+    name: "velero/velero"
+    version: "12.0.1"
+    sourceRepository: "https://vmware-tanzu.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "default"
+  renderInputs:
+    recipe: "recipes/velero/velero/12.0.1"
+    variant: "recipes/velero/velero/12.0.1/variants/default/variant.yaml"
+    revision: "recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/velero/velero/12.0.1/bases/default"
+    sourceLock: "recipes/velero/velero/12.0.1/source-lock.yaml"
+    namespace: "default"
+    releaseName: "velero"
+    valuesProfile: "recipes/velero/velero/12.0.1/effective-values.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/velero/velero/12.0.1/bases/default"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "no"
+    liveDualParity: "no"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "none-declared-or-observed"
+    declared:
+      {}
+    requirements:
+      []
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      evidence:
+        []
+      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/velero/velero/12.0.1/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2a"
+    customizationLayer: "F2a honest default base"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/velero/velero/12.0.1"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/velero/velero/12.0.1/bases/default"
+    fullModelPath:
+      - "chart/version: velero/velero@12.0.1"
+      - "recipe: recipes/velero/velero/12.0.1"
+      - "base variant: default"
+      - "render intent: data/helm-render-intents/intents/velero-velero-12-0-1-default.yaml"
+      - "rendered revision: recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "package base: packages/velero/velero/12.0.1/bases/default"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

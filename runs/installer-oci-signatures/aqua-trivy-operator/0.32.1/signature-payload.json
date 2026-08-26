@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+        "sha256": "473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
       },
       "annotations": {
         "confighub.com/package-path": "packages/aqua/trivy-operator/0.32.1",
-        "confighub.com/package-sha256": "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+        "confighub.com/package-sha256": "ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a"
       }
     }
   ],

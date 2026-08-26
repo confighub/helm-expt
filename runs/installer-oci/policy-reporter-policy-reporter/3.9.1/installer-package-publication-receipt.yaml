@@ -4,28 +4,28 @@ metadata:
   name: policy-reporter-policy-reporter-3.9.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1
-  observedAt: "2026-08-08T20:47:33.956Z"
+  observedAt: "2026-08-26T07:02:29.613Z"
   package:
     path: packages/policy-reporter/policy-reporter/3.9.1
-    sha256: 40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6
-    sourceTreeSHA256: 67de5c1efe4a29ecf275940ea7e39227931b636c9b5b60129ffc3c31fa7311b2
+    sha256: aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90
+    sourceTreeSHA256: 7d12265aa9481f6b825149fa19cf27943206380180a12e6378cbe35b02c0d8a3
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/policy-reporter/policy-reporter/3.9.1 -o <tmp>/policy-reporter-policy-reporter-3.9.1.tgz"
     push: "cub installer push <tmp>/policy-reporter-policy-reporter-3.9.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1 --json"
   outputs:
-    manifestDigest: sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05
-    layerDigest: sha256:40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6
+    manifestDigest: sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef
+    layerDigest: sha256:aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90
     package: |
       Bundled policy-reporter-policy-reporter@3.9.1
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PpY61C/policy-reporter-policy-reporter-3.9.1.tgz
-        files:  4
-        size:   3662 bytes
-        digest: sha256:40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6
+        output: <tmp>
+        files:  8
+        size:   7870 bytes
+        digest: sha256:aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1
-        manifest: sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05
-        layer:    sha256:40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6 (3662 bytes, 4 files)
-    inspectJSONSHA256: 5ba818b4bb9ec5d74db35477d8c0fa907ce05c6e14f30bf37f39ff046d9376b0
-    inspectJSONCanonicalSHA256: 54d11a987693d9091048e2e8130ab1904f448f4135e6ebbedb9b8c85650ad55f
+        manifest: sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef
+        layer:    sha256:aff830e50a145faa4ea322b6a938956cb096b6d2fdc94fc48d37086f0e0afd90 (7870 bytes, 8 files)
+    inspectJSONSHA256: 41ebe76b31aa0de4f03cc6d07b2086d4a5d13664607ec8c0786e74a345098e62
+    inspectJSONCanonicalSHA256: 19e32e0db514684aa34582ab19bf6202a1f1e0a46f0ecdff0e658caecddc6f50

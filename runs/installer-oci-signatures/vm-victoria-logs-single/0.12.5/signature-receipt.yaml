@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "vm-victoria-logs-single-0.12.5"
 spec:
-  observedAt: "2026-08-26T05:47:03.778Z"
+  observedAt: "2026-08-26T08:06:58.464Z"
   subject:
     packagePath: "packages/vm/victoria-logs-single/0.12.5"
     publicationReceipt: "runs/installer-oci/vm-victoria-logs-single/0.12.5/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5"
-    manifestDigest: "sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315"
-    packageSHA256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
-    layerDigest: "sha256:7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
+    manifestDigest: "sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686"
+    packageSHA256: "99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219"
+    layerDigest: "sha256:99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/vm-victoria-logs-single/0.12.5/signature.sigstore.json"
-    bundleSHA256: "3aba41ab3111b7149830f9457d7daa57e5331627e9301a4a7280f603c83a303d"
+    bundleSHA256: "5a6a060d7ccd4051df0a7b9ae084a16c4d520f9909a26ffb65557d6a17c93b3b"
     payloadPath: "runs/installer-oci-signatures/vm-victoria-logs-single/0.12.5/signature-payload.json"
-    payloadSHA256: "62283ed2524ee2c656ff5dd698f009b06591406a451133eb5f78e4245c60d290"
+    payloadSHA256: "65fe6c59c7090abe60b79419af0f17133b15d181b16f6fbca8b94ecc88f5f3fc"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/vm/victoria-logs-single/0.12.5 --annotations confighub.com/package-sha256=7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/vm/victoria-logs-single/0.12.5 --annotations confighub.com/package-sha256=99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686"
     outputPath: "runs/installer-oci-signatures/vm-victoria-logs-single/0.12.5/verification.json"
-    outputSHA256: "d302f1488b6bb94c81e0df94f74a60063cab5965c03e984f6d5de35ecf7684a5"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/vm-victoria-logs-single/0.12.5/signature.sigstore.json --digest 15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "ab56f0ea645fead5164744e0307ad912a63bf809a0cbf67fce11cfa1dd68400b"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/vm-victoria-logs-single/0.12.5/signature.sigstore.json --digest 600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/vm-victoria-logs-single/0.12.5/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/vm/victoria-logs-single/0.12.5"
-    confighub.com/package-sha256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
+    confighub.com/package-sha256: "99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

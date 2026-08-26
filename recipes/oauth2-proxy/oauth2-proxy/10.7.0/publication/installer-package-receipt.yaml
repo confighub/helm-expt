@@ -10,27 +10,43 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/oauth2-proxy/oauth2-proxy/10.7.0 -o <tmp>/oauth2-proxy-10.7.0.tgz"
-    sha256: "e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65"
+    sha256: "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
   package:
     name: "oauth2-proxy-oauth2-proxy"
     path: "packages/oauth2-proxy/oauth2-proxy/10.7.0"
     sourceFiles:
       -
-        bytes: 403
         path: "README.md"
         sha256: "bcc74a156fc200d45c92c1721c45601bff464928fb65732289eb381e76703426"
+        bytes: 403
       -
-        bytes: 99
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
       -
-        bytes: 6040
         path: "bases/default/upstream.yaml"
         sha256: "1e6b5312d0e3ec8d8c0e306fb995604d377c89207409e35f2934f3526ac54abc"
+        bytes: 6040
       -
-        bytes: 324
         path: "installer.yaml"
         sha256: "cfe01296bcc004fd81cc6206b9b83d922da117e002396a953f3330cb21c33eac"
+        bytes: 324
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "8ab8cd5ae5d5c9fe7da5f95b84950277a0330e524ffde6c6a01a0032865f4ea1"
+        bytes: 5470
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "897da6680d80f364b8d0982b5d909db1f6b86749c30f4f299f4c3b3e65a61e7f"
+        bytes: 8906
+      -
+        path: "records/index.yaml"
+        sha256: "8ee783bbda02d8c9d505847237be5e090cfc0c7ba978d02420aeefb2e6809ade"
+        bytes: 634
     version: "10.7.0"
   setupChecks:
     -

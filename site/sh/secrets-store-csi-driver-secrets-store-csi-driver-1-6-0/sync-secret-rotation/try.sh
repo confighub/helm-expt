@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the sync-secret-rotation base variant into ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726 --base sync-secret-rotation --work-dir ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation --non-interactive --namespace kube-system
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791 --base sync-secret-rotation --work-dir ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation --non-interactive --namespace kube-system
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation/out/manifests

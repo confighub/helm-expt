@@ -4,23 +4,28 @@ metadata:
   name: bitnami-mysql-14.0.3
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3
-  observedAt: "2026-08-08T20:46:59.220Z"
+  observedAt: "2026-08-26T07:00:11.626Z"
   package:
     path: packages/bitnami/mysql/14.0.3
-    sha256: fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867
+    sha256: b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0
+    sourceTreeSHA256: 02c59007f13b56163588cfccda539de739d0c04189082f41d2c06237e3b77071
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/bitnami-mysql-14.0.3.tgz"
     push: "cub installer push <tmp>/bitnami-mysql-14.0.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --json"
   outputs:
+    manifestDigest: sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884
+    layerDigest: sha256:b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0
     package: |
-      Bundled bitnami-mysql@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-y2xaLk/bitnami-mysql-14.0.3.tgz
-        files:  7
-        size:   4585 bytes
-        digest: sha256:fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867
+      Bundled bitnami-mysql@14.0.3
+        output: <tmp>
+        files:  13
+        size:   9616 bytes
+        digest: sha256:b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3
-        manifest: sha256:0da76f6de7b836331e501220940672ce858e53877c39669d75ba94d5e6c10d4e
-        layer:    sha256:fb4d73426e0d7fac3609d74d22e38fbf094aa75ecb6a8e20eb2685718fea9867 (4585 bytes, 7 files)
-    inspectJSONSHA256: c139310784b949721ca602f0720238f7c656d23a5f34fd339b3e1d8df9a5240a
+        manifest: sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884
+        layer:    sha256:b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0 (9616 bytes, 13 files)
+    inspectJSONSHA256: ffb755d60b93292eaf4bea9b8f00a4067217246f726d1704b9586d36307f7358
+    inspectJSONCanonicalSHA256: 9b2011c22b0ee12812dff2e0be9c591adfd20e28eadaaa75547e5887a7542045

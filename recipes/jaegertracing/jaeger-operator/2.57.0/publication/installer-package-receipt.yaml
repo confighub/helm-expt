@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2.57.0.tgz"
-    sha256: "f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3"
+    sha256: "c8ad17a3e068d40895d103e54cb52792feea649682f50c45f3ca151d9d7457c9"
   package:
     name: "jaegertracing-jaeger-operator"
     path: "packages/jaegertracing/jaeger-operator/2.57.0"
@@ -51,6 +51,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "5fcafe2af5c103f80977ebfa3819644946b69211f1d8c0296dd75b7f21ff72e4"
         bytes: 1016317
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "f58317e40b8287902e1fd97c2f13d09917fc875989624c9e3db844f103ddf044"
+        bytes: 12071
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "384fc03a081b7f5b6e488978a4ab95318ca21ce7d539ebdfd4a25df44b082896"
+        bytes: 13572
+      -
+        path: "records/index.yaml"
+        sha256: "3bc0088b8266154f827965d16a7ffabae3a5520ec308652d015b59c4d2d49d64"
+        bytes: 849
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "0f8ad07a2894c9c1d8d88d3df6c29e4432ecdef9475614f45b5f7305f92916a8"
+        bytes: 12778
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "c59939fdc894a4c5c577c84eba054fcb8f95613985edf6b64960d92ba2d9bf16"
+        bytes: 15204
     version: "2.57.0"
   setupChecks:
     -

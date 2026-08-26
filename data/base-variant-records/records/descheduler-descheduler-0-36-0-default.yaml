@@ -13,7 +13,7 @@ spec:
     name: "descheduler/descheduler"
     version: "0.36.0"
     record: "data/helm-render-intents/intents/descheduler-descheduler-0-36-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2"
     selection:
       name: "default"
       kind: "catalog-preset"

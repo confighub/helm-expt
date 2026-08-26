@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/cert-manager-v1.20.2.tgz"
-    sha256: "700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1"
+    sha256: "63ad0e0f931fcb9fab89af1c5e78297bc3a32bee841d13413211b612818606f9"
   package:
     name: "jetstack-cert-manager"
     path: "packages/jetstack/cert-manager/v1.20.2"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/default-crds.yaml"
         sha256: "d0dc3866e0bebf9324c3c84daa657ea4304f8c6607cbad759f1bb65983a039de"
         bytes: 898737
+      -
+        path: "records/README.md"
+        sha256: "c06defce834af447a67093ea68f12d078009db2c83c6d7c731f89cb7bbf86014"
+        bytes: 1200
+      -
+        path: "records/crds-enabled/helm-render-intent.yaml"
+        sha256: "f7a79e86b4513e7bbee675744f219b562054f7bc8a0c9942bc1b86a3013ea523"
+        bytes: 6012
+      -
+        path: "records/crds-enabled/source-and-intent.yaml"
+        sha256: "3d4bd065e6b43ccff404643d4dc1fa00d5e051be47534cf05208db72c26c64d9"
+        bytes: 9035
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "52b037c0d983fed589cfcb42d979b58d2a2afb0f694625e48da55a4a11cc02e5"
+        bytes: 14524
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "8cdd66d75b8290ea37e3064998cdd3555cef9554eac05485477455949822e9f9"
+        bytes: 18061
+      -
+        path: "records/index.yaml"
+        sha256: "a03b2f1caabe9bb0fd4bdb116fb1178f89401cb138c56b01ee11c896d111d2d2"
+        bytes: 855
     version: "v1.20.2"
   setupChecks:
     -

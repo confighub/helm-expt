@@ -62,14 +62,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/projectcalico/tigera-operator/v3.32.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0"
-    manifestDigest: "sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb"
-    layerDigest: "sha256:1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
+    manifestDigest: "sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
+    layerDigest: "sha256:4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
     publicationReceipt: "runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml"
     installer: "packages/projectcalico/tigera-operator/v3.32.0/installer.yaml"
     receipt: "recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
+    deterministicBundleSHA256: "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -130,7 +130,7 @@ spec:
         default: true
         description: "projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

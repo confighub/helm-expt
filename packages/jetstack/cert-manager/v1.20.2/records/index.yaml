@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2"
+spec:
+  package:
+    name: "jetstack-cert-manager"
+    version: "v1.20.2"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "crds-enabled"
+      objects: "bases/crds-enabled/upstream.yaml"
+      sourceAndIntent: "records/crds-enabled/source-and-intent.yaml"
+      sourceSpecificIntent: "records/crds-enabled/helm-render-intent.yaml"
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"

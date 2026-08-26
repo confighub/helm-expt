@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `dex/dex@0.24.0`, choose the `default` preset co
 
 That captured output is the render variant: [`recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml). It contains 8 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, Deployment x1, Role x1, RoleBinding x1, Secret x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-dex-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-dex-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/dex-dex-0-24-0/d
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8 --base default --work-dir ./dex-dex-0-24-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f --base default --work-dir ./dex-dex-0-24-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

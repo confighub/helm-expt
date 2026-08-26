@@ -4,28 +4,28 @@ metadata:
   name: metrics-server-metrics-server-3.13.1
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1
-  observedAt: "2026-08-08T20:47:27.500Z"
+  observedAt: "2026-08-26T07:02:07.303Z"
   package:
     path: packages/metrics-server/metrics-server/3.13.1
-    sha256: dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a
-    sourceTreeSHA256: ca39ec4ca4d1cd87f4fd5a5993f3c2c1006f5ed8918cdb4ccf468990ebc3ef22
+    sha256: 0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991
+    sourceTreeSHA256: 4521f6cb7e224ebb81ccbc8982c56cf31b983f959abed9bd33a993a03f68a900
   publicationAction: pushed-new
   commands:
     package: "cub installer package packages/metrics-server/metrics-server/3.13.1 -o <tmp>/metrics-server-metrics-server-3.13.1.tgz"
     push: "cub installer push <tmp>/metrics-server-metrics-server-3.13.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1 --json"
   outputs:
-    manifestDigest: sha256:be476b65366c456783f0b2b09f21fff15ebba0c1547a043893893874fe87fc92
-    layerDigest: sha256:dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a
+    manifestDigest: sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f
+    layerDigest: sha256:0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991
     package: |
       Bundled metrics-server-metrics-server@3.13.1
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-5ahCFy/metrics-server-metrics-server-3.13.1.tgz
-        files:  7
-        size:   3334 bytes
-        digest: sha256:dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a
+        output: <tmp>
+        files:  13
+        size:   8601 bytes
+        digest: sha256:0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1
-        manifest: sha256:be476b65366c456783f0b2b09f21fff15ebba0c1547a043893893874fe87fc92
-        layer:    sha256:dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a (3334 bytes, 7 files)
-    inspectJSONSHA256: 5b0c4e71ffc1b27a16f70ecf26710bf4a13276e008f823031236f98a169b1cc0
-    inspectJSONCanonicalSHA256: 0445c65f8119dadf2237fec361dae06b30906e105b84c5f2027a715a528e201c
+        manifest: sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f
+        layer:    sha256:0d1781605ee93fd259724491c761d6ae6e3cb885001e84d8ad7465f8f2375991 (8601 bytes, 13 files)
+    inspectJSONSHA256: 271129cd0cae9c73ca40b0a964bfa75d495a7a1df135657f3e3bd51da7b27997
+    inspectJSONCanonicalSHA256: 1a85ec502e28d86cdfd2cc7470c445e35c5ffeba9f41bf033da9559184b48c56

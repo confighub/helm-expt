@@ -1,0 +1,178 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "bitnami-nginx-25-0-0-existing-tls-ingress"
+  labels:
+    component: "bitnami/nginx"
+    chart: "bitnami/nginx"
+    version: "25.0.0"
+    base: "existing-tls-ingress"
+    catalogLayer: "F2b"
+spec:
+  component: "bitnami/nginx"
+  chart:
+    name: "bitnami/nginx"
+    version: "25.0.0"
+    sourceRepository: "https://charts.bitnami.com/bitnami"
+    sourceContent: ""
+  baseVariant: "existing-tls-ingress"
+  renderInputs:
+    recipe: "recipes/bitnami/nginx/25.0.0"
+    variant: "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+    revision: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
+    sourceLock: "recipes/bitnami/nginx/25.0.0/source-lock.yaml"
+    namespace: "nginx"
+    releaseName: "nginx"
+    valuesProfile: "recipes/bitnami/nginx/25.0.0/effective-values-existing-tls-ingress.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml"
+    revision: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven-with-watch"
+  lifecycle:
+    routeContract: "n/a"
+    routeCount: "0"
+    dispositions: "n/a"
+    executionModes: "n/a"
+    safeAutomatic: "n/a"
+    contractPath: ""
+    jsonPath: ""
+    variantRoutes:
+      []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredSecrets:
+        -
+          keys:
+            - "tls.crt"
+            - "tls.key"
+            - "ca.crt"
+          name: "nginx-backend-tls"
+          namespace: "nginx"
+          purpose: "TLS certificate material mounted by the NGINX pod"
+        -
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "nginx-ingress-tls"
+          namespace: "nginx"
+          purpose: "TLS certificate material referenced by the Ingress"
+    requirements:
+      -
+        category: "secret"
+        name: "nginx/nginx-backend-tls"
+        namespace: "nginx"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "TLS certificate material mounted by the NGINX pod"
+        check: ""
+        declarationPath: "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+      -
+        category: "secret"
+        name: "nginx/nginx-ingress-tls"
+        namespace: "nginx"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "TLS certificate material referenced by the Ingress"
+        check: ""
+        declarationPath: "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "2 target prerequisites declared by this base."
+      declarationSource: "recipes/bitnami/nginx/25.0.0/variants/existing-tls-ingress/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/bitnami/nginx/25.0.0/effective-values-existing-tls-ingress.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 2
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/nginx/25.0.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
+    fullModelPath:
+      - "chart/version: bitnami/nginx@25.0.0"
+      - "recipe: recipes/bitnami/nginx/25.0.0"
+      - "base variant: existing-tls-ingress"
+      - "render intent: data/helm-render-intents/intents/bitnami-nginx-25-0-0-existing-tls-ingress.yaml"
+      - "rendered revision: recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+      - "package base: packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

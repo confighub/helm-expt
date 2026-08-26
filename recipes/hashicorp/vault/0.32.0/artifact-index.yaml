@@ -67,14 +67,14 @@ spec:
     nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/hashicorp/vault/0.32.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
-    manifestDigest: "sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
-    layerDigest: "sha256:bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+    manifestDigest: "sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292"
+    layerDigest: "sha256:add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09"
     publicationReceipt: "runs/installer-oci/hashicorp-vault/0.32.0/installer-package-publication-receipt.yaml"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"
     receipt: "recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+    deterministicBundleSHA256: "add21acd201b5c747711f91fdabe3d66bc712cd563f2c279961a5c47b3b91c09"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -113,7 +113,7 @@ spec:
         default: true
         description: "vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -175,7 +175,7 @@ spec:
         default: false
         description: "vault default server with injector variant rendered from hashicorp/vault@0.32.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base default --work-dir <tmp> --non-interactive --namespace vault"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base default --work-dir <tmp> --non-interactive --namespace vault"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"
@@ -239,7 +239,7 @@ spec:
         default: false
         description: "vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base ha-raft-ui --work-dir <tmp> --non-interactive --namespace vault"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"

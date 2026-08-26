@@ -4,23 +4,28 @@ metadata:
   name: hashicorp-terraform-1.1.2
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2
-  observedAt: "2026-08-08T20:47:18.601Z"
+  observedAt: "2026-08-26T07:01:29.897Z"
   package:
     path: packages/hashicorp/terraform/1.1.2
-    sha256: a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e
+    sha256: 8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10
+    sourceTreeSHA256: 5d1f0508ad1cd964fd2100297f386d0f59f0c9f101d0fdf7899a2954c05d197c
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1.1.2.tgz"
     push: "cub installer push <tmp>/hashicorp-terraform-1.1.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2 --json"
   outputs:
+    manifestDigest: sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9
+    layerDigest: sha256:8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10
     package: |
-      Bundled hashicorp-terraform@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-2S6bnT/hashicorp-terraform-1.1.2.tgz
-        files:  8
-        size:   8472 bytes
-        digest: sha256:a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e
+      Bundled hashicorp-terraform@1.1.2
+        output: <tmp>
+        files:  14
+        size:   14065 bytes
+        digest: sha256:8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2
-        manifest: sha256:dc1abc1c3ee4780fa98c7d02bd7ab44e915fe9537f953cfa3eff8c2a7decfd02
-        layer:    sha256:a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e (8472 bytes, 8 files)
-    inspectJSONSHA256: 7ed3eabc7e5ed4c6480c36ca0a0847bb1e702a8b1eb19c83083c6856becc0831
+        manifest: sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9
+        layer:    sha256:8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10 (14065 bytes, 14 files)
+    inspectJSONSHA256: 2dc44a94edbea6ea372659dc1f94306a5e45db08be7639b9593c12ef97291b5e
+    inspectJSONCanonicalSHA256: 35880874fcc430dc7dfe4f345feb62982cd8198f5445e59711a529d7b7e6cf56

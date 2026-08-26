@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "prometheus-community-kube-state-metrics-7.4.0"
 spec:
-  observedAt: "2026-08-26T05:44:44.743Z"
+  observedAt: "2026-08-26T08:05:20.003Z"
   subject:
     packagePath: "packages/prometheus-community/kube-state-metrics/7.4.0"
     publicationReceipt: "runs/installer-oci/prometheus-community-kube-state-metrics/7.4.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0"
-    manifestDigest: "sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3"
-    packageSHA256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
-    layerDigest: "sha256:1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
+    manifestDigest: "sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
+    packageSHA256: "f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562"
+    layerDigest: "sha256:f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/prometheus-community-kube-state-metrics/7.4.0/signature.sigstore.json"
-    bundleSHA256: "ef6dcaca969c11e8f2f4eaa14c3c2b2ab213057ab0c3d4c69fca6167ef4f9ef7"
+    bundleSHA256: "1835461a79177a811aa6b08369ec42fa29df18bcf786c72c9e197c9b98406d39"
     payloadPath: "runs/installer-oci-signatures/prometheus-community-kube-state-metrics/7.4.0/signature-payload.json"
-    payloadSHA256: "648ce862f734213c67f7271588a0b62ce0596c6e7558fd657845fbdc2ecce26f"
+    payloadSHA256: "91fed64e410bcb0d6bbf3a10a382bfaf8e174a5d42b6ebfe6229bbfa091efa0f"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/prometheus-community/kube-state-metrics/7.4.0 --annotations confighub.com/package-sha256=1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/prometheus-community/kube-state-metrics/7.4.0 --annotations confighub.com/package-sha256=f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
     outputPath: "runs/installer-oci-signatures/prometheus-community-kube-state-metrics/7.4.0/verification.json"
-    outputSHA256: "b885e27c89b082f53a2869ddf8b3c5d278fd5a9887f67bcd74b4206c67deac8c"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/prometheus-community-kube-state-metrics/7.4.0/signature.sigstore.json --digest 213bc5ca5101634a31e019adae43352af0305df2f477a91e3ed239cd12fe42f3 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "c6ef3e307fc5a32906acf126c6cc77edf569dfe864266bf25c9e148fa64b34b2"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/prometheus-community-kube-state-metrics/7.4.0/signature.sigstore.json --digest 85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/prometheus-community-kube-state-metrics/7.4.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/prometheus-community/kube-state-metrics/7.4.0"
-    confighub.com/package-sha256: "1ad06e421a3e73ee277b877a1e62bb45a86251a621024be0944d5a82e3c49a90"
+    confighub.com/package-sha256: "f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

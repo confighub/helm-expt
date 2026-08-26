@@ -4,13 +4,16 @@ metadata:
   name: "fairwinds-stable-goldilocks-10-3-0"
 spec:
   chart:
-    repository: "fairwinds-stable"
     name: "goldilocks"
+    repository: "fairwinds-stable"
     version: "10.3.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/fairwinds-stable/goldilocks/10.3.0 -o <tmp>/fairwinds-stable-goldilocks-10-3-0.tgz"
+    sha256: "50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e"
   package:
-    path: "packages/fairwinds-stable/goldilocks/10.3.0"
     name: "fairwinds-stable-goldilocks"
-    version: "10.3.0"
+    path: "packages/fairwinds-stable/goldilocks/10.3.0"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "3fd69b017401fa6939ec62cdea6ccf783087df01533aa7b167f83b5cab8eb8b7"
         bytes: 336
-  deterministicBundle:
-    command: "cub installer package packages/fairwinds-stable/goldilocks/10.3.0 -o <tmp>/fairwinds-stable-goldilocks-10-3-0.tgz"
-    sha256: "1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "adaac1adaa7e728df8a730dcf1982e441c854ae6964a3943ea9ea81fa94565d6"
+        bytes: 5485
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "44a0aa0008ab78f67851668acef968b538352f1fad9c600a5e365758e684f61f"
+        bytes: 8925
+      -
+        path: "records/index.yaml"
+        sha256: "3f7552efd8c8843b81579af8a5f7d7015bb0f67ec792b92ec2ea5c1153692bfe"
+        bytes: 638
+    version: "10.3.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 9
-      cubInstallObjectCountIncludingSupport: 10
-      semanticObjectMatches: "9/9"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 10
+      helmReleaseObjectCount: 9
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      variant: "default"

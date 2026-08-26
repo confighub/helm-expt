@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the existing-tls-ingress base variant into ./bitnami-nginx-24-0-2-existing-tls-ingress"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1 --base existing-tls-ingress --work-dir ./bitnami-nginx-24-0-2-existing-tls-ingress --non-interactive --namespace nginx
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base existing-tls-ingress --work-dir ./bitnami-nginx-24-0-2-existing-tls-ingress --non-interactive --namespace nginx
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-nginx-24-0-2-existing-tls-ingress/out/manifests

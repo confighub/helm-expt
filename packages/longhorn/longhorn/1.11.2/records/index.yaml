@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "InstallerPackageRecordIndex"
+metadata:
+  name: "longhorn-longhorn-1.11.2"
+spec:
+  package:
+    name: "longhorn-longhorn"
+    version: "1.11.2"
+    role: "multi-preset-source-package"
+  recordsAreDeployable: false
+  repository:
+    url: "https://github.com/confighub/helm-expt"
+    evidenceBaseUrl: "https://github.com/confighub/helm-expt/blob/main/"
+  bases:
+    -
+      name: "default"
+      objects: "bases/default/upstream.yaml"
+      sourceAndIntent: "records/default/source-and-intent.yaml"
+      sourceSpecificIntent: "records/default/helm-render-intent.yaml"
+    -
+      name: "ui-ingress"
+      objects: "bases/ui-ingress/upstream.yaml"
+      sourceAndIntent: "records/ui-ingress/source-and-intent.yaml"
+      sourceSpecificIntent: "records/ui-ingress/helm-render-intent.yaml"

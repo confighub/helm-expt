@@ -4,13 +4,16 @@ metadata:
   name: "aws-controllers-k8s-iam-chart-1.7.3"
 spec:
   chart:
-    repository: "aws-controllers-k8s"
     name: "iam-chart"
+    repository: "aws-controllers-k8s"
     version: "1.7.3"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/aws-controllers-k8s/iam-chart/1.7.3 -o <tmp>/ack-iam-1.7.3.tgz"
+    sha256: "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
   package:
-    path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
     name: "aws-controllers-k8s-iam-chart"
-    version: "1.7.3"
+    path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
     sourceFiles:
       -
         path: "README.md"
@@ -40,32 +43,53 @@ spec:
         path: "installer.yaml"
         sha256: "7f85db38b2d42cfce5b0b291f0c315688260dc36142c8b40f1eb0b99a76eb3bb"
         bytes: 2254
-  deterministicBundle:
-    command: "cub installer package packages/aws-controllers-k8s/iam-chart/1.7.3 -o <tmp>/ack-iam-1.7.3.tgz"
-    sha256: "d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "fb10a1acdcea866f3282f740b54c99ae95a7a302c43cb71d7805fec020eaa945"
+        bytes: 1204
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "2a0c01655cc9b0a1572374afad6fcf09d6823e4a4bbb5236d25a3423bbe3cf89"
+        bytes: 5551
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "67256e64defe5c5b796b62eb0333acdaa6d13ea2908da56b0504f0e59b373f69"
+        bytes: 9081
+      -
+        path: "records/eks-inference/helm-render-intent.yaml"
+        sha256: "ce179af4f4e948f7eb28b100d7fcc052d856c5e2cd1df2cb9cdfd23a1157a31e"
+        bytes: 7582
+      -
+        path: "records/eks-inference/source-and-intent.yaml"
+        sha256: "f3168587f5dc90dce483f311aa106c1153e35c3850aff6da93fa34768f035c8c"
+        bytes: 11451
+      -
+        path: "records/index.yaml"
+        sha256: "5b51d1a83f559debda38df5192d56c432a639defbfc799f727d0d93ce82eaa19"
+        bytes: 871
+    version: "1.7.3"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ack-system"
       base: "default"
       command: "cub installer setup --pull packages/aws-controllers-k8s/iam-chart/1.7.3 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
-      helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||ack-system"
-    -
-      variant: "eks-inference"
       base: "eks-inference"
       command: "cub installer setup --pull packages/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
-      helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||ack-system"
+      variant: "eks-inference"

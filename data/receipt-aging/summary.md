@@ -19,8 +19,8 @@ oldest receipt is from 2026-05-26, so the evidence spans 92 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 460 |
-| 31 to 90 days | 590 |
+| 0 to 30 days | 459 |
+| 31 to 90 days | 591 |
 | 91 to 180 days | 881 |
 | over 180 days | 0 |
 
@@ -35,9 +35,9 @@ receipt, and the full table is in the CSV for the rest.
 | `live-helm-confighub-compare` | 219 | 72 | 82 | none |
 | `live-kind-parity` | 179 | 72 | 81 | none |
 | `next80-local-kind` | 176 | 76 | 76 | none |
-| `installer-oci` | 139 | 17 | 17 | none |
+| `installer-oci` | 139 | 0 | 0 | none |
 | `installer-oci-signatures` | 139 | 0 | 0 | none |
-| `certified-bundles` | 74 | 17 | 17 | none |
+| `certified-bundles` | 74 | 18 | 18 | none |
 | `latest-top20-refresh` | 40 | 91 | 91 | none |
 | `derived-variant-execution` | 10 | 82 | 82 | none |
 | `derived-variant-target-bound` | 6 | 82 | 82 | none |

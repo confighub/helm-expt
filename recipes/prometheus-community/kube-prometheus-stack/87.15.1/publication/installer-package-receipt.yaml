@@ -4,13 +4,16 @@ metadata:
   name: "kube-prometheus-stack-kube-prometheus-stack-87.15.1"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "kube-prometheus-stack"
+    repository: "prometheus-community"
     version: "87.15.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/kube-prometheus-stack/87.15.1 -o <tmp>/kube-prometheus-stack-87.15.1.tgz"
+    sha256: "f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d"
   package:
-    path: "packages/prometheus-community/kube-prometheus-stack/87.15.1"
     name: "kube-prometheus-stack-kube-prometheus-stack"
-    version: "87.15.1"
+    path: "packages/prometheus-community/kube-prometheus-stack/87.15.1"
     sourceFiles:
       -
         path: "README.md"
@@ -84,44 +87,73 @@ spec:
         path: "prerequisites/kube-prometheus-stack-lifecycle/prepare.sh"
         sha256: "077463aa641c68d10a688b63f183d3c64922091455ad985b38ef3fdffe34e2fb"
         bytes: 1663
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/kube-prometheus-stack/87.15.1 -o <tmp>/kube-prometheus-stack-87.15.1.tgz"
-    sha256: "1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "752aa024165be066d67a4e254dd1d12019dffffe4a85262cc5a67da778ebcb23"
+        bytes: 1395
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "c1d8e1b169ecc5859d38161fae305bf2daba7ce4c20e6f4b5f3ef988bb2d0c20"
+        bytes: 47297
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "9153b05088d8e4a6dbce6b6e95e14c2405462fa31c127633a2ae2934002645c4"
+        bytes: 43010
+      -
+        path: "records/existing-secret/helm-render-intent.yaml"
+        sha256: "6bdbfcc9b272489d89eda811ddf0aa823bd91611b722eaef522a2a0039714bab"
+        bytes: 42137
+      -
+        path: "records/existing-secret/source-and-intent.yaml"
+        sha256: "04752520f1edaf0aeb5e91fd690a871946ee40d2669c0cfa6c12f0d614cd6dba"
+        bytes: 39898
+      -
+        path: "records/index.yaml"
+        sha256: "96176b78151e078f25740a000fd45f4ea1ad62e8f4c0de41394f824e346e5971"
+        bytes: 1118
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "7b1286e13b638b784a13c2d894d0e4f024e4ccb1012158c76468eca2b89e7f09"
+        bytes: 45787
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "4fcc0a4e890f648fdc3ed9bfb1d34ab574825bbab8d6aa2303d98166935dedd6"
+        bytes: 41144
+    version: "87.15.1"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
       base: "default"
       command: "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/87.15.1 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 125
       cubInstallObjectCountIncludingSupport: 126
+      helmReleaseObjectCount: 125
       semanticObjectMatches: "125/125"
       separatedSecretCount: 2
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"
-    -
-      variant: "no-crds"
       base: "no-crds"
       command: "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/87.15.1 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 115
       cubInstallObjectCountIncludingSupport: 116
+      helmReleaseObjectCount: 115
       semanticObjectMatches: "115/115"
       separatedSecretCount: 2
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||monitoring"
-    -
-      variant: "existing-secret"
       base: "existing-secret"
       command: "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/87.15.1 --base existing-secret --work-dir <tmp> --non-interactive --namespace monitoring"
-      helmReleaseObjectCount: 124
       cubInstallObjectCountIncludingSupport: 125
+      helmReleaseObjectCount: 124
       semanticObjectMatches: "124/124"
       separatedSecretCount: 1
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||monitoring"
+      variant: "existing-secret"

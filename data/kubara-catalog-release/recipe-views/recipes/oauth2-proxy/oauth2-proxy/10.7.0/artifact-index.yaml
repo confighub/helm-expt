@@ -58,14 +58,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/oauth2-proxy/oauth2-proxy/10.7.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0"
-    manifestDigest: "sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9"
-    layerDigest: "sha256:e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65"
+    manifestDigest: "sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384"
+    layerDigest: "sha256:90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
     publicationReceipt: "runs/installer-oci/oauth2-proxy-oauth2-proxy/10.7.0/installer-package-publication-receipt.yaml"
     installer: "packages/oauth2-proxy/oauth2-proxy/10.7.0/installer.yaml"
     receipt: "recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65"
+    deterministicBundleSHA256: "90f72586f4e8c9c008f0b128d4d1b034abad7b87edf5252dcf1fc3e9a42af0fb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -94,7 +94,7 @@ spec:
         default: true
         description: "oauth2-proxy chart defaults variant rendered from oauth2-proxy/oauth2-proxy@10.7.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9 --base default --work-dir <tmp> --non-interactive --namespace oauth2-proxy"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384 --base default --work-dir <tmp> --non-interactive --namespace oauth2-proxy"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

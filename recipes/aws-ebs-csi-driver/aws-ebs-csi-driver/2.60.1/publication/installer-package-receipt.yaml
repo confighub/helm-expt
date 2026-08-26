@@ -4,13 +4,16 @@ metadata:
   name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1"
 spec:
   chart:
-    repository: "aws-ebs-csi-driver"
     name: "aws-ebs-csi-driver"
+    repository: "aws-ebs-csi-driver"
     version: "2.60.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.tgz"
+    sha256: "60ae07d553b41aa92ef3a8663e9275e18077166c3e6e0fad824acfc8d5b21ff6"
   package:
-    path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
     name: "aws-ebs-csi-driver-aws-ebs-csi-driver"
-    version: "2.60.1"
+    path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
     sourceFiles:
       -
         path: "README.md"
@@ -28,18 +31,31 @@ spec:
         path: "installer.yaml"
         sha256: "db4f8847dc049642585455bfccba718c293b98b622b1c0d78c73f801156a83d2"
         bytes: 366
-  deterministicBundle:
-    command: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.tgz"
-    sha256: "9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624"
-    byteIdenticalAcrossTwoLocalBundles: true
+      -
+        path: "records/README.md"
+        sha256: "191c9799224aa0ae46420a9b1ba6a00c10b487f90aec9d8d63fca2ee37ec9758"
+        bytes: 997
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "25dafedefce136d07c49739cbce79d707888158030bd83df4beb7b2bc9301367"
+        bytes: 6928
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "ce137fde3bc81a410c54cd6d382161e57bdf82b4d107ee94b5d5aca70097107d"
+        bytes: 9177
+      -
+        path: "records/index.yaml"
+        sha256: "8d6d7c7face6bdf46bbb58685e3ba66cf5140f4c0b8887ce08db2d675fbe2e2b"
+        bytes: 658
+    version: "2.60.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 19
-      cubInstallObjectCountIncludingSupport: 20
-      semanticObjectMatches: "19/19"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      variant: "default"

@@ -24,7 +24,7 @@ We keep the Helm chart. We lock `jetstack/cert-manager-csi-driver@v0.14.0`, choo
 
 That captured output is the render variant: [`recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml). It contains 5 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, CSIDriver x1, DaemonSet x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-cert-manager-csi-driver-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-cert-manager-csi-driver-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -60,7 +60,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-cert-ma
 The core render command is:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c --base default --work-dir ./jetstack-cert-manager-csi-driver-v0-14-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0@sha256:d9ced09488420f77b3a073f2457a81dfdd498453f0597656c6d27713b0ad7999 --base default --work-dir ./jetstack-cert-manager-csi-driver-v0-14-0-default --non-interactive --namespace default
 ```
 
 After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).

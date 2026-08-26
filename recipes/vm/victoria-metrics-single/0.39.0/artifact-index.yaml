@@ -63,14 +63,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/vm/victoria-metrics-single/0.39.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
-    manifestDigest: "sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40"
-    layerDigest: "sha256:15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946"
+    manifestDigest: "sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
+    layerDigest: "sha256:7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4"
     publicationReceipt: "runs/installer-oci/vm-victoria-metrics-single/0.39.0/installer-package-publication-receipt.yaml"
     installer: "packages/vm/victoria-metrics-single/0.39.0/installer.yaml"
     receipt: "recipes/vm/victoria-metrics-single/0.39.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946"
+    deterministicBundleSHA256: "7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -104,7 +104,7 @@ spec:
         default: true
         description: "vm/victoria-metrics-single default variant rendered from vm/victoria-metrics-single@0.39.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -166,7 +166,7 @@ spec:
         default: false
         description: "vm/victoria-metrics-single default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

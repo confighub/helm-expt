@@ -13,7 +13,7 @@ The same `cub installer setup` command used `--output-oci` to package those rend
 | Rendered objects | 6: Deployment, Namespace, NetworkPolicy, PodDisruptionBudget, Service, ServiceAccount |
 | Rendered OCI written by | `cub installer setup --output-oci` |
 | Output OCI pulled back and compared with the reviewed files | pass |
-| Output digest | `sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a` |
+| Output digest | `sha256:b0b69960b6d7bef681ea9b2f8438b7398ae60502a29f351fe0ad240cedec1a01` |
 | Flux OCI source | ready |
 | Flux Kustomization | ready |
 | Flux-observed digest matches output | pass |

@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "argo-cd-argo-cd-9.5.15"
 spec:
-  observedAt: "2026-08-26T05:34:44.603Z"
+  observedAt: "2026-08-26T07:56:55.492Z"
   subject:
     packagePath: "packages/argo-cd/argo-cd/9.5.15"
     publicationReceipt: "runs/installer-oci/argo-cd-argo-cd/9.5.15/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15"
-    manifestDigest: "sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665"
-    packageSHA256: "776804d665c3b64eeaa1061978530bc6e2ef291c564525b145e5166109c76307"
-    layerDigest: "sha256:776804d665c3b64eeaa1061978530bc6e2ef291c564525b145e5166109c76307"
+    manifestDigest: "sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
+    packageSHA256: "1a11d380dbed9b18d5c2be5c76bf66951dcfc08025c0270df96592be94ab4557"
+    layerDigest: "sha256:1a11d380dbed9b18d5c2be5c76bf66951dcfc08025c0270df96592be94ab4557"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/signature.sigstore.json"
-    bundleSHA256: "f8e09ef544f4a1b9500aeafe6d2b40fdda7706ea5f0e27e8c3c7678f7da2256c"
+    bundleSHA256: "0d706ef48dc5c2ca9cdd08860dcc81adaea560c037819cb6390d68c4d70f8501"
     payloadPath: "runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/signature-payload.json"
-    payloadSHA256: "b7a71a05616ba9c25750ba436b374d113df3d5dd07cd84f552e155e1d5ea387b"
+    payloadSHA256: "5298d7de3bb8a12c45caf368e1be41038544c0666dc85d7187d8c9da307c632c"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/argo-cd/argo-cd/9.5.15 --annotations confighub.com/package-sha256=776804d665c3b64eeaa1061978530bc6e2ef291c564525b145e5166109c76307 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/argo-cd/argo-cd/9.5.15 --annotations confighub.com/package-sha256=1a11d380dbed9b18d5c2be5c76bf66951dcfc08025c0270df96592be94ab4557 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
     outputPath: "runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/verification.json"
-    outputSHA256: "7f2ea173ee5be2850254f4c878cc3001c8918a2cb87541b4de0b834aed23bb30"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/signature.sigstore.json --digest 3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "efb7429b1914971ca6c454637fe0136ee22d3443302794ade5482302a613a33c"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/signature.sigstore.json --digest 9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/argo-cd/argo-cd/9.5.15"
-    confighub.com/package-sha256: "776804d665c3b64eeaa1061978530bc6e2ef291c564525b145e5166109c76307"
+    confighub.com/package-sha256: "1a11d380dbed9b18d5c2be5c76bf66951dcfc08025c0270df96592be94ab4557"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

@@ -3,37 +3,37 @@ kind: "InstallerPackageSignatureReceipt"
 metadata:
   name: "karpenter-karpenter-1.14.0"
 spec:
-  observedAt: "2026-08-26T05:41:48.750Z"
+  observedAt: "2026-08-26T08:02:57.943Z"
   subject:
     packagePath: "packages/karpenter/karpenter/1.14.0"
     publicationReceipt: "runs/installer-oci/karpenter-karpenter/1.14.0/installer-package-publication-receipt.yaml"
     tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
-    manifestDigest: "sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
-    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
-    packageSHA256: "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
-    layerDigest: "sha256:2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+    manifestDigest: "sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
+    packageSHA256: "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
+    layerDigest: "sha256:c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
   signature:
     scheme: "sigstore-keyless"
     signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
     oidcIssuer: "https://accounts.google.com"
     bundlePath: "runs/installer-oci-signatures/karpenter-karpenter/1.14.0/signature.sigstore.json"
-    bundleSHA256: "110bc441d803965b93ef606853b86c6636560ab1eccb2358de6ce6f9be50ebbb"
+    bundleSHA256: "a0ade26e8c236e987cfa34c64aa1e81f23ad2f4783f5a4acaebb9c89195e61f6"
     payloadPath: "runs/installer-oci-signatures/karpenter-karpenter/1.14.0/signature-payload.json"
-    payloadSHA256: "6e8660704afeb46ecfdee30ac1889eed3550d7695217aa6098830ca16c942038"
+    payloadSHA256: "2f92557a63cdef6e5bcd512198ec2d13a334d92d7ff4998324566fa7822d5e17"
     registryAttached: true
     registryAnonymousRead: true
   verification:
     result: "pass"
-    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/karpenter/karpenter/1.14.0 --annotations confighub.com/package-sha256=2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/karpenter/karpenter/1.14.0 --annotations confighub.com/package-sha256=c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
     outputPath: "runs/installer-oci-signatures/karpenter-karpenter/1.14.0/verification.json"
-    outputSHA256: "684f01771269810641b64ddffcaf2ac2150cbd00b0258e818fad7789709c0743"
-    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/karpenter-karpenter/1.14.0/signature.sigstore.json --digest 0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    outputSHA256: "61615cbcb7f829986f800fc9c663b83c71cd307e440b55a8b7b0bb9ddd3fe595"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/karpenter-karpenter/1.14.0/signature.sigstore.json --digest 9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
     payloadOutputPath: "runs/installer-oci-signatures/karpenter-karpenter/1.14.0/payload-verification.txt"
     payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
     cosignVersion: "v3.1.3"
   annotations:
     confighub.com/package-path: "packages/karpenter/karpenter/1.14.0"
-    confighub.com/package-sha256: "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+    confighub.com/package-sha256: "c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
   scope:
     proves:
       - "the named signer signed the exact OCI manifest digest"

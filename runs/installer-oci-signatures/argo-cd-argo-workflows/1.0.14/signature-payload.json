@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2"
+        "sha256": "abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
       },
       "annotations": {
         "confighub.com/package-path": "packages/argo-cd/argo-workflows/1.0.14",
-        "confighub.com/package-sha256": "63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388"
+        "confighub.com/package-sha256": "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
       }
     }
   ],

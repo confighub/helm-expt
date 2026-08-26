@@ -13,7 +13,7 @@ spec:
     name: "hashicorp/terraform"
     version: "1.1.2"
     record: "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:dc1abc1c3ee4780fa98c7d02bd7ab44e915fe9537f953cfa3eff8c2a7decfd02"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
     selection:
       name: "default"
       kind: "catalog-preset"

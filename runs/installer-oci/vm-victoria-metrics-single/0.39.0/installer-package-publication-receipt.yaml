@@ -4,23 +4,28 @@ metadata:
   name: vm-victoria-metrics-single-0.39.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0
-  observedAt: "2026-08-08T20:47:47.274Z"
+  observedAt: "2026-08-26T07:03:19.545Z"
   package:
     path: packages/vm/victoria-metrics-single/0.39.0
-    sha256: 15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946
+    sha256: 7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4
+    sourceTreeSHA256: 516d955b090ed852b645cb016626df73200da4a5ee4bee8035563f7a9e4cd4e6
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/vm/victoria-metrics-single/0.39.0 -o <tmp>/vm-victoria-metrics-single-0.39.0.tgz"
     push: "cub installer push <tmp>/vm-victoria-metrics-single-0.39.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0 --json"
   outputs:
+    manifestDigest: sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195
+    layerDigest: sha256:7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4
     package: |
-      Bundled vm-victoria-metrics-single@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-S84WoQ/vm-victoria-metrics-single-0.39.0.tgz
-        files:  6
-        size:   1445 bytes
-        digest: sha256:15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946
+      Bundled vm-victoria-metrics-single@0.39.0
+        output: <tmp>
+        files:  12
+        size:   6050 bytes
+        digest: sha256:7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0
-        manifest: sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40
-        layer:    sha256:15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946 (1445 bytes, 6 files)
-    inspectJSONSHA256: d2c1eb8fceac68b52146ee9c258586dfd3e9a07928a75c1ecc8bf3fe7924e7c8
+        manifest: sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195
+        layer:    sha256:7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4 (6050 bytes, 12 files)
+    inspectJSONSHA256: d41abcd6cff483d0df25b5894e67a4c2d58b38589027fac0a806dd8faa62a42b
+    inspectJSONCanonicalSHA256: c8968ec78e937035bd2f9194c36d539f05bc684a01f66d23f4c88fcdbcbd7bb9

@@ -294,6 +294,7 @@ recovery steps, and repo-specific AX notes here.
 | `recipes/<repo>/<chart>/<version>/weirdness-and-mitigations.md` | Chart-specific notes for top-20 proof entries. |
 | `config-catalog/package-extras/<repo>/<chart>/<version>/README.md` | Maintained source for package-local lifecycle instructions copied into the public installer package. |
 | `packages/<repo>/<chart>/<version>/README.md` | Generated `cub installer` package usage note. This is package reference, not a primary user guide. |
+| `packages/<repo>/<chart>/<version>/records/README.md` | Generated index for the source, render-intent, object, and lifecycle records carried inside one public installer package. This is package reference, not a primary user guide. |
 | `packages/<repo>/<chart>/<version>/prerequisites/<action>/README.md` | Package-local instructions for one prerequisite or lifecycle action, including when it runs, what it creates, and how its receipt is recorded. |
 | `docs/demo/<chart>/confighub-proof.md` | Per-chart ConfigHub proof summary. Corpus evidence. |
 | `docs/demo/<chart>/confighub-proof-transcript.md` | Per-chart command transcript and observed outputs. Corpus evidence. |

@@ -4,17 +4,16 @@ metadata:
   name: "percona-psmdb-operator-1-22-0"
 spec:
   chart:
-    repository: "percona"
     name: "psmdb-operator"
+    repository: "percona"
     version: "1.22.0"
   deterministicBundle:
-    command: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1.22.0.tgz"
-    sha256: "29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1.22.0.tgz"
+    sha256: "857aa79c0ec5e1f87f0dd94bda5290c4fe5c8c357577b802cda7343da4876ffe"
   package:
-    path: "packages/percona/psmdb-operator/1.22.0"
     name: "percona-psmdb-operator"
-    version: "1.22.0"
+    path: "packages/percona/psmdb-operator/1.22.0"
     sourceFiles:
       -
         path: "README.md"
@@ -40,6 +39,31 @@ spec:
         path: "installer.yaml"
         sha256: "27852d6ba1be318e7f47221cd86d8a550561d428c8080c66f0ae041a098d1dc5"
         bytes: 481
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "2281d5cd76f343f873873766a94914422dfb6b79753082c737dd6a6310b78b8c"
+        bytes: 5379
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "62f1fbf4bd5df7e530237a7ee705919995d2dd3abc2478cbe205cd7c69d1978c"
+        bytes: 8808
+      -
+        path: "records/index.yaml"
+        sha256: "2229a48289237aa6414770014c8c43d6daf9a20d4eb63541d8b5db5d15cdb45d"
+        bytes: 835
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "19264a6cd76514720b417745d7a65b5ea6532bdf8f84fcf5275bfbe58f7994a4"
+        bytes: 5398
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "e2ea9afbf67f378d65fe9c0a28433db655fba3bbf17c825e770adeadfa93def4"
+        bytes: 8752
+    version: "1.22.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -52,12 +76,12 @@ spec:
       separatedSecretCount: 0
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 4
-      cubInstallObjectCountIncludingSupport: 5
-      semanticObjectMatches: "4/4"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/percona/psmdb-operator/1.22.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      variant: "no-crds"

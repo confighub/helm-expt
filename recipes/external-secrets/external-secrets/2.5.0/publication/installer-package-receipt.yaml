@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
-    sha256: "1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91"
+    sha256: "c071847c2e9e7815915cd8a102f3daddc31880f822c7ddc49e23e29581fdcb3a"
   package:
     name: "external-secrets-external-secrets"
     path: "packages/external-secrets/external-secrets/2.5.0"
@@ -47,6 +47,30 @@ spec:
         path: "prerequisites/target-facts/no-crds-crds.yaml"
         sha256: "91ba5cd199501e9aa2d62a66aba9e4e89899817074d61e984c0ede79f8f23c9e"
         bytes: 1666879
+      -
+        path: "records/README.md"
+        sha256: "c48176871f616421b587e366443724d1589cf30e4d41ebaa867411e9e52d7096"
+        bytes: 1180
+      -
+        path: "records/default/helm-render-intent.yaml"
+        sha256: "46b14cede445d5579c91aa2b60377709b6bc64f7eff48aa835f61c248723dd84"
+        bytes: 6888
+      -
+        path: "records/default/source-and-intent.yaml"
+        sha256: "7692e8cc1866032bdd051965103ead9418dfce4869f2291124d0063892359d18"
+        bytes: 10820
+      -
+        path: "records/index.yaml"
+        sha256: "3a46c6f54ec95d6c5af63d87b4240cfef3ce9ea29cc295c79734d9f25d3ecfc3"
+        bytes: 855
+      -
+        path: "records/no-crds/helm-render-intent.yaml"
+        sha256: "84dc3b664272ec6eb3bbab6664ea241184cc6c643f95222ede51f771177fdc1b"
+        bytes: 44786
+      -
+        path: "records/no-crds/source-and-intent.yaml"
+        sha256: "a0bc8e9c16dc68f8cb3c73ca1bb7d8a50d7e38fe659c006bd414184893dcc471"
+        bytes: 46090
     version: "2.5.0"
   setupChecks:
     -

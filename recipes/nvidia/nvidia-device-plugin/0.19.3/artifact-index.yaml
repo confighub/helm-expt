@@ -64,14 +64,14 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/nvidia/nvidia-device-plugin/0.19.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3"
-    manifestDigest: "sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3"
-    layerDigest: "sha256:eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
+    manifestDigest: "sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07"
+    layerDigest: "sha256:d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a"
     publicationReceipt: "runs/installer-oci/nvidia-nvidia-device-plugin/0.19.3/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/nvidia-device-plugin/0.19.3/installer.yaml"
     receipt: "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
+    deterministicBundleSHA256: "d0e7a8b2426c26b254b2cd100191a697b14a91f0a6e6aeea19f575dc0b32a73a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -110,7 +110,7 @@ spec:
         default: true
         description: "nvidia-device-plugin default variant rendered from nvidia/nvidia-device-plugin@0.19.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -172,7 +172,7 @@ spec:
         default: false
         description: "nvidia-device-plugin eks-inference platform scheduling variant rendered from nvidia/nvidia-device-plugin@0.19.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -234,7 +234,7 @@ spec:
         default: false
         description: "nvidia-device-plugin eks-inference plus node-feature-discovery variant rendered from nvidia/nvidia-device-plugin@0.19.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:0dfddc9142b6c95f4d2dbaf34b827af66096c50cef89bb4578a3f91383f705c3 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3@sha256:9a4be497da7d3a34faff8bded3a878fb09528138fd3ee94539c97222b7610e07 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
         helmReleaseObjectCount: 26
         cubInstallObjectCountIncludingSupport: 27
         semanticObjectMatches: "26/26"

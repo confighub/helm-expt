@@ -64,14 +64,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/grafana/alloy/1.8.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2"
-    manifestDigest: "sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425"
-    layerDigest: "sha256:ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
+    manifestDigest: "sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
+    layerDigest: "sha256:02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
     publicationReceipt: "runs/installer-oci/grafana-alloy/1.8.2/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/alloy/1.8.2/installer.yaml"
     receipt: "recipes/grafana/alloy/1.8.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
+    deterministicBundleSHA256: "02564022b676af03d04e6f26a36ab3c91d830706c85b5b2dae8084f69c9ab37b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -105,7 +105,7 @@ spec:
         default: true
         description: "grafana/alloy default variant rendered from grafana/alloy@1.8.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -167,7 +167,7 @@ spec:
         default: false
         description: "grafana/alloy no-crds variant rendered from grafana/alloy@1.8.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:c5eca0ff80f0977757f107963b12510ff9a6105f1d02036e3954833e81bd2425 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

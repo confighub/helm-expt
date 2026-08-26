@@ -4,23 +4,28 @@ metadata:
   name: istio-gateway-1.30.0
 spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0
-  observedAt: "2026-08-08T20:47:19.718Z"
+  observedAt: "2026-08-26T07:01:34.962Z"
   package:
     path: packages/istio/gateway/1.30.0
-    sha256: 2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270
+    sha256: 8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad
+    sourceTreeSHA256: 75abd2c84282bd073657c4aecd446326851e07e868ec6a6a6e33254ce5e2f31c
+  publicationAction: pushed-new
   commands:
     package: "cub installer package packages/istio/gateway/1.30.0 -o <tmp>/istio-gateway-1.30.0.tgz"
     push: "cub installer push <tmp>/istio-gateway-1.30.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0 --json"
   outputs:
+    manifestDigest: sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69
+    layerDigest: sha256:8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad
     package: |
-      Bundled istio-gateway@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-m61WL9/istio-gateway-1.30.0.tgz
-        files:  6
-        size:   1768 bytes
-        digest: sha256:2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270
+      Bundled istio-gateway@1.30.0
+        output: <tmp>
+        files:  12
+        size:   6439 bytes
+        digest: sha256:8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0
-        manifest: sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a
-        layer:    sha256:2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270 (1768 bytes, 6 files)
-    inspectJSONSHA256: 189018496142cf2ab615c97e916e937608df1dfcecef103cbdcc0b16e87497bd
+        manifest: sha256:1c26ebf6dc73c2c3952755668886b33606cdbd62494776e4237e5e8402803b69
+        layer:    sha256:8312840baf16ba8310a00756a161fb5b53b290aa42fa8887fbec089bfca610ad (6439 bytes, 12 files)
+    inspectJSONSHA256: d3f0988b334d74838abe0c1466ca0a02813f3b7ec7552628e3ba7780290e312b
+    inspectJSONCanonicalSHA256: 565285ba7379704628f2163f27b401832b68648284892ffb4cea3bcadda2ba7e

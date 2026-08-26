@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./haproxytech-kubernetes-ingress-1-52-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab --base default --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --non-interactive --namespace default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38 --base default --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./haproxytech-kubernetes-ingress-1-52-0-default/out/manifests

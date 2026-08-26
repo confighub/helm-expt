@@ -3,11 +3,11 @@
   "subject": [
     {
       "digest": {
-        "sha256": "14c598914ce3526238bb871b58b298c39410e1a60f980228556b3bdd96814ec5"
+        "sha256": "923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
       },
       "annotations": {
         "confighub.com/package-path": "packages/prometheus-community/prometheus-operator-crds/29.0.0",
-        "confighub.com/package-sha256": "98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664"
+        "confighub.com/package-sha256": "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
       }
     }
   ],
