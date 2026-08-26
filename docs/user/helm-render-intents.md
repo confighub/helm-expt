@@ -136,9 +136,14 @@ A render intent records:
 
 The target-prerequisite section has two parts:
 
-- `targetFacts.declared` is the original declaration copied from the base
-  variant. When the installer package carries the exact CRDs, each CRD also
-  gets a `packageSource` and repository `packagePath`.
+- `targetFacts.declared` is the prerequisite decision for this base. It usually
+  comes from the base variant. A review completed after a retained base was
+  published can instead come from
+  [`config-catalog/target-fact-reviews.yaml`](../../config-catalog/target-fact-reviews.yaml),
+  so the Catalog can add evidence without changing the historical base and its
+  checksums. `targetFacts.coverage.declarationSource` names the source used.
+  When the installer package carries the exact CRDs, each CRD also gets a
+  `packageSource` and repository `packagePath`.
 - `targetFacts.requirements` turns that declaration into a consistent list of
   Secrets, CRDs, namespaces, values, storage, DNS names, or topology. Each item
   says whether it must be checked before render or before apply. The default
@@ -149,8 +154,9 @@ The target-prerequisite section has two parts:
   or blocked run. A base can have declared facts even when no failure has
   produced an action record.
 - `targetFacts.review` records the prerequisite scope that was checked and
-  which repository evidence supports the decision. It is required before an empty
-  `targetFacts` declaration can mean that no separate prerequisite is needed.
+  which repository evidence supports the decision. It is required before an
+  empty `targetFacts` declaration can mean that no separate prerequisite is
+  needed.
 - `targetFacts.coverage.evidence` carries those evidence links into the
   generated record. An empty declaration without a review remains an
   `actionable-gap`.
@@ -178,9 +184,10 @@ Every generated render intent has two coverage states:
 | Target prerequisites | `attached`, `attached-with-observed-actions`, or `no-target-facts-required` | `actionable-gap` |
 
 `no-route-required` and `no-target-facts-required` are explicit decisions. For
-target prerequisites, the base must contain both an empty `targetFacts`
-declaration and a `targetFactsReview` that states the checked scope and links
-the evidence. A missing or unreviewed declaration does not receive either
+target prerequisites, an empty declaration must be paired with a review that
+states the checked scope and links the evidence. That pair may be stored in the
+base, or in the Catalog review file when the evidence was added after the base
+was retained. A missing or unreviewed declaration does not receive either
 complete state.
 
 The current work list is generated here:
@@ -222,11 +229,12 @@ npm run helm-render-intents:verify
 npm run helm-render-intents:contracts:verify
 ```
 
-That verifier checks the generated objects against the master matrix, the base
-variant's declared target facts, lifecycle-route data, GitOps route mappings,
-and target-prerequisite action data. It also fails when an evidence path is
-missing, a route hides chart-version drift, a prerequisite lacks a check point
-or freshness rule, or the generated gap list omits an incomplete base.
+That verifier checks the generated objects against the master matrix, target
+facts declared by the base or Catalog review, lifecycle-route data, GitOps
+route mappings, and target-prerequisite action data. It also fails when an
+evidence path is missing, a route hides chart-version drift, a prerequisite
+lacks a check point or freshness rule, or the generated gap list omits an
+incomplete base.
 
 ## What This Does Not Claim
 

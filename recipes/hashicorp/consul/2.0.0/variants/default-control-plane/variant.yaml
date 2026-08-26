@@ -11,11 +11,4 @@ spec:
     kubeVersion: "1.30.0"
     apiVersions:
       []
-  targetFacts: {}
-  targetFactsReview:
-    decision: no-separate-target-prerequisites
-    scope: "the supported default-control-plane base on a cub-lk kind cluster in namespace consul, delivered from ConfigHub OCI through Argo CD."
-    evidence:
-      - data/production-support-decisions/hashicorp-consul/support-decision.yaml
-      - data/production-support-decisions/hashicorp-consul/fresh-target-evidence-2026-06-08.yaml
   hookPolicy: "no-hooks"

@@ -11,11 +11,4 @@ spec:
     kubeVersion: "1.30.0"
     apiVersions:
       []
-  targetFacts: {}
-  targetFactsReview:
-    decision: no-separate-target-prerequisites
-    scope: "the supported static-passwords base on a cub-lk kind cluster in namespace mongodb, delivered from ConfigHub OCI through Argo CD."
-    evidence:
-      - data/production-support-decisions/bitnami-mongodb/support-decision.yaml
-      - data/production-support-decisions/bitnami-mongodb/fresh-target-evidence-2026-06-05.yaml
   hookPolicy: "no-hooks"

@@ -22,16 +22,21 @@ Examples:
 - An APIService may only become healthy after the backing service is ready.
 - A Helm startup check may need to become a post-apply observation.
 
-Each base records its requirements in the variant file and in the generated
-render intent. In the render intent, `targetFacts.declared` is the list the base
-expects before deployment. `targetFacts.actions` is different: it records work
-derived from a failed or blocked live run. An empty action list does not cancel
-a declared Secret or CRD requirement.
+Requirements known when a base is created are recorded in its variant file.
+The generated render intent then shows them under `targetFacts.declared`. A
+review completed after a retained base was published can be recorded in
+[`config-catalog/target-fact-reviews.yaml`](../../config-catalog/target-fact-reviews.yaml)
+instead. This adds the decision and evidence without changing the historical
+base and its checksums.
+
+`targetFacts.actions` is different: it records work derived from a failed or
+blocked live run. An empty action list does not cancel a declared Secret or CRD
+requirement.
 
 Do not add `targetFacts: {}` just to close a gap. If a review finds that the
-base needs no separate target prerequisite, record a `targetFactsReview` too.
-It must say what was checked and link to the evidence. Without that review, the
-gap stays open.
+base needs no separate target prerequisite, record the empty declaration and a
+review together. The review must say what was checked and link to the evidence.
+Without that review, the gap stays open.
 
 The useful product claim is not only:
 
