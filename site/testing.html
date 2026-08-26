@@ -564,6 +564,19 @@
       </style>
       <p>Missing the component or use case you need? <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Tell us what you are trying to run</a>.</p>
 
+      <h3 id="worked-stories">Six worked examples</h3>
+      <p>Choose the question closest to yours. Each example links the result to the files and evidence that support it.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Worked example</th><th>Result</th></tr></thead>
+        <tbody><tr><td>What will this package install?</td><td><a href="./try.html"><strong>Inspect Redis without an account</strong></a></td><td>Render 14 Kubernetes objects, keep password material out of the package, and compare the result with Helm. <a href="./d/data/serverless-install-parity-proof/summary.html">Check the live comparison</a>.</td></tr><tr><td>What did AI-written values change?</td><td><a href="./ask.html#ai-values"><strong>Review an NGINX values file</strong></a></td><td>Keep the requested three replicas, correct six risky settings, and retain five reviewed objects as files or OCI. <a href="./d/data/byo-helm-values-review/summary.html">Read the review</a>.</td></tr><tr><td>Can I promote the reviewed change?</td><td><a href="./promote.html"><strong>Move NGINX from development to staging</strong></a></td><td>Compare three and four replicas, promote the exact revision in ConfigHub, publish OCI, and record four ready replicas through Argo CD. <a href="./d/data/byo-helm-values-promotion-proof/summary.html">Check the promotion</a>.</td></tr><tr><td>How should hooks and CRDs run?</td><td><a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html"><strong>Install and upgrade Kube Prometheus Stack</strong></a></td><td>Install CRDs before dependent objects, replace the setup Job when required, and keep separate Argo CD and Flux results. <a href="./d/data/kps-gitops-lifecycle-proof/summary.html">Check the lifecycle proof</a>.</td></tr><tr><td>Can I build a platform from tested parts?</td><td><a href="./kubara.html"><strong>Build a Kubara platform</strong></a></td><td>Choose Catalog components, generate native Kubara configuration, and carry the reviewed Git and OCI result into ConfigHub. The page shows which platform and live checks are current.</td></tr><tr><td>Can I inspect AI infrastructure without a GPU?</td><td><a href="./try-aicr.html"><strong>Inspect the AICR CPU starter</strong></a></td><td>Pull seven exact Argo CD Applications, verify every file, and write a local OCI without an account, cluster, cloud account, or GPU. <a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Check the anonymous run</a>.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+
       <h2 id="simple-example">2. Try a simple example: Redis</h2>
       <h3 id="see-first">See what Redis installs, before you install it</h3>
       <p>Turn the published Redis package into the exact Kubernetes files it produces. You need no account, no login, and no cluster.</p>

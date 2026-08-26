@@ -33,7 +33,7 @@ function readCatalogCounts() {
 const checks = [
   {
     file: "site/index.html",
-    terms: ["See What Your Configuration Will Do", "Helm first", "AICR, Timoni, OCI and YAML examples", "See the exact Kubernetes objects before you deploy", "Search the <a href=\"./charts/index.html\">Catalog</a>", "Use <a href=\"./ask.html\">Check my config</a>", "Your files stay on your machine", "Both paths work without an account", "Keep the version you approve as files or OCI", "Find a configuration", "Check my config", "Promote my config", "cub installer setup", "--output-oci", "Three starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Keep the accepted result in ConfigHub", "Website and CLI stay connected", "Building an internal developer platform?", "platform components, developer tools, and applications", "Four Common Helm Questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["See What Your Configuration Will Do", "Helm first", "AICR, Timoni, OCI and YAML examples", "See the exact Kubernetes objects before you deploy", "Search the <a href=\"./charts/index.html\">Catalog</a>", "Use <a href=\"./ask.html\">Check my config</a>", "Your files stay on your machine", "Both paths work without an account", "Keep the version you approve as files or OCI", "Find a configuration", "Check my config", "Promote my config", "cub installer setup", "--output-oci", "Three starting questions", "What do you need help with?", "I need a configuration", "I have a configuration. Is it right?", "I have an accepted configuration. Can I promote it?", "Keep the accepted result in ConfigHub", "Website and CLI stay connected", "Building an internal developer platform?", "platform components, developer tools, and applications", "see six worked examples", "Four Common Helm Questions", "small research sample, not customer or site usage data", "What will this install, and what must already exist?", "How is this candidate different from production?", "I set a value. Why did the rendered object not change?", "The chart does not expose the field I need. Must I fork it?", "Check the result and the limits", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/guides.html",
@@ -181,7 +181,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Find a starting configuration", "The Config Workshop Catalog keeps exact versions", "1. What do you need?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.html", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Find a starting configuration", "The Config Workshop Catalog keeps exact versions", "1. What do you need?", "Six worked examples", "What will this package install?", "What did AI-written values change?", "Can I promote the reviewed change?", "How should hooks and CRDs run?", "Can I build a platform from tested parts?", "Can I inspect AI infrastructure without a GPU?", "2. Try a simple example: Redis", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "What you have", "Start with this example", "The advanced examples below continue into promotion, fleet rollout, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe or inference stack", "A Timoni module", "Inspect the Timoni Redis example", "Base guide", "Development variant", "Proof and limits", "Get inference running", "certified-bundles/eks-inference-stack.html", "confighub/eks-inference", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "3. Choose how to run a starting example", "4. Continue in ConfigHub", "5. Build or roll out a platform", "Build a small Kubara platform from tested Catalog components", "6. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/kubara.html",
@@ -602,7 +602,7 @@ if (fs.existsSync(examplesPath)) {
   if (examples.includes("<h2 id=\"locations\">Technical sources</h2>")) {
     failures.push("site/testing.html: technical source map belongs in the technical reference, not the example chooser");
   }
-  for (const section of ["start", "start-modes", "managed", "platforms", "apps"]) {
+  for (const section of ["start", "worked-stories", "start-modes", "managed", "platforms", "apps"]) {
     if (!examples.includes(`id="${section}"`)) failures.push(`site/testing.html: missing example stage ${section}`);
   }
   for (const command of ["cub helm template", "cub helm install"]) {
@@ -659,7 +659,7 @@ if (fs.existsSync(homePath)) {
   for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
     if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
   }
-  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+  for (const href of ["./try.html", "./ask.html", "./promote.html", "./testing.html#worked-stories", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
   if (!home.includes(`>${catalogCounts.components} components<`)) {
