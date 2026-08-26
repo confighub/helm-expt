@@ -69,9 +69,26 @@ An installer package is the catalog artifact for one chart version. It contains:
 - the package metadata and `installer.yaml`;
 - the available preset chart configurations, called bases in the repo;
 - the files needed to render each supported preset locally;
-- the recorded inputs behind those presets;
-- links back to the catalog evidence: rendered output, checks, receipts, hooks,
-  CRDs, target prerequisites, and other chart extras.
+- `records/index.yaml`, which lists the supporting record for every base;
+- `records/<base>/source-and-intent.yaml`, which connects the selected source,
+  exact objects, requirements, lifecycle work, checks, and evidence;
+- `records/<base>/helm-render-intent.yaml`, which records the Helm chart,
+  version, values, namespace, release name, capabilities, and source lock.
+
+The files under `records/` are supporting information. They are not Kubernetes
+objects and must not be applied to a cluster. Pull the exact package and read
+them locally:
+
+```sh
+cub installer pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:<manifest-digest>' \
+  --work-dir ./redis-package
+
+less ./redis-package/package/records/README.md
+```
+
+The package does not contain its own final manifest digest because that would
+create a circular hash. The publication receipt and package signature bind the
+finished package to its immutable digest after publication.
 
 The package does not replace Helm charts. The catalog starts from ordinary Helm
 charts, then publishes reviewed package artifacts so users can pull the ready

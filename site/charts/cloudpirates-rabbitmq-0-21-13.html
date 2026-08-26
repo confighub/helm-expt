@@ -551,6 +551,10 @@
         <h3>Check the package identity</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6 --json</code></pre>
+        <h3>Read how each configuration was made</h3>
+        <pre><code>cub installer pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13@sha256:bdc40826c6b61ca4504d8b3c20553d14499dd7a343e06b9d0386f158ea0808e6' --work-dir ./package-review
+less ./package-review/package/records/README.md</code></pre>
+        <p>The package's <code>records/</code> directory connects every base to its source choices, Helm render intent, Kubernetes objects, prerequisites, lifecycle work, and checks. These are supporting records, not Kubernetes objects.</p>
         <details>
         <summary><strong>Verify the package publisher</strong></summary>
         <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>

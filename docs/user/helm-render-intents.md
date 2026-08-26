@@ -94,6 +94,13 @@ published manifest digest. The render intent records that same immutable
 reference with the Helm inputs, rendered objects, prerequisites, and lifecycle
 work.
 
+The public installer package also carries a copy under
+`records/<base>/helm-render-intent.yaml`, beside the matching cross-format
+`source-and-intent.yaml` record. Pulling the package therefore gives a user or
+agent the objects and the records needed to explain them without cloning this
+repository. The copy omits the package's own final digest; the publication
+receipt and signature bind that digest after the package is built.
+
 The `default` and `reuse-existing-secret` Redis rows are different base
 variants because they ask Helm to render different security choices. Each one
 has its own render intent and its own captured output.

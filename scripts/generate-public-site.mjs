@@ -10546,7 +10546,10 @@ function chartPageHtml(catalog, entry, coverageEntry) {
         <p><strong>Exact package:</strong> <code>${escapeHtml(installerPackagePullRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)} · ${installerPublicationReceiptLink}</span></p>
         ${entryDigestPinnedRef ? `<p>Readable version tag: <code>${escapeHtml(installerPackageOciRef)}</code>. The package is pinned so a republished tag cannot change what you get. The command below uses the exact manifest digest, so <code>cub installer</code> refuses different package bytes.</p>
         <h3>Check the package identity</h3>
-        <pre><code>${escapeHtml(entry.installer_oci_verify_command || `cub installer inspect ${entryDigestPinnedRef} --json`)}</code></pre>` : ""}
+        <pre><code>${escapeHtml(entry.installer_oci_verify_command || `cub installer inspect ${entryDigestPinnedRef} --json`)}</code></pre>
+        <h3>Read how each configuration was made</h3>
+        <pre><code>${escapeHtml(`cub installer pull '${installerPackagePullRef}' --work-dir ./package-review\nless ./package-review/package/records/README.md`)}</code></pre>
+        <p>The package's <code>records/</code> directory connects every base to its source choices, Helm render intent, Kubernetes objects, prerequisites, lifecycle work, and checks. These are supporting records, not Kubernetes objects.</p>` : ""}
         ${installerPackageSignature}
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
