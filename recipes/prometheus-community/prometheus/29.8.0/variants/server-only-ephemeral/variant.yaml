@@ -14,7 +14,7 @@ spec:
   targetFacts: {}
   targetFactsReview:
     decision: no-separate-target-prerequisites
-    scope: "cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base."
+    scope: "the supported server-only-ephemeral base on a cub-lk kind cluster in namespace monitoring, delivered from ConfigHub OCI through Argo CD."
     evidence:
       - data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml
       - data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml

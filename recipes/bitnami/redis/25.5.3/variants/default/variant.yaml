@@ -16,7 +16,7 @@ spec:
   targetFacts: {}
   targetFactsReview:
     decision: no-separate-target-prerequisites
-    scope: "cub-lk kind cluster, namespace redis, and ConfigHub OCI delivery through Argo CD for the supported default base."
+    scope: "the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD."
     evidence:
       - data/production-support-decisions/bitnami-redis/support-decision.yaml
       - data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml

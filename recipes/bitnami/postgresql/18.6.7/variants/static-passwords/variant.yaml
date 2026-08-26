@@ -14,7 +14,7 @@ spec:
   targetFacts: {}
   targetFactsReview:
     decision: no-separate-target-prerequisites
-    scope: "cub-lk kind cluster, namespace postgresql, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base."
+    scope: "the supported static-passwords base on a cub-lk kind cluster in namespace postgresql, delivered from ConfigHub OCI through Argo CD."
     evidence:
       - data/production-support-decisions/bitnami-postgresql/support-decision.yaml
       - data/production-support-decisions/bitnami-postgresql/fresh-target-evidence-2026-06-05.yaml

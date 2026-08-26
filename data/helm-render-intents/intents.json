@@ -8547,7 +8547,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace mongodb, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "scope": "the supported static-passwords base on a cub-lk kind cluster in namespace mongodb, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/bitnami-mongodb/support-decision.yaml",
               "data/production-support-decisions/bitnami-mongodb/fresh-target-evidence-2026-06-05.yaml"
@@ -8555,7 +8555,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace mongodb, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported static-passwords base on a cub-lk kind cluster in namespace mongodb, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/bitnami/mongodb/19.0.7/variants/static-passwords/variant.yaml",
             "evidence": [
               "data/production-support-decisions/bitnami-mongodb/support-decision.yaml",
@@ -9544,7 +9544,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace mysql, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "scope": "the supported static-passwords base on a cub-lk kind cluster in namespace mysql, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/bitnami-mysql/support-decision.yaml",
               "data/production-support-decisions/bitnami-mysql/fresh-target-evidence-2026-06-08.yaml"
@@ -9552,7 +9552,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace mysql, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported static-passwords base on a cub-lk kind cluster in namespace mysql, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml",
             "evidence": [
               "data/production-support-decisions/bitnami-mysql/support-decision.yaml",
@@ -12030,7 +12030,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace postgresql, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "scope": "the supported static-passwords base on a cub-lk kind cluster in namespace postgresql, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/bitnami-postgresql/support-decision.yaml",
               "data/production-support-decisions/bitnami-postgresql/fresh-target-evidence-2026-06-05.yaml"
@@ -12038,7 +12038,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace postgresql, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported static-passwords base on a cub-lk kind cluster in namespace postgresql, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/bitnami/postgresql/18.6.7/variants/static-passwords/variant.yaml",
             "evidence": [
               "data/production-support-decisions/bitnami-postgresql/support-decision.yaml",
@@ -12721,7 +12721,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace rabbitmq, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "scope": "the supported static-passwords base on a cub-lk kind cluster in namespace rabbitmq, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/bitnami-rabbitmq/support-decision.yaml",
               "data/production-support-decisions/bitnami-rabbitmq/fresh-target-evidence-2026-06-05.yaml"
@@ -12729,7 +12729,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace rabbitmq, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported static-passwords base on a cub-lk kind cluster in namespace rabbitmq, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml",
             "evidence": [
               "data/production-support-decisions/bitnami-rabbitmq/support-decision.yaml",
@@ -12879,7 +12879,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace redis, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "scope": "the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/bitnami-redis/support-decision.yaml",
               "data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml"
@@ -12887,7 +12887,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace redis, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml",
             "evidence": [
               "data/production-support-decisions/bitnami-redis/support-decision.yaml",
@@ -25906,7 +25906,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace loki, and ConfigHub OCI delivery through Argo CD for the supported single-binary-filesystem base.",
+            "scope": "the supported single-binary-filesystem base on a cub-lk kind cluster in namespace loki, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/grafana-loki/support-decision.yaml",
               "data/production-support-decisions/grafana-loki/fresh-target-evidence-2026-06-08.yaml"
@@ -25914,7 +25914,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace loki, and ConfigHub OCI delivery through Argo CD for the supported single-binary-filesystem base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported single-binary-filesystem base on a cub-lk kind cluster in namespace loki, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml",
             "evidence": [
               "data/production-support-decisions/grafana-loki/support-decision.yaml",
@@ -27926,7 +27926,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace consul, and ConfigHub OCI delivery through Argo CD for the supported default-control-plane base.",
+            "scope": "the supported default-control-plane base on a cub-lk kind cluster in namespace consul, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/hashicorp-consul/support-decision.yaml",
               "data/production-support-decisions/hashicorp-consul/fresh-target-evidence-2026-06-08.yaml"
@@ -27934,7 +27934,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace consul, and ConfigHub OCI delivery through Argo CD for the supported default-control-plane base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported default-control-plane base on a cub-lk kind cluster in namespace consul, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml",
             "evidence": [
               "data/production-support-decisions/hashicorp-consul/support-decision.yaml",
@@ -31406,7 +31406,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace cert-manager, and ConfigHub OCI delivery through Argo CD for the supported crds-enabled base.",
+            "scope": "the supported crds-enabled base on a cub-lk kind cluster in namespace cert-manager, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/jetstack-cert-manager/support-decision.yaml",
               "data/production-support-decisions/jetstack-cert-manager/fresh-target-evidence-2026-06-05.yaml"
@@ -31414,7 +31414,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace cert-manager, and ConfigHub OCI delivery through Argo CD for the supported crds-enabled base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported crds-enabled base on a cub-lk kind cluster in namespace cert-manager, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/jetstack/cert-manager/v1.20.2/variants/crds-enabled/variant.yaml",
             "evidence": [
               "data/production-support-decisions/jetstack-cert-manager/support-decision.yaml",
@@ -37025,7 +37025,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace longhorn-system, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "scope": "the supported default base on a cub-lk kind cluster in namespace longhorn-system, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/longhorn-longhorn/support-decision.yaml",
               "data/production-support-decisions/longhorn-longhorn/fresh-target-evidence-2026-06-08.yaml"
@@ -37033,7 +37033,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace longhorn-system, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace longhorn-system, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/longhorn/longhorn/1.11.2/variants/default/variant.yaml",
             "evidence": [
               "data/production-support-decisions/longhorn-longhorn/support-decision.yaml",
@@ -37627,7 +37627,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "scope": "the supported default base on a cub-lk kind cluster in namespace kube-system, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml",
               "data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml"
@@ -37635,7 +37635,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace kube-system, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/metrics-server/metrics-server/3.13.0/variants/default/variant.yaml",
             "evidence": [
               "data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml",
@@ -54244,7 +54244,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base.",
+            "scope": "the supported server-only-ephemeral base on a cub-lk kind cluster in namespace monitoring, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml",
               "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
@@ -54252,7 +54252,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported server-only-ephemeral base on a cub-lk kind cluster in namespace monitoring, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml",
             "evidence": [
               "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml",
@@ -57325,7 +57325,7 @@
           "review": {
             "status": "reviewed",
             "decision": "no-separate-target-prerequisites",
-            "scope": "cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "scope": "the supported default base on a cub-lk kind cluster in namespace kube-system, delivered from ConfigHub OCI through Argo CD.",
             "evidence": [
               "data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/support-decision.yaml",
               "data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/fresh-target-evidence-2026-06-05.yaml"
@@ -57333,7 +57333,7 @@
           },
           "coverage": {
             "state": "no-target-facts-required",
-            "reason": "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base.",
+            "reason": "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace kube-system, delivered from ConfigHub OCI through Argo CD.",
             "declarationSource": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/default/variant.yaml",
             "evidence": [
               "data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/support-decision.yaml",

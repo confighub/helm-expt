@@ -14,7 +14,7 @@ spec:
   targetFacts: {}
   targetFactsReview:
     decision: no-separate-target-prerequisites
-    scope: "cub-lk kind cluster, namespace longhorn-system, and ConfigHub OCI delivery through Argo CD for the supported default base."
+    scope: "the supported default base on a cub-lk kind cluster in namespace longhorn-system, delivered from ConfigHub OCI through Argo CD."
     evidence:
       - data/production-support-decisions/longhorn-longhorn/support-decision.yaml
       - data/production-support-decisions/longhorn-longhorn/fresh-target-evidence-2026-06-08.yaml

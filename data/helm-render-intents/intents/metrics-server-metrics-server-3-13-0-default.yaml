@@ -72,13 +72,13 @@ spec:
     review:
       status: "reviewed"
       decision: "no-separate-target-prerequisites"
-      scope: "cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base."
+      scope: "the supported default base on a cub-lk kind cluster in namespace kube-system, delivered from ConfigHub OCI through Argo CD."
       evidence:
         - "data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml"
         - "data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml"
     coverage:
       state: "no-target-facts-required"
-      reason: "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base."
+      reason: "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace kube-system, delivered from ConfigHub OCI through Argo CD."
       declarationSource: "recipes/metrics-server/metrics-server/3.13.0/variants/default/variant.yaml"
       evidence:
         - "data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml"

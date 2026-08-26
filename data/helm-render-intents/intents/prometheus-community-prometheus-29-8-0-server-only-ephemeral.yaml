@@ -72,13 +72,13 @@ spec:
     review:
       status: "reviewed"
       decision: "no-separate-target-prerequisites"
-      scope: "cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base."
+      scope: "the supported server-only-ephemeral base on a cub-lk kind cluster in namespace monitoring, delivered from ConfigHub OCI through Argo CD."
       evidence:
         - "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml"
         - "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
     coverage:
       state: "no-target-facts-required"
-      reason: "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base."
+      reason: "The base review found no separate target prerequisite in this scope: the supported server-only-ephemeral base on a cub-lk kind cluster in namespace monitoring, delivered from ConfigHub OCI through Argo CD."
       declarationSource: "recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml"
       evidence:
         - "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml"

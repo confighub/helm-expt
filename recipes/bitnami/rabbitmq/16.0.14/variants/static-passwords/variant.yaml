@@ -14,7 +14,7 @@ spec:
   targetFacts: {}
   targetFactsReview:
     decision: no-separate-target-prerequisites
-    scope: "cub-lk kind cluster, namespace rabbitmq, and ConfigHub OCI delivery through Argo CD for the supported static-passwords base."
+    scope: "the supported static-passwords base on a cub-lk kind cluster in namespace rabbitmq, delivered from ConfigHub OCI through Argo CD."
     evidence:
       - data/production-support-decisions/bitnami-rabbitmq/support-decision.yaml
       - data/production-support-decisions/bitnami-rabbitmq/fresh-target-evidence-2026-06-05.yaml

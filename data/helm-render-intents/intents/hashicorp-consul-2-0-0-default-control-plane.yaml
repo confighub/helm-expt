@@ -72,13 +72,13 @@ spec:
     review:
       status: "reviewed"
       decision: "no-separate-target-prerequisites"
-      scope: "cub-lk kind cluster, namespace consul, and ConfigHub OCI delivery through Argo CD for the supported default-control-plane base."
+      scope: "the supported default-control-plane base on a cub-lk kind cluster in namespace consul, delivered from ConfigHub OCI through Argo CD."
       evidence:
         - "data/production-support-decisions/hashicorp-consul/support-decision.yaml"
         - "data/production-support-decisions/hashicorp-consul/fresh-target-evidence-2026-06-08.yaml"
     coverage:
       state: "no-target-facts-required"
-      reason: "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace consul, and ConfigHub OCI delivery through Argo CD for the supported default-control-plane base."
+      reason: "The base review found no separate target prerequisite in this scope: the supported default-control-plane base on a cub-lk kind cluster in namespace consul, delivered from ConfigHub OCI through Argo CD."
       declarationSource: "recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml"
       evidence:
         - "data/production-support-decisions/hashicorp-consul/support-decision.yaml"
