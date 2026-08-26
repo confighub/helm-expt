@@ -29,7 +29,7 @@ const summaryPath = join(dataRoot, "summary.md");
 const nginxRepository =
   "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx";
 const nginxDigest =
-  "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1";
+  "sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67";
 const examples = [
   {
     id: "aicr-literal-config",
