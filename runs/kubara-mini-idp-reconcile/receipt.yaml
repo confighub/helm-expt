@@ -18963,10 +18963,15 @@ status:
     - "cubbychat"
   cleanRoomClaim: "not asserted from this retained-org run; offline clean-room ordering is gated separately"
   cleanRoomReproducible: false
-  deterministicReconciliationProven: true
+  deterministicReconciliationProven: false
   fullCurrentSelectionDelivered: true
   historicalCatalogRootsPreserved: true
-  idempotentRerunProven: true
+  idempotentRerunProven: false
+  latestApplyAttempt:
+    sequence: 50
+    id: "a27fc6a3-cd01-40c7-85ec-b1be539aa4f7"
+    result: "invalidated-by-failed-attempt"
+    observedAt: "2026-08-26T13:50:14.692Z"
   limits:
     - "This is the adapted ConfigHub lane. The separate faithful-lane receipt proves Kubara's one-hub Argo topology against a spoke."
     - "ConfigHub cluster-bootstrap Argo CD v3.4.6 and argobot replace Kubara's selected Argo chart 10.2.1 (runtime v3.4.5) in the adapted lane; the cluster-local reconciliation shape remains."
@@ -18974,13 +18979,4 @@ status:
     - "cub cluster up rolls back returned failures, but an abrupt process or host termination inside that multi-system command is fail-closed rather than automatically repaired; the reconciler resumes only fully complete journaled cluster prefixes and never deletes a partial persistent cluster."
     - "The reconciler replays promotion/rollback/departure history only for a clean or unmarked hx-web tree; marked reruns verify and reconcile the deterministic final state."
   observedAt: "2026-08-06T09:10:20.423Z"
-  result: "pass"
-  performanceResult: "performance-pass"
-  performanceAcceptance:
-    orphanReceipt: "runs/kubara-mini-idp-reconcile/orphan-audit.yaml"
-    orphanReceiptSha256: "sha256:c588c4882ed5de66d4dde68cf0f09f94ee9b976bca740e14cec4c6796bebdb23"
-    orphanObservedAt: "2026-08-06T09:10:55.578Z"
-    reconcilerSha256: "sha256:bf61c8c203c1159f40855819495fa21273f23ef07c7e93b0a45dec9df2927230"
-    reconcilePlanSha256: "sha256:d2f3df8dc6c51f9230e47fdff48de06d1a3c552d8d05c7c479b6d39003caf1ae"
-    applyAttemptLedgerSha256: "sha256:a7534d676badafd5b68d4ae0a436b5fae38c7b994c893ed54904106fe854d1e4"
-    finalConfigHubFingerprint: "sha256:5901975e3f42c56256b280d7ebe676197c38bc738a19c66fd8a3647c9a5bddc1"
+  result: "invalidated-by-failed-attempt"

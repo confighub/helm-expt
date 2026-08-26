@@ -12536,233 +12536,11 @@ attempts:
     sequence: 42
     startedAt: "2026-08-06T09:06:31.977Z"
   -
+    actionCount: 0
+    completedAt: "2026-08-06T09:10:20.661Z"
     executionFingerprint: "sha256:4f3c436833d6f1fdea230dbb5f5133534e1be69bfbb80ddf7e490ac11d76481d"
     id: "067efcb7-6828-4b2e-98f5-0bc423ce7203"
-    result: "pass"
-    sequence: 43
-    startedAt: "2026-08-06T09:09:06.331Z"
-    runClass: "idempotent-apply"
-    actionCount: 0
-    receiptObservedAt: "2026-08-06T09:10:20.423Z"
     performance:
-      schemaVersion: 2
-      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
-      runClass: "idempotent-apply"
-      complete: true
-      wallElapsedMs: 76994
-      subprocesses:
-        calls: 208
-        unexpectedFailures: 0
-        byVerb:
-          -
-            verb: "cub.context.get"
-            calls: 2
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 81
-          -
-            verb: "cub.filter.get"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 2163
-          -
-            verb: "cub.link.list"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 26541
-          -
-            verb: "cub.organization.list"
-            calls: 1
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 520
-          -
-            verb: "cub.release.list"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 1641
-          -
-            verb: "cub.space.get"
-            calls: 1
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 578
-          -
-            verb: "cub.space.list"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 2025
-          -
-            verb: "cub.target.list"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 1631
-          -
-            verb: "cub.trigger.get"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 2080
-          -
-            verb: "cub.unit.list"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 15227
-          -
-            verb: "cub.version"
-            calls: 1
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 380
-          -
-            verb: "curl.execute"
-            calls: 8
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 101
-          -
-            verb: "docker.execute"
-            calls: 8
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 132
-          -
-            verb: "kind.get.clusters"
-            calls: 4
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 235
-          -
-            verb: "kubectl.get"
-            calls: 152
-            expectedFailures: 1
-            unexpectedFailures: 0
-            elapsedMs: 5061
-          -
-            verb: "kubectl.wait"
-            calls: 2
-            expectedFailures: 0
-            unexpectedFailures: 0
-            elapsedMs: 261
-          -
-            verb: "pgrep.scan"
-            calls: 1
-            expectedFailures: 1
-            unexpectedFailures: 0
-            elapsedMs: 18
-      confighub:
-        reads:
-          commands: 33
-          beforeFirstDevAcceptedCommands: 19
-          byVerb:
-            -
-              verb: "cub.context.get"
-              calls: 2
-            -
-              verb: "cub.filter.get"
-              calls: 4
-            -
-              verb: "cub.link.list"
-              calls: 4
-            -
-              verb: "cub.organization.list"
-              calls: 1
-            -
-              verb: "cub.release.list"
-              calls: 4
-            -
-              verb: "cub.space.get"
-              calls: 1
-            -
-              verb: "cub.space.list"
-              calls: 4
-            -
-              verb: "cub.target.list"
-              calls: 4
-            -
-              verb: "cub.trigger.get"
-              calls: 4
-            -
-              verb: "cub.unit.list"
-              calls: 4
-            -
-              verb: "cub.version"
-              calls: 1
-          byPurpose:
-            -
-              purpose: "content"
-              commands: 0
-              byVerb:
-                []
-            -
-              purpose: "metadata-discovery"
-              commands: 33
-              byVerb:
-                -
-                  verb: "cub.context.get"
-                  calls: 2
-                -
-                  verb: "cub.filter.get"
-                  calls: 4
-                -
-                  verb: "cub.link.list"
-                  calls: 4
-                -
-                  verb: "cub.organization.list"
-                  calls: 1
-                -
-                  verb: "cub.release.list"
-                  calls: 4
-                -
-                  verb: "cub.space.get"
-                  calls: 1
-                -
-                  verb: "cub.space.list"
-                  calls: 4
-                -
-                  verb: "cub.target.list"
-                  calls: 4
-                -
-                  verb: "cub.trigger.get"
-                  calls: 4
-                -
-                  verb: "cub.unit.list"
-                  calls: 4
-                -
-                  verb: "cub.version"
-                  calls: 1
-            -
-              purpose: "mutation-target-pin"
-              commands: 0
-              byVerb:
-                []
-        mutations:
-          attempts: 0
-          succeeded: 0
-          expectedRefusals: 0
-          unexpectedFailures: 0
-          unattributedSucceeded: 0
-          byVerb:
-            []
-      waits:
-        explicitElapsedMs: 0
-        unclassifiedExplicitMs: 0
-        byReason:
-          []
-      milestones:
-        preArgoWallElapsedMs: 42883
-        firstArgoAcceptedMs: 42922
-        firstArgoAcceptedCluster: "hx-app-dev"
-      argo:
-        syncRequests: 0
-      localProcess:
-        wallOutsideSubprocessMs: 18317
       applyReadCache:
         authoritativeReleaseReuse:
           finalVerification: "opening-and-closing-fingerprint-required"
@@ -12841,7 +12619,2454 @@ attempts:
             phaseRefreshListCalls: 1
             resource: "target"
             servedReads: 109
-    completedAt: "2026-08-06T09:10:20.661Z"
+      argo:
+        syncRequests: 0
+      complete: true
+      confighub:
+        mutations:
+          attempts: 0
+          byVerb:
+            []
+          expectedRefusals: 0
+          succeeded: 0
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: 19
+          byPurpose:
+            -
+              byVerb:
+                []
+              commands: 0
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 2
+                  verb: "cub.context.get"
+                -
+                  calls: 4
+                  verb: "cub.filter.get"
+                -
+                  calls: 4
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 4
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 4
+                  verb: "cub.space.list"
+                -
+                  calls: 4
+                  verb: "cub.target.list"
+                -
+                  calls: 4
+                  verb: "cub.trigger.get"
+                -
+                  calls: 4
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 33
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                []
+              commands: 0
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 2
+              verb: "cub.context.get"
+            -
+              calls: 4
+              verb: "cub.filter.get"
+            -
+              calls: 4
+              verb: "cub.link.list"
+            -
+              calls: 1
+              verb: "cub.organization.list"
+            -
+              calls: 4
+              verb: "cub.release.list"
+            -
+              calls: 1
+              verb: "cub.space.get"
+            -
+              calls: 4
+              verb: "cub.space.list"
+            -
+              calls: 4
+              verb: "cub.target.list"
+            -
+              calls: 4
+              verb: "cub.trigger.get"
+            -
+              calls: 4
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 33
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 18317
+      milestones:
+        firstArgoAcceptedCluster: "hx-app-dev"
+        firstArgoAcceptedMs: 42922
+        preArgoWallElapsedMs: 42883
+      runClass: "idempotent-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 2
+            elapsedMs: 81
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 4
+            elapsedMs: 2163
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.filter.get"
+          -
+            calls: 4
+            elapsedMs: 26541
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 1
+            elapsedMs: 520
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 4
+            elapsedMs: 1641
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 1
+            elapsedMs: 578
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 4
+            elapsedMs: 2025
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 4
+            elapsedMs: 1631
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 4
+            elapsedMs: 2080
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.trigger.get"
+          -
+            calls: 4
+            elapsedMs: 15227
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 1
+            elapsedMs: 380
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 8
+            elapsedMs: 101
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "curl.execute"
+          -
+            calls: 8
+            elapsedMs: 132
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "docker.execute"
+          -
+            calls: 4
+            elapsedMs: 235
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 152
+            elapsedMs: 5061
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "kubectl.get"
+          -
+            calls: 2
+            elapsedMs: 261
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.wait"
+          -
+            calls: 1
+            elapsedMs: 18
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+        calls: 208
+        unexpectedFailures: 0
+      waits:
+        byReason:
+          []
+        explicitElapsedMs: 0
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 76994
+    receiptObservedAt: "2026-08-06T09:10:20.423Z"
+    result: "pass"
+    runClass: "idempotent-apply"
+    sequence: 43
+    startedAt: "2026-08-06T09:09:06.331Z"
+  -
+    actionCount: 0
+    completedAt: "2026-08-26T12:44:08.282Z"
+    error: "hx-web live Unit heads, approvals, data hashes, releases, or UpgradeUnit merge bases changed after the last durable scenario checkpoint"
+    executionFingerprint: "sha256:5e3ed8886a17e573a80b0cf8a175d53647ffcf39165cb0e474ac964877732957"
+    id: "8a7d9f8c-67d2-434d-8d9a-e09f309ae8c2"
+    performance:
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "space"
+            servedReads: 29
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "unit"
+            servedReads: 300
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "release"
+            servedReads: 0
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "link"
+            servedReads: 26
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "target"
+            servedReads: 85
+      argo:
+        syncRequests: 0
+      complete: false
+      confighub:
+        mutations:
+          attempts: 0
+          byVerb:
+            []
+          expectedRefusals: 0
+          succeeded: 0
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: null
+          byPurpose:
+            -
+              byVerb:
+                -
+                  calls: 56
+                  verb: "cub.unit.data"
+              commands: 56
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 1
+                  verb: "cub.context.get"
+                -
+                  calls: 1
+                  verb: "cub.filter.get"
+                -
+                  calls: 6
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 5
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 2
+                  verb: "cub.space.list"
+                -
+                  calls: 1
+                  verb: "cub.target.list"
+                -
+                  calls: 1
+                  verb: "cub.trigger.get"
+                -
+                  calls: 6
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 26
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                []
+              commands: 0
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 1
+              verb: "cub.context.get"
+            -
+              calls: 1
+              verb: "cub.filter.get"
+            -
+              calls: 6
+              verb: "cub.link.list"
+            -
+              calls: 1
+              verb: "cub.organization.list"
+            -
+              calls: 5
+              verb: "cub.release.list"
+            -
+              calls: 1
+              verb: "cub.space.get"
+            -
+              calls: 2
+              verb: "cub.space.list"
+            -
+              calls: 1
+              verb: "cub.target.list"
+            -
+              calls: 1
+              verb: "cub.trigger.get"
+            -
+              calls: 56
+              verb: "cub.unit.data"
+            -
+              calls: 6
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 82
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 15859
+      milestones:
+        firstArgoAcceptedCluster: null
+        firstArgoAcceptedMs: null
+        preArgoWallElapsedMs: null
+      runClass: "idempotent-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 1
+            elapsedMs: 48
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 1
+            elapsedMs: 535
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.filter.get"
+          -
+            calls: 6
+            elapsedMs: 5169
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 1
+            elapsedMs: 625
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 5
+            elapsedMs: 2648
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 1
+            elapsedMs: 608
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 2
+            elapsedMs: 1129
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 1
+            elapsedMs: 438
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 1
+            elapsedMs: 517
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.trigger.get"
+          -
+            calls: 56
+            elapsedMs: 40320
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.data"
+          -
+            calls: 6
+            elapsedMs: 3924
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 1
+            elapsedMs: 383
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 4
+            elapsedMs: 69
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "docker.execute"
+          -
+            calls: 3
+            elapsedMs: 500
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 28
+            elapsedMs: 1068
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.get"
+          -
+            calls: 1
+            elapsedMs: 18
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+        calls: 118
+        unexpectedFailures: 0
+      waits:
+        byReason:
+          []
+        explicitElapsedMs: 0
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 73858
+    result: "failed"
+    runClass: "incomplete-apply"
+    sequence: 44
+    startedAt: "2026-08-26T12:42:57.912Z"
+  -
+    actionCount: 19
+    completedAt: "2026-08-26T12:54:32.844Z"
+    error: "release/publish: ConfigHub Space state changed after the decision; retry from a fresh apply snapshot"
+    executionFingerprint: "sha256:8bc8d2e991d19cdcb65ae4b9bed2733586163d8254bedf8ebd251e55165be3ae"
+    id: "5a88d8cf-42e9-4bfd-95f2-6c2985ece811"
+    performance:
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+          - "pre-release-and-argo"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "space"
+            servedReads: 55
+          -
+            initialListCalls: 1
+            invalidations: 15
+            mutationRefreshCalls: 12
+            phaseRefreshListCalls: 1
+            resource: "unit"
+            servedReads: 659
+          -
+            initialListCalls: 1
+            invalidations: 3
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "release"
+            servedReads: 6
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "link"
+            servedReads: 93
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "target"
+            servedReads: 127
+      argo:
+        syncRequests: 2
+      complete: false
+      confighub:
+        mutations:
+          attempts: 15
+          byVerb:
+            -
+              attempts: 3
+              attributedSucceeded: 3
+              expectedRefusals: 0
+              succeeded: 3
+              unexpectedFailures: 0
+              verb: "cub.release.publish"
+            -
+              attempts: 12
+              attributedSucceeded: 12
+              expectedRefusals: 0
+              succeeded: 12
+              unexpectedFailures: 0
+              verb: "cub.unit.update"
+          expectedRefusals: 0
+          succeeded: 15
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: 392
+          byPurpose:
+            -
+              byVerb:
+                -
+                  calls: 305
+                  verb: "cub.unit.data"
+              commands: 305
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 1
+                  verb: "cub.context.get"
+                -
+                  calls: 2
+                  verb: "cub.filter.get"
+                -
+                  calls: 15
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 15
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 13
+                  verb: "cub.space.list"
+                -
+                  calls: 17
+                  verb: "cub.target.get"
+                -
+                  calls: 5
+                  verb: "cub.target.list"
+                -
+                  calls: 2
+                  verb: "cub.trigger.get"
+                -
+                  calls: 56
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 129
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                -
+                  calls: 16
+                  verb: "cub.context.get"
+                -
+                  calls: 16
+                  verb: "cub.organization.list"
+                -
+                  calls: 16
+                  verb: "cub.space.get"
+              commands: 48
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 17
+              verb: "cub.context.get"
+            -
+              calls: 2
+              verb: "cub.filter.get"
+            -
+              calls: 15
+              verb: "cub.link.list"
+            -
+              calls: 17
+              verb: "cub.organization.list"
+            -
+              calls: 15
+              verb: "cub.release.list"
+            -
+              calls: 17
+              verb: "cub.space.get"
+            -
+              calls: 13
+              verb: "cub.space.list"
+            -
+              calls: 17
+              verb: "cub.target.get"
+            -
+              calls: 5
+              verb: "cub.target.list"
+            -
+              calls: 2
+              verb: "cub.trigger.get"
+            -
+              calls: 305
+              verb: "cub.unit.data"
+            -
+              calls: 56
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 482
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 21727
+      milestones:
+        firstArgoAcceptedCluster: "hx-app-dev"
+        firstArgoAcceptedMs: 305048
+        preArgoWallElapsedMs: 294794
+      runClass: "changed-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 17
+            elapsedMs: 986
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 2
+            elapsedMs: 1046
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.filter.get"
+          -
+            calls: 15
+            elapsedMs: 19511
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 17
+            elapsedMs: 9491
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 15
+            elapsedMs: 7986
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 3
+            elapsedMs: 5283
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.publish"
+          -
+            calls: 17
+            elapsedMs: 9745
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 13
+            elapsedMs: 7112
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 17
+            elapsedMs: 9566
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.get"
+          -
+            calls: 5
+            elapsedMs: 1946
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 2
+            elapsedMs: 1079
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.trigger.get"
+          -
+            calls: 305
+            elapsedMs: 214310
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.data"
+          -
+            calls: 56
+            elapsedMs: 35968
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 12
+            elapsedMs: 13675
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.update"
+          -
+            calls: 1
+            elapsedMs: 434
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 4
+            elapsedMs: 71
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "docker.execute"
+          -
+            calls: 3
+            elapsedMs: 543
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 2
+            elapsedMs: 85
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.annotate"
+          -
+            calls: 42
+            elapsedMs: 1938
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.get"
+          -
+            calls: 2
+            elapsedMs: 116
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.patch"
+          -
+            calls: 1
+            elapsedMs: 21
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+          -
+            calls: 7
+            elapsedMs: 26041
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "sleep.wait"
+        calls: 558
+        unexpectedFailures: 0
+      waits:
+        byReason:
+          -
+            calls: 2
+            elapsedMs: 10011
+            reason: "argo-active-operation"
+            requestedMs: 10000
+          -
+            calls: 3
+            elapsedMs: 6018
+            reason: "argo-refresh-ack"
+            requestedMs: 6000
+          -
+            calls: 2
+            elapsedMs: 10013
+            reason: "argo-retry-backoff"
+            requestedMs: 10000
+        explicitElapsedMs: 26041
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 388682
+    result: "failed"
+    runClass: "incomplete-apply"
+    sequence: 45
+    startedAt: "2026-08-26T12:48:07.769Z"
+  -
+    actionCount: 0
+    completedAt: "2026-08-26T12:55:37.654Z"
+    error: "preflight refused an existing hx-web receipt that is not trusted for the current fleet/source"
+    executionFingerprint: "sha256:8bc8d2e991d19cdcb65ae4b9bed2733586163d8254bedf8ebd251e55165be3ae"
+    id: "dd0688d7-ad57-4ef0-93d3-da75900fdcf2"
+    performance:
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "space"
+            servedReads: 1
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "unit"
+            servedReads: 0
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "release"
+            servedReads: 0
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "link"
+            servedReads: 0
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 0
+            resource: "target"
+            servedReads: 0
+      argo:
+        syncRequests: 0
+      complete: false
+      confighub:
+        mutations:
+          attempts: 0
+          byVerb:
+            []
+          expectedRefusals: 0
+          succeeded: 0
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: null
+          byPurpose:
+            -
+              byVerb:
+                -
+                  calls: 51
+                  verb: "cub.unit.data"
+              commands: 51
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 1
+                  verb: "cub.context.get"
+                -
+                  calls: 1
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 1
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 1
+                  verb: "cub.space.list"
+                -
+                  calls: 1
+                  verb: "cub.target.list"
+                -
+                  calls: 1
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 9
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                []
+              commands: 0
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 1
+              verb: "cub.context.get"
+            -
+              calls: 1
+              verb: "cub.link.list"
+            -
+              calls: 1
+              verb: "cub.organization.list"
+            -
+              calls: 1
+              verb: "cub.release.list"
+            -
+              calls: 1
+              verb: "cub.space.get"
+            -
+              calls: 1
+              verb: "cub.space.list"
+            -
+              calls: 1
+              verb: "cub.target.list"
+            -
+              calls: 51
+              verb: "cub.unit.data"
+            -
+              calls: 1
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 60
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 3342
+      milestones:
+        firstArgoAcceptedCluster: null
+        firstArgoAcceptedMs: null
+        preArgoWallElapsedMs: null
+      runClass: "idempotent-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 1
+            elapsedMs: 39
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 1
+            elapsedMs: 2281
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 1
+            elapsedMs: 577
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 1
+            elapsedMs: 365
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 1
+            elapsedMs: 548
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 1
+            elapsedMs: 458
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 1
+            elapsedMs: 429
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 51
+            elapsedMs: 35114
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.data"
+          -
+            calls: 1
+            elapsedMs: 1211
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 1
+            elapsedMs: 394
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 1
+            elapsedMs: 230
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 1
+            elapsedMs: 19
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+        calls: 62
+        unexpectedFailures: 0
+      waits:
+        byReason:
+          []
+        explicitElapsedMs: 0
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 45006
+    result: "failed"
+    runClass: "incomplete-apply"
+    sequence: 46
+    startedAt: "2026-08-26T12:54:56.155Z"
+  -
+    actionCount: 23
+    completedAt: "2026-08-26T13:06:50.598Z"
+    error: "release/publish: ConfigHub Space state changed after the decision; retry from a fresh apply snapshot"
+    executionFingerprint: "sha256:de14ef2a99b6c9be7cc98de2be4cc917e5c8e7d1075882775a5afc549126e22d"
+    id: "5280867e-18f0-41cb-810b-6c2e99c14521"
+    performance:
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+          - "pre-release-and-argo"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "space"
+            servedReads: 67
+          -
+            initialListCalls: 1
+            invalidations: 8
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "unit"
+            servedReads: 696
+          -
+            initialListCalls: 1
+            invalidations: 8
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "release"
+            servedReads: 18
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "link"
+            servedReads: 114
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "target"
+            servedReads: 135
+      argo:
+        syncRequests: 7
+      complete: false
+      confighub:
+        mutations:
+          attempts: 8
+          byVerb:
+            -
+              attempts: 8
+              attributedSucceeded: 8
+              expectedRefusals: 0
+              succeeded: 8
+              unexpectedFailures: 0
+              verb: "cub.release.publish"
+          expectedRefusals: 0
+          succeeded: 8
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: 120
+          byPurpose:
+            -
+              byVerb:
+                -
+                  calls: 460
+                  verb: "cub.unit.data"
+              commands: 460
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 1
+                  verb: "cub.context.get"
+                -
+                  calls: 2
+                  verb: "cub.filter.get"
+                -
+                  calls: 38
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 36
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 30
+                  verb: "cub.space.list"
+                -
+                  calls: 21
+                  verb: "cub.target.get"
+                -
+                  calls: 8
+                  verb: "cub.target.list"
+                -
+                  calls: 2
+                  verb: "cub.trigger.get"
+                -
+                  calls: 63
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 204
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                -
+                  calls: 9
+                  verb: "cub.context.get"
+                -
+                  calls: 9
+                  verb: "cub.organization.list"
+                -
+                  calls: 9
+                  verb: "cub.space.get"
+              commands: 27
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 10
+              verb: "cub.context.get"
+            -
+              calls: 2
+              verb: "cub.filter.get"
+            -
+              calls: 38
+              verb: "cub.link.list"
+            -
+              calls: 10
+              verb: "cub.organization.list"
+            -
+              calls: 36
+              verb: "cub.release.list"
+            -
+              calls: 10
+              verb: "cub.space.get"
+            -
+              calls: 30
+              verb: "cub.space.list"
+            -
+              calls: 21
+              verb: "cub.target.get"
+            -
+              calls: 8
+              verb: "cub.target.list"
+            -
+              calls: 2
+              verb: "cub.trigger.get"
+            -
+              calls: 460
+              verb: "cub.unit.data"
+            -
+              calls: 63
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 691
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 24110
+      milestones:
+        firstArgoAcceptedCluster: "hx-app-dev"
+        firstArgoAcceptedMs: 105322
+        preArgoWallElapsedMs: 105284
+      runClass: "changed-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 10
+            elapsedMs: 547
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 2
+            elapsedMs: 1083
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.filter.get"
+          -
+            calls: 38
+            elapsedMs: 36795
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 10
+            elapsedMs: 5715
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 36
+            elapsedMs: 17600
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 8
+            elapsedMs: 7704
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.publish"
+          -
+            calls: 10
+            elapsedMs: 5619
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 30
+            elapsedMs: 15604
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 21
+            elapsedMs: 14197
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.get"
+          -
+            calls: 8
+            elapsedMs: 3257
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 2
+            elapsedMs: 1102
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.trigger.get"
+          -
+            calls: 460
+            elapsedMs: 325415
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.data"
+          -
+            calls: 63
+            elapsedMs: 40595
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 1
+            elapsedMs: 416
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 4
+            elapsedMs: 70
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "docker.execute"
+          -
+            calls: 3
+            elapsedMs: 429
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 8
+            elapsedMs: 406
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.annotate"
+          -
+            calls: 90
+            elapsedMs: 4269
+            expectedFailures: 2
+            unexpectedFailures: 0
+            verb: "kubectl.get"
+          -
+            calls: 7
+            elapsedMs: 426
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.patch"
+          -
+            calls: 2
+            elapsedMs: 268
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.wait"
+          -
+            calls: 1
+            elapsedMs: 20
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+          -
+            calls: 30
+            elapsedMs: 87159
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "sleep.wait"
+        calls: 844
+        unexpectedFailures: 0
+      waits:
+        byReason:
+          -
+            calls: 1
+            elapsedMs: 5007
+            reason: "argo-active-operation"
+            requestedMs: 5000
+          -
+            calls: 21
+            elapsedMs: 42117
+            reason: "argo-refresh-ack"
+            requestedMs: 42000
+          -
+            calls: 8
+            elapsedMs: 40035
+            reason: "argo-retry-backoff"
+            requestedMs: 40000
+        explicitElapsedMs: 87159
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 592806
+    result: "failed"
+    runClass: "incomplete-apply"
+    sequence: 47
+    startedAt: "2026-08-26T12:57:01.464Z"
+  -
+    actionCount: 46
+    completedAt: "2026-08-26T13:35:01.401Z"
+    error: "hx-web-staging/hx-web-deployment: one promotion advanced the head by 2, expected zero or one revision"
+    executionFingerprint: "sha256:a49ce3384341ec05a07ed995f0a86fc733ebe19e48d37819558178f90f5b8859"
+    id: "d0cbff5f-14d7-4882-8047-9a468a7c65b3"
+    performance:
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+          - "pre-release-and-argo"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 2
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "space"
+            servedReads: 80
+          -
+            initialListCalls: 1
+            invalidations: 27
+            mutationRefreshCalls: 2
+            phaseRefreshListCalls: 1
+            resource: "unit"
+            servedReads: 880
+          -
+            initialListCalls: 1
+            invalidations: 11
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "release"
+            servedReads: 24
+          -
+            initialListCalls: 1
+            invalidations: 14
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "link"
+            servedReads: 156
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "target"
+            servedReads: 153
+      argo:
+        syncRequests: 9
+      complete: false
+      confighub:
+        mutations:
+          attempts: 27
+          byVerb:
+            -
+              attempts: 12
+              attributedSucceeded: 12
+              expectedRefusals: 0
+              succeeded: 12
+              unexpectedFailures: 0
+              verb: "cub.link.update"
+            -
+              attempts: 9
+              attributedSucceeded: 9
+              expectedRefusals: 0
+              succeeded: 9
+              unexpectedFailures: 0
+              verb: "cub.release.publish"
+            -
+              attempts: 2
+              attributedSucceeded: 2
+              expectedRefusals: 0
+              succeeded: 2
+              unexpectedFailures: 0
+              verb: "cub.unit.approve"
+            -
+              attempts: 2
+              attributedSucceeded: 2
+              expectedRefusals: 0
+              succeeded: 2
+              unexpectedFailures: 0
+              verb: "cub.unit.update"
+            -
+              attempts: 2
+              attributedSucceeded: 2
+              expectedRefusals: 0
+              succeeded: 2
+              unexpectedFailures: 0
+              verb: "cub.variant.promote"
+          expectedRefusals: 0
+          succeeded: 27
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: 120
+          byPurpose:
+            -
+              byVerb:
+                -
+                  calls: 842
+                  verb: "cub.unit.data"
+              commands: 842
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 1
+                  verb: "cub.context.get"
+                -
+                  calls: 2
+                  verb: "cub.filter.get"
+                -
+                  calls: 428
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 350
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 130
+                  verb: "cub.space.list"
+                -
+                  calls: 37
+                  verb: "cub.target.get"
+                -
+                  calls: 7
+                  verb: "cub.target.list"
+                -
+                  calls: 2
+                  verb: "cub.trigger.get"
+                -
+                  calls: 492
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 1452
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                -
+                  calls: 27
+                  verb: "cub.context.get"
+                -
+                  calls: 27
+                  verb: "cub.organization.list"
+                -
+                  calls: 27
+                  verb: "cub.space.get"
+              commands: 81
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 28
+              verb: "cub.context.get"
+            -
+              calls: 2
+              verb: "cub.filter.get"
+            -
+              calls: 428
+              verb: "cub.link.list"
+            -
+              calls: 28
+              verb: "cub.organization.list"
+            -
+              calls: 350
+              verb: "cub.release.list"
+            -
+              calls: 28
+              verb: "cub.space.get"
+            -
+              calls: 130
+              verb: "cub.space.list"
+            -
+              calls: 37
+              verb: "cub.target.get"
+            -
+              calls: 7
+              verb: "cub.target.list"
+            -
+              calls: 2
+              verb: "cub.trigger.get"
+            -
+              calls: 842
+              verb: "cub.unit.data"
+            -
+              calls: 492
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 2375
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 29100
+      milestones:
+        firstArgoAcceptedCluster: "hx-app-dev"
+        firstArgoAcceptedMs: 114911
+        preArgoWallElapsedMs: 114869
+      runClass: "changed-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 28
+            elapsedMs: 1413
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 2
+            elapsedMs: 1214
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.filter.get"
+          -
+            calls: 428
+            elapsedMs: 242007
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 12
+            elapsedMs: 12679
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.update"
+          -
+            calls: 28
+            elapsedMs: 15376
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 350
+            elapsedMs: 184821
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 9
+            elapsedMs: 7046
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.publish"
+          -
+            calls: 28
+            elapsedMs: 15816
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 130
+            elapsedMs: 67621
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 37
+            elapsedMs: 19644
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.get"
+          -
+            calls: 7
+            elapsedMs: 2955
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 2
+            elapsedMs: 1007
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.trigger.get"
+          -
+            calls: 2
+            elapsedMs: 1818
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.approve"
+          -
+            calls: 842
+            elapsedMs: 528876
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.data"
+          -
+            calls: 492
+            elapsedMs: 273870
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 2
+            elapsedMs: 1929
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.update"
+          -
+            calls: 2
+            elapsedMs: 1983
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.variant.promote"
+          -
+            calls: 1
+            elapsedMs: 390
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 4
+            elapsedMs: 109
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "docker.execute"
+          -
+            calls: 3
+            elapsedMs: 511
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 10
+            elapsedMs: 490
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.annotate"
+          -
+            calls: 139
+            elapsedMs: 6682
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "kubectl.get"
+          -
+            calls: 9
+            elapsedMs: 459
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.patch"
+          -
+            calls: 2
+            elapsedMs: 268
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.wait"
+          -
+            calls: 1
+            elapsedMs: 20
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+          -
+            calls: 42
+            elapsedMs: 114309
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "sleep.wait"
+        calls: 2612
+        unexpectedFailures: 0
+      waits:
+        byReason:
+          -
+            calls: 32
+            elapsedMs: 64251
+            reason: "argo-refresh-ack"
+            requestedMs: 64000
+          -
+            calls: 10
+            elapsedMs: 50058
+            reason: "argo-retry-backoff"
+            requestedMs: 50000
+        explicitElapsedMs: 114309
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 1532414
+    result: "failed"
+    runClass: "incomplete-apply"
+    sequence: 48
+    startedAt: "2026-08-26T13:09:32.722Z"
+  -
+    actionCount: 0
+    completedAt: "2026-08-26T13:43:22.215Z"
+    error: "Command failed: cub --context munch-cub unit data --space hx-cm-staging --where Slug IN ('hx-cm') -o json\nFailed: Get \"https://hub.confighub.com/api/space?where=Slug+%3D+%27hx-cm-staging%27\": read tcp 192.168.1.131:62122->52.14.120.176:443: read: connection reset by peer\n"
+    executionFingerprint: "sha256:d3e860ff9d8f9ac321694fb5b373ecf8df35da7445de3ce0dbf92c66d651db66"
+    id: "e2b4b1d1-6531-4c14-9136-b5e630a3f424"
+    performance:
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+          - "pre-release-and-argo"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "space"
+            servedReads: 49
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "unit"
+            servedReads: 605
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "release"
+            servedReads: 0
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "link"
+            servedReads: 123
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "target"
+            servedReads: 97
+      argo:
+        syncRequests: 0
+      complete: false
+      confighub:
+        mutations:
+          attempts: 0
+          byVerb:
+            []
+          expectedRefusals: 0
+          succeeded: 0
+          unattributedSucceeded: 0
+          unexpectedFailures: 0
+        reads:
+          beforeFirstDevAcceptedCommands: 140
+          byPurpose:
+            -
+              byVerb:
+                -
+                  calls: 156
+                  verb: "cub.unit.data"
+              commands: 156
+              purpose: "content"
+            -
+              byVerb:
+                -
+                  calls: 1
+                  verb: "cub.context.get"
+                -
+                  calls: 2
+                  verb: "cub.filter.get"
+                -
+                  calls: 8
+                  verb: "cub.link.list"
+                -
+                  calls: 1
+                  verb: "cub.organization.list"
+                -
+                  calls: 7
+                  verb: "cub.release.list"
+                -
+                  calls: 1
+                  verb: "cub.space.get"
+                -
+                  calls: 4
+                  verb: "cub.space.list"
+                -
+                  calls: 3
+                  verb: "cub.target.list"
+                -
+                  calls: 2
+                  verb: "cub.trigger.get"
+                -
+                  calls: 8
+                  verb: "cub.unit.list"
+                -
+                  calls: 1
+                  verb: "cub.version"
+              commands: 38
+              purpose: "metadata-discovery"
+            -
+              byVerb:
+                []
+              commands: 0
+              purpose: "mutation-target-pin"
+          byVerb:
+            -
+              calls: 1
+              verb: "cub.context.get"
+            -
+              calls: 2
+              verb: "cub.filter.get"
+            -
+              calls: 8
+              verb: "cub.link.list"
+            -
+              calls: 1
+              verb: "cub.organization.list"
+            -
+              calls: 7
+              verb: "cub.release.list"
+            -
+              calls: 1
+              verb: "cub.space.get"
+            -
+              calls: 4
+              verb: "cub.space.list"
+            -
+              calls: 3
+              verb: "cub.target.list"
+            -
+              calls: 2
+              verb: "cub.trigger.get"
+            -
+              calls: 156
+              verb: "cub.unit.data"
+            -
+              calls: 8
+              verb: "cub.unit.list"
+            -
+              calls: 1
+              verb: "cub.version"
+          commands: 194
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      localProcess:
+        wallOutsideSubprocessMs: 20636
+      milestones:
+        firstArgoAcceptedCluster: "hx-app-dev"
+        firstArgoAcceptedMs: 117575
+        preArgoWallElapsedMs: 117531
+      runClass: "idempotent-apply"
+      schemaVersion: 2
+      subprocesses:
+        byVerb:
+          -
+            calls: 1
+            elapsedMs: 127
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.context.get"
+          -
+            calls: 2
+            elapsedMs: 1104
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.filter.get"
+          -
+            calls: 8
+            elapsedMs: 9563
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.link.list"
+          -
+            calls: 1
+            elapsedMs: 531
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.organization.list"
+          -
+            calls: 7
+            elapsedMs: 3342
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.release.list"
+          -
+            calls: 1
+            elapsedMs: 592
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.get"
+          -
+            calls: 4
+            elapsedMs: 2252
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.space.list"
+          -
+            calls: 3
+            elapsedMs: 1239
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.target.list"
+          -
+            calls: 2
+            elapsedMs: 1086
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.trigger.get"
+          -
+            calls: 156
+            elapsedMs: 249176
+            expectedFailures: 0
+            unexpectedFailures: 1
+            verb: "cub.unit.data"
+          -
+            calls: 8
+            elapsedMs: 6439
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.unit.list"
+          -
+            calls: 1
+            elapsedMs: 432
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "cub.version"
+          -
+            calls: 4
+            elapsedMs: 77
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "docker.execute"
+          -
+            calls: 3
+            elapsedMs: 531
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kind.get.clusters"
+          -
+            calls: 57
+            elapsedMs: 2186
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "kubectl.get"
+          -
+            calls: 2
+            elapsedMs: 264
+            expectedFailures: 0
+            unexpectedFailures: 0
+            verb: "kubectl.wait"
+          -
+            calls: 1
+            elapsedMs: 19
+            expectedFailures: 1
+            unexpectedFailures: 0
+            verb: "pgrep.scan"
+        calls: 261
+        unexpectedFailures: 1
+      waits:
+        byReason:
+          []
+        explicitElapsedMs: 0
+        unclassifiedExplicitMs: 0
+      wallElapsedMs: 299598
+    result: "failed"
+    runClass: "incomplete-apply"
+    sequence: 49
+    startedAt: "2026-08-26T13:38:26.286Z"
+  -
+    executionFingerprint: "sha256:d3e860ff9d8f9ac321694fb5b373ecf8df35da7445de3ce0dbf92c66d651db66"
+    id: "a27fc6a3-cd01-40c7-85ec-b1be539aa4f7"
+    result: "failed"
+    sequence: 50
+    startedAt: "2026-08-26T13:44:11.226Z"
+    runClass: "incomplete-apply"
+    actionCount: 5
+    error: "hx-web-prod-a/hx-web-deployment: two-revision promotion is not one content-identical, attributable UpgradeUnit operation"
+    performance:
+      schemaVersion: 2
+      fixtureID: "kubara-v0-13-0-four-cluster-warm-v1"
+      runClass: "changed-apply"
+      complete: false
+      wallElapsedMs: 367187
+      subprocesses:
+        calls: 595
+        unexpectedFailures: 0
+        byVerb:
+          -
+            verb: "cub.context.get"
+            calls: 4
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 311
+          -
+            verb: "cub.filter.get"
+            calls: 2
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 1142
+          -
+            verb: "cub.link.list"
+            calls: 63
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 42978
+          -
+            verb: "cub.organization.list"
+            calls: 4
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 2369
+          -
+            verb: "cub.release.list"
+            calls: 53
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 28818
+          -
+            verb: "cub.release.publish"
+            calls: 1
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 659
+          -
+            verb: "cub.revision.list"
+            calls: 2
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 1336
+          -
+            verb: "cub.space.get"
+            calls: 4
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 2557
+          -
+            verb: "cub.space.list"
+            calls: 20
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 10996
+          -
+            verb: "cub.target.get"
+            calls: 5
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 2749
+          -
+            verb: "cub.target.list"
+            calls: 4
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 1649
+          -
+            verb: "cub.trigger.get"
+            calls: 2
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 1123
+          -
+            verb: "cub.unit.data"
+            calls: 270
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 185862
+          -
+            verb: "cub.unit.list"
+            calls: 70
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 42271
+          -
+            verb: "cub.unit.update"
+            calls: 1
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 1078
+          -
+            verb: "cub.variant.promote"
+            calls: 1
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 1035
+          -
+            verb: "cub.version"
+            calls: 1
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 460
+          -
+            verb: "docker.execute"
+            calls: 4
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 72
+          -
+            verb: "kind.get.clusters"
+            calls: 3
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 590
+          -
+            verb: "kubectl.annotate"
+            calls: 1
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 42
+          -
+            verb: "kubectl.get"
+            calls: 71
+            expectedFailures: 1
+            unexpectedFailures: 0
+            elapsedMs: 3011
+          -
+            verb: "kubectl.patch"
+            calls: 1
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 49
+          -
+            verb: "kubectl.wait"
+            calls: 2
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 264
+          -
+            verb: "pgrep.scan"
+            calls: 1
+            expectedFailures: 1
+            unexpectedFailures: 0
+            elapsedMs: 19
+          -
+            verb: "sleep.wait"
+            calls: 5
+            expectedFailures: 0
+            unexpectedFailures: 0
+            elapsedMs: 13030
+      confighub:
+        reads:
+          commands: 504
+          beforeFirstDevAcceptedCommands: 140
+          byVerb:
+            -
+              verb: "cub.context.get"
+              calls: 4
+            -
+              verb: "cub.filter.get"
+              calls: 2
+            -
+              verb: "cub.link.list"
+              calls: 63
+            -
+              verb: "cub.organization.list"
+              calls: 4
+            -
+              verb: "cub.release.list"
+              calls: 53
+            -
+              verb: "cub.revision.list"
+              calls: 2
+            -
+              verb: "cub.space.get"
+              calls: 4
+            -
+              verb: "cub.space.list"
+              calls: 20
+            -
+              verb: "cub.target.get"
+              calls: 5
+            -
+              verb: "cub.target.list"
+              calls: 4
+            -
+              verb: "cub.trigger.get"
+              calls: 2
+            -
+              verb: "cub.unit.data"
+              calls: 270
+            -
+              verb: "cub.unit.list"
+              calls: 70
+            -
+              verb: "cub.version"
+              calls: 1
+          byPurpose:
+            -
+              purpose: "content"
+              commands: 270
+              byVerb:
+                -
+                  verb: "cub.unit.data"
+                  calls: 270
+            -
+              purpose: "metadata-discovery"
+              commands: 225
+              byVerb:
+                -
+                  verb: "cub.context.get"
+                  calls: 1
+                -
+                  verb: "cub.filter.get"
+                  calls: 2
+                -
+                  verb: "cub.link.list"
+                  calls: 63
+                -
+                  verb: "cub.organization.list"
+                  calls: 1
+                -
+                  verb: "cub.release.list"
+                  calls: 53
+                -
+                  verb: "cub.revision.list"
+                  calls: 2
+                -
+                  verb: "cub.space.get"
+                  calls: 1
+                -
+                  verb: "cub.space.list"
+                  calls: 20
+                -
+                  verb: "cub.target.get"
+                  calls: 5
+                -
+                  verb: "cub.target.list"
+                  calls: 4
+                -
+                  verb: "cub.trigger.get"
+                  calls: 2
+                -
+                  verb: "cub.unit.list"
+                  calls: 70
+                -
+                  verb: "cub.version"
+                  calls: 1
+            -
+              purpose: "mutation-target-pin"
+              commands: 9
+              byVerb:
+                -
+                  verb: "cub.context.get"
+                  calls: 3
+                -
+                  verb: "cub.organization.list"
+                  calls: 3
+                -
+                  verb: "cub.space.get"
+                  calls: 3
+        mutations:
+          attempts: 3
+          succeeded: 3
+          expectedRefusals: 0
+          unexpectedFailures: 0
+          unattributedSucceeded: 0
+          byVerb:
+            -
+              verb: "cub.release.publish"
+              attempts: 1
+              succeeded: 1
+              attributedSucceeded: 1
+              expectedRefusals: 0
+              unexpectedFailures: 0
+            -
+              verb: "cub.unit.update"
+              attempts: 1
+              succeeded: 1
+              attributedSucceeded: 1
+              expectedRefusals: 0
+              unexpectedFailures: 0
+            -
+              verb: "cub.variant.promote"
+              attempts: 1
+              succeeded: 1
+              attributedSucceeded: 1
+              expectedRefusals: 0
+              unexpectedFailures: 0
+      waits:
+        explicitElapsedMs: 13030
+        unclassifiedExplicitMs: 0
+        byReason:
+          -
+            reason: "argo-refresh-ack"
+            calls: 4
+            requestedMs: 8000
+            elapsedMs: 8023
+          -
+            reason: "argo-retry-backoff"
+            calls: 1
+            requestedMs: 5000
+            elapsedMs: 5007
+      milestones:
+        preArgoWallElapsedMs: 120317
+        firstArgoAcceptedMs: 120358
+        firstArgoAcceptedCluster: "hx-app-dev"
+      argo:
+        syncRequests: 1
+      localProcess:
+        wallOutsideSubprocessMs: 22714
+      applyReadCache:
+        consistency: "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint"
+        mode: "phase-scoped-mutation-aware-organization-wide"
+        phaseBoundaries:
+          - "apply-start"
+          - "pre-release-and-argo"
+        resources:
+          -
+            initialListCalls: 1
+            invalidations: 1
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "space"
+            servedReads: 51
+          -
+            initialListCalls: 1
+            invalidations: 3
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "unit"
+            servedReads: 645
+          -
+            initialListCalls: 1
+            invalidations: 2
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "release"
+            servedReads: 4
+          -
+            initialListCalls: 1
+            invalidations: 1
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "link"
+            servedReads: 127
+          -
+            initialListCalls: 1
+            invalidations: 0
+            mutationRefreshCalls: 0
+            phaseRefreshListCalls: 1
+            resource: "target"
+            servedReads: 105
+    completedAt: "2026-08-26T13:50:14.324Z"
 kind: "KubaraMiniIDPApplyAttemptLedger"
 metadata:
   name: "kubara-v0-13-0-confighub-mini-idp-attempts"

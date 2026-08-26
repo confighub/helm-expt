@@ -104,7 +104,9 @@ const APPROVAL_TRIGGER = "require-approval";
 const APPROVAL_FILTER = "prod-approval";
 const APPROVAL_GATE = `${CONTROL_SPACE}/${APPROVAL_TRIGGER}/vet-approvedby`;
 const PROD_SAFETY_GATE = "prod-critical";
-const SCENARIO_VERSION = "hx-web-promotion-v2";
+// v3 is the reviewed replay after a later demo changed the retained v2 base,
+// production Unit, release digest, and Argo sync policy outside the journal.
+const SCENARIO_VERSION = "hx-web-promotion-v3";
 const SCENARIO_STEPS = [
   "merge-bases-reset",
   "initial-rollout",
@@ -274,6 +276,7 @@ const READ_ONLY_CUB_COMMAND_PAIRS = new Set([
   "filter/get",
   "link/list",
   "release/list",
+  "revision/data", "revision/list",
   "space/get", "space/list",
   "target/get", "target/list",
   "trigger/get",
@@ -289,6 +292,7 @@ const SPACE_READ_SELECT = "OrganizationID,Labels,Annotations,ReleaseTargetID,Tri
 const RELEASE_READ_SELECT = "TagID,Digest,ManifestDigest,ReleaseNum,UnitCount,CreatedAt";
 const TARGET_READ_SELECT = "SpaceID,ProviderType,ToolchainType,Annotations";
 const SPACE_DECISION_FIELDS = Object.freeze(["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]);
+const SPACE_OBSERVATION_ANNOTATIONS = new Set(["confighub.com/live-status"]);
 const UNIT_DECISION_FIELDS = Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "ConfigData", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]);
 const RELEASE_DECISION_FIELDS = Object.freeze(["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]);
 const LINK_DECISION_FIELDS = Object.freeze(["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]);
@@ -800,6 +804,7 @@ function firstStableDifference(expected, actual, path = "$") {
   }
   const render = (value) => {
     const text = stableJson(value);
+    if (text === undefined) return "undefined";
     return text.length <= 240 ? text : `${text.slice(0, 237)}...`;
   };
   return `${path} expected=${render(expected)} actual=${render(actual)}`;
@@ -3765,8 +3770,8 @@ function assertFreshSpaceDecision(prefix) {
   const fresh = fetchSpaces();
   check(
     sameCachedRows(
-      snapshotRows([...cached.values()], SPACE_DECISION_FIELDS),
-      snapshotRows([...fresh.values()], SPACE_DECISION_FIELDS),
+      spaceDecisionRows([...cached.values()]),
+      spaceDecisionRows([...fresh.values()]),
     ),
     `${prefix}: ConfigHub Space state changed after the decision; retry from a fresh apply snapshot`,
   );
@@ -3930,8 +3935,8 @@ function assertApplyMutationDecisionStillCurrent(args) {
   if (["cluster", "space", "variant"].includes(resource)) {
     check(activeApplyReadSnapshot.spacesValid, `${resource}/${verb}: cached Space decision was invalidated before write`);
     const fresh = fetchSpaces();
-    const cachedRows = snapshotRows([...activeApplyReadSnapshot.spaces.values()], SPACE_DECISION_FIELDS);
-    const freshRows = snapshotRows([...fresh.values()], SPACE_DECISION_FIELDS);
+    const cachedRows = spaceDecisionRows([...activeApplyReadSnapshot.spaces.values()]);
+    const freshRows = spaceDecisionRows([...fresh.values()]);
     check(
       sameCachedRows(cachedRows, freshRows),
       `${resource}/${verb}: ConfigHub Space state changed after the cached decision (${firstStableDifference(cachedRows, freshRows) ?? "unknown difference"}); retry from a fresh apply snapshot`,
@@ -4329,10 +4334,22 @@ function attachUnitConfigDataBulkWith(space, rows, { readBulk, readSingle }) {
   const bySlug = new Map();
   for (let i = 0; i < rows.length; i += UNIT_DATA_BULK_CHUNK) {
     const chunk = rows.slice(i, i + UNIT_DATA_BULK_CHUNK);
+    const expectedBySlug = new Map(chunk.map((unit) => [unit.Slug, unit]));
     const clause = `Slug IN (${chunk.map((unit) => `'${unit.Slug}'`).join(", ")})`;
     const payload = readBulk(["unit", "data", "--space", space, "--where", clause]);
-    for (const row of Array.isArray(payload) ? payload : []) {
-      if (typeof row?.Slug === "string") bySlug.set(row.Slug, row.Data ?? "");
+    check(Array.isArray(payload), `${space}: bulk Unit data response is not a row array`);
+    for (const row of payload) {
+      const unit = expectedBySlug.get(row?.Slug);
+      check(unit, `${space}/${row?.Slug ?? "unknown"}: bulk Unit data returned an unexpected Unit`);
+      check(!bySlug.has(row.Slug), `${space}/${row.Slug}: bulk Unit data returned a duplicate Unit`);
+      if (row.SpaceID !== undefined) {
+        check(row.SpaceID === unit.SpaceID, `${space}/${row.Slug}: bulk Unit data returned the wrong Space`);
+      }
+      if (row.DataHash !== undefined) {
+        check(row.DataHash === unit.DataHash, `${space}/${row.Slug}: bulk Unit data hash differs from listed metadata`);
+      }
+      check(typeof row.Data === "string", `${space}/${row.Slug}: bulk Unit data omitted its configuration`);
+      bySlug.set(row.Slug, row.Data);
     }
   }
   for (const unit of rows) {
@@ -4440,6 +4457,31 @@ function selfTestBulkUnitDataRead() {
     mismatch = error.message;
   }
   check(mismatch.includes("Unit data does not match its DataHash"), "performance self-test: bad bulk Unit data was accepted");
+
+  let unexpected = "";
+  try {
+    attachUnitConfigDataBulkWith(space, [{ Slug: "expected", DataHash: sha256("value\n") }], {
+      readBulk: () => [{ Slug: "unexpected", Data: "value\n" }],
+      readSingle: () => {},
+    });
+  } catch (error) {
+    unexpected = error.message;
+  }
+  check(unexpected.includes("returned an unexpected Unit"), "performance self-test: unexpected bulk Unit row was accepted");
+
+  let endpointHashMismatch = "";
+  try {
+    attachUnitConfigDataBulkWith(space, [{ Slug: "hash-row", DataHash: sha256("value\n") }], {
+      readBulk: () => [{ Slug: "hash-row", DataHash: sha256("different\n"), Data: "value\n" }],
+      readSingle: () => {},
+    });
+  } catch (error) {
+    endpointHashMismatch = error.message;
+  }
+  check(
+    endpointHashMismatch.includes("bulk Unit data hash differs from listed metadata"),
+    "performance self-test: bulk endpoint hash mismatch was accepted",
+  );
 }
 
 function fetchTarget(space) {
@@ -4952,13 +4994,13 @@ function captureOrganizationReadSnapshot(spaces) {
   const unitsByRef = new Map();
   for (const [space, rows] of unitsBySpace) {
     rows.sort((left, right) => left.Slug.localeCompare(right.Slug));
+    // Read every body for this Space in bounded endpoint calls. A missing row
+    // falls back to the exact single-Unit endpoint, while every returned body
+    // must still match the metadata hash captured above.
+    attachUnitConfigDataBulk(space, rows);
     for (const unit of rows) {
       const ref = `${space}/${unit.Slug}`;
       check(!unitsByRef.has(ref), `${ref}: organization snapshot returned duplicate Unit slugs`);
-      // The body is part of every authoritative snapshot. Read, hash, and decode
-      // it at ingress so malformed, truncated, or mismatched bodies can never be
-      // cached as trusted evidence merely because a later path did not read it.
-      attachUnitConfigData(space, unit);
       decodeBulkUnitData(unit, ref);
       unitsByRef.set(ref, unit);
     }
@@ -4983,7 +5025,7 @@ function captureOrganizationReadSnapshot(spaces) {
     targetsBySpace.set(targetSpace, target);
   }
   const canonicalRows = {
-    space: snapshotRows([...spaces.values()], ["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]),
+    space: spaceDecisionRows([...spaces.values()]),
     unit: snapshotRows(units, UNIT_DECISION_FIELDS),
     release: snapshotRows(releases, ["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]),
     link: snapshotRows(links, ["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]),
@@ -5043,6 +5085,15 @@ function assertSnapshotRow(row, slugBySpaceID, resource) {
 function snapshotRows(rows, fields) {
   return rows.map((row) => Object.fromEntries(fields.map((field) => [field, row[field] ?? null])))
     .sort((left, right) => stableJson(left).localeCompare(stableJson(right)));
+}
+
+function spaceDecisionRows(rows) {
+  return snapshotRows(rows.map((row) => ({
+    ...row,
+    Annotations: Object.fromEntries(Object.entries(row.Annotations ?? {}).filter(
+      ([key]) => !SPACE_OBSERVATION_ANNOTATIONS.has(key),
+    )),
+  })), SPACE_DECISION_FIELDS);
 }
 
 function expectedArgoApplicationSlugs(desired, fleetItem) {
@@ -7500,8 +7551,9 @@ function validatedProtectedNamespaceJournalAttempts() {
 }
 
 function validatedScenarioJournal() {
-  const item = readOperationJournal().scenario;
-  if (!item) return null;
+  const operationJournal = readOperationJournal();
+  const item = operationJournal.scenario;
+  if (!item) return reviewedArchivedScenarioMigration(operationJournal);
   if (item.version !== SCENARIO_VERSION) {
     check(item.state === "completed", "cannot migrate an in-flight hx-web scenario journal to a new version");
     updateOperationJournal((journal) => {
@@ -7565,6 +7617,20 @@ function validatedScenarioJournal() {
     );
   }
   return item;
+}
+
+function reviewedArchivedScenarioMigration(operationJournal) {
+  const archived = [...(operationJournal.scenarioHistory ?? [])].reverse().find(
+    (item) => item?.version !== SCENARIO_VERSION
+      && item?.state === "completed"
+      && stableJson(item.completedSteps) === stableJson(SCENARIO_STEPS),
+  );
+  if (!archived) return null;
+  return {
+    state: "archived",
+    archivedVersion: archived.version,
+    migrationApprovedByVersion: SCENARIO_VERSION,
+  };
 }
 
 function validatedFleetBootstrapJournal() {
@@ -8367,11 +8433,11 @@ function promotionBlendDifference(actual, before, after, path = "$") {
   return `${path}: value ${stableJson(actual)} matches neither reviewed value`;
 }
 
-function assertHxWebPromotionBlend(space, beforePayloadKey, afterPayloadKey) {
+function assertReviewedPromotionBlendPayload(value, space, beforePayloadKey, afterPayloadKey, label = space) {
   const beforePayload = inputs.payloads.get(beforePayloadKey);
   const afterPayload = inputs.payloads.get(afterPayloadKey);
-  check(beforePayload && afterPayload, `${space}: reviewed promotion payload pair is missing`);
-  const actualDocs = parseDocs(readUnitData(space, "hx-web-deployment"));
+  check(beforePayload && afterPayload, `${label}: reviewed promotion payload pair is missing`);
+  const actualDocs = parseDocs(value);
   const beforeDocs = parseDocs(beforePayload.value);
   const afterDocs = parseDocs(afterPayload.value);
   const byIdentity = (docs) => new Map(docs.map((doc) => [identityFor(doc), doc]));
@@ -8381,12 +8447,21 @@ function assertHxWebPromotionBlend(space, beforePayloadKey, afterPayloadKey) {
   check(
     stableJson([...actual.keys()].sort()) === stableJson([...before.keys()].sort())
       && stableJson([...actual.keys()].sort()) === stableJson([...after.keys()].sort()),
-    `${space}: promotion changed the reviewed Kubernetes identity set`,
+    `${label}: promotion changed the reviewed Kubernetes identity set`,
   );
   for (const identity of [...actual.keys()].sort()) {
     const difference = promotionBlendDifference(actual.get(identity), before.get(identity), after.get(identity));
-    check(!difference, `${space}/${identity}: promotion produced an undeclared merge result: ${difference}`);
+    check(!difference, `${label}/${identity}: promotion produced an undeclared merge result: ${difference}`);
   }
+}
+
+function assertHxWebPromotionBlend(space, beforePayloadKey, afterPayloadKey) {
+  assertReviewedPromotionBlendPayload(
+    readUnitData(space, "hx-web-deployment"),
+    space,
+    beforePayloadKey,
+    afterPayloadKey,
+  );
 }
 
 function assertScenarioPromotionPost(before, after, space, beforePayloadKey, afterPayloadKey) {
@@ -8411,7 +8486,7 @@ function assertScenarioPromotionPost(before, after, space, beforePayloadKey, aft
     const current = right.units.get(ref);
     assertScenarioUnitIdentity(prior, current);
     const delta = Number(current.headRevisionNum) - Number(prior.headRevisionNum);
-    check(delta >= 0 && delta <= 1, `${ref}: one promotion advanced the head by ${delta}, expected zero or one revision`);
+    assertPromotionRevisionDelta(space, prior, current, { beforePayloadKey, afterPayloadKey });
     check(current.lastAppliedRevisionNum === prior.lastAppliedRevisionNum, `${ref}: promotion changed the applied revision before publication`);
     if (delta === 0) {
       check(
@@ -8439,6 +8514,66 @@ function assertScenarioPromotionPost(before, after, space, beforePayloadKey, aft
       current.upstreamLastMergedRevisionNum === unitsByID.get(current.toUnitID)?.headRevisionNum
         && current.downstreamLastMergedRevisionNum === unitsByID.get(current.fromUnitID)?.headRevisionNum,
       `${ref}: promotion did not bind the merge base to the exact post-promotion heads`,
+    );
+  }
+}
+
+function assertPromotionRevisionDelta(space, prior, current, {
+  readRevisions = (slug, first, last) => unwrapRows(cubJson([
+    "revision", "list", slug,
+    "--space", space,
+    "--where", `RevisionNum >= ${first} AND RevisionNum <= ${last}`,
+  ]), "Revision"),
+  readRevisionData = (slug, revisionNum) => cub([
+    "revision", "data", slug, String(revisionNum), "--space", space,
+  ]),
+  beforePayloadKey = null,
+  afterPayloadKey = null,
+} = {}) {
+  const ref = current.ref;
+  const delta = Number(current.headRevisionNum) - Number(prior.headRevisionNum);
+  check(delta >= 0 && delta <= 2, `${ref}: one promotion advanced the head by ${delta}, expected no more than two revisions`);
+  if (delta <= 1) return;
+
+  const slug = ref.split("/")[1];
+  check(slug === "hx-web-deployment", `${ref}: two-revision promotion escaped the reviewed protected-field Unit`);
+  const first = Number(prior.headRevisionNum) + 1;
+  const last = Number(current.headRevisionNum);
+  const description = `Promote ${SCENARIO_VERSION} while preserving downstream departures`;
+  const rows = readRevisions(slug, first, last).sort(
+    (left, right) => Number(left.RevisionNum) - Number(right.RevisionNum),
+  );
+  check(rows.length === 2, `${ref}: two-revision promotion did not return exactly two authoritative revisions`);
+  check(
+    rows.every((row, index) => Number(row.RevisionNum) === first + index),
+    `${ref}: two-revision promotion is not one consecutive revision pair`,
+  );
+  check(
+    rows.every((row) => row.UnitID === current.id
+      && row.Source === "UpgradeUnit"
+      && row.Description === description
+      && UUID_PATTERN.test(row.RevisionID ?? "")
+      && Number.isFinite(Date.parse(row.CreatedAt ?? ""))
+      && /^[a-f0-9]{64}$/.test(row.DataHash ?? "")),
+    `${ref}: two-revision promotion is not one attributable UpgradeUnit operation`,
+  );
+  check(
+    rows[0].UserAgent === "cub" && rows[1].UserAgent === "ConfigHub",
+    `${ref}: two-revision promotion lacks the expected cub then ConfigHub attribution`,
+  );
+  check(rows[1].DataHash === current.dataHash, `${ref}: final promotion revision does not match the current Unit data`);
+  if (rows[0].DataHash === rows[1].DataHash) return;
+
+  check(beforePayloadKey && afterPayloadKey, `${ref}: two-stage promotion lacks its reviewed payload pair`);
+  for (const row of rows) {
+    const value = readRevisionData(slug, Number(row.RevisionNum));
+    check(sha256(value) === row.DataHash, `${ref}: revision ${row.RevisionNum} data does not match its authoritative hash`);
+    assertReviewedPromotionBlendPayload(
+      value,
+      space,
+      beforePayloadKey,
+      afterPayloadKey,
+      `${ref} revision ${row.RevisionNum}`,
     );
   }
 }
@@ -11377,6 +11512,119 @@ function selfTestReleaseRecovery() {
 }
 
 function selfTestScenarioOperationEvidence() {
+  const spaceFixture = {
+    OrganizationID: ORGANIZATION_ENTITY_ID,
+    SpaceID: "00000000-0000-4000-8000-000000000001",
+    Slug: "fixture",
+    Labels: { Environment: "Dev" },
+    Annotations: {
+      UpstreamSpaceID: "00000000-0000-4000-8000-000000000002",
+      "confighub.com/live-status": "first observation",
+    },
+    ReleaseTargetID: null,
+    TriggerFilterID: null,
+    TriggerIDs: [],
+    WhereTrigger: "",
+    DeleteGates: {},
+  };
+  check(
+    sameCachedRows(
+      spaceDecisionRows([spaceFixture]),
+      spaceDecisionRows([{ ...spaceFixture, Annotations: { ...spaceFixture.Annotations, "confighub.com/live-status": "later observation" } }]),
+    ),
+    "an argobot live-status observation changed ConfigHub release authority",
+  );
+  check(
+    !sameCachedRows(
+      spaceDecisionRows([spaceFixture]),
+      spaceDecisionRows([{ ...spaceFixture, Annotations: { ...spaceFixture.Annotations, UpstreamSpaceID: "00000000-0000-4000-8000-000000000003" } }]),
+    ),
+    "a controlled Space lineage change was omitted from ConfigHub release authority",
+  );
+
+  const promotionPrior = {
+    ref: "hx-web-staging/hx-web-deployment",
+    id: "00000000-0000-4000-8000-000000000004",
+    headRevisionNum: 14,
+    dataHash: "a".repeat(64),
+  };
+  const promotionCurrent = {
+    ...promotionPrior,
+    headRevisionNum: 16,
+    dataHash: "b".repeat(64),
+  };
+  const promotionRows = [15, 16].map((revisionNum, index) => ({
+    UnitID: promotionCurrent.id,
+    RevisionID: `00000000-0000-4000-8000-${String(index + 5).padStart(12, "0")}`,
+    RevisionNum: revisionNum,
+    DataHash: promotionCurrent.dataHash,
+    Source: "UpgradeUnit",
+    Description: `Promote ${SCENARIO_VERSION} while preserving downstream departures`,
+    CreatedAt: `2026-08-26T13:34:49.${index ? "602" : "588"}Z`,
+    UserAgent: index ? "ConfigHub" : "cub",
+  }));
+  assertPromotionRevisionDelta("hx-web-staging", promotionPrior, promotionCurrent, {
+    readRevisions: () => promotionRows,
+  });
+  let promotionRevisionFailure = null;
+  try {
+    assertPromotionRevisionDelta("hx-web-staging", promotionPrior, promotionCurrent, {
+      readRevisions: () => promotionRows.map((row, index) => (
+        index === 1 ? { ...row, DataHash: "c".repeat(64) } : row
+      )),
+    });
+  } catch (error) {
+    promotionRevisionFailure = error;
+  }
+  check(
+    promotionRevisionFailure?.message.includes("final promotion revision does not match"),
+    "a two-revision promotion whose final revision did not match the Unit was accepted",
+  );
+
+  const initialPromotionPayload = inputs.payloads.get("hx-web/base/hx-web-deployment/initial").value;
+  const v1PromotionPayload = inputs.payloads.get("hx-web/base/hx-web-deployment/v1").value;
+  const twoStageCurrent = {
+    ...promotionCurrent,
+    dataHash: sha256(v1PromotionPayload),
+  };
+  assertPromotionRevisionDelta("hx-web-prod-a", promotionPrior, twoStageCurrent, {
+    beforePayloadKey: "hx-web/base/hx-web-deployment/initial",
+    afterPayloadKey: "hx-web/base/hx-web-deployment/v1",
+    readRevisions: () => promotionRows.map((row, index) => ({
+      ...row,
+      DataHash: sha256(index ? v1PromotionPayload : initialPromotionPayload),
+    })),
+    readRevisionData: (_slug, revisionNum) => (
+      revisionNum === 15 ? initialPromotionPayload : v1PromotionPayload
+    ),
+  });
+
+  const interruptedMigration = reviewedArchivedScenarioMigration({
+    scenario: null,
+    scenarioHistory: [{
+      version: "hx-web-promotion-v2",
+      state: "completed",
+      completedSteps: [...SCENARIO_STEPS],
+    }],
+  });
+  check(
+    interruptedMigration?.state === "archived"
+      && interruptedMigration.archivedVersion === "hx-web-promotion-v2"
+      && interruptedMigration.migrationApprovedByVersion === SCENARIO_VERSION,
+    "a completed archived scenario did not survive an interrupted version migration",
+  );
+  check(
+    reviewedArchivedScenarioMigration({
+      scenario: null,
+      scenarioHistory: [{
+        version: SCENARIO_VERSION,
+        state: "completed",
+        completedSteps: [...SCENARIO_STEPS],
+      }],
+    }) === null,
+    "the current scenario version was mistaken for an archived migration",
+  );
+
   const refA = "hx-web-prod-a/hx-web-deployment";
   const refB = "hx-web-prod-b/hx-web-deployment";
   const idA = "11111111-1111-4111-8111-111111111111";
