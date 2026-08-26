@@ -62,7 +62,7 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "reviewed-no-target-facts-required"
     declared:
       {}
     requirements:
@@ -70,18 +70,20 @@ spec:
     actions:
       []
     review:
-      status: "not-recorded"
-      decision: "not-reviewed"
-      scope: ""
+      status: "reviewed"
+      decision: "no-separate-target-prerequisites"
+      scope: "cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base."
       evidence:
-        []
+        - "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml"
+        - "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-      declarationSource: ""
+      state: "no-target-facts-required"
+      reason: "The base review found no separate target prerequisite in this scope: cub-lk kind cluster, namespace monitoring, and ConfigHub OCI delivery through Argo CD for the supported server-only-ephemeral base."
+      declarationSource: "recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml"
       evidence:
-        []
-      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit empty targetFacts declaration plus targetFactsReview scope and evidence."
+        - "data/production-support-decisions/prometheus-community-prometheus/support-decision.yaml"
+        - "data/production-support-decisions/prometheus-community-prometheus/fresh-target-evidence-2026-06-05.yaml"
+      nextAction: ""
   settingSources:
     helmValues:
       status: "recorded"
@@ -95,7 +97,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "review-required"
+      status: "none-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 0
       lifecycleRouteCount: 0

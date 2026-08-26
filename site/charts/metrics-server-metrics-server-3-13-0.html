@@ -504,7 +504,7 @@
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
       <div class="card"><table>
         <thead><tr><th>Base variant</th><th>Helm values</th><th>ConfigHub changes</th><th>Install work</th></tr></thead>
-        <tbody><tr><td>default</td><td><a href="../../recipes/metrics-server/metrics-server/3.13.0/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.</td></tr><tr><td>external-tls-ca</td><td><a href="../../recipes/metrics-server/metrics-server/3.13.0/effective-values-external-tls-ca.yaml">effective-values-external-tls-ca.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>2 prerequisites recorded.</td></tr></tbody>
+        <tbody><tr><td>default</td><td><a href="../../recipes/metrics-server/metrics-server/3.13.0/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate install work is required.</td></tr><tr><td>external-tls-ca</td><td><a href="../../recipes/metrics-server/metrics-server/3.13.0/effective-values-external-tls-ca.yaml">effective-values-external-tls-ca.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>2 prerequisites recorded.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -644,7 +644,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-default.yaml">Open the full record.</a></dd>
-          <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
+          <dt>Prerequisites</dt><dd>The support review found no separate target prerequisite for cub-lk kind cluster, namespace kube-system, and ConfigHub OCI delivery through Argo CD for the supported default base. Evidence: <a href="https://github.com/confighub/helm-expt/blob/main/data/production-support-decisions/metrics-server-metrics-server/support-decision.yaml">Support decision</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/production-support-decisions/metrics-server-metrics-server/fresh-target-evidence-2026-06-05.yaml">Target evidence</a>.</dd>
           <dt>Next</dt><dd>Image policy decision recorded for a target scope; Create digest pinned bases or overrides for stricter scopes</dd>
           <dt>Reason</dt><dd>Promotion was tested and recorded in ConfigHub.</dd>
         </dl>

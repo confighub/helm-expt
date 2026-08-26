@@ -11,4 +11,11 @@ spec:
     kubeVersion: "1.30.0"
     apiVersions:
       []
+  targetFacts: {}
+  targetFactsReview:
+    decision: no-separate-target-prerequisites
+    scope: "cub-lk kind cluster, namespace loki, and ConfigHub OCI delivery through Argo CD for the supported single-binary-filesystem base."
+    evidence:
+      - data/production-support-decisions/grafana-loki/support-decision.yaml
+      - data/production-support-decisions/grafana-loki/fresh-target-evidence-2026-06-08.yaml
   hookPolicy: "no-hooks"

@@ -18,7 +18,7 @@ The generator emits files only for real base rows in the master matrix. Candidat
 | Intents with target facts declared by the base variant | 89 |
 | Intents with action records from observed prerequisite failures | 27 |
 | Lifecycle contract gaps named for follow-up | 10 |
-| Target-prerequisite reviews still missing | 156 |
+| Target-prerequisite reviews still missing | 144 |
 
 ## Contract Coverage
 
@@ -32,9 +32,10 @@ Every render intent now states whether its lifecycle and target-prerequisite con
 
 | Target-prerequisite state | Intents |
 | --- | ---: |
-| `actionable-gap` | 156 |
+| `actionable-gap` | 144 |
 | `attached` | 78 |
 | `attached-with-observed-actions` | 11 |
+| `no-target-facts-required` | 12 |
 
 Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need a route or target-prerequisite review.
 
