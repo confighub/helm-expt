@@ -104,9 +104,14 @@ const APPROVAL_TRIGGER = "require-approval";
 const APPROVAL_FILTER = "prod-approval";
 const APPROVAL_GATE = `${CONTROL_SPACE}/${APPROVAL_TRIGGER}/vet-approvedby`;
 const PROD_SAFETY_GATE = "prod-critical";
-// v3 is the reviewed replay after a later demo changed the retained v2 base,
+// v3 was the reviewed replay after a later demo changed the retained v2 base,
 // production Unit, release digest, and Argo sync policy outside the journal.
-const SCENARIO_VERSION = "hx-web-promotion-v3";
+// v4 is the reviewed re-execution of the identical scenario under the
+// endpoint-migrated toolchain: v3's only changed apply was interrupted by a
+// server fault after its mutations landed, so its receipt could never record
+// the completed changed run the idempotence contract requires. The v3 journal
+// is archived, not rewritten.
+const SCENARIO_VERSION = "hx-web-promotion-v4";
 const SCENARIO_STEPS = [
   "merge-bases-reset",
   "initial-rollout",
@@ -8240,15 +8245,19 @@ function scenarioOperationProofValid(scenario) {
     const rollbackApprovedHead = rollbackApproval?.approvedHeads?.find((item) => item.ref === ref);
     if (!rollback || !initialUnit || !sourceUnit || !finalUnit) return false;
     const finalRevisionDelta = Number(finalUnit.headRevisionNum) - Number(rollback.resultHeadRevisionNum);
+    const approvalBoundToFinalHead = rollbackApprovedHead?.id === finalUnit.id
+      && Number(rollbackApprovedHead.headRevisionNum) === Number(finalUnit.headRevisionNum)
+      && rollbackApprovedHead.dataHash === finalUnit.dataHash
+      && Number(rollbackApprovedHead.approvalCountAfter) === Number(rollbackApprovedHead.approvalCountBefore) + 1
+      && Number(finalUnit.approvalCount) === Number(rollbackApprovedHead.approvalCountAfter);
+    // ConfigHub v0.3.0 records a unit approval without creating a new
+    // revision, so an approved rollback can leave the head at the rollback
+    // result revision. The zero-delta case is accepted only with the same
+    // exact approval binding the two-revision case requires; an unbound zero
+    // delta still fails, and the one-revision shape from the older server
+    // remains valid.
     const boundedApprovalRevision = finalRevisionDelta === 1
-      || (
-        finalRevisionDelta === 2
-          && rollbackApprovedHead?.id === finalUnit.id
-          && Number(rollbackApprovedHead.headRevisionNum) === Number(finalUnit.headRevisionNum)
-          && rollbackApprovedHead.dataHash === finalUnit.dataHash
-          && Number(rollbackApprovedHead.approvalCountAfter) === Number(rollbackApprovedHead.approvalCountBefore) + 1
-          && Number(finalUnit.approvalCount) === Number(rollbackApprovedHead.approvalCountAfter)
-      );
+      || ((finalRevisionDelta === 0 || finalRevisionDelta === 2) && approvalBoundToFinalHead);
     return rollback.unitID === initialUnit.id
       && rollback.unitID === sourceUnit.id
       && rollback.unitID === finalUnit.id
@@ -11741,6 +11750,26 @@ function selfTestScenarioOperationEvidence() {
   check(scenarioOperationProofValid(approvalTriggerDelta), "exact approval-bound two-revision rollback delta was rejected");
   approvalTriggerDelta.operationEvidence.pop();
   check(!scenarioOperationProofValid(approvalTriggerDelta), "unbound two-revision rollback delta was accepted");
+  const sameRevisionApproval = JSON.parse(JSON.stringify(scenario));
+  sameRevisionApproval.checkpoints
+    .find((item) => item.id === "prod-a-rollback")
+    .facts.units.find((item) => item.ref === refA).headRevisionNum = 21;
+  sameRevisionApproval.operationEvidence.push({
+    type: "unit-approve",
+    ref: "hx-web-prod-a",
+    transitionID: "prod-a-rollback/prod-a-approve-rollback",
+    approvedHeads: [{
+      ref: refA,
+      id: idA,
+      headRevisionNum: 21,
+      dataHash: hashInitial,
+      approvalCountBefore: 0,
+      approvalCountAfter: 1,
+    }],
+  });
+  check(scenarioOperationProofValid(sameRevisionApproval), "exact approval-bound zero-revision rollback delta was rejected");
+  sameRevisionApproval.operationEvidence.pop();
+  check(!scenarioOperationProofValid(sameRevisionApproval), "unbound zero-revision rollback delta was accepted");
   const drifted = JSON.parse(JSON.stringify(scenario));
   drifted.operationEvidence.find((item) => item.type === "rollback").restoredRevisionNum = 9;
   check(!scenarioOperationProofValid(drifted), "rollback evidence not bound to the initial-rollout revision was accepted");
