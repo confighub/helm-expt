@@ -504,7 +504,7 @@
       <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
       <div class="card"><table>
         <thead><tr><th>Base variant</th><th>Helm values</th><th>ConfigHub changes</th><th>Install work</th></tr></thead>
-        <tbody><tr><td>existing-secret</td><td><a href="../../recipes/bitnami/rabbitmq/16.0.14/effective-values-existing-secret.yaml">effective-values-existing-secret.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>2 prerequisites recorded.</td></tr><tr><td>static-passwords</td><td><a href="../../recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.</td></tr></tbody>
+        <tbody><tr><td>existing-secret</td><td><a href="../../recipes/bitnami/rabbitmq/16.0.14/effective-values-existing-secret.yaml">effective-values-existing-secret.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>2 prerequisites recorded.</td></tr><tr><td>static-passwords</td><td><a href="../../recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate install work is required.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -672,7 +672,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml">Open the full record.</a></dd>
-          <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
+          <dt>Prerequisites</dt><dd>The support review found no separate target prerequisite for the supported static-passwords base on a cub-lk kind cluster in namespace rabbitmq, delivered from ConfigHub OCI through Argo CD. Evidence: <a href="https://github.com/confighub/helm-expt/blob/main/data/production-support-decisions/bitnami-rabbitmq/support-decision.yaml">Support decision</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/production-support-decisions/bitnami-rabbitmq/fresh-target-evidence-2026-06-05.yaml">Target evidence</a>.</dd>
           <dt>Next</dt><dd>Image policy decision recorded for a target scope; Create digest pinned bases or overrides for stricter scopes</dd>
           <dt>Reason</dt><dd>Basic promotion worked, but promotion tied to a ConfigHub ChangeSet failed. The test used a fallback without a ChangeSet.</dd>
         </dl>

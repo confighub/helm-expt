@@ -10929,13 +10929,35 @@ function targetContractText(intent) {
     return `${requirements} prerequisite${requirements === 1 ? " is" : "s are"} declared for this base${actions ? `, with ${actions} follow-up action record${actions === 1 ? "" : "s"} from live tests` : ""}. Each prerequisite says whether it must be checked before render or before apply.`;
   }
   if (intent.target_fact_contract_state === "no-target-facts-required") {
-    return "This base explicitly records that it needs no separate target prerequisite.";
+    const scope = String(intent.target_fact_review_scope || "").trim();
+    return scope
+      ? `The support review found no separate target prerequisite for ${scope}`
+      : "The support review found no separate target prerequisite for its recorded scope.";
   }
   const actions = Number(intent.target_fact_action_count || 0);
   if (actions > 0) {
     return `${actions} live test record${actions === 1 ? "" : "s"} found missing setup, but this base does not yet record what the target must provide. Add the prerequisite to the base and rerun the test.`;
   }
   return "This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.";
+}
+
+function targetReviewEvidenceLabel(path) {
+  if (/support-decision\.yaml$/i.test(path)) return "Support decision";
+  if (/fresh-target-evidence-/i.test(path)) return "Target evidence";
+  return coverageEvidenceLabel(githubEvidenceUrl(path));
+}
+
+function renderTargetContract(intent) {
+  const summary = escapeHtml(targetContractText(intent));
+  const evidence = String(intent?.target_fact_review_evidence || "")
+    .split(";")
+    .map((path) => path.trim())
+    .filter(Boolean);
+  if (!evidence.length) return summary;
+  const links = evidence.map((path) =>
+    `<a href="${escapeHtml(githubEvidenceUrl(path))}">${escapeHtml(targetReviewEvidenceLabel(path))}</a>`
+  ).join(" · ");
+  return `${summary} Evidence: ${links}.`;
 }
 
 function resolvedPrerequisiteQueue(row, intent, reason) {
@@ -11008,7 +11030,7 @@ function matrixRowCard(row, entry, catalog) {
           <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row, packagedActions))}</dd>
           <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row, packagedActions))}</dd>${renderIntent ? `
           <dt>Lifecycle record</dt><dd>${escapeHtml(lifecycleContractText(renderIntent, packagedActions))}${renderIntentLink}</dd>
-          <dt>Prerequisites</dt><dd>${escapeHtml(targetContractText(renderIntent))}</dd>` : ""}
+          <dt>Prerequisites</dt><dd>${renderTargetContract(renderIntent)}</dd>` : ""}
           <dt>Next</dt><dd>${escapeHtml(chartPageText(humanNextAction))}</dd>
           ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(chartPageText(humanReason))}</dd>` : ""}
         </dl>

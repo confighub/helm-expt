@@ -11,13 +11,13 @@ A base-variant record connects one exact configuration to its source and intent.
 The processing coverage is explicit rather than inferred:
 
 - Flattening verdicts: 3 born-flattened, 35 flatten-with-routes, 167 not-assessed, 41 safe-to-flatten, 9 unsafe-to-flatten.
-- Lifecycle requirements: 167 gap, 88 recorded.
-- Portable route intents: 167 gap, 15 recorded, 73 required-at-destination.
-- Variant-and-destination route resolution: 83 awaits-variant-and-target, 2 blocked, 167 gap, 3 resolved-for-recorded-targets.
+- Lifecycle requirements: 155 gap, 12 not-required, 88 recorded.
+- Portable route intents: 155 gap, 12 not-required, 15 recorded, 73 required-at-destination.
+- Variant-and-destination route resolution: 83 awaits-variant-and-target, 2 blocked, 155 gap, 12 not-required, 3 resolved-for-recorded-targets.
 - Field ownership: 2 declared, 253 partly-declared.
 - Inspection evidence: 255 completed; results: 255 available.
 - Materialization evidence: 255 completed; results: 255 pass.
-- Destination evidence: 2 blocked, 3 completed, 83 not-run, 167 pending; results: 2 blocked, 83 not-run, 3 pass, 167 pending.
+- Destination evidence: 2 blocked, 3 completed, 95 not-run, 155 pending; results: 2 blocked, 95 not-run, 3 pass, 155 pending.
 - Post-deployment evidence: 3 completed, 252 not-run; results: 252 not-run, 2 pass, 1 watch.
 
 ## Model and Catalog alignment

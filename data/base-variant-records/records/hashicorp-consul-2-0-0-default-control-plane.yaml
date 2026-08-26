@@ -88,7 +88,7 @@ spec:
       -
         id: "destination"
         question: "Can this destination accept it?"
-        answer: "No destination answer is available yet because target facts or lifecycle handling are incomplete."
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
         requiredInputs:
           - "The exact candidate configuration"
           - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -96,11 +96,11 @@ spec:
         sourceIntentRequired: true
         destinationAccessRequired: true
         deploymentRequired: false
-        evidenceState: "pending"
-        resultState: "pending"
+        evidenceState: "not-run"
+        resultState: "not-run"
         records:
           - "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
-        nextAction: "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
       -
         id: "post-deployment"
         question: "Did it work?"
@@ -131,19 +131,19 @@ spec:
     installTimeStatus: "not-yet-declared"
   lifecycle:
     requirements:
-      status: "gap"
+      status: "not-required"
       items:
         []
       records:
         - "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
     routeIntent:
-      status: "gap"
+      status: "not-required"
       routes:
         []
       records:
         - "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
     targetFacts:
-      status: "gap"
+      status: "not-required"
       declared:
         {}
       requirementRefs:
@@ -151,7 +151,7 @@ spec:
       records:
         - "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
     resolution:
-      status: "gap"
+      status: "not-required"
       rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
       records:
         []

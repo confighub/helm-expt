@@ -65,7 +65,7 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "reviewed-no-target-facts-required"
     declared:
       {}
     requirements:
@@ -73,18 +73,20 @@ spec:
     actions:
       []
     review:
-      status: "not-recorded"
-      decision: "not-reviewed"
-      scope: ""
+      status: "reviewed"
+      decision: "no-separate-target-prerequisites"
+      scope: "the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD."
       evidence:
-        []
+        - "data/production-support-decisions/bitnami-redis/support-decision.yaml"
+        - "data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-      declarationSource: ""
+      state: "no-target-facts-required"
+      reason: "The base review found no separate target prerequisite in this scope: the supported default base on a cub-lk kind cluster in namespace redis, delivered from ConfigHub OCI through Argo CD."
+      declarationSource: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
       evidence:
-        []
-      nextAction: "Review the base and record its target prerequisites. When none are required, add an explicit empty targetFacts declaration plus targetFactsReview scope and evidence."
+        - "data/production-support-decisions/bitnami-redis/support-decision.yaml"
+        - "data/production-support-decisions/bitnami-redis/fresh-target-evidence-2026-06-05.yaml"
+      nextAction: ""
   settingSources:
     helmValues:
       status: "recorded"
@@ -98,7 +100,7 @@ spec:
         - "derived variants"
         - "promotion receipts"
     installWork:
-      status: "review-required"
+      status: "none-required"
       controls: "prerequisites-and-lifecycle"
       targetRequirementCount: 0
       lifecycleRouteCount: 0

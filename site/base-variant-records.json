@@ -14063,7 +14063,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -14072,12 +14072,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-static-passwords.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -14113,21 +14113,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-static-passwords.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-mongodb-19-0-7-static-passwords.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -14135,7 +14135,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -15655,7 +15655,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -15664,12 +15664,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -15705,21 +15705,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -15727,7 +15727,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -19660,7 +19660,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -19669,12 +19669,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/bitnami-postgresql-18-6-7-static-passwords.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -19710,21 +19710,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-postgresql-18-6-7-static-passwords.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-postgresql-18-6-7-static-passwords.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -19732,7 +19732,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -20745,7 +20745,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -20754,12 +20754,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -20795,21 +20795,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -20817,7 +20817,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -20991,7 +20991,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -21000,12 +21000,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -21041,21 +21041,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -21063,7 +21063,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -39417,7 +39417,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -39426,12 +39426,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -39467,21 +39467,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -39489,7 +39489,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -42433,7 +42433,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -42442,12 +42442,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -42483,21 +42483,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/hashicorp-consul-2-0-0-default-control-plane.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -42505,7 +42505,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -47439,7 +47439,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -47448,12 +47448,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -47489,21 +47489,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -47511,7 +47511,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -55078,7 +55078,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -55087,12 +55087,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -55128,21 +55128,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/longhorn-longhorn-1-11-2-default.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -55150,7 +55150,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -56062,7 +56062,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -56071,12 +56071,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-default.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -56112,21 +56112,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-default.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-default.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -56134,7 +56134,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -75596,7 +75596,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -75605,12 +75605,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -75646,21 +75646,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -75668,7 +75668,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
@@ -80331,7 +80331,7 @@
             {
               "id": "destination",
               "question": "Can this destination accept it?",
-              "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+              "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
               "requiredInputs": [
                 "The exact candidate configuration",
                 "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
@@ -80340,12 +80340,12 @@
               "sourceIntentRequired": true,
               "destinationAccessRequired": true,
               "deploymentRequired": false,
-              "evidenceState": "pending",
-              "resultState": "pending",
+              "evidenceState": "not-run",
+              "resultState": "not-run",
               "records": [
                 "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
               ],
-              "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply."
+              "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
             },
             {
               "id": "post-deployment",
@@ -80381,21 +80381,21 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "gap",
+            "status": "not-required",
             "items": [],
             "records": [
               "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
             ]
           },
           "routeIntent": {
-            "status": "gap",
+            "status": "not-required",
             "routes": [],
             "records": [
               "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
             ]
           },
           "targetFacts": {
-            "status": "gap",
+            "status": "not-required",
             "declared": {},
             "requirementRefs": [],
             "records": [
@@ -80403,7 +80403,7 @@
             ]
           },
           "resolution": {
-            "status": "gap",
+            "status": "not-required",
             "rule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
             "records": []
           }
