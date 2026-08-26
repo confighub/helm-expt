@@ -66,14 +66,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/sealed-secrets/sealed-secrets/2.18.6"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6"
-    manifestDigest: "sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72"
-    layerDigest: "sha256:a08f22c8743f84b212c686caf18c1d213662d30b2f1f99712b76887a243d9508"
+    manifestDigest: "sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6"
+    layerDigest: "sha256:9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec"
     publicationReceipt: "runs/installer-oci/sealed-secrets-sealed-secrets/2.18.6/installer-package-publication-receipt.yaml"
     installer: "packages/sealed-secrets/sealed-secrets/2.18.6/installer.yaml"
     receipt: "recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d7cb5ea22d0be92a483c32180d83c50fab9e0960082bd59c5c6021363895ad7c"
+    deterministicBundleSHA256: "9ec8c5da6afe140c13ec93689d1c8dcdadda5abfda16d572e593cf6bedceb7ec"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -107,7 +107,7 @@ spec:
         default: true
         description: "sealed-secrets/sealed-secrets default variant rendered from sealed-secrets/sealed-secrets@2.18.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -169,7 +169,7 @@ spec:
         default: false
         description: "sealed-secrets/sealed-secrets no-crds variant rendered from sealed-secrets/sealed-secrets@2.18.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:dd48aed6a3451f4590f55ae5a07c90899302476673ea449e2e2c63779e9f8c72 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6@sha256:15945be88b50c3b451a86f077258621434e78768b7655be0f758504849af8aa6 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

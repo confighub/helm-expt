@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/jaegertracing/jaeger-operator/2.57.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db` |
 | Installer package source | [packages/jaegertracing/jaeger-operator/2.57.0](../../../../packages/jaegertracing/jaeger-operator/2.57.0) |
 | Installer package receipt | [recipes/jaegertracing/jaeger-operator/2.57.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/jaegertracing/jaeger-operator/2.57.0/artifact-index.yaml](artifact-index.yaml) |
@@ -86,7 +86,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

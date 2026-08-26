@@ -52,7 +52,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/vault/0.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292` |
 | Installer package source | [packages/hashicorp/vault/0.32.0](../../../../packages/hashicorp/vault/0.32.0) |
 | Installer package receipt | [recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/hashicorp/vault/0.32.0/artifact-index.yaml](artifact-index.yaml) |
@@ -93,7 +93,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:7216f8cbbb3e2dafe3ed987f1e4b6fa962de60b2bf5ba7d2d0b7eb45eb138292 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

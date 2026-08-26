@@ -59,14 +59,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/velero/velero/12.1.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0"
-    manifestDigest: "sha256:2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6"
-    layerDigest: "sha256:94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307"
+    manifestDigest: "sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882"
+    layerDigest: "sha256:b0a29b59046d0a424cb972a33c6bdfbedce977676222c1b9f99b8191fdaf760a"
     publicationReceipt: "runs/installer-oci/velero-velero/12.1.0/installer-package-publication-receipt.yaml"
     installer: "packages/velero/velero/12.1.0/installer.yaml"
     receipt: "recipes/velero/velero/12.1.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "fa08947941a4fec050c554dfce9ef6d04e8fdc5a9aa0f96ddca714e7ed84d9d3"
+    deterministicBundleSHA256: "b0a29b59046d0a424cb972a33c6bdfbedce977676222c1b9f99b8191fdaf760a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -95,7 +95,7 @@ spec:
         default: true
         description: "velero chart defaults variant rendered from velero/velero@12.1.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6 --base default --work-dir <tmp> --non-interactive --namespace velero"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882 --base default --work-dir <tmp> --non-interactive --namespace velero"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

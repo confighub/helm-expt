@@ -65,14 +65,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fairwinds-stable/goldilocks/10.3.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0"
-    manifestDigest: "sha256:b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a"
-    layerDigest: "sha256:1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a"
+    manifestDigest: "sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852"
+    layerDigest: "sha256:50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e"
     publicationReceipt: "runs/installer-oci/fairwinds-stable-goldilocks/10.3.0/installer-package-publication-receipt.yaml"
     installer: "packages/fairwinds-stable/goldilocks/10.3.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "3a7ef75d539a08acbdbfafdc7517d5d289fc92ceb85bbc861791a2d6e824d8aa"
+    deterministicBundleSHA256: "50987e3319e54f1a216079cc4ff22f67a67721e964302f9f32f4e8dfacac106e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,7 +101,7 @@ spec:
         default: true
         description: "fairwinds-stable/goldilocks default variant rendered from fairwinds-stable/goldilocks@10.3.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b3c1b089113fcb748f36b17d170a323b5fb24860329c3ccc4722b0533185263a --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0@sha256:b16c4fca4bf8fa04db89891d03a0e4122715e3cfdc9356ef4bed6cd191199852 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

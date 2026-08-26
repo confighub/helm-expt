@@ -64,14 +64,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/vm/victoria-logs-single/0.12.5"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5"
-    manifestDigest: "sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315"
-    layerDigest: "sha256:7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
+    manifestDigest: "sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686"
+    layerDigest: "sha256:99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219"
     publicationReceipt: "runs/installer-oci/vm-victoria-logs-single/0.12.5/installer-package-publication-receipt.yaml"
     installer: "packages/vm/victoria-logs-single/0.12.5/installer.yaml"
     receipt: "recipes/vm/victoria-logs-single/0.12.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "0d6ff02285ccaa7752e0aa899af42c581c6903139934b53986e03951e6f65620"
+    deterministicBundleSHA256: "99f7b337f3f9de3cd06ea05c2df55b56aa9bd7855c041a3645dc1ce32f6d3219"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -100,7 +100,7 @@ spec:
         default: true
         description: "vm/victoria-logs-single default variant rendered from vm/victoria-logs-single@0.12.5"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

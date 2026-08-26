@@ -63,14 +63,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fluent/fluent-bit/0.57.6"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
-    manifestDigest: "sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf"
-    layerDigest: "sha256:927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
+    manifestDigest: "sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
+    layerDigest: "sha256:bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b"
     publicationReceipt: "runs/installer-oci/fluent-fluent-bit/0.57.6/installer-package-publication-receipt.yaml"
     installer: "packages/fluent/fluent-bit/0.57.6/installer.yaml"
     receipt: "recipes/fluent/fluent-bit/0.57.6/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "188ab53ef7c050936088c33366fcee866413cb670cbcf3c075a0d6b8435ebe94"
+    deterministicBundleSHA256: "bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -99,7 +99,7 @@ spec:
         default: true
         description: "fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

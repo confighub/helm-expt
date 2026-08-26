@@ -61,14 +61,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/linkerd/linkerd-crds/1.8.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0"
-    manifestDigest: "sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c"
-    layerDigest: "sha256:770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42"
+    manifestDigest: "sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c"
+    layerDigest: "sha256:121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
     publicationReceipt: "runs/installer-oci/linkerd-linkerd-crds/1.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/linkerd/linkerd-crds/1.8.0/installer.yaml"
     receipt: "recipes/linkerd/linkerd-crds/1.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "1fdc381abc0c9a0db2a1a02a761462ad95404320346e3f7bf2fa2e7d391ff077"
+    deterministicBundleSHA256: "121e4bcac07dc893a271531a30ca8ee4d854bdbab5539cdff84afe858c912bb4"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -97,7 +97,7 @@ spec:
         default: true
         description: "linkerd/linkerd-crds default variant rendered from linkerd/linkerd-crds@1.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

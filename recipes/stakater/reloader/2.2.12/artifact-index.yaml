@@ -63,14 +63,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/stakater/reloader/2.2.12"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12"
-    manifestDigest: "sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663"
-    layerDigest: "sha256:297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
+    manifestDigest: "sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+    layerDigest: "sha256:0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720"
     publicationReceipt: "runs/installer-oci/stakater-reloader/2.2.12/installer-package-publication-receipt.yaml"
     installer: "packages/stakater/reloader/2.2.12/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.12/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "229ccc0dc6d68d58d79f26611144173449fbbca7d8ccf30b78f940e90cc137d6"
+    deterministicBundleSHA256: "0f786b820dba8e8efefbe1cacdeb154f7135d0e8d2282229d9311d759efd5720"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -104,7 +104,7 @@ spec:
         default: true
         description: "stakater/reloader default variant rendered from stakater/reloader@2.2.12"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -166,7 +166,7 @@ spec:
         default: false
         description: "stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:63c8a334150e5c015a5953e0df96062944ade3bc9dce936c18aaefcda3863663 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

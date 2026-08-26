@@ -58,14 +58,14 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/grafana/alloy/1.11.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
-    manifestDigest: "sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305"
-    layerDigest: "sha256:1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b"
+    manifestDigest: "sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
+    layerDigest: "sha256:75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a"
     publicationReceipt: "runs/installer-oci/grafana-alloy/1.11.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/alloy/1.11.0/installer.yaml"
     receipt: "recipes/grafana/alloy/1.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8510ac0284dff01e275ac3276d332416d438bf268f7227af5015bf396187e2bc"
+    deterministicBundleSHA256: "75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -94,7 +94,7 @@ spec:
         default: true
         description: "alloy chart defaults variant rendered from grafana/alloy@1.11.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305 --base default --work-dir <tmp> --non-interactive --namespace alloy"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808 --base default --work-dir <tmp> --non-interactive --namespace alloy"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

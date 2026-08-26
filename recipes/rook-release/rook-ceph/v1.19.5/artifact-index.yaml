@@ -62,14 +62,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/rook-release/rook-ceph/v1.19.5"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5"
-    manifestDigest: "sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf"
-    layerDigest: "sha256:21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4"
+    manifestDigest: "sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7"
+    layerDigest: "sha256:62e2fad07123cdd2621bf6d1d9289c925596deabdc76cd15904f0f37d90dea93"
     publicationReceipt: "runs/installer-oci/rook-release-rook-ceph/v1.19.5/installer-package-publication-receipt.yaml"
     installer: "packages/rook-release/rook-ceph/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph/v1.19.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2ba5ac957b783ee8d2422f5cdc4572f243b01bc1ee9e26ef299960cd95fd9247"
+    deterministicBundleSHA256: "62e2fad07123cdd2621bf6d1d9289c925596deabdc76cd15904f0f37d90dea93"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -98,7 +98,7 @@ spec:
         default: true
         description: "rook-release/rook-ceph default variant rendered from rook-release/rook-ceph@v1.19.5"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5@sha256:b996f273c1777c2ac07fae823ad3932d8295072cd03e5384c0f1eb6afcaf32d7 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 133
         cubInstallObjectCountIncludingSupport: 134
         semanticObjectMatches: "133/133"

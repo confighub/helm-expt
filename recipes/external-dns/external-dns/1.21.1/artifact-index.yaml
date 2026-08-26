@@ -66,14 +66,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/external-dns/external-dns/1.21.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1"
-    manifestDigest: "sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd"
-    layerDigest: "sha256:e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f"
+    manifestDigest: "sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9"
+    layerDigest: "sha256:f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704"
     publicationReceipt: "runs/installer-oci/external-dns-external-dns/1.21.1/installer-package-publication-receipt.yaml"
     installer: "packages/external-dns/external-dns/1.21.1/installer.yaml"
     receipt: "recipes/external-dns/external-dns/1.21.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b6928b94d588813ef29354e5588e1211a8fa8a5443d81a29496d4591bc3179b9"
+    deterministicBundleSHA256: "f4f3b4457c4b502f4c71e806f0cc46a5b39759ab57b8dfb018d99625aa304704"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -112,7 +112,7 @@ spec:
         default: true
         description: "external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -174,7 +174,7 @@ spec:
         default: false
         description: "external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -236,7 +236,7 @@ spec:
         default: false
         description: "external-dns/external-dns dry-run-txt-registry variant rendered from external-dns/external-dns@1.21.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base dry-run-txt-registry --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

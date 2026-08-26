@@ -64,14 +64,14 @@ spec:
     nextAction: "record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope"
   installerPackage:
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1"
-    manifestDigest: "sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
-    layerDigest: "sha256:902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
+    manifestDigest: "sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4"
+    layerDigest: "sha256:9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
     publicationReceipt: "runs/installer-oci/ingress-nginx-ingress-nginx/4.15.1/installer-package-publication-receipt.yaml"
     installer: "packages/ingress-nginx/ingress-nginx/4.15.1/installer.yaml"
     receipt: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ab2383b5b37c77daa3a392f75f0507445ce1fdb14e950c678f96ff7eece52e3b"
+    deterministicBundleSHA256: "9b9a786b39d8db9c4d180bac306c0e4336eb81b97033229be00ccb91a80c5828"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -120,7 +120,7 @@ spec:
         default: true
         description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -182,7 +182,7 @@ spec:
         default: false
         description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -244,7 +244,7 @@ spec:
         default: false
         description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

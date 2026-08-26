@@ -62,14 +62,14 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/aws-controllers-k8s/eks-chart/1.16.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3"
-    manifestDigest: "sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354"
-    layerDigest: "sha256:92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555"
+    manifestDigest: "sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4"
+    layerDigest: "sha256:a75368ce8fb57d6dffdb369c94ed7cae95de1d61d3abb8bbd2272a0f53dfc1f7"
     publicationReceipt: "runs/installer-oci/aws-controllers-k8s-eks-chart/1.16.3/installer-package-publication-receipt.yaml"
     installer: "packages/aws-controllers-k8s/eks-chart/1.16.3/installer.yaml"
     receipt: "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "332d54c1bdb800e679e430b086ca87dc811920ad0f009d35793d17e6af5f9c32"
+    deterministicBundleSHA256: "a75368ce8fb57d6dffdb369c94ed7cae95de1d61d3abb8bbd2272a0f53dfc1f7"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -103,7 +103,7 @@ spec:
         default: true
         description: "eks-chart default variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"
@@ -177,7 +177,7 @@ spec:
         default: false
         description: "eks-chart eks-inference variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"

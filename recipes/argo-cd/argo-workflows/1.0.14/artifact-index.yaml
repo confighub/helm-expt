@@ -66,14 +66,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/argo-cd/argo-workflows/1.0.14"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
-    manifestDigest: "sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2"
-    layerDigest: "sha256:63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388"
+    manifestDigest: "sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f"
+    layerDigest: "sha256:901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
     publicationReceipt: "runs/installer-oci/argo-cd-argo-workflows/1.0.14/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "922f96b47816f661f2ad59acd419cbc1a8763dd1dca93c75c4304cd0efb90ac1"
+    deterministicBundleSHA256: "901c531b5cecf84ca8aa80a3a5c45608b6d0f18d8856196871fb70360ba75459"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -176,7 +176,7 @@ spec:
         default: true
         description: "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -302,7 +302,7 @@ spec:
         default: false
         description: "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -364,7 +364,7 @@ spec:
         default: false
         description: "argo-cd/argo-workflows minimal-crds variant rendered from argo-cd/argo-workflows@1.0.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2 --base minimal-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14@sha256:abbebaeccc07e0583c7ccc5ad0c9d315057e6b4c0a766bd72c167ee92d3f160f --base minimal-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/runix/pgadmin4/1.62.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/runix/pgadmin4/1.62.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/runix/pgadmin4/1.62.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd` |
 | Installer package source | [packages/runix/pgadmin4/1.62.0](../../../../packages/runix/pgadmin4/1.62.0) |
 | Installer package receipt | [recipes/runix/pgadmin4/1.62.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/runix/pgadmin4/1.62.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

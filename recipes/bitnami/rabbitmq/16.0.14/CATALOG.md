@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/rabbitmq/16.0.14/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9` |
 | Installer package source | [packages/bitnami/rabbitmq/16.0.14](../../../../packages/bitnami/rabbitmq/16.0.14) |
 | Installer package receipt | [recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/rabbitmq/16.0.14/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14@sha256:fbdec937aa01df18d8cedc10a9dbd9b76f78cb209de1e6133f2118e92930fba9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

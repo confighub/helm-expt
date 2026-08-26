@@ -62,14 +62,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:14c598914ce3526238bb871b58b298c39410e1a60f980228556b3bdd96814ec5"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0"
-    manifestDigest: "sha256:14c598914ce3526238bb871b58b298c39410e1a60f980228556b3bdd96814ec5"
-    layerDigest: "sha256:98d72b767a771dc0ba76719874cc32fb7fd9216fe2786b7a27d6de99a1b73664"
+    manifestDigest: "sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
+    layerDigest: "sha256:304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
     publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-operator-crds/29.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/prometheus-operator-crds/29.0.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "520b8a3b2b41332dbf0d6eea8f97bfd64777e6dc13c7e91b074037cb2eeded3d"
+    deterministicBundleSHA256: "304b6c269645257cf613a009e59a7bbc08e3c0e0c323455bacbe9e426645ce94"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -98,7 +98,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-operator-crds default variant rendered from prometheus-community/prometheus-operator-crds@29.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:14c598914ce3526238bb871b58b298c39410e1a60f980228556b3bdd96814ec5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

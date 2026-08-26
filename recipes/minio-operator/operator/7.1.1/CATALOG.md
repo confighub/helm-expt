@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/minio-operator/operator/7.1.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/minio-operator/operator/7.1.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/minio-operator/operator/7.1.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:c1bfea10ba182a727725356a04c4ed0a9a1b8170240353057a69ed4222e0a6a3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a` |
 | Installer package source | [packages/minio-operator/operator/7.1.1](../../../../packages/minio-operator/operator/7.1.1) |
 | Installer package receipt | [recipes/minio-operator/operator/7.1.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/minio-operator/operator/7.1.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:c1bfea10ba182a727725356a04c4ed0a9a1b8170240353057a69ed4222e0a6a3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1@sha256:0847bb9ea8043ac6ba896416514decef6a007d9f5fbd7ecbe99bc1594377823a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7` |
 | Installer package source | [packages/autoscaler/vertical-pod-autoscaler/0.9.0](../../../../packages/autoscaler/vertical-pod-autoscaler/0.9.0) |
 | Installer package receipt | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/autoscaler/vertical-pod-autoscaler/0.9.0/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0@sha256:1ee72dbefe5df3af05372c9e565302b3dfbdd4f6e91e8f116b2b6042764267e7 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

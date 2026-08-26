@@ -64,14 +64,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/argo-cd/argo-events/2.4.21"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21"
-    manifestDigest: "sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2"
-    layerDigest: "sha256:305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
+    manifestDigest: "sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47"
+    layerDigest: "sha256:007ff648b1ce66660eec2b128fd765a9a4b9df62d7a00cc3bd6e02f756f3240f"
     publicationReceipt: "runs/installer-oci/argo-cd-argo-events/2.4.21/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-events/2.4.21/installer.yaml"
     receipt: "recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "0743b7edc53e97801ad73987ccff32e7d3ed3a8d4f498febb61103306408fd87"
+    deterministicBundleSHA256: "007ff648b1ce66660eec2b128fd765a9a4b9df62d7a00cc3bd6e02f756f3240f"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -105,7 +105,7 @@ spec:
         default: true
         description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -167,7 +167,7 @@ spec:
         default: false
         description: "argo-cd/argo-events no-crds variant rendered from argo-cd/argo-events@2.4.21"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/longhorn/longhorn/1.12.0/value-model.yaml](../../../../../../../recipes/longhorn/longhorn/1.12.0/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717` |
 | Installer package source | [packages/longhorn/longhorn/1.12.0](../../../../../../../packages/longhorn/longhorn/1.12.0) |
 | Installer package receipt | [recipes/longhorn/longhorn/1.12.0/publication/installer-package-receipt.yaml](../../../../../../../recipes/longhorn/longhorn/1.12.0/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:c39d4513809ca0a533d871bd93424e8f44c50e020de639e6758dc643ceb2c912 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

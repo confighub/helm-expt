@@ -64,14 +64,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/alertmanager/1.37.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0"
-    manifestDigest: "sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2"
-    layerDigest: "sha256:beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e"
+    manifestDigest: "sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e"
+    layerDigest: "sha256:6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6"
     publicationReceipt: "runs/installer-oci/prometheus-community-alertmanager/1.37.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/alertmanager/1.37.0/installer.yaml"
     receipt: "recipes/prometheus-community/alertmanager/1.37.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "00384b190c36cb5dc9b4d255bba8fbe18c9516562bb2e7e3b1bed5aee48a5f30"
+    deterministicBundleSHA256: "6f7e5817f60ede7b313f99b32f58026f2b9fd181404006d5ffcf2bcd06b0fec6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -105,7 +105,7 @@ spec:
         default: true
         description: "prometheus-community/alertmanager default variant rendered from prometheus-community/alertmanager@1.37.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -167,7 +167,7 @@ spec:
         default: false
         description: "prometheus-community/alertmanager ha variant rendered from prometheus-community/alertmanager@1.37.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0@sha256:f499807405ceea0ca49d34c4978dd905cfb5fcce36b53fbcb0f521260e78f04e --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

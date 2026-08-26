@@ -64,14 +64,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/runix/pgadmin4/1.62.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0"
-    manifestDigest: "sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6"
-    layerDigest: "sha256:a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
+    manifestDigest: "sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd"
+    layerDigest: "sha256:6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
     publicationReceipt: "runs/installer-oci/runix-pgadmin4/1.62.0/installer-package-publication-receipt.yaml"
     installer: "packages/runix/pgadmin4/1.62.0/installer.yaml"
     receipt: "recipes/runix/pgadmin4/1.62.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "62f19f171650b4d5fe9bedf20383258ad0e10eca0e531f021618014ba111652d"
+    deterministicBundleSHA256: "6ea89776cf25e0f984e93db656ec0aafde29b868a41a743c6a7881dda333c0d7"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -100,7 +100,7 @@ spec:
         default: true
         description: "runix/pgadmin4 default variant rendered from runix/pgadmin4@1.62.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/elastic/filebeat/8.5.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/elastic/filebeat/8.5.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47` |
 | Installer package source | [packages/elastic/filebeat/8.5.1](../../../../packages/elastic/filebeat/8.5.1) |
 | Installer package receipt | [recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/elastic/filebeat/8.5.1/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

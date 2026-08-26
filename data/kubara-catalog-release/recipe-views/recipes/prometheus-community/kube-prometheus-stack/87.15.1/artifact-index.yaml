@@ -64,10 +64,10 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/87.15.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1"
-    manifestDigest: "sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac"
-    layerDigest: "sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375"
+    manifestDigest: "sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858"
+    layerDigest: "sha256:f060afe9e2f732b885058cfd3b7bc6a41f150733d0c60a29dd228cda78db7d3d"
     publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/87.15.1/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/kube-prometheus-stack/87.15.1/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/installer-package-receipt.yaml"
@@ -234,7 +234,7 @@ spec:
         default: true
         description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@87.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 125
         cubInstallObjectCountIncludingSupport: 126
         semanticObjectMatches: "125/125"
@@ -410,7 +410,7 @@ spec:
         default: false
         description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@87.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 115
         cubInstallObjectCountIncludingSupport: 116
         semanticObjectMatches: "115/115"
@@ -609,7 +609,7 @@ spec:
         default: false
         description: "kube-prometheus-stack Grafana credentials from an existing Secret variant rendered from prometheus-community/kube-prometheus-stack@87.15.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac --base existing-secret --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858 --base existing-secret --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 124
         cubInstallObjectCountIncludingSupport: 125
         semanticObjectMatches: "124/124"

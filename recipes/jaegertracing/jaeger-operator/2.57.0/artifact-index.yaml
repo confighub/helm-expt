@@ -63,10 +63,10 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/jaegertracing/jaeger-operator/2.57.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0"
-    manifestDigest: "sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85"
-    layerDigest: "sha256:f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3"
+    manifestDigest: "sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db"
+    layerDigest: "sha256:c8ad17a3e068d40895d103e54cb52792feea649682f50c45f3ca151d9d7457c9"
     publicationReceipt: "runs/installer-oci/jaegertracing-jaeger-operator/2.57.0/installer-package-publication-receipt.yaml"
     installer: "packages/jaegertracing/jaeger-operator/2.57.0/installer.yaml"
     receipt: "recipes/jaegertracing/jaeger-operator/2.57.0/publication/installer-package-receipt.yaml"
@@ -130,7 +130,7 @@ spec:
         default: true
         description: "jaegertracing/jaeger-operator default variant rendered from jaegertracing/jaeger-operator@2.57.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -229,7 +229,7 @@ spec:
         default: false
         description: "jaegertracing/jaeger-operator no-crds variant rendered from jaegertracing/jaeger-operator@2.57.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0@sha256:bb116910eabb89bdf97436c27d495e5dd80d36840847594b284e28a0fe36f3db --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

@@ -64,14 +64,14 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/nats/nats/2.14.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0"
-    manifestDigest: "sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11"
-    layerDigest: "sha256:61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b"
+    manifestDigest: "sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b"
+    layerDigest: "sha256:707a3c3fd2649784637f78f7603e2c9173bc4828c653af0879c742c72d145764"
     publicationReceipt: "runs/installer-oci/nats-nats/2.14.0/installer-package-publication-receipt.yaml"
     installer: "packages/nats/nats/2.14.0/installer.yaml"
     receipt: "recipes/nats/nats/2.14.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e8769041f5c8e1cd919dd2f81c872313e5b3e423729c974f771a5e28fa441320"
+    deterministicBundleSHA256: "707a3c3fd2649784637f78f7603e2c9173bc4828c653af0879c742c72d145764"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -105,7 +105,7 @@ spec:
         default: true
         description: "nats/nats default variant rendered from nats/nats@2.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -167,7 +167,7 @@ spec:
         default: false
         description: "nats/nats ha variant rendered from nats/nats@2.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0@sha256:bf8546bb6289a3c325e6396b2da6c03f6cac3961652aefbed116063d588e745b --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

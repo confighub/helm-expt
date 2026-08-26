@@ -63,10 +63,10 @@ spec:
     nextAction: "review source/current-version drift and refresh recipe if needed"
   installerPackage:
     path: "packages/karpenter/karpenter/1.14.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
-    manifestDigest: "sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa"
-    layerDigest: "sha256:2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+    manifestDigest: "sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc"
+    layerDigest: "sha256:c3dc6be7c3948fe18a574b54845c1166ad2f6931cf28f5032c6d6c997d3f2bbd"
     publicationReceipt: "runs/installer-oci/karpenter-karpenter/1.14.0/installer-package-publication-receipt.yaml"
     installer: "packages/karpenter/karpenter/1.14.0/installer.yaml"
     receipt: "recipes/karpenter/karpenter/1.14.0/publication/installer-package-receipt.yaml"
@@ -118,7 +118,7 @@ spec:
         default: true
         description: "karpenter default variant rendered from karpenter/karpenter@1.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -189,7 +189,7 @@ spec:
         default: false
         description: "karpenter EKS inference-demo platform variant rendered from karpenter/karpenter@1.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --base eks-inference --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc --base eks-inference --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -276,7 +276,7 @@ spec:
         default: false
         description: "karpenter platform values without CRDs variant rendered from karpenter/karpenter@1.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --base crds-managed --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc --base crds-managed --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

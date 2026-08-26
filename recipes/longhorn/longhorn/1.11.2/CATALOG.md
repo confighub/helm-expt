@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/longhorn/longhorn/1.11.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:a6fcbe3cb5728a096f61c52fc8a0a4034a9511b0bbfb8a9cfedf91313a3a4064` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f` |
 | Installer package source | [packages/longhorn/longhorn/1.11.2](../../../../packages/longhorn/longhorn/1.11.2) |
 | Installer package receipt | [recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/longhorn/longhorn/1.11.2/artifact-index.yaml](artifact-index.yaml) |
@@ -86,7 +86,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:a6fcbe3cb5728a096f61c52fc8a0a4034a9511b0bbfb8a9cfedf91313a3a4064 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

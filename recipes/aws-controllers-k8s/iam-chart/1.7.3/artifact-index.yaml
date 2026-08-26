@@ -62,14 +62,14 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
-    manifestDigest: "sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b"
-    layerDigest: "sha256:d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965"
+    manifestDigest: "sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac"
+    layerDigest: "sha256:0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
     publicationReceipt: "runs/installer-oci/aws-controllers-k8s-iam-chart/1.7.3/installer-package-publication-receipt.yaml"
     installer: "packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml"
     receipt: "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "60eeada10fc2822cdbe7349218ce555d194b383f612943945a371bb97c3de856"
+    deterministicBundleSHA256: "0eae749effdab92c360429845acef602b34b5100333bc07ccfa3d4fcebbc849f"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -103,7 +103,7 @@ spec:
         default: true
         description: "iam-chart default variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base default --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -178,7 +178,7 @@ spec:
         default: false
         description: "iam-chart EKS inference (retained values) variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:9f190711f470d853b5a6cb4ce009359c5d5e7733d629df53b353f027a6a9824b --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3@sha256:bc64855b8024441acf8626c2d586f19661b8750db07eb69064cec52220907aac --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

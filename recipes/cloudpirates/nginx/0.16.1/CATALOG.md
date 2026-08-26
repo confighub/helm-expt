@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudpirates/nginx/0.16.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudpirates/nginx/0.16.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudpirates/nginx/0.16.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183` |
 | Installer package source | [packages/cloudpirates/nginx/0.16.1](../../../../packages/cloudpirates/nginx/0.16.1) |
 | Installer package receipt | [recipes/cloudpirates/nginx/0.16.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudpirates/nginx/0.16.1/artifact-index.yaml](artifact-index.yaml) |
@@ -80,7 +80,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/grafana/loki/7.1.0/value-model.yaml](../../../../../../../recipes/grafana/loki/7.1.0/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/grafana/loki/7.1.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/grafana/loki/7.1.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:83711c1b4b1dffabf4ee7f63a37853a59021f887062b1f78bddadb6b722fda1c` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6` |
 | Installer package source | [packages/grafana/loki/7.1.0](../../../../../../../packages/grafana/loki/7.1.0) |
 | Installer package receipt | [recipes/grafana/loki/7.1.0/publication/installer-package-receipt.yaml](../../../../../../../recipes/grafana/loki/7.1.0/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/grafana/loki/7.1.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:83711c1b4b1dffabf4ee7f63a37853a59021f887062b1f78bddadb6b722fda1c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

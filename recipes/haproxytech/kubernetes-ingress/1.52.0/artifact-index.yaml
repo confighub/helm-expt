@@ -65,14 +65,14 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/haproxytech/kubernetes-ingress/1.52.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
     taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0"
-    manifestDigest: "sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab"
-    layerDigest: "sha256:3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
+    manifestDigest: "sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
+    layerDigest: "sha256:62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
     publicationReceipt: "runs/installer-oci/haproxytech-kubernetes-ingress/1.52.0/installer-package-publication-receipt.yaml"
     installer: "packages/haproxytech/kubernetes-ingress/1.52.0/installer.yaml"
     receipt: "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d5af5579ae1f31270158b65bf1f294b1182e7d673af2e856836e29782d54a00a"
+    deterministicBundleSHA256: "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -101,7 +101,7 @@ spec:
         default: true
         description: "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:866d7e8d0457956372b245d508713f9071e5a9535268551b2aba531018742eab --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

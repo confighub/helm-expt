@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/argo-cd/argo-events/2.4.21/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argo-events/2.4.21/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47` |
 | Installer package source | [packages/argo-cd/argo-events/2.4.21](../../../../packages/argo-cd/argo-events/2.4.21) |
 | Installer package receipt | [recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-events/2.4.21/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

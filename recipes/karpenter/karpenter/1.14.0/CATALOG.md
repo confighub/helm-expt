@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/karpenter/karpenter/1.14.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/karpenter/karpenter/1.14.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/karpenter/karpenter/1.14.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc` |
 | Installer package source | [packages/karpenter/karpenter/1.14.0](../../../../packages/karpenter/karpenter/1.14.0) |
 | Installer package receipt | [recipes/karpenter/karpenter/1.14.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/karpenter/karpenter/1.14.0/artifact-index.yaml](artifact-index.yaml) |
@@ -90,7 +90,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

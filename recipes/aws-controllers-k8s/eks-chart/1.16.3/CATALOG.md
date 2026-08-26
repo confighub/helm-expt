@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/aws-controllers-k8s/eks-chart/1.16.3/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/aws-controllers-k8s/eks-chart/1.16.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4` |
 | Installer package source | [packages/aws-controllers-k8s/eks-chart/1.16.3](../../../../packages/aws-controllers-k8s/eks-chart/1.16.3) |
 | Installer package receipt | [recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/aws-controllers-k8s/eks-chart/1.16.3/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3@sha256:eb94b9abf66765bdab5f22a07d826f4ef60de76ce241e052d633fc9a512775a4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

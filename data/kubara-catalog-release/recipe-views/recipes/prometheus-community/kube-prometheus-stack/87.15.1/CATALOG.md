@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Production readiness plan | [recipes/prometheus-community/kube-prometheus-stack/87.15.1/production-readiness-plan.yaml](../../../../../../../recipes/prometheus-community/kube-prometheus-stack/87.15.1/production-readiness-plan.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.15.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.15.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858` |
 | Installer package source | [packages/prometheus-community/kube-prometheus-stack/87.15.1](../../../../../../../packages/prometheus-community/kube-prometheus-stack/87.15.1) |
 | Installer package receipt | [recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/prometheus-community/kube-prometheus-stack/87.15.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.15.1/artifact-index.yaml](artifact-index.yaml) |
@@ -91,7 +91,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

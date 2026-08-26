@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/argo-cd/argo-cd/9.5.17/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/argo-cd/argo-cd/9.5.17/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f` |
 | Installer package source | [packages/argo-cd/argo-cd/9.5.17](../../../../packages/argo-cd/argo-cd/9.5.17) |
 | Installer package receipt | [recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-cd/9.5.17/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

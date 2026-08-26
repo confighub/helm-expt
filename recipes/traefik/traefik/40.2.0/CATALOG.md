@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/traefik/traefik/40.2.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/traefik/traefik/40.2.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:c735927068194a19f326ff1e62c26fb87b8f5881abca750070efaa0bc4b4d123` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535` |
 | Installer package source | [packages/traefik/traefik/40.2.0](../../../../packages/traefik/traefik/40.2.0) |
 | Installer package receipt | [recipes/traefik/traefik/40.2.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/traefik/traefik/40.2.0/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:c735927068194a19f326ff1e62c26fb87b8f5881abca750070efaa0bc4b4d123 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

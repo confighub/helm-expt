@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/projectcalico/tigera-operator/v3.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a` |
 | Installer package source | [packages/projectcalico/tigera-operator/v3.32.0](../../../../packages/projectcalico/tigera-operator/v3.32.0) |
 | Installer package receipt | [recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/projectcalico/tigera-operator/v3.32.0/artifact-index.yaml](artifact-index.yaml) |
@@ -80,7 +80,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

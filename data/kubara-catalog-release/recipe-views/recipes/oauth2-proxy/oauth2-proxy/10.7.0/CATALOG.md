@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/oauth2-proxy/oauth2-proxy/10.7.0/value-model.yaml](../../../../../../../recipes/oauth2-proxy/oauth2-proxy/10.7.0/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/oauth2-proxy/oauth2-proxy/10.7.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/oauth2-proxy/oauth2-proxy/10.7.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384` |
 | Installer package source | [packages/oauth2-proxy/oauth2-proxy/10.7.0](../../../../../../../packages/oauth2-proxy/oauth2-proxy/10.7.0) |
 | Installer package receipt | [recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/installer-package-receipt.yaml](../../../../../../../recipes/oauth2-proxy/oauth2-proxy/10.7.0/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/oauth2-proxy/oauth2-proxy/10.7.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:52ca76c189956363cc5e23fc29bd527d160c659236bcfd6fe5a4a1716f66eab9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0@sha256:92ea38dd0996d278b9d403259d5690c567c3fd9c374214544ad6b6159b2b9384 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
