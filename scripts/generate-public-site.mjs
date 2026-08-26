@@ -2535,7 +2535,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer must be shared, changed, approved, promoted, released, or compared with live systems. The object digest stays with the result.</p>
           <p class="intro"><strong>Website and CLI stay connected:</strong> the pages explain the job and provide local commands or downloadable records. The commands preserve the same source identity and object digest for the next step.</p>
           <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Keep platform components, developer tools, and applications as separate ConfigHub revisions so each can be tested and promoted.</p>
-          <p class="intro"><strong>Additional paths:</strong> <a href="./try.html">run the short Redis example</a>, <a href="./testing.html#bring-your-own">review your own values</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
+          <p class="intro"><strong>Additional paths:</strong> <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
         </section>
 
         <section class="section">
@@ -7854,6 +7854,42 @@ function examplesHtml(catalog) {
         ["A chart or configuration I already have", `<a href="./ask.html"><strong>Check my config.</strong></a> Bring the values, YAML, OCI, or work made by AI. Compare it with defaults, Catalog records, or what you run now.`],
       ], { rawSecondColumn: true })}
       <p>Missing the component or use case you need? <a href="${SITE_FEEDBACK_ISSUE_URL}">Tell us what you are trying to run</a>.</p>
+
+      <h3 id="worked-stories">Six worked examples</h3>
+      <p>Choose the question closest to yours. Each example links the result to the files and evidence that support it.</p>
+      ${markdownLikeTable([
+        ["Question", "Worked example", "Result"],
+        [
+          "What will this package install?",
+          `<a href="./try.html"><strong>Inspect Redis without an account</strong></a>`,
+          `Render 14 Kubernetes objects, keep password material out of the package, and compare the result with Helm. <a href="./d/data/serverless-install-parity-proof/summary.html">Check the live comparison</a>.`,
+        ],
+        [
+          "What did AI-written values change?",
+          `<a href="./ask.html#ai-values"><strong>Review an NGINX values file</strong></a>`,
+          `Keep the requested three replicas, correct six risky settings, and retain five reviewed objects as files or OCI. <a href="./d/data/byo-helm-values-review/summary.html">Read the review</a>.`,
+        ],
+        [
+          "Can I promote the reviewed change?",
+          `<a href="./promote.html"><strong>Move NGINX from development to staging</strong></a>`,
+          `Compare three and four replicas, promote the exact revision in ConfigHub, publish OCI, and record four ready replicas through Argo CD. <a href="./d/data/byo-helm-values-promotion-proof/summary.html">Check the promotion</a>.`,
+        ],
+        [
+          "How should hooks and CRDs run?",
+          `<a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html"><strong>Install and upgrade Kube Prometheus Stack</strong></a>`,
+          `Install CRDs before dependent objects, replace the setup Job when required, and keep separate Argo CD and Flux results. <a href="./d/data/kps-gitops-lifecycle-proof/summary.html">Check the lifecycle proof</a>.`,
+        ],
+        [
+          "Can I build a platform from tested parts?",
+          `<a href="./kubara.html"><strong>Build a Kubara platform</strong></a>`,
+          `Choose Catalog components, generate native Kubara configuration, and carry the reviewed Git and OCI result into ConfigHub. The page shows which platform and live checks are current.`,
+        ],
+        [
+          "Can I inspect AI infrastructure without a GPU?",
+          `<a href="./try-aicr.html"><strong>Inspect the AICR CPU starter</strong></a>`,
+          `Pull seven exact Argo CD Applications, verify every file, and write a local OCI without an account, cluster, cloud account, or GPU. <a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Check the anonymous run</a>.`,
+        ],
+      ], { rawSecondColumn: true, rawThirdColumn: true })}
 
       <h2 id="simple-example">2. Try a simple example: Redis</h2>
       <h3 id="see-first">See what Redis installs, before you install it</h3>
