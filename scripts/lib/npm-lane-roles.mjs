@@ -54,18 +54,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "focused negative test; the production consistency verifier runs in the full chain",
   },
-  "installer-oci:signatures:verify-crypto": {
-    proves: "Cosign verifies every committed package signature payload and Sigstore bundle against the expected signer and issuer.",
-    requires: "network",
-    disposition: "keep-outside",
-    status: "runs in the dedicated installer package signature workflow with a pinned Cosign binary",
-  },
-  "installer-oci:signatures:crypto-self-test": {
-    proves: "Cosign rejects modified package-signature payload bytes.",
-    requires: "network",
-    disposition: "keep-outside",
-    status: "runs in the dedicated installer package signature workflow",
-  },
   "installer-oci:index-signature:verify": {
     proves: "The signed public JSON index matches its receipt, package count, complete package-signature coverage, signer, bundle, and recorded verification output.",
     requires: "offline",
@@ -77,18 +65,6 @@ export const NPM_LANE_ROLES = Object.freeze({
     requires: "offline",
     disposition: "keep-outside",
     status: "focused negative test; the production consistency verifier runs in the full chain",
-  },
-  "installer-oci:index-signature:verify-crypto": {
-    proves: "Cosign verifies the exact public package-index bytes against the expected signer and Sigstore bundle.",
-    requires: "network",
-    disposition: "keep-outside",
-    status: "runs in the dedicated installer package signature workflow",
-  },
-  "installer-oci:index-signature:crypto-self-test": {
-    proves: "Cosign rejects modified public package-index bytes.",
-    requires: "network",
-    disposition: "keep-outside",
-    status: "runs in the dedicated installer package signature workflow",
   },
   "config-catalog:verify": {
     proves: "The source-neutral Catalog records, lifecycle route resolutions, AI review example, OCI evidence chains, processing-model contract, and Top 50 tracker all re-derive from committed sources without stale output.",

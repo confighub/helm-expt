@@ -72,7 +72,9 @@ for (const record of records) {
     check(existsSync(record.payloadPath), `${record.packagePath}: no committed signed payload to reobserve`);
     const bundleText = readFileSync(record.bundlePath, "utf8");
     const payloadText = readFileSync(record.payloadPath, "utf8");
-    verifyAndRecord(record, cosignVersion, bundleText, payloadText, verifyPayload(record));
+    withAnonymousDockerConfig((extraEnv) => {
+      verifyAndRecord(record, cosignVersion, bundleText, payloadText, verifyPayload(record), extraEnv);
+    });
   } else {
     signAndRecord(record, cosignVersion);
   }
@@ -106,6 +108,9 @@ function signAndRecord(record, cosignVersion) {
     check(existsSync(bundlePath), `${record.packagePath}: cosign wrote no verification bundle`);
     const bundleText = normalizeJson(readFileSync(bundlePath, "utf8"));
     write(record.bundlePath, bundleText);
+    // Prove the consumer path after the write. From this point onward Cosign
+    // sees an empty private Docker config, not the signer's registry token.
+    writeFileSync(dockerConfigPath, `${JSON.stringify({ auths: {} }, null, 2)}\n`, { encoding: "utf8", mode: 0o600 });
     const payloadText = downloadSignedPayload(record, bundleText, { DOCKER_CONFIG: tempRoot });
     write(record.payloadPath, payloadText);
     verifyAndRecord(record, cosignVersion, bundleText, payloadText, verifyPayload(record), { DOCKER_CONFIG: tempRoot });
@@ -168,6 +173,7 @@ function receiptFor(record, cosignVersion, bundleText, payloadText, verification
         payloadPath: relativeRepo(record.payloadPath),
         payloadSHA256: sha256(payloadText),
         registryAttached: true,
+        registryAnonymousRead: true,
       },
       verification: {
         result: "pass",
@@ -187,7 +193,7 @@ function receiptFor(record, cosignVersion, bundleText, payloadText, verification
         proves: [
           "the named signer signed the exact OCI manifest digest",
           "the signature covers the package path and package SHA-256 annotations",
-          "the registry still served a signature that cosign verified when this receipt was written",
+          "the public registry served the signature without credentials when this receipt was written",
         ],
         doesNotProve: [
           "that the selected configuration is suitable for a particular cluster",
@@ -290,6 +296,18 @@ function registryDockerConfig(accessToken) {
   check(accessToken, "gcloud returned an empty registry access token");
   const auth = Buffer.from(`oauth2accesstoken:${accessToken}`).toString("base64");
   return `${JSON.stringify({ auths: { "europe-west1-docker.pkg.dev": { auth } } }, null, 2)}\n`;
+}
+
+function withAnonymousDockerConfig(fn) {
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-package-public-read-"));
+  try {
+    const dockerConfigPath = join(tempRoot, "config.json");
+    writeFileSync(dockerConfigPath, `${JSON.stringify({ auths: {} }, null, 2)}\n`, { encoding: "utf8", mode: 0o600 });
+    chmodSync(dockerConfigPath, 0o600);
+    return fn({ DOCKER_CONFIG: tempRoot });
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
 }
 
 function runCosign(commandArgs, extraEnv = {}) {

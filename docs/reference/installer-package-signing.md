@@ -25,7 +25,7 @@ cosign verify \
   --certificate-oidc-issuer https://accounts.google.com \
   --annotations confighub.com/package-path=packages/bitnami/redis/25.5.3 \
   --annotations confighub.com/package-sha256=<package-sha256> \
-  europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:<manifest-digest>
+  europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:<manifest-digest>
 ```
 
 The generated package catalog and each chart-version page provide the complete
@@ -59,7 +59,8 @@ A successful verification shows that:
 
 - the named service account signed the exact OCI manifest digest;
 - the signed payload records the expected package path and package SHA-256;
-- the registry still serves the signature attached to that digest;
+- the public registry served the signature without credentials when the receipt
+  was written;
 - Sigstore accepted the Google identity and recorded the signing event.
 
 It does not show that a selected preset is suitable for a particular cluster.
@@ -77,7 +78,8 @@ Each signed package has five committed files under
 - `signature-payload.json`: the exact signed image payload, including the OCI
   manifest digest and the package annotations;
 - `verification.json`: the result of running `cosign verify` against the public
-  registry with the expected identity, issuer, and annotations;
+  registry with an empty private Docker configuration and the expected
+  identity, issuer, and annotations;
 - `payload-verification.txt`: the result of running `cosign verify-blob` over
   the committed payload and bundle;
 - `signature-receipt.yaml`: the binding from the package publication receipt to

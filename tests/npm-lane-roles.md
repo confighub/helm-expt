@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 48
-should join the chain:   1
-deliberately outside:    47
+lanes outside the chain: 52
+should join the chain:   3
+deliberately outside:    49
 superseded:              0
 ```
 
@@ -20,6 +20,8 @@ superseded:              0
 | lane | proves | requires | status |
 | --- | --- | --- | --- |
 | `installer-oci:commands:verify` | Maintained docs, Catalog records, public pages, and generated scripts use immutable digest-pinned refs for published cub installer setup and inspect commands. | offline | runs through verify-installer-command-surface in the full verify chain and is also available as a focused command |
+| `installer-oci:signatures:verify` | Every published installer package has one signature receipt that binds its publication receipt, exact manifest, package digest, Sigstore bundle, expected signer, and recorded verification result. | offline | runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs in the dedicated Cosign workflow |
+| `installer-oci:index-signature:verify` | The signed public JSON index matches its receipt, package count, complete package-signature coverage, signer, bundle, and recorded verification output. | offline | runs through verify-installer-command-surface in the full verify chain; cryptographic verification runs separately |
 
 ## Deliberately outside, because it needs the world
 
@@ -55,6 +57,8 @@ superseded:              0
 | `kubara-release:verify` | Runs the whole Kubara release front door: the offline static contract (data/kubara-release-acceptance/contract.yaml plus catalog counts, tree SHAs and required evidence paths), then the final-state gates — current site live-evidence, adoption screenshots, public site pages, the 130-root final catalog and the installer-OCI catalog — and then executes ten downstream acceptance commands in order. | confighub | not run here, needs confighub |
 | `installer-oci:catalog:self-test` | Every published installer package row has a valid manifest digest, keeps its readable version tag in an immutable OCI reference, and uses that exact reference in generated inspect and setup commands; malformed digests and mutable published commands are refused. | offline | passes for all retained installer packages; installer-oci:catalog:verify checks the generated files while this lane exercises the refusal rules |
 | `installer-oci:commands:self-test` | The public command verifier rejects mutable setup and inspect examples while accepting the readable tag-plus-digest form. | offline | the production verifier runs in the full verify chain; this focused lane exercises its refusal cases |
+| `installer-oci:signatures:self-test` | The package-signature verifier rejects changed digests, signer identities, bundles, and transparency-log material. | offline | focused negative test; the production consistency verifier runs in the full chain |
+| `installer-oci:index-signature:self-test` | The signed-index verifier rejects changed index bytes, signer identity, bundle bytes, and missing transparency-log material. | offline | focused negative test; the production consistency verifier runs in the full chain |
 | `site:published:verify` | That readers can actually see what main holds: the last GitHub Pages deployment of main concluded in success, and every page the top navigation links is served byte-identical to the committed file. `site:verify` proves neither, and the difference cost thirteen consecutive silent deploy failures (#1465, #1466). | network | green: runs in its own workflow after every push to main and once a day, because it fetches the live site and reads the Actions API |
 | `skills:verify` | The six internal helm-expt operating guides and the public Config Workshop agent skill satisfy their required content, terminology, task-contract, publication, and discovery checks. | offline | passes; this focused lane checks all repository skills together |
 | `agent-skill:verify` | The Config Workshop agent skill, cross-format processing reference, task playbook, seven task contracts, published copies, and discovery index remain complete and internally consistent; it does not claim that an agent completed those tasks successfully. | offline | passes; this focused lane checks the public agent contract and its published copy directly |

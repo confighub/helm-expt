@@ -38,7 +38,7 @@
         "signature": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["scheme", "signerIdentity", "oidcIssuer", "bundlePath", "bundleSHA256", "payloadPath", "payloadSHA256", "registryAttached"],
+          "required": ["scheme", "signerIdentity", "oidcIssuer", "bundlePath", "bundleSHA256", "payloadPath", "payloadSHA256", "registryAttached", "registryAnonymousRead"],
           "properties": {
             "scheme": { "const": "sigstore-keyless" },
             "signerIdentity": { "const": "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com" },
@@ -47,7 +47,8 @@
             "bundleSHA256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
             "payloadPath": { "type": "string", "pattern": "^runs/installer-oci-signatures/.+/signature-payload\\.json$" },
             "payloadSHA256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-            "registryAttached": { "const": true }
+            "registryAttached": { "const": true },
+            "registryAnonymousRead": { "const": true }
           }
         },
         "verification": {

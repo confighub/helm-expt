@@ -156,6 +156,7 @@ function validateBindings({
   check(signature.bundleSHA256 === sha256(bundleText), `${prefix}: signature bundle hash differs`);
   check(signature.payloadPath === relativeRepo(record.payloadPath), `${prefix}: signed payload path differs`);
   check(signature.payloadSHA256 === sha256(payloadText), `${prefix}: signed payload hash differs`);
+  check(signature.registryAnonymousRead === true, `${prefix}: anonymous registry verification is not recorded`);
 
   const checked = spec.verification ?? {};
   check(checked.result === "pass", `${prefix}: signature verification did not pass`);
@@ -348,7 +349,7 @@ function selfTest() {
     publicationReceipt: "runs/installer-oci/example/1.0.0/installer-package-publication-receipt.yaml",
     tagReference: "oci://registry.example/catalog/example:1.0.0",
     manifestDigest,
-    immutableReference: `registry.example/catalog/example@${manifestDigest}`,
+    immutableReference: `registry.example/catalog/example:1.0.0@${manifestDigest}`,
     packageSHA256,
     layerDigest: `sha256:${packageSHA256}`,
     bundlePath: join(repoRoot, "runs/installer-oci-signatures/example/1.0.0/signature.sigstore.json"),
@@ -399,6 +400,7 @@ function selfTest() {
         payloadPath: "runs/installer-oci-signatures/example/1.0.0/signature-payload.json",
         payloadSHA256: sha256(payloadText),
         registryAttached: true,
+        registryAnonymousRead: true,
       },
       verification: {
         result: "pass",
@@ -425,6 +427,7 @@ function selfTest() {
   validateBindings(input);
   expectRefusal(() => validateBindings({ ...input, record: { ...record, manifestDigest: `sha256:${"3".repeat(64)}` } }), "manifest digest");
   expectRefusal(() => validateBindings({ ...input, receipt: { ...receipt, spec: { ...receipt.spec, signature: { ...receipt.spec.signature, signerIdentity: "wrong@example.com" } } } }), "signer identity");
+  expectRefusal(() => validateBindings({ ...input, receipt: { ...receipt, spec: { ...receipt.spec, signature: { ...receipt.spec.signature, registryAnonymousRead: false } } } }), "anonymous registry verification");
   expectRefusal(() => validateBindings({ ...input, bundleText: `${bundleText} ` }), "bundle hash");
   expectRefusal(() => validateBindings({ ...input, bundle: { ...bundle, verificationMaterial: { ...bundle.verificationMaterial, tlogEntries: [] } } }), "transparency log");
 }
