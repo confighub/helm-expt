@@ -96,6 +96,7 @@ const CONFIGHUB_SERVER_URL = "https://hub.confighub.com";
 const KUBARA_VERSION = "v0.13.0";
 const CATALOG_VERSION = "1.1.0";
 const MIN_CUB_VERSION = "0.2.11";
+const UNIT_DATA_BULK_CHUNK = 100;
 const EXAMPLE_COHORT = "kubara-v0.13.0";
 const PRIOR_COHORT = "kubara-v0.12.0";
 const CONTROL_SPACE = "hx-platform";
@@ -3256,6 +3257,7 @@ function selfTestApplyReadSnapshotLifecycle() {
       DataHash: sha256(unitPayloads[1]),
     },
   ];
+  selfTestBulkUnitDataRead();
   const largeUnitText = `apiVersion: v1\nkind: ConfigMap\ndata:\n  payload: ${"x".repeat(512 * 1024)}\n`;
   const largeCanonicalUnit = {
     ConfigData: largeUnitText,
@@ -4316,14 +4318,19 @@ function attachUnitConfigData(space, unit) {
 //
 // Chunked because a where clause is a URL, and a Space with many Units would otherwise build
 // one too long to send.
-const UNIT_DATA_BULK_CHUNK = 100;
-
 function attachUnitConfigDataBulk(space, rows) {
+  return attachUnitConfigDataBulkWith(space, rows, {
+    readBulk: (args) => cubJson(args),
+    readSingle: (unit) => attachUnitConfigData(space, unit),
+  });
+}
+
+function attachUnitConfigDataBulkWith(space, rows, { readBulk, readSingle }) {
   const bySlug = new Map();
   for (let i = 0; i < rows.length; i += UNIT_DATA_BULK_CHUNK) {
     const chunk = rows.slice(i, i + UNIT_DATA_BULK_CHUNK);
     const clause = `Slug IN (${chunk.map((unit) => `'${unit.Slug}'`).join(", ")})`;
-    const payload = cubJson(["unit", "data", "--space", space, "--where", clause]);
+    const payload = readBulk(["unit", "data", "--space", space, "--where", clause]);
     for (const row of Array.isArray(payload) ? payload : []) {
       if (typeof row?.Slug === "string") bySlug.set(row.Slug, row.Data ?? "");
     }
@@ -4333,7 +4340,7 @@ function attachUnitConfigDataBulk(space, rows) {
     // A Unit the bulk read did not answer for is a mismatch between the list and the data
     // endpoint, not an empty configuration -- read it on its own rather than recording "".
     if (!bySlug.has(unit.Slug)) {
-      attachUnitConfigData(space, unit);
+      readSingle(unit);
       continue;
     }
     unit.ConfigData = decodeUnitConfigBytes(Buffer.from(bySlug.get(unit.Slug), "utf8"), unit.DataHash, ref);
@@ -4370,6 +4377,69 @@ function expectBulkUnitDataFailure(unit, expectedMessage, label) {
     message = error.message;
   }
   check(message.includes(expectedMessage), `performance self-test: ${label} was not rejected`);
+}
+
+function selfTestBulkUnitDataRead() {
+  const space = "performance-space";
+  const bodies = Array.from({ length: UNIT_DATA_BULK_CHUNK + 1 }, (_, index) => `value: ${index}\n`);
+  const rows = bodies.map((body, index) => ({
+    Slug: `unit-${String(index).padStart(3, "0")}`,
+    DataHash: sha256(body),
+  }));
+  const calls = [];
+  let singleReads = 0;
+  attachUnitConfigDataBulkWith(space, rows, {
+    readBulk: (args) => {
+      const start = calls.length * UNIT_DATA_BULK_CHUNK;
+      calls.push(args);
+      return rows.slice(start, start + UNIT_DATA_BULK_CHUNK).map((unit, offset) => ({
+        Slug: unit.Slug,
+        Data: bodies[start + offset],
+      }));
+    },
+    readSingle: () => {
+      singleReads += 1;
+    },
+  });
+  check(calls.length === 2, "performance self-test: bulk Unit reads were not split at the URL bound");
+  check(singleReads === 0, "performance self-test: a complete bulk Unit response caused single-Unit reads");
+  check(
+    stableJson(calls[0].slice(0, 5)) === stableJson(["unit", "data", "--space", space, "--where"])
+      && calls[0][5].startsWith("Slug IN ('unit-000', 'unit-001'")
+      && calls[0][5].endsWith("'unit-099')")
+      && calls[1][5] === "Slug IN ('unit-100')",
+    "performance self-test: bulk Unit selector drifted",
+  );
+  check(
+    rows.every((unit, index) => unit.ConfigData === bodies[index]),
+    "performance self-test: bulk Unit response bodies were not attached exactly",
+  );
+
+  const fallbackBodies = ["first\n", "second\n"];
+  const fallbackRows = fallbackBodies.map((body, index) => ({ Slug: `fallback-${index}`, DataHash: sha256(body) }));
+  let fallbackReads = 0;
+  attachUnitConfigDataBulkWith(space, fallbackRows, {
+    readBulk: () => [{ Slug: fallbackRows[0].Slug, Data: fallbackBodies[0] }],
+    readSingle: (unit) => {
+      fallbackReads += 1;
+      unit.ConfigData = decodeUnitConfigBytes(Buffer.from(fallbackBodies[1]), unit.DataHash, `${space}/${unit.Slug}`);
+    },
+  });
+  check(
+    fallbackReads === 1 && fallbackRows[1].ConfigData === fallbackBodies[1],
+    "performance self-test: a missing bulk Unit row was treated as empty data",
+  );
+
+  let mismatch = "";
+  try {
+    attachUnitConfigDataBulkWith(space, [{ Slug: "bad-hash", DataHash: sha256("expected\n") }], {
+      readBulk: () => [{ Slug: "bad-hash", Data: "wrong\n" }],
+      readSingle: () => {},
+    });
+  } catch (error) {
+    mismatch = error.message;
+  }
+  check(mismatch.includes("Unit data does not match its DataHash"), "performance self-test: bad bulk Unit data was accepted");
 }
 
 function fetchTarget(space) {
