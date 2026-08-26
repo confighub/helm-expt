@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter@sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:163983ccb94d0ad000007e5f50185210412833bcf9888b8f6bad51c1411bfc05"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/policy-reporter/policy-reporter/3.9.1",
+      "confighub.com/package-sha256": "40621dbdce4489cad2f52e624efe72e5020a574017df3b53b626f667880fd5a6"
+    }
+  }
+]

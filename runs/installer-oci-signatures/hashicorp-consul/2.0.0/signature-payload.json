@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "3f4dab5c9f264a7f1555a8f549eff5045c631e5f359cf47b7f18259b6c1ef063"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/hashicorp/consul/2.0.0",
+        "confighub.com/package-sha256": "0ea3237ab96fd85b83b976a6c824c63f2b48168ac4543903d1e9dc21ccb5aa43"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

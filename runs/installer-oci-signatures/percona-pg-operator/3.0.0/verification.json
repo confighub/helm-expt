@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator@sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/percona/pg-operator/3.0.0",
+      "confighub.com/package-sha256": "30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5"
+    }
+  }
+]

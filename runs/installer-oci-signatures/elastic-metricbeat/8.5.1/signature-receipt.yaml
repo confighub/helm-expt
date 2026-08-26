@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "elastic-metricbeat-8.5.1"
+spec:
+  observedAt: "2026-08-26T05:38:57.704Z"
+  subject:
+    packagePath: "packages/elastic/metricbeat/8.5.1"
+    publicationReceipt: "runs/installer-oci/elastic-metricbeat/8.5.1/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1"
+    manifestDigest: "sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
+    packageSHA256: "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+    layerDigest: "sha256:1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/elastic-metricbeat/8.5.1/signature.sigstore.json"
+    bundleSHA256: "1bc9c3b9c6f24ebb8aee42f48c70fcada56300be3a7aea9fb27d220015d1c719"
+    payloadPath: "runs/installer-oci-signatures/elastic-metricbeat/8.5.1/signature-payload.json"
+    payloadSHA256: "ba68775d865feeec5e491482d71d04e9271f3ac579e24967f129b04fcd7810b8"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/elastic/metricbeat/8.5.1 --annotations confighub.com/package-sha256=1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1@sha256:a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
+    outputPath: "runs/installer-oci-signatures/elastic-metricbeat/8.5.1/verification.json"
+    outputSHA256: "2e360334e3fbfd718ed2d0a9c18c65b800b9f603e53b3cd7dc5bd2d5264b6b0a"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/elastic-metricbeat/8.5.1/signature.sigstore.json --digest a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/elastic-metricbeat/8.5.1/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/elastic/metricbeat/8.5.1"
+    confighub.com/package-sha256: "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

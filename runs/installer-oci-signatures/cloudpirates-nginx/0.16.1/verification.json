@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx@sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/cloudpirates/nginx/0.16.1",
+      "confighub.com/package-sha256": "74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e"
+    }
+  }
+]

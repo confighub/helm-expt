@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "a15a472ff9d737574859873f762075750ed91b75cbb1a22ff586fdf29df1a2bc"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/elastic/metricbeat/8.5.1",
+        "confighub.com/package-sha256": "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

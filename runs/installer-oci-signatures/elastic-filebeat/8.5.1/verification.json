@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat@sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:6baa7dfa20778531b4c8f9b474e9ae9eff91e3dad0648cf2de40e90230f9f072"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/elastic/filebeat/8.5.1",
+      "confighub.com/package-sha256": "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
+    }
+  }
+]

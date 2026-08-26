@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper@sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:5543a7167a92d2fe04125086664aaefcf971b24ec3cce45abb4722b5652d3646"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/gatekeeper/gatekeeper/3.22.2",
+      "confighub.com/package-sha256": "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
+    }
+  }
+]

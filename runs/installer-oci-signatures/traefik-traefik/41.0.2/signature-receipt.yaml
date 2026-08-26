@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "traefik-traefik-41.0.2"
+spec:
+  observedAt: "2026-08-26T05:46:37.894Z"
+  subject:
+    packagePath: "packages/traefik/traefik/41.0.2"
+    publicationReceipt: "runs/installer-oci/traefik-traefik/41.0.2/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2"
+    manifestDigest: "sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
+    packageSHA256: "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+    layerDigest: "sha256:c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/traefik-traefik/41.0.2/signature.sigstore.json"
+    bundleSHA256: "11410663d68e22873192fc7a09eacbd6ab060363c9dde5f77a6bcc1360648785"
+    payloadPath: "runs/installer-oci-signatures/traefik-traefik/41.0.2/signature-payload.json"
+    payloadSHA256: "ad50a81a063b199c29bcdfc6c0aa80873ad62ff836c11d79dc0b57768a5bf40d"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/traefik/traefik/41.0.2 --annotations confighub.com/package-sha256=c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a"
+    outputPath: "runs/installer-oci-signatures/traefik-traefik/41.0.2/verification.json"
+    outputSHA256: "52d8474148bd7f9a11d478b3184ba4f5baa0ab00ced7d68f70d7ac36f30bd3fb"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/traefik-traefik/41.0.2/signature.sigstore.json --digest ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/traefik-traefik/41.0.2/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/traefik/traefik/41.0.2"
+    confighub.com/package-sha256: "c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

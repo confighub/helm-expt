@@ -474,7 +474,7 @@
       <p>Use the public catalog entry, then check the exact configuration and its tests before making a production claim.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Ready to try</td></tr><tr><td>Chart version</td><td>9.5.15</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>9.5.17 (update candidate)</td></tr><tr><td>Supported base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>A realistic high-availability configuration has not yet been tested for this chart</td></tr><tr><td>Namespace</td><td>argocd</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Ready to try</td></tr><tr><td>Chart version</td><td>9.5.15</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>9.5.17 (update candidate)</td></tr><tr><td>Supported base variants</td><td>default;no-crds</td></tr><tr><td>Not yet available</td><td>A realistic high-availability configuration has not yet been tested for this chart</td></tr><tr><td>Namespace</td><td>argocd</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -568,6 +568,13 @@
         <h3>Check the package identity</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665 --json</code></pre>
+        <details>
+        <summary><strong>Verify the package publisher</strong></summary>
+        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
+        <pre><code>cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/argo-cd/argo-cd/9.5.15 --annotations confighub.com/package-sha256=776804d665c3b64eeaa1061978530bc6e2ef291c564525b145e5166109c76307 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665</code></pre>
+        <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
+        <p><a href="../../runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/argo-cd-argo-cd/9.5.15/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+      </details>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665 --base default --work-dir ./argo-cd-argo-cd-9-5-15-default --non-interactive --namespace argocd</code></p>

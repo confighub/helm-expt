@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0"
+spec:
+  observedAt: "2026-08-26T05:39:07.450Z"
+  subject:
+    packagePath: "packages/external-secrets/external-secrets/2.5.0"
+    publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.5.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0"
+    manifestDigest: "sha256:e4835f92ea97357cf269eabe966ca562cc46fd0f97e4dd18d52f72f0e07459b1"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:e4835f92ea97357cf269eabe966ca562cc46fd0f97e4dd18d52f72f0e07459b1"
+    packageSHA256: "1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91"
+    layerDigest: "sha256:1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/external-secrets-external-secrets/2.5.0/signature.sigstore.json"
+    bundleSHA256: "8d57680a73bc5db8c7d5badb3234a49dee5a2c4c3f2c6a9ba4ced5d679de8600"
+    payloadPath: "runs/installer-oci-signatures/external-secrets-external-secrets/2.5.0/signature-payload.json"
+    payloadSHA256: "16101c852861f52d5f5005f0e8964e5a736df201cd1bc59d2d3ed16b0e919aa4"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/external-secrets/external-secrets/2.5.0 --annotations confighub.com/package-sha256=1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:e4835f92ea97357cf269eabe966ca562cc46fd0f97e4dd18d52f72f0e07459b1"
+    outputPath: "runs/installer-oci-signatures/external-secrets-external-secrets/2.5.0/verification.json"
+    outputSHA256: "bcb2c958cea6d1e8419f8babd599330e9297a414075309a99d366f26a6b85c3f"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/external-secrets-external-secrets/2.5.0/signature.sigstore.json --digest e4835f92ea97357cf269eabe966ca562cc46fd0f97e4dd18d52f72f0e07459b1 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/external-secrets-external-secrets/2.5.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/external-secrets/external-secrets/2.5.0"
+    confighub.com/package-sha256: "1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

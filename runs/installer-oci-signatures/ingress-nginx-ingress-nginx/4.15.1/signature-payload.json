@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "9a00fb254d29f7f90179748c50dd62fd9c1b8016ecc5f5c1deee4a4dba8bff94"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/ingress-nginx/ingress-nginx/4.15.1",
+        "confighub.com/package-sha256": "902a90386d015462105294ef5e7634db05017735f64ba2a435c3b8853a911bf5"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

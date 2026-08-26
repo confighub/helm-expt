@@ -124,7 +124,7 @@ function cryptographicallyVerify(catalogPath, { expectFailure = false } = {}) {
     return;
   }
   check(result.status === 0, `cosign verify-blob failed: ${String(result.stderr || result.stdout).trim()}`);
-  check(/Verified OK/i.test(result.stdout), "cosign did not report successful index verification");
+  check(/Verified OK/i.test(`${result.stdout ?? ""}${result.stderr ?? ""}`), "cosign did not report successful index verification");
 }
 
 function cryptographicSelfTest(catalogText) {

@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/jetstack/trust-manager/v0.22.1",
+        "confighub.com/package-sha256": "59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

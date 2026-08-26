@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "9367550cdf3060ffa460fe6beffb60e102c9f5c6254d3c153974dfc9242767d3"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/bitnami/contour/21.1.4",
+        "confighub.com/package-sha256": "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

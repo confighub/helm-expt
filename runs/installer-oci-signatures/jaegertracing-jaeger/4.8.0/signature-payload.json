@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/jaegertracing/jaeger/4.8.0",
+        "confighub.com/package-sha256": "da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis@sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/bitnami/redis/27.0.0",
+      "confighub.com/package-sha256": "8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449"
+    }
+  }
+]

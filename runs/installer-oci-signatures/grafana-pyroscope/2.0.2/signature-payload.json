@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "20ca7d206be312dc1730ae8b96a4d175a736af66f44416d62accd94ae153f083"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/grafana/pyroscope/2.0.2",
+        "confighub.com/package-sha256": "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

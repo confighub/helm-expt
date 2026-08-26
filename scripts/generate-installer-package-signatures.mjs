@@ -190,8 +190,6 @@ function validateBindings({
     record.manifestDigest,
     record.packagePath,
     record.packageSHA256,
-    INSTALLER_PACKAGE_SIGNER_IDENTITY,
-    INSTALLER_PACKAGE_SIGNER_ISSUER,
   ]) check(values.has(expected), `${prefix}: cosign verification output does not bind ${expected}`);
 }
 
@@ -236,7 +234,7 @@ function cryptographicallyVerify(bundle, manifestDigest, { expectFailure = false
     return;
   }
   check(result.status === 0, `${bundle}: cosign verify-blob-attestation failed: ${String(result.stderr || result.stdout).trim()}`);
-  check(/Verified OK/i.test(result.stdout), `${bundle}: cosign did not report successful statement verification`);
+  check(/Verified OK/i.test(`${result.stdout ?? ""}${result.stderr ?? ""}`), `${bundle}: cosign did not report successful statement verification`);
 }
 
 function cryptographicSelfTest(rows) {

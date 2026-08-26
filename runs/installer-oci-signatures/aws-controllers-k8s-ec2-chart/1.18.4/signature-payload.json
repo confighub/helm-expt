@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "30819ef789cbdf0ca8b61d32d7d5607c45017e74e7c522e6b1175e85066714d9"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/aws-controllers-k8s/ec2-chart/1.18.4",
+        "confighub.com/package-sha256": "19e85bba86606a0943450ae5b5f16f661df9eb6641ac896707db3e5662acf795"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

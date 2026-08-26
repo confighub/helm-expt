@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator@sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/aqua/trivy-operator/0.32.1",
+      "confighub.com/package-sha256": "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
+    }
+  }
+]

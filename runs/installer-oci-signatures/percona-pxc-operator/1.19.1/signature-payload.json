@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "dfd45f6ec4cefd0615535ad7f43273ddb3176f0d1d5fa6edd96a5835d66c0e27"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/percona/pxc-operator/1.19.1",
+        "confighub.com/package-sha256": "715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

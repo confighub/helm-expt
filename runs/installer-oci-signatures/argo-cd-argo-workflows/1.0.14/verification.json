@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows@sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:21c5bc5c0500c1bc85d02b44ba4e4321101f58f5625b6acce22c78ba815205c2"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/argo-cd/argo-workflows/1.0.14",
+      "confighub.com/package-sha256": "63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388"
+    }
+  }
+]

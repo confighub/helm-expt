@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "bitnami-postgresql-18.6.7"
+spec:
+  observedAt: "2026-08-26T05:37:10.588Z"
+  subject:
+    packagePath: "packages/bitnami/postgresql/18.6.7"
+    publicationReceipt: "runs/installer-oci/bitnami-postgresql/18.6.7/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7"
+    manifestDigest: "sha256:de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002"
+    packageSHA256: "81a9d77b20f9d2497ec3e6870404f9626c373deec08eefedc6637237f2fec212"
+    layerDigest: "sha256:81a9d77b20f9d2497ec3e6870404f9626c373deec08eefedc6637237f2fec212"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/bitnami-postgresql/18.6.7/signature.sigstore.json"
+    bundleSHA256: "cc67e861ced9dafab8ce4376495aa4ee37c7ce5457688fc2b39f102e5372d85e"
+    payloadPath: "runs/installer-oci-signatures/bitnami-postgresql/18.6.7/signature-payload.json"
+    payloadSHA256: "2d5a61ba257e9bf3285b0144af344b79148b668ecbefb893bc480c490df1916d"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/postgresql/18.6.7 --annotations confighub.com/package-sha256=81a9d77b20f9d2497ec3e6870404f9626c373deec08eefedc6637237f2fec212 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002"
+    outputPath: "runs/installer-oci-signatures/bitnami-postgresql/18.6.7/verification.json"
+    outputSHA256: "70d2ae8828cffcce0139f5a150fb18772779cb1fa9e89007a8b5fec2f5c48f7f"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/bitnami-postgresql/18.6.7/signature.sigstore.json --digest de7371ce62c45f958c60c9f0584aa2a5d4f0e10638c053bb20985933a709a002 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/bitnami-postgresql/18.6.7/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/bitnami/postgresql/18.6.7"
+    confighub.com/package-sha256: "81a9d77b20f9d2497ec3e6870404f9626c373deec08eefedc6637237f2fec212"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

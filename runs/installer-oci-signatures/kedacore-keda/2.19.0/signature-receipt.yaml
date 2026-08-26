@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "kedacore-keda-2.19.0"
+spec:
+  observedAt: "2026-08-26T05:41:53.963Z"
+  subject:
+    packagePath: "packages/kedacore/keda/2.19.0"
+    publicationReceipt: "runs/installer-oci/kedacore-keda/2.19.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"
+    manifestDigest: "sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525"
+    packageSHA256: "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+    layerDigest: "sha256:5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/kedacore-keda/2.19.0/signature.sigstore.json"
+    bundleSHA256: "a5ca3cc8a494f6ae2194a8e330e8f98b33b580d207f439dcd1db2655c34aee07"
+    payloadPath: "runs/installer-oci-signatures/kedacore-keda/2.19.0/signature-payload.json"
+    payloadSHA256: "47efa1cf7f212b4b95e698ced363acd84e7fc743abce9fd26b72abb6920b32ff"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/kedacore/keda/2.19.0 --annotations confighub.com/package-sha256=5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525"
+    outputPath: "runs/installer-oci-signatures/kedacore-keda/2.19.0/verification.json"
+    outputSHA256: "3ed936ba060a07ff3984db777a95540c08fceaec2d0e195a51cccf9c48171497"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/kedacore-keda/2.19.0/signature.sigstore.json --digest 490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/kedacore-keda/2.19.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/kedacore/keda/2.19.0"
+    confighub.com/package-sha256: "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa@sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:b5669df2a3cf5747b42de4d4ae6bb441d635dbee6eba063fd39568bd8fd42b61"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/fairwinds-stable/vpa/4.11.0",
+      "confighub.com/package-sha256": "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
+    }
+  }
+]

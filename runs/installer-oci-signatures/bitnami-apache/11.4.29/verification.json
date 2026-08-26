@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache@sha256:00d1fe619e9dd8e6ba062ab02a3459c925451a39249e7f94f8088981bde81eb8"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:00d1fe619e9dd8e6ba062ab02a3459c925451a39249e7f94f8088981bde81eb8"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/bitnami/apache/11.4.29",
+      "confighub.com/package-sha256": "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
+    }
+  }
+]

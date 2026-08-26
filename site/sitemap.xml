@@ -550,6 +550,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hooks-crds-app/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/image-digest-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/installer-oci-packages/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/installer-package-signatures/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kind-parity-decisions/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kps-confighub-lifecycle-promotion/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/kps-default-package-upgrade-proof/summary.html</loc></url>
@@ -934,6 +935,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-quirk-support-matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-user-pain-evidence.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/how-the-catalog-is-built.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/installer-package-signing.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/kube-prometheus-stack-serious-chart-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/lane-test-doctrine.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/master-catalog-matrix.html</loc></url>

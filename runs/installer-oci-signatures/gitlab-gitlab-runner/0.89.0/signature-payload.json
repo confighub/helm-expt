@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/gitlab/gitlab-runner/0.89.0",
+        "confighub.com/package-sha256": "e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

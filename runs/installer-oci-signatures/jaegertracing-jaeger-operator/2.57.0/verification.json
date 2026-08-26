@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator@sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:2fb7189103f0f7239b1bd2b27740abe768a90dc7658aac7f1ea01d070ea35e85"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/jaegertracing/jaeger-operator/2.57.0",
+      "confighub.com/package-sha256": "f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3"
+    }
+  }
+]

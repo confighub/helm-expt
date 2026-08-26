@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "kyverno-kyverno-policies-3.8.0"
+spec:
+  observedAt: "2026-08-26T05:41:59.722Z"
+  subject:
+    packagePath: "packages/kyverno/kyverno-policies/3.8.0"
+    publicationReceipt: "runs/installer-oci/kyverno-kyverno-policies/3.8.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0"
+    manifestDigest: "sha256:322525fd8fd73a75a3ad61407dce90763352833b83b58b0fb91ba7601faee1ad"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:322525fd8fd73a75a3ad61407dce90763352833b83b58b0fb91ba7601faee1ad"
+    packageSHA256: "f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977"
+    layerDigest: "sha256:f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/kyverno-kyverno-policies/3.8.0/signature.sigstore.json"
+    bundleSHA256: "4a7c448aef1fa366b61583840a961c522e63cc64bc1cc9d842425530d28880a8"
+    payloadPath: "runs/installer-oci-signatures/kyverno-kyverno-policies/3.8.0/signature-payload.json"
+    payloadSHA256: "c9866c28040391f9e550c5959b312c23331458e42497c440dd9fdf85f5c1e988"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/kyverno/kyverno-policies/3.8.0 --annotations confighub.com/package-sha256=f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0@sha256:322525fd8fd73a75a3ad61407dce90763352833b83b58b0fb91ba7601faee1ad"
+    outputPath: "runs/installer-oci-signatures/kyverno-kyverno-policies/3.8.0/verification.json"
+    outputSHA256: "4e5eb6f74fb0b0f77c356f85fb4a3d1a66f451f15443fc8a048491f8da3ad113"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/kyverno-kyverno-policies/3.8.0/signature.sigstore.json --digest 322525fd8fd73a75a3ad61407dce90763352833b83b58b0fb91ba7601faee1ad --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/kyverno-kyverno-policies/3.8.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/kyverno/kyverno-policies/3.8.0"
+    confighub.com/package-sha256: "f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

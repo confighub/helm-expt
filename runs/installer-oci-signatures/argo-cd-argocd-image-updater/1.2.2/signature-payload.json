@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "3f50dd91833bcd42870138464b00fc58e066f4b92765069755bd7d1de5c4b89a"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/argo-cd/argocd-image-updater/1.2.2",
+        "confighub.com/package-sha256": "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero@sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:07ebbd16d5d17e3bceec59403189c8244c4eb22ca81b8539166f155b5a5749b7"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/velero/velero/12.0.1",
+      "confighub.com/package-sha256": "4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058"
+    }
+  }
+]

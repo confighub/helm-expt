@@ -1,0 +1,45 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "InstallerPackageSignatureReceipt"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  observedAt: "2026-08-26T05:41:00.731Z"
+  subject:
+    packagePath: "packages/hashicorp/vault/0.32.0"
+    publicationReceipt: "runs/installer-oci/hashicorp-vault/0.32.0/installer-package-publication-receipt.yaml"
+    tagReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
+    manifestDigest: "sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
+    immutableReference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
+    packageSHA256: "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+    layerDigest: "sha256:bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+  signature:
+    scheme: "sigstore-keyless"
+    signerIdentity: "helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com"
+    oidcIssuer: "https://accounts.google.com"
+    bundlePath: "runs/installer-oci-signatures/hashicorp-vault/0.32.0/signature.sigstore.json"
+    bundleSHA256: "4a8a3e2abc3f68475e7f2370ee60574b6e2fb40cabcc4afd06c92bdc7eb3b8be"
+    payloadPath: "runs/installer-oci-signatures/hashicorp-vault/0.32.0/signature-payload.json"
+    payloadSHA256: "27ece328dd401ba27d20970d47df1e1f48c39f88818f9429621fc186fcb0be52"
+    registryAttached: true
+    registryAnonymousRead: true
+  verification:
+    result: "pass"
+    command: "cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/hashicorp/vault/0.32.0 --annotations confighub.com/package-sha256=bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0@sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3"
+    outputPath: "runs/installer-oci-signatures/hashicorp-vault/0.32.0/verification.json"
+    outputSHA256: "0714ce0da205f239d95b1d466e53aeafcfacff401d02cd8e0025ccdab04ea164"
+    payloadCommand: "cosign verify-blob-attestation --bundle runs/installer-oci-signatures/hashicorp-vault/0.32.0/signature.sigstore.json --digest 96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3 --digestAlg sha256 --type https://sigstore.dev/cosign/sign/v1 --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com"
+    payloadOutputPath: "runs/installer-oci-signatures/hashicorp-vault/0.32.0/payload-verification.txt"
+    payloadOutputSHA256: "80a53f76c7ed6969dade3b6ee47cdb753162db7c00be625448999d08bae77ed8"
+    cosignVersion: "v3.1.3"
+  annotations:
+    confighub.com/package-path: "packages/hashicorp/vault/0.32.0"
+    confighub.com/package-sha256: "bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654"
+  scope:
+    proves:
+      - "the named signer signed the exact OCI manifest digest"
+      - "the signature covers the package path and package SHA-256 annotations"
+      - "the public registry served the signature without credentials when this receipt was written"
+    doesNotProve:
+      - "that the selected configuration is suitable for a particular cluster"
+      - "that hooks, CRDs, Secrets, or other lifecycle work will succeed"
+      - "that a later package published under the same tag has the same digest"

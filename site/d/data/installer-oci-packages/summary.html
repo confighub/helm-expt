@@ -459,7 +459,9 @@ cub installer setup --pull oci://...:&lt;version&gt;@sha256:&lt;manifest-digest&
 <table><thead><tr><th>Count</th><th>Value</th></tr></thead><tbody><tr><td>Installer packages</td><td>139</td></tr>
 <tr><td>Public catalog packages</td><td>109</td></tr>
 <tr><td>Package refs with publication receipts</td><td>139</td></tr>
-<tr><td>Assigned refs without publication receipts yet</td><td>0</td></tr></tbody></table>
+<tr><td>Assigned refs without publication receipts yet</td><td>0</td></tr>
+<tr><td>Published manifests with signature receipts</td><td>139</td></tr>
+<tr><td>Published manifests without signature receipts</td><td>0</td></tr></tbody></table>
 <h2 id="public-examples">Public Examples</h2>
 <table><thead><tr><th>Chart</th><th>Package OCI ref</th><th>First command</th></tr></thead><tbody><tr><td>aqua/trivy-operator@0.32.1</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094</code></td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094 --base default --work-dir ./aqua-trivy-operator-0-32-1-default --non-interactive --namespace default</code></td></tr>
 <tr><td>argo-cd/argo-cd@9.5.15</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665</code></td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:3404bc0aed621a447aa76cd3e07f28a7f9bfd4d1a8da1385352852386643e665 --base default --work-dir ./argo-cd-argo-cd-9-5-15-default --non-interactive --namespace argocd</code></td></tr>
@@ -475,8 +477,14 @@ cub installer setup --pull oci://...:&lt;version&gt;@sha256:&lt;manifest-digest&
 <tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52</code></td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52 --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default</code></td></tr></tbody></table>
 <h2 id="files">Files</h2>
 <ul><li><a href="../../../../data/installer-oci-packages/packages.csv">packages.csv</a></li><li><a href="../../../../data/installer-oci-packages/packages.json">packages.json</a></li></ul>
+<h2 id="signed-index">Signed Index</h2>
+<p>Status: <b>signed-receipt</b></p>
+<p>The JSON index is signed separately after all package signatures are recorded:</p>
+<pre><code>cosign verify-blob --bundle runs/installer-oci-index-signature/packages.sigstore.json --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com data/installer-oci-packages/packages.json</code></pre>
+<p>Evidence: <a href="../../../../runs/installer-oci-index-signature/signature-receipt.yaml">signature receipt</a> · <a href="../../../../runs/installer-oci-index-signature/packages.sigstore.json">Sigstore bundle</a></p>
 <h2 id="publication-status">Publication Status</h2>
 <p><code>assigned-ref</code> means the repo knows the public ref that should be pushed, but does not have a committed publication receipt for that package yet. <code>published-receipt</code> means a receipt records a package push and inspect for that ref. The current repository grants anonymous read access to published public catalog refs.</p>
+<p><code>signed-receipt</code> means the exact published manifest digest also has a committed Sigstore bundle and a successful Cosign verification record. It identifies who signed the package bytes. The chart page separately explains whether a preset is suitable for a particular use.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/installer-oci-packages/summary.md</code>. The source file is the authoritative version.</p></footer>

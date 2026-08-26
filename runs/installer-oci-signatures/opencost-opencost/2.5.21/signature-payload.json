@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/opencost/opencost/2.5.21",
+        "confighub.com/package-sha256": "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

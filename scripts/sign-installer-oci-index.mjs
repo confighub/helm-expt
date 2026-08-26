@@ -152,12 +152,13 @@ function identityToken() {
 }
 
 function runCosign(args) {
-  return execFileSync("cosign", args, {
+  const result = spawnSync("cosign", args, {
     encoding: "utf8",
     env: { ...process.env, COSIGN_YES: "true" },
-    stdio: ["ignore", "pipe", "inherit"],
     maxBuffer: 1024 * 1024 * 64,
   });
+  check(result.status === 0, `cosign ${args[0]} failed: ${String(result.stderr || result.stdout).trim()}`);
+  return `${result.stdout ?? ""}${result.stderr ?? ""}`;
 }
 
 function readCosignVersion() {
