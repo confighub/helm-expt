@@ -6,10 +6,10 @@ metadata:
 spec:
   claim: >-
     A person with no ConfigHub account rendered two reviewed catalog packages to
-    Flux-native OCI, published them to the catalog's public namespace, and a
-    stock Flux reconciled one from the public URL with the workload reaching
-    ready. No credential was used to pull; the render and the reconcile need no
-    account.
+    Flux-native OCI, published them to the catalog's public namespace, and both
+    a stock Flux and a stock Argo CD reconciled one from the public URL with the
+    workload reaching ready. No credential was used to pull; the render and each
+    reconcile need no account.
   registry: europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
   layerMediaType: application/vnd.oci.image.layer.v1.tar+gzip
   layerName: rendered-manifests.tar.gz
@@ -31,6 +31,14 @@ spec:
         ociRepositoryFetchedRevision: 24.0.2@sha256:ac21cf327f129dc89f3b78269a0d1528ca9dbde3213db4db5adaad6df51d2d76
         kustomization: ready
         workload: deployment nginx rolled out, 1 of 1 available
+        result: pass
+      argoReconcile:
+        cluster: separate throwaway kind cluster with Argo CD v3.3.8, no ConfigHub credentials
+        applicationSource: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered targetRevision 24.0.2
+        syncedRevision: sha256:ac21cf327f129dc89f3b78269a0d1528ca9dbde3213db4db5adaad6df51d2d76
+        applicationStatus: Synced/Healthy
+        managedObjects: Namespace, Service, ServiceAccount, Deployment, NetworkPolicy, PodDisruptionBudget
+        workload: deployment nginx 1 of 1 available
         result: pass
     - component: bitnami/redis
       version: 25.5.3
