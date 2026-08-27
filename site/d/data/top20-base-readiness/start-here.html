@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/top20-base-readiness/start-here.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This generated page lists the catalog bases that are currently the easiest first paths. Each row has render parity, ConfigHub proof, local live evidence, GitOps/OCI evidence, selected live Helm-vs-ConfigHub parity, and two-cluster kind parity passing for that base.</p>
 <p>These are not production support claims. Before production use, check the target-scoped support decision for the chart/base/target you intend to use.</p>
@@ -479,11 +496,11 @@ target-scoped draft decisions: 0</code></pre>
 <tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td>default</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></td><td>check production decision for metrics-server/metrics-server</td></tr>
 <tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td>external-tls-ca</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127 --base external-tls-ca --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></td><td>check production decision for metrics-server/metrics-server</td></tr>
 <tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>default</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></td><td>check production decision for secrets-store-csi-driver/secrets-store-csi-driver</td></tr>
-<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>sync-secret-rotation</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791 --base sync-secret-rotation --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></td><td>check production decision for secrets-store-csi-driver/secrets-store-csi-driver</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>sync-secret-rotation</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0@sha256:82d30ba796f0dc7cee0fcc6e385fa42fb151d3de62604a1639160bbab4ee7791 --base sync-secret-rotation --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></td><td>check production decision for secrets-store-csi-driver/secrets-store-csi-driver</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="after-setup">After Setup</h2>
 <p>Replace <code>&lt;tmp&gt;</code> with the work directory from the row you used.</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub installer render --work-dir &lt;tmp&gt;
 cub installer plan --work-dir &lt;tmp&gt;</code></pre>
 <p>For a direct local Kubernetes check, apply separated Secrets first only when the work directory contains <code>out/secrets</code>, then apply the manifests:</p>

@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -446,7 +463,7 @@
     <p class="lead">The simplest architecture for this project is <b>OCI in, managed configuration, OCI out</b>. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 
 <p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> owns the product onboarding journey. This catalog owns source-specific preparation, public package testing, and evidence. See <a href="../planning/onboarding-and-entry-paths.html">Onboarding And Entry Paths</a>.</p>
@@ -529,7 +546,7 @@
 <p>The work may run as a local command, a CI job, or the bounded public browser page. The browser page can inspect and compare rendered Kubernetes YAML, run static manifest checks, add a supplied Catalog source and intent record, and download one complete result without signing in. It does not render arbitrary sources, pull OCI, contact a cluster, or publish a hosted package. Anonymous use must not quietly create private history, saved edits, variants, or approvals.</p>
 <p>The optional handoff is <b>Claim this configuration in ConfigHub</b>. A user can work anonymously with public packages before or after any OCI boundary. Claiming saves the objects and their history so a team can transform, approve, promote, and roll them out. It is not a required first step or a fixed position in every delivery flow.</p>
 <p>A successful anonymous journey may end with reviewed files or a verified OCI. That is a useful result, not an incomplete ConfigHub trial. If the user later needs a shared record, comparisons over time, approval, promotion, release, or live-state history, the ConfigHub handoff should retain the same source identity, object-set digest, and review result. The user should not have to repeat the investigation merely because the work moved from a local tool into ConfigHub.</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">public OCI to Flux proof</a> checks that boundary. It starts from a public NGINX installer OCI, runs <code>cub installer setup --output-oci</code> with no ConfigHub token, writes the six rendered objects as a second OCI, reads that output back to check the object set, and records the exact digest Flux reconciled. The output registry is temporary; the receipt does not claim a hosted public workbench.</p>
 <p>The <a href="../../data/anonymous-oci-ci-proof/summary.html">anonymous OCI CI proof</a> runs the same public entry path in GitHub Actions. With no ConfigHub credentials, it pulls the NGINX package, renders and checks six objects, creates an OCI image layout, and pulls that layout back to compare the object set. The layout is retained as a workflow artifact, not published as a public registry package.</p>
 <p>Anonymous work can also happen after ConfigHub. The <a href="../../data/rbac-review-live-proof/summary.html">RBAC correction proof</a> stores and approves a correction in ConfigHub, publishes the private ConfigHub release, then packages the same approved objects as a temporary portable OCI. Argo CD in a different organization reads that portable package without borrowing the first organization's OCI credential. That is <code>ConfigHub -&gt; work -&gt; OCI -&gt; Argo CD</code>. The temporary registry proves the shape, not a permanent hosted service.</p>

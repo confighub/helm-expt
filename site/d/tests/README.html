@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is the starting page for <b>all</b> helm-expt testing. It maps every test class across the four systems we exercise - <b>Helm · Kubernetes · ConfigHub · cub</b> - to where it lives and its honest coverage. The detailed strategy, command runbooks, runners, and UX surfaces are the layers beneath it (see <a href="#the-layers">The layers</a>).</p>
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> Testing here means <i>claims matched to evidence</i>, not green-for-its-own-sake. The bar is <b>verified disposition, not &quot;everything green&quot;</b> (see <a href="#how-we-state-coverage">How we state coverage</a>).</p>
@@ -518,7 +535,7 @@
 <h2 id="clusterruntime-runners-resolve-the-repo-from-their-own-location">Cluster/runtime runners (resolve the repo from their own location)</h2>
 <ul><li><code>chart-install-test</code> - install one chart/base via <code>cub installer</code> → ConfigHub → OCI → Argo on a cub-managed kind cluster; verify runtime + three-way agreement; emit a receipt.</li><li><code>chart-install-sweep</code> - shardable top-20 driver: <code>--rig &lt;cub-cluster-name&gt; [--shard i/n] [--slugs a,b]</code>.</li><li><code>live-helm-installer-kind-parity-test</code> - strict two-cluster Helm-vs-installer parity without ConfigHub's cluster helper.</li><li><code>live-helm-confighub-parity-test</code> - live Helm vs ConfigHub delivery, dual compare.</li><li><code>target-bound-derived-variant-test</code> - <code>cub variant create --target</code>, publish the derived Space as OCI, deliver it through Argo, verify runtime, and emit a receipt.</li><li><code>existing-secret-proof</code> - the F3 fix path: pre-provision the Secret, install the existing-secret base, confirm Ready.</li><li>Lifecycle proofs: <code>npm run hook-test:proof</code> / <code>hook-execution:proof</code> (and <code>:verify</code>) - route a hook as an explicit, receipted action on a throwaway kind cluster.</li></ul>
 <h2 id="run-standalone">Run (standalone)</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub auth login                      # verify: cub organization list (NOT cub info)
 cub cluster up --name myrig
 tests/chart-install-test --package packages/bitnami/nginx/24.0.2 --slug nginx \

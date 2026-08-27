@@ -2,15 +2,15 @@
 
 # prometheus-community/kube-prometheus-stack 85.3.3 - no-crds
 
-This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.
+This guide follows one public Helm chart into a ConfigHub Space. It covers why the preset exists, how to repeat it, and what still needs care.
 
-It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.
+It is generated from the same records that build the package, the chart page and the render intent, along with the scripts and receipts. The proof links are lower down.
 
 ## Why this preset exists
 
-Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.
+A Helm chart exposes many settings, and a values file records the settings rather than the operations story around them. A team still has to know which Kubernetes objects get created and which Secrets or CRDs have to exist first. Hooks and setup jobs may need special handling, and something has to back the result.
 
-This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.
+This preset is a named answer to one operating choice. It keeps the upstream chart, records the inputs and the rendered YAML, and leaves the team a repeatable starting point instead of a private values-file guess.
 
 ## What this is
 
@@ -20,11 +20,11 @@ The matching catalog page is [prometheus-community/kube-prometheus-stack@85.3.3]
 
 ## The chart journey
 
-We keep the Helm chart. We lock `prometheus-community/kube-prometheus-stack@85.3.3`, choose the `no-crds` preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.
+We keep the Helm chart. We lock `prometheus-community/kube-prometheus-stack@85.3.3` and choose the `no-crds` preset config, then render it with the recorded values, namespace and release name against the recorded Kubernetes capabilities, and save the output as files.
 
 That captured output is the render variant: [`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml). It contains 114 Kubernetes object(s): PrometheusRule x35, ConfigMap x31, ServiceMonitor x13, Service x11, ServiceAccount x6, ClusterRole x4, ClusterRoleBinding x4, Deployment x3.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-kube-prometheus-stack-no-crds`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space, where it can be searched and compared, reviewed and changed, then delivered. The example script defaults to Space `helm-kube-prometheus-stack-no-crds`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -52,7 +52,7 @@ CRDs are made into an explicit choice instead of being mixed into the applicatio
 - Prerequisites are named before apply, so they are not discovered after rollout.
 - Hook and lifecycle work is counted and linked to the route record.
 
-This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
+This claim covers this recorded preset config alone. Every other values file for this chart remains unchecked.
 
 ## Repeat it
 
@@ -74,7 +74,7 @@ The core render command is:
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85 --base no-crds --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring
 ```
 
-After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).
+After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After upload: create a variant and promote changes](../../../../docs/user/variants-after-upload.md).
 
 ## Preset details
 

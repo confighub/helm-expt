@@ -1,0 +1,6 @@
+extends: existence
+message: "Clause-then-colon-then-payoff: '%s'. Make it one sentence."
+level: warning
+nonword: true
+tokens:
+  - '[A-Z][^.:;!?\n]{8,90}?\b(?:is|are|was|were|has|have|means|makes|gives|shows|works|matters|becomes|remains|reads)\b[^.:;!?\n]{0,60}:\s+[a-z][^.\n]{12,}\.'

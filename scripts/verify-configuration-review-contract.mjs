@@ -132,10 +132,10 @@ function verify() {
     "Use your own AI assistant",
     "Copy handoff for my AI",
     "Optional: propose a public Catalog case",
-    "Questions People Are Asking",
+    "Questions people are asking",
     "40 recent public Helm discussions",
     "not customer or site usage totals",
-    "What Happens to a Public Question",
+    "What happens to a public question",
     "review.schema.json",
     "check-config.js",
   ]) check(askPage.includes(term), `ask page is missing ${term}`);

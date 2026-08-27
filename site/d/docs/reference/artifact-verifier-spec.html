@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -446,7 +463,7 @@
     <p class="lead">This is the executable proof contract for <code>helm-expt</code>. <a href="../../../../docs/reference/artifact-verifier-spec.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 
 <p>The verifier checks the current recipe/package artifact chain, the Redis recipe/variant/revision proof, the durable Redis installer package proof, the promoted metrics-server, ingress-nginx, cert-manager, external-secrets, Argo CD, PostgreSQL, RabbitMQ, kube-prometheus-stack, Loki, Longhorn, MySQL, Grafana, Vault, Secrets Store CSI Driver, Prometheus, MongoDB, Nginx, Tempo, and Consul proofs, and the adversarial public-chart harnesses.</p>
@@ -554,7 +571,7 @@ packages/grafana/loki/7.0.0/</code></pre>
 <p>For the adversarial public-chart harness:</p>
 <ol><li>The corpus lock has one row for every chart in <code>corpus.yaml</code>.</li><li>Every chart row has a HelmPlan, render receipt, and object inventory.</li><li>Successful render receipts point at a stored rendered manifest.</li><li>Stored rendered manifest SHA, byte count, and resource count match the receipt.</li><li>Failed render receipts do not claim a rendered manifest and record an <code>errorSHA256</code>.</li><li>CSV status, readiness, feature flags, primary control point, paths, counts, and rendered manifest SHA match the receipt.</li><li>Chart identity, version, render context, and package SHA are present in the receipt.</li></ol>
 <p>For the promoted metrics-server proof:</p>
-<ol><li>Both variants render deterministically with Helm under the pinned capability profile.</li><li><code>external-tls-ca</code> binds <code>tls.existingSecret.lookup=false</code>, an explicit <code>apiService.caBundle</code>, and the target Secret requirement <code>kube-system/metrics-server-tls</code>.</li><li>Each variant has exactly 9 Helm objects and a rendered APIService.</li><li><code>cub installer package</code> produces byte-identical bundles across two local runs.</li><li><code>cub installer setup --base default</code> and <code>cub installer setup --base external-tls-ca</code> match Helm semantically, plus only <code>v1|Namespace||kube-system</code>.</li><li>Semantic comparison prunes null fields, because <code>cub installer</code>/kustomize drops <code>metadata.annotations: null</code> from the APIService.</li></ol><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<ol><li>Both variants render deterministically with Helm under the pinned capability profile.</li><li><code>external-tls-ca</code> binds <code>tls.existingSecret.lookup=false</code>, an explicit <code>apiService.caBundle</code>, and the target Secret requirement <code>kube-system/metrics-server-tls</code>.</li><li>Each variant has exactly 9 Helm objects and a rendered APIService.</li><li><code>cub installer package</code> produces byte-identical bundles across two local runs.</li><li><code>cub installer setup --base default</code> and <code>cub installer setup --base external-tls-ca</code> match Helm semantically, plus only <code>v1|Namespace||kube-system</code>.</li><li>Semantic comparison prunes null fields, because <code>cub installer</code>/kustomize drops <code>metadata.annotations: null</code> from the APIService.</li></ol><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <p>For the promoted ingress-nginx proof:</p>
 <ol><li>Both variants render deterministically with Helm under the pinned capability profile.</li><li><code>default</code> renders exactly 11 Helm objects, including the admission Service and ValidatingWebhookConfiguration.</li><li><code>admission-disabled</code> renders exactly 9 Helm objects and deliberately omits the admission Service and ValidatingWebhookConfiguration.</li><li>Both variants render the controller Deployment and <code>nginx</code> IngressClass.</li><li><code>cub installer package</code> produces byte-identical bundles across two local runs.</li><li><code>cub installer setup --base default</code> and <code>cub installer setup --base admission-disabled</code> match Helm semantically, plus only <code>v1|Namespace||ingress-nginx</code>.</li><li>Scan/gate receipts flag admission webhook observation, Helm hook lifecycle policy, and cluster RBAC where applicable.</li></ol>

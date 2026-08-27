@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -446,7 +463,7 @@
     <p class="lead">The top-100 corpus is the bridge between the polished top-20 catalog and the larger top-500 reconnaissance data. <a href="../../../../docs/user/top100-readiness.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
@@ -495,7 +512,7 @@ Is this chart ready to be promoted as a public catalog offer?
 <tr><td><code>limitation-decision-first</code></td><td>A named capability gap affects the recommended path.</td><td>Decide whether to support, disclose, or defer the capability before promotion.</td></tr></tbody></table>
 <p>The user-facing status page uses the same source data with one extra split: <code>promote-after-review</code> becomes either <code>works-with-target-prerequisites</code> or <code>works-with-operator-review</code>, depending on whether the next obstacle is mostly a user-provided target input or an operator review.</p>
 <h2 id="what-the-counts-mean">What The Counts Mean</h2>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p><code>render-parity</code> means regular Helm and <code>cub installer setup</code> produce equivalent Kubernetes objects under recorded inputs.</p>
 <p><code>in-ConfigHub</code>, <code>local_live</code>, <code>gitops_live</code>, and <code>live_parity</code> are separate lanes. A chart can be proof-grade with render parity while still missing live or GitOps evidence for some bases.</p>
 <p><code>hard_gap</code> does not mean the chart is broken. It means a useful capability is not yet handled as a supported path. Common examples are:</p>

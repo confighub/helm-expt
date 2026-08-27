@@ -44,7 +44,7 @@ Open `site/docs.html` to find instructions for the step or problem in front of y
 Open `site/docs-reference.html` for the complete technical guide and evidence index.
 Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
-cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.
+cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux.
 Open `site/verification.html` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open `site/d/data/helm-catalog-readmes/summary.html` for the website-rendered

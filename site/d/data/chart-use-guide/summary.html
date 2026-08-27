@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/chart-use-guide/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This generated guide answers one user question:</p>
 <pre><code>Can I use this chart, and what should I do next?</code></pre>
@@ -475,7 +492,7 @@
 <tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr>
 <tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td><code>default (render-only)</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr>
 <tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td><code>server-only-ephemeral (render-only)</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr>
-<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="first-promotion-wave">First Promotion Wave</h2>
 <p>These proof-ready rows are the first strict top-100 promotion-review packet. They are good candidates for turning machine proof into a public catalog offer, but they still need review, production disposition, and selected live evidence before their catalog status changes.</p>

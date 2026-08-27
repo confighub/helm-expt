@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -453,7 +470,7 @@
 <h2 id="the-one-rule">The one rule</h2>
 <blockquote></blockquote>
 <h2 id="the-model-behind-the-menu-chart-recipes-base-variants-derived-variants">The model behind the menu (chart → recipes → base variants → derived variants)</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>1 Helm chart
  └─ N recipes  (incl. a default recipe)                     - the cub installer mapping(s)        [helm-expt]
       └─ N base variants, placeholdered  (incl. a default)  - render-time shapes; placeholders    [helm-expt]
@@ -487,7 +504,7 @@ as `missing` lane backlog.</code></pre>
 <ul><li><b><code>default</code></b> - works out of the box, zero required input. <i>(Start here.)</i></li><li><b><code>parameterized</code></b> - same shape as <code>default</code>, with the fill-safe fields exposed as placeholders to fill.</li><li><b>standard forks (only those that apply):</b> <code>existing-secret</code> · <code>ingress-tls</code> · <code>ha</code> · <code>no-crds</code> · <code>minimal</code> · <code>tls</code>. These <i>change the rendered object shape</i>, so each is a real, Helm-equivalent, pinned base. Forks compose (e.g. <code>existing-secret + ingress-tls</code>).</li></ul>
 <p>Pick one fork (or a composition), then customize <i>within</i> it by <b>filling placeholders / facts</b> (derived variant, no re-render). The forks below (F1–F3) are the checks each chosen fork must pass.</p>
 <h2 id="early-forks-a-newcomer-hits-first-campaign-grounded">Early forks a newcomer hits FIRST (campaign-grounded)</h2>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>START - pull a public package → setup → upload → ConfigHub → OCI → Argo/Flux
 │
 ├─ Fork 1 · NAMESPACE  (F1 / F1b)                                  [proven]

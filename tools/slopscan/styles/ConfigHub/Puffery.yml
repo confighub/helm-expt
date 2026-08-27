@@ -1,0 +1,22 @@
+extends: existence
+message: "Puffery: '%s'."
+level: error
+ignorecase: true
+tokens:
+  - seamless(ly)?
+  - robust
+  - comprehensive
+  - cutting[- ]edge
+  - powerful
+  - game[- ]chang(er|ing)
+  - revolutionary
+  - state[- ]of[- ]the[- ]art
+  - best[- ]in[- ]class
+  - world[- ]class
+  - unparalleled
+  - unlock(s|ing)?
+  - empower(s|ing)?
+  - leverag(e|es|ing)
+  - streamlin(e|es|ed|ing)
+  - elevate(s|d)?
+  - supercharge
