@@ -4,9 +4,15 @@ Branch: `register-audit`, cut from `main` @ ab65780d.
 
 ## What is in this branch
 
-`tools/slopscan/` only. No site copy is edited. Nothing under `site/`,
-`docs/`, `packages/`, `recipes/` or `config-catalog/` is touched, so this
-branch should merge into anything without conflict.
+Two commits.
+
+1. `tools/slopscan/` - the audit tooling. Pure addition, no conflict surface.
+2. Copy rewrites to six pages under `site/`: `index.html`, `try.html`,
+   `existing-apps.html`, `security.html`, `guides.html`, `journey.html`.
+   **This is the conflict surface.** If a concurrent worktree has touched any
+   of those six, take theirs and re-apply these rules rather than merging
+   blind. Nothing under `docs/`, `packages/`, `recipes/` or `config-catalog/`
+   is touched.
 
 ## What it found
 
@@ -36,24 +42,51 @@ site copy:
    request. The doctrinal phrasing appears 3 times; the generic form
    ("ConfigHub becomes useful when you want to...") appears 6 times.
 
-## What is NOT in this branch, deliberately
+## The four rules the copy edits apply
 
-The copy edits. They were discussed but not made, because they land in
-`site/index.html` and the other authored pages, which is where a concurrent
-worktree is most likely to be working. Proposed changes, for whoever picks
-them up:
+1. One negation per paragraph. Bounds move into a marked `Limits` line
+   instead of being interleaved with instructions sentence by sentence.
+   Limits are never deleted: doctrine requires stated limits in the public
+   result.
+2. Comma enumerations capped at three items. Longer ones split into
+   sentences or become a table.
+3. Subordination added so consecutive sentences differ in shape. The target
+   is the simple-sentence share, not sentence length.
+4. The page's number or oddity leads. On `try.html` that is the fourteenth
+   object being a Namespace `cub` adds.
 
-- Homepage hero: 6 paragraphs / 211 words before the first CTA, reduced to
-  one paragraph. The displaced content is duplication, not information.
-- The four assessment questions move from a run-together hero sentence to
-  the evidence section as the doctrine's own table (question / required
-  input / what it may claim). Doctrine requires them kept *separate*; a
-  single 20-word sentence with question marks is the least separated form.
-- Stated limits move out of running prose into a marked Limits block per
-  page. They must not be deleted: doctrine requires stated limits in the
-  public result.
-- The ten practical questions and their "n of 40 discussions" counts are
-  protected copy per doctrine and must survive any rewrite.
+Measured on the six edited pages:
+
+| Page | %simple | %negation | enumerations (4+ items) |
+| --- | --- | --- | --- |
+| index.html | 56 -> 48 | 16 -> 15 | 6 (5) -> 4 (2) |
+| try.html | 59 -> 56 | 32 -> 19 | 1 (1) -> 1 (1) |
+| existing-apps.html | 31 -> 33 | 8 -> 7 | 6 (6) -> 4 (4) |
+| security.html | 47 -> 33 | 21 -> 14 | 3 (3) -> 3 (2) |
+| guides.html | 30 -> 35 | 20 -> 10 | 3 (3) -> 2 (2) |
+| journey.html | 31 -> 32 | 12 -> 10 | 9 (9) -> 9 (9) |
+
+Total words across the six went **up** by 63, from 3,361 to 3,424.
+Subordination costs words. The homepage hero fell from 211 words before the
+first CTA to 104, and that reduction was duplication rather than
+information; the rest of the corpus is not over-long, it is over-compressed
+into lists.
+
+`journey.html` barely moved on enumerations. Its nine are mostly genuine
+field sets that want to be tables, which is a markup change rather than a
+copy change, and it has not been done.
+
+## Protected copy, untouched
+
+- The ten practical questions and their "n of 40 discussions" counts.
+  Doctrine flags these as a standing user-test set, not rewritable copy.
+- All stated limits, and the blocked / not-run vs failed distinction.
+- The four assessment questions, kept and given more separation, not fewer.
+
+## Still to do
+
+28 of the 34 authored prose pages are unedited. `results/edit_queue.csv`
+ranks them; `docs.html` and `verification.html` are next.
 
 ## Known limits of this work
 
