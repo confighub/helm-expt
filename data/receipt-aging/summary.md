@@ -10,17 +10,17 @@ whether it is recent. A delivery proof from months ago and one from this
 morning read the same on the page.
 
 Ages below are measured against the newest receipt in the repository,
-**2026-08-26**, rather than against the clock. That keeps this a
+**2026-08-27**, rather than against the clock. That keeps this a
 function of committed bytes, so it cannot go stale overnight, and it asks the
 more useful question: old compared to what else this repository knows. The
-oldest receipt is from 2026-05-26, so the evidence spans 92 days.
+oldest receipt is from 2026-05-26, so the evidence spans 93 days.
 
 ## The spread
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 459 |
-| 31 to 90 days | 591 |
+| 0 to 30 days | 453 |
+| 31 to 90 days | 598 |
 | 91 to 180 days | 881 |
 | over 180 days | 0 |
 
@@ -32,18 +32,18 @@ receipt, and the full table is in the CSV for the rest.
 
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
-| `live-helm-confighub-compare` | 219 | 72 | 82 | none |
-| `live-kind-parity` | 179 | 72 | 81 | none |
-| `next80-local-kind` | 176 | 76 | 76 | none |
-| `installer-oci` | 139 | 0 | 0 | none |
-| `installer-oci-signatures` | 139 | 0 | 0 | none |
+| `live-helm-confighub-compare` | 219 | 73 | 82 | none |
+| `live-kind-parity` | 179 | 72 | 82 | none |
+| `next80-local-kind` | 176 | 76 | 77 | none |
+| `installer-oci` | 139 | 1 | 1 | none |
+| `installer-oci-signatures` | 139 | 1 | 1 | none |
 | `certified-bundles` | 74 | 18 | 18 | none |
-| `latest-top20-refresh` | 40 | 91 | 91 | none |
-| `derived-variant-execution` | 10 | 82 | 82 | none |
-| `derived-variant-target-bound` | 6 | 82 | 82 | none |
-| `alertmanager-ha-confighub-proof` | 4 | 91 | 91 | none |
-| `argo-cd-confighub-proof` | 4 | 91 | 91 | none |
-| `argo-cd-default-confighub-proof` | 4 | 91 | 91 | none |
+| `latest-top20-refresh` | 40 | 92 | 92 | none |
+| `derived-variant-execution` | 10 | 83 | 83 | none |
+| `derived-variant-target-bound` | 6 | 83 | 83 | none |
+| `alertmanager-ha-confighub-proof` | 4 | 92 | 92 | none |
+| `argo-cd-confighub-proof` | 4 | 92 | 92 | none |
+| `argo-cd-default-confighub-proof` | 4 | 92 | 92 | none |
 
 ## The oldest evidence, one family at a time
 
@@ -53,20 +53,20 @@ families whose evidence has aged furthest.
 
 | Family | Receipt | Recorded | Age in days |
 | --- | --- | --- | --- |
-| `redis-confighub` | `upload-oci-receipt.yaml` | 2026-05-26 | 92 |
-| `redis-local-kind` | `observation-receipt.yaml` | 2026-05-26 | 92 |
-| `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 91 |
-| `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 91 |
-| `alertmanager-ha-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 91 |
-| `argo-cd-9517-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 91 |
-| `argo-cd-9517-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 91 |
-| `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 91 |
-| `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 91 |
-| `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 91 |
+| `redis-local-kind` | `observation-receipt.yaml` | 2026-05-26 | 93 |
+| `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
+| `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 92 |
+| `alertmanager-ha-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
+| `argo-cd-9517-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
+| `argo-cd-9517-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 92 |
+| `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
+| `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
+| `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
+| `argo-events-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 92 |
 
 ## Receipts that cannot age
 
-Every one of the 1931 committed receipts records a date, so none of
+Every one of the 1932 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now
