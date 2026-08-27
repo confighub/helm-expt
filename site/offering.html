@@ -521,7 +521,7 @@
   <main>
     <section aria-labelledby="public">
       <h2 id="public">1. Start without ConfigHub Server</h2>
-      <p>The local paths below do not contact ConfigHub Server. Public Catalog package pulls also need no ConfigHub account or Google registry login.</p>
+      <p>Everything below runs against your own machine. Pulling a public Catalog package is anonymous, so no ConfigHub account or registry login is involved.</p>
       <div class="card"><table>
         <thead><tr><th>Task</th><th>Start here</th><th>What happens</th></tr></thead>
         <tbody><tr><td>Try a Catalog configuration</td><td><a href="./try.html">Try Redis</a></td><td>Pull a public package, render it locally, and inspect the exact Kubernetes objects.</td></tr><tr><td>Bring a Helm chart and values</td><td><a href="./testing.html#bring-your-own">Review your own Helm input</a></td><td>Use cub helm locally to render the chart without applying it.</td></tr><tr><td>Start with AICR, OCI, or YAML</td><td><a href="./testing.html">Choose a worked example</a></td><td>Inspect the objects and source information before deciding where they go.</td></tr><tr><td>Check chart requirements</td><td><a href="./charts/index.html">Browse the Catalog</a></td><td>See the recommended configuration, hooks, CRDs, Secrets, setup work, and evidence.</td></tr></tbody>
@@ -532,7 +532,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The local tools work today. A hosted path without sign-in is planned, not yet a shipped service. <a href="./serverless.html">Read what works without an account</a>.</p>
+      <p>The local tools work today. A hosted path without sign-in is planned rather than shipped. <a href="./serverless.html">Read what works before you sign up</a>.</p>
     </section>
 
     <section aria-labelledby="managed">
@@ -563,13 +563,30 @@
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      </style>
+      
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
       <p><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=offering">Sign up for ConfigHub</a> or <a href="./private/">review the commercial options for users of this site</a>.</p>
     </section>
 
     <section aria-labelledby="current">
       <h2 id="current">4. Check what exists today</h2>
-      <p>Each count covers a different test. It does not become a blanket production claim.</p>
+      <p>Each count covers one test, and the counts stay separate rather than adding up to a production claim.</p>
       <div class="grid">
         <div class="metric"><strong>112</strong><span>Catalog components · 139 retained package versions with packaged configurations and recorded requirements, 139 of them published with a receipt.</span></div>
         <div class="metric"><strong>245/245</strong><span>Helm render matches · Helm and cub installer produced the same objects from the recorded settings.</span></div>

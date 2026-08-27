@@ -519,7 +519,24 @@
     .calm-page .move-spine {
       gap: 22px;
     }
-  </style>
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
@@ -541,7 +558,7 @@
       <div class="card">
         <h3>Status legend</h3>
         <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work still needs a product, policy, support, or service decision.</p>
-        <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
+        <p>A green GitOps sync tells you the controller accepted the manifest, which is a smaller claim than a working application. Where the claim depends on live state, use observation receipts.</p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -560,7 +577,7 @@
         </div>
         <p class="opmeta"><code>scan rendered objects and stop unsafe releases</code> · <span class="muted">local checks; managed policy</span></p>
         
-        <p>Run scans over the rendered objects for privilege, exposure, and deprecated APIs. A gate is a release stop: delivery waits until findings are accepted or waived with a named reason.</p>
+        <p>Run scans over the rendered objects for privilege, exposure and deprecated APIs. A gate is a release stop, so delivery waits until each finding is accepted or waived with a named reason.</p>
         <p class="muted">See: <a href="d/data/external-scan-lane/summary.html">Security scan results</a></p>
       </div>
       <div class="op">
@@ -569,7 +586,7 @@
           <span class="badge watch">watch</span>
         </div>
         <p class="opmeta"><code>preview, then promote a variant</code> · <span class="muted">ConfigHub Server</span></p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
         <p>Apps and Variants choose the base, derived variant, and target. We've proven this on Redis, NGINX, and kube-prometheus-stack: previewing the change, updating objects that changed, and adding new ones.</p>
@@ -582,7 +599,7 @@ cub variant promote &lt;space&gt;</code></pre>
         </div>
         <p class="opmeta"><code>publish OCI for a GitOps controller</code> · <span class="muted">Argo CD or Flux</span></p>
         
-        <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle. Argo or Flux can pull that bundle and reconcile it. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
+        <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle that Argo or Flux pulls and reconciles. A green local apply and a reconciled controller are different events, so both are recorded separately.</p>
         <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="d/data/runtime-gitops/summary.html">GitOps test results</a></p>
       </div>
       <div class="op">
@@ -610,7 +627,7 @@ cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
         <p class="opmeta"><code>compare live state with a previous approved revision</code> · <span class="muted">ConfigHub revisions and a live check</span></p>
         <pre><code>cub unit diff &lt;unit&gt; --from=PreviousLiveRevisionNum --to=LiveRevisionNum
 cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
-        <p>You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.</p>
+        <p>You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.</p>
         <p class="muted">See: <a href="d/docs/user/day2-upgrade-story.html">The day-2 upgrade story</a> · <a href="d/docs/user/day2-upgrade-rollback.html">Upgrade and rollback guide</a> · <a href="d/docs/user/cub-scout-diff-design.html">Three-way comparison design</a></p>
       </div>
     </section>

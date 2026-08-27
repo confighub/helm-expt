@@ -528,9 +528,9 @@
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="promotion-scope">
-      <h2 id="promotion-scope">What A Promotion Review Answers</h2>
+      <h2 id="promotion-scope">What a promotion review answers</h2>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Promotion answer</th></tr></thead>
         <tbody><tr><td>What do I have?</td><td>The exact current and proposed object sets, their identities, and their differences.</td></tr><tr><td>What will it produce?</td><td>Materialize both sources before using this page. The browser compares the output; it does not run Helm, AICR, Timoni, or another processor.</td></tr><tr><td>Can this destination accept it?</td><td>Add current destination checks for the same proposed digest. Without them, the answer remains not run.</td></tr><tr><td>Did it work?</td><td>Add staging or live results only after the exact revision has been deployed. One passing target does not cover another target.</td></tr></tbody>
@@ -717,7 +717,24 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
         th:first-child, td:first-child { min-width: 22ch; }
-      </style>
+      
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
       <p><a href="./confighub.html"><strong>Keep a reviewed result in ConfigHub</strong></a> when you need ordered stages, approvals, release OCI, promotion history, and current observations to remain connected.</p>
     </section>
   </main>

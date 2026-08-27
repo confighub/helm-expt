@@ -663,7 +663,24 @@ cub k8s get crd --space "*"</code></pre>
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      </style>
+      
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
         <p>The lifecycle check validates a route that is present. It does not guess that a missing route means no lifecycle work exists. The source and intent record and chart review must first identify any hooks, CRDs, setup jobs, or target prerequisites.</p>
         <p>The same policy can cover Helm, AICR, Kubara, Sveltos, or ordinary YAML after ConfigHub stores the objects.</p>
         <p>The live org has 35 Spaces on common tests and 13 on the approval policy. The approval set contains 5 production Spaces and 8 system-configuration Spaces. These Spaces include AICR 6, cub installer 31, Helm 3, Kubara 1, rendered Kubernetes config 4, Sveltos 1, timoni 2. Each records its policy profile and starting format.</p>

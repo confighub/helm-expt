@@ -520,7 +520,7 @@
     <p style="margin-top:14px;font-size:.9rem"><a href="#start-question">Choose a command</a> · <a href="./proof.html">See current results</a> · <a href="./known-gaps.html">Read known gaps</a></p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <section aria-labelledby="start-question">
       <h2 id="start-question">1. Choose the question and command</h2>
       <h3 id="four-questions">First decide which answer you need</h3>
@@ -594,7 +594,24 @@
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      </style>
+      
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
     </section>
   </main>
   <footer>Generated from committed helm-expt evidence. Project checks test claims; product commands perform the Helm and ConfigHub work.</footer>

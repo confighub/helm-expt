@@ -527,7 +527,24 @@ em{font-style:italic;color:var(--ink);}
     .calm-page .move-spine {
       gap: 22px;
     }
-  </style>
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
 </head>
 <body class="calm-page">
 <header class="hero">
@@ -550,7 +567,7 @@ cub installer version
 kustomize version</code></pre>
   <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. <code>cub plugin install</code> downloads the release for your operating system and architecture. If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>. If <code>kustomize version</code> fails, use the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official kustomize installation instructions</a>; Go is not required to install cub installer. If you installed an early source build with no recorded source, run <code>cub plugin uninstall installer</code> once, then repeat the install command above. Full cub setup notes are in the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub docs</a>.</p>
   <p>The catalog paths on this page run on your laptop and need no sign-in anywhere.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. Where the plugin or <code>kustomize</code> is missing, the generated scripts stop before doing any work.</p>
 
   <h2>The fastest first run</h2>
   <p>Five steps take you through the first run. They render the recommended Redis configuration and create its required Secret separately. They then apply the files to a throwaway cluster and show you what the cluster received.</p>

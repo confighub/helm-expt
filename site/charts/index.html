@@ -1598,7 +1598,24 @@
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      </style>
+      
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
       <p><a href="../d/examples/timoni/redis-8-10-1/README.html">Read the Timoni Redis entry</a> · <a href="../d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-base/README.html">Read the ConfigHub base guide</a> · <a href="../d/data/helm-catalog-readmes/spaces/timoni-redis-8-10-1-dev/README.html">Read the development variant</a> · <a href="../d/data/timoni-redis-catalog-proof/summary.html">Check the proof and limits</a> · <a href="../../data/base-variant-records/records/timoni-redis-8-10-1-default.yaml">Open its source-neutral Catalog record</a> · <a href="./index.html?q=redis#charts">Compare Helm Redis entries</a></p>
     </section>
 
