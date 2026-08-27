@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Master catalog matrix</title>
+<title>Master Catalog Matrix</title>
   <meta name="description" content="The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/matrix.html">
   <meta property="og:title" content="Master Catalog Matrix">
@@ -39,27 +39,10 @@ td.action{max-width:130px;color:#202124;font-weight:600}
 tr.layer-f1 td{background:#f8fafd}
 tr.candidate td{background:#fff8e6}
 tr.custom-discussion td{background:#fff1e8}
-
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
 </style>
 </head>
 <body>
-<h1>Master catalog matrix</h1>
+<h1>Master Catalog Matrix</h1>
 <p class="sub"><b>Generated at:</b> 2026-08-15T18:42:15.376Z UTC · source: committed catalog, proof, live, and target-run data.</p>
 <p class="sub">139 chart versions · 464 matrix rows (139 F1 source / 245 F2 base / 67 candidate / 13 F4 derived) · layers F1:139 / F2a:124 / F2b:121 / F2c:33 / F3:34 / F4a:7 / F4b:6 · lane cells: 1038 pass / 107 watch / 125 blocked / 303 not yet run / 1675 n/a · target run decisions: 22 runs / 2 superseded / 2 blocked-or-rejected · variant promotion: 179 proven / 17 watch / 47 todo / 2 blocked / 219 n/a · lifecycle records: 12 attached / 10 gap / 223 no separate route · prerequisite records: 89 attached / 144 gap / 12 none explicitly required · 74 active proof queue row(s) · 114 deferred accepted cell(s) · 0 hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– not applicable</span></p>

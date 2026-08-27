@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/current-handover.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is the current handover for the <code>helm-expt</code> repository. It is intended for another engineer or agent picking up the work from public <code>main</code>.</p>
 <p>For current priorities, start with <a href="roadmap.html">Roadmap</a>. This file is a pickup snapshot and vocabulary note, not the canonical roadmap.</p>
@@ -471,7 +471,7 @@ docs/planning/large-machine-roadmap.md</code></pre>
 <p>The repository is a public proof corpus for turning popular public Helm charts into reviewed <code>cub installer</code> packages, supported base variants, rendered objects, scans, receipts, and live-test evidence.</p>
 <p>In this handover, <b>base variant</b> means a render-time installer/package variant. <b>Derived ConfigHub variant</b> means a downstream ConfigHub variant created after a reviewed base has been uploaded, using clone/link plus approved post-render refinements. The public catalog primarily proves base variants. Derived variants are still part of the product model, but they appear after upload when a deployment needs target, environment, region, customer, namespace field, fact binding, placeholder, TransformPaths, function, gate, link, check, or observation-policy changes without re-rendering Helm.</p>
 <p>The current public path is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>Helm chart
   -&gt; analyzed chart facts and control points
   -&gt; cub installer package
@@ -492,7 +492,7 @@ docs/planning/large-machine-roadmap.md</code></pre>
 All non-Redis top-20 proof scripts use the shared proof kit.</code></pre>
 <p>For chart-recipe-variant lane coverage, use the generated lane matrix instead of chart-level shorthand:</p>
 <pre><code>data/outcome-coverage/summary.md</code></pre>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>As of the current matrix, all 191 chart/base rows have Helm-equivalence plus installer setup-check evidence. ConfigHub proof, local-kind evidence, and ConfigHub OCI/Argo live proof are partial by exact variant row.</p>
 <p>There are two live parity surfaces, and they answer different questions:</p>
 <table><thead><tr><th>Surface</th><th>Current reading</th><th>Use it for</th></tr></thead><tbody><tr><td>Selected live Helm-vs-ConfigHub comparison</td><td>84 committed receipts: 83 pass, 1 watch, 0 blocked.</td><td>Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows.</td></tr>

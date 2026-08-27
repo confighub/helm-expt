@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Build an Internal Developer Platform with Kubara &middot; Config Workshop</title>
+  <title>Build an internal developer platform with Kubara &middot; Config Workshop</title>
   <meta name="description" content="Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/kubara.html">
-  <meta property="og:title" content="Build an Internal Developer Platform with Kubara &amp;middot; Config Workshop">
+  <meta property="og:title" content="Build an internal developer platform with Kubara &amp;middot; Config Workshop">
   <meta property="og:description" content="Build an internal developer platform from tested Catalog components, native Kubara configuration, and reviewed AI-assisted changes, then promote platform components, tools, and applications separately.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/kubara.html">
@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -508,6 +525,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -522,7 +556,7 @@
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this Kubara buyer journey.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this Kubara buyer journey.</p>
     <section aria-labelledby="kubara-run-yourself">
       <h3 id="kubara-run-yourself" style="font-size:1.25rem">Run this yourself</h3>
       <p>Three rungs, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
@@ -621,24 +655,7 @@ npm run kubara-platform:start -- \
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-</style>
+      </style>
     </section>
     <section aria-labelledby="delivery-authority">
       <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>

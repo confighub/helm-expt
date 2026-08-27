@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,11 +459,11 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../docs/planning/archive/repo-consistency-review.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <h2 id="verdict">Verdict</h2>
 <p>The repo now has a clearer shape:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>README -&gt; current mission and simple UX claim
 docs/ -&gt; doctrine, harness introduction, maintenance, customization, promotion review
 recipes/ -&gt; chart proof artifacts
@@ -472,7 +472,7 @@ data/ -&gt; generated review outputs
 data/top500-catalog-analysis/ -&gt; current top-500 proof index and source-scan input</code></pre>
 <p>The old top-20 render-and-vendor payload is removed from the active tree. The current proof path is <code>recipes/</code> plus <code>packages/</code>, verified against regular Helm renders and <code>cub installer</code>.</p>
 <h2 id="current-logical-flow">Current Logical Flow</h2>
-<ol><li>Pick a public Helm chart and version.</li><li>Render it with regular Helm under pinned inputs.</li><li>Capture a HelmPlan, ChartDossier, source/dependency locks, control points, and value model.</li><li>Create one or more install variants.</li><li>Store immutable variant revisions with rendered release objects.</li><li>Run scans and install gates against the exact rendered objects.</li><li>Build an executable <code>cub installer</code> package under <code>packages/</code>.</li><li>Compare <code>cub installer setup</code> output with the regular Helm baseline.</li><li>Generate catalog-promotion review output.</li><li>Promote only after human/product review assigns explicit catalog status.</li></ol><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<ol><li>Pick a public Helm chart and version.</li><li>Render it with regular Helm under pinned inputs.</li><li>Capture a HelmPlan, ChartDossier, source/dependency locks, control points, and value model.</li><li>Create one or more install variants.</li><li>Store immutable variant revisions with rendered release objects.</li><li>Run scans and install gates against the exact rendered objects.</li><li>Build an executable <code>cub installer</code> package under <code>packages/</code>.</li><li>Compare <code>cub installer setup</code> output with the regular Helm baseline.</li><li>Generate catalog-promotion review output.</li><li>Promote only after human/product review assigns explicit catalog status.</li></ol><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="what-is-consistent">What Is Consistent</h2>
 <ul><li>The public claim is stable: correct variants, safe operations, immediate proof.</li><li>The written doctrine now favors executable installer, <code>cub</code>, and ConfigHub capabilities over documentation-only mitigations whenever those capabilities exist, fit the chart behavior, and improve simplicity, safety, or proof.</li><li>Redis, the promoted top-20 recipes, and the next-80 recipes all use current <code>packages/</code> executable fixtures.</li><li><code>npm run verify</code> checks current artifact chains instead of obsolete archive receipts.</li><li>The catalog-promotion review separates machine proof from catalog support.</li></ul>

@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,11 +459,11 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/kps-gitops-lifecycle-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This test installs the public <code>prometheus-community/kube-prometheus-stack@85.3.3</code> <code>no-crds</code> preset, then upgrades it to <code>86.1.0</code>. The result is <b>pass</b>.</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p><code>cub installer setup --output-oci</code> wrote and read back both selected non-secret configurations. The 85.3.3 output contained 113 files at object-set digest <code>sha256:e536005bf01a5aa0cd2dba5dcbfa1917c84e80341a2eae8f5bcbd0440d276b39</code>; the 86.1.0 output contained 113 files at <code>sha256:ab82bd85549b650c4b2b2ff26258e0b39e69247a22ce7bcc51553186b22fb6bc</code>.</p>
 <p>A chart-specific step then added the work Helm normally performs around those objects. The install OCI is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds@sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59</code> and the upgrade OCI is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:86.1.0-no-crds@sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513</code>. Each contains four paths:</p>
 <ol><li><code>stages/crds</code> creates the Namespace and establishes ten CRDs.</li><li><code>stages/prepare</code> runs the chart's certificate creation Job.</li><li><code>stages/workload</code> applies the 112 non-secret chart objects.</li><li><code>stages/finish</code> runs the chart's webhook patch Job.</li></ol>

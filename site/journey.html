@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
     .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
@@ -523,6 +540,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -531,7 +565,7 @@
     <h1>Build an App from saved configuration</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
     <p class="lead">Use this page after configuration is saved in ConfigHub. An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
-  <p>You save configuration by uploading it from an <a href="./testing.html">example</a> or your own package, which needs a free ConfigHub account. Nothing on this page works before that upload, and everything works after it.</p>
+  <p>Configuration gets saved by uploading it from an <a href="./testing.html">example</a> or your own package, which needs a free ConfigHub account. Nothing on this page works before that upload, and everything works after it.</p>
     <p>New to ConfigHub? Follow the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=apps">official tutorial</a> to install, change, and promote one component. Use the <a href="./testing.html">Examples page</a> when your starting point is Helm, AICR, OCI, or YAML.</p>
     <p>An App reads the exact Kubernetes objects and proposes a change. It runs the checks, waits for approval, then publishes a release and records what happened. AI can help along the way, while the reviewed objects and the policy result decide what ships.</p>
     <p class="quiet-line"><a href="./demo-org.html">The demo org</a> shows catalog configurations, variant trees, promotions, and apply gates in ConfigHub.</p>
@@ -555,7 +589,7 @@
     <section aria-labelledby="entry">
       <h2 id="entry">2. Confirm the configuration is saved</h2>
       <p>An App operates configuration that ConfigHub already stores. You should be able to open the component, base, environment variant, and exact Kubernetes objects before the App proposes a change.</p>
-      <p>To save configuration for the first time, use <a href="./testing.html">Examples</a> to start from Helm, AICR, OCI, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
+      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, OCI, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
       <p>The <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=apps-saved-config">official tutorial</a> shows the shortest ConfigHub path from one component to a promoted variant.</p>
     </section>
 
@@ -600,24 +634,7 @@
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-</style>
+      </style>
       <p><a href="d/docs/user/config-catalog-demonstrations.html">Open the demonstration programme</a> for the steps, evidence, and current limit for every App.</p>
     </section>
   </main>

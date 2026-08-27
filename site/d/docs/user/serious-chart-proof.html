@@ -427,17 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -454,7 +443,18 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -480,7 +480,7 @@ ConfigHub OCI/Argo evidence: pass for the declared support scope
 production support decision: supported for the recorded vanilla kind target, namespace=monitoring</code></pre>
 <p>That means regular Helm and the <code>cub installer</code> path produce equivalent desired objects for the recorded inputs, and the selected ConfigHub delivery path reached the recorded live state for the declared target scope. The receipt stores that historical target class as <code>cub-lk-kind-vanilla</code>. Current local delivery examples create the equivalent kind and Argo CD setup with <code>cub cluster up</code>.</p>
 <p>The <code>no-crds</code> base is deliberately different:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>render parity: pass
 two-cluster kind parity: pass
 target facts staged in live proof: 10 CRDs + monitoring/kube-prometheus-stack-admission Secret
@@ -489,7 +489,7 @@ ConfigHub OCI/Argo runtime path: pass when the same prerequisites are staged
 staged no-crds OCI: pass through Argo CD and Flux on separate fresh clusters
 staged upgrade: 85.3.3 to 86.1.0 pass through Argo CD and Flux</code></pre>
 <p>The earlier blocked runtime evidence was useful because it showed that removing CRDs from the rendered object set creates a target prerequisite. The model did not hide that prerequisite or pretend the install was complete. Fresh live runs on 2026-06-11 then proved the positive path: stage the compatible CRDs and the admission Secret, and both the two-cluster kind lane and the ConfigHub OCI/Argo lane converge with semantic parity.</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>A separate fresh-install proof starts from the anonymous public installer package, selects <code>no-crds</code>, and writes a non-secret OCI output with <code>cub installer setup --output-oci</code>. A chart-specific packaging step adds four explicit paths for CRDs, certificate preparation, ordinary workloads, and webhook patching. Argo CD and Flux each pulled the same staged OCI digest on a separate new cluster. Both passed those four stages and the checks for ten established CRDs, three matching webhook CA bundles, a ready operator endpoint, a server-side dry run, and six ready workloads. Each controller then moved to the 86.1.0 staged digest, reran the four stages, replaced both completed setup Jobs, and passed the runtime checks again.</p>
 <p><a href="../../data/kps-gitops-lifecycle-proof/summary.html">Read the Argo CD and Flux result</a> or <a href="../../../../runs/kps-gitops-lifecycle-proof/receipt.yaml">open its receipt</a>.</p>
 <p>A second proof retains the 85.3.3 object set as a ConfigHub base, creates the 86.1.0 staging variant, records and approves the destination route, publishes both exact release OCI digests, and reconciles both through Argo CD. It catches two destination-specific requirements before release: five Services must stay in <code>kube-system</code>, and the large CRDs require server-side apply.</p>

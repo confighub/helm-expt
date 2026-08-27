@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../recipes/dex/dex/0.24.0/CATALOG.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This page makes the artifact chain explicit:</p>
 <pre><code>chart -&gt; recipe -&gt; variants -&gt; variant revisions -&gt; package bases -&gt; receipts</code></pre>
@@ -505,8 +505,8 @@
 <tr><td>default</td><td>r001</td><td>scan</td><td>ScanReceipt</td><td>warn</td><td><a href="../../../../../../recipes/dex/dex/0.24.0/revisions/default/r001/receipts/scan-receipt.yaml">recipes/dex/dex/0.24.0/revisions/default/r001/receipts/scan-receipt.yaml</a></td></tr>
 <tr><td>default</td><td>r001</td><td>installGate</td><td>InstallGate</td><td>warn</td><td><a href="../../../../../../recipes/dex/dex/0.24.0/revisions/default/r001/receipts/install-gate.yaml">recipes/dex/dex/0.24.0/revisions/default/r001/receipts/install-gate.yaml</a></td></tr></tbody></table>
 <h2 id="current-install-shape">Current Install Shape</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0@sha256:0e2e1b873d9ce8f43b51023f3fe28131b3a021b7718e57d6250462421245793f --base &lt;variant&gt; --work-dir &lt;tmp&gt; --non-interactive --namespace &lt;namespace&gt;</code></pre>
 <p>Use the variant table above to choose the package base. The <code>oci://</code> ref is the public package users pull; the <code>packages/...</code> path is the repo source path used by maintainers and proof scripts. The proof path compares regular Helm output with real <code>cub installer setup</code> output and explains every intentional difference, such as the Namespace support object or separated Secrets.</p>
     </article>

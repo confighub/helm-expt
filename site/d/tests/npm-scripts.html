@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,8 +459,8 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-scripts.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>_The command-runbook layer of the <a href="README.html">helm-expt test map</a>._</p>
 <p>The <code>npm</code> scripts are the repository's proof harness. They answer three questions:</p>
@@ -518,7 +518,7 @@ npm run npm-scripts:catalog:verify</code></pre>
 <tr><td><code>&lt;chart&gt;:generate-*</code></td><td>Rebuild one chart's proof or package artifacts.</td><td>Yes</td></tr>
 <tr><td><code>top20:local-e2e</code></td><td>Run live local-kind tests and write receipts.</td><td>Yes</td></tr>
 <tr><td><code>redis:verify-install:*</code></td><td>Check a user's own Redis install.</td><td>Writes receipts under <code>.tmp/</code></td></tr>
-<tr><td><code>verify-bulk-ops:*</code></td><td>Check a user's own ConfigHub bulk-ops tutorial state.</td><td>Writes receipts under <code>.tmp/</code></td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td><code>verify-bulk-ops:*</code></td><td>Check a user's own ConfigHub bulk-ops tutorial state.</td><td>Writes receipts under <code>.tmp/</code></td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="common-commands">Common Commands</h2>
 <table><thead><tr><th>Command</th><th>What it checks</th><th>When to run</th></tr></thead><tbody><tr><td><code>npm run top20:verify-local-e2e</code></td><td>The committed top-20 local-kind observation receipts exist and pass schema/content checks.</td><td>Quick public proof check.</td></tr>

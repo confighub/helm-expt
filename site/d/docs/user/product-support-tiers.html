@@ -427,17 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -454,7 +443,18 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -510,7 +510,7 @@ no private repo, org, or production-state upload required</code></pre>
 <tr><td>Pull public OCI artifact</td><td>anonymous <code>cub installer setup --pull oci://...</code></td><td>Artifact Registry grants public read; writes remain private</td></tr>
 <tr><td>Verify artifact</td><td>client checks digest/signature from public catalog</td><td>signature and digest proof, no trust in transport alone</td></tr>
 <tr><td>Use Argo CD / Flux</td><td>public catalog bundles can be pulled without a registry Secret; private bundles still need one</td><td>public-read for catalog, explicit credentials for private delivery</td></tr>
-<tr><td>Create private variants or production records</td><td>full ConfigHub account/org</td><td>managed variants, approvals, receipts, scans, audit, support</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td>Create private variants or production records</td><td>full ConfigHub account/org</td><td>managed variants, approvals, receipts, scans, audit, support</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <p>Why not only a browser cookie? It helps the web flow, but OCI clients and GitOps controllers do not use the browser session. For the public catalog, the registry itself is public-read. For private packages, use a scoped registry credential or Kubernetes pull Secret.</p>
 <p>This tier is for first contact and trust building. It should answer:</p>
@@ -529,7 +529,7 @@ fleet operations</code></pre>
 <h2 id="tier-1---public-catalog-proof">Tier 1 - Public Catalog Proof</h2>
 <p>This is the current public <code>helm-expt</code> proof.</p>
 <p>Supported shape:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>public Helm chart
 known chart version
 named cub installer package bases

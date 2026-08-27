@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,8 +459,8 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/catalog-promotion-review.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Catalog promotion is the repeatable review that decides the support scope for a proof-grade recipe.</p>
 <p>For the top-20 public Helm charts, catalog presence is mandatory because their upstream charts are so popular. Promotion decides what we can honestly support: local/test, production with caveats, production-ready, deprecated, or blocked.</p>
@@ -471,7 +471,7 @@
 chart through ConfigHub?</code></pre>
 <h2 id="required-machine-checks">Required Machine Checks</h2>
 <p>Every promoted catalog variant must pass:</p>
-<ul><li>source lock and dependency lock verification;</li><li>deterministic regular Helm render under the declared capability profile;</li><li><code>cub installer package</code> deterministic bundle verification;</li><li><code>cub installer setup</code> semantic equivalence against regular Helm output;</li><li>rendered object inventory verification;</li><li>digest-bound VariantRevision verification;</li><li>render receipt verification;</li><li>Helm-equivalence receipt verification;</li><li>scan receipt verification;</li><li>install-gate verification;</li><li>self-test that rejects rendered object tampering.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<ul><li>source lock and dependency lock verification;</li><li>deterministic regular Helm render under the declared capability profile;</li><li><code>cub installer package</code> deterministic bundle verification;</li><li><code>cub installer setup</code> semantic equivalence against regular Helm output;</li><li>rendered object inventory verification;</li><li>digest-bound VariantRevision verification;</li><li>render receipt verification;</li><li>Helm-equivalence receipt verification;</li><li>scan receipt verification;</li><li>install-gate verification;</li><li>self-test that rejects rendered object tampering.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <p>For the current repo:</p>
 <pre><code>npm run verify

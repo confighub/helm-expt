@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -525,7 +542,7 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+  </style>
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
@@ -572,7 +589,7 @@
       <p>GitOps applies do not run hooks. Whether the chart still converges is a live question, not a render question.</p>
       <p><strong>Checked evidence:</strong> The <a href="./d/data/crd-ordering-gap/summary.html">CRD ordering record</a> and the <a href="./d/data/webhook-cert-lifecycle/summary.html">webhook lifecycle evidence</a> answer it per chart, from real runs.</p>
       <h3>5. Are these the bytes somebody actually reviewed?</h3>
-      <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. Where the plugin or <code>kustomize</code> is missing, the generated scripts stop before doing any work.</p>
+      <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>Publishers republish under unchanged version strings; our sweep caught two doing it. This one cannot be answered after the fact, and it cannot be backfilled: every day without a pinned digest is a day you cannot audit later. Start today, with or without us: <code>helm pull</code> plus <code>sha256sum</code> committed to git is a real start; <code>cub installer setup --pull</code> gives you the receipt form.</p>
       <p><strong>Checked evidence:</strong> The <a href="./d/data/upstream-drift/summary.html">upstream drift record</a> holds both digest pairs from the 2026-08-07 sweep.</p>
       <h3>6. What ran before, and can I get back to it exactly?</h3>

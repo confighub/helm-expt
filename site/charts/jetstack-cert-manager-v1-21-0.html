@@ -426,6 +426,23 @@
       pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body data-retained-only-version="jetstack/cert-manager@v1.21.0">
@@ -469,8 +486,8 @@
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
       <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc --json
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc --base default --work-dir ./jetstack-cert-manager-v1-21-0-default --non-interactive</code></pre>
       <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
@@ -650,24 +667,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-</style>
+      </style>
     </section>
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>

@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -508,6 +525,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -532,7 +566,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p>A blocked prerequisite means the later check did not run. It is not a failed source or failed workload result.</p>
+    <p>A blocked prerequisite means the later check never ran, which is a different result from a failed source or a failed workload.</p>
     <h3>Local files</h3>
     <p><strong>Works with kubectl alone.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
@@ -541,7 +575,7 @@
     <p>Import the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
     <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
-    <p>Keep their identities separate. The object digest covers the exact Kubernetes object set. An OCI manifest digest identifies one registry manifest. A release OCI digest identifies the approved release artifact. A receipt links these records; they are not the same digest.</p>
+    <p>Keep their identities separate. The object digest covers the exact Kubernetes object set, an OCI manifest digest identifies one registry manifest, and a release OCI digest identifies the approved release artifact. A receipt links the three records while they stay three different digests.</p>
     <p><strong>Before choosing a delivery path:</strong> check this exact chart's page for hooks, CRDs, pruning, and tested controller results. The named NGINX example has direct, Argo CD, and Flux receipts. Do not transfer those results to another chart.</p>
   </section>
 
@@ -586,24 +620,7 @@
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-</style>
+      </style>
   </section>
 
   <section aria-labelledby="deliver">
@@ -611,7 +628,7 @@
     <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p><strong>Who does what:</strong> ConfigHub records the approved target assignment and publishes the release. Argo CD or Flux applies it. The controller and cluster report the live result.</p>
-    <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
+    <p>A ConfigHub target records where a variant should run, and it works without ConfigHub Server connecting directly to the cluster.</p>
     <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
     <p>Plain <code>kubectl apply</code> also does not infer CRD order or wait for CRDs to become established. Run the chart's recorded prerequisite steps first, or use a controller route tested for that chart.</p>
     <p><a href="./known-gaps.html">Read the first-install CRD known gap</a> before using a direct apply path.</p>

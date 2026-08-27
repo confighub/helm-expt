@@ -427,17 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -454,7 +443,18 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -498,7 +498,7 @@ runProofCli({ chart, variants, scanPolicy, /* … */, verifyExtra });</code></pr
 <p>The original proof scripts were usually around 1,000 lines each. The migrated scripts are now chart specs plus chart-specific checks, while the repeated generate/verify/package machinery lives in <code>scripts/lib/proof-kit.mjs</code>.</p>
 <h2 id="equivalence-evidence">Equivalence evidence</h2>
 <p>This is a behaviour-preserving refactor. For each migrated chart, against the <b>unchanged committed artifacts</b>:</p>
-<ul><li><code>--verify-proof</code>, <code>--verify-proof-self-test</code>, and <code>--verify-package</code> all pass (the same three modes the <code>verify</code> gate runs; <code>--verify-package</code> exercises <code>cub installer package</code> + <code>cub installer setup</code> + the semantic Helm-vs-cub compare).</li><li>The migration PRs regenerate the committed proof artifacts without semantic product changes.</li><li>Known pre-existing digest drift remains out of scope when the old script reproduced it too. Migration PRs should not mix refactor and behavior changes.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<ul><li><code>--verify-proof</code>, <code>--verify-proof-self-test</code>, and <code>--verify-package</code> all pass (the same three modes the <code>verify</code> gate runs; <code>--verify-package</code> exercises <code>cub installer package</code> + <code>cub installer setup</code> + the semantic Helm-vs-cub compare).</li><li>The migration PRs regenerate the committed proof artifacts without semantic product changes.</li><li>Known pre-existing digest drift remains out of scope when the old script reproduced it too. Migration PRs should not mix refactor and behavior changes.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h3 id="live-parity">Live parity</h3>
 <p>Byte-equivalence against the committed artifacts is the migration gate. The refactor also preserves live behavior, not just static output. Because a migrated thin spec produces a byte-identical rendered object set and installer package, its live install behavior is necessarily the same as the original script.</p>
@@ -507,7 +507,7 @@ runProofCli({ chart, variants, scanPolicy, /* … */, verifyExtra });</code></pr
 <p><a href="../../data/live-helm-confighub-compare/summary.html">Live Helm-vs-ConfigHub Parity</a></p>
 <h2 id="migrating-a-chart">Migrating a chart</h2>
 <ol><li>Open <code>scripts/&lt;chart&gt;-proof.mjs</code>. Keep the <code>chart</code>, <code>variants</code>, and scan-policy objects as-is - they are already pure data.</li><li>Move the per-chart document bodies into the spec fields below (copy the object literals verbatim to preserve byte output): <code>valueModel</code>, <code>controlPoints</code>, <code>dossier</code>, <code>plan</code>, <code>readme</code>, <code>installGate</code>.</li><li>Move any chart-specific assertions from <code>verifyProof</code> into a <code>verifyExtra(ctx)</code> hook. The generic checks (required files, kinds, digest consistency, object counts, duplicate identities, equivalence/scan/gate digests, gate decision) are already in the kit - delete those copies.</li><li>Replace the function bodies and CLI dispatch with <code>runProofCli(spec)</code>.</li><li>Validate with <b>zero</b> working-tree churn:</li></ol>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>   node scripts/&lt;chart&gt;-proof.mjs --verify-proof
    node scripts/&lt;chart&gt;-proof.mjs --verify-proof-self-test
    node scripts/&lt;chart&gt;-proof.mjs --verify-package      # needs cub (local, no network)</code></pre>

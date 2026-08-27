@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This note records the Helm pain surfaced during catalog review and where the current ConfigHub/cub installer proof absorbs it.</p>
 <h2 id="support-boundary">Support Boundary</h2>
@@ -472,7 +472,7 @@
 <h2 id="chart-notes">Chart Notes</h2>
 <ul><li>Redis is stateful; PVC and credential behavior require explicit variant policy.</li><li>Bitnami Redis can generate credentials unless a password/existing secret path is provided.</li><li>Supported bases pin the Bitnami Redis image by digest instead of rendering the chart default latest tag.</li><li>Default and reuse-existing-secret are the first proof variants; HA is a later slice.</li></ul>
 <h2 id="catalog-mitigations">Catalog Mitigations</h2>
-<ul><li>First deliberately supported catalog entry.</li><li>reuse-existing-secret is the package default. It renders no Redis Secret and requires redis/redis-existing-secret key redis-password before apply.</li><li>The base named default is kept as an explicit demo path. It ships a fixed, shared demo password baked into the rendered Secret (base64 confighub-redis-password) - identical on every install and readable from the manifest.</li><li>Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.</li><li>Both variants are Helm-equivalent through cub installer setup.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<ul><li>First deliberately supported catalog entry.</li><li>reuse-existing-secret is the package default. It renders no Redis Secret and requires redis/redis-existing-secret key redis-password before apply.</li><li>The base named default is kept as an explicit demo path. It ships a fixed, shared demo password baked into the rendered Secret (base64 confighub-redis-password) - identical on every install and readable from the manifest.</li><li>Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.</li><li>Both variants are Helm-equivalent through cub installer setup.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="control-points">Control Points</h2>
 <table><thead><tr><th>Control point</th><th>Status</th><th>Mitigation / evidence</th></tr></thead><tbody><tr><td>source-lock</td><td>handled</td><td>source-lock.yaml</td></tr>

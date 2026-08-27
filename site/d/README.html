@@ -427,13 +427,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
-    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
-    .doc-body th { background: var(--panel); }
-    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
-    .doc-body img { max-width: 100%; }
-    .doc-body h2 { margin-top: 28px; }
-  
   /* --- quality floor: keyboard focus and reduced motion --- */
   a:focus-visible, button:focus-visible, input:focus-visible,
   select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -450,7 +443,14 @@
       scroll-behavior: auto !important;
     }
   }
-</style>
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -459,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This repository builds an experimental public site for understanding, testing, and using Kubernetes configuration. It starts with Helm and also includes AICR, OCI packages, and plain Kubernetes YAML.</p>
 <p>The quickest route is the <a href="https://confighub.github.io/helm-expt/site/">Config Workshop website</a>. The canonical <a href="docs/reference/config-catalog-doctrine.html#business-purpose-and-user-journey">business purpose and user journey</a> are maintained together in the catalog doctrine.</p>
@@ -518,7 +518,7 @@ Can we prove what was rendered, checked, uploaded, and observed?</code></pre>
 <p>This is not a single prompt. It is an AI-assisted workflow with explicit decision points and mechanical checks. For the recipe-generation workflow and the &quot;where pieces go&quot; table, see <a href="docs/user/introduction-to-the-harness.html">Introduction To The Harness</a>.</p>
 <h2 id="how-values-and-overlays-are-supported">How Values And Overlays Are Supported</h2>
 <p>Helm users already customize charts with values files, <code>--set</code> flags, umbrella charts, wrapper charts, and sometimes Kustomize overlays. The rule in this repo is not &quot;stop doing that.&quot; The rule is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>If a customization changes Helm render inputs, object count, object shape, or
 lifecycle semantics, make it a reviewed cub installer recipe/package base.
 
@@ -793,7 +793,7 @@ variant-labeled units: 14</code></pre>
 <p>Read the runnable script:</p>
 <pre><code>docs/demo/redis/demo-script.md</code></pre>
 <p>The demo uses real commands, including:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33 \
   --base reuse-existing-secret \
