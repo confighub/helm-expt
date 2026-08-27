@@ -460,7 +460,7 @@
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-    <p class="generated"><b>Generated at:</b> 2026-08-27T15:20:02.356Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This live test starts from the public Redis <code>25.5.3</code> installer package. It records a change from three replicas to two, prepares Redis <code>27.0.0</code>, and checks that the upgrade does not put the replica count back to the chart default. ConfigHub then promotes the candidate through development and staging. The reviewed staging configuration is packaged once and reconciled by Argo CD on two throwaway clusters.</p>
 <p>The test then restores the exact staging Unit revisions recorded before the promotion. It publishes that restored configuration as a separate OCI artifact and checks both clusters again. This is a rollback of desired Kubernetes configuration. It does not claim to reverse database data or an irreversible migration.</p>

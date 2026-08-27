@@ -49,6 +49,8 @@ const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
 const upstreamVersionPath = join(siteRoot, "did-this-chart-version-change.html");
+const bitnamiSuccessorPath = join(siteRoot, "did-your-bitnami-chart-stop-pulling.html");
+const fluxArgoPath = join(siteRoot, "deploy-with-flux-or-argo.html");
 const environmentDifferencePath = join(siteRoot, "why-do-dev-and-prod-differ.html");
 const approvedClusterPath = join(siteRoot, "does-cluster-match-approved-config.html");
 const challengePath = join(siteRoot, "challenge.html");
@@ -339,6 +341,8 @@ const SITE_PAGE_RELPATHS = {
   promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
   upstreamVersionHtml: "did-this-chart-version-change.html",
+  bitnamiSuccessorHtml: "did-your-bitnami-chart-stop-pulling.html",
+  fluxArgoHtml: "deploy-with-flux-or-argo.html",
   environmentDifferenceHtml: "why-do-dev-and-prod-differ.html",
   approvedClusterHtml: "does-cluster-match-approved-config.html",
   challengeHtml: "challenge.html",
@@ -394,6 +398,8 @@ const PAGE_DESCRIPTIONS = {
   "promote.html": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
   "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
   "did-this-chart-version-change.html": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
+  "did-your-bitnami-chart-stop-pulling.html": "Find a tested, verified successor for a Bitnami chart that no longer pulls anonymously, with each successor linked to its catalog entry.",
+  "deploy-with-flux-or-argo.html": "Render any catalog chart to a Flux-native or Argo-native OCI with one command and no account, then reconcile it with the controller you already run.",
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
   "does-cluster-match-approved-config.html": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
@@ -457,6 +463,8 @@ if (mode === "--generate") {
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
   write(upstreamVersionPath, site.upstreamVersionHtml);
+  write(bitnamiSuccessorPath, site.bitnamiSuccessorHtml);
+  write(fluxArgoPath, site.fluxArgoHtml);
   write(environmentDifferencePath, site.environmentDifferenceHtml);
   write(approvedClusterPath, site.approvedClusterHtml);
   write(challengePath, site.challengeHtml);
@@ -590,6 +598,10 @@ if (mode === "--generate") {
   check(readFileSync(ignoredValuesPath, "utf8") === site.ignoredValuesHtml, "site/why-did-helm-ignore-my-values.html is stale");
   check(existsSync(upstreamVersionPath), "site/did-this-chart-version-change.html is missing; run npm run site:generate");
   check(readFileSync(upstreamVersionPath, "utf8") === site.upstreamVersionHtml, "site/did-this-chart-version-change.html is stale");
+  check(existsSync(bitnamiSuccessorPath), "site/did-your-bitnami-chart-stop-pulling.html is missing; run npm run site:generate");
+  check(readFileSync(bitnamiSuccessorPath, "utf8") === site.bitnamiSuccessorHtml, "site/did-your-bitnami-chart-stop-pulling.html is stale");
+  check(existsSync(fluxArgoPath), "site/deploy-with-flux-or-argo.html is missing; run npm run site:generate");
+  check(readFileSync(fluxArgoPath, "utf8") === site.fluxArgoHtml, "site/deploy-with-flux-or-argo.html is stale");
   check(existsSync(environmentDifferencePath), "site/why-do-dev-and-prod-differ.html is missing; run npm run site:generate");
   check(readFileSync(environmentDifferencePath, "utf8") === site.environmentDifferenceHtml, "site/why-do-dev-and-prod-differ.html is stale");
   check(existsSync(approvedClusterPath), "site/does-cluster-match-approved-config.html is missing; run npm run site:generate");
@@ -1178,6 +1190,8 @@ function buildSite(generatedAt) {
     promoteHtml: calmPage(promoteHtml()),
     ignoredValuesHtml: calmPage(ignoredValuesHtml()),
     upstreamVersionHtml: calmPage(upstreamVersionHtml()),
+    bitnamiSuccessorHtml: calmPage(bitnamiSuccessorHtml()),
+    fluxArgoHtml: calmPage(fluxArgoHtml()),
     environmentDifferenceHtml: calmPage(environmentDifferenceHtml()),
     approvedClusterHtml: calmPage(approvedClusterHtml()),
     challengeHtml: calmPage(challengeHtml(catalog)),
@@ -1658,6 +1672,8 @@ function buildLlmsTxt() {
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
+- [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
+- [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
 - [Helm investigation reference](${SITE_BASE_URL}challenge.html): worked Helm evidence and the benchmark behind the shorter Check my config flow.
@@ -2549,6 +2565,8 @@ Wrote rendered OCI ./redis-rendered.oci:latest
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, the differences that matter, and the checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
           </div>
+          <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
+          <p class="intro"><strong>You run Flux or Argo CD?</strong> <a href="./deploy-with-flux-or-argo.html">Render a reviewed chart to a controller-native OCI</a> with one command and no account, then reconcile it the way you do today.</p>
           <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer has to be shared, approved, or compared with live systems. The object digest travels with it.</p>
           <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Platform components, developer tools and applications stay separate ConfigHub revisions, so each is tested and promoted on its own.</p>
           <p class="intro"><strong>Additional paths:</strong> <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
@@ -5510,6 +5528,69 @@ function upstreamVersionHtml() {
     evidence: `<p><a href="./d/data/upstream-drift/summary.html">Open the upstream change record</a>. It links the retained publication receipt and the witness for the republished package.</p>`,
     action: "Choose the supply-drift question and check the current digest against the retained record.",
     actionHref: "./ask.html#supply-drift",
+  });
+}
+
+function fluxArgoHtml() {
+  return driftQuestionPageHtml({
+    title: "Do you already run Flux or Argo CD?",
+    lead: "Keep reconciling. ConfigHub is the reviewed write in front of your registry: render any catalog chart to an OCI your controller already reads, with the bytes checked first.",
+    boundary: "Runs on your laptop. The catalog pull and the render need no account. Your controller reconciles the output the way it does today.",
+    example: `<p>Pull a reviewed package anonymously, render one base to a Flux-native OCI, and push it to a registry your controller can read.</p>
+      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
+  --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
+      <p>Then point Flux at that digest. Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files.</p>
+      <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata: { name: reviewed-nginx, namespace: flux-system }
+spec:
+  interval: 5m
+  url: oci://YOUR-REGISTRY/reviewed-nginx
+  ref: { digest: sha256:&lt;the reviewed digest&gt; }
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata: { name: reviewed-nginx, namespace: flux-system }
+spec:
+  interval: 10m
+  sourceRef: { kind: OCIRepository, name: reviewed-nginx }
+  path: "."
+  prune: true
+  wait: true</code></pre>
+      <p>A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>`,
+    evidence: `<p>Three receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full kubectl, Flux, and Argo manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>`,
+    action: "Render a catalog chart and hand the exact output to the Flux or Argo you already run.",
+    actionHref: "./how-it-works.html#now-deploy",
+    actionLabel: "See the deploy manifests",
+  });
+}
+
+function bitnamiSuccessorHtml() {
+  // Rank-one picks from the committed successor survey, each linked to its
+  // catalog entry where one exists. The survey is the source of truth; this
+  // page summarizes and points at it, so the measured detail never drifts.
+  const picks = [
+    ["redis", "redis (CloudPirates)", "Apache-2.0", "plain chart", "./charts/cloudpirates-redis-0-34-11.html"],
+    ["nginx", "nginx (CloudPirates)", "Apache-2.0", "OCI chart", "./charts/cloudpirates-nginx-0-16-1.html"],
+    ["postgresql", "CloudNativePG operator, with its companion cluster chart", "Apache-2.0", "operator", "./charts/cloudnative-pg-cloudnative-pg-0-28-2.html"],
+    ["mongodb", "Percona Operator for MongoDB", "Apache-2.0", "operator", "./charts/percona-psmdb-operator-1-22-0.html"],
+    ["rabbitmq", "rabbitmq (CloudPirates)", "Apache-2.0", "OCI chart", "./charts/cloudpirates-rabbitmq-0-21-13.html"],
+    ["mysql", "Oracle MySQL Operator for Kubernetes", "UPL-1.0", "operator", "./d/data/bitnami-successors/successors.html"],
+  ];
+  const rows = picks.map(([component, pick, license, shape, href]) =>
+    [`<code>${escapeHtml(component)}</code>`, `<a href="${href}">${escapeHtml(pick)}</a>`, escapeHtml(license), escapeHtml(shape)]);
+  const table = markdownLikeTable([["Bitnami chart", "Verified successor", "License", "Shape"], ...rows], { rawFirstColumn: true, rawSecondColumn: true });
+  return driftQuestionPageHtml({
+    title: "Did your Bitnami chart stop pulling?",
+    lead: "Bitnami moved its catalog behind a paid tier, so several pinned charts now refuse an anonymous fetch. For six common components there is a tested, verified successor you can pull today.",
+    boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
+    example: `<p>On 2026-08-08 an anonymous fetch of the pinned Bitnami packages returned HTTP 403 for four of six. The catalog keeps the reviewed bytes it already locked, and it names a successor for each component. Every candidate and every source status was measured live and re-verified by a second pass.</p>
+      ${table}
+      <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>`,
+    evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>`,
+    action: "Open the successor for the component you lost, read its exact objects and prerequisites, then plan the values remap.",
+    actionHref: "./charts/index.html?q=cloudpirates",
+    actionLabel: "Find a successor in the Catalog",
   });
 }
 

@@ -1,6 +1,14 @@
 # Handoff: register audit branch
 
-Branch: `register-audit`, cut from `main` @ ab65780d.
+Branch: `register-audit`, cut from `main` @ ab65780d, **merged up to
+`de8fb71f`** (the Bitnami-successor journey and the Flux/Argo entry point).
+
+The merge conflicted in two files and is resolved on this branch:
+`scripts/generate-public-site.mjs` and its `site/index.html` output. Both new
+`intro` paragraphs from `main` are kept verbatim and unedited. The two
+paragraphs both sides touched take this branch's rewritten wording. The
+"Website and CLI stay connected" paragraph stays removed, which was this
+branch's change; restore it from `de8fb71f` if that removal is unwanted.
 
 ## Read this first: site/*.html is generated output
 
