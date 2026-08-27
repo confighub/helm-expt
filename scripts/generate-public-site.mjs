@@ -5511,7 +5511,7 @@ function fluxArgoHtml() {
     lead: "Keep reconciling. ConfigHub is the reviewed write in front of your registry: render any catalog chart to an OCI your controller already reads, with the bytes checked first.",
     boundary: "Runs on your laptop. The catalog pull and the render need no account. Your controller reconciles the output the way it does today.",
     example: `<p>Pull a reviewed package anonymously, render one base to a Flux-native OCI, and push it to a registry your controller can read.</p>
-      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \\
+      <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
       <p>Then point Flux at that digest. Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files.</p>
       <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
