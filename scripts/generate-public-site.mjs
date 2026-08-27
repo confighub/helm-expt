@@ -49,6 +49,7 @@ const askPath = join(siteRoot, "ask.html");
 const promotePath = join(siteRoot, "promote.html");
 const ignoredValuesPath = join(siteRoot, "why-did-helm-ignore-my-values.html");
 const upstreamVersionPath = join(siteRoot, "did-this-chart-version-change.html");
+const bitnamiSuccessorPath = join(siteRoot, "did-your-bitnami-chart-stop-pulling.html");
 const environmentDifferencePath = join(siteRoot, "why-do-dev-and-prod-differ.html");
 const approvedClusterPath = join(siteRoot, "does-cluster-match-approved-config.html");
 const challengePath = join(siteRoot, "challenge.html");
@@ -339,6 +340,7 @@ const SITE_PAGE_RELPATHS = {
   promoteHtml: "promote.html",
   ignoredValuesHtml: "why-did-helm-ignore-my-values.html",
   upstreamVersionHtml: "did-this-chart-version-change.html",
+  bitnamiSuccessorHtml: "did-your-bitnami-chart-stop-pulling.html",
   environmentDifferenceHtml: "why-do-dev-and-prod-differ.html",
   approvedClusterHtml: "does-cluster-match-approved-config.html",
   challengeHtml: "challenge.html",
@@ -394,6 +396,7 @@ const PAGE_DESCRIPTIONS = {
   "promote.html": "Compare current and proposed Kubernetes objects, see what changes, and choose the tests required before moving the change.",
   "why-did-helm-ignore-my-values.html": "Find values that Helm accepts but a chart does not use by comparing the rendered Kubernetes objects with and without each supplied key.",
   "did-this-chart-version-change.html": "Check whether an upstream publisher changed the package bytes behind an existing Helm chart version.",
+  "did-your-bitnami-chart-stop-pulling.html": "Find a tested, verified successor for a Bitnami chart that no longer pulls anonymously, with each successor linked to its catalog entry.",
   "why-do-dev-and-prod-differ.html": "Record development and production as related configurations so their exact differences and promotion history remain visible.",
   "does-cluster-match-approved-config.html": "Compare approved configuration with live cluster state while keeping the current field-coverage limits visible.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
@@ -457,6 +460,7 @@ if (mode === "--generate") {
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
   write(upstreamVersionPath, site.upstreamVersionHtml);
+  write(bitnamiSuccessorPath, site.bitnamiSuccessorHtml);
   write(environmentDifferencePath, site.environmentDifferenceHtml);
   write(approvedClusterPath, site.approvedClusterHtml);
   write(challengePath, site.challengeHtml);
@@ -590,6 +594,8 @@ if (mode === "--generate") {
   check(readFileSync(ignoredValuesPath, "utf8") === site.ignoredValuesHtml, "site/why-did-helm-ignore-my-values.html is stale");
   check(existsSync(upstreamVersionPath), "site/did-this-chart-version-change.html is missing; run npm run site:generate");
   check(readFileSync(upstreamVersionPath, "utf8") === site.upstreamVersionHtml, "site/did-this-chart-version-change.html is stale");
+  check(existsSync(bitnamiSuccessorPath), "site/did-your-bitnami-chart-stop-pulling.html is missing; run npm run site:generate");
+  check(readFileSync(bitnamiSuccessorPath, "utf8") === site.bitnamiSuccessorHtml, "site/did-your-bitnami-chart-stop-pulling.html is stale");
   check(existsSync(environmentDifferencePath), "site/why-do-dev-and-prod-differ.html is missing; run npm run site:generate");
   check(readFileSync(environmentDifferencePath, "utf8") === site.environmentDifferenceHtml, "site/why-do-dev-and-prod-differ.html is stale");
   check(existsSync(approvedClusterPath), "site/does-cluster-match-approved-config.html is missing; run npm run site:generate");
@@ -1178,6 +1184,7 @@ function buildSite(generatedAt) {
     promoteHtml: calmPage(promoteHtml()),
     ignoredValuesHtml: calmPage(ignoredValuesHtml()),
     upstreamVersionHtml: calmPage(upstreamVersionHtml()),
+    bitnamiSuccessorHtml: calmPage(bitnamiSuccessorHtml()),
     environmentDifferenceHtml: calmPage(environmentDifferenceHtml()),
     approvedClusterHtml: calmPage(approvedClusterHtml()),
     challengeHtml: calmPage(challengeHtml(catalog)),
@@ -1658,6 +1665,7 @@ function buildLlmsTxt() {
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
+- [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
 - [Helm investigation reference](${SITE_BASE_URL}challenge.html): worked Helm evidence and the benchmark behind the shorter Check my config flow.
@@ -2532,6 +2540,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
             <a class="route-card mid" href="./ask.html"><h3>2. I have a configuration. Is it right? <span class="tag">local check</span></h3><p>Bring values, YAML, OCI, or work made by AI. See the exact objects, important differences, findings, and checks that did not run.</p><span class="go">Check my config &rarr;</span></a>
             <a class="route-card" href="./promote.html"><h3>3. I have an accepted configuration. Can I promote it? <span class="tag">compare first</span></h3><p>Compare the accepted result with staging or production. Check the destination and required setup before moving the exact revision.</p><span class="go">Promote my config &rarr;</span></a>
           </div>
+          <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer must be shared, changed, approved, promoted, released, or compared with live systems. The object digest stays with the result.</p>
           <p class="intro"><strong>Website and CLI stay connected:</strong> the pages explain the job and provide local commands or downloadable records. The commands preserve the same source identity and object digest for the next step.</p>
           <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Keep platform components, developer tools, and applications as separate ConfigHub revisions so each can be tested and promoted.</p>
@@ -5484,6 +5493,35 @@ function upstreamVersionHtml() {
     evidence: `<p><a href="./d/data/upstream-drift/summary.html">Open the upstream change record</a>. It links the retained publication receipt and the witness for the republished package.</p>`,
     action: "Choose the supply-drift question and check the current digest against the retained record.",
     actionHref: "./ask.html#supply-drift",
+  });
+}
+
+function bitnamiSuccessorHtml() {
+  // Rank-one picks from the committed successor survey, each linked to its
+  // catalog entry where one exists. The survey is the source of truth; this
+  // page summarizes and points at it, so the measured detail never drifts.
+  const picks = [
+    ["redis", "redis (CloudPirates)", "Apache-2.0", "plain chart", "./charts/cloudpirates-redis-0-34-11.html"],
+    ["nginx", "nginx (CloudPirates)", "Apache-2.0", "OCI chart", "./charts/cloudpirates-nginx-0-16-1.html"],
+    ["postgresql", "CloudNativePG operator, with its companion cluster chart", "Apache-2.0", "operator", "./charts/cloudnative-pg-cloudnative-pg-0-28-2.html"],
+    ["mongodb", "Percona Operator for MongoDB", "Apache-2.0", "operator", "./charts/percona-psmdb-operator-1-22-0.html"],
+    ["rabbitmq", "rabbitmq (CloudPirates)", "Apache-2.0", "OCI chart", "./charts/cloudpirates-rabbitmq-0-21-13.html"],
+    ["mysql", "Oracle MySQL Operator for Kubernetes", "UPL-1.0", "operator", "./d/data/bitnami-successors/successors.html"],
+  ];
+  const rows = picks.map(([component, pick, license, shape, href]) =>
+    [`<code>${escapeHtml(component)}</code>`, `<a href="${href}">${escapeHtml(pick)}</a>`, escapeHtml(license), escapeHtml(shape)]);
+  const table = markdownLikeTable([["Bitnami chart", "Verified successor", "License", "Shape"], ...rows], { rawFirstColumn: true, rawSecondColumn: true });
+  return driftQuestionPageHtml({
+    title: "Did your Bitnami chart stop pulling?",
+    lead: "Bitnami moved its catalog behind a paid tier, so several pinned charts now refuse an anonymous fetch. For six common components there is a tested, verified successor you can pull today.",
+    boundary: "Runs on your laptop. No ConfigHub account or cluster is required.",
+    example: `<p>On 2026-08-08 an anonymous fetch of the pinned Bitnami packages returned HTTP 403 for four of six. The catalog keeps the reviewed bytes it already locked, and it names a successor for each component. Every candidate and every source status was measured live and re-verified by a second pass.</p>
+      ${table}
+      <p>Each successor is a real catalog entry with its own rendered objects, license, and prerequisites. The chart shape often differs from Bitnami, so values need remapping; migration stays separate reviewed work per component, not a silent swap.</p>`,
+    evidence: `<p><a href="./d/data/bitnami-successors/successors.html">Open the successor survey</a>. It records the measured source status for every candidate, the ranked alternates behind each pick, and the license and publisher of each one.</p>`,
+    action: "Open the successor for the component you lost, read its exact objects and prerequisites, then plan the values remap.",
+    actionHref: "./charts/index.html?q=cloudpirates",
+    actionLabel: "Find a successor in the Catalog",
   });
 }
 
