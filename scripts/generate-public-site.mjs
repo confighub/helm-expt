@@ -3550,7 +3550,7 @@ function offeringHtml(catalog) {
         ["Need", "What ConfigHub adds"],
         ...managedRows,
       ])}
-      <p>Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "offering")}">official ConfigHub tutorial</a> for one component, a release, a change, production, and promotion.</p>
+      <p>Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "offering")}">official ConfigHub tutorial</a> for one component, a change, and a promotion to production.</p>
     </section>
 
     <section aria-labelledby="commercial">
@@ -7511,7 +7511,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
 
     <section aria-labelledby="confighub-review">
       <h2 id="confighub-review">6. Keep a reviewed result in ConfigHub</h2>
-      <p>Use ConfigHub when the accepted objects need team history, variants, approval, promotion, release OCI, delivery, or comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
+      <p>Use ConfigHub when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
       <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
     </section>
