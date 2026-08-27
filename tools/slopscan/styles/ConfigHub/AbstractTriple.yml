@@ -1,0 +1,6 @@
+extends: existence
+message: "Abstract triple '%s'. Rhetorical crescendo, not a list of facts."
+level: warning
+nonword: true
+tokens:
+  - '\b\w{5,}(?:ly|ing|ed|ion|ity|ness|ance|ence),\s+\w{5,}(?:ly|ing|ed|ion|ity|ness|ance|ence),\s+and\s+\w{5,}(?:ly|ing|ed|ion|ity|ness|ance|ence)\b'

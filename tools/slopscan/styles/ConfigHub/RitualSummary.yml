@@ -1,0 +1,7 @@
+extends: existence
+message: "Ritual summary: '%s'."
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - '\b(?:in (?:summary|conclusion|short)|to (?:sum up|recap)|the bottom line|at the end of the day|ultimately,)\b'
