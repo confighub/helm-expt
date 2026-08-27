@@ -515,24 +515,24 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Learn this by doing it</h1>
     <p class="lead">Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check rather than a description of what would happen.</p>
-    <p>The first needs no account, no server, and no cluster. The later two use <a href="./confighub.html">ConfigHub</a> and a cluster where the flow being shown requires them, and each says so before it asks. If you want instructions for a step you are already on, read the <a href="./docs.html">Docs</a> instead.</p>
+    <p>The first runs entirely on your laptop. The later two use <a href="./confighub.html">ConfigHub</a> and a cluster where the flow being shown requires them, and each says so before it asks. If you want instructions for a step you are already on, read the <a href="./docs.html">Docs</a> instead.</p>
   </header>
   <main>
     <section aria-labelledby="short">
       <h2 id="short">Run a short example</h2>
-      <p>The shortest one. Pull one public package, render it locally, and read the exact Kubernetes objects it produces. It contacts neither <a href="./confighub.html">ConfigHub</a> Server nor Kubernetes, so it is the fastest way to see what the tool does.</p>
+      <p>The shortest one. Pull one public package, render it locally, and read the exact Kubernetes objects it produces. Everything stays on your machine, well away from <a href="./confighub.html">ConfigHub</a> Server and Kubernetes, so it is the fastest way to see what the tool does.</p>
       <p><a href="./try.html">Open the short example</a></p>
     </section>
 
     <section aria-labelledby="examples">
       <h2 id="examples">Work through an example like yours</h2>
-      <p>Start from your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML. Each example carries the commands and the evidence for one worked flow, including promotions, fleet rollouts, and policy checks.</p>
+      <p>Start from your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML. Each example carries the commands and the evidence for one worked flow, from promotions through to fleet rollouts and policy checks.</p>
       <p><a href="./testing.html">Open Helm, AICR, OCI, YAML, promotion, and fleet examples</a></p>
     </section>
 
     <section aria-labelledby="walkthrough">
       <h2 id="walkthrough">Follow one package end to end</h2>
-      <p>The longest guide. It takes a single Redis configuration through pulling, inspecting, verifying, changing, and upgrading, and shows what stays the same across versions.</p>
+      <p>The longest guide. It takes a single Redis configuration through pulling, inspecting and verifying it, then changes and upgrades it, and shows what stays the same across versions.</p>
       <p><a href="./redis-walkthrough.html">Open the detailed walkthrough</a></p>
     </section>
 

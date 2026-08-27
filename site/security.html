@@ -514,14 +514,14 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Review security before release</h1>
-    <p class="lead">Use this page to see where security checks fit. The public Catalog does not certify a chart as secure.</p>
-    <p>It gives you the exact Kubernetes objects, their source, the recorded checks, and the delivery result. Your team can then make and record the security decision.</p>
+    <p class="lead">Use this page to see where security checks fit. The public Catalog reports what a chart does rather than certifying it as secure.</p>
+    <p>It gives you the exact Kubernetes objects, their source, and the checks recorded against them. Your team makes the security decision and keeps it with the same object set.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="./known-gaps.html">Read known gaps</a> · <a href="./proof.html">See current results</a> · <a href="d/docs/user/security-end-to-end.html">Open security guide</a></p>
   </header>
   <main>
     <section aria-labelledby="why">
       <h2 id="why">1. Inspect the objects and their source</h2>
-      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior.</p>
+      <p>Helm values hide security choices that only show up once the chart is rendered. Generated passwords, broad RBAC and privileged containers are the common ones. Image tags, CRDs, webhooks and controller behaviour hide there too.</p>
       <p>Review those choices in the rendered objects. ConfigHub can keep the recorded decision with the same object set.</p>
     </section>
 
@@ -541,7 +541,7 @@
 
     <section aria-labelledby="limits">
       <h2 id="limits">3. Read the limits of each result</h2>
-      <p>Some evidence is partial by design. A digest proves integrity only inside a known trust chain. A scan finding needs a decision. A green render does not prove that the target has the right cloud identity, storage, or runtime policy.</p>
+      <p>Some evidence is partial by design. A digest proves integrity inside a known trust chain, and says nothing outside one. A scan finding still needs a human decision. A clean render tells you the objects are well formed, while cloud identity, storage and runtime policy at the target remain unchecked.</p>
       <div class="grid">
         <div class="card"><h3>Security guide</h3><p><a href="d/docs/user/security-end-to-end.html">Open security end to end</a></p></div>
         <div class="card"><h3>Known caveats</h3><p><a href="../data/cub-adoption-caveats/summary.html">Open per-chart cub adoption caveats</a></p></div>
