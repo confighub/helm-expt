@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../WEBSITE_UX_TEST.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>_A UX test (website walkthrough) in the <a href="tests/README.html">helm-expt test map</a>._</p>
 <p>This runbook helps another Codex, Claude, or teammate start the generated helm-expt website locally and walk the maintainer through a UX review. The review starts with the top-level pages, then follows guide and doc links one or two clicks deeper.</p>
@@ -526,7 +543,7 @@ Does it say where the limits are?</code></pre>
 <h2 id="5-deeper-guide-pass">5. Deeper Guide Pass</h2>
 <p>After the top-level walkthrough, test the pages a real user reaches within one or two clicks from home. Do not stop at a guide link just because the homepage looks clear.</p>
 <p>For each page, ask:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>What am I trying to do?
 What should I type?
 What should I expect to see?

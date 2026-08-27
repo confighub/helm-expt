@@ -1,0 +1,12 @@
+page,category,match
+challenge.html,clause-colon-payoff,"A filed chart becomes a checked entry: rendered objects, prerequisites, hooks and CRDs, a flattening verdict, and receipts behind each claim."
+deployment-reference.html,clause-colon-payoff,"For Helm, that record is the CODE : chart, version, values, release context, source lock, and lifecycle choices."
+docs-reference.html,clause-colon-payoff,"Each chart page gives the short answer: what can I try, and what should I watch first? The matrix and generated data are for review work."
+existing-apps.html,clause-colon-payoff,"Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumpt"
+guides.html,abstract-triple,"verifying, changing, and upgrading"
+hard-questions.html,clause-colon-payoff,"The model breaks the upgrade into visible steps: old render, new render, object diff, and live checks."
+how-it-works.html,clause-colon-payoff,"For CRDs, the safe order is explicit: install the CRDs, wait until Kubernetes reports them established, then apply the objects that use them."
+kubara.html,abstract-triple,"promoted, released, and checked"
+proof.html,abstract-triple,"rendered, checked, and recorded"
+security.html,clause-colon-payoff,"Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller be"
+variants.html,abstract-triple,"compared, reviewed, and delivered"

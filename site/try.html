@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -508,6 +525,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -515,9 +549,9 @@
   <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
   <h1>Try a simple example: Redis</h1>
   <p class="boundary-chip">Runs on your laptop</p>
-  <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates: 13 from the chart, plus one Namespace cub adds.</p>
-  <p>You do not need ConfigHub for this test. It runs on your machine and contacts neither ConfigHub Server nor Kubernetes. No account or registry login is required.</p>
-  <p>ConfigHub becomes useful when you want to keep this result, change it with your team, or promote it between environments.</p>
+  <p class="lead">Render one reviewed Redis configuration and read the 14 Kubernetes objects it produces. Thirteen come from the chart. The fourteenth is a Namespace that <code>cub</code> adds, which is the first thing worth looking at.</p>
+  <p>Everything happens on your machine, so you can run this with no account and no cluster.</p>
+  <p><b>Limits.</b> This renders and inspects. Nothing is applied. <a href="./confighub.html">Keep this reviewed result in ConfigHub</a> once you want to change it with your team or promote it between environments.</p>
 </header>
 <main>
   <section aria-labelledby="install-cub">
@@ -531,7 +565,7 @@ kustomize version</code></pre>
     <p>The plugin release contains the program for your operating system. You do not need Go.</p>
     <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
     <p>If <code>kustomize version</code> fails, follow the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official Kustomize installation instructions</a>.</p>
-    <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+    <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   </section>
 
   <section aria-labelledby="render-package">
@@ -546,12 +580,12 @@ kustomize version</code></pre>
     --output-oci ./redis-25.oci</code></pre>
     <p>The chart renders 13 objects. <code>cub installer</code> adds one explicit Namespace, so the output contains 14 manifest files and no Secret. It also writes a local OCI package.</p>
     <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
-    <p><strong>Before deployment:</strong> create the required <code>redis-existing-secret</code> Secret in the target namespace. The Catalog records this requirement; rendering the package does not create the credential.</p>
+    <p><strong>Before deployment:</strong> create the required <code>redis-existing-secret</code> Secret in the target namespace. The Catalog records this requirement, and you create the credential yourself.</p>
   </section>
 
   <section aria-labelledby="inspect-result">
     <h2 id="inspect-result">3. Inspect the result</h2>
-    <p>Read the selected configuration and its objects. Nothing has been applied to a cluster.</p>
+    <p>Read the selected configuration and its objects. Everything so far is local.</p>
     <pre><code>cat ./redis/out/spec/selection.yaml
 ls ./redis/out/manifests
 grep -R "^kind:" ./redis/out/manifests</code></pre>

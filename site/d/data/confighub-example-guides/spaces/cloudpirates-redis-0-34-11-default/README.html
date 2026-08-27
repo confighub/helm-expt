@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,37 +459,37 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../data/confighub-example-guides/spaces/cloudpirates-redis-0-34-11-default/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.</p>
-<p>It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.</p>
+<p>This guide follows one public Helm chart into a ConfigHub Space. It covers why the preset exists, how to repeat it, and what still needs care.</p>
+<p>It is generated from the same records that build the package, the chart page and the render intent, along with the scripts and receipts. The proof links are lower down.</p>
 <h2 id="why-this-preset-exists">Why this preset exists</h2>
-<p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
-<p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
+<p>A Helm chart exposes many settings, and a values file records the settings rather than the operations story around them. A team still has to know which Kubernetes objects get created and which Secrets or CRDs have to exist first. Hooks and setup jobs may need special handling, and something has to back the result.</p>
+<p>This preset is a named answer to one operating choice. It keeps the upstream chart, records the inputs and the rendered YAML, and leaves the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
 <p>This is the <code>default</code> preset config for <code>cloudpirates/redis@0.34.11</code>. The repo also calls this a base variant. Use this when you want to start from the chart author's normal path, with the inputs recorded.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html">cloudpirates/redis@0.34.11</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
-<p>We keep the Helm chart. We lock <code>cloudpirates/redis@0.34.11</code>, choose the <code>default</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>
+<p>We keep the Helm chart. We lock <code>cloudpirates/redis@0.34.11</code> and choose the <code>default</code> preset config, then render it with the recorded values, namespace and release name against the recorded Kubernetes capabilities, and save the output as files.</p>
 <p>That captured output is the render variant: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml</code></a>. It contains 5 Kubernetes object(s): Service x2, ConfigMap x1, Secret x1, StatefulSet x1.</p>
-<p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333</code>. Users can pull these exact bytes without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-redis-default</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
+<p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333</code>. Users can pull these exact bytes without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space, where it can be searched and compared, reviewed and changed, then delivered. The example script defaults to Space <code>helm-redis-default</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
 <p>The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.</p>
 <p>The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.</p>
 <p>For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 5 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
-<p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
+<p>This claim covers this recorded preset config alone. Every other values file for this chart remains unchecked.</p>
 <h2 id="repeat-it">Repeat it</h2>
 <p>Fast path with no ConfigHub account:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudpirates-redis-0-34-11/default/try.sh)</code></pre>
 <p>Fast path with a ConfigHub account:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudpirates-redis-0-34-11/default/confighub.sh)</code></pre>
 <p>The core render command is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11@sha256:29a96a9f6b3e2cedfe30cefe20c51e46cbcb1e363c69c45c58f9118530099333 --base default --work-dir ./cloudpirates-redis-0-34-11-default --non-interactive --namespace default</code></pre>
-<p>After upload, create environment versions with <code>cub variant create</code> and move reviewed changes with <code>cub variant promote</code>. The walkthrough is <a href="../../../../docs/user/variants-after-upload.html">After Upload: Create A Variant And Promote Changes</a>.</p>
+<p>After upload, create environment versions with <code>cub variant create</code> and move reviewed changes with <code>cub variant promote</code>. The walkthrough is <a href="../../../../docs/user/variants-after-upload.html">After upload: create a variant and promote changes</a>.</p>
 <h2 id="preset-details">Preset details</h2>
 <table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td>Chart</td><td><code>cloudpirates/redis@0.34.11</code></td></tr>
 <tr><td>Preset config</td><td><code>default</code></td></tr>

@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -508,6 +525,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -521,8 +555,8 @@
   <main>
     <section aria-labelledby="start">
       <h2 id="start">1. Start from the system that owns it today</h2>
-      <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage them.</p>
-      <p>The first safe outcome is an inventory and comparison, not a changed live deployment.</p>
+      <p>Existing systems carry history. Old chart versions, local patches and hand-created Secrets accumulate, and so do controller-generated fields and cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage anything.</p>
+      <p>The first safe outcome is an inventory and a comparison, which is why nothing is deployed at this stage.</p>
       <div class="card"><table>
         <thead><tr><th>Starting point</th><th>What to record first</th><th>What stays unchanged</th></tr></thead>
         <tbody><tr><td>Argo CD or Flux app</td><td>Record its source, rendered objects, namespace, health, and sync state.</td><td>Keep controller delivery unchanged while you compare the saved configuration.</td></tr><tr><td>Rendered YAML</td><td>Group the files that belong to one application and list their objects.</td><td>Check names, namespaces, Secrets, CRDs, and hooks before ConfigHub manages them.</td></tr><tr><td>Live cluster</td><td>Record what is running, who owns it, what changed, and which cluster services it needs.</td><td>Treat live state as evidence. Do not automatically make it the desired configuration.</td></tr><tr><td>Helm release</td><td>Record the chart, version, values, release name, and rendered objects.</td><td>Decide whether the first ConfigHub base must match it exactly or contain an intended change.</td></tr></tbody>
@@ -552,9 +586,9 @@
     <section aria-labelledby="next">
       <h2 id="next">3. Choose the first managed step</h2>
       <div class="grid">
-        <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values, manifest, hooks, and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
-        <div class="card"><h3>Create a managed variant</h3><p>Once the base is trusted, use a derived variant for environment, region, customer, or target-specific refinements.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="card"><h3>Move into operations</h3><p>After upload, use scans, approvals, and the rest of the operations records.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
+        <div class="card"><h3>Match the current app</h3><p>Capture Helm's status, values and manifest, along with its hooks and history. Then create or select a base that matches the reviewed object set.</p><p><a href="d/docs/user/existing-helm-release-diagnostic.html">Check an existing Helm release</a> &middot; <a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
+        <div class="card"><h3>Create a managed variant</h3><p>Once you trust the base, a derived variant carries the refinements for one environment, region or customer.</p><p><a href="./variants.html">Variants</a></p></div>
+        <div class="card"><h3>Move into operations</h3><p>After upload, scans and approvals run against the stored objects, and the operations records follow from there.</p><p><a href="./operations.html">Operate saved configuration</a></p></div>
       </div>
     </section>
   </main>

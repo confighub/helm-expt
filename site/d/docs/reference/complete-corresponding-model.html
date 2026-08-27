@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -446,7 +463,7 @@
     <p class="lead">For any public Helm chart (plus its Kustomize / overlay customization), ConfigHub + <code>cub installer</code> provides a <b>modular, executable model</b> that reproduces the chart's result and that a user can <b>read, use, and verify</b> - without running the chart's templating engine. <a href="../../../../docs/reference/complete-corresponding-model.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 <p><b>Status:</b> DOCTRINE (2026-06-02). The north-star claim of the catalog and the contract every chart must meet.</p>
 <h2 id="the-claim">The claim</h2>
@@ -470,7 +487,7 @@
 <h2 id="where-we-are-vs-the-contract">Where we are vs. the contract</h2>
 <p>The current measured state is in <code>data/model-completeness/summary.md</code>.</p>
 <p>This report is a model-support view, not the whole live outcome. Level 2 means the chart has a complete, honest, reproducible model for its declared scope. The full catalog outcome still needs the outcome coverage:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>default and declared main choices
 -&gt; Helm-equivalence and installer setup
 -&gt; ConfigHub upload, scan, clone/check, and safe-ops proof

@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/issue-backlog.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This document indexes the GitHub issues and merged proof surfaces that must not be lost in the planning docs. GitHub remains the execution tracker; this file keeps reviewers aligned with the written plan.</p>
 <p>For current priority and workstream shape, start with <a href="roadmap.html">Roadmap</a>. This file is the issue mirror that supports that roadmap.</p>
@@ -459,7 +476,7 @@ Add or update the verifier that fails if the evidence becomes stale.
 Do not close an issue because a command, tutorial, or proposal merely exists.</code></pre>
 <p>The catalog-wide target is that every supported Helm chart default and declared main choice becomes reproducible, ConfigHub-reviewable, live-cluster verified, and tied to receipts. If a lane is still missing, track it as missing backlog instead of converting the issue into a broad &quot;verified&quot; claim.</p>
 <p>The original P0 proof gates are now closed and verified by the harness. Issue #76 is closed as the import-path definition and proof-contract issue:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>#76 Define Helm import path from cub helm template / cub helm install to cub installer recipes.</code></pre>
 <p>The downstream product command is still future work, but it should be tracked as implementation work rather than keeping the definition issue open. The current command story is:</p>
 <table><thead><tr><th>Command</th><th>Product role</th></tr></thead><tbody><tr><td><code>cub helm template</code></td><td>Fast local render and Helm baseline.</td></tr>

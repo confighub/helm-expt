@@ -2,15 +2,15 @@
 
 # minio-operator/tenant 7.1.1 - default
 
-This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.
+This guide follows one public Helm chart into a ConfigHub Space. It covers why the preset exists, how to repeat it, and what still needs care.
 
-It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.
+It is generated from the same records that build the package, the chart page and the render intent, along with the scripts and receipts. The proof links are lower down.
 
 ## Why this preset exists
 
-Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.
+A Helm chart exposes many settings, and a values file records the settings rather than the operations story around them. A team still has to know which Kubernetes objects get created and which Secrets or CRDs have to exist first. Hooks and setup jobs may need special handling, and something has to back the result.
 
-This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.
+This preset is a named answer to one operating choice. It keeps the upstream chart, records the inputs and the rendered YAML, and leaves the team a repeatable starting point instead of a private values-file guess.
 
 ## What this is
 
@@ -20,11 +20,11 @@ The matching catalog page is [minio-operator/tenant@7.1.1](https://confighub.git
 
 ## The chart journey
 
-We keep the Helm chart. We lock `minio-operator/tenant@7.1.1`, choose the `default` preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.
+We keep the Helm chart. We lock `minio-operator/tenant@7.1.1` and choose the `default` preset config, then render it with the recorded values, namespace and release name against the recorded Kubernetes capabilities, and save the output as files.
 
 That captured output is the render variant: [`recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml). It contains 2 Kubernetes object(s): Secret x1, Tenant x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-tenant-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a`. Users can pull these exact bytes without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space, where it can be searched and compared, reviewed and changed, then delivered. The example script defaults to Space `helm-tenant-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -42,7 +42,7 @@ Some CRDs must already exist before the rendered objects are applied.
 - Render parity is recorded as passing for this preset config.
 - Prerequisites are named before apply, so they are not discovered after rollout.
 
-This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
+This claim covers this recorded preset config alone. Every other values file for this chart remains unchecked.
 
 ## Repeat it
 
@@ -64,7 +64,7 @@ The core render command is:
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default
 ```
 
-After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After Upload: Create A Variant And Promote Changes](../../../../docs/user/variants-after-upload.md).
+After upload, create environment versions with `cub variant create` and move reviewed changes with `cub variant promote`. The walkthrough is [After upload: create a variant and promote changes](../../../../docs/user/variants-after-upload.md).
 
 ## Preset details
 

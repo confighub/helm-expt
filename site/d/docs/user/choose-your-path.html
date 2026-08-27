@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -446,7 +463,7 @@
     <p class="lead">Use the <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> to learn ConfigHub. It covers one component, a release, a change, production, and promotion. <a href="../../../../docs/user/choose-your-path.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
@@ -465,7 +482,7 @@
 <tr><td>Public catalog package</td><td>You want a maintained public base with render parity, receipts, scans, and proof.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state.</td></tr>
 <tr><td>Reviewed ConfigHub base</td><td>You want the catalog render stored as Units before creating variants or approvals.</td><td><code>cub installer upload</code></td><td>Needs a ConfigHub account.</td></tr>
 <tr><td>Derived operations</td><td>You want dev/prod/customer/target variants, gates, links, policies, scans, promotions, observations, or bulk work.</td><td><code>cub variant create</code>, <code>cub unit diff</code>, <code>cub function vet</code>, changesets</td><td>ConfigHub-managed workflow.</td></tr>
-<tr><td>Existing app adoption</td><td>You already have Argo, Flux, KRM, rendered manifests, or live resources.</td><td>See <a href="adopting-existing-apps.html">Adopting Existing Apps</a>.</td><td>Usually managed import; private state belongs in ConfigHub.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<tr><td>Existing app adoption</td><td>You already have Argo, Flux, KRM, rendered manifests, or live resources.</td><td>See <a href="adopting-existing-apps.html">Adopting Existing Apps</a>.</td><td>Usually managed import; private state belongs in ConfigHub.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <h2 id="free-public-lane">Free Public Lane</h2>
 <p>The public lane is useful before a team commits to a platform workflow:</p>

@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -508,6 +525,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -531,7 +565,7 @@
   </header>
   <main>
     <section aria-labelledby="check-scope">
-      <h2 id="check-scope">What This Page Can Answer</h2>
+      <h2 id="check-scope">What this page can answer</h2>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>What happens here</th></tr></thead>
         <tbody><tr><td>What do I have?</td><td>The page inventories and compares the exact rendered objects you provide. A local assistant can also inspect the source, values, or package.</td></tr><tr><td>What will it produce?</td><td>Helm, AICR, Timoni, or another source tool runs on your machine. The browser checks its output; it does not run the source processor.</td></tr><tr><td>Can this destination accept it?</td><td>Not from browser files alone. Run a destination check with the exact candidate and current target facts.</td></tr><tr><td>Did it work?</td><td>Not before deployment. Record controller, resource, runtime, drift, and rollback results after the exact revision is delivered.</td></tr></tbody>
@@ -608,7 +642,7 @@
     <section id="check-command" aria-labelledby="check-command-title">
       <h2 id="check-command-title">Run the shared checks on your machine</h2>
       <p>Use this after Helm, AICR, OCI, or another source tool has written Kubernetes YAML. The command checks the exact files on your machine. It does not upload them, contact ConfigHub, or apply them to a cluster.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><code>cub-check.json</code> records stable finding IDs and the pinned pattern bundle used for the check. Keep it beside the rendered files and their digest. The result is advisory: cluster admission, hooks, CRDs, workload health, upgrade behavior, and rollback still need their own checks.</p>
@@ -723,7 +757,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
     </section>
 
     <section aria-labelledby="questions-we-answer">
-      <h2 id="questions-we-answer">Questions People Are Asking</h2>
+      <h2 id="questions-we-answer">Questions people are asking</h2>
       <p>We reviewed 40 recent public Helm discussions before starting outreach. The counts describe that small research sample; they are not customer or site usage totals.</p>
       <p>Choose the question closest to the decision you need to make. Each link selects it in the form above.</p>
       <div class="card"><table>
@@ -740,7 +774,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
     </section>
 
     <section aria-labelledby="public-question-decisions">
-      <h2 id="public-question-decisions">What Happens to a Public Question</h2>
+      <h2 id="public-question-decisions">What happens to a public question</h2>
       <p>Submit only a public chart after you have a useful local result. We aim to acknowledge a complete report within two business days.</p>
       <p>Within seven days, we aim to post one clear outcome. It may be a Catalog entry, a named warning, a refusal, or a request for more evidence.</p>
       <p><a href="./d/data/challenge-intake/summary.html">See current question totals and outcomes</a> · <a href="./d/docs/reference/question-intake-operation.html">Read the response process</a></p>

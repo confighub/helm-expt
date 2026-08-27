@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
@@ -442,7 +459,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/flattening-safety/evidence.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Every catalog entry with a recorded witness is scanned for the constructs that render-time flattening loses. This view reports what 132 packaged charts contain. It does not decide whether any of them may ship as flattened YAML: that is a flattening-safety verdict, which weighs values gating, the audited base, and the routes available to discharge each construct. 82 of these chart versions have a decided lane today; the rest read &quot;not yet decided&quot; rather than reading as safe by omission.</p>
 <table><thead><tr><th>construct</th><th>charts</th><th>share</th><th>what it costs a flattened bundle</th></tr></thead><tbody><tr><td>capabilities</td><td>96</td><td>73%</td><td>the wrong apiVersion for the target cluster</td></tr>

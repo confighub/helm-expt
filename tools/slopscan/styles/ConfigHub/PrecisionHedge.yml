@@ -1,0 +1,7 @@
+extends: existence
+message: "Precision hedge: '%s'."
+level: warning
+ignorecase: true
+nonword: true
+tokens:
+  - "\\b(?:it'?s worth noting|it should be noted|it'?s important to (?:note|remember|understand)|generally speaking|in many ways|to some extent|that said,)\\b"

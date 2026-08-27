@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   .handoff-proof { max-width: 880px; padding-left: 1.3rem; }
   .handoff-proof li { margin: 12px 0; }
   .handoff-proof code { overflow-wrap: anywhere; word-break: break-all; }
@@ -512,12 +529,29 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
 <header class="hero human-hero">
   <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-  <h1>Keep This Reviewed Configuration in ConfigHub</h1>
+  <h1>Keep this reviewed configuration in ConfigHub</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
   <p class="lead">Save the exact Kubernetes configuration you approved. ConfigHub keeps it with its source, checks, and later changes.</p>
   <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
@@ -525,14 +559,14 @@
   <p><a class="button primary" href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Keep a reviewed result in ConfigHub</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Open the tutorial</a></p>
 </header>
 <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
     <p>Upload reviewed files or OCI. ConfigHub stores each Kubernetes object and keeps the source and review record beside it.</p>
     <p>Create a version for each environment. ConfigHub shows the exact diff, records the approval, and keeps the promotion history.</p>
     <p>Publish a release for Argo CD or Flux. Add live observations when you need to compare the approved configuration with a cluster.</p>
     <p>ConfigHub keeps the four answers connected without treating them as interchangeable.</p>
-    <p>It links the source and materialized objects, the destination check for one target, and the post-deployment result for one exact release. A retained object or published OCI is not automatically a destination or live pass.</p>
+    <p>It links the source to the materialized objects, the destination check to one target, and the post-deployment result to one exact release. A retained object or a published OCI stays exactly that, and never counts as a destination or live pass.</p>
     <div class="card"><table>
         <thead><tr><th>Question</th><th>What ConfigHub retains</th></tr></thead>
         <tbody><tr><td>What do I have?</td><td>The source identity, imported files, exact object records, and their history.</td></tr><tr><td>What will it produce?</td><td>The source and intent, materialized objects, object identity, and recorded transformation.</td></tr><tr><td>Can this destination accept it?</td><td>Checks against one named destination, tied to the exact candidate and current destination facts.</td></tr><tr><td>Did it work?</td><td>Results for the exact delivered revision, target, time, and claim that was checked.</td></tr></tbody>
@@ -547,7 +581,7 @@
   <section aria-labelledby="exact-handoff">
     <h2 id="exact-handoff">2. See one exact handoff</h2>
     <p>A worked NGINX example starts with AI-written Helm values. The review keeps the requested three replicas, removes six risky settings, and produces 5 Kubernetes objects.</p>
-    <p>We calculate one hash from those objects at each step. Matching hashes mean the objects did not change.</p>
+    <p>We calculate one hash from those objects at each step, so matching hashes mean the objects came through unchanged.</p>
     <ol class="handoff-proof">
       <li><strong>Review locally.</strong> The 5 objects have object-set hash <code>ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345</code>.</li>
       <li><strong>Publish the OCI.</strong> Pulling <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001</code> back produces the same object-set hash. The OCI digest is <code>sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683</code>.</li>

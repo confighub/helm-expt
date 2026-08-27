@@ -427,6 +427,23 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -508,6 +525,23 @@
     .calm-page .move-spine {
       gap: 22px;
     }
+  
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   </style>
 </head>
 <body class="calm-page">
@@ -515,20 +549,20 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Use Config Workshop with your AI agent</h1>
     <p class="lead">Give Claude, Codex, or another coding agent one configuration question. The Config Workshop skill finds exact Catalog records and the lifecycle work to check. It returns a result you can review.</p>
-    <p>The agent may propose commands or changes. You still see the source, Kubernetes objects, diff, checks, and limits before anything is applied or uploaded.</p>
+    <p>The agent may propose commands or changes, and you see the source, the Kubernetes objects and the diff before any of it is applied or uploaded. The checks and the stated limits come with it.</p>
   </header>
   <main>
     <section aria-labelledby="install-skill">
       <h2 id="install-skill">1. Install the Config Workshop skill</h2>
       <p>Install it in the project where your agent is working. The open Agent Skills installer supports Codex, Claude Code, Cursor, and other coding agents.</p>
       <pre><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
-      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It does not grant credentials or apply configuration. It keeps private files local and redacts Secret values. It pins versions and digests, reports skipped checks, and previews changes before mutation.</p>
+      <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Private files stay on your machine and Secret values are redacted. It pins versions and digests, reports any check it skipped, and previews a change before making it.</p>
     </section>
 
     <section aria-labelledby="tasks">
       <h2 id="tasks">2. Ask for one result</h2>
       <h3 id="four-ai-questions">Keep the four answers separate</h3>
-      <p>An agent can help at every stage, but it cannot replace the input that stage needs. Tell it to report missing work as blocked or not run instead of turning a nearby result into a pass.</p>
+      <p>An agent helps at every stage, though it cannot supply the input a stage needs. Tell it to report missing work as blocked or not run, rather than promoting a nearby result into a pass.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>What AI can do</th><th>Required input</th></tr></thead>
         <tbody><tr><td>What do I have?</td><td>Read and explain a source, snapshot, package, or exact object set.</td><td>The material to inspect. A Catalog entry is optional.</td></tr><tr><td>What will it produce?</td><td>Run the source-native tool, retain its inputs, and compare the exact output.</td><td>The source and intent. A destination is optional.</td></tr><tr><td>Can this destination accept it?</td><td>Run checks against current APIs, CRDs, Secrets, policies, controllers, credentials, and hardware.</td><td>The exact candidate and access to the named destination.</td></tr><tr><td>Did it work?</td><td>Read controller, resource, workload, runtime, drift, and rollback evidence.</td><td>The exact revision must have been deployed, and the required live check must have run.</td></tr></tbody>
@@ -554,7 +588,7 @@
       <p><a href="./ask.html">Check my config</a> builds a local prompt and browser review. <a href="./promote.html">Promote my config</a> compares current and proposed objects. Neither page uploads your files.</p>
       <p><strong>For an upgrade or environment move:</strong> open <a href="./promote.html">Promote my config</a>, compare the two object sets, download the promotion review, and copy its AI review prompt. The prompt keeps the destination checks and tests that have not run in the answer.</p>
       <p>After the source tool writes Kubernetes YAML, the agent can run the same released local checker a person uses:</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json ./rendered</code></pre>
       <p><code>cub check</code> is advisory and does not apply configuration. The agent must keep its result with the exact object digest and list target or live checks that did not run.</p>
@@ -562,7 +596,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
 
     <section aria-labelledby="records">
       <h2 id="records">3. Keep the answer tied to records</h2>
-      <p>The skill uses the same public files as the site. It does not treat page copy or an agent's explanation as proof.</p>
+      <p>The skill reads the same public files as the site, and treats page copy or an agent's explanation as neither.</p>
       <div class="card"><table>
         <thead><tr><th>Record</th><th>What it answers</th></tr></thead>
         <tbody><tr><td>changes.json</td><td>Which exact Helm package version and digest did you ask about, and which areas have evidence?</td></tr><tr><td>base-variant-records.json</td><td>Where did the configuration come from, which exact objects were produced, and what lifecycle, ownership, OCI, and delivery records exist?</td></tr><tr><td>review and promotion records</td><td>Which files were compared, which checks ran, and what remains before the result moves?</td></tr><tr><td>linked receipts</td><td>What command or live run produced a claim, for which object digest and target?</td></tr></tbody>
@@ -573,7 +607,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>Missing coverage means the claim has not been checked. A successful render does not prove cluster admission, controller convergence, workload health, upgrade, or rollback.</p>
+      <p>Missing coverage means the claim is unchecked. A successful render proves the objects are well formed, while cluster admission, controller convergence and workload health remain open, along with upgrade and rollback.</p>
     </section>
 
     <section aria-labelledby="sources">
@@ -608,7 +642,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
 
     <section aria-labelledby="catalog-maintenance">
       <h2 id="catalog-maintenance">7. How agents help maintain the Catalog</h2>
-      <p>Agents help read source behavior, propose useful starting configurations, generate checks, investigate failures, and explain receipts. Generated text is reviewed against committed data before it appears as a Catalog claim.</p>
+      <p>Agents read source behaviour, propose starting configurations and generate checks. They also investigate failures and explain receipts. Whatever they write is reviewed against committed data before it appears as a Catalog claim.</p>
       <div class="card"><table>
         <thead><tr><th>Agent task</th><th>Required record</th></tr></thead>
         <tbody><tr><td>Read source behavior</td><td>Inspect versions, values or typed options, templates, generated objects, hooks, CRDs, tests, waits, prerequisites, and destination assumptions.</td></tr><tr><td>Propose useful configurations</td><td>Suggest chart-specific or source-specific starting choices. The generator and recorded checks decide what enters the Catalog.</td></tr><tr><td>Investigate failures</td><td>Separate input errors, missing target setup, lifecycle work, controller results, and workload health.</td></tr><tr><td>Maintain explanations</td><td>Turn exact records and receipts into short instructions while keeping links to the underlying evidence.</td></tr></tbody>

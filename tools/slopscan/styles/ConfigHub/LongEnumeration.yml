@@ -1,0 +1,7 @@
+extends: existence
+message: "Enumeration of %s items in one sentence. Split it or cut it to three."
+level: warning
+scope: paragraph
+nonword: true
+tokens:
+  - '\b\w[\w\-]*(?:,\s+\w[\w\-]*){3,}\,?\s+(?:and|or)\s+\w[\w\-]*'
