@@ -29,6 +29,7 @@
 - [Why did Helm ignore my values?](https://confighub.github.io/helm-expt/site/why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key.
 - [Did this chart version change?](https://confighub.github.io/helm-expt/site/did-this-chart-version-change.html): compare current package bytes with retained digests.
 - [Did your Bitnami chart stop pulling?](https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
+- [Deploy with Flux or Argo CD](https://confighub.github.io/helm-expt/site/deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](https://confighub.github.io/helm-expt/site/why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
 - [Helm investigation reference](https://confighub.github.io/helm-expt/site/challenge.html): worked Helm evidence and the benchmark behind the shorter Check my config flow.
