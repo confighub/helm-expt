@@ -5508,32 +5508,19 @@ function upstreamVersionHtml() {
 function fluxArgoHtml() {
   return driftQuestionPageHtml({
     title: "Do you already run Flux or Argo CD?",
-    lead: "Keep reconciling. ConfigHub is the reviewed write in front of your registry: render any catalog chart to an OCI your controller already reads, with the bytes checked first.",
-    boundary: "Runs on your laptop. The catalog pull and the render need no account. Your controller reconciles the output the way it does today.",
-    example: `<p>Pull a reviewed package anonymously, render one base to a Flux-native OCI, and push it to a registry your controller can read.</p>
+    lead: "Keep reconciling. ConfigHub is the reviewed write in front of your registry. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
+    boundary: "The published components and the render need no account. Your controller reconciles the output the way it does today.",
+    example: `<p>Two reviewed components are already published to the public namespace. With no account and no credentials, point Flux at one and it reconciles.</p>
+      <pre><code>flux create source oci nginx \\
+  --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
+flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=true</code></pre>
+      <p>This is proven end to end. Flux fetched digest <code>sha256:ac21cf32</code> from the public URL and the nginx workload reached ready, in a cluster with no ConfigHub credentials. Redis is published the same way at <code>bitnami-redis-rendered:25.5.3</code>; provide its existing Secret before it reconciles.</p>
+      <p>For any other catalog chart, render your own controller-native OCI and push it to a registry you control.</p>
       <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
-      <p>Then point Flux at that digest. Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files.</p>
-      <pre><code>apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata: { name: reviewed-nginx, namespace: flux-system }
-spec:
-  interval: 5m
-  url: oci://YOUR-REGISTRY/reviewed-nginx
-  ref: { digest: sha256:&lt;the reviewed digest&gt; }
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata: { name: reviewed-nginx, namespace: flux-system }
-spec:
-  interval: 10m
-  sourceRef: { kind: OCIRepository, name: reviewed-nginx }
-  path: "."
-  prune: true
-  wait: true</code></pre>
-      <p>A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>`,
-    evidence: `<p>Three receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full kubectl, Flux, and Argo manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>`,
-    action: "Render a catalog chart and hand the exact output to the Flux or Argo you already run.",
+      <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>`,
+    evidence: `<p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>`,
+    action: "Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo you already run.",
     actionHref: "./how-it-works.html#now-deploy",
     actionLabel: "See the deploy manifests",
   });

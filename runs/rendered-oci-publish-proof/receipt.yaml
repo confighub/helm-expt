@@ -1,0 +1,62 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RenderedOciPublishProofReceipt
+metadata:
+  name: rendered-oci-publish-proof
+  observedAt: "2026-08-27"
+spec:
+  claim: >-
+    A person with no ConfigHub account rendered two reviewed catalog packages to
+    Flux-native OCI, published them to the catalog's public namespace, and a
+    stock Flux reconciled one from the public URL with the workload reaching
+    ready. No credential was used to pull; the render and the reconcile need no
+    account.
+  registry: europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+  layerMediaType: application/vnd.oci.image.layer.v1.tar+gzip
+  layerName: rendered-manifests.tar.gz
+  note: >-
+    The rendered form is a single tar+gzip layer, which Flux's source-controller
+    extracts directly. This differs from the AICR argocd-config artifact, which
+    uses one application/yaml layer per object and needs a layerSelector.
+  components:
+    - component: bitnami/nginx
+      version: 24.0.2
+      base: http-clusterip
+      sourcePackage: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67
+      renderedRef: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered:24.0.2
+      renderedDigest: sha256:ac21cf327f129dc89f3b78269a0d1528ca9dbde3213db4db5adaad6df51d2d76
+      renderedObjectCount: 6
+      anonymousPullBack: verified
+      fluxReconcile:
+        cluster: throwaway kind cluster with no ConfigHub credentials
+        ociRepositoryFetchedRevision: 24.0.2@sha256:ac21cf327f129dc89f3b78269a0d1528ca9dbde3213db4db5adaad6df51d2d76
+        kustomization: ready
+        workload: deployment nginx rolled out, 1 of 1 available
+        result: pass
+    - component: bitnami/redis
+      version: 25.5.3
+      base: reuse-existing-secret
+      sourcePackage: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a
+      renderedRef: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis-rendered:25.5.3
+      renderedDigest: sha256:1da455a2f7ccd6f2e375705e94e44b357abddf071c6dde06ee71e73bce5ace31
+      renderedObjectCount: 14
+      anonymousPullBack: verified
+      fluxReconcile:
+        result: not-run
+        reason: >-
+          The reuse-existing-secret base references an external Secret named
+          redis-existing-secret. Provide that Secret before Flux can bring the
+          workload to ready. The artifact itself is published and pulls
+          anonymously.
+  boundary: >-
+    These artifacts live in the catalog's public Google Artifact Registry, the
+    same namespace that already serves the installer packages, so their
+    availability follows the catalog's. A rendered flat artifact drops the base
+    choice and the collector, so it is the frozen opinionated form; the installer
+    package stays the path for anyone who needs to select a base or bind target
+    facts.
+  reproduce:
+    - "gcloud auth login && gcloud auth configure-docker europe-west1-docker.pkg.dev"
+    - "cub installer setup --pull <sourcePackage> --base <base> --namespace <ns> --work-dir ./w --output-oci ./out.oci --non-interactive"
+    - "oras cp --from-oci-layout ./out.oci:latest <renderedRef without oci:// prefix>"
+    - "flux create source oci <name> --url=<renderedRef without tag> --tag=<version>"
+    - "flux create kustomization <name> --source=OCIRepository/<name> --path=. --prune=true"
