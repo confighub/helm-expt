@@ -554,7 +554,7 @@
   <main>
     <section aria-labelledby="example">
       <h2 id="example">See one example</h2>
-      <p>Two reviewed components are already published to the public namespace. With no account and no credentials, point Flux at one and it reconciles.</p>
+      <p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
 flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=true</code></pre>
