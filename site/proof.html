@@ -585,12 +585,12 @@
 
     <section aria-labelledby="serious">
       <h2 id="serious">3. Check the harder charts</h2>
-      <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, hooks, CRDs, and webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
+      <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack and cert-manager, and any chart with hooks, CRDs, or webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
       <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
       <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="d/docs/user/prometheus-high-fanout.html">High-fanout guide</a> and <a href="d/data/hard-chart-production-packets/summary.html">production packet</a>.</p></div>
-        <div class="card"><h3>Upgrade crash example</h3><p><a href="d/docs/user/helm-upgrade-crash-example.html">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
+        <div class="card"><h3>Upgrade crash example</h3><p><a href="d/docs/user/helm-upgrade-crash-example.html">How a high-risk Helm upgrade becomes staged, gated, and observed</a>.</p></div>
         <div class="card"><h3>cert-manager and ESO</h3><p><a href="d/data/lifecycle-observations/cert-manager-eso/summary.html">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
         <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="d/data/lifecycle-boundary/summary.html">lifecycle boundary</a>.</p></div>
         <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>

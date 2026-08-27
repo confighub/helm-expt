@@ -5536,7 +5536,7 @@ function fluxArgoHtml() {
     title: "Do you already run Flux or Argo CD?",
     lead: "Keep reconciling. ConfigHub is the reviewed write in front of your registry. Two reviewed components already reconcile from a public URL with no account, and any other chart renders the same way.",
     boundary: "The published components and the render need no account. Your controller reconciles the output the way it does today.",
-    example: `<p>Two reviewed components are already published to the public namespace. With no account and no credentials, point Flux at one and it reconciles.</p>
+    example: `<p>Two reviewed components are already published to the public namespace. Point Flux at one with no account, and it reconciles.</p>
       <pre><code>flux create source oci nginx \\
   --url=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx-rendered --tag=24.0.2
 flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=true</code></pre>
@@ -5802,13 +5802,13 @@ function docsHtml() {
     ${topNav(".")}
     <h1>Find instructions for the step you are doing</h1>
     <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence you need.</p>
-    <p>Use these guides for commands and detailed instructions for Helm, AICR, OCI, YAML, and ConfigHub.</p>
+    <p>Use these guides for the commands behind every supported input format, and for ConfigHub.</p>
   </header>
   <main>
     <section aria-labelledby="start">
       <h2 id="start">Start with a configuration</h2>
       <h3 id="four-answers">First choose the answer you need</h3>
-      <p>The same questions apply to Helm, AICR, Timoni, Kubara, Sveltos, OCI, and Kubernetes YAML. Choose the question you need before choosing a command.</p>
+      <p>The same questions apply to every input format, from a Helm chart to plain Kubernetes YAML. Choose the question you need before choosing a command.</p>
       ${markdownLikeTable([
         ["Question", "What you need", "What it does not prove"],
         ["What do I have?", "The source, snapshot, package, or exact files.", "What a source tool will generate, or whether a destination can run it."],
@@ -5816,7 +5816,7 @@ function docsHtml() {
         ["Can this destination accept it?", "The exact candidate and current facts from the named destination.", "That the configuration has been deployed or works at runtime."],
         ["Did it work?", "The exact delivered revision and the live result required by the claim.", "Results for another revision, destination, or untested behavior."],
       ])}
-      <p>A missing prerequisite makes the unanswered stage <strong>blocked</strong> or <strong>not run</strong>. It does not make the source, configuration, workload, or conformance result a failure.</p>
+      <p>A missing prerequisite marks the unanswered stage <strong>blocked</strong> or <strong>not run</strong>, which is a gap in coverage rather than a failure of the source or its result.</p>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
       <h3><a href="./try-aicr.html">Can I try one AICR configuration without a GPU?</a></h3>
@@ -5824,11 +5824,11 @@ function docsHtml() {
       <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
       <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
-      <p>Worked Examples covers your own Helm values, AICR recipes for AI infrastructure, OCI, or Kubernetes YAML.</p>
+      <p>Worked Examples covers your own Helm values, an AICR recipe, or plain Kubernetes YAML.</p>
       <h3><a href="./ask.html">How do I check my own Helm values or a result I do not understand?</a></h3>
       <p>Build a local prompt for the AI assistant you already use. Private charts and values stay on your machine.</p>
       <h3><a href="./kubara.html">How do I add ConfigHub to an existing Kubara platform?</a></h3>
-      <p>Keep Kubara's component selection, generated topology, Git hand-off, and Argo reconciliation while following one six-step adoption tutorial with explicit evidence checkpoints.</p>
+      <p>Keep Kubara's component selection and generated topology, with Argo reconciliation intact, while following one six-step adoption tutorial with explicit evidence checkpoints.</p>
     </section>
 
     <section aria-labelledby="prepare">
@@ -5838,7 +5838,7 @@ function docsHtml() {
       <h3><a href="./how-it-works.html#now-deploy">How do I turn reviewed files into a deployable OCI?</a></h3>
       <p>Choose the local OCI or ConfigHub release path, then let Argo CD or Flux pull the reviewed objects.</p>
       <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
-      <p>See how required setup is recorded, ordered, tested, or blocked.</p>
+      <p>See how required setup is recorded and ordered, then tested or marked blocked.</p>
       <h3><a href="./d/docs/user/helm-presets-and-values.html">Should I change the source input or the rendered object?</a></h3>
       <p>Use this guide to decide whether a change belongs in Helm values or in the stored Kubernetes objects.</p>
       <h3><a href="./d/docs/user/gitops-adopter-guide.html">How do Argo CD and Flux receive it?</a></h3>
@@ -5852,13 +5852,13 @@ function docsHtml() {
       <h3 id="promotion"><a href="./promote.html">How do I test a change before promotion?</a></h3>
       <p>Compare the exact current result with the candidate for the next stage. The review shows what changed, what blocks the move, and what still needs a staging test.</p>
       <h3><a href="../docs/user/day2-upgrade-story.md">How do I upgrade and roll back?</a></h3>
-      <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, rollout, and rollback.</p>
+      <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, and rollback.</p>
       <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
-      <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
+      <p>Apps on ConfigHub includes upgrade, RBAC, and fleet examples, among others.</p>
       <h3><a href="./testing.html#platforms">How do I roll a change through a fleet?</a></h3>
       <p>Open the Kubara and Sveltos examples for platform configuration, cluster assignments, and rollout evidence.</p>
       <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
-      <p>Start read-only from GitOps, YAML, Helm, or a live cluster.</p>
+      <p>Start read-only from GitOps, Helm, or a live cluster.</p>
       <h3><a href="./d/docs/user/image-registry-migration.html">What if an upstream registry or its terms change?</a></h3>
       <p>Repoint image references across environments with the digest intact, promote the change environment by environment, and prove where it landed.</p>
     </section>
@@ -5876,12 +5876,12 @@ function docsHtml() {
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
       <p>Separate source, render, setup, target, and runtime failures.</p>
       <h3><a href="./hard-questions.html">What are the difficult questions?</a></h3>
-      <p>The FAQ answers questions about safety, upgrades, hooks, AI, and current limits.</p>
+      <p>The FAQ answers questions about safety, upgrades, and current limits, among others.</p>
     </section>
 
     <section aria-labelledby="continue">
       <h2 id="continue">More references</h2>
-      <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, repository note, and generated data source.</p>
+      <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, and generated data source.</p>
       <p><a href="./confighub.html">Continue with ConfigHub</a> when your team needs shared variants, approvals, and rollout history.</p>
     </section>
   </main>
@@ -5963,7 +5963,7 @@ function verificationHtml(catalog) {
       <h2 id="product-vs-proof">2. Tell product commands from project checks</h2>
       <div class="grid">
         <div class="card"><h3>Product commands</h3><p><code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, and Flux render, install, deliver, or manage configuration.</p></div>
-        <div class="card"><h3>Project checks</h3><p><code>npm run ...</code> checks this repository's generated files, docs, data, tutorial renders, receipts, and summaries.</p></div>
+        <div class="card"><h3>Project checks</h3><p><code>npm run ...</code> checks this repository's generated files, receipts, and summaries, among other records.</p></div>
         <div class="card"><h3>Complete project check</h3><p><code>npm run verify</code> checks the whole repository. Use it before publishing or reviewing a large change.</p></div>
       </div>
     </section>
@@ -5982,7 +5982,7 @@ function verificationHtml(catalog) {
       <div class="grid">
         <div class="card"><h3>Saved evidence</h3><p>Already in the repository. Use it to review a claim and confirm that summaries still match their receipts and data.</p></div>
         <div class="card"><h3>Fresh evidence</h3><p>Created by a new run. It may create kind clusters, use ConfigHub, publish OCI artifacts, wait for Argo or Flux, and write receipts.</p></div>
-        <div class="card"><h3>Run live checks one at a time</h3><p>Do not overlap fresh live checks. Keep clusters, namespaces, credentials, and receipts separate.</p></div>
+        <div class="card"><h3>Run live checks one at a time</h3><p>Do not overlap fresh live checks. Keep clusters, credentials, and receipts separate.</p></div>
       </div>
     </section>
 
@@ -6150,12 +6150,12 @@ function proofHtml(catalog) {
 
     <section aria-labelledby="serious">
       <h2 id="serious">3. Check the harder charts</h2>
-      <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, hooks, CRDs, and webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
+      <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack and cert-manager, and any chart with hooks, CRDs, or webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
       <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
       <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
-        <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
+        <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, gated, and observed</a>.</p></div>
         <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
         <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
         <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
@@ -7119,7 +7119,7 @@ function journeyHtml(catalog) {
     <section aria-labelledby="entry">
       <h2 id="entry">2. Confirm the configuration is saved</h2>
       <p>An App operates configuration that ConfigHub already stores. You should be able to open the component, base, environment variant, and exact Kubernetes objects before the App proposes a change.</p>
-      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, OCI, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
+      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
       <p>The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps-saved-config")}">official tutorial</a> shows the shortest ConfigHub path from one component to a promoted variant.</p>
     </section>
 
