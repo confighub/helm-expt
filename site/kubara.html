@@ -523,6 +523,33 @@
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-22T19:08:54.939Z UTC · source: committed helm-expt evidence for this Kubara buyer journey.</p>
+    <section aria-labelledby="kubara-run-yourself">
+      <h3 id="kubara-run-yourself" style="font-size:1.25rem">Run this yourself</h3>
+      <p>Three rungs, smallest first. Each one is a real command or a recorded walkthrough, and every claim behind them links a committed receipt.</p>
+      <div class="card">
+        <h3>A cluster with delivery wired, in minutes</h3>
+        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
+        <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. Needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
+        <h3>The whole platform, with applications flowing through it</h3>
+        <p>The six-step journey below runs Kubara's own output through ConfigHub, from import to approved promotion and recorded rollback. The implementation, commands, and receipts live in <a href="https://github.com/confighub/kubara-confighub">confighub/kubara-confighub</a>, and each step links its walkthrough.</p>
+        <h3>Give your agent this prompt</h3>
+        <pre style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; white-space: pre-wrap;"><code>I am building or operating an internal developer platform on Kubernetes.
+My platform components: &lt;list them, for example cert-manager, traefik, metrics-server, kube-prometheus-stack&gt;.
+
+1. Fetch https://confighub.github.io/helm-expt/site/changes.json and check which of my
+   components have a checked entry in this catalog.
+2. For each covered component, open its catalog page and compare my configuration with
+   the recorded objects, prerequisites, hooks, CRDs, and license before I install it.
+3. For each component with no entry, say so plainly, and with my approval file it at
+   https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml
+   so it gets a checked entry with receipts.
+4. Then read https://confighub.github.io/helm-expt/site/kubara.html and tell me which
+   of my components the recorded platform journey already covers.</code></pre>
+        <p>Steps 1 and 2 read public data. Step 3 files a public issue with your approval, and an uncovered component becomes a checked entry with receipts.</p>
+      </div>
+      <p><strong>Why hand any of this to an agent?</strong> Our committed two-round benchmark measured where agents are already strong and where they cannot be. A bare agent with a shell answered static chart questions at 96.7 percent. Twelve of eighteen questions about time, live state, and accountability needed records the agent could not produce. The toolchain carries day one; the records carry every day after. <a href="./challenge.html">The benchmark and the full prompt live on the challenge page</a>, and the run data is committed in <a href="https://github.com/confighub/helm-expt/tree/main/data/ai-benchmark">data/ai-benchmark</a>.</p>
+    </section>
     <section aria-labelledby="kubara-starter">
       <h2 id="kubara-starter">1. Choose services for your developers</h2>
       <p>This example uses four ordinary platform services and records one optional runtime image. Use the links to check each component, then change the comma-separated service list to suit your platform.</p>
