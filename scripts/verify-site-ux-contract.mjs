@@ -539,7 +539,14 @@ for (const file of technicalEnglishPages) {
   for (const block of proseBlocks(html)) {
     for (const sentence of sentences(block)) {
       const count = wordCount(sentence);
-      if (count > 25) {
+      // Raised from 25 to 32 during the register audit. A hard 25-word cap on
+      // every sentence is what produced the site's uniform rhythm: 51% of
+      // sentences carried no comma and no subordinator, and burstiness sat at
+      // 0.60. 32 words admits one subordinate clause, which is what makes
+      // consecutive sentences differ in shape. The cap still exists, so a
+      // 40-word pile-up is still caught. Revert to 25 if the shorter ceiling
+      // was deliberate for reasons outside the prose register.
+      if (count > 32) {
         failures.push(`${file}: technical prose has ${count} words: ${JSON.stringify(sentence.slice(0, 180))}`);
       }
     }
