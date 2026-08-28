@@ -645,6 +645,14 @@
       scroll-behavior: auto !important;
     }
   }
+    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
+  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
+  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
+  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
+  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
+  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body class="calm-page">
@@ -759,5 +767,6 @@
     </section>
   </main>
   <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=serverless">Save the configuration in ConfigHub</a> when it needs shared variants, approvals, or a fleet rollout.</p></footer>
+<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Keep a result in ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
 </body>
 </html>
