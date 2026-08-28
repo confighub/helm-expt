@@ -566,6 +566,7 @@
     <p><strong>In the website:</strong> compare the current and proposed object sets. Add staging results and download a review bound to both file hashes.</p>
     <p><strong>On the command line:</strong> create those object sets with Helm, AICR, OCI, or another source tool. Then use the generated <code>cub variant</code> commands to preview and run the managed promotion.</p>
     <p><a href="./d/data/config-workshop-command-contract/summary.html">See the website and command-line contract</a> for one Helm result and one plain-YAML result. Both keep the accepted object-set hash before the ConfigHub dry run.</p>
+    <p>Once you accept a change, <a href="./deploy-with-flux-or-argo.html">reconcile the exact release onto the Flux or Argo you already run</a>.</p>
     <p id="promotion-intro-detail">The comparison runs in your browser. Your files are not uploaded, and you do not need an account. <b>Limits.</b> This compares object sets. Helm stays unrun, no cluster is contacted, and nothing is tested or promoted. A finished Redis review loads automatically so you can see the result before adding your own files.</p>
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>

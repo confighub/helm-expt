@@ -561,6 +561,7 @@
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
     <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
+    <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
