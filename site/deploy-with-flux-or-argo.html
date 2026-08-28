@@ -573,6 +573,7 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
       <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>
+      <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./kubara.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>
     </section>
     <section aria-labelledby="evidence">
       <h2 id="evidence">Check the record</h2>

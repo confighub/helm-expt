@@ -5319,6 +5319,7 @@ function promoteHtml() {
     <p><strong>In the website:</strong> compare the current and proposed object sets. Add staging results and download a review bound to both file hashes.</p>
     <p><strong>On the command line:</strong> create those object sets with Helm, AICR, OCI, or another source tool. Then use the generated <code>cub variant</code> commands to preview and run the managed promotion.</p>
     <p><a href="./d/data/config-workshop-command-contract/summary.html">See the website and command-line contract</a> for one Helm result and one plain-YAML result. Both keep the accepted object-set hash before the ConfigHub dry run.</p>
+    <p>Once you accept a change, <a href="./deploy-with-flux-or-argo.html">reconcile the exact release onto the Flux or Argo you already run</a>.</p>
     <p id="promotion-intro-detail">The comparison runs in your browser. Your files are not uploaded, and you do not need an account. <b>Limits.</b> This compares object sets. Helm stays unrun, no cluster is contacted, and nothing is tested or promoted. A finished Redis review loads automatically so you can see the result before adding your own files.</p>
     <p><button class="button primary" id="use-own-yaml" type="button">Compare my rendered YAML</button> <button class="button secondary" id="load-redis-promotion" type="button">Reload the Redis example</button></p>
   </header>
@@ -5585,7 +5586,8 @@ flux create kustomization nginx --source=OCIRepository/nginx --path="." --prune=
       <p>For any other catalog chart, render your own controller-native OCI and push it to a registry you control.</p>
       <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \\
   --base http-clusterip --output-oci oci://YOUR-REGISTRY/reviewed-nginx:24.0.2</code></pre>
-      <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>`,
+      <p>Argo CD reads the same output through an OCI <code>Application</code>, and kubectl applies the same files. A registry as source of truth records who pushed an artifact and when. It does not record whether the bytes were reviewed, or what objects change at the next version. Those are <a href="./did-this-chart-version-change.html">the digest-drift check</a> and <a href="./ask.html">the render diff</a>.</p>
+      <p>You can <a href="./promote.html">review a change before it reconciles</a>, then <a href="./kubara.html">build or govern a whole platform</a>, with Flux still the reconciler.</p>`,
     evidence: `<p>Four receipts back this path, all anonymous. <a href="${GITHUB_BLOB_BASE_URL}runs/rendered-oci-publish-proof/receipt.yaml">Flux reconciled the public nginx artifact and the workload reached ready, with no credential</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/anonymous-oci-ci-proof/receipt.yaml">A job with no ConfigHub login pulled the public package</a>. <a href="${GITHUB_BLOB_BASE_URL}runs/serverless-oci-gitops-proof/receipt.yaml">Flux pulled a rendered output and the workload reached ready</a>. <a href="./d/data/catalog-oci-delivery-proof/summary.html">Argo CD, Flux, and kubectl consumed one digest</a>. The full manifests are on the <a href="./how-it-works.html#now-deploy">deploy page</a>.</p>`,
     action: "Reconcile the published nginx component, or render any other chart and hand the output to the Flux or Argo you already run.",
     actionHref: "./how-it-works.html#now-deploy",
@@ -7745,6 +7747,7 @@ function kubaraHtml(catalog) {
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
     <p>Keep platform components, developer tools, and applications as related but separately versioned configuration. ConfigHub retains and promotes each of them. Test a platform-component revision when shared services change, a tool revision when the developer experience changes, and an app revision when an application changes.</p>
     <p>You can stop with Kubara's Git output and OCI packages. Add ConfigHub when the platform or its applications need shared variants, approvals, promotion, rollback, or a live fleet view. Argo CD remains the reconciler.</p>
+    <p>If you already run a platform on Flux or Argo, <a href="./deploy-with-flux-or-argo.html">point ConfigHub at the fleet you have</a> and add identity, approvals, and rollback with your reconciler unchanged.</p>
     <p>The implementation lives in <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>.</p>
   </header>
   <main>
