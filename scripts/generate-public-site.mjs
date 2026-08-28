@@ -2105,6 +2105,47 @@ function buildDocPages(catalog, site) {
   return { pages, rendered, missing: targets.filter((target) => !rendered.has(target)) };
 }
 
+// Shared footer navigation. Surfaces the top-level pages the seven-item top nav
+// leaves out (proof, verification, offering, what's new, the Flux and Argo
+// entry, and more) so every page offers a next step, and carries the ConfigHub
+// keep-a-result link on every page. Injected centrally for the top-level pages
+// only; redirect stubs and generated doc or chart pages are left untouched.
+function siteFooterCss() {
+  return `  .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
+  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
+  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
+  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
+  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
+  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
+  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }`;
+}
+
+function siteFooterNav(relPath) {
+  const base = pageBasePrefix(relPath);
+  const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
+  const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
+  return `<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner">`
+    + group("Start", [a("testing.html", "Find a configuration"), a("ask.html", "Check my config"), a("promote.html", "Promote my config"), a("charts/index.html", "Catalog")])
+    + group("Deploy", [a("deploy-with-flux-or-argo.html", "Deploy with Flux or Argo"), a("serverless.html", "Serverless"), a("kubara.html", "Build a platform"), a("operations.html", "Operations")])
+    + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("known-gaps.html", "Known gaps"), a("security.html", "Security")])
+    + group("More", [a("docs.html", "Docs"), a("ai.html", "AI agents"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
+    + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Keep a result in ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
+    + `</div></nav>`;
+}
+
+function injectSiteFooterNav(html, relPath) {
+  if (PAGE_REDIRECT_TARGETS[relPath]) return html;
+  if (html.includes('class="site-footer"')) return html;
+  const withCss = html.includes("</style>")
+    ? html.replace("</style>", `${siteFooterCss()}\n  </style>`)
+    : html;
+  const nav = siteFooterNav(relPath);
+  return withCss.includes("</body>")
+    ? withCss.replace("</body>", `${nav}\n</body>`)
+    : `${withCss}\n${nav}`;
+}
+
 function finalizePage(html, relPath, renderedDocs = new Set()) {
   const withInstallNote = injectInstallCubNote(html, relPath);
   const withCommandNote = injectInstallerCommandNote(withInstallNote);
@@ -2116,7 +2157,7 @@ function finalizeSite(site, catalog) {
   const docs = buildDocPages(catalog, site);
   const finalized = { ...site };
   for (const [key, relPath] of Object.entries(SITE_PAGE_RELPATHS)) {
-    finalized[key] = finalizePage(site[key], relPath, docs.rendered);
+    finalized[key] = injectSiteFooterNav(finalizePage(site[key], relPath, docs.rendered), relPath);
   }
   finalized.chartPages = site.chartPages.map((page) => ({
     ...page,
