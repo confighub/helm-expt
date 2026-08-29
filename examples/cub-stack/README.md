@@ -42,9 +42,27 @@ and reports what a delivery would have to get right:
   stack to issue it.
 - **namespaces** — which are created and which must already exist.
 
-A conflict is the hard failure. `observability-base` certifies clean (175 objects, no
-collisions, 10 CRDs before 50 custom resources). `metrics-double` is rejected because
-two copies of metrics-server claim the same nine objects.
+A conflict is the hard failure. `metrics-double` is rejected because two copies of
+metrics-server claim the same nine objects.
+
+## The example stacks
+
+All are composed from committed chart renders, and all but `metrics-double` certify.
+
+- **observability-base** — cert-manager, metrics-server, kube-prometheus-stack. 175
+  objects, 10 CRDs before 50 custom resources.
+- **web-platform** — cert-manager, ingress-nginx, kube-prometheus-stack. Carries
+  exactly what an app like `shop-web` depends on (see [cub app](../cub-app/README.md)).
+- **data-services** — redis, postgresql, rabbitmq. A clean stateful tier, 31 objects,
+  no CRDs.
+- **gitops-secrets** — cert-manager, external-secrets, argo-cd. Three CRD-shipping
+  components, 26 CRDs composed together.
+- **web-tiny** — two ConfigMaps, sized for a live `install --run`.
+- **metrics-double** — two copies of metrics-server, rejected on conflict.
+
+Sandbox is Config Workshop's free mode, one rung up: the anonymous browser Check
+renders a single config for free, and `cub stack sandbox` renders a whole certified
+composition for free. Same "look before you install," no account, no cluster.
 
 ## Where this fits
 

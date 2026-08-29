@@ -505,6 +505,7 @@
     "ai-change-review:self-test": "node scripts/generate-ai-change-review.mjs --self-test",
     "cub:stack": "node scripts/cub-stack.mjs",
     "cub:app": "node scripts/cub-app.mjs",
+    "cub:config": "node scripts/cub-config.mjs",
     "oci-evidence:generate": "node scripts/generate-oci-evidence-chains.mjs --generate",
     "oci-evidence:verify": "node scripts/generate-oci-evidence-chains.mjs --verify",
     "config-assessment-stages:generate": "node scripts/generate-config-assessment-stages.mjs --generate",
