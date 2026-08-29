@@ -155,6 +155,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/agent-skill-evaluations/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-change-review/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-config-diff/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-ignored-values/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-install-shape/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-promotion-handoff/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/ai-upgrade-risk/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-claim-integrity/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-delivery/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-public-proof/summary.html</loc></url>
