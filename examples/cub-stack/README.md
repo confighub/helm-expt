@@ -1,0 +1,50 @@
+# cub stack (prototype)
+
+A stack is a certified composition of components, installed by name. This prototype
+implements the consumer side of the `cub <noun>` idea: `cub stack <name>` resolves a
+named composition from the catalog, certifies it, and renders it for free in a
+sandbox. No cluster, no account.
+
+## The nouns
+
+- **component** — one certified part, such as a chart.
+- **stack** — a certified composition of components, published and installed by name.
+- **platform** — a stack put under governance.
+- **app** — a workload that runs on a platform, or straight from OCI.
+- **server** — self-hosted ConfigHub.
+
+## Run it
+
+```bash
+node scripts/cub-stack.mjs list
+node scripts/cub-stack.mjs sandbox observability-base
+node scripts/cub-stack.mjs certify metrics-double
+```
+
+`sandbox` certifies the composition and renders it with no infrastructure. `certify`
+runs the gate alone and exits non-zero on a conflict.
+
+## What certify checks
+
+The certify step is where the work is. It composes the components' rendered objects
+and reports what a delivery would have to get right:
+
+- **resource conflicts** — no two components claim the same object.
+- **CRD-before-CR ordering** — every custom resource's CRD is present and delivered
+  first, across components.
+- **admission webhooks** — which need a caBundle, and whether cert-manager is in the
+  stack to issue it.
+- **namespaces** — which are created and which must already exist.
+
+A conflict is the hard failure. `observability-base` certifies clean (175 objects, no
+collisions, 10 CRDs before 50 custom resources). `metrics-double` is rejected because
+two copies of metrics-server claim the same nine objects.
+
+## Where this fits
+
+`cub stack install <name>` would deliver the certified bundle through ConfigHub and
+the team's own Argo CD or Flux, and governing it makes it a platform. The certify
+step reuses the certified-bundle machinery rather than inventing a new one, which is
+the whole point: the moat is composing correctly, not a component picker. See the
+custom-stacks-and-apps proposal and the composition-certification brief for the full
+model.
