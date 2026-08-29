@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiIgnoredValuesReceipt"
+metadata:
+  name: "redis-ignored-values"
+spec:
+  question: "I set a value. Why did the rendered object not change?"
+  persona: "Helm newcomer"
+  render:
+    chart: "bitnami/redis 25.5.3"
+    path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+    sha256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
+  counts:
+    effective: 2
+    ignored: 2
+  gate:
+    effectivePresent: true
+    ignoredAbsent: true
+  method: "reachability-against-committed-render"
+  result: "pass"

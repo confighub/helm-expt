@@ -1,0 +1,18 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiSupplyDriftScenario
+metadata:
+  name: goldilocks-version-reused-for-different-bytes
+spec:
+  question: "Do these version and digest records identify the same bytes?"
+  persona: "Security reviewer"
+  chart: "goldilocks"
+  version: "10.3.0"
+  driftRecord: "data/upstream-drift/drift.csv"
+  # The assistant's verdict, read from the drift record. The gate in
+  # generate-ai-supply-drift.mjs refuses it if the digests do not match the record or
+  # if the same-bytes verdict disagrees with whether the two digests are equal.
+  answer:
+    retainedSha256: "9498a6f49cdea77f8777e9f8640a7711c63644fd1d5f7c8c81c313902190f2fd"
+    republishedSha256: "3e51ce8032b0217d667b7e9084d36c76262b4ea566151f8fa47d422cbbd475db"
+    sameBytes: false
+    decision: "retained-exact"

@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiConfigDiffScenario
+metadata:
+  name: redis-existing-secret-config-diff
+spec:
+  question: "How is this candidate different from production?"
+  persona: "Application team"
+  render:
+    chart: "bitnami/redis 25.5.3"
+    production:
+      label: "the default release"
+      path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+    candidate:
+      label: "the reuse-existing-secret release"
+      path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+  # The assistant's answer to the question, read from the two renders. The gate in
+  # generate-ai-config-diff.mjs refuses this answer if it invents, misses, or
+  # misclassifies any added, removed, or changed object.
+  answer:
+    added: []
+    removed:
+      - "v1|Secret|redis|redis"
+    changed:
+      - "apps/v1|StatefulSet|redis|redis-master"
+      - "apps/v1|StatefulSet|redis|redis-replicas"

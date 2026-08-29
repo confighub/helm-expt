@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiCustomFieldRenderFacts"
+metadata:
+  name: "redis-custom-field-no-fork"
+spec:
+  targetObject: "apps/v1|StatefulSet|redis|redis-master"
+  targetExists: true
+  location: "spec.template.metadata.annotations"
+  locationExists: true
+  key: "example.com/backup-policy"
+  keyPresent: false
+  existingKeysAtLocation:
+    - "checksum/configmap"
+    - "checksum/health"
+    - "checksum/scripts"
+    - "checksum/secret"

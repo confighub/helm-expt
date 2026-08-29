@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiLifecycleWorkAnswer"
+metadata:
+  name: "kube-prometheus-stack-lifecycle-work"
+spec:
+  crdBeforeCr: true
+  crds:
+    - "alertmanagerconfigs.monitoring.coreos.com"
+    - "alertmanagers.monitoring.coreos.com"
+    - "podmonitors.monitoring.coreos.com"
+    - "probes.monitoring.coreos.com"
+    - "prometheusagents.monitoring.coreos.com"
+    - "prometheuses.monitoring.coreos.com"
+    - "prometheusrules.monitoring.coreos.com"
+    - "scrapeconfigs.monitoring.coreos.com"
+    - "servicemonitors.monitoring.coreos.com"
+    - "thanosrulers.monitoring.coreos.com"
+  customResources:
+    Alertmanager: 1
+    Prometheus: 1
+    PrometheusRule: 35
+    ServiceMonitor: 13
+  hooks:
+    []
+  webhooksNeedingCaBundle:
+    - "MutatingWebhookConfiguration/kube-prometheus-stack-admission"
+    - "ValidatingWebhookConfiguration/kube-prometheus-stack-admission"
