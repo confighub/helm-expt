@@ -132,7 +132,7 @@ that link out to the app or stack, the verb, and the assistant.
 | Platform SRE | Where does this image run, and how do I fix it? | the Fleet Platform App | `cub stack`, platform operations | inventories the estate and plans the wave |
 | SRE, reviewer | Can I roll back to exactly what ran? | a retained digest | governance | restores the exact object set |
 | Security reviewer | Do the records identify the same bytes? | receipts and digests | governance | compares records against retained evidence |
-| The assistant | AI wrote these values, what changed? | the AI Change Review App | `cub check`, `cub app` review | is the user here, and the app makes its own edits reviewable |
+| App team or reviewer, for their AI's change | AI wrote these values, what changed? | the AI Change Review App | `cub check`, `cub app` review | the AI authored it, the human asks, the engine reviews and gates it |
 
 ## The funnel, measured
 
@@ -165,13 +165,50 @@ suggestions are inputs the engine certifies rather than results taken on faith. 
 is the interface, which drives cub and ConfigHub so the person does not type the
 commands.
 
-The proof that this is real, not aspiration, is that the AI Change Review App is one
-of the five ConfigHub Apps, with a receipt. AI-easy ships as a proof today.
+The AI Change Review App is the proof, and reading it closely separates two claims
+that are easy to blur. The proof starts from an agent-authored change to an AICR
+training runtime that does three unsafe things at once. It asks for more nodes than
+the target allows, swaps a digest-pinned image for a mutable tag, and leaves the API
+key as an unfilled placeholder. Three actors appear. The AI authored the change, a
+human asks what it did, and the engine, not another AI, reviews and gates it with
+deterministic checks and an approval boundary. So the first thing the proof
+demonstrates is that AI-authored change is made safe, because the gate says yes
+rather than the assistant.
 
-**Where it holds.** The AI-as-user and AI-as-reviewer claims each have a written home
-and a proof. **Where it bends.** The composer role, an assistant assembling a stack
-from a goal, rests on the composition verdict that is designed but not yet built, so
-it is the least proven of the three today.
+**Where it holds.** AI-safe is proven with a receipt today. A careless agent change
+is caught before it ships, which is the custody wedge in one example, the assistant
+computes from today's bytes and ConfigHub keeps the record. **Where it bends.**
+AI-easy is a different claim and less proven. The assistant explaining a finding in
+plain language and driving the whole surface in one step rides on top of AI-safe, and
+the proof is a deterministic scenario stated plainly as not a transcript from a named
+model. The composer role that assembles a stack from a goal still rests on the
+composition verdict that is designed but not yet built. The honest order is that
+safety is proven and ease is the build still ahead.
+
+## What the pressure-test found
+
+Two of the five apps were verified and read closely, the Upgrade App and the AI
+Change Review App. Both pass their lanes. Reading them separates what is proven from
+what is claimed, and the same seam runs through both.
+
+What is proven is the custody spine. The Upgrade App is a live test on two Argo CD
+clusters. It carries a post-render replica change through a Redis 25 to 27 upgrade,
+shows which environment variants are waiting, promotes through development and staging
+behind a dry-run, reconciles the same OCI digest on both clusters, then restores the
+exact pre-upgrade revisions and reconciles the rollback, with an exact-object and
+workload check at every step. This is safety, and it is real. The Upgrade App also
+answers more of the demand than its one row. The surviving replica edit is the
+custom-field question, the promotion dry-run is the config-diff question, and the
+rollback is the rollback-history question, so one app covers four of the ten. That
+strengthens the case for building the spine early.
+
+What is not yet proven is the assistant on top. The Upgrade App proof contains no AI
+at all, because a person drives cub and ConfigHub. The AI Change Review App does
+involve an agent, but the agent is the author of the change and the reviewer that
+catches it is the engine, not another AI. So across both apps the proven layer is the
+deterministic custody mechanism, and the AI-makes-it-easy layer, the assistant that
+proposes, explains, and drives in one step, sits above it and is the build still
+ahead. The honest order is safety first, proven, then ease, next.
 
 ## Honest limits
 
