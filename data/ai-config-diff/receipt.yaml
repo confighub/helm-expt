@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiConfigDiffReceipt"
+metadata:
+  name: "redis-existing-secret-config-diff"
+spec:
+  question: "How is this candidate different from production?"
+  persona: "Application team"
+  chart: "bitnami/redis 25.5.3"
+  production:
+    label: "the default release"
+    path: "recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml"
+    sha256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
+    objectCount: 14
+  candidate:
+    label: "the reuse-existing-secret release"
+    path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+    sha256: "55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f"
+    objectCount: 13
+  diff:
+    added: 0
+    removed: 1
+    changed: 2
+    unchanged: 11
+  gate:
+    addedMatch: true
+    removedMatch: true
+    changedMatch: true
+  result: "pass"

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiLifecycleWorkReceipt"
+metadata:
+  name: "kube-prometheus-stack-lifecycle-work"
+spec:
+  question: "How should Argo CD or Flux handle this chart's hooks and CRDs?"
+  persona: "GitOps operator"
+  render:
+    chart: "prometheus-community/kube-prometheus-stack 85.3.3"
+    path: "data/adversarial10/charts/prometheus-community-kube-prometheus-stack-85.3.3/rendered/default.yaml"
+    sha256: "a9df6a24768af1e03b22e6a3b5a6ebd0873fe3e7fbae43c6113b24fe4311b238"
+  counts:
+    crds: 10
+    customResources: 50
+    webhooksNeedingCaBundle: 2
+    hooks: 0
+  gate:
+    crdsMatch: true
+    customResourcesMatch: true
+    orderingMatch: true
+    webhooksMatch: true
+    hooksMatch: true
+  result: "pass"
