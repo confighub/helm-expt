@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiIgnoredValuesRenderFacts"
+metadata:
+  name: "redis-ignored-values"
+spec:
+  reach:
+    -
+      key: "image.registry"
+      value: "docker.io"
+      effect: "effective"
+      present: true
+    -
+      key: "auth.existingSecret"
+      value: "redis-existing-secret"
+      effect: "effective"
+      present: true
+    -
+      key: "commonLabel.team"
+      value: "team-checkout"
+      effect: "ignored"
+      present: false
+    -
+      key: "sidecarResources.requests.cpu"
+      value: "sidecar-cpu-750m"
+      effect: "ignored"
+      present: false

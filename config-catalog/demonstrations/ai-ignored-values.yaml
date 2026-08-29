@@ -1,0 +1,28 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiIgnoredValuesScenario
+metadata:
+  name: redis-ignored-values
+spec:
+  question: "I set a value. Why did the rendered object not change?"
+  persona: "Helm newcomer"
+  render:
+    chart: "bitnami/redis 25.5.3"
+    path: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+  # The values a user supplied and the assistant's verdict on each. The gate in
+  # generate-ai-ignored-values.mjs refuses the answer if it calls a value effective
+  # when its literal is absent from the render, or ignored when it is present.
+  answer:
+    supplied:
+      - key: "image.registry"
+        value: "docker.io"
+        effect: "effective"
+      - key: "auth.existingSecret"
+        value: "redis-existing-secret"
+        effect: "effective"
+      - key: "commonLabel.team"
+        value: "team-checkout"
+        effect: "ignored"
+        correctPath: "commonLabels.team"
+      - key: "sidecarResources.requests.cpu"
+        value: "sidecar-cpu-750m"
+        effect: "ignored"
