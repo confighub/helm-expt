@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiRollbackHistoryFacts"
+metadata:
+  name: "redis-rollback-to-exact-revisions"
+spec:
+  changeSet: "rollback-to-25-5-3"
+  changeSetState: "Closed"
+  fromVersion: "27.0.0"
+  toVersion: "25.5.3"
+  restoredUnitCount: 14
+  unchangedUnitCount: 1
+  restoredRevisions:
+    - 4

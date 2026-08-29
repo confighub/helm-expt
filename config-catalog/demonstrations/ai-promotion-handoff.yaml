@@ -1,0 +1,20 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiPromotionHandoffScenario
+metadata:
+  name: redis-review-to-promotion-handoff
+spec:
+  question: "The review approved this upgrade. Does a governed promotion carry the same reviewed bytes, in order?"
+  # The gated upgrade-risk review's verdict, cited from data/ai-upgrade-risk.
+  review:
+    source: "the ai-upgrade-risk gated review"
+    chart: "bitnami/redis"
+    fromVersion: "25.5.3"
+    toVersion: "27.0.0"
+    verdict: "low"
+  # The live ConfigHub promotion recorded by the Upgrade App. The gate in
+  # generate-ai-promotion-handoff.mjs reads this receipt and refuses the handoff if
+  # the promotion is not about the same upgrade, is out of order, or contradicts the
+  # low-risk verdict.
+  promotion:
+    receipt: "runs/redis-upgrade-app-proof/receipt.yaml"
+    expectedPath: "base -> development -> staging"

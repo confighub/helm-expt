@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiFleetImageAnswer"
+metadata:
+  name: "redis-image-digest-fleet"
+spec:
+  fleet:
+    -
+      affectedObjects:
+        - "apps/v1|StatefulSet|redis|redis-master"
+        - "apps/v1|StatefulSet|redis|redis-replicas"
+      environment: "dev"
+      status: "propagates"
+    -
+      affectedObjects:
+        []
+      environment: "prod-eu-west"
+      shieldedBy: "image.digest"
+      status: "shielded"
+    -
+      affectedObjects:
+        - "apps/v1|StatefulSet|redis|redis-master"
+        - "apps/v1|StatefulSet|redis|redis-replicas"
+      environment: "prod-us-east"
+      status: "propagates"
+    -
+      affectedObjects:
+        - "apps/v1|StatefulSet|redis|redis-master"
+        - "apps/v1|StatefulSet|redis|redis-replicas"
+      environment: "staging"
+      status: "propagates"
