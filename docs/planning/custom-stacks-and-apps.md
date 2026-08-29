@@ -179,8 +179,8 @@ and they are recorded here so the decisions do not get relitigated.
 
 ## Open questions
 
-- Naming. `cub stack` and `cub app` follow Jesper's `cub server` pattern, so decide
-  them together with him rather than in isolation.
+- Naming. `cub stack` and `cub app` follow the `cub server` pattern, so decide them
+  with the author of `cub server` rather than in isolation.
 - Tier. Composing a stack and rendering it in `sandbox` should stay anonymous and
   free, in keeping with the look-before-you-install ethos, while keeping, promoting,
   and governing a stack need an account. This mirrors the existing value ladder.
