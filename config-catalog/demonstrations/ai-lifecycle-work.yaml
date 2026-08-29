@@ -1,0 +1,35 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiLifecycleWorkScenario
+metadata:
+  name: kube-prometheus-stack-lifecycle-work
+spec:
+  question: "How should Argo CD or Flux handle this chart's hooks and CRDs?"
+  persona: "GitOps operator"
+  render:
+    chart: "prometheus-community/kube-prometheus-stack 85.3.3"
+    path: "data/adversarial10/charts/prometheus-community-kube-prometheus-stack-85.3.3/rendered/default.yaml"
+  # The assistant's account of the lifecycle work, read from the render. The gate in
+  # generate-ai-lifecycle-work.mjs refuses this answer if it invents lifecycle work
+  # or misses any the render carries.
+  answer:
+    crds:
+      - "alertmanagerconfigs.monitoring.coreos.com"
+      - "alertmanagers.monitoring.coreos.com"
+      - "podmonitors.monitoring.coreos.com"
+      - "probes.monitoring.coreos.com"
+      - "prometheusagents.monitoring.coreos.com"
+      - "prometheuses.monitoring.coreos.com"
+      - "prometheusrules.monitoring.coreos.com"
+      - "scrapeconfigs.monitoring.coreos.com"
+      - "servicemonitors.monitoring.coreos.com"
+      - "thanosrulers.monitoring.coreos.com"
+    customResources:
+      Alertmanager: 1
+      Prometheus: 1
+      PrometheusRule: 35
+      ServiceMonitor: 13
+    crdBeforeCr: true
+    webhooksNeedingCaBundle:
+      - "MutatingWebhookConfiguration/kube-prometheus-stack-admission"
+      - "ValidatingWebhookConfiguration/kube-prometheus-stack-admission"
+    hooks: []

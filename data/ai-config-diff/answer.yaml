@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiConfigDiffAnswer"
+metadata:
+  name: "redis-existing-secret-config-diff"
+spec:
+  added:
+    []
+  changed:
+    - "apps/v1|StatefulSet|redis|redis-master"
+    - "apps/v1|StatefulSet|redis|redis-replicas"
+  removed:
+    - "v1|Secret|redis|redis"

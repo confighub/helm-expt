@@ -1,0 +1,35 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiFleetImageScenario
+metadata:
+  name: redis-image-digest-fleet
+spec:
+  question: "Where does this vulnerable image run, and how can I update it safely?"
+  persona: "Platform SRE"
+  image:
+    chart: "bitnami/redis 25.5.3"
+    changePath: "image.digest"
+    matrix: "data/blast-radius-fleet/matrix.csv"
+  # The assistant's placement of the image across the fleet, read from the matrix. The
+  # gate in generate-ai-fleet-image.mjs refuses this answer if it misplaces the image,
+  # mislabels a shielded environment, or drops one.
+  answer:
+    fleet:
+      - environment: "dev"
+        status: "propagates"
+        affectedObjects:
+          - "apps/v1|StatefulSet|redis|redis-master"
+          - "apps/v1|StatefulSet|redis|redis-replicas"
+      - environment: "prod-eu-west"
+        status: "shielded"
+        affectedObjects: []
+        shieldedBy: "image.digest"
+      - environment: "prod-us-east"
+        status: "propagates"
+        affectedObjects:
+          - "apps/v1|StatefulSet|redis|redis-master"
+          - "apps/v1|StatefulSet|redis|redis-replicas"
+      - environment: "staging"
+        status: "propagates"
+        affectedObjects:
+          - "apps/v1|StatefulSet|redis|redis-master"
+          - "apps/v1|StatefulSet|redis|redis-replicas"

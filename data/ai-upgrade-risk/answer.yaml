@@ -1,0 +1,12 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiUpgradeRiskAnswer"
+metadata:
+  name: "redis-25-to-27-upgrade-risk"
+spec:
+  imageChanges:
+    []
+  immutableChanges:
+    []
+  removed:
+    []
+  verdict: "low"

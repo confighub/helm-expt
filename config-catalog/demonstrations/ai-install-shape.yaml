@@ -1,0 +1,42 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiInstallShapeScenario
+metadata:
+  name: metrics-server-install-shape
+spec:
+  question: "What will this install, and what must already exist?"
+  persona: "Helm newcomer"
+  render:
+    chart: "metrics-server/metrics-server"
+    version: "3.13.0"
+    path: "data/adversarial10/charts/metrics-server-metrics-server-3.13.0/rendered/default.yaml"
+  # The assistant's answer to the question, read from the render. The gate in
+  # generate-ai-install-shape.mjs refuses this answer if it invents an object or a
+  # prerequisite, omits one the render implies, or claims an absent class is needed.
+  answer:
+    installs:
+      - "apiregistration.k8s.io/v1|APIService||v1beta1.metrics.k8s.io"
+      - "apps/v1|Deployment|kube-system|metrics-server"
+      - "rbac.authorization.k8s.io/v1|ClusterRole||system:metrics-server"
+      - "rbac.authorization.k8s.io/v1|ClusterRole||system:metrics-server-aggregated-reader"
+      - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator"
+      - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||system:metrics-server"
+      - "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|metrics-server-auth-reader"
+      - "v1|Service|kube-system|metrics-server"
+      - "v1|ServiceAccount|kube-system|metrics-server"
+    prerequisites:
+      - kind: "namespace-exists"
+        namespaces:
+          - "kube-system"
+        detail: "the kube-system namespace is used by the objects but not created by the chart, so it must already exist"
+      - kind: "api-extension"
+        detail: "the chart registers v1beta1.metrics.k8s.io, so the API aggregation layer must be available"
+      - kind: "preexisting-role"
+        detail: "the bindings reference roles the chart does not create, the built-in system:auth-delegator ClusterRole and the extension-apiserver-authentication-reader Role, which must already exist"
+      - kind: "cluster-rbac"
+        detail: "the chart installs cluster-scoped RBAC, so the installer needs permission to create it"
+    doesNotRequire:
+      - "Secret"
+      - "CustomResourceDefinition"
+      - "Storage"
+      - "helm-hook"
+      - "setup-Job"

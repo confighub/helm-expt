@@ -1,0 +1,17 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: AiRollbackHistoryScenario
+metadata:
+  name: redis-rollback-to-exact-revisions
+spec:
+  question: "Can I roll back to exactly what ran before?"
+  persona: "GitOps operator"
+  chart: "bitnami/redis"
+  receipt: "runs/redis-upgrade-app-proof/receipt.yaml"
+  # The assistant's rollback claim, checked against the live receipt. The gate in
+  # generate-ai-rollback-history.mjs refuses it if the target version, restored count,
+  # or change set does not match the recorded rollback.
+  rollback:
+    fromVersion: "27.0.0"
+    toVersion: "25.5.3"
+    restoredUnitCount: 14
+    changeSet: "rollback-to-25-5-3"
