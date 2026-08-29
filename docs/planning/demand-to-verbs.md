@@ -187,9 +187,10 @@ safety is proven and ease is the build still ahead.
 
 ## What the pressure-test found
 
-Two of the five apps were verified and read closely, the Upgrade App and the AI
-Change Review App. Both pass their lanes. Reading them separates what is proven from
-what is claimed, and the same seam runs through both.
+Three of the five app lanes were verified and pass, the Upgrade App, the AI Change
+Review App, and the RBAC Review App. All five were then scanned for whether an
+assistant actually drives them. The same seam runs through every one, so what follows
+separates what is proven from what is claimed.
 
 What is proven is the custody spine. The Upgrade App is a live test on two Argo CD
 clusters. It carries a post-render replica change through a Redis 25 to 27 upgrade,
@@ -203,9 +204,11 @@ rollback is the rollback-history question, so one app covers four of the ten. Th
 strengthens the case for building the spine early.
 
 What is not yet proven is the assistant on top. The Upgrade App proof contains no AI
-at all, because a person drives cub and ConfigHub. The AI Change Review App does
-involve an agent, but the agent is the author of the change and the reviewer that
-catches it is the engine, not another AI. So across both apps the proven layer is the
+at all, because a person drives cub and ConfigHub. The RBAC Review App proposes its
+correction with deterministic review logic, not an AI, and the Fleet Platform App is
+cub, ConfigHub, and Sveltos with no assistant in the path. Across all five apps an AI
+appears in exactly one, the AI Change Review App, and there only as the author of the
+reviewed change. An assistant drives none of them yet. So the proven layer is the
 deterministic custody mechanism, and the AI-makes-it-easy layer, the assistant that
 proposes, explains, and drives in one step, sits above it and is the build still
 ahead. The honest order is safety first, proven, then ease, next.
