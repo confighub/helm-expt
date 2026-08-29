@@ -465,29 +465,31 @@
 <p>This is the <code>cub &lt;noun&gt;</code> vocabulary as one table. It follows the <code>cub server</code> pattern, one noun per layer and one verb per operation, the way <code>gh</code> reads. It pairs with <a href="custom-stacks-and-apps.html">custom-stacks-and-apps.md</a> and the running prototype under <code>examples/cub-stack/</code> and <code>examples/cub-app/</code>.</p>
 <h2 id="read-it-as-a-ladder">Read it as a ladder</h2>
 <p>A config climbs a ladder, and each verb is a rung.</p>
-<p>The first rungs are free and need no account. You <b>load</b> a config, <b>check</b> it, <b>sandbox</b> it, and <b>install</b> it onto the Argo CD or Flux you already run. Those three verbs are escalating engagement. Check looks without running. Sandbox runs it in a throwaway cluster. Install runs it on yours. The next rungs need an account. You <b>keep</b> the config in ConfigHub, then <b>promote</b> it across environments. The last rung is paid. You <b>govern</b> a running stack as a platform.</p>
+<p>The first rungs are free and need no account. You <b>check</b> a config, then <b>install</b> it onto the Argo CD or Flux you already run. The next rungs need an account. You <b>keep</b> the config in ConfigHub, then <b>promote</b> it across environments. The last rung is paid. You <b>govern</b> a running stack as a platform.</p>
+<p>A stack climbs the same ladder with two extra free rungs. You <b>certify</b> that the composition holds together, and you <b>sandbox</b> it to render the whole thing for free with no infrastructure. That is the eks-inference model.</p>
 <p>The account line falls between install and keep. Everything below it is free, including installing onto your own cluster. Everything above it is what ConfigHub adds.</p>
 <h2 id="the-table">The table</h2>
 <p>Access is the three tiers of the funnel. Free is the entry and needs no account. Account is the middle. Paid is the keystone.</p>
-<table><thead><tr><th><code>cub …</code></th><th>Band</th><th>Access</th><th>What it does</th></tr></thead><tbody><tr><td><code>cub config load &lt;chart&gt;</code></td><td>entry</td><td>free</td><td>Get a chart to look at, from the Catalog or your own.</td></tr>
-<tr><td><code>cub config check &lt;chart&gt;</code></td><td>entry</td><td>free</td><td>See what it installs and whether it is right, in your browser. No cluster. This is the Check.</td></tr>
-<tr><td><code>cub config sandbox &lt;chart&gt;</code></td><td>entry</td><td>free</td><td>Start it in a disposable cluster and watch it run, then throw the cluster away.</td></tr>
+<table><thead><tr><th><code>cub …</code></th><th>Band</th><th>Access</th><th>What it does</th></tr></thead><tbody><tr><td><code>cub config check &lt;chart&gt;</code></td><td>entry</td><td>free</td><td>See what it installs and whether it is right, in your browser. No cluster. This is the Check.</td></tr>
 <tr><td><code>cub config install &lt;chart&gt;</code></td><td>entry</td><td>free</td><td>Install it <b>from OCI</b> onto the Argo CD or Flux you already run. No account.</td></tr>
 <tr><td><code>cub config keep &lt;chart&gt;</code></td><td>mid</td><td>account</td><td>Save it in ConfigHub so it is versioned and reusable. This is the account line.</td></tr>
+<tr><td><code>cub config promote &lt;chart&gt;</code></td><td>mid</td><td>account</td><td>Make dev, staging, and prod, and move a reviewed change. ConfigHub cuts the signed OCI.</td></tr>
 <tr><td><code>cub app check &lt;name&gt;</code></td><td>entry</td><td>free</td><td>See what the workload installs, and whether it needs a platform for ingress, TLS, or monitoring first.</td></tr>
-<tr><td><code>cub app sandbox &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Start the workload in a disposable cluster to watch it actually come up.</td></tr>
-<tr><td><code>cub app install &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Install the workload <b>from OCI</b> onto your reconciler. No account.</td></tr>
 <tr><td><code>cub app score &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Export it to Score (score.dev), if your team works that way.</td></tr>
+<tr><td><code>cub app install &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Install the workload <b>from OCI</b> onto your reconciler. No account.</td></tr>
 <tr><td><code>cub app keep &lt;name&gt;</code></td><td>mid</td><td>account</td><td>Save the app in ConfigHub.</td></tr>
-<tr><td><code>cub app promote &lt;name&gt;</code></td><td>mid</td><td>account</td><td>Move a reviewed change through dev, staging, and prod. ConfigHub gives you a signed OCI to move.</td></tr>
-<tr><td><code>cub stack check &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Check a whole composition at once, then see every object it renders.</td></tr>
-<tr><td><code>cub stack certify &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Run the pass-or-fail check alone. It stops if the pieces conflict.</td></tr>
-<tr><td><code>cub stack sandbox &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Stand the whole composition up in a disposable cluster before you touch a real one.</td></tr>
+<tr><td><code>cub app promote &lt;name&gt;</code></td><td>mid</td><td>account</td><td>Move a reviewed change through dev, staging, and prod. ConfigHub cuts the signed OCI.</td></tr>
+<tr><td><code>cub stack certify &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Check that the whole composition holds together. Pass or fail, and it stops on a conflict.</td></tr>
+<tr><td><code>cub stack sandbox &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Render the whole composition for free, with no infrastructure. See every object, run nothing.</td></tr>
 <tr><td><code>cub stack install &lt;name&gt;</code></td><td>entry</td><td>free</td><td>Install the certified composition <b>from OCI</b> onto your reconciler. No account.</td></tr>
 <tr><td><code>cub stack keep &lt;name&gt;</code></td><td>mid</td><td>account</td><td>Save the composition in ConfigHub.</td></tr>
-<tr><td><code>cub stack promote &lt;name&gt;</code></td><td>mid</td><td>account</td><td>Move it through environments safely. ConfigHub gives you a signed OCI to move.</td></tr>
+<tr><td><code>cub stack promote &lt;name&gt;</code></td><td>mid</td><td>account</td><td>Move it through environments safely. ConfigHub cuts the signed OCI.</td></tr>
 <tr><td><code>cub platform &lt;name&gt;</code></td><td>keystone</td><td>paid</td><td>Run an installed stack under governance. It adds approvals, signed releases, rollback, drift repair, and a fleet view.</td></tr>
 <tr><td><code>cub server install</code></td><td>substrate</td><td>-</td><td>Run ConfigHub yourself, locally, in about twenty seconds.</td></tr></tbody></table>
+<h2 id="three-ways-to-look-all-free">Three ways to look, all free</h2>
+<p>The entry has three inspection verbs, and they do not overlap.</p>
+<ul><li><b>check</b> inspects one thing. Is this config or app right, and what will it install. This is the mission, and the site calls it the Check.</li><li><b>certify</b> judges a whole composition. Do the stack's pieces fit together, pass or fail. It is the stack's form of checking, and the composition verdict is the moat.</li><li><b>sandbox</b> renders a whole composition for free with no infrastructure. You see every object without standing anything up. This is how eks-inference works.</li></ul>
+<p>You check a config. You certify and sandbox a stack. None of them touches a cluster or needs an account.</p>
 <h2 id="where-oci-comes-in">Where OCI comes in</h2>
 <p>OCI shows up twice, and the rule is simple. You install from an OCI that already exists. Once you keep a config, ConfigHub makes you a new, governed one.</p>
 <table><thead><tr><th>What you are doing</th><th>Verb</th><th>The OCI</th></tr></thead><tbody><tr><td>Install onto your cluster</td><td><code>cub config install</code> (free)</td><td>You pull a bundle that already exists, from the Catalog or your own push. You are consuming OCI.</td></tr>
@@ -496,18 +498,18 @@
 <h2 id="how-a-config-becomes-a-component">How a config becomes a component</h2>
 <p>This is the deeper mechanism behind <code>keep</code>, for readers who want it.</p>
 <p><code>cub config keep</code> runs <code>cub variant upload</code>. That creates the config's <b>base variant</b>, a Space labeled <code>Component=&lt;chart&gt;, Variant=base</code>, holding the config as one Unit per resource, with no target. A component in ConfigHub is the set of Spaces that share a <code>Component</code> label, so the base is the component's first Space. Keeping a config is what turns it into a component. From there <code>promote</code> clones deployment variants off the base, one per environment, each with its own target and its own signed OCI release.</p>
-<pre><code>config --load--&gt; --check--&gt; --sandbox--&gt; --install--&gt; your Argo / Flux     (free)
-                     |
-                     +--keep--&gt; base variant (Component=redis, Variant=base)
-                                   |
-                                   +--promote--&gt; dev / staging / prod           (account)
-                                                 each a signed OCI release</code></pre>
+<pre><code>config --check--&gt; --install--&gt; your Argo / Flux              (free)
+   |
+   +--keep--&gt; base variant (Component=redis, Variant=base)
+                 |
+                 +--promote--&gt; dev / staging / prod          (account)
+                               each a signed OCI release</code></pre>
 <h2 id="the-engine-underneath">The engine underneath</h2>
 <p><code>cub installer</code> is not a noun of its own. It is the engine every <code>… install</code> drives. It pulls the OCI package and hands it to your reconciler. <code>cub config install</code>, <code>cub app install</code>, and <code>cub stack install</code> all run through it. At the entry it runs anonymously. At the mid a governed release hands it a reviewed digest.</p>
 <h2 id="decisions-settled">Decisions settled</h2>
-<ul><li><b><code>cub check</code> becomes <code>cub config check</code>.</b> Retiring <code>cub check</code> was about grammar, going noun-first like <code>cub server</code>, not about the word. Checking a chart is the whole mission, so the verb stays <code>check</code>, now after the noun.</li><li><b><code>check</code> and <code>sandbox</code> are different verbs.</b> <code>check</code> inspects a config statically, with no cluster. <code>sandbox</code> starts it running in a disposable cluster, then throws it away. <code>install</code> runs it on your own cluster. All three are free.</li><li><b>Anonymous install is free (Option A).</b> The account line is at <code>keep</code>, not at <code>install</code>.</li><li><b>A platform is a governed stack.</b> There is no separate platform install verb. Governing an installed <code>cub stack</code> is what makes it a platform.</li><li><b>The acquire verb is <code>load</code>, not <code>get</code>.</b> In cub, <code>get</code> reads an existing entity, so pulling a chart in is <code>cub config load</code>.</li></ul>
+<ul><li><b><code>cub check</code> becomes <code>cub config check</code>.</b> Retiring <code>cub check</code> was about grammar, going noun-first like <code>cub server</code>, not about the word. Checking a chart is the whole mission, so the verb stays <code>check</code>, now after the noun.</li><li><b>check, certify, and sandbox are three different free looks.</b> <code>check</code> inspects one config or app. <code>certify</code> judges a stack's composition. <code>sandbox</code> renders a whole composition for free with no infrastructure, the eks-inference way. They act on different nouns, so they never overlap.</li><li><b>Anonymous install is free (Option A).</b> The account line is at <code>keep</code>, not at <code>install</code>.</li><li><b>A platform is a governed stack.</b> There is no separate platform install verb. Governing an installed <code>cub stack</code> is what makes it a platform.</li><li><b>No <code>load</code> verb.</b> You name a chart directly to <code>check</code> or <code>install</code> it, so a separate acquire rung would be redundant.</li></ul>
 <h2 id="still-open">Still open</h2>
-<ul><li>The naming, to settle with the author of <code>cub server</code>. The config noun is <code>cub config</code> here, but the data model calls a single chart a <i>component</i>, so it is <code>config</code> versus <code>component</code> for that one noun. <code>config</code> reads better for the entry Check.</li><li>The exact verb spellings once these are real cub subcommands rather than the prototype under <code>examples/</code>. The prototype's <code>sandbox</code> does the static check today, so it should split into <code>check</code> for that and a real <code>sandbox</code> that runs a disposable cluster.</li></ul>
+<ul><li>The naming, to settle with the author of <code>cub server</code>. The config noun is <code>cub config</code> here, but the data model calls a single chart a <i>component</i>, so it is <code>config</code> versus <code>component</code> for that one noun. <code>config</code> reads better for the entry Check.</li><li>The prototype under <code>examples/</code> still uses <code>sandbox</code> for the single-config render. It should move to <code>check</code> for config and app, and keep <code>sandbox</code> for a stack.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/planning/cub-noun-vocabulary.md</code>. The source file is the authoritative version.</p></footer>
