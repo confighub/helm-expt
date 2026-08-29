@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiPromotionHandoffFacts"
+metadata:
+  name: "redis-review-to-promotion-handoff"
+spec:
+  currentVersion: "25.5.3"
+  candidateVersion: "27.0.0"
+  candidateDigest: "sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780"
+  path: "base -> development -> staging"
+  developmentSpace: "hx-redis-upgrade-20260820-zts-dev"
+  stagingSpace: "hx-redis-upgrade-20260820-zts-staging"
+  developmentWave: 1
+  stagingWave: 2
+  planAdd: 0
+  planDelete: 0
+  developmentResult: "pass"
+  stagingResult: "pass"
