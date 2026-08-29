@@ -26,9 +26,10 @@ Access is the three tiers of the funnel: **free** (entry, anonymous), **account*
 
 | `cub …` | Band | Access | What it does |
 | --- | --- | --- | --- |
+| `cub config load <chart>` | entry | free | Pull a chart into the workshop from a registry or the catalog. The load half of load and save. |
 | `cub config sandbox <chart>` | entry | free | Render the chart and run the checks. Is it right, what will it install, what must already exist. This is the site's Check. |
 | `cub config install <chart>` | entry | free | Pull the reviewed OCI and hand it to your own Argo CD or Flux. Anonymous. |
-| `cub config keep <chart>` | mid | account | Save the reviewed config in ConfigHub as a Unit. The custody moment, and the account line. |
+| `cub config keep <chart>` | mid | account | Save the reviewed config as its base variant in ConfigHub, via `cub variant upload`. The custody moment, and the account line. |
 | `cub app sandbox <name>` | entry | free | Render the workload and work out whether it is standalone or needs a platform for its dependencies. |
 | `cub app install <name>` | entry | free | Deliver the workload from OCI to your reconciler. Anonymous. |
 | `cub app score <name>` | entry | free | Export the workload to Score (score.dev), ready for score-k8s. |
@@ -46,7 +47,7 @@ Access is the three tiers of the funnel: **free** (entry, anonymous), **account*
 
 Read one config down its column of verbs and the journey appears:
 
-**check → install (free) → keep → promote → govern.**
+**load → check → install (free) → keep → promote → govern.**
 
 The account line sits between `install` and `keep`. Everything above it is free and
 anonymous, including installing onto your own cluster. Everything below it needs an
@@ -56,6 +57,30 @@ the paid keystone.
 `sandbox` is the free-mode qualifier that means no cluster and no account. It is the
 same mode at every noun, and the operation inside it is what the noun cares about: a
 config is checked, a stack is certified, an app is analyzed for its dependencies.
+
+## How a config becomes a component
+
+A config's life is a load and a save, and the save is where it becomes a component.
+
+`cub config load` pulls a chart into the workshop. `cub config sandbox` renders and
+checks it. Both are free and local, with no ConfigHub. Then `cub config keep` saves it,
+and the save is not a plain copy. It runs `cub variant upload`, which creates the
+config's **base variant**: a Space labeled `Component=<chart>, Variant=base`, holding
+the config as one Unit per resource, with no target.
+
+That base variant is the component. A component in ConfigHub is not a stored object. It
+is the set of Spaces that share a `Component` label, and the base is its first Space, so
+keeping a config is what turns it into a component. From there a promotion clones
+deployment variants off the base, one per environment, each with its own target:
+
+```
+config --load--> workshop --keep--> base variant (Component=redis, Variant=base, no target)
+                                        |
+                                        +--promote--> dev / staging / prod (cloned, with targets)
+```
+
+This is why `keep` is the account line. The load and the checks are free. Creating and
+holding the base variant is the custody ConfigHub adds.
 
 ## The engine underneath
 
@@ -77,6 +102,9 @@ release hands it the reviewed digest. That is why installation is a through-line
   governing an installed `cub stack` is what makes it a platform.
 - **`sandbox` is the free mode at every noun**, so the entry band is one mode across
   config, app, and stack.
+- **The acquire verb is `load`, not `get`.** In cub, `get` reads an existing entity, so
+  pulling a chart into the workshop is `cub config load`, which also names the load half
+  of load and save.
 
 ## Still open
 
