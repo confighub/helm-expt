@@ -1,0 +1,11 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiSupplyDriftFacts"
+metadata:
+  name: "goldilocks-version-reused-for-different-bytes"
+spec:
+  chart: "goldilocks"
+  version: "10.3.0"
+  retainedSha256: "9498a6f49cdea77f8777e9f8640a7711c63644fd1d5f7c8c81c313902190f2fd"
+  republishedSha256: "3e51ce8032b0217d667b7e9084d36c76262b4ea566151f8fa47d422cbbd475db"
+  sameBytes: false
+  decision: "retained-exact"
