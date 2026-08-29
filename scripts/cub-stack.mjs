@@ -14,13 +14,27 @@
 //   node scripts/cub-stack.mjs certify <name>    # the gate only; exits non-zero on a conflict
 //   node scripts/cub-stack.mjs sandbox <name>    # certify, then render the bundle for free
 
+import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { homedir } from "node:os";
 import { join } from "node:path";
 
 import { parseDocs, readYaml, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
 const STACKS_DIR = join(repoRoot, "examples", "cub-stack", "stacks");
-const [verb, name] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const verb = args[0];
+const name = args[1];
+const RUN = args.includes("--run");
+
+// The cub binary. install --run drives these live; everything else is offline.
+const CUB = process.env.CUB ?? join(homedir(), ".confighub", "bin", "cub");
+function cub(cubArgs) {
+  return execFileSync(CUB, cubArgs, { encoding: "utf8", maxBuffer: 200 * 1024 * 1024 });
+}
+function shellQuote(a) {
+  return /[^A-Za-z0-9_./=:-]/.test(a) ? `'${a.replace(/'/g, "'\\''")}'` : a;
+}
 
 const PASS = "PASS";
 const WARN = "WARN";
@@ -178,6 +192,66 @@ function printCertify(result) {
   console.log(`  => ${result.certified ? "CERTIFIED" : "REJECTED"}\n`);
 }
 
+// install: certify, then create a governed base variant holding the composition, a
+// dev deployment variant cloned from it, and a review gate on the dev release. This
+// is the same review-gated promotion path proven live separately. --run executes it;
+// without --run it prints the plan and changes nothing.
+function install(stack, { run }) {
+  const result = certify(stack);
+  printHeader(stack);
+  printCertify(result);
+  if (!result.certified) {
+    console.log("Install refused: the composition is not certified. Fix the conflict first.\n");
+    process.exit(1);
+  }
+
+  const base = `${stack.name}-base`;
+  const dev = `${stack.name}-dev`;
+  const steps = [
+    { desc: "create the base variant space", args: ["space", "create", base, "--component", stack.name, "--variant", "base"] },
+    ...stack.components.map((comp) => ({
+      desc: `seed component ${comp.name}`,
+      args: ["unit", "create", "--space", base, comp.name, comp.render, "--change-desc", `Seed ${comp.name} for stack ${stack.name}`],
+    })),
+    { desc: "clone the dev deployment variant", args: ["variant", "create", "dev", base, "--environment", "Dev"] },
+    { desc: "gate the dev release on review", args: ["trigger", "create", "--space", dev, "-o", "json", "require-approval", "Mutation", "Kubernetes/YAML", "vet-approvedby", "1"] },
+    { desc: "point the gate at the dev space (variant create copied the base's where-trigger)", args: ["space", "update", "--patch", dev, "--where-trigger", "SpaceID = '<dev-space-id>'", "--refresh-triggers"] },
+  ];
+
+  console.log(run ? "Installing (live)\n" : "Install plan (dry run, no changes)\n");
+  console.log("  Governed structure:");
+  console.log(`    ${base}  — base variant holding the certified composition (${stack.components.length} units)`);
+  console.log(`    ${dev}  — dev deployment variant, its release gated on review\n`);
+  console.log("  Steps:");
+  for (const s of steps) console.log(`    cub ${s.args.map(shellQuote).join(" ")}`);
+  console.log("");
+
+  if (!run) {
+    console.log(`  Dry run. Add --run to install, then \`cub unit approve\` releases the gated dev variant.\n`);
+    return;
+  }
+
+  let devId = null;
+  for (const s of steps) {
+    const resolved = s.args.map((a) => (a === "SpaceID = '<dev-space-id>'" ? `SpaceID = '${devId}'` : a));
+    process.stdout.write(`  ${s.desc}... `);
+    const out = cub(resolved);
+    if (s.args[0] === "variant" && s.args[1] === "create") {
+      const m = out.match(/ID: ([0-9a-f-]{36})/);
+      devId = m ? m[1] : null;
+    }
+    console.log("ok");
+  }
+
+  const firstUnit = stack.components[0].name;
+  const gates = JSON.parse(cub(["unit", "get", firstUnit, "--space", dev, "-o", "jq=.Unit.ApplyGates"]) || "null");
+  const gated = gates && Object.keys(gates).length > 0;
+  console.log(`\n  Installed. ${base} + ${dev}.`);
+  console.log(`  Review gate on ${dev}/${firstUnit}: ${gated ? "ACTIVE, release blocked until approved" : "not active"}`);
+  console.log(`  The review: cub unit approve ${firstUnit} --space ${dev}`);
+  console.log(`  Tear down:  cub space delete --recursive-force ${dev} ; cub space delete --recursive-force ${base}\n`);
+}
+
 if (verb === "list") {
   const files = readdirSync(STACKS_DIR).filter((f) => f.endsWith(".yaml"));
   console.log(`\nAvailable stacks (${relativeRepo(STACKS_DIR)})\n`);
@@ -212,12 +286,19 @@ if (verb === "list") {
     }
   }
   process.exit(result.certified ? 0 : 1);
+} else if (verb === "install") {
+  if (!name) {
+    console.error("usage: cub stack install <name> [--run]");
+    process.exit(2);
+  }
+  install(loadStack(name), { run: RUN });
 } else {
   console.log(`cub stack — prototype
 
 Usage:
   node scripts/cub-stack.mjs list
   node scripts/cub-stack.mjs certify <name>
-  node scripts/cub-stack.mjs sandbox <name>`);
+  node scripts/cub-stack.mjs sandbox <name>
+  node scripts/cub-stack.mjs install <name> [--run]`);
   process.exit(verb ? 2 : 0);
 }

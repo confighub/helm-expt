@@ -19,10 +19,16 @@ sandbox. No cluster, no account.
 node scripts/cub-stack.mjs list
 node scripts/cub-stack.mjs sandbox observability-base
 node scripts/cub-stack.mjs certify metrics-double
+node scripts/cub-stack.mjs install web-tiny          # prints the governed-install plan
+node scripts/cub-stack.mjs install web-tiny --run    # installs it live in ConfigHub
 ```
 
 `sandbox` certifies the composition and renders it with no infrastructure. `certify`
-runs the gate alone and exits non-zero on a conflict.
+runs the gate alone and exits non-zero on a conflict. `install` certifies, then
+creates a governed base variant holding the composition and a dev deployment variant
+whose release is gated on review. Without `--run` it prints the plan and changes
+nothing; with `--run` it drives cub end to end (the same review-gated promotion path
+proven live). `web-tiny` is a two-component stack sized for a live run.
 
 ## What certify checks
 
@@ -42,9 +48,10 @@ two copies of metrics-server claim the same nine objects.
 
 ## Where this fits
 
-`cub stack install <name>` would deliver the certified bundle through ConfigHub and
-the team's own Argo CD or Flux, and governing it makes it a platform. The certify
-step reuses the certified-bundle machinery rather than inventing a new one, which is
-the whole point: the moat is composing correctly, not a component picker. See the
-custom-stacks-and-apps proposal and the composition-certification brief for the full
-model.
+`cub stack install <name>` creates the governed base and dev variants in ConfigHub,
+gated on review; releasing through OCI and reconciling with the team's own Argo CD or
+Flux is the delivery step, and governing it makes it a platform. The certify step
+reuses the certified-bundle machinery rather than inventing a new one, which is the
+whole point: the moat is composing correctly, not a component picker. The workload
+side is [cub app](../cub-app/README.md). See the custom-stacks-and-apps proposal and
+the composition-certification brief for the full model.
