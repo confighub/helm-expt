@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiInstallShapeReceipt"
+metadata:
+  name: "metrics-server-install-shape"
+spec:
+  question: "What will this install, and what must already exist?"
+  persona: "Helm newcomer"
+  render:
+    chart: "metrics-server/metrics-server"
+    version: "3.13.0"
+    path: "data/adversarial10/charts/metrics-server-metrics-server-3.13.0/rendered/default.yaml"
+    sha256: "22dc022aedee5c41c2eac80d4ff8b849a123931e9d3f2914b14951aec38b057e"
+    objectCount: 9
+  gate:
+    objectsMatch: true
+    prerequisitesGrounded: true
+    prerequisitesComplete: true
+    absenceHonest: true
+  prerequisiteKinds:
+    - "api-extension"
+    - "cluster-rbac"
+    - "namespace-exists"
+    - "preexisting-role"
+  absent:
+    Secret: true
+    CustomResourceDefinition: true
+    Storage: true
+    helm-hook: true
+    setup-Job: true
+  result: "pass"

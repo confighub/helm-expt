@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "AiInstallShapeRenderFacts"
+metadata:
+  name: "metrics-server-install-shape"
+spec:
+  objectCount: 9
+  installs:
+    - "apiregistration.k8s.io/v1|APIService||v1beta1.metrics.k8s.io"
+    - "apps/v1|Deployment|kube-system|metrics-server"
+    - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||metrics-server:system:auth-delegator"
+    - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||system:metrics-server"
+    - "rbac.authorization.k8s.io/v1|ClusterRole||system:metrics-server"
+    - "rbac.authorization.k8s.io/v1|ClusterRole||system:metrics-server-aggregated-reader"
+    - "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|metrics-server-auth-reader"
+    - "v1|ServiceAccount|kube-system|metrics-server"
+    - "v1|Service|kube-system|metrics-server"
+  namespacePrereqs:
+    - "kube-system"
+  apiServices:
+    - "v1beta1.metrics.k8s.io"
+  clusterRbac: true
+  danglingRoleRefs:
+    - "ClusterRole/system:auth-delegator"
+    - "Role/extension-apiserver-authentication-reader"
+  absent:
+    Secret: true
+    CustomResourceDefinition: true
+    Storage: true
+    helm-hook: true
+    setup-Job: true
+  supported:
+    namespace-exists:
+      - "kube-system"
+    api-extension:
+      - "v1beta1.metrics.k8s.io"
+    preexisting-role:
+      - "ClusterRole/system:auth-delegator"
+      - "Role/extension-apiserver-authentication-reader"
+    cluster-rbac: true
