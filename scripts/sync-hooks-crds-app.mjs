@@ -494,8 +494,15 @@ function routeSources(space) {
     });
 }
 
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedData(unit) {
+  const space = unit.SpaceSlug || unit.SpaceID;
+  return cub(["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+}
+
 function assertUnitMatches(unit, path, label) {
-  const liveText = Buffer.from(unit.Data, "base64").toString("utf8");
+  const liveText = storedData(unit);
   check(
     canonicalHash(liveText) === canonicalHash(readFileSync(path, "utf8")),
     `${label} differs from ${path.slice(`${repoRoot}/`.length)}`,

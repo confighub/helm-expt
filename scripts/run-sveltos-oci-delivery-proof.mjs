@@ -327,7 +327,7 @@ function run() {
       true,
     );
     check(
-      canonicalDocs(parseDocs(storedData(pilotStored)))
+      canonicalDocs(parseDocs(storedData(policyContext, pilotStored)))
         === canonicalDocs(sourceDocs),
       "ConfigHub stored a different ClusterProfile",
     );
@@ -350,7 +350,7 @@ function run() {
       false,
     );
     check(
-      pilotApproved.ContentHash === pilotStored.ContentHash,
+      pilotApproved.DataHash === pilotStored.DataHash,
       "approval changed the ClusterProfile content",
     );
     const pilotApprovalCount = approvalCount(pilotApproved.ApprovedBy);
@@ -362,7 +362,7 @@ function run() {
     );
     const pilotPrivateRelease = publishRelease(policyContext, policySpace);
     phase("pilot review, approval, and private release passed");
-    const pilotApprovedText = storedData(pilotApproved);
+    const pilotApprovedText = storedData(policyContext, pilotApproved);
     const pilotPortableRelease = publishPortableOci({
       workRoot,
       approvedText: pilotApprovedText,
@@ -472,7 +472,7 @@ function run() {
         "json",
       ]).Unit;
       check(
-        canonicalDocs(parseDocs(storedData(current)))
+        canonicalDocs(parseDocs(storedData(policyContext, current)))
           === canonicalDocs([fleetDoc]),
         `ConfigHub rejected the fleet update before storing it: ${
           fleetUpdate.error
@@ -487,7 +487,7 @@ function run() {
       true,
     );
     check(
-      canonicalDocs(parseDocs(storedData(fleetStored)))
+      canonicalDocs(parseDocs(storedData(policyContext, fleetStored)))
         === canonicalDocs([fleetDoc]),
       "ConfigHub stored a different fleet ClusterProfile",
     );
@@ -514,7 +514,7 @@ function run() {
       false,
     );
     check(
-      fleetApproved.ContentHash === fleetStored.ContentHash,
+      fleetApproved.DataHash === fleetStored.DataHash,
       "approval changed the fleet ClusterProfile content",
     );
     const fleetApprovalCount = approvalCount(fleetApproved.ApprovedBy);
@@ -525,7 +525,7 @@ function run() {
       policyUnit,
     );
     const fleetPrivateRelease = publishRelease(policyContext, policySpace);
-    const fleetApprovedText = storedData(fleetApproved);
+    const fleetApprovedText = storedData(policyContext, fleetApproved);
     const fleetPortableRelease = publishPortableOci({
       workRoot,
       approvedText: fleetApprovedText,
@@ -653,7 +653,7 @@ function run() {
               environment: "staging",
               rollout: "pilot",
             },
-            contentHash: pilotStored.ContentHash,
+            contentHash: pilotStored.DataHash,
             beforeApproval: pilotBlocked,
             approval: {
               revision: pilotApproved.HeadRevisionNum,
@@ -676,7 +676,7 @@ function run() {
               after: "removed",
               otherSourceFieldsChanged: false,
             },
-            contentHash: fleetStored.ContentHash,
+            contentHash: fleetStored.DataHash,
             beforeApproval: fleetBlocked,
             approval: {
               revision: fleetApproved.HeadRevisionNum,
@@ -2042,9 +2042,13 @@ function getByRef(context, entity, ref) {
   return cubJson(context, [entity, "get", "--space", space, slug, "-o", "json"]);
 }
 
-function storedData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no stored data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedData(context, unit) {
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(context, ["unit", "data", unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no stored data`);
+  return text;
 }
 
 function approvalCount(value) {
@@ -2618,7 +2622,7 @@ function selfTest() {
     ]);
     const pilotStored = waitForPolicy(context, space, policyUnit, true);
     check(
-      canonicalDocs(parseDocs(storedData(pilotStored)))
+      canonicalDocs(parseDocs(storedData(context, pilotStored)))
         === canonicalDocs(sourceDocs),
       "the fake hub stored a different ClusterProfile",
     );
@@ -2636,7 +2640,7 @@ function selfTest() {
     approveHeadRevision(context, space, policyUnit, "pilot", pilotStored.HeadRevisionNum);
     const pilotApproved = waitForPolicy(context, space, policyUnit, false);
     check(
-      pilotApproved.ContentHash === pilotStored.ContentHash,
+      pilotApproved.DataHash === pilotStored.DataHash,
       "approval changed the stored content hash",
     );
     check(approvalCount(pilotApproved.ApprovedBy) >= 1, "the approval was not recorded");
@@ -2652,7 +2656,7 @@ function selfTest() {
     const clusterRegistryHost = "cluster.self-test.invalid:5000";
     const pilotPortable = publishPortableOci({
       workRoot,
-      approvedText: storedData(pilotApproved),
+      approvedText: storedData(context, pilotApproved),
       registryHost,
       clusterRegistryHost,
       tag: "pilot",
@@ -2687,14 +2691,14 @@ function selfTest() {
     approveHeadRevision(context, space, policyUnit, "fleet", fleetStored.HeadRevisionNum);
     const fleetApproved = waitForPolicy(context, space, policyUnit, false);
     check(
-      canonicalDocs(parseDocs(storedData(fleetApproved)))
+      canonicalDocs(parseDocs(storedData(context, fleetApproved)))
         === canonicalDocs([fleetDoc]),
       "the fake hub stored a different fleet ClusterProfile",
     );
     allowedDryRun(context, space, policyUnit);
     const fleetPortable = publishPortableOci({
       workRoot,
-      approvedText: storedData(fleetApproved),
+      approvedText: storedData(context, fleetApproved),
       registryHost,
       clusterRegistryHost,
       tag: "fleet",
@@ -2776,8 +2780,17 @@ function selfTest() {
     );
     registry.state.substituteBundle = null;
 
+    // The configuration lives behind its own endpoint now, so the empty-data
+    // boundary needs a Unit that exists and holds nothing.
+    const emptyUnitFile = join(workRoot, "empty-unit.yaml");
+    writeFileSync(emptyUnitFile, "");
+    cub(context, [
+      "unit", "create", "--space", "self-test-empty", "empty", emptyUnitFile,
+      "--change-desc", "Store an empty Unit for the no-data boundary",
+      "--quiet",
+    ]);
     expectFailure(
-      () => storedData({ SpaceSlug: "self-test", Slug: "empty" }),
+      () => storedData(context, { SpaceSlug: "self-test-empty", Slug: "empty" }),
       /has no stored data/,
       "missing unit data refusal",
     );
@@ -2922,7 +2935,12 @@ function createFakeConfigHub() {
   };
   const ok = (output) => ({ ok: true, status: 0, output, error: "" });
   const refuse = (error) => ({ ok: false, status: 1, output: "", error });
-  const publicUnit = (unit) => structuredClone(unit);
+  // The configuration is not a field of a Unit any more: it never appears in a
+  // `cub unit get`/`unit list` answer, only through `cub unit data`.
+  const publicUnit = (unit) => {
+    const { Data, ...rest } = structuredClone(unit);
+    return rest;
+  };
   const handle = (args) => {
     const { positionals, flags } = parseCubCommand(args);
     const [entity, verb, ...rest] = positionals;
@@ -2972,8 +2990,8 @@ function createFakeConfigHub() {
         Slug: slug,
         SpaceSlug: flags.space,
         UnitID: `self-test-unit-${flags.space}-${slug}`,
-        Data: Buffer.from(data).toString("base64"),
-        ContentHash: sha256(data),
+        Data: data,
+        DataHash: sha256(data),
         HeadRevisionNum: 1,
         ApplyGates: { "awaiting/triggers": true },
         ApprovedBy: [],
@@ -2987,13 +3005,19 @@ function createFakeConfigHub() {
       const unit = units.get(key);
       if (!unit) return refuse(`unit ${key} not found`);
       const data = readFileSync(path, "utf8");
-      unit.Data = Buffer.from(data).toString("base64");
-      unit.ContentHash = sha256(data);
+      unit.Data = data;
+      unit.DataHash = sha256(data);
       unit.HeadRevisionNum += 1;
       unit.ApprovedBy = [];
       unit.ApplyGates = { "awaiting/triggers": true };
       pending.add(key);
       return ok(JSON.stringify({ Unit: publicUnit(unit) }));
+    }
+    if (entity === "unit" && verb === "data") {
+      const key = unitKey(flags.space, rest[0]);
+      const unit = units.get(key);
+      if (!unit) return refuse(`unit ${key} not found`);
+      return ok(unit.Data);
     }
     if (entity === "unit" && verb === "get") {
       const key = unitKey(flags.space, rest[0]);
@@ -3023,7 +3047,7 @@ function createFakeConfigHub() {
         .filter((unit) => unit.SpaceSlug === spaceSlug)
         .sort((left, right) => left.Slug.localeCompare(right.Slug));
       const digestInput = rows
-        .map((unit) => `${unit.Slug}:${unit.ContentHash}:${unit.HeadRevisionNum}`)
+        .map((unit) => `${unit.Slug}:${unit.DataHash}:${unit.HeadRevisionNum}`)
         .join("|");
       releaseSequence += 1;
       return ok(JSON.stringify({

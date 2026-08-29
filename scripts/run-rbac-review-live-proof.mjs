@@ -293,7 +293,7 @@ function run() {
       { approvalExpected: true },
     );
     check(
-      canonicalDocs(parseDocs(storedData(storedBefore)))
+      canonicalDocs(parseDocs(storedData(policyContext, storedBefore)))
         === canonicalDocs(beforeDocs),
       "ConfigHub stored a different starting configuration",
     );
@@ -318,13 +318,13 @@ function run() {
         minimumRevision: storedBefore.HeadRevisionNum + 1,
       },
     );
-    const correctedText = storedData(correctedBeforeApproval);
+    const correctedText = storedData(policyContext, correctedBeforeApproval);
     check(
       canonicalDocs(parseDocs(correctedText)) === canonicalDocs(afterDocs),
       "ConfigHub stored a different corrected configuration",
     );
     check(
-      correctedBeforeApproval.ContentHash !== storedBefore.ContentHash,
+      correctedBeforeApproval.DataHash !== storedBefore.DataHash,
       "the RBAC correction did not create a new content hash",
     );
 
@@ -350,11 +350,11 @@ function run() {
       },
     );
     check(
-      approved.ContentHash === correctedBeforeApproval.ContentHash,
+      approved.DataHash === correctedBeforeApproval.DataHash,
       "approval changed the corrected Unit content",
     );
     check(
-      canonicalDocs(parseDocs(storedData(approved))) === canonicalDocs(afterDocs),
+      canonicalDocs(parseDocs(storedData(policyContext, approved))) === canonicalDocs(afterDocs),
       "the approved ConfigHub data differs from the reviewed correction",
     );
     const approvalCountValue = approvalCount(approved.ApprovedBy);
@@ -362,7 +362,7 @@ function run() {
     const allowed = allowedDryRun(policyContext, policySpace, unitSlug);
 
     const workloadRelease = publishRelease(policyContext, policySpace);
-    const approvedText = storedData(approved);
+    const approvedText = storedData(policyContext, approved);
     const portableRelease = publishPortableOci({
       workRoot: tempRoot,
       approvedText,
@@ -457,16 +457,16 @@ function run() {
           revisions: {
             imported: storedBefore.HeadRevisionNum,
             corrected: correctedBeforeApproval.HeadRevisionNum,
-            importedContentHash: storedBefore.ContentHash,
-            correctedContentHash: correctedBeforeApproval.ContentHash,
+            importedContentHash: storedBefore.DataHash,
+            correctedContentHash: correctedBeforeApproval.DataHash,
           },
           beforeApproval: blocked,
           approval: {
             revisionSelector: "HeadRevisionNum",
             recordedApprovals: approvalCountValue,
             approverIdentityRecordedInReceipt: false,
-            contentHashUnchanged: approved.ContentHash
-              === correctedBeforeApproval.ContentHash,
+            contentHashUnchanged: approved.DataHash
+              === correctedBeforeApproval.DataHash,
             gateCleared: approved.ApplyGates?.[approvalGate] !== true,
           },
           afterApproval: allowed,
@@ -1260,9 +1260,13 @@ function getByRef(context, entity, ref) {
   return cubJson(context, [entity, "get", "--space", space, slug, "-o", "json"]);
 }
 
-function storedData(unit) {
-  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no stored data`);
-  return Buffer.from(unit.Data, "base64").toString("utf8");
+// Configuration data is not a Unit field any more. It is read from the Unit's own
+// data endpoint, which `cub unit data` calls, and it comes back as text.
+function storedData(context, unit) {
+  const space = unit.SpaceSlug || unit.SpaceID;
+  const text = cub(context, ["unit", "data", unit.UnitID ?? unit.Slug, "--space", space]);
+  check(text, `${space}/${unit.Slug} has no stored data`);
+  return text;
 }
 
 function approvalCount(value) {
