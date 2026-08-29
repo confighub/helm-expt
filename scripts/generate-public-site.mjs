@@ -8474,7 +8474,7 @@ function operationsHtml(catalog) {
       status: "watch",
       boundary: "ConfigHub revisions and a live check",
       action: "compare live state with a previous approved revision",
-      code: "cub unit diff <unit> --from=PreviousLiveRevisionNum --to=LiveRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
+      code: "cub unit diff <unit> --from=<previous-approved-revision> --to=<current-revision>\ncub-scout compare three-way --dry-from <previous-render.yaml>",
       get: "You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.",
       see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
     },

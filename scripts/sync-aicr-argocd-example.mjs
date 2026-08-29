@@ -1068,8 +1068,8 @@ function unitPolicyState(unit) {
   return {
     dataHash: unit.DataHash,
     headRevision: unit.HeadRevisionNum,
-    liveRevision: unit.LiveRevisionNum ?? null,
-    lastAppliedRevision: unit.LastAppliedRevisionNum ?? null,
+    liveRevision: null, // LiveRevisionNum removed in cub 0.4; live state now comes from verify-apply, not a Unit field
+    lastAppliedRevision: unit.LastReleasedRevisionNum ?? null,
     targetId: unit.TargetID ?? null,
     applyGates: Object.keys(unit.ApplyGates ?? {}).sort(),
   };

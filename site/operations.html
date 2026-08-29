@@ -650,7 +650,7 @@ cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
           <span class="badge watch">watch</span>
         </div>
         <p class="opmeta"><code>compare live state with a previous approved revision</code> · <span class="muted">ConfigHub revisions and a live check</span></p>
-        <pre><code>cub unit diff &lt;unit&gt; --from=PreviousLiveRevisionNum --to=LiveRevisionNum
+        <pre><code>cub unit diff &lt;unit&gt; --from=&lt;previous-approved-revision&gt; --to=&lt;current-revision&gt;
 cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
         <p>You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path, because exact rollback automation depends on the app, the target, and any lifecycle step that cannot be undone.</p>
         <p class="muted">See: <a href="d/docs/user/day2-upgrade-story.html">The day-2 upgrade story</a> · <a href="d/docs/user/day2-upgrade-rollback.html">Upgrade and rollback guide</a> · <a href="d/docs/user/cub-scout-diff-design.html">Three-way comparison design</a></p>
