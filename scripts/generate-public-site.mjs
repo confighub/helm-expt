@@ -2644,7 +2644,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
       </main>
 
       <footer class="foot">
-        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you every ingredient, before you eat.</p>
+        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We show you the ingredients we can see before you install, and name the ones we cannot.</p>
         <p class="sub">Public experimental evidence. Each result links to the command, receipt, or known gap behind it. <a href="${SITE_FEEDBACK_ISSUE_URL}">Send feedback</a>.</p>
       </footer>
     </div>
@@ -6545,8 +6545,8 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "What happens when a chart's upstream source changes its terms?",
           answer:
-            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. The full retention reasoning is in <a href=\"./d/docs/reference/how-the-catalog-is-built.html\">How the catalog is built</a>.",
-          links: [["Registry migration guide", "./d/docs/user/image-registry-migration.html"], ["Component Catalog", "./charts/index.html"]],
+            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. The full retention reasoning is recorded in how the catalog is built.",
+          links: [["How the catalog is built", "./d/docs/reference/how-the-catalog-is-built.html"], ["Registry migration guide", "./d/docs/user/image-registry-migration.html"], ["Component Catalog", "./charts/index.html"]],
         },
 	        {
 	          status: "answered",
@@ -7871,7 +7871,7 @@ npm run kubara-platform:start -- \\
     </section>
     <section aria-labelledby="delivery-authority">
       <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
-      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off, so mutable latest cannot race past approval, promotion, or rollback while Argo CD stays the local reconciler. ConfigHub selects the exact OCI digest before Argo receives it.</p>
+      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off. On the automated path, mutable latest cannot race past approval, promotion, or rollback, and ConfigHub selects the exact OCI digest before Argo CD receives it. Blocking a privileged human or a manual Argo sync needs your own RBAC or admission control.</p>
       <details style="margin:18px 0">
         <summary><strong>The exact mechanism, step by step</strong></summary>
         <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>

@@ -672,7 +672,7 @@ npm run kubara-platform:start -- \
     </section>
     <section aria-labelledby="delivery-authority">
       <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
-      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off, so mutable latest cannot race past approval, promotion, or rollback while Argo CD stays the local reconciler. ConfigHub selects the exact OCI digest before Argo receives it.</p>
+      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off. On the automated path, mutable latest cannot race past approval, promotion, or rollback, and ConfigHub selects the exact OCI digest before Argo CD receives it. Blocking a privileged human or a manual Argo sync needs your own RBAC or admission control.</p>
       <details style="margin:18px 0">
         <summary><strong>The exact mechanism, step by step</strong></summary>
         <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>
