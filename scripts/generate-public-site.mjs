@@ -2569,8 +2569,8 @@ function configTestCentreHome(catalog) {
             <p class="lead">Bring the configuration you or your AI just created. Config Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
             <p class="lead">It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./testing.html#start">Find a configuration</a>
-              <a class="btn ghost" href="./ask.html">Check my config</a>
+              <a class="btn primary" href="./ask.html">Check my config</a>
+              <a class="btn ghost" href="./testing.html#start">Find a configuration</a>
               <a class="btn quiet" href="./promote.html">Promote my config</a>
             </div>
           </div>
@@ -7902,7 +7902,7 @@ npm run kubara-platform:start -- \\
     <section aria-labelledby="detail">
       <h3 id="detail">Keep all the detail</h3>
       <p>The concise buyer journey does not replace the engineering material. Use the <a href="../docs/demo/kubara/single-platform.md">complete mini-IDP and maintainer runbook</a>, <a href="../examples/kubara/git-import/README.md">importer contract</a>, <a href="../docs/demo/kubara/platform-evidence.md">matrix and wiring evidence</a>, and <a href="../docs/demo/kubara/reconciliation-performance.md">performance analysis</a>.</p>
-      <p>The implementation graduates to a future <code>github.com/confighub/kubara-confighub</code> repository only after a clean-checkout import into a fresh user-selected organization passes twice. The orphan count must be zero, one application must be healthy, and every published screenshot must be receipt-bound.</p>
+      <p>The example is accepted only after a clean-checkout import into a fresh user-selected organization passes twice. The orphan count must be zero, one application must be healthy, and every published screenshot must be receipt-bound.</p>
     </section>
   </main>
   <footer>Every claim is scoped to the named Kubara source, version, catalogs, ConfigHub organization, delivery path, and receipt.</footer>
