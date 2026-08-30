@@ -4095,6 +4095,21 @@ function howItWorksHtml() {
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
+  <section aria-labelledby="the-ladder">
+    <h2 id="the-ladder">The whole path, one ladder</h2>
+    <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the paid platform. Each step is a real command or surface.</p>
+    ${markdownLikeTable([
+      ["Rung", "Verb", "What it does", "Command or surface"],
+      ["Free", "check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
+      ["Free", "deploy", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer"],
+      ["Account", "upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],
+      ["Account", "release", "Go live. Publish so the cluster pulls.", "cub release publish"],
+      ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
+      ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the paid platform"],
+    ])}
+    <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
+  </section>
+
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
     <h3 id="four-answers">Keep four answers separate</h3>
@@ -4222,19 +4237,18 @@ function configHubHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Keep this reviewed configuration in ConfigHub</h1>
+  <h1>Upload it into ConfigHub, then release and promote</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
-  <p class="lead">Save the exact Kubernetes configuration you approved. ConfigHub keeps it with its source, checks, and later changes.</p>
+  <p class="lead">Uploading a reviewed configuration into ConfigHub is the account line. From there you release it so a cluster pulls it, and promote it across environments, with the source, checks, approvals, and history kept beside it.</p>
   <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
-  <p>ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
+  <p>The account line is also where public configuration chains into your private org: a base you upload keeps sending you fixes while protection keeps the values you chose. ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
   <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Keep a reviewed result in ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
 </header>
 <main>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>Upload reviewed files or OCI. ConfigHub stores each Kubernetes object and keeps the source and review record beside it.</p>
-    <p>Create a version for each environment. ConfigHub shows the exact diff, records the approval, and keeps the promotion history.</p>
-    <p>Publish a release for Argo CD or Flux. Add live observations when you need to compare the approved configuration with a cluster.</p>
+    <p>The account line is three steps. <strong>Upload</strong> brings the reviewed configuration into ConfigHub as a base, stored with its source and review record. <strong>Release</strong> publishes it so Argo CD or Flux pulls it. <strong>Promote</strong> moves a reviewed change from development to production, with the exact diff, the approval, and the history kept beside it.</p>
+    <p><strong>Upload also chains public configuration into your private org.</strong> A base you upload can be public, pulled from a shared catalog, while your deployment stays private. When ConfigHub clones the public base into your deployment, links carry your private values into it, and protection keeps the values you chose. Later fixes to the public base, a patched image or a new version, flow down to everything you did not protect. That chaining is the value a plain registry cannot offer.</p>
     <p>ConfigHub keeps the four answers connected without treating them as interchangeable.</p>
     <p>It links the source to the materialized objects, the destination check to one target, and the post-deployment result to one exact release. A retained object or a published OCI stays exactly that, and never counts as a destination or live pass.</p>
     ${markdownLikeTable([
