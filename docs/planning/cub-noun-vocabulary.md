@@ -1,17 +1,17 @@
 # The cub noun and verb table
 
 This is the `cub <noun>` vocabulary as one table. It follows the `cub server` pattern,
-one noun per layer and one verb per operation, the way `gh` reads. The verbs match the
-get-started tutorial, so Config Workshop and the product speak the same language. It
-pairs with [custom-stacks-and-apps.md](./custom-stacks-and-apps.md) and the running
-prototype under `examples/cub-stack/` and `examples/cub-app/`.
+one noun per layer and one verb per operation, the way `gh` reads. The verbs are the
+get-started tutorial's own commands, so Config Workshop and the product speak the same
+language. It pairs with [custom-stacks-and-apps.md](./custom-stacks-and-apps.md) and the
+running prototype under `examples/cub-stack/` and `examples/cub-app/`.
 
 ## Read it as a ladder
 
 A config climbs a ladder, and each verb is a rung.
 
 The first rungs are free and need no account. You **check** a config, then **deploy** it
-onto the Argo CD or Flux you already run. The next rungs need an account. You **install**
+onto the Argo CD or Flux you already run. The next rungs need an account. You **upload**
 it into ConfigHub, **release** it so the cluster pulls it, and **promote** it across
 environments. The last rung is paid. You **govern** a running stack as a platform.
 
@@ -19,7 +19,7 @@ A stack adds two free rungs. You **certify** that the composition holds together
 **sandbox** it to render the whole thing for free with no infrastructure. That is the
 eks-inference model.
 
-The account line falls at **install**. Everything below it is free, including running the
+The account line falls at **upload**. Everything below it is free, including running the
 config on your own cluster with `deploy`. Everything above it is ConfigHub: custody, a
 governed release, promotion, and the chaining of public config into your private org.
 
@@ -37,26 +37,26 @@ governed release, promotion, and the chaining of public config into your private
 
 | verb | what it does | maps to |
 | --- | --- | --- |
-| `install` | Bring it into ConfigHub as a base. This is where public config starts chaining into your private org. | `cub variant upload` |
+| `upload` | Bring it into ConfigHub as a base. This is where public config starts chaining into your private org. | `cub variant upload` |
 | `release` | Go live. Create the deployment and publish, so the cluster pulls. | `cub variant create` + `cub release publish` |
 | `promote` | Flow a reviewed change base → dev → prod, with protection, then release it. | `cub variant promote` |
 
-The tutorial names these exactly. Its `install` section seeds a base with `cub variant
-upload`, its `release` section goes live, and its `flow` section promotes with
-protection and conflicts. We use the same words.
+These are the tutorial's own commands. `upload` is `cub variant upload` (the tutorial's
+install-a-component step), `release` is `cub release publish`, and `promote` is
+`cub variant promote`. The verb you type is the command that runs.
 
 ## The keystone and the substrate
 
 | `cub …` | Access | What it does |
 | --- | --- | --- |
-| `cub platform <name>` | paid | Run an installed stack under governance. It adds approvals, signed releases, rollback, drift repair, and a fleet view. A platform is a governed stack. |
+| `cub platform <name>` | paid | Run a stack under governance. It adds approvals, signed releases, rollback, drift repair, and a fleet view. A platform is a governed stack. |
 | `cub server install` | — | Run ConfigHub yourself, locally, in about twenty seconds. |
 
 ## Chaining public config into your private org
 
-`install` is the hinge, and it is what makes ConfigHub more than a registry.
+`upload` is the hinge, and it is what makes ConfigHub more than a registry.
 
-A base seeded by `install` can be **public**, pulled from a shared catalog. Your
+A base seeded by `upload` can be **public**, pulled from a shared catalog. Your
 deployment is **private**. `release` clones the public base into your private deployment,
 and links carry your private values into it as it goes. A `TransformPaths` or
 `NeedsProvides` link extracts a value from one of your units and fills a placeholder in
@@ -79,13 +79,13 @@ exists. `release` makes ConfigHub produce a new, governed one.
 | Run it on your own cluster, no account | `deploy` (free) | You pull a bundle that already exists, from the catalog or your own push. You are consuming OCI. |
 | Go live and promote through environments | `release`, then `promote` (account) | ConfigHub makes a signed, locked, versioned bundle and moves it dev to prod. It is producing OCI. |
 
-`install` makes no OCI of its own. It saves the config in ConfigHub as a base. The OCI
+`upload` makes no OCI of its own. It saves the config in ConfigHub as a base. The OCI
 appears at `release`.
 
-## How install seeds a base
+## How upload seeds a base
 
-`cub config install` runs `cub variant upload`, which creates the config's **base variant**, a
-Space labeled `Component=<chart>, Variant=base`, holding the config as one Unit per
+Uploading a config runs `cub variant upload`, which creates the config's **base variant**,
+a Space labeled `Component=<chart>, Variant=base`, holding the config as one Unit per
 resource, with no target. A component in ConfigHub is the set of Spaces that share a
 `Component` label, so the base is the component's first Space. From there `release` clones
 a deployment variant off the base, with a target and its own signed OCI release, and
@@ -94,11 +94,11 @@ a deployment variant off the base, with a target and its own signed OCI release,
 ```
 config --check--> --deploy--> your Argo / Flux                    (free)
                      |
-   public base --install--> base variant (Component=redis, Variant=base)
-                              |
-                              +--release--> dev (private, links inject your values)  (account)
-                                              |
-                                              +--promote--> staging / prod, each a signed OCI
+   public base --upload--> base variant (Component=redis, Variant=base)
+                             |
+                             +--release--> dev (private, links inject your values)   (account)
+                                             |
+                                             +--promote--> staging / prod, each a signed OCI
 ```
 
 ## The engine underneath
@@ -109,18 +109,21 @@ anonymously. At the mid a governed `release` hands it a reviewed digest.
 
 ## Decisions settled
 
-- **The verbs match the tutorial.** `install` seeds a base in ConfigHub (`cub variant
-  upload`), `release` goes live (`cub release publish`), and `promote` flows a change
-  (`cub variant promote`). Config Workshop and the product now use one language.
+- **The verbs are the tutorial's commands.** `upload` seeds a base in ConfigHub
+  (`cub variant upload`), `release` goes live (`cub release publish`), and `promote` flows
+  a change (`cub variant promote`). Config Workshop and the product use one language.
+- **`upload`, not `install`, is the account verb.** It matches the real command,
+  `cub variant upload`, and it keeps the account line clear of `cub installer`, the free
+  per-package engine. `cub installer setup` (free) and `cub … upload` (account) are now
+  plainly different, not one suffix apart. The word `install` stays out of the table.
 - **`check` is the free inspect, `deploy` is the free run.** Both need no account. `check`
   looks without running. `deploy` runs the reviewed OCI on your own reconciler.
-- **The account line is at `install`.** Everything below it is free. `install` is also
-  where public config begins chaining into your private org, so it is the natural line.
+- **The account line is at `upload`.** Everything below it is free. `upload` is also where
+  public config begins chaining into your private org, so it is the natural line.
 - **check, certify, and sandbox are three different free looks.** `check` inspects one
   config or app. `certify` judges a stack's composition. `sandbox` renders a whole
   composition free with no infrastructure.
-- **A platform is a governed stack.** Governing an installed `cub stack` is what makes it
-  a platform.
+- **A platform is a governed stack.** Governing a `cub stack` is what makes it a platform.
 
 ## Still open
 
@@ -129,4 +132,4 @@ anonymously. At the mid a governed `release` hands it a reviewed digest.
   `config` versus `component` to settle with the author of `cub server`.
 - The prototype under `examples/` predates this and still uses `sandbox` for a single
   config. It should move to `check` for config and app, keep `sandbox` for a stack, and
-  rename its live install to `install` and `release`.
+  rename its live install to `upload` and `release`.
