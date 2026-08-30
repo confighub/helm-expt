@@ -2608,7 +2608,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           </div>
           <p class="intro"><strong>Upstream moved or vanished?</strong> If a chart no longer pulls anonymously, start from <a href="./did-your-bitnami-chart-stop-pulling.html">a tested successor</a>. If a version now points at different bytes, run <a href="./did-this-chart-version-change.html">the digest-drift check</a>.</p>
           <p class="intro"><strong>You run Flux or Argo CD?</strong> <a href="./deploy-with-flux-or-argo.html">Render a reviewed chart to a controller-native OCI</a> with one command and no account, then reconcile it the way you do today.</p>
-          <p class="intro"><a href="./confighub.html"><strong>Keep the accepted result in ConfigHub</strong></a> when the answer has to be shared, approved, or compared with live systems. The object digest travels with it.</p>
+          <p class="intro"><a href="./confighub.html"><strong>Upload it into ConfigHub, release it, and promote it</strong></a> when the answer has to be shared, approved, and moved from development to production. Public config chains into your private org here, and the object digest travels with it.</p>
           <p class="intro"><strong>Building an internal developer platform?</strong> <a href="./kubara.html">Choose tested Catalog components, use AI to help configure them, and generate a native Kubara platform</a>. Platform components, developer tools and applications stay separate ConfigHub revisions, so each is tested and promoted on its own.</p>
           <p class="intro"><strong>Running AI on GPUs?</strong> <a href="./try-aicr.html">Inspect a retained AI-platform configuration without a GPU</a>, or compare the GPU nodes you already run. The same review-and-evidence method you use for a Helm chart, applied to AI platforms.</p>
           <p class="intro"><strong>Additional paths:</strong> <a href="./testing.html#worked-stories">see six worked examples</a>, <a href="./try.html">run the short Redis example</a>, <a href="./d/docs/user/gitops-adopter-guide.html">choose a deployment method</a>, or <a href="./compare.html">compare this with existing tools</a>.</p>
@@ -4066,7 +4066,8 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
 
   <section aria-labelledby="aicr-next">
     <h2 id="aicr-next">Choose what to do next</h2>
-    <p>Keep the files and OCI locally, or <a href="./confighub.html">keep the reviewed result in ConfigHub</a> when your team needs shared changes, environment variants, approvals, promotion, or release history.</p>
+    <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That is the same account ladder every configuration climbs.</p>
+    <p>To gate and move a change to this AI-platform configuration through environments, <a href="./promote.html">compare the exact object sets and promote the one that passed</a>.</p>
     <p>For deployment, <a href="./how-it-works.html#now-deploy">choose the controller or direct path that will consume the reviewed objects</a>. Do not apply this platform configuration until you have reviewed its component requirements and changed the recorded storage-class residue.</p>
     <p><a href="./testing.html#inference">Compare the other inference examples</a> · <a href="./try.html">Try the shorter Redis example</a></p>
   </section>
@@ -7857,6 +7858,10 @@ npm run kubara-platform:start -- \\
         ["Clean governed inventory", "A separate audit must prove exact ConfigHub inventory, no Argo-prunable resources, and no unclassified, dangling, or UID-stale audited durable workloads. It does not claim a complete inventory of every Kubernetes type.", badge(facts.orphanCurrent, "current live: audited residue zero", "live receipt required: scoped residue audit")],
       ], { rawThirdColumn: true })}
       <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain, component by component. ${currentLive ? "The complete faithful, adapted, performance, matrix, wiring, orphan, and six-frame GUI chain is accepted." : "Some current live evidence may already pass, but the complete publishable chain is still gated."} Missing or inconsistent faithful, source-digest mini-IDP, performance, matrix, wiring, orphan, or GUI evidence stays visible instead of becoming a green marketing claim.</p>
+    </section>
+    <section aria-labelledby="composition-evidence">
+      <h3 id="composition-evidence">The composition, as evidence</h3>
+      <p>Each component in a stack carries a <a href="./d/data/certified-bundles/summary.html">certified-bundle receipt</a> that names what it is and how it may be flattened, and the <a href="./d/data/certified-bundles/eks-inference-stack.html">eight-bundle EKS inference platform</a> is one worked example. A single composition verdict over the whole stack, checking closure, single-owner, CRD and API-version compatibility, and conflicts, is <a href="./d/docs/planning/composition-certification.html">proposed</a>, not yet a shipped gate. Today the wiring facts above are the report, not a pass or fail.</p>
     </section>
     <section aria-labelledby="stays-adds">
       <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>
