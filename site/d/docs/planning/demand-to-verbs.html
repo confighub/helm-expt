@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The demand map, from users to verbs · Config Workshop</title>
+  <meta name="description" content="The demand map, from users to verbs: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/demand-to-verbs.html">
+  <meta property="og:title" content="The demand map, from users to verbs · Config Workshop">
+  <meta property="og:description" content="The demand map, from users to verbs: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/demand-to-verbs.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -454,66 +454,74 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../ai.html">AI agents</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>The demand map, from users to verbs</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/demand-to-verbs.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 1091</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>578</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>459</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>54</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>562</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>production-support</code></td><td>72</td></tr>
-<tr><td><code>catalog-data</code></td><td>70</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>35</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>repo-integrity</code></td><td>27</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>458</td></tr>
-<tr><td><code>generate-or-run</code></td><td>405</td></tr>
-<tr><td><code>run</code></td><td>142</td></tr>
-<tr><td><code>self-test</code></td><td>76</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>1014</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+<p>This is a planning record, not a decision. It grounds the site's journey and the proposed <code>cub</code> verbs in written demand, so the order in which we build rests on who our users are and what they ask, not on taste. Every layer below is already written down somewhere in this repository. This document joins those layers into one chain and pressure-tests each link against the evidence.</p>
+<p>The chain is one line: <b>a user asks a question, an app or stack answers it, a <code>cub</code> verb runs it, and the assistant makes it one step.</b> The rest of this document fills that line in and marks where it holds and where it bends.</p>
+<h2 id="who-the-users-are">Who the users are</h2>
+<p>Six personas are defined and stable across the product record. The canonical set lives in <a href="helm-community-persona-prd.html">helm-community-persona-prd.md</a> with a success signal for each, and again as a route matrix in <a href="../reference/helm-community-persona-reference.html">helm-community-persona-reference.md</a>.</p>
+<ul><li>A Helm user trying a popular chart, who wants Redis, NGINX, or Prometheus to work without learning a platform first.</li><li>An application team or service owner, who needs dev, staging, and production variants from one reviewed base.</li><li>A platform SRE or fleet operator, who manages many clusters and needs blast-radius preview before a change ships.</li><li>A security, compliance, or audit reviewer, who needs proof that the object set reviewed is the object set that shipped.</li><li>A GitOps operator, who already runs Argo CD or Flux and does not want ConfigHub to replace the controller.</li><li>A chart or managed-service catalog maintainer, who wants maintained Helm usage to become a supported catalog rather than a pile of values files.</li></ul>
+<p>A seventh user is the assistant itself. The growth-strategy record and the doctrine both treat the visitor's AI as a first-class user, not a feature.</p>
+<p><b>Where it holds.</b> The six are consistent across three documents and drive the public offering page. <b>Where it bends.</b> The public offering page collapses the six into five by folding the GitOps operator into the application team, and the assistant-as-user appears only in the strategy and doctrine, not on the persona pages. The persona canon and the public copy disagree by one seam.</p>
+<h2 id="what-they-ask">What they ask</h2>
+<p>The questions are written in three sets, at three grains.</p>
+<p>The three entry questions organise the home page. They are &quot;I need a configuration&quot;, &quot;I have a configuration, is it right?&quot;, and &quot;I have an accepted configuration, can I promote it?&quot;.</p>
+<p>The four assessment questions sit under those and are restated in the doctrine. They are what do I have, what will it produce, can this destination accept it, and did it work.</p>
+<p>The ten practical questions are the research-derived set in <a href="../../../../scripts/lib/configuration-questions.mjs">configuration-questions.mjs</a>, each with a frequency count. The counts come from a review of forty public Helm discussions as of 2026-08-14. This is a small pre-outreach research sample, not site usage data, and the file says so.</p>
+<table><thead><tr><th>Count</th><th>Question</th><th>Code</th></tr></thead><tbody><tr><td>8</td><td>What will this install, and what must already exist?</td><td>install-shape</td></tr>
+<tr><td>6</td><td>How is this candidate different from production?</td><td>config-diff</td></tr>
+<tr><td>5</td><td>I set a value. Why did the rendered object not change?</td><td>ignored-values</td></tr>
+<tr><td>5</td><td>The chart does not expose the field I need. Must I fork it?</td><td>custom-field</td></tr>
+<tr><td>4</td><td>Can I upgrade this chart without breaking production?</td><td>upgrade-risk</td></tr>
+<tr><td>4</td><td>How should Argo CD or Flux handle this chart's hooks and CRDs?</td><td>lifecycle-work</td></tr>
+<tr><td>3</td><td>Where does this vulnerable image run, and how can I update it safely?</td><td>fleet-image</td></tr>
+<tr><td>2</td><td>Can I roll back to exactly what ran before?</td><td>rollback-history</td></tr>
+<tr><td>2</td><td>Do these version and digest records identify the same bytes?</td><td>supply-drift</td></tr>
+<tr><td>1</td><td>AI wrote these values. What did they actually change?</td><td>ai-values</td></tr></tbody></table>
+<p><b>Where it holds.</b> The questions are real, verbatim, and counted. <b>Where it bends.</b> Forty discussions is a small sample, and it counts public Helm chatter from before AI-written configuration was common, which is why <code>ai-values</code> sits last. The counts rank today's volume, not where demand is going.</p>
+<h2 id="what-answers-them">What answers them</h2>
+<p>The doctrine states the job as &quot;inspect, test, compare, change, promote, deploy, operate, or build an application or platform&quot; (<a href="../reference/config-catalog-doctrine.html">config-catalog-doctrine.md</a>, the browse table). Application and platform are the two build targets, which is the same split as <code>cub app</code> and <code>cub stack</code> in the <a href="https://github.com/confighub/helm-expt/pull/1653">custom stacks and apps proposal</a>.</p>
+<p>Five ConfigHub Apps are the named answers. Each carries a worked example and a receipt, and each is currently marked working as an example but partial as a broader product.</p>
+<ul><li>The Upgrade App calculates fleet impact, tests a candidate, promotes it in waves, and checks the rollout. Its proof is a Redis 25 to 27 upgrade with rollback across two Argo CD clusters.</li><li>The Hooks and CRDs App checks prerequisites, runs the required setup in order, and records what happened. Its proof is the Kube Prometheus Stack CRD and webhook sequence under Argo CD and Flux.</li><li>The RBAC Review App finds risky access and proposes an exact correction. Its proof removes unnecessary Secret access under an approval gate.</li><li>The Fleet Platform App assigns platform configurations to cluster groups and manages rollout waves. Its proof is a Kubara platform expanded across a Sveltos fleet with drift recovery.</li><li>The AI Change Review App turns an agent's suggested edits into diffs, checks, approvals, and an unwindable revision. Its proof catches an unpinned image and an inline API key.</li></ul>
+<p>Three stack families are the compositions users build. The platform-services family is the Kubara platform, which is cert-manager, Traefik, External Secrets, monitoring, and Argo CD across a fleet. The inference family is the eks-inference stack, which is ACK, an EKS cluster, Karpenter, a GPU runtime, and a sample vLLM workload across three planes. The AI-workload family is the AICR set, which resolves Kubeflow training and NIM or KServe inference platforms from a component registry.</p>
+<p><b>Where it holds.</b> Every app and stack above exists as a proof in the repository, not as a slogan. <b>Where it bends.</b> All five apps are guarded as partial, so they answer their question in a worked example but are not yet a finished self-serve interface. The gap between the proof and the product is the honest state.</p>
+<h2 id="the-chain-from-a-question-to-a-verb">The chain from a question to a verb</h2>
+<p>Joining the three layers gives the demand chain. The route matrix in the persona reference already links each persona to a first question, so the rows below extend that link out to the app or stack, the verb, and the assistant.</p>
+<table><thead><tr><th>Who</th><th>Asks</th><th>Answered by</th><th>Verb</th><th>The assistant</th></tr></thead><tbody><tr><td>Helm newcomer</td><td>What will this install?</td><td>a Catalog component, rendered</td><td><code>cub check</code>, <code>cub stack</code> sandbox</td><td>reads the render and says what matters</td></tr>
+<tr><td>App team</td><td>How does this differ from production?</td><td>the exact object diff</td><td><code>cub check</code> compare</td><td>shows the few changes that matter</td></tr>
+<tr><td>Helm newcomer</td><td>Why did my value not change?</td><td>the effective value path</td><td><code>cub check</code></td><td>finds the wrong path, or proves the field is unexposed</td></tr>
+<tr><td>App team</td><td>Must I fork it for a missing field?</td><td>a derived configuration</td><td><code>cub app</code></td><td>writes the smallest post-render edit and flags upgrade overlap</td></tr>
+<tr><td>App team, SRE</td><td>Can I upgrade without breaking production?</td><td>the Upgrade App</td><td><code>cub app</code> promote</td><td>tests the candidate and promotes in waves</td></tr>
+<tr><td>GitOps operator</td><td>How do Argo or Flux handle hooks and CRDs?</td><td>the Hooks and CRDs App</td><td><code>cub app</code>, <code>cub stack</code> to their reconciler</td><td>sequences the routes</td></tr>
+<tr><td>Platform SRE</td><td>Where does this image run, and how do I fix it?</td><td>the Fleet Platform App</td><td><code>cub stack</code>, platform operations</td><td>inventories the estate and plans the wave</td></tr>
+<tr><td>SRE, reviewer</td><td>Can I roll back to exactly what ran?</td><td>a retained digest</td><td>governance</td><td>restores the exact object set</td></tr>
+<tr><td>Security reviewer</td><td>Do the records identify the same bytes?</td><td>receipts and digests</td><td>governance</td><td>compares records against retained evidence</td></tr>
+<tr><td>App team or reviewer, for their AI's change</td><td>AI wrote these values, what changed?</td><td>the AI Change Review App</td><td><code>cub check</code>, <code>cub app</code> review</td><td>the AI authored it, the human asks, the engine reviews and gates it</td></tr></tbody></table>
+<h2 id="the-funnel-measured">The funnel, measured</h2>
+<p>Grouping the ten questions by the band that answers them gives a shape. Nineteen of the forty questions are answered at the entry, fourteen on the spine, and seven at the keystone. The demand is a funnel, and the measured counts draw it rather than a diagram asserting it.</p>
+<h2 id="the-build-order">The build order</h2>
+<p>The order follows the counts. <code>cub check</code> and <code>cub app</code> answer the entry and the spine, which is thirty-three of the forty questions and the most personas, so they come first. <code>cub stack</code> is the altitude jump that unlocks the keystone's fleet and AI-workload questions, so it follows. The certify step under <code>cub stack</code> is the moat, and it has its own brief in the <a href="https://github.com/confighub/helm-expt/pull/1654">composition certification record</a>.</p>
+<p><code>ai-values</code> sits last in the sample, but it is the assistant's own question and the growth bet. The honest position is to serve today's volume with <code>cub check</code> and <code>cub app</code> while treating the AI axis as the forward wager, stated as a wager rather than inflated by the count.</p>
+<h2 id="how-ai-makes-it-easy">How AI makes it easy</h2>
+<p>The assistant does three jobs, and all three are already written down. It is a first-class user, named in the strategy and voiced on the ask page as a persona that brings AI-written values for review. It is a composer, which proposes variants and stacks that the parity check and the composition verdict validate, so its suggestions are inputs the engine certifies rather than results taken on faith. It is the interface, which drives cub and ConfigHub so the person does not type the commands.</p>
+<p>The AI Change Review App is the proof, and reading it closely separates two claims that are easy to blur. The proof starts from an agent-authored change to an AICR training runtime that does three unsafe things at once. It asks for more nodes than the target allows, swaps a digest-pinned image for a mutable tag, and leaves the API key as an unfilled placeholder. Three actors appear. The AI authored the change, a human asks what it did, and the engine, not another AI, reviews and gates it with deterministic checks and an approval boundary. So the first thing the proof demonstrates is that AI-authored change is made safe, because the gate says yes rather than the assistant.</p>
+<p><b>Where it holds.</b> AI-safe is proven with a receipt today. A careless agent change is caught before it ships, which is the custody wedge in one example, the assistant computes from today's bytes and ConfigHub keeps the record. <b>Where it bends.</b> AI-easy is a different claim and less proven. The assistant explaining a finding in plain language and driving the whole surface in one step rides on top of AI-safe, and the proof is a deterministic scenario stated plainly as not a transcript from a named model. The composer role that assembles a stack from a goal still rests on the composition verdict that is designed but not yet built. The honest order is that safety is proven and ease is the build still ahead.</p>
+<h2 id="what-the-pressure-test-found">What the pressure-test found</h2>
+<p>Three of the five app lanes were verified and pass, the Upgrade App, the AI Change Review App, and the RBAC Review App. All five were then scanned for whether an assistant actually drives them. The same seam runs through every one, so what follows separates what is proven from what is claimed.</p>
+<p>What is proven is the custody spine. The Upgrade App is a live test on two Argo CD clusters. It carries a post-render replica change through a Redis 25 to 27 upgrade, shows which environment variants are waiting, promotes through development and staging behind a dry-run, reconciles the same OCI digest on both clusters, then restores the exact pre-upgrade revisions and reconciles the rollback, with an exact-object and workload check at every step. This is safety, and it is real. The Upgrade App also answers more of the demand than its one row. The surviving replica edit is the custom-field question, the promotion dry-run is the config-diff question, and the rollback is the rollback-history question, so one app covers four of the ten. That strengthens the case for building the spine early.</p>
+<p>What is not yet proven is the assistant on top. The Upgrade App proof contains no AI at all, because a person drives cub and ConfigHub. The RBAC Review App proposes its correction with deterministic review logic, not an AI, and the Fleet Platform App is cub, ConfigHub, and Sveltos with no assistant in the path. Across all five apps an AI appears in exactly one, the AI Change Review App, and there only as the author of the reviewed change. An assistant drives none of them yet. So the proven layer is the deterministic custody mechanism, and the AI-makes-it-easy layer, the assistant that proposes, explains, and drives in one step, sits above it and is the build still ahead. The honest order is safety first, proven, then ease, next.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>The frequency counts are a forty-discussion research sample, not usage data. The <code>cub app</code>, <code>cub stack</code>, and platform verbs are proposed, not shipped, so this document describes a demand map and a build order, not a released surface. The five apps are proofs, not finished products. Naming the verbs is still open and should be settled with the author of <code>cub server</code>.</p>
+<h2 id="where-this-sits">Where this sits</h2>
+<p>The visual form of this chain is the Keystone and Spine map, which carries the same personas, questions, verbs, and the ground-floor demand matrix. This document is its committed, cited counterpart. It pairs with the <a href="https://github.com/confighub/helm-expt/pull/1653">custom stacks and apps proposal</a>, which names the verbs, and the <a href="https://github.com/confighub/helm-expt/pull/1654">composition certification record</a>, which builds the moat under <code>cub stack</code>. Every claim here rests on committed evidence, which is rule 10 of <a href="../../tests/doctrine.html">the doctrine</a>.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/demand-to-verbs.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Composition certification, the moat under custom stacks · Config Workshop</title>
+  <meta name="description" content="Composition certification, the moat under custom stacks: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/composition-certification.html">
+  <meta property="og:title" content="Composition certification, the moat under custom stacks · Config Workshop">
+  <meta property="og:description" content="Composition certification, the moat under custom stacks: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/composition-certification.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -454,66 +454,61 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../ai.html">AI agents</a><a href="../../charts/index.html">Catalog</a><a href="../../ask.html">Check my config</a><a href="../../promote.html">Promote my config</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Composition certification, the moat under custom stacks</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/composition-certification.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 1091</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>578</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>459</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>54</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>562</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>production-support</code></td><td>72</td></tr>
-<tr><td><code>catalog-data</code></td><td>70</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>35</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>repo-integrity</code></td><td>27</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>458</td></tr>
-<tr><td><code>generate-or-run</code></td><td>405</td></tr>
-<tr><td><code>run</code></td><td>142</td></tr>
-<tr><td><code>self-test</code></td><td>76</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>1014</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+<p>This is a proposal, not a decision. It answers the one question that <a href="custom-stacks-and-apps.html">custom-stacks-and-apps.md</a> names but does not solve. That proposal says the value of a <code>cub stack</code> verb is the certify step, not the component picker, &quot;because composing components correctly is where the work is.&quot; This brief says what that certify step actually checks, what already exists to build it on, and how to prove it on real stacks before it becomes a headline.</p>
+<p>It extends two lines that already exist. Item 30 of the <a href="certified-bundle-track-backlog.html">certified bundle backlog</a> asks for a composition digest so a consumer can verify a platform rather than a component. Theme 6 of the same backlog asks the consumers, starting with eks-inference, to replace their build-time guard with the receipt. This brief joins those into one engine.</p>
+<h2 id="the-idea-in-one-line">The idea in one line</h2>
+<p>The certify step already exists three times at three strengths, and the four gates it still needs are already designed. The moat is not new machinery. It is lifting one composition verdict out of each private producer into the shared certifying layer, keyed by the composition digest the producers already compute.</p>
+<h2 id="the-certify-step-exists-three-times-already">The certify step exists three times already</h2>
+<p>Three producers each compose components into a running system, and each enforces a different slice of the same job. Reading them together shows the whole shape.</p>
+<table><thead><tr><th>Producer</th><th>How it certifies a composition today</th><th>How strong</th></tr></thead><tbody><tr><td><b>Kubara</b></td><td><code>generate-kubara-wiring.mjs</code> recovers a provides-and-needs graph from the rendered manifests, with a closed status vocabulary (<code>resolved-rendered</code>, <code>resolved-runtime</code>, <code>ambiguous</code>, <code>unresolved</code>, <code>optional-unprovided</code>, <code>target-prerequisite</code>, <code>external</code>).</td><td>It classifies. It labels an unmet or duplicated need and then downgrades it to an operator-attested target fact rather than failing.</td></tr>
+<tr><td><b>eks-inference</b></td><td>A blocking <code>vet-placeholders</code> trigger refuses any release that still carries an unfilled <code>confighubplaceholder</code>, and a <code>PlatformProfile</code> owns each shared value once and fans it into consumers through <code>TransformPaths</code> links.</td><td>It gates one dimension, live. A value that was literal-copied into a second component instead of linked passes the gate unseen.</td></tr>
+<tr><td><b>AICR</b></td><td>Bundle generation refuses a conflicting value and refuses to expose a profile-owned path as an install-time parameter (<code>aicr-composition-model.md:76</code>).</td><td>It refuses hardest, at build time, and is the rule the other two should adopt.</td></tr></tbody></table>
+<p>The three are points on one spectrum. Kubara has the richest model of what needs what and gates none of it. eks-inference gates the least and enforces it live. AICR refuses the most and does it earliest. A composition verdict unifies the model, the live enforcement, and the refusal into one gate set that all three run.</p>
+<h2 id="what-already-exists-to-build-on">What already exists to build on</h2>
+<p>The engine does not start from zero. Four pieces are reusable as they stand.</p>
+<p>The per-component floor is done. Every component carries a <code>FlatteningSafetyVerdict</code> keyed by chart, version, and audited base, over eleven quirk classes (helm-hooks, resource-policy-keep, lookup, webhook-ca, capabilities-api-versions, generated-secrets, crd-ordering, immutable-fields, namespace-creation, subchart-conditions, test-hooks), and a <code>CertifiedBundleReceipt</code> with seven sections. The strict verifier <code>verify-certified-bundle.mjs</code> re-hashes every file and refuses a verdict that calls a class absent when its own render contains it. A composition verdict takes these per-component verdicts as inputs and never recomputes them.</p>
+<p>The composition digest is done, inside each producer. Kubara computes <code>platformDigest</code> as a hash over the source tree, topology, component packages, the whole wiring plan, and the materialization contract, deliberately excluding destination bindings so the same content yields the same digest in any organization. It already refuses a republish, apply, or transition whose digest does not match. AICR computes an equivalent <code>platformDigest</code> over source and member set with a <code>--verify</code> recompute and a mutation self-test. This is a working &quot;one digest pins the platform&quot; primitive to adopt, not invent.</p>
+<p>The fact extractor is done. Kubara's wiring pass walks every rendered object, emits a typed need for each reference (pod secret and config refs, ingress class and issuer, external-secret store and keys, certificate issuer, RBAC subjects, webhook and CRD-conversion services, a custom resource's requirement of its own CRD), matches label selectors against rendered labels, and resolves each need against a deduplicated provider index. It is deterministic and offline.</p>
+<p>The live gate is done, once. eks-inference's <code>vet-placeholders</code> is a blocking Validating trigger on the Mutation event. It proves the pattern that a composition gate can refuse a release at the ConfigHub boundary rather than at build time.</p>
+<h2 id="the-composition-verdict-check-set">The composition verdict check set</h2>
+<p>Eight checks make up the verdict. Each states what it verifies across components, what enforces it today, and whether it is genuinely new or a promotion of something that already classifies or asserts. The first four gates match the four that Kubara's composition strategy already names as planned. The last four come from what eks-inference, AICR, and backlog item 30 add.</p>
+<table><thead><tr><th>#</th><th>Check</th><th>What it verifies across components</th><th>State today</th></tr></thead><tbody><tr><td>1</td><td><b>Closure</b></td><td>Every need is met by exactly one enabled provider, or by one declared target fact. An unmet need fails. A duplicated provider fails.</td><td>Kubara labels <code>unresolved</code> and <code>ambiguous</code>, then downgrades both to target facts. eks-inference's placeholder gate is a partial closure check. The failing gate is prose in the strategy doc.</td></tr>
+<tr><td>2</td><td><b>Single owner</b></td><td>Each shared value has one owner, and every consumer takes it through a link, never a literal copy.</td><td>eks-inference's profile links eight owners into twenty-seven paths, but a literal copy slips past the placeholder gate. AICR already refuses a conflicting value. New as a general check, with AICR's rule as the model.</td></tr>
+<tr><td>3</td><td><b>CRD and API-version compatibility</b></td><td>Each custom resource's <code>apiVersion</code> is served by a CRD inside the composition at a compatible version.</td><td>Recorded as a need edge only. eks-inference hardcodes <code>capabilities-api-versions</code> and <code>immutable-fields</code> as not-evaluated. Genuinely new.</td></tr>
+<tr><td>4</td><td><b>Conflict</b></td><td>No two components collide on a namespace, a name, a port, or an object they both own.</td><td>Nothing checks it in either stack. Both repositories record real collisions as hand-authored matrix departures. Genuinely new.</td></tr>
+<tr><td>5</td><td><b>Ordering</b></td><td>CRD-before-CR and hook routes are computed as apply waves across the whole composition, including across planes.</td><td>Within-component routes exist and are marked unproven. Cross-plane ordering, such as the management plane going live before the workload plane, is prose.</td></tr>
+<tr><td>6</td><td><b>Parity</b></td><td>Re-rendering each component reproduces its bundle, differing only at the declared wiring paths.</td><td>Per-component render parity exists as a gate. Composition-level parity is prose in the strategy doc.</td></tr>
+<tr><td>7</td><td><b>Policy</b></td><td>Pluggable vet functions refuse a release that breaks a stated rule.</td><td>eks-inference's <code>vet-placeholders</code> is one live instance. Named as a gate, otherwise unbuilt.</td></tr>
+<tr><td>8</td><td><b>Digest binding</b></td><td>The verdict and the member receipts are bound by the composition digest, and the verifier recomputes it and confirms every member receipt is present and hash-matches.</td><td>The digest is computed and verified inside each producer, rides the certified-bundle receipt off-schema, and the strict verifier never reads it. This is backlog item 30.</td></tr></tbody></table>
+<p>Checks one through five and eight are cross-component. Six and seven inherit per-component work and widen it to the set.</p>
+<h2 id="the-staged-plan">The staged plan</h2>
+<p>The plan proves the engine on known-good stacks first, then hardens it against a broken one, then hands it to a consumer. It never ships a picker before the verdict is real.</p>
+<p>Stage one builds the composition verdict producer and proves it on what already works. The producer consumes the two artifacts that already exist, Kubara's wiring graph and eks-inference's sandbox-proof receipt, and emits a <code>CompositionVerdict</code> over the eight checks. It runs over the eks-inference stack of eight components across three planes and over one Kubara platform of cert-manager, Traefik, and metrics-server. Both are known-good, so most checks pass. The proof is that the verdict goes red exactly where curation already caught a defect by hand. The Kubara strategy doc already lists those defects. An undeclared cluster secret store is referenced by three services. A metrics-server service monitor is shipped while its monitor is disabled. An external-secrets component redundantly owns the default namespace. In eks-inference, karpenter-aws hardcodes the cluster name that the profile owns instead of linking it. A certify engine that cannot catch what curation caught is not real, so catching these four is the acceptance test for stage one. Stage one also closes item 30 by promoting <code>platformDigest</code> into the receipt schema and teaching <code>verify-certified-bundle.mjs</code> to recompute it and confirm the member set.</p>
+<p>Stage two turns the four named gates from prose into code, hardest first. Closure comes first and changes the Kubara behavior from downgrade to fail. Conflict comes next because it is new and high value. CRD and API-version compatibility follows. Parity and computed ordering waves come last because they extend existing per-component work. Single owner adopts AICR's refuse-on-conflict rule across all producers. Stage two proves itself on a third stack that is deliberately broken. Injecting a namespace collision, a version skew, and an unfilled dependency must drive the verdict red on each, one check at a time.</p>
+<p>Stage three hands the verdict to a consumer. <code>cub stack</code> reads the composition receipt and digest to install a stack by name. <code>sandbox</code> renders the whole stack for free with no infrastructure, which keeps the anonymous first-look promise at stack altitude. eks-inference retires its five-pattern grep guard and consumes the receipt instead, which is Theme 6 item 42.</p>
+<h2 id="the-one-sequencing-rule">The one sequencing rule</h2>
+<p>Build the verdict before the picker. A component picker with no real certify step ships the composition problem to the user. Every composition carries a receipt bound by its digest, and a composition that fails a check is refused with the finding rather than shipped in silence. This is the same discipline the per-component verdict already keeps, widened to the set.</p>
+<h2 id="what-to-prove-first">What to prove first</h2>
+<p>Prove that the verdict catches the four defects curation already caught, on the two known-good stacks, before writing a line of consumer surface. If the engine holds across eks-inference and one Kubara platform, and goes red on a deliberately broken third stack, the self-serve flow rests on something real. If it does not, no picker or verb is worth building yet.</p>
+<h2 id="where-the-assistant-fits">Where the assistant fits</h2>
+<p>A user brings their own AI, most often Claude, and wants it to make this one click. The assistant has two jobs here, and the composition verdict is what makes both safe to trust.</p>
+<p>The first job is composing a candidate stack from a goal. A person says what they want, and the assistant selects components from the catalog and proposes a stack. An assistant can propose a plausible composition that is wrong, the same way it can write a plausible chart that is wrong. The verdict is the answer. An assistant-composed stack passes exactly the same eight checks as a curated one, so its proposal is an input the engine validates rather than a result taken on faith. This is the same wedge as turning one AI-produced chart into a trustworthy result, one level up. The engine does not care whether a human or an assistant chose the components. It cares only whether the composition passes.</p>
+<p>The second job is being the interface across the whole surface. The person should not have to type the commands or learn where one tool ends and the next begins. The assistant reads the catalog, runs cub and its plugins, calls ConfigHub, and moves through the Config Workshop as one seamless surface. It reads the verdict, explains a red finding in plain language, installs the stack, publishes the release, and helps govern the platform, while ConfigHub keeps the records of what was proposed, what passed, and what was applied. Seamless here rests on the surface being legible to a machine. Structured cub output, the committed catalog, and an agent skill layer let the assistant read state and drive exact commands rather than guess at them, which is the same discipline that lets the verdict be trusted. The one click is the assistant carrying the person through the ladder the site already lays out, not a new path around it.</p>
+<p>One guardrail holds both jobs. The assistant composes and drives, and it never certifies. The engine certifies, and custody stays with ConfigHub. The assistant computes from today's bytes, and ConfigHub keeps the records. That boundary is what lets a fallible assistant be trusted with a one-click install, because the gate, not the assistant, is what says yes.</p>
+<h2 id="where-this-fits-the-tracks">Where this fits the tracks</h2>
+<p>This brief lifts the four gates out of Kubara's composition strategy, where they are described for one producer, into the shared certifying layer, so eks-inference, Kubara, and AICR are certified by one engine and one receipt. It closes backlog item 30 and enables Theme 6 items 42 and 43. It pairs with <a href="custom-stacks-and-apps.html">custom-stacks-and-apps.md</a> as the answer to that proposal's open moat. Every claim it makes rests on committed evidence, which is rule 10 of <a href="../../tests/doctrine.html">the doctrine</a>.</p>
+<h2 id="open-questions">Open questions</h2>
+<ul><li>Where the composition verdict producer lives. It reads a producer's wiring graph and the per-component receipts, so it can sit beside the certified bundle receipts in this repository, with each producer feeding it.</li><li>Whether the verdict blocks or annotates at first. A blocking gate matches the doctrine, but a first cut that annotates and reports would let the four known-good defects be triaged before the gate is armed.</li><li>Whether the assistant composes and certifies in one loop, proposing a stack, running the verdict, reading the red findings, and recomposing until it passes, or hands a single proposal to the gate. The tighter loop is more useful and asks more of the verdict's findings being legible to a machine.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/composition-certification.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

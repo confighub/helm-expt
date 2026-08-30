@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-27 (commit `b6f3a6aed`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-29 (commit `918561061`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 293 |
-| Fresh (no linked source newer than the doc) | 52 |
-| **Review-due** | 86 |
-| No linked evidence sources (cannot auto-trigger) | 155 |
+| Authored docs tracked | 297 |
+| Fresh (no linked source newer than the doc) | 55 |
+| **Review-due** | 85 |
+| No linked evidence sources (cannot auto-trigger) | 157 |
 
 ## Review queue
 
@@ -108,7 +108,6 @@ most recently changed triggers.
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-24 | 2 | `data/helm-render-intents/summary.md (2026-08-26)`<br>`data/installer-oci-packages/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [README.md](../../README.md) | root | 2026-08-26 | 1 | `CATALOG.md (2026-08-26)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-08-26 | 1 | `CATALOG.md (2026-08-26)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/demo/aicr/snapshot-diff.md](../../docs/demo/aicr/snapshot-diff.md) | demo | 2026-08-25 | 1 | `data/aicr-snapshot-review/review.yaml (2026-08-25)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
@@ -198,6 +197,8 @@ into this freshness model.
 - [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
 - [docs/planning/chapter-three-gateway-rework.md](../../docs/planning/chapter-three-gateway-rework.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
+- [docs/planning/cub-noun-vocabulary.md](../../docs/planning/cub-noun-vocabulary.md)
+- [docs/planning/custom-stacks-and-apps.md](../../docs/planning/custom-stacks-and-apps.md)
 - [docs/planning/fuzz-corpus-tests-roadmap.md](../../docs/planning/fuzz-corpus-tests-roadmap.md)
 - [docs/planning/get-started-rewrite-brief.md](../../docs/planning/get-started-rewrite-brief.md)
 - [docs/planning/helm-community-persona-prd.md](../../docs/planning/helm-community-persona-prd.md)
