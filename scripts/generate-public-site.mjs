@@ -4096,8 +4096,9 @@ function howItWorksHtml() {
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
-  <section aria-labelledby="the-ladder">
-    <h2 id="the-ladder">The whole path, one ladder</h2>
+  <section aria-labelledby="keep">
+    <h2 id="keep">1. Choose what happens next</h2>
+    <h3 id="the-ladder">The whole path, one ladder</h3>
     <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the paid platform. Each step is a real command or surface.</p>
     ${markdownLikeTable([
       ["Rung", "Verb", "What it does", "Command or surface"],
@@ -4109,10 +4110,6 @@ function howItWorksHtml() {
       ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the paid platform"],
     ])}
     <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
-  </section>
-
-  <section aria-labelledby="keep">
-    <h2 id="keep">1. Choose what happens next</h2>
     <h3 id="four-answers">Keep four answers separate</h3>
     ${markdownLikeTable([
       ["Question", "When it can be answered"],
