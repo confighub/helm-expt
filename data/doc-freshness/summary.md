@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-30 (commit `b8d42480e`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-30 (commit `81ce4a39f`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 297 |
+| Authored docs tracked | 298 |
 | Fresh (no linked source newer than the doc) | 55 |
 | **Review-due** | 85 |
-| No linked evidence sources (cannot auto-trigger) | 157 |
+| No linked evidence sources (cannot auto-trigger) | 158 |
 
 ## Review queue
 
@@ -208,6 +208,7 @@ into this freshness model.
 - [docs/planning/house-voice.md](../../docs/planning/house-voice.md)
 - [docs/planning/independent-review-brief.md](../../docs/planning/independent-review-brief.md)
 - [docs/planning/issue-backlog.md](../../docs/planning/issue-backlog.md)
+- [docs/planning/ladder-on-spine.md](../../docs/planning/ladder-on-spine.md)
 - [docs/planning/latest-top20-refresh-plan.md](../../docs/planning/latest-top20-refresh-plan.md)
 - [docs/planning/legacy-patch-review.md](../../docs/planning/legacy-patch-review.md)
 - [docs/planning/maintenance-strategy.md](../../docs/planning/maintenance-strategy.md)

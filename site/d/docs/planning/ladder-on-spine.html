@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Use ConfigHub · Config Workshop</title>
-  <meta name="description" content="Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/confighub.html">
-  <meta property="og:title" content="Use ConfigHub · Config Workshop">
-  <meta property="og:description" content="Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Put the value ladder on the site's spine · Config Workshop</title>
+  <meta name="description" content="Put the value ladder on the site's spine: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/ladder-on-spine.html">
+  <meta property="og:title" content="Put the value ladder on the site's spine · Config Workshop">
+  <meta property="og:description" content="Put the value ladder on the site's spine: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/confighub.html">
-<style>
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/ladder-on-spine.html">
+  <style>
     :root {
       color-scheme: light dark;
       --ink: #131a20;
@@ -444,183 +444,46 @@
     }
   }
 
-  .handoff-proof { max-width: 880px; padding-left: 1.3rem; }
-  .handoff-proof li { margin: 12px 0; }
-  .handoff-proof code { overflow-wrap: anywhere; word-break: break-all; }
-
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
-  
-  /* --- quality floor: keyboard focus and reduced motion --- */
-  a:focus-visible, button:focus-visible, input:focus-visible,
-  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-  a:focus:not(:focus-visible) { outline: none; }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-    .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
-  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
-  .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
-  .site-footer .sf-h { font-family: var(--mono, ui-monospace, monospace); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 2px; }
-  .site-footer a { text-decoration: none; color: var(--muted); font-size: .86rem; }
-  .site-footer a:hover { color: var(--accent-ink, var(--ink)); }
-  .site-footer .sf-cta a { color: var(--accent-ink, var(--ink)); font-weight: 600; }
-  @media (max-width: 720px) { .site-footer-inner { grid-template-columns: 1fr 1fr; } }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
-<header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./ai.html">AI agents</a><a href="./charts/index.html">Catalog</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-  <h1>Upload it into ConfigHub, then release and promote</h1>
-  <p class="boundary-chip">Needs a ConfigHub account</p>
-  <p class="lead">Uploading a reviewed configuration into ConfigHub is the account line. From there you release it so a cluster pulls it, and promote it across environments, with the source, checks, approvals, and history kept beside it.</p>
-  <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
-  <p>The account line is also where public configuration chains into your private org: a base you upload keeps sending you fixes while protection keeps the values you chose. ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
-  <p><a class="button primary" href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Keep a reviewed result in ConfigHub</a> <a class="button secondary" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Open the tutorial</a></p>
-</header>
-<main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <section aria-labelledby="managed-result">
-    <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>The account line is three steps. <strong>Upload</strong> brings the reviewed configuration into ConfigHub as a base, stored with its source and review record. <strong>Release</strong> publishes it so Argo CD or Flux pulls it. <strong>Promote</strong> moves a reviewed change from development to production, with the exact diff, the approval, and the history kept beside it.</p>
-    <p><strong>Upload also chains public configuration into your private org.</strong> A base you upload can be public, pulled from a shared catalog, while your deployment stays private. When ConfigHub clones the public base into your deployment, links carry your private values into it, and protection keeps the values you chose. Later fixes to the public base, a patched image or a new version, flow down to everything you did not protect. That chaining is the value a plain registry cannot offer.</p>
-    <p>ConfigHub keeps the four answers connected without treating them as interchangeable.</p>
-    <p>It links the source to the materialized objects, the destination check to one target, and the post-deployment result to one exact release. A retained object or a published OCI stays exactly that, and never counts as a destination or live pass.</p>
-    <div class="card"><table>
-        <thead><tr><th>Question</th><th>What ConfigHub retains</th></tr></thead>
-        <tbody><tr><td>What do I have?</td><td>The source identity, imported files, exact object records, and their history.</td></tr><tr><td>What will it produce?</td><td>The source and intent, materialized objects, object identity, and recorded transformation.</td></tr><tr><td>Can this destination accept it?</td><td>Checks against one named destination, tied to the exact candidate and current destination facts.</td></tr><tr><td>Did it work?</td><td>Results for the exact delivered revision, target, time, and claim that was checked.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-  </section>
-  <section aria-labelledby="exact-handoff">
-    <h2 id="exact-handoff">2. See one exact handoff</h2>
-    <p>A worked NGINX example starts with AI-written Helm values. The review keeps the requested three replicas, removes six risky settings, and produces 5 Kubernetes objects.</p>
-    <p>We calculate one hash from those objects at each step, so matching hashes mean the objects came through unchanged.</p>
-    <ol class="handoff-proof">
-      <li><strong>Review locally.</strong> The 5 objects have object-set hash <code>ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345</code>.</li>
-      <li><strong>Publish the OCI.</strong> Pulling <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001</code> back produces the same object-set hash. The OCI digest is <code>sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683</code>.</li>
-      <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same 5 objects with the same object-set hash, and records the same OCI digest as their source.</li>
-      <li><strong>Record the decision.</strong> A separate, non-deployable Unit says how each finding was handled. Six fixes were accepted. One remaining emptyDir finding is accepted only for the exact development and staging demonstration, excludes production, and has a review date. ConfigHub records approval of that exact decision revision.</li>
-    </ol>
-    <p>The matching hashes show that the handoff preserves the reviewed objects. The decision record answers a different question: what did we fix, what did we accept for now, and where may this result run? Read the <a href="./d/data/config-review-decision-chain/summary.html">complete decision, promotion, and delivery chain</a>.</p>
-    <p>Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English handoff record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
-    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
-    <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
-  </section>
-  <section id="promotion" aria-labelledby="continue-work">
-    <h2 id="continue-work">3. Continue from the retained answer</h2>
-    <p>Start with the public <a href="./promote.html">Promote my config</a> comparison. ConfigHub is the next step when the same proposed object hash must move through named environments with approvals, release digests, and target results.</p>
-    <div class="card"><table>
-        <thead><tr><th>Job</th><th>What ConfigHub keeps</th><th>Start here</th></tr></thead>
-        <tbody><tr><td>Compare development and production</td><td>Both variants, their source relationship, and exact object diff.</td><td><a href="./why-do-dev-and-prod-differ.html">Compare environments</a></td></tr><tr><td>Promote and publish</td><td>The reviewed change, approval, promotion result, and immutable release OCI.</td><td><a href="./testing.html#managed">Promotion and OCI examples</a></td></tr><tr><td>Roll back</td><td>The prior object revision or release digest. External effects remain outside the rollback claim.</td><td><a href="./redis-walkthrough.html">Redis promotion and rollback</a></td></tr><tr><td>Compare desired with live</td><td>The approved desired objects and a separately dated live observation.</td><td><a href="./does-cluster-match-approved-config.html">Desired and live comparison</a></td></tr><tr><td>Roll out to a fleet</td><td>The selected targets, waves, approvals, and result for every target.</td><td><a href="./testing.html#platforms">Fleet examples</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-  </section>
-  <section aria-labelledby="review-tutorial">
-    <h2 id="review-tutorial">4. Continue with the official tutorial</h2>
-    <p><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Create a ConfigHub account</a> when you are ready to save a reviewed configuration. Then continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">official tutorial</a> to create a development deployment, make a change, add production, and promote the reviewed result.</p>
-    <p><a href="https://confighub.com/blog/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=confighub-page">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
-    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
-  </section>
-</main>
-<nav class="site-footer" aria-label="More of Config Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Start</span><a href="./testing.html">Find a configuration</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a><a href="./charts/index.html">Catalog</a></div><div class="sf-group"><span class="sf-h">Deploy</span><a href="./deploy-with-flux-or-argo.html">Deploy with Flux or Argo</a><a href="./serverless.html">Serverless</a><a href="./kubara.html">Build a platform</a><a href="./operations.html">Operations</a></div><div class="sf-group"><span class="sf-h">Why trust it</span><a href="./proof.html">Proof</a><a href="./verification.html">Verification</a><a href="./known-gaps.html">Known gaps</a><a href="./security.html">Security</a></div><div class="sf-group"><span class="sf-h">More</span><a href="./docs.html">Docs</a><a href="./ai.html">AI agents</a><a href="./compare.html">Compare</a><a href="./whats-new.html">What's new</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Keep a result in ConfigHub</a><a href="./confighub.html">Why ConfigHub</a></div></div></nav>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../ai.html">AI agents</a><a href="../../../charts/index.html">Catalog</a><a href="../../../ask.html">Check my config</a><a href="../../../promote.html">Promote my config</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Put the value ladder on the site's spine</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/ladder-on-spine.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-27T15:50:09.595Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Planning brief. A three-lens review of the site (an AI-cloud / GPU-platform operator, a GitOps platform architect, and a product-accuracy pass) converged on one structural finding: the site jumps from <b>check</b> to <b>promote</b> and skips the middle of the value ladder. <code>upload</code> and <code>release</code> have no first-class page, the composition (<code>stack</code>) rung is shown as a report rather than a step, and there is no path that reads as an inference-shaped spine. The <code>cub</code> vocabulary is now settled (<a href="cub-noun-vocabulary.html">cub-noun-vocabulary.md</a>), so the middle can be named.</p>
+<h2 id="the-ladder">The ladder</h2>
+<pre><code>free      check · deploy
+account   upload · release · promote
+paid      govern
+stack     certify · sandbox   (the composition rung)</code></pre>
+<p><code>upload</code> = <code>cub variant upload</code>, <code>release</code> = <code>cub release publish</code>, <code>promote</code> = <code>cub variant promote</code>. The site jumps check → promote and never shows <code>upload</code> (into ConfigHub, where public config chains into private) or <code>release</code> (go live, the cluster pulls) as steps.</p>
+<h2 id="honesty-guardrails">Honesty guardrails</h2>
+<p>These keep the site's best asset, which the same review named the crown jewel: every claim receipt-backed, nothing overclaimed.</p>
+<ol><li><b>Only shipped verbs become first-class spine steps.</b> <code>check</code>, <code>deploy</code>, <code>upload</code>, <code>release</code>, <code>promote</code>, <code>govern</code> are real commands. <code>cub stack</code> and the composition <code>certify</code> gate are proposals, so the composition rung is presented through what is proven (the Kubara receipts and the certified-bundle evidence), with the certify gate marked as roadmap. Do not render a gate the product does not have.</li><li><b>Helm-first stays the front door.</b> The ladder is the depth behind it, not a new pitch. A Helm-grounded surface is the credibility a cautious operator trusts.</li><li><b>Do not over-elevate the frontier.</b> The AI/GPU path is answered with evidence, not volume. Prominence does not fix &quot;unproven&quot;; proof does.</li><li><b>Do not add to the link farm.</b> The ladder organizes existing links; it does not pile on more. The homepage is already dense.</li></ol>
+<h2 id="phase-1-the-spine-anchor">Phase 1 - the spine anchor</h2>
+<p>One PR, highest value, entirely from shipped verbs.</p>
+<ul><li><b>One ladder diagram.</b> A single picture of <code>check · deploy → upload · release · promote → govern</code>, with the free/account/paid bands and the real <code>cub</code> command under each verb. The one-glance view of the whole CLI the review asked for. It lands on the deployment page and is linked from the homepage.</li><li><b>Reframe the ConfigHub page as the account spine.</b> Today it argues &quot;keep a result,&quot; which is custody-lite. Make it <code>upload → release → promote</code>, and lead with the chaining story: <code>upload</code> brings a public base into your private org, links inject your private values, protection keeps your choices while upstream fixes still flow down. That is the value a plain registry cannot offer, and it fixes two findings at once (the missing middle and the undersold moat).</li></ul>
+<h2 id="phase-2-align-the-frame">Phase 2 - align the frame</h2>
+<ul><li><b>Nav that reflects the ladder.</b> Give the account spine a nav home and fix the Deployment / Deploy label blur. Minimal, no bloat.</li><li><b>Homepage doors acknowledge the middle.</b> Between &quot;is it right?&quot; (check) and &quot;can I promote it?&quot; (promote) sits &quot;put it in ConfigHub and go live&quot; (upload, release). A light touch, not a new section.</li><li><b>Wire the certified-bundle receipts into the platform page.</b> The one artifact that looks like composition evidence is linked once from deep in the catalog and never from the platform page.</li></ul>
+<h2 id="phase-3-the-composition-rung-honestly">Phase 3 - the composition rung, honestly</h2>
+<p>The parts that are site work now, with the product builds marked as roadmap.</p>
+<ul><li><b>Present the composition step through proven evidence.</b> The Kubara path and the certified-bundle receipts are the stack rung today; show them as the rung, with the composition <code>certify</code> gate marked proposed (it is a report, not a gate - see <a href="composition-certification.html">composition-certification.md</a>).</li><li><b>Surface the inference-shaped path honestly.</b> The eks-inference bundles, the AICR proofs, and the one real inference request already exist; present them as the AI/GPU reading of the same ladder, evidence-forward, without claiming a GPU runtime or a certify gate that is not built.</li><li><b>Product gaps stay filed, not faked.</b> The disruptive-change classifier (#1660) and the composition-certify gate are builds; the site names them as roadmap and does not render them as shipped.</li></ul>
+<h2 id="sequencing">Sequencing</h2>
+<p>Phase 1 closes the structural gap and tells the chaining story. Phase 2 aligns the frame around it. Phase 3 gives the stack and inference rungs an honest home. Each phase is a site change from shipped material; nothing waits on a product build except the parts explicitly marked roadmap.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/ladder-on-spine.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
