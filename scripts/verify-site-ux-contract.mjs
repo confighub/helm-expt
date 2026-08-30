@@ -81,7 +81,7 @@ const checks = [
   },
   {
     file: "site/operations.html",
-    terms: ["Operate saved configuration", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
+    terms: ["Operate saved configuration", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
   },
   {
     file: "site/try.html",
@@ -89,7 +89,7 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Upload it into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the account line", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Keep a reviewed result in ConfigHub", "1. What ConfigHub adds", "The account line is three steps", "Upload also chains public configuration into your private org", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Save the base in ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
+    terms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "Uploading a reviewed configuration into ConfigHub is the step that needs an account", "Use the Catalog or Check my config before you sign up", "the same answer tomorrow", "ConfigHub shows exact diffs", "Upload a reviewed result into ConfigHub", "1. What ConfigHub adds", "The account path is three steps", "Upload also chains public configuration into your private org", "publishes it so Argo CD or Flux pulls it", "2. See one exact handoff", "Review locally", "Publish the OCI", "Upload the base to ConfigHub", "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345", "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683", "attach both file hashes", "Provider None", "3. Continue from the retained answer", "Compare development and production", "Promote and publish", "Roll back", "Compare desired with live", "Roll out to a fleet", "4. Continue with the official tutorial", "Create a ConfigHub account", "official tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -153,7 +153,7 @@ const checks = [
   },
   {
     file: "site/offering.html",
-    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Use the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
+    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/existing-apps.html",
@@ -161,7 +161,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["Use Config Workshop with your AI agent", "1. Install the Config Workshop skill", "2. Ask for one result", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Keep a reviewed result in ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
+    terms: ["Use Config Workshop with your AI agent", "1. Install the Config Workshop skill", "2. Ask for one result", "cub check --format json --output cub-check.json ./rendered", "advisory and does not apply configuration", "3. Keep the answer tied to records", "4. Use the same steps across source formats", "5. Compare one non-Helm source", "anonymous pull of the immutable public OCI", "ConfigHub base with a linked development variant", "Check the proof and limits", "6. Upload a reviewed result into ConfigHub", "7. How agents help maintain the Catalog", "Missing coverage means the claim is unchecked"],
   },
   {
     file: "site/demo-org.html",
@@ -258,7 +258,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Upload it into ConfigHub, then release and promote", "reviewed configuration into ConfigHub is the account line", "source, checks, approvals, and history", "Use the Catalog or Check my config before you sign up", "same answer tomorrow", "exact diffs", "Keep a reviewed result in ConfigHub", "Open the tutorial"],
+    headerTerms: ["Upload a reviewed configuration into ConfigHub, then release and promote", "reviewed configuration into ConfigHub is the step that needs an account", "source, checks, approvals, and history", "Use the Catalog or Check my config before you sign up", "same answer tomorrow", "exact diffs", "Upload a reviewed result into ConfigHub", "Open the tutorial"],
   },
   {
     file: "site/how-it-works.html",
@@ -633,7 +633,7 @@ const pageOwnershipRules = [
   },
   {
     file: "site/operations.html",
-    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed"],
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed"],
   },
   {
     file: "site/demo-org.html",

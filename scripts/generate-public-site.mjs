@@ -2130,7 +2130,7 @@ function siteFooterNav(relPath) {
     + group("Deploy", [a("deploy-with-flux-or-argo.html", "Deploy with Flux or Argo"), a("serverless.html", "Serverless"), a("kubara.html", "Build a platform"), a("operations.html", "Operations")])
     + group("Why trust it", [a("proof.html", "Proof"), a("verification.html", "Verification"), a("known-gaps.html", "Known gaps"), a("security.html", "Security")])
     + group("More", [a("docs.html", "Docs"), a("ai.html", "AI agents"), a("compare.html", "Compare"), a("whats-new.html", "What's new"), a("offering.html", "Offering")])
-    + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Keep a result in ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
+    + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "Why ConfigHub")}</div>`
     + `</div></nav>`;
 }
 
@@ -2567,7 +2567,7 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <p class="lead">Bring the configuration you or your AI just created. Config Workshop renders it to the exact Kubernetes objects it produces, compares them with a configuration you already trust, and gives you a reviewed result you can keep.</p>
-            <p class="lead">It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or save it in <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
+            <p class="lead">It runs on your laptop, and you can start without an account. Keep what you approve as files or <a href="./promote.html">OCI</a>, or upload it to <a href="./confighub.html">ConfigHub</a> when your team needs a shared record.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my config</a>
               <a class="btn ghost" href="./testing.html#start">Find a configuration</a>
@@ -2598,6 +2598,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
         <section class="section">
           <span class="eyebrow">Three starting questions</span>
           <h2>What do you need help with?</h2>
+          <p class="intro">Config Workshop is this demonstration site for ConfigHub, and <code>cub</code> is the ConfigHub command-line tool.</p>
           <p class="intro">Start with the question you have now. Each path gives you exact files, a result you can keep, and commands for continuing on your machine.</p>
           <form action="./charts/index.html" method="get" style="display:flex;gap:8px;max-width:520px;margin:0 0 16px"><input type="search" name="q" placeholder="Find a chart: redis, kube-prometheus-stack, traefik..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)"><button class="btn primary" type="submit">Search</button></form>
           <p class="intro"><strong>Without an account:</strong> render a configuration, inspect it, and keep the files or OCI. <strong>With ConfigHub:</strong> retain the accepted result, promote it, and compare it with live systems.</p>
@@ -2644,7 +2645,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
       </main>
 
       <footer class="foot">
-        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you every ingredient, before you eat.</p>
+        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We show you the ingredients we can see before you install, and name the ones we cannot.</p>
         <p class="sub">Public experimental evidence. Each result links to the command, receipt, or known gap behind it. <a href="${SITE_FEEDBACK_ISSUE_URL}">Send feedback</a>.</p>
       </footer>
     </div>
@@ -3570,8 +3571,9 @@ function offeringHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Choose how much of ConfigHub to use</h1>
-    <p class="lead">Start with local tools and public packages. Add a free ConfigHub account when you want to save, change, promote, and release the reviewed configuration.</p>
+    <p class="lead">Start with local tools and public packages. Add a free ConfigHub account when you want to upload, change, promote, and release the reviewed configuration.</p>
     <p>Use the commercial product for private sources, teams, fleet operations, and production support.</p>
+    <p>These tiers form one ladder of verbs. You check and deploy for free, upload, release, and promote with an account, then govern with the commercial product. <a href="./how-it-works.html#the-ladder">See the whole path as one ladder</a>.</p>
     ${humanLinks([["Try Redis", "./try.html"], ["Choose an example", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
@@ -3596,7 +3598,7 @@ function offeringHtml(catalog) {
     </section>
 
     <section aria-labelledby="commercial">
-      <h2 id="commercial">3. Use the commercial product for private and production work</h2>
+      <h2 id="commercial">3. Govern with the commercial product for private and production work</h2>
       <p>ConfigHub is available as a hosted service you sign up for yourself, free to start, and as a standalone enterprise product.</p>
       ${markdownLikeTable([
         ["Need", "Commercial capability"],
@@ -4092,22 +4094,22 @@ function howItWorksHtml() {
   ${topNav(".")}
   <h1>Choose how to deploy it</h1>
   <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
-  <p>You can stop with local files, publish them directly as OCI, or save them in ConfigHub and publish a reviewed release OCI later.</p>
+  <p>You can stop with local files, publish them directly as OCI, or upload them to ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub stores your approved configuration and its history. Use it when you need to track changes across environments, require an approval before production, or roll back to a recorded release. <a href="./confighub.html">Start with what ConfigHub adds</a>.</p>
 </header>
 <main>
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
     <h3 id="the-ladder">The whole path, one ladder</h3>
-    <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the paid platform. Each step is a real command or surface.</p>
+    <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
     ${markdownLikeTable([
       ["Rung", "Verb", "What it does", "Command or surface"],
       ["Free", "check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
       ["Free", "deploy", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer"],
       ["Account", "upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],
-      ["Account", "release", "Go live. Publish so the cluster pulls.", "cub release publish"],
+      ["Account", "release", "Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.", "cub release publish"],
       ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
-      ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the paid platform"],
+      ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
     <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
@@ -4124,7 +4126,7 @@ function howItWorksHtml() {
     <h3>OCI package</h3>
     <p><strong>Works with your registry and reconciler.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected. <a href="./serverless.html#change-oci">See the working no-account OCI-in, change, OCI-out example</a>.</p>
     <h3>ConfigHub</h3>
-    <p>Import the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
+    <p>Upload the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
     <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
     <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
     <p>Keep their identities separate. The object digest covers the exact Kubernetes object set, an OCI manifest digest identifies one registry manifest, and a release OCI digest identifies the approved release artifact. A receipt links the three records while they stay three different digests.</p>
@@ -4235,17 +4237,17 @@ function configHubHtml() {
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Upload it into ConfigHub, then release and promote</h1>
+  <h1>Upload a reviewed configuration into ConfigHub, then release and promote</h1>
   <p class="boundary-chip">Needs a ConfigHub account</p>
-  <p class="lead">Uploading a reviewed configuration into ConfigHub is the account line. From there you release it so a cluster pulls it, and promote it across environments, with the source, checks, approvals, and history kept beside it.</p>
+  <p class="lead">Uploading a reviewed configuration into ConfigHub is the step that needs an account. From there you release it so a cluster pulls it, and promote it across environments, with the source, checks, approvals, and history kept beside it.</p>
   <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
-  <p>The account line is also where public configuration chains into your private org: a base you upload keeps sending you fixes while protection keeps the values you chose. ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
-  <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Keep a reviewed result in ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
+  <p>This is also where public configuration chains into your private org: a base you upload keeps sending you fixes while protection keeps the values you chose. ConfigHub shows exact diffs, promotes reviewed changes from development to production, and compares approved configuration with your clusters.</p>
+  <p><a class="button primary" href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Upload a reviewed result into ConfigHub</a> <a class="button secondary" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Open the tutorial</a></p>
 </header>
 <main>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>The account line is three steps. <strong>Upload</strong> brings the reviewed configuration into ConfigHub as a base, stored with its source and review record. <strong>Release</strong> publishes it so Argo CD or Flux pulls it. <strong>Promote</strong> moves a reviewed change from development to production, with the exact diff, the approval, and the history kept beside it.</p>
+    <p>The account path is three steps: upload, release, and promote. <strong>Upload</strong> brings the reviewed configuration into ConfigHub as a base, stored with its source and review record. <strong>Release</strong> publishes it so Argo CD or Flux pulls it. <strong>Promote</strong> moves a reviewed change from development to production, with the exact diff, the approval, and the history kept beside it.</p>
     <p><strong>Upload also chains public configuration into your private org.</strong> A base you upload can be public, pulled from a shared catalog, while your deployment stays private. When ConfigHub clones the public base into your deployment, links carry your private values into it, and protection keeps the values you chose. Later fixes to the public base, a patched image or a new version, flow down to everything you did not protect. That chaining is the value a plain registry cannot offer.</p>
     <p>ConfigHub keeps the four answers connected without treating them as interchangeable.</p>
     <p>It links the source to the materialized objects, the destination check to one target, and the post-deployment result to one exact release. A retained object or a published OCI stays exactly that, and never counts as a destination or live pass.</p>
@@ -4264,7 +4266,7 @@ function configHubHtml() {
     <ol class="handoff-proof">
       <li><strong>Review locally.</strong> The ${escapeHtml(String(objectCount))} objects have object-set hash <code>${escapeHtml(objectSetDigest)}</code>.</li>
       <li><strong>Publish the OCI.</strong> Pulling <code>${escapeHtml(ociReference)}</code> back produces the same object-set hash. The OCI digest is <code>${escapeHtml(ociDigest)}</code>.</li>
-      <li><strong>Save the base in ConfigHub.</strong> ConfigHub reads back the same ${escapeHtml(String(objectCount))} objects with the same object-set hash, and records the same OCI digest as their source.</li>
+      <li><strong>Upload the base to ConfigHub.</strong> ConfigHub reads back the same ${escapeHtml(String(objectCount))} objects with the same object-set hash, and records the same OCI digest as their source.</li>
       <li><strong>Record the decision.</strong> A separate, non-deployable Unit says how each finding was handled. Six fixes were accepted. One remaining emptyDir finding is accepted only for the exact development and staging demonstration, excludes production, and has a review date. ConfigHub records approval of that exact decision revision.</li>
     </ol>
     <p>The matching hashes show that the handoff preserves the reviewed objects. The decision record answers a different question: what did we fix, what did we accept for now, and where may this result run? Read the <a href="./d/data/config-review-decision-chain/summary.html">complete decision, promotion, and delivery chain</a>.</p>
@@ -5039,7 +5041,7 @@ function askHtml() {
     <p id="question-context" hidden><strong id="question-context-text"></strong></p>
     <p class="lead">&ldquo;Here is the chart and values my AI produced. Compare them with the chart defaults, any matching Catalog record I provide, and what I run now. Tell me what matters, then give me a reviewed result I can keep.&rdquo;</p>
     <p>Use this page for your own chart, values, new version, or unexpected result. Use the <a href="./charts/index.html">Catalog</a> when we have already tested the exact chart and version.</p>
-    <p><strong>In the website:</strong> build local instructions for the AI assistant you already use, or compare rendered Kubernetes YAML in this browser. Download the exact objects, findings, file hashes, and checks that did not run.</p>
+    <p><strong>In the website:</strong> compare rendered Kubernetes YAML in this browser, with no AI needed, or build local instructions for the AI assistant you already use. Render your chart with <code>helm template</code> first, then paste the objects. Download the exact objects, findings, file hashes, and checks that did not run.</p>
     <p><strong>On the command line:</strong> render or extract the same objects with <code>cub helm</code>, <code>cub installer</code>, or the source tool named by the example. Run <code>cub check</code> on those files for the shared local configuration checks. The page gives you copyable commands for keeping the same files and hashes in ConfigHub.</p>
     <p><strong>Checking private configuration?</strong> Keep the chart, values, and output on your machine. Do not upload private files; this page does not upload them for you. Keep secrets out of the form, AI prompt, and any public issue.</p>
     <p>Keep the result locally, publish the reviewed objects as OCI, or retain the same result in ConfigHub when a team needs history and promotion.</p>
@@ -5526,7 +5528,7 @@ function promoteHtml() {
         ["Need", "Status", "Result and limit"],
         ...changeWorkflowRows,
       ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true, firstColumnWidthCh: 22 })}
-      <p><a href="./confighub.html"><strong>Keep a reviewed result in ConfigHub</strong></a> when you need ordered stages, approvals, release OCI, promotion history, and current observations to remain connected.</p>
+      <p><a href="./confighub.html"><strong>Upload a reviewed result into ConfigHub</strong></a> when you need ordered stages, approvals, release OCI, promotion history, and current observations to remain connected.</p>
     </section>
   </main>
   <script id="promotion-example-data" type="application/json">${exampleData}</script>
@@ -6545,8 +6547,8 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "What happens when a chart's upstream source changes its terms?",
           answer:
-            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. The full retention reasoning is in <a href=\"./d/docs/reference/how-the-catalog-is-built.html\">How the catalog is built</a>.",
-          links: [["Registry migration guide", "./d/docs/user/image-registry-migration.html"], ["Component Catalog", "./charts/index.html"]],
+            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. The full retention reasoning is recorded in how the catalog is built.",
+          links: [["How the catalog is built", "./d/docs/reference/how-the-catalog-is-built.html"], ["Registry migration guide", "./d/docs/user/image-registry-migration.html"], ["Component Catalog", "./charts/index.html"]],
         },
 	        {
 	          status: "answered",
@@ -7576,7 +7578,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
     </section>
 
     <section aria-labelledby="confighub-review">
-      <h2 id="confighub-review">6. Keep a reviewed result in ConfigHub</h2>
+      <h2 id="confighub-review">6. Upload a reviewed result into ConfigHub</h2>
       <p>Use ConfigHub when the accepted objects need team history, approvals, and comparison with live systems. The handoff should keep the same object digest visible before and after upload.</p>
       <p>One recorded AICR example starts with an unsafe proposal: too many H100 nodes, a mutable image, and an inline API key. ConfigHub stores the corrected object, runs the applicable checks, and requires approval before an OCI dry run. It does not claim the target-specific GPU limit was enforced by the same policy.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the checked result and its limits</a> · <a href="./confighub.html">Continue with ConfigHub</a></p>
@@ -7871,7 +7873,7 @@ npm run kubara-platform:start -- \\
     </section>
     <section aria-labelledby="delivery-authority">
       <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
-      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off, so mutable latest cannot race past approval, promotion, or rollback while Argo CD stays the local reconciler. ConfigHub selects the exact OCI digest before Argo receives it.</p>
+      <p>The adapted lane keeps <code>targetRevision: latest</code> as a discovery address but leaves automated sync off. On the automated path, mutable latest cannot race past approval, promotion, or rollback, and ConfigHub selects the exact OCI digest before Argo CD receives it. Blocking a privileged human or a manual Argo sync needs your own RBAC or admission control.</p>
       <details style="margin:18px 0">
         <summary><strong>The exact mechanism, step by step</strong></summary>
         <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>
@@ -8604,8 +8606,8 @@ ${cards}
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">4. Use managed ConfigHub when needed</h2>
-      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
+      <h2 id="next">4. Govern with the commercial product when needed</h2>
+      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes what the commercial product governs.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Check each operation's status before relying on it.</footer>
