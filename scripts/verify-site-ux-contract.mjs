@@ -81,7 +81,7 @@ const checks = [
   },
   {
     file: "site/operations.html",
-    terms: ["Operate saved configuration", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
+    terms: ["Operate saved configuration", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
   },
   {
     file: "site/try.html",
@@ -153,7 +153,7 @@ const checks = [
   },
   {
     file: "site/offering.html",
-    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Use the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
+    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Govern with the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
   },
   {
     file: "site/existing-apps.html",
@@ -633,7 +633,7 @@ const pageOwnershipRules = [
   },
   {
     file: "site/operations.html",
-    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed"],
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Govern with the commercial product when needed"],
   },
   {
     file: "site/demo-org.html",

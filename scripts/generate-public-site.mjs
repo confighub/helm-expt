@@ -3572,6 +3572,7 @@ function offeringHtml(catalog) {
     <h1>Choose how much of ConfigHub to use</h1>
     <p class="lead">Start with local tools and public packages. Add a free ConfigHub account when you want to upload, change, promote, and release the reviewed configuration.</p>
     <p>Use the commercial product for private sources, teams, fleet operations, and production support.</p>
+    <p>These tiers form one ladder of verbs. You check and deploy for free, upload, release, and promote with an account, then govern with the commercial product. <a href="./how-it-works.html#the-ladder">See the whole path as one ladder</a>.</p>
     ${humanLinks([["Try Redis", "./try.html"], ["Choose an example", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
@@ -3596,7 +3597,7 @@ function offeringHtml(catalog) {
     </section>
 
     <section aria-labelledby="commercial">
-      <h2 id="commercial">3. Use the commercial product for private and production work</h2>
+      <h2 id="commercial">3. Govern with the commercial product for private and production work</h2>
       <p>ConfigHub is available as a hosted service you sign up for yourself, free to start, and as a standalone enterprise product.</p>
       ${markdownLikeTable([
         ["Need", "Commercial capability"],
@@ -4099,15 +4100,15 @@ function howItWorksHtml() {
   <section aria-labelledby="keep">
     <h2 id="keep">1. Choose what happens next</h2>
     <h3 id="the-ladder">The whole path, one ladder</h3>
-    <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the paid platform. Each step is a real command or surface.</p>
+    <p>A configuration climbs the same ladder whatever it started as. The first rungs are free and need no account. The next need a ConfigHub account. The last is the commercial product. Each step is a real command or surface.</p>
     ${markdownLikeTable([
       ["Rung", "Verb", "What it does", "Command or surface"],
       ["Free", "check", "Inspect it: what it installs, whether it is right. No cluster.", "the Check"],
       ["Free", "deploy", "Run the reviewed OCI on the Argo CD or Flux you already run.", "cub installer"],
       ["Account", "upload", "Bring it into ConfigHub as a base. Public config chains into your private org here.", "cub variant upload"],
-      ["Account", "release", "Go live. Publish so the cluster pulls.", "cub release publish"],
+      ["Account", "release", "Publish an approved, immutable release with history, so the cluster pulls that instead of a hand-pushed bundle.", "cub release publish"],
       ["Account", "promote", "Move a reviewed change from development to production.", "cub variant promote"],
-      ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the paid platform"],
+      ["Paid", "govern", "Run a stack under governance: approvals, releases, rollback, drift, a fleet view.", "the commercial product"],
     ])}
     <p>A stack adds two free rungs: <strong>certify</strong> checks that a whole composition holds together, and <strong>sandbox</strong> renders it for free with no infrastructure. See the <a href="./d/docs/planning/cub-noun-vocabulary.html">full noun and verb table</a>.</p>
     <h3 id="four-answers">Keep four answers separate</h3>
@@ -8604,8 +8605,8 @@ ${cards}
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">4. Use managed ConfigHub when needed</h2>
-      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
+      <h2 id="next">4. Govern with the commercial product when needed</h2>
+      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes what the commercial product governs.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. Check each operation's status before relying on it.</footer>
