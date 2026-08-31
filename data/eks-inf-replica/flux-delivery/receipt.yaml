@@ -1,0 +1,27 @@
+apiVersion: evidence.confighub.com/v1alpha1
+kind: FluxDeliveryReceipt
+metadata:
+  name: eks-inference-flux-delivery
+spec:
+  organization: "Local"
+  cluster: "kind/simflux"
+  reconciler: "flux (source-controller + kustomize-controller)"
+  bundle: "oci://ghcr.io/confighub/configs/eks-inference/inference-workloads@sha256:4ae5737725c86f7a07cf3366a7eafee8625a0dd8487784aa581ce7e33d460eb2"
+  registry: "oci://192.168.97.1:32181/space/inference-workloads-simflux"
+  releases:
+    - id: "ed13d092-e3fc-4646-8626-c1236bfd4621"
+      manifestDigest: "sha256:55f2e9959d079b8bd4ad43dd44e695c46929ab9bf58783570badb76c3f1f3fba"
+    - id: "fadc1be2-beb2-4cf9-b038-a9ff5b21b5e7"
+      manifestDigest: "sha256:de31c3b695c60ce6f3361277e4224a2adeb860761ac3ae56f66668eac3b8fc94"
+  fluxLastAppliedRevision: "latest@sha256:de31c3b695c60ce6f3361277e4224a2adeb860761ac3ae56f66668eac3b8fc94"
+  digestHandoffExact: true
+  pods:
+    - name: "chat-59cc4dbd6c-qhnd7"
+      phase: "Running"
+    - name: "smoke-cpu-75f94866b9-fpnj9"
+      phase: "Running"
+  boundaries:
+    - "The registry is the local self-hosted server over plain HTTP, so the OCIRepository sets insecure true; a production registry would use TLS."
+    - "Flux has no sync-wave notion; the bundle ordering annotations ride along inert, and this stack applies cleanly without them."
+    - "The node carries the general pool label so the platform contract can be honored; GPU workloads stay at zero replicas in this lane."
+    - "Delivery only: nothing here claims the platform or a model runs."

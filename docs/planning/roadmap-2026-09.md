@@ -16,7 +16,7 @@ The staged plan is [eks-inf-replica-plan.md](./eks-inf-replica-plan.md). Stage A
 
 ## Close the delivery and proof follow-ups
 
-- [#1675](https://github.com/confighub/helm-expt/issues/1675) Repeat the proven Argo delivery lane with Flux as the reconciler, kind only.
+- ~~[#1675](https://github.com/confighub/helm-expt/issues/1675) Repeat the proven Argo delivery lane with Flux as the reconciler, kind only.~~ Done: [the receipt](../../data/eks-inf-replica/flux-delivery/receipt.yaml) shows two exact digest handoffs, the initial release and a governed change, with Flux applying precisely the digests ConfigHub published.
 - [#1677](https://github.com/confighub/helm-expt/issues/1677) Record an AI operator driving the whole ladder, check, upload, release, promote, as committed evidence with the human approving at the gates.
 - [#1667](https://github.com/confighub/helm-expt/issues/1667) Surface the existing package and index signing on the security page, with the trust anchor named exactly.
 
