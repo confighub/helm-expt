@@ -282,6 +282,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `disposition-frontier` | [disposition-frontier/summary.md](./disposition-frontier/summary.md) | supporting generated evidence |
 | `doc-freshness` | [doc-freshness/summary.md](./doc-freshness/summary.md) | supporting generated evidence |
 | `edge-recovery` | [edge-recovery/summary.md](./edge-recovery/summary.md) | recovered desired-state graph fragments |
+| `eks-inf-replica` | [eks-inf-replica/summary.md](./eks-inf-replica/summary.md) | supporting generated evidence |
 | `environment-matrix` | [environment-matrix/summary.md](./environment-matrix/summary.md) | supporting generated evidence |
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
@@ -404,7 +405,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 222 CSV files. Each row records the path, audience,
+It includes 223 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
